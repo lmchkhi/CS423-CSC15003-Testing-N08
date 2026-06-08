@@ -10,8 +10,8 @@ FR-02
 Major / P1
 
 ## Environment
-Browser: [Nhập Browser]
-OS: [Nhập OS]
+Browser: Chrome Version 148.0.7778.216
+OS: MacOS
 URL: http://localhost:5173/login
 
 ## Steps to reproduce
