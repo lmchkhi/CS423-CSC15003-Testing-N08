@@ -1,0 +1,8 @@
+**/node_modules
+**/.claude
+**/.vscode
+**/.idea
+**/dist
+**/build
+**/database.sqlite
+**/logs/
