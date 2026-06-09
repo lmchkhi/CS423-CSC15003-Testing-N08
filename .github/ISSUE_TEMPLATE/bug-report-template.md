@@ -2,7 +2,7 @@
 name: Bug report template
 about: Bug report use in CS423/CSC15003
 title: "[BUG][<Module>] <Name of bug>"
-labels: ''
+labels: '["Type: Bug", "Status: New"]'
 assignees: ''
 
 ---
