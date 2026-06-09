@@ -14,7 +14,7 @@ TC-<Module_Name>-<TC_NUM>
 FR-<Module_Name>-<ID_NUM>
 
 ## Severity / Priority
-<!--Major / P1/ Minor/ Trivial/ Critical/ Block-->
+<!-- (Major / Minor / Trivial / Critical / Block) / (P0 / P1 / P2 / P3)-->
 
 ## Environment
 <!--Browser, OS, URL, build/commit-->
