@@ -28,4 +28,4 @@ Register / Functional / Boundary Value Analysis (BVA)
 - Người dùng vẫn ở lại trang Đăng ký, không bị chuyển hướng.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None

@@ -29,4 +29,4 @@ Register / Functional / Equivalence Partitioning
 - Người dùng vẫn ở lại trang Đăng ký, không bị chuyển hướng.
 
 ## Status / Related bugs
-Not Run / None
+Failed / Issue #7

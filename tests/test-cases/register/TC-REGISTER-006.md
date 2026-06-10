@@ -14,7 +14,7 @@ Register / Functional / Equivalence Partitioning
 | :--- | :--- |
 | Họ Tên | Nguyễn Văn A |
 | Email | nguyenvana@example.com |
-| Mật khẩu | aa1@2345 |
+| Mật khẩu | aa1@23`45 |
 | Xác nhận mật khẩu | aa1@2345 |
 
 ## Test steps
@@ -28,4 +28,4 @@ Register / Functional / Equivalence Partitioning
 - Người dùng vẫn ở lại trang Đăng ký, không bị chuyển hướng.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None
