@@ -95,9 +95,9 @@
 
 ### AI Gap Analysis
 
-AI đưa dư biên độ dài tối đa cho password, trong khi đề bài chỉ có ràng buộc tối thiểu.
+- AI đưa dư biên độ dài tối đa cho password, trong khi đề bài chỉ có ràng buộc tối thiểu.
 
-Giải thích: AI tự suy diễn ra ràng buộc max độ dài cho password hoặc AI cẩn thận thái quá muốn kiểm tra thêm các trường hợp hợp lệ.
+**Giải thích**: AI tự suy diễn ra ràng buộc max độ dài cho password hoặc AI cẩn thận thái quá muốn kiểm tra thêm các trường hợp hợp lệ.
 
 ---
 
@@ -205,6 +205,9 @@ Giải thích: AI tự suy diễn ra ràng buộc max độ dài cho password ho
 
 ### AI Gap Analysis
 
-AI đưa dư biên số lượng sản phẩm tối đa, trong khi đề bài và website không nhắc tới
+- AI đưa dư biên số lượng sản phẩm tối đa, trong khi đề bài và website không nhắc tới
+- Test case TC-FR-07-010 hơi khắc khe trong khi đề không để "Tiếp tục mua sắm" trong ngoặc kép nên có thể chỉ là yêu cầu về chức năng, không phải yêu cầu bắt buộc
 
-Giải thích: AI cẩn thận thái quá muốn kiểm tra thêm các trường hợp hợp lệ
+**Giải thích**: 
+- AI cẩn thận thái quá muốn kiểm tra thêm các trường hợp hợp lệ.
+- AI đôi khi không phân biệt được yêu cầu bắt buộc và không bắt buộc.

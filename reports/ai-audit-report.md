@@ -1003,8 +1003,206 @@ Chi tiết đầy đủ trong walkthrough. Phần **AI Gap Analysis** trong main
 ### (4) Reasoning
 
 - AI đưa dư biên số lượng sản phẩm tối đa trong phân tích BVA, trong khi đề bài và website không nhắc tới
+- Test case TC-FR-07-010 hơi khắc khe trong khi đề không để "Tiếp tục mua sắm" trong ngoặc kép nên có thể chỉ là yêu cầu về chức năng, không phải yêu cầu bắt buộc
 
 ### (5) Student Fix
 
 - Bỏ đi biên số lượng sản phẩm tối đa 
+- Bỏ đi điều kiện nút bắt buộc phải là "Tiếp tục mua sắm" trong test case TC-FR-07-010
 
+
+## Entry #9
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                 |
+| **Timestamp**     | 10:47 PM 24/06/2026                                                              |
+| **Artifact type** | Bug reports cho các test case từ TC-FR-07-001 đến TC-FR-07-017 (trừ 010 và 014) |
+
+**Full prompt:**
+
+````
+@[skills/generate-bug-report/skill.md]
+Tạo bug report cho các test case sau trong FR-07:
+- 001:  Chỗ số lượng không có nút +/-
+- 002: Cột hiển thị 'Giá' thay vì 'Đơn giá'
+- 003: Cột số lượng không hiển thị nút +/- để người dùng chỉnh số lượng 
+- 004: Không có nút + để thực hiện test case
+- 005: Không có nút - để thực hiện test case
+- 006: Khi thêm cùng một sản phẩm thì giỏ hàng tạo hàng mới thay vì tăng số lượng lên
+- 007: Hệ thống xóa ngay và không hiển thị dialog xác nhận
+- 008: Không có dialog xác nhận theo test steps
+- 009: Không có dialog xác nhận theo để hủy xóa
+- 011: Nhãn hiển thị là "Tổng tạm tính"
+- 012: Giỏ hàng trống không có hình minh họa, chỉ có text thông báo
+- 013: Không thể tăng số lượng sản phẩm để test (web chưa có chức năng)
+- 015: Không có nút - để test
+- 016: Không có nút - để test
+- 017: Không có nút + để test
+````
+
+### (2) AI Output
+
+````
+I will read the skill instructions file to understand how to generate bug reports, and inspect an existing bug report as a reference template.
+
+Viewed file skills/generate-bug-report/skill.md
+Viewed file skills/generate-bug-report/templates/bug-report.md
+Listed directory bug-reports
+Listed directory tests/test-cases/FR-07-shopping-cart
+Listed directory tests/test-runs
+Viewed file tests/test-runs/FR-07-shopping-cart-run.md
+Viewed file bug-reports/BUG-FR-01-006.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-001.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-002.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-003.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-004.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-005.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-006.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-007.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-008.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-009.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-011.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-012.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-013.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-015.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-016.md
+Viewed file tests/test-cases/FR-07-shopping-cart/TC-FR-07-017.md
+Viewed file bug-reports/BUG-FR-01-001.md
+Viewed file bug-reports/BUG-FR-01-002.md
+Viewed file bug-reports/BUG-FR-01-003.md
+Created file bug-reports/BUG-FR-07-001.md
+Created file bug-reports/BUG-FR-07-002.md
+Created file bug-reports/BUG-FR-07-003.md
+Created file bug-reports/BUG-FR-07-004.md
+Created file bug-reports/BUG-FR-07-005.md
+Created file bug-reports/BUG-FR-07-006.md
+Created file bug-reports/BUG-FR-07-007.md
+Created file bug-reports/BUG-FR-07-008.md
+Created file bug-reports/BUG-FR-07-009.md
+Created file bug-reports/BUG-FR-07-010.md
+Created file bug-reports/BUG-FR-07-011.md
+Created file bug-reports/BUG-FR-07-012.md
+Created file bug-reports/BUG-FR-07-013.md
+Created file bug-reports/BUG-FR-07-014.md
+Created file bug-reports/BUG-FR-07-015.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-001.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-002.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-003.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-004.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-005.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-006.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-007.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-008.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-009.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-011.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-012.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-013.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-015.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-016.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-017.md
+Edited file tests/test-runs/FR-07-shopping-cart-run.md
+
+Tôi đã hoàn thành việc tạo các báo cáo lỗi (Bug Reports), cập nhật trạng thái các test case tương ứng và cập nhật bảng chạy test run cho FR-07 (Giỏ hàng). Dưới đây là tóm tắt các công việc đã thực hiện:
+
+### 1. Tạo các Bug Report
+Đã tạo 15 file báo cáo lỗi trong thư mục `bug-reports/` theo định dạng `BUG-FR-07-NNN.md` dựa trên tài liệu mẫu:
+* **BUG-FR-07-001**: Giỏ hàng không có nút tăng/giảm (+/-) số lượng cho sản phẩm (phát hiện bởi `TC-FR-07-001`) — *Medium / P2*
+* **BUG-FR-07-002**: Tiêu đề cột hiển thị đơn giá sản phẩm ghi nhãn là "Giá" thay vì "Đơn giá" (phát hiện bởi `TC-FR-07-002`) — *Low / P3*
+* **BUG-FR-07-003**: Cột Số lượng trong giỏ hàng không hiển thị các nút tăng/giảm (+/-) để người dùng điều chỉnh (phát hiện bởi `TC-FR-07-003`) — *Medium / P2*
+* **BUG-FR-07-004**: Giao diện giỏ hàng thiếu nút tăng số lượng (+) của sản phẩm (phát hiện bởi `TC-FR-07-004`) — *Medium / P2*
+* **BUG-FR-07-005**: Giao diện giỏ hàng thiếu nút giảm số lượng (-) của sản phẩm (phát hiện bởi `TC-FR-07-005`) — *Medium / P2*
+* **BUG-FR-07-006**: Giỏ hàng tạo dòng mới thay vì cộng dồn số lượng khi thêm cùng một sản phẩm nhiều lần (phát hiện bởi `TC-FR-07-006`) — *High / P2*
+* **BUG-FR-07-007**: Hệ thống xóa ngay sản phẩm ra khỏi giỏ hàng mà không hiển thị dialog xác nhận khi bấm nút Xóa (phát hiện bởi `TC-FR-07-007`) — *Medium / P2*
+* **BUG-FR-07-008**: Thiếu dialog xác nhận xóa sản phẩm khi thực hiện các bước kiểm thử xác nhận xóa (phát hiện bởi `TC-FR-07-008`) — *Medium / P2*
+* **BUG-FR-07-009**: Thiếu dialog xác nhận xóa sản phẩm khi thực hiện kiểm thử hủy xóa sản phẩm (phát hiện bởi `TC-FR-07-009`) — *Medium / P2*
+* **BUG-FR-07-010**: Nhãn hiển thị tổng tiền ghi là "Tổng tạm tính" thay vì "Tổng cộng" (phát hiện bởi `TC-FR-07-011`) — *Low / P3*
+* **BUG-FR-07-011**: Giao diện giỏ hàng trống thiếu hình minh họa trực quan (phát hiện bởi `TC-FR-07-012`) — *Low / P3*
+* **BUG-FR-07-012**: Không thể tăng số lượng sản phẩm để kiểm thử cột Thành tiền (phát hiện bởi `TC-FR-07-013`) — *Medium / P2*
+* **BUG-FR-07-013**: Giao diện giỏ hàng thiếu nút giảm (-) để kiểm thử biên giá trị số lượng = 1 (phát hiện bởi `TC-FR-07-015`) — *Medium / P2*
+* **BUG-FR-07-014**: Giao diện giỏ hàng thiếu nút giảm (-) để kiểm thử biên giá trị số lượng = 0 (phát hiện bởi `TC-FR-07-016`) — *Medium / P2*
+* **BUG-FR-07-015**: Giao diện giỏ hàng thiếu nút tăng (+) để kiểm thử biên giá trị số lượng = 2 (phát hiện bởi `TC-FR-07-017`) — *Medium / P2*
+
+### 2. Cập nhật các Test Case
+Cập nhật thuộc tính `Status / Related bugs` của 15 file test case tương ứng từ `Not Run / None` sang `Failed / BUG-FR-07-NNN` nhằm đồng bộ hóa vết kiểm thử.
+
+### 3. Cập nhật Test Run File
+Cập nhật file `tests/test-runs/FR-07-shopping-cart-run.md`:
+* Cập nhật thông tin Tester (`Lâm Vĩ Khang`), ngày thực thi (`24/06/2026`).
+* Đánh dấu kết quả của 15 test case bị ảnh hưởng thành `❌ Failed` và liên kết BUG-FR-07-NNN.
+* Giữ nguyên trạng thái `⬜ Not Run` cho 2 test case không bị báo lỗi (`TC-FR-07-010` và `TC-FR-07-014`).
+* Cập nhật bảng tổng kết kết quả thực thi (15 Failed, 2 Not Run).
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- Một số test case không thực hiện được do thiếu chức năng (nút +/- để tăng giảm số lượng sản phẩm) được AI đánh status Failed thay vì Blocked.
+
+### (5) Student Fix
+
+- Prompt lại cho AI để đánh giá đúng status của các test case đó.
+
+
+## Entry #10
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                 |
+| **Timestamp**     | 10:50 PM 24/06/2026                                                              |
+| **Artifact type** | Cập nhật kết quả các test case bị chặn từ Failed sang Blocked trong test cases và test run |
+
+**Full prompt:**
+
+````
+Những bug gây ra bởi thiếu tính năng (thiếu nút +/-) thì nên là blocked chứ
+````
+
+### (2) AI Output
+
+````
+I agree completely. Since the required UI buttons or components (+/-, dialog) are missing, we cannot execute the steps of those test cases. Thus, their status should be `Blocked` instead of `Failed`. 
+
+I will update the status in the individual test case files first. Starting with `TC-FR-07-004.md`.
+
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-004.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-005.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-008.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-009.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-013.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-015.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-016.md
+Edited file tests/test-cases/FR-07-shopping-cart/TC-FR-07-017.md
+Edited file tests/test-runs/FR-07-shopping-cart-run.md
+
+Tôi đã cập nhật lại trạng thái của các test case từ `Failed` sang `Blocked` đối với các trường hợp bị chặn do thiếu nút tăng/giảm (+/-) hoặc thiếu dialog xác nhận:
+
+1. **Cập nhật các test case file**: 8 file test case (`TC-FR-07-004`, `-005`, `-008`, `-009`, `-013`, `-015`, `-016`, `-017`) đã được cập nhật thuộc tính `Status / Related bugs` thành `Blocked / BUG-FR-07-NNN`.
+2. **Cập nhật Test Run file (`FR-07-shopping-cart-run.md`)**:
+   * Chuyển kết quả thực thi của 8 test case trên thành `🚫 Blocked`.
+   * Cập nhật lại phần tổng kết ở cuối file:
+     * **Passed**: 0
+     * **Failed**: 7
+     * **Blocked**: 8
+     * **Not Run**: 2
+     * **Tổng**: 17
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI sửa thành công các test case bị thiếu chức năng để test từ Failed sang Blocked.
+
+### (5) Student Fix
+
+- Không cần fix.
