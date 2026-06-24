@@ -169,6 +169,19 @@ After generating the bug report, provide a brief summary:
 
 ---
 
+## Constraints
+
+- Do NOT open a browser, navigate to the application, or perform any
+  live testing to verify the bug.
+- Do NOT capture screenshots or record any evidence yourself.
+- The Actual Result must come exclusively from the user's description.
+  If the user has not provided it, leave the placeholder — do not
+  attempt to reproduce the issue independently.
+- The Evidence section must always remain as a placeholder for the
+  user to fill in manually.
+
+---
+
 ## Quality Checklist
 
 Before finalizing, verify:
