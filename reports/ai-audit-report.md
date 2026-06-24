@@ -886,3 +886,125 @@ The walkthrough can be reviewed in [walkthrough.md](file:///home/lvkhang/.gemini
 - Không cần fix.
 
 
+## Entry #8
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
+| **Timestamp**     | 09:07 PM 24/06/2026                                                              |
+| **Artifact type** | Test cases cho FR-07 (Giỏ hàng)                                                 |
+
+**Full prompt:**
+
+````
+Giúp tôi phân tích và tạo test case cho yêu cầu sau: 
+FR-07: Giỏ hàng (Shopping Cart)
+- Hiển thị danh sách sản phẩm với các cột: Sản phẩm, Đơn giá, Số lượng (có nút +/- để chỉnh), Thành tiền, Thao tác.
+- Thêm cùng một sản phẩm vào giỏ sẽ tăng số lượng, không tạo dòng mới.
+- Nút Xóa sản phẩm phải có dialog xác nhận trước khi thực hiện.
+- Có nút Tiếp tục mua sắm để quay về trang chủ.
+- Tổng tiền hiển thị nhãn chính xác: "Tổng cộng" (không phải "Tổng tạm tính").
+- Giỏ hàng trống phải có hình minh họa và thông báo rõ ràng.
+````
+
+### (2) AI Output
+
+`````
+I'll start by researching the existing project structure, templates, and conventions to ensure the test cases follow established patterns.
+
+Listed directory CS423-CSC15003-Testing-N08-report
+Listed directory test-cases
+Listed directory test-runs
+Listed directory FR-01-register
+Viewed TC-FR-01-012.md:1-34
+Viewed FR-01-register-run.md:1-46
+Listed directory skills
+Listed directory requirements
+Listed directory analyze-and-generate-testcases
+Viewed skill.md:1-158
+Listed directory templates
+Viewed test-case.md:1-34
+Viewed test-run.md:1-31
+Viewed main-report-section.md:1-67
+Viewed main-report.md:1-102
+Viewed TC-FR-01-001.md:1-34
+
+Now let me also check the live application to understand the shopping cart UI:
+
+Explored Shopping Cart on localhost:5173 via browser:
+- Navigated to homepage
+- Clicked "Giỏ hàng" to view empty cart
+- Added products to cart
+- Added same product twice
+- Checked cart behavior, delete button, total label
+
+Screenshots captured:
+- Empty cart: shows "Giỏ hàng của bạn đang trống" + "Tiếp tục mua sắm" link, but NO illustration image
+- Cart with items: columns are "Sản phẩm", "Giá", "Số lượng", "Thành tiền", "Thao tác" — column "Giá" instead of "Đơn giá"
+- Duplicate rows: adding same product creates NEW row instead of increasing quantity
+- Delete: clicking "Xóa" deletes immediately, NO confirmation dialog
+- Total label: shows "Tổng tạm tính:" instead of "Tổng cộng"
+- No +/- buttons for quantity adjustment
+- "← Mua tiếp" button on filled cart instead of "Tiếp tục mua sắm"
+
+Created TC-FR-07-001.md
+Created TC-FR-07-002.md
+Created TC-FR-07-003.md
+Created TC-FR-07-004.md
+Created TC-FR-07-005.md
+Created TC-FR-07-006.md
+Created TC-FR-07-007.md
+Created TC-FR-07-008.md
+Created TC-FR-07-009.md
+Created TC-FR-07-010.md
+Created TC-FR-07-011.md
+Created TC-FR-07-012.md
+Created TC-FR-07-013.md
+Created TC-FR-07-014.md
+Created TC-FR-07-015.md
+Created TC-FR-07-016.md
+Created TC-FR-07-017.md
+Created FR-07-shopping-cart-run.md
+Edited main-report.md (appended FR-07 section with Domain Testing, EP, BVA analysis)
+Created walkthrough.md
+
+Đã hoàn thành phân tích và tạo test case cho FR-07. Tóm tắt:
+
+### 📋 Kết quả
+
+**17 test cases** đã được tạo (14 Domain Testing + 3 BVA):
+- `tests/test-cases/FR-07-shopping-cart/TC-FR-07-001.md` → `TC-FR-07-017.md`
+- `tests/test-runs/FR-07-shopping-cart-run.md` (test run template)
+- `reports/main-report.md` (đã thêm section FR-07 với đầy đủ EP + BVA)
+
+### 🔍 Phát hiện sơ bộ từ khảo sát ứng dụng
+
+Qua khảo sát trực tiếp trên `localhost:5173`, phát hiện **7 lỗi tiềm năng**:
+
+| Yêu cầu | Thực tế | Nghiêm trọng? |
+|---|---|---|
+| Cột "**Đơn giá**" | Hiển thị "**Giá**" | Sai nhãn |
+| Nút **+/-** chỉnh SL | **Không có** | Thiếu tính năng |
+| Cùng SP → tăng SL | **Tạo dòng mới** (duplicate) | Lỗi logic |
+| Xóa → **dialog xác nhận** | Xóa **ngay lập tức** | Thiếu tính năng |
+| Nhãn "**Tổng cộng**" | "**Tổng tạm tính:**" | Sai nhãn |
+| Giỏ trống: **hình minh họa** | Chỉ có text | Thiếu UI |
+| "**Tiếp tục mua sắm**" (giỏ có SP) | "**← Mua tiếp**" | Không nhất quán |
+
+Chi tiết đầy đủ trong walkthrough. Phần **AI Gap Analysis** trong main report đã để trống để bạn tự điền sau khi review.
+`````
+
+### (3) Verdict
+
+**`IMCOMPLETE`**
+
+### (4) Reasoning
+
+- AI đưa dư biên số lượng sản phẩm tối đa trong phân tích BVA, trong khi đề bài và website không nhắc tới
+
+### (5) Student Fix
+
+- Bỏ đi biên số lượng sản phẩm tối đa 
+
