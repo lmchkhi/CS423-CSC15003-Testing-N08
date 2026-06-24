@@ -242,4 +242,137 @@ Mỗi test case chỉ thay đổi **một trường** so với happy path, đún
 
 ## Entry #2
 
-...
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude                                                                           |
+| **Timestamp**     | 04:26 PM 24/06/2026                                                              |
+| **Artifact type** | Agent skill 'generate-bug-report'|
+
+**Full prompt:**
+
+````
+Giúp tôi tạo một agent skill trong skills/ để khi tôi đưa một bug về một test case thì sẽ tạo một file md cho bug đó được tạo ra trong bug-reports/, ví dụ như bug-reports/BUG-FR-01-001.md với format như sau:
+
+'''
+# BUG-FR01-001: Hệ thống cho phép đăng ký với Xác nhận mật khẩu không khớp
+
+## Found by Test Case
+TC-FR-01-013
+
+## Requirement liên quan
+FR-01: Đăng ký tài khoản
+
+## Related Github issue
+Issue #x
+
+## Severity / Priority
+High / P2
+
+## Environment
+- **Browser**: Zen Browser 1.21.3b (Firefox 152.0.1)
+- **OS**: Fedora 44
+- **URL**: http://localhost:5173/register
+
+## Steps to reproduce
+1. Mở trang Đăng ký (ví dụ: `http://localhost:5173/register`)
+2. Nhập Họ Tên: `Nguyễn Văn A`
+3. Nhập Email: `user09@gmail.com`
+4. Nhập Mật khẩu: `Abcd@1234`
+5. Nhập Xác nhận mật khẩu: `Abcd@5678` (không trùng khớp với Mật khẩu ở trên)
+6. Bấm nút Đăng ký
+
+## Expected result
+Hệ thống hiển thị lỗi yêu cầu Xác nhận mật khẩu phải trùng khớp với Mật khẩu và không thực hiện đăng ký tài khoản.
+
+## Actual result
+Hệ thống báo đăng ký thành công và tạo tài khoản mới.
+
+## Evidence
+`[Đính kèm screenshot / video / console log tại đây]`
+'''
+
+- Hãy đánh giá mức độ nghiêm trọng, priority của bug đó
+- Dựa vào testcase liên quan để điền steps to reproduce và expected result
+- Actual result có thể phân tích từ input của tôi hoặc để trống cho tôi điền
+- Evidence để trống để tôi tự thêm screenshot minh chứng
+- Github issue cũng để tôi tự tạo và điền
+````
+
+### (2) AI Output
+
+````
+Let me start by researching the project structure, existing skills, and test cases to understand the patterns used.
+
+Listed directory CS423-CSC15003-Testing-N08-report
+Listed directory knowledge
+Listed directory skills
+Listed directory bug-reports
+Listed directory tests
+Listed directory analyze-and-generate-testcases
+Listed directory test-cases
+Listed directory test-runs
+Listed directory requirements
+Viewed skill.md:1-158
+Viewed README.md:1-45
+Listed directory FR-01-register
+
+Now let me look at the templates and a couple of test cases for context:
+
+Listed directory templates
+Viewed TC-FR-01-001.md:1-34
+Viewed TC-FR-01-013.md:1-34
+Viewed FR-01-register-run.md:1-46
+
+Let me also look at a few more test cases and the existing skill template to get the full picture:
+
+Viewed test-case.md:1-34
+Listed directory screenshots
+
+Now I have a thorough understanding of the project structure and conventions. This is a straightforward task — creating a skill file and template. No plan needed. Let me create the skill.
+
+Created bug-report.md
+Created skill.md
+Created README.md
+
+Skill đã được tạo xong. Đây là tổng kết những gì đã tạo:
+
+## Các file đã tạo
+
+```
+skills/generate-bug-report/
+├── README.md              # Hướng dẫn sử dụng skill
+├── skill.md               # Logic xử lý chính của skill
+└── templates/
+    └── bug-report.md      # Template bug report
+```
+
+## Tính năng chính của skill
+
+| Tính năng | Chi tiết |
+|---|---|
+| **Input** | Test case ID + mô tả lỗi (ví dụ: `TC-FR-01-013 bị lỗi: đăng ký được dù mật khẩu không khớp`) |
+| **Auto-fill từ test case** | Steps to reproduce, expected result, test data, preconditions |
+| **Đánh giá severity/priority** | Tự động đánh giá dựa trên tiêu chí (Critical → Low, P1 → P4), có bảng hướng dẫn chi tiết |
+| **Bug ID tự động** | Đếm bug hiện có trong `bug-reports/` để tạo ID tiếp theo (`BUG-FR-XX-NNN`) |
+| **Environment** | Lấy từ test run file hoặc để placeholder |
+| **Evidence** | Luôn để trống cho bạn tự đính kèm |
+| **Github Issue** | Để `Issue #_` cho bạn tự điền |
+| **Actual result** | Lấy từ mô tả bug của bạn, hoặc để placeholder nếu không có |
+| **Cập nhật test case** | Tự động update status sang `Failed / BUG-FR-XX-NNN` |
+| **Cập nhật test run** | Tự động update bảng kết quả test run |
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- Trong skill để là "The Bug ID does NOT contain a dash between 'FR' and the number when used in the filename" nhưng tiếp theo lại nói "Use format BUG-FR-XX-NNN (e.g., BUG-FR-01-001)". AI bị mâu thuẫn trong lời dẫn của nó.
+
+### (5) Student Fix
+
+- Xóa bỏ đoạn về 'does not contain a dash...' để rõ ràng và logic hơn.
+

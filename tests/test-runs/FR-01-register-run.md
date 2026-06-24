@@ -6,7 +6,7 @@
 |---|---|
 | **Requirement** | FR-01: Đăng ký tài khoản |
 | **Ngày thực thi** | DD/MM/YYYY |
-| **Môi trường** | Browser: Chrome 1xx · OS: Ubuntu 22.04 · URL: http://localhost:5173 |
+| **Môi trường** | Browser: Zen Browser 1.21.3b (Firefox 152.0.1) · OS: Fedora 44 · URL: http://localhost:5173 |
 | **Build / Commit** | `commit_hash` |
 
 ---
