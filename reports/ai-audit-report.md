@@ -19,7 +19,7 @@
 
 | Field             | Content                                                                          |
 | ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude                                                                           |
+| **Tool**          | Claude Opus 4.6                                                                           |
 | **Timestamp**     | 08:17 PM 23/06/2026                                                              |
 | **Artifact type** | Agent skill 'analyze-and-generate-testcases' và testcases từ skill đó cho feature FR-01 |
 
@@ -246,7 +246,7 @@ Mỗi test case chỉ thay đổi **một trường** so với happy path, đún
 
 | Field             | Content                                                                          |
 | ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude                                                                           |
+| **Tool**          | Claude Opus 4.6                                                                          |
 | **Timestamp**     | 04:26 PM 24/06/2026                                                              |
 | **Artifact type** | Agent skill 'generate-bug-report'|
 
@@ -375,4 +375,211 @@ skills/generate-bug-report/
 ### (5) Student Fix
 
 - Xóa bỏ đoạn về 'does not contain a dash...' để rõ ràng và logic hơn.
+
+
+## Entry #3
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6                                                                           |
+| **Timestamp**     | 05:28 PM 24/06/2026                                                              |
+| **Artifact type** | Bug report cho TC-FR-01-001 |
+
+**Full prompt:**
+
+```
+Giúp tôi tạo bug report cho 
+
+TC-FR-01-001.md
+
+vì không có trường xác nhận mật khẩu và không thể đăng ký với happy path data
+```
+
+### (2) AI Output
+
+````
+Ran command: `git status`
+
+Let me first read the test case and the bug report template/skill to understand the format.
+
+Viewed TC-FR-01-001.md:1-34
+Viewed bug-report.md:1-31
+Viewed skill.md:1-197
+
+Now let me check the existing bug reports and the test run file to determine the next bug ID and environment info.
+
+Listed directory bug-reports
+Viewed FR-01-register-run.md:1-46
+
+Now let me also check the screenshot that was mentioned in git status.
+
+Viewed Screenshot%20From%202026-06-24%2017-21-55.png
+
+The screenshot clearly shows the issue — the registration form only has 3 fields (Họ Tên, Email, Mật khẩu) and is **missing the "Xác nhận mật khẩu" (Confirm Password) field**. Additionally, there's an error message "Mật khẩu quá yếu!" even though the password `Abcd@1234` meets the stated requirements. Let me create the bug report.
+
+Created BUG-FR-01-001.md
+
+Now let me update the test run file to reflect the failed status:
+
+Edited FR-01-register-run.md
+
+Now update the summary counts in the test run file:
+
+Edited FR-01-register-run.md
+
+Done! Here's the summary:
+
+```
+✅ Bug report created: bug-reports/BUG-FR-01-001.md
+📋 Test case: TC-FR-01-001
+🔴 Severity: Critical / Priority: P1
+📝 Title: Trang Đăng ký thiếu trường "Xác nhận mật khẩu" và không thể đăng ký với dữ liệu hợp lệ
+```
+
+### Đánh giá Severity/Priority:
+- **Critical / P1** vì đây là lỗi chặn hoàn toàn luồng đăng ký (happy path) — người dùng không thể tạo tài khoản mới. Ngoài ra, giao diện thiếu trường xác nhận mật khẩu so với yêu cầu thiết kế, và mật khẩu hợp lệ `Abcd@1234` vẫn bị từ chối.
+
+### Các file đã cập nhật:
+- **`bug-reports/BUG-FR-01-001.md`** — Bug report mới, đã đính kèm screenshot có sẵn
+- **`tests/test-runs/FR-01-register-run.md`** — Cập nhật TC-FR-01-001 → ❌ Failed, liên kết BUG-FR-01-001
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- Đường dẫn url thiếu /register ở cuối
+
+### (5) Student Fix
+
+- Thêm đường dẫn url /register vào cuối
+
+
+## Entry #4
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                           |
+| **Timestamp**     | 05:53 PM 24/06/2026                                                              |
+| **Artifact type** | Bug report cho TC-FR-01-004 |
+
+**Full prompt:**
+
+```
+Tạo bug report cho 
+
+TC-FR-01-004.md
+: email sai nhưng hệ thống báo mật khẩu yếu
+```
+
+### (2) AI Output
+
+````
+Listed directory CS423-CSC15003-Testing-N08-report
+Listed directory skills
+Listed directory generate-bug-report
+Viewed README.md:1-60
+Viewed skill.md:1-197
+Viewed TC-FR-01-004.md:1-34
+Viewed bug-report.md:1-31
+Listed directory bug-reports
+Viewed BUG-FR-01-001.md:1-39
+Listed directory tests
+Listed directory test-runs
+Viewed FR-01-register-run.md:1-46
+Edited BUG-FR-01-002.md
+Edited TC-FR-01-004.md
+Edited FR-01-register-run.md
+
+Tôi đã tạo thành công báo cáo lỗi cho test case `TC-FR-01-004` và cập nhật thông tin trạng thái kiểm thử liên quan.
+
+### Tóm tắt kết quả
+✅ **Bug report created**: [BUG-FR-01-002.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-01-002.md)
+📋 **Test case**: [TC-FR-01-004.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-01-register/TC-FR-01-004.md)
+🔴 **Severity**: Medium / **Priority**: P2
+📝 **Title**: Hệ thống hiển thị thông báo lỗi mật khẩu yếu thay vì lỗi Email sai định dạng khi đăng ký với Email thiếu '@'
+
+### Các file đã cập nhật
+1. **Cập nhật trạng thái Test Case**: Thay đổi trạng thái của [TC-FR-01-004.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-01-register/TC-FR-01-004.md) từ `Not Run / None` thành `Failed / BUG-FR-01-002`.
+2. **Cập nhật bảng Test Run**: Cập nhật kết quả thực thi của test case `TC-FR-01-004` thành `❌ Failed` với mã bug `BUG-FR-01-002`, đồng thời cập nhật số lượng thống kê tổng hợp trong file [FR-01-register-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-01-register-run.md).
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI tạo bug report đúng với format
+
+### (5) Student Fix
+
+- Không cần fix
+
+
+## Entry #5
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                           |
+| **Timestamp**     | 06:08 PM 24/06/2026                                                              |
+| **Artifact type** | Bug report cho TC-FR-01-005 |
+
+**Full prompt:**
+
+```
+Tạo bug report cho 
+
+TC-FR-01-005.md
+: email thiếu domain nhưng báo mật khẩu sai
+```
+
+### (2) AI Output
+
+````
+Edited ai-audit-report.md
+Edited ai-audit-report.md
+Edited ai-audit-report.md
+Edited ai-audit-report.md
+Edited BUG-FR-01-002.md
+Viewed TC-FR-01-005.md:1-34
+Edited BUG-FR-01-003.md
+Edited TC-FR-01-005.md
+Viewed FR-01-register-run.md:15-46
+Edited FR-01-register-run.md
+
+Tôi đã tạo thành công báo cáo lỗi cho test case `TC-FR-01-005` và cập nhật thông tin trạng thái kiểm thử liên quan.
+
+### Tóm tắt kết quả
+✅ **Bug report created**: [BUG-FR-01-003.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-01-003.md)
+📋 **Test case**: [TC-FR-01-005.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-01-register/TC-FR-01-005.md)
+🔴 **Severity**: Medium / **Priority**: P2
+📝 **Title**: Hệ thống hiển thị thông báo lỗi mật khẩu sai thay vì lỗi Email sai định dạng khi đăng ký với Email thiếu domain
+
+### Các file đã cập nhật
+1. **Cập nhật trạng thái Test Case**: Thay đổi trạng thái của [TC-FR-01-005.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-01-register/TC-FR-01-005.md) từ `Not Run / None` thành `Failed / BUG-FR-01-003`.
+2. **Cập nhật bảng Test Run**: Cập nhật kết quả thực thi của test case `TC-FR-01-005` thành `❌ Failed` với mã bug `BUG-FR-01-003`, đồng thời cập nhật số lượng thống kê tổng hợp trong file [FR-01-register-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-01-register-run.md).
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI tạo bug report đúng với format
+
+### (5) Student Fix
+
+- Không cần fix
+
+
 
