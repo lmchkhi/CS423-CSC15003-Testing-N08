@@ -1,0 +1,86 @@
+# Cập nhật lại thông tin của sản phẩm khi thay đổi sản phẩm giữa lúc cập nhật
+
+## ID
+
+TC-FR15-Product management (CRUD)-024
+
+## Mô tả
+
+Cập nhật thành công một sản phẩm tên "iPhone 15 Pro Max" trên hệ thống thành thông tin:
+
+- Tên sản phẩm là "Vỏ iPhone 15 Pro Max"
+- Giá sản phẩm là *3000000* (ba triệu đồng)
+- Mô tả là: "Vỏ điện thoại cao cấp của Apple"
+- Ảnh đại diện là ảnh với URL: [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
+- Thuộc về danh mục Phụ kiện
+
+Sau đó chuyển sang sản phẩm khác (MacBook Pro M3) mà không nhấn lưu sản phẩm
+## Môi trường kiểm thử
+
+Windows 10, Google Chrome Version 149.0.7827.103
+
+## Precodition
+
+- Cơ sở dữ liệu hệ thống được khởi tạo với giá trị mặc định
+
+## Testdata
+
+Giá trị mặc định của sản phẩm iPhone 15 Pro Max:
+
+|Name|Value|
+|Tên sản phẩm|iPhone 15 Pro Max|
+|Giá sản phẩm|30000000|
+|URL ảnh|https://placehold.co/300x300/png?text=iPhone+15|
+|Mô tả|Điện thoại cao cấp của Apple|
+|Danh mục|Điện thoại|
+
+Giá trị mặc định của sản phẩm MacBook Pro M3:
+
+|Name|Value|
+|Tên sản phẩm|MacBook Pro M3|
+|Giá sản phẩm|45000000|
+|URL ảnh|https://placehold.co/300x300/png?text=Macbook+Pro|
+|Mô tả|Laptop chuyên nghiệp mạnh mẽ|
+|Danh mục|Laptop|
+
+Valid data:
+
+|Name|Value|
+|----|-----|
+|Admin Email|admin@eshop.com|
+|Admin Password|Admin123!|
+|Tên sản phẩm|Vỏ iPhone 15 Pro Max|
+|Giá tiền|3000000|
+|URL ảnh|https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro|
+|Mô tả|Vỏ điện thoại cao cấp của Apple|
+|Danh mục|Phụ kiện|
+
+## Các bước thực hiện
+
+0. Chạy chương trình backend, frontend web, frontend admin
+1. Truy cập vào trang web admin với đường dẫn [http://localhost:5174/](http://localhost:5174/)
+2. Đăng nhập với tên email: `admin@eshop.com` và mật khẩu là `Admin123!`
+3. Nhấn vào mục: **Sản phẩm**
+4. Nhấn vào nút **Sửa** của sản phẩm **iPhone 15 Pro Max**
+5. Điền vào mục **Tên sản phẩm** giá trị `Vỏ iPhone 15 Pro Max`
+6. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
+7. Điền vào mục **URL ảnh** giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
+8. Điền vào mục **Mô tả**: `Vỏ điện thoại cao cấp của Apple`
+9. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
+10. Nhấn vào nút **Sửa** của sản phẩm **MacBook Pro M3**
+11. Nhấn vào nút lưu sản phẩm.
+
+
+## Kết quả mong đợi
+
+Sau khi thực hiện bước 10:
+
+- Giao diện cập nhật sản phẩm cập nhật theo đúng thông tin của sản phẩm thể hiện ra thông tin của sản phẩm **MacBook Pro M3**
+- Không còn dữ liệu đã nhập trước đó
+
+Sau khi thực hiện bước 11:
+
+- Hệ thống ghi nhận lại giá trị cũ
+- Giao diện vẫn giữ lại thông tin cũ của sản phẩm **MacBook Pro M3** và sản phẩm **iPhone 15 Pro Max**
+
+## Trạng thái của testcase
