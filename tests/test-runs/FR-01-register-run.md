@@ -6,7 +6,7 @@
 |---|---|
 | **Requirement** | FR-01: Đăng ký tài khoản |
 | **Ngày thực thi** | 24/06/2026 |
-| **Môi trường** | Browser: Zen Browser 1.21.3b (Firefox 152.0.1) · OS: Fedora 44 · URL: http://localhost:5173 |
+| **Môi trường** | Browser: Zen Browser 1.21.3b (Firefox 152.0.1) · OS: Fedora 44 · URL: http://localhost:5173/register |
 | **Build / Commit** | 85af3ba |
 
 ---

@@ -1947,3 +1947,109 @@ Chi tiết về tất cả các thay đổi và kết quả xác minh có thể 
 - Không cần fix.
 
 
+## Entry #17
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
+| **Timestamp**     | 09:22 PM 25/06/2026                                                              |
+| **Artifact type** | Test cases cho FR-24 (Đăng ký tài khoản trên app mobile Expo)                    |
+
+**Full prompt:**
+
+````
+@[/home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/skills/analyze-and-generate-testcases/skill.md] 
+Giúp tôi phân tích và tạo các test case cho yêu cầu sau:
+
+FR-24: Đăng ký tài khoản 
+- Người dùng phải cung cấp: Họ Tên, Email, Mật khẩu.
+- Email phải có định dạng hợp lệ (user@domain.com) và là duy nhất trong hệ thống.
+- Yêu cầu mật khẩu mạnh: Tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt (@, $, !, %, *, ?, &).
+- Phải có trường Xác nhận mật khẩu — hệ thống từ chối nếu hai trường không khớp.
+- Sau khi đăng ký thành công, người dùng được chuyển tới trang Đăng nhập.
+
+Yêu cầu trên được sẽ được thực hiện test trên app mobile bằng expo thay vì trên web nên có thể sẽ hơi khác so với FR-01
+````
+
+### (2) AI Output
+
+````
+Let me start by reading the skill file and understanding the project structure.
+
+Viewed skill.md (skills/analyze-and-generate-testcases/skill.md)
+Listed directory templates
+Listed directory CS423-CSC15003-Testing-N08-report
+Viewed main-report-section.md
+Viewed test-case.md
+Viewed test-run.md
+Listed directory test-cases
+Listed directory test-runs
+Listed directory FR-01-register
+Viewed TC-FR-01-001.md
+Viewed TC-FR-01-002.md
+Viewed TC-FR-01-014.md
+Viewed FR-01-register-run.md
+Viewed main-report.md
+
+Now I have a comprehensive understanding of the project structure, templates, and existing patterns. Since FR-24 is essentially the same registration requirement as FR-01 but tested on a **mobile app (Expo)** instead of web, I need to adapt the test cases accordingly. This is a complex task that warrants a plan. Let me create the implementation plan.
+
+Created implementation_plan.md
+
+Tôi đã tạo plan phân tích FR-24. Vì FR-24 có cùng yêu cầu chức năng với FR-01 nhưng test trên **mobile app (Expo)**, cấu trúc test cases sẽ giống nhau (16 test cases) nhưng thay đổi ngôn ngữ phù hợp với mobile context (màn hình thay vì trang, Expo Go thay vì Browser).
+
+Xin hãy xem qua plan và xác nhận để tôi bắt đầu tạo các file.
+
+(User approved implementation plan)
+
+Plan được duyệt. Bắt đầu thực thi ngay.
+
+Created task.md
+
+Created TC-FR-24-001.md (Đăng ký thành công với dữ liệu hợp lệ)
+Created TC-FR-24-002.md (Đăng ký với Họ Tên rỗng)
+Created TC-FR-24-003.md (Đăng ký với Email rỗng)
+Created TC-FR-24-004.md (Đăng ký với Email sai định dạng — thiếu @)
+Created TC-FR-24-005.md (Đăng ký với Email sai định dạng — thiếu domain)
+Created TC-FR-24-006.md (Đăng ký với Email đã tồn tại)
+Created TC-FR-24-007.md (Đăng ký với Mật khẩu rỗng)
+Created TC-FR-24-008.md (Đăng ký với Mật khẩu quá ngắn < 8 ký tự)
+Created TC-FR-24-009.md (Đăng ký với Mật khẩu thiếu chữ hoa)
+Created TC-FR-24-010.md (Đăng ký với Mật khẩu thiếu chữ thường)
+Created TC-FR-24-011.md (Đăng ký với Mật khẩu thiếu chữ số)
+Created TC-FR-24-012.md (Đăng ký với Mật khẩu thiếu ký tự đặc biệt)
+Created TC-FR-24-013.md (Đăng ký với Xác nhận mật khẩu không khớp)
+Created TC-FR-24-014.md (BVA — Mật khẩu đúng 8 ký tự, ON point)
+Created TC-FR-24-015.md (BVA — Mật khẩu 7 ký tự, OFF⁻ point)
+Created TC-FR-24-016.md (BVA — Mật khẩu 9 ký tự, OFF⁺ point)
+Created FR-24-register-run.md (16 test cases, tất cả ⬜ Not Run)
+Edited main-report.md (appended FR-24 section with Domain Testing, EP, BVA analysis)
+
+Ran command: `ls -la ... | wc -l` (verified 16 test case files)
+Ran command: Quality checklist verification (all checks passed)
+
+Created walkthrough.md
+
+Đã hoàn tất tất cả artifacts cho FR-24. Tổng kết:
+
+- **16 test case files** tạo trong FR-24-register/ (13 Domain Testing + 3 BVA)
+- **1 test run file** tại FR-24-register-run.md
+- **Main report** đã được cập nhật tại main-report.md với phân tích Domain Testing + BVA đầy đủ
+
+Tất cả nội dung đã được điều chỉnh cho mobile app context (dùng "màn hình" thay vì "trang", môi trường Expo Go thay vì Browser). Section **AI Gap Analysis** để trống sẵn cho bạn review và điền nhận xét.
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI phân tích và tạo test case tốt, đúng yêu cầu.
+
+### (5) Student Fix
+
+- Không cần fix.
+
+
