@@ -1439,3 +1439,163 @@ Listed directory FR-16-import-csv
 ### (5) Student Fix
 
 - Không cần fix
+
+## Entry #13
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                 |
+| **Timestamp**     | 04:18 PM 25/06/2026                                                              |
+| **Artifact type** | Bug report cho TC-FR-16-002                                                      |
+
+**Full prompt:**
+
+````
+@[skills/generate-bug-report/skill.md] 
+Giúp tôi tạo bug report cho test case @[tests/test-cases/FR-16-import-csv/TC-FR-16-002.md] : khi import bằng file txt thì hệ thống vẫn cho import sản phẩm thành công mà không báo lỗi
+````
+
+### (2) AI Output
+
+````
+Viewed file skills/generate-bug-report/skill.md
+Viewed file skills/generate-bug-report/templates/bug-report.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-002.md
+Viewed file tests/test-runs/FR-16-import-csv-run.md
+Listed directory CS423-CSC15003-Testing-N08-report
+Listed directory bug-reports
+Viewed file bug-reports/BUG-FR-01-001.md
+Viewed file bug-reports/BUG-FR-07-001.md
+Created file bug-reports/BUG-FR-16-001.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-002.md
+Edited file tests/test-runs/FR-16-import-csv-run.md
+
+Tôi đã tạo thành công bug report và cập nhật các tài liệu liên quan như sau:
+
+✅ Bug report created: [BUG-FR-16-001.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-001.md)
+📋 Test case: [TC-FR-16-002](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-002.md)
+🔴 Severity: Medium / Priority: P3
+📝 Title: Hệ thống vẫn cho phép import sản phẩm thành công khi tải lên file .txt không phải đuôi .csv
+
+### Chi tiết các tệp đã cập nhật:
+1. **Tạo mới tệp Bug Report**:
+   - [BUG-FR-16-001.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-001.md): Mô tả đầy đủ thông tin lỗi, các bước tái hiện lỗi dựa trên test case và mô tả của bạn, phân loại mức độ nghiêm trọng/ưu tiên là **Medium / P3** (lỗi bỏ sót validate loại tệp nhưng nghiệp vụ import vẫn được xử lý).
+2. **Cập nhật Test Case**:
+   - [TC-FR-16-002.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-002.md): Cập nhật trạng thái từ `Not Run` thành `Failed / BUG-FR-16-001`.
+3. **Cập nhật Test Run**:
+   - [FR-16-import-csv-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-16-import-csv-run.md): Cập nhật kết quả thực thi của test case này là `❌ Failed`, điền mã lỗi `BUG-FR-16-001`.
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- Sai tên URL thành của frontend cho end user.
+
+### (5) Student Fix
+
+- Sửa lại URL của frontend admin.
+
+
+## Entry #14
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                 |
+| **Timestamp**     | 04:52 PM 25/06/2026                                                              |
+| **Artifact type** | Bug reports cho các test case từ TC-FR-16-004 đến TC-FR-16-012 và TC-FR-16-014   |
+
+**Full prompt:**
+
+````
+Giúp tôi tạo bug report cho các test case sau trong FR-016:
+004: Hệ thống vẫn cho import bình thường không báo lỗi
+005: Báo lỗi nhưng vẫn import các sản phẩm khác mà không rollback toàn bộ 
+006: Import thành công không báo lỗi
+007: Import thành công không báo lỗi 
+008: Import thành công không báo lỗi 
+009: Import thành công không báo lỗi 
+010: Parse sai trường description có dấu phẩy trong dấu nháy kép
+011: Vẫn import thành công các sản phẩm còn lại mà không bị rollback
+012: Chỉ báo dòng 3 thiếu tên sản phẩm, vẫn import 2 sản phẩm còn lại
+014: Import thành công, không báo lỗi
+````
+
+### (2) AI Output
+
+````
+Listed directory tests/test-cases/FR-16-import-csv
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-004.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-005.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-006.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-007.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-008.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-009.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-010.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-011.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-012.md
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-014.md
+Created file bug-reports/BUG-FR-16-002.md
+Created file bug-reports/BUG-FR-16-003.md
+Created file bug-reports/BUG-FR-16-004.md
+Created file bug-reports/BUG-FR-16-005.md
+Created file bug-reports/BUG-FR-16-006.md
+Created file bug-reports/BUG-FR-16-007.md
+Created file bug-reports/BUG-FR-16-008.md
+Created file bug-reports/BUG-FR-16-009.md
+Created file bug-reports/BUG-FR-16-010.md
+Created file bug-reports/BUG-FR-16-011.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-004.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-005.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-006.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-007.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-008.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-009.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-010.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-011.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-012.md
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-014.md
+Viewed file tests/test-runs/FR-16-import-csv-run.md
+Edited file tests/test-runs/FR-16-import-csv-run.md
+
+Tôi đã tạo 10 bug report mới và cập nhật toàn bộ trạng thái trong các test case cũng như file test run. Dưới đây là bảng tổng hợp các bug report đã tạo:
+
+| Bug ID | Test Case | Severity / Priority | Tiêu đề lỗi (Vietnamese) | Tệp Bug Report |
+|---|---|---|---|---|
+| **BUG-FR-16-002** | `TC-FR-16-004` | High / P2 | Hệ thống vẫn cho phép import sản phẩm thành công khi file CSV có header sai (thiếu cột) | [BUG-FR-16-002.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-002.md) |
+| **BUG-FR-16-003** | `TC-FR-16-005` | High / P2 | Hệ thống báo lỗi nhưng vẫn import các sản phẩm khác mà không thực hiện rollback toàn bộ khi file CSV có dòng lỗi tên rỗng | [BUG-FR-16-003.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-003.md) |
+| **BUG-FR-16-004** | `TC-FR-16-006` | High / P2 | Hệ thống cho phép import sản phẩm thành công khi trường price bằng 0 | [BUG-FR-16-004.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-004.md) |
+| **BUG-FR-16-005** | `TC-FR-16-007` | High / P2 | Hệ thống cho phép import sản phẩm thành công khi trường price là số âm | [BUG-FR-16-005.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-005.md) |
+| **BUG-FR-16-006** | `TC-FR-16-008` | High / P2 | Hệ thống cho phép import sản phẩm thành công khi trường price không phải số | [BUG-FR-16-006.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-006.md) |
+| **BUG-FR-16-007** | `TC-FR-16-009` | High / P2 | Hệ thống cho phép import sản phẩm thành công khi trường price rỗng | [BUG-FR-16-007.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-007.md) |
+| **BUG-FR-16-008** | `TC-FR-16-010` | Medium / P3 | Hệ thống parse sai trường description có chứa dấu phẩy bọc trong dấu nháy kép | [BUG-FR-16-008.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-008.md) |
+| **BUG-FR-16-009** | `TC-FR-16-011` | High / P2 | Hệ thống không rollback toàn bộ giao dịch khi file CSV có 1 dòng dữ liệu bị lỗi | [BUG-FR-16-009.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-009.md) |
+| **BUG-FR-16-010** | `TC-FR-16-012` | High / P2 | Báo cáo kết quả hiển thị thiếu thông tin lỗi và không rollback toàn bộ khi file CSV chứa nhiều dòng lỗi | [BUG-FR-16-010.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-010.md) |
+| **BUG-FR-16-011** | `TC-FR-16-014` | High / P2 | Hệ thống cho phép import sản phẩm thành công khi price = 0 (phân tích giá trị biên) | [BUG-FR-16-011.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-011.md) |
+
+### Các tệp tin đã cập nhật tự động:
+1. **Các Test Cases liên quan**: Cập nhật trạng thái từ `Not Run` thành `Failed / BUG-FR-16-XXX` tương ứng.
+2. **Tệp Test Run**: [FR-16-import-csv-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-16-import-csv-run.md)
+   - Cập nhật kết quả của các test case thất bại sang `❌ Failed` và gắn kèm link Bug ID.
+   - Đồng bộ hóa kết quả của các test case đã `Passed` do bạn cập nhật (`TC-FR-16-003`, `TC-FR-16-013`, `TC-FR-16-015`).
+   - Cập nhật bảng **Tổng kết** (Passed: 3 | Failed: 11 | Not Run: 1).
+````
+
+### (3) Verdict
+
+**`IMCOMPLETE`**
+
+### (4) Reasoning
+
+- Sai tên URL thành của frontend cho end user.
+
+### (5) Student Fix
+
+- Sửa lại URL của frontend admin.
+
