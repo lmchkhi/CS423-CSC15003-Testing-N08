@@ -1206,3 +1206,236 @@ Tôi đã cập nhật lại trạng thái của các test case từ `Failed` sa
 ### (5) Student Fix
 
 - Không cần fix.
+
+
+## Entry #11
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
+| **Timestamp**     | 03:12 PM 25/06/2026                                                              |
+| **Artifact type** | Test cases cho FR-16 (Import Sản phẩm từ CSV)                                   |
+
+**Full prompt:**
+
+````
+Giúp tôi phân tích yêu cầu sau và tạo các test case:
+FR-16: Import Sản phẩm từ CSV
+
+- Admin có thể tải lên file CSV để import nhiều sản phẩm cùng lúc.
+- Yêu cầu file CSV:
+	- Đuôi file phải là .csv.
+        - Dòng đầu tiên là header: name,price,description,imageUrl,category_id.
+        - Hỗ trợ các trường có chứa dấu phẩy nếu được bọc trong dấu nháy kép (RFC 4180).
+- Validation trước khi import:
+        - name không được rỗng.
+        - price phải là số dương.
+- Nếu có lỗi ở bất kỳ dòng nào, toàn bộ import phải được rollback (giao dịch nguyên tử — all-or-nothing).
+- Hệ thống hiển thị báo cáo rõ ràng: bao nhiêu dòng thành công, bao nhiêu dòng lỗi và lý do.
+````
+
+### (2) AI Output
+
+````
+Let me first read the skill file for generating test cases, and explore the project structure to understand the context.
+
+Viewed skill.md
+Listed directory CS423-CSC15003-Testing-N08-report
+Listed directory templates
+Listed directory tests
+Listed directory reports
+
+Now let me read the templates and explore existing test cases for reference:
+
+Viewed main-report-section.md
+Viewed test-case.md
+Viewed test-run.md
+Listed directory test-cases
+Listed directory test-runs
+
+Now let me look at existing test cases and the main report for reference on the format used:
+
+Listed directory FR-01-register
+Viewed TC-FR-01-001.md
+Viewed TC-FR-01-002.md
+Viewed main-report.md
+
+Let me look at a couple of existing test cases and the main report for format reference:
+
+Viewed FR-01-register-run.md
+
+Now let me also look at an existing test run file for reference:
+
+I now have a thorough understanding of the project structure, templates, and conventions. Let me now create all the required artifacts. I'll start by creating the test case directory, the main report section, the individual test case files, and the test run file.
+
+Viewed main-report.md (end of file)
+
+Now let me create all the files. First, the main report section append:
+
+Edited main-report.md (appended FR-16 section with Domain Testing, EP, BVA analysis)
+
+Now I'll append the FR-16 analysis section to the main report:
+
+Created TC-FR-16-001.md
+Created TC-FR-16-002.md
+Created TC-FR-16-003.md
+Created TC-FR-16-004.md
+Created TC-FR-16-005.md
+Created TC-FR-16-006.md
+Created TC-FR-16-007.md
+Created TC-FR-16-008.md
+Created TC-FR-16-009.md
+Created TC-FR-16-010.md
+
+Good. Now let me create all 15 individual test case files. I'll create them in batch:
+
+Created TC-FR-16-011.md
+Created TC-FR-16-012.md
+Created TC-FR-16-013.md
+Created TC-FR-16-014.md
+Created TC-FR-16-015.md
+
+Now the remaining 5 test cases (TC-011 through TC-015):
+
+Created FR-16-import-csv-run.md
+
+Now let me create the test run file:
+
+Listed directory FR-16-import-csv
+
+All files are created. Let me verify the quality checklist by listing the created files:
+
+Tất cả đã hoàn thành. Dưới đây là tổng hợp những gì đã tạo:
+
+---
+
+## ✅ Tổng kết FR-16: Import Sản phẩm từ CSV
+
+### Các file đã tạo/cập nhật:
+
+**1. Phân tích trong main report** — đã append vào main-report.md:
+- **Domain Testing**: 7 input/output, 16 phân vùng tương đương (EP)
+- **BVA**: 1 biên (price > 0) với 3 điểm biên
+
+**2. 15 test case files** trong FR-16-import-csv/:
+
+| ID | Kỹ thuật | Mô tả |
+|---|---|---|
+| TC-FR-16-001 | Domain Testing | 🟢 Happy path — import thành công |
+| TC-FR-16-002 | Domain Testing | File đuôi `.txt` (sai extension) |
+| TC-FR-16-003 | Domain Testing | Không chọn file |
+| TC-FR-16-004 | Domain Testing | Header sai (thiếu cột) |
+| TC-FR-16-005 | Domain Testing | `name` rỗng |
+| TC-FR-16-006 | Domain Testing | `price` = 0 |
+| TC-FR-16-007 | Domain Testing | `price` âm |
+| TC-FR-16-008 | Domain Testing | `price` không phải số |
+| TC-FR-16-009 | Domain Testing | `price` rỗng |
+| TC-FR-16-010 | Domain Testing | Dấu phẩy trong nháy kép (RFC 4180) |
+| TC-FR-16-011 | Domain Testing | Rollback toàn bộ khi có lỗi |
+| TC-FR-16-012 | Domain Testing | Báo cáo kết quả chi tiết |
+| TC-FR-16-013 | BVA | Price = 1 (ON — biên dương tối thiểu) |
+| TC-FR-16-014 | BVA | Price = 0 (OFF⁻ — không hợp lệ) |
+| TC-FR-16-015 | BVA | Price = 2 (OFF⁺ — hợp lệ) |
+
+**3. Test run file** — FR-16-import-csv-run.md (15 test cases, tất cả ⬜ Not Run)
+
+### Quality Checklist:
+- ✅ Mỗi ràng buộc trong yêu cầu đều có ít nhất 1 valid và 1 invalid test case
+- ✅ Happy path là TC-FR-16-001
+- ✅ Mỗi invalid test case chỉ thay đổi MỘT trường so với happy path
+- ✅ Giá trị biên tuân thủ quy tắc 3 điểm
+- ✅ Test case IDs liên tục (001-015), không bị gap
+- ✅ Tất cả test cases đều có trong test run file
+- ✅ Phần "AI Gap Analysis" để trống cho người dùng điền
+- ✅ Toàn bộ nội dung bằng tiếng Việt
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- Sinh dư upper bound cho trường price khi yêu cầu không nhắc tới.
+
+### (5) Student Fix
+
+- Bỏ phần upper bound cho trường price trong phần BVA.
+
+
+## Entry #12
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
+| **Timestamp**     | 03:32 PM 25/06/2026                                                              |
+| **Artifact type** | Test data files cho FR-16 (14 file CSV/TXT)                                      |
+
+**Full prompt:**
+
+````
+Từ các test case đã sinh ra cho FR-16, hãy giúp tôi tạo ra cái dữ liệu test từ phần test data trong các test case (như file csv, file txt,...), rồi bỏ vào test-data/ giúp tôi
+````
+
+### (2) AI Output
+
+````
+Tôi sẽ tạo các file dữ liệu test tương ứng với từng test case. Để tôi review lại test data của từng TC rồi tạo file:
+
+Created products_valid.csv (TC-FR-16-001)
+Created products.txt (TC-FR-16-002)
+Created products_bad_header.csv (TC-FR-16-004)
+Created products_empty_name.csv (TC-FR-16-005)
+Created products_price_zero.csv (TC-FR-16-006)
+Created products_price_negative.csv (TC-FR-16-007)
+Created products_price_nan.csv (TC-FR-16-008)
+Created products_price_empty.csv (TC-FR-16-009)
+Created products_comma_in_field.csv (TC-FR-16-010)
+Created products_rollback.csv (TC-FR-16-011)
+Created products_mixed.csv (TC-FR-16-012)
+Created products_price_bva_on.csv (TC-FR-16-013)
+Created products_price_bva_off_minus.csv (TC-FR-16-014)
+Created products_price_bva_off_plus.csv (TC-FR-16-015)
+
+Đã tạo xong tất cả. Kiểm tra lại thư mục:
+
+Listed directory FR-16-import-csv
+
+Đã tạo xong **14 file dữ liệu test** trong tests/test-data/FR-16-import-csv/:
+
+| Test Case | File | Điểm lỗi |
+|---|---|---|
+| TC-FR-16-001 | products_valid.csv | _(không lỗi — happy path)_ |
+| TC-FR-16-002 | products.txt | Đuôi `.txt` thay vì `.csv` |
+| TC-FR-16-003 | _(không cần file — test không chọn file)_ | — |
+| TC-FR-16-004 | products_bad_header.csv | Header thiếu cột |
+| TC-FR-16-005 | products_empty_name.csv | Dòng 3: `name` rỗng |
+| TC-FR-16-006 | products_price_zero.csv | Dòng 3: `price` = 0 |
+| TC-FR-16-007 | products_price_negative.csv | Dòng 3: `price` = -50000 |
+| TC-FR-16-008 | products_price_nan.csv | Dòng 3: `price` = "abc" |
+| TC-FR-16-009 | products_price_empty.csv | Dòng 3: `price` rỗng |
+| TC-FR-16-010 | products_comma_in_field.csv | Dấu phẩy trong nháy kép (RFC 4180) |
+| TC-FR-16-011 | products_rollback.csv | Dòng 3: `name` rỗng (test rollback) |
+| TC-FR-16-012 | products_mixed.csv | Dòng 3: name rỗng + Dòng 4: price âm |
+| TC-FR-16-013 | products_price_bva_on.csv | BVA: `price` = 1 (ON) |
+| TC-FR-16-014 | products_price_bva_off_minus.csv | BVA: `price` = 0 (OFF⁻) |
+| TC-FR-16-015 | products_price_bva_off_plus.csv | BVA: `price` = 2 (OFF⁺) |
+
+> **Lưu ý**: TC-FR-16-003 không cần file vì test case này kiểm tra trường hợp **không chọn file nào** để upload.
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- Các dữ liệu test sinh ra đúng theo test case.
+
+### (5) Student Fix
+
+- Không cần fix

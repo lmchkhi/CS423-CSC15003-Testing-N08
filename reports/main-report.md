@@ -211,3 +211,116 @@
 **Giải thích**: 
 - AI cẩn thận thái quá muốn kiểm tra thêm các trường hợp hợp lệ.
 - AI đôi khi không phân biệt được yêu cầu bắt buộc và không bắt buộc.
+
+---
+
+## FR-16: Import Sản phẩm từ CSV
+
+### Mô tả yêu cầu
+
+- Admin có thể tải lên file CSV để import nhiều sản phẩm cùng lúc.
+- Yêu cầu file CSV:
+  - Đuôi file phải là `.csv`.
+  - Dòng đầu tiên là header: `name,price,description,imageUrl,category_id`.
+  - Hỗ trợ các trường có chứa dấu phẩy nếu được bọc trong dấu nháy kép (RFC 4180).
+- Validation trước khi import:
+  - `name` không được rỗng.
+  - `price` phải là số dương.
+- Nếu có lỗi ở bất kỳ dòng nào, toàn bộ import phải được rollback (giao dịch nguyên tử — all-or-nothing).
+- Hệ thống hiển thị báo cáo rõ ràng: bao nhiêu dòng thành công, bao nhiêu dòng lỗi và lý do.
+
+---
+
+### Phân tích Domain Testing
+
+#### 1. Xác định Input / Output
+
+| Loại   | Tên trường / Hành vi              | Kiểu dữ liệu | Ràng buộc                                                                                          |
+|--------|-----------------------------------|---------------|------------------------------------------------------------------------------------------------------|
+| Input  | File tải lên                      | File          | Bắt buộc chọn file, đuôi file phải là `.csv`                                                        |
+| Input  | Header CSV                        | String        | Dòng đầu tiên phải là: `name,price,description,imageUrl,category_id`                                |
+| Input  | Trường `name` (mỗi dòng)         | String        | Không được rỗng                                                                                      |
+| Input  | Trường `price` (mỗi dòng)        | Number        | Phải là số dương (> 0)                                                                               |
+| Input  | Trường `description` (mỗi dòng)  | String        | Tùy chọn, hỗ trợ dấu phẩy nếu bọc trong dấu nháy kép (RFC 4180)                                   |
+| Input  | Trường `imageUrl` (mỗi dòng)     | String        | Tùy chọn                                                                                            |
+| Input  | Trường `category_id` (mỗi dòng)  | String/Number | Tùy chọn                                                                                            |
+| Output | Import thành công                 | Hành vi       | Tất cả sản phẩm được lưu vào hệ thống, hiển thị báo cáo số dòng thành công                          |
+| Output | Import thất bại (rollback)        | Hành vi       | Không có sản phẩm nào được lưu, toàn bộ giao dịch bị rollback, hiển thị báo cáo dòng lỗi và lý do  |
+| Output | Báo cáo kết quả                   | Hành vi       | Hiển thị rõ ràng: số dòng thành công, số dòng lỗi, lý do lỗi                                        |
+
+#### 2. Phân vùng tương đương (Equivalence Partitioning)
+
+| Trường / Hành vi                 | Mã phân vùng | Loại    | Mô tả                                                                    | Giá trị đại diện                                      |
+|----------------------------------|-------------|---------|---------------------------------------------------------------------------|--------------------------------------------------------|
+| File tải lên (đuôi file)        | EP-01-01    | Valid   | File có đuôi `.csv`                                                       | `products.csv`                                         |
+| File tải lên (đuôi file)        | EP-01-02    | Invalid | File có đuôi khác `.csv` (ví dụ: `.txt`, `.xlsx`)                        | `products.txt`                                         |
+| File tải lên (không chọn file)  | EP-01-03    | Invalid | Không chọn file nào                                                       | _(không chọn file)_                                    |
+| Header CSV                       | EP-02-01    | Valid   | Header đúng: `name,price,description,imageUrl,category_id`               | Dòng 1: `name,price,description,imageUrl,category_id` |
+| Header CSV                       | EP-02-02    | Invalid | Header sai (thiếu cột hoặc thứ tự sai)                                   | Dòng 1: `name,price,description`                       |
+| Trường `name`                    | EP-03-01    | Valid   | Chuỗi ký tự có nội dung                                                  | `Laptop Dell`                                          |
+| Trường `name`                    | EP-03-02    | Invalid | Chuỗi rỗng (không có nội dung)                                           | _(để trống)_                                           |
+| Trường `price`                   | EP-04-01    | Valid   | Số dương                                                                  | `15000000`                                             |
+| Trường `price`                   | EP-04-02    | Invalid | Số bằng 0                                                                 | `0`                                                    |
+| Trường `price`                   | EP-04-03    | Invalid | Số âm                                                                     | `-50000`                                               |
+| Trường `price`                   | EP-04-04    | Invalid | Không phải số (chuỗi ký tự)                                              | `abc`                                                  |
+| Trường `price`                   | EP-04-05    | Invalid | Rỗng (không có giá trị)                                                  | _(để trống)_                                           |
+| Dấu phẩy trong trường (RFC 4180)| EP-05-01    | Valid   | Trường `description` chứa dấu phẩy, được bọc trong dấu nháy kép         | `"Màn hình 15.6 inch, Full HD"`                       |
+| Rollback (all-or-nothing)        | EP-06-01    | Valid   | Tất cả dòng hợp lệ → import thành công toàn bộ                          | File 3 dòng, tất cả hợp lệ                            |
+| Rollback (all-or-nothing)        | EP-06-02    | Valid   | Có ít nhất 1 dòng lỗi → rollback toàn bộ, không dòng nào được import    | File 3 dòng, dòng 2 lỗi name rỗng                     |
+| Báo cáo kết quả                  | EP-07-01    | Valid   | Hiển thị số dòng thành công, số dòng lỗi, lý do lỗi cho từng dòng       | "3 dòng thành công, 0 lỗi" hoặc "0 thành công, 1 lỗi: dòng 2 — name rỗng" |
+
+#### 3. Giá trị đại diện cho từng phân vùng
+
+> Đã được tổng hợp trong bảng Phân vùng tương đương ở trên (cột "Giá trị đại diện").
+
+---
+
+### Phân tích Boundary Value Analysis (BVA)
+
+#### 1. Xác định các giá trị biên
+
+| Trường nhập liệu | Biên                          | Giá trị biên | Loại |
+|-------------------|-------------------------------|--------------|------|
+| Trường `price`    | Giá trị dương tối thiểu       | 0 (biên)     | Min  |
+
+#### 2. Giá trị 3 điểm biên (3-Point Boundary)
+
+| Biên                     | Điểm           | Giá trị | Kết quả mong đợi                      |
+|--------------------------|---------------|---------|----------------------------------------|
+| Min = 0 (số dương > 0)  | ON (1)        | `1`     | Valid — Import thành công               |
+| Min = 0 (số dương > 0)  | OFF⁻ (0)     | `0`     | Invalid — Báo lỗi price không hợp lệ   |
+| Min = 0 (số dương > 0)  | OFF⁺ (2)     | `2`     | Valid — Import thành công               |
+
+> Không giới hạn tối đa: Không sinh test case BVA cho biên max.
+
+---
+
+### Tổng hợp Test Cases
+
+| Test Case ID    | Kỹ thuật        | Mô tả ngắn                                                               |
+|-----------------|----------------|---------------------------------------------------------------------------|
+| TC-FR-16-001    | Domain Testing | Import thành công với file CSV hợp lệ (nhiều dòng, tất cả hợp lệ)       |
+| TC-FR-16-002    | Domain Testing | Upload file không phải `.csv` (ví dụ: `.txt`)                             |
+| TC-FR-16-003    | Domain Testing | Không chọn file nào để upload                                             |
+| TC-FR-16-004    | Domain Testing | File CSV có header sai (thiếu cột)                                        |
+| TC-FR-16-005    | Domain Testing | File CSV có dòng dữ liệu với `name` rỗng                                 |
+| TC-FR-16-006    | Domain Testing | File CSV có dòng dữ liệu với `price` bằng 0                              |
+| TC-FR-16-007    | Domain Testing | File CSV có dòng dữ liệu với `price` là số âm                            |
+| TC-FR-16-008    | Domain Testing | File CSV có dòng dữ liệu với `price` không phải số                       |
+| TC-FR-16-009    | Domain Testing | File CSV có dòng dữ liệu với `price` rỗng                                |
+| TC-FR-16-010    | Domain Testing | File CSV có trường chứa dấu phẩy bọc trong nháy kép (RFC 4180)           |
+| TC-FR-16-011    | Domain Testing | File CSV có 1 dòng lỗi — kiểm tra rollback toàn bộ                       |
+| TC-FR-16-012    | Domain Testing | Kiểm tra báo cáo kết quả hiển thị số dòng thành công/lỗi và lý do       |
+| TC-FR-16-013    | BVA            | Price = 1 (ON — min, số dương nhỏ nhất hợp lệ)                           |
+| TC-FR-16-014    | BVA            | Price = 0 (OFF⁻ — min-1, không hợp lệ)                                  |
+| TC-FR-16-015    | BVA            | Price = 2 (OFF⁺ — min+1, hợp lệ)                                        |
+
+---
+
+### AI Gap Analysis
+
+- Sinh dư upper bound cho trường price khi yêu cầu không nhắc tới.
+
+**Giải thích**: Vẫn như những lần trước, AI có lẽ đã cẩn thận cân nhắc thêm upperbound để đảm bảo số không có giới hạn trên.
+
+---

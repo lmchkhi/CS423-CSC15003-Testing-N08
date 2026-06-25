@@ -1,0 +1,4 @@
+name,price,description,imageUrl,category_id
+Laptop Dell,15000000,Laptop văn phòng,https://img.com/dell.jpg,1
+,25000000,Điện thoại,https://img.com/iphone.jpg,2
+Tai nghe Sony,-1000,Tai nghe,https://img.com/sony.jpg,3
