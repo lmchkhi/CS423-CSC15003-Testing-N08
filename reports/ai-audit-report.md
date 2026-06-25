@@ -1788,4 +1788,162 @@ Bạn có thể xem chi tiết cụ thể hơn ở tài liệu [walkthrough.md](
 
 - Không cần fix.
 
+## Entry #16
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                 |
+| **Timestamp**     | 07:53 PM 25/06/2026                                                              |
+| **Artifact type** | Gộp và chuẩn hóa bug reports cho FR-16                                           |
+
+**Full prompt:**
+
+````
+Trong các bug reports của FR-16 có bug nào là duplicate không, nếu có hãy giúp tôi merge chúng lại
+
+Đảm bảo sau khi merge các bug vẫn có số tăng dần, các test case tương ứng được cập nhật lại bug id, và nhật lại file test run cho FR-16
+````
+
+### (2) AI Output
+
+````
+Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report
+I will list the contents of the workspace root directory.
+Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports
+I will list the bug reports directory to find all bug reports related to FR-16.
+Searched for pattern matching Title: in /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports
+I will search for titles in BUG-FR-16 files.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-001.md
+I will view the first bug report to understand the formatting.
+Searched for pattern matching # BUG-FR-16- in /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports
+I will search for the header in BUG-FR-16 files to list their titles.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-004.md
+I will view BUG-FR-16-004.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-011.md
+I will view BUG-FR-16-011.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-003.md
+I will view BUG-FR-16-003.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-009.md
+I will view BUG-FR-16-009.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-010.md
+I will view BUG-FR-16-010.md.
+Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/skills
+I will list the skills directory.
+Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs
+I will list the test runs directory.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-16-import-csv-run.md
+I will view the test run file for FR-16.
+Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv
+I will list the test cases directory.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-005.md
+I will view TC-FR-16-005.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-011.md
+I will view TC-FR-16-011.md.
+Ran command git log -n 10 --oneline
+I will run git log to check commit history.
+Ran command git show 17e9986
+I will run git show to inspect commit 17e9986.
+Ran command git log -n 1 --stat 17e9986
+I will inspect files changed in commit 17e9986.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-07-001.md
+I will view BUG-FR-07-001.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-005.md
+I will view BUG-FR-16-005.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-006.md
+I will view BUG-FR-16-006.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-007.md
+I will view BUG-FR-16-007.md.
+Viewed file /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-008.md
+I will view BUG-FR-16-008.md.
+Created file implementation_plan.md
+I will write the implementation plan to file.
+
+Tôi đã chuẩn bị kế hoạch chi tiết để tìm kiếm, hợp nhất các báo cáo lỗi trùng lặp đối với yêu cầu **FR-16 (Import sản phẩm từ CSV)**, cũng như cập nhật lại các file test case và file test run tương ứng.
+
+Bạn có thể xem chi tiết kế hoạch tại [implementation_plan.md](file:///home/lvkhang/.gemini/antigravity-ide/brain/aa9c6e04-d220-4f8f-b9fd-8f0cbaeb6659/implementation_plan.md). Vui lòng nhấn nút **Proceed** để tôi tiến hành thực hiện công việc này.
+
+---
+
+Created file task.md
+I will create a task list to track progress during execution of the implementation plan.
+Edited file bug-reports/BUG-FR-16-003.md
+I will update Found by Test Case in BUG-FR-16-003 to include TC-FR-16-011.
+Edited file bug-reports/BUG-FR-16-004.md
+I will update Found by Test Case in BUG-FR-16-004 to include TC-FR-16-014.
+Created file bug-reports/BUG-FR-16-009.md
+I will write the renumbered BUG-FR-16-009.md contents.
+Ran command rm bug-reports/BUG-FR-16-010.md bug-reports/BUG-FR-16-011.md
+I will delete the duplicate and obsolete bug report files.
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-011.md
+I will update the bug ID reference in TC-FR-16-011.md.
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-012.md
+I will view TC-FR-16-012.md to locate the related bug reference.
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-012.md
+I will update the bug ID reference in TC-FR-16-012.md.
+Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-014.md
+I will view TC-FR-16-014.md.
+Edited file tests/test-cases/FR-16-import-csv/TC-FR-16-014.md
+I will update the bug ID reference in TC-FR-16-014.md.
+Viewed file tests/test-runs/FR-16-import-csv-run.md
+I will view the test run file to check references.
+Edited file tests/test-runs/FR-16-import-csv-run.md
+I will update the related bug columns in the test run file.
+Edited file task.md
+I will update task.md to mark execution items as completed.
+Searched for pattern matching BUG-FR-16-010 in workspace root
+I will search for any remaining references to the deleted bug reports.
+Searched for pattern matching BUG-FR-16-011 in workspace root
+I will search for remaining references.
+Viewed file reports/ai-audit-report.md
+I will view reports/ai-audit-report.md.
+Ran command git diff
+I will run git diff to verify all changes.
+Created file walkthrough.md
+I will write the walkthrough.md file.
+Edited file task.md
+I will update task.md to show all tasks are complete.
+
+Tôi đã hoàn thành việc kiểm tra, gộp các bug report trùng lặp và cập nhật các tệp liên quan cho tính năng **FR-16: Import Sản phẩm từ CSV**.
+
+Dưới đây là tóm tắt kết quả thực hiện:
+
+### 1. Gộp các lỗi trùng lặp
+* **Hợp nhất lỗi `price = 0`**:
+  * Gộp `BUG-FR-16-011` (BVA price = 0) vào `BUG-FR-16-004` (Domain Testing price = 0).
+  * Cập nhật phần `Found by Test Case` của [BUG-FR-16-004.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-004.md) để bao gồm cả `TC-FR-16-006` và `TC-FR-16-014`.
+  * Xóa tệp lỗi trùng lặp `BUG-FR-16-011.md`.
+* **Hợp nhất lỗi không rollback khi import lỗi**:
+  * Gộp `BUG-FR-16-009` (lỗi rollback trên 1 dòng dữ liệu lỗi) vào `BUG-FR-16-003` (lỗi rollback trên dòng lỗi tên rỗng).
+  * Cập nhật phần `Found by Test Case` của [BUG-FR-16-003.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-003.md) để bao gồm cả `TC-FR-16-005` và `TC-FR-16-011`.
+
+### 2. Đánh số lại thứ tự tăng dần
+* Đổi tên/mã lỗi `BUG-FR-16-010` (Báo cáo hiển thị thiếu lỗi & không rollback khi nhiều dòng lỗi) thành [BUG-FR-16-009.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports/BUG-FR-16-009.md) để đảm bảo dãy số liên tục tăng dần từ **BUG-FR-16-001** đến **BUG-FR-16-009**.
+* Xóa tệp thừa `BUG-FR-16-010.md`.
+
+### 3. Cập nhật các Test Cases
+Đã sửa đổi mã bug trong mục `Status / Related bugs` của 3 test case liên quan:
+* [TC-FR-16-011.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-011.md): Trỏ về `BUG-FR-16-003`.
+* [TC-FR-16-012.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-012.md): Trỏ về `BUG-FR-16-009`.
+* [TC-FR-16-014.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-014.md): Trỏ về `BUG-FR-16-004`.
+
+### 4. Cập nhật Test Run
+* Cập nhật cột `Related Bug` trong file test run [FR-16-import-csv-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-16-import-csv-run.md) cho các test case `TC-FR-16-011`, `TC-FR-16-012`, và `TC-FR-16-014` để khớp với mã lỗi mới sau khi merge.
+
+Chi tiết về tất cả các thay đổi và kết quả xác minh có thể được xem thêm tại [walkthrough.md](file:///home/lvkhang/.gemini/antigravity-ide/brain/aa9c6e04-d220-4f8f-b9fd-8f0cbaeb6659/walkthrough.md).
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI đã gộp các lỗi trùng lặp và cập nhật các tệp liên quan, hoàn thành yêu cầu.
+
+### (5) Student Fix
+
+- Không cần fix.
+
 

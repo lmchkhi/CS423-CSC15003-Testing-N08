@@ -25,10 +25,10 @@
 | TC-FR-16-008 | Domain Testing | File CSV có dòng dữ liệu với `price` không phải số | | ❌ Failed | BUG-FR-16-006 | — |
 | TC-FR-16-009 | Domain Testing | File CSV có dòng dữ liệu với `price` rỗng | | ❌ Failed | BUG-FR-16-007 | — |
 | TC-FR-16-010 | Domain Testing | File CSV có trường chứa dấu phẩy bọc trong nháy kép (RFC 4180) | | ❌ Failed | BUG-FR-16-008 | — |
-| TC-FR-16-011 | Domain Testing | File CSV có 1 dòng lỗi — kiểm tra rollback toàn bộ | | ❌ Failed | BUG-FR-16-009 | — |
-| TC-FR-16-012 | Domain Testing | Kiểm tra báo cáo kết quả hiển thị số dòng thành công/lỗi và lý do | | ❌ Failed | BUG-FR-16-010 | — |
+| TC-FR-16-011 | Domain Testing | File CSV có 1 dòng lỗi — kiểm tra rollback toàn bộ | | ❌ Failed | BUG-FR-16-003 | — |
+| TC-FR-16-012 | Domain Testing | Kiểm tra báo cáo kết quả hiển thị số dòng thành công/lỗi và lý do | | ❌ Failed | BUG-FR-16-009 | — |
 | TC-FR-16-013 | BVA | Price = 1 (ON — min, số dương nhỏ nhất hợp lệ) | | ✅ Passed | — | — |
-| TC-FR-16-014 | BVA | Price = 0 (OFF⁻ — min-1, không hợp lệ) | | ❌ Failed | BUG-FR-16-011 | — |
+| TC-FR-16-014 | BVA | Price = 0 (OFF⁻ — min-1, không hợp lệ) | | ❌ Failed | BUG-FR-16-004 | — |
 | TC-FR-16-015 | BVA | Price = 2 (OFF⁺ — min+1, hợp lệ) | | ✅ Passed | — | — |
 
 ---
