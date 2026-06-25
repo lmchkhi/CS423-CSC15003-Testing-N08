@@ -885,7 +885,6 @@ The walkthrough can be reviewed in [walkthrough.md](file:///home/lvkhang/.gemini
 
 - Không cần fix.
 
-
 ## Entry #8
 
 ### (1) Prompt + Tool
@@ -2053,3 +2052,94 @@ Tất cả nội dung đã được điều chỉnh cho mobile app context (dùn
 - Không cần fix.
 
 
+## Entry #18
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | GPT-5.5                                                                  |
+| **Timestamp**     | 10:06 PM 25/06/2026                                                              |
+| **Artifact type** | Cập nhật agent skill 'summarize-conversation' để gom implementation plan và approval vào cùng một entry |
+
+**Full prompt:**
+
+````
+skills/summarize-conversation
+Đôi khi sau khi prompt agent sẽ tạo ra một implementation plan và user approve cho nó thực hiện, lúc này thay vì tính tất cả là 1 entry thì agent lại chia ra prompt đầu là 1 entry, lúc approve plan là 1 entry khác. Giúp tôi sửa skill để khắc phục điều đó: Nếu có implemention plan và approval từ người dùng thì cả đống đó vẫn tính là 1 entry vì chỉ có 1 input và 1 output.
+````
+
+### (2) AI Output
+
+`````
+Tôi sẽ đọc skill hiện tại trước để xem nó đang định nghĩa “entry” và xử lý approval/plan ở đâu, rồi sửa đúng phần đó thay vì đổi rộng toàn bộ logic.
+
+Ran command: `rg --files skills/summarize-conversation`
+Ran command: `find skills/summarize-conversation -maxdepth 3 -type f -print`
+
+Viewed files:
+- `skills/summarize-conversation/skill.md`
+- `skills/summarize-conversation/README.md`
+- `skills/summarize-conversation/templates/entry.md`
+
+Tôi thấy logic chính nằm trong `skill.md`; README chỉ mô tả ngắn. Tôi sẽ bổ sung quy tắc gom “implementation plan + user approval + execution/final output” thành cùng một audit entry, và cập nhật README để người dùng skill không bị hiểu nhầm.
+
+Ran command: `git status --short`
+Ran command: `nl -ba skills/summarize-conversation/skill.md | sed -n '1,220p'`
+Ran command: `nl -ba skills/summarize-conversation/README.md | sed -n '1,180p'`
+
+Tôi sẽ thêm một mục riêng ngay trong Step 1 để định nghĩa “interaction” theo workflow có plan/approval. Điểm quan trọng là approval thuần túy không được tách thành entry mới; phần output của agent sau approval được nối tiếp vào cùng entry của prompt gốc.
+
+Edited `skills/summarize-conversation/skill.md`:
+- Changed Step 1 from identifying each `user prompt -> AI response` pair to identifying each `substantive user request -> complete AI outcome` pair.
+- Added a dedicated section: `Handling implementation plans and approval messages`.
+- Added rules that implementation plan + approval + execution + final answer are one audit entry.
+- Added rules that pure approval messages such as `approve`, `ok`, `tiếp tục`, `thực hiện đi`, and `đồng ý với plan` are control messages, not new entries.
+- Added guidance that approval messages with changed requirements should remain in the same entry context unless they clearly start an unrelated task.
+- Updated Step 4, constraints, and quality checklist to enforce this grouping.
+
+Edited `skills/summarize-conversation/README.md`:
+- Added an `Entry Grouping` section explaining the plan/approval workflow.
+- Added a key rule that implementation plan + user approval + completed implementation are grouped into one entry when they belong to the same original request.
+
+Đã sửa phần hướng dẫn chính. Tôi đang kiểm tra diff để chắc là wording không mâu thuẫn với yêu cầu “verbatim” hiện có, vì phần đó dễ gây hiểu sai khi có nhiều message trong cùng một workflow.
+
+Ran command: `git diff -- skills/summarize-conversation/skill.md skills/summarize-conversation/README.md`
+Ran command: `sed -n '19,70p' skills/summarize-conversation/skill.md`
+Ran command: `sed -n '24,60p' skills/summarize-conversation/README.md`
+Ran command: `rg "user prompt|For each pair|For each interaction|AI response" skills/summarize-conversation/skill.md skills/summarize-conversation/README.md`
+Ran command: `git status --short`
+
+Còn vài cụm cũ như “For each pair” có thể kéo agent quay lại cách tách từng message. Tôi sẽ chỉnh tiếp các cụm đó để toàn bộ skill dùng cùng một khái niệm “substantive request -> complete outcome”.
+
+Edited `skills/summarize-conversation/skill.md`:
+- Replaced the default behavior text with `summarize all substantive user requests and complete AI outcomes`.
+- Replaced `For each pair` with `For each request/outcome group`.
+- Replaced `For each interaction` with `For each request/outcome group`.
+
+Ran command: `git diff --check`
+Ran command: `git diff --stat`
+Ran command: `git diff -- skills/summarize-conversation/skill.md skills/summarize-conversation/README.md`
+
+Đã sửa skill `summarize-conversation` để workflow có implementation plan + user approval + execution được tính là **một entry**.
+
+Thay đổi chính:
+- `skills/summarize-conversation/skill.md`: định nghĩa lại entry theo “substantive user request → complete AI outcome”.
+- Thêm rule: approval thuần túy như `ok`, `approve`, `tiếp tục`, `thực hiện đi` là control message, không tạo entry riêng.
+- AI output của cùng entry sẽ bao gồm plan, phần thực hiện sau approval, tool/action summaries, và final conclusion.
+- `skills/summarize-conversation/README.md`: cập nhật mô tả grouping.
+
+Đã chạy `git diff --check`, không có lỗi whitespace.
+`````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI đã cập nhật skill lại đúng yêu cầu.
+
+### (5) Student Fix
+
+- Không cần fix.

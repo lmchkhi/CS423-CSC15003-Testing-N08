@@ -12,7 +12,7 @@ The user will invoke this skill when they want to summarize one or more interact
 
 The user may optionally specify:
 - Which interactions to include (e.g., "tóm tắt 2 prompt gần nhất")
-- If not specified, summarize **all user prompts and AI responses** in the current conversation
+- If not specified, summarize **all substantive user requests and complete AI outcomes** in the current conversation
 
 ---
 
@@ -20,9 +20,23 @@ The user may optionally specify:
 
 ### Step 1 — Read the Current Conversation
 
-Review the full conversation history between the user and the AI agent. Identify each distinct **user prompt → AI response** pair.
+Review the full conversation history between the user and the AI agent. Identify each distinct **substantive user request → complete AI outcome** pair.
 
-For each pair, extract:
+#### Handling implementation plans and approval messages
+
+Sometimes the agent first replies with an implementation plan, waits for the user to approve it, and only then performs the actual implementation. Treat that whole workflow as **one audit entry**, not two.
+
+Use these rules:
+- The original substantive user request is the entry's **User prompt**.
+- The agent's implementation plan, follow-up work after approval, tool/action summaries, and final conclusion are all part of the same entry's **AI response**.
+- A user message whose only purpose is approval or continuation (for example: "approve", "ok", "tiếp tục", "thực hiện đi", "đồng ý với plan") is a **control message**, not a new audit entry.
+- Do **not** create a separate entry for the approval message.
+- Do **not** treat the approval message as a separate artifact.
+- If the approval message also changes requirements, adds constraints, or asks for extra work, keep it in the same entry as part of the user prompt context, preserving it verbatim after the original request. Still do not split it into a separate entry unless it clearly starts an unrelated task.
+
+In short: when one user request leads to a plan, approval, implementation, and final answer, it still counts as **one input and one output** for the audit report.
+
+For each request/outcome group, extract:
 - **User prompt**: The full, verbatim text the user sent (the request/instruction)
 - **AI response**: The **COMPLETE** verbatim text the AI agent responded with. This includes **ALL** of the following:
   1. Tool calls and research steps (Listed directory, Viewed file, etc.)
@@ -42,7 +56,7 @@ Read `reports/ai-audit-report.md` to:
 
 ### Step 3 — Determine Artifact Type
 
-For each interaction, identify what the AI produced. Common artifact types:
+For each request/outcome group, identify what the AI produced. Common artifact types:
 - Agent skill (e.g., `Agent skill 'generate-bug-report'`)
 - Bug report (e.g., `Bug report cho TC-FR-01-001`)
 - Test cases (e.g., `Test cases cho FR-01`)
@@ -53,7 +67,7 @@ For each interaction, identify what the AI produced. Common artifact types:
 
 ### Step 4 — Compose Each Entry
 
-For each user prompt → AI response pair, read the template at `skills/summarize-conversation/templates/entry.md` and replace the placeholders:
+For each substantive user request → complete AI outcome pair, read the template at `skills/summarize-conversation/templates/entry.md` and replace the placeholders:
 - `{{ENTRY_NUMBER}}`: The entry number (e.g., `1`, `2`)
 - `{{TOOL_NAME}}`: The exact tool/model used (e.g., `Gemini 3.5 Flash`)
 - `{{TIMESTAMP}}`: The conversation timestamp formatted as `HH:MM AM/PM DD/MM/YYYY`
@@ -112,6 +126,7 @@ After appending entries, provide a brief summary:
 - Do NOT paraphrase or summarize the user prompt or AI output — they must be **verbatim copies**
 - Do NOT omit any part of the user prompt or AI response — especially do NOT truncate the AI response before its final summary/conclusion paragraph
 - The AI output section must capture EVERYTHING the agent sent to the user, from the first line to the absolute last line
+- Do NOT split implementation-plan approval workflows into multiple entries: the plan, approval continuation, implementation work, and final answer belong to the same entry for the original substantive request
 - The skill instructions are in English, but the generated output content follows the language used in the conversation (typically Vietnamese)
 
 ---
@@ -126,5 +141,6 @@ Before finalizing, verify:
 - [ ] Timestamp is in the correct format
 - [ ] Tool name matches the actual AI model used
 - [ ] Artifact type accurately describes what was produced
+- [ ] Implementation plan + approval workflows are grouped into one entry when they belong to the same original request
 - [ ] Verdict, Reasoning, and Student Fix are left as placeholders
 - [ ] No existing entries were modified

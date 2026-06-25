@@ -29,6 +29,10 @@ The agent will then:
 3. Create entries with verbatim copies of prompts and outputs
 4. Append entries to the report, leaving review sections as placeholders
 
+## Entry Grouping
+
+If the agent responds to a substantive user request with an implementation plan, the user approves that plan, and the agent then performs the work, the whole workflow is one audit entry. Pure approval messages such as "ok", "approve", "tiếp tục", or "thực hiện đi" are treated as continuation/control messages, not separate entries.
+
 ## File Structure
 
 ```
@@ -46,6 +50,7 @@ Entries are appended to `reports/ai-audit-report.md` following the existing form
 ## Key Rules
 
 - User prompts and AI outputs are **never** paraphrased — always verbatim
+- Implementation plan + user approval + completed implementation are grouped into one entry when they belong to the same original request
 - Verdict, Reasoning, and Student Fix are **always** left as placeholders
 - Nested code blocks use appropriate backtick levels to avoid markdown conflicts
 - Entry numbers continue sequentially from existing entries
