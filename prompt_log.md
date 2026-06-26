@@ -632,3 +632,129 @@ Mình sẽ tạo `prompt_log.md` mới vì repo chưa có file này. Entry sẽ 
 
 ### Notes
 Phạm vi log: conversation context khả dụng trong phiên hiện tại. Một số tool output rất dài hoặc là nội dung file sinh ra đã nằm trong workspace nên không được chép toàn văn vào transcript; log ghi nguyên văn các user message chính và phần tool/assistant context còn cần thiết làm evidence.
+
+## Prompt Log Entry - 2026-06-27 00:11:08 +07
+
+### Transcript
+
+````text
+User:
+<environment_context>
+  <current_date>2026-06-27</current_date>
+  <timezone>Asia/Ho_Chi_Minh</timezone>
+  <filesystem><workspace_roots><root>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</root></workspace_roots><permission_profile type="managed"><file_system type="restricted"><entry access="read"><special>:root</special></entry><entry access="write"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</path></entry><entry access="write"><special>:slash_tmp</special></entry><entry access="write"><special>:tmpdir</special></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.git</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.codex</path></entry></file_system></permission_profile></filesystem>
+</environment_context>
+
+User:
+$boundary-value-analysis
+$test-case-review
+$prompt-log
+
+Đánh giá và áp dụng BVA cho FR-10 dựa trên `requirements/system-requirements.md`.
+
+Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.
+
+Chỉ tạo BVA analysis và test case nếu FR-10 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.
+
+Tạo output theo cấu trúc hiện có.
+Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.
+
+User:
+<skill>
+<name>boundary-value-analysis</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/boundary-value-analysis/SKILL.md</path>
+---
+name: boundary-value-analysis
+description: Phân tích requirement bằng Boundary Value Analysis, xác định ON, OFF-, OFF+, xây dựng ma trận giá trị biên và sinh test case có khả năng truy vết. Sử dụng khi requirement có giới hạn min, max, độ dài, số lượng, ngày giờ, kích thước hoặc ngưỡng.
+---
+
+[Nội dung skill boundary-value-analysis có trong conversation context và đã được đọc từ file `.agents/skills/boundary-value-analysis/SKILL.md`; transcript đầy đủ của tool-read không được chép lại toàn văn vì output dài.]
+</skill>
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+[Nội dung skill prompt-log có trong conversation context và đã được đọc từ file `.agents/skills/prompt-log/SKILL.md`; transcript đầy đủ của tool-read không được chép lại toàn văn vì output dài.]
+</skill>
+
+User:
+<skill>
+<name>test-case-review</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-case-review/SKILL.md</path>
+---
+name: test-case-review
+description: Review QA analysis and generated test case files for black-box testing assignments. Use when Codex must audit Domain Testing or Boundary Value Analysis outputs for concrete test data, observable expected results, traceability, duplicates, invented constraints, Vietnamese format, and readiness before execution.
+---
+
+[Nội dung skill test-case-review có trong conversation context và đã được đọc từ file `.agents/skills/test-case-review/SKILL.md`; transcript đầy đủ của tool-read không được chép lại toàn văn vì output dài.]
+</skill>
+
+Assistant:
+Mình sẽ dùng `boundary-value-analysis`, `test-case-review`, rồi `prompt-log`. Trọng tâm ở đây là đánh giá tính phù hợp trước: FR-10 là state machine dạng categorical, nên mình sẽ kiểm tra kỹ để tránh tạo BVA gượng ép.
+
+Tool:
+Đã đọc `.agents/skills/boundary-value-analysis/SKILL.md`, `.agents/skills/test-case-review/SKILL.md`, `.agents/skills/prompt-log/SKILL.md`.
+
+Assistant:
+Mình đã đọc các skill review/log và phần đầu BVA; file BVA dài nên mình đọc tiếp phần còn lại trước khi viết artifact. Sau đó mình sẽ kiểm tra FR-10 và template BVA hiện có để giữ cấu trúc nhất quán.
+
+Tool:
+Đã đọc tiếp `.agents/skills/boundary-value-analysis/SKILL.md`, đoạn FR-10 trong `requirements/system-requirements.md`, phần liên quan trong `requirements/api-specification.md`, và `templates/bva-analysis-template.md`.
+
+Assistant:
+FR-10 chỉ nêu 5 trạng thái và các cạnh chuyển đổi, không có min/max/range/length/date/quantity limit để suy ra ON/OFF. Mình sẽ tạo BVA analysis dạng “không áp dụng được” theo template, không tạo thư mục test case BVA, rồi review quyết định đó.
+
+Tool:
+Đã đọc phần còn lại của BVA skill, `templates/bva-test-case-template.md`, và danh sách artifact FR-10 hiện có.
+
+Assistant:
+Mình đã xác nhận template test case BVA, nhưng vì không có boundary hợp lệ nên sẽ không tạo `tests/test-cases/.../bva/`. Bây giờ mình ghi analysis với đầy đủ 11 mục, trong đó các bảng BVA để trống có lý do thay vì tự chế giá trị biên.
+
+Tool:
+Đã đọc phần cuối `.agents/skills/boundary-value-analysis/SKILL.md`.
+
+Assistant:
+Mình sắp chỉnh file trong `analysis/FR-10-order-state-machine` và `reviews/FR-10-order-state-machine`. Các file Domain Testing cũ sẽ được giữ nguyên; phần BVA sẽ là artifact riêng, đúng yêu cầu “không tạo test case gượng ép”.
+
+Tool:
+Đã tạo `analysis/FR-10-order-state-machine/bva-analysis.md`.
+
+Assistant:
+BVA analysis đã ghi rõ “không áp dụng” và không tạo test case. Mình đang review artifact này: kiểm tra xem có vô tình đưa chi tiết API vào analysis không, có tạo thư mục/file test case BVA không, và lý do loại trừ có đủ truy vết về FR-10 không.
+
+Tool:
+Đã kiểm tra danh sách test case FR-10, không có file BVA mới. `rg` trên BVA analysis không tìm thấy endpoint, method, request body hoặc công cụ kiểm thử. Đã đọc lại `analysis/FR-10-order-state-machine/bva-analysis.md`.
+
+Assistant:
+Review xác nhận đúng hướng: không có file test case BVA mới, và analysis BVA không chứa endpoint/method/request body. Mình sẽ tạo review riêng cho BVA, kết luận là “không có test case để execution” vì FR-10 thiếu boundary phù hợp, không phải do artifact lỗi.
+
+Tool:
+Đã tạo `reviews/FR-10-order-state-machine/bva-review.md`.
+
+Assistant:
+Review BVA đã có. Mình sẽ chạy kiểm tra cuối trước khi log: danh sách artifact, chắc chắn không có test case BVA, và trạng thái git để báo lại sạch sẽ.
+
+Tool:
+Đã liệt kê artifact: `analysis/FR-10-order-state-machine/bva-analysis.md`, `reviews/FR-10-order-state-machine/bva-review.md`, các artifact Domain Testing cũ. Lệnh kiểm tra thư mục `tests/test-cases/FR-10-order-state-machine/bva` trả về code 1 vì thư mục không tồn tại. `rg` chỉ thấy cụm trong review nói không đưa chi tiết API vào artifact. `git status --short` hiển thị:
+?? analysis/FR-10-order-state-machine/bva-analysis.md
+?? reviews/FR-10-order-state-machine/bva-review.md
+
+Assistant:
+Kiểm tra cuối ổn: chỉ có `bva-analysis.md` và `bva-review.md` mới; lệnh kiểm tra thư mục `bva` trả về không tồn tại, đúng với quyết định không tạo test case. Mình append log vào `prompt_log.md` ngay bây giờ.
+
+Tool:
+`date '+%Y-%m-%d %H:%M:%S %Z'` trả về `2026-06-27 00:11:08 +07`.
+`tail -n 40 prompt_log.md` trả về phần cuối entry log trước đó.
+
+Assistant:
+Mình sẽ append entry log mới, giữ nguyên prompt chính của bạn và ghi rõ phạm vi là conversation context khả dụng. Các tool output dài sẽ được ghi ở mức phần nhìn thấy/cần thiết như entry trước, để không bịa lại nội dung không còn cần thiết trong log.
+````
+
+### Notes
+Phạm vi log: conversation context khả dụng trong phiên hiện tại. Các skill messages đầy đủ có trong conversation context nhưng được ghi rút gọn trong transcript do độ dài; các file skill đã được đọc trực tiếp từ workspace trước khi thực hiện. Không tạo test case BVA vì FR-10 không có boundary phù hợp.
