@@ -37,7 +37,7 @@ Xác minh tại 31 giây sau khi bị khóa, tài khoản đã vượt qua thờ
 4. Bấm đăng nhập.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập sau khi đã qua thời hạn khóa 30 giây. Client nhận JWT Token và người dùng có phiên đăng nhập mới.
+Hệ thống chấp nhận đăng nhập sau khi đã qua thời hạn khóa 30 giây. Client nhận JWT Token và người dùng có phiên đăng nhập mới. Nếu quan sát phản hồi API, `POST /api/login` trả `200 OK` với chuỗi JWT `token` và thông tin `user`.
 
 ## Traceability
 - Requirement: FR-02

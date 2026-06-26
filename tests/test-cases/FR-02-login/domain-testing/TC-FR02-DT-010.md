@@ -27,11 +27,11 @@ Xác minh sau khi đăng nhập thành công và nhận JWT Token, client lưu t
 1. Đăng nhập bằng `test@eshop.com` và `Test1234!`.
 2. Xác nhận đăng nhập thành công và có JWT Token.
 3. Mở công cụ theo dõi network hoặc nơi lưu token phía client.
-4. Thực hiện một request cần xác thực, ví dụ mở trang hồ sơ cá nhân.
+4. Thực hiện một request cần xác thực, ví dụ mở trang hồ sơ cá nhân tương ứng `GET http://localhost:3000/api/users/me` theo API spec.
 5. Quan sát header của request cần xác thực.
 
 ## Expected result
-Client lưu JWT Token sau khi đăng nhập thành công. Request cần xác thực có header `Authorization: Bearer <token>`. Nếu không quan sát được header bằng công cụ hiện tại, ghi nhận là bị chặn do thiếu khả năng quan sát thay vì kết luận Pass/Fail.
+Client lưu JWT Token sau khi đăng nhập thành công. Request cần xác thực có header `Authorization: Bearer <token>`; với ví dụ hồ sơ cá nhân, request là `GET /api/users/me`. Nếu không quan sát được header bằng công cụ hiện tại, ghi nhận là bị chặn do thiếu khả năng quan sát thay vì kết luận Pass/Fail.
 
 ## Traceability
 - Requirement: FR-02

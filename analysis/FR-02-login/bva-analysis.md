@@ -10,7 +10,7 @@
 | Validation rules | Trường email phải dùng `type="email"` và có validate HTML5 format. |
 | Business rules | Sau mỗi lần đăng nhập sai, hệ thống tăng bộ đếm lên đúng 1 đơn vị. Nếu đăng nhập sai từ 3 lần trở lên liên tiếp, tài khoản bị tạm khóa 30 giây trong môi trường demo. |
 | Preconditions | Người dùng truy cập màn hình đăng nhập. Tài khoản test có thể được đưa về trạng thái không khóa trước từng nhóm test. |
-| Success condition | Đăng nhập thành công trả về JWT Token. Token được lưu phía client và gửi kèm request xác thực qua header `Authorization: Bearer <token>`. |
+| Success condition | Đăng nhập thành công trả về JWT Token; theo API spec, `POST /api/login` thành công trả `200 OK` với `token` và `user`. Token được lưu phía client và gửi kèm request xác thực qua header `Authorization: Bearer <token>`. |
 | Error condition | Đăng nhập sai bị từ chối; từ 3 lần sai liên tiếp trở lên tài khoản bị khóa tạm thời; hệ thống trả thông báo lỗi phù hợp và không để lộ chi tiết nguyên nhân. |
 
 ## 2. Các biến có biên

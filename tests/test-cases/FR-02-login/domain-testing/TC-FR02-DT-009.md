@@ -29,10 +29,10 @@ Xác minh người dùng có thể đăng nhập lại bằng thông tin đúng 
 2. Nhập `test@eshop.com` vào trường Email.
 3. Nhập `Test1234!` vào trường Mật khẩu.
 4. Bấm nút đăng nhập.
-5. Quan sát trạng thái đăng nhập và JWT Token được trả về.
+5. Quan sát trạng thái đăng nhập và JWT Token được trả về; nếu quan sát ở mức API, login là `POST http://localhost:3000/api/login` với body JSON `{"email":"test@eshop.com","password":"Test1234!"}`.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập tại hoặc sau khi hết thời gian khóa 30 giây. Hệ thống trả JWT Token và người dùng được vào khu vực đã đăng nhập. Việc client lưu/gửi token cho request xác thực được kiểm tra riêng ở `TC-FR02-DT-010`.
+Hệ thống chấp nhận đăng nhập tại hoặc sau khi hết thời gian khóa 30 giây. Hệ thống trả JWT Token và người dùng được vào khu vực đã đăng nhập; nếu quan sát phản hồi API, `POST /api/login` trả `200 OK` với chuỗi JWT `token` và thông tin `user`. Việc client lưu/gửi token cho request xác thực được kiểm tra riêng ở `TC-FR02-DT-010`.
 
 ## Traceability
 - Requirement: FR-02

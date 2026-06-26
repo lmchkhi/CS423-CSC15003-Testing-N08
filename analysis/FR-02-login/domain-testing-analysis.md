@@ -9,7 +9,7 @@
 | Actor | Người dùng |
 | Preconditions | Người dùng truy cập màn hình đăng nhập. Tài khoản có thể tồn tại hoặc không tồn tại tùy test condition. |
 | Input | Email, Mật khẩu, trạng thái tài khoản/bộ đếm đăng nhập sai. |
-| Output | JWT Token khi đăng nhập thành công; thông báo lỗi phù hợp khi đăng nhập thất bại hoặc tài khoản bị khóa. |
+| Output | JWT Token khi đăng nhập thành công; theo API spec, `POST /api/login` thành công trả `200 OK` với chuỗi JWT `token` và thông tin `user`. Thông báo lỗi phù hợp khi đăng nhập thất bại hoặc tài khoản bị khóa. |
 | Business rules | Sau mỗi lần đăng nhập sai, hệ thống tăng bộ đếm lên đúng 1 đơn vị. Nếu đăng nhập sai từ 3 lần trở lên liên tiếp, tài khoản bị tạm khóa 30 giây trong môi trường demo. |
 | Validation rules | Trường email phải dùng `type="email"` và có validate HTML5 format. |
 | Dependency | Token được lưu phía client và gửi kèm các yêu cầu có xác thực qua header `Authorization: Bearer <token>`. |
@@ -25,8 +25,8 @@
 | `password` | String | Có | Requirement không đặc tả format riêng cho mật khẩu khi đăng nhập; trạng thái rỗng là điều kiện kiểm thử suy ra từ việc người dùng phải nhập Mật khẩu | Mật khẩu đúng với tài khoản, ví dụ `Test1234!` | Mật khẩu rỗng hoặc không khớp tài khoản, ví dụ `Wrong123!` | Kết hợp với email đã tồn tại để xác định đăng nhập thành công/thất bại | FR-02: "Người dùng nhập Email và Mật khẩu" |
 | `failed_login_count` | Integer system state | Có | Số lần đăng nhập sai liên tiếp của tài khoản | 0, 1, 2 lần sai liên tiếp và chưa bị khóa | Từ 3 lần sai liên tiếp trở lên dẫn đến khóa tạm thời | Chỉ thay đổi sau đăng nhập sai; dùng để xác định lock state | FR-02: tăng bộ đếm đúng 1; khóa nếu sai từ 3 lần trở lên liên tiếp |
 | `account_lock_state` | System state | Có | Tài khoản không khóa, đang khóa trong 30 giây, hoặc đã hết thời gian khóa tại/sau mốc 30 giây | Không khóa hoặc đã hết khóa tại hoặc sau 30 giây | Đang trong 30 giây khóa | Phụ thuộc vào `failed_login_count` và thời điểm kiểm thử | FR-02: khóa tạm 30 giây |
-| `auth_token_response` | Response state | Có sau login thành công | Hệ thống trả JWT Token sau đăng nhập thành công | Response/kết quả đăng nhập có JWT Token | Không có JWT Token sau login thất bại hoặc khi bị khóa | Phụ thuộc kết quả xác thực thành công | FR-02: đăng nhập thành công trả về JWT Token |
-| `client_token_storage` | Client state | Có sau khi nhận token | Client lưu JWT Token và gửi qua `Authorization: Bearer <token>` cho request cần xác thực | Request xác thực sau login có header `Authorization: Bearer <token>` | Không lưu token hoặc không gửi header cho request cần xác thực | Phụ thuộc `auth_token_response` | FR-02: Token được lưu phía client và gửi kèm request xác thực |
+| `auth_token_response` | Response state | Có sau login thành công | Hệ thống trả JWT Token sau đăng nhập thành công; API login là `POST /api/login` với body JSON gồm `email` và `password` | Response/kết quả đăng nhập có JWT Token; theo API spec phản hồi thành công `200 OK` có `token` và `user` | Không có JWT Token sau login thất bại hoặc khi bị khóa | Phụ thuộc kết quả xác thực thành công | FR-02: đăng nhập thành công trả về JWT Token; API spec 1.2 |
+| `client_token_storage` | Client state | Có sau khi nhận token | Client lưu JWT Token và gửi qua `Authorization: Bearer <token>` cho request cần xác thực | Request xác thực sau login có header `Authorization: Bearer <token>`; ví dụ `GET /api/users/me` theo API spec | Không lưu token hoặc không gửi header cho request cần xác thực | Phụ thuộc `auth_token_response` | FR-02: Token được lưu phía client và gửi kèm request xác thực; API spec 2.1 |
 
 ## 3. Phân vùng tương đương
 

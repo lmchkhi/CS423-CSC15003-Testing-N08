@@ -26,10 +26,10 @@ Xác minh người dùng đăng nhập thành công khi email và mật khẩu h
 1. Nhập `test@eshop.com` vào trường Email.
 2. Nhập `Test1234!` vào trường Mật khẩu.
 3. Bấm nút đăng nhập.
-4. Quan sát kết quả đăng nhập và JWT Token được trả về hoặc trạng thái đã đăng nhập của client.
+4. Quan sát kết quả đăng nhập và JWT Token được trả về hoặc trạng thái đã đăng nhập của client; nếu quan sát ở mức API, login là `POST http://localhost:3000/api/login` với body JSON `{"email":"test@eshop.com","password":"Test1234!"}`.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập và trả JWT Token. Người dùng có phiên đăng nhập mới hoặc được chuyển vào khu vực đã đăng nhập. Không hiển thị lỗi đăng nhập.
+Hệ thống chấp nhận đăng nhập và trả JWT Token. Nếu quan sát phản hồi API, `POST /api/login` trả `200 OK` với chuỗi JWT `token` và thông tin `user`. Người dùng có phiên đăng nhập mới hoặc được chuyển vào khu vực đã đăng nhập. Không hiển thị lỗi đăng nhập.
 
 ## Traceability
 - Requirement: FR-02

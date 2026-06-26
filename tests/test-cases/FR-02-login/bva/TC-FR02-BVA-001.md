@@ -38,7 +38,7 @@ Xác minh giá trị ngay dưới ngưỡng khóa, 2 lần đăng nhập sai li�
 4. Bấm đăng nhập.
 
 ## Expected result
-Hai lần đăng nhập sai đều bị từ chối, không trả JWT Token và không tạo phiên đăng nhập mới. Sau đúng 2 lần sai liên tiếp, tài khoản chưa bị khóa; lần đăng nhập bằng `Test1234!` được chấp nhận nếu không có lỗi khác và client nhận JWT Token.
+Hai lần đăng nhập sai đều bị từ chối, không trả JWT Token và không tạo phiên đăng nhập mới. Sau đúng 2 lần sai liên tiếp, tài khoản chưa bị khóa; lần đăng nhập bằng `Test1234!` được chấp nhận nếu không có lỗi khác và client nhận JWT Token. Nếu quan sát phản hồi API cho lần đăng nhập đúng, `POST /api/login` trả `200 OK` với chuỗi JWT `token` và thông tin `user`.
 
 ## Traceability
 - Requirement: FR-02

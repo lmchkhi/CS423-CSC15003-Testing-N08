@@ -37,7 +37,7 @@ Xác minh đúng mốc 30 giây sau khi bị khóa, tài khoản không còn b�
 4. Bấm đăng nhập.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập tại thời điểm đủ 30 giây sau khi khóa. Client nhận JWT Token và người dùng có phiên đăng nhập mới. Nếu thao tác thủ công không đảm bảo đúng mốc 30 giây, kết quả cần được ghi nhận kèm rủi ro timing thay vì kết luận lỗi ngay.
+Hệ thống chấp nhận đăng nhập tại thời điểm đủ 30 giây sau khi khóa. Client nhận JWT Token và người dùng có phiên đăng nhập mới. Nếu quan sát phản hồi API, `POST /api/login` trả `200 OK` với chuỗi JWT `token` và thông tin `user`. Nếu thao tác thủ công không đảm bảo đúng mốc 30 giây, kết quả cần được ghi nhận kèm rủi ro timing thay vì kết luận lỗi ngay.
 
 ## Traceability
 - Requirement: FR-02

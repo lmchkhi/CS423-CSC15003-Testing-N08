@@ -1390,3 +1390,258 @@ Kiểm tra cuối ổn: `TC-001` không còn kiểm tra header, `TC-010` đảm 
 
 ### Notes
 Log này ghi `conversation context khả dụng` của lượt sửa Domain Testing. Các khối skill đầy đủ xuất hiện trong context nhưng được rút gọn tại entry này để tránh lặp lại nội dung dài đã lưu ở các entry trước. Artifact đã sửa gồm `analysis/FR-02-login/domain-testing-analysis.md`, các test case `TC-FR02-DT-001`, `TC-FR02-DT-002`, `TC-FR02-DT-004`, `TC-FR02-DT-009`, test case mới `TC-FR02-DT-010`, và `reviews/FR-02-login/domain-testing-review.md`.
+
+## Prompt Log Entry - 2026-06-26 19:45:38 +07
+
+### Transcript
+
+````text
+User:
+$test-case-review
+$prompt-log
+
+Đối chiếu analysis và test case FR-02 hiện tại với:
+- `requirements/system-requirements.md`
+- `requirements/api-specification.md`
+
+Chỉ bổ sung chi tiết API vào những test case vốn đã kiểm tra hành vi API.
+Không tạo lại test case, không đổi mục tiêu kiểm thử, không đổi template và không thêm field hoặc section mới.
+Không chuyển test UI thành test API, không tự thêm công cụ kiểm thử.
+Nếu API specification không bổ sung thông tin cần thiết cho một file thì giữ nguyên file đó.
+
+Sửa trực tiếp các file thực sự cần thiết và append log vào `prompt_log.md`.
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+# Prompt Log Skill
+
+## 1. Mục đích
+
+Ghi lại nguyên văn toàn bộ đoạn chat hoặc phần hội thoại khả dụng vào `prompt_log.md` sau khi một prompt/task đã hoàn thành. Skill này dùng để lưu evidence về cách đã dùng AI trong bài tập, nên độ trung thực của transcript quan trọng hơn độ gọn đẹp.
+
+## 2. Nguyên tắc bắt buộc
+
+1. Ghi log sau khi đã hoàn thành việc chính của prompt.
+2. Không thay thế nội dung cũ trong `prompt_log.md`; luôn append thêm entry mới.
+3. Nếu không truy cập được toàn bộ lịch sử hội thoại, ghi rõ phạm vi log là `conversation context khả dụng`.
+4. Copy nguyên văn câu chữ, thứ tự, lỗi chính tả, cách viết tắt, dấu câu và ngôn ngữ của từng message trong context.
+5. Không tóm tắt, không diễn giải, không sửa văn phong, không dịch, không chuẩn hóa câu chữ.
+6. Không bịa lại nội dung chat không có trong context.
+7. Chỉ được thay đổi nội dung khi cần che bí mật như token, password, key hoặc credential; thay đúng phần bí mật bằng `[REDACTED]`.
+8. Nếu có tool output quá dài không còn đầy đủ trong context, ghi nguyên văn phần còn thấy được và ghi chú rõ phần bị thiếu.
+
+## 3. File output
+
+Ghi tại root project:
+
+`prompt_log.md`
+
+Nếu file chưa tồn tại, tạo file mới.
+
+## 4. Format entry
+
+Mỗi lần ghi log, thêm một entry:
+
+```md
+## Prompt Log Entry - <YYYY-MM-DD HH:mm:ss TZ>
+
+### Transcript
+
+```text
+User:
+<copy nguyên văn user message>
+
+Assistant:
+<copy nguyên văn assistant message>
+
+Tool:
+<copy nguyên văn tool call/output khả dụng nếu cần lưu evidence>
+```
+
+### Notes
+<Chỉ ghi metadata hoặc giới hạn context, ví dụ: "Một phần hội thoại trước đó không còn trong context". Không tóm tắt nội dung chat tại đây trừ khi người dùng yêu cầu riêng.>
+```
+
+## 5. Khi người dùng yêu cầu "toàn bộ đoạn chat"
+
+1. Ghi transcript đầy đủ nhất có trong context hiện tại.
+2. Phân vai rõ `User`, `Assistant`, `Tool`, hoặc `System note` nếu cần.
+3. Nếu context đã bị compact hoặc thiếu đoạn cũ, ghi chú: `Một phần hội thoại trước đó không còn trong context, chỉ log phần khả dụng`.
+4. Không tự tạo lại nguyên văn những đoạn không còn nhìn thấy.
+5. Không thay một đoạn chat bằng summary. Nếu đoạn nào không thể copy nguyên văn, bỏ đoạn đó và ghi rõ lý do trong `Notes`.
+
+## 6. Khi dùng cùng skill khác
+
+Nếu prompt chính dùng `$qa-workflow`, `$domain-testing`, `$boundary-value-analysis`, `$test-case-review`, `$test-execution`, hoặc `$bug-report`, hoàn thành skill chính trước. Sau đó mới dùng `$prompt-log` để append entry vào `prompt_log.md`.
+
+</skill>
+
+User:
+<skill>
+<name>test-case-review</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-case-review/SKILL.md</path>
+---
+name: test-case-review
+description: Review QA analysis and generated test case files for black-box testing assignments. Use when Codex must audit Domain Testing or Boundary Value Analysis outputs for concrete test data, observable expected results, traceability, duplicates, invented constraints, Vietnamese format, and readiness before execution.
+---
+
+# Test Case Review Skill
+
+## 1. Mục đích
+
+Review test case đã tạo trước khi execution. Skill này không mặc định sinh test case mới; chỉ phân tích lỗi, đề xuất sửa, và chỉ sửa file khi người dùng yêu cầu rõ ràng hoặc task đang yêu cầu hoàn thiện artifact.
+
+## 2. Quy tắc ngôn ngữ
+
+1. Toàn bộ output viết bằng tiếng Việt.
+2. Giữ nguyên ID, route, URL, field name, test data, thông báo hệ thống và đường dẫn file.
+3. Có thể giữ các thuật ngữ: Domain Testing, Boundary Value Analysis, Expected Result, Actual Result, Traceability, Preconditions, Pass, Fail, Blocked, Not Run.
+
+## 3. Nguyên tắc review
+
+1. Xem hệ thống như black-box.
+2. Không đọc source code để suy ra expected result trừ khi người dùng yêu cầu.
+3. Không bịa constraint, validation rule, business rule hoặc thông báo lỗi.
+4. Nếu requirement thiếu thông tin, ghi `Chưa được đặc tả` hoặc `Giả định cần xác nhận`.
+5. Phân biệt lỗi nghiêm trọng cần sửa với gợi ý cải thiện.
+6. Không biến một test case thành nhiều mục tiêu kiểm thử chính.
+7. Không gán Pass/Fail khi chưa có Actual Result.
+
+## 4. Checklist review
+
+Review từng analysis file và test case file theo các điểm sau:
+
+- Requirement reference có đúng và đầy đủ không.
+- Technique có đúng với nội dung không: Domain Testing hay BVA.
+- Test case ID, condition ID, equivalence class ID hoặc boundary value ID có nhất quán không.
+- Test data có giá trị cụ thể, không chỉ ghi `valid`, `invalid`, `empty`, `too long`.
+- Expected Result có quan sát được không: accepted/rejected, validation message nếu requirement có nêu, redirect, data created/updated/not changed.
+- Test steps có thực thi được theo UI/API được mô tả không.
+- Preconditions có đủ để chạy test không.
+- Invalid case có isolate một điều kiện chính không.
+- Các input khác có dùng valid nominal value không.
+- BVA string length đã đếm đúng số ký tự chưa.
+- Domain Matrix hoặc BVA Matrix có nằm trong analysis, không lặp lại đầy đủ trong từng test case.
+- Test case có duplicate mục tiêu, duplicate data hoặc duplicate coverage không.
+- Status ban đầu phải là `Not Run / None` nếu chưa execution.
+- Output có đúng tiếng Việt và đúng format template project không.
+
+## 5. Cách review
+
+### Bước 1: Thu thập ngữ cảnh
+
+Đọc các file liên quan:
+
+- `requirements/<FEATURE-ID>-<feature-name>.md`
+- `analysis/<FEATURE-ID>-<feature-name>/*.md`
+- `tests/test-cases/<FEATURE-ID>-<feature-name>/**/*.md`
+- Template trong `templates/` nếu cần đối chiếu format.
+
+### Bước 2: Lập danh sách phát hiện
+
+Mỗi finding nên có:
+
+- Mã finding: `REV-<FEATURE-ID>-<NNN>`
+- Mức độ: `Critical`, `Major`, `Minor`
+- File và dòng nếu có thể xác định
+- Mô tả vấn đề
+- Ảnh hưởng đến test quality
+- Đề xuất sửa cụ thể
+
+### Bước 3: Kiểm tra traceability
+
+Lập bảng:
+
+| Test Case ID | Requirement | Analysis condition | Class/Boundary | Trạng thái | Ghi chú |
+|---|---|---|---|---|---|
+
+Trạng thái gồm:
+
+- `Hợp lệ`
+- `Thiếu liên kết`
+- `Sai liên kết`
+- `Cần xác nhận`
+
+### Bước 4: Kiểm tra coverage và duplicate
+
+Lập bảng ngắn:
+
+| Coverage item | Test case cover | Trạng thái | Ghi chú |
+|---|---|---|---|
+
+Không yêu cầu tạo Cartesian product. Chỉ đánh dấu gap khi class, boundary, hoặc dependent condition đã được chọn trong analysis nhưng không có test case tương ứng.
+
+### Bước 5: Kết luận sẵn sàng execution
+
+Kết luận một trong các trạng thái:
+
+- `Sẵn sàng execution`
+- `Cần sửa trước execution`
+- `Bị chặn do thiếu requirement`
+
+## 6. Output mặc định
+
+Nếu người dùng không chỉ định file output, tạo review tại:
+
+`reviews/<FEATURE-ID>-<feature-name>/<technique>-review.md`
+
+Với cấu trúc:
+
+```md
+# Review test case - <FEATURE-ID>: <Feature Name>
+
+## 1. Phạm vi review
+
+## 2. Tóm tắt kết quả
+
+## 3. Findings cần sửa
+
+## 4. Traceability audit
+
+## 5. Coverage và duplicate audit
+
+## 6. Kết luận readiness
+
+## 7. Giả định và thông tin cần xác nhận
+```
+
+## 7. Khi được yêu cầu sửa file
+
+1. Sửa tối thiểu để khắc phục finding.
+2. Giữ ID đã có nếu không bắt buộc đổi.
+3. Không tạo expected result mới vượt quá requirement.
+4. Cập nhật review để ghi rõ finding nào đã được xử lý.
+
+</skill>
+
+Assistant:
+Mình sẽ dùng `test-case-review` để đối chiếu artifact FR-02 với requirement/spec, rồi dùng `prompt-log` sau cùng để append transcript. Trước hết mình đọc nhanh cấu trúc file liên quan để chỉ chạm đúng chỗ cần sửa.
+
+Assistant:
+Mình đã thấy FR-02 có cả Domain Testing và BVA, cùng một test-run đã tồn tại. Bây giờ mình sẽ đọc requirement/spec và các test case để nhận diện case nào thật sự đang kiểm tra API, tránh biến các case UI thành API.
+
+Assistant:
+Spec API cho FR-02 chỉ bổ sung endpoint `POST /api/login`, body JSON, base URL và phản hồi thành công có `token` + `user`. Mình sẽ quét test case hiện tại để tìm đúng những case đã ghi “API”, “POST”, endpoint, response, token hoặc header.
+
+Assistant:
+Các analysis có nhắc response/token/header theo mức khái niệm; trong test case, ứng viên cần bổ sung cụ thể nhất là các case đã quan sát JWT/header. Mình đọc nguyên mẫu các file này để sửa đúng phần `Steps`/`Expected Result` hiện có, không thêm field mới.
+
+Assistant:
+Mình sẽ sửa tối thiểu: không thêm section, không thêm cột/bảng mới, không thêm test data row mới. API spec chỉ cung cấp chi tiết hữu ích cho login success (`POST http://localhost:3000/api/login`, body `email/password`, response `200 OK` có `token` và `user`) và request xác thực mẫu (`GET /api/users/me` với `Authorization: Bearer <token>`), nên mình chỉ bổ sung những chi tiết đó vào các câu/bước đang quan sát token/header.
+
+Assistant:
+Đã sửa xong phần chính. Mình đang rà diff để chắc không lỡ thêm template/field/section mới và không động vào các case invalid vì API spec không nêu thêm status/error cụ thể cho khóa hoặc login sai.
+
+Assistant:
+Diff đúng phạm vi: chỉ 2 analysis và 6 test case có sẵn được chỉnh câu chữ. Mình append log ngay bây giờ, sau đó sẽ báo ngắn gọn file nào đã đổi và điểm nào cố ý giữ nguyên.
+````
+
+### Notes
+Log này ghi `conversation context khả dụng` của lượt đối chiếu FR-02 với `requirements/system-requirements.md` và `requirements/api-specification.md`. Tool call/output chi tiết không được chép toàn bộ vào transcript này; các thao tác chính khả dụng trong context gồm đọc skill, đọc requirement/spec, quét FR-02 bằng `rg`, xem diff bằng `git diff`, sửa bằng `apply_patch`, và append entry này.
