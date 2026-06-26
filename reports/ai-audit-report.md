@@ -2143,3 +2143,116 @@ Thay đổi chính:
 ### (5) Student Fix
 
 - Không cần fix.
+
+## Entry #19
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | GPT-5.5                                                                          |
+| **Timestamp**     | 01:50 PM 26/06/2026                                                             |
+| **Artifact type** | Bug report cho `BUG-FR-24-001`                                                  |
+
+**Full prompt:**
+
+````
+Với các test case bị ảnh hưởng cụ thể bởi việc thiếu trường xác nhận mật khẩu trong FR-24, hãy giúp tôi đánh Failed/Blocked cho phù hợp rồi dùng skill @skills/generate-bug-report/skill.md để tạo ra bug cho việc thiếu trường đó
+````
+
+### (2) AI Output
+
+````
+Mình đã xác định đúng các test case liên quan nhất: `TC-FR-24-001` và `TC-FR-24-013` là bị ảnh hưởng trực tiếp, còn các case khác không bị block bởi lỗi này nếu vẫn có thể test các field còn lại. Giờ mình sẽ cập nhật status và tạo bug report theo skill.
+Mình đã tạo `BUG-FR-24-001`; tiếp theo cập nhật test run để summary khớp với status mới.
+Đã cập nhật đúng theo `FR-24`:
+
+- `TC-FR-24-001` -> `Blocked / BUG-FR-24-001`
+- `TC-FR-24-013` -> `Failed / BUG-FR-24-001`
+- Tạo bug report mới: `bug-reports/BUG-FR-24-001.md`
+- Cập nhật test run: `tests/test-runs/FR-24-register-run.md`
+
+Lý do:
+- `TC-FR-24-001` không thực thi đúng kịch bản vì thiếu field `Xác nhận mật khẩu`, nên nên `Blocked`.
+- `TC-FR-24-013` kiểm trực tiếp requirement “xác nhận mật khẩu không khớp thì bị từ chối”, nên `Failed` vì app không hỗ trợ đúng requirement.
+
+Nếu muốn, mình có thể tiếp tục rà toàn bộ `FR-24` để xem test case nào khác cũng cần đổi từ `Not Run` sang `Blocked` do cùng lỗi này.
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- AI tạo ra bug report đúng yêu cầu nhưng chưa thực hiện việc đánh Failed/Blocked cho đầy đủ các test case bị ảnh hưởng bởi bug này.
+
+### (5) Student Fix
+
+- Trình bày lại để AI tiếp tục đánh blocked các test case bị ảnh hưởng khác.
+
+## Entry #20
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | GPT-5.5                                                                          |
+| **Timestamp**     | 01:50 PM 26/06/2026                                                             |
+| **Artifact type** | Update test cases / test run for FR-24                                           |
+
+**Full prompt:**
+
+````
+Tại sao các test case khác cũng có test step nhận xác nhận mật khẩu nhưng chưa bị báo Blocked
+````
+
+### (2) AI Output
+
+````
+Bạn đúng: nếu chấm theo test case đã viết, mọi case có step bắt buộc nhập `Xác nhận mật khẩu` đều bị ảnh hưởng. Mình đã xử lý hơi hẹp theo “mục tiêu kiểm thử trực tiếp”; giờ mình sẽ chỉnh các case còn lại sang `Blocked` để nhất quán với test steps.
+Bạn bắt đúng lỗi trong cách xử lý trước của mình.
+
+Các test case khác cũng có step nhập `Xác nhận mật khẩu`, nên nếu giữ nguyên test case như đã viết thì chúng **cũng bị Blocked**, vì tester không thể thực hiện đầy đủ test steps trên app thật.
+
+Mình đã chỉnh lại cho nhất quán:
+
+- `TC-FR-24-001` -> `Blocked`
+- `TC-FR-24-002` đến `TC-FR-24-012` -> `Blocked`
+- `TC-FR-24-013` -> `Failed`
+- `TC-FR-24-014` đến `TC-FR-24-016` -> `Blocked`
+
+Tổng kết mới trong `tests/test-runs/FR-24-register-run.md`:
+
+| Status | Count |
+|---|---:|
+| Passed | 0 |
+| Failed | 1 |
+| Blocked | 15 |
+| Not Run | 0 |
+| Total | 16 |
+
+Lý do giữ `TC-FR-24-013` là `Failed`: test case này kiểm trực tiếp requirement “xác nhận mật khẩu không khớp thì bị từ chối”, nhưng app không có field đó nên requirement này không được hỗ trợ.
+
+Các file đã cập nhật:
+
+- `tests/test-runs/FR-24-register-run.md`
+- `tests/test-cases/FR-24-register(mobile)/TC-FR-24-002.md` đến `TC-FR-24-012.md`
+- `tests/test-cases/FR-24-register(mobile)/TC-FR-24-014.md` đến `TC-FR-24-016.md`
+
+Bug dùng chung vẫn là:
+
+- `bug-reports/BUG-FR-24-001.md`
+````
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI thành công đánh lại failed/blocked cho tất cả các test case bị ảnh hưởng bởi bug này.
+
+### (5) Student Fix
+
+- Không cần fix.
