@@ -1,4 +1,0 @@
-interface:
-  display_name: "Test Execution"
-  short_description: "Record manual QA test runs"
-  default_prompt: "Use $test-execution to execute approved test cases and record actual results, evidence, and status."

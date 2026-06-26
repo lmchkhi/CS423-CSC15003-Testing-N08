@@ -1,4 +1,0 @@
-interface:
-  display_name: "Prompt Log"
-  short_description: "Append verbatim chats to prompt_log.md"
-  default_prompt: "Use $prompt-log to append the completed prompt session verbatim, without editing or summarizing, to prompt_log.md."

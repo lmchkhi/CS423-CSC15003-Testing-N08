@@ -1,4 +1,0 @@
-interface:
-  display_name: "Bug Report"
-  short_description: "Create reproducible defect reports"
-  default_prompt: "Use $bug-report to turn a failed test case with actual results and evidence into a reproducible bug report."

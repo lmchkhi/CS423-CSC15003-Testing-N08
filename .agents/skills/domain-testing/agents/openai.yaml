@@ -1,4 +1,0 @@
-interface:
-  display_name: "Domain Testing"
-  short_description: "Analyze domains and equivalence classes"
-  default_prompt: "Use $domain-testing to analyze a functional requirement, build equivalence classes, and generate traceable Vietnamese test cases."

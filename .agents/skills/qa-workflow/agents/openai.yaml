@@ -1,4 +1,0 @@
-interface:
-  display_name: "QA Workflow"
-  short_description: "Coordinate black-box QA workflow"
-  default_prompt: "Use $qa-workflow to choose the right QA technique, generate analysis and test cases, review them, and stop before execution unless requested."
