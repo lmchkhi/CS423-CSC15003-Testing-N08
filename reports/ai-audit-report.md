@@ -2067,7 +2067,29 @@ Tất cả nội dung đã được điều chỉnh cho mobile app context (dùn
 ````
 skills/summarize-conversation
 Đôi khi sau khi prompt agent sẽ tạo ra một implementation plan và user approve cho nó thực hiện, lúc này thay vì tính tất cả là 1 entry thì agent lại chia ra prompt đầu là 1 entry, lúc approve plan là 1 entry khác. Giúp tôi sửa skill để khắc phục điều đó: Nếu có implemention plan và approval từ người dùng thì cả đống đó vẫn tính là 1 entry vì chỉ có 1 input và 1 output.
-````
+````-001** | BUG-001 + BUG-005 | Thiếu trường "Xác nhận mật khẩu" → block TC-001 và TC-013 |
+| **BUG-FR-01-002** | BUG-002 + BUG-003 + BUG-004 | Hệ thống ưu tiên validate MK trước email, báo lỗi MK yếu thay vì lỗi email |
+| **BUG-FR-01-003** | BUG-006 + BUG-007 | Logic validate MK sai — MK hợp lệ (8-9 ký tự đủ điều kiện) bị từ chối |
+
+### Files đã xóa:
+- `BUG-FR-01-004.md`, `BUG-FR-01-005.md`, `BUG-FR-01-006.md`, `BUG-FR-01-007.md`
+
+### Test Run:
+- Cập nhật tất cả status và bug reference cho nhất quán.
+- Tổng kết mới: 8 Passed, 4 Failed, 2 Blocked, 0 Not Run.
+`````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- AI vẫn giữ status của một số test case như TC-FR-01-008, TC-FR-01-009,... là Passed/Failed thay vì đổi thành Blocked. Vì các test case này đều có step nhập mật khẩu và xác nhận mật khẩu nên không thể test.
+
+### (5) Student Fix
+
+- Sửa lại status và ghi chú related bug cho các test case còn sót l
 
 ### (2) AI Output
 
@@ -2256,3 +2278,104 @@ Bug dùng chung vẫn là:
 ### (5) Student Fix
 
 - Không cần fix.
+
+## Entry #21
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                                          |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6                                                                  |
+| **Timestamp**     | 03:09 PM 26/06/2026                                                             |
+| **Artifact type** | Đánh giá lại status test cases FR-01 (Failed vs Blocked) và gộp bug reports duplicate |
+
+**Full prompt:**
+
+````
+Giúp tôi xem lại các test case và bug report của FR-01 xem có cần sửa lại cho phù hợp hay merge một số bug lại không. Vì website không có trường nhập lại mật khẩu (có trong test data và test step của đa số test case). Nếu có hãy giúp tôi sửa và cập nhật lại các test case, bug report, và test run của FR-01 cho phù hợp
+````
+
+### (2) AI Output
+
+`````
+Searched for all FR-01 related files in the workspace:
+- tests/test-cases/FR-01-register/ (16 files: TC-FR-01-001.md to TC-FR-01-016.md)
+- bug-reports/ (7 files: BUG-FR-01-001.md to BUG-FR-01-007.md)
+- tests/test-runs/FR-01-register-run.md
+
+Viewed all 16 test case files, all 7 bug report files, and the test run file.
+
+Asked user: TC-FR-01-013 should be deleted or marked N/A?
+User answered: "Không xóa test case nào hết, nhưng xem lại liệu chúng là failed hay là blocked, do trường xác nhận mật khẩu không có nằm trong test steps"
+
+Asked user: Confirm approach — TC-013 = Blocked, others keep status?
+User answered: "Giữ hết test case lẫn test data và test step, chỉ đánh giá lại kết quả là failed hay blocked thôi. Và các bug có bị duplicate hay không, có cần gộp lại hay k"
+
+Analysis completed:
+- TC-FR-01-001: Failed → Blocked (test step yêu cầu nhập trường không tồn tại)
+- TC-FR-01-013: Failed → Blocked (tương tự)
+- TC-FR-01-002, 003, 007-012, 015: Not Run → Passed (đã thực thi và pass)
+- TC-FR-01-004, 005, 006, 014, 016: giữ Failed
+
+Bug duplicate analysis:
+- BUG-002 + BUG-003 + BUG-004: cùng root cause (validate MK trước email)
+- BUG-006 + BUG-007: cùng root cause (logic validate MK sai)
+- BUG-001 + BUG-005: cùng vấn đề thiếu trường xác nhận MK
+
+Asked user: Confirm merge approach (3 bugs)?
+User answered: "Gộp theo đề xuất (3 bug)"
+
+Edited TC-FR-01-001.md: Status → Blocked / BUG-FR-01-001
+Edited TC-FR-01-013.md: Status → Blocked / BUG-FR-01-001
+Wrote BUG-FR-01-001.md (merged BUG-001 + BUG-005): Thiếu trường "Xác nhận mật khẩu"
+Wrote BUG-FR-01-002.md (merged BUG-002 + BUG-003 + BUG-004): Hệ thống báo lỗi MK yếu thay vì lỗi Email
+Wrote BUG-FR-01-003.md (merged BUG-006 + BUG-007): MK hợp lệ bị từ chối
+Deleted BUG-FR-01-004.md, BUG-FR-01-005.md, BUG-FR-01-006.md, BUG-FR-01-007.md
+Edited TC-FR-01-004.md: Status → Failed / BUG-FR-01-002, BUG-FR-01-003
+Edited TC-FR-01-005.md: Status → Failed / BUG-FR-01-002, BUG-FR-01-003
+Edited TC-FR-01-006.md: Status → Failed / BUG-FR-01-002, BUG-FR-01-003
+Edited TC-FR-01-014.md: Status → Failed / BUG-FR-01-003
+Edited TC-FR-01-016.md: Status → Failed / BUG-FR-01-003
+Wrote tests/test-runs/FR-01-register-run.md (updated all status + summary)
+
+Verified final consistency with grep across all TC files.
+
+---
+
+## Tóm tắt thay đổi FR-01
+
+### Test Cases — Thay đổi status:
+| TC | Trước | Sau | Lý do |
+|---|---|---|---|
+| TC-FR-01-001 | Failed | **Blocked** | Test step yêu cầu nhập trường "Xác nhận mật khẩu" nhưng trường không tồn tại |
+| TC-FR-01-013 | Failed | **Blocked** | Tương tự — không thể test luồng xác nhận MK không khớp |
+| TC-FR-01-002, 003, 007-012, 015 | Not Run | **Passed** | Đã thực thi và pass (file TC riêng lẻ đã đúng từ trước, test run cập nhật lại) |
+| TC-FR-01-004, 005, 006, 014, 016 | Failed | **Failed** (giữ nguyên) | Lỗi thật — hệ thống báo sai thông báo lỗi |
+
+### Bug Reports — Gộp từ 7 → 3:
+
+| Bug mới | Gộp từ | Mô tả |
+|---|---|---|
+| **BUG-FR-01-001** | BUG-001 + BUG-005 | Thiếu trường "Xác nhận mật khẩu" → block TC-001 và TC-013 |
+| **BUG-FR-01-002** | BUG-002 + BUG-003 + BUG-004 | Hệ thống ưu tiên validate MK trước email, báo lỗi MK yếu thay vì lỗi email |
+| **BUG-FR-01-003** | BUG-006 + BUG-007 | Logic validate MK sai — MK hợp lệ (8-9 ký tự đủ điều kiện) bị từ chối |
+
+### Files đã xóa:
+- `BUG-FR-01-004.md`, `BUG-FR-01-005.md`, `BUG-FR-01-006.md`, `BUG-FR-01-007.md`
+
+### Test Run:
+- Cập nhật tất cả status và bug reference cho nhất quán.
+- Tổng kết mới: 8 Passed, 4 Failed, 2 Blocked, 0 Not Run.
+`````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- AI vẫn giữ status của một số test case như TC-FR-01-008, TC-FR-01-009,... là Passed/Failed thay vì đổi thành Blocked. Vì các test case này đều có step nhập mật khẩu và xác nhận mật khẩu nên không thể test.
+
+### (5) Student Fix
+
+- Sửa lại status và ghi chú related bug cho các test case còn sót lại. Rút gọn chỉ còn 1 bug vì bug đó block hết các test case.
