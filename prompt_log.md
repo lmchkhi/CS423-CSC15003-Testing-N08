@@ -1304,3 +1304,89 @@ Các kiểm tra đã qua: phần còn nhắc `OFF⁺ = 4` chỉ nằm trong bố
 
 ### Notes
 Log này ghi `conversation context khả dụng` của lượt sửa BVA. Ba khối skill đầy đủ có trong context nhưng đã được rút gọn trong entry này để tránh lặp lại toàn bộ nội dung dài; các artifact sửa đổi nằm trong `analysis/FR-02-login/bva-analysis.md`, `tests/test-cases/FR-02-login/bva/TC-FR02-BVA-003.md`, `tests/test-cases/FR-02-login/bva/TC-FR02-BVA-005.md`, và `reviews/FR-02-login/bva-review.md`.
+
+## Prompt Log Entry - 2026-06-26 19:13:57 +07
+
+### Transcript
+
+```text
+User:
+$domain-testing
+$test-case-review
+$prompt-log
+
+Review và sửa:
+`analysis/FR-02-login/domain-testing-analysis.md`
+
+Yêu cầu:
+- Đổi miền hết khóa thành tại hoặc sau 30 giây; 31 giây chỉ là test data an toàn khi chạy thủ công.
+- Tách kiểm tra đăng nhập thành công/nhận JWT khỏi kiểm tra client lưu token và gửi Authorization header nếu cần.
+- Giữ rõ các ràng buộc email/password rỗng là điều suy ra, không phải câu đặc tả trực tiếp.
+- Review và đồng bộ lại các test case liên quan.
+
+User:
+<skill>
+<name>domain-testing</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/domain-testing/SKILL.md</path>
+---
+name: domain-testing
+description: Phân tích yêu cầu chức năng bằng Domain Testing, xây dựng phân vùng tương đương, ma trận miền dữ liệu và sinh test case có khả năng truy vết. Sử dụng khi người dùng yêu cầu áp dụng Domain Testing, Equivalence Partitioning, phân tích miền đầu vào hoặc tạo test case từ requirement.
+---
+
+[Nội dung skill domain-testing có trong conversation context khả dụng; không chép lại toàn bộ tại entry này vì khối hướng dẫn dài đã được lưu trong các entry trước của prompt_log.md.]
+</skill>
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+[Nội dung skill prompt-log có trong conversation context khả dụng; không chép lại toàn bộ tại entry này vì khối hướng dẫn dài đã được lưu trong các entry trước của prompt_log.md.]
+</skill>
+
+User:
+<skill>
+<name>test-case-review</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-case-review/SKILL.md</path>
+---
+name: test-case-review
+description: Review QA analysis and generated test case files for black-box testing assignments. Use when Codex must audit Domain Testing or Boundary Value Analysis outputs for concrete test data, observable expected results, traceability, duplicates, invented constraints, Vietnamese format, and readiness before execution.
+---
+
+[Nội dung skill test-case-review có trong conversation context khả dụng; không chép lại toàn bộ tại entry này vì khối hướng dẫn dài đã được lưu trong các entry trước của prompt_log.md.]
+</skill>
+
+Assistant:
+Mình sẽ dùng `domain-testing` để chỉnh analysis đúng miền, rồi `test-case-review` để đồng bộ test case liên quan, cuối cùng `prompt-log` để append log. Trước hết mình đọc lại artifact hiện tại để tìm chính xác các chỗ đang nói “31 giây” như miền hết khóa và token/header bị gộp.
+
+Assistant:
+Mình thấy ba điểm cần sửa ngay trong analysis: `EC-LOCK-V02` đang nói “sau ít nhất 31 giây”, `TC-001/009` đang gộp login thành công với lưu/gửi token, và email/password rỗng chưa nhấn đủ là điều kiện suy ra. Mình đọc các test case liên quan để đồng bộ traceability và expected result cho gọn.
+
+Assistant:
+Để tách sạch hai mục tiêu, mình sẽ để `TC-FR02-DT-001` chỉ kiểm tra đăng nhập thành công và nhận JWT. Mình sẽ thêm một test riêng `TC-FR02-DT-010` cho client lưu token/gửi `Authorization` header, vì đó là dependency riêng trong FR-02 và có thao tác quan sát khác.
+
+Assistant:
+Mình sẽ cập nhật analysis theo hướng: `EC-LOCK-V02` là miền “tại hoặc sau 30 giây”, còn `31 giây` chỉ là dữ liệu test an toàn. Token cũng sẽ tách thành hai class: nhận JWT sau login thành công và client lưu/gửi header trong request xác thực tiếp theo.
+
+Assistant:
+Analysis đã có condition mới `COND-FR02-DT-010` và test case mới cho header. Giờ mình chỉnh các test case cũ để mục tiêu không bị chồng: `TC-001` chỉ login/nhận JWT, `TC-009` dùng “tại hoặc sau 30 giây” và nêu 31 giây là dữ liệu an toàn, `TC-002/004` ghi rõ rỗng là điều kiện suy ra.
+
+Assistant:
+Mình đã đồng bộ các test case liên quan. Tiếp theo mình rà lại bằng `rg` để bắt các câu cũ còn sót, rồi cập nhật review Domain Testing theo kết quả mới.
+
+Assistant:
+Rà nhanh phát hiện một chỉ số nhỏ trong analysis vẫn để `Tổng input/condition = 6` dù đã tách thêm `auth_token_response` và `client_token_storage`. Mình sửa chỉ số đó rồi viết lại review để phản ánh 10 test case và các finding đã xử lý.
+
+Assistant:
+Review đã được cập nhật cho 10 test case. Mình chạy kiểm tra cuối để đảm bảo không còn gộp header vào `TC-001`, không còn coi `31 giây` là miền requirement, rồi append log.
+
+Assistant:
+Kiểm tra cuối ổn: `TC-001` không còn kiểm tra header, `TC-010` đảm nhận phần lưu/gửi token, và tất cả test case vẫn `Not Run / None`. Mình append prompt log cho lượt sửa này vào `prompt_log.md`.
+```
+
+### Notes
+Log này ghi `conversation context khả dụng` của lượt sửa Domain Testing. Các khối skill đầy đủ xuất hiện trong context nhưng được rút gọn tại entry này để tránh lặp lại nội dung dài đã lưu ở các entry trước. Artifact đã sửa gồm `analysis/FR-02-login/domain-testing-analysis.md`, các test case `TC-FR02-DT-001`, `TC-FR02-DT-002`, `TC-FR02-DT-004`, `TC-FR02-DT-009`, test case mới `TC-FR02-DT-010`, và `reviews/FR-02-login/domain-testing-review.md`.

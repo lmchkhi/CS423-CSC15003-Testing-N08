@@ -7,7 +7,7 @@ FR-02
 Authentication / Functional / Domain Testing
 
 ## Mục tiêu kiểm thử
-Xác minh hệ thống không cho đăng nhập khi người dùng không nhập Email.
+Xác minh hệ thống không cho đăng nhập khi người dùng không nhập Email. Đây là điều kiện kiểm thử suy ra từ yêu cầu người dùng nhập Email, không phải rule `required` được FR-02 đặc tả trực tiếp.
 
 ## Preconditions
 - Hệ thống EShop đang hoạt động.
@@ -26,7 +26,7 @@ Xác minh hệ thống không cho đăng nhập khi người dùng không nhập
 3. Bấm nút đăng nhập.
 
 ## Expected result
-Hệ thống chặn submit hoặc từ chối đăng nhập vì thiếu Email. Không trả JWT Token, không chuyển người dùng vào khu vực đã đăng nhập, và không tạo phiên đăng nhập mới.
+Hệ thống chặn submit hoặc từ chối đăng nhập vì thiếu Email theo cơ chế validation hiện có. Không trả JWT Token, không chuyển người dùng vào khu vực đã đăng nhập, và không tạo phiên đăng nhập mới. FR-02 chưa đặc tả thông báo hoặc thuộc tính `required` cụ thể cho trường rỗng.
 
 ## Traceability
 - Requirement: FR-02

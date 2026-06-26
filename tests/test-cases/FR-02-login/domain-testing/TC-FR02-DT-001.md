@@ -1,4 +1,4 @@
-# TC-FR02-DT-001: Đăng nhập thành công với tài khoản hợp lệ và lưu JWT Token
+# TC-FR02-DT-001: Đăng nhập thành công với tài khoản hợp lệ và nhận JWT Token
 
 ## Requirement ID
 FR-02
@@ -7,7 +7,7 @@ FR-02
 Authentication / Functional / Domain Testing
 
 ## Mục tiêu kiểm thử
-Xác minh người dùng đăng nhập thành công khi email và mật khẩu hợp lệ, hệ thống trả JWT Token và client gửi token cho request cần xác thực.
+Xác minh người dùng đăng nhập thành công khi email và mật khẩu hợp lệ, và hệ thống trả JWT Token.
 
 ## Preconditions
 - Hệ thống EShop đang hoạt động.
@@ -26,11 +26,10 @@ Xác minh người dùng đăng nhập thành công khi email và mật khẩu h
 1. Nhập `test@eshop.com` vào trường Email.
 2. Nhập `Test1234!` vào trường Mật khẩu.
 3. Bấm nút đăng nhập.
-4. Mở công cụ theo dõi network hoặc nơi lưu token phía client.
-5. Thực hiện một thao tác cần xác thực, ví dụ mở trang hồ sơ cá nhân.
+4. Quan sát kết quả đăng nhập và JWT Token được trả về hoặc trạng thái đã đăng nhập của client.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập, client nhận và lưu JWT Token. Request cần xác thực sau đó có header `Authorization: Bearer <token>`. Không hiển thị lỗi đăng nhập.
+Hệ thống chấp nhận đăng nhập và trả JWT Token. Người dùng có phiên đăng nhập mới hoặc được chuyển vào khu vực đã đăng nhập. Không hiển thị lỗi đăng nhập.
 
 ## Traceability
 - Requirement: FR-02

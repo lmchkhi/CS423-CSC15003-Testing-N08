@@ -7,7 +7,7 @@ FR-02
 Authentication / Functional / Domain Testing
 
 ## Mục tiêu kiểm thử
-Xác minh người dùng có thể đăng nhập lại bằng thông tin đúng sau khi thời gian khóa 30 giây kết thúc.
+Xác minh người dùng có thể đăng nhập lại bằng thông tin đúng tại hoặc sau khi thời gian khóa 30 giây kết thúc.
 
 ## Preconditions
 - Hệ thống EShop đang hoạt động.
@@ -21,17 +21,18 @@ Xác minh người dùng có thể đăng nhập lại bằng thông tin đúng 
 |---|---|
 | Email | `test@eshop.com` |
 | Mật khẩu | `Test1234!` |
-| Thời gian chờ | Ít nhất `31` giây sau thời điểm bị khóa |
+| Miền hết khóa | Tại hoặc sau `30` giây kể từ thời điểm bị khóa |
+| Thời gian chờ khi chạy thủ công | Ít nhất `31` giây sau thời điểm bị khóa |
 
 ## Test steps
-1. Chờ ít nhất 31 giây sau thời điểm tài khoản bị khóa.
+1. Chờ đến tại hoặc sau 30 giây kể từ thời điểm tài khoản bị khóa; khi chạy thủ công, dùng ít nhất 31 giây để giảm rủi ro timing.
 2. Nhập `test@eshop.com` vào trường Email.
 3. Nhập `Test1234!` vào trường Mật khẩu.
 4. Bấm nút đăng nhập.
-5. Quan sát trạng thái đăng nhập và token phía client.
+5. Quan sát trạng thái đăng nhập và JWT Token được trả về.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập sau khi hết thời gian khóa. Client nhận và lưu JWT Token; người dùng được vào khu vực đã đăng nhập.
+Hệ thống chấp nhận đăng nhập tại hoặc sau khi hết thời gian khóa 30 giây. Hệ thống trả JWT Token và người dùng được vào khu vực đã đăng nhập. Việc client lưu/gửi token cho request xác thực được kiểm tra riêng ở `TC-FR02-DT-010`.
 
 ## Traceability
 - Requirement: FR-02
