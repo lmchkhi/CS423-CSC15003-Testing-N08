@@ -40,3 +40,5 @@ Valid data:
 Giao diện không có mục Role trong form cập nhật thông tin
 
 ## Trạng thái của testcase
+
+Pass

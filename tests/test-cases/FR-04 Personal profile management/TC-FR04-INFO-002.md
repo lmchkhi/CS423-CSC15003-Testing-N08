@@ -54,3 +54,5 @@ Invalid data:
 Hệ thống thông báo lỗi về số điện thoại không hợp lệ và không ghi nhận thông tin người dùng
 
 ## Trạng thái của testcase
+
+Pass

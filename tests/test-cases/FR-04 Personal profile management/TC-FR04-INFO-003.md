@@ -41,3 +41,5 @@ Valid data:
 Giao diện không cho chỉnh sửa email
 
 ## Trạng thái của testcase
+
+Pass

@@ -45,3 +45,5 @@ Valid data:
 Hệ thống ghi nhận yêu cầu của người dùng, không thông báo lỗi
 
 ## Trạng thái của testcase
+
+Failed
