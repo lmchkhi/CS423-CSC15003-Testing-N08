@@ -582,3 +582,636 @@ Assistant:
 
 ### Notes
 Log này ghi `conversation context khả dụng` trong lượt làm việc hiện tại. Tool call/output không được chép đầy đủ vào transcript vì phần chính cần lưu evidence là prompt, skill instruction khả dụng, và các phản hồi hội thoại; artifact sinh ra nằm trong các file project tương ứng.
+
+## Prompt Log Entry - 2026-06-26 18:58:56 +07
+
+### Transcript
+
+```text
+User:
+$boundary-value-analysis
+$test-case-review
+$prompt-log
+
+Phân tích FR-02 trong `requirements/system-requirements.md`.
+
+Tạo:
+- `analysis/FR-02-login/bva-analysis.md`
+- các test case tại `tests/test-cases/FR-02-login/bva/`
+
+Sau khi tạo xong, review và sửa các test case, rồi append log vào `prompt_log.md`.
+
+User:
+<skill>
+<name>boundary-value-analysis</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/boundary-value-analysis/SKILL.md</path>
+---
+name: boundary-value-analysis
+description: Phân tích requirement bằng Boundary Value Analysis, xác định ON, OFF-, OFF+, xây dựng ma trận giá trị biên và sinh test case có khả năng truy vết. Sử dụng khi requirement có giới hạn min, max, độ dài, số lượng, ngày giờ, kích thước hoặc ngưỡng.
+---
+
+# Boundary Value Analysis Skill
+
+## 1. Mục đích
+
+Áp dụng Boundary Value Analysis (BVA) một cách có hệ thống và thể hiện rõ cách từng giá trị biên được suy ra từ requirement.
+
+Skill phải tạo cả analysis và test case, không chỉ sinh danh sách test case.
+
+## 2. Quy tắc ngôn ngữ
+
+1. Toàn bộ nội dung đầu ra phải được viết bằng tiếng Việt.
+2. Có thể giữ các thuật ngữ:
+   - Boundary Value Analysis (BVA)
+   - ON
+   - OFF⁻
+   - OFF⁺
+   - Robust BVA
+   - Normal BVA
+   - Preconditions
+   - Expected Result
+3. Tiêu đề, giải thích, lý do chọn giá trị và kết luận phải bằng tiếng Việt.
+4. Giữ nguyên ID, tên biến, URL, route, dữ liệu test và thông báo thực tế.
+5. Không tự ý viết toàn bộ output bằng tiếng Anh.
+
+## 3. Nguyên tắc bắt buộc
+
+1. Xem hệ thống như một black-box.
+2. Không dựa vào source code trừ khi người dùng yêu cầu.
+3. Không tự bịa min, max, length, range hoặc validation rule.
+4. Khi thiếu dữ liệu, ghi:
+   - `Chưa được đặc tả`, hoặc
+   - `Giả định cần xác nhận`.
+5. Chỉ áp dụng BVA khi tồn tại miền có thứ tự hoặc ngưỡng có ý nghĩa.
+6. Không áp dụng BVA máy móc cho dữ liệu categorical không có thứ tự.
+7. Mỗi test case phải chỉ rõ boundary point được cover.
+8. Input không phải mục tiêu phải dùng giá trị valid nominal.
+9. File analysis và test case phải tách riêng.
+10. Không tự tạo bug report khi chưa có actual result.
+
+## 4. Các loại biên cần xem xét
+
+- Giá trị nhỏ nhất
+- Giá trị lớn nhất
+- Độ dài tối thiểu
+- Độ dài tối đa
+- Độ dài chính xác
+- Numeric range
+- Date/time range
+- Quantity limit
+- File size limit
+- Số lần thử
+- Pagination limit
+- Collection size
+- Inclusive boundary
+- Exclusive boundary
+- Empty / non-empty
+- State threshold
+- Dependent boundary giữa nhiều input
+
+## 5. Quy trình thực hiện
+
+### Bước 1: Đọc và tóm tắt requirement
+
+Trích xuất:
+
+- Requirement ID
+- Feature name
+- Input
+- Validation rules
+- Business rules
+- Preconditions
+- Success condition
+- Error condition
+
+### Bước 2: Xác định biến có biên
+
+Với mỗi biến:
+
+- Tên biến
+- Kiểu dữ liệu
+- Lower boundary
+- Upper boundary
+- Inclusive hoặc Exclusive
+- Đơn vị
+- Nominal value
+- Requirement source
+- Thông tin còn thiếu
+
+Không coi mọi field đều có biên.
+
+### Bước 3: Chọn phương pháp BVA
+
+Phải ghi rõ phương pháp được chọn.
+
+#### Normal BVA
+
+Với valid range `[min, max]`:
+
+- `min`
+- `min + 1`
+- nominal
+- `max - 1`
+- `max`
+
+#### Robust BVA
+
+Với valid range `[min, max]`:
+
+- `min - 1`
+- `min`
+- `min + 1`
+- nominal
+- `max - 1`
+- `max`
+- `max + 1`
+
+#### ON / OFF convention
+
+Với minimum boundary:
+
+- `OFF⁻ = min - 1`
+- `ON = min`
+- `OFF⁺ = min + 1`
+
+Với maximum boundary:
+
+- `OFF⁻ = max - 1`
+- `ON = max`
+- `OFF⁺ = max + 1`
+
+Phải mô tả rõ nghĩa của OFF tùy theo biên min hoặc max để tránh nhầm.
+
+### Bước 4: Suy ra giá trị biên
+
+Mỗi boundary value phải có:
+
+- Boundary Value ID
+- Input
+- Constraint
+- Boundary type
+- Boundary point
+- Công thức suy ra
+- Giá trị cụ thể
+- Valid hoặc Invalid
+- Expected behavior
+- Requirement reference
+
+Dùng ID:
+
+- `BV-<INPUT>-001`
+
+Với string length, phải ghi:
+
+- Độ dài số học
+- Chuỗi test cụ thể có đúng độ dài đó
+
+Với date/time, phải ghi ngày giờ cụ thể.
+
+Với file size hoặc quantity, phải ghi đơn vị.
+
+### Bước 5: Isolate biến kiểm thử
+
+Khi kiểm thử một boundary:
+
+- Chỉ thay đổi biến mục tiêu.
+- Các điều kiện khác phải hợp lệ.
+- Phải giải thích nominal values đang dùng.
+- Nếu không isolate được, ghi rõ dependency.
+
+### Bước 6: Phân tích dependent boundary
+
+Ví dụ:
+
+- End date bằng start date
+- End date sớm hơn start date một ngày
+- Quantity bằng available stock
+- Tổng file size bằng đúng giới hạn
+
+Dùng ID:
+
+- `DB-01`
+- `DB-02`
+
+### Bước 7: Xây dựng BVA Test Matrix
+
+Mỗi dòng gồm:
+
+- Test condition ID
+- Target variable
+- Boundary Value ID
+- Boundary point
+- Test value
+- Các ràng buộc khác
+- Expected validity
+- Expected behavior
+- Lý do lựa chọn
+
+Dùng ID:
+
+- `COND-FRXX-BVA-001`
+
+Không tạo Cartesian product cho mọi biến trừ khi có lý do rõ ràng.
+
+### Bước 8: Sinh test case
+
+Mỗi boundary condition được chọn tạo thành một test case riêng.
+
+Dùng ID:
+
+- `TC-FRXX-BVA-001`
+
+Mỗi file chỉ chứa một test case.
+
+Không chèn toàn bộ BVA Test Matrix vào từng test case.
+
+### Bước 9: Tổng kết coverage
+
+Báo cáo:
+
+- Tổng biến có biên
+- Tổng lower boundaries
+- Tổng upper boundaries
+- Tổng dependent boundaries
+- Phương pháp BVA
+- Tổng boundary values
+- Tổng test cases
+- Boundary đã cover
+- Boundary chưa cover
+- Lý do loại trừ
+- Requirement gap
+
+Mỗi boundary phải có trạng thái:
+
+- `Đã cover`
+- `Chủ động loại trừ`
+- `Bị chặn do thiếu requirement`
+
+## 6. Cấu trúc output
+
+### Analysis file
+
+Tạo tại:
+
+`analysis/<FEATURE-ID>-<feature-name>/bva-analysis.md`
+
+Nội dung bắt buộc:
+
+```md
+# Phân tích Boundary Value Analysis — <Feature ID>: <Feature Name>
+
+## 1. Tóm tắt requirement
+
+## 2. Các biến có biên
+
+## 3. Phương pháp BVA được sử dụng
+
+## 4. Xác định ON, OFF⁻ và OFF⁺
+
+## 5. Boundary Value Derivation
+
+## 6. Dependent Boundaries
+
+## 7. BVA Test Matrix
+
+## 8. Quá trình lựa chọn test case
+
+## 9. Ma trận truy vết
+
+## 10. Tổng kết độ bao phủ
+
+## 11. Giả định và thông tin chưa được đặc tả
+```
+
+### Test case files
+
+Tạo tại:
+
+`tests/test-cases/<FEATURE-ID>-<feature-name>/bva/`
+
+Tên file:
+
+`TC-<FEATURE-ID>-BVA-<NNN>.md`
+
+Cấu trúc bắt buộc:
+
+```md
+# <TEST-CASE-ID>: <Tên test case bằng tiếng Việt>
+
+## Requirement ID
+<Requirement ID>
+
+## Module / Test type / Technique
+<Module> / Functional / Boundary Value Analysis (BVA)
+
+## Mục tiêu kiểm thử
+<Mục tiêu cụ thể>
+
+## Boundary Point
+- Variable:
+- Constraint:
+- Boundary type:
+- Boundary point:
+- Test value:
+
+## Preconditions
+- <Điều kiện tiên quyết>
+
+## Test data
+
+| Field | Value |
+|---|---|
+| <Tên field> | <Giá trị cụ thể> |
+
+## Test steps
+1. <Bước cụ thể>
+2. <Bước cụ thể>
+
+## Expected result
+<Kết quả quan sát được>
+
+## Traceability
+- Requirement:
+- Test condition:
+- Boundary Value ID:
+- Boundary point:
+- Analysis file:
+
+## Status / Related bugs
+Not Run / None
+```
+
+## 7. Quy tắc chất lượng
+
+1. Test value phải cụ thể.
+2. Với length boundary, dữ liệu phải đúng số ký tự đã ghi.
+3. Phải kiểm tra lại bằng cách đếm ký tự trước khi xuất.
+4. Expected result phải nêu rõ accepted/rejected behavior.
+5. Không dùng `hoạt động đúng` hoặc `hiển thị lỗi` một cách chung chung.
+6. Mỗi test case chỉ cover một boundary point chính.
+7. Các biến khác sử dụng valid nominal value.
+8. Không ghi actual result khi chưa chạy test.
+
+## 8. Traceability bắt buộc
+
+Analysis phải có bảng:
+
+| Test Case ID | Boundary Value ID | Boundary | Test Value | Expected Validity | Requirement Reference |
+|---|---|---|---|---|---|
+
+Mỗi test case phải có mục `Traceability`.
+
+## 9. Kiểm tra trước khi hoàn tất
+
+- Không bịa constraint.
+- Output bằng tiếng Việt.
+- Phân biệt inclusive/exclusive boundary.
+- ON, OFF⁻, OFF⁺ được giải thích đúng.
+- Test string có đúng length.
+- BVA Test Matrix chỉ nằm trong analysis.
+- Mỗi test case nằm trong file riêng.
+- Mỗi test case map được về boundary value.
+- Missing requirement được ghi rõ.
+
+</skill>
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+# Prompt Log Skill
+
+## 1. Mục đích
+
+Ghi lại nguyên văn toàn bộ đoạn chat hoặc phần hội thoại khả dụng vào `prompt_log.md` sau khi một prompt/task đã hoàn thành. Skill này dùng để lưu evidence về cách đã dùng AI trong bài tập, nên độ trung thực của transcript quan trọng hơn độ gọn đẹp.
+
+## 2. Nguyên tắc bắt buộc
+
+1. Ghi log sau khi đã hoàn thành việc chính của prompt.
+2. Không thay thế nội dung cũ trong `prompt_log.md`; luôn append thêm entry mới.
+3. Nếu không truy cập được toàn bộ lịch sử hội thoại, ghi rõ phạm vi log là `conversation context khả dụng`.
+4. Copy nguyên văn câu chữ, thứ tự, lỗi chính tả, cách viết tắt, dấu câu và ngôn ngữ của từng message trong context.
+5. Không tóm tắt, không diễn giải, không sửa văn phong, không dịch, không chuẩn hóa câu chữ.
+6. Không bịa lại nội dung chat không có trong context.
+7. Chỉ được thay đổi nội dung khi cần che bí mật như token, password, key hoặc credential; thay đúng phần bí mật bằng `[REDACTED]`.
+8. Nếu có tool output quá dài không còn đầy đủ trong context, ghi nguyên văn phần còn thấy được và ghi chú rõ phần bị thiếu.
+
+## 3. File output
+
+Ghi tại root project:
+
+`prompt_log.md`
+
+Nếu file chưa tồn tại, tạo file mới.
+
+## 4. Format entry
+
+Mỗi lần ghi log, thêm một entry:
+
+```md
+## Prompt Log Entry - <YYYY-MM-DD HH:mm:ss TZ>
+
+### Transcript
+
+```text
+User:
+<copy nguyên văn user message>
+
+Assistant:
+<copy nguyên văn assistant message>
+
+Tool:
+<copy nguyên văn tool call/output khả dụng nếu cần lưu evidence>
+```
+
+### Notes
+<Chỉ ghi metadata hoặc giới hạn context, ví dụ: "Một phần hội thoại trước đó không còn trong context". Không tóm tắt nội dung chat tại đây trừ khi người dùng yêu cầu riêng.>
+```
+
+## 5. Khi người dùng yêu cầu "toàn bộ đoạn chat"
+
+1. Ghi transcript đầy đủ nhất có trong context hiện tại.
+2. Phân vai rõ `User`, `Assistant`, `Tool`, hoặc `System note` nếu cần.
+3. Nếu context đã bị compact hoặc thiếu đoạn cũ, ghi chú: `Một phần hội thoại trước đó không còn trong context, chỉ log phần khả dụng`.
+4. Không tự tạo lại nguyên văn những đoạn không còn nhìn thấy.
+5. Không thay một đoạn chat bằng summary. Nếu đoạn nào không thể copy nguyên văn, bỏ đoạn đó và ghi rõ lý do trong `Notes`.
+
+## 6. Khi dùng cùng skill khác
+
+Nếu prompt chính dùng `$qa-workflow`, `$domain-testing`, `$boundary-value-analysis`, `$test-case-review`, `$test-execution`, hoặc `$bug-report`, hoàn thành skill chính trước. Sau đó mới dùng `$prompt-log` để append entry vào `prompt_log.md`.
+
+</skill>
+
+User:
+<skill>
+<name>test-case-review</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-case-review/SKILL.md</path>
+---
+name: test-case-review
+description: Review QA analysis and generated test case files for black-box testing assignments. Use when Codex must audit Domain Testing or Boundary Value Analysis outputs for concrete test data, observable expected results, traceability, duplicates, invented constraints, Vietnamese format, and readiness before execution.
+---
+
+# Test Case Review Skill
+
+## 1. Mục đích
+
+Review test case đã tạo trước khi execution. Skill này không mặc định sinh test case mới; chỉ phân tích lỗi, đề xuất sửa, và chỉ sửa file khi người dùng yêu cầu rõ ràng hoặc task đang yêu cầu hoàn thiện artifact.
+
+## 2. Quy tắc ngôn ngữ
+
+1. Toàn bộ output viết bằng tiếng Việt.
+2. Giữ nguyên ID, route, URL, field name, test data, thông báo hệ thống và đường dẫn file.
+3. Có thể giữ các thuật ngữ: Domain Testing, Boundary Value Analysis, Expected Result, Actual Result, Traceability, Preconditions, Pass, Fail, Blocked, Not Run.
+
+## 3. Nguyên tắc review
+
+1. Xem hệ thống như black-box.
+2. Không đọc source code để suy ra expected result trừ khi người dùng yêu cầu.
+3. Không bịa constraint, validation rule, business rule hoặc thông báo lỗi.
+4. Nếu requirement thiếu thông tin, ghi `Chưa được đặc tả` hoặc `Giả định cần xác nhận`.
+5. Phân biệt lỗi nghiêm trọng cần sửa với gợi ý cải thiện.
+6. Không biến một test case thành nhiều mục tiêu kiểm thử chính.
+7. Không gán Pass/Fail khi chưa có Actual Result.
+
+## 4. Checklist review
+
+Review từng analysis file và test case file theo các điểm sau:
+
+- Requirement reference có đúng và đầy đủ không.
+- Technique có đúng với nội dung không: Domain Testing hay BVA.
+- Test case ID, condition ID, equivalence class ID hoặc boundary value ID có nhất quán không.
+- Test data có giá trị cụ thể, không chỉ ghi `valid`, `invalid`, `empty`, `too long`.
+- Expected Result có quan sát được không: accepted/rejected, validation message nếu requirement có nêu, redirect, data created/updated/not changed.
+- Test steps có thực thi được theo UI/API được mô tả không.
+- Preconditions có đủ để chạy test không.
+- Invalid case có isolate một điều kiện chính không.
+- Các input khác có dùng valid nominal value không.
+- BVA string length đã đếm đúng số ký tự chưa.
+- Domain Matrix hoặc BVA Matrix có nằm trong analysis, không lặp lại đầy đủ trong từng test case.
+- Test case có duplicate mục tiêu, duplicate data hoặc duplicate coverage không.
+- Status ban đầu phải là `Not Run / None` nếu chưa execution.
+- Output có đúng tiếng Việt và đúng format template project không.
+
+## 5. Cách review
+
+### Bước 1: Thu thập ngữ cảnh
+
+Đọc các file liên quan:
+
+- `requirements/<FEATURE-ID>-<feature-name>.md`
+- `analysis/<FEATURE-ID>-<feature-name>/*.md`
+- `tests/test-cases/<FEATURE-ID>-<feature-name>/**/*.md`
+- Template trong `templates/` nếu cần đối chiếu format.
+
+### Bước 2: Lập danh sách phát hiện
+
+Mỗi finding nên có:
+
+- Mã finding: `REV-<FEATURE-ID>-<NNN>`
+- Mức độ: `Critical`, `Major`, `Minor`
+- File và dòng nếu có thể xác định
+- Mô tả vấn đề
+- Ảnh hưởng đến test quality
+- Đề xuất sửa cụ thể
+
+### Bước 3: Kiểm tra traceability
+
+Lập bảng:
+
+| Test Case ID | Requirement | Analysis condition | Class/Boundary | Trạng thái | Ghi chú |
+|---|---|---|---|---|---|
+
+Trạng thái gồm:
+
+- `Hợp lệ`
+- `Thiếu liên kết`
+- `Sai liên kết`
+- `Cần xác nhận`
+
+### Bước 4: Kiểm tra coverage và duplicate
+
+Lập bảng ngắn:
+
+| Coverage item | Test case cover | Trạng thái | Ghi chú |
+|---|---|---|---|
+
+Không yêu cầu tạo Cartesian product. Chỉ đánh dấu gap khi class, boundary, hoặc dependent condition đã được chọn trong analysis nhưng không có test case tương ứng.
+
+### Bước 5: Kết luận sẵn sàng execution
+
+Kết luận một trong các trạng thái:
+
+- `Sẵn sàng execution`
+- `Cần sửa trước execution`
+- `Bị chặn do thiếu requirement`
+
+## 6. Output mặc định
+
+Nếu người dùng không chỉ định file output, tạo review tại:
+
+`reviews/<FEATURE-ID>-<feature-name>/<technique>-review.md`
+
+Với cấu trúc:
+
+```md
+# Review test case - <FEATURE-ID>: <Feature Name>
+
+## 1. Phạm vi review
+
+## 2. Tóm tắt kết quả
+
+## 3. Findings cần sửa
+
+## 4. Traceability audit
+
+## 5. Coverage và duplicate audit
+
+## 6. Kết luận readiness
+
+## 7. Giả định và thông tin cần xác nhận
+```
+
+## 7. Khi được yêu cầu sửa file
+
+1. Sửa tối thiểu để khắc phục finding.
+2. Giữ ID đã có nếu không bắt buộc đổi.
+3. Không tạo expected result mới vượt quá requirement.
+4. Cập nhật review để ghi rõ finding nào đã được xử lý.
+
+</skill>
+
+Assistant:
+Mình sẽ dùng `boundary-value-analysis` cho artifact chính, sau đó `test-case-review`, cuối cùng append thêm entry mới vào `prompt_log.md`. Vì FR-02 chỉ có vài ngưỡng thật sự phù hợp BVA, mình sẽ tập trung vào số lần sai `3` và thời gian khóa `30 giây`, không ép BVA lên email/password dạng categorical.
+
+Assistant:
+Mình đã đọc đủ skill và FR-02. BVA hợp lệ ở đây gồm hai boundary có thứ tự: ngưỡng số lần sai `3 lần` và thời hạn khóa `30 giây`; email/password chỉ dùng làm nominal data vì requirement không đưa biên độ dài/range cho chúng.
+
+Assistant:
+Mình sẽ tạo 6 test case BVA: `2/3/4` lần sai quanh ngưỡng khóa và `29/30/31` giây quanh thời hạn khóa. Với mốc thời gian chính xác `30 giây`, mình sẽ ghi rõ cần công cụ đo thời gian hoặc thao tác thủ công cẩn thận vì đây là biên dễ nhiễu khi execution.
+
+Assistant:
+Mình bắt đầu ghi `bva-analysis.md` và các file test case riêng. Mình sẽ không lặp BVA matrix trong từng test case, chỉ ghi boundary point và traceability như template của skill yêu cầu.
+
+Assistant:
+BVA files đã được tạo. Mình chuyển sang review: kiểm tra xem có boundary nào bị bịa, từng test case có một boundary point chính, dữ liệu có cụ thể, expected result có quan sát được, và traceability có khớp analysis không.
+
+Assistant:
+Review phát hiện một điểm cần chỉnh nhỏ: test BVA-003 đang gọi là OFF⁺ của số lần sai nhưng dữ liệu thử lại dùng mật khẩu đúng, làm boundary point “4 lần sai” chưa thật khớp. Mình sẽ sửa tối thiểu để lần thử thứ 4 cũng dùng `Wrong123!`, còn kiểm tra đăng nhập đúng khi khóa đã được domain-testing cover trước đó.
+
+Assistant:
+Điểm lệch boundary đã được sửa. Mình sẽ ghi review artifact cho BVA, gồm finding đã xử lý và các rủi ro còn lại về quan sát counter/thời gian chính xác.
+
+Assistant:
+BVA review artifact đã xong và finding chính đã được xử lý trong file test/analysis. Mình kiểm tra nhanh số lượng file, traceability và status trước khi append prompt log.
+
+Assistant:
+Kiểm tra cuối ổn: có 1 analysis BVA, 6 test case, review kết luận `Sẵn sàng execution`, tất cả status vẫn `Not Run / None`. Mình append prompt log ngay bây giờ, giữ entry cũ và thêm entry mới.
+```
+
+### Notes
+Log này ghi `conversation context khả dụng` trong lượt làm việc hiện tại. Tool call/output không được chép đầy đủ vào transcript; các file artifact và review đã được tạo trong workspace.
