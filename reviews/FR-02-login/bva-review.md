@@ -14,14 +14,15 @@
 | Tiêu chí | Kết quả |
 |---|---|
 | Đúng requirement reference | Đạt |
-| Đúng technique Boundary Value Analysis | Đạt |
-| Chỉ áp dụng BVA cho miền có ngưỡng | Đạt |
-| ON, OFF⁻, OFF⁺ được giải thích | Đạt |
+| Không tự thêm requirement về counter khi tài khoản đã khóa | Đạt |
+| Phân biệt counter boundary và lock-state behavior | Đạt |
+| Đổi Valid/Invalid sang expected locked/unlocked state khi phù hợp | Đạt |
+| Mô tả 30 giây là transition threshold | Đạt |
+| Ghi rõ rủi ro timing tại đúng 30 giây | Đạt |
 | Test value cụ thể | Đạt |
 | Expected result quan sát được | Đạt |
 | Traceability từ test case về analysis | Đạt |
 | BVA Test Matrix chỉ nằm trong analysis | Đạt |
-| Mỗi test case cover một boundary point chính | Đạt |
 | Status ban đầu `Not Run / None` | Đạt |
 | Readiness | Sẵn sàng execution |
 
@@ -29,9 +30,10 @@
 
 | Finding ID | Mức độ | File / dòng | Mô tả | Ảnh hưởng | Trạng thái xử lý |
 |---|---|---|---|---|---|
-| REV-FR02-BVA-001 | Major | `tests/test-cases/FR-02-login/bva/TC-FR02-BVA-003.md` | Test case ban đầu mô tả OFF⁺ của `failed_login_count` nhưng lần thử tiếp theo dùng mật khẩu đúng, chưa khớp test value "4 lần sai liên tiếp". | Traceability giữa boundary value và test data chưa nhất quán. | Đã sửa: TC-FR02-BVA-003 dùng `Wrong123!` cho lần sai thứ 4 và analysis được cập nhật tương ứng. |
-| REV-FR02-BVA-002 | Minor | `analysis/FR-02-login/bva-analysis.md` | Counter nội bộ `failed_login_count` không có UI/API/log được đặc tả để quan sát trực tiếp. | Khi execution, người kiểm thử chỉ xác nhận gián tiếp qua hành vi khóa tại các mốc 2/3/4 lần. | Đã ghi rõ requirement gap trong analysis. |
-| REV-FR02-BVA-003 | Minor | `TC-FR02-BVA-005.md` | Mốc đúng 30 giây dễ nhiễu do thao tác thủ công và độ chính xác đồng hồ. | Test tại ON boundary có thể cần công cụ đo thời gian để tránh kết quả không ổn định. | Đã ghi precondition cần đồng hồ/công cụ đo thời gian và ghi gap về tolerance trong analysis. |
+| REV-FR02-BVA-004 | Major | `analysis/FR-02-login/bva-analysis.md`, `TC-FR02-BVA-003.md` | Analysis/test case trước đó mô tả `failed_login_count` OFF⁺ = 4 và dễ hiểu là lần thử trong lúc khóa làm counter tăng thành 4. FR-02 không đặc tả hành vi counter khi tài khoản đã khóa. | Có nguy cơ tự thêm requirement mới và làm sai traceability BVA. | Đã sửa: không chọn `failed_login_count = 4` làm boundary value; TC-FR02-BVA-003 được chuyển sang `account_lock_state` với `BV-LOCKSTATE-001`. |
+| REV-FR02-BVA-005 | Major | `analysis/FR-02-login/bva-analysis.md` | Analysis cũ dùng Valid/Invalid cho các mốc khóa/hết khóa, chưa phản ánh đúng bản chất expected state. | Dễ gây nhầm giữa tính hợp lệ input và trạng thái hệ thống mong đợi. | Đã sửa: BVA matrix và traceability dùng `Expected locked/unlocked state`. |
+| REV-FR02-BVA-006 | Major | `analysis/FR-02-login/bva-analysis.md` | Mốc 30 giây chưa được mô tả rõ là transition threshold. | Có thể hiểu 30 giây như một valid/invalid value đơn giản thay vì ngưỡng chuyển trạng thái. | Đã sửa: mô tả `lock_elapsed_time` ON = 30 là transition threshold từ locked sang unlocked. |
+| REV-FR02-BVA-007 | Minor | `TC-FR02-BVA-005.md` | Test tại đúng 30 giây có rủi ro timing nếu thao tác thủ công. | Execution có thể không ổn định nếu không có công cụ đo chính xác. | Đã sửa: precondition, step và expected result ghi rõ cần công cụ đo chính xác và ghi nhận rủi ro timing. |
 
 Không còn finding Critical hoặc Major chưa xử lý.
 
@@ -39,12 +41,12 @@ Không còn finding Critical hoặc Major chưa xử lý.
 
 | Test Case ID | Requirement | Analysis condition | Class/Boundary | Trạng thái | Ghi chú |
 |---|---|---|---|---|---|
-| TC-FR02-BVA-001 | FR-02 | COND-FR02-BVA-001 | BV-FAILEDCOUNT-001, `failed_login_count` OFF⁻ = 2 | Hợp lệ | Ngay dưới ngưỡng khóa. |
-| TC-FR02-BVA-002 | FR-02 | COND-FR02-BVA-002 | BV-FAILEDCOUNT-002, `failed_login_count` ON = 3 | Hợp lệ | Đúng ngưỡng bắt đầu khóa. |
-| TC-FR02-BVA-003 | FR-02 | COND-FR02-BVA-003 | BV-FAILEDCOUNT-003, `failed_login_count` OFF⁺ = 4 | Hợp lệ | Ngay trên ngưỡng khóa; đã sửa test data cho khớp boundary. |
-| TC-FR02-BVA-004 | FR-02 | COND-FR02-BVA-004 | BV-LOCKTIME-001, `lock_elapsed_time` OFF⁻ = 29 giây | Hợp lệ | Ngay trước thời điểm hết khóa. |
-| TC-FR02-BVA-005 | FR-02 | COND-FR02-BVA-005 | BV-LOCKTIME-002, `lock_elapsed_time` ON = 30 giây | Hợp lệ | Đúng thời hạn khóa, cần đo thời gian cẩn thận. |
-| TC-FR02-BVA-006 | FR-02 | COND-FR02-BVA-006 | BV-LOCKTIME-003, `lock_elapsed_time` OFF⁺ = 31 giây | Hợp lệ | Ngay sau thời hạn khóa. |
+| TC-FR02-BVA-001 | FR-02 | COND-FR02-BVA-001 | BV-FAILEDCOUNT-001, `failed_login_count` OFF⁻ = 2 | Hợp lệ | Expected state: Unlocked. |
+| TC-FR02-BVA-002 | FR-02 | COND-FR02-BVA-002 | BV-FAILEDCOUNT-002, `failed_login_count` ON = 3 | Hợp lệ | Expected state: Locked. |
+| TC-FR02-BVA-003 | FR-02 | COND-FR02-BVA-003 | BV-LOCKSTATE-001, `account_lock_state` ON-state sau ngưỡng 3 | Hợp lệ | Kiểm tra login attempt trong trạng thái khóa; không kết luận counter tăng thành 4. |
+| TC-FR02-BVA-004 | FR-02 | COND-FR02-BVA-004 | BV-LOCKTIME-001, `lock_elapsed_time` OFF⁻ = 29 giây | Hợp lệ | Expected state: Locked. |
+| TC-FR02-BVA-005 | FR-02 | COND-FR02-BVA-005 | BV-LOCKTIME-002, `lock_elapsed_time` ON = 30 giây | Hợp lệ | Transition threshold; cần đo thời gian chính xác. |
+| TC-FR02-BVA-006 | FR-02 | COND-FR02-BVA-006 | BV-LOCKTIME-003, `lock_elapsed_time` OFF⁺ = 31 giây | Hợp lệ | Expected state: Unlocked. |
 
 ## 5. Coverage và duplicate audit
 
@@ -52,23 +54,25 @@ Không còn finding Critical hoặc Major chưa xử lý.
 |---|---|---|---|
 | `failed_login_count` OFF⁻ = 2 | TC-FR02-BVA-001 | Đạt | Chưa khóa ngay dưới ngưỡng. |
 | `failed_login_count` ON = 3 | TC-FR02-BVA-002 | Đạt | Khóa tại đúng ngưỡng. |
-| `failed_login_count` OFF⁺ = 4 | TC-FR02-BVA-003 | Đạt | Vẫn bị khóa ngay trên ngưỡng. |
+| Login attempt trong trạng thái khóa | TC-FR02-BVA-003 | Đạt | Dependent lock-state behavior, không phải counter OFF⁺ = 4. |
 | `lock_elapsed_time` OFF⁻ = 29 giây | TC-FR02-BVA-004 | Đạt | Chưa hết khóa. |
-| `lock_elapsed_time` ON = 30 giây | TC-FR02-BVA-005 | Đạt | Đúng mốc hết khóa theo requirement. |
-| `lock_elapsed_time` OFF⁺ = 31 giây | TC-FR02-BVA-006 | Đạt | Sau mốc hết khóa. |
+| `lock_elapsed_time` ON = 30 giây | TC-FR02-BVA-005 | Đạt | Transition threshold, có rủi ro timing. |
+| `lock_elapsed_time` OFF⁺ = 31 giây | TC-FR02-BVA-006 | Đạt | Sau mốc transition. |
+| `failed_login_count` OFF⁺ = 4 | Không cover | Chủ động loại trừ | FR-02 không đặc tả counter có tăng tiếp khi tài khoản đã khóa. |
 | Email/password length boundary | Không cover | Chủ động loại trừ | FR-02 không đặc tả min/max length cho email/password; không áp dụng BVA máy móc. |
 
-Không phát hiện duplicate mục tiêu chính. Các test case dùng cùng tài khoản và mật khẩu là hợp lý vì đây là valid nominal data để isolate boundary.
+Không phát hiện duplicate mục tiêu chính. TC-FR02-BVA-003 được giữ vì nó kiểm tra hành vi phụ thuộc sau boundary ON của counter, không trùng với TC-FR02-BVA-002.
 
 ## 6. Kết luận readiness
 
 Sẵn sàng execution.
 
-Các finding đã được xử lý hoặc ghi rõ thành requirement gap. Bộ test BVA có thể dùng để kiểm tra FR-02 trước khi execution, với lưu ý cần chuẩn bị trạng thái tài khoản và đo thời gian chính xác cho nhóm test khóa 30 giây.
+Analysis và test case BVA đã được sửa theo hướng không tự thêm requirement mới. Bộ test vẫn giữ case tại đúng 30 giây, nhưng đã ghi rõ cần công cụ đo thời gian chính xác và phải xem xét rủi ro timing khi execution.
 
 ## 7. Giả định và thông tin cần xác nhận
 
 - Giả định cần xác nhận: Có thể đưa tài khoản `test@eshop.com` về trạng thái không khóa và 0 lần sai liên tiếp trước từng test độc lập.
 - Giả định cần xác nhận: Có thể đo mốc 29, 30 và 31 giây đủ chính xác trong môi trường demo.
 - Chưa được đặc tả: Cách quan sát trực tiếp giá trị `failed_login_count`.
-- Chưa được đặc tả: Tolerance chính xác quanh mốc 30 giây.
+- Chưa được đặc tả: Counter có tăng tiếp hay không khi login attempt diễn ra trong trạng thái khóa.
+- Chưa được đặc tả: Tolerance chính xác quanh transition threshold 30 giây.

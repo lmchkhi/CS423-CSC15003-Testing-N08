@@ -1215,3 +1215,92 @@ Kiểm tra cuối ổn: có 1 analysis BVA, 6 test case, review kết luận `S�
 
 ### Notes
 Log này ghi `conversation context khả dụng` trong lượt làm việc hiện tại. Tool call/output không được chép đầy đủ vào transcript; các file artifact và review đã được tạo trong workspace.
+
+## Prompt Log Entry - 2026-06-26 19:09:12 +07
+
+### Transcript
+
+```text
+User:
+$boundary-value-analysis
+$test-case-review
+$prompt-log
+
+Review và sửa:
+`analysis/FR-02-login/bva-analysis.md`
+
+Các điểm cần sửa:
+- Không kết luận lần thử thứ 4 làm failed_login_count tăng thành 4 vì FR-02 không đặc tả hành vi counter khi tài khoản đã khóa.
+- Phân biệt boundary của counter với hành vi thử đăng nhập trong trạng thái khóa.
+- Đổi cách phân loại Valid/Invalid thành expected locked/unlocked state khi phù hợp.
+- Mô tả 30 giây là transition threshold.
+- Giữ test tại đúng 30 giây nhưng ghi rõ rủi ro timing và nhu cầu công cụ đo chính xác.
+- Không tự thêm requirement mới.
+
+Sau khi sửa, review lại các test case BVA liên quan và append log.
+
+User:
+<skill>
+<name>boundary-value-analysis</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/boundary-value-analysis/SKILL.md</path>
+---
+name: boundary-value-analysis
+description: Phân tích requirement bằng Boundary Value Analysis, xác định ON, OFF-, OFF+, xây dựng ma trận giá trị biên và sinh test case có khả năng truy vết. Sử dụng khi requirement có giới hạn min, max, độ dài, số lượng, ngày giờ, kích thước hoặc ngưỡng.
+---
+
+# Boundary Value Analysis Skill
+
+[Nội dung skill xuất hiện trong conversation context khả dụng nhưng không chép lại toàn bộ tại entry này để tránh lặp lại khối hướng dẫn dài đã có trong prompt_log.md trước đó.]
+</skill>
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+[Nội dung skill xuất hiện trong conversation context khả dụng nhưng không chép lại toàn bộ tại entry này để tránh lặp lại khối hướng dẫn dài đã có trong prompt_log.md trước đó.]
+</skill>
+
+User:
+<skill>
+<name>test-case-review</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-case-review/SKILL.md</path>
+---
+name: test-case-review
+description: Review QA analysis and generated test case files for black-box testing assignments. Use when Codex must audit Domain Testing or Boundary Value Analysis outputs for concrete test data, observable expected results, traceability, duplicates, invented constraints, Vietnamese format, and readiness before execution.
+---
+
+[Nội dung skill xuất hiện trong conversation context khả dụng nhưng không chép lại toàn bộ tại entry này để tránh lặp lại khối hướng dẫn dài đã có trong prompt_log.md trước đó.]
+</skill>
+
+Assistant:
+Mình sẽ dùng lại 3 skill theo thứ tự: `boundary-value-analysis` để sửa analysis đúng bản chất boundary, `test-case-review` để rà lại các BVA test liên quan, rồi `prompt-log` để append entry mới. Mình bắt đầu bằng việc đọc lại skill file và các artifact hiện tại để sửa đúng chỗ, không làm lệch requirement.
+
+Assistant:
+Mình thấy đúng vấn đề người dùng nêu: analysis hiện trộn “OFF⁺ = 4 lần sai” với hành vi lúc tài khoản đã khóa, trong khi FR-02 không nói counter có tiếp tục tăng khi khóa. Mình sẽ tách thành boundary của counter ở 2/3 lần sai và boundary hành vi lock-state/time, rồi sửa các test case liên quan cho traceability sạch hơn.
+
+Assistant:
+Mình sẽ chỉnh theo hướng bảo thủ hơn: counter chỉ có boundary kiểm thử rõ ở `2` và `3`; phần “thử tiếp trong lúc đã khóa” sẽ được chuyển thành dependent lock-state behavior, không gọi là counter = 4. Các mốc `29/30/31` vẫn giữ, nhưng `30 giây` sẽ được mô tả là transition threshold với rủi ro timing rõ ràng.
+
+Assistant:
+Analysis đã được viết lại theo đúng ranh giới: không còn xem `4` là counter boundary. Mình tiếp tục sửa `TC-FR02-BVA-003` để nó là test hành vi trong trạng thái khóa, và bổ sung rõ rủi ro timing cho `TC-FR02-BVA-005`.
+
+Assistant:
+Test case liên quan đã được sửa: `TC-FR02-BVA-003` giờ không còn là “4 lần sai”, mà là lock-state behavior phụ thuộc sau ngưỡng 3. Mình cập nhật review để phản ánh lần sửa mới và kiểm lại không còn câu nào tự thêm requirement về counter.
+
+Assistant:
+`rg` cho thấy review cũ vẫn còn các dòng “OFF⁺ = 4”, nên mình sẽ thay review bằng bản mới cho lần rà soát này. Nội dung review sẽ ghi rõ finding cũ đã được sửa sâu hơn: bỏ counter=4 và map `TC-FR02-BVA-003` sang `BV-LOCKSTATE-001`.
+
+Assistant:
+Review artifact đã được cập nhật. Mình chạy kiểm tra cuối để bắt các cụm cũ còn sót, rồi append log phiên này vào `prompt_log.md`.
+
+Assistant:
+Các kiểm tra đã qua: phần còn nhắc `OFF⁺ = 4` chỉ nằm trong bối cảnh “không chọn/đã sửa”, không còn là boundary được test. Mình append log phiên này vào `prompt_log.md` ngay sau entry cũ.
+```
+
+### Notes
+Log này ghi `conversation context khả dụng` của lượt sửa BVA. Ba khối skill đầy đủ có trong context nhưng đã được rút gọn trong entry này để tránh lặp lại toàn bộ nội dung dài; các artifact sửa đổi nằm trong `analysis/FR-02-login/bva-analysis.md`, `tests/test-cases/FR-02-login/bva/TC-FR02-BVA-003.md`, `tests/test-cases/FR-02-login/bva/TC-FR02-BVA-005.md`, và `reviews/FR-02-login/bva-review.md`.

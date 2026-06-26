@@ -20,7 +20,7 @@ Xác minh đúng mốc 30 giây sau khi bị khóa, tài khoản không còn b�
 - Hệ thống EShop đang hoạt động.
 - Tài khoản `test@eshop.com` tồn tại.
 - Tài khoản `test@eshop.com` vừa bị khóa do 3 lần đăng nhập sai liên tiếp.
-- Người kiểm thử có đồng hồ hoặc công cụ đo thời gian từ thời điểm khóa.
+- Người kiểm thử có đồng hồ hoặc công cụ đo thời gian chính xác từ thời điểm khóa; mốc đúng 30 giây có rủi ro timing nếu thao tác thủ công.
 
 ## Test data
 
@@ -32,12 +32,12 @@ Xác minh đúng mốc 30 giây sau khi bị khóa, tài khoản không còn b�
 
 ## Test steps
 1. Ngay sau khi tài khoản bị khóa, bắt đầu đo thời gian.
-2. Chờ đến đúng mốc 30 giây sau thời điểm khóa.
+2. Chờ đến đúng mốc 30 giây sau thời điểm khóa bằng công cụ đo thời gian chính xác.
 3. Nhập `test@eshop.com` và `Test1234!`.
 4. Bấm đăng nhập.
 
 ## Expected result
-Hệ thống chấp nhận đăng nhập tại thời điểm đủ 30 giây sau khi khóa. Client nhận JWT Token và người dùng có phiên đăng nhập mới.
+Hệ thống chấp nhận đăng nhập tại thời điểm đủ 30 giây sau khi khóa. Client nhận JWT Token và người dùng có phiên đăng nhập mới. Nếu thao tác thủ công không đảm bảo đúng mốc 30 giây, kết quả cần được ghi nhận kèm rủi ro timing thay vì kết luận lỗi ngay.
 
 ## Traceability
 - Requirement: FR-02
