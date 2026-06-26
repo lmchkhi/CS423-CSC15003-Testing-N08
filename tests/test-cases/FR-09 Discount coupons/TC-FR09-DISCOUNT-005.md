@@ -21,12 +21,12 @@ Windows 10, Google Chrome Version 149.0.7827.103
 0. Chạy chương trình backend, frontend web, frontend admin
 1. Truy cập vào trang web với đường dẫn [http://localhost:5173/](http://localhost:5173/)
 2. Nhấn vào mục đăng nhập
-3. Đăng nhập với tên email: test@eshop.com và mật khẩu là Test1234!
+3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
 4. Nhấn vào mục xem giỏ hàng
-5. Nhấn vào Tiến hàng thanh toán
-6. Nhập vào mục Mã giảm giá và nhập mã: BIGBUY
-7. Nhấn vào Áp dụng
-8. Nhấn vào Xác nhận thanh toán.
+5. Nhấn vào **Tiến hành thanh toán**
+6. Nhập vào mục **Mã giảm giá** và nhập mã: `BIGBUY`
+7. Nhấn vào **Áp dụng**
+8. Nhấn vào **Xác nhận thanh toán**.
 
 ## Kết quả mong đợi
 
@@ -34,4 +34,4 @@ Giao diện không hiện nút Tiến hành thanh toán và hiện đường lin
 
 ## Trạng thái của testcase
 
-Pass
+Skipped (vì không phù hợp với yêu cầu)

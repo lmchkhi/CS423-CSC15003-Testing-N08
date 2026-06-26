@@ -20,6 +20,15 @@ Windows 10, Google Chrome Version 149.0.7827.103
 
 - Cơ sở dữ liệu hệ thống được khởi tạo với giá trị mặc định
 
+## Test data
+
+|Name|Value|
+|---|---|
+|Email|test@eshop.com|
+|Password|Test1234!|
+|Mã giảm giá|BIGBUY|
+|Tên sản phẩm|Bàn phím cơ Keychron Q1|
+
 ## Các bước thực hiện
 
 0. Chạy chương trình backend, frontend web, frontend admin
@@ -28,7 +37,7 @@ Windows 10, Google Chrome Version 149.0.7827.103
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
 4. Thêm vào giỏ hàng sản phẩm **`Bàn phím cơ Keychron Q1`**
 5. Nhấn vào mục: **Giỏ hàng**
-6. Nhấn vào **Tiến hàng thanh toán**
+6. Nhấn vào **Tiến hành thanh toán**
 7. Nhập vào ô nhập ***Mã giảm giá** mã: `BIGBUY`
 8. Nhấn vào **Áp dụng**
 9. Nhấn vào **Xác nhận thanh toán**

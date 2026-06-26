@@ -25,6 +25,16 @@ Windows 10, Google Chrome Version 149.0.7827.103
   - Có 1 lượt sử dụng
   - Hết hạn sau 100 năm từ ngày kiểm thử
 
+## Test data
+
+|Name|Value|
+|---|---|
+|Email|test@eshop.com|
+|Password|Test1234!|
+|Mã giảm giá|G7T|
+|Tên sản phẩm đầu tiên|Bàn phím cơ Keychron Q1|
+|Tên sản phẩm thứ hai|Tai nghe AirPods Pro 2|
+
 ## Các bước thực hiện
 
 0. Chạy chương trình backend, frontend web, frontend admin
@@ -33,15 +43,17 @@ Windows 10, Google Chrome Version 149.0.7827.103
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
 4. Thêm vào giỏ hàng sản phẩm **`Bàn phím cơ Keychron Q1`** và sản phẩm **`Tai nghe AirPods Pro 2`**
 5. Nhấn vào mục: **Giỏ hàng**
-6. Nhấn vào **Tiến hàng thanh toán**
+6. Nhấn vào **Tiến hành thanh toán**
 7. Nhập vào ô nhập cho **Mã giảm giá** mã: `G7T`
 8. Nhấn vào **Áp dụng**
 9. Nhấn vào **Xác nhận thanh toán**.
 
 ## Kết quả mong đợi
 
-Sau bước 8, giao diện xác nhận mã giảm và giảm giá đơn hàng còn *1000000* (một triệu đồng)
+Sau bước 8, giao diện xác nhận mã giảm và giảm giá đơn hàng còn *3000000* (ba triệu đồng)
 
-Sau bước 9, hệ thống xác nhận và hiện trên trang admin đơn hàng với giá trị *1000000* (một triệu đồng)
+Sau bước 9, hệ thống xác nhận và hiện trên trang admin đơn hàng với giá trị *3000000* (ba triệu đồng)
 
 ## Trạng thái của testcase
+
+Pass

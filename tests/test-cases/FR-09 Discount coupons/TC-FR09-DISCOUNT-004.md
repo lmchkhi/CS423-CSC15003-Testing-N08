@@ -20,6 +20,16 @@ Windows 10, Google Chrome Version 149.0.7827.103
 
 - Cơ sở dữ liệu hệ thống được khởi tạo với giá trị mặc định
 
+## Test data
+
+|Name|Value|
+|---|---|
+|Email|test@eshop.com|
+|Password|Test1234!|
+|Mã giảm giá|SAVE10|
+|Tên sản phẩm đầu tiên|Bàn phím cơ Keychron Q1|
+|Tên sản phẩm thứ hai|Tai nghe AirPods Pro 2|
+
 ## Các bước thực hiện
 
 0. Chạy chương trình backend, frontend web, frontend admin
@@ -28,7 +38,7 @@ Windows 10, Google Chrome Version 149.0.7827.103
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
 4. Thêm vào giỏ hàng sản phẩm **`Bàn phím cơ Keychron Q1`** và sản phẩm **`Tai nghe AirPods Pro 2`**
 5. Nhấn vào mục: **Giỏ hàng**
-6. Nhấn vào mục: **Tiến hàng thanh toán**
+6. Nhấn vào mục: **Tiến hành thanh toán**
 7. Nhập vào ô  **Mã giảm giá** mã: `SAVE10`
 8. Nhấn vào **Áp dụng**
 9. Nhấn vào **Xác nhận thanh toán**
@@ -40,3 +50,5 @@ Sau bước 8, giao diện hiện đơn hàng là *9000000* (chín triệu đồ
 Sau bước 9, hệ thống xác nhận và hiện trên trang admin đơn hàng giá trị *9000000* (chín triệu đồng)
 
 ## Trạng thái của testcase
+
+Failed
