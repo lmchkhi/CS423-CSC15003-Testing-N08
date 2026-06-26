@@ -302,3 +302,452 @@ AI Agent là công cụ hữu ích cho việc thiết kế test case ban đầu,
 - Xác nhận kết quả test trên hệ thống thực
 
 ---
+
+## FR-12: Kiểm soát truy cập (Access Control)
+
+### 1. Tổng quan
+
+FR-12 yêu cầu phân hệ Admin của hệ thống EShop chỉ dành cho tài khoản có `role = 'admin'`. Cụ thể, **tất cả** các API Admin (`/api/admin/*`) và các API có tính ảnh hưởng dữ liệu (`POST/PUT/DELETE /api/products`, `/api/categories`, `/api/coupons`) đều phải yêu cầu:
+
+1. Token JWT hợp lệ (SEC-02).
+2. `role = 'admin'` trong Token (SEC-03).
+
+Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế test case:
+
+- [description_project.md](../description_project.md) -- Mục FR-12 (dòng 174-179) và SEC-02, SEC-03 (dòng 274-285)
+- [api_specification.md](../api_specification.md) -- Mục 6: API dành cho Admin (dòng 171-214)
+
+---
+
+### 2. Domain Testing
+
+#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+
+Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
+
+**Bước 1 -- Xác định biến đầu vào (Input Variables)**
+
+Từ phân tích đặc tả FR-12 trong `description_project.md` và `api_specification.md`, xác định được **2 biến đầu vào chính** và **1 biến ngữ cảnh**:
+
+| #   | Biến                    | Kiểu                | Mô tả                                                                                                                                                                     |
+| --- | ----------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| V1  | Token (JWT)             | Categorical / State | Trạng thái của JWT Token gửi kèm trong header `Authorization: Bearer <token>`                                                                                             |
+| V2  | Role (trong Token)      | Categorical         | Giá trị `role` được encode trong JWT payload                                                                                                                              |
+| V3  | API Endpoint (ngữ cảnh) | Categorical         | Endpoint đang được gọi, chia thành 2 nhóm: (a) Admin-only `/api/admin/*`, (b) Data-mutation `/api/products`, `/api/categories`, `/api/coupons` với method POST/PUT/DELETE |
+
+**Bước 2 -- Phân hoạch tương đương (Equivalence Partitioning)**
+
+Áp dụng EP cho từng biến đầu vào:
+
+**Biến V1: Token (JWT)**
+
+| Partition ID | Phân hoạch                                        | Giá trị đại diện                            | Valid / Invalid                             |
+| :----------: | ------------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+|    V1-EP1    | Không có Token                                    | Header `Authorization` trống hoặc không gửi | Invalid                                     |
+|    V1-EP2    | Token sai định dạng / hết hạn / bị giả mạo        | `"Bearer invalid_token_xyz"`                | Invalid                                     |
+|    V1-EP3    | Token JWT hợp lệ (của user thường, role = 'user') | Token từ login `test@eshop.com`             | Valid (nhưng role sai, truy cập bị từ chối) |
+|    V1-EP4    | Token JWT hợp lệ (của admin, role = 'admin')      | Token từ login `admin@eshop.com`            | Valid                                       |
+
+**Biến V2: Role (trong Token)**
+
+| Partition ID | Phân hoạch                                 | Giá trị đại diện                | Valid / Invalid         |
+| :----------: | ------------------------------------------ | ------------------------------- | ----------------------- |
+|    V2-EP1    | Không có role (Token missing hoặc invalid) | N/A -- phụ thuộc V1-EP1, V1-EP2 | Invalid                 |
+|    V2-EP2    | `role = 'user'` (user thường)              | Token của `test@eshop.com`      | Invalid (cho API Admin) |
+|    V2-EP3    | `role = 'admin'`                           | Token của `admin@eshop.com`     | Valid                   |
+
+**Biến V3: API Endpoint (2 nhóm target)**
+
+Nhóm A -- Admin-only APIs (`/api/admin/*`):
+
+| API                            | Method | Mô tả                        |
+| ------------------------------ | ------ | ---------------------------- |
+| `/api/admin/users`             | GET    | Lấy danh sách người dùng     |
+| `/api/admin/users/:id`         | DELETE | Xóa người dùng               |
+| `/api/admin/orders`            | GET    | Lấy danh sách đơn hàng       |
+| `/api/admin/orders/:id/status` | PUT    | Cập nhật trạng thái đơn hàng |
+| `/api/admin/import-products`   | POST   | Import sản phẩm từ CSV       |
+| `/api/admin/coupons`           | POST   | Thêm mã giảm giá             |
+| `/api/admin/coupons/:id`       | DELETE | Xóa mã giảm giá              |
+
+Nhóm B -- Data-mutation APIs (Non-admin path, nhưng yêu cầu admin):
+
+| API                   | Method | Mô tả         |
+| --------------------- | ------ | ------------- |
+| `/api/products`       | POST   | Thêm sản phẩm |
+| `/api/products/:id`   | PUT    | Sửa sản phẩm  |
+| `/api/products/:id`   | DELETE | Xóa sản phẩm  |
+| `/api/categories`     | POST   | Thêm danh mục |
+| `/api/categories/:id` | PUT    | Sửa danh mục  |
+| `/api/categories/:id` | DELETE | Xóa danh mục  |
+
+**Bước 3 -- Tổng hợp Domain Matrix và tạo Test Case**
+
+Logic tổ hợp cốt lõi từ Token x Role x API Group tạo ra 8 kịch bản logic:
+
+| #   | Token (V1)          | Role (V2)        | API Group (V3)             | Expected Result               |
+| --- | ------------------- | ---------------- | -------------------------- | ----------------------------- |
+| 1   | Không có Token      | N/A              | Nhóm A (Admin API)         | Bị từ chối (401 Unauthorized) |
+| 2   | Không có Token      | N/A              | Nhóm B (Data-mutation API) | Bị từ chối (401 Unauthorized) |
+| 3   | Token sai / hết hạn | N/A              | Nhóm A (Admin API)         | Bị từ chối (401 Unauthorized) |
+| 4   | Token sai / hết hạn | N/A              | Nhóm B (Data-mutation API) | Bị từ chối (401 Unauthorized) |
+| 5   | Token hợp lệ        | `role = 'user'`  | Nhóm A (Admin API)         | Bị từ chối (403 Forbidden)    |
+| 6   | Token hợp lệ        | `role = 'user'`  | Nhóm B (Data-mutation API) | Bị từ chối (403 Forbidden)    |
+| 7   | Token hợp lệ        | `role = 'admin'` | Nhóm A (Admin API)         | Truy cập thành công (200 OK)  |
+| 8   | Token hợp lệ        | `role = 'admin'` | Nhóm B (Data-mutation API) | Truy cập thành công (200 OK)  |
+
+Để đảm bảo coverage cho tất cả 13 endpoint trong cả 2 nhóm, mỗi endpoint được kiểm tra với **3 kịch bản cốt lõi**: (1) Không có Token -- 401, (2) Token hợp lệ nhưng role = 'user' -- 403, (3) Token hợp lệ + role = 'admin' -- 200 OK. Kịch bản "Token sai/hết hạn" được test đại diện trên 1 endpoint vì hành vi là đồng nhất trên tất cả endpoint.
+
+Tổng cộng: **40 test case** (DT-001 đến DT-040).
+
+Ma trận test case đầy đủ:
+
+| TC ID  | Endpoint                       | Method | Token     | Role  | Expected |
+| ------ | ------------------------------ | ------ | --------- | ----- | -------- |
+| DT-001 | `/api/admin/users`             | GET    | Không gửi | N/A   | 401      |
+| DT-002 | `/api/admin/users`             | GET    | Token sai | N/A   | 401      |
+| DT-003 | `/api/admin/users`             | GET    | Hợp lệ    | user  | 403      |
+| DT-004 | `/api/admin/users`             | GET    | Hợp lệ    | admin | 200      |
+| DT-005 | `/api/admin/users/:id`         | DELETE | Không gửi | N/A   | 401      |
+| DT-006 | `/api/admin/users/:id`         | DELETE | Hợp lệ    | user  | 403      |
+| DT-007 | `/api/admin/users/:id`         | DELETE | Hợp lệ    | admin | 200      |
+| DT-008 | `/api/admin/orders`            | GET    | Không gửi | N/A   | 401      |
+| DT-009 | `/api/admin/orders`            | GET    | Hợp lệ    | user  | 403      |
+| DT-010 | `/api/admin/orders`            | GET    | Hợp lệ    | admin | 200      |
+| DT-011 | `/api/admin/orders/:id/status` | PUT    | Không gửi | N/A   | 401      |
+| DT-012 | `/api/admin/orders/:id/status` | PUT    | Hợp lệ    | user  | 403      |
+| DT-013 | `/api/admin/orders/:id/status` | PUT    | Hợp lệ    | admin | 200      |
+| DT-014 | `/api/admin/import-products`   | POST   | Không gửi | N/A   | 401      |
+| DT-015 | `/api/admin/import-products`   | POST   | Hợp lệ    | user  | 403      |
+| DT-016 | `/api/admin/import-products`   | POST   | Hợp lệ    | admin | 200      |
+| DT-017 | `/api/admin/coupons`           | POST   | Không gửi | N/A   | 401      |
+| DT-018 | `/api/admin/coupons`           | POST   | Hợp lệ    | user  | 403      |
+| DT-019 | `/api/admin/coupons`           | POST   | Hợp lệ    | admin | 200      |
+| DT-020 | `/api/admin/coupons/:id`       | DELETE | Không gửi | N/A   | 401      |
+| DT-021 | `/api/admin/coupons/:id`       | DELETE | Hợp lệ    | user  | 403      |
+| DT-022 | `/api/admin/coupons/:id`       | DELETE | Hợp lệ    | admin | 200      |
+| DT-023 | `/api/products`                | POST   | Không gửi | N/A   | 401      |
+| DT-024 | `/api/products`                | POST   | Hợp lệ    | user  | 403      |
+| DT-025 | `/api/products`                | POST   | Hợp lệ    | admin | 200      |
+| DT-026 | `/api/products/:id`            | PUT    | Không gửi | N/A   | 401      |
+| DT-027 | `/api/products/:id`            | PUT    | Hợp lệ    | user  | 403      |
+| DT-028 | `/api/products/:id`            | PUT    | Hợp lệ    | admin | 200      |
+| DT-029 | `/api/products/:id`            | DELETE | Không gửi | N/A   | 401      |
+| DT-030 | `/api/products/:id`            | DELETE | Hợp lệ    | user  | 403      |
+| DT-031 | `/api/products/:id`            | DELETE | Hợp lệ    | admin | 200      |
+| DT-032 | `/api/categories`              | POST   | Không gửi | N/A   | 401      |
+| DT-033 | `/api/categories`              | POST   | Hợp lệ    | user  | 403      |
+| DT-034 | `/api/categories`              | POST   | Hợp lệ    | admin | 200      |
+| DT-035 | `/api/categories/:id`          | PUT    | Không gửi | N/A   | 401      |
+| DT-036 | `/api/categories/:id`          | PUT    | Hợp lệ    | user  | 403      |
+| DT-037 | `/api/categories/:id`          | PUT    | Hợp lệ    | admin | 200      |
+| DT-038 | `/api/categories/:id`          | DELETE | Không gửi | N/A   | 401      |
+| DT-039 | `/api/categories/:id`          | DELETE | Hợp lệ    | user  | 403      |
+| DT-040 | `/api/categories/:id`          | DELETE | Hợp lệ    | admin | 200      |
+
+#### 2.2. Kết quả thực thi
+
+| TC ID  | Tên Test Case                                                | Kết quả | Ghi chú                                 |
+| ------ | ------------------------------------------------------------ | ------- | --------------------------------------- |
+| DT-001 | Truy cập API danh sách người dùng -- Không có Token          | Passed  | 401 Unauthorized                        |
+| DT-002 | Truy cập API danh sách người dùng -- Token không hợp lệ      | Failed  | 403 thay vì 401                         |
+| DT-003 | Truy cập API danh sách người dùng -- Token user thường       | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-004 | Truy cập API danh sách người dùng -- Token admin             | Passed  | 200 OK                                  |
+| DT-005 | Xóa người dùng (Admin) -- Không có Token                     | Passed  | 401 Unauthorized                        |
+| DT-006 | Xóa người dùng (Admin) -- Token user thường                  | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-007 | Xóa người dùng (Admin) -- Token admin                        | Passed  | 200 OK                                  |
+| DT-008 | Truy cập API danh sách đơn hàng (Admin) -- Không có Token    | Passed  | 401 Unauthorized                        |
+| DT-009 | Truy cập API danh sách đơn hàng (Admin) -- Token user thường | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-010 | Truy cập API danh sách đơn hàng (Admin) -- Token admin       | Passed  | 200 OK                                  |
+| DT-011 | Cập nhật trạng thái đơn hàng (Admin) -- Không có Token       | Passed  | 401 Unauthorized                        |
+| DT-012 | Cập nhật trạng thái đơn hàng (Admin) -- Token user thường    | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-013 | Cập nhật trạng thái đơn hàng (Admin) -- Token admin          | Passed  | 200 OK                                  |
+| DT-014 | Import sản phẩm CSV (Admin) -- Không có Token                | Passed  | 401 Unauthorized                        |
+| DT-015 | Import sản phẩm CSV (Admin) -- Token user thường             | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-016 | Import sản phẩm CSV (Admin) -- Token admin                   | Passed  | 200 OK                                  |
+| DT-017 | Thêm mã giảm giá (Admin) -- Không có Token                   | Passed  | 401 Unauthorized                        |
+| DT-018 | Thêm mã giảm giá (Admin) -- Token user thường                | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-019 | Thêm mã giảm giá (Admin) -- Token admin                      | Passed  | 200 OK                                  |
+| DT-020 | Xóa mã giảm giá (Admin) -- Không có Token                    | Passed  | 401 Unauthorized                        |
+| DT-021 | Xóa mã giảm giá (Admin) -- Token user thường                 | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-022 | Xóa mã giảm giá (Admin) -- Token admin                       | Passed  | 200 OK                                  |
+| DT-023 | Thêm sản phẩm -- Không có Token                              | Failed  | 200 thay vì 401 -- hoàn toàn thiếu auth |
+| DT-024 | Thêm sản phẩm -- Token user thường                           | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-025 | Thêm sản phẩm -- Token admin                                 | Passed  | 200 OK                                  |
+| DT-026 | Cập nhật sản phẩm -- Không có Token                          | Failed  | 200 thay vì 401 -- hoàn toàn thiếu auth |
+| DT-027 | Cập nhật sản phẩm -- Token user thường                       | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-028 | Cập nhật sản phẩm -- Token admin                             | Passed  | 200 OK                                  |
+| DT-029 | Xóa sản phẩm -- Không có Token                               | Failed  | 200 thay vì 401 -- hoàn toàn thiếu auth |
+| DT-030 | Xóa sản phẩm -- Token user thường                            | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-031 | Xóa sản phẩm -- Token admin                                  | Passed  | 200 OK                                  |
+| DT-032 | Thêm danh mục -- Không có Token                              | Passed  | 401 Unauthorized                        |
+| DT-033 | Thêm danh mục -- Token user thường                           | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-034 | Thêm danh mục -- Token admin                                 | Passed  | 200 OK                                  |
+| DT-035 | Cập nhật danh mục -- Không có Token                          | Passed  | 401 Unauthorized                        |
+| DT-036 | Cập nhật danh mục -- Token user thường                       | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-037 | Cập nhật danh mục -- Token admin                             | Passed  | 200 OK                                  |
+| DT-038 | Xóa danh mục -- Không có Token                               | Passed  | 401 Unauthorized                        |
+| DT-039 | Xóa danh mục -- Token user thường                            | Failed  | 200 thay vì 403 -- thiếu kiểm tra role  |
+| DT-040 | Xóa danh mục -- Token admin                                  | Passed  | 200 OK                                  |
+
+**Thống kê:** 23 Passed (57.5%) / 17 Failed (42.5%) trên tổng số 40 test case.
+
+#### 2.3. Các lỗi phát hiện từ Domain Testing
+
+| Bug ID       | TC liên quan                                           | Mô tả ngắn                                                                                                                                                        | Mức độ   |
+| ------------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| BUG-FR12-001 | DT-023, DT-024, DT-026, DT-027, DT-029, DT-030         | Product API endpoints (POST/PUT/DELETE `/api/products`) hoàn toàn thiếu middleware xác thực -- bất kỳ ai cũng có thể thêm/sửa/xóa sản phẩm mà không cần đăng nhập | Critical |
+| BUG-FR12-002 | DT-003, DT-006, DT-009, DT-012, DT-015, DT-018, DT-021 | Admin API endpoints (`/api/admin/*`) thiếu kiểm tra role -- user thường có Token hợp lệ có thể truy cập tất cả Admin API, vi phạm SEC-03                          | Critical |
+| BUG-FR12-003 | DT-033, DT-036, DT-039                                 | Category API endpoints (POST/PUT/DELETE `/api/categories`) thiếu kiểm tra role -- user thường có thể tạo/sửa/xóa danh mục                                         | Critical |
+| BUG-FR12-004 | DT-002                                                 | Token không hợp lệ trả về HTTP 403 Forbidden thay vì 401 Unauthorized -- sai mã lỗi HTTP theo chuẩn                                                               | Minor    |
+
+Chi tiết bug reports: [bug-reports/FR-12/](../bug-reports/FR-12/)
+
+#### 2.4. Phân loại lỗi theo nhóm endpoint
+
+Phân tích kết quả test cho thấy 3 mẫu lỗi (pattern) rõ ràng:
+
+**Nhóm A -- Admin-only APIs (`/api/admin/*`):**
+
+- Kiểm tra Token: DAT (tất cả endpoint đều trả 401 khi không có Token)
+- Kiểm tra Role: KHONG DAT (tất cả 7 endpoint đều cho phép user thường truy cập)
+- Middleware chỉ xác thực sự tồn tại của Token mà không kiểm tra role = 'admin'
+
+**Nhóm B -- Product APIs (`/api/products` POST/PUT/DELETE):**
+
+- Kiểm tra Token: KHONG DAT (hoàn toàn thiếu middleware xác thực)
+- Kiểm tra Role: KHONG DAT
+- Lỗ hổng nghiêm trọng nhất: bất kỳ ai không cần đăng nhập đều có thể thao tác dữ liệu sản phẩm
+
+**Nhóm B -- Category APIs (`/api/categories` POST/PUT/DELETE):**
+
+- Kiểm tra Token: DAT (trả 401 khi không có Token)
+- Kiểm tra Role: KHONG DAT (user thường có thể tạo/sửa/xóa danh mục)
+
+---
+
+### 3. Boundary Value Analysis (BVA)
+
+#### 3.1. Quy trình áp dụng kỹ thuật BVA
+
+Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
+
+> BVA chỉ được áp dụng cho các biến số (numerical variables) như price, quantity, total_amount. KHONG được ép hoặc suy diễn BVA trên các biến phi số như String (search queries, emails), Categorical data (roles, statuses), hoặc UI/DOM properties.
+
+**Bước 1 -- Đánh giá khả năng áp dụng BVA**
+
+Xét tất cả biến đầu vào của FR-12:
+
+| Biến               | Kiểu                | Có phải biến số (numerical) không? | Áp dụng BVA? |
+| ------------------ | ------------------- | ---------------------------------- | ------------ |
+| Token (JWT)        | Categorical / State | Không                              | Không        |
+| Role (trong Token) | Categorical         | Không                              | Không        |
+| API Endpoint       | Categorical         | Không                              | Không        |
+
+**Bước 2 -- Kết luận**
+
+FR-12 có 2 biến đầu vào chính (Token và Role) và 1 biến ngữ cảnh (API Endpoint), tất cả đều thuộc kiểu **categorical** (phân loại), không phải numerical (số). Theo STRICT BVA RULE, BVA chỉ áp dụng cho biến số. Do đó:
+
+> **"No numerical variables found. BVA is skipped."**
+
+Tất cả biến đầu vào đã được bao phủ đầy đủ bởi kỹ thuật Equivalence Partitioning (EP) với 4 phân hoạch cho Token và 3 phân hoạch cho Role, kết hợp với 13 endpoint tạo thành 40 test case.
+
+#### 3.2. Giải thích lý do không áp dụng BVA cho FR-12
+
+Trong bối cảnh FR-12, chức năng kiểm soát truy cập hoạt động dựa trên 2 cơ chế:
+
+- **Authentication (xác thực):** Kiểm tra sự tồn tại và tính hợp lệ của JWT Token -- đây là biến trạng thái (có/không có, hợp lệ/không hợp lệ), không phải biến số.
+- **Authorization (phân quyền):** Kiểm tra giá trị role trong Token -- đây là biến phân loại (admin/user), không phải biến số.
+
+Không tồn tại ranh giới số học nào có thể áp dụng BVA:
+
+- Token không có "giá trị biên" theo nghĩa số học -- nó hoặc hợp lệ hoặc không.
+- Role là categorical với 2 giá trị rời rạc (admin, user) -- không có phổ liên tục để xác định điểm biên.
+- API Endpoint là danh mục cố định -- không có thứ tự hay ranh giới số.
+
+Do đó, việc áp dụng BVA cho FR-12 là không phù hợp. Kỹ thuật EP đã cung cấp đủ coverage cần thiết.
+
+---
+
+### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+
+#### 4.1. Giới thiệu về CLAUDE.md
+
+File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-12, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
+
+- **Vai trò**: QA Test Designer chuyên về Black-Box Testing
+- **Ràng buộc**: Hành động từng bước, dừng lại và chờ phê duyệt sau mỗi bước
+- **Nguồn dữ liệu**: Chỉ dựa trên `description_project.md` và `api_specification.md`
+- **Quy tắc BVA**: STRICT BVA RULE -- chỉ áp dụng cho biến số (numerical)
+- **Template sử dụng**: Template 1 (Domain Testing) cho tất cả 40 test case
+- **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
+
+#### 4.2. Quy trình thực hiện chi tiết
+
+Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
+
+**Giai đoạn 1: Phân tích và Thiết kế (Steps 1-2-3 trong CLAUDE.md)**
+
+1. Người dùng cung cấp prompt khởi động quá trình QA với cấu hình cụ thể:
+   - `[FR-DIR]` = `FR-12-access`
+   - `[FR-ID]` = `FR12`
+   - Chỉ định biến đầu vào có thể là token hoặc role hoặc cả 2
+   - Yêu cầu áp dụng STRICT BVA RULE
+
+2. AI Agent đọc và phân tích 2 file đặc tả:
+   - `description_project.md` tại mục FR-12 (dòng 174-179) và SEC-02, SEC-03 (dòng 274-285)
+   - `api_specification.md` tại mục 6: API dành cho Admin (dòng 171-214)
+
+3. AI Agent xác định:
+   - 2 biến đầu vào chính: Token (JWT) -- Categorical, Role -- Categorical
+   - 1 biến ngữ cảnh: API Endpoint -- 13 endpoint chia 2 nhóm
+   - 4 phân hoạch cho Token (V1-EP1 đến V1-EP4)
+   - 3 phân hoạch cho Role (V2-EP1 đến V2-EP3)
+
+4. AI Agent đánh giá khả năng áp dụng BVA theo STRICT BVA RULE. Kết luận: cả Token và Role đều là categorical, không phải numerical -- BVA bị bỏ qua.
+
+5. AI Agent tổng hợp Domain Matrix: 13 endpoint x 3 kịch bản cốt lõi + 1 kịch bản Token sai = **40 test case dự kiến**.
+
+6. AI Agent trình bày bảng phân tích logic và dừng lại chờ người dùng phê duyệt.
+
+   Kết quả giai đoạn này được lưu tại: [implementation_plan_FR12.md](./implemation_plan/implementation_plan_FR12.md)
+
+**Giai đoạn 2: Tạo Test Case (Step 4 trong CLAUDE.md)**
+
+1. Sau khi người dùng phê duyệt bảng phân tích, AI Agent tạo 40 file test case theo **Template 1 (Domain Testing)** được định nghĩa trong CLAUDE.md.
+
+2. AI Agent sử dụng 4 subagent song song để tăng tốc quá trình sinh file:
+   - Group 1 (DT-001 đến DT-010): `/api/admin/users` GET, DELETE + `/api/admin/orders` GET
+   - Group 2 (DT-011 đến DT-022): `/api/admin/orders/:id/status` PUT, `/api/admin/import-products` POST, `/api/admin/coupons` POST/DELETE
+   - Group 3 (DT-023 đến DT-031): `/api/products` POST/PUT/DELETE
+   - Group 4 (DT-032 đến DT-040): `/api/categories` POST/PUT/DELETE
+
+3. AI Agent xác minh kết quả: tất cả 40/40 files được tạo thành công, đúng chuẩn Template 1 với đầy đủ: file path comment, Domain Analysis, Domain Matrix, Preconditions, Test data, Test steps, Expected result, Status = `Not Run`.
+
+4. AI Agent dừng lại và yêu cầu người dùng thực thi test case trên hệ thống thực.
+
+**Giai đoạn 3: Thực thi, Human Review, và Báo cáo (Step 5 trong CLAUDE.md)**
+
+1. Người dùng thực thi 40 test case trên hệ thống EShop thực tế bằng công cụ API testing (Postman/cURL) và cập nhật actual result + status cho từng file.
+
+2. Trong quá trình manual testing, người dùng nhận xét về AI Gap Analysis:
+   - AI sắp xếp test case xen kẽ giữa admin và user, khiến tester phải cập nhật access-token liên tục thay vì chạy hết tất cả test cùng một role rồi mới chuyển sang role khác.
+
+3. Người dùng báo cáo kết quả: 23 Passed / 17 Failed.
+
+4. AI Agent nhận kết quả và triển khai Step 5:
+   - Tạo [FR-12-access-run.md](../tests/test-runs/FR-12-access-run.md): tổng hợp kết quả test run
+   - Tạo 4 bug reports: [BUG-FR12-001](../bug-reports/FR-12/BUG-FR12-001.md) đến [BUG-FR12-004](../bug-reports/FR-12/BUG-FR12-004.md)
+   - Tạo [FR-12-access-gap-analysis.md](../ai-gap-analysis/FR-12-access-gap-analysis.md): phân tích hạn chế của AI
+
+#### 4.3. Lịch sử Git minh chứng
+
+Toàn bộ quy trình được ghi nhận trong lịch sử Git của branch `23127464`:
+
+| Commit    | Ngày             | Mô tả                                    |
+| --------- | ---------------- | ---------------------------------------- |
+| `1241f5e` | 2026-06-27 05:12 | docs: - restructure bug-report for FR-05 |
+
+Commit `1241f5e` bao gồm **72 files thay đổi** (+3229 dòng thêm, -23 dòng xóa):
+
+- 40 file test case tại `tests/test-cases/FR-12-access/domain-testing/`
+- 4 file bug report tại `bug-reports/FR-12/`
+- 17 file screenshot tại `bug-reports/screenshots/FR-12/`
+- 1 file test run tại `tests/test-runs/`
+- 1 file gap analysis tại `ai-gap-analysis/`
+- 1 file implementation plan tại `reports/implemation_plan/`
+
+#### 4.4. Sơ đồ quy trình tổng quát
+
+```
+Người dùng                         AI Agent (CLAUDE.md)
+    |                                    |
+    |--- Prompt khởi động QA FR-12 ----->|
+    |    (cung cấp [FR-DIR], [FR-ID],    |
+    |     chỉ định biến token/role)      |
+    |                                    |
+    |                                    |--- Đọc description_project.md (FR-12, SEC-02, SEC-03)
+    |                                    |--- Đọc api_specification.md (Admin APIs)
+    |                                    |--- Xác định 2 biến: Token, Role (Step 1)
+    |                                    |--- Phân hoạch EP cho Token (4 EP) và Role (3 EP) (Step 2)
+    |                                    |--- Đánh giá BVA: tất cả categorical, skip (Step 3)
+    |                                    |--- Tổng hợp: 13 endpoint x 3 kịch bản + 1 = 40 TC
+    |                                    |
+    |<-- Trình bày bảng phân tích -------|
+    |    (Chờ phê duyệt)                 |
+    |                                    |
+    |--- Phê duyệt --------------------->|
+    |                                    |
+    |                                    |--- Dispatch 4 subagent song song (Step 4)
+    |                                    |--- Tạo 40 test case files
+    |                                    |--- Xác minh 40/40 files đúng template
+    |                                    |
+    |<-- Yêu cầu manual testing ---------|
+    |                                    |
+    |--- Thực thi test trên SUT -------->|
+    |    (Postman/cURL, 40 API calls)    |
+    |                                    |
+    |--- Báo cáo kết quả:               |
+    |    23 Passed / 17 Failed           |
+    |    + Nhận xét: test ordering       |
+    |      không tối ưu --------------->|
+    |                                    |
+    |                                    |--- Tạo Test Run summary (Step 5)
+    |                                    |--- Tạo 4 Bug Reports (3 Critical + 1 Minor)
+    |                                    |--- Tạo AI Gap Analysis
+    |                                    |
+    |<-- Hoàn thành, yêu cầu commit ----|
+    |                                    |
+    |--- git add + git commit ---------->|
+         (Commit: 1241f5e)
+```
+
+#### 4.5. Phân tích AI Gap Analysis
+
+Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-12, 2 hạn chế chính được xác định:
+
+**Hạn chế 1: Sắp xếp test case không tối ưu cho quy trình thực thi (Test Execution Order)**
+
+- AI sắp xếp test case theo endpoint (logical grouping), xen kẽ giữa các kịch bản No Token / User Token / Admin Token cho mỗi endpoint.
+- Hệ quả: Tester phải liên tục chuyển đổi access token giữa các lần test (đăng nhập/đăng xuất, copy token).
+- Ví dụ: DT-003 (user token) rồi DT-004 (admin token) rồi DT-005 (no token) rồi DT-006 (user token).
+- Giải pháp tốt hơn: nhóm theo role/token (execution grouping) -- chạy hết tất cả "No Token" tests trước, rồi tất cả "User Token" tests, rồi "Admin Token" tests.
+
+**Hạn chế 2: Thiếu khả năng đánh giá dependency giữa các test case**
+
+- AI không thể dự đoán rằng DT-007 (xóa user bằng admin token) có thể ảnh hưởng đến DT-030 (xóa sản phẩm bằng user token) nếu user đã bị xóa.
+- Nguyên nhân: Black-box testing -- AI không có thông tin về trạng thái CSDL sau mỗi lần thực thi test case.
+- Giải pháp: AI nên thêm ghi chú về dependency giữa test case, đặc biệt với các thao tác DELETE có tính phá hủy dữ liệu.
+
+Chi tiết: [FR-12-access-gap-analysis.md](../ai-gap-analysis/FR-12-access-gap-analysis.md)
+
+#### 4.6. Đánh giá tổng thể
+
+| Tiêu chí                            | Đánh giá                                                             |
+| ----------------------------------- | -------------------------------------------------------------------- |
+| Số lượng test case AI tạo           | 40                                                                   |
+| Số lượng test case sau human review | 40 (không loại bỏ)                                                   |
+| Số lượng test case phát hiện lỗi    | 17/40 (42.5%)                                                        |
+| Số lượng bug phát hiện              | 4 (3 Critical, 1 Minor)                                              |
+| Độ chính xác của test design        | Rất cao -- phủ được tất cả 13 endpoint với 3 kịch bản access control |
+| Cần chỉnh sửa bởi người dùng        | Thứ tự thực thi test case (nhóm theo role thay vì endpoint)          |
+
+So sánh với FR-05:
+
+| Tiêu chí             | FR-05                  | FR-12                        |
+| -------------------- | ---------------------- | ---------------------------- |
+| Số biến đầu vào      | 1 (String)             | 2 (Categorical) + 1 ngữ cảnh |
+| Kiểu biến            | String                 | Categorical / State          |
+| BVA                  | Skipped (no numerical) | Skipped (no numerical)       |
+| Tổng test case       | 12 (sau review)        | 40                           |
+| Pass rate            | 33.3%                  | 57.5%                        |
+| Bugs phát hiện       | 7 (2 Critical)         | 4 (3 Critical)               |
+| Human review loại TC | 2 test case            | 0 test case                  |
+
+AI Agent chứng minh hiệu quả đặc biệt cao trong việc thiết kế test case cho Access Control -- một lĩnh vực yêu cầu tính hệ thống và coverage toàn diện trên nhiều endpoint. Tuy nhiên, **human review vẫn là bắt buộc** để:
+
+- Tối ưu hóa thứ tự thực thi test case theo workflow thực tế của tester
+- Xác định dependency giữa các test case có thao tác phá hủy dữ liệu
+- Đánh giá mức độ nghiêm trọng (severity) phù hợp với ngữ cảnh hệ thống thực tế
+
+---

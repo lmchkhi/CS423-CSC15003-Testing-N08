@@ -181,7 +181,7 @@ Xin hãy thực hiện **execute các test case trên SUT** và báo cáo kết 
 
 ---
 
-## Entry #2
+## Entry #3
 
 ### (1) Prompt + Tool
 
@@ -296,7 +296,7 @@ Edited walkthrough.md
 
 ---
 
-## Entry #3
+## Entry #4
 
 ### (1) Prompt + Tool
 
@@ -395,7 +395,7 @@ Edited main-report.md
 
 ---
 
-## Entry #4
+## Entry #5
 
 ### (1) Prompt + Tool
 
@@ -456,7 +456,7 @@ Hãy review và xác nhận trước khi tôi sinh các file Test Case Markdown 
 
 ---
 
-## Entry #5
+## Entry #6
 
 ### (1) Prompt + Tool
 
@@ -535,7 +535,7 @@ Tất cả file đúng chuẩn **TEMPLATE 1 (Domain Testing)** với đầy đ�
 
 ---
 
-## Entry #6
+## Entry #7
 
 ### (1) Prompt + Tool
 
@@ -628,5 +628,97 @@ Edited walkthrough.md
 ==========================
 ```
 ````
+
+---
+
+## Entry #8
+
+### (1) Prompt + Tool
+
+**Tool:** Antigravity (Claude Opus 4.6 Thinking)
+
+**DateTime:** 2026-06-27 5:14 AM
+
+**Full prompt:**
+
+```
+Dựa vào những triển khai đã được thực hiện theo CLAUDE.md, bạn hãy kiểm tra lại toàn bộ những gì đã thực thi trong cũng như từ git của branch hiện tại từ đó trình bày vào main report với section phù hợp với FR-12.
+Tại section đó thể hiện các nội dung:
+ - Domain Testing. With the support of AI tools, apply the domain testing technique to design a comprehensive set of test cases. You are encouraged to add more test cases where needed for thorough coverage. Provide a detailed, step-by-step explanation of how you applied the technique. Review the course lectures before you begin.
+- Boundary Value Analysis. Likewise, apply the boundary value analysis technique to design a comprehensive set of test cases, adding more as needed for thorough coverage. Provide a detailed, step-by-step explanation of how you applied the technique. Again, review the course lectures beforehand.
+- Dễ hiểu nhất là quy trình của việc áp dụng CLAUDE.md cho agent để tạo ra các test (Domain testing và BVA)
+```
+
+### (2) AI Output
+
+```
+Let me research what has been implemented for FR-12 in the codebase and git history.
+
+Ran command: `git log --oneline -30`
+Ran command: `git log --format="%h %ad %s" --date=format:"%Y-%m-%d %H:%M" --all -- "tests/test-cases/FR-12*" "bug-reports/BUG-FR12*" "ai-gap-analysis/FR-12*" "tests/test-runs/FR-12*"`
+Listed directory test-cases
+
+FR-12 test cases exist. Let me explore the full FR-12 structure and content:
+
+Listed directory FR-12-access
+Ran command: `git log --format="%h %ad %s" --date=format:"%Y-%m-%d %H:%M" --all -- "tests/test-cases/FR-12*" "bug-reports/BUG-FR12*" "bug-reports/FR-12*" "ai-gap-analysis/FR-12*" "tests/test-runs/FR-12*" "reports/"`
+Ran command: `git diff HEAD~1 --stat`
+
+Excellent! FR-12 has extensive content. Let me now read the key files:
+
+Viewed implementation_plan_FR12.md:1-183
+Viewed FR-12-access-run.md:1-70
+Viewed FR-12-access-gap-analysis.md:1-52
+Listed directory domain-testing
+
+Now let me read some sample test case files, the audit report for FR-12 entries, the bug reports, and the CLAUDE.md for context:
+
+Viewed TC-FR12-DT-001.md:1-60
+Viewed TC-FR12-DT-003.md:1-62
+Viewed TC-FR12-DT-023.md:1-62
+Viewed BUG-FR12-001.md:1-47
+
+Now let me read the relevant audit report entries for FR-12 and the remaining bug reports:
+
+Viewed ai-audit-report.md:296-550
+Viewed ai-audit-report.md:550-633
+Viewed BUG-FR12-002.md:1-47
+Viewed BUG-FR12-003.md:1-48
+Viewed BUG-FR12-004.md:1-46
+
+Now let me also read the existing main report to see the current state and the CLAUDE.md for reference, then also read the description_project.md section for FR-12:
+
+Viewed main-report.md:1-305
+
+I now have a complete understanding of all FR-12 artifacts. Let me append the FR-12 section to the existing main report:
+
+Edited main-report.md
+
+File đã được cập nhật thành công. Hãy xác minh file cuối cùng:
+
+Ran command: `(Get-Content "e:\Testing\CS423-CSC15003-Testing-N08\reports\main-report.md" | Measure-Object -Line).Lines`
+
+Verify a section of the new FR-12 content:
+
+Viewed main-report.md:303-320
+Viewed main-report.md:740-752
+
+Đã hoàn thành. Section FR-12 đã được thêm vào [main-report.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/reports/main-report.md) (file tổng cộng **752 dòng**, section FR-12 từ dòng 306 đến dòng 752).
+
+### Cấu trúc section FR-12 trong Main Report:
+
+| Section | Nội dung |
+|---|---|
+| **1. Tổng quan** | Mô tả FR-12, tham chiếu SEC-02/SEC-03, tài liệu đặc tả |
+| **2. Domain Testing** | 3 bước (xác định 2 biến categorical + 1 ngữ cảnh, EP cho Token/Role/Endpoint, tổng hợp 40 TC), ma trận đầy đủ 40 test case, kết quả thực thi (23 Pass/17 Fail), 4 bug reports (3 Critical + 1 Minor), phân loại lỗi theo nhóm endpoint |
+| **3. Boundary Value Analysis** | Đánh giá BVA theo STRICT BVA RULE, giải thích chi tiết lý do skip (Token = state, Role = categorical, Endpoint = categorical) |
+| **4. Quy trình CLAUDE.md** | 3 giai đoạn chi tiết (phân tích, tạo 40 TC bằng 4 subagent song song, thực thi + báo cáo), lịch sử Git, sơ đồ ASCII, AI Gap Analysis (test ordering + dependency), đánh giá tổng thể kèm bảng so sánh FR-05 vs FR-12 |
+
+### Đặc điểm:
+- Tiếng Việt có dấu đầy đủ
+- Liên kết tương đối (`../`) đến tất cả file liên quan
+- Sơ đồ ASCII mô tả quy trình tương tác người dùng - AI Agent
+- Bảng so sánh FR-05 vs FR-12 ở cuối section
+```
 
 ---
