@@ -6,3 +6,7 @@
 **/build
 **/database.sqlite
 **/logs/
+**/backend
+**/frontend-admin
+**/frontend-mobile
+**/frontend-web
