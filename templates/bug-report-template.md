@@ -10,13 +10,9 @@
 <Severity> / <Priority>
 
 ## Environment
-- Browser:
-- OS:
-- URL:
-- Build / Commit:
-
-## Preconditions
-- 
+**Browser**: <browser>
+**OS**: <os>
+**URL**: <url>
 
 ## Steps to reproduce
 1. 
@@ -29,10 +25,4 @@
 
 
 ## Evidence
-- Screenshot:
-- Video:
-- Console log:
-- Network log:
-
-## Notes
--
+Screenshot / video / console log

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Boundary Value Analysis"
+  short_description: "Derive boundaries and BVA test cases"
+  default_prompt: "Use $boundary-value-analysis to identify ON/OFF boundary values and generate traceable Vietnamese BVA test cases."

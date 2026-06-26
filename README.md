@@ -59,3 +59,19 @@
 | FR-01 | Domain Testing + BVA | [YouTube](link) |
 | FR-xx | Domain Testing + BVA | [YouTube](link) |
 | Agent Skill Demo | — | [YouTube](link) |
+
+---
+
+## 3. Agent Skills
+
+Project-level skills nằm trong `.agents/skills/`:
+
+- `$domain-testing`
+- `$boundary-value-analysis`
+- `$test-case-review`
+- `$test-execution`
+- `$bug-report`
+- `$qa-workflow`
+- `$prompt-log`
+
+Prompt log sau mỗi task có thể ghi vào `prompt_log.md` bằng `$prompt-log`.
