@@ -1,5 +1,16 @@
 # Main Report
 
+## Thông tin sinh viên
+
+| Mục                     | Giá trị                             |
+| :---------------------- | :---------------------------------- |
+| **Họ tên sinh viên:**   | Trần Minh Quang                     |
+| **MSSV:**               | 23127464                            |
+| **Lớp / Khoá:**         | CS423 / CSC13003                    |
+| **Mã bài tập :**        | HW02                                |
+| **Ngày làm bài:**       | 27-06-2026                          |
+| **Công cụ AI đã dùng:** | ChatGPT, Grok, Claude , Antigravity |
+
 ---
 
 ## FR-05: Xem danh sách và Tìm kiếm sản phẩm
@@ -1113,5 +1124,415 @@ FR-08 cho thấy AI Agent đặc biệt hiệu quả trong việc phân tích m�
 - Phát hiện và loại bỏ sự trùng lặp giữa DT và BVA test case
 - Đánh giá ý nghĩa thực tế của BVA khi hành vi không phân biệt tại biên
 - Xác nhận severity phù hợp với ngữ cảnh hệ thống (Critical cho financial manipulation)
+
+---
+
+## FR-09: Mã Giảm Giá (Coupon) -- Mobile App
+
+### 1. Tổng quan
+
+FR-09 định nghĩa chức năng mã giảm giá (Coupon) tại bước Checkout của hệ thống EShop. Người dùng có thể nhập mã giảm giá và hệ thống áp dụng giảm giá dựa trên **5 điều kiện** sau, tất cả phải thỏa mãn:
+
+| #   | Điều kiện          | Mô tả                                                       |
+| --- | ------------------ | ----------------------------------------------------------- |
+| C1  | Mã tồn tại         | Mã phải có trong CSDL và đang hoạt động (`is_active = 1`)   |
+| C2  | Còn hạn sử dụng    | Ngày hiện tại phải trước `expired_at`                       |
+| C3  | Đủ ngưỡng đơn hàng | Tổng đơn hàng **>= (lớn hơn hoặc bằng)** `min_order_amount` |
+| C4  | Đã đăng nhập       | Người dùng phải có JWT Token hợp lệ                         |
+| C5  | Chưa dùng hết lượt | Số lần đã dùng mã này của user < `max_uses_per_user`        |
+
+**Công thức tính giảm giá:**
+
+- Loại `percent`: `discount_amount = total x discount_value / 100`
+- Loại `fixed`: `discount_amount = discount_value`
+- `final_amount = total - discount_amount`
+
+**Mã giảm giá mẫu trong hệ thống:**
+
+| Mã      | Loại    | Giá trị      | Ngưỡng tối thiểu | Hạn sử dụng | Số lần/người |
+| ------- | ------- | ------------ | ---------------- | ----------- | ------------ |
+| SAVE10  | percent | 10%          | 300,000 đồng     | 2099-12-31  | 1            |
+| BIGBUY  | fixed   | 50,000 đồng  | 500,000 đồng     | 2099-12-31  | 1            |
+| VIP100  | fixed   | 100,000 đồng | 300,000 đồng     | 2099-12-31  | 2            |
+| EXPIRED | percent | 20%          | 100,000 đồng     | 2020-01-01  | 1            |
+
+Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế test case:
+
+- [description_project.md](../description_project.md) -- Mục FR-09 (dòng 110-136)
+- [api_specification.md](../api_specification.md) -- Endpoint `POST /api/apply-coupon`
+
+Môi trường kiểm thử: Mobile App (React Native + Expo) trên thiết bị di động, Backend tại `http://localhost:3000`.
+
+---
+
+### 2. Domain Testing
+
+#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+
+Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
+
+**Bước 1 -- Xác định biến đầu vào (Input Variables)**
+
+Từ phân tích FR-09 và 5 điều kiện (C1-C5), xác định được **5 biến đầu vào**:
+
+| #   | Biến                           | Kiểu                  | Nguồn                           | Miền giá trị / Ràng buộc                            |
+| --- | ------------------------------ | --------------------- | ------------------------------- | --------------------------------------------------- |
+| V1  | `code` (Mã giảm giá)           | String (Input field)  | Người dùng nhập trên Mobile App | Mã phải tồn tại trong CSDL, đang hoạt động (C1)     |
+| V2  | `total_amount` (Tổng đơn hàng) | Numeric (Implicit)    | Tính từ giỏ hàng                | Tổng đơn hàng >= `min_order_amount` của coupon (C3) |
+| V3  | `Authorization` (JWT Token)    | String (Header)       | HTTP Header                     | Token JWT hợp lệ từ người dùng đã đăng nhập (C4)    |
+| V4  | `expired_at` (Hạn sử dụng)     | Date (Server-side)    | CSDL                            | Ngày hiện tại phải trước `expired_at` (C2)          |
+| V5  | `usage_count` (Số lần đã dùng) | Numeric (Server-side) | CSDL                            | Số lần đã dùng < `max_uses_per_user` (C5)           |
+
+**Bước 2 -- Phân hoạch tương đương (Equivalence Partitioning)**
+
+Áp dụng EP cho từng biến, kết hợp với 4 mã giảm giá mẫu (SAVE10, BIGBUY, VIP100, EXPIRED):
+
+| EP ID    | Biến          | Partition                       | Giá trị mẫu                   | Expected                      |
+| -------- | ------------- | ------------------------------- | ----------------------------- | ----------------------------- |
+| EP-V1-01 | code          | Valid -- SAVE10 (percent)       | "SAVE10"                      | Thành công, giảm 10%          |
+| EP-V1-02 | code          | Valid -- BIGBUY (fixed)         | "BIGBUY"                      | Thành công, giảm 50,000 đồng  |
+| EP-V1-03 | code          | Valid -- VIP100 (fixed, max=2)  | "VIP100"                      | Thành công, giảm 100,000 đồng |
+| EP-V1-04 | code          | Invalid -- Mã không tồn tại     | "FAKECODE"                    | Từ chối                       |
+| EP-V1-05 | code          | Invalid -- Chuỗi rỗng           | ""                            | Từ chối                       |
+| EP-V1-06 | code          | Invalid -- Sai case (lowercase) | "save10"                      | Test case-sensitivity         |
+| EP-V2-01 | total_amount  | Valid -- Trên ngưỡng            | 500,000 đồng                  | Chấp nhận                     |
+| EP-V2-02 | total_amount  | Invalid -- Dưới ngưỡng          | 200,000 đồng (< 300,000 đồng) | Từ chối                       |
+| EP-V3-01 | Authorization | Valid -- Đã đăng nhập           | Token hợp lệ                  | Cho phép                      |
+| EP-V3-02 | Authorization | Invalid -- Chưa đăng nhập       | Không có token                | Từ chối                       |
+| EP-V4-01 | expired_at    | Valid -- Còn hạn                | 2099-12-31                    | Chấp nhận                     |
+| EP-V4-02 | expired_at    | Invalid -- Hết hạn              | EXPIRED (2020-01-01)          | Từ chối                       |
+| EP-V5-01 | usage_count   | Valid -- Chưa dùng hết          | 0 < 1                         | Cho phép                      |
+| EP-V5-02 | usage_count   | Invalid -- Đã dùng hết          | 1 >= 1 (SAVE10)               | Từ chối                       |
+
+**Bước 3 -- Tổng hợp Domain Matrix và tạo Test Case**
+
+Tổng hợp thành **10 test case Domain Testing** (DT-001 đến DT-010):
+
+| TC ID  | Điều kiện test      | Mã       | Mô tả                                                          |
+| ------ | ------------------- | -------- | -------------------------------------------------------------- |
+| DT-001 | Tất cả C1-C5 hợp lệ | SAVE10   | Áp dụng thành công -- loại percent (10%)                       |
+| DT-002 | Tất cả C1-C5 hợp lệ | BIGBUY   | Áp dụng thành công -- loại fixed (50,000 đồng)                 |
+| DT-003 | Tất cả C1-C5 hợp lệ | VIP100   | Áp dụng thành công -- loại fixed (100,000 đồng, max=2)         |
+| DT-004 | C1 vi phạm          | FAKECODE | Mã không tồn tại trong CSDL                                    |
+| DT-005 | C1 vi phạm          | (rỗng)   | Chuỗi rỗng -- không nhập gì                                    |
+| DT-006 | C2 vi phạm          | EXPIRED  | Mã hết hạn sử dụng (2020-01-01)                                |
+| DT-007 | C3 vi phạm          | SAVE10   | Tổng đơn dưới ngưỡng (200,000 đồng < 300,000 đồng)             |
+| DT-008 | C4 vi phạm          | --       | Người dùng chưa đăng nhập                                      |
+| DT-009 | C5 vi phạm          | SAVE10   | Đã dùng hết lượt (usage=1, max=1)                              |
+| DT-010 | Case-sensitivity    | save10   | Nhập mã lowercase -- kiểm tra hệ thống có phân biệt hoa thường |
+
+#### 2.2. Kết quả thực thi Domain Testing
+
+| TC ID  | Tên Test Case                                    | Kết quả | Bug ID       |
+| ------ | ------------------------------------------------ | ------- | ------------ |
+| DT-001 | Áp dụng SAVE10 thành công (percent)              | Failed  | BUG-FR09-001 |
+| DT-002 | Áp dụng BIGBUY thành công (fixed)                | Passed  | --           |
+| DT-003 | Áp dụng VIP100 thành công (fixed, max=2)         | Passed  | --           |
+| DT-004 | Mã không tồn tại (FAKECODE)                      | Passed  | --           |
+| DT-005 | Chuỗi mã rỗng                                    | Passed  | --           |
+| DT-006 | Mã hết hạn sử dụng (EXPIRED)                     | Passed  | --           |
+| DT-007 | Tổng đơn dưới ngưỡng tối thiểu                   | Passed  | --           |
+| DT-008 | Người dùng chưa đăng nhập                        | Passed  | --           |
+| DT-009 | Đã dùng hết lượt cho phép                        | Passed  | --           |
+| DT-010 | Mã đúng nhưng nhập sai case (lowercase "save10") | Failed  | BUG-FR09-001 |
+
+**Thống kê Domain Testing:** 8 Passed (80.0%) / 2 Failed (20.0%) trên tổng số 10 test case.
+
+**Ghi chú:** Cả 2 test case Failed đều liên quan đến mã giảm giá loại `percent` (SAVE10). Mã loại `fixed` (BIGBUY, VIP100) hoạt động đúng. DT-010 bản chất là test case-sensitivity nhưng cũng bị lỗi tính giá do SAVE10 là loại percent.
+
+#### 2.3. Các lỗi phát hiện từ Domain Testing
+
+| Bug ID       | TC liên quan                     | Mô tả ngắn                                                                                                                                                                                                                                           | Mức độ   |
+| ------------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| BUG-FR09-001 | DT-001, DT-010, BVA-003, BVA-010 | Lỗi tính giảm giá loại percent -- hệ thống tính sai gấp 100 lần. Ví dụ: SAVE10 (10%), tổng 500,000 đồng, hệ thống tính discount = 5,000,000 đồng thay vì 50,000 đồng. Công thức sai: `total x discount_value` thay vì `total x discount_value / 100` | Critical |
+| BUG-FR09-002 | BVA-002, BVA-005                 | Lỗi biên off-by-one -- `min_order_amount` dùng phép so sánh `>` thay vì `>=`. Khi tổng đơn = đúng ngưỡng tối thiểu, hệ thống từ chối thay vì chấp nhận. Vi phạm trực tiếp đặc tả FR-09 Điều kiện C3                                                  | Major    |
+
+---
+
+### 3. Boundary Value Analysis (BVA)
+
+#### 3.1. Quy trình áp dụng kỹ thuật BVA
+
+Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
+
+> BVA chỉ được áp dụng cho các biến số (numerical variables). KHÔNG được ép hoặc suy diễn BVA trên các biến phi số.
+
+**Bước 1 -- Đánh giá khả năng áp dụng BVA**
+
+Xét tất cả biến đầu vào của FR-09:
+
+| Biến            | Kiểu                  | Có phải biến số (numerical) không? | Áp dụng BVA? |
+| --------------- | --------------------- | ---------------------------------- | ------------ |
+| `code`          | String                | Không                              | Không        |
+| `total_amount`  | **Numeric (Integer)** | **Có**                             | **Có**       |
+| `Authorization` | String (Header)       | Không                              | Không        |
+| `expired_at`    | Date (Server-side)    | Không                              | Không        |
+| `usage_count`   | **Numeric (Integer)** | **Có**                             | **Có**       |
+
+FR-09 có **2 biến numerical** thỏa mãn STRICT BVA RULE: `total_amount` và `usage_count`. Đây là FR có nhiều biến BVA nhất trong 5 FR được test.
+
+**Bước 2 -- Xác định Boundary cho từng biến**
+
+**Biến 1: `total_amount` -- Ngưỡng tối thiểu (`min_order_amount`)**
+
+Theo đặc tả C3: Tổng đơn hàng **>= (lớn hơn hoặc bằng)** `min_order_amount`. Boundary tại giá trị `min_order_amount` của từng mã giảm giá:
+
+| Mã giảm giá | `min_order_amount` | BVA Points                                                                                  |
+| ----------- | ------------------ | ------------------------------------------------------------------------------------------- |
+| SAVE10      | 300,000 đồng       | 299,999 đồng (OFF ngoài bên trái), **300,000 đồng (ON)**, 300,001 đồng (OFF ngoài bên phải) |
+| BIGBUY      | 500,000 đồng       | 499,999 đồng (OFF ngoài bên trái), **500,000 đồng (ON)**, 500,001 đồng (OFF ngoài bên phải) |
+
+**Biến 2: `usage_count` -- Giới hạn lượt sử dụng (`max_uses_per_user`)**
+
+Theo đặc tả C5: Số lần đã dùng < `max_uses_per_user`. Boundary tại giá trị `max_uses_per_user`:
+
+| Mã giảm giá | `max_uses_per_user` | BVA Points (usage_count)                                    |
+| ----------- | ------------------- | ----------------------------------------------------------- |
+| VIP100      | 2                   | 0 (OFF ngoài bên trái), **1 (ON-1)**, 2 (ON -- đã hết lượt) |
+| SAVE10      | 1                   | **0 (ON -- lần đầu)**, 1 (OFF ngoài bên phải -- đã hết)     |
+
+**Bước 3 -- Tạo BVA Test Case**
+
+Tổng hợp thành **11 test case BVA** (BVA-001 đến BVA-011):
+
+**Nhóm 1: BVA cho `total_amount` -- Mã SAVE10 (ngưỡng 300,000 đồng):**
+
+| TC ID   | `total_amount` | Boundary Point     | Expected                 |
+| ------- | -------------- | ------------------ | ------------------------ |
+| BVA-001 | 299,999 đồng   | OFF ngoài bên trái | Từ chối -- dưới ngưỡng   |
+| BVA-002 | 300,000 đồng   | ON                 | Chấp nhận -- đúng ngưỡng |
+| BVA-003 | 300,001 đồng   | OFF ngoài bên phải | Chấp nhận -- trên ngưỡng |
+
+**Nhóm 2: BVA cho `total_amount` -- Mã BIGBUY (ngưỡng 500,000 đồng):**
+
+| TC ID   | `total_amount` | Boundary Point     | Expected                 |
+| ------- | -------------- | ------------------ | ------------------------ |
+| BVA-004 | 499,999 đồng   | OFF ngoài bên trái | Từ chối -- dưới ngưỡng   |
+| BVA-005 | 500,000 đồng   | ON                 | Chấp nhận -- đúng ngưỡng |
+| BVA-006 | 500,001 đồng   | OFF ngoài bên phải | Chấp nhận -- trên ngưỡng |
+
+**Nhóm 3: BVA cho `usage_count` -- Mã VIP100 (max=2):**
+
+| TC ID   | `usage_count` | Boundary Point     | Expected             |
+| ------- | ------------- | ------------------ | -------------------- |
+| BVA-007 | 0 (lần 1)     | OFF ngoài bên trái | Chấp nhận            |
+| BVA-008 | 1 (lần 2)     | ON-1               | Chấp nhận (lần cuối) |
+| BVA-009 | 2 (lần 3)     | ON -- đã hết lượt  | Từ chối              |
+
+**Nhóm 4: BVA cho `usage_count` -- Mã SAVE10 (max=1):**
+
+| TC ID   | `usage_count` | Boundary Point     | Expected                        |
+| ------- | ------------- | ------------------ | ------------------------------- |
+| BVA-010 | 0 (lần 1)     | ON                 | Chấp nhận (lần đầu và duy nhất) |
+| BVA-011 | 1 (lần 2)     | OFF ngoài bên phải | Từ chối -- đã dùng hết          |
+
+#### 3.2. Kết quả thực thi BVA
+
+| TC ID   | Tên Test Case                            | Biến test    | BVA Point          | Kết quả | Bug ID       |
+| ------- | ---------------------------------------- | ------------ | ------------------ | ------- | ------------ |
+| BVA-001 | SAVE10 -- total = 299,999 đồng           | total_amount | OFF ngoài bên trái | Passed  | --           |
+| BVA-002 | SAVE10 -- total = 300,000 đồng           | total_amount | ON                 | Failed  | BUG-FR09-002 |
+| BVA-003 | SAVE10 -- total = 300,001 đồng           | total_amount | OFF ngoài bên phải | Failed  | BUG-FR09-001 |
+| BVA-004 | BIGBUY -- total = 499,999 đồng           | total_amount | OFF ngoài bên trái | Passed  | --           |
+| BVA-005 | BIGBUY -- total = 500,000 đồng           | total_amount | ON                 | Failed  | BUG-FR09-002 |
+| BVA-006 | BIGBUY -- total = 500,001 đồng           | total_amount | OFF ngoài bên phải | Passed  | --           |
+| BVA-007 | VIP100 -- Sử dụng lần 1 (usage=0, max=2) | usage_count  | OFF ngoài bên trái | Passed  | --           |
+| BVA-008 | VIP100 -- Sử dụng lần 2 (usage=1, max=2) | usage_count  | ON-1               | Passed  | --           |
+| BVA-009 | VIP100 -- Sử dụng lần 3 (usage=2, max=2) | usage_count  | ON -- đã hết       | Passed  | --           |
+| BVA-010 | SAVE10 -- Sử dụng lần 1 (usage=0, max=1) | usage_count  | ON                 | Failed  | BUG-FR09-001 |
+| BVA-011 | SAVE10 -- Sử dụng lần 2 (usage=1, max=1) | usage_count  | OFF ngoài bên phải | Passed  | --           |
+
+**Thống kê BVA:** 7 Passed (63.6%) / 4 Failed (36.4%) trên tổng số 11 test case.
+
+#### 3.3. Phân tích kết quả BVA chi tiết
+
+**Bug BUG-FR09-002 (off-by-one) -- Phát hiện bởi BVA:**
+
+| `total_amount` gửi | So sánh với `min_order_amount` | Expected       | Actual      | Kết quả               |
+| ------------------ | ------------------------------ | -------------- | ----------- | --------------------- |
+| 299,999 đồng       | < 300,000 đồng                 | Từ chối        | Từ chối     | Đúng                  |
+| 300,000 đồng       | = 300,000 đồng                 | Chấp nhận (>=) | Từ chối (>) | **SAI -- off-by-one** |
+| 300,001 đồng       | > 300,000 đồng                 | Chấp nhận      | Chấp nhận   | Đúng                  |
+
+Pattern tương tự xảy ra với BIGBUY (BVA-004/005/006 tại ngưỡng 500,000 đồng).
+
+Đây là ví dụ điển hình của BVA phát hiện lỗi off-by-one: backend dùng phép so sánh `>` (strictly greater than) thay vì `>=` (greater than or equal) khi kiểm tra điều kiện C3. Lỗi này **chỉ có thể phát hiện bởi BVA** -- Domain Testing (EP) sẽ không phát hiện vì EP không test đúng tại điểm biên.
+
+**Bug BUG-FR09-001 (percent calculation) -- Phát hiện bởi cả DT và BVA:**
+
+BVA-003 (total = 300,001 đồng, SAVE10) và BVA-010 (usage=0, SAVE10) đều thất bại vì SAVE10 là loại percent và công thức tính sai. Bug này được phát hiện đầu tiên bởi DT-001 và xác nhận lại bởi BVA.
+
+---
+
+### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+
+#### 4.1. Giới thiệu về CLAUDE.md
+
+File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-09, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
+
+- **Vai trò**: QA Test Designer chuyên về Black-Box Testing
+- **Ràng buộc**: Hành động từng bước, dừng lại và chờ phê duyệt sau mỗi bước
+- **Nguồn dữ liệu**: Chỉ dựa trên `description_project.md` và `api_specification.md`
+- **Quy tắc BVA**: STRICT BVA RULE -- 2 biến numerical (`total_amount`, `usage_count`) thỏa mãn -- BVA ĐƯỢC ÁP DỤNG
+- **Template sử dụng**: Template 1 (Domain Testing) cho 10 TC + Template 2 (BVA) cho 11 TC
+- **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
+- **Đặc thù FR-09**: Test trên Mobile App -- test steps sử dụng ngôn ngữ mobile (chạm, bàn phím ảo, Toast/Alert)
+
+FR-09 là FR có nhiều test case BVA nhất (11 TC) vì có 2 biến numerical và nhiều mã giảm giá với các ngưỡng khác nhau.
+
+#### 4.2. Quy trình thực hiện chi tiết
+
+Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
+
+**Giai đoạn 1: Phân tích và Thiết kế (Steps 1-2-3 trong CLAUDE.md)**
+
+1. Người dùng cung cấp prompt khởi động quá trình QA với cấu hình cụ thể:
+   - `[FR-DIR]` = `FR-09-coupon-mobile`
+   - `[FR-ID]` = `FR09`
+   - Chỉ định test trên nền tảng Mobile App
+   - Yêu cầu áp dụng BVA cho các biến numerical (total_amount, usage_count)
+
+2. AI Agent đọc và phân tích file đặc tả:
+   - `description_project.md` tại mục FR-09 (dòng 110-136): 5 điều kiện, công thức tính giá, 4 mã mẫu
+   - `api_specification.md`: endpoint `POST /api/apply-coupon`
+
+3. AI Agent xác định:
+   - 5 biến đầu vào (V1-V5) tương ứng với 5 điều kiện C1-C5
+   - 14 phân vùng EP cho 5 biến
+   - BVA áp dụng cho 2 biến numerical: `total_amount` (6 BVA points cho 2 mã) và `usage_count` (5 BVA points cho 2 mã)
+
+4. AI Agent tính sẵn công thức giảm giá (percent và fixed) trong mỗi test case để giúp tester so sánh trực tiếp expected vs actual.
+
+5. AI Agent trình bày bảng phân tích logic và dừng lại chờ phê duyệt.
+
+**Giai đoạn 2: Tạo Test Case (Step 4 trong CLAUDE.md)**
+
+1. Sau khi người dùng phê duyệt bảng phân tích, AI Agent tạo **21 file test case** (10 DT + 11 BVA) theo template CLAUDE.md.
+
+2. AI Agent tạo file với test steps đúng ngữ cảnh Mobile App:
+   - Sử dụng "chạm" (tap) thay vì "click"
+   - Mô tả bàn phím ảo (virtual keyboard) khi nhập mã
+   - Toast/Alert thay vì inline message cho phản hồi hệ thống
+   - Tab "Giỏ hàng" trên thanh điều hướng dưới cùng
+
+3. AI Agent xác minh cấu trúc thư mục: `domain-testing/` (10 files) + `bva/` (11 files).
+
+4. AI Agent dừng lại và yêu cầu người dùng thực thi test case trên thiết bị mobile thực.
+
+**Giai đoạn 3: Thực thi, Human Review, và Báo cáo (Step 5 trong CLAUDE.md)**
+
+1. Người dùng thực thi 21 test case trên thiết bị mobile thực và cập nhật actual result + status cho từng file.
+
+2. Trong quá trình testing, người dùng phát hiện:
+   - Lỗi tính giảm giá percent nghiêm trọng (sai gấp 100 lần) -- phát hiện bởi DT-001
+   - Lỗi off-by-one tại điểm biên `min_order_amount` -- phát hiện bởi BVA-002 và BVA-005
+   - AI không hướng dẫn cách tạo sản phẩm giả để đạt giá trị biên chính xác (GAP-01)
+   - Một số test case BVA trùng lặp thao tác với DT (GAP-02)
+
+3. Người dùng báo cáo kết quả: 14 Passed / 7 Failed.
+
+4. AI Agent nhận kết quả và triển khai Step 5:
+   - Tạo [FR-09-coupon-mobile-run.md](../tests/test-runs/FR-09-coupon-mobile-run.md): tổng hợp kết quả test run
+   - Tạo 2 bug reports: [BUG-FR09-001.md](../bug-reports/FR-09/BUG-FR09-001.md) (Critical) và [BUG-FR09-002.md](../bug-reports/FR-09/BUG-FR09-002.md) (Major)
+   - Tạo [FR-09-coupon-mobile-gap-analysis.md](../ai-gap-analysis/FR-09-coupon-mobile-gap-analysis.md): phân tích hạn chế của AI
+
+#### 4.3. Sơ đồ quy trình tổng quát
+
+```
+Người dùng                         AI Agent (CLAUDE.md)
+    |                                    |
+    |--- Prompt khởi động QA FR-09 ----->|
+    |    (cung cấp [FR-DIR], [FR-ID],    |
+    |     chỉ định test trên Mobile,     |
+    |     BVA cho total_amount và        |
+    |     usage_count)                   |
+    |                                    |
+    |                                    |--- Đọc description_project.md (FR-09)
+    |                                    |--- Đọc api_specification.md
+    |                                    |--- Xác định 5 biến (V1-V5) = 5 điều kiện C1-C5
+    |                                    |--- Phân hoạch EP: 14 partition (Step 2)
+    |                                    |--- BVA: total_amount (6 points, 2 mã)
+    |                                    |         usage_count (5 points, 2 mã) (Step 3)
+    |                                    |--- Tính sẵn công thức giảm giá (percent/fixed)
+    |                                    |
+    |<-- Trình bày bảng phân tích -------|
+    |    (Chờ phê duyệt)                 |
+    |                                    |
+    |--- Phê duyệt --------------------->|
+    |                                    |
+    |                                    |--- Tạo 10 DT + 11 BVA = 21 files (Step 4)
+    |                                    |--- Test steps đúng ngữ cảnh Mobile
+    |                                    |    (chạm, bàn phím ảo, Toast/Alert)
+    |                                    |
+    |<-- Yêu cầu test trên Mobile ------ |
+    |    thiết bị di động thực           |
+    |                                    |
+    |--- Thực thi 21 test case --------> |
+    |    trên Mobile App                 |
+    |                                    |
+    |--- Báo cáo kết quả:                |
+    |    14 Passed / 7 Failed            |
+    |    + Percent tính sai gấp 100 lần  |
+    |    + Off-by-one tại min_order      |
+    |    + AI không hướng dẫn tạo        |
+    |      sản phẩm giả cho BVA -------->|
+    |                                    |
+    |                                    |--- Tạo Test Run summary (Step 5)
+    |                                    |--- Tạo 2 Bug Reports (1 Critical + 1 Major)
+    |                                    |--- Tạo AI Gap Analysis (2 hạn chế)
+    |                                    |
+    |<-- Hoàn thành, yêu cầu commit ---- |
+    |                                    |
+    |--- git add + git commit ---------->|
+         (Commit: 3863ddc)
+```
+
+#### 4.4. Phân tích AI Gap Analysis
+
+Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-09 trên Mobile, **2 hạn chế chính** được xác định:
+
+**Hạn chế 1: Không hướng dẫn tạo sản phẩm giả để đáp ứng giá trị biên BVA**
+
+- AI tạo test case BVA với các giá trị biên chính xác (ví dụ: 299,999 đồng, 300,000 đồng, 300,001 đồng) nhưng **không xem xét** rằng seed data trong hệ thống có các sản phẩm với giá trị quá lớn so với các ngưỡng biên cần test.
+- Tester không thể tạo giỏ hàng có tổng giá trị **đúng bằng** 299,999 đồng chỉ từ sản phẩm có sẵn.
+- AI cần bổ sung hướng dẫn chuẩn bị dữ liệu test trong phần Preconditions, ví dụ: "Tạo sản phẩm giả với giá 299,999 đồng qua Admin panel hoặc API POST /api/products."
+
+**Hạn chế 2: Tạo test case BVA trùng lặp thao tác với DT**
+
+- BVA-010 (SAVE10 usage=0, max=1) giống DT-001 về thao tác -- đều áp dụng SAVE10 trên tổng đơn >= 300,000 đồng.
+- BVA-008 giống BVA-007 về thao tác -- đều nhập VIP100 trên cùng tổng đơn 400,000 đồng, chỉ khác trạng thái `usage_count`.
+- AI nên nhận diện overlap và ghi chú rõ ràng test case nào có thể tham chiếu kết quả từ test case khác thay vì thực hiện lại.
+
+#### 4.5. Đánh giá tổng thể
+
+| Tiêu chí                            | Đánh giá                                                                               |
+| ----------------------------------- | -------------------------------------------------------------------------------------- |
+| Số lượng test case AI tạo           | 21 (10 DT + 11 BVA)                                                                    |
+| Số lượng test case sau human review | 21 (không loại bỏ)                                                                     |
+| Số lượng test case phát hiện lỗi    | 7/21 (33.3%)                                                                           |
+| Số lượng bug phát hiện              | 2 (1 Critical, 1 Major)                                                                |
+| Độ chính xác của test design        | Cao -- công thức tính sẵn giúp phát hiện bug percent, BVA 3-point phát hiện off-by-one |
+| Cần chỉnh sửa bởi người dùng        | Hướng dẫn chuẩn bị dữ liệu test, loại bỏ trùng lặp BVA/DT                              |
+
+So sánh với FR-05, FR-12, FR-22 và FR-08:
+
+| Tiêu chí            | FR-05   | FR-12       | FR-22          | FR-08            | FR-09                   |
+| ------------------- | ------- | ----------- | -------------- | ---------------- | ----------------------- |
+| Nền tảng test       | Web     | API         | Mobile App     | API              | Mobile App              |
+| Số biến đầu vào     | 1       | 2           | 5              | 4                | 5                       |
+| Kiểu biến           | String  | Categorical | Boolean/Visual | Mixed            | **Mixed (2 numerical)** |
+| BVA                 | Skipped | Skipped     | Skipped        | Applied (1 biến) | **Applied (2 biến)**    |
+| Số test case BVA    | 0       | 0           | 0              | 3                | **11**                  |
+| Tổng test case      | 12      | 40          | 19             | 18               | **21**                  |
+| Pass rate           | 33.3%   | 57.5%       | 31.6%          | 16.7%            | **66.7%**               |
+| Bugs phát hiện      | 7       | 4           | 6              | 5                | **2**                   |
+| Bug bởi BVA (riêng) | 0       | 0           | 0              | 0                | **1 (off-by-one)**      |
+| Hạn chế AI          | 3       | 2           | 4              | 1                | 2                       |
+
+FR-09 là FR điển hình nhất cho việc áp dụng BVA trong thực tế:
+
+- **BVA phát hiện được bug mà Domain Testing không thể**: Lỗi off-by-one (BUG-FR09-002) chỉ có thể phát hiện khi test đúng tại điểm biên `min_order_amount`. Domain Testing với giá trị "dưới ngưỡng" (DT-007, total=200,000 đồng) và "trên ngưỡng" (DT-001, total=500,000 đồng) đều không phát hiện lỗi này.
+- **Công thức tính sẵn là điểm mạnh của AI**: AI tính sẵn expected result (ví dụ: `500,000 x 10 / 100 = 50,000 đồng`) giúp tester so sánh trực tiếp và phát hiện ngay lỗi tính sai gấp 100 lần.
+- **Human review vẫn bắt buộc** để chuẩn bị dữ liệu test (tạo sản phẩm giả đạt giá trị biên) và loại bỏ trùng lặp giữa DT và BVA.
 
 ---
