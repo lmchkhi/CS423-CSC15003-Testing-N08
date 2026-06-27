@@ -13,9 +13,11 @@
 
 ---
 
-## FR-05: Xem danh sách và Tìm kiếm sản phẩm
+## Pool A
 
-### 1. Tổng quan
+### FR-05: Xem danh sách và Tìm kiếm sản phẩm
+
+#### 1. Tổng quan
 
 FR-05 yêu cầu hệ thống EShop hiển thị danh sách sản phẩm dạng lưới (grid) trên trang chủ và cung cấp chức năng tìm kiếm sản phẩm theo tên. Các yêu cầu cụ thể bao gồm:
 
@@ -32,9 +34,9 @@ Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế tes
 
 ---
 
-### 2. Domain Testing
+#### 2. Domain Testing
 
-#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+##### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
 
 Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
 
@@ -94,7 +96,7 @@ Ma trận tổng hợp cuối cùng:
 | DT-011 | UI   | UI-6: Đúng 1 thẻ `<h1>`         | N/A                             | DOM chỉ chứa đúng 1 element `<h1>`                            |
 | DT-012 | UI   | UI-8: Format giá ₫              | N/A                             | Giá hiển thị đúng định dạng: ký hiệu ₫ + phân cách hàng nghìn |
 
-#### 2.2. Kết quả thực thi
+##### 2.2. Kết quả thực thi
 
 | TC ID          | Tên Test Case                      | Kết quả | Ghi chú                                     |
 | -------------- | ---------------------------------- | ------- | ------------------------------------------- |
@@ -113,7 +115,7 @@ Ma trận tổng hợp cuối cùng:
 
 **Thống kê:** 4 Passed (33.3%) / 8 Failed (66.7%) trên tổng số 12 test case.
 
-#### 2.3. Các lỗi phát hiện từ Domain Testing
+##### 2.3. Các lỗi phát hiện từ Domain Testing
 
 | Bug ID       | TC liên quan   | Mô tả ngắn                                            | Mức độ   |
 | ------------ | -------------- | ----------------------------------------------------- | -------- |
@@ -127,9 +129,9 @@ Ma trận tổng hợp cuối cùng:
 
 ---
 
-### 3. Boundary Value Analysis (BVA)
+#### 3. Boundary Value Analysis (BVA)
 
-#### 3.1. Quy trình áp dụng kỹ thuật BVA
+##### 3.1. Quy trình áp dụng kỹ thuật BVA
 
 Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
 
@@ -151,7 +153,7 @@ FR-05 chỉ có 1 biến đầu vào là `search_keyword` thuộc kiểu String.
 
 Biến `search_keyword` đã được bao phủ đầy đủ bởi kỹ thuật Equivalence Partitioning (EP) với 7 phân hoạch ở phần Domain Testing phía trên.
 
-#### 3.2. Giải thích lý do không áp dụng BVA cho FR-05
+##### 3.2. Giải thích lý do không áp dụng BVA cho FR-05
 
 Trong bối cảnh FR-05, chức năng tìm kiếm sản phẩm nhận duy nhất một biến đầu vào là chuỗi ký tự (String). Các ranh giới của biến chuỗi (ví dụ: độ dài tối thiểu, độ dài tối đa) không được đặc tả ràng buộc cụ thể trong tài liệu `description_project.md` hoặc `api_specification.md`. Vì vậy:
 
@@ -163,9 +165,9 @@ Do đó, việc áp dụng BVA cho FR-05 là không phù hợp và không tạo 
 
 ---
 
-### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+#### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
 
-#### 4.1. Giới thiệu về CLAUDE.md
+##### 4.1. Giới thiệu về CLAUDE.md
 
 File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. File này định nghĩa:
 
@@ -177,7 +179,7 @@ File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent 
 - **Templates**: 2 template chuẩn cho Domain Testing (EP) và BVA
 - **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
 
-#### 4.2. Quy trình thực hiện chi tiết
+##### 4.2. Quy trình thực hiện chi tiết
 
 Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính** với sự tương tác giữa người dùng và AI Agent:
 
@@ -227,7 +229,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
    - Tạo 7 bug reports ([BUG-FR05-001](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR05-001.md) đến [BUG-FR05-007](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR05-007.md)): theo template GitHub Issue
    - Tạo [FR-05-search-gap-analysis.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/ai-gap-analysis/FR-05-search-gap-analysis.md): phân tích hạn chế của AI
 
-#### 4.3. Sơ đồ quy trình tổng quát
+##### 4.3. Sơ đồ quy trình tổng quát
 
 ```
 Người dùng                         AI Agent (CLAUDE.md)
@@ -271,7 +273,7 @@ Người dùng                         AI Agent (CLAUDE.md)
          (Commit: 2a04a5c)
 ```
 
-#### 4.5. Phân tích AI Gap Analysis
+##### 4.5. Phân tích AI Gap Analysis
 
 Trong quá trình sử dụng AI Agent theo CLAUDE.md, 3 hạn chế chính được xác định:
 
@@ -290,7 +292,7 @@ Trong quá trình sử dụng AI Agent theo CLAUDE.md, 3 hạn chế chính đư
 - AI truy vết (traceability) giữa các requirement liên quan, dẫn đến test case bị phân tán và trùng lặp.
 - Kết quả: Cả DT-009 (UI-2: Card SP) và DT-012 (UI-8: Format giá) đều phát hiện cùng một lỗi (VND thay vì ₫).
 
-#### 4.6. Đánh giá tổng thể
+##### 4.6. Đánh giá tổng thể
 
 | Tiêu chí                            | Đánh giá                                            |
 | ----------------------------------- | --------------------------------------------------- |
@@ -310,9 +312,402 @@ AI Agent là công cụ hữu ích cho việc thiết kế test case ban đầu,
 
 ---
 
-## FR-12: Kiểm soát truy cập (Access Control)
+## Pool B
 
-### 1. Tổng quan
+### FR-08: Thanh toán (Checkout)
+
+#### 1. Tổng quan
+
+FR-08 định nghĩa quy trình thanh toán (Checkout) của hệ thống EShop. Các yêu cầu cụ thể bao gồm:
+
+- Chỉ người dùng **đã đăng nhập** mới tiến hành thanh toán được.
+- **Tổng tiền thanh toán** được tính tự động từ giỏ hàng và không cho phép người dùng chỉnh sửa trực tiếp.
+- Giao diện hiển thị đầy đủ danh sách sản phẩm đặt mua.
+- **Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên.**
+- Sau thanh toán thành công, giỏ hàng được xóa.
+
+Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế test case:
+
+- [description_project.md](../description_project.md) -- Mục FR-08 (dòng 102-108)
+- [api_specification.md](../api_specification.md) -- Mục 4.3: Đặt hàng (dòng 129-137)
+
+**Phát hiện quan trọng:** Có mâu thuẫn giữa đặc tả FR-08 và API Specification. FR-08 yêu cầu _"Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên"_, nhưng API Spec lại cho phép client gửi `total_amount` trong body của `POST /api/checkout`. Đây là **attack surface** quan trọng: hacker có thể dùng Postman gửi `total_amount` ảo để kiểm tra backend có thực sự bỏ qua giá trị này hay không.
+
+Môi trường kiểm thử: API testing qua Postman trên `http://localhost:3000`.
+
+---
+
+#### 2. Domain Testing
+
+##### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+
+Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
+
+**Bước 1 -- Xác định biến đầu vào (Input Variables)**
+
+Từ phân tích FR-08 và API Specification, xác định được **4 biến đầu vào**:
+
+| #   | Biến                        | Kiểu              | Nguồn               | Miền giá trị / Ràng buộc                                                               |
+| --- | --------------------------- | ----------------- | ------------------- | -------------------------------------------------------------------------------------- |
+| V1  | `Authorization` (JWT Token) | String (Header)   | HTTP Header         | Token JWT hợp lệ do hệ thống cấp sau đăng nhập                                         |
+| V2  | `total_amount`              | Numeric (Body)    | Request Body (JSON) | Theo FR-08: Backend tự tính, KHONG tin client. Nhưng API cho phép gửi -- attack vector |
+| V3  | `shipping_address`          | String (Body)     | Request Body (JSON) | Địa chỉ giao hàng, chuỗi ký tự                                                         |
+| V4  | Cart State                  | Implicit (Server) | Server-side (DB)    | Giỏ hàng phải có it nhất 1 sản phẩm                                                    |
+
+**Bước 2 -- Phân hoạch tương đương (Equivalence Partitioning)**
+
+Áp dụng EP cho từng biến:
+
+**V1: Authorization (JWT Token)**
+
+| EP ID    | Partition                    | Mô tả                               | Expected          |
+| -------- | ---------------------------- | ----------------------------------- | ----------------- |
+| EP-V1-01 | Valid -- Token hợp lệ        | Bearer token JWT còn hạn, đúng user | Cho phép checkout |
+| EP-V1-02 | Invalid -- Không có token    | Không gửi header Authorization      | 401 Unauthorized  |
+| EP-V1-03 | Invalid -- Token sai/hết hạn | Token rác hoặc hết hạn              | 401/403           |
+
+**V2: total_amount (Attack Vector -- Client gửi ảo)**
+
+Tư duy Black-box Hacker: Dù FR-08 nói backend tự tính, API spec vẫn accept `total_amount` từ client. Hacker dùng Postman có thể gửi bất kỳ giá trị nào. Cần kiểm tra backend có THAT SU bỏ qua giá trị này không.
+
+| EP ID    | Partition                         | Giá trị mẫu | Expected (theo FR-08)                       |
+| -------- | --------------------------------- | ----------- | ------------------------------------------- |
+| EP-V2-01 | Giá trị đúng -- Khớp tổng thực tế | `200000`    | Checkout thành công, tổng = backend tự tính |
+| EP-V2-02 | Giá trị thấp hơn thực tế          | `1`         | Backend bỏ qua, tổng = backend tự tính      |
+| EP-V2-03 | Giá trị = 0 -- mua miễn phí       | `0`         | Backend bỏ qua, tổng = backend tự tính      |
+| EP-V2-04 | Giá trị âm -- tạo refund          | `-50000`    | Backend bỏ qua, tổng = backend tự tính      |
+| EP-V2-05 | Giá trị quá cao -- over-charge    | `99999999`  | Backend bỏ qua, tổng = backend tự tính      |
+| EP-V2-06 | Không gửi trường                  | _(omit)_    | Backend tự tính, checkout thành công        |
+| EP-V2-07 | Kiểu dữ liệu sai                  | `"abc"`     | Backend reject hoặc bỏ qua, tự tính         |
+
+**V3: shipping_address**
+
+| EP ID    | Partition                   | Giá trị mẫu                       | Expected                               |
+| -------- | --------------------------- | --------------------------------- | -------------------------------------- |
+| EP-V3-01 | Valid -- Địa chỉ hợp lệ     | `"123 Le Loi, Q1, TP.HCM"`        | Checkout thành công                    |
+| EP-V3-02 | Empty -- Chuỗi rỗng         | `""`                              | Lỗi validation                         |
+| EP-V3-03 | Missing -- Không gửi trường | _(omit)_                          | Lỗi hoặc dùng địa chỉ mặc định         |
+| EP-V3-04 | XSS Payload                 | `"<script>alert('xss')</script>"` | Lưu nhưng escape khi hiển thị (SEC-04) |
+| EP-V3-05 | SQL Injection               | `"'; DROP TABLE orders;--"`       | Parameterized query ngăn chặn (SEC-05) |
+
+**V4: Cart State**
+
+| EP ID    | Partition                | Mô tả             | Expected            |
+| -------- | ------------------------ | ----------------- | ------------------- |
+| EP-V4-01 | Non-empty -- Có sản phẩm | Cart co >= 1 item | Checkout thành công |
+| EP-V4-02 | Empty -- Giỏ hàng trống  | Cart = 0 items    | Không cho checkout  |
+
+**Bước 3 -- Tổng hợp Domain Matrix và tạo Test Case**
+
+Tổng hợp 16 EP thành **15 test case Domain Testing** (DT-001 đến DT-015), bao gồm 1 test case post-condition:
+
+| TC ID  | Biến chính                                | Mô tả                                            |
+| ------ | ----------------------------------------- | ------------------------------------------------ |
+| DT-001 | V1=Valid, V2=đúng, V3=valid, V4=non-empty | Checkout thành công (happy path)                 |
+| DT-002 | V1=Missing                                | Checkout thiếu Token (chưa đăng nhập)            |
+| DT-003 | V1=Invalid                                | Checkout Token sai/hết hạn/malformed             |
+| DT-004 | V2=EP-V2-02                               | Hacker gửi `total_amount` thấp hơn thực tế (`1`) |
+| DT-005 | V2=EP-V2-03                               | Hacker gửi `total_amount = 0` (mua miễn phí)     |
+| DT-006 | V2=EP-V2-04                               | Hacker gửi `total_amount` âm (`-50000`)          |
+| DT-007 | V2=EP-V2-05                               | Hacker gửi `total_amount` quá cao (`99999999`)   |
+| DT-008 | V2=EP-V2-06                               | Không gửi trường `total_amount`                  |
+| DT-009 | V2=EP-V2-07                               | Gửi `total_amount` kiểu string (`"abc"`)         |
+| DT-010 | V3=EP-V3-02                               | `shipping_address` rỗng                          |
+| DT-011 | V3=EP-V3-03                               | Thiếu trường `shipping_address`                  |
+| DT-012 | V3=EP-V3-04                               | XSS Injection trong `shipping_address`           |
+| DT-013 | V3=EP-V3-05                               | SQL Injection trong `shipping_address`           |
+| DT-014 | V4=EP-V4-02                               | Checkout với giỏ hàng trống                      |
+| DT-015 | Post-condition                            | Giỏ hàng xóa sau checkout thành công             |
+
+##### 2.2. Kết quả thực thi Domain Testing
+
+| TC ID  | Tên Test Case                                   | Kết quả | Bug ID       |
+| ------ | ----------------------------------------------- | ------- | ------------ |
+| DT-001 | Checkout thành công (happy path)                | Failed  | BUG-FR08-005 |
+| DT-002 | Checkout thiếu Token (chưa đăng nhập)           | Passed  | --           |
+| DT-003 | Checkout Token sai/hết hạn/malformed            | Passed  | --           |
+| DT-004 | Hacker gửi `total_amount` thấp hơn thực tế      | Failed  | BUG-FR08-001 |
+| DT-005 | Hacker gửi `total_amount = 0` (mua miễn phí)    | Failed  | BUG-FR08-001 |
+| DT-006 | Hacker gửi `total_amount` âm (hoàn tiền)        | Failed  | BUG-FR08-001 |
+| DT-007 | Hacker gửi `total_amount` quá cao (over-charge) | Failed  | BUG-FR08-001 |
+| DT-008 | Không gửi trường `total_amount`                 | Failed  | BUG-FR08-001 |
+| DT-009 | `total_amount` kiểu string ("abc")              | Failed  | BUG-FR08-001 |
+| DT-010 | `shipping_address` rỗng                         | Failed  | BUG-FR08-003 |
+| DT-011 | Thiếu trường `shipping_address`                 | Failed  | BUG-FR08-003 |
+| DT-012 | XSS Injection trong `shipping_address`          | Failed  | BUG-FR08-002 |
+| DT-013 | SQL Injection trong `shipping_address`          | Passed  | --           |
+| DT-014 | Checkout với giỏ hàng trống                     | Failed  | BUG-FR08-004 |
+| DT-015 | Giỏ hàng xóa sau checkout thành công            | Failed  | BUG-FR08-005 |
+
+**Thống kê Domain Testing:** 3 Passed (20.0%) / 12 Failed (80.0%) trên tổng số 15 test case.
+
+##### 2.3. Các lỗi phát hiện
+
+| Bug ID       | TC liên quan                       | Mô tả ngắn                                                                                                                          | Mức độ   |
+| ------------ | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| BUG-FR08-001 | DT-004 - DT-009, BVA-001 - BVA-003 | Backend tin tưởng `total_amount` từ client, không tự tính lại tổng tiền. Hacker có thể mua hàng trị giá 200,000 dong chỉ với 1 dong | Critical |
+| BUG-FR08-002 | DT-012                             | Stored XSS qua trường `shipping_address` -- chuỗi `<script>` được render thành HTML node trên Admin                                 | Major    |
+| BUG-FR08-003 | DT-010, DT-011                     | Thiếu validation cho `shipping_address` -- chấp nhận chuỗi rỗng và missing, tạo đơn hàng không có địa chỉ giao hàng                 | Major    |
+| BUG-FR08-004 | DT-014                             | Cho phép checkout khi giỏ hàng trống, tạo đơn hàng phantom                                                                          | Major    |
+| BUG-FR08-005 | DT-001, DT-015                     | Giỏ hàng không được xóa sau checkout thành công, vi phạm FR-08                                                                      | Major    |
+
+##### 2.4. Phân loại lỗi theo nhóm
+
+| Nhóm lỗi                                      | Bug ID       | Số TC Failed         | Đánh giá                                           |
+| --------------------------------------------- | ------------ | -------------------- | -------------------------------------------------- |
+| Business Logic -- `total_amount` manipulation | BUG-FR08-001 | 6 (DT) + 3 (BVA) = 9 | Vi phạm FR-08: backend KHONG tự tính tổng tiền     |
+| Security -- XSS                               | BUG-FR08-002 | 1                    | Vi phạm SEC-04: shipping_address không escape HTML |
+| Validation -- `shipping_address`              | BUG-FR08-003 | 2                    | Thiếu validation cho trường bắt buộc               |
+| Business Logic -- Cart State                  | BUG-FR08-004 | 1                    | Checkout khi giỏ trống, vi phạm logic nghiệp vụ    |
+| Post-condition -- Cart cleanup                | BUG-FR08-005 | 2                    | Vi phạm FR-08: giỏ hàng không xóa sau checkout     |
+
+---
+
+#### 3. Boundary Value Analysis (BVA)
+
+##### 3.1. Quy trình áp dụng kỹ thuật BVA
+
+Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
+
+> BVA chỉ được áp dụng cho các biến số (numerical variables) như price, quantity, total_amount. KHONG được ép hoặc suy diễn BVA trên các biến phi số.
+
+**Bước 1 -- Đánh giá khả năng áp dụng BVA**
+
+Xét tất cả biến đầu vào của FR-08:
+
+| Biến                        | Kiểu                   | Có phải biến số (numerical) không? | Áp dụng BVA? |
+| --------------------------- | ---------------------- | ---------------------------------- | ------------ |
+| `Authorization` (JWT Token) | String (Header)        | Không                              | Không        |
+| `total_amount`              | **Numeric (Integer)**  | **Co**                             | **Co**       |
+| `shipping_address`          | String (Body)          | Không                              | Không        |
+| Cart State                  | Categorical (Implicit) | Không                              | Không        |
+
+**Bước 2 -- Xác định Boundary cho `total_amount`**
+
+Biến `total_amount` là **strictly numerical** -- thỏa mãn STRICT BVA RULE. Đây là biến đầu tiên trong quá trình test 3 FR (FR-05, FR-12, FR-08) mà BVA thực sự được áp dụng.
+
+Ý nghĩa logic:
+
+- Tổng tiền hợp lệ phải > 0 (vì giỏ hàng phải có it nhất 1 sản phẩm, mỗi sản phẩm có giá > 0)
+- Boundary tại **0**: Ranh giới giữa giá trị hợp lệ (dương) và không hợp lệ (0 hoặc âm)
+
+Bảng Boundary Points:
+
+| Variable       | Constraint | Boundary Type      | BVA Points                                                          |
+| -------------- | ---------- | ------------------ | ------------------------------------------------------------------- |
+| `total_amount` | Phải > 0   | Min boundary tại 0 | **-1 (OFF ngoai bên trái)**, **0 (ON)**, **1 (OFF ngoai bên phải)** |
+
+**Bước 3 -- Tạo BVA Test Case**
+
+| TC ID   | `total_amount` (client gửi) | Boundary Point                 | Cart thực tế                      | Expected                                            |
+| ------- | --------------------------- | ------------------------------ | --------------------------------- | --------------------------------------------------- |
+| BVA-001 | `-1`                        | OFF ngoai bên trái (dưới biên) | Có sản phẩm (tổng = 200,000 dong) | Backend bỏ qua giá trị `-1`, tự tính = 200,000 dong |
+| BVA-002 | `0`                         | ON (đúng biên)                 | Có sản phẩm (tổng = 200,000 dong) | Backend bỏ qua giá trị `0`, tự tính = 200,000 dong  |
+| BVA-003 | `1`                         | OFF ngoai bên phải (trên biên) | Có sản phẩm (tổng = 200,000 dong) | Backend bỏ qua giá trị `1`, tự tính = 200,000 dong  |
+
+Cách kiểm chứng: Sau khi gửi `POST /api/checkout` với `total_amount` ảo, gọi `GET /api/orders/my-orders` để kiểm tra `total_amount` thực sự được lưu trong đơn hàng. Nếu giá trị lưu = giá trị client gửi (thay vì giá trị tự tính) -- **BUG bảo mật nghiêm trọng**.
+
+##### 3.2. Kết quả thực thi BVA
+
+| TC ID   | Tên Test Case       | Boundary Point     | Kết quả | Bug ID       |
+| ------- | ------------------- | ------------------ | ------- | ------------ |
+| BVA-001 | `total_amount = -1` | OFF ngoai bên trái | Failed  | BUG-FR08-001 |
+| BVA-002 | `total_amount = 0`  | ON                 | Failed  | BUG-FR08-001 |
+| BVA-003 | `total_amount = 1`  | OFF ngoai bên phải | Failed  | BUG-FR08-001 |
+
+**Thống kê BVA:** 0 Passed / 3 Failed -- Tất cả 3 boundary points đều phát hiện backend tin tưởng giá trị client gửi.
+
+##### 3.3. Kết quả chi tiết từ BVA
+
+| `total_amount` gửi | `total_amount` lưu trong DB | Kết quả                                                      |
+| ------------------ | --------------------------- | ------------------------------------------------------------ |
+| `-1`               | -1 dong                     | Backend tin client -- đơn hàng âm tiền                       |
+| `0`                | 0 dong                      | Backend tin client -- mua hàng miễn phí                      |
+| `1`                | 1 dong                      | Backend tin client -- hacker mua 200,000 dong chỉ với 1 dong |
+
+Tất cả 3 BVA test case đều xác nhận BUG-FR08-001 (Critical): Backend **không** tự tính lại tổng tiền mà chấp nhận nguyên giá trị `total_amount` do client gửi.
+
+---
+
+#### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+
+##### 4.1. Giới thiệu về CLAUDE.md
+
+File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-08, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
+
+- **Vai trò**: QA Test Designer chuyên về Black-Box Testing
+- **Ràng buộc**: Hành động từng bước, dừng lại và chờ phê duyệt sau mỗi bước
+- **Nguồn dữ liệu**: Chỉ dựa trên `description_project.md` và `api_specification.md`
+- **Quy tắc BVA**: STRICT BVA RULE -- biến `total_amount` thỏa mãn (numerical) -- BVA DUOC ÁP DỤNG
+- **Template sử dụng**: Template 1 (Domain Testing) cho 15 TC + Template 2 (BVA) cho 3 TC
+- **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
+
+FR-08 là FR đầu tiên trong 3 FR được test mà BVA thực sự được áp dụng (FR-05, FR-12 đều skip BVA).
+
+##### 4.2. Quy trình thực hiện chi tiết
+
+Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
+
+**Giai đoạn 1: Phân tích và Thiết kế (Steps 1-2-3 trong CLAUDE.md)**
+
+1. Người dùng cung cấp prompt khởi động quá trình QA với cấu hình cụ thể:
+   - `[FR-DIR]` = `FR-08-checkout`
+   - `[FR-ID]` = `FR08`
+   - Chỉ định phân tích cả FR-08 trong `description_project.md` và API spec (`/api/checkout`)
+   - Yêu cầu áp dụng BVA cho `total_amount` vì thỏa mãn STRICT BVA RULE
+
+2. AI Agent đọc và phân tích file đặc tả:
+   - `description_project.md` tại mục FR-08 (dòng 102-108): 5 yêu cầu checkout
+   - `api_specification.md` tại mục 4.3 (dòng 129-137): endpoint `POST /api/checkout`
+
+3. AI Agent phát hiện **mâu thuẫn giữa FR-08 và API Spec**: FR-08 yêu cầu backend tự tính tổng tiền, nhưng API cho phép client gửi `total_amount` -- đây là attack surface.
+
+4. AI Agent xác định:
+   - 4 biến đầu vào (V1-V4): Authorization, total_amount, shipping_address, Cart State
+   - 16 phân vùng EP -- đặc biệt 7 partition cho `total_amount` (hacker scenarios)
+   - BVA áp dụng CHỈ cho `total_amount` (strictly numerical) -- 3 boundary points: `-1`, `0`, `1`
+
+5. AI Agent trình bày bảng phân tích logic (implementation plan) và dừng lại chờ phê duyệt.
+
+**Giai đoạn 2: Tạo Test Case (Step 4 trong CLAUDE.md)**
+
+1. Sau khi người dùng phê duyệt bảng phân tích, AI Agent tạo **18 file test case** (15 DT + 3 BVA) theo template CLAUDE.md.
+
+2. AI Agent tạo file theo 3 batch song song:
+   - Batch 1 (DT-001 đến DT-006): Happy path + Authentication + total_amount manipulation
+   - Batch 2 (DT-007 đến DT-012): total_amount continuation + shipping_address validation + Security
+   - Batch 3 (DT-013 đến DT-015 + BVA-001 đến BVA-003): SQL Injection + Cart State + Post-condition + BVA boundaries
+
+3. AI Agent xác minh cấu trúc thư mục: `domain-testing/` (15 files) + `bva/` (3 files) -- đây là FR đầu tiên có thư mục `bva/`.
+
+4. AI Agent dừng lại và yêu cầu người dùng thực thi test case trên SUT qua Postman.
+
+**Giai đoạn 3: Thực thi, Human Review, và Báo cáo (Step 5 trong CLAUDE.md)**
+
+1. Người dùng thực thi 18 test case qua Postman và cập nhật actual result + status cho từng file.
+
+2. Trong quá trình testing, người dùng phát hiện:
+   - AI tạo test case tương đồng giữa BVA và DT (vd: DT-004 dùng `total_amount = 1` trùng với BVA-003; DT-005 dùng `total_amount = 0` trùng với BVA-002)
+   - Đây là vấn đề redundancy mà AI không phát hiện được khi thiết kế
+
+3. Người dùng báo cáo kết quả: 3 Passed / 15 Failed.
+
+4. AI Agent nhận kết quả và phản hồi của người dùng, triển khai Step 5:
+   - Tạo [FR-08-checkout-run.md](../tests/test-runs/FR-08-checkout-run.md): tổng hợp kết quả test run
+   - Tạo 5 bug reports: [BUG-FR08-001.md](../bug-reports/BUG-FR08-001.md) đến [BUG-FR08-005.md](../bug-reports/BUG-FR08-005.md) -- nhóm theo root cause
+   - Tạo [FR-08-checkout-gap-analysis.md](../ai-gap-analysis/FR-08-checkout-gap-analysis.md): phân tích trùng lặp DT/BVA
+
+##### 4.3. Sơ đồ quy trình tổng quát
+
+```
+Người dùng                         AI Agent (CLAUDE.md)
+    |                                    |
+    |--- Prompt khởi động QA FR-08 ----->|
+    |    (cung cấp [FR-DIR], [FR-ID],    |
+    |     chỉ định phân tích API spec,   |
+    |     BVA cho total_amount)          |
+    |                                    |
+    |                                    |--- Đọc description_project.md (FR-08)
+    |                                    |--- Đọc api_specification.md (POST /api/checkout)
+    |                                    |--- Phát hiện mâu thuẫn Spec vs API (Step 1)
+    |                                    |    (FR-08: backend tự tính, nhưng API cho gửi)
+    |                                    |--- Xác định 4 biến (V1-V4)
+    |                                    |--- Phân hoạch EP: 16 partition (Step 2)
+    |                                    |--- BVA cho total_amount: -1, 0, 1 (Step 3)
+    |                                    |
+    |<-- Trình bày bảng phân tích -------|
+    |    (Chờ phê duyệt)                 |
+    |                                    |
+    |--- Phê duyệt --------------------->|
+    |                                    |
+    |                                    |--- Tạo 15 DT + 3 BVA = 18 files (Step 4)
+    |                                    |--- Cấu trúc: domain-testing/ + bva/
+    |                                    |
+    |<-- Yêu cầu test trên SUT --------- |
+    |    qua Postman                     |
+    |                                    |
+    |--- Thực thi 18 test case --------->|
+    |    qua Postman trên localhost:3000 |
+    |                                    |
+    |--- Báo cáo kết quả:                |
+    |    3 Passed / 15 Failed            |
+    |    + AI tạo TC trùng lặp giữa      |
+    |      DT và BVA (DT-004 = BVA-003,  |
+    |      DT-005 = BVA-002) ----------->|
+    |                                    |
+    |                                    |--- Tạo Test Run summary (Step 5)
+    |                                    |--- Tạo 5 Bug Reports (1 Critical + 4 Major)
+    |                                    |--- Tạo AI Gap Analysis (DT/BVA redundancy)
+    |                                    |
+    |<-- Hoàn thành, yêu cầu commit ---- |
+    |                                    |
+    |--- git add + git commit ---------->|
+         (Commit: c71d42f)
+```
+
+##### 4.4. Phân tích AI Gap Analysis
+
+Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-08, **1 hạn chế chính** được xác định -- đặc biệt liên quan đến BVA:
+
+**Hạn chế: Sự trùng lặp giữa Domain Testing (DT) và BVA**
+
+Vấn đề được người dùng phát hiện:
+
+| BVA Test Case                                    | DT Test Case tương đồng               | Giá trị trùng | Vấn đề                                               |
+| ------------------------------------------------ | ------------------------------------- | ------------- | ---------------------------------------------------- |
+| BVA-003 (`total_amount = 1`, OFF ngoai bên phải) | DT-004 (`total_amount = 1`, EP-V2-02) | `1`           | Cùng giá trị, cùng mục tiêu, chỉ khác label kỹ thuật |
+| BVA-002 (`total_amount = 0`, ON)                 | DT-005 (`total_amount = 0`, EP-V2-03) | `0`           | Cùng giá trị, cùng kịch bản "mua miễn phí"           |
+
+Nguyên nhân gốc (Root Cause):
+
+1. **AI không nhận diện sự chồng lấp logic giữa EP và BVA:** Khi xây dựng EP cho `total_amount`, AI đã tạo các partition riêng cho giá trị `0` (EP-V2-03), giá trị dương nhỏ (EP-V2-02), và giá trị âm (EP-V2-04). Sau đó, khi áp dụng BVA trên cùng biến, AI lại chọn boundary points tại `{-1, 0, 1}` -- trùng hoàn toàn với các EP đã tạo.
+
+2. **BVA nên bổ sung EP, không lặp lại EP:** Theo nguyên tắc ISTQB, BVA được thiết kế để **bổ sung** cho EP bằng cách tập trung vào ranh giới giữa các partition. Trong trường hợp này, ranh giới tại `0` đã được EP cover rõ ràng nên BVA trở nên dư thừa.
+
+3. **Đặc thù `total_amount` trong FR-08:** Biến này khác biệt so với BVA truyền thống vì FR-08 yêu cầu backend **bỏ qua hoàn toàn** giá trị client gửi. Mọi giá trị của `total_amount` (dương, âm, 0, bất kỳ) đều phải cho **cùng một kết quả**: backend tự tính. BVA mất ý nghĩa khi không có sự phân biệt hành vi tại biên.
+
+Giải pháp cải thiện: Nếu làm lại, AI nên loại bỏ các BVA test case trùng lặp với DT, hoặc sử dụng BVA với giá trị biên khác biệt hơn (ví dụ: `MIN_INT`, `MAX_INT`, `0.001`, `-0.001`).
+
+Chi tiết: [FR-08-checkout-gap-analysis.md](../ai-gap-analysis/FR-08-checkout-gap-analysis.md)
+
+##### 4.5. Đánh giá tổng thể
+
+| Tiêu chí                            | Đánh giá                                                                                                        |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Số lượng test case AI tạo           | 18 (15 DT + 3 BVA)                                                                                              |
+| Số lượng test case sau human review | 18 (không loại bỏ, nhưng BVA có redundancy với DT)                                                              |
+| Số lượng test case phát hiện lỗi    | 15/18 (83.3%)                                                                                                   |
+| Số lượng bug phát hiện              | 5 (1 Critical, 4 Major)                                                                                         |
+| Độ chính xác của test design        | Cao -- phát hiện đúng attack surface (total_amount manipulation), cover security (XSS, SQLi), và post-condition |
+| Cần chỉnh sửa bởi người dùng        | Loại bỏ redundancy giữa DT và BVA                                                                               |
+
+So sánh với FR-05 và FR-12:
+
+| Tiêu chí             | FR-05          | FR-12           | FR-08                           |
+| -------------------- | -------------- | --------------- | ------------------------------- |
+| Nền tảng test        | Web            | API (Postman)   | API (Postman)                   |
+| Số biến đầu vào      | 1 (String)     | 2 (Categorical) | 4 (Mixed)                       |
+| Kiểu biến            | String         | Categorical     | String + **Numeric** + Implicit |
+| BVA                  | Skipped        | Skipped         | **Applied (total_amount)**      |
+| Tổng test case       | 12             | 40              | 18 (15 DT + 3 BVA)              |
+| Pass rate            | 33.3%          | 57.5%           | 16.7%                           |
+| Bugs phát hiện       | 7 (2 Critical) | 4 (3 Critical)  | 5 (1 Critical, 4 Major)         |
+| Human review loại TC | 2              | 0               | 0 (nhưng BVA redundant)         |
+| Số hạn chế AI        | 3              | 2               | 1                               |
+
+FR-08 cho thấy AI Agent đặc biệt hiệu quả trong việc phân tích mâu thuẫn giữa đặc tả và API specification, xác định đúng attack vector chính (`total_amount` manipulation). Tỷ lệ fail 83.3% (cao nhất trong 3 FR) cho thấy module Checkout có vấn đề nghiêm trọng cần được fix trước khi release. Tuy nhiên, **human review vẫn là bắt buộc** để:
+
+- Phát hiện và loại bỏ sự trùng lặp giữa DT và BVA test case
+- Đánh giá ý nghĩa thực tế của BVA khi hành vi không phân biệt tại biên
+- Xác nhận severity phù hợp với ngữ cảnh hệ thống (Critical cho financial manipulation)
+
+---
+
+## Pool C
+
+### FR-12: Kiểm soát truy cập (Access Control)
+
+#### 1. Tổng quan
 
 FR-12 yêu cầu phân hệ Admin của hệ thống EShop chỉ dành cho tài khoản có `role = 'admin'`. Cụ thể, **tất cả** các API Admin (`/api/admin/*`) và các API có tính ảnh hưởng dữ liệu (`POST/PUT/DELETE /api/products`, `/api/categories`, `/api/coupons`) đều phải yêu cầu:
 
@@ -326,9 +721,9 @@ Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế tes
 
 ---
 
-### 2. Domain Testing
+#### 2. Domain Testing
 
-#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+##### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
 
 Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
 
@@ -452,7 +847,7 @@ Ma trận test case đầy đủ:
 | DT-039 | `/api/categories/:id`          | DELETE | Hợp lệ    | user  | 403      |
 | DT-040 | `/api/categories/:id`          | DELETE | Hợp lệ    | admin | 200      |
 
-#### 2.2. Kết quả thực thi
+##### 2.2. Kết quả thực thi
 
 | TC ID  | Tên Test Case                                                | Kết quả | Ghi chú                                 |
 | ------ | ------------------------------------------------------------ | ------- | --------------------------------------- |
@@ -499,7 +894,7 @@ Ma trận test case đầy đủ:
 
 **Thống kê:** 23 Passed (57.5%) / 17 Failed (42.5%) trên tổng số 40 test case.
 
-#### 2.3. Các lỗi phát hiện từ Domain Testing
+##### 2.3. Các lỗi phát hiện từ Domain Testing
 
 | Bug ID       | TC liên quan                                           | Mô tả ngắn                                                                                                                                                        | Mức độ   |
 | ------------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -508,7 +903,7 @@ Ma trận test case đầy đủ:
 | BUG-FR12-003 | DT-033, DT-036, DT-039                                 | Category API endpoints (POST/PUT/DELETE `/api/categories`) thiếu kiểm tra role -- user thường có thể tạo/sửa/xóa danh mục                                         | Critical |
 | BUG-FR12-004 | DT-002                                                 | Token không hợp lệ trả về HTTP 403 Forbidden thay vì 401 Unauthorized -- sai mã lỗi HTTP theo chuẩn                                                               | Minor    |
 
-#### 2.4. Phân loại lỗi theo nhóm endpoint
+##### 2.4. Phân loại lỗi theo nhóm endpoint
 
 Phân tích kết quả test cho thấy 3 mẫu lỗi (pattern) rõ ràng:
 
@@ -531,9 +926,9 @@ Phân tích kết quả test cho thấy 3 mẫu lỗi (pattern) rõ ràng:
 
 ---
 
-### 3. Boundary Value Analysis (BVA)
+#### 3. Boundary Value Analysis (BVA)
 
-#### 3.1. Quy trình áp dụng kỹ thuật BVA
+##### 3.1. Quy trình áp dụng kỹ thuật BVA
 
 Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
 
@@ -557,7 +952,7 @@ FR-12 có 2 biến đầu vào chính (Token và Role) và 1 biến ngữ cảnh
 
 Tất cả biến đầu vào đã được bao phủ đầy đủ bởi kỹ thuật Equivalence Partitioning (EP) với 4 phân hoạch cho Token và 3 phân hoạch cho Role, kết hợp với 13 endpoint tạo thành 40 test case.
 
-#### 3.2. Giải thích lý do không áp dụng BVA cho FR-12
+##### 3.2. Giải thích lý do không áp dụng BVA cho FR-12
 
 Trong bối cảnh FR-12, chức năng kiểm soát truy cập hoạt động dựa trên 2 cơ chế:
 
@@ -574,9 +969,9 @@ Do đó, việc áp dụng BVA cho FR-12 là không phù hợp. Kỹ thuật EP 
 
 ---
 
-### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+#### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
 
-#### 4.1. Giới thiệu về CLAUDE.md
+##### 4.1. Giới thiệu về CLAUDE.md
 
 File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-12, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
 
@@ -587,7 +982,7 @@ File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent 
 - **Template sử dụng**: Template 1 (Domain Testing) cho tất cả 40 test case
 - **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
 
-#### 4.2. Quy trình thực hiện chi tiết
+##### 4.2. Quy trình thực hiện chi tiết
 
 Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
 
@@ -645,7 +1040,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
    - Tạo 4 bug reports: [BUG-FR12-001](../bug-reports/FR-12/BUG-FR12-001.md) đến [BUG-FR12-004](../bug-reports/FR-12/BUG-FR12-004.md)
    - Tạo [FR-12-access-gap-analysis.md](../ai-gap-analysis/FR-12-access-gap-analysis.md): phân tích hạn chế của AI
 
-#### 4.3. Sơ đồ quy trình tổng quát
+##### 4.3. Sơ đồ quy trình tổng quát
 
 ```
 Người dùng                         AI Agent (CLAUDE.md)
@@ -675,22 +1070,22 @@ Người dùng                         AI Agent (CLAUDE.md)
     |--- Thực thi test trên SUT -------->|
     |    (Postman/cURL, 40 API calls)    |
     |                                    |
-    |--- Báo cáo kết quả:               |
+    |--- Báo cáo kết quả:                |
     |    23 Passed / 17 Failed           |
     |    + Nhận xét: test ordering       |
-    |      không tối ưu --------------->|
+    |      không tối ưu ---------------> |
     |                                    |
     |                                    |--- Tạo Test Run summary (Step 5)
     |                                    |--- Tạo 4 Bug Reports (3 Critical + 1 Minor)
     |                                    |--- Tạo AI Gap Analysis
     |                                    |
-    |<-- Hoàn thành, yêu cầu commit ----|
+    |<-- Hoàn thành, yêu cầu commit ---- |
     |                                    |
     |--- git add + git commit ---------->|
          (Commit: 1241f5e)
 ```
 
-#### 4.5. Phân tích AI Gap Analysis
+##### 4.5. Phân tích AI Gap Analysis
 
 Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-12, 2 hạn chế chính được xác định:
 
@@ -707,7 +1102,7 @@ Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-12, 2 hạn chế c
 - Nguyên nhân: Black-box testing -- AI không có thông tin về trạng thái CSDL sau mỗi lần thực thi test case.
 - Giải pháp: AI nên thêm ghi chú về dependency giữa test case, đặc biệt với các thao tác DELETE có tính phá hủy dữ liệu.
 
-#### 4.6. Đánh giá tổng thể
+##### 4.6. Đánh giá tổng thể
 
 | Tiêu chí                            | Đánh giá                                                             |
 | ----------------------------------- | -------------------------------------------------------------------- |
@@ -738,398 +1133,11 @@ AI Agent chứng minh hiệu quả đặc biệt cao trong việc thiết kế t
 
 ---
 
-## FR-08: Thanh toán (Checkout)
+## Pool D
 
-### 1. Tổng quan
+### FR-09: Mã Giảm Giá (Coupon) -- Mobile App
 
-FR-08 định nghĩa quy trình thanh toán (Checkout) của hệ thống EShop. Các yêu cầu cụ thể bao gồm:
-
-- Chỉ người dùng **đã đăng nhập** mới tiến hành thanh toán được.
-- **Tổng tiền thanh toán** được tính tự động từ giỏ hàng và không cho phép người dùng chỉnh sửa trực tiếp.
-- Giao diện hiển thị đầy đủ danh sách sản phẩm đặt mua.
-- **Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên.**
-- Sau thanh toán thành công, giỏ hàng được xóa.
-
-Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế test case:
-
-- [description_project.md](../description_project.md) -- Mục FR-08 (dòng 102-108)
-- [api_specification.md](../api_specification.md) -- Mục 4.3: Đặt hàng (dòng 129-137)
-
-**Phát hiện quan trọng:** Có mâu thuẫn giữa đặc tả FR-08 và API Specification. FR-08 yêu cầu _"Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên"_, nhưng API Spec lại cho phép client gửi `total_amount` trong body của `POST /api/checkout`. Đây là **attack surface** quan trọng: hacker có thể dùng Postman gửi `total_amount` ảo để kiểm tra backend có thực sự bỏ qua giá trị này hay không.
-
-Môi trường kiểm thử: API testing qua Postman trên `http://localhost:3000`.
-
----
-
-### 2. Domain Testing
-
-#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
-
-Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
-
-**Bước 1 -- Xác định biến đầu vào (Input Variables)**
-
-Từ phân tích FR-08 và API Specification, xác định được **4 biến đầu vào**:
-
-| #   | Biến                        | Kiểu              | Nguồn               | Miền giá trị / Ràng buộc                                                               |
-| --- | --------------------------- | ----------------- | ------------------- | -------------------------------------------------------------------------------------- |
-| V1  | `Authorization` (JWT Token) | String (Header)   | HTTP Header         | Token JWT hợp lệ do hệ thống cấp sau đăng nhập                                         |
-| V2  | `total_amount`              | Numeric (Body)    | Request Body (JSON) | Theo FR-08: Backend tự tính, KHONG tin client. Nhưng API cho phép gửi -- attack vector |
-| V3  | `shipping_address`          | String (Body)     | Request Body (JSON) | Địa chỉ giao hàng, chuỗi ký tự                                                         |
-| V4  | Cart State                  | Implicit (Server) | Server-side (DB)    | Giỏ hàng phải có it nhất 1 sản phẩm                                                    |
-
-**Bước 2 -- Phân hoạch tương đương (Equivalence Partitioning)**
-
-Áp dụng EP cho từng biến:
-
-**V1: Authorization (JWT Token)**
-
-| EP ID    | Partition                    | Mô tả                               | Expected          |
-| -------- | ---------------------------- | ----------------------------------- | ----------------- |
-| EP-V1-01 | Valid -- Token hợp lệ        | Bearer token JWT còn hạn, đúng user | Cho phép checkout |
-| EP-V1-02 | Invalid -- Không có token    | Không gửi header Authorization      | 401 Unauthorized  |
-| EP-V1-03 | Invalid -- Token sai/hết hạn | Token rác hoặc hết hạn              | 401/403           |
-
-**V2: total_amount (Attack Vector -- Client gửi ảo)**
-
-Tư duy Black-box Hacker: Dù FR-08 nói backend tự tính, API spec vẫn accept `total_amount` từ client. Hacker dùng Postman có thể gửi bất kỳ giá trị nào. Cần kiểm tra backend có THAT SU bỏ qua giá trị này không.
-
-| EP ID    | Partition                         | Giá trị mẫu | Expected (theo FR-08)                       |
-| -------- | --------------------------------- | ----------- | ------------------------------------------- |
-| EP-V2-01 | Giá trị đúng -- Khớp tổng thực tế | `200000`    | Checkout thành công, tổng = backend tự tính |
-| EP-V2-02 | Giá trị thấp hơn thực tế          | `1`         | Backend bỏ qua, tổng = backend tự tính      |
-| EP-V2-03 | Giá trị = 0 -- mua miễn phí       | `0`         | Backend bỏ qua, tổng = backend tự tính      |
-| EP-V2-04 | Giá trị âm -- tạo refund          | `-50000`    | Backend bỏ qua, tổng = backend tự tính      |
-| EP-V2-05 | Giá trị quá cao -- over-charge    | `99999999`  | Backend bỏ qua, tổng = backend tự tính      |
-| EP-V2-06 | Không gửi trường                  | _(omit)_    | Backend tự tính, checkout thành công        |
-| EP-V2-07 | Kiểu dữ liệu sai                  | `"abc"`     | Backend reject hoặc bỏ qua, tự tính         |
-
-**V3: shipping_address**
-
-| EP ID    | Partition                   | Giá trị mẫu                       | Expected                               |
-| -------- | --------------------------- | --------------------------------- | -------------------------------------- |
-| EP-V3-01 | Valid -- Địa chỉ hợp lệ     | `"123 Le Loi, Q1, TP.HCM"`        | Checkout thành công                    |
-| EP-V3-02 | Empty -- Chuỗi rỗng         | `""`                              | Lỗi validation                         |
-| EP-V3-03 | Missing -- Không gửi trường | _(omit)_                          | Lỗi hoặc dùng địa chỉ mặc định         |
-| EP-V3-04 | XSS Payload                 | `"<script>alert('xss')</script>"` | Lưu nhưng escape khi hiển thị (SEC-04) |
-| EP-V3-05 | SQL Injection               | `"'; DROP TABLE orders;--"`       | Parameterized query ngăn chặn (SEC-05) |
-
-**V4: Cart State**
-
-| EP ID    | Partition                | Mô tả             | Expected            |
-| -------- | ------------------------ | ----------------- | ------------------- |
-| EP-V4-01 | Non-empty -- Có sản phẩm | Cart co >= 1 item | Checkout thành công |
-| EP-V4-02 | Empty -- Giỏ hàng trống  | Cart = 0 items    | Không cho checkout  |
-
-**Bước 3 -- Tổng hợp Domain Matrix và tạo Test Case**
-
-Tổng hợp 16 EP thành **15 test case Domain Testing** (DT-001 đến DT-015), bao gồm 1 test case post-condition:
-
-| TC ID  | Biến chính                                | Mô tả                                            |
-| ------ | ----------------------------------------- | ------------------------------------------------ |
-| DT-001 | V1=Valid, V2=đúng, V3=valid, V4=non-empty | Checkout thành công (happy path)                 |
-| DT-002 | V1=Missing                                | Checkout thiếu Token (chưa đăng nhập)            |
-| DT-003 | V1=Invalid                                | Checkout Token sai/hết hạn/malformed             |
-| DT-004 | V2=EP-V2-02                               | Hacker gửi `total_amount` thấp hơn thực tế (`1`) |
-| DT-005 | V2=EP-V2-03                               | Hacker gửi `total_amount = 0` (mua miễn phí)     |
-| DT-006 | V2=EP-V2-04                               | Hacker gửi `total_amount` âm (`-50000`)          |
-| DT-007 | V2=EP-V2-05                               | Hacker gửi `total_amount` quá cao (`99999999`)   |
-| DT-008 | V2=EP-V2-06                               | Không gửi trường `total_amount`                  |
-| DT-009 | V2=EP-V2-07                               | Gửi `total_amount` kiểu string (`"abc"`)         |
-| DT-010 | V3=EP-V3-02                               | `shipping_address` rỗng                          |
-| DT-011 | V3=EP-V3-03                               | Thiếu trường `shipping_address`                  |
-| DT-012 | V3=EP-V3-04                               | XSS Injection trong `shipping_address`           |
-| DT-013 | V3=EP-V3-05                               | SQL Injection trong `shipping_address`           |
-| DT-014 | V4=EP-V4-02                               | Checkout với giỏ hàng trống                      |
-| DT-015 | Post-condition                            | Giỏ hàng xóa sau checkout thành công             |
-
-#### 2.2. Kết quả thực thi Domain Testing
-
-| TC ID  | Tên Test Case                                   | Kết quả | Bug ID       |
-| ------ | ----------------------------------------------- | ------- | ------------ |
-| DT-001 | Checkout thành công (happy path)                | Failed  | BUG-FR08-005 |
-| DT-002 | Checkout thiếu Token (chưa đăng nhập)           | Passed  | --           |
-| DT-003 | Checkout Token sai/hết hạn/malformed            | Passed  | --           |
-| DT-004 | Hacker gửi `total_amount` thấp hơn thực tế      | Failed  | BUG-FR08-001 |
-| DT-005 | Hacker gửi `total_amount = 0` (mua miễn phí)    | Failed  | BUG-FR08-001 |
-| DT-006 | Hacker gửi `total_amount` âm (hoàn tiền)        | Failed  | BUG-FR08-001 |
-| DT-007 | Hacker gửi `total_amount` quá cao (over-charge) | Failed  | BUG-FR08-001 |
-| DT-008 | Không gửi trường `total_amount`                 | Failed  | BUG-FR08-001 |
-| DT-009 | `total_amount` kiểu string ("abc")              | Failed  | BUG-FR08-001 |
-| DT-010 | `shipping_address` rỗng                         | Failed  | BUG-FR08-003 |
-| DT-011 | Thiếu trường `shipping_address`                 | Failed  | BUG-FR08-003 |
-| DT-012 | XSS Injection trong `shipping_address`          | Failed  | BUG-FR08-002 |
-| DT-013 | SQL Injection trong `shipping_address`          | Passed  | --           |
-| DT-014 | Checkout với giỏ hàng trống                     | Failed  | BUG-FR08-004 |
-| DT-015 | Giỏ hàng xóa sau checkout thành công            | Failed  | BUG-FR08-005 |
-
-**Thống kê Domain Testing:** 3 Passed (20.0%) / 12 Failed (80.0%) trên tổng số 15 test case.
-
-#### 2.3. Các lỗi phát hiện
-
-| Bug ID       | TC liên quan                       | Mô tả ngắn                                                                                                                          | Mức độ   |
-| ------------ | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| BUG-FR08-001 | DT-004 - DT-009, BVA-001 - BVA-003 | Backend tin tưởng `total_amount` từ client, không tự tính lại tổng tiền. Hacker có thể mua hàng trị giá 200,000 dong chỉ với 1 dong | Critical |
-| BUG-FR08-002 | DT-012                             | Stored XSS qua trường `shipping_address` -- chuỗi `<script>` được render thành HTML node trên Admin                                 | Major    |
-| BUG-FR08-003 | DT-010, DT-011                     | Thiếu validation cho `shipping_address` -- chấp nhận chuỗi rỗng và missing, tạo đơn hàng không có địa chỉ giao hàng                 | Major    |
-| BUG-FR08-004 | DT-014                             | Cho phép checkout khi giỏ hàng trống, tạo đơn hàng phantom                                                                          | Major    |
-| BUG-FR08-005 | DT-001, DT-015                     | Giỏ hàng không được xóa sau checkout thành công, vi phạm FR-08                                                                      | Major    |
-
-#### 2.4. Phân loại lỗi theo nhóm
-
-| Nhóm lỗi                                      | Bug ID       | Số TC Failed         | Đánh giá                                           |
-| --------------------------------------------- | ------------ | -------------------- | -------------------------------------------------- |
-| Business Logic -- `total_amount` manipulation | BUG-FR08-001 | 6 (DT) + 3 (BVA) = 9 | Vi phạm FR-08: backend KHONG tự tính tổng tiền     |
-| Security -- XSS                               | BUG-FR08-002 | 1                    | Vi phạm SEC-04: shipping_address không escape HTML |
-| Validation -- `shipping_address`              | BUG-FR08-003 | 2                    | Thiếu validation cho trường bắt buộc               |
-| Business Logic -- Cart State                  | BUG-FR08-004 | 1                    | Checkout khi giỏ trống, vi phạm logic nghiệp vụ    |
-| Post-condition -- Cart cleanup                | BUG-FR08-005 | 2                    | Vi phạm FR-08: giỏ hàng không xóa sau checkout     |
-
----
-
-### 3. Boundary Value Analysis (BVA)
-
-#### 3.1. Quy trình áp dụng kỹ thuật BVA
-
-Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
-
-> BVA chỉ được áp dụng cho các biến số (numerical variables) như price, quantity, total_amount. KHONG được ép hoặc suy diễn BVA trên các biến phi số.
-
-**Bước 1 -- Đánh giá khả năng áp dụng BVA**
-
-Xét tất cả biến đầu vào của FR-08:
-
-| Biến                        | Kiểu                   | Có phải biến số (numerical) không? | Áp dụng BVA? |
-| --------------------------- | ---------------------- | ---------------------------------- | ------------ |
-| `Authorization` (JWT Token) | String (Header)        | Không                              | Không        |
-| `total_amount`              | **Numeric (Integer)**  | **Co**                             | **Co**       |
-| `shipping_address`          | String (Body)          | Không                              | Không        |
-| Cart State                  | Categorical (Implicit) | Không                              | Không        |
-
-**Bước 2 -- Xác định Boundary cho `total_amount`**
-
-Biến `total_amount` là **strictly numerical** -- thỏa mãn STRICT BVA RULE. Đây là biến đầu tiên trong quá trình test 3 FR (FR-05, FR-12, FR-08) mà BVA thực sự được áp dụng.
-
-Ý nghĩa logic:
-
-- Tổng tiền hợp lệ phải > 0 (vì giỏ hàng phải có it nhất 1 sản phẩm, mỗi sản phẩm có giá > 0)
-- Boundary tại **0**: Ranh giới giữa giá trị hợp lệ (dương) và không hợp lệ (0 hoặc âm)
-
-Bảng Boundary Points:
-
-| Variable       | Constraint | Boundary Type      | BVA Points                                                          |
-| -------------- | ---------- | ------------------ | ------------------------------------------------------------------- |
-| `total_amount` | Phải > 0   | Min boundary tại 0 | **-1 (OFF ngoai bên trái)**, **0 (ON)**, **1 (OFF ngoai bên phải)** |
-
-**Bước 3 -- Tạo BVA Test Case**
-
-| TC ID   | `total_amount` (client gửi) | Boundary Point                 | Cart thực tế                      | Expected                                            |
-| ------- | --------------------------- | ------------------------------ | --------------------------------- | --------------------------------------------------- |
-| BVA-001 | `-1`                        | OFF ngoai bên trái (dưới biên) | Có sản phẩm (tổng = 200,000 dong) | Backend bỏ qua giá trị `-1`, tự tính = 200,000 dong |
-| BVA-002 | `0`                         | ON (đúng biên)                 | Có sản phẩm (tổng = 200,000 dong) | Backend bỏ qua giá trị `0`, tự tính = 200,000 dong  |
-| BVA-003 | `1`                         | OFF ngoai bên phải (trên biên) | Có sản phẩm (tổng = 200,000 dong) | Backend bỏ qua giá trị `1`, tự tính = 200,000 dong  |
-
-Cách kiểm chứng: Sau khi gửi `POST /api/checkout` với `total_amount` ảo, gọi `GET /api/orders/my-orders` để kiểm tra `total_amount` thực sự được lưu trong đơn hàng. Nếu giá trị lưu = giá trị client gửi (thay vì giá trị tự tính) -- **BUG bảo mật nghiêm trọng**.
-
-#### 3.2. Kết quả thực thi BVA
-
-| TC ID   | Tên Test Case       | Boundary Point     | Kết quả | Bug ID       |
-| ------- | ------------------- | ------------------ | ------- | ------------ |
-| BVA-001 | `total_amount = -1` | OFF ngoai bên trái | Failed  | BUG-FR08-001 |
-| BVA-002 | `total_amount = 0`  | ON                 | Failed  | BUG-FR08-001 |
-| BVA-003 | `total_amount = 1`  | OFF ngoai bên phải | Failed  | BUG-FR08-001 |
-
-**Thống kê BVA:** 0 Passed / 3 Failed -- Tất cả 3 boundary points đều phát hiện backend tin tưởng giá trị client gửi.
-
-#### 3.3. Kết quả chi tiết từ BVA
-
-| `total_amount` gửi | `total_amount` lưu trong DB | Kết quả                                                      |
-| ------------------ | --------------------------- | ------------------------------------------------------------ |
-| `-1`               | -1 dong                     | Backend tin client -- đơn hàng âm tiền                       |
-| `0`                | 0 dong                      | Backend tin client -- mua hàng miễn phí                      |
-| `1`                | 1 dong                      | Backend tin client -- hacker mua 200,000 dong chỉ với 1 dong |
-
-Tất cả 3 BVA test case đều xác nhận BUG-FR08-001 (Critical): Backend **không** tự tính lại tổng tiền mà chấp nhận nguyên giá trị `total_amount` do client gửi.
-
----
-
-### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
-
-#### 4.1. Giới thiệu về CLAUDE.md
-
-File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-08, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
-
-- **Vai trò**: QA Test Designer chuyên về Black-Box Testing
-- **Ràng buộc**: Hành động từng bước, dừng lại và chờ phê duyệt sau mỗi bước
-- **Nguồn dữ liệu**: Chỉ dựa trên `description_project.md` và `api_specification.md`
-- **Quy tắc BVA**: STRICT BVA RULE -- biến `total_amount` thỏa mãn (numerical) -- BVA DUOC ÁP DỤNG
-- **Template sử dụng**: Template 1 (Domain Testing) cho 15 TC + Template 2 (BVA) cho 3 TC
-- **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
-
-FR-08 là FR đầu tiên trong 3 FR được test mà BVA thực sự được áp dụng (FR-05, FR-12 đều skip BVA).
-
-#### 4.2. Quy trình thực hiện chi tiết
-
-Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
-
-**Giai đoạn 1: Phân tích và Thiết kế (Steps 1-2-3 trong CLAUDE.md)**
-
-1. Người dùng cung cấp prompt khởi động quá trình QA với cấu hình cụ thể:
-   - `[FR-DIR]` = `FR-08-checkout`
-   - `[FR-ID]` = `FR08`
-   - Chỉ định phân tích cả FR-08 trong `description_project.md` và API spec (`/api/checkout`)
-   - Yêu cầu áp dụng BVA cho `total_amount` vì thỏa mãn STRICT BVA RULE
-
-2. AI Agent đọc và phân tích file đặc tả:
-   - `description_project.md` tại mục FR-08 (dòng 102-108): 5 yêu cầu checkout
-   - `api_specification.md` tại mục 4.3 (dòng 129-137): endpoint `POST /api/checkout`
-
-3. AI Agent phát hiện **mâu thuẫn giữa FR-08 và API Spec**: FR-08 yêu cầu backend tự tính tổng tiền, nhưng API cho phép client gửi `total_amount` -- đây là attack surface.
-
-4. AI Agent xác định:
-   - 4 biến đầu vào (V1-V4): Authorization, total_amount, shipping_address, Cart State
-   - 16 phân vùng EP -- đặc biệt 7 partition cho `total_amount` (hacker scenarios)
-   - BVA áp dụng CHỈ cho `total_amount` (strictly numerical) -- 3 boundary points: `-1`, `0`, `1`
-
-5. AI Agent trình bày bảng phân tích logic (implementation plan) và dừng lại chờ phê duyệt.
-
-**Giai đoạn 2: Tạo Test Case (Step 4 trong CLAUDE.md)**
-
-1. Sau khi người dùng phê duyệt bảng phân tích, AI Agent tạo **18 file test case** (15 DT + 3 BVA) theo template CLAUDE.md.
-
-2. AI Agent tạo file theo 3 batch song song:
-   - Batch 1 (DT-001 đến DT-006): Happy path + Authentication + total_amount manipulation
-   - Batch 2 (DT-007 đến DT-012): total_amount continuation + shipping_address validation + Security
-   - Batch 3 (DT-013 đến DT-015 + BVA-001 đến BVA-003): SQL Injection + Cart State + Post-condition + BVA boundaries
-
-3. AI Agent xác minh cấu trúc thư mục: `domain-testing/` (15 files) + `bva/` (3 files) -- đây là FR đầu tiên có thư mục `bva/`.
-
-4. AI Agent dừng lại và yêu cầu người dùng thực thi test case trên SUT qua Postman.
-
-**Giai đoạn 3: Thực thi, Human Review, và Báo cáo (Step 5 trong CLAUDE.md)**
-
-1. Người dùng thực thi 18 test case qua Postman và cập nhật actual result + status cho từng file.
-
-2. Trong quá trình testing, người dùng phát hiện:
-   - AI tạo test case tương đồng giữa BVA và DT (vd: DT-004 dùng `total_amount = 1` trùng với BVA-003; DT-005 dùng `total_amount = 0` trùng với BVA-002)
-   - Đây là vấn đề redundancy mà AI không phát hiện được khi thiết kế
-
-3. Người dùng báo cáo kết quả: 3 Passed / 15 Failed.
-
-4. AI Agent nhận kết quả và phản hồi của người dùng, triển khai Step 5:
-   - Tạo [FR-08-checkout-run.md](../tests/test-runs/FR-08-checkout-run.md): tổng hợp kết quả test run
-   - Tạo 5 bug reports: [BUG-FR08-001.md](../bug-reports/BUG-FR08-001.md) đến [BUG-FR08-005.md](../bug-reports/BUG-FR08-005.md) -- nhóm theo root cause
-   - Tạo [FR-08-checkout-gap-analysis.md](../ai-gap-analysis/FR-08-checkout-gap-analysis.md): phân tích trùng lặp DT/BVA
-
-#### 4.3. Sơ đồ quy trình tổng quát
-
-```
-Người dùng                         AI Agent (CLAUDE.md)
-    |                                    |
-    |--- Prompt khởi động QA FR-08 ----->|
-    |    (cung cấp [FR-DIR], [FR-ID],    |
-    |     chỉ định phân tích API spec,   |
-    |     BVA cho total_amount)          |
-    |                                    |
-    |                                    |--- Đọc description_project.md (FR-08)
-    |                                    |--- Đọc api_specification.md (POST /api/checkout)
-    |                                    |--- Phát hiện mâu thuẫn Spec vs API (Step 1)
-    |                                    |    (FR-08: backend tự tính, nhưng API cho gửi)
-    |                                    |--- Xác định 4 biến (V1-V4)
-    |                                    |--- Phân hoạch EP: 16 partition (Step 2)
-    |                                    |--- BVA cho total_amount: -1, 0, 1 (Step 3)
-    |                                    |
-    |<-- Trình bày bảng phân tích -------|
-    |    (Chờ phê duyệt)                 |
-    |                                    |
-    |--- Phê duyệt --------------------->|
-    |                                    |
-    |                                    |--- Tạo 15 DT + 3 BVA = 18 files (Step 4)
-    |                                    |--- Cấu trúc: domain-testing/ + bva/
-    |                                    |
-    |<-- Yêu cầu test trên SUT --------- |
-    |    qua Postman                     |
-    |                                    |
-    |--- Thực thi 18 test case --------->|
-    |    qua Postman trên localhost:3000 |
-    |                                    |
-    |--- Báo cáo kết quả:                |
-    |    3 Passed / 15 Failed            |
-    |    + AI tạo TC trùng lặp giữa      |
-    |      DT và BVA (DT-004 = BVA-003,  |
-    |      DT-005 = BVA-002) ----------->|
-    |                                    |
-    |                                    |--- Tạo Test Run summary (Step 5)
-    |                                    |--- Tạo 5 Bug Reports (1 Critical + 4 Major)
-    |                                    |--- Tạo AI Gap Analysis (DT/BVA redundancy)
-    |                                    |
-    |<-- Hoàn thành, yêu cầu commit ---- |
-    |                                    |
-    |--- git add + git commit ---------->|
-         (Commit: c71d42f)
-```
-
-#### 4.4. Phân tích AI Gap Analysis
-
-Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-08, **1 hạn chế chính** được xác định -- đặc biệt liên quan đến BVA:
-
-**Hạn chế: Sự trùng lặp giữa Domain Testing (DT) và BVA**
-
-Vấn đề được người dùng phát hiện:
-
-| BVA Test Case                                    | DT Test Case tương đồng               | Giá trị trùng | Vấn đề                                               |
-| ------------------------------------------------ | ------------------------------------- | ------------- | ---------------------------------------------------- |
-| BVA-003 (`total_amount = 1`, OFF ngoai bên phải) | DT-004 (`total_amount = 1`, EP-V2-02) | `1`           | Cùng giá trị, cùng mục tiêu, chỉ khác label kỹ thuật |
-| BVA-002 (`total_amount = 0`, ON)                 | DT-005 (`total_amount = 0`, EP-V2-03) | `0`           | Cùng giá trị, cùng kịch bản "mua miễn phí"           |
-
-Nguyên nhân gốc (Root Cause):
-
-1. **AI không nhận diện sự chồng lấp logic giữa EP và BVA:** Khi xây dựng EP cho `total_amount`, AI đã tạo các partition riêng cho giá trị `0` (EP-V2-03), giá trị dương nhỏ (EP-V2-02), và giá trị âm (EP-V2-04). Sau đó, khi áp dụng BVA trên cùng biến, AI lại chọn boundary points tại `{-1, 0, 1}` -- trùng hoàn toàn với các EP đã tạo.
-
-2. **BVA nên bổ sung EP, không lặp lại EP:** Theo nguyên tắc ISTQB, BVA được thiết kế để **bổ sung** cho EP bằng cách tập trung vào ranh giới giữa các partition. Trong trường hợp này, ranh giới tại `0` đã được EP cover rõ ràng nên BVA trở nên dư thừa.
-
-3. **Đặc thù `total_amount` trong FR-08:** Biến này khác biệt so với BVA truyền thống vì FR-08 yêu cầu backend **bỏ qua hoàn toàn** giá trị client gửi. Mọi giá trị của `total_amount` (dương, âm, 0, bất kỳ) đều phải cho **cùng một kết quả**: backend tự tính. BVA mất ý nghĩa khi không có sự phân biệt hành vi tại biên.
-
-Giải pháp cải thiện: Nếu làm lại, AI nên loại bỏ các BVA test case trùng lặp với DT, hoặc sử dụng BVA với giá trị biên khác biệt hơn (ví dụ: `MIN_INT`, `MAX_INT`, `0.001`, `-0.001`).
-
-Chi tiết: [FR-08-checkout-gap-analysis.md](../ai-gap-analysis/FR-08-checkout-gap-analysis.md)
-
-#### 4.5. Đánh giá tổng thể
-
-| Tiêu chí                            | Đánh giá                                                                                                        |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Số lượng test case AI tạo           | 18 (15 DT + 3 BVA)                                                                                              |
-| Số lượng test case sau human review | 18 (không loại bỏ, nhưng BVA có redundancy với DT)                                                              |
-| Số lượng test case phát hiện lỗi    | 15/18 (83.3%)                                                                                                   |
-| Số lượng bug phát hiện              | 5 (1 Critical, 4 Major)                                                                                         |
-| Độ chính xác của test design        | Cao -- phát hiện đúng attack surface (total_amount manipulation), cover security (XSS, SQLi), và post-condition |
-| Cần chỉnh sửa bởi người dùng        | Loại bỏ redundancy giữa DT và BVA                                                                               |
-
-So sánh với FR-05 và FR-12:
-
-| Tiêu chí             | FR-05          | FR-12           | FR-08                           |
-| -------------------- | -------------- | --------------- | ------------------------------- |
-| Nền tảng test        | Web            | API (Postman)   | API (Postman)                   |
-| Số biến đầu vào      | 1 (String)     | 2 (Categorical) | 4 (Mixed)                       |
-| Kiểu biến            | String         | Categorical     | String + **Numeric** + Implicit |
-| BVA                  | Skipped        | Skipped         | **Applied (total_amount)**      |
-| Tổng test case       | 12             | 40              | 18 (15 DT + 3 BVA)              |
-| Pass rate            | 33.3%          | 57.5%           | 16.7%                           |
-| Bugs phát hiện       | 7 (2 Critical) | 4 (3 Critical)  | 5 (1 Critical, 4 Major)         |
-| Human review loại TC | 2              | 0               | 0 (nhưng BVA redundant)         |
-| Số hạn chế AI        | 3              | 2               | 1                               |
-
-FR-08 cho thấy AI Agent đặc biệt hiệu quả trong việc phân tích mâu thuẫn giữa đặc tả và API specification, xác định đúng attack vector chính (`total_amount` manipulation). Tỷ lệ fail 83.3% (cao nhất trong 3 FR) cho thấy module Checkout có vấn đề nghiêm trọng cần được fix trước khi release. Tuy nhiên, **human review vẫn là bắt buộc** để:
-
-- Phát hiện và loại bỏ sự trùng lặp giữa DT và BVA test case
-- Đánh giá ý nghĩa thực tế của BVA khi hành vi không phân biệt tại biên
-- Xác nhận severity phù hợp với ngữ cảnh hệ thống (Critical cho financial manipulation)
-
----
-
-## FR-09: Mã Giảm Giá (Coupon) -- Mobile App
-
-### 1. Tổng quan
+#### 1. Tổng quan
 
 FR-09 định nghĩa chức năng mã giảm giá (Coupon) tại bước Checkout của hệ thống EShop. Người dùng có thể nhập mã giảm giá và hệ thống áp dụng giảm giá dựa trên **5 điều kiện** sau, tất cả phải thỏa mãn:
 
@@ -1165,9 +1173,9 @@ Môi trường kiểm thử: Mobile App (React Native + Expo) trên thiết bị
 
 ---
 
-### 2. Domain Testing
+#### 2. Domain Testing
 
-#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+##### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
 
 Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
 
@@ -1221,7 +1229,7 @@ Tổng hợp thành **10 test case Domain Testing** (DT-001 đến DT-010):
 | DT-009 | C5 vi phạm          | SAVE10   | Đã dùng hết lượt (usage=1, max=1)                              |
 | DT-010 | Case-sensitivity    | save10   | Nhập mã lowercase -- kiểm tra hệ thống có phân biệt hoa thường |
 
-#### 2.2. Kết quả thực thi Domain Testing
+##### 2.2. Kết quả thực thi Domain Testing
 
 | TC ID  | Tên Test Case                                    | Kết quả | Bug ID       |
 | ------ | ------------------------------------------------ | ------- | ------------ |
@@ -1240,7 +1248,7 @@ Tổng hợp thành **10 test case Domain Testing** (DT-001 đến DT-010):
 
 **Ghi chú:** Cả 2 test case Failed đều liên quan đến mã giảm giá loại `percent` (SAVE10). Mã loại `fixed` (BIGBUY, VIP100) hoạt động đúng. DT-010 bản chất là test case-sensitivity nhưng cũng bị lỗi tính giá do SAVE10 là loại percent.
 
-#### 2.3. Các lỗi phát hiện từ Domain Testing
+##### 2.3. Các lỗi phát hiện từ Domain Testing
 
 | Bug ID       | TC liên quan                     | Mô tả ngắn                                                                                                                                                                                                                                           | Mức độ   |
 | ------------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -1249,9 +1257,9 @@ Tổng hợp thành **10 test case Domain Testing** (DT-001 đến DT-010):
 
 ---
 
-### 3. Boundary Value Analysis (BVA)
+#### 3. Boundary Value Analysis (BVA)
 
-#### 3.1. Quy trình áp dụng kỹ thuật BVA
+##### 3.1. Quy trình áp dụng kỹ thuật BVA
 
 Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
 
@@ -1326,7 +1334,7 @@ Tổng hợp thành **11 test case BVA** (BVA-001 đến BVA-011):
 | BVA-010 | 0 (lần 1)     | ON                 | Chấp nhận (lần đầu và duy nhất) |
 | BVA-011 | 1 (lần 2)     | OFF ngoài bên phải | Từ chối -- đã dùng hết          |
 
-#### 3.2. Kết quả thực thi BVA
+##### 3.2. Kết quả thực thi BVA
 
 | TC ID   | Tên Test Case                            | Biến test    | BVA Point          | Kết quả | Bug ID       |
 | ------- | ---------------------------------------- | ------------ | ------------------ | ------- | ------------ |
@@ -1344,7 +1352,7 @@ Tổng hợp thành **11 test case BVA** (BVA-001 đến BVA-011):
 
 **Thống kê BVA:** 7 Passed (63.6%) / 4 Failed (36.4%) trên tổng số 11 test case.
 
-#### 3.3. Phân tích kết quả BVA chi tiết
+##### 3.3. Phân tích kết quả BVA chi tiết
 
 **Bug BUG-FR09-002 (off-by-one) -- Phát hiện bởi BVA:**
 
@@ -1364,9 +1372,9 @@ BVA-003 (total = 300,001 đồng, SAVE10) và BVA-010 (usage=0, SAVE10) đều t
 
 ---
 
-### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+#### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
 
-#### 4.1. Giới thiệu về CLAUDE.md
+##### 4.1. Giới thiệu về CLAUDE.md
 
 File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-09, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
 
@@ -1380,7 +1388,7 @@ File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent 
 
 FR-09 là FR có nhiều test case BVA nhất (11 TC) vì có 2 biến numerical và nhiều mã giảm giá với các ngưỡng khác nhau.
 
-#### 4.2. Quy trình thực hiện chi tiết
+##### 4.2. Quy trình thực hiện chi tiết
 
 Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
 
@@ -1436,7 +1444,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
    - Tạo 2 bug reports: [BUG-FR09-001.md](../bug-reports/FR-09/BUG-FR09-001.md) (Critical) và [BUG-FR09-002.md](../bug-reports/FR-09/BUG-FR09-002.md) (Major)
    - Tạo [FR-09-coupon-mobile-gap-analysis.md](../ai-gap-analysis/FR-09-coupon-mobile-gap-analysis.md): phân tích hạn chế của AI
 
-#### 4.3. Sơ đồ quy trình tổng quát
+##### 4.3. Sơ đồ quy trình tổng quát
 
 ```
 Người dùng                         AI Agent (CLAUDE.md)
@@ -1487,7 +1495,7 @@ Người dùng                         AI Agent (CLAUDE.md)
          (Commit: 3863ddc)
 ```
 
-#### 4.4. Phân tích AI Gap Analysis
+##### 4.4. Phân tích AI Gap Analysis
 
 Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-09 trên Mobile, **2 hạn chế chính** được xác định:
 
@@ -1503,7 +1511,7 @@ Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-09 trên Mobile, **
 - BVA-008 giống BVA-007 về thao tác -- đều nhập VIP100 trên cùng tổng đơn 400,000 đồng, chỉ khác trạng thái `usage_count`.
 - AI nên nhận diện overlap và ghi chú rõ ràng test case nào có thể tham chiếu kết quả từ test case khác thay vì thực hiện lại.
 
-#### 4.5. Đánh giá tổng thể
+##### 4.5. Đánh giá tổng thể
 
 | Tiêu chí                            | Đánh giá                                                                               |
 | ----------------------------------- | -------------------------------------------------------------------------------------- |
@@ -1514,20 +1522,20 @@ Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-09 trên Mobile, **
 | Độ chính xác của test design        | Cao -- công thức tính sẵn giúp phát hiện bug percent, BVA 3-point phát hiện off-by-one |
 | Cần chỉnh sửa bởi người dùng        | Hướng dẫn chuẩn bị dữ liệu test, loại bỏ trùng lặp BVA/DT                              |
 
-So sánh với FR-05, FR-12, FR-22 và FR-08:
+So sánh với FR-05, FR-12 và FR-08:
 
-| Tiêu chí            | FR-05   | FR-12       | FR-22          | FR-08            | FR-09                   |
-| ------------------- | ------- | ----------- | -------------- | ---------------- | ----------------------- |
-| Nền tảng test       | Web     | API         | Mobile App     | API              | Mobile App              |
-| Số biến đầu vào     | 1       | 2           | 5              | 4                | 5                       |
-| Kiểu biến           | String  | Categorical | Boolean/Visual | Mixed            | **Mixed (2 numerical)** |
-| BVA                 | Skipped | Skipped     | Skipped        | Applied (1 biến) | **Applied (2 biến)**    |
-| Số test case BVA    | 0       | 0           | 0              | 3                | **11**                  |
-| Tổng test case      | 12      | 40          | 19             | 18               | **21**                  |
-| Pass rate           | 33.3%   | 57.5%       | 31.6%          | 16.7%            | **66.7%**               |
-| Bugs phát hiện      | 7       | 4           | 6              | 5                | **2**                   |
-| Bug bởi BVA (riêng) | 0       | 0           | 0              | 0                | **1 (off-by-one)**      |
-| Hạn chế AI          | 3       | 2           | 4              | 1                | 2                       |
+| Tiêu chí            | FR-05   | FR-12       | FR-08            | FR-09                   |
+| ------------------- | ------- | ----------- | ---------------- | ----------------------- |
+| Nền tảng test       | Web     | API         | API              | Mobile App              |
+| Số biến đầu vào     | 1       | 2           | 4                | 5                       |
+| Kiểu biến           | String  | Categorical | Mixed            | **Mixed (2 numerical)** |
+| BVA                 | Skipped | Skipped     | Applied (1 biến) | **Applied (2 biến)**    |
+| Số test case BVA    | 0       | 0           | 3                | **11**                  |
+| Tổng test case      | 12      | 40          | 18               | **21**                  |
+| Pass rate           | 33.3%   | 57.5%       | 16.7%            | **66.7%**               |
+| Bugs phát hiện      | 7       | 4           | 5                | **2**                   |
+| Bug bởi BVA (riêng) | 0       | 0           | 0                | **1 (off-by-one)**      |
+| Hạn chế AI          | 3       | 2           | 1                | 2                       |
 
 FR-09 là FR điển hình nhất cho việc áp dụng BVA trong thực tế:
 
