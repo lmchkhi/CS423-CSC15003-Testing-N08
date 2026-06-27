@@ -114,8 +114,6 @@ Ma trận tổng hợp cuối cùng:
 | BUG-FR05-006 | DT-010         | Thiếu loading indicator khi đang tải dữ liệu          | Minor    |
 | BUG-FR05-007 | DT-011         | Trang chủ có 2 thẻ h1 thay vì 1                       | Trivial  |
 
-Chi tiết bug reports: [bug-reports/](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports)
-
 ---
 
 ### 3. Boundary Value Analysis (BVA)
@@ -280,8 +278,6 @@ Trong quá trình sử dụng AI Agent theo CLAUDE.md, 3 hạn chế chính đư
 
 - AI truy vết (traceability) giữa các requirement liên quan, dẫn đến test case bị phân tán và trùng lặp.
 - Kết quả: Cả DT-009 (UI-2: Card SP) và DT-012 (UI-8: Format giá) đều phát hiện cùng một lỗi (VND thay vì ₫).
-
-Chi tiết: [FR-05-search-gap-analysis.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/ai-gap-analysis/FR-05-search-gap-analysis.md)
 
 #### 4.6. Đánh giá tổng thể
 
@@ -501,8 +497,6 @@ Ma trận test case đầy đủ:
 | BUG-FR12-003 | DT-033, DT-036, DT-039                                 | Category API endpoints (POST/PUT/DELETE `/api/categories`) thiếu kiểm tra role -- user thường có thể tạo/sửa/xóa danh mục                                         | Critical |
 | BUG-FR12-004 | DT-002                                                 | Token không hợp lệ trả về HTTP 403 Forbidden thay vì 401 Unauthorized -- sai mã lỗi HTTP theo chuẩn                                                               | Minor    |
 
-Chi tiết bug reports: [bug-reports/FR-12/](../bug-reports/FR-12/)
-
 #### 2.4. Phân loại lỗi theo nhóm endpoint
 
 Phân tích kết quả test cho thấy 3 mẫu lỗi (pattern) rõ ràng:
@@ -640,24 +634,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
    - Tạo 4 bug reports: [BUG-FR12-001](../bug-reports/FR-12/BUG-FR12-001.md) đến [BUG-FR12-004](../bug-reports/FR-12/BUG-FR12-004.md)
    - Tạo [FR-12-access-gap-analysis.md](../ai-gap-analysis/FR-12-access-gap-analysis.md): phân tích hạn chế của AI
 
-#### 4.3. Lịch sử Git minh chứng
-
-Toàn bộ quy trình được ghi nhận trong lịch sử Git của branch `23127464`:
-
-| Commit    | Ngày             | Mô tả                                    |
-| --------- | ---------------- | ---------------------------------------- |
-| `1241f5e` | 2026-06-27 05:12 | docs: - restructure bug-report for FR-05 |
-
-Commit `1241f5e` bao gồm **72 files thay đổi** (+3229 dòng thêm, -23 dòng xóa):
-
-- 40 file test case tại `tests/test-cases/FR-12-access/domain-testing/`
-- 4 file bug report tại `bug-reports/FR-12/`
-- 17 file screenshot tại `bug-reports/screenshots/FR-12/`
-- 1 file test run tại `tests/test-runs/`
-- 1 file gap analysis tại `ai-gap-analysis/`
-- 1 file implementation plan tại `reports/implemation_plan/`
-
-#### 4.4. Sơ đồ quy trình tổng quát
+#### 4.3. Sơ đồ quy trình tổng quát
 
 ```
 Người dùng                         AI Agent (CLAUDE.md)
@@ -719,8 +696,6 @@ Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-12, 2 hạn chế c
 - Nguyên nhân: Black-box testing -- AI không có thông tin về trạng thái CSDL sau mỗi lần thực thi test case.
 - Giải pháp: AI nên thêm ghi chú về dependency giữa test case, đặc biệt với các thao tác DELETE có tính phá hủy dữ liệu.
 
-Chi tiết: [FR-12-access-gap-analysis.md](../ai-gap-analysis/FR-12-access-gap-analysis.md)
-
 #### 4.6. Đánh giá tổng thể
 
 | Tiêu chí                            | Đánh giá                                                             |
@@ -749,5 +724,373 @@ AI Agent chứng minh hiệu quả đặc biệt cao trong việc thiết kế t
 - Tối ưu hóa thứ tự thực thi test case theo workflow thực tế của tester
 - Xác định dependency giữa các test case có thao tác phá hủy dữ liệu
 - Đánh giá mức độ nghiêm trọng (severity) phù hợp với ngữ cảnh hệ thống thực tế
+
+---
+
+## FR-22: Form Requirements (Mobile App)
+
+### 1. Tổng quan
+
+FR-22 định nghĩa các yêu cầu giao diện form cho toàn bộ hệ thống EShop. Trong phần này, các yêu cầu FR-22 được kiểm tra trên **nền tảng Mobile App** (React Native + Expo) thay vì Web. Các yêu cầu cụ thể bao gồm:
+
+- Tất cả trường bắt buộc phải có ký hiệu `*` bên cạnh nhãn.
+- Trường Email phải dùng `type="email"` (Mobile equivalent: `keyboardType="email-address"`).
+- Trường Mật khẩu phải dùng `type="password"` (Mobile equivalent: `secureTextEntry={true}`).
+- Thông báo lỗi phải xuất hiện **trên** nút Submit, không phải bên dưới.
+- Các form có từ 2 bước trở lên phải có **Step Indicator** rõ ràng.
+
+Các tài liệu đặc tả được sử dụng làm cơ sở thiết kế test case:
+
+- [description_project.md](../description_project.md) -- Mục FR-22 (dòng 250-256)
+- [description_project.md](../description_project.md) -- Mục FR-20 (dòng 233-236): danh sách chức năng Mobile
+
+Môi trường kiểm thử: Mobile App (React Native + Expo) trên thiết bị di động thật hoặc emulator.
+
+---
+
+### 2. Domain Testing
+
+#### 2.1. Quy trình áp dụng kỹ thuật Domain Testing
+
+Kỹ thuật Domain Testing được áp dụng theo quy trình 3 bước như sau:
+
+**Bước 1 -- Xác định biến đầu vào (Input Variables)**
+
+FR-22 khác biệt so với FR-05 và FR-12: thay vì có biến đầu vào truyền thống (dữ liệu người dùng nhập), FR-22 định nghĩa **5 yêu cầu giao diện** (GUI properties) cần kiểm tra trên **6 form** khác nhau của ứng dụng mobile.
+
+**5 yêu cầu giao diện (Input Variables):**
+
+| #   | Biến (GUI Property)    | Kiểu                | Mô tả                                                                       |
+| --- | ---------------------- | ------------------- | --------------------------------------------------------------------------- |
+| V1  | Ký hiệu bắt buộc (`*`) | Boolean / Visual    | Mỗi trường bắt buộc phải hiển thị `*` bên cạnh label                        |
+| V2  | Bàn phím Email         | Categorical / Prop  | Trường Email phải kích hoạt bàn phím email (`keyboardType="email-address"`) |
+| V3  | Ẩn ký tự mật khẩu      | Boolean / Prop      | Trường mật khẩu phải ẩn ký tự (`secureTextEntry={true}`)                    |
+| V4  | Vị trí thông báo lỗi   | Positional / Visual | Thông báo lỗi phải xuất hiện TRÊN nút Submit                                |
+| V5  | Step Indicator         | Boolean / Visual    | Form co >= 2 buoc phải có chỉ báo bước rõ ràng                              |
+
+**6 form mục tiêu trên Mobile App:**
+
+| #   | Form                       | Các trường liên quan    | Số bước        |
+| --- | -------------------------- | ----------------------- | -------------- |
+| F1  | Đăng nhập                  | Email, Mật khẩu         | 1              |
+| F2  | Đăng ký                    | Họ Tên, Email, Mật khẩu | 1              |
+| F3  | Quên mật khẩu -- Bước 1    | Email                   | 2 (multi-step) |
+| F4  | Đặt lại mật khẩu -- Bước 2 | OTP, Mật khẩu mới       | 2 (multi-step) |
+| F5  | Hồ sơ cá nhân              | Họ Tên, SĐT, Địa chỉ    | 1              |
+| F6  | Checkout                   | Địa chỉ giao hàng, SĐT  | 1              |
+
+**Bước 2 -- Phân hoạch tương đương (Equivalence Partitioning)**
+
+Áp dụng EP theo logic: mỗi yêu cầu GUI (V1-V5) được kiểm tra trên mỗi form có chứa trường liên quan. Cụ thể:
+
+| Yêu cầu            | Các form áp dụng                                       | Số test case |
+| ------------------ | ------------------------------------------------------ | ------------ |
+| V1: Ký hiệu `*`    | F1, F2, F3, F4, F5, F6 (tất cả 6 form)                 | 6            |
+| V2: Bàn phím Email | F1, F2, F3 (3 form có trường Email)                    | 3            |
+| V3: Ẩn mật khẩu    | F1, F2, F4 (3 form có trường mật khẩu)                 | 3            |
+| V4: Vị trí lỗi     | F1, F2, F3, F4, F5 (5 form có nút Submit)              | 5            |
+| V5: Step Indicator | F3/F4 (form 2 bước), F1 (negative test -- form 1 bước) | 2            |
+| **Tổng**           |                                                        | **19**       |
+
+**Bước 3 -- Tổng hợp Domain Matrix và tạo Test Case**
+
+Tổng hợp thành **19 test case** (DT-001 đến DT-019):
+
+| TC ID  | Yêu cầu            | Form               | Mô tả                                   |
+| ------ | ------------------ | ------------------ | --------------------------------------- |
+| DT-001 | V1: Ký hiệu `*`    | Đăng nhập          | Trường Email, Mật khẩu có `*`           |
+| DT-002 | V1: Ký hiệu `*`    | Đăng ký            | Trường Họ Tên, Email, Mật khẩu có `*`   |
+| DT-003 | V1: Ký hiệu `*`    | Quên MK B1         | Trường Email có `*`                     |
+| DT-004 | V1: Ký hiệu `*`    | Đặt lại MK B2      | Trường OTP, MK mới có `*`               |
+| DT-005 | V1: Ký hiệu `*`    | Hồ sơ cá nhân      | Trường Họ Tên có `*`                    |
+| DT-006 | V1: Ký hiệu `*`    | Checkout           | Các trường bắt buộc có `*`              |
+| DT-007 | V2: Bàn phím Email | Đăng nhập          | Bàn phím email khi focus trường Email   |
+| DT-008 | V2: Bàn phím Email | Đăng ký            | Bàn phím email khi focus trường Email   |
+| DT-009 | V2: Bàn phím Email | Quên MK B1         | Bàn phím email khi focus trường Email   |
+| DT-010 | V3: Ẩn mật khẩu    | Đăng nhập          | Ký tự mật khẩu bị ẩn dạng chấm tròn     |
+| DT-011 | V3: Ẩn mật khẩu    | Đăng ký            | Ký tự mật khẩu bị ẩn dạng chấm tròn     |
+| DT-012 | V3: Ẩn mật khẩu    | Đặt lại MK B2      | Ký tự MK mới bị ẩn                      |
+| DT-013 | V4: Vị trí lỗi     | Đăng nhập          | Lỗi hiển thị TRÊN nút Đăng nhập         |
+| DT-014 | V4: Vị trí lỗi     | Đăng ký            | Lỗi hiển thị TRÊN nút Đăng ký           |
+| DT-015 | V4: Vị trí lỗi     | Quên MK B1         | Lỗi hiển thị TRÊN nút Submit            |
+| DT-016 | V4: Vị trí lỗi     | Đặt lại MK B2      | Lỗi hiển thị TRÊN nút Submit            |
+| DT-017 | V4: Vị trí lỗi     | Hồ sơ cá nhân      | Lỗi hiển thị TRÊN nút Cập nhật          |
+| DT-018 | V5: Step Indicator | Quên MK (2 bước)   | Có Step Indicator trên cả 2 bước        |
+| DT-019 | V5: Step Indicator | Đăng nhập (1 bước) | Không có Step Indicator (negative test) |
+
+#### 2.2. Kết quả thực thi
+
+| TC ID  | Tên Test Case                           | Kết quả | Ghi chú                                                                           |
+| ------ | --------------------------------------- | ------- | --------------------------------------------------------------------------------- |
+| DT-001 | Ký hiệu `*` -- Form Đăng nhập           | Failed  | Trường Email và Mật khẩu đều không có `*`                                         |
+| DT-002 | Ký hiệu `*` -- Form Đăng ký             | Failed  | Các trường Họ Tên, Email, Mật khẩu đều không có `*`                               |
+| DT-003 | Ký hiệu `*` -- Form Quên MK B1          | Failed  | Trường Email không có `*`                                                         |
+| DT-004 | Ký hiệu `*` -- Form Đặt lại MK B2       | Failed  | Các trường OTP, Mật khẩu mới không có `*`                                         |
+| DT-005 | Ký hiệu `*` -- Form Hồ sơ cá nhân       | Failed  | Trường Họ Tên không có `*`                                                        |
+| DT-006 | Ký hiệu `*` -- Form Checkout            | Failed  | Không có trường bắt buộc nào hiển thị `*`                                         |
+| DT-007 | Bàn phím Email -- Form Đăng nhập        | Failed  | Bàn phím không hiện phím `@` và `.` trực tiếp                                     |
+| DT-008 | Bàn phím Email -- Form Đăng ký          | Failed  | Bàn phím không hiện phím `@` và `.` trực tiếp                                     |
+| DT-009 | Bàn phím Email -- Form Quên MK B1       | Failed  | Bàn phím không đúng dạng email                                                    |
+| DT-010 | Ẩn ký tự mật khẩu -- Form Đăng nhập     | Passed  | Ký tự ẩn đúng                                                                     |
+| DT-011 | Ẩn ký tự mật khẩu -- Form Đăng ký       | Passed  | Ký tự ẩn đúng                                                                     |
+| DT-012 | Ẩn ký tự mật khẩu -- Form Đặt lại MK B2 | Failed  | MK mới ẩn đúng, nhưng trường "Xác nhận MK mới" không tồn tại                      |
+| DT-013 | Vị trí lỗi -- Form Đăng nhập            | Failed  | Lỗi hiển thị phía DUOI nút Submit                                                 |
+| DT-014 | Vị trí lỗi -- Form Đăng ký              | Passed  | Lỗi hiển thị phía trên nút                                                        |
+| DT-015 | Vị trí lỗi -- Form Quên MK B1           | Passed  | Lỗi hiển thị dạng pop-up                                                          |
+| DT-016 | Vị trí lỗi -- Form Đặt lại MK B2        | Passed  | Lỗi hiển thị dạng pop-up                                                          |
+| DT-017 | Vị trí lỗi -- Form Hồ sơ cá nhân        | Failed  | Pop-up hiện sai nội dung: "SDT không hợp lệ" thay vì "Họ Tên không được để trống" |
+| DT-018 | Step Indicator -- Form Quên MK 2 bước   | Failed  | Không hiển thị Step Indicator trên cả 2 bước                                      |
+| DT-019 | Không có Step Indicator -- Form 1 bước  | Failed  | Hành vi đúng (không hiện Step Indicator) nhưng tester ghi Failed                  |
+
+**Thống kê:** 6 Passed (31.6%) / 13 Failed (68.4%) trên tổng số 19 test case.
+
+**Ghi chú về DT-019:** Test case này là negative test (xác nhận rằng form 1 bước KHONG hiển thị Step Indicator). Actual result khớp với expected result, tuy nhiên tester ghi status là Failed. Trong thực tế, test case này nên được đánh giá là Passed.
+
+#### 2.3. Các lỗi phát hiện từ Domain Testing
+
+| Bug ID       | TC liên quan           | Mô tả ngắn                                                                                                        | Mức độ |
+| ------------ | ---------------------- | ----------------------------------------------------------------------------------------------------------------- | ------ |
+| BUG-FR22-001 | DT-001 đến DT-006      | Tất cả 6 form mobile đều thiếu ký hiệu `*` cho trường bắt buộc                                                    | Major  |
+| BUG-FR22-002 | DT-007, DT-008, DT-009 | Trường Email trên mobile không sử dụng bàn phím email (`keyboardType="email-address"`), 3 form đều lỗi            | Major  |
+| BUG-FR22-003 | DT-012                 | Trường "Xác nhận mật khẩu mới" không tồn tại trên form Đặt lại MK -- thiếu trường theo FR-03                      | Minor  |
+| BUG-FR22-004 | DT-013                 | Form Đăng nhập hiển thị lỗi validation phía DUOI nút Submit thay vì phía trên                                     | Major  |
+| BUG-FR22-005 | DT-017                 | Form Hồ sơ cá nhân hiển thị sai nội dung lỗi validation ("SDT không hợp lệ" thay vì "Họ Tên không được để trống") | Minor  |
+| BUG-FR22-006 | DT-018                 | Form Quên mật khẩu (2 bước) thiếu Step Indicator trên cả 2 bước                                                   | Major  |
+
+#### 2.4. Phân loại lỗi theo yêu cầu FR-22
+
+| Yêu cầu FR-22                   | Số TC | Passed | Failed | Đánh giá                                                         |
+| ------------------------------- | ----- | ------ | ------ | ---------------------------------------------------------------- |
+| V1: Ký hiệu `*` trường bắt buộc | 6     | 0      | 6      | KHONG DAT -- tất cả form đều thiếu                               |
+| V2: Bàn phím Email              | 3     | 0      | 3      | KHONG DAT -- tất cả form đều sai keyboard type                   |
+| V3: Ẩn ký tự mật khẩu           | 3     | 2      | 1      | DAT 1 PHAN -- chỉ thiếu trường "Xác nhận MK"                     |
+| V4: Vị trí thông báo lỗi        | 5     | 3      | 2      | DAT 1 PHAN -- form Đăng nhập lỗi vị trí, form Hồ sơ lỗi nội dung |
+| V5: Step Indicator              | 2     | 0      | 2      | KHONG DAT -- thiếu Step Indicator cho form 2 bước                |
+
+---
+
+### 3. Boundary Value Analysis (BVA)
+
+#### 3.1. Quy trình áp dụng kỹ thuật BVA
+
+Kỹ thuật Boundary Value Analysis (BVA) được áp dụng theo quy tắc nghiêm ngặt (STRICT BVA RULE) được định nghĩa trong file [CLAUDE.md](../CLAUDE.md):
+
+> BVA chỉ được áp dụng cho các biến số (numerical variables) như price, quantity, total_amount. KHONG được ép hoặc suy diễn BVA trên các biến phi số như String (search queries, emails), Categorical data (roles, statuses), hoặc UI/DOM properties.
+
+**Bước 1 -- Đánh giá khả năng áp dụng BVA**
+
+Xét tất cả biến đầu vào của FR-22:
+
+| Biến                   | Kiểu                | Có phải biến số (numerical) không? | Áp dụng BVA? |
+| ---------------------- | ------------------- | ---------------------------------- | ------------ |
+| Ký hiệu bắt buộc (`*`) | Boolean / Visual    | Không                              | Không        |
+| Bàn phím Email         | Categorical / Prop  | Không                              | Không        |
+| Ẩn ký tự mật khẩu      | Boolean / Prop      | Không                              | Không        |
+| Vị trí thông báo lỗi   | Positional / Visual | Không                              | Không        |
+| Step Indicator         | Boolean / Visual    | Không                              | Không        |
+| Form mục tiêu          | Categorical         | Không                              | Không        |
+
+**Bước 2 -- Kết luận**
+
+FR-22 có 5 biến đầu vào (yêu cầu GUI) và 1 biến ngữ cảnh (Form mục tiêu), tất cả đều thuộc kiểu **Boolean / Visual**, **Categorical / Prop**, hoặc **Positional / Visual**. Không có biến nào là numerical. Theo STRICT BVA RULE:
+
+> **"No numerical variables found. BVA is skipped."**
+
+Tất cả biến đầu vào đã được bao phủ đầy đủ bởi kỹ thuật Equivalence Partitioning (EP) với 5 yêu cầu GUI nhân 6 form tạo thành 19 test case.
+
+#### 3.2. Giải thích lý do không áp dụng BVA cho FR-22
+
+Trong bối cảnh FR-22, các yêu cầu form mang tính chất **kiểm tra thuộc tính giao diện** (GUI property verification):
+
+- **Ký hiệu `*`:** Có hoặc không có -- Boolean, không có giá trị biên số.
+- **Bàn phím Email:** Đúng loại hoặc sai loại -- Categorical, không có phổ liên tục.
+- **Ẩn mật khẩu:** Ẩn hoặc không ẩn -- Boolean, không có ranh giới số.
+- **Vị trí lỗi:** Trên hoặc dưới nút Submit -- Positional, không phải numerical.
+- **Step Indicator:** Có hoặc không có -- Boolean, không có giá trị biên.
+
+Không tồn tại ranh giới số học nào có thể áp dụng BVA. Kỹ thuật EP đã cung cấp đủ coverage cần thiết bằng cách kiểm tra mỗi yêu cầu GUI trên mỗi form liên quan.
+
+---
+
+### 4. Quy trình áp dụng CLAUDE.md cho AI Agent để tạo test case
+
+#### 4.1. Giới thiệu về CLAUDE.md
+
+File [CLAUDE.md](../CLAUDE.md) là file cấu hình hướng dẫn cho AI Agent (Antigravity - Claude Opus 4.6 Thinking) hoạt động như một ISTQB-Certified QA Test Designer. Đối với FR-22, các thành phần chính của CLAUDE.md được áp dụng bao gồm:
+
+- **Vai trò**: QA Test Designer chuyên về Black-Box Testing
+- **Ràng buộc**: Hành động từng bước, dừng lại và chờ phê duyệt sau mỗi bước
+- **Nguồn dữ liệu**: Chỉ dựa trên `description_project.md` và `api_specification.md`
+- **Quy tắc BVA**: STRICT BVA RULE -- chỉ áp dụng cho biến số (numerical)
+- **Template sử dụng**: Template 1 (Domain Testing) cho tất cả 19 test case
+- **Workflow**: 5 bước từ phân tích đến báo cáo lỗi
+- **Đặc thù FR-22**: Test trên Mobile App -- AI cần quy đổi Web spec sang Mobile context
+
+#### 4.2. Quy trình thực hiện chi tiết
+
+Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chính**:
+
+**Giai đoạn 1: Phân tích và Thiết kế (Steps 1-2-3 trong CLAUDE.md)**
+
+1. Người dùng cung cấp prompt khởi động quá trình QA với cấu hình cụ thể:
+   - `[FR-DIR]` = `FR-22-form-mobile`
+   - `[FR-ID]` = `FR22`
+   - Chỉ định test trên nền tảng Mobile App
+   - Yêu cầu áp dụng STRICT BVA RULE
+
+2. AI Agent đọc và phân tích file đặc tả:
+   - `description_project.md` tại mục FR-22 (dòng 250-256): 5 yêu cầu form
+   - `description_project.md` tại mục FR-20 (dòng 233-236): danh sách chức năng mobile
+
+3. AI Agent xác định:
+   - 5 yêu cầu GUI cần kiểm tra (V1-V5)
+   - 6 form mobile mục tiêu (F1-F6)
+   - Ma trận tổ hợp: 5 yêu cầu x 6 form (lọc theo trường liên quan) = 19 test case
+
+4. AI Agent đánh giá BVA theo STRICT BVA RULE. Kết luận: tất cả biến đều là Boolean/Visual hoặc Categorical/Prop -- BVA bị bỏ qua.
+
+5. AI Agent trình bày bảng phân tích logic và dừng lại chờ phê duyệt.
+
+**Giai đoạn 2: Tạo Test Case (Step 4 trong CLAUDE.md)**
+
+1. Sau khi người dùng phê duyệt bảng phân tích, AI Agent tạo 19 file test case theo **Template 1 (Domain Testing)** được định nghĩa trong CLAUDE.md.
+
+2. AI Agent sử dụng subagent song song để tăng tốc quá trình sinh file, chia thành 5 nhóm theo yêu cầu GUI:
+   - Nhóm V1 (DT-001 đến DT-006): Ký hiệu `*` trên 6 form
+   - Nhóm V2 (DT-007 đến DT-009): Bàn phím Email trên 3 form
+   - Nhóm V3 (DT-010 đến DT-012): Ẩn mật khẩu trên 3 form
+   - Nhóm V4 (DT-013 đến DT-017): Vị trí lỗi trên 5 form
+   - Nhóm V5 (DT-018 đến DT-019): Step Indicator (2 test case)
+
+3. AI Agent xác minh kết quả: 19/19 files được tạo thành công.
+
+4. AI Agent dừng lại và yêu cầu người dùng thực thi test case trên thiết bị mobile thực.
+
+**Giai đoạn 3: Thực thi, Human Review, và Báo cáo (Step 5 trong CLAUDE.md)**
+
+1. Người dùng thực thi 19 test case trên thiết bị mobile thực (React Native + Expo) và cập nhật actual result + status cho từng file.
+
+2. Trong quá trình manual testing trên mobile, người dùng phát hiện nhiều hạn chế của AI:
+   - AI không đề cập bước cấu hình IP cho mobile app kết nối backend.
+   - AI sử dụng email demo (`test@eshop.com`) cho quy trình cần OTP thực tế.
+   - AI sinh ra trường input không tồn tại trong app thực tế (ví dụ: "Xác nhận mật khẩu").
+   - AI kỳ vọng cơ chế hiển thị lỗi web (inline) thay vì mobile (pop-up/Alert).
+
+3. Người dùng báo cáo kết quả: 6 Passed / 13 Failed.
+
+4. AI Agent nhận kết quả và triển khai Step 5:
+   - Tạo [FR-22-form-mobile-run.md](../tests/test-runs/FR-22-form-mobile-run.md): tổng hợp kết quả test run
+   - Tạo 6 bug reports: [BUG-FR22-001](../bug-reports/FR-22/BUG-FR22-001.md) đến [BUG-FR22-006](../bug-reports/FR-22/BUG-FR22-006.md)
+   - Tạo [FR-22-form-mobile-gap-analysis.md](../ai-gap-analysis/FR-22-form-mobile-gap-analysis.md): phân tích hạn chế của AI
+
+#### 4.3. Sơ đồ quy trình tổng quát
+
+```
+Người dùng                         AI Agent (CLAUDE.md)
+    |                                    |
+    |--- Prompt khởi động QA FR-22 ----->|
+    |    (cung cấp [FR-DIR], [FR-ID],    |
+    |     chỉ định test trên Mobile)     |
+    |                                    |
+    |                                    |--- Đọc description_project.md (FR-22, FR-20)
+    |                                    |--- Xác định 5 yêu cầu GUI (V1-V5) (Step 1)
+    |                                    |--- Xác định 6 form mobile mục tiêu
+    |                                    |--- Phân hoạch EP: 5 yêu cầu x 6 form = 19 TC (Step 2)
+    |                                    |--- Đánh giá BVA: tất cả Visual/Prop, skip (Step 3)
+    |                                    |
+    |<-- Trình bày bảng phân tích -------|
+    |    (Chờ phê duyệt)                 |
+    |                                    |
+    |--- Phê duyệt --------------------->|
+    |                                    |
+    |                                    |--- Tạo 19 test case files (Step 4)
+    |                                    |--- Quy đổi Web spec sang Mobile context
+    |                                    |    (type="email" -> keyboardType="email-address")
+    |                                    |    (type="password" -> secureTextEntry={true})
+    |                                    |
+    |<-- Yêu cầu manual testing ---------|
+    |    trên thiết bị mobile thực       |
+    |                                    |
+    |--- Cấu hình IP trong App.js ------>|
+    |    (bước AI không đề cập)          |
+    |                                    |
+    |--- Thực thi test trên mobile ----->|
+    |    (19 test case, quan sát UI)     |
+    |                                    |
+    |--- Báo cáo kết quả:                |
+    |    6 Passed / 13 Failed            |
+    |    + AI dùng email demo cho OTP    |
+    |    + AI sinh trường không tồn tại  |
+    |    + AI kỳ vọng inline error       |
+    |      thay vì pop-up/Alert -------->|
+    |                                    |
+    |                                    |--- Tạo Test Run summary (Step 5)
+    |                                    |--- Tạo 6 Bug Reports (4 Major + 2 Minor)
+    |                                    |--- Tạo AI Gap Analysis (4 hạn chế)
+    |                                    |
+    |<-- Hoàn thành, yêu cầu commit ---- |
+    |                                    |
+    |--- git add + git commit ---------->|
+         (Commit: a4c0eee)
+```
+
+#### 4.5. Phân tích AI Gap Analysis
+
+Trong quá trình sử dụng AI Agent theo CLAUDE.md cho FR-22 trên Mobile, **4 hạn chế chính** được xác định (nhiều hơn FR-05 và FR-12 do đặc thù mobile testing):
+
+**Hạn chế 1: Thiếu bước cấu hình môi trường Mobile**
+
+- AI không đề cập đến bước cấu hình IP address trong file `App.js` để mobile app kết nối được với backend server.
+- Đây là bước tiên quyết khi test React Native + Expo trên thiết bị thật.
+- Nguyên nhân: AI thiết kế test theo Black-box thuần túy, không có kiến thức về hạ tầng triển khai.
+
+**Hạn chế 2: Sử dụng email demo cho quy trình cần OTP**
+
+- AI chỉ định email `test@eshop.com` cho test case Quên MK / Đặt lại MK, nhưng email demo không nhận được OTP thực tế trên mobile.
+- Tester phải sử dụng email thật để nhận mã OTP.
+- Nguyên nhân: AI không phân biệt giữa tài khoản đăng nhập và tài khoản nhận OTP email thực.
+
+**Hạn chế 3: Sinh ra trường input không tồn tại trong app thực tế**
+
+- AI giả định form Đăng ký có trường "Xác nhận mật khẩu", form Đặt lại MK có trường "Xác nhận MK mới" -- nhưng thực tế mobile app KHONG có các trường này.
+- Nguyên nhân: AI suy luận từ spec FR-01 và áp dụng pattern chung (common form patterns) thay vì kiểm tra giao diện thực tế.
+
+**Hạn chế 4: Kỳ vọng cơ chế hiển thị lỗi web thay vì mobile**
+
+- AI kỳ vọng lỗi validation hiển thị inline (trên/dưới nút Submit) theo spec Web, nhưng mobile app sử dụng pop-up/Alert dialog.
+- Tester phải điều chỉnh expected result cho DT-015, DT-016.
+- Nguyên nhân: AI quy đổi spec Web sang Mobile một cách literal, không hiểu React Native thường dùng `Alert.alert()`.
+
+#### 4.6. Đánh giá tổng thể
+
+| Tiêu chí                            | Đánh giá                                                                                                   |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Số lượng test case AI tạo           | 19                                                                                                         |
+| Số lượng test case sau human review | 19 (không loại bỏ, nhưng nhiều TC cần chỉnh sửa)                                                           |
+| Số lượng test case phát hiện lỗi    | 13/19 (68.4%)                                                                                              |
+| Số lượng bug phát hiện              | 6 (4 Major, 2 Minor)                                                                                       |
+| Độ chính xác của test design        | Trung bình -- phủ tốt các yêu cầu GUI nhưng cần chỉnh sửa nhiều do đặc thù mobile                          |
+| Cần chỉnh sửa bởi người dùng        | Preconditions (IP config), test data (email OTP), trường không tồn tại, expected result (pop-up vs inline) |
+
+So sánh với FR-05 và FR-12:
+
+| Tiêu chí             | FR-05          | FR-12           | FR-22                            |
+| -------------------- | -------------- | --------------- | -------------------------------- |
+| Nền tảng test        | Web            | API (Postman)   | Mobile App                       |
+| Số biến đầu vào      | 1 (String)     | 2 (Categorical) | 5 (GUI Property) + 1 ngữ cảnh    |
+| Kiểu biến            | String         | Categorical     | Boolean/Visual, Categorical/Prop |
+| BVA                  | Skipped        | Skipped         | Skipped                          |
+| Tổng test case       | 12             | 40              | 19                               |
+| Pass rate            | 33.3%          | 57.5%           | 31.6%                            |
+| Bugs phát hiện       | 7 (2 Critical) | 4 (3 Critical)  | 6 (4 Major)                      |
+| Human review loại TC | 2              | 0               | 0 (nhưng nhiều TC cần chỉnh sửa) |
+| Số hạn chế AI        | 3              | 2               | 4                                |
+
+FR-22 trên Mobile cho thấy AI Agent gặp nhiều hạn chế hơn khi quy đổi Web spec sang Mobile context. Tuy nhiên, AI vẫn hiệu quả trong việc tạo khung test case có hệ thống và phát hiện được 6/6 bugs trên mobile. **Human review đặc biệt quan trọng** khi test trên nền tảng Mobile vì:
+
+- Cần bổ sung bước cấu hình môi trường (IP config cho React Native + Expo)
+- Cần xác minh test data phù hợp với nền tảng (email thực cho OTP trên mobile)
+- Cần kiểm tra sự tồn tại của trường input/output trên giao diện thực tế trước khi thực thi
+- Cần điều chỉnh expected result theo cơ chế hiển thị của mobile platform (pop-up/Alert thay vì inline error)
 
 ---
