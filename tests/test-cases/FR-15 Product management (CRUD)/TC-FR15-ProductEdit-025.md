@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-025
+TC-FR15-ProductEdit-025
 
 ## Mô tả
 
@@ -41,24 +41,25 @@ Valid data:
 2. Đăng nhập với tên email: `admin@eshop.com` và mật khẩu là `Admin123!`
 3. Nhấn vào mục: **Sản phẩm**
 4. Nhấn vào nút **Sửa** của sản phẩm **iPhone 15 Pro Max**
-5. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
-6. Nhấn vào nút lưu sản phẩm.
-7. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
-8. Nhấn vào **Xem chi tiết** của sản phẩm `iPhone 15 Pro Max`
+5. Nhấn vào nút lưu sản phẩm.
+6. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+7. Nhấn vào **Xem chi tiết** của sản phẩm `iPhone 15 Pro Max`
 
 ## Kết quả mong đợi
 
-Sau khi thực hiện bước 6:
+Sau khi thực hiện bước 5:
 
 - Hệ thống ghi nhận thay đổi của sản phẩm
 - Giao diện của admin vẫn hiện thông tin cũ sản phẩm đã chọn
 
-Sau khi thực hiện bước 7:
+Sau khi thực hiện bước 6:
 
 - Giao diện còn hiện sản phẩm **iPhone 15 Pro Max**
 
-Sau khi thực hiện bước 8:
+Sau khi thực hiện bước 7:
 
 - Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện cũ.
 
 ## Trạng thái của testcase
+
+Pass

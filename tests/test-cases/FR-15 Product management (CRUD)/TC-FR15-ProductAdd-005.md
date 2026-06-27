@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-005
+TC-FR15-ProductAdd-005
 
 ## Mô tả
 
@@ -67,3 +67,5 @@ Sau khi thực hiện bước 10:
 - Giao diện của người dùng không thể hiện sản phẩm mới tạo
 
 ## Trạng thái của testcase
+
+Failed

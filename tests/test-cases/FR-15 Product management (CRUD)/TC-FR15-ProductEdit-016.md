@@ -1,14 +1,14 @@
-# Cập nhật lại thông tin của sản phẩm có tên rỗng
+# Cập nhật lại thông tin sản phẩm với tên không hợp lệ (tên quá dài)
 
 ## ID
 
-TC-FR15-Product management (CRUD)-018
+TC-FR15-ProductEdit-016
 
 ## Mô tả
 
 Cập nhật thất bại một sản phẩm tên "iPhone 15 Pro Max" trên hệ thống thành thông tin:
 
-- Tên sản phẩm rỗng
+- Tên sản phẩm là "Maecenas mollis, massa ac hendrerit interdum, nunc metus scelerisque dolor, sit amet aliquam ipsum augue vel urna. In condimentum ut massa quis iaculis. Donec maximus quam id risus vestibulum, ut varius erat scelerisque. Nam leo magna, lobortis nec turpis." (256 ký tự)
 - Giá sản phẩm là *3000000* (ba triệu đồng)
 - Mô tả là: "Vỏ điện thoại cao cấp của Apple"
 - Ảnh đại diện là ảnh với URL: [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
@@ -39,7 +39,6 @@ Valid data:
 |----|-----|
 |Admin Email|admin@eshop.com|
 |Admin Password|Admin123!|
-
 |Giá tiền|3000000|
 |URL ảnh|https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro|
 |Mô tả|Vỏ điện thoại cao cấp của Apple|
@@ -49,7 +48,7 @@ Invalid data:
 
 |Name|Value|
 |----|-----|
-|Tên sản phẩm|(empty)|
+|Tên sản phẩm|Maecenas mollis, massa ac hendrerit interdum, nunc metus scelerisque dolor, sit amet aliquam ipsum augue vel urna. In condimentum ut massa quis iaculis. Donec maximus quam id risus vestibulum, ut varius erat scelerisque. Nam leo magna, lobortis nec turpis.|
 
 ## Các bước thực hiện
 
@@ -58,27 +57,30 @@ Invalid data:
 2. Đăng nhập với tên email: `admin@eshop.com` và mật khẩu là `Admin123!`
 3. Nhấn vào mục: **Sản phẩm**
 4. Nhấn vào nút **Sửa** của sản phẩm **iPhone 15 Pro Max**
-5. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
-6. Điền vào mục **URL ảnh** giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
-7. Điền vào mục **Mô tả**: `Vỏ điện thoại cao cấp của Apple`
-8. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
-9. Nhấn vào nút lưu sản phẩm.
-10. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
-11. Nhấn vào **Xem chi tiết** của sản phẩm `iPhone 15 Pro Max`
+5. Điền vào mục **Tên sản phẩm** giá trị `Maecenas mollis, massa ac hendrerit interdum, nunc metus scelerisque dolor, sit amet aliquam ipsum augue vel urna. In condimentum ut massa quis iaculis. Donec maximus quam id risus vestibulum, ut varius erat scelerisque. Nam leo magna, lobortis nec turpis.`
+6. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
+7. Điền vào mục **URL ảnh** giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
+8. Điền vào mục **Mô tả**: `Vỏ điện thoại cao cấp của Apple`
+9. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
+10. Nhấn vào nút lưu sản phẩm.
+11. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+12. Nhấn vào **Xem chi tiết** của sản phẩm `iPhone 15 Pro Max`
 
 ## Kết quả mong đợi
 
-Sau khi thực hiện bước 9:
+Sau khi thực hiện bước 10:
 
-- Hệ thống không ghi nhận thay đổi của sản phẩm
+- Hệ thống không ghi nhận thay đổi của sản phẩm và thông báo lỗi tên quá dài (>256)
 - Giao diện của admin vẫn còn giữ thông tin sản phẩm đã chọn
 
-Sau khi thực hiện bước 10:
+Sau khi thực hiện bước 11:
 
 - Giao diện còn hiện sản phẩm **iPhone 15 Pro Max**
 
-Sau khi thực hiện bước 11:
+Sau khi thực hiện bước 12:
 
 - Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện của sản phẩm cũ.
 
 ## Trạng thái của testcase
+
+Failed

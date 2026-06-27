@@ -1,18 +1,20 @@
-# Cập nhật lại thông tin của sản phẩm với giá 1 đồng
+# Cập nhật lại thông tin của sản phẩm khi thay đổi sản phẩm giữa lúc cập nhật
 
 ## ID
 
-TC-FR15-Product management (CRUD)-021
+TC-FR15-ProductEdit-024
 
 ## Mô tả
 
 Cập nhật thành công một sản phẩm tên "iPhone 15 Pro Max" trên hệ thống thành thông tin:
 
 - Tên sản phẩm là "Vỏ iPhone 15 Pro Max"
-- Giá sản phẩm là *1* (một đồng)
+- Giá sản phẩm là *3000000* (ba triệu đồng)
 - Mô tả là: "Vỏ điện thoại cao cấp của Apple"
 - Ảnh đại diện là ảnh với URL: [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
 - Thuộc về danh mục Phụ kiện
+
+Sau đó chuyển sang sản phẩm khác (MacBook Pro M3) mà không nhấn lưu sản phẩm
 
 ## Môi trường kiểm thử
 
@@ -33,6 +35,15 @@ Giá trị mặc định của sản phẩm iPhone 15 Pro Max:
 |Mô tả|Điện thoại cao cấp của Apple|
 |Danh mục|Điện thoại|
 
+Giá trị mặc định của sản phẩm MacBook Pro M3:
+
+|Name|Value|
+|Tên sản phẩm|MacBook Pro M3|
+|Giá sản phẩm|45000000|
+|URL ảnh|https://placehold.co/300x300/png?text=Macbook+Pro|
+|Mô tả|Laptop chuyên nghiệp mạnh mẽ|
+|Danh mục|Laptop|
+
 Valid data:
 
 |Name|Value|
@@ -40,7 +51,7 @@ Valid data:
 |Admin Email|admin@eshop.com|
 |Admin Password|Admin123!|
 |Tên sản phẩm|Vỏ iPhone 15 Pro Max|
-|Giá tiền|1|
+|Giá tiền|3000000|
 |URL ảnh|https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro|
 |Mô tả|Vỏ điện thoại cao cấp của Apple|
 |Danh mục|Phụ kiện|
@@ -53,28 +64,25 @@ Valid data:
 3. Nhấn vào mục: **Sản phẩm**
 4. Nhấn vào nút **Sửa** của sản phẩm **iPhone 15 Pro Max**
 5. Điền vào mục **Tên sản phẩm** giá trị `Vỏ iPhone 15 Pro Max`
-6. Điền vào mục **Giá tiền** *`1`* (một đồng)
+6. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
 7. Điền vào mục **URL ảnh** giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
 8. Điền vào mục **Mô tả**: `Vỏ điện thoại cao cấp của Apple`
 9. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
-10. Nhấn vào nút lưu sản phẩm.
-11. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
-12. Nhấn vào **Xem chi tiết** của sản phẩm `Vỏ iPhone 15 Pro Max`
+10. Nhấn vào nút **Sửa** của sản phẩm **MacBook Pro M3**
+11. Nhấn vào nút lưu sản phẩm.
 
 ## Kết quả mong đợi
 
 Sau khi thực hiện bước 10:
 
-- Hệ thống ghi nhận thay đổi của sản phẩm
-- Giao diện của admin thể hiện ra thay đổi của chỉ sản phẩm đã chọn để thay đổi
+- Giao diện cập nhật sản phẩm cập nhật theo đúng thông tin của sản phẩm thể hiện ra thông tin của sản phẩm **MacBook Pro M3**
+- Không còn dữ liệu đã nhập trước đó
 
 Sau khi thực hiện bước 11:
 
-- Giao diện không còn hiện sản phẩm **iPhone 15 Pro Max**
-- Giao diện của người dùng thể hiện sản phẩm **Vỏ iPhone 15 Pro Max**  với giá, tên và hình ảnh đại diện như đã thay đổi
-
-Sau khi thực hiện bước 12:
-
-- Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện như đã thay đổi.
+- Hệ thống ghi nhận lại giá trị cũ
+- Giao diện người dùng vẫn giữ lại thông tin cũ của sản phẩm **MacBook Pro M3** và sản phẩm **iPhone 15 Pro Max**
 
 ## Trạng thái của testcase
+
+Pass

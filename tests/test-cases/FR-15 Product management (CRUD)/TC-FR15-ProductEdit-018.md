@@ -1,17 +1,17 @@
-# Cập nhật lại thông tin của sản phẩm không có ảnh đại diện
+# Cập nhật lại thông tin của sản phẩm có tên rỗng
 
 ## ID
 
-TC-FR15-Product management (CRUD)-019
+TC-FR15-ProductEdit-018
 
 ## Mô tả
 
 Cập nhật thất bại một sản phẩm tên "iPhone 15 Pro Max" trên hệ thống thành thông tin:
 
-- Tên sản phẩm là "Vỏ iPhone 15 Pro Max"
+- Tên sản phẩm rỗng
 - Giá sản phẩm là *3000000* (ba triệu đồng)
 - Mô tả là: "Vỏ điện thoại cao cấp của Apple"
-- Ảnh đại diện rỗng
+- Ảnh đại diện là ảnh với URL: [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
 - Thuộc về danh mục Phụ kiện
 
 ## Môi trường kiểm thử
@@ -39,8 +39,9 @@ Valid data:
 |----|-----|
 |Admin Email|admin@eshop.com|
 |Admin Password|Admin123!|
-|Tên sản phẩm|Vỏ iPhone 15 Pro Max|
+
 |Giá tiền|3000000|
+|URL ảnh|https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro|
 |Mô tả|Vỏ điện thoại cao cấp của Apple|
 |Danh mục|Phụ kiện|
 
@@ -48,7 +49,7 @@ Invalid data:
 
 |Name|Value|
 |----|-----|
-|URL ảnh|(empty)|
+|Tên sản phẩm|(empty)|
 
 ## Các bước thực hiện
 
@@ -57,8 +58,8 @@ Invalid data:
 2. Đăng nhập với tên email: `admin@eshop.com` và mật khẩu là `Admin123!`
 3. Nhấn vào mục: **Sản phẩm**
 4. Nhấn vào nút **Sửa** của sản phẩm **iPhone 15 Pro Max**
-5. Điền vào mục **Tên sản phẩm** giá trị `Vỏ iPhone 15 Pro Max`
-6. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
+5. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
+6. Điền vào mục **URL ảnh** giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
 7. Điền vào mục **Mô tả**: `Vỏ điện thoại cao cấp của Apple`
 8. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
 9. Nhấn vào nút lưu sản phẩm.
@@ -67,17 +68,19 @@ Invalid data:
 
 ## Kết quả mong đợi
 
-Sau khi thực hiện bước 10:
+Sau khi thực hiện bước 9:
 
 - Hệ thống không ghi nhận thay đổi của sản phẩm
-- Giao diện của admin vẫn giữ thông tin của sản phẩm đã chọn 
+- Giao diện của admin vẫn còn giữ thông tin sản phẩm đã chọn
 
-Sau khi thực hiện bước 11:
+Sau khi thực hiện bước 10:
 
 - Giao diện còn hiện sản phẩm **iPhone 15 Pro Max**
 
-Sau khi thực hiện bước 12:
+Sau khi thực hiện bước 11:
 
 - Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện của sản phẩm cũ.
 
 ## Trạng thái của testcase
+
+Pass

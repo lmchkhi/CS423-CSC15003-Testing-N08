@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-007
+TC-FR15-ProductAdd-007
 
 ## Mô tả
 
@@ -30,11 +30,16 @@ Valid data:
 |----|-----|
 |Admin Email|admin@eshop.com|
 |Admin Password|Admin123!|
-|Tên sản phẩm|Chuột Apple|
 |Giá tiền|4000000 (bốn triệu đồng)|
 |URL ảnh|https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsBYrTmOZaCeoJpFZbK96OZyoCKxFMT94Q030gyDooD_bwyAfTMo_8aE|
 |Mô tả|Chuột không dây đến từ Apple|
 |Danh mục|Phụ kiện|
+
+Invalid data:
+
+|Name|Value|
+|----|-----|
+|Tên sản phẩm|(empty)|
 
 ## Các bước thực hiện
 

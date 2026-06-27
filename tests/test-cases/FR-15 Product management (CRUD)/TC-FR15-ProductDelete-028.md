@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-028
+TC-FR15-ProductDelete-028
 
 ## Mô tả
 
@@ -53,3 +53,5 @@ Sau khi thực hiện bước 7:
 - Giao diện vẫn còn sản phẩm tên **MacBook Pro M3**
 
 ## Trạng thái của testcase
+
+Failed

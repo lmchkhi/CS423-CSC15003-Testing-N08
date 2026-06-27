@@ -1,17 +1,17 @@
-# Thêm một sản phẩm vào hệ thống không có giá
+# Thêm một sản phẩm vào hệ thống không có ảnh đại diện sản phẩm
 
 ## ID
 
-TC-FR15-Product management (CRUD)-004
+TC-FR15-ProductAdd-008
 
 ## Mô tả
 
-Tạo ra một sản phẩm mới trên hệ thống thất bại với thông tin:
+Tạo ra một sản phẩm mới thất bại trên hệ thống với thông tin:
 
 - Tên sản phẩm là "Chuột Apple"
-- Giá sản phẩm là rỗng
+- Giá sản phẩm là *4000000* (bốn triệu đồng)
 - Mô tả là: "Chuột không dây đến từ Apple"
-- Ảnh đại diện là ảnh với URL: [https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsBYrTmOZaCeoJpFZbK96OZyoCKxFMT94Q030gyDooD_bwyAfTMo_8aE](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsBYrTmOZaCeoJpFZbK96OZyoCKxFMT94Q030gyDooD_bwyAfTMo_8aE)
+- Ảnh đại diện rỗng
 - Thuộc về danh mục Phụ kiện
 
 ## Môi trường kiểm thử
@@ -31,7 +31,7 @@ Valid data:
 |Admin Email|admin@eshop.com|
 |Admin Password|Admin123!|
 |Tên sản phẩm|Chuột Apple|
-|URL ảnh|https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsBYrTmOZaCeoJpFZbK96OZyoCKxFMT94Q030gyDooD_bwyAfTMo_8aE|
+|Giá tiền|4000000 (bốn triệu đồng)|
 |Mô tả|Chuột không dây đến từ Apple|
 |Danh mục|Phụ kiện|
 
@@ -39,7 +39,7 @@ Invalid data:
 
 |Name|Value|
 |----|-----|
-|Giá sản phẩm|(empty)|
+|URL ảnh|(empty)|
 
 ## Các bước thực hiện
 
@@ -48,7 +48,7 @@ Invalid data:
 2. Đăng nhập với tên email: `admin@eshop.com` và mật khẩu là `Admin123!`
 3. Nhấn vào mục: **Sản phẩm**
 4. Điền vào mục **Tên sản phẩm** giá trị `Chuột Apple`
-5. Điền vào mục **URL ảnh** giá trị [https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsBYrTmOZaCeoJpFZbK96OZyoCKxFMT94Q030gyDooD_bwyAfTMo_8aE](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRsBYrTmOZaCeoJpFZbK96OZyoCKxFMT94Q030gyDooD_bwyAfTMo_8aE)
+5. Điền vào mục **Giá tiền** *`4000000`* (bốn triệu đồng)
 6. Điền vào mục **Mô tả**: `Chuột không dây đến từ Apple`
 7. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
 8. Nhấn vào nút lưu sản phẩm.
@@ -58,11 +58,13 @@ Invalid data:
 
 Sau khi thực hiện bước 8:
 
-- Hệ thống không ghi nhận sản phẩm và thông báo lỗi vì không có giá sản phẩm
-- Giao diện của admin không hiện ra sản phẩm mới tạo
+- Hệ thống không ghi nhận sản phẩm
+- Giao diện của admin không thể hiện ra sản phẩm mới tạo
 
 Sau khi thực hiện bước 9:
 
-- Giao diện của người dùng không có sản phẩm mới tạo
+- Giao diện của người dùng không thể hiện sản phẩm mới tạo
 
 ## Trạng thái của testcase
+
+Failed

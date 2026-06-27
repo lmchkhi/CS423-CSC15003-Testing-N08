@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-027
+TC-FR15-ProductDelete-027
 
 ## Mô tả
 
@@ -24,7 +24,6 @@ Valid data:
 |----|-----|
 |Admin Email|admin@eshop.com|
 |Admin Password|Admin123!|
-
 
 ## Các bước thực hiện
 
@@ -52,3 +51,5 @@ Sau khi thực hiện bước 6:
 - Giao diện không còn sản phẩm tên **MacBook Pro M3**
 
 ## Trạng thái của testcase
+
+Failed

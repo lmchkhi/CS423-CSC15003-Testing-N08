@@ -1,15 +1,15 @@
-# Cập nhật lại thông tin của sản phẩm với giá âm
+# Cập nhật lại thông tin của sản phẩm với giá bằng 0
 
 ## ID
 
-TC-FR15-Product management (CRUD)-022
+TC-FR15-ProductEdit-014
 
 ## Mô tả
 
 Cập nhật thất bại một sản phẩm tên "iPhone 15 Pro Max" trên hệ thống thành thông tin:
 
 - Tên sản phẩm là "Vỏ iPhone 15 Pro Max"
-- Giá sản phẩm là *-1* (âm một đồng)
+- Giá sản phẩm là *0* (không đồng)
 - Mô tả là: "Vỏ điện thoại cao cấp của Apple"
 - Ảnh đại diện là ảnh với URL: [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
 - Thuộc về danh mục Phụ kiện
@@ -48,7 +48,7 @@ Invalid data:
 
 |Name|Value|
 |----|-----|
-|Giá tiền|-1|
+|Giá tiền|0|
 
 ## Các bước thực hiện
 
@@ -58,28 +58,29 @@ Invalid data:
 3. Nhấn vào mục: **Sản phẩm**
 4. Nhấn vào nút **Sửa** của sản phẩm **iPhone 15 Pro Max**
 5. Điền vào mục **Tên sản phẩm** giá trị `Vỏ iPhone 15 Pro Max`
-6. Điền vào mục **Giá tiền** *`3000000`* (ba triệu đồng)
+6. Điền vào mục **Giá tiền** *`0`* (ba triệu đồng)
 7. Điền vào mục **URL ảnh** giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
 8. Điền vào mục **Mô tả**: `Vỏ điện thoại cao cấp của Apple`
 9. Chọn vào mục ghi "Điện thoại" và chỉnh lại thành giá trị "Phụ kiện"
 10. Nhấn vào nút lưu sản phẩm.
 11. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
-12. Nhấn vào **Xem chi tiết** của sản phẩm `Vỏ iPhone 15 Pro Max`
+12. Nhấn vào **Xem chi tiết** của sản phẩm `iPhone 15 Pro Max`
 
 ## Kết quả mong đợi
 
 Sau khi thực hiện bước 10:
 
-- Hệ thống ghi nhận thay đổi của sản phẩm
-- Giao diện của admin thể hiện ra thay đổi của chỉ sản phẩm đã chọn để thay đổi
+- Hệ thống không ghi nhận thay đổi của sản phẩm và thông báo cần phải nhập giá lớn hơn 0
+- Giao diện của admin vẫn còn giữ thông tin sản phẩm đã chọn
 
 Sau khi thực hiện bước 11:
 
-- Giao diện không còn hiện sản phẩm **iPhone 15 Pro Max**
-- Giao diện của người dùng thể hiện sản phẩm **Vỏ iPhone 15 Pro Max**  với giá, tên và hình ảnh đại diện như đã thay đổi
+- Giao diện còn hiện sản phẩm **iPhone 15 Pro Max**
 
 Sau khi thực hiện bước 12:
 
-- Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện như đã thay đổi.
+- Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện của sản phẩm cũ.
 
 ## Trạng thái của testcase
+
+Failed

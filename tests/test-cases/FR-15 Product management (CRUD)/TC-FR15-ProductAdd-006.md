@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-006
+TC-FR15-ProductAdd-006
 
 ## Mô tả
 
@@ -67,3 +67,5 @@ Sau khi thực hiện bước 11:
 - Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện như đã tạo.
 
 ## Trạng thái của testcase
+
+Pass

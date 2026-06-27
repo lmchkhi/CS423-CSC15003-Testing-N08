@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR15-Product management (CRUD)-001
+TC-FR15-ProductView-001
 
 ## Mô tả
 
