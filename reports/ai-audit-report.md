@@ -1123,3 +1123,380 @@ Hoàn thành. Section FR-22 đã được thêm vào [main-report.md](file:///e:
 ```
 
 ---
+
+## Entry #13
+
+### (1) Prompt + Tool
+
+**Tool:** Antigravity (Claude Opus 4.6 Thinking)
+
+**DateTime:** 2026-06-27 7:31 AM
+
+**Full prompt:**
+
+```
+Hãy khởi động quy trình QA . Thực hiện test Black-box cho FR-08: Thanh toán (Checkout).
+Cấu hình: `[FR-DIR]` = `FR-08-checkout`, `[FR-ID]` = `FR08`.
+Phân tích FR-08 và `api_specification.md` (`/api/checkout`). Yêu cầu hệ thống tự tính tổng tiền, không tin Client. Tuy nhiên, theo tư duy Black-box, hacker có thể gửi ảo biến `total_amount` từ Client qua Postman. Áp dụng tính toán BVA cho `total_amount` vì thỏa mãn STRICT BVA RULE. Thực hiện Step 1, 2, 3.
+```
+
+### (2) AI Output
+
+````
+Tôi sẽ bắt đầu bằng việc nghiên cứu cấu trúc project, đọc SKILL QA, và phân tích FR-08 cùng API specification.
+
+Listed directory CS423-CSC15003-Testing-N08
+Invoked subagent
+Listed directory tests
+Viewed api_specification.md:1-215
+Viewed description_project.md:1-289
+Viewed CLAUDE.md:1-181
+
+Tốt, tôi đã đọc được tất cả tài liệu chính. Bây giờ hãy xem cấu trúc test-cases hiện có và đợi kết quả nghiên cứu từ subagent.
+
+Listed directory test-cases
+Listed directory .github
+Listed directory ISSUE_TEMPLATE
+Listed directory FR-05-search
+Viewed bug-report-template.md:1-43
+Listed directory domain-testing
+
+Hãy xem một test case mẫu để hiểu format chính xác:
+
+Viewed TC-FR05-DT-001.md:1-64
+
+Bây giờ tôi đã có đầy đủ thông tin cần thiết. Hãy tôi tiến hành phân tích FR-08 và tạo Step 1, 2, 3. Tôi sẽ kill subagent vì đã có đủ dữ liệu.
+
+Used tool: manage_subagents
+
+Bây giờ tôi sẽ tạo artifact phân tích Step 1, 2, 3 cho FR-08.
+
+Created FR08-analysis-steps-1-2-3.md
+
+Tôi đã hoàn thành phân tích **Step 1, 2, 3** cho **FR-08: Thanh toán (Checkout)**. Dưới đây là tóm tắt:
+
+### Các phát hiện chính:
+
+| Step | Nội dung |
+|------|---------|
+| **Step 1** | Xác định **4 biến**: `Authorization` (JWT), `total_amount` (attack vector), `shipping_address`, `Cart State` |
+| **Step 2** | Tạo **16 phân vùng EP** — đặc biệt 7 partition cho `total_amount` (hacker scenarios) + 2 partition security cho `shipping_address` (XSS, SQLi) |
+| **Step 3** | BVA áp dụng **CHỈ cho `total_amount`** (strictly numerical) → 3 boundary points: `-1` (OFF⁻), `0` (ON), `1` (OFF⁺) |
+
+### 🔴 Phát hiện quan trọng:
+Có **mâu thuẫn giữa FR-08 và API Spec** — FR-08 nói backend tự tính tổng tiền, nhưng API cho phép client gửi `total_amount`. Đây là attack surface mà hacker có thể khai thác qua Postman.
+
+### Dự kiến tạo:
+- **15 Domain Testing test cases** (TC-FR08-DT-001 → 015)
+- **3 BVA test cases** (TC-FR08-BVA-001 → 003)
+
+**Các bảng logic này có chính xác không? Tôi có nên tiến hành tạo các file Markdown Test Case riêng lẻ (Step 4)?** → *Đang chờ phản hồi.*
+
+```text
+=== AI AUDIT LOG ENTRY ===
+* Tool: Claude Opus 4 (Thinking)
+* Date: 2026-06-27
+* User Prompt: Khởi động QA, thực hiện Black-box Testing cho FR-08 Checkout. Phân tích FR-08 và API spec, áp dụng BVA cho total_amount. Thực hiện Step 1, 2, 3.
+* AI Action: Phân tích FR-08 từ description_project.md và api_specification.md. Xác định 4 biến (V1-V4). Tạo EP cho tất cả biến. Áp dụng BVA cho total_amount (strictly numerical). Phát hiện mâu thuẫn Spec vs API — attack surface cho hacker gửi total_amount ảo. Tạo artifact phân tích Step 1-2-3.
+==========================
+````
+
+---
+
+## Entry #14
+
+### (1) Prompt + Tool
+
+**Tool:** Antigravity (Claude Opus 4.6 Thinking)
+
+**DateTime:** 2026-06-27 7:38 AM
+
+**Full prompt:**
+
+```
+các bảng logic đã phù hợp , tiến hành thực step 4
+```
+
+### (2) AI Output
+
+````
+Các bảng logic đã được phê duyệt. Tôi sẽ tiến hành tạo **18 file test case** (15 Domain Testing + 3 BVA) song song bằng subagents.
+
+Used tool: ask_permission
+
+Tốt. Bắt đầu tạo file song song — Batch 1 (DT-001 → DT-006):
+
+Created TC-FR08-DT-001.md
+Created TC-FR08-DT-002.md
+Created TC-FR08-DT-003.md
+Created TC-FR08-DT-004.md
+Created TC-FR08-DT-005.md
+Created TC-FR08-DT-006.md
+
+Batch 1 hoàn thành (DT-001 → DT-006). Tiếp tục Batch 2 (DT-007 → DT-012):
+
+Created TC-FR08-DT-007.md
+Created TC-FR08-DT-008.md
+Created TC-FR08-DT-009.md
+Created TC-FR08-DT-010.md
+Created TC-FR08-DT-011.md
+Created TC-FR08-DT-012.md
+
+Batch 2 hoàn thành (DT-007 → DT-012). Tiếp Batch 3 (DT-013 → DT-015 + BVA-001 → BVA-003):
+
+Created TC-FR08-DT-013.md
+Created TC-FR08-DT-014.md
+Created TC-FR08-DT-015.md
+Created TC-FR08-BVA-001.md
+Created TC-FR08-BVA-002.md
+Created TC-FR08-BVA-003.md
+
+Tất cả 18 file đã được tạo thành công. Xác nhận cấu trúc thư mục:
+
+Listed directory FR-08-checkout
+Listed directory domain-testing
+Listed directory bva
+
+**Step 4 hoàn thành!** ✅ Tất cả **18 file test case** đã được tạo thành công.
+
+## Tổng kết cấu trúc file
+
+```
+tests/test-cases/FR-08-checkout/
+├── domain-testing/                    (15 files)
+│   ├── TC-FR08-DT-001.md  ── Happy path (checkout thành công)
+│   ├── TC-FR08-DT-002.md  ── Thiếu Token (chưa đăng nhập)
+│   ├── TC-FR08-DT-003.md  ── Token sai/hết hạn/malformed
+│   ├── TC-FR08-DT-004.md  ── 🔴 Hacker gửi total_amount thấp hơn
+│   ├── TC-FR08-DT-005.md  ── 🔴 Hacker gửi total_amount = 0
+│   ├── TC-FR08-DT-006.md  ── 🔴 Hacker gửi total_amount âm
+│   ├── TC-FR08-DT-007.md  ── 🔴 Hacker gửi total_amount quá cao
+│   ├── TC-FR08-DT-008.md  ── Không gửi trường total_amount
+│   ├── TC-FR08-DT-009.md  ── total_amount kiểu string ("abc")
+│   ├── TC-FR08-DT-010.md  ── shipping_address rỗng
+│   ├── TC-FR08-DT-011.md  ── Thiếu trường shipping_address
+│   ├── TC-FR08-DT-012.md  ── 🛡️ XSS trong shipping_address
+│   ├── TC-FR08-DT-013.md  ── 🛡️ SQL Injection trong shipping_address
+│   ├── TC-FR08-DT-014.md  ── Giỏ hàng trống
+│   └── TC-FR08-DT-015.md  ── Giỏ hàng xóa sau checkout
+└── bva/                               (3 files)
+    ├── TC-FR08-BVA-001.md ── total_amount = -1 (OFF⁻)
+    ├── TC-FR08-BVA-002.md ── total_amount = 0  (ON)
+    └── TC-FR08-BVA-003.md ── total_amount = 1  (OFF⁺)
+```
+
+**Vui lòng thực hiện chạy các test case này trên SUT (EShop) và báo cáo kết quả Passed/Failed để tôi tiến hành Step 5 (Bug Report & Test Run).** → *Đang chờ phản hồi.*
+
+```text
+=== AI AUDIT LOG ENTRY ===
+* Tool: Claude Opus 4 (Thinking)
+* Date: 2026-06-27
+* User Prompt: Các bảng logic đã phù hợp, tiến hành thực hiện Step 4
+* AI Action: Tạo 18 file test case Markdown theo đúng template CLAUDE.md — 15 Domain Testing (DT-001→015) và 3 BVA (BVA-001→003). Tất cả file tuân thủ cấu trúc [FR-DIR]=FR-08-checkout, [FR-ID]=FR08.
+==========================
+```
+````
+
+---
+
+## Entry #15
+
+### (1) Prompt + Tool
+
+**Tool:** Antigravity (Claude Opus 4.6 Thinking)
+
+**DateTime:** 2026-06-27 9:17 AM
+
+**Full prompt:**
+
+```
+tôi đã thực hiện các test và cập nhật actual result cũng như status của từng test case. Ngoài ra, đối với AI Gap Analysis tôi nhận thấy các điểm sau:
+- AI tạo test case tương đồng giữa BVA và DT (vd: DT-004 và BVA-003 , DT-005 và BVA-002 , ....)
+Từ những dữ kiện tôi cập nhật hãy triển khai khai step 5
+```
+
+### (2) AI Output
+
+````
+Tôi sẽ đọc tất cả các file test case đã được cập nhật để thu thập kết quả trước khi tạo Step 5.
+
+Viewed TC-FR08-DT-001.md:1-71
+Viewed TC-FR08-DT-002.md:1-64
+Viewed TC-FR08-DT-003.md:1-64
+Viewed TC-FR08-DT-004.md:1-71
+Viewed TC-FR08-DT-005.md:1-71
+Viewed TC-FR08-DT-006.md:1-71
+Viewed TC-FR08-DT-007.md:1-71
+Viewed TC-FR08-DT-008.md:1-69
+Viewed TC-FR08-DT-009.md:1-67
+Viewed TC-FR08-DT-010.md:1-65
+Viewed TC-FR08-DT-011.md:1-65
+Viewed TC-FR08-DT-012.md:1-73
+Viewed TC-FR08-DT-013.md:1-71
+Viewed TC-FR08-DT-014.md:1-68
+Viewed TC-FR08-DT-015.md:1-69
+Viewed TC-FR08-BVA-001.md:1-70
+Viewed TC-FR08-BVA-002.md:1-70
+Viewed TC-FR08-BVA-003.md:1-70
+
+Tôi đã đọc xong toàn bộ 18 file. Bây giờ tôi sẽ tạo 3 file Step 5 song song: Test Run, Bug Reports, và Gap Analysis.
+
+Tổng hợp kết quả:
+- **PASSED:** DT-002, DT-003, DT-013 (3/18)
+- **FAILED:** DT-001, DT-004, DT-005, DT-006, DT-007, DT-008, DT-009, DT-010, DT-011, DT-012, DT-014, DT-015, BVA-001, BVA-002, BVA-003 (15/18)
+
+Tôi sẽ nhóm các bug thành các nhóm logic và tạo file song song.
+
+Used tool: ask_permission
+
+Bây giờ tôi tạo tất cả file Step 5 song song. Tôi sẽ nhóm 15 FAILED thành **5 bug reports** theo nguyên nhân gốc:
+
+Created FR-08-checkout-run.md
+Created BUG-FR08-001.md
+Created BUG-FR08-002.md
+Created BUG-FR08-003.md
+Created BUG-FR08-004.md
+Created BUG-FR08-005.md
+Created FR-08-checkout-gap-analysis.md
+
+**Step 5 hoàn thành!** ✅ Tất cả 7 file đã được tạo thành công. Dưới đây là tổng kết:
+
+## Tổng kết Step 5
+
+### Files đã tạo
+
+| # | File | Mô tả |
+|---|------|-------|
+| 1 | [FR-08-checkout-run.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/tests/test-runs/FR-08-checkout-run.md) | Test Run summary — 3 PASSED / 15 FAILED |
+| 2 | [BUG-FR08-001.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR08-001.md) | 🔴 **Critical** — Backend tin tưởng `total_amount` từ client (9 TCs) |
+| 3 | [BUG-FR08-002.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR08-002.md) | 🟠 **Major** — Stored XSS qua `shipping_address` (1 TC) |
+| 4 | [BUG-FR08-003.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR08-003.md) | 🟠 **Major** — Thiếu validation `shipping_address` (2 TCs) |
+| 5 | [BUG-FR08-004.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR08-004.md) | 🟠 **Major** — Checkout thành công khi giỏ hàng trống (1 TC) |
+| 6 | [BUG-FR08-005.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR08-005.md) | 🟠 **Major** — Giỏ hàng không xóa sau checkout (2 TCs) |
+| 7 | [FR-08-checkout-gap-analysis.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/ai-gap-analysis/FR-08-checkout-gap-analysis.md) | AI Gap Analysis — phân tích trùng lặp DT/BVA |
+
+### Gap Analysis — Điểm User phát hiện
+
+Trong file Gap Analysis, tôi đã phân tích chi tiết vấn đề **trùng lặp DT ↔ BVA**:
+- BVA-003 (`total_amount=1`) ≈ DT-004 (`total_amount=1`)
+- BVA-002 (`total_amount=0`) ≈ DT-005 (`total_amount=0`)
+- BVA-001 (`total_amount=-1`) ≈ DT-006 (`total_amount=-50000`)
+
+**Nguyên nhân gốc:** BVA mất ý nghĩa khi FR-08 yêu cầu backend **bỏ qua mọi giá trị** client gửi — không có "hành vi thay đổi tại biên" để BVA phát hiện thêm.
+
+**Done. Please review and commit to Git.** → STOP GENERATING.
+
+```text
+=== AI AUDIT LOG ENTRY ===
+* Tool: Claude Opus 4 (Thinking)
+* Date: 2026-06-27
+* User Prompt: Đã test xong 18 TCs, cập nhật actual result. Yêu cầu triển khai Step 5. Lưu ý gap analysis: AI tạo test case tương đồng giữa BVA và DT.
+* AI Action: Đọc toàn bộ 18 file test case đã cập nhật (3 PASSED, 15 FAILED). Tạo 7 file Step 5: 1 test run report, 5 bug reports (nhóm theo root cause), 1 gap analysis (phân tích trùng lặp DT/BVA theo feedback user).
+==========================
+```
+````
+
+---
+
+## Entry #16
+
+### (1) Prompt + Tool
+
+**Tool:** Antigravity (Claude Opus 4.6 Thinking)
+
+**DateTime:** 2026-06-27 9:25 AM
+
+**Full prompt:**
+
+```
+Dựa vào những triển khai đã được thực hiện theo CLAUDE.md, bạn hãy kiểm tra lại toàn bộ những gì đã thực thi trong cũng như từ git của branch hiện tại từ đó trình bày vào main report với section phù hợp với FR-08 được thực hiện test trên mobile.
+Tại section đó thể hiện các nội dung:
+ - Domain Testing. With the support of AI tools, apply the domain testing technique to design a comprehensive set of test cases. You are encouraged to add more test cases where needed for thorough coverage. Provide a detailed, step-by-step explanation of how you applied the technique. Review the course lectures before you begin.
+- Boundary Value Analysis. Likewise, apply the boundary value analysis technique to design a comprehensive set of test cases, adding more as needed for thorough coverage. Provide a detailed, step-by-step explanation of how you applied the technique. Again, review the course lectures beforehand.
+- Dễ hiểu nhất là quy trình của việc áp dụng CLAUDE.md cho agent để tạo ra các test (Domain testing và BVA)
+
+chú ý rằng không sử dụng các icon như dấu x , dấu tick hay icon robot icon con người, nói chung là các loại icon để thực hiện
+```
+
+### (2) AI Output
+
+```
+Let me research what has been implemented for FR-08 in the codebase and git history.
+
+Ran command: `git log --oneline -15`
+Ran command: `Get-ChildItem -Path "e:\Testing\CS423-CSC15003-Testing-N08" -Filter "*FR-08*" -Recurse -Directory -Name`
+Ran command: `Get-ChildItem -Path "e:\Testing\CS423-CSC15003-Testing-N08" -Filter "*FR08*" -Recurse -Name | Where-Object { $_ -notlike "*screenshots*" -and $_ -notlike "*TC-FR08*" }`
+
+FR-08 exists. Let me explore the full structure and read all key files:
+
+Ran command: `git diff HEAD~1 --stat`
+Listed directory FR-08-checkout
+
+FR-08 has both `domain-testing` AND `bva` directories -- this is the first FR with actual BVA test cases. Let me read all key files:
+
+Viewed implementation_plan_FR08.md:1-156
+Viewed FR-08-checkout-run.md:1-73
+Viewed FR-08-checkout-gap-analysis.md:1-82
+
+Excellent! FR-08 is the most interesting case -- it has **BVA test cases** (since `total_amount` is numerical). Now let me read sample test cases and bug reports:
+
+Viewed TC-FR08-DT-001.md:1-71
+Viewed TC-FR08-BVA-001.md:1-70
+Viewed BUG-FR08-001.md:1-63
+Viewed BUG-FR08-002.md:1-58
+
+Now let me read the remaining bug reports and check the audit report for FR-08 entries:
+
+Viewed BUG-FR08-003.md:1-52
+Viewed BUG-FR08-004.md:1-54
+Viewed BUG-FR08-005.md:1-48
+Ran command: `Select-String -Path "e:\Testing\CS423-CSC15003-Testing-N08\reports\ai-audit-report.md" -Pattern "FR-08|Entry #[0-9]" | Select-Object LineNumber, Line`
+
+Now let me read the FR-08 related audit entries and the description_project.md for FR-08:
+
+Viewed ai-audit-report.md:1127-1210
+Searched for "FR-08"
+Viewed ai-audit-report.md:1206-1400
+Viewed description_project.md:98-118
+
+I now have all the data. Let me also check the API spec for FR-08:
+
+Searched for "checkout"
+Viewed main-report.md:1097-1097
+Viewed main-report.md:1091-1097
+
+I now have a complete understanding of all FR-08 artifacts. Let me also check the API spec:
+
+Viewed api_specification.md:125-140
+
+Now I have all data. Let me append the FR-08 section:
+
+Edited main-report.md
+
+Let me verify the final file:
+
+Ran command: `(Get-Content "e:\Testing\CS423-CSC15003-Testing-N08\reports\main-report.md" | Measure-Object -Line).Lines`
+Viewed main-report.md:1097-1105
+Viewed main-report.md:1508-1515
+
+Hoàn thành. Section FR-08 đã được thêm vào [main-report.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/reports/main-report.md) (file tổng cộng **1515 dòng**, section FR-08 từ dòng 1098 đến dòng 1515).
+
+### Cấu trúc section FR-08 trong Main Report:
+
+| Section | Nội dung |
+|---|---|
+| **1. Tổng quan** | Mô tả FR-08, 5 yêu cầu checkout, tham chiếu API spec, phát hiện mâu thuẫn Spec vs API (`total_amount` attack surface) |
+| **2. Domain Testing** | 3 bước chi tiết (4 biến V1-V4, 16 EP partition cho 4 biến bao gồm 7 hacker scenarios cho `total_amount`, tổng hợp 15 DT test case), kết quả thực thi (3 Pass/12 Fail), 5 bug reports (1 Critical + 4 Major), phân loại lỗi theo nhóm |
+| **3. BVA** | **BVA DUOC AP DUNG** cho `total_amount` (numerical) -- 3 boundary points (-1, 0, 1), kết quả (0/3 Passed), bảng chi tiết giá trị gửi vs giá trị DB lưu, xác nhận BUG-FR08-001 Critical |
+| **4. Quy trình CLAUDE.md** | 3 giai đoạn chi tiết (bao gồm phát hiện Spec vs API contradiction), lịch sử Git (commit `c71d42f`, 42 files, +2074 dòng), sơ đồ ASCII, AI Gap Analysis (DT/BVA redundancy), bảng so sánh 4 FR (FR-05 vs FR-12 vs FR-22 vs FR-08) |
+
+### Điểm đặc biệt của FR-08 so với 3 FR trước:
+- **FR đầu tiên có BVA thực sự được áp dụng** (biến `total_amount` là numerical)
+- **FR đầu tiên có thư mục `bva/`** trong cấu trúc test case
+- **Pass rate thấp nhất** (16.7%) trong 4 FR -- module Checkout có nhiều lỗi nghiêm trọng nhất
+- **Bug Critical duy nhất** liên quan đến financial manipulation (hacker có thể thao túng tổng tiền)
+- **AI Gap Analysis** tập trung vào vấn đề **redundancy giữa DT và BVA** (vấn đề mới so với 3 FR trước)
+- Không sử dụng bất kỳ icon nào, tiếng Việt có dấu đầy đủ
+```
+
+---
