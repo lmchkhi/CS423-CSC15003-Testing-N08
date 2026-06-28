@@ -2,14 +2,15 @@
 
 ## Thông tin sinh viên
 
-| Mục                     | Giá trị                             |
-| :---------------------- | :---------------------------------- |
-| **Họ tên sinh viên:**   | Trần Minh Quang                     |
-| **MSSV:**               | 23127464                            |
-| **Lớp / Khoá:**         | CS423 / CSC13003                    |
-| **Mã bài tập :**        | HW02                                |
-| **Ngày làm bài:**       | 27-06-2026                          |
-| **Công cụ AI đã dùng:** | ChatGPT, Grok, Claude , Antigravity |
+| Mục                     | Giá trị                                                                                                |
+| :---------------------- | :----------------------------------------------------------------------------------------------------- |
+| **Họ tên sinh viên:**   | Trần Minh Quang                                                                                        |
+| **MSSV:**               | 23127464                                                                                               |
+| **Lớp / Khoá:**         | CS423 / CSC13003                                                                                       |
+| **Mã bài tập :**        | HW02                                                                                                   |
+| **Ngày làm bài:**       | 27-06-2026                                                                                             |
+| **Công cụ AI đã dùng:** | ChatGPT, Grok, Claude , Antigravity                                                                    |
+| **Repository:**         | [CS423-CSC15003-Testing-N08](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08) - Branch: 23127464 |
 
 ---
 
