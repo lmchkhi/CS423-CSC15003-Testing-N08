@@ -325,7 +325,7 @@
 
 ---
 
-## FR-24: Đăng ký tài khoản
+## FR-25: Đăng ký tài khoản
 
 ### Mô tả yêu cầu
 
@@ -401,22 +401,22 @@
 
 | Test Case ID    | Kỹ thuật        | Mô tả ngắn                                              |
 |-----------------|----------------|----------------------------------------------------------|
-| TC-FR-24-001    | Domain Testing | Đăng ký thành công với tất cả dữ liệu hợp lệ            |
-| TC-FR-24-002    | Domain Testing | Đăng ký với Họ Tên rỗng                                  |
-| TC-FR-24-003    | Domain Testing | Đăng ký với Email rỗng                                   |
-| TC-FR-24-004    | Domain Testing | Đăng ký với Email sai định dạng (thiếu @)                |
-| TC-FR-24-005    | Domain Testing | Đăng ký với Email sai định dạng (thiếu domain)           |
-| TC-FR-24-006    | Domain Testing | Đăng ký với Email đã tồn tại                             |
-| TC-FR-24-007    | Domain Testing | Đăng ký với Mật khẩu rỗng                                |
-| TC-FR-24-008    | Domain Testing | Đăng ký với Mật khẩu quá ngắn (< 8 ký tự)               |
-| TC-FR-24-009    | Domain Testing | Đăng ký với Mật khẩu thiếu chữ hoa                       |
-| TC-FR-24-010    | Domain Testing | Đăng ký với Mật khẩu thiếu chữ thường                    |
-| TC-FR-24-011    | Domain Testing | Đăng ký với Mật khẩu thiếu chữ số                        |
-| TC-FR-24-012    | Domain Testing | Đăng ký với Mật khẩu thiếu ký tự đặc biệt               |
-| TC-FR-24-013    | Domain Testing | Đăng ký với Xác nhận mật khẩu không khớp                 |
-| TC-FR-24-014    | BVA            | Mật khẩu đúng 8 ký tự (ON — min)                         |
-| TC-FR-24-015    | BVA            | Mật khẩu 7 ký tự (OFF⁻ — min-1)                         |
-| TC-FR-24-016    | BVA            | Mật khẩu 9 ký tự (OFF⁺ — min+1)                         |
+| TC-FR-25-001    | Domain Testing | Đăng ký thành công với tất cả dữ liệu hợp lệ            |
+| TC-FR-25-002    | Domain Testing | Đăng ký với Họ Tên rỗng                                  |
+| TC-FR-25-003    | Domain Testing | Đăng ký với Email rỗng                                   |
+| TC-FR-25-004    | Domain Testing | Đăng ký với Email sai định dạng (thiếu @)                |
+| TC-FR-25-005    | Domain Testing | Đăng ký với Email sai định dạng (thiếu domain)           |
+| TC-FR-25-006    | Domain Testing | Đăng ký với Email đã tồn tại                             |
+| TC-FR-25-007    | Domain Testing | Đăng ký với Mật khẩu rỗng                                |
+| TC-FR-25-008    | Domain Testing | Đăng ký với Mật khẩu quá ngắn (< 8 ký tự)               |
+| TC-FR-25-009    | Domain Testing | Đăng ký với Mật khẩu thiếu chữ hoa                       |
+| TC-FR-25-010    | Domain Testing | Đăng ký với Mật khẩu thiếu chữ thường                    |
+| TC-FR-25-011    | Domain Testing | Đăng ký với Mật khẩu thiếu chữ số                        |
+| TC-FR-25-012    | Domain Testing | Đăng ký với Mật khẩu thiếu ký tự đặc biệt               |
+| TC-FR-25-013    | Domain Testing | Đăng ký với Xác nhận mật khẩu không khớp                 |
+| TC-FR-25-014    | BVA            | Mật khẩu đúng 8 ký tự (ON — min)                         |
+| TC-FR-25-015    | BVA            | Mật khẩu 7 ký tự (OFF⁻ — min-1)                         |
+| TC-FR-25-016    | BVA            | Mật khẩu 9 ký tự (OFF⁺ — min+1)                         |
 
 ---
 

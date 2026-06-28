@@ -2368,3 +2368,128 @@ Verified final consistency with grep across all TC files.
 ### (5) Student Fix
 
 - Sửa lại status và ghi chú related bug cho các test case còn sót lại. Rút gọn chỉ còn 1 bug vì bug đó block hết các test case.
+
+## Entry #22
+
+### (1) Prompt + Tool
+
+| Field             | Content                                      |
+| ----------------- | -------------------------------------------- |
+| **Tool**          | Codex (GPT-5)                                |
+| **Timestamp**     | 11:07 PM 28/06/2026                          |
+| **Artifact type** | Cập nhật README và tổng hợp kết quả kiểm thử |
+
+**Full prompt:**
+
+```
+Dựa vào các docs và reports trong repo của tôi, hãy giúp tôi điền các thông tin đúng vào file này thay cho placeholder, riêng self-assessed grade để trống cho tôi tự điền
+```
+
+### (2) AI Output
+
+```
+Mình sẽ đối chiếu README với toàn bộ docs/reports trong repo, xác định từng placeholder và điền bằng thông tin có bằng chứng; mục self-assessed grade sẽ được giữ trống đúng yêu cầu.
+
+Searched for placeholders and incomplete fields in README, reports, docs, skills, and git-log.txt.
+Viewed README.md and listed all repository files.
+
+README hiện đang lệch khá xa trạng thái repo: thực tế có đủ 4 feature (FR-01, FR-07, FR-16, FR-24), 64 test case và nhiều bug report. Mình đang lấy số liệu trực tiếp từ các test-run/bug-report thay vì dựa vào bảng mẫu cũ để tránh cộng nhầm.
+
+Viewed reports/main-report.md and all files in tests/test-runs/.
+Searched the repository for student information, video links, issue numbers, severity, priority, and status data.
+Inspected the Git remote, commit authors, working-tree status, and student ID references.
+
+Mình đã tìm được MSSV `23127062`, tên `Lâm Vĩ Khang`, cùng GitHub Issue #8 và #18–#33 từ audit/bug reports. Phần video không có URL nào trong repo, nên mình sẽ ghi rõ “Chưa cung cấp” thay vì giữ link giả; còn cột tự chấm (kể cả ô tổng) sẽ để trống hoàn toàn.
+
+Attempted to verify GitHub issue pages and states.
+Extracted severity, priority, and issue numbers from all bug reports.
+Updated README.md with student information, all four features, test summaries, bug summaries, issue links, and demo-video availability.
+
+Phần chính đã được điền xong. Mình đang kiểm tra chéo lần cuối các tổng: `64 = 6 Passed + 19 Failed + 39 Blocked`, và rà README để chắc không còn `TBD`, `FR-xx`, link giả hay dữ liệu tự chấm bị điền nhầm.
+
+Checked the README diff, Markdown whitespace, remaining placeholders, and test-run statistics.
+
+Đã cập nhật [README.md](/home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/README.md):
+
+- Điền thông tin sinh viên và 4 feature.
+- Tổng hợp chính xác 64 test case và 17 bug.
+- Thêm liên kết GitHub Issue.
+- Đánh dấu video chưa được cung cấp.
+- Giữ trống toàn bộ cột Self-Assessed Grade.
+- Đã kiểm tra không còn placeholder hoặc lỗi Markdown.
+```
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI đã điền đầy đủ thông tin vào README dựa trên các artifact trong repo, giữ trống phần self-assessed grade theo yêu cầu.
+
+### (5) Student Fix
+
+- Không cần fix.
+
+## Entry #23
+
+### (1) Prompt + Tool
+
+| Field             | Content                                               |
+| ----------------- | ----------------------------------------------------- |
+| **Tool**          | Codex (GPT-5.5)                                       |
+| **Timestamp**     | 11:15 PM 28/06/2026                                   |
+| **Artifact type** | Đổi mã feature mobile từ FR-24 thành FR-25 trong repo |
+
+**Full prompt:**
+
+```
+Cập nhật tất cả thông tin về FR-24 thành FR-25, trừ trong file ai audit report
+```
+
+### (2) AI Output
+
+```
+Mình sẽ đổi toàn bộ mã feature `FR-24` sang `FR-25` trong nội dung, tên thư mục và tên file liên quan, đồng thời loại trừ hoàn toàn `reports/ai-audit-report.md` như bạn yêu cầu.
+
+Searched for all `FR-24` and `fr-24` references outside reports/ai-audit-report.md and listed affected paths.
+Inspected FR-24 references in generated PDFs and git-log.txt.
+
+Phạm vi đổi gồm 16 test case, test-run, bug report, README và main report; mình cũng sẽ đổi tên các file/thư mục để mã trong đường dẫn không còn là `FR-24`. `ai-audit-report.md` và bản PDF audit sẽ được giữ nguyên, kể cả các tham chiếu lịch sử bên trong đó.
+
+Replaced FR-24 with FR-25 in README.md, reports/main-report.md, the test run, the bug report, and all 16 test cases.
+Renamed the FR-24 test-case directory, all test-case files, the test-run file, and the bug-report file to FR-25.
+Inspected the existing PDF generation metadata and available PDF tools.
+
+Mình phát hiện `pdfs/main-report.pdf` cũng chứa FR-24. Vì đây là bản xuất từ `main-report.md`, mình đang đồng bộ lại PDF này; bản audit PDF vẫn giữ nguyên theo ngoại lệ của bạn.
+
+Generated and visually inspected an updated A4 main-report PDF.
+Copied the regenerated PDF to pdfs/main-report.pdf.
+Verified that no FR-24 references or filenames remained outside the excluded audit artifacts.
+
+Đã đổi xong mã và toàn bộ đường dẫn liên quan. Bước kiểm tra cuối xác nhận không còn `FR-24` ngoài hai artifact audit được loại trừ; bộ FR-25 vẫn đủ 16 test case tuần tự, một test-run và một bug report.
+
+Verified all 16 FR-25 test cases, the FR-25 test run, the FR-25 bug report, and that both audit artifacts were unchanged.
+
+Đã cập nhật toàn bộ `FR-24` thành `FR-25`, gồm:
+
+- README và main report.
+- 16 test case cùng thư mục.
+- Test-run và bug report.
+- Bản PDF main report.
+- Tất cả mã `TC-FR-25-*` và `BUG-FR-25-*`.
+
+[ai-audit-report.md](/home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/reports/ai-audit-report.md) và PDF audit được giữ nguyên. Không còn tham chiếu `FR-24` nào ngoài hai file audit.
+```
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI đã hoàn tất việc đổi mã feature từ FR-24 sang FR-25 trong toàn bộ repo, ngoại trừ các artifact audit như yêu cầu.
+
+### (5) Student Fix
+
+- Không cần fix.

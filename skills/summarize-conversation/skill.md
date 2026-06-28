@@ -37,7 +37,7 @@ Use these rules:
 In short: when one user request leads to a plan, approval, implementation, and final answer, it still counts as **one input and one output** for the audit report.
 
 For each request/outcome group, extract:
-- **User prompt**: The full, verbatim text the user sent (the request/instruction)
+- **User prompt**: The full, verbatim text authored by the user (the request/instruction). Exclude IDE context, environment context, open-file lists, system metadata, and any other context automatically injected by the client or system. If the interface labels a section such as `My request for Codex`, copy only the user's authored request beneath that label.
 - **AI response**: The **COMPLETE** verbatim text the AI agent responded with. This includes **ALL** of the following:
   1. Tool calls and research steps (Listed directory, Viewed file, etc.)
   2. File creation/modification actions (Created file, Edited file, etc.)
@@ -99,6 +99,7 @@ Append all new entries to the **end** of `reports/ai-audit-report.md`, maintaini
 ## Output Format Rules
 
 1. **Verbatim copy**: User prompts and AI outputs must be copied **exactly as they appear**. Do NOT paraphrase, summarize, shorten, or modify them in any way.
+   - For the user prompt, “verbatim” means the user's own authored words only. Do NOT include automatically injected IDE/environment context or system metadata.
 2. **Placeholders for review**: Sections (3) Verdict, (4) Reasoning, and (5) Student Fix must always be left as placeholders for the user to fill in manually.
 3. **Timestamp format**: Use `HH:MM AM/PM DD/MM/YYYY` (e.g., `04:26 PM 24/06/2026`)
 4. **Tool name**: Use the exact model name (e.g., `Claude Opus 4.6`, `Gemini 3.5 Flash`, `Claude Opus 4.6 (Thinking)`)
