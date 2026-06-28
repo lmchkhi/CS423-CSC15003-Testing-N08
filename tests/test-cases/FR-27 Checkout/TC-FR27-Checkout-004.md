@@ -37,7 +37,7 @@ Valid data:
 ## Các bước thực hiện
 
 0. Chạy chương trình backend, frontend mobile, frontend admin
-1. Truy cập vào trang mobile với đường dẫn [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
+1. Truy cập vào trang mobile với đường dẫn đã hiện khi chạy frontend mobile [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
 2. Nhấn vào nút Đăng nhập
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
 4. Nhấn vào **Thêm vào giỏ** sản phẩm **Bàn phím cơ Keychron Q1**

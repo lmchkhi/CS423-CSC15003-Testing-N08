@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR270Checkout-006
+TC-FR27-Checkout-006
 
 ## Mô tả
 
@@ -35,7 +35,7 @@ Valid data:
 ## Các bước thực hiện
 
 0. Chạy chương trình backend, frontend mobile, frontend admin
-1. Truy cập vào trang mobile với đường dẫn [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
+1. Truy cập vào trang mobile với đường dẫn đã hiện khi chạy frontend mobile [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
 2. Nhấn vào **Thêm vào giỏ** sản phẩm **Bàn phím cơ Keychron Q1**
 3. Nhấn vào **Giỏ hàng**
 4. Nhấn vào **Tiến hành thanh toán**
