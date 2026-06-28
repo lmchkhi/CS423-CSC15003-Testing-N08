@@ -4,31 +4,31 @@
 
 ## 1. Thông tin Sinh viên
 
-| Mục                            | Giá trị                                                 |
-| :----------------------------- | :------------------------------------------------------ |
-| **Họ tên sinh viên:**          | Lâm Vĩ Khang                                            |
-| **MSSV:**                      | 23127062                                                |
-| **Lớp / Khoá:**                | CS423 / CSC13003                                        |
-| **Mã bài tập :**               | HW02                                                    |
-| **Ngày làm bài:**              | 23-06-2026                                              |
-| **Công cụ AI đã dùng:**        | Claude                                                  |
+| Mục                     | Giá trị                 |
+| :---------------------- | :---------------------- |
+| **Họ tên sinh viên:**   | Lâm Vĩ Khang            |
+| **MSSV:**               | 23127062                |
+| **Lớp / Khoá:**         | CS423 / CSC13003        |
+| **Mã bài tập :**        | HW02                    |
+| **Ngày làm bài:**       | 23-06-2026 - 28/06/2026 |
+| **Công cụ AI đã dùng:** | Claude                  |
 
 ## Entry #1
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6                                                                           |
-| **Timestamp**     | 08:17 PM 23/06/2026                                                              |
+| Field             | Content                                                                                 |
+| ----------------- | --------------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6                                                                         |
+| **Timestamp**     | 08:17 PM 23/06/2026                                                                     |
 | **Artifact type** | Agent skill 'analyze-and-generate-testcases' và testcases từ skill đó cho feature FR-01 |
 
 **Full prompt:**
 
-````
+```
 Từ nội dung sau giúp tôi tạo Skill cho agent phân tích và tạo test case
 
-Tôi sẽ đưa 1 yêu cầu như: 
+Tôi sẽ đưa 1 yêu cầu như:
 
 FR-01: Đăng ký tài khoản
 
@@ -38,7 +38,7 @@ FR-01: Đăng ký tài khoản
     Phải có trường Xác nhận mật khẩu — hệ thống từ chối nếu hai trường không khớp.
     Sau khi đăng ký thành công, người dùng được chuyển tới trang Đăng nhập.
 
-Tôi muốn bạn phân tích chúng bằng kỹ thuật Domain Testing và Boundary Value Analysis. Các phần phân tích theo 2 kỹ thuật đó sẽ được để vào reports/main-report.md, còn các test case cụ thể sau khi được phân tích sẽ được để trong tests/test-cases/, ví dụ tests/test-cases/FR-01-register/TC-FR-01-001.md tương ứng với các giá trị đã được phân tích. Một file md test case sẽ được viết theo format sau: 
+Tôi muốn bạn phân tích chúng bằng kỹ thuật Domain Testing và Boundary Value Analysis. Các phần phân tích theo 2 kỹ thuật đó sẽ được để vào reports/main-report.md, còn các test case cụ thể sau khi được phân tích sẽ được để trong tests/test-cases/, ví dụ tests/test-cases/FR-01-register/TC-FR-01-001.md tương ứng với các giá trị đã được phân tích. Một file md test case sẽ được viết theo format sau:
 
 '''
 # TC-FR-01-001: Đăng ký thành công với dữ liệu hợp lệ
@@ -77,15 +77,15 @@ Not Run / None
 '''
 
 Với domain testing:
-1. Liệt kê input, output 
-2. Xác định các phân vùng tương đương (EP) cho các giá trị Valid và Invalid 
+1. Liệt kê input, output
+2. Xác định các phân vùng tương đương (EP) cho các giá trị Valid và Invalid
 3. Tìm các giá trị đại diện cho từng phân vùng
 
-Với BVA: 
+Với BVA:
 1. Tìm các giá trị biên
-2. Tìm ra các giá trị xung quanh biên theo quy tắc 3 point boundary 
+2. Tìm ra các giá trị xung quanh biên theo quy tắc 3 point boundary
 
-Đồng thời thêm một file test run tương ứng vào tests/test-runs/FR-01-register-run.md để tôi điền vào các kết quả thực thi, bug liên quan và note, cũng ghi để tổng hợp các kết quả ấy theo trạng thái như Passed / Failed / Blocked / Not run, có thể tham khảo format sau: 
+Đồng thời thêm một file test run tương ứng vào tests/test-runs/FR-01-register-run.md để tôi điền vào các kết quả thực thi, bug liên quan và note, cũng ghi để tổng hợp các kết quả ấy theo trạng thái như Passed / Failed / Blocked / Not run, có thể tham khảo format sau:
 
 '''
 # Test Run: FR-01 — Đăng ký tài khoản
@@ -134,12 +134,12 @@ Với BVA:
 | **Tổng** | **15** |
 '''
 
-Note: 
+Note:
 - Hãy tổ chức skill thành thư mục trong skills/
 - Viết skill bằng tiếng anh
 - Output nên theo format đã đưa ra và các nội dung được viết bằng tiếng Việt
 - Sau mỗi phân tích của mỗi feature trong main-report.md thì cho thêm một section "AI gap analysis" bỏ trống để tôi điền vào sau
-````
+```
 
 ### (2) AI Output
 
@@ -244,15 +244,15 @@ Mỗi test case chỉ thay đổi **một trường** so với happy path, đún
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6                                                                          |
-| **Timestamp**     | 04:26 PM 24/06/2026                                                              |
-| **Artifact type** | Agent skill 'generate-bug-report'|
+| Field             | Content                           |
+| ----------------- | --------------------------------- |
+| **Tool**          | Claude Opus 4.6                   |
+| **Timestamp**     | 04:26 PM 24/06/2026               |
+| **Artifact type** | Agent skill 'generate-bug-report' |
 
 **Full prompt:**
 
-````
+```
 Giúp tôi tạo một agent skill trong skills/ để khi tôi đưa một bug về một test case thì sẽ tạo một file md cho bug đó được tạo ra trong bug-reports/, ví dụ như bug-reports/BUG-FR-01-001.md với format như sau:
 
 '''
@@ -298,7 +298,7 @@ Hệ thống báo đăng ký thành công và tạo tài khoản mới.
 - Actual result có thể phân tích từ input của tôi hoặc để trống cho tôi điền
 - Evidence để trống để tôi tự thêm screenshot minh chứng
 - Github issue cũng để tôi tự tạo và điền
-````
+```
 
 ### (2) AI Output
 
@@ -376,21 +376,20 @@ skills/generate-bug-report/
 
 - Xóa bỏ đoạn về 'does not contain a dash...' để rõ ràng và logic hơn.
 
-
 ## Entry #3
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6                                                                           |
-| **Timestamp**     | 05:28 PM 24/06/2026                                                              |
+| Field             | Content                     |
+| ----------------- | --------------------------- |
+| **Tool**          | Claude Opus 4.6             |
+| **Timestamp**     | 05:28 PM 24/06/2026         |
 | **Artifact type** | Bug report cho TC-FR-01-001 |
 
 **Full prompt:**
 
 ```
-Giúp tôi tạo bug report cho 
+Giúp tôi tạo bug report cho
 
 TC-FR-01-001.md
 
@@ -458,21 +457,20 @@ Done! Here's the summary:
 
 - Thêm đường dẫn url /register vào cuối
 
-
 ## Entry #4
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                           |
-| **Timestamp**     | 05:53 PM 24/06/2026                                                              |
+| Field             | Content                     |
+| ----------------- | --------------------------- |
+| **Tool**          | Gemini 3.5 Flash            |
+| **Timestamp**     | 05:53 PM 24/06/2026         |
 | **Artifact type** | Bug report cho TC-FR-01-004 |
 
 **Full prompt:**
 
 ```
-Tạo bug report cho 
+Tạo bug report cho
 
 TC-FR-01-004.md
 : email sai nhưng hệ thống báo mật khẩu yếu
@@ -480,7 +478,7 @@ TC-FR-01-004.md
 
 ### (2) AI Output
 
-````
+```
 Listed directory CS423-CSC15003-Testing-N08-report
 Listed directory skills
 Listed directory generate-bug-report
@@ -508,7 +506,7 @@ Tôi đã tạo thành công báo cáo lỗi cho test case `TC-FR-01-004` và c�
 ### Các file đã cập nhật
 1. **Cập nhật trạng thái Test Case**: Thay đổi trạng thái của [TC-FR-01-004.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-01-register/TC-FR-01-004.md) từ `Not Run / None` thành `Failed / BUG-FR-01-002`.
 2. **Cập nhật bảng Test Run**: Cập nhật kết quả thực thi của test case `TC-FR-01-004` thành `❌ Failed` với mã bug `BUG-FR-01-002`, đồng thời cập nhật số lượng thống kê tổng hợp trong file [FR-01-register-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-01-register-run.md).
-````
+```
 
 ### (3) Verdict
 
@@ -522,21 +520,20 @@ Tôi đã tạo thành công báo cáo lỗi cho test case `TC-FR-01-004` và c�
 
 - Không cần fix
 
-
 ## Entry #5
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                           |
-| **Timestamp**     | 06:08 PM 24/06/2026                                                              |
+| Field             | Content                     |
+| ----------------- | --------------------------- |
+| **Tool**          | Gemini 3.5 Flash            |
+| **Timestamp**     | 06:08 PM 24/06/2026         |
 | **Artifact type** | Bug report cho TC-FR-01-005 |
 
 **Full prompt:**
 
 ```
-Tạo bug report cho 
+Tạo bug report cho
 
 TC-FR-01-005.md
 : email thiếu domain nhưng báo mật khẩu sai
@@ -544,7 +541,7 @@ TC-FR-01-005.md
 
 ### (2) AI Output
 
-````
+```
 Edited ai-audit-report.md
 Edited ai-audit-report.md
 Edited ai-audit-report.md
@@ -567,7 +564,7 @@ Tôi đã tạo thành công báo cáo lỗi cho test case `TC-FR-01-005` và c�
 ### Các file đã cập nhật
 1. **Cập nhật trạng thái Test Case**: Thay đổi trạng thái của [TC-FR-01-005.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-01-register/TC-FR-01-005.md) từ `Not Run / None` thành `Failed / BUG-FR-01-003`.
 2. **Cập nhật bảng Test Run**: Cập nhật kết quả thực thi của test case `TC-FR-01-005` thành `❌ Failed` với mã bug `BUG-FR-01-003`, đồng thời cập nhật số lượng thống kê tổng hợp trong file [FR-01-register-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-01-register-run.md).
-````
+```
 
 ### (3) Verdict
 
@@ -585,11 +582,11 @@ Tôi đã tạo thành công báo cáo lỗi cho test case `TC-FR-01-005` và c�
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
-| **Timestamp**     | 06:21 PM 24/06/2026                                                              |
-| **Artifact type** | Agent skill 'summarize-conversation'                                             |
+| Field             | Content                              |
+| ----------------- | ------------------------------------ |
+| **Tool**          | Claude Opus 4.6 (Thinking)           |
+| **Timestamp**     | 06:21 PM 24/06/2026                  |
+| **Artifact type** | Agent skill 'summarize-conversation' |
 
 **Full prompt:**
 
@@ -741,7 +738,7 @@ skills/generate-bug-report/
 
 ### (2) AI Output
 
-``````
+```````
 Listed directory CS423-CSC15003-Testing-N08-report
 Listed directory skills
 Listed directory reports
@@ -786,7 +783,7 @@ skills/summarize-conversation/
 ## Entry #6 đã được thêm
 
 Đồng thời đã thêm **Entry #6** vào `reports/ai-audit-report.md` cho chính cuộc trò chuyện này — prompt và output được copy verbatim, sử dụng 6 backticks (` `````` `) để bọc nội dung vì bên trong có tới 5 levels backticks. Các phần Verdict, Reasoning, Student Fix để placeholder cho bạn tự điền.
-``````
+```````
 
 ### (3) Verdict
 
@@ -804,31 +801,30 @@ skills/summarize-conversation/
   - The AI output section must capture EVERYTHING the agent sent to the user, from the first line to the absolute last line
 - Cập nhật lại skill.md sử dụng entry.md.
 
-
 ## Entry #7
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 08:48 PM 24/06/2026                                                              |
-| **Artifact type** | Bug reports cho TC-FR-01-006, TC-FR-01-013, TC-FR-01-014, TC-FR-01-016           |
+| Field             | Content                                                                |
+| ----------------- | ---------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                       |
+| **Timestamp**     | 08:48 PM 24/06/2026                                                    |
+| **Artifact type** | Bug reports cho TC-FR-01-006, TC-FR-01-013, TC-FR-01-014, TC-FR-01-016 |
 
 **Full prompt:**
 
-````
+```
 @[skills/generate-bug-report/skill.md]
 Tạo bug report cho các test case sau trong FR-01:
 - 006: Nhập email đã tồn tại nhưng lại báo lỗi mật khẩu yếu
 - 013: không có trường xác nhận mật khẩu
 - 014: hệ thống báo mật khẩu yếu, không thể đăng ký
 - 016: hệ thống báo mật khẩu yếu, không thể đăng ký
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Viewed skill.md:1-197
 Listed directory templates
 Viewed bug-report.md:1-31
@@ -871,7 +867,7 @@ I have completed generating the requested bug reports and updating the status of
    - Modified the execution status in [FR-01-register-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-01-register-run.md) and adjusted the totals in the summary table.
 
 The walkthrough can be reviewed in [walkthrough.md](file:///home/lvkhang/.gemini/antigravity/brain/c647d3ba-84dd-4b9d-bbfb-ff991ad43546/walkthrough.md).
-````
+```
 
 ### (3) Verdict
 
@@ -889,16 +885,16 @@ The walkthrough can be reviewed in [walkthrough.md](file:///home/lvkhang/.gemini
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
-| **Timestamp**     | 09:07 PM 24/06/2026                                                              |
-| **Artifact type** | Test cases cho FR-07 (Giỏ hàng)                                                 |
+| Field             | Content                         |
+| ----------------- | ------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)      |
+| **Timestamp**     | 09:07 PM 24/06/2026             |
+| **Artifact type** | Test cases cho FR-07 (Giỏ hàng) |
 
 **Full prompt:**
 
-````
-Giúp tôi phân tích và tạo test case cho yêu cầu sau: 
+```
+Giúp tôi phân tích và tạo test case cho yêu cầu sau:
 FR-07: Giỏ hàng (Shopping Cart)
 - Hiển thị danh sách sản phẩm với các cột: Sản phẩm, Đơn giá, Số lượng (có nút +/- để chỉnh), Thành tiền, Thao tác.
 - Thêm cùng một sản phẩm vào giỏ sẽ tăng số lượng, không tạo dòng mới.
@@ -906,11 +902,11 @@ FR-07: Giỏ hàng (Shopping Cart)
 - Có nút Tiếp tục mua sắm để quay về trang chủ.
 - Tổng tiền hiển thị nhãn chính xác: "Tổng cộng" (không phải "Tổng tạm tính").
 - Giỏ hàng trống phải có hình minh họa và thông báo rõ ràng.
-````
+```
 
 ### (2) AI Output
 
-`````
+```
 I'll start by researching the existing project structure, templates, and conventions to ensure the test cases follow established patterns.
 
 Listed directory CS423-CSC15003-Testing-N08-report
@@ -993,7 +989,7 @@ Qua khảo sát trực tiếp trên `localhost:5173`, phát hiện **7 lỗi ti�
 | "**Tiếp tục mua sắm**" (giỏ có SP) | "**← Mua tiếp**" | Không nhất quán |
 
 Chi tiết đầy đủ trong walkthrough. Phần **AI Gap Analysis** trong main report đã để trống để bạn tự điền sau khi review.
-`````
+```
 
 ### (3) Verdict
 
@@ -1006,28 +1002,27 @@ Chi tiết đầy đủ trong walkthrough. Phần **AI Gap Analysis** trong main
 
 ### (5) Student Fix
 
-- Bỏ đi biên số lượng sản phẩm tối đa 
+- Bỏ đi biên số lượng sản phẩm tối đa
 - Bỏ đi điều kiện nút bắt buộc phải là "Tiếp tục mua sắm" trong test case TC-FR-07-010
-
 
 ## Entry #9
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 10:47 PM 24/06/2026                                                              |
+| Field             | Content                                                                         |
+| ----------------- | ------------------------------------------------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                                                                |
+| **Timestamp**     | 10:47 PM 24/06/2026                                                             |
 | **Artifact type** | Bug reports cho các test case từ TC-FR-07-001 đến TC-FR-07-017 (trừ 010 và 014) |
 
 **Full prompt:**
 
-````
+```
 @[skills/generate-bug-report/skill.md]
 Tạo bug report cho các test case sau trong FR-07:
 - 001:  Chỗ số lượng không có nút +/-
 - 002: Cột hiển thị 'Giá' thay vì 'Đơn giá'
-- 003: Cột số lượng không hiển thị nút +/- để người dùng chỉnh số lượng 
+- 003: Cột số lượng không hiển thị nút +/- để người dùng chỉnh số lượng
 - 004: Không có nút + để thực hiện test case
 - 005: Không có nút - để thực hiện test case
 - 006: Khi thêm cùng một sản phẩm thì giỏ hàng tạo hàng mới thay vì tăng số lượng lên
@@ -1040,11 +1035,11 @@ Tạo bug report cho các test case sau trong FR-07:
 - 015: Không có nút - để test
 - 016: Không có nút - để test
 - 017: Không có nút + để test
-````
+```
 
 ### (2) AI Output
 
-````
+```
 I will read the skill instructions file to understand how to generate bug reports, and inspect an existing bug report as a reference template.
 
 Viewed file skills/generate-bug-report/skill.md
@@ -1133,7 +1128,7 @@ Cập nhật file `tests/test-runs/FR-07-shopping-cart-run.md`:
 * Đánh dấu kết quả của 15 test case bị ảnh hưởng thành `❌ Failed` và liên kết BUG-FR-07-NNN.
 * Giữ nguyên trạng thái `⬜ Not Run` cho 2 test case không bị báo lỗi (`TC-FR-07-010` và `TC-FR-07-014`).
 * Cập nhật bảng tổng kết kết quả thực thi (15 Failed, 2 Not Run).
-````
+```
 
 ### (3) Verdict
 
@@ -1147,27 +1142,26 @@ Cập nhật file `tests/test-runs/FR-07-shopping-cart-run.md`:
 
 - Prompt lại cho AI để đánh giá đúng status của các test case đó.
 
-
 ## Entry #10
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 10:50 PM 24/06/2026                                                              |
+| Field             | Content                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------ |
+| **Tool**          | Gemini 3.5 Flash                                                                           |
+| **Timestamp**     | 10:50 PM 24/06/2026                                                                        |
 | **Artifact type** | Cập nhật kết quả các test case bị chặn từ Failed sang Blocked trong test cases và test run |
 
 **Full prompt:**
 
-````
+```
 Những bug gây ra bởi thiếu tính năng (thiếu nút +/-) thì nên là blocked chứ
-````
+```
 
 ### (2) AI Output
 
-````
-I agree completely. Since the required UI buttons or components (+/-, dialog) are missing, we cannot execute the steps of those test cases. Thus, their status should be `Blocked` instead of `Failed`. 
+```
+I agree completely. Since the required UI buttons or components (+/-, dialog) are missing, we cannot execute the steps of those test cases. Thus, their status should be `Blocked` instead of `Failed`.
 
 I will update the status in the individual test case files first. Starting with `TC-FR-07-004.md`.
 
@@ -1192,7 +1186,7 @@ Tôi đã cập nhật lại trạng thái của các test case từ `Failed` sa
      * **Blocked**: 8
      * **Not Run**: 2
      * **Tổng**: 17
-````
+```
 
 ### (3) Verdict
 
@@ -1206,20 +1200,19 @@ Tôi đã cập nhật lại trạng thái của các test case từ `Failed` sa
 
 - Không cần fix.
 
-
 ## Entry #11
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
-| **Timestamp**     | 03:12 PM 25/06/2026                                                              |
-| **Artifact type** | Test cases cho FR-16 (Import Sản phẩm từ CSV)                                   |
+| Field             | Content                                       |
+| ----------------- | --------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                    |
+| **Timestamp**     | 03:12 PM 25/06/2026                           |
+| **Artifact type** | Test cases cho FR-16 (Import Sản phẩm từ CSV) |
 
 **Full prompt:**
 
-````
+```
 Giúp tôi phân tích yêu cầu sau và tạo các test case:
 FR-16: Import Sản phẩm từ CSV
 
@@ -1233,11 +1226,11 @@ FR-16: Import Sản phẩm từ CSV
         - price phải là số dương.
 - Nếu có lỗi ở bất kỳ dòng nào, toàn bộ import phải được rollback (giao dịch nguyên tử — all-or-nothing).
 - Hệ thống hiển thị báo cáo rõ ràng: bao nhiêu dòng thành công, bao nhiêu dòng lỗi và lý do.
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Let me first read the skill file for generating test cases, and explore the project structure to understand the context.
 
 Viewed skill.md
@@ -1349,7 +1342,7 @@ Tất cả đã hoàn thành. Dưới đây là tổng hợp những gì đã t�
 - ✅ Tất cả test cases đều có trong test run file
 - ✅ Phần "AI Gap Analysis" để trống cho người dùng điền
 - ✅ Toàn bộ nội dung bằng tiếng Việt
-````
+```
 
 ### (3) Verdict
 
@@ -1363,26 +1356,25 @@ Tất cả đã hoàn thành. Dưới đây là tổng hợp những gì đã t�
 
 - Bỏ phần upper bound cho trường price trong phần BVA.
 
-
 ## Entry #12
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
-| **Timestamp**     | 03:32 PM 25/06/2026                                                              |
-| **Artifact type** | Test data files cho FR-16 (14 file CSV/TXT)                                      |
+| Field             | Content                                     |
+| ----------------- | ------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                  |
+| **Timestamp**     | 03:32 PM 25/06/2026                         |
+| **Artifact type** | Test data files cho FR-16 (14 file CSV/TXT) |
 
 **Full prompt:**
 
-````
+```
 Từ các test case đã sinh ra cho FR-16, hãy giúp tôi tạo ra cái dữ liệu test từ phần test data trong các test case (như file csv, file txt,...), rồi bỏ vào test-data/ giúp tôi
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Tôi sẽ tạo các file dữ liệu test tương ứng với từng test case. Để tôi review lại test data của từng TC rồi tạo file:
 
 Created products_valid.csv (TC-FR-16-001)
@@ -1425,7 +1417,7 @@ Listed directory FR-16-import-csv
 | TC-FR-16-015 | products_price_bva_off_plus.csv | BVA: `price` = 2 (OFF⁺) |
 
 > **Lưu ý**: TC-FR-16-003 không cần file vì test case này kiểm tra trường hợp **không chọn file nào** để upload.
-````
+```
 
 ### (3) Verdict
 
@@ -1443,22 +1435,22 @@ Listed directory FR-16-import-csv
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 04:18 PM 25/06/2026                                                              |
-| **Artifact type** | Bug report cho TC-FR-16-002                                                      |
+| Field             | Content                     |
+| ----------------- | --------------------------- |
+| **Tool**          | Gemini 3.5 Flash            |
+| **Timestamp**     | 04:18 PM 25/06/2026         |
+| **Artifact type** | Bug report cho TC-FR-16-002 |
 
 **Full prompt:**
 
-````
-@[skills/generate-bug-report/skill.md] 
+```
+@[skills/generate-bug-report/skill.md]
 Giúp tôi tạo bug report cho test case @[tests/test-cases/FR-16-import-csv/TC-FR-16-002.md] : khi import bằng file txt thì hệ thống vẫn cho import sản phẩm thành công mà không báo lỗi
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Viewed file skills/generate-bug-report/skill.md
 Viewed file skills/generate-bug-report/templates/bug-report.md
 Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-002.md
@@ -1485,7 +1477,7 @@ Tôi đã tạo thành công bug report và cập nhật các tài liệu liên 
    - [TC-FR-16-002.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-cases/FR-16-import-csv/TC-FR-16-002.md): Cập nhật trạng thái từ `Not Run` thành `Failed / BUG-FR-16-001`.
 3. **Cập nhật Test Run**:
    - [FR-16-import-csv-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-16-import-csv-run.md): Cập nhật kết quả thực thi của test case này là `❌ Failed`, điền mã lỗi `BUG-FR-16-001`.
-````
+```
 
 ### (3) Verdict
 
@@ -1499,36 +1491,35 @@ Tôi đã tạo thành công bug report và cập nhật các tài liệu liên 
 
 - Sửa lại URL của frontend admin.
 
-
 ## Entry #14
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 04:52 PM 25/06/2026                                                              |
-| **Artifact type** | Bug reports cho các test case từ TC-FR-16-004 đến TC-FR-16-012 và TC-FR-16-014   |
+| Field             | Content                                                                        |
+| ----------------- | ------------------------------------------------------------------------------ |
+| **Tool**          | Gemini 3.5 Flash                                                               |
+| **Timestamp**     | 04:52 PM 25/06/2026                                                            |
+| **Artifact type** | Bug reports cho các test case từ TC-FR-16-004 đến TC-FR-16-012 và TC-FR-16-014 |
 
 **Full prompt:**
 
-````
+```
 Giúp tôi tạo bug report cho các test case sau trong FR-016:
 004: Hệ thống vẫn cho import bình thường không báo lỗi
-005: Báo lỗi nhưng vẫn import các sản phẩm khác mà không rollback toàn bộ 
+005: Báo lỗi nhưng vẫn import các sản phẩm khác mà không rollback toàn bộ
 006: Import thành công không báo lỗi
-007: Import thành công không báo lỗi 
-008: Import thành công không báo lỗi 
-009: Import thành công không báo lỗi 
+007: Import thành công không báo lỗi
+008: Import thành công không báo lỗi
+009: Import thành công không báo lỗi
 010: Parse sai trường description có dấu phẩy trong dấu nháy kép
 011: Vẫn import thành công các sản phẩm còn lại mà không bị rollback
 012: Chỉ báo dòng 3 thiếu tên sản phẩm, vẫn import 2 sản phẩm còn lại
 014: Import thành công, không báo lỗi
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Listed directory tests/test-cases/FR-16-import-csv
 Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-004.md
 Viewed file tests/test-cases/FR-16-import-csv/TC-FR-16-005.md
@@ -1584,7 +1575,7 @@ Tôi đã tạo 10 bug report mới và cập nhật toàn bộ trạng thái tr
    - Cập nhật kết quả của các test case thất bại sang `❌ Failed` và gắn kèm link Bug ID.
    - Đồng bộ hóa kết quả của các test case đã `Passed` do bạn cập nhật (`TC-FR-16-003`, `TC-FR-16-013`, `TC-FR-16-015`).
    - Cập nhật bảng **Tổng kết** (Passed: 3 | Failed: 11 | Not Run: 1).
-````
+```
 
 ### (3) Verdict
 
@@ -1602,23 +1593,23 @@ Tôi đã tạo 10 bug report mới và cập nhật toàn bộ trạng thái tr
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 06:04 PM 25/06/2026                                                              |
-| **Artifact type** | Merge và chuẩn hóa bug reports cho FR-07                                         |
+| Field             | Content                                  |
+| ----------------- | ---------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                         |
+| **Timestamp**     | 06:04 PM 25/06/2026                      |
+| **Artifact type** | Merge và chuẩn hóa bug reports cho FR-07 |
 
 **Full prompt:**
 
-````
+```
 Trong các bug reports của FR-07 có bug nào là duplicate không, nếu có hãy giúp tôi merge chúng lại
 
 Đảm bảo sau khi merge các bug vẫn có số tăng dần, các test case tương ứng được cập nhật lại bug id, và nhật lại file test run cho FR-07
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Listed directory workspace root
 I will list the contents of the repository or search for FR-07 related files to locate the bug reports, test cases, and test run files.
 Listed directory bug-reports
@@ -1773,7 +1764,7 @@ Các bug report độc lập còn lại được đổi tên để đảm bảo 
 * Đã cập nhật cột `Related Bug` trong file test run [FR-07-shopping-cart-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-07-shopping-cart-run.md) tương ứng cho từng test case.
 
 Bạn có thể xem chi tiết cụ thể hơn ở tài liệu [walkthrough.md](file:///home/lvkhang/.gemini/antigravity-ide/brain/b8a1ee49-20e8-4bf6-ae69-e71b8f7ef19f/walkthrough.md) vừa được tạo.
-````
+```
 
 ### (3) Verdict
 
@@ -1791,23 +1782,23 @@ Bạn có thể xem chi tiết cụ thể hơn ở tài liệu [walkthrough.md](
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Gemini 3.5 Flash                                                                 |
-| **Timestamp**     | 07:53 PM 25/06/2026                                                              |
-| **Artifact type** | Gộp và chuẩn hóa bug reports cho FR-16                                           |
+| Field             | Content                                |
+| ----------------- | -------------------------------------- |
+| **Tool**          | Gemini 3.5 Flash                       |
+| **Timestamp**     | 07:53 PM 25/06/2026                    |
+| **Artifact type** | Gộp và chuẩn hóa bug reports cho FR-16 |
 
 **Full prompt:**
 
-````
+```
 Trong các bug reports của FR-16 có bug nào là duplicate không, nếu có hãy giúp tôi merge chúng lại
 
 Đảm bảo sau khi merge các bug vẫn có số tăng dần, các test case tương ứng được cập nhật lại bug id, và nhật lại file test run cho FR-16
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report
 I will list the contents of the workspace root directory.
 Listed directory /home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/bug-reports
@@ -1931,7 +1922,7 @@ Dưới đây là tóm tắt kết quả thực hiện:
 * Cập nhật cột `Related Bug` trong file test run [FR-16-import-csv-run.md](file:///home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/tests/test-runs/FR-16-import-csv-run.md) cho các test case `TC-FR-16-011`, `TC-FR-16-012`, và `TC-FR-16-014` để khớp với mã lỗi mới sau khi merge.
 
 Chi tiết về tất cả các thay đổi và kết quả xác minh có thể được xem thêm tại [walkthrough.md](file:///home/lvkhang/.gemini/antigravity-ide/brain/aa9c6e04-d220-4f8f-b9fd-8f0cbaeb6659/walkthrough.md).
-````
+```
 
 ### (3) Verdict
 
@@ -1945,24 +1936,23 @@ Chi tiết về tất cả các thay đổi và kết quả xác minh có thể 
 
 - Không cần fix.
 
-
 ## Entry #17
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6 (Thinking)                                                      |
-| **Timestamp**     | 09:22 PM 25/06/2026                                                              |
-| **Artifact type** | Test cases cho FR-24 (Đăng ký tài khoản trên app mobile Expo)                    |
+| Field             | Content                                                       |
+| ----------------- | ------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6 (Thinking)                                    |
+| **Timestamp**     | 09:22 PM 25/06/2026                                           |
+| **Artifact type** | Test cases cho FR-24 (Đăng ký tài khoản trên app mobile Expo) |
 
 **Full prompt:**
 
-````
-@[/home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/skills/analyze-and-generate-testcases/skill.md] 
+```
+@[/home/lvkhang/Documents/school/software-testing/CS423-CSC15003-Testing-N08-report/skills/analyze-and-generate-testcases/skill.md]
 Giúp tôi phân tích và tạo các test case cho yêu cầu sau:
 
-FR-24: Đăng ký tài khoản 
+FR-24: Đăng ký tài khoản
 - Người dùng phải cung cấp: Họ Tên, Email, Mật khẩu.
 - Email phải có định dạng hợp lệ (user@domain.com) và là duy nhất trong hệ thống.
 - Yêu cầu mật khẩu mạnh: Tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt (@, $, !, %, *, ?, &).
@@ -1970,11 +1960,11 @@ FR-24: Đăng ký tài khoản
 - Sau khi đăng ký thành công, người dùng được chuyển tới trang Đăng nhập.
 
 Yêu cầu trên được sẽ được thực hiện test trên app mobile bằng expo thay vì trên web nên có thể sẽ hơi khác so với FR-01
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Let me start by reading the skill file and understanding the project structure.
 
 Viewed skill.md (skills/analyze-and-generate-testcases/skill.md)
@@ -2037,7 +2027,7 @@ Created walkthrough.md
 - **Main report** đã được cập nhật tại main-report.md với phân tích Domain Testing + BVA đầy đủ
 
 Tất cả nội dung đã được điều chỉnh cho mobile app context (dùng "màn hình" thay vì "trang", môi trường Expo Go thay vì Browser). Section **AI Gap Analysis** để trống sẵn cho bạn review và điền nhận xét.
-````
+```
 
 ### (3) Verdict
 
@@ -2051,20 +2041,19 @@ Tất cả nội dung đã được điều chỉnh cho mobile app context (dùn
 
 - Không cần fix.
 
-
 ## Entry #18
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | GPT-5.5                                                                  |
-| **Timestamp**     | 10:06 PM 25/06/2026                                                              |
+| Field             | Content                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------- |
+| **Tool**          | GPT-5.5                                                                                                 |
+| **Timestamp**     | 10:06 PM 25/06/2026                                                                                     |
 | **Artifact type** | Cập nhật agent skill 'summarize-conversation' để gom implementation plan và approval vào cùng một entry |
 
 **Full prompt:**
 
-````
+`````
 skills/summarize-conversation
 Đôi khi sau khi prompt agent sẽ tạo ra một implementation plan và user approve cho nó thực hiện, lúc này thay vì tính tất cả là 1 entry thì agent lại chia ra prompt đầu là 1 entry, lúc approve plan là 1 entry khác. Giúp tôi sửa skill để khắc phục điều đó: Nếu có implemention plan và approval từ người dùng thì cả đống đó vẫn tính là 1 entry vì chỉ có 1 input và 1 output.
 ````-001** | BUG-001 + BUG-005 | Thiếu trường "Xác nhận mật khẩu" → block TC-001 và TC-013 |
@@ -2093,7 +2082,7 @@ skills/summarize-conversation
 
 ### (2) AI Output
 
-`````
+```
 Tôi sẽ đọc skill hiện tại trước để xem nó đang định nghĩa “entry” và xử lý approval/plan ở đâu, rồi sửa đúng phần đó thay vì đổi rộng toàn bộ logic.
 
 Ran command: `rg --files skills/summarize-conversation`
@@ -2152,7 +2141,7 @@ Thay đổi chính:
 - `skills/summarize-conversation/README.md`: cập nhật mô tả grouping.
 
 Đã chạy `git diff --check`, không có lỗi whitespace.
-`````
+```
 
 ### (3) Verdict
 
@@ -2170,21 +2159,21 @@ Thay đổi chính:
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | GPT-5.5                                                                          |
-| **Timestamp**     | 01:50 PM 26/06/2026                                                             |
-| **Artifact type** | Bug report cho `BUG-FR-24-001`                                                  |
+| Field             | Content                        |
+| ----------------- | ------------------------------ |
+| **Tool**          | GPT-5.5                        |
+| **Timestamp**     | 01:50 PM 26/06/2026            |
+| **Artifact type** | Bug report cho `BUG-FR-24-001` |
 
 **Full prompt:**
 
-````
+```
 Với các test case bị ảnh hưởng cụ thể bởi việc thiếu trường xác nhận mật khẩu trong FR-24, hãy giúp tôi đánh Failed/Blocked cho phù hợp rồi dùng skill @skills/generate-bug-report/skill.md để tạo ra bug cho việc thiếu trường đó
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Mình đã xác định đúng các test case liên quan nhất: `TC-FR-24-001` và `TC-FR-24-013` là bị ảnh hưởng trực tiếp, còn các case khác không bị block bởi lỗi này nếu vẫn có thể test các field còn lại. Giờ mình sẽ cập nhật status và tạo bug report theo skill.
 Mình đã tạo `BUG-FR-24-001`; tiếp theo cập nhật test run để summary khớp với status mới.
 Đã cập nhật đúng theo `FR-24`:
@@ -2199,7 +2188,7 @@ Lý do:
 - `TC-FR-24-013` kiểm trực tiếp requirement “xác nhận mật khẩu không khớp thì bị từ chối”, nên `Failed` vì app không hỗ trợ đúng requirement.
 
 Nếu muốn, mình có thể tiếp tục rà toàn bộ `FR-24` để xem test case nào khác cũng cần đổi từ `Not Run` sang `Blocked` do cùng lỗi này.
-````
+```
 
 ### (3) Verdict
 
@@ -2217,21 +2206,21 @@ Nếu muốn, mình có thể tiếp tục rà toàn bộ `FR-24` để xem test
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | GPT-5.5                                                                          |
-| **Timestamp**     | 01:50 PM 26/06/2026                                                             |
-| **Artifact type** | Update test cases / test run for FR-24                                           |
+| Field             | Content                                |
+| ----------------- | -------------------------------------- |
+| **Tool**          | GPT-5.5                                |
+| **Timestamp**     | 01:50 PM 26/06/2026                    |
+| **Artifact type** | Update test cases / test run for FR-24 |
 
 **Full prompt:**
 
-````
+```
 Tại sao các test case khác cũng có test step nhận xác nhận mật khẩu nhưng chưa bị báo Blocked
-````
+```
 
 ### (2) AI Output
 
-````
+```
 Bạn đúng: nếu chấm theo test case đã viết, mọi case có step bắt buộc nhập `Xác nhận mật khẩu` đều bị ảnh hưởng. Mình đã xử lý hơi hẹp theo “mục tiêu kiểm thử trực tiếp”; giờ mình sẽ chỉnh các case còn lại sang `Blocked` để nhất quán với test steps.
 Bạn bắt đúng lỗi trong cách xử lý trước của mình.
 
@@ -2265,7 +2254,7 @@ Các file đã cập nhật:
 Bug dùng chung vẫn là:
 
 - `bug-reports/BUG-FR-24-001.md`
-````
+```
 
 ### (3) Verdict
 
@@ -2283,21 +2272,21 @@ Bug dùng chung vẫn là:
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                                                          |
-| ----------------- | -------------------------------------------------------------------------------- |
-| **Tool**          | Claude Opus 4.6                                                                  |
-| **Timestamp**     | 03:09 PM 26/06/2026                                                             |
+| Field             | Content                                                                               |
+| ----------------- | ------------------------------------------------------------------------------------- |
+| **Tool**          | Claude Opus 4.6                                                                       |
+| **Timestamp**     | 03:09 PM 26/06/2026                                                                   |
 | **Artifact type** | Đánh giá lại status test cases FR-01 (Failed vs Blocked) và gộp bug reports duplicate |
 
 **Full prompt:**
 
-````
+```
 Giúp tôi xem lại các test case và bug report của FR-01 xem có cần sửa lại cho phù hợp hay merge một số bug lại không. Vì website không có trường nhập lại mật khẩu (có trong test data và test step của đa số test case). Nếu có hãy giúp tôi sửa và cập nhật lại các test case, bug report, và test run của FR-01 cho phù hợp
-````
+```
 
 ### (2) AI Output
 
-`````
+```
 Searched for all FR-01 related files in the workspace:
 - tests/test-cases/FR-01-register/ (16 files: TC-FR-01-001.md to TC-FR-01-016.md)
 - bug-reports/ (7 files: BUG-FR-01-001.md to BUG-FR-01-007.md)
@@ -2366,7 +2355,7 @@ Verified final consistency with grep across all TC files.
 ### Test Run:
 - Cập nhật tất cả status và bug reference cho nhất quán.
 - Tổng kết mới: 8 Passed, 4 Failed, 2 Blocked, 0 Not Run.
-`````
+```
 
 ### (3) Verdict
 
