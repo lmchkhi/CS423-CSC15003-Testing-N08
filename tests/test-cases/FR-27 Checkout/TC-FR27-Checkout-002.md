@@ -1,19 +1,21 @@
-# Thực hiện thanh toán thành công với 1 sản phẩm trong giỏ hàng
+# Thực hiện thanh toán thành công với 2 sản phẩm trong giỏ hàng
 
 ## ID
 
-TC-FR21 Checkout-001
+TC-FR27-Checkout-002
 
 ## Mô tả
 
 Thực hiện thanh toán thành công khi:
 
-- Giỏ hàng có 1 sản phẩm
+- Giỏ hàng có 2 sản phẩm
 - Người dùng đã đăng nhập
 
 ## Môi trường kiểm thử
 
-Windows 10, Google Chrome Version 149.0.7827.103
+Android 16
+
+Expo Go Client version 54.0.8
 
 ## Precodition
 
@@ -27,16 +29,18 @@ Valid data:
 |----|-----|
 |Email|test@eshop.com|
 |Password|Test1234!|
-|Tên sản phẩm|Bàn phím cơ Keychron Q1|
-|Giá sản phẩm|4000000|
+|Tên sản phẩm đầu tiên|Bàn phím cơ Keychron Q1|
+|Giá sản phẩm đầu tiên|4000000|
+|Tên sản phẩm thứ hai|MacBook Pro M3|
+|Giá sản phẩm thứ hai|45000000|
 
 ## Các bước thực hiện
 
-0. Chạy chương trình backend, frontend web, frontend admin
-1. Truy cập vào trang web với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+0. Chạy chương trình backend, frontend mobile, frontend admin
+1. Truy cập vào trang mobile với đường dẫn [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
 2. Nhấn vào nút Đăng nhập
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
-4. Nhấn vào **Thêm vào giỏ** sản phẩm **Bàn phím cơ Keychron Q1**
+4. Nhấn vào **Thêm vào giỏ** sản phẩm **Bàn phím cơ Keychron Q1** và sản phẩm **MacBook Pro M3
 5. Nhấn vào **Giỏ hàng**
 6. Nhấn vào **Tiến hành thanh toán**
 7. Nhấn vào **Xác nhận thanh toán**
@@ -45,7 +49,7 @@ Valid data:
 
 ## Kết quả mong đợi
 
-Sau khi thực hiện 6, giao diện hiện ra tổng tiền thanh toán là *4000000* (bốn triệu đồng)
+Sau khi thực hiện 6, giao diện hiện ra tổng tiền thanh toán là *49000000* (bốn mươi chín triệu đồng)
 
 Sau khi thực hiện bước 7:
 
@@ -56,3 +60,5 @@ Sau khi thực hiện bước 9:
 - Giao diện không còn chứa các sản phẩm đã đặt trước đó.
 
 ## Trạng thái của testcase
+
+Pass

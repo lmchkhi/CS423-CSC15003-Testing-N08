@@ -1,8 +1,8 @@
-# Thực hiện thanh toán thành công với 0 sản phẩm trong giỏ hàng
+# Thực hiện thanh toán với 0 sản phẩm trong giỏ hàng
 
 ## ID
 
-TC-FR21 Checkout-003
+TC-FR27-Checkout-003
 
 ## Mô tả
 
@@ -13,7 +13,9 @@ Thực hiện thanh toán thất bại khi:
 
 ## Môi trường kiểm thử
 
-Windows 10, Google Chrome Version 149.0.7827.103
+Android 16
+
+Expo Go Client version 54.0.8
 
 ## Precodition
 
@@ -30,14 +32,16 @@ Valid data:
 
 ## Các bước thực hiện
 
-0. Chạy chương trình backend, frontend web, frontend admin
-1. Truy cập vào trang web với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+0. Chạy chương trình backend, frontend mobile, frontend admin
+1. Truy cập vào trang mobile với đường dẫn  [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
 2. Nhấn vào nút Đăng nhập
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
-4. Truy cập vào trang [http://localhost:5173/checkout](http://localhost:5173/checkout)
+4. Truy cập vào giỏ hàng
 
 ## Kết quả mong đợi
 
-Sau khi thực hiện bước 4, giao diện chuyển về trang giỏ hàng
+Sau khi thực hiện bước 4, giao diện hiện thông báo giỏ hàng trống, hiện nút **Trở về trang chủ** và không hiện nút **Tiến hành thanh toán**.
 
 ## Trạng thái của testcase
+
+Pass

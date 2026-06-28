@@ -2,7 +2,7 @@
 
 ## ID
 
-TC-FR21 Checkout-004
+TC-FR27-Checkout-004
 
 ## Mô tả
 
@@ -15,7 +15,9 @@ Và kiểm tra giao diện không cho phép người dùng chỉnh sửa lại t
 
 ## Môi trường kiểm thử
 
-Windows 10, Google Chrome Version 149.0.7827.103
+Android 16
+
+Expo Go Client version 54.0.8
 
 ## Precodition
 
@@ -34,8 +36,8 @@ Valid data:
 
 ## Các bước thực hiện
 
-0. Chạy chương trình backend, frontend web, frontend admin
-1. Truy cập vào trang web với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+0. Chạy chương trình backend, frontend mobile, frontend admin
+1. Truy cập vào trang mobile với đường dẫn [exp://192.168.1.2:8081](exp://192.168.1.2:8081)
 2. Nhấn vào nút Đăng nhập
 3. Đăng nhập với tên email: `test@eshop.com` và mật khẩu là `Test1234!`
 4. Nhấn vào **Thêm vào giỏ** sản phẩm **Bàn phím cơ Keychron Q1**
@@ -43,7 +45,7 @@ Valid data:
 6. Nhấn vào **Tiến hành thanh toán**
 7. Nhấn vào ô **Tổng tiền thanh toán** và đổi thành giá trị *1*
 8. Nhấn vào **Xác nhận thanh toán**
-9. Nhấn vào trang xem thông tin cá nhân [Chào Test User](http://localhost:5173/profile)
+9. Nhấn vào trang xem thông tin cá nhân Chào Test User
 
 ## Kết quả mong đợi
 
@@ -56,3 +58,5 @@ Sau khi thực hiện bước 8, giao diện thông báo là đã thực hiện 
 Sau khi thực hiện bước 9, giao diện hiện đơn hàng với giá *4000000* (bốn triệu đồng)
 
 ## Trạng thái của testcase
+
+Pass
