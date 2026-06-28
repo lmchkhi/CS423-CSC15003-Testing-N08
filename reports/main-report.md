@@ -1544,3 +1544,9 @@ FR-09 là FR điển hình nhất cho việc áp dụng BVA trong thực tế:
 - **Human review vẫn bắt buộc** để chuẩn bị dữ liệu test (tạo sản phẩm giả đạt giá trị biên) và loại bỏ trùng lặp giữa DT và BVA.
 
 ---
+
+## Demo sử dụng AI Agent cho FR-09
+
+Youtube demo: [Nội dung demo](https://youtu.be/z8VBOkv9DZ0)
+
+Drive demo: [Nội dung demo](https://drive.google.com/file/d/1_QK7JtG1i52mfrXZPxIjk8lnoDW6ir8y/view?usp=sharing)
