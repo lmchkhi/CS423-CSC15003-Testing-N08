@@ -6,6 +6,5 @@
 **/build
 **/database.sqlite
 **/logs/
-CLAUDE.md
 api_specification.md
 description_project.md
