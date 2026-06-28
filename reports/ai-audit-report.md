@@ -1008,7 +1008,7 @@ Trong file Gap Analysis, tôi đã phân tích chi tiết vấn đề **trùng l
 **Full prompt:**
 
 ```
-Dựa vào những triển khai đã được thực hiện theo CLAUDE.md, bạn hãy kiểm tra lại toàn bộ những gì đã thực thi trong cũng như từ git của branch hiện tại từ đó trình bày vào main report với section phù hợp với FR-08 được thực hiện test trên mobile.
+Dựa vào những triển khai đã được thực hiện theo CLAUDE.md, bạn hãy kiểm tra lại toàn bộ những gì đã thực thi trong cũng như từ git của branch hiện tại từ đó trình bày vào main report với section phù hợp với FR-08.
 Tại section đó thể hiện các nội dung:
  - Domain Testing. With the support of AI tools, apply the domain testing technique to design a comprehensive set of test cases. You are encouraged to add more test cases where needed for thorough coverage. Provide a detailed, step-by-step explanation of how you applied the technique. Review the course lectures before you begin.
 - Boundary Value Analysis. Likewise, apply the boundary value analysis technique to design a comprehensive set of test cases, adding more as needed for thorough coverage. Provide a detailed, step-by-step explanation of how you applied the technique. Again, review the course lectures beforehand.
