@@ -1,0 +1,42 @@
+# BUG-FR09-DISCOUNT-003: Mã giảm giá không được áp dụng đúng cho giỏ hàng một sản phẩm
+
+## Found by Test Case
+
+TC-FR09-DISCOUNT-003
+
+## Requirement liên quan
+
+FR-09 Discount coupons
+
+## Severity / Priority
+
+## Environment
+
+Windows 10, Google Chrome Version 149.0.7827.103
+
+## Steps to reproduce
+
+1. Chạy chương trình backend, frontend web, frontend admin
+2. Truy cập vào trang web với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+3. Nhấn vào mục đăng nhập
+4. Đăng nhập với tên email: [test@eshop.com](mailto:test@eshop.com) và mật khẩu là Test1234!
+5. Thêm vào giỏ hàng sản phẩm Bàn phím cơ Keychron Q1
+6. Nhấn vào mục: Giỏ hàng
+7. Nhấn vào mục: Tiến hành thanh toán
+8. Nhập vào ô nhập cho Mã giảm giá mã: SAVE10
+9. Nhấn vào Áp dụng
+10. Nhấn vào Xác nhận thanh toán
+
+## Expected result
+
+Sau bước 8, giao diện hiện đơn hàng còn 3600000
+
+Sau bước 9, hệ thống xác nhận và hiện trên trang admin đơn hàng giá trị 3600000
+
+## Actual result
+
+## Evidence
+
+![Ảnh thực hiện áp mã giảm giá](tests/test-runs/FR09/assets/image-5.png)
+
+![Ảnh giao diện của admin](tests/test-runs/FR09/assets/image-6.png)

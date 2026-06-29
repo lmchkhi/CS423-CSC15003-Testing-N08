@@ -1,0 +1,53 @@
+# BUG-FR15-PRODUCTEDIT-023: Hệ thống không cập nhật đúng ảnh đại diện sản phẩm
+
+## Found by Test Case
+TC-FR15-ProductEdit-023
+
+## Requirement liên quan
+FR-15 Product management (CRUD)
+
+## Severity / Priority
+
+
+## Environment
+Windows 10, Google Chrome Version 149.0.7827.103
+
+## Steps to reproduce
+1. Chạy chương trình backend, frontend web, frontend admin
+2. Truy cập vào trang web admin với đường dẫn [http://localhost:5174/](http://localhost:5174/)
+3. Đăng nhập với tên email: admin@eshop.com và mật khẩu là Admin123!
+4. Nhấn vào mục: Sản phẩm
+5. Nhấn vào nút Sửa của sản phẩm iPhone 15 Pro Max
+6. Điền vào mục URL ảnh giá trị [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
+7. Nhấn vào nút lưu sản phẩm.
+8. Truy cập vào trang web người dùng với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+9. Nhấn vào Xem chi tiết của sản phẩm `Vỏ iPhone 15 Pro Max`
+
+## Expected result
+Sau khi thực hiện bước 6:
+
+- Hệ thống ghi nhận thay đổi của sản phẩm
+- Giao diện của admin thể hiện ra thay đổi của chỉ sản phẩm đã chọn để thay đổi
+
+Sau khi thực hiện bước 7:
+
+- Giao diện còn hiện sản phẩm **iPhone 15 Pro Max** với ảnh đại diện mới là ảnh với URL: [https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro](https://placehold.co/300x300/png?text=Vo+iPhone+15+Pro)
+
+Sau khi thực hiện bước 8:
+
+- Giao diện người dùng thể hiện đầy đủ thông tin tên sản phẩm, mô tả, giá sản phẩm, hình ảnh đại diện như đã thay đổi.
+
+## Actual result
+
+## Evidence
+Ảnh trước khi chỉnh sửa sản phẩm:
+![Ảnh trước khi chỉnh sửa](tests/test-runs/FR15/assets/image-73.png)
+
+Ảnh sau khi chỉnh sửa sản phẩm:
+![Ảnh sau khi chỉnh sửa](tests/test-runs/FR15/assets/image-74.png)
+
+Ảnh giao diện người dùng sau khi chỉnh sửa sản phẩm:
+![Ảnh giao diện người dùng sau khi chỉnh sửa](tests/test-runs/FR15/assets/image-75.png)
+
+Ảnh chi tiết sản phẩm sau khi chỉnh sửa:
+![Ảnh chi tiết sản phẩm](tests/test-runs/FR15/assets/image-76.png)

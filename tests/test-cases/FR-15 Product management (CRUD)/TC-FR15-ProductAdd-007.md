@@ -66,3 +66,5 @@ Sau khi thực hiện bước 9:
 - Giao diện của người dùng không thể hiện sản phẩm mới tạo
 
 ## Trạng thái của testcase
+
+Pass

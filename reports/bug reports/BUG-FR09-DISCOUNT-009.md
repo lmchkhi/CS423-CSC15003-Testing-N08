@@ -1,0 +1,52 @@
+# BUG-FR09-DISCOUNT-009: Mã BIGBUY không được áp dụng đúng tại giá trị tối thiểu
+
+## Found by Test Case
+
+TC-FR09-DISCOUNT-009
+
+## Requirement liên quan
+
+FR-09 Discount coupons
+
+## Severity / Priority
+
+## Environment
+
+Windows 10, Google Chrome Version 149.0.7827.103
+
+## Steps to reproduce
+
+1. Chạy chương trình backend, frontend web, frontend admin
+2. Truy cập vào trang web với đường dẫn [http://localhost:5173/](http://localhost:5173/)
+3. Nhấn vào mục đăng nhập
+4. Đăng nhập với tên email: [test@eshop.com](mailto:test@eshop.com) và mật khẩu là Test1234!
+5. Thêm vào giỏ hàng sản phẩm Quạt để bàn USB Apple
+6. Nhấn vào mục xem giỏ hàng
+7. Nhấn vào Tiến hành thanh toán
+8. Nhập vào mục Mã giảm giá và nhập mã: BIGBUY
+9. Nhấn vào Áp dụng
+10. Nhấn vào Xác nhận thanh toán
+
+## Expected result
+
+Khi thực hiện xong bước 7 thì giao diện hiện tổng mới là 450000
+
+Khi thực hiện xong bước 8 thì trên hệ thống hiện đơn hàng với cùng giá.
+
+## Actual result
+
+## Evidence
+
+## Precodition setup
+
+![Tạo sản phẩm quạt để bàn](tests/test-runs/FR09/assets/image-14.png)
+
+## Kết quả
+
+Ảnh áp dụng mã giảm giá trên giao diện web:
+
+![Ảnh thực hiện](tests/test-runs/FR09/assets/image-15.png)
+
+Ảnh trên giao diện admin:
+
+![Ảnh trên giao diện admin](tests/test-runs/FR09/assets/image-16.png)
