@@ -143,3 +143,30 @@ Codex đổi các heading thời gian trong prompt_log.md từ UTC sang +07, c�
 
 - Cần dùng mã FR mobile mới khi chọn hoặc báo cáo mobile features.
 - FR-23 vẫn là feature được chọn cho bài hiện tại, nên skill Domain Testing/BVA hiện tại chưa cần đổi feature selected.
+
+## 2026-06-26 23:42 +07 - Thiết kế test case và test run cho FR-03
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Domain Testing / BVA / Test Run |
+| Goal | Dựa trên các skill trong `.codex/skills`, thiết kế test case cho FR-03 Quên mật khẩu & Đặt lại mật khẩu, tạo test run ở trạng thái chưa thực thi và cập nhật phần giải thích trong main report |
+| Files changed | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-001.md` đến `TC-FR03-DT-012.md`, `tests/test-cases/FR-03-forgot-password/bva/TC-FR03-BVA-001.md` đến `TC-FR03-BVA-006.md`, `tests/test-runs/FR-03-forgot-password-run.md`, `reports/main-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+dựa vào các skill trong CS423-CSC15003-Testing-N08/.codex/skills, hãy viết các test case và điền những thông tin test run cho FR-03 giúp tôi. Lưu ý chưa điền kết quả, sau khi có test case tôi sẽ test rồi thông báo lại kết quả sau. nhớ xem skill prompt log và viết prompt_log.md nữa
+```
+
+### AI output
+
+```text
+Codex đọc các skill Domain Testing, Boundary Value Analysis và Prompt Log, sau đó đọc requirement.md, SystemRequirementsSpecification.md, api_specification.md và template test run hiện có. Codex tạo 12 Domain Testing test cases cho các miền email, điều hướng, trạng thái luồng, OTP, mật khẩu mới và xác nhận mật khẩu; tạo 6 BVA test cases cho biên độ dài OTP 5/6/7 chữ số và mật khẩu mới 7/8/9 ký tự. Codex tạo test run FR-03 với toàn bộ Result = Not Run, cập nhật main-report.md phần FR-03 và ghi entry prompt log này.
+```
+
+### Human review
+
+- Cần người làm chạy SUT thật rồi điền Result, Related Bug và Note trong `tests/test-runs/FR-03-forgot-password-run.md`.
+- Nếu kết quả thực tế khác expected result, cần tạo bug report/GitHub Issue và cập nhật lại Execution Summary.
