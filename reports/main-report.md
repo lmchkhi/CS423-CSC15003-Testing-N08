@@ -554,8 +554,44 @@ Giá trị đại diện cho biến Notification:
 
 - Test case 15: Không chỉnh sửa bất kỳ biến nào và kiểm tra xem hệ thống có từ chối chỉnh sửa sản phẩm hay không.
 
-- 
 
 ### BVA testing
 
-Các 
+Các biến số có giá trị là số nguyên:
+
+- Độ dài tên sản phẩm
+- Giá sản phẩm
+
+#### Các test case BVA cho biến Độ dài tên sản phẩm
+
+- Test case 1: Sử dụng giá trị bằng 256 cho biến Độ dài tên sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+- Test case 2: Sử dụng giá trị bằng 255 cho biến Độ dài tên sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+- Test case 3: Sử dụng giá trị bằng 256 cho biến Độ dài tên sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+- Test case 4: Sử dụng giá trị bằng 255 cho biến Độ dài tên sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+#### Các test case BVA cho biến Giá sản phẩm
+
+- Test case 1: Sử dụng giá trị bằng 0 cho biến Giá sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+- Test case 2: Sử dụng giá trị bằng 1 cho biến Giá sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+- Test case 3: Sử dụng giá trị bằng -1 cho biến Giá sản phẩm và kiểm tra xem hệ thống có từ chối thêm sản phẩm hay không
+
+- Test case 4: Sử dụng giá trị bằng 0 cho biến Giá sản phẩm và kiểm tra xem hệ thống có từ chối chỉnh sửa sản phẩm hay không
+
+- Test case 5: Sử dụng giá trị bằng 1 cho biến Giá sản phẩm và kiểm tra xem hệ thống có từ chối chỉnh sửa sản phẩm hay không
+
+- Test case 6: Sử dụng giá trị bằng -1 cho biến Giá sản phẩm và kiểm tra xem hệ thống có từ chối chỉnh sửa sản phẩm hay không
+
+## FR-27 Checkout mobile
+
+### Domain testing
+
+#### Bước 1 Xác định input/output
+
+Các input/output bao gồm:
+|Name|Type|IO|
+|----|----|--|
