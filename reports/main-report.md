@@ -595,3 +595,50 @@ Các biến số có giá trị là số nguyên:
 Các input/output bao gồm:
 |Name|Type|IO|
 |----|----|--|
+|Sản phẩm trong giỏ hàng|List|I|
+|Người dùng đã đăng nhập|Boolean|I|
+
+#### Bước 2 Xác định miền giá trị của các biến
+
+Miền giá trị cho biến Sản phẩm trong giỏ hàng:
+
+**Miền hợp lệ**:
+
+- Danh sách sản phẩm có ít nhất 1 sản phẩm
+
+**Miền không hợp lệ**:
+
+- Danh sách sản phẩm rỗng
+
+Miền giá trị cho biến Người dùng đã đăng nhập: true (đã đăng nhập), false (chưa đăng nhập)
+
+#### Bước 3 Xác định giá trị đại diện cho mỗi miền
+
+Giá trị đại diện cho biến Sản phẩm trong giỏ hàng:
+
+**Miền hợp lệ**:
+
+- Danh sách sản phẩm có 1 sản phẩm (Bàn Bàn phím cơ Keychron Q1) hoặc 2 sản phẩm (Bàn phím cơ Keychron Q1 và MacBook Pro M3)
+
+**Miền không hợp lệ**:
+
+- Danh sách sản phẩm rỗng
+
+Giá trị đại diện cho biến Người dùng đã đăng nhập:
+
+- true (đã đăng nhập)
+- false (chưa đăng nhập)
+
+#### Bước 4 Xác định các test case
+
+- Test case 1: Sử dụng giá trị hợp lệ cho tất cả các biến và kiểm tra xem hệ thống có thực hiện thanh toán thành công hay không.
+
+- Test case 2: Sử dụng giá trị không hợp lệ (danh sách sản phẩm rỗng) cho biến Sản phẩm trong giỏ hàng và kiểm tra xem hệ thống có từ chối thực hiện thanh toán hay không.
+
+- Test case 3: Sử dụng giá trị không hợp lệ (người dùng chưa đăng nhập) cho biến Người dùng đã đăng nhập và kiểm tra xem hệ thống có từ chối thực hiện thanh toán hay không.
+
+- Test case 4: Sử dụng giá trị hợp lệ cho tất cả các biến và kiểm tra xem hệ thống có thực hiện thanh toán thành công với nhiều sản phẩm trong giỏ hàng hay không.
+
+- Test case 5: Sử dụng giá trị hợp lệ cho tất cả các biến và kiểm tra xem hệ thống có thực hiện thanh toán thành công với 2 sản phẩm trong giỏ hàng hay không.
+
+- Test case 6: Huỷ thanh toán và thực hiện thanh toán lại với giá trị hợp lệ cho tất cả các biến và kiểm tra xem hệ thống có thực hiện thanh toán thành công hay không.
