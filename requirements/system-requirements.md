@@ -241,15 +241,17 @@ Tại bước Checkout, người dùng có thể nhập mã giảm giá. Hệ th
 - Giao diện mobile hiển thị thông báo lỗi trực quan nếu dữ liệu nhập vào không hợp lệ.
 - Sau khi đăng ký thành công, người dùng được chuyển tới màn hình Đăng nhập.
 
-### FR-26: Quản lý hồ sơ cá nhân trên Mobile
+### FR-26: Quản lý Sản phẩm trên Mobile
 
-Ứng dụng Mobile phải hỗ trợ Quản lý hồ sơ cá nhân tương đương FR-04.
+Ứng dụng Mobile phải hỗ trợ Quản lý Sản phẩm tương đương FR-15.
 
-- Người dùng đã đăng nhập có thể cập nhật: **Họ Tên**, **Số điện thoại**, **Địa chỉ giao hàng mặc định**.
-- **Số điện thoại hợp lệ**: bắt đầu bằng số `0`, từ 10–11 chữ số.
-- Email không được phép thay đổi qua giao diện mobile (được hiển thị dưới dạng read-only).
-- Người dùng chỉ có thể cập nhật hồ sơ của chính mình; không thể tự thay đổi thuộc tính `role`.
-- Giao diện mobile hiển thị rõ ràng thông báo thành công khi cập nhật hồ sơ, hoặc lỗi khi nhập số điện thoại không hợp lệ.
+- Admin có thể Thêm / Xem / Sửa / Xóa sản phẩm trên ứng dụng di động.
+- **Ràng buộc đầu vào:**
+  - Tên sản phẩm: bắt buộc, tối đa 255 ký tự.
+  - Giá: bắt buộc, phải là số **dương** (> 0).
+  - Danh mục: bắt buộc, phải chọn từ danh sách có sẵn.
+- Khi Sửa một sản phẩm, chỉ sản phẩm đó bị thay đổi — các sản phẩm khác giữ nguyên.
+- Giao diện mobile hiển thị rõ ràng thông báo thành công hoặc lỗi khi nhập dữ liệu không hợp lệ.
 
 ### FR-27: Thanh toán trên Mobile
 
