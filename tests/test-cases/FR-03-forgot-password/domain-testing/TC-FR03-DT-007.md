@@ -27,14 +27,14 @@ Forgot Password / Functional / Domain Testing
 | Xác nhận mật khẩu mới | NewPass123! |
 
 ## Test steps
-1. Truy cập trực tiếp bước đặt lại mật khẩu nếu UI/API cho phép, hoặc gọi `POST /api/reset-password` mà không thực hiện `POST /api/forgot-password` trước.
+1. Gọi `POST /api/reset-password` mà không thực hiện `POST /api/forgot-password` trước.
 2. Nhập/gửi Email: `test@eshop.com`.
 3. Nhập/gửi OTP: `123456`.
 4. Nhập/gửi Mật khẩu mới và Xác nhận mật khẩu mới hợp lệ.
-5. Bấm nút đặt lại mật khẩu hoặc gửi request.
+5. Gửi request.
 
 ## Expected result
 Hệ thống từ chối đặt lại mật khẩu vì không có OTP hợp lệ được sinh cho email trong luồng hiện tại.
 
 ## Status / Related bugs
-Not Run / None
+Passed / BUG-FR03-004 (observation)

@@ -36,4 +36,4 @@ Forgot Password / Functional / Boundary Value Analysis (BVA)
 Hệ thống chấp nhận mật khẩu mới đúng 8 ký tự, đủ chữ hoa/chữ thường/chữ số/ký tự đặc biệt và đặt lại mật khẩu thành công.
 
 ## Status / Related bugs
-Not Run / None
+Failed / BUG-FR03-001, BUG-FR03-004, BUG-FR03-005

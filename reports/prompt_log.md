@@ -170,3 +170,31 @@ Codex đọc các skill Domain Testing, Boundary Value Analysis và Prompt Log, 
 
 - Cần người làm chạy SUT thật rồi điền Result, Related Bug và Note trong `tests/test-runs/FR-03-forgot-password-run.md`.
 - Nếu kết quả thực tế khác expected result, cần tạo bug report/GitHub Issue và cập nhật lại Execution Summary.
+
+## 2026-06-30 15:23 +07 - Cập nhật kết quả test run và bug report cho FR-03
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Domain Testing / BVA / Bug Reporting / Report Writing |
+| Goal | Rà soát kết quả tester đã note trong test run FR-03, gọi API để kiểm tra các case khả nghi, cập nhật kết quả trong từng test case, tạo bug report và cập nhật các file summary liên quan |
+| Files changed | `tests/test-runs/FR-03-forgot-password-run.md`, các test case FR-03 trong `tests/test-cases/FR-03-forgot-password/`, `bug-reports/BUG-FR03-001.md` đến `BUG-FR03-005.md`, `ai-gap-analysis/FR-03-forgot-password.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi đã test các test case DT và BVA và có note kết quả ở tests/test-runs/FR-03-forgot-password-run.md. hãy xem qua sau đó chỉnh sửa, format lại nếu cần và chỉnh sửa các kết quả trong từng file test case, viết các file bug report và các file liên quan giúp tôi luôn. Lưu ý những test case nào khả nghi có thể tự gọi api để kiểm tra lại giúp tôi (tôi có chạy sẵn backend và frontend-web rồi).
+```
+
+### AI output
+
+```text
+Codex đọc test run FR-03, bug report mẫu và prompt-log skill. Codex gọi API localhost để kiểm tra lại các điểm khả nghi: forgot-password trả resetToken 4 chữ số; email sai định dạng trả 404 User not found; reset-password với OTP sai trả lỗi token/email; reset-password với mật khẩu mạnh hợp lệ thành công qua backend; OTP của email khác bị từ chối đúng. Codex khôi phục mật khẩu mặc định của test@eshop.com sau khi kiểm tra API. Sau đó Codex chuẩn hóa test run thành 7 Passed, 11 Failed, 0 Not Run; cập nhật Status / Related bugs trong từng test case; tạo 5 bug reports FR-03; tạo AI gap analysis; cập nhật main report và README.
+```
+
+### Human review
+
+- Cần người làm kiểm tra lại nội dung bug report và bổ sung link GitHub Issue/screenshot nếu có.
+- API verification cho thấy lỗi mật khẩu mạnh nằm ở frontend validation, không phải backend reset API.
+- Một số test Passed vẫn có Related Bug dạng observation vì trong lúc chạy case chính có phát hiện lỗi giao diện phụ như thiếu confirm password hoặc OTP 4 chữ số.

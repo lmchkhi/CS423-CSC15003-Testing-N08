@@ -38,4 +38,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống từ chối đặt lại mật khẩu và hiển thị lỗi OTP sai; mật khẩu hiện tại không bị thay đổi.
 
 ## Status / Related bugs
-Not Run / None
+Failed / BUG-FR03-004, BUG-FR03-005

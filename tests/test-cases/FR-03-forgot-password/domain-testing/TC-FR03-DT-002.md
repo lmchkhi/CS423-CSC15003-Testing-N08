@@ -32,4 +32,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống điều hướng người dùng về trang Đăng nhập, không tạo OTP và không hiển thị lỗi.
 
 ## Status / Related bugs
-Failed / None
+Failed / BUG-FR03-002

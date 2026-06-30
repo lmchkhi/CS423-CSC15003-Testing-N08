@@ -36,4 +36,4 @@ Forgot Password / Functional / Boundary Value Analysis (BVA)
 Hệ thống từ chối mật khẩu 7 ký tự vì nhỏ hơn độ dài tối thiểu 8 ký tự; mật khẩu không bị thay đổi.
 
 ## Status / Related bugs
-Not Run / None
+Passed / BUG-FR03-001, BUG-FR03-004 (observation)

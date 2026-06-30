@@ -36,4 +36,4 @@ Forgot Password / Functional / Boundary Value Analysis (BVA)
 Hệ thống chấp nhận OTP đúng 6 chữ số thuộc email đã yêu cầu và đặt lại mật khẩu thành công.
 
 ## Status / Related bugs
-Not Run / None
+Failed / BUG-FR03-001, BUG-FR03-004, BUG-FR03-005

@@ -38,4 +38,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống từ chối đặt lại mật khẩu và hiển thị lỗi yêu cầu nhập mật khẩu mới.
 
 ## Status / Related bugs
-Not Run / None
+Passed / BUG-FR03-001, BUG-FR03-004 (observation)

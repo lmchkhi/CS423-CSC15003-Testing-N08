@@ -164,8 +164,8 @@ Nguồn đặc tả black-box:
 
 | Feature | Technique | Designed | Executed | Passed | Failed | Not Run | Related bugs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| FR-03 | Domain Testing | 12 | 0 | 0 | 0 | 12 | None |
-| FR-03 | BVA | 6 | 0 | 0 | 0 | 6 | None |
+| FR-03 | Domain Testing | 12 | 12 | 6 | 6 | 0 | BUG-FR03-001, BUG-FR03-002, BUG-FR03-003, BUG-FR03-004, BUG-FR03-005 |
+| FR-03 | BVA | 6 | 6 | 1 | 5 | 0 | BUG-FR03-001, BUG-FR03-004, BUG-FR03-005 |
 | FR-11 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
 | FR-11 | BVA | TBD | TBD | TBD | TBD | TBD | TBD |
 | FR-14 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
@@ -177,4 +177,4 @@ Nguồn đặc tả black-box:
 
 | Feature | Technique | Missed test cases / bugs | Reason | Correction |
 | --- | --- | --- | --- | --- |
-| TBD | TBD | TBD | TBD | TBD |
+| FR-03 | Domain Testing / BVA | AI ban đầu chưa tách rõ lỗi frontend và backend cho reset password; TC-FR03-DT-009 cũng phụ thuộc chuẩn bị tài khoản thứ hai qua UI nên bị cản bởi lỗi frontend. | Prompt/test design ban đầu tập trung vào expected result theo SRS, chưa dự phòng bước API verification khi UI bị chặn. | Gọi API trực tiếp để xác nhận backend sinh OTP 4 chữ số, email sai định dạng trả `User not found`, mật khẩu mạnh được backend chấp nhận, OTP của email khác bị từ chối đúng; cập nhật test run, bug reports và `ai-gap-analysis/FR-03-forgot-password.md`. |

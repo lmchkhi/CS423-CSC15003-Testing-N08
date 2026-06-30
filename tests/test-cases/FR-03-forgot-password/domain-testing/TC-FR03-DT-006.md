@@ -40,4 +40,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống đặt lại mật khẩu thành công và cho phép người dùng quay lại/được điều hướng về trang Đăng nhập.
 
 ## Status / Related bugs
-Failed / None
+Failed / BUG-FR03-005

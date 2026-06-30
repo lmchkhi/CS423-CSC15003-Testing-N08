@@ -40,4 +40,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống từ chối đặt lại mật khẩu vì OTP không thuộc email `test@eshop.com`; mật khẩu của cả hai tài khoản không bị thay đổi.
 
 ## Status / Related bugs
-Not Run / None
+Passed / BUG-FR03-005 (UI setup observation)

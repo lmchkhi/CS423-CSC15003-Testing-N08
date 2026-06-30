@@ -36,4 +36,4 @@ Forgot Password / Functional / Boundary Value Analysis (BVA)
 Hệ thống từ chối OTP 7 chữ số và hiển thị lỗi OTP không hợp lệ; mật khẩu không bị thay đổi.
 
 ## Status / Related bugs
-Not Run / None
+Failed / BUG-FR03-001, BUG-FR03-004, BUG-FR03-005

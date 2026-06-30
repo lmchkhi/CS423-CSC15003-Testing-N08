@@ -34,4 +34,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống chấp nhận email đã đăng ký, sinh OTP 6 chữ số và hiển thị trực tiếp trên màn hình demo; giao diện chuyển sang bước đặt lại mật khẩu hoặc cho phép tiếp tục bước 2.
 
 ## Status / Related bugs
-Passed / None
+Failed / BUG-FR03-001

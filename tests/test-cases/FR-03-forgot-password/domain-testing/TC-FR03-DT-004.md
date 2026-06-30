@@ -31,4 +31,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống từ chối yêu cầu, không sinh OTP và hiển thị lỗi email không hợp lệ.
 
 ## Status / Related bugs
-Failed / None
+Failed / BUG-FR03-003

@@ -37,4 +37,4 @@ Forgot Password / Functional / Domain Testing
 Hệ thống từ chối đặt lại mật khẩu và hiển thị lỗi mật khẩu mới không đủ mạnh.
 
 ## Status / Related bugs
-Not Run / None
+Passed / BUG-FR03-004 (observation)
