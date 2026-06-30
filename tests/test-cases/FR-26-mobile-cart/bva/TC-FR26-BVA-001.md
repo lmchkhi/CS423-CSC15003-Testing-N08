@@ -48,4 +48,4 @@ Giỏ hàng trên Mobile / Functional / Boundary Value Analysis (BVA)
 Dòng sản phẩm `iPhone 15 Pro Max` được hiển thị với số lượng 1. Thành tiền của dòng là 30000000. Sản phẩm không bị xóa tự động và không hiển thị số lượng nhỏ hơn 1.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None

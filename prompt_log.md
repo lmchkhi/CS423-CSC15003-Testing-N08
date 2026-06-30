@@ -251,3 +251,312 @@ Kiểm tra cuối đã sạch: không có chi tiết kỹ thuật bị giới h�
 
 ### Notes
 Log này ghi conversation context khả dụng cho prompt hiện tại. Một phần nội dung SKILL.md và tool output rất dài nên không được chép đầy đủ trong entry này; các phần không chép đầy đủ được đánh dấu trực tiếp trong transcript. Không có credential nào cần redact.
+
+## Prompt Log Entry - 2026-07-01 01:17:33 +07
+
+### Transcript
+
+````text
+User:
+<environment_context>
+  <cwd>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</cwd>
+  <shell>zsh</shell>
+  <current_date>2026-07-01</current_date>
+  <timezone>Asia/Ho_Chi_Minh</timezone>
+  <filesystem><workspace_roots><root>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</root></workspace_roots><permission_profile type="managed"><file_system type="restricted"><entry access="read"><special>:root</special></entry><entry access="write"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</path></entry><entry access="write"><special>:slash_tmp</special></entry><entry access="write"><special>:tmpdir</special></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.git</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.codex</path></entry></file_system></permission_profile></filesystem>
+</environment_context>
+
+User:
+# Context from my IDE setup:
+
+## Active file: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-005.md
+
+## Open tabs:
+- TC-FR26-BVA-005.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-005.md
+- TC-FR26-BVA-004.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-004.md
+- TC-FR26-BVA-003.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-003.md
+- TC-FR26-BVA-002.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-002.md
+- TC-FR26-BVA-001.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-001.md
+
+## My request for Codex:
+$test-execution
+$prompt-log
+
+Ghi nhận kết quả tôi đã tự thực thi cho FR-02:
+
+BVA:
+- 1: giôngs expected
+- 2: ko có dialog, sau khi nhấn xoá thì sản phẩm biến mất
+- 3: ko có nút cộng
+- 4: giôngs expected
+- 5: giôngs expected
+DT:
+- 001: giống Expected result
+- 002: hiện là "Giá"
+- 3: không có nút + -, chỉnh bằng cách dùng bàn phím
+- 4: không có nút tăng, tổng tiền hiển thị "Tổng tạm tính"
+- 5: ko có nút giảm,  tổng tiền hiển thị "Tổng tạm tính"
+- 6: giôngs expected
+- 7: ko có dialog
+- 8: ko có dialog
+- 9: ko có dialog
+- 10: nút hiển thị :"Mua tiếp",  Dữ liệu giỏ hàng không bị xóa hoặc thay đổi
+- 11: màn hình hiển thị "Tổng tạm tính"
+- 12: giôngs expected
+- 13: giôngs expected
+- 14: giôngs expected
+
+Đối chiếu từng test case, xác định Pass/Fail/Blocked và cập nhật test run theo template và cấu trúc hiện có.
+
+Sau khi hoàn tất, append log.
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+# Prompt Log Skill
+
+## 1. Mục đích
+
+Ghi lại nguyên văn toàn bộ đoạn chat hoặc phần hội thoại khả dụng vào `prompt_log.md` sau khi một prompt/task đã hoàn thành. Skill này dùng để lưu evidence về cách đã dùng AI trong bài tập, nên độ trung thực của transcript quan trọng hơn độ gọn đẹp.
+
+## 2. Nguyên tắc bắt buộc
+
+1. Ghi log sau khi đã hoàn thành việc chính của prompt.
+2. Không thay thế nội dung cũ trong `prompt_log.md`; luôn append thêm entry mới.
+3. Nếu không truy cập được toàn bộ lịch sử hội thoại, ghi rõ phạm vi log là `conversation context khả dụng`.
+4. Copy nguyên văn câu chữ, thứ tự, lỗi chính tả, cách viết tắt, dấu câu và ngôn ngữ của từng message trong context.
+5. Không tóm tắt, không diễn giải, không sửa văn phong, không dịch, không chuẩn hóa câu chữ.
+6. Không bịa lại nội dung chat không có trong context.
+7. Chỉ được thay đổi nội dung khi cần che bí mật như token, password, key hoặc credential; thay đúng phần bí mật bằng `[REDACTED]`.
+8. Nếu có tool output quá dài không còn đầy đủ trong context, ghi nguyên văn phần còn thấy được và ghi chú rõ phần bị thiếu.
+
+## 3. File output
+
+Ghi tại root project:
+
+`prompt_log.md`
+
+Nếu file chưa tồn tại, tạo file mới.
+
+## 4. Format entry
+
+Mỗi lần ghi log, thêm một entry:
+
+```md
+## Prompt Log Entry - <YYYY-MM-DD HH:mm:ss TZ>
+
+### Transcript
+
+```text
+User:
+<copy nguyên văn user message>
+
+Assistant:
+<copy nguyên văn assistant message>
+
+Tool:
+<copy nguyên văn tool call/output khả dụng nếu cần lưu evidence>
+```
+
+### Notes
+<Chỉ ghi metadata hoặc giới hạn context, ví dụ: "Một phần hội thoại trước đó không còn trong context". Không tóm tắt nội dung chat tại đây trừ khi người dùng yêu cầu riêng.>
+```
+
+## 5. Khi người dùng yêu cầu "toàn bộ đoạn chat"
+
+1. Ghi transcript đầy đủ nhất có trong context hiện tại.
+2. Phân vai rõ `User`, `Assistant`, `Tool`, hoặc `System note` nếu cần.
+3. Nếu context đã bị compact hoặc thiếu đoạn cũ, ghi chú: `Một phần hội thoại trước đó không còn trong context, chỉ log phần khả dụng`.
+4. Không tự tạo lại nguyên văn những đoạn không còn nhìn thấy.
+5. Không thay một đoạn chat bằng summary. Nếu đoạn nào không thể copy nguyên văn, bỏ đoạn đó và ghi rõ lý do trong `Notes`.
+
+## 6. Khi dùng cùng skill khác
+
+Nếu prompt chính dùng `$qa-workflow`, `$domain-testing`, `$boundary-value-analysis`, `$test-case-review`, `$test-execution`, hoặc `$bug-report`, hoàn thành skill chính trước. Sau đó mới dùng `$prompt-log` để append entry vào `prompt_log.md`.
+
+</skill>
+
+User:
+<skill>
+<name>test-execution</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-execution/SKILL.md</path>
+---
+name: test-execution
+description: Execute or document execution of approved manual QA test cases. Use when Codex is asked to run test cases, fill Actual Result, determine Pass/Fail/Blocked/Not Run, collect evidence, or update tests/test-runs. Must not guess results when the system cannot actually be accessed or exercised.
+---
+
+# Test Execution Skill
+
+## 1. Mục đích
+
+Ghi nhận kết quả execution cho các test case đã được approve. Skill này chỉ đánh giá Pass/Fail khi có Actual Result quan sát được từ hệ thống, browser, API response, log, screenshot, hoặc bằng chứng người dùng cung cấp.
+
+## 2. Quy tắc ngôn ngữ
+
+1. Toàn bộ nội dung output viết bằng tiếng Việt có dấu chuẩn.
+2. Giữ nguyên ID, field name, URL, route, test data, message thực tế và tên file evidence.
+3. Có thể giữ các thuật ngữ: Actual Result, Expected Result, Pass, Fail, Blocked, Not Run, Evidence, Environment.
+
+## 3. Nguyên tắc bắt buộc
+
+1. Không tự đoán kết quả.
+2. Nếu không truy cập được hệ thống hoặc không có evidence, ghi `Not Run` hoặc `Blocked`.
+3. Không sửa Expected Result trong lúc execution trừ khi người dùng yêu cầu review/sửa test case.
+4. Không tạo bug report nếu chưa có status `Fail`.
+5. Phân biệt:
+   - `Fail`: đã chạy và Actual Result khác Expected Result.
+   - `Pass`: đã chạy và Actual Result phù hợp Expected Result.
+   - `Blocked`: không thể chạy do môi trường, account, data, build, dependency, hoặc thiếu thông tin.
+   - `Not Run`: chưa thực hiện.
+6. Evidence phải truy vết được đến test case và thời điểm chạy.
+
+## 4. Đầu vào mong đợi
+
+- Test case file trong `tests/test-cases/`
+- Requirement và analysis liên quan
+- Môi trường test: browser, OS, build, base URL, account, database state nếu có
+- Evidence: screenshot, video, API response, console log, người dùng mô tả actual result
+- Đường dẫn file test run nếu đã có
+
+## 5. Quy trình execution
+
+### Bước 1: Xác định phạm vi
+
+Lập danh sách test case sẽ chạy:
+
+| Test Case ID | File | Technique | Trạng thái trước khi chạy |
+|---|---|---|---|
+
+Bỏ qua test case chưa sẵn sàng hoặc thiếu preconditions và ghi lý do.
+
+### Bước 2: Chuẩn bị môi trường
+
+Ghi rõ:
+
+- Tester
+- Ngày giờ chạy
+- Browser / OS / device
+- Base URL hoặc build
+- Account/data dùng để test
+- Cách reset hoặc chuẩn bị data nếu có
+
+Nếu thiếu môi trường, không chạy giả định; ghi `Blocked`.
+
+### Bước 3: Thực hiện test steps
+
+Với mỗi test case:
+
+1. Đọc Preconditions, Test data, Test steps, Expected Result.
+2. Thực hiện từng step đúng thứ tự.
+3. Ghi Actual Result bằng hành vi quan sát được.
+4. Gán status theo bảng:
+
+| Điều kiện | Status |
+|---|---|
+| Actual Result khớp Expected Result | Pass |
+| Actual Result khác Expected Result | Fail |
+| Không thể chạy vì blocker | Blocked |
+| Chưa chạy | Not Run |
+
+### Bước 4: Lưu evidence
+
+Nếu có file evidence, lưu hoặc tham chiếu theo quy ước:
+
+`bug-reports/screenshots/<TEST-CASE-ID>-<short-note>.<ext>`
+
+Hoặc ghi đường dẫn evidence người dùng đã cung cấp.
+
+### Bước 5: Cập nhật test run
+
+Tạo hoặc cập nhật:
+
+`tests/test-runs/<FEATURE-ID>-<feature-name>-run.md`
+
+Cấu trúc:
+
+```md
+# Test Run: <FR-ID> — <Tên chức năng>
+
+## Thông tin chung
+
+| Field | Value |
+|---|---|
+| **Requirement** | <FR-ID>: <Tên chức năng> |
+| **Ngày thực thi** | DD/MM/YYYY |
+| **Môi trường** | Browser: <browser> · OS: <os> · URL: <url> |
+| **Build / Commit** | `<commit_hash>` |
+
+---
+
+## Kết quả thực thi
+
+### Domain Testing
+
+| Test Case ID | Mô tả | Tester | Result | Related Bug | Note |
+|---|---|---|---|---|---|
+| <TC-ID> | <Mô tả test case> | | Not Run | | |
+
+### Boundary Value Analysis (BVA)
+
+| Test Case ID | Mô tả | Tester | Result | Related Bug | Note |
+|---|---|---|---|---|---|
+| <TC-ID> | <Mô tả test case> | | Not Run | | |
+
+---
+
+## Tổng kết
+
+| Trạng thái | Số lượng |
+|---|---:|
+| Passed | 0 |
+| Failed | 0 |
+| Blocked | 0 |
+| Not Run | <total_not_run> |
+| **Tổng** | **<total>** |
+
+> **Ghi chú:** Khi Result = **Failed** hoặc **Blocked** → phải có **Related Bug** (link đến GitHub Issue) hoặc lý do rõ ràng trong cột **Note**.
+```
+
+## 6. Cập nhật test case file
+
+Chỉ cập nhật mục `Status / Related bugs` trong test case nếu người dùng yêu cầu hoặc workflow yêu cầu đồng bộ. Không chèn log dài vào test case; để chi tiết trong test run.
+
+## 7. Khi gặp Fail
+
+1. Ghi Actual Result cụ thể.
+2. Ghi evidence.
+3. Đánh dấu Related Bug là `Pending` nếu chưa tạo bug.
+4. Đề xuất dùng `$bug-report` để tạo bug report từ test case fail.
+
+</skill>
+
+Assistant:
+Mình sẽ dùng `test-execution` trước để đối chiếu Actual với Expected trong từng file FR-02, rồi dùng `prompt-log` sau cùng để append transcript. Mình bắt đầu bằng cách đọc cấu trúc test case và test-run hiện có để cập nhật đúng format của repo.
+
+Assistant:
+Mình thấy repo hiện chỉ có bộ test case giỏ hàng dưới `FR-26-mobile-cart`, còn test-run `FR-02-login-run.md` là chức năng login. Mình sẽ kiểm tra requirement/test case để tránh ghi nhầm mã FR; nếu nội dung là mobile cart thì mình sẽ cập nhật theo đúng artifact hiện có thay vì ép vào file login.
+
+Assistant:
+Các skill đã đọc xong. Bây giờ mình sẽ đọc toàn bộ 19 test case giỏ hàng để lấy Expected Result và mô tả, rồi lập test-run với trạng thái Pass/Fail từ evidence bạn cung cấp; các dòng fail sẽ để `Related Bug = Pending` theo quy tắc của skill.
+
+Assistant:
+Mình đã có đủ Expected/Actual để phân loại: không có nút hoặc nhãn/dialog sai sẽ là `Fail`, các mục “giống expected” là `Pass`; không có mục nào cần `Blocked` vì bạn đã cung cấp actual result quan sát được. Mình sẽ tạo test-run mới cho `FR-26-mobile-cart` vì đó là ID thật trong test case/requirement, đồng thời ghi chú rằng input người dùng gọi là FR-02 để không mất dấu.
+
+Assistant:
+Mình sẽ ghi test run theo bảng gọn nhưng đủ truy vết: mỗi dòng có mô tả test case, tester là “Người dùng tự thực thi”, result, bug pending nếu fail, và note chứa Actual Result bạn đã cung cấp.
+
+Assistant:
+Test-run đã được tạo. Mình sẽ kiểm tra lại nhanh số lượng Pass/Fail và các `Pending` để chắc bảng tổng kết khớp với từng dòng, rồi mới append prompt log.
+
+Assistant:
+Bảng kiểm tra khớp: 19 test case, 8 Pass và 11 Fail, không có Blocked/Not Run. Mình đang append `prompt_log.md` theo đúng thứ tự sau khi hoàn tất phần test execution.
+````
+
+### Notes
+Log này ghi conversation context khả dụng cho prompt hiện tại. Tool calls và tool outputs rất dài nên không được chép đầy đủ trong entry này; artifact chính đã được tạo tại `tests/test-runs/FR-26-mobile-cart-run.md`. Không có credential nào cần redact.

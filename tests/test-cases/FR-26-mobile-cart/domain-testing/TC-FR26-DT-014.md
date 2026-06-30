@@ -49,4 +49,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Giỏ hàng hiển thị 2 dòng riêng biệt: một dòng cho iPhone 15 Pro Max và một dòng cho Samsung Galaxy S24 Ultra. Mỗi dòng có đủ thông tin Sản phẩm, Đơn giá, Số lượng, Thành tiền và Thao tác. Tổng cộng phản ánh tổng thành tiền của hai dòng là 58000000.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None

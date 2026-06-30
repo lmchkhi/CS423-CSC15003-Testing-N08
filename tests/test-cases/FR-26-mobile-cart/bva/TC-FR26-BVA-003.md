@@ -49,4 +49,4 @@ Giỏ hàng trên Mobile / Functional / Boundary Value Analysis (BVA)
 Số lượng của `iPhone 15 Pro Max` tăng từ 1 lên 2. Thành tiền của dòng sản phẩm là 60000000. Khu vực Tổng cộng cập nhật tương ứng với số lượng mới.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

@@ -45,4 +45,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Màn Giỏ hàng hiển thị dòng iPhone 15 Pro Max với đủ thông tin Sản phẩm, Đơn giá, Số lượng, Thành tiền và Thao tác. Không thiếu thông tin bắt buộc của dòng sản phẩm.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None

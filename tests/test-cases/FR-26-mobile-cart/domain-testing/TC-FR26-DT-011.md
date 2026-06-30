@@ -45,4 +45,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Khu vực tổng tiền hiển thị nhãn chính xác "Tổng cộng" với giá trị tổng tiền 30000000. Màn hình không hiển thị nhãn "Tổng tạm tính" cho tổng tiền giỏ hàng.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

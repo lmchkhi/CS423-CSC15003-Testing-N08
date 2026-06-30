@@ -43,4 +43,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Khu vực giá của sản phẩm hiển thị nhãn đúng là "Đơn giá". Màn hình không dùng nhãn gây sai nghĩa như "Giá" thay cho yêu cầu "Đơn giá".
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

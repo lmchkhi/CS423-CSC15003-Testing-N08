@@ -45,4 +45,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Màn Giỏ hàng hiển thị nút Tiếp tục mua sắm. Sau khi bấm nút, ứng dụng điều hướng về trang chủ trên Mobile. Dữ liệu giỏ hàng không bị xóa hoặc thay đổi chỉ vì thao tác Tiếp tục mua sắm.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

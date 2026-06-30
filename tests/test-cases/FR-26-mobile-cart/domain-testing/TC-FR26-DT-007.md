@@ -44,4 +44,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Hệ thống hiển thị dialog xác nhận trước khi thực hiện xóa. Dòng iPhone 15 Pro Max chưa bị xóa khỏi giỏ trước khi người dùng chọn xác nhận.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

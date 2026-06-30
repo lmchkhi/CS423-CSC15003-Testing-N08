@@ -41,4 +41,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Màn Giỏ hàng trống hiển thị một hình minh họa và một thông báo rõ ràng cho biết giỏ hàng đang trống. Màn hình không chỉ hiển thị khoảng trắng, không chỉ hiển thị danh sách rỗng, và không hiển thị các dòng sản phẩm không tồn tại.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None
