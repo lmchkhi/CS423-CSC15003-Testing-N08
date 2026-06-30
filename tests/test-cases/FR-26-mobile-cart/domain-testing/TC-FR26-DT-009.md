@@ -1,4 +1,4 @@
-# TC-FR26-DT-009: Tiếp tục mua sắm từ giỏ hàng trên Mobile
+# TC-FR26-DT-009: Hủy xóa sản phẩm trong dialog xác nhận
 
 ## Requirement ID
 FR-26
@@ -12,38 +12,38 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 
 | Variable | Type | Domain / Constraints |
 |---|---|---|
-| `continueShoppingAction` | User action | Có nút Tiếp tục mua sắm để quay về trang chủ theo FR-07 được FR-26 kế thừa. |
-| `cartState` | System state | Có thể thực hiện từ màn Giỏ hàng trên Mobile. |
-| `mobilePresentation` | UI context | Kiểm tra trên giao diện Mobile App. |
+| `deleteAction` | User action | Bấm nút xóa phải hiển thị dialog xác nhận trước khi xóa. |
+| `deleteConfirmationChoice` | User choice | Chọn hủy trong dialog thì sản phẩm không bị xóa. |
+| `cartState` | System state | Giỏ hàng có sản phẩm mục tiêu trước khi thao tác xóa. |
 
 ### Domain Matrix
 
-| TC | `cartState` | `continueShoppingAction` | Expected |
-|---|---|---|---|
-| COND-FR26-DT-009 | Đang ở màn Giỏ hàng mobile | EC-CONTINUE-V01 và EC-CONTINUE-I01 | Có nút Tiếp tục mua sắm; bấm nút thì ứng dụng quay về trang chủ trên Mobile. |
+| TC | `cartState` | `deleteAction` | `deleteConfirmationChoice` | Expected |
+|---|---|---|---|---|
+| COND-FR26-DT-009 | Giỏ có iPhone 15 Pro Max | EC-REMOVE-V01, EC-REMOVE-I01 | EC-REMOVECHOICE-V01 | Sau khi hủy, sản phẩm vẫn còn trong giỏ. |
 
 ## Preconditions
 - Ứng dụng Mobile đã mở được màn Giỏ hàng.
-- Người dùng đang ở màn Giỏ hàng, giỏ có 1 dòng Áo thun Basic, đơn giá 120000, số lượng 1.
+- Giỏ hàng có 1 dòng iPhone 15 Pro Max, số lượng 1.
 
 ## Test data
 
 | Field | Value |
 |---|---|
-| Màn hình hiện tại | Giỏ hàng |
-| Sản phẩm trong giỏ | Áo thun Basic |
-| Nút cần kiểm tra | Tiếp tục mua sắm |
-| Màn hình mong đợi sau thao tác | Trang chủ |
+| Sản phẩm cần xóa | iPhone 15 Pro Max |
+| Lựa chọn trong dialog | Hủy |
+| Trạng thái mong đợi sau thao tác | iPhone 15 Pro Max vẫn còn trong giỏ |
 
 ## Test steps
 1. Mở ứng dụng Mobile.
 2. Điều hướng đến màn Giỏ hàng.
-3. Quan sát sự xuất hiện của nút Tiếp tục mua sắm.
-4. Bấm nút Tiếp tục mua sắm.
-5. Quan sát màn hình sau khi bấm nút.
+3. Tại dòng iPhone 15 Pro Max, bấm nút xóa sản phẩm.
+4. Quan sát dialog xác nhận xóa.
+5. Chọn lựa chọn hủy trong dialog.
+6. Quan sát lại danh sách sản phẩm trong giỏ.
 
 ## Expected result
-Màn Giỏ hàng hiển thị nút Tiếp tục mua sắm. Sau khi bấm nút Tiếp tục mua sắm, ứng dụng điều hướng về trang chủ trên Mobile. Dữ liệu giỏ hàng không bị xóa hoặc thay đổi chỉ vì thao tác Tiếp tục mua sắm.
+Dialog xác nhận xuất hiện trước khi xóa. Khi chọn hủy, dialog đóng lại và dòng iPhone 15 Pro Max vẫn còn trong giỏ với số lượng ban đầu. Không có thay đổi dữ liệu giỏ hàng.
 
 ## Status / Related bugs
 Not Run / None

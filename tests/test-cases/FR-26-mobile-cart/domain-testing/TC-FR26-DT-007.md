@@ -1,4 +1,4 @@
-# TC-FR26-DT-007: Hiển thị trạng thái giỏ hàng trống trên Mobile
+# TC-FR26-DT-007: Nút xóa sản phẩm hiển thị dialog xác nhận trước khi xóa
 
 ## Requirement ID
 FR-26
@@ -12,33 +12,36 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 
 | Variable | Type | Domain / Constraints |
 |---|---|---|
-| `cartState` | System state | Giỏ hàng trống phải có hình minh họa và thông báo rõ ràng trên giao diện mobile. |
+| `deleteAction` | User action | Bấm nút xóa phải hiển thị dialog xác nhận trước khi xóa. |
+| `cartState` | System state | Giỏ hàng có sản phẩm mục tiêu trước khi thao tác xóa. |
 | `mobilePresentation` | UI context | Kiểm tra trên giao diện Mobile App. |
 
 ### Domain Matrix
 
-| TC | `cartState` | `mobilePresentation` | Expected |
+| TC | `cartState` | `deleteAction` | Expected |
 |---|---|---|---|
-| COND-FR26-DT-007 | EC-CARTSTATE-V02 và EC-CARTSTATE-I01 | EC-MOBILE-V01 | Giỏ hàng trống hiển thị hình minh họa và thông báo rõ ràng; không để màn hình trống. |
+| COND-FR26-DT-007 | Giỏ có iPhone 15 Pro Max | EC-REMOVE-V01, EC-REMOVE-I01 | Dialog xác nhận xuất hiện trước khi xóa; sản phẩm chưa bị xóa ngay. |
 
 ## Preconditions
 - Ứng dụng Mobile đã mở được màn Giỏ hàng.
-- Giỏ hàng không có sản phẩm nào.
+- Giỏ hàng có 1 dòng iPhone 15 Pro Max, số lượng 1.
 
 ## Test data
 
 | Field | Value |
 |---|---|
-| Số sản phẩm trong giỏ | 0 |
-| Trạng thái giỏ | Trống |
+| Sản phẩm cần xóa | iPhone 15 Pro Max |
+| Số lượng trước thao tác | 1 |
+| Trạng thái mong đợi ngay sau khi bấm xóa | Dialog xác nhận xuất hiện |
 
 ## Test steps
 1. Mở ứng dụng Mobile.
-2. Điều hướng đến màn Giỏ hàng khi giỏ không có sản phẩm nào.
-3. Quan sát nội dung hiển thị trên màn Giỏ hàng.
+2. Điều hướng đến màn Giỏ hàng.
+3. Tại dòng iPhone 15 Pro Max, bấm nút xóa sản phẩm.
+4. Quan sát màn hình ngay sau thao tác bấm xóa.
 
 ## Expected result
-Màn Giỏ hàng trống hiển thị một hình minh họa và một thông báo rõ ràng cho biết giỏ hàng đang trống. Màn hình không chỉ hiển thị khoảng trắng, không chỉ hiển thị danh sách rỗng, và không hiển thị các dòng sản phẩm không tồn tại.
+Hệ thống hiển thị dialog xác nhận trước khi thực hiện xóa. Dòng iPhone 15 Pro Max chưa bị xóa khỏi giỏ trước khi người dùng chọn xác nhận.
 
 ## Status / Related bugs
 Not Run / None

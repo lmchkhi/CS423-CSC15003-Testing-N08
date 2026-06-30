@@ -1,4 +1,4 @@
-# TC-FR26-DT-008: Hiển thị đúng nhãn Tổng cộng trong giỏ hàng
+# TC-FR26-DT-008: Xác nhận xóa sản phẩm khỏi giỏ hàng
 
 ## Requirement ID
 FR-26
@@ -12,39 +12,38 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 
 | Variable | Type | Domain / Constraints |
 |---|---|---|
-| `totalLabel` | UI text | Tổng tiền phải hiển thị nhãn chính xác "Tổng cộng", không phải "Tổng tạm tính". |
-| `cartState` | System state | Giỏ hàng có ít nhất một sản phẩm để có khu vực tổng tiền. |
-| `mobilePresentation` | UI context | Kiểm tra trên giao diện Mobile App. |
+| `deleteAction` | User action | Bấm nút xóa phải hiển thị dialog xác nhận trước khi xóa. |
+| `deleteConfirmationChoice` | User choice | Chọn xác nhận trong dialog thì sản phẩm bị xóa khỏi giỏ. |
+| `cartState` | System state | Giỏ hàng có sản phẩm mục tiêu trước khi thao tác xóa. |
 
 ### Domain Matrix
 
-| TC | `cartState` | `totalLabel` | Expected |
-|---|---|---|---|
-| COND-FR26-DT-008 | Giỏ có Áo thun Basic số lượng 1 | EC-TOTALLABEL-V01 và EC-TOTALLABEL-I01 | Khu vực tổng tiền hiển thị đúng "Tổng cộng" và không hiển thị "Tổng tạm tính". |
+| TC | `cartState` | `deleteAction` | `deleteConfirmationChoice` | Expected |
+|---|---|---|---|---|
+| COND-FR26-DT-008 | Giỏ có iPhone 15 Pro Max | EC-REMOVE-V01 | EC-REMOVECHOICE-V02 | Sau khi xác nhận, sản phẩm bị xóa khỏi giỏ. |
 
 ## Preconditions
 - Ứng dụng Mobile đã mở được màn Giỏ hàng.
-- Giỏ hàng có 1 dòng Áo thun Basic, đơn giá 120000, số lượng 1.
+- Giỏ hàng có 1 dòng iPhone 15 Pro Max, số lượng 1.
 
 ## Test data
 
 | Field | Value |
 |---|---|
-| Sản phẩm | Áo thun Basic |
-| Đơn giá | 120000 |
-| Số lượng | 1 |
-| Tổng tiền | 120000 |
-| Nhãn hợp lệ | Tổng cộng |
-| Nhãn không hợp lệ | Tổng tạm tính |
+| Sản phẩm cần xóa | iPhone 15 Pro Max |
+| Lựa chọn trong dialog | Xác nhận |
+| Trạng thái mong đợi sau thao tác | iPhone 15 Pro Max không còn trong giỏ |
 
 ## Test steps
 1. Mở ứng dụng Mobile.
 2. Điều hướng đến màn Giỏ hàng.
-3. Quan sát khu vực hiển thị tổng tiền của giỏ hàng.
-4. Kiểm tra text nhãn đứng cạnh hoặc phía trên giá trị tổng tiền.
+3. Tại dòng iPhone 15 Pro Max, bấm nút xóa sản phẩm.
+4. Quan sát dialog xác nhận xóa.
+5. Chọn lựa chọn xác nhận trong dialog.
+6. Quan sát lại danh sách sản phẩm trong giỏ.
 
 ## Expected result
-Khu vực tổng tiền hiển thị nhãn chính xác "Tổng cộng" với giá trị tổng tiền 120000. Màn hình không hiển thị nhãn "Tổng tạm tính" cho tổng tiền giỏ hàng.
+Dialog xác nhận xuất hiện trước khi xóa. Sau khi chọn xác nhận, dòng iPhone 15 Pro Max bị xóa khỏi giỏ. Nếu đây là sản phẩm duy nhất trong giỏ, màn hình chuyển sang trạng thái giỏ hàng trống có hình minh họa và thông báo rõ ràng.
 
 ## Status / Related bugs
 Not Run / None

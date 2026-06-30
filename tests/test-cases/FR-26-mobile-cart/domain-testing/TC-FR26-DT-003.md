@@ -1,4 +1,4 @@
-# TC-FR26-DT-003: Tăng số lượng sản phẩm bằng nút +
+# TC-FR26-DT-003: Cột Số lượng có nút + và nút - để chỉnh
 
 ## Requirement ID
 FR-26
@@ -12,39 +12,35 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 
 | Variable | Type | Domain / Constraints |
 |---|---|---|
-| `quantityAdjustment` | User action | Nút + dùng để chỉnh số lượng sản phẩm trong giỏ. |
-| `cartLineDisplay` | UI state | Dòng sản phẩm phải cập nhật số lượng và thành tiền sau thao tác. |
-| `totalLabel` | UI text | Tổng tiền dùng nhãn "Tổng cộng" và phản ánh trạng thái mới. |
+| `quantityControl` | UI control | Khu vực Số lượng phải có nút + và nút -. |
+| `cartState` | System state | Giỏ hàng có sản phẩm để quan sát control số lượng. |
+| `mobilePresentation` | UI context | Kiểm tra trên giao diện Mobile App. |
 
 ### Domain Matrix
 
-| TC | `cartState` | `quantityAdjustment` | Expected |
+| TC | `cartState` | `quantityControl` | Expected |
 |---|---|---|---|
-| COND-FR26-DT-003 | Giỏ có Áo thun Basic số lượng 1 | EC-QUANTITY-V01: bấm nút + | Số lượng tăng lên 2; thành tiền và "Tổng cộng" cập nhật theo số lượng mới. |
+| COND-FR26-DT-003 | Giỏ có iPhone 15 Pro Max | EC-QUANTITYCTRL-V01, EC-QUANTITYCTRL-I01 | Khu vực Số lượng hiển thị cả nút + và nút -. |
 
 ## Preconditions
 - Ứng dụng Mobile đã mở được màn Giỏ hàng.
-- Giỏ hàng có đúng 1 dòng Áo thun Basic, đơn giá 120000, số lượng 1.
+- Giỏ hàng có 1 dòng sản phẩm iPhone 15 Pro Max với số lượng 1.
 
 ## Test data
 
 | Field | Value |
 |---|---|
-| Sản phẩm | Áo thun Basic |
-| Đơn giá | 120000 |
-| Số lượng trước khi bấm + | 1 |
-| Số lượng sau khi bấm + | 2 |
-| Thành tiền sau khi bấm + | 240000 |
-| Tổng cộng sau khi bấm + | 240000 |
+| Sản phẩm | iPhone 15 Pro Max |
+| Số lượng hiện tại | 1 |
+| Control bắt buộc | Nút + và nút - |
 
 ## Test steps
 1. Mở ứng dụng Mobile.
 2. Điều hướng đến màn Giỏ hàng.
-3. Tại dòng Áo thun Basic, bấm nút + một lần.
-4. Quan sát số lượng, thành tiền của dòng Áo thun Basic và khu vực "Tổng cộng".
+3. Quan sát khu vực Số lượng của dòng iPhone 15 Pro Max.
 
 ## Expected result
-Số lượng Áo thun Basic tăng từ 1 lên 2. Thành tiền của dòng Áo thun Basic cập nhật thành 240000. Khu vực tổng tiền vẫn hiển thị nhãn "Tổng cộng" và giá trị tổng cộng cập nhật thành 240000.
+Khu vực Số lượng hiển thị giá trị số lượng hiện tại kèm nút + và nút - để người dùng có thể chỉnh số lượng. Không chỉ hiển thị số lượng dạng text không thể chỉnh.
 
 ## Status / Related bugs
 Not Run / None
