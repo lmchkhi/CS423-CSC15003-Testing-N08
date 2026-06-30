@@ -198,3 +198,30 @@ Codex đọc test run FR-03, bug report mẫu và prompt-log skill. Codex gọi 
 - Cần người làm kiểm tra lại nội dung bug report và bổ sung link GitHub Issue/screenshot nếu có.
 - API verification cho thấy lỗi mật khẩu mạnh nằm ở frontend validation, không phải backend reset API.
 - Một số test Passed vẫn có Related Bug dạng observation vì trong lúc chạy case chính có phát hiện lỗi giao diện phụ như thiếu confirm password hoặc OTP 4 chữ số.
+
+## 2026-06-30 19:34 +07 - Trình bày lại phần derivation Domain Testing FR-03
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Domain Testing / Report Writing |
+| Goal | Chỉnh phần giải thích cách tạo Domain Testing test cases trong `reports/main-report.md` để rõ quy trình: xác định biến đầu vào, phân hoạch tương đương, ràng buộc liên biến và tổng hợp test case |
+| Files changed | `reports/main-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+hiện tại reports/main-report.md tôi thấy cách trình bày từng bước tạo ra test case của domain testing đang chưa rõ ràng lắm. có thể trình bày theo từng bước kiểu như Xác định biến đầu vào, Phân hoạch tương đương rồi tổng hợp test case không. không cần đổi test case chỉ cần trình bày lại cho chi tiết hơn thôi
+```
+
+### AI output
+
+```text
+Codex đọc lại skill Domain Testing và Prompt Log, sau đó chỉnh riêng phần FR-03 Domain Testing trong main-report.md. Nội dung mới trình bày theo 5 bước: xác định phạm vi/tác nhân, xác định biến đầu vào và trạng thái, phân hoạch tương đương, xác định ràng buộc liên biến, và tổng hợp 12 test case từ các lớp tương đương. Không thay đổi nội dung các file test case.
+```
+
+### Human review
+
+- Người làm cần đọc lại phần 2.1 FR-03 - Domain Testing để bảo đảm cách diễn giải phù hợp với yêu cầu của giảng viên.
+- Không có thay đổi về expected result, status, bug report hoặc test data.

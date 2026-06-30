@@ -24,33 +24,63 @@ Nguồn đặc tả black-box:
 
 ### 2.1 FR-03 - Domain Testing
 
-#### Domain Analysis Summary
+#### Step 1 - Xác định phạm vi và tác nhân
 
-| Input/State | Valid Domains | Invalid/Special Domains |
+FR-03 là luồng Quên mật khẩu và Đặt lại mật khẩu trên Web/API, gồm 2 bước:
+
+1. Bước 1 - Lấy OTP: người dùng nhập email đã đăng ký để hệ thống sinh OTP.
+2. Bước 2 - Reset password: người dùng nhập OTP, mật khẩu mới và xác nhận mật khẩu mới.
+
+Tác nhân chính là người dùng chưa đăng nhập hoặc người dùng quên mật khẩu. Expected result được lấy từ `SystemRequirementsSpecification.md` và `api_specification.md`, không dựa trên source code.
+
+#### Step 2 - Xác định biến đầu vào và trạng thái cần kiểm thử
+
+| Nhóm | Biến / trạng thái | Nguồn đặc tả | Ý nghĩa kiểm thử |
+| --- | --- | --- | --- |
+| Bước 1 | Email | SRS FR-03, API `POST /api/forgot-password` | Quyết định hệ thống có sinh OTP hay không |
+| Bước 1 | Step Indicator | SRS FR-03, GUI-02 | Giao diện phải thể hiện đây là luồng 2 bước |
+| Bước 1 | Nút Quay lại đăng nhập | SRS FR-03 | Người dùng phải có đường quay lại Login |
+| Luồng | Trạng thái đã/chưa lấy OTP | SRS FR-03 | Không được reset password nếu chưa có OTP hợp lệ |
+| Bước 2 | OTP | SRS FR-03, API `POST /api/reset-password` | OTP phải đúng và thuộc email đã yêu cầu |
+| Bước 2 | Mật khẩu mới | SRS FR-03 tham chiếu FR-01 | Mật khẩu mới phải là mật khẩu mạnh |
+| Bước 2 | Xác nhận mật khẩu mới | SRS FR-03 | Hai trường mật khẩu phải khớp |
+
+#### Step 3 - Phân hoạch tương đương
+
+| Biến / trạng thái | Lớp hợp lệ | Lớp không hợp lệ / đặc biệt |
 | --- | --- | --- |
-| Email lấy OTP | Email đã đăng ký, đúng định dạng | Rỗng, sai định dạng, chưa đăng ký |
-| Điều hướng bước 1 | Có Step Indicator, có nút Quay lại đăng nhập | Thiếu nút quay lại hoặc không quay về trang Đăng nhập |
-| Trạng thái luồng | Đã lấy OTP trước khi reset | Reset khi chưa lấy OTP |
-| OTP | OTP đúng 6 chữ số, thuộc email đã yêu cầu | Sai OTP, OTP của email khác |
-| Mật khẩu mới | Tuân thủ rule FR-01: >=8 ký tự, có chữ hoa, chữ thường, chữ số, ký tự đặc biệt | Rỗng, yếu/không đủ rule |
-| Xác nhận mật khẩu mới | Khớp Mật khẩu mới | Không khớp |
+| Email | Email đã đăng ký, đúng định dạng: `test@eshop.com` | Rỗng; sai định dạng; đúng định dạng nhưng chưa đăng ký |
+| Nút Quay lại đăng nhập | Nút tồn tại và điều hướng về trang Đăng nhập | Không có nút hoặc nút không điều hướng đúng |
+| Trạng thái luồng | Đã lấy OTP trước khi reset | Gửi reset khi chưa lấy OTP |
+| OTP | OTP đúng cho chính email đã yêu cầu | Sai OTP; OTP của email khác |
+| Mật khẩu mới | Đủ rule FR-01: >=8 ký tự, có chữ hoa, chữ thường, số, ký tự đặc biệt | Rỗng; yếu/thiếu một hoặc nhiều điều kiện mật khẩu mạnh |
+| Xác nhận mật khẩu mới | Khớp mật khẩu mới | Không khớp mật khẩu mới |
 
-#### Step-by-Step Test Case Derivation
+#### Step 4 - Xác định ràng buộc liên biến
 
-| Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
-| --- | --- | --- |
-| TC-FR03-DT-001 | Chọn miền hợp lệ của Bước 1: email đã đăng ký và đúng định dạng. Expected dựa trên SRS/API: hệ thống sinh OTP 6 chữ số và hiển thị trong môi trường demo. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-001.md` |
-| TC-FR03-DT-002 | Tách riêng yêu cầu giao diện của Bước 1: phải có nút Quay lại đăng nhập. Test xác minh hành vi điều hướng không phụ thuộc dữ liệu email. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-002.md` |
-| TC-FR03-DT-003 | Lấy lớp tương đương invalid của Email: rỗng. Các biến khác không cần nhập để cô lập lỗi bắt buộc nhập email. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-003.md` |
-| TC-FR03-DT-004 | Lấy lớp tương đương invalid của Email: sai định dạng. Expected là lỗi định dạng email và không sinh OTP. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-004.md` |
-| TC-FR03-DT-005 | Lấy lớp tương đương invalid của Email: đúng định dạng nhưng chưa đăng ký. Expected là từ chối vì FR-03 yêu cầu email đã đăng ký. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-005.md` |
-| TC-FR03-DT-006 | Chọn tổ hợp hợp lệ của Bước 2: email đã lấy OTP, OTP đúng, mật khẩu mạnh, confirm khớp. Đây là happy path cho reset password. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-006.md` |
-| TC-FR03-DT-007 | Kiểm tra ràng buộc luồng 2 bước: reset không được thành công nếu chưa thực hiện lấy OTP. Các input còn lại dùng giá trị hợp lệ để cô lập lỗi trạng thái. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-007.md` |
-| TC-FR03-DT-008 | Lấy lớp tương đương invalid của OTP: đúng format 6 chữ số nhưng sai giá trị. Expected là lỗi OTP sai và không đổi mật khẩu. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-008.md` |
-| TC-FR03-DT-009 | Kiểm tra ràng buộc liên biến Email-OTP: OTP chỉ hợp lệ cho email đã yêu cầu, không dùng được cho email khác. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-009.md` |
-| TC-FR03-DT-010 | Lấy lớp tương đương invalid của mật khẩu mới: mật khẩu yếu, không thỏa rule FR-01. OTP và confirm giữ hợp lệ để cô lập lỗi password. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-010.md` |
-| TC-FR03-DT-011 | Lấy lớp tương đương invalid của confirm password: không khớp mật khẩu mới. Mật khẩu mới và OTP đều hợp lệ. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-011.md` |
-| TC-FR03-DT-012 | Lấy lớp tương đương invalid của mật khẩu mới: rỗng. Expected là lỗi bắt buộc nhập mật khẩu mới, không đổi mật khẩu. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-012.md` |
+| Ràng buộc | Cách áp dụng vào test case |
+| --- | --- |
+| OTP phải gắn với email đã yêu cầu | Tạo TC-FR03-DT-009 để dùng OTP của email khác cho `test@eshop.com` |
+| Reset password chỉ hợp lệ sau khi lấy OTP | Tạo TC-FR03-DT-007 để gửi reset khi chưa thực hiện bước lấy OTP |
+| Mật khẩu mới và xác nhận mật khẩu mới phải khớp | Tạo TC-FR03-DT-011 để cô lập lỗi confirm mismatch |
+| Khi kiểm thử một lớp lỗi, các biến còn lại giữ giá trị hợp lệ nếu có thể | Ví dụ TC-FR03-DT-008 chỉ làm sai OTP, còn mật khẩu mới và confirm giữ hợp lệ |
+
+#### Step 5 - Tổng hợp test case từ các lớp tương đương
+
+| Test case ID | Lớp miền được chọn | Lý do chọn / cách tổng hợp | Test case file |
+| --- | --- | --- | --- |
+| TC-FR03-DT-001 | Email hợp lệ đã đăng ký | Kiểm tra happy path của Bước 1: email thuộc lớp hợp lệ nên hệ thống phải sinh OTP 6 chữ số. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-001.md` |
+| TC-FR03-DT-002 | Nút Quay lại đăng nhập hợp lệ | Tách yêu cầu điều hướng khỏi dữ liệu email để xác minh UI có đủ nút quay lại Login. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-002.md` |
+| TC-FR03-DT-003 | Email rỗng | Đại diện lớp invalid "missing required email"; expected là không sinh OTP và báo lỗi bắt buộc nhập. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-003.md` |
+| TC-FR03-DT-004 | Email sai định dạng | Đại diện lớp invalid format; expected là lỗi định dạng email, khác với lỗi email chưa đăng ký. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-004.md` |
+| TC-FR03-DT-005 | Email chưa đăng ký | Đại diện lớp đúng format nhưng không tồn tại; expected là từ chối vì FR-03 yêu cầu email đã đăng ký. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-005.md` |
+| TC-FR03-DT-006 | Bước 2 hợp lệ toàn bộ | Kết hợp các lớp hợp lệ: đã lấy OTP, OTP đúng, mật khẩu mạnh và confirm khớp để kiểm tra happy path reset password. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-006.md` |
+| TC-FR03-DT-007 | Chưa lấy OTP | Đại diện lỗi trạng thái luồng; các input reset còn lại dùng giá trị hợp lệ để lỗi chỉ đến từ việc chưa có OTP hợp lệ. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-007.md` |
+| TC-FR03-DT-008 | OTP sai | Đại diện lớp OTP sai giá trị; email và mật khẩu mới giữ hợp lệ để cô lập lỗi OTP. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-008.md` |
+| TC-FR03-DT-009 | OTP của email khác | Đại diện ràng buộc liên biến email-OTP; kiểm tra OTP không được dùng chéo giữa các tài khoản. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-009.md` |
+| TC-FR03-DT-010 | Mật khẩu mới yếu | Đại diện lớp invalid password strength; OTP và confirm giữ hợp lệ để lỗi tập trung ở password mới. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-010.md` |
+| TC-FR03-DT-011 | Confirm password không khớp | Đại diện lớp invalid confirm mismatch; mật khẩu mới vẫn mạnh để cô lập lỗi xác nhận mật khẩu. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-011.md` |
+| TC-FR03-DT-012 | Mật khẩu mới rỗng | Đại diện lớp missing required password; expected là từ chối reset và không đổi mật khẩu. | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-012.md` |
 
 ### 2.2 FR-11 - Domain Testing
 
