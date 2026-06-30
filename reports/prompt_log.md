@@ -225,3 +225,85 @@ Codex đọc lại skill Domain Testing và Prompt Log, sau đó chỉnh riêng 
 
 - Người làm cần đọc lại phần 2.1 FR-03 - Domain Testing để bảo đảm cách diễn giải phù hợp với yêu cầu của giảng viên.
 - Không có thay đổi về expected result, status, bug report hoặc test data.
+
+## 2026-06-30 20:14 +07 - Thiết kế test case và test run cho FR-11
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-11 |
+| Technique | Domain Testing / BVA / Report Writing |
+| Goal | Dựa trên các skill trong `.codex/skills`, thiết kế test case FR-11, tạo test run chưa thực thi và cập nhật phần FR-11 trong main report theo cách trình bày của FR-03 |
+| Files changed | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md` đến `TC-FR11-DT-012.md`, `tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md` đến `TC-FR11-BVA-003.md`, `tests/test-runs/FR-11-order-history-run.md`, `ai-gap-analysis/FR-11-order-history.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+dựa vào các skill trong CS423-CSC15003-Testing-N08/.codex/skills, hãy viết các test case, điền những thông tin test run cho FR-11, cập nhật reports/main-report.md phần FR-11 (tham khảo cách trình bày của FR-03) và các file liên quan khác theo skill yêu cầu. Lưu ý chưa điền kết quả test case, sau khi có test case tôi sẽ test rồi thông báo lại kết quả sau để tạo bug report và cập nhật reports/main-report.md lần nữa.
+```
+
+### AI output
+
+```text
+Codex đọc skill Domain Testing, BVA và Prompt Log, sau đó đọc requirement.md, SystemRequirementsSpecification.md, api_specification.md, FR-03 report/test case mẫu và test run hiện có. Codex tạo 12 Domain Testing test cases cho auth, ownership, danh sách rỗng/nhiều đơn, truy cập chi tiết, các trường mã đơn/ngày đặt/tổng tiền và status tiếng Việt/màu sắc. Codex tạo 3 BVA test cases cho số lượng đơn hàng 0/1/nhiều vì SRS/API không nêu pagination/filter. Codex tạo test run FR-11 với toàn bộ Result = Not Run, cập nhật main-report.md phần FR-11, README summary và file AI gap analysis FR-11.
+```
+
+### Human review
+
+- Cần người làm chuẩn bị dữ liệu đơn hàng cho các tài khoản `test@eshop.com`, `fr11.noorders@example.com`, `fr11.oneorder@example.com`, `fr11.other@example.com` trước khi chạy đầy đủ.
+- Chưa tạo bug report vì toàn bộ test case FR-11 đang ở trạng thái `Not Run`.
+- Nếu UI thực tế có pagination/filter/sort không được nêu trong SRS/API, cần bổ sung test case trước khi cập nhật kết quả cuối.
+
+## 2026-06-30 20:26 +07 - Sửa format bảng FR-11 trong main report
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-11 |
+| Technique | Report Writing |
+| Goal | Sửa lỗi Markdown table ở Step 2 và Step 5 của FR-11 trong `reports/main-report.md` để hiển thị đúng dạng bảng |
+| Files changed | `reports/main-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+hiện tại step 2 và step 5 của FR-11 ở reports/main-report.md đang bị sai định dạng nên chưa hiển thị thành dạng bảng, sửa giúp tôi
+```
+
+### AI output
+
+```text
+Codex sửa dòng separator của hai bảng FR-11 Step 2 và Step 5 từ 3 cột thành 4 cột, khớp với số cột header/nội dung. Không thay đổi nội dung test case hoặc kết quả test run.
+```
+
+### Human review
+
+- Cần xem lại preview Markdown của `reports/main-report.md` để xác nhận hai bảng FR-11 đã render đúng.
+
+## 2026-06-30 22:32 +07 - Cập nhật kết quả test run và bug report cho FR-11
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-11 |
+| Technique | Domain Testing / BVA / Bug Reporting / Report Writing |
+| Goal | Rà soát kết quả tester đã note trong test run FR-11, gọi API để kiểm tra case ownership khả nghi, cập nhật kết quả từng test case, tạo bug report và cập nhật các file summary liên quan |
+| Files changed | `tests/test-runs/FR-11-order-history-run.md`, các test case FR-11 trong `tests/test-cases/FR-11-order-history/`, `bug-reports/BUG-FR11-007.md`, `bug-reports/BUG-FR11-012.md`, `ai-gap-analysis/FR-11-order-history.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi đã test các test case DT và BVA và có note kết quả ở tests/test-runs/FR-11-order-history-run.md. hãy xem qua sau đó chỉnh sửa, format lại nếu cần và chỉnh sửa các kết quả trong từng file test case, viết các file bug report và các file liên quan giúp tôi luôn. Lưu ý những test case nào khả nghi có thể tự gọi api để kiểm tra lại giúp tôi (tôi có chạy sẵn backend, frontend-admin và frontend-web rồi).
+```
+
+### AI output
+
+```text
+Codex đọc test run FR-11, bug report mẫu và các skill Domain Testing/BVA/Prompt Log. Codex gọi API localhost để kiểm tra lại case ownership: không đăng nhập gọi my-orders trả 401; user test có 15 đơn cá nhân; own-order detail `GET /api/orders/16` trả `user_id = 2`; other-order detail `GET /api/orders/4` với token user test trả `200 OK`, `user_id = 1`. Codex xem screenshot màu trạng thái và xác nhận `Đã xác nhận`/`Đang giao` dùng tông xanh lam gần nhau. Sau đó Codex cập nhật test run FR-11 thành 13 Passed, 2 Failed, 0 Not Run; cập nhật Status / Related bugs trong test cases; tạo 2 bug reports; cập nhật AI gap analysis, main report và README.
+```
+
+### Human review
+
+- Cần người làm kiểm tra lại bug report và bổ sung link GitHub Issue/screenshot nếu cần.
+- Không đưa token thật vào prompt log hoặc bug report; các ảnh API có token lộ trên UI không được nhúng trực tiếp vào bug report.
+- Nếu muốn chuẩn hóa bug ID tuần tự toàn repo, có thể đổi `BUG-FR11-007`/`BUG-FR11-012` thành `BUG-FR11-001`/`BUG-FR11-002`, nhưng hiện tại giữ theo test case/screenshot đã có.
