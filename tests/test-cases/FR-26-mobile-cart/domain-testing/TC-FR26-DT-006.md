@@ -1,0 +1,50 @@
+# TC-FR26-DT-006: Xác nhận xóa sản phẩm khỏi giỏ hàng
+
+## Requirement ID
+FR-26
+
+## Module / Test type / Technique
+Giỏ hàng trên Mobile / Functional / Domain Testing
+
+## Domain Analysis
+
+### Input Variables & Domain
+
+| Variable | Type | Domain / Constraints |
+|---|---|---|
+| `deleteAction` | User action | Bấm nút xóa phải hiển thị dialog xác nhận trước khi xóa. |
+| `deleteConfirmationChoice` | User choice | Khi chọn xác nhận trong dialog, sản phẩm bị xóa khỏi giỏ. |
+| `cartState` | System state | Giỏ hàng có sản phẩm mục tiêu trước khi thao tác xóa. |
+
+### Domain Matrix
+
+| TC | `cartState` | `deleteAction` | `deleteConfirmationChoice` | Expected |
+|---|---|---|---|---|
+| COND-FR26-DT-006 | Giỏ có Áo thun Basic | EC-DELETE-V01 | EC-DELETECHOICE-V02 | Dialog xuất hiện trước khi xóa; chọn xác nhận thì sản phẩm bị xóa khỏi giỏ. |
+
+## Preconditions
+- Ứng dụng Mobile đã mở được màn Giỏ hàng.
+- Giỏ hàng có 1 dòng Áo thun Basic, đơn giá 120000, số lượng 1.
+
+## Test data
+
+| Field | Value |
+|---|---|
+| Sản phẩm cần xóa | Áo thun Basic |
+| Số lượng trước thao tác | 1 |
+| Lựa chọn trong dialog | Xác nhận |
+| Trạng thái mong đợi sau thao tác | Áo thun Basic không còn trong giỏ |
+
+## Test steps
+1. Mở ứng dụng Mobile.
+2. Điều hướng đến màn Giỏ hàng.
+3. Tại dòng Áo thun Basic, bấm nút xóa sản phẩm.
+4. Quan sát dialog xác nhận xóa.
+5. Chọn lựa chọn xác nhận trong dialog.
+6. Quan sát lại danh sách sản phẩm trong giỏ.
+
+## Expected result
+Sau khi bấm nút xóa, hệ thống hiển thị dialog xác nhận trước khi thực hiện xóa. Khi chọn xác nhận, dòng Áo thun Basic bị xóa khỏi giỏ. Nếu đây là sản phẩm duy nhất trong giỏ, màn hình chuyển sang trạng thái giỏ hàng trống có hình minh họa và thông báo rõ ràng.
+
+## Status / Related bugs
+Not Run / None

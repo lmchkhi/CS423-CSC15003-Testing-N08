@@ -245,9 +245,10 @@ Tại bước Checkout, người dùng có thể nhập mã giảm giá. Hệ th
 
 Ứng dụng Mobile phải hỗ trợ Giỏ hàng tương đương FR-07.
 
-- Giao diện mobile hiển thị danh sách sản phẩm với các thông tin: **Sản phẩm**, **Đơn giá**, **Số lượng** (có nút +/- để chỉnh), và **Thành tiền**.
+- Giao diện mobile hiển thị danh sách sản phẩm với các thông tin: **Sản phẩm**, **Đơn giá**, **Số lượng** (có nút +/- để chỉnh), **Thành tiền**, và **Thao tác**.
 - Có nút để xóa sản phẩm khỏi giỏ hàng, và phải có hộp thoại (dialog) xác nhận trước khi xóa.
 - Thêm cùng một sản phẩm vào giỏ sẽ tăng số lượng, không tạo dòng mới.
+- Có nút **Tiếp tục mua sắm** để quay về trang chủ trên giao diện mobile.
 - Tổng tiền hiển thị nhãn chính xác: **"Tổng cộng"** (không phải "Tổng tạm tính").
 - Giỏ hàng trống phải có hình minh họa và thông báo rõ ràng trên giao diện mobile.
 
