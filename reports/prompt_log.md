@@ -143,3 +143,85 @@ Codex đổi các heading thời gian trong prompt_log.md từ UTC sang +07, c�
 
 - Cần dùng mã FR mobile mới khi chọn hoặc báo cáo mobile features.
 - FR-23 vẫn là feature được chọn cho bài hiện tại, nên skill Domain Testing/BVA hiện tại chưa cần đổi feature selected.
+
+## 2026-06-26 23:42 +07 - Thiết kế test case và test run cho FR-03
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Domain Testing / BVA / Test Run |
+| Goal | Dựa trên các skill trong `.codex/skills`, thiết kế test case cho FR-03 Quên mật khẩu & Đặt lại mật khẩu, tạo test run ở trạng thái chưa thực thi và cập nhật phần giải thích trong main report |
+| Files changed | `tests/test-cases/FR-03-forgot-password/domain-testing/TC-FR03-DT-001.md` đến `TC-FR03-DT-012.md`, `tests/test-cases/FR-03-forgot-password/bva/TC-FR03-BVA-001.md` đến `TC-FR03-BVA-006.md`, `tests/test-runs/FR-03-forgot-password-run.md`, `reports/main-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+dựa vào các skill trong CS423-CSC15003-Testing-N08/.codex/skills, hãy viết các test case và điền những thông tin test run cho FR-03 giúp tôi. Lưu ý chưa điền kết quả, sau khi có test case tôi sẽ test rồi thông báo lại kết quả sau. nhớ xem skill prompt log và viết prompt_log.md nữa
+```
+
+### AI output
+
+```text
+Codex đọc các skill Domain Testing, Boundary Value Analysis và Prompt Log, sau đó đọc requirement.md, SystemRequirementsSpecification.md, api_specification.md và template test run hiện có. Codex tạo 12 Domain Testing test cases cho các miền email, điều hướng, trạng thái luồng, OTP, mật khẩu mới và xác nhận mật khẩu; tạo 6 BVA test cases cho biên độ dài OTP 5/6/7 chữ số và mật khẩu mới 7/8/9 ký tự. Codex tạo test run FR-03 với toàn bộ Result = Not Run, cập nhật main-report.md phần FR-03 và ghi entry prompt log này.
+```
+
+### Human review
+
+- Cần người làm chạy SUT thật rồi điền Result, Related Bug và Note trong `tests/test-runs/FR-03-forgot-password-run.md`.
+- Nếu kết quả thực tế khác expected result, cần tạo bug report/GitHub Issue và cập nhật lại Execution Summary.
+
+## 2026-06-30 15:23 +07 - Cập nhật kết quả test run và bug report cho FR-03
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Domain Testing / BVA / Bug Reporting / Report Writing |
+| Goal | Rà soát kết quả tester đã note trong test run FR-03, gọi API để kiểm tra các case khả nghi, cập nhật kết quả trong từng test case, tạo bug report và cập nhật các file summary liên quan |
+| Files changed | `tests/test-runs/FR-03-forgot-password-run.md`, các test case FR-03 trong `tests/test-cases/FR-03-forgot-password/`, `bug-reports/BUG-FR03-001.md` đến `BUG-FR03-005.md`, `ai-gap-analysis/FR-03-forgot-password.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi đã test các test case DT và BVA và có note kết quả ở tests/test-runs/FR-03-forgot-password-run.md. hãy xem qua sau đó chỉnh sửa, format lại nếu cần và chỉnh sửa các kết quả trong từng file test case, viết các file bug report và các file liên quan giúp tôi luôn. Lưu ý những test case nào khả nghi có thể tự gọi api để kiểm tra lại giúp tôi (tôi có chạy sẵn backend và frontend-web rồi).
+```
+
+### AI output
+
+```text
+Codex đọc test run FR-03, bug report mẫu và prompt-log skill. Codex gọi API localhost để kiểm tra lại các điểm khả nghi: forgot-password trả resetToken 4 chữ số; email sai định dạng trả 404 User not found; reset-password với OTP sai trả lỗi token/email; reset-password với mật khẩu mạnh hợp lệ thành công qua backend; OTP của email khác bị từ chối đúng. Codex khôi phục mật khẩu mặc định của test@eshop.com sau khi kiểm tra API. Sau đó Codex chuẩn hóa test run thành 7 Passed, 11 Failed, 0 Not Run; cập nhật Status / Related bugs trong từng test case; tạo 5 bug reports FR-03; tạo AI gap analysis; cập nhật main report và README.
+```
+
+### Human review
+
+- Cần người làm kiểm tra lại nội dung bug report và bổ sung link GitHub Issue/screenshot nếu có.
+- API verification cho thấy lỗi mật khẩu mạnh nằm ở frontend validation, không phải backend reset API.
+- Một số test Passed vẫn có Related Bug dạng observation vì trong lúc chạy case chính có phát hiện lỗi giao diện phụ như thiếu confirm password hoặc OTP 4 chữ số.
+
+## 2026-06-30 19:34 +07 - Trình bày lại phần derivation Domain Testing FR-03
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Domain Testing / Report Writing |
+| Goal | Chỉnh phần giải thích cách tạo Domain Testing test cases trong `reports/main-report.md` để rõ quy trình: xác định biến đầu vào, phân hoạch tương đương, ràng buộc liên biến và tổng hợp test case |
+| Files changed | `reports/main-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+hiện tại reports/main-report.md tôi thấy cách trình bày từng bước tạo ra test case của domain testing đang chưa rõ ràng lắm. có thể trình bày theo từng bước kiểu như Xác định biến đầu vào, Phân hoạch tương đương rồi tổng hợp test case không. không cần đổi test case chỉ cần trình bày lại cho chi tiết hơn thôi
+```
+
+### AI output
+
+```text
+Codex đọc lại skill Domain Testing và Prompt Log, sau đó chỉnh riêng phần FR-03 Domain Testing trong main-report.md. Nội dung mới trình bày theo 5 bước: xác định phạm vi/tác nhân, xác định biến đầu vào và trạng thái, phân hoạch tương đương, xác định ràng buộc liên biến, và tổng hợp 12 test case từ các lớp tương đương. Không thay đổi nội dung các file test case.
+```
+
+### Human review
+
+- Người làm cần đọc lại phần 2.1 FR-03 - Domain Testing để bảo đảm cách diễn giải phù hợp với yêu cầu của giảng viên.
+- Không có thay đổi về expected result, status, bug report hoặc test data.
