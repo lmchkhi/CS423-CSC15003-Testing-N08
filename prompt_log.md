@@ -78,3 +78,75 @@ Mình sẽ giữ log ở mức transcript khả dụng liên quan trực tiếp 
 
 ### Notes
 Một phần hội thoại trước đó không còn trong transcript của entry này ở dạng đầy đủ; entry chỉ log conversation context khả dụng liên quan trực tiếp đến prompt FR-13. Tool call/output không được copy đầy đủ vào transcript vì dài; các kết quả chính đã được phản ánh trong artifact tạo mới và trong review file.
+
+## Prompt Log Entry - 2026-06-30 20:06:47 +07
+
+### Transcript
+
+````text
+User:
+# Context from my IDE setup:
+
+## Active file: prompt.txt
+
+## Active selection of the file:
+
+$boundary-value-analysis
+$test-case-review
+$prompt-log
+
+Đánh giá và áp dụng BVA cho FR-10 dựa trên `requirements/system-requirements.md`.
+
+Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.
+
+Chỉ tạo BVA analysis và test case nếu FR-10 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.
+
+Tạo output theo cấu trúc hiện có.
+Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.
+
+## Open tabs:
+- prompt.txt: prompt.txt
+- prompt_log.md: prompt_log.md
+- TC-FR13-DT-006.md: tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-006.md
+- TC-FR13-DT-005.md: tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-005.md
+- TC-FR13-DT-004.md: tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-004.md
+
+## My request for Codex:
+
+$boundary-value-analysis
+$test-case-review
+$prompt-log
+
+Đánh giá và áp dụng BVA cho FR-13 dựa trên `requirements/system-requirements.md`.
+
+Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.
+
+Chỉ tạo BVA analysis và test case nếu FR-13 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.
+
+Tạo output theo cấu trúc hiện có.
+Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.
+
+Assistant:
+Mình sẽ dùng `boundary-value-analysis`, `test-case-review`, và `prompt-log` cho lượt này. Trọng tâm là đánh giá xem FR-13 có biên thật sự không; nếu không có miền có thứ tự/ngưỡng được đặc tả, mình sẽ ghi lý do và không sinh test case gượng ép.
+
+Assistant:
+Mình đã đọc skill BVA và review. FR-13 có số liệu tính toán (`total_amount`, tổng số đơn), nhưng requirement không đặt min/max, giới hạn số lượng, range, độ dài, ngày giờ hay ngưỡng inclusive/exclusive; vì vậy nhiều khả năng kết luận đúng là “không phù hợp BVA” thay vì ép sinh ON/OFF.
+
+Assistant:
+Mình sẽ tạo một BVA assessment trong đúng thư mục FR-13, nhưng không tạo thư mục/test case `bva` vì không có boundary hợp lệ để kiểm thử. Review sẽ audit chính quyết định “không áp dụng BVA” này, để có evidence thay vì để trống.
+
+Assistant:
+Assessment và review đã được tạo, không có test case BVA mới. Mình đang rà soát đúng yêu cầu “không endpoint/method/request body”, kiểm tra không lỡ sinh file `bva/TC-*`, rồi sẽ append prompt log.
+
+Assistant:
+Rà soát cho thấy không có test case BVA nào được sinh, đúng yêu cầu. Mình thấy review có một dòng meta nhắc lại các thuật ngữ kỹ thuật bị cấm; dù không phải test case, mình sẽ đổi sang cách nói chung hơn để artifact sạch hơn.
+
+Assistant:
+Mình chạy lại kiểm tra sau chỉnh sửa, rồi append log vào `prompt_log.md`. Log sẽ ghi phạm vi context khả dụng của prompt này, vì tool output dài không nên nhồi toàn bộ vào transcript.
+
+Assistant:
+Mình sẽ append entry mới vào cuối `prompt_log.md`, không đụng entry cũ. Nội dung log phản ánh prompt FR-13 BVA và các cập nhật chính của assistant trong lượt này; phần tool output dài được ghi chú thay vì tái tạo lại.
+````
+
+### Notes
+Một phần conversation context khả dụng gồm các skill block dài và tool output dài không được copy đầy đủ trong entry này; chỉ log nguyên văn phần prompt chính và các cập nhật assistant liên quan trực tiếp đến task FR-13 BVA. Các artifact được tạo/sửa trong task này là `analysis/FR-13-dashboard/bva-analysis.md`, `reviews/FR-13-dashboard/bva-review.md`, và entry mới trong `prompt_log.md`.
