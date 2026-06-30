@@ -307,3 +307,59 @@ Codex đọc test run FR-11, bug report mẫu và các skill Domain Testing/BVA/
 - Cần người làm kiểm tra lại bug report và bổ sung link GitHub Issue/screenshot nếu cần.
 - Không đưa token thật vào prompt log hoặc bug report; các ảnh API có token lộ trên UI không được nhúng trực tiếp vào bug report.
 - Nếu muốn chuẩn hóa bug ID tuần tự toàn repo, có thể đổi `BUG-FR11-007`/`BUG-FR11-012` thành `BUG-FR11-001`/`BUG-FR11-002`, nhưng hiện tại giữ theo test case/screenshot đã có.
+
+## 2026-07-01 01:08 +07 - Thiết kế test case và test run cho FR-14
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-14 |
+| Technique | Domain Testing / BVA / Report Writing |
+| Goal | Dựa trên các skill trong `.codex/skills`, thiết kế test case FR-14 Category management CRUD, tạo test run chưa thực thi và cập nhật phần FR-14 trong main report theo cách trình bày của FR-03 |
+| Files changed | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-001.md` đến `TC-FR14-DT-016.md`, `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-001.md` đến `TC-FR14-BVA-006.md`, `tests/test-runs/FR-14-category-management-run.md`, `ai-gap-analysis/FR-14-category-management.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+dựa vào các skill trong CS423-CSC15003-Testing-N08/.codex/skills, hãy viết các test case, điền những thông tin test run cho FR-14, cập nhật reports/main-report.md phần FR-14 (tham khảo cách trình bày của FR-03) và các file liên quan khác theo skill yêu cầu. Lưu ý chưa điền kết quả test case, sau khi có test case tôi sẽ test rồi thông báo lại kết quả sau để tạo bug report và cập nhật reports/main-report.md lần nữa.
+```
+
+### AI output
+
+```text
+Codex đọc skill Domain Testing, Boundary Value Analysis và Prompt Log, sau đó đọc requirement.md, SystemRequirementsSpecification.md, api_specification.md, cách trình bày FR-03/FR-11 trong main-report.md và test run hiện có. Codex tạo 16 Domain Testing test cases cho quyền admin/guest/user, xem danh sách, thêm danh mục hợp lệ/rỗng/whitespace/Unicode, cập nhật danh mục hợp lệ/rỗng/không tồn tại/sai role, và xóa danh mục hợp lệ/không tồn tại/sai role. Codex tạo 6 BVA test cases cho min length tên danh mục 0/1/2 ký tự và số lượng danh mục 0/1/nhiều. Codex tạo test run FR-14 với toàn bộ Result = Not Run, cập nhật main-report.md phần FR-14, README summary và AI gap analysis ở trạng thái chưa thực thi.
+```
+
+### Human review
+
+- Cần người làm chuẩn bị dữ liệu danh mục test như `FR14 Test Accessories`, `FR14 Update Source`, `FR14 Delete Target` trước khi chạy đầy đủ.
+- Chưa tạo bug report vì toàn bộ test case FR-14 đang ở trạng thái `Not Run`.
+- Nếu UI Admin không có thao tác sửa danh mục, cần ghi rõ trong test run và kiểm tra Update qua API `PUT /api/categories/:id` theo `api_specification.md`.
+
+## 2026-07-01 02:15 +07 - Cập nhật kết quả test run và bug report cho FR-14
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-14 |
+| Technique | Domain Testing / BVA / Bug Reporting / Report Writing |
+| Goal | Rà soát kết quả tester đã note trong test run FR-14, gọi API để kiểm tra các case khả nghi, cập nhật kết quả từng test case, tạo bug report và cập nhật các file summary liên quan |
+| Files changed | `tests/test-runs/FR-14-category-management-run.md`, các test case FR-14 liên quan trong `tests/test-cases/FR-14-category-management/`, `bug-reports/BUG-FR14-001.md`, `bug-reports/BUG-FR14-002.md`, `bug-reports/BUG-FR14-003.md`, `ai-gap-analysis/FR-14-category-management.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi đã test các test case DT và BVA và có note kết quả ở tests/test-runs/FR-14-category-management-run.md. hãy xem qua sau đó chỉnh sửa, format lại nếu cần và chỉnh sửa các kết quả trong từng file test case, viết các file bug report và các file liên quan giúp tôi luôn, hình như trong reports/main-report.md chỗ step 5 của domain testing của fr-14 đang bị sai định dạng nên chưa hiển thị dạng bảng được, sửa giúp tôi luôn nhé. Lưu ý những test case nào khả nghi có thể tự gọi api để kiểm tra lại giúp tôi (tôi có chạy sẵn backend, frontend-admin và frontend-web rồi).
+```
+
+### AI output
+
+```text
+Codex đọc lại các skill Domain Testing, BVA và Prompt Log, sau đó đọc test run FR-14, main report và bug report mẫu. Codex gọi API localhost để kiểm tra lại các case khả nghi: user token gọi POST/PUT/DELETE /api/categories đều trả 200 OK; admin token tạo/cập nhật category với tên rỗng hoặc whitespace vẫn trả 200 OK; PUT/DELETE /api/categories/999999 vẫn trả success giả. Codex dọn dữ liệu category tạm sau khi verify, cập nhật test run thành 13 Passed, 9 Failed, 0 Not Run; cập nhật Status / Related bugs trong từng test case failed; tạo 3 bug reports FR-14; cập nhật AI gap analysis, main report, README và sửa lỗi bảng Step 5 FR-14 trong main-report.md.
+```
+
+### Human review
+
+- Cần người làm kiểm tra lại bug report và bổ sung link GitHub Issue/screenshot nếu cần.
+- Không ghi token thật vào report/prompt log; API verification chỉ ghi role, endpoint, HTTP status và message.
+- Dữ liệu category tạm dùng để verify đã được dọn, danh sách category còn 3 category mặc định: `Điện thoại`, `Laptop`, `Phụ kiện`.

@@ -145,17 +145,64 @@ Tác nhân chính là người dùng thông thường đã đăng nhập. Các k
 
 ### 2.3 FR-14 - Domain Testing
 
-#### Domain Analysis Summary
+#### Step 1 - Xác định phạm vi và tác nhân
 
-| Input/State | Valid Domains | Invalid/Special Domains |
+FR-14 là chức năng quản lý danh mục trong Web Admin/API. Phạm vi kiểm thử gồm xem danh sách, thêm mới, cập nhật theo endpoint API công khai, và xóa danh mục.
+
+Tác nhân chính là Admin. Các tác nhân phụ gồm Guest/chưa đăng nhập và User thường để kiểm tra rule phân quyền của FR-12: mọi API có tính ảnh hưởng dữ liệu như `POST/PUT/DELETE /api/categories` phải yêu cầu JWT hợp lệ và `role = 'admin'`. Expected result được lấy từ `SystemRequirementsSpecification.md` FR-12, FR-14 và `api_specification.md`.
+
+#### Step 2 - Xác định biến đầu vào và trạng thái cần kiểm thử
+
+| Nhóm | Biến / trạng thái | Nguồn đặc tả | Ý nghĩa kiểm thử |
+| --- | --- | --- | --- |
+| Auth | Session/token | SRS FR-12 | Quyết định người dùng có được vào Web Admin và thao tác dữ liệu hay không |
+| Auth | Role trong token | SRS FR-12 | Chỉ `role = 'admin'` được phép gọi API thêm/sửa/xóa danh mục |
+| Read | Danh sách danh mục | SRS FR-14, API `GET /api/categories` | Admin phải xem được danh mục hiện có |
+| Create/Update | Tên danh mục | SRS FR-14, API body `{"name":"Tên DM"}` | Tên danh mục là input bắt buộc, không được rỗng |
+| Update | Category id | API `PUT /api/categories/:id` | Id phải tồn tại nếu cập nhật danh mục |
+| Delete | Category id | API `DELETE /api/categories/:id` | Id phải tồn tại nếu xóa danh mục |
+
+#### Step 3 - Phân hoạch tương đương
+
+| Biến / trạng thái | Lớp hợp lệ | Lớp không hợp lệ / đặc biệt |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| Session/token | Admin đã đăng nhập với JWT hợp lệ | Guest không có token; token user thường |
+| Role | `role = 'admin'` | `role = 'user'` hoặc thiếu role admin |
+| Category list | Danh sách rỗng, một danh mục, nhiều danh mục | Lỗi tải danh sách hoặc user không có quyền admin nhưng vẫn xem được admin page |
+| Category name | Chuỗi khác rỗng, ví dụ `FR14 Test Accessories` | Rỗng; chỉ gồm khoảng trắng |
+| Category name special | Unicode tiếng Việt, ví dụ `Đồ gia dụng FR14` | Lỗi encoding, mất dấu hoặc hiển thị sai |
+| Category id | Id danh mục tồn tại | Id không tồn tại; id đã bị xóa; id của thao tác không được phép với user thường |
 
-#### Step-by-Step Test Case Derivation
+#### Step 4 - Xác định ràng buộc liên biến
 
-| Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
-| --- | --- | --- |
-| TC-FR14-DT-001 | TBD | TBD |
+| Ràng buộc | Cách áp dụng vào test case |
+| --- | --- |
+| Quyền thao tác phụ thuộc đồng thời vào token hợp lệ và role admin | Tạo TC-FR14-DT-002/003 cho Web Admin route, TC-FR14-DT-004/005/013/016 cho API mutation khi thiếu quyền |
+| Khi kiểm tra lỗi phân quyền, dữ liệu category name/id giữ hợp lệ | Ví dụ TC-FR14-DT-005 dùng tên hợp lệ để lỗi chỉ đến từ `role = user` |
+| Tên danh mục bắt buộc áp dụng cho create và update | Tạo TC-FR14-DT-007/008 cho create invalid name và TC-FR14-DT-011 cho update invalid name |
+| Update/Delete chỉ hợp lệ với category id tồn tại | Tạo TC-FR14-DT-010/014 cho id tồn tại và TC-FR14-DT-012/015 cho id không tồn tại hoặc đã xóa |
+| Unicode là miền hợp lệ cần bảo toàn khi lưu/hiển thị | Tạo TC-FR14-DT-009 để kiểm tra tên tiếng Việt có dấu |
+
+#### Step 5 - Tổng hợp test case từ các lớp tương đương
+
+| Test case ID | Lớp miền được chọn | Lý do chọn / cách tổng hợp | Test case file |
+| --- | --- | --- | --- |
+| TC-FR14-DT-001 | Admin xem danh sách | Happy path của Read: admin hợp lệ phải xem được danh sách danh mục trên Web Admin/API. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-001.md` |
+| TC-FR14-DT-002 | Guest truy cập admin page | Đại diện lớp thiếu token; guest không được thấy dữ liệu hoặc thao tác quản trị. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-002.md` |
+| TC-FR14-DT-003 | User thường truy cập admin page | Đại diện lớp token hợp lệ nhưng sai role; kiểm tra phân hệ Admin chỉ dành cho admin. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-003.md` |
+| TC-FR14-DT-004 | Guest gọi API create | Kiểm tra `POST /api/categories` khi thiếu token; tên giữ hợp lệ để cô lập lỗi xác thực. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-004.md` |
+| TC-FR14-DT-005 | User thường gọi API create | Kiểm tra `POST /api/categories` khi có token nhưng không có role admin. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-005.md` |
+| TC-FR14-DT-006 | Admin create tên hợp lệ | Happy path của Create: tên khác rỗng phải tạo được category mới. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-006.md` |
+| TC-FR14-DT-007 | Create tên rỗng | Đại diện lớp invalid required field; expected là từ chối và không tạo category rỗng. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-007.md` |
+| TC-FR14-DT-008 | Create tên chỉ khoảng trắng | Đại diện special invalid domain: sau trim tương đương rỗng, không nên tạo record khó nhìn. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-008.md` |
+| TC-FR14-DT-009 | Create tên Unicode tiếng Việt | Đại diện special valid domain; kiểm tra hệ thống lưu và hiển thị đúng dấu tiếng Việt. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-009.md` |
+| TC-FR14-DT-010 | Admin update id tồn tại | Kiểm tra phần Update của CRUD theo endpoint `PUT /api/categories/:id`; id và tên mới đều hợp lệ. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-010.md` |
+| TC-FR14-DT-011 | Update tên rỗng | Kiểm tra rule tên bắt buộc khi sửa danh mục, không chỉ khi thêm mới. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-011.md` |
+| TC-FR14-DT-012 | Update id không tồn tại | Đại diện invalid route parameter; hệ thống không được tạo mới ngầm hoặc sửa nhầm category khác. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-012.md` |
+| TC-FR14-DT-013 | User thường update | Kiểm tra phân quyền của `PUT /api/categories/:id` với token user thường. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-013.md` |
+| TC-FR14-DT-014 | Admin delete id tồn tại | Happy path của Delete: admin xóa đúng danh mục được chọn. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-014.md` |
+| TC-FR14-DT-015 | Delete id không tồn tại/đã xóa | Đại diện invalid delete target và xóa lặp lại; danh sách phải vẫn nhất quán. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-015.md` |
+| TC-FR14-DT-016 | User thường delete | Kiểm tra phân quyền của `DELETE /api/categories/:id` với token user thường. | `tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-016.md` |
 
 ### 2.4 FR-23 - Domain Testing
 
@@ -217,13 +264,19 @@ Tác nhân chính là người dùng thông thường đã đăng nhập. Các k
 
 | Variable | Constraint Source | Boundary Points |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| `category.name.length` | SRS FR-14: tên danh mục là bắt buộc; SRS/API không nêu max length | 0 ký tự (OFF-), 1 ký tự (ON), 2 ký tự (ON+) |
+| Số lượng danh mục trong list | SRS FR-14 yêu cầu Admin xem danh mục; API không nêu pagination/page size | 0 danh mục, 1 danh mục, nhiều danh mục |
 
 #### Step-by-Step Test Case Derivation
 
 | Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
 | --- | --- | --- |
-| TC-FR14-BVA-001 | TBD | TBD |
+| TC-FR14-BVA-001 | Chọn điểm OFF- của min length: tên danh mục dài 0 ký tự vi phạm rule bắt buộc, expected là bị từ chối. | `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-001.md` |
+| TC-FR14-BVA-002 | Chọn điểm ON của min length: tên danh mục dài đúng 1 ký tự, expected là được chấp nhận vì khác rỗng. | `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-002.md` |
+| TC-FR14-BVA-003 | Chọn điểm ON+ ngay sau min: tên dài 2 ký tự, expected là được chấp nhận; không kiểm tra max vì đặc tả không nêu max. | `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-003.md` |
+| TC-FR14-BVA-004 | Chọn điểm biên 0 danh mục: minimum count hợp lệ của danh sách, expected là empty state/danh sách rỗng không lỗi. | `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-004.md` |
+| TC-FR14-BVA-005 | Chọn điểm ngay sau min là 1 danh mục: expected là hiển thị đúng một dòng, không empty state và không nhân bản. | `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-005.md` |
+| TC-FR14-BVA-006 | Chọn representative above min là nhiều danh mục vì SRS/API không nêu max/page size; expected là danh sách hiển thị nhiều item đúng. | `tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-006.md` |
 
 ### 3.4 FR-23 - BVA
 
@@ -247,8 +300,8 @@ Tác nhân chính là người dùng thông thường đã đăng nhập. Các k
 | FR-03 | BVA | 6 | 6 | 1 | 5 | 0 | BUG-FR03-001, BUG-FR03-004, BUG-FR03-005 |
 | FR-11 | Domain Testing | 12 | 12 | 10 | 2 | 0 | BUG-FR11-007, BUG-FR11-012 |
 | FR-11 | BVA | 3 | 3 | 3 | 0 | 0 | None |
-| FR-14 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
-| FR-14 | BVA | TBD | TBD | TBD | TBD | TBD | TBD |
+| FR-14 | Domain Testing | 16 | 16 | 8 | 8 | 0 | BUG-FR14-001, BUG-FR14-002, BUG-FR14-003 |
+| FR-14 | BVA | 6 | 6 | 5 | 1 | 0 | BUG-FR14-002 |
 | FR-23 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
 | FR-23 | BVA | TBD | TBD | TBD | TBD | TBD | TBD |
 
@@ -258,3 +311,4 @@ Tác nhân chính là người dùng thông thường đã đăng nhập. Các k
 | --- | --- | --- | --- | --- |
 | FR-03 | Domain Testing / BVA | AI ban đầu chưa tách rõ lỗi frontend và backend cho reset password; TC-FR03-DT-009 cũng phụ thuộc chuẩn bị tài khoản thứ hai qua UI nên bị cản bởi lỗi frontend. | Prompt/test design ban đầu tập trung vào expected result theo SRS, chưa dự phòng bước API verification khi UI bị chặn. | Gọi API trực tiếp để xác nhận backend sinh OTP 4 chữ số, email sai định dạng trả `User not found`, mật khẩu mạnh được backend chấp nhận, OTP của email khác bị từ chối đúng; cập nhật test run, bug reports và `ai-gap-analysis/FR-03-forgot-password.md`. |
 | FR-11 | Domain Testing / BVA | Phát hiện 2 lỗi sau khi chạy: user thường truy cập được chi tiết đơn user khác qua API; màu `Đã xác nhận` và `Đang giao` khó phân biệt. | AI thiết kế đúng test ownership bằng API bổ trợ nhưng ban đầu chưa biết Web không có page chi tiết đơn; BVA 0/1/nhiều đơn không phát hiện lỗi vì lỗi nằm ở authorization và visual status. | Gọi API để xác nhận `GET /api/orders/4` trả dữ liệu user khác cho `test@eshop.com`; cập nhật test run, bug reports và `ai-gap-analysis/FR-11-order-history.md`. |
+| FR-14 | Domain Testing / BVA | Phát hiện 3 nhóm lỗi sau khi chạy: user thường gọi được API thêm/sửa/xóa danh mục; API cho phép tên category rỗng/whitespace; update/delete id không tồn tại vẫn trả success. | AI thiết kế đúng các miền role, required name và nonexistent id; BVA min length phát hiện lỗi tên rỗng. AI không tạo duplicate/max length vì SRS/API không nêu rule có căn cứ. | Gọi API để xác nhận các lỗi bằng token user/admin, tạo `BUG-FR14-001` đến `BUG-FR14-003`, cập nhật test run, từng test case và `ai-gap-analysis/FR-14-category-management.md`. |
