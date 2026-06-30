@@ -84,17 +84,64 @@ Tác nhân chính là người dùng chưa đăng nhập hoặc người dùng q
 
 ### 2.2 FR-11 - Domain Testing
 
-#### Domain Analysis Summary
+#### Step 1 - Xác định phạm vi và tác nhân
 
-| Input/State | Valid Domains | Invalid/Special Domains |
+FR-11 là chức năng Xem lịch sử đơn hàng của user trên Web/API.
+
+Tác nhân chính là người dùng thông thường đã đăng nhập. Các kiểm tra bảo mật bổ sung dùng trạng thái guest/chưa đăng nhập và user khác để xác minh rule "người dùng chỉ xem được đơn hàng của chính mình". Expected result được lấy từ `SystemRequirementsSpecification.md` FR-11, FR-10, GUI-01 và `api_specification.md` endpoint `GET /api/orders/my-orders`, `GET /api/orders/:id`.
+
+#### Step 2 - Xác định biến đầu vào và trạng thái cần kiểm thử
+
+| Nhóm | Biến / trạng thái | Nguồn đặc tả | Ý nghĩa kiểm thử |
+| --- | --- | --- | --- |
+| Auth | Session/token | API yêu cầu `Authorization: Bearer <token>` | Quyết định user có được xem lịch sử đơn hàng hay không |
+| Ownership | User sở hữu đơn hàng | SRS FR-11 | Chỉ hiển thị/truy cập đơn của chính user đang đăng nhập |
+| Dữ liệu | Số lượng đơn hàng | SRS FR-11, API `GET /api/orders/my-orders` | Kiểm tra danh sách rỗng, một đơn, nhiều đơn |
+| Chi tiết | Order id | API `GET /api/orders/:id` | Kiểm tra order id thuộc chính user hoặc thuộc user khác |
+| Hiển thị | Mã đơn | SRS FR-11 | Trường bắt buộc trong danh sách lịch sử đơn hàng |
+| Hiển thị | Ngày đặt | SRS FR-11 | Trường bắt buộc trong danh sách lịch sử đơn hàng |
+| Hiển thị | Tổng tiền | SRS FR-11, GUI-01 | Trường bắt buộc, cần định dạng tiền tệ rõ ràng |
+| Hiển thị | Trạng thái hiện tại | SRS FR-11, FR-10 | Trạng thái phải dịch tiếng Việt và phân biệt màu sắc |
+
+#### Step 3 - Phân hoạch tương đương
+
+| Biến / trạng thái | Lớp hợp lệ | Lớp không hợp lệ / đặc biệt |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| Session/token | User đăng nhập với token hợp lệ | Chưa đăng nhập/không có token |
+| Ownership trong danh sách | Danh sách chỉ gồm đơn của user hiện tại | Danh sách có đơn của user khác |
+| Order id chi tiết | Order id thuộc user hiện tại | Order id thuộc user khác |
+| Số lượng đơn | User có 1 hoặc nhiều đơn | User có 0 đơn, cần hiển thị trạng thái rỗng đúng |
+| Mã đơn | Mã đơn/id hiển thị rõ cho từng đơn | Thiếu mã đơn hoặc mã không phân biệt được các đơn |
+| Ngày đặt | Ngày đặt hiển thị rõ và khớp dữ liệu | Thiếu ngày đặt hoặc ngày không đọc được |
+| Tổng tiền | Tổng tiền hiển thị đúng, có `₫` và phân cách hàng nghìn | Thiếu tổng tiền hoặc sai định dạng tiền tệ |
+| Trạng thái | `pending`, `confirmed`, `shipping`, `delivered`, `canceled` được dịch tiếng Việt và có màu phân biệt | Hiển thị raw status tiếng Anh, dịch mơ hồ hoặc màu không phân biệt |
 
-#### Step-by-Step Test Case Derivation
+#### Step 4 - Xác định ràng buộc liên biến
 
-| Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
-| --- | --- | --- |
-| TC-FR11-DT-001 | TBD | TBD |
+| Ràng buộc | Cách áp dụng vào test case |
+| --- | --- |
+| Token xác định user hiện tại | Tạo TC-FR11-DT-001 cho token hợp lệ và TC-FR11-DT-002 cho trạng thái không có token |
+| Order ownership phụ thuộc vào user trong token | Tạo TC-FR11-DT-005 để kiểm tra danh sách không lẫn đơn user khác và TC-FR11-DT-007 để thử truy cập chi tiết đơn user khác |
+| Chi tiết đơn chỉ hợp lệ khi order id thuộc owner | Tạo TC-FR11-DT-006 cho own order id và TC-FR11-DT-007 cho other user's order id |
+| Các trường hiển thị phải đúng trên từng đơn trong danh sách | Tách TC-FR11-DT-008, DT-009, DT-010 để dễ định vị lỗi thiếu mã đơn, ngày đặt hoặc tổng tiền |
+| Status là enum nhưng yêu cầu UI gồm cả ngôn ngữ và màu sắc | Tách TC-FR11-DT-011 cho tiếng Việt và TC-FR11-DT-012 cho màu sắc để isolate lỗi text và lỗi visual |
+
+#### Step 5 - Tổng hợp test case từ các lớp tương đương
+
+| Test case ID | Lớp miền được chọn | Lý do chọn / cách tổng hợp | Test case file |
+| --- | --- | --- | --- |
+| TC-FR11-DT-001 | User đã đăng nhập và có đơn | Kiểm tra happy path của FR-11: token hợp lệ, user có đơn, danh sách lịch sử phải hiển thị dữ liệu cá nhân. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md` |
+| TC-FR11-DT-002 | Chưa đăng nhập | Đại diện lớp invalid auth; API yêu cầu Bearer token nên Web/API không được trả lịch sử đơn hàng khi thiếu token. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-002.md` |
+| TC-FR11-DT-003 | User có 0 đơn | Đại diện special domain danh sách rỗng; expected là empty state rõ ràng và không hiển thị đơn của user khác. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-003.md` |
+| TC-FR11-DT-004 | User có nhiều đơn | Đại diện lớp dữ liệu nhiều bản ghi; kiểm tra danh sách không mất/gộp sai đơn khi user có nhiều order. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-004.md` |
+| TC-FR11-DT-005 | Danh sách có nguy cơ lẫn đơn user khác | Đại diện rule ownership ở list API/UI: token của `test@eshop.com` không được thấy order của `fr11.other@example.com`. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-005.md` |
+| TC-FR11-DT-006 | Order id thuộc user hiện tại | Kiểm tra miền hợp lệ của endpoint chi tiết đơn: owner được xem chi tiết đơn của chính mình. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-006.md` |
+| TC-FR11-DT-007 | Order id thuộc user khác | Đại diện miền invalid ownership ở endpoint chi tiết; expected là từ chối và không lộ dữ liệu. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-007.md` |
+| TC-FR11-DT-008 | Trường Mã đơn | Tách riêng yêu cầu hiển thị mã đơn để phát hiện lỗi thiếu identifier trong mỗi dòng lịch sử. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-008.md` |
+| TC-FR11-DT-009 | Trường Ngày đặt | Tách riêng yêu cầu hiển thị ngày đặt để kiểm tra thông tin thời gian của đơn hàng. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-009.md` |
+| TC-FR11-DT-010 | Trường Tổng tiền | Tách riêng yêu cầu tổng tiền và kết hợp GUI-01 về ký hiệu `₫`/phân cách hàng nghìn. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-010.md` |
+| TC-FR11-DT-011 | Dịch trạng thái sang tiếng Việt | Đại diện yêu cầu FR-11 về status label; bao phủ 5 trạng thái từ FR-10. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-011.md` |
+| TC-FR11-DT-012 | Màu sắc phân biệt trạng thái | Đại diện yêu cầu visual của FR-11; tách khỏi text để nếu label đúng nhưng màu sai vẫn ghi nhận được. | `tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-012.md` |
 
 ### 2.3 FR-14 - Domain Testing
 
@@ -154,13 +201,15 @@ Tác nhân chính là người dùng chưa đăng nhập hoặc người dùng q
 
 | Variable | Constraint Source | Boundary Points |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| Số lượng đơn hàng trong lịch sử cá nhân | SRS FR-11 yêu cầu xem lịch sử đơn hàng cá nhân; API không nêu pagination/filter, nên boundary có căn cứ là số lượng đơn trả về trong danh sách | 0 đơn, 1 đơn, nhiều đơn |
 
 #### Step-by-Step Test Case Derivation
 
 | Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
 | --- | --- | --- |
-| TC-FR11-BVA-001 | TBD | TBD |
+| TC-FR11-BVA-001 | Chọn điểm biên 0 đơn: đây là minimum count hợp lệ của lịch sử cá nhân, expected là empty state rõ ràng và không hiển thị dữ liệu user khác. | `tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md` |
+| TC-FR11-BVA-002 | Chọn điểm ngay sau min là 1 đơn: expected là hiển thị đúng một đơn, không hiển thị empty state và không nhân bản dòng. | `tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-002.md` |
+| TC-FR11-BVA-003 | Chọn representative above min là nhiều đơn vì SRS/API không nêu max hoặc page size; expected là danh sách hiển thị được nhiều đơn của cùng user. | `tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-003.md` |
 
 ### 3.3 FR-14 - BVA
 
@@ -196,8 +245,8 @@ Tác nhân chính là người dùng chưa đăng nhập hoặc người dùng q
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FR-03 | Domain Testing | 12 | 12 | 6 | 6 | 0 | BUG-FR03-001, BUG-FR03-002, BUG-FR03-003, BUG-FR03-004, BUG-FR03-005 |
 | FR-03 | BVA | 6 | 6 | 1 | 5 | 0 | BUG-FR03-001, BUG-FR03-004, BUG-FR03-005 |
-| FR-11 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
-| FR-11 | BVA | TBD | TBD | TBD | TBD | TBD | TBD |
+| FR-11 | Domain Testing | 12 | 12 | 10 | 2 | 0 | BUG-FR11-007, BUG-FR11-012 |
+| FR-11 | BVA | 3 | 3 | 3 | 0 | 0 | None |
 | FR-14 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
 | FR-14 | BVA | TBD | TBD | TBD | TBD | TBD | TBD |
 | FR-23 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
@@ -208,3 +257,4 @@ Tác nhân chính là người dùng chưa đăng nhập hoặc người dùng q
 | Feature | Technique | Missed test cases / bugs | Reason | Correction |
 | --- | --- | --- | --- | --- |
 | FR-03 | Domain Testing / BVA | AI ban đầu chưa tách rõ lỗi frontend và backend cho reset password; TC-FR03-DT-009 cũng phụ thuộc chuẩn bị tài khoản thứ hai qua UI nên bị cản bởi lỗi frontend. | Prompt/test design ban đầu tập trung vào expected result theo SRS, chưa dự phòng bước API verification khi UI bị chặn. | Gọi API trực tiếp để xác nhận backend sinh OTP 4 chữ số, email sai định dạng trả `User not found`, mật khẩu mạnh được backend chấp nhận, OTP của email khác bị từ chối đúng; cập nhật test run, bug reports và `ai-gap-analysis/FR-03-forgot-password.md`. |
+| FR-11 | Domain Testing / BVA | Phát hiện 2 lỗi sau khi chạy: user thường truy cập được chi tiết đơn user khác qua API; màu `Đã xác nhận` và `Đang giao` khó phân biệt. | AI thiết kế đúng test ownership bằng API bổ trợ nhưng ban đầu chưa biết Web không có page chi tiết đơn; BVA 0/1/nhiều đơn không phát hiện lỗi vì lỗi nằm ở authorization và visual status. | Gọi API để xác nhận `GET /api/orders/4` trả dữ liệu user khác cho `test@eshop.com`; cập nhật test run, bug reports và `ai-gap-analysis/FR-11-order-history.md`. |
