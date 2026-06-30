@@ -45,4 +45,4 @@ Web Admin Dashboard / Functional / Domain Testing
 Dashboard cho phép Admin xem màn hình. Chỉ số tổng doanh thu hiển thị `0`; chỉ số tổng số đơn hàng hiển thị `0`. Không có đơn hàng nào được tạo hoặc thay đổi trong quá trình xem Dashboard.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None

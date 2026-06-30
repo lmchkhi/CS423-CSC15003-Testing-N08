@@ -50,4 +50,4 @@ Web Admin Dashboard / Functional / Domain Testing
 Dashboard cho phép Admin xem màn hình. Chỉ số tổng doanh thu hiển thị `0` vì không có đơn nào có `status = 'delivered'`. Chỉ số tổng số đơn hàng hiển thị `4`. Dữ liệu đơn hàng không bị thay đổi khi chỉ xem Dashboard.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None

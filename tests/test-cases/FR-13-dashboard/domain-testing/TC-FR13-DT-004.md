@@ -51,4 +51,4 @@ Web Admin Dashboard / Functional / Domain Testing
 Dashboard cho phép Admin xem màn hình. Chỉ số tổng doanh thu hiển thị `120000`, chỉ lấy `total_amount` của đơn `delivered` và không cộng `90000`, `110000`, `130000`, `70000`. Chỉ số tổng số đơn hàng hiển thị `5`. Dữ liệu đơn hàng không bị thay đổi khi chỉ xem Dashboard.
 
 ## Status / Related bugs
-Not Run / None
+Fail / BUG-FR13-001
