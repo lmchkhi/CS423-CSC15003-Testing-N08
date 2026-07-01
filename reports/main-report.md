@@ -20,8 +20,6 @@ Nguồn đặc tả black-box:
 
 ## 2. Domain Testing Report
 
-> Theo hướng dẫn của giảng viên, phần này cần trình bày các bước để tạo ra từng Domain Testing test case, không chỉ mô tả tổng quan.
-
 ### 2.1 FR-03 - Domain Testing
 
 #### Step 1 - Xác định phạm vi và tác nhân
@@ -269,8 +267,6 @@ Tác nhân chính là người dùng mobile chưa đăng nhập hoặc người 
 | TC-FR23-DT-012 | Mật khẩu mới rỗng | Đại diện lớp missing required password; expected là từ chối reset và không đổi mật khẩu. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-012.md` |
 
 ## 3. Boundary Value Analysis Report
-
-> Theo hướng dẫn của giảng viên, phần này cần trình bày các bước để tạo ra từng BVA test case, bao gồm nguồn boundary, điểm ON/OFF và expected result.
 
 ### 3.1 FR-03 - BVA
 
