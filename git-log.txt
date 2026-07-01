@@ -1,5 +1,21 @@
 thanhngo@LAPTOP-2HV4BMKM:~/testing/hw02/CS423-CSC15003-Testing-N08$ git log
-commit 813945a4ca1c81d828094b53dc0ec1369c602837 (HEAD -> 23127475, origin/23127475)
+commit 7a299ab70fdfed572db67623f18fce597fb8e873 (HEAD -> 23127475, origin/23127475)
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Wed Jul 1 13:09:05 2026 +0000
+
+    Implement code changes to enhance functionality and improve performance
+
+commit 3a4e098769b0181896f8ec165c69af02148b915e
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Wed Jul 1 13:00:26 2026 +0000
+
+    Update AI critique and prompt log; remove outdated test cases for registration feature
+    
+    - Enhanced the AI critique in `reports/ai-critique.md` to provide a detailed analysis of AI performance in testing, highlighting specific shortcomings and lessons learned.
+    - Expanded the prompt log in `reports/prompt_log.md` with a comprehensive AI audit report and additional context for AI output and human review.
+    - Deleted obsolete test cases related to boundary value analysis and domain testing for the registration feature in `tests/test-cases/FR-01-register`, as well as the associated test run documentation.
+
+commit 813945a4ca1c81d828094b53dc0ec1369c602837
 Merge: 8afc676 602cfeb
 Author: Hồng Thanh <23127475@student.hcmus.edu.vn>
 Date:   Wed Jul 1 16:31:50 2026 +0700
