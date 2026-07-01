@@ -51,23 +51,23 @@
 
 | Bug ID | Feature | Severity / Priority | Status | Local Report | GitHub Issue |
 |---|---|---|---|---|---|
-| BUG-FR02-001 | FR-02 | Critical / P1 | Open | [BUG-FR02-001](bug-reports/BUG-FR02-001.md) | TBD |
-| BUG-FR02-002 | FR-02 | High / P2 | Open | [BUG-FR02-002](bug-reports/BUG-FR02-002.md) | TBD |
-| BUG-FR02-003 | FR-02 | High / P1 | Open | [BUG-FR02-003](bug-reports/BUG-FR02-003.md) | TBD |
-| BUG-FR02-004 | FR-02 | Low / P3 | Open | [BUG-FR02-004](bug-reports/BUG-FR02-004.md) | TBD |
-| BUG-FR02-005 | FR-02 | High / P1 | Open | [BUG-FR02-005](bug-reports/BUG-FR02-005.md) | TBD |
-| BUG-FR10-001 | FR-10 | High / P2 | Open | [BUG-FR10-001](bug-reports/BUG-FR10-001.md) | TBD |
-| BUG-FR10-002 | FR-10 | High / P2 | Open | [BUG-FR10-002](bug-reports/BUG-FR10-002.md) | TBD |
-| BUG-FR10-003 | FR-10 | Critical / P1 | Open | [BUG-FR10-003](bug-reports/BUG-FR10-003.md) | TBD |
-| BUG-FR13-001 | FR-13 | High / P2 | Open | [BUG-FR13-001](bug-reports/BUG-FR13-001.md) | TBD |
-| BUG-FR26-001 | FR-26 | Low / P2 | Open | [BUG-FR26-001](bug-reports/BUG-FR26-001.md) | TBD |
-| BUG-FR26-002 | FR-26 | Medium / P2 | Open | [BUG-FR26-002](bug-reports/BUG-FR26-002.md) | TBD |
-| BUG-FR26-003 | FR-26 | High / P2 | Open | [BUG-FR26-003](bug-reports/BUG-FR26-003.md) | TBD |
-| BUG-FR26-004 | FR-26 | Low / P3 | Open | [BUG-FR26-004](bug-reports/BUG-FR26-004.md) | TBD |
-| BUG-FR26-005 | FR-26 | Low / P2 | Open | [BUG-FR26-005](bug-reports/BUG-FR26-005.md) | TBD |
+| BUG-FR02-001 | FR-02 | Critical / P1 | Open | [BUG-FR02-001](bug-reports/BUG-FR02-001.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69 |
+| BUG-FR02-002 | FR-02 | High / P2 | Open | [BUG-FR02-002](bug-reports/BUG-FR02-002.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/70 |
+| BUG-FR02-003 | FR-02 | High / P1 | Open | [BUG-FR02-003](bug-reports/BUG-FR02-003.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/71 |
+| BUG-FR02-004 | FR-02 | Low / P3 | Open | [BUG-FR02-004](bug-reports/BUG-FR02-004.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/72 |
+| BUG-FR02-005 | FR-02 | High / P1 | Open | [BUG-FR02-005](bug-reports/BUG-FR02-005.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/73 |
+| BUG-FR10-001 | FR-10 | High / P2 | Open | [BUG-FR10-001](bug-reports/BUG-FR10-001.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/85 |
+| BUG-FR10-002 | FR-10 | High / P2 | Open | [BUG-FR10-002](bug-reports/BUG-FR10-002.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/86 |
+| BUG-FR10-003 | FR-10 | Critical / P1 | Open | [BUG-FR10-003](bug-reports/BUG-FR10-003.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/87 |
+| BUG-FR13-001 | FR-13 | High / P2 | Open | [BUG-FR13-001](bug-reports/BUG-FR13-001.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/58 |
+| BUG-FR26-001 | FR-26 | Low / P2 | Open | [BUG-FR26-001](bug-reports/BUG-FR26-001.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/75 |
+| BUG-FR26-002 | FR-26 | Medium / P2 | Open | [BUG-FR26-002](bug-reports/BUG-FR26-002.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/76 |
+| BUG-FR26-003 | FR-26 | High / P2 | Open | [BUG-FR26-003](bug-reports/BUG-FR26-003.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/77 |
+| BUG-FR26-004 | FR-26 | Low / P3 | Open | [BUG-FR26-004](bug-reports/BUG-FR26-004.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/78 |
+| BUG-FR26-005 | FR-26 | Low / P2 | Open | [BUG-FR26-005](bug-reports/BUG-FR26-005.md) | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/79 |
 
 > **Tổng số bugs:** 14 unique bugs.
-> Link GitHub Issue được để `TBD` cho phase tạo issue tiếp theo; bug report nội bộ và screenshot đã được chuẩn bị trong `bug-reports/`.
+> Link GitHub Issue đã được cập nhật tương ứng; bug report nội bộ và screenshot được đính kèm trong `bug-reports/`.
 
 ### 2.4. Bằng chứng test run
 
