@@ -241,15 +241,15 @@ Tại bước Checkout, người dùng có thể nhập mã giảm giá. Hệ th
 - Giao diện mobile hiển thị thông báo lỗi trực quan nếu dữ liệu nhập vào không hợp lệ.
 - Sau khi đăng ký thành công, người dùng được chuyển tới màn hình Đăng nhập.
 
-### FR-26: Quản lý hồ sơ cá nhân trên Mobile
+### FR-26: Giỏ hàng trên Mobile
 
-Ứng dụng Mobile phải hỗ trợ Quản lý hồ sơ cá nhân tương đương FR-04.
+Ứng dụng Mobile phải hỗ trợ Giỏ hàng tương đương FR-07.
 
-- Người dùng đã đăng nhập có thể cập nhật: **Họ Tên**, **Số điện thoại**, **Địa chỉ giao hàng mặc định**.
-- **Số điện thoại hợp lệ**: bắt đầu bằng số `0`, từ 10–11 chữ số.
-- Email không được phép thay đổi qua giao diện mobile (được hiển thị dưới dạng read-only).
-- Người dùng chỉ có thể cập nhật hồ sơ của chính mình; không thể tự thay đổi thuộc tính `role`.
-- Giao diện mobile hiển thị rõ ràng thông báo thành công khi cập nhật hồ sơ, hoặc lỗi khi nhập số điện thoại không hợp lệ.
+- Giao diện mobile hiển thị danh sách sản phẩm với các thông tin: **Sản phẩm**, **Đơn giá**, **Số lượng** (có nút +/- để chỉnh), và **Thành tiền**.
+- Có nút để xóa sản phẩm khỏi giỏ hàng, và phải có hộp thoại (dialog) xác nhận trước khi xóa.
+- Thêm cùng một sản phẩm vào giỏ sẽ tăng số lượng, không tạo dòng mới.
+- Tổng tiền hiển thị nhãn chính xác: **"Tổng cộng"** (không phải "Tổng tạm tính").
+- Giỏ hàng trống phải có hình minh họa và thông báo rõ ràng trên giao diện mobile.
 
 ### FR-27: Thanh toán trên Mobile
 
