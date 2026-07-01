@@ -13,7 +13,7 @@
 | 1 | Feature A — FR-03: Quên mật khẩu & Đặt lại mật khẩu (Domain + Boundary) | 25 | |
 | 2 | Feature B — FR-11: Xem lịch sử đơn hàng (Domain + Boundary) | 25 | |
 | 3 | Feature C — FR-14: Quản lý danh mục CRUD (Domain + Boundary) | 25 | |
-| 4 | Feature D — Mobile, FR-xx: _TBD_ (Domain + Boundary) | 15 | |
+| 4 | Feature D — Mobile, FR-23: Quên mật khẩu & Đặt lại mật khẩu trên Mobile (Domain + Boundary) | 15 | |
 | 5 | Agent Skills | 10 | |
 | | **Total** | **100** | **/100** |
 
@@ -28,7 +28,7 @@
 | A | FR-03 | Quên mật khẩu & Đặt lại mật khẩu | Web |
 | B | FR-11 | Xem lịch sử đơn hàng | Web |
 | C | FR-14 | Quản lý danh mục CRUD | Web Admin |
-| D | FR-xx | _TBD_ | Mobile |
+| D | FR-23 | Quên mật khẩu & Đặt lại mật khẩu trên Mobile | Mobile |
 
 ### 2.2. Test Case Summary
 
@@ -40,9 +40,9 @@
 | FR-11 | BVA | 3 | 3 | 3 | 0 | 0 | 0 |
 | FR-14 | Domain Testing | 16 | 16 | 8 | 8 | 0 | 0 |
 | FR-14 | BVA | 6 | 6 | 5 | 1 | 0 | 0 |
-| FR-xx | Domain Testing | — | — | — | — | — | — |
-| FR-xx | BVA | — | — | — | — | — | — |
-| **Total** | | **55** | **55** | **33** | **22** | **0** | **0** |
+| FR-23 | Domain Testing | 12 | 12 | 5 | 5 | 0 | 2 |
+| FR-23 | BVA | 6 | 6 | 3 | 3 | 0 | 0 |
+| **Total** | | **73** | **73** | **41** | **30** | **0** | **2** |
 
 ### 2.3. Bug Summary
 
@@ -58,8 +58,12 @@
 | BUG-FR14-001 | FR-14 | Critical | Open | TBD |
 | BUG-FR14-002 | FR-14 | Major | Open | TBD |
 | BUG-FR14-003 | FR-14 | Major | Open | TBD |
+| BUG-FR23-001 | FR-23 | Critical | Open | TBD |
+| BUG-FR23-002 | FR-23 | Major | Open | TBD |
+| BUG-FR23-003 | FR-23 | Major | Open | TBD |
+| BUG-FR23-004 | FR-23 | Major | Open | TBD |
 
-> **Tổng số bugs:** 10
+> **Tổng số bugs:** 14
 
 ### 2.4. Demo Videos
 
@@ -68,4 +72,5 @@
 | FR-03 | Domain Testing + BVA | [YouTube](link) |
 | FR-11 | Domain Testing + BVA | [YouTube](link) |
 | FR-14 | Domain Testing + BVA | [YouTube](link) |
+| FR-23 | Domain Testing + BVA | [YouTube](link) |
 | Agent Skill Demo | — | [YouTube](link) |

@@ -206,17 +206,67 @@ Tác nhân chính là Admin. Các tác nhân phụ gồm Guest/chưa đăng nh�
 
 ### 2.4 FR-23 - Domain Testing
 
-#### Domain Analysis Summary
+#### Step 1 - Xác định phạm vi và tác nhân
 
-| Input/State | Valid Domains | Invalid/Special Domains |
+FR-23 là luồng Quên mật khẩu và Đặt lại mật khẩu trên Mobile, tương đương FR-03 nhưng được kiểm thử trên ứng dụng React Native/Expo.
+
+1. Bước 1 - Lấy OTP: người dùng mobile nhập email đã đăng ký để hệ thống sinh OTP.
+2. Bước 2 - Reset password: người dùng mobile nhập OTP, mật khẩu mới và xác nhận mật khẩu mới.
+
+Tác nhân chính là người dùng mobile chưa đăng nhập hoặc người dùng quên mật khẩu. Expected result được lấy từ `SystemRequirementsSpecification.md` FR-23 và `api_specification.md` endpoint `POST /api/forgot-password`, `POST /api/reset-password`.
+
+#### Step 2 - Xác định biến đầu vào và trạng thái cần kiểm thử
+
+| Nhóm | Biến / trạng thái | Nguồn đặc tả | Ý nghĩa kiểm thử |
+| --- | --- | --- | --- |
+| Bước 1 | Email | SRS FR-23, API `POST /api/forgot-password` | Quyết định hệ thống có sinh OTP hay không |
+| Bước 1 | Step Indicator mobile | SRS FR-23 | Màn hình mobile phải thể hiện đây là luồng 2 bước |
+| Bước 1 | Nút Quay lại đăng nhập | SRS FR-23 | Người dùng mobile phải có đường quay lại màn hình Đăng nhập |
+| Luồng | Trạng thái đã/chưa lấy OTP | SRS FR-23 | Không được reset password nếu chưa có OTP hợp lệ |
+| Bước 2 | OTP | SRS FR-23, API `POST /api/reset-password` | OTP phải đúng 6 chữ số và thuộc email đã yêu cầu |
+| Bước 2 | Mật khẩu mới | SRS FR-23 tham chiếu FR-01 | Mật khẩu mới phải là mật khẩu mạnh |
+| Bước 2 | Xác nhận mật khẩu mới | SRS FR-23 | Hai trường mật khẩu phải khớp |
+| Bước 2 | Hiển thị lỗi mobile | SRS FR-23 | Lỗi OTP sai, mật khẩu yếu, confirm mismatch phải rõ ràng trên mobile |
+| Sau reset | Điều hướng | SRS FR-23 | Sau khi reset thành công phải về màn hình Đăng nhập |
+
+#### Step 3 - Phân hoạch tương đương
+
+| Biến / trạng thái | Lớp hợp lệ | Lớp không hợp lệ / đặc biệt |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| Email | Email đã đăng ký, đúng định dạng: `test@eshop.com` | Rỗng; sai định dạng; đúng định dạng nhưng chưa đăng ký |
+| Nút Quay lại đăng nhập | Nút tồn tại và điều hướng về màn hình Đăng nhập | Không có nút hoặc nút không điều hướng đúng |
+| Trạng thái luồng | Đã lấy OTP trước khi reset | Gửi reset khi chưa lấy OTP |
+| OTP | OTP đúng 6 chữ số cho chính email đã yêu cầu | Sai OTP; OTP của email khác |
+| Mật khẩu mới | Đủ rule FR-01: >=8 ký tự, có chữ hoa, chữ thường, số, ký tự đặc biệt | Rỗng; yếu/thiếu một hoặc nhiều điều kiện mật khẩu mạnh |
+| Xác nhận mật khẩu mới | Khớp mật khẩu mới | Không khớp mật khẩu mới |
+| Điều hướng sau reset | Reset thành công rồi về màn hình Đăng nhập | Không điều hướng hoặc ở lại màn hình reset sau khi thành công |
 
-#### Step-by-Step Test Case Derivation
+#### Step 4 - Xác định ràng buộc liên biến
 
-| Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
-| --- | --- | --- |
-| TC-FR23-DT-001 | TBD | TBD |
+| Ràng buộc | Cách áp dụng vào test case |
+| --- | --- |
+| OTP phải gắn với email đã yêu cầu | Tạo TC-FR23-DT-009 để dùng OTP của email phụ cho `test@eshop.com` |
+| Reset password chỉ hợp lệ sau khi lấy OTP | Tạo TC-FR23-DT-007 để gửi reset khi chưa thực hiện bước lấy OTP |
+| Mật khẩu mới và xác nhận mật khẩu mới phải khớp | Tạo TC-FR23-DT-011 để cô lập lỗi confirm mismatch |
+| Lỗi trên mobile phải rõ ràng với OTP sai, mật khẩu yếu, confirm mismatch | Gắn expected result rõ ràng vào TC-FR23-DT-008, TC-FR23-DT-010 và TC-FR23-DT-011 |
+| Reset thành công phải điều hướng về Đăng nhập | Gắn expected result vào TC-FR23-DT-006 và các BVA case hợp lệ |
+
+#### Step 5 - Tổng hợp test case từ các lớp tương đương
+
+| Test case ID | Lớp miền được chọn | Lý do chọn / cách tổng hợp | Test case file |
+| --- | --- | --- | --- |
+| TC-FR23-DT-001 | Email hợp lệ đã đăng ký trên mobile | Kiểm tra happy path của Bước 1: email thuộc lớp hợp lệ nên hệ thống phải sinh OTP 6 chữ số và màn hình mobile chuyển tiếp đúng. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-001.md` |
+| TC-FR23-DT-002 | Nút Quay lại đăng nhập hợp lệ | Tách yêu cầu điều hướng mobile khỏi dữ liệu email để xác minh màn hình lấy OTP có đủ đường quay lại Login. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-002.md` |
+| TC-FR23-DT-003 | Email rỗng | Đại diện lớp invalid "missing required email"; expected là không sinh OTP và báo lỗi bắt buộc nhập trên mobile. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-003.md` |
+| TC-FR23-DT-004 | Email sai định dạng | Đại diện lớp invalid format; expected là lỗi định dạng email rõ ràng, khác với lỗi email chưa đăng ký. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-004.md` |
+| TC-FR23-DT-005 | Email chưa đăng ký | Đại diện lớp đúng format nhưng không tồn tại; expected là từ chối vì FR-23 yêu cầu email đã đăng ký. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-005.md` |
+| TC-FR23-DT-006 | Bước 2 hợp lệ toàn bộ | Kết hợp các lớp hợp lệ: đã lấy OTP, OTP đúng, mật khẩu mạnh, confirm khớp và kiểm tra điều hướng về Login sau reset thành công. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-006.md` |
+| TC-FR23-DT-007 | Chưa lấy OTP | Đại diện lỗi trạng thái luồng; các input reset còn lại dùng giá trị hợp lệ để lỗi chỉ đến từ việc chưa có OTP hợp lệ. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-007.md` |
+| TC-FR23-DT-008 | OTP sai | Đại diện lớp OTP sai giá trị; email và mật khẩu mới giữ hợp lệ để cô lập lỗi OTP và kiểm tra thông báo lỗi mobile. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-008.md` |
+| TC-FR23-DT-009 | OTP của email khác | Đại diện ràng buộc liên biến email-OTP; kiểm tra OTP không được dùng chéo giữa các tài khoản. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-009.md` |
+| TC-FR23-DT-010 | Mật khẩu mới yếu | Đại diện lớp invalid password strength; OTP và confirm giữ hợp lệ để lỗi tập trung ở password mới và thông báo mobile. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-010.md` |
+| TC-FR23-DT-011 | Confirm password không khớp | Đại diện lớp invalid confirm mismatch; mật khẩu mới vẫn mạnh để cô lập lỗi xác nhận mật khẩu và thông báo mobile. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-011.md` |
+| TC-FR23-DT-012 | Mật khẩu mới rỗng | Đại diện lớp missing required password; expected là từ chối reset và không đổi mật khẩu. | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-012.md` |
 
 ## 3. Boundary Value Analysis Report
 
@@ -284,26 +334,32 @@ Tác nhân chính là Admin. Các tác nhân phụ gồm Guest/chưa đăng nh�
 
 | Variable | Constraint Source | Boundary Points |
 | --- | --- | --- |
-| TBD | TBD | TBD |
+| OTP length | SRS FR-23: OTP 6 chữ số | 5 (OFF-), 6 (ON), 7 (OFF+) |
+| newPassword.length | SRS FR-23 tham chiếu rule mật khẩu mạnh FR-01: tối thiểu 8 ký tự | 7 (OFF-), 8 (ON), 9 (OFF+) |
 
 #### Step-by-Step Test Case Derivation
 
 | Test case ID | Step-by-step explanation of how the test case was derived | Test case file |
 | --- | --- | --- |
-| TC-FR23-BVA-001 | TBD | TBD |
+| TC-FR23-BVA-001 | Chọn điểm ON của OTP length: OTP hệ thống sinh trên mobile phải đúng 6 chữ số. Các input khác giữ hợp lệ để xác nhận điểm biên được chấp nhận. | `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-001.md` |
+| TC-FR23-BVA-002 | Chọn điểm OFF- của OTP length: 5 chữ số, nhỏ hơn ràng buộc đúng 6 chữ số. Expected là bị từ chối và lỗi hiển thị rõ trên mobile. | `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-002.md` |
+| TC-FR23-BVA-003 | Chọn điểm OFF+ của OTP length: 7 chữ số, lớn hơn ràng buộc đúng 6 chữ số. Expected là bị từ chối và lỗi hiển thị rõ trên mobile. | `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-003.md` |
+| TC-FR23-BVA-004 | Chọn điểm OFF- của độ dài mật khẩu mới: 7 ký tự. Chuỗi vẫn có đủ loại ký tự để lỗi chỉ do length. | `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-004.md` |
+| TC-FR23-BVA-005 | Chọn điểm ON của độ dài mật khẩu mới: đúng 8 ký tự và đủ rule mật khẩu mạnh. Expected là được chấp nhận và điều hướng về Login sau reset. | `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-005.md` |
+| TC-FR23-BVA-006 | Chọn điểm OFF+ theo min boundary: 9 ký tự, vẫn là giá trị hợp lệ vì lớn hơn min và đủ rule mật khẩu mạnh. | `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-006.md` |
 
 ## 4. Execution Summary
 
-| Feature | Technique | Designed | Executed | Passed | Failed | Not Run | Related bugs |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| FR-03 | Domain Testing | 12 | 12 | 6 | 6 | 0 | BUG-FR03-001, BUG-FR03-002, BUG-FR03-003, BUG-FR03-004, BUG-FR03-005 |
-| FR-03 | BVA | 6 | 6 | 1 | 5 | 0 | BUG-FR03-001, BUG-FR03-004, BUG-FR03-005 |
-| FR-11 | Domain Testing | 12 | 12 | 10 | 2 | 0 | BUG-FR11-007, BUG-FR11-012 |
-| FR-11 | BVA | 3 | 3 | 3 | 0 | 0 | None |
-| FR-14 | Domain Testing | 16 | 16 | 8 | 8 | 0 | BUG-FR14-001, BUG-FR14-002, BUG-FR14-003 |
-| FR-14 | BVA | 6 | 6 | 5 | 1 | 0 | BUG-FR14-002 |
-| FR-23 | Domain Testing | TBD | TBD | TBD | TBD | TBD | TBD |
-| FR-23 | BVA | TBD | TBD | TBD | TBD | TBD | TBD |
+| Feature | Technique | Designed | Executed | Passed | Failed | Blocked | Not Run | Related bugs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| FR-03 | Domain Testing | 12 | 12 | 6 | 6 | 0 | 0 | BUG-FR03-001, BUG-FR03-002, BUG-FR03-003, BUG-FR03-004, BUG-FR03-005 |
+| FR-03 | BVA | 6 | 6 | 1 | 5 | 0 | 0 | BUG-FR03-001, BUG-FR03-004, BUG-FR03-005 |
+| FR-11 | Domain Testing | 12 | 12 | 10 | 2 | 0 | 0 | BUG-FR11-007, BUG-FR11-012 |
+| FR-11 | BVA | 3 | 3 | 3 | 0 | 0 | 0 | None |
+| FR-14 | Domain Testing | 16 | 16 | 8 | 8 | 0 | 0 | BUG-FR14-001, BUG-FR14-002, BUG-FR14-003 |
+| FR-14 | BVA | 6 | 6 | 5 | 1 | 0 | 0 | BUG-FR14-002 |
+| FR-23 | Domain Testing | 12 | 12 | 5 | 5 | 2 | 0 | BUG-FR23-001, BUG-FR23-002, BUG-FR23-003, BUG-FR23-004 |
+| FR-23 | BVA | 6 | 6 | 3 | 3 | 0 | 0 | BUG-FR23-001, BUG-FR23-004 |
 
 ## 5. AI Gap Analysis Summary
 
@@ -312,3 +368,4 @@ Tác nhân chính là Admin. Các tác nhân phụ gồm Guest/chưa đăng nh�
 | FR-03 | Domain Testing / BVA | AI ban đầu chưa tách rõ lỗi frontend và backend cho reset password; TC-FR03-DT-009 cũng phụ thuộc chuẩn bị tài khoản thứ hai qua UI nên bị cản bởi lỗi frontend. | Prompt/test design ban đầu tập trung vào expected result theo SRS, chưa dự phòng bước API verification khi UI bị chặn. | Gọi API trực tiếp để xác nhận backend sinh OTP 4 chữ số, email sai định dạng trả `User not found`, mật khẩu mạnh được backend chấp nhận, OTP của email khác bị từ chối đúng; cập nhật test run, bug reports và `ai-gap-analysis/FR-03-forgot-password.md`. |
 | FR-11 | Domain Testing / BVA | Phát hiện 2 lỗi sau khi chạy: user thường truy cập được chi tiết đơn user khác qua API; màu `Đã xác nhận` và `Đang giao` khó phân biệt. | AI thiết kế đúng test ownership bằng API bổ trợ nhưng ban đầu chưa biết Web không có page chi tiết đơn; BVA 0/1/nhiều đơn không phát hiện lỗi vì lỗi nằm ở authorization và visual status. | Gọi API để xác nhận `GET /api/orders/4` trả dữ liệu user khác cho `test@eshop.com`; cập nhật test run, bug reports và `ai-gap-analysis/FR-11-order-history.md`. |
 | FR-14 | Domain Testing / BVA | Phát hiện 3 nhóm lỗi sau khi chạy: user thường gọi được API thêm/sửa/xóa danh mục; API cho phép tên category rỗng/whitespace; update/delete id không tồn tại vẫn trả success. | AI thiết kế đúng các miền role, required name và nonexistent id; BVA min length phát hiện lỗi tên rỗng. AI không tạo duplicate/max length vì SRS/API không nêu rule có căn cứ. | Gọi API để xác nhận các lỗi bằng token user/admin, tạo `BUG-FR14-001` đến `BUG-FR14-003`, cập nhật test run, từng test case và `ai-gap-analysis/FR-14-category-management.md`. |
+| FR-23 | Domain Testing / BVA | Sau khi chạy 18 test cases, phát hiện 4 nhóm lỗi: mobile không hiển thị OTP/OTP 4 chữ số, thiếu nút quay lại Login, email rỗng/sai định dạng báo `User not found`, và thiếu ô xác nhận mật khẩu mới. Có 2 test bị Blocked do không chuẩn bị được OTP trên mobile. | AI thiết kế đúng các miền FR-23 nhưng ban đầu chưa rà soát cấu hình IP mobile, và chưa dự phòng việc UI mobile không hiển thị OTP khiến một số case phụ thuộc setup bị chặn. | Sửa `frontend-mobile/App.js` sang IP LAN hiện tại để chạy test; gọi API để xác nhận `resetToken` dài 4 chữ số, email invalid trả `User not found`, OTP 5/7 bị từ chối, password 8/9 ký tự hợp lệ được backend chấp nhận; tạo `BUG-FR23-001` đến `BUG-FR23-004`, cập nhật test run, từng test case và `ai-gap-analysis/FR-23-forgot-password-mobile.md`. |

@@ -363,3 +363,91 @@ Codex đọc lại các skill Domain Testing, BVA và Prompt Log, sau đó đọ
 - Cần người làm kiểm tra lại bug report và bổ sung link GitHub Issue/screenshot nếu cần.
 - Không ghi token thật vào report/prompt log; API verification chỉ ghi role, endpoint, HTTP status và message.
 - Dữ liệu category tạm dùng để verify đã được dọn, danh sách category còn 3 category mặc định: `Điện thoại`, `Laptop`, `Phụ kiện`.
+
+## 2026-07-01 13:04 +07 - Thiết kế test case và test run cho FR-23
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-23 |
+| Technique | Domain Testing / BVA / Report Writing |
+| Goal | Dựa trên các skill trong `.codex/skills`, thiết kế test case FR-23 Mobile Forgot Password, tạo test run chưa thực thi, cập nhật main report và các file liên quan |
+| Files changed | `tests/test-cases/FR-23-forgot-password-mobile/domain-testing/TC-FR23-DT-001.md` đến `TC-FR23-DT-012.md`, `tests/test-cases/FR-23-forgot-password-mobile/bva/TC-FR23-BVA-001.md` đến `TC-FR23-BVA-006.md`, `tests/test-runs/FR-23-forgot-password-mobile-run.md`, `ai-gap-analysis/FR-23-forgot-password-mobile.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+dựa vào các skill trong CS423-CSC15003-Testing-N08/.codex/skills, hãy viết các test case, điền những thông tin test run cho FR-23, cập nhật reports/main-report.md phần FR-23 (tham khảo cách trình bày của FR-03) và các file liên quan khác theo skill yêu cầu. Lưu ý chưa điền kết quả test case, sau khi có test case tôi sẽ test rồi thông báo lại kết quả sau để tạo bug report và cập nhật reports/main-report.md lần nữa.
+```
+
+### AI output
+
+```text
+Codex đọc skill Domain Testing, Boundary Value Analysis và Prompt Log, sau đó đọc SRS FR-23, API forgot/reset password, FR-03 trong main report và các test run hiện có. Codex tạo 12 Domain Testing test cases cho email, điều hướng, trạng thái luồng, OTP, mật khẩu mới, xác nhận mật khẩu và yêu cầu hiển thị lỗi/điều hướng mobile; tạo 6 BVA test cases cho biên OTP length 5/6/7 và password length 7/8/9. Codex tạo test run FR-23 với toàn bộ Result = Not Run, cập nhật main-report.md phần FR-23 theo cấu trúc FR-03, cập nhật README summary và tạo AI gap placeholder.
+```
+
+### Human review
+
+- Chưa tạo bug report vì toàn bộ test case FR-23 đang ở trạng thái `Not Run`.
+- Người làm cần chạy ứng dụng mobile thật rồi cập nhật Result, Related Bug và Note trong `tests/test-runs/FR-23-forgot-password-mobile-run.md`.
+- Nếu kết quả thực tế khác expected result, cần tạo bug report và cập nhật lại `reports/main-report.md`, `README.md`, file test case liên quan và `ai-gap-analysis/FR-23-forgot-password-mobile.md`.
+
+## 2026-07-01 14:31 +07 - Sửa API URL mobile và ghi AI gap FR-23
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-23 |
+| Technique | Other / AI Gap Analysis / Report Writing |
+| Goal | Sửa `frontend-mobile/App.js` vì hard-coded LAN IP làm tester không chạy được mobile app, đồng thời ghi nhận đây là AI gap của FR-23 |
+| Files changed | `frontend-mobile/App.js` (ignored by git), `tests/test-runs/FR-23-forgot-password-mobile-run.md`, `ai-gap-analysis/FR-23-forgot-password-mobile.md`, `reports/main-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi không thể test trên mobile vì dòng:
+
+const API_URL = "http://192.168.10.13:3000/api"; // IP LAN để chạy được trên iOS/Android và thiết bị thật
+
+trong file frontend-mobile/App.js. cần sửa theo ip của tôi để chạy được đúng không. nếu đúng thì sửa thành const API_URL = "http://172.20.10.3:3000/api"; và xem đây là 1 phần AI gap và ghi vào ai-gap-analysis
+```
+
+### AI output
+
+```text
+Codex xác nhận mobile app cần dùng IP LAN truy cập được từ thiết bị thật/Expo. Codex sửa `frontend-mobile/App.js` thành `const API_URL = "http://172.20.10.3:3000/api";`, cập nhật test run FR-23 environment, `ai-gap-analysis/FR-23-forgot-password-mobile.md` và `reports/main-report.md` để ghi nhận đây là AI gap/test setup gap.
+```
+
+### Human review
+
+- Đây là AI gap/test setup gap, chưa phải bug SUT vì chưa chạy test case chức năng FR-23.
+- Cần đảm bảo backend lắng nghe trên `0.0.0.0` hoặc IP LAN và thiết bị mobile cùng mạng/hotspot với máy chạy backend.
+- `frontend-mobile/` đang bị git ignore, nên cần chú ý nếu muốn đưa thay đổi mobile code vào commit/nộp bài.
+
+## 2026-07-01 16:00 +07 - Cập nhật kết quả test run và bug report cho FR-23
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-23 |
+| Technique | Domain Testing / BVA / Bug Reporting / Report Writing |
+| Goal | Rà soát kết quả tester đã note trong test run FR-23, gọi API để kiểm tra các case khả nghi, cập nhật kết quả từng test case, tạo bug report và cập nhật các file summary liên quan |
+| Files changed | `tests/test-runs/FR-23-forgot-password-mobile-run.md`, các test case FR-23 trong `tests/test-cases/FR-23-forgot-password-mobile/`, `bug-reports/BUG-FR23-001.md`, `bug-reports/BUG-FR23-002.md`, `bug-reports/BUG-FR23-003.md`, `bug-reports/BUG-FR23-004.md`, `ai-gap-analysis/FR-23-forgot-password-mobile.md`, `reports/main-report.md`, `README.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi đã test các test case DT và BVA và có note kết quả ở tests/test-runs/FR-23-forgot-password-mobile-run.md. hãy xem qua sau đó chỉnh sửa, format lại nếu cần, xem các Result trong FR-23-forgot-password-mobile-run.md và Status trong các test case tôi có đánh đúng chưa và chỉnh sửa các kết quả trong từng file test case, viết các file bug report và các file liên quan giúp tôi luôn. Lưu ý những test case nào khả nghi có thể tự gọi api để kiểm tra lại giúp tôi (tôi có chạy sẵn backend và frontend-mobile rồi).
+```
+
+### AI output
+
+```text
+Codex đọc lại các skill Domain Testing, BVA và Prompt Log, sau đó đọc test run FR-23, SRS/API spec và bug report mẫu. Codex gọi API localhost để kiểm tra lại các case khả nghi: forgot-password với email hợp lệ trả resetToken 4 chữ số; email rỗng/sai định dạng trả 404 User not found; OTP 5/7 chữ số bị từ chối bằng 400 Invalid token or email; reset-password với mật khẩu 8/9 ký tự hợp lệ được backend chấp nhận khi có token hợp lệ. Codex restore mật khẩu test@eshop.com về Password123! sau khi verify. Sau đó Codex cập nhật test run thành 8 Passed, 8 Failed, 2 Blocked, 0 Not Run; cập nhật Status / Related bugs trong từng test case; tạo 4 bug reports FR-23; cập nhật AI gap analysis, main report và README.
+```
+
+### Human review
+
+- Không ghi OTP/resetToken thật vào report hoặc prompt log; chỉ ghi status, message và độ dài token.
+- Hai case Blocked được giữ riêng vì mobile UI không hiển thị OTP nên không thể thực hiện đầy đủ luồng trên mobile.
+- Cần người làm kiểm tra lại bug report và bổ sung link GitHub Issue/screenshot/video nếu cần.
