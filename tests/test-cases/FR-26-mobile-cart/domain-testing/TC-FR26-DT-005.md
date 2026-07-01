@@ -46,4 +46,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Số lượng iPhone 15 Pro Max giảm từ 2 xuống 1. Thành tiền cập nhật thành 30000000. Khu vực tổng tiền vẫn hiển thị nhãn "Tổng cộng" và giá trị tổng cộng cập nhật tương ứng.
 
 ## Status / Related bugs
-Fail / Pending
+Fail / [BUG-FR26-002](../../../../bug-reports/BUG-FR26-002.md), [BUG-FR26-005](../../../../bug-reports/BUG-FR26-005.md)

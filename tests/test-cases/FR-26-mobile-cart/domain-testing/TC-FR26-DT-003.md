@@ -43,4 +43,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Khu vực Số lượng hiển thị giá trị số lượng hiện tại kèm nút + và nút - để người dùng có thể chỉnh số lượng. Không chỉ hiển thị số lượng dạng text không thể chỉnh.
 
 ## Status / Related bugs
-Fail / Pending
+Fail / [BUG-FR26-002](../../../../bug-reports/BUG-FR26-002.md)

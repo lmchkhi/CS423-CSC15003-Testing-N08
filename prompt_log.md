@@ -560,3 +560,272 @@ Bảng kiểm tra khớp: 19 test case, 8 Pass và 11 Fail, không có Blocked/N
 
 ### Notes
 Log này ghi conversation context khả dụng cho prompt hiện tại. Tool calls và tool outputs rất dài nên không được chép đầy đủ trong entry này; artifact chính đã được tạo tại `tests/test-runs/FR-26-mobile-cart-run.md`. Không có credential nào cần redact.
+## Prompt Log Entry - 2026-07-01 09:43:52 +07
+
+### Transcript
+
+````text
+User:
+# Context from my IDE setup:
+
+## Open tabs:
+- TC-FR26-BVA-005.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-005.md
+- TC-FR26-BVA-004.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-004.md
+- TC-FR26-BVA-002.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-002.md
+- TC-FR26-BVA-001.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-001.md
+- TC-FR26-BVA-003.md: tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-003.md
+
+## My request for Codex:
+$bug-report
+$prompt-log
+
+Tạo bug report cho các test case Fail của FR-26.
+
+Tự tìm test case, test run và evidence tương ứng.
+Dùng template và cấu trúc hiện có.
+Không tạo bug trùng hoặc bug cho test chưa có kết quả Fail.
+
+Sau khi hoàn tất, append log.
+
+User:
+<skill>
+<name>bug-report</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/bug-report/SKILL.md</path>
+---
+name: bug-report
+description: Create or review defect reports from failed QA test executions. Use when a test case has Fail status, Actual Result, Expected Result, environment, and evidence; generate BUG-FRxx-nnn.md files, check reproducibility, severity/priority, duplicates, and links back to test cases.
+---
+
+# Bug Report Skill
+
+## 1. Mục đích
+
+Tạo bug report có thể reproduce từ test case bị Fail. Skill này không tạo bug khi test chưa chạy, khi status là Pass/Blocked/Not Run, hoặc khi chưa có Actual Result đủ rõ.
+
+## 2. Quy tắc ngôn ngữ
+
+1. Nội dung bug report viết bằng tiếng Việt có dấu chuẩn.
+2. Giữ nguyên Expected Result, Actual Result, message thực tế, URL, route, account test, file evidence và test case ID.
+3. Có thể giữ thuật ngữ: Severity, Priority, Environment, Steps to Reproduce, Expected Result, Actual Result, Evidence, Regression.
+
+## 3. Điều kiện trước khi tạo bug
+
+Chỉ tạo bug khi có đủ:
+
+- Test Case ID và file test case.
+- Status `Fail`.
+- Expected Result.
+- Actual Result quan sát được.
+- Steps reproduce cụ thể.
+- Environment hoặc thông tin build tối thiểu.
+- Evidence nếu có.
+
+Nếu thiếu một phần, tạo mục `Thông tin cần bổ sung` thay vì viết bug như đã xác nhận.
+
+## 4. Quy trình tạo bug
+
+### Bước 1: Đối chiếu expected và actual
+
+Xác định sự khác biệt:
+
+| Test Case ID | Expected Result | Actual Result | Khác biệt | Có phải defect? |
+|---|---|---|---|---|
+
+Nếu actual khác vì expected result sai hoặc requirement mơ hồ, ghi `Cần review test case/requirement` thay vì tạo bug chắc chắn.
+
+### Bước 2: Kiểm tra duplicate
+
+Tìm trong:
+
+- `bug-reports/*.md`
+- `tests/test-runs/*.md`
+- Related bugs trong test case file
+
+Không tạo bug mới nếu cùng root cause và cùng behavior đã được report. Nếu là duplicate, cập nhật liên kết đến bug đã có.
+
+### Bước 3: Gán ID bug
+
+Dùng format:
+
+`BUG-FRXX-NNN.md`
+
+Trong đó `NNN` là số tiếp theo trong `bug-reports/` cho feature đó.
+
+### Bước 4: Đánh giá severity và priority
+
+Severity theo tác động:
+
+| Severity | Khi dùng |
+|---|---|
+| Critical | Chặn luồng chính, crash, mất dữ liệu, rủi ro bảo mật nghiêm trọng |
+| High | Chức năng chính sai, không có workaround hợp lý |
+| Medium | Chức năng phụ sai hoặc có workaround chấp nhận được |
+| Low | Lỗi nhỏ về UI/text/validation không chặn luồng chính |
+
+Priority theo mức độ cần sửa:
+
+| Priority | Khi dùng |
+|---|---|
+| P1 | Cần sửa ngay để tiếp tục test/release |
+| P2 | Nên sửa trong vòng hiện tại |
+| P3 | Có thể lên lịch sau |
+
+Ghi lý do ngắn cho severity và priority.
+
+### Bước 5: Tạo file bug report
+
+Tạo tại:
+
+`bug-reports/BUG-FRXX-NNN.md`
+
+Cấu trúc:
+
+```md
+# <BUG-ID>: <Tên bug bằng tiếng Việt>
+
+## Found by Test Case
+<TC-ID>
+
+## Requirement liên quan
+<FR-ID>
+
+## Severity / Priority
+<Severity> / <Priority>
+
+## Environment
+**Browser**: <browser>
+**OS**: <os>
+**URL**: <url>
+
+## Steps to reproduce
+1. 
+2. 
+
+## Expected result
+
+
+## Actual result
+
+
+## Evidence
+Screenshot / video / console log
+```
+
+## 5. Quy tắc chất lượng
+
+1. Summary phải mô tả symptom, không viết chung chung như `Login bị lỗi`.
+2. Steps phải đủ để người khác reproduce.
+3. Expected và Actual phải thực sự khác nhau.
+4. Evidence phải là đường dẫn file, link, response, log, hoặc mô tả người dùng cung cấp.
+5. Không chèn nhiều defect khác nhau vào một bug nếu khác root cause.
+6. Không sửa requirement để làm bug hợp lệ.
+
+## 6. Cập nhật liên kết
+
+Sau khi tạo bug:
+
+- Cập nhật `tests/test-runs/<FEATURE>-run.md` cột Related Bug nếu file tồn tại.
+- Cập nhật `Status / Related bugs` trong test case file nếu workflow yêu cầu đồng bộ.
+- Không cập nhật status của test case thành Pass.
+
+</skill>
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+# Prompt Log Skill
+
+## 1. Mục đích
+
+Ghi lại nguyên văn toàn bộ đoạn chat hoặc phần hội thoại khả dụng vào `prompt_log.md` sau khi một prompt/task đã hoàn thành. Skill này dùng để lưu evidence về cách đã dùng AI trong bài tập, nên độ trung thực của transcript quan trọng hơn độ gọn đẹp.
+
+## 2. Nguyên tắc bắt buộc
+
+1. Ghi log sau khi đã hoàn thành việc chính của prompt.
+2. Không thay thế nội dung cũ trong `prompt_log.md`; luôn append thêm entry mới.
+3. Nếu không truy cập được toàn bộ lịch sử hội thoại, ghi rõ phạm vi log là `conversation context khả dụng`.
+4. Copy nguyên văn câu chữ, thứ tự, lỗi chính tả, cách viết tắt, dấu câu và ngôn ngữ của từng message trong context.
+5. Không tóm tắt, không diễn giải, không sửa văn phong, không dịch, không chuẩn hóa câu chữ.
+6. Không bịa lại nội dung chat không có trong context.
+7. Chỉ được thay đổi nội dung khi cần che bí mật như token, password, key hoặc credential; thay đúng phần bí mật bằng `[REDACTED]`.
+8. Nếu có tool output quá dài không còn đầy đủ trong context, ghi nguyên văn phần còn thấy được và ghi chú rõ phần bị thiếu.
+
+## 3. File output
+
+Ghi tại root project:
+
+`prompt_log.md`
+
+Nếu file chưa tồn tại, tạo file mới.
+
+## 4. Format entry
+
+Mỗi lần ghi log, thêm một entry:
+
+```md
+## Prompt Log Entry - <YYYY-MM-DD HH:mm:ss TZ>
+
+### Transcript
+
+```text
+User:
+<copy nguyên văn user message>
+
+Assistant:
+<copy nguyên văn assistant message>
+
+Tool:
+<copy nguyên văn tool call/output khả dụng nếu cần lưu evidence>
+```
+
+### Notes
+<Chỉ ghi metadata hoặc giới hạn context, ví dụ: "Một phần hội thoại trước đó không còn trong context". Không tóm tắt nội dung chat tại đây trừ khi người dùng yêu cầu riêng.>
+```
+
+## 5. Khi người dùng yêu cầu "toàn bộ đoạn chat"
+
+1. Ghi transcript đầy đủ nhất có trong context hiện tại.
+2. Phân vai rõ `User`, `Assistant`, `Tool`, hoặc `System note` nếu cần.
+3. Nếu context đã bị compact hoặc thiếu đoạn cũ, ghi chú: `Một phần hội thoại trước đó không còn trong context, chỉ log phần khả dụng`.
+4. Không tự tạo lại nguyên văn những đoạn không còn nhìn thấy.
+5. Không thay một đoạn chat bằng summary. Nếu đoạn nào không thể copy nguyên văn, bỏ đoạn đó và ghi rõ lý do trong `Notes`.
+
+## 6. Khi dùng cùng skill khác
+
+Nếu prompt chính dùng `$qa-workflow`, `$domain-testing`, `$boundary-value-analysis`, `$test-case-review`, `$test-execution`, hoặc `$bug-report`, hoàn thành skill chính trước. Sau đó mới dùng `$prompt-log` để append entry vào `prompt_log.md`.
+
+</skill>
+
+Assistant:
+Mình sẽ dùng `bug-report` để gom các Fail theo root cause, kiểm tra trùng trong `bug-reports`, rồi cập nhật test run/test case link bug. Sau đó mình mới append `prompt_log.md` theo skill `prompt-log`.
+
+Assistant:
+Hiện `bug-reports/` chưa có file bug `.md`, chỉ có ảnh trong `screenshots`, nên chưa có duplicate report dạng tài liệu. Mình đang đọc các test case Fail để lấy steps/expected chính xác và xem ảnh evidence có liên quan trực tiếp đến FR-26 không.
+
+Assistant:
+Ảnh screenshot xác nhận được 4 nhóm lỗi UI: nhãn `Giá`, thiếu nút `+/-`, nhãn `Tổng tạm tính`, nút `Mua tiếp`. Riêng lỗi không có dialog xóa sẽ dùng evidence từ Actual Result trong test run vì screenshot tĩnh không chứng minh được trạng thái sau thao tác xóa.
+
+Assistant:
+Mình sẽ tạo 5 bug report thay vì 11 bug report, vì nhiều test case Fail cùng một root cause: nhãn Đơn giá sai, thiếu nút +/- số lượng, thiếu dialog xác nhận xóa, nhãn nút tiếp tục mua sắm sai, và nhãn tổng tiền sai. Sau đó mình cập nhật `Related Bug` trong test run và từng test case Fail tương ứng.
+
+Assistant:
+5 bug report đã tạo xong. Mình sẽ thay `Pending` bằng link bug cụ thể trong test run và trong `Status / Related bugs` của các test case Fail, gồm cả những case liên quan đồng thời 2 bug.
+
+Assistant:
+Liên kết bug đã được cập nhật vào test run và test case Fail. Mình kiểm tra lại không còn `Pending`, không tạo bug cho case Pass, và các file bug có đủ expected/actual/steps/environment/evidence.
+
+Assistant:
+Kiểm tra nhanh cho thấy không còn `Pending` trong FR-26 và test run đã trỏ đúng 5 bug report. Mình rà thêm trạng thái test case rồi append log cuối cùng.
+
+Assistant:
+Rà soát đã ổn: 5 bug report mới, 11 Fail đều có link bug, các Pass không bị đụng. Mình append prompt log bây giờ, ghi rõ phạm vi là conversation context khả dụng và không chép toàn bộ tool output dài.
+````
+
+### Notes
+Log này ghi conversation context khả dụng cho prompt hiện tại. Tool calls và tool outputs dài nên không được chép đầy đủ trong entry này; kết quả chính nằm trong `bug-reports/BUG-FR26-001.md` đến `bug-reports/BUG-FR26-005.md`, `tests/test-runs/FR-26-mobile-cart-run.md`, và các test case Fail liên quan. Không có credential nào cần redact.
