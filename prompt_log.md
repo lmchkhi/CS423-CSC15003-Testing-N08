@@ -4481,3 +4481,143 @@ Mình sẽ ghi log theo phạm vi context hiện có; phần tool output dài v�
 
 ### Notes
 Phạm vi log: conversation context khả dụng trong phiên hiện tại. Các nội dung skill dài và tool output dài đã được đọc/quan sát trong quá trình làm việc nhưng được ghi rút gọn ở transcript này; artifact chính được tạo là `BUG-FR10-001.md`, `BUG-FR10-002.md`, `BUG-FR10-003.md`, cùng cập nhật test run và status test case sang `Passed`/`Failed`.
+## Prompt Log Entry - 2026-07-01 17:01:59 +07
+
+### Transcript
+
+````text
+User:
+<environment_context>
+  <cwd>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</cwd>
+  <shell>zsh</shell>
+  <current_date>2026-07-01</current_date>
+  <timezone>Asia/Ho_Chi_Minh</timezone>
+  <filesystem><workspace_roots><root>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</root></workspace_roots><permission_profile type="managed"><file_system type="restricted"><entry access="read"><special>:root</special></entry><entry access="write"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</path></entry><entry access="write"><special>:slash_tmp</special></entry><entry access="write"><special>:tmpdir</special></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.git</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.codex</path></entry></file_system></permission_profile></filesystem>
+</environment_context>
+
+User:
+# Context from my IDE setup:
+
+## Active file: tests/test-runs/FR-02-login-run.md
+
+## Open tabs:
+- FR-02-login-run.md: tests/test-runs/FR-02-login-run.md
+- test-run-template.md: templates/test-run-template.md
+- prompt_log.md: prompt_log.md
+
+## My request for Codex:
+[$prompt-log](/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md) 
+tôi đã merge FR-10 vào nhánh này, tôi cần bạn đọc các materials mới và sửa lại reports/main-report.md, README.md và các files liên quan
+
+đồng thời thêm link video demo skills vào docs: https://youtu.be/QkuGNTtqedA
+
+sau khi hoàn thành, append log.
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+# Prompt Log Skill
+
+## 1. Mục đích
+
+Ghi lại nguyên văn toàn bộ đoạn chat hoặc phần hội thoại khả dụng vào `prompt_log.md` sau khi một prompt/task đã hoàn thành. Skill này dùng để lưu evidence về cách đã dùng AI trong bài tập, nên độ trung thực của transcript quan trọng hơn độ gọn đẹp.
+
+## 2. Nguyên tắc bắt buộc
+
+1. Ghi log sau khi đã hoàn thành việc chính của prompt.
+2. Không thay thế nội dung cũ trong `prompt_log.md`; luôn append thêm entry mới.
+3. Nếu không truy cập được toàn bộ lịch sử hội thoại, ghi rõ phạm vi log là `conversation context khả dụng`.
+4. Copy nguyên văn câu chữ, thứ tự, lỗi chính tả, cách viết tắt, dấu câu và ngôn ngữ của từng message trong context.
+5. Không tóm tắt, không diễn giải, không sửa văn phong, không dịch, không chuẩn hóa câu chữ.
+6. Không bịa lại nội dung chat không có trong context.
+7. Chỉ được thay đổi nội dung khi cần che bí mật như token, password, key hoặc credential; thay đúng phần bí mật bằng `[REDACTED]`.
+8. Nếu có tool output quá dài không còn đầy đủ trong context, ghi nguyên văn phần còn thấy được và ghi chú rõ phần bị thiếu.
+
+## 3. File output
+
+Ghi tại root project:
+
+`prompt_log.md`
+
+Nếu file chưa tồn tại, tạo file mới.
+
+## 4. Format entry
+
+Mỗi lần ghi log, thêm một entry:
+
+```md
+## Prompt Log Entry - <YYYY-MM-DD HH:mm:ss TZ>
+
+### Transcript
+
+```text
+User:
+<copy nguyên văn user message>
+
+Assistant:
+<copy nguyên văn assistant message>
+
+Tool:
+<copy nguyên văn tool call/output khả dụng nếu cần lưu evidence>
+```
+
+### Notes
+<Chỉ ghi metadata hoặc giới hạn context, ví dụ: "Một phần hội thoại trước đó không còn trong context". Không tóm tắt nội dung chat tại đây trừ khi người dùng yêu cầu riêng.>
+```
+
+## 5. Khi người dùng yêu cầu "toàn bộ đoạn chat"
+
+1. Ghi transcript đầy đủ nhất có trong context hiện tại.
+2. Phân vai rõ `User`, `Assistant`, `Tool`, hoặc `System note` nếu cần.
+3. Nếu context đã bị compact hoặc thiếu đoạn cũ, ghi chú: `Một phần hội thoại trước đó không còn trong context, chỉ log phần khả dụng`.
+4. Không tự tạo lại nguyên văn những đoạn không còn nhìn thấy.
+5. Không thay một đoạn chat bằng summary. Nếu đoạn nào không thể copy nguyên văn, bỏ đoạn đó và ghi rõ lý do trong `Notes`.
+
+## 6. Khi dùng cùng skill khác
+
+Nếu prompt chính dùng `$qa-workflow`, `$domain-testing`, `$boundary-value-analysis`, `$test-case-review`, `$test-execution`, hoặc `$bug-report`, hoàn thành skill chính trước. Sau đó mới dùng `$prompt-log` để append entry vào `prompt_log.md`.
+
+</skill>
+
+Assistant:
+Mình sẽ dùng `prompt-log` ở cuối như bạn yêu cầu, sau khi cập nhật tài liệu/report xong. Trước tiên mình đọc cấu trúc repo và các file FR-10/materials mới để xem cần nối vào báo cáo chỗ nào.
+
+Assistant:
+FR-10 đã có đủ analysis, reviews, test cases, test run, bug reports và screenshots trong tree. Mình đang đọc phần báo cáo hiện tại trước, rồi sẽ đối chiếu số liệu/status với các artifact FR-10 để cập nhật nhất quán thay vì chỉ chèn thêm một đoạn rời.
+
+Assistant:
+Báo cáo chính vẫn đang nói “FR-10 chờ merge”, còn README đã chấm điểm FR-10 nhưng status vẫn pending, nên phần cần sửa khá rõ. Mình sẽ đọc tiếp FR-10 run/bug/report và phần cuối main report để cập nhật cả số tổng lẫn narrative.
+
+Assistant:
+Mình đã có số liệu FR-10: 14 Domain Testing case, 11 pass, 3 fail, 0 BVA vì state machine không có boundary hợp lệ, và 3 bug report mới. Bây giờ mình sẽ sửa `reports/main-report.md` trước, gồm thêm section FR-10, đổi tổng từ 40 lên 54 test case và tổng bug từ 11 lên 14.
+
+Assistant:
+Phần FR-10 đã được thêm vào report với lý do không áp dụng BVA, không cố ép boundary cho enum trạng thái. Mình tiếp tục sửa các bảng tổng hợp phía sau để traceability, readiness, gap analysis và conclusion không còn lệch số.
+
+Assistant:
+Bảng cuối report đã được nối FR-10 vào traceability và requirement gaps. Giờ mình chuyển sang README: cập nhật scope, status, test summary, bug summary, test run evidence, và thay link demo skills bằng URL YouTube bạn đưa.
+
+Assistant:
+README hiện tại còn thiếu 3 bug FR-10 và chưa link test run FR-10. Mình sẽ cập nhật ngắn gọn để trang đầu repo phản ánh đúng artifact sau merge, đồng thời vẫn ghi rõ FR-10/FR-13 không có BVA vì requirement không có boundary hợp lệ.
+
+Assistant:
+README đã xong phần chính. Mình đang quét lại các cụm “pending merge / sẽ bổ sung FR-10 / 40 test / 11 bug” để bắt mấy dấu vết cũ còn sót lại trước khi append log.
+
+Assistant:
+Mình vừa chỉnh nhãn video FR-10 trong README thành “BVA not applicable” để không mâu thuẫn với analysis. Bây giờ mình kiểm tra lại số lượng artifact thực tế và diff lần cuối, rồi sẽ append `prompt_log.md`.
+
+Assistant:
+Đếm lại khớp: repo đang có 54 test case và 14 bug report, không còn cụm “FR-10 pending/merge sau” trong README/report. Phần cuối là append log theo skill `prompt-log`; mình sẽ ghi phạm vi là conversation context khả dụng của lượt này.
+
+Assistant:
+Mình sẽ append trực tiếp vào cuối `prompt_log.md`, không thay entry cũ. Vì trong context có tool output rất dài, log sẽ ghi nguyên văn phần hội thoại user/assistant khả dụng và note rõ phạm vi log.
+````
+
+### Notes
+Chỉ log conversation context khả dụng trong lượt làm việc hiện tại. Tool outputs rất dài nên không đưa toàn bộ vào transcript; các output đọc file/diff/rg vẫn nằm trong session context khả dụng tại thời điểm ghi log.

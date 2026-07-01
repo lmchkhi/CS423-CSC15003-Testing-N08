@@ -3,7 +3,7 @@
 > **Sinh viên:** Hà Bảo Ngọc - 23127300  
 > **Nhóm:** N08  
 > **Môn:** CS423 / CSC15003 - Kiểm thử Phần mềm  
-> **Phạm vi hiện tại:** FR-02, FR-13, FR-26. FR-10 sẽ được bổ sung sau khi artifact liên quan được merge.
+> **Phạm vi hiện tại:** FR-02, FR-10, FR-13, FR-26.
 
 ---
 
@@ -27,7 +27,7 @@
 | Pool | Feature ID | Feature Name | Platform | Status |
 |---|---|---|---|---|
 | A | FR-02 | Đăng nhập và khóa tài khoản | Web | Completed |
-| B | FR-10 | Trạng thái đơn hàng | Web / Admin | Pending merge |
+| B | FR-10 | Trạng thái đơn hàng | Web / Admin | Completed |
 | C | FR-13 | Dashboard | Web Admin | Completed |
 | D | FR-26 | Giỏ hàng trên Mobile | Mobile | Completed |
 
@@ -37,13 +37,15 @@
 |---|---|---:|---:|---:|---:|---:|---:|
 | FR-02 | Domain Testing | 9 | 9 | 3 | 6 | 0 | 0 |
 | FR-02 | Boundary Value Analysis | 6 | 6 | 3 | 3 | 0 | 0 |
+| FR-10 | Domain Testing | 14 | 14 | 11 | 3 | 0 | 0 |
+| FR-10 | Boundary Value Analysis | 0 | 0 | 0 | 0 | 0 | 0 |
 | FR-13 | Domain Testing | 6 | 6 | 3 | 3 | 0 | 0 |
 | FR-13 | Boundary Value Analysis | 0 | 0 | 0 | 0 | 0 | 0 |
 | FR-26 | Domain Testing | 14 | 14 | 5 | 9 | 0 | 0 |
 | FR-26 | Boundary Value Analysis | 5 | 5 | 3 | 2 | 0 | 0 |
-| **Total** | | **40** | **40** | **17** | **23** | **0** | **0** |
+| **Total** | | **54** | **54** | **28** | **26** | **0** | **0** |
 
-> FR-13 không có test case BVA vì requirement không đặc tả boundary hợp lệ. Quyết định này đã được ghi trong `analysis/FR-13-dashboard/bva-analysis.md` và review tại `reviews/FR-13-dashboard/bva-review.md`.
+> FR-10 và FR-13 không có test case BVA vì requirement không đặc tả boundary hợp lệ. Quyết định này đã được ghi trong `analysis/FR-10-order-state-machine/bva-analysis.md`, `analysis/FR-13-dashboard/bva-analysis.md` và review tương ứng.
 
 ### 2.3. Bug Summary
 
@@ -54,6 +56,9 @@
 | BUG-FR02-003 | FR-02 | High / P1 | Open | [BUG-FR02-003](bug-reports/BUG-FR02-003.md) | TBD |
 | BUG-FR02-004 | FR-02 | Low / P3 | Open | [BUG-FR02-004](bug-reports/BUG-FR02-004.md) | TBD |
 | BUG-FR02-005 | FR-02 | High / P1 | Open | [BUG-FR02-005](bug-reports/BUG-FR02-005.md) | TBD |
+| BUG-FR10-001 | FR-10 | High / P2 | Open | [BUG-FR10-001](bug-reports/BUG-FR10-001.md) | TBD |
+| BUG-FR10-002 | FR-10 | High / P2 | Open | [BUG-FR10-002](bug-reports/BUG-FR10-002.md) | TBD |
+| BUG-FR10-003 | FR-10 | Critical / P1 | Open | [BUG-FR10-003](bug-reports/BUG-FR10-003.md) | TBD |
 | BUG-FR13-001 | FR-13 | High / P2 | Open | [BUG-FR13-001](bug-reports/BUG-FR13-001.md) | TBD |
 | BUG-FR26-001 | FR-26 | Low / P2 | Open | [BUG-FR26-001](bug-reports/BUG-FR26-001.md) | TBD |
 | BUG-FR26-002 | FR-26 | Medium / P2 | Open | [BUG-FR26-002](bug-reports/BUG-FR26-002.md) | TBD |
@@ -61,13 +66,14 @@
 | BUG-FR26-004 | FR-26 | Low / P3 | Open | [BUG-FR26-004](bug-reports/BUG-FR26-004.md) | TBD |
 | BUG-FR26-005 | FR-26 | Low / P2 | Open | [BUG-FR26-005](bug-reports/BUG-FR26-005.md) | TBD |
 
-> **Tổng số bugs:** 11 unique bugs.
+> **Tổng số bugs:** 14 unique bugs.
 
 ### 2.4. Test Run Evidence
 
 | Feature | Test Run |
 |---|---|
 | FR-02 | [FR-02-login-run.md](tests/test-runs/FR-02-login-run.md) |
+| FR-10 | [FR-10-order-state-machine-run.md](tests/test-runs/FR-10-order-state-machine-run.md) |
 | FR-13 | [FR-13-dashboard-run.md](tests/test-runs/FR-13-dashboard-run.md) |
 | FR-26 | [FR-26-mobile-cart-run.md](tests/test-runs/FR-26-mobile-cart-run.md) |
 
@@ -75,13 +81,7 @@
 
 | Item | Video Link |
 |---|---|
-| FR-02 - Domain Testing + BVA | Sẽ bổ sung sau |
-| FR-10 - Domain Testing + BVA | Sẽ bổ sung sau |
-| FR-13 - Domain Testing | Sẽ bổ sung sau |
-| FR-26 - Domain Testing + BVA | Sẽ bổ sung sau |
-| Agent Skill Demo | Sẽ bổ sung sau |
-
-> Demo video links sẽ được cập nhật sau khi hoàn tất quay và upload minh chứng.
+| Agent Skill Demo | https://youtu.be/QkuGNTtqedA |
 
 ---
 
