@@ -98,7 +98,8 @@
 | AI Audit Report PDF | [reports/ai-audit-report.pdf](reports/ai-audit-report.pdf) |
 | AI Gap Analysis | [ai-gap-analysis/HW02-ai-gap-analysis.md](ai-gap-analysis/HW02-ai-gap-analysis.md) |
 | Prompt log | [prompt_log.md](prompt_log.md) |
-| Git commit log | [git-log.txt](git-log.txt) |
+| Git commit log | [git_log.md](git_log.md) |
+| Git commit log PDF | [git_log.pdf](git_log.pdf) |
 | Requirements | [requirements/](requirements/) |
 | Analysis artifacts | [analysis/](analysis/) |
 | Test cases | [tests/test-cases/](tests/test-cases/) |
