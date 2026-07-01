@@ -451,3 +451,71 @@ Codex đọc lại các skill Domain Testing, BVA và Prompt Log, sau đó đọ
 - Không ghi OTP/resetToken thật vào report hoặc prompt log; chỉ ghi status, message và độ dài token.
 - Hai case Blocked được giữ riêng vì mobile UI không hiển thị OTP nên không thể thực hiện đầy đủ luồng trên mobile.
 - Cần người làm kiểm tra lại bug report và bổ sung link GitHub Issue/screenshot/video nếu cần.
+
+## 2026-07-01 17:23 +07 - Tổng hợp AI Audit Report
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Report Writing / AI Audit |
+| Goal | Điền `reports/ai-audit-report.md` theo template, dựa trên `reports/prompt_log.md`, các skill trong `.codex/skills`, và 4 session id Codex cho FR-03, FR-11, FR-14, FR-23 |
+| Files changed | `reports/ai-audit-report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+xem các skill tại .codex/skills, sau đó dựa vào prompt_log hoặc các session id chat sau:
+019f04c9-9def-7bd3-bf04-7f243fe23917
+019f18a9-fc18-7960-8cf4-dbbfbe42cc46
+019f19af-f7f0-7942-ae61-255a303fdd14
+019f1c45-19b3-7be0-b6fe-70357f747bf3
+
+tôi cần điền file reports/ai-audit-report.md theo template reports/ai-audit-report-template.md.  tôi thấy trong mỗi session chat có chức năng copy markdown, có thể dùng chức năng đó cho tiện không, nếu được thì cứ dùng đi
+```
+
+### AI output
+
+```text
+Codex đọc skill Prompt Log, Domain Testing và BVA; đọc template AI Audit Report, prompt_log.md, danh sách session id trong ~/.codex/session_index.jsonl và các transcript jsonl tương ứng. Codex điền reports/ai-audit-report.md với thông tin sinh viên, nguồn audit, 17 entry audit theo format template gồm Prompt + Tool, AI Output, Verdict, Reasoning và Student Fix, sau đó kiểm tra cấu trúc entry, code fences và git diff --check.
+```
+
+### Human review
+
+- Người làm cần xem lại `reports/ai-audit-report.md` để đảm bảo mức độ chi tiết phù hợp yêu cầu nộp.
+- Chức năng copy markdown trong UI không được dùng trực tiếp; thay vào đó Codex đọc transcript jsonl cục bộ và `prompt_log.md`, nên không cần copy tay.
+- Report tránh ghi token thật, OTP/resetToken thật hoặc dữ liệu nhạy cảm.
+
+## 2026-07-01 17:35 +07 - Viết AI Critique
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Report Writing / AI Critique |
+| Goal | Viết `reports/ai-critique.md` bằng tiếng Việt, 200-300 từ, dựa trên yêu cầu đề bài và nội dung `ai-gap-analysis` |
+| Files changed | `reports/ai-critique.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+bây giờ giúp tôi viết reports/ai-critique.md theo yêu cầu sau (viết bằng tiếng việt):
+Write a paragraph of 200–300 words critiquing the AI. Address the following
+questions: Where did the AI get something wrong, biased, or incomplete? Why
+did it fail to catch the issue? What principle have you learned about
+collaborating with AI during this assignment?
+Use the content of the given AI Templates if needed.
+
+có thể ai-gap-analysis sẽ có ích.
+```
+
+### AI output
+
+```text
+Codex đọc lại skill Prompt Log, rà các file ai-gap-analysis cho FR-03, FR-11, FR-14 và FR-23, rồi viết reports/ai-critique.md thành một đoạn tiếng Việt khoảng 200-300 từ. Nội dung critique nêu các điểm AI sai/thiếu như chưa nhấn mạnh OTP 6 chữ số, chưa tách frontend/backend, dự đoán rủi ro chưa trúng lỗi thật, chưa dự phòng setup mobile/IP LAN và UI mobile không hiển thị OTP; giải thích nguyên nhân là AI chỉ suy luận từ SRS/API/template, không trực tiếp chạy môi trường; kết luận nguyên tắc cộng tác là phải chạy SUT, ghi actual result, verify API và dùng AI như trợ lý phân tích chứ không phải nguồn kết luận cuối cùng.
+```
+
+### Human review
+
+- Đoạn critique được kiểm tra bằng `wc -w`; file có 285 từ tính cả tiêu đề, phù hợp yêu cầu 200-300 từ.
+- Cần người làm đọc lại giọng văn và mức độ chi tiết trước khi nộp.

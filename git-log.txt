@@ -1,1 +1,174 @@
-gitlog...
+thanhngo@LAPTOP-2HV4BMKM:~/testing/hw02/CS423-CSC15003-Testing-N08$ git log
+commit 813945a4ca1c81d828094b53dc0ec1369c602837 (HEAD -> 23127475, origin/23127475)
+Merge: 8afc676 602cfeb
+Author: Hồng Thanh <23127475@student.hcmus.edu.vn>
+Date:   Wed Jul 1 16:31:50 2026 +0700
+
+    Merge pull request #84 from lmchkhi/test/FR-23
+    
+    Add boundary value analysis and domain testing cases for mobile forgo…
+
+commit 602cfeb8c95e4d7a2b73646aa01e5dca62f5ffaf (origin/test/FR-23, test/FR-23)
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Wed Jul 1 09:24:02 2026 +0000
+
+    Add boundary value analysis and domain testing cases for mobile forgot password feature
+    
+    - Created boundary value analysis test cases for OTP length and new password length validation.
+    - Implemented domain testing cases for various scenarios including valid and invalid email formats, OTP handling, and password reset conditions.
+    - Documented expected results and related bugs for each test case to ensure comprehensive coverage of the forgot password functionality on mobile.
+
+commit 8afc676c829fcd27d67858d031a6e866e95e1532
+Merge: 5164f72 0cef555
+Author: Hồng Thanh <23127475@student.hcmus.edu.vn>
+Date:   Wed Jul 1 02:55:20 2026 +0700
+
+    Merge pull request #65 from lmchkhi/test/FR-14
+    
+    Add boundary value analysis and domain testing cases for category man…
+
+commit 0cef55525ea500e7a08f40e4b41aee8953f2a676 (origin/test/FR-14, test/FR-14)
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Tue Jun 30 19:54:39 2026 +0000
+
+    Add boundary value analysis and domain testing cases for category management (FR-14)
+    
+    - Implemented BVA test cases for category name length (0, 1, 2 characters) and category list counts (0, 1, multiple).
+    - Added domain tests to verify admin and user access control for category management operations (view, create, update, delete).
+    - Included tests for invalid category names (empty, whitespace) and valid Unicode names.
+    - Documented test results and related bugs in the test run report.
+
+commit 5164f7273bb3f1bac7c298fa283b9a1d60271418
+Merge: fd83b42 abb203b
+Author: Hồng Thanh <23127475@student.hcmus.edu.vn>
+Date:   Wed Jul 1 00:55:03 2026 +0700
+
+    Merge pull request #61 from lmchkhi/test/FR-11
+    
+    Add test cases for Order History feature (FR-11) using Boundary Value…
+
+commit abb203b7281a3164bc7f5dc4cfb9b5dbf8914eaa (origin/test/FR-11, test/FR-11)
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Tue Jun 30 15:42:11 2026 +0000
+
+    Add test cases for Order History feature (FR-11) using Boundary Value Analysis and Domain Testing
+    
+    - Implemented BVA test cases:
+      - TC-FR11-BVA-001: User with 0 orders
+      - TC-FR11-BVA-002: User with exactly 1 order
+      - TC-FR11-BVA-003: User with multiple orders
+    
+    - Implemented Domain Testing test cases:
+      - TC-FR11-DT-001: View order history when user is logged in and has orders
+      - TC-FR11-DT-002: Deny access to order history when not logged in
+      - TC-FR11-DT-003: Display empty state when user has no orders
+      - TC-FR11-DT-004: Display multiple orders for the same user
+      - TC-FR11-DT-005: Ensure no orders from other users are displayed
+      - TC-FR11-DT-006: View details of own order
+      - TC-FR11-DT-007: Deny access to details of other users' orders
+      - TC-FR11-DT-008: Display order ID in order history
+      - TC-FR11-DT-009: Display order date in order history
+      - TC-FR11-DT-010: Display total amount in order history
+      - TC-FR11-DT-011: Translate order status to Vietnamese
+      - TC-FR11-DT-012: Differentiate order statuses by color
+    
+    - Created a test run report for FR-11 with results and notes on failures.
+
+commit fd83b42b692df55d979fee005141c714bd53fd42
+Merge: 6c42cbb 3da7d97
+Author: Hồng Thanh <23127475@student.hcmus.edu.vn>
+Date:   Tue Jun 30 19:58:23 2026 +0700
+
+    Merge pull request #57 from lmchkhi/test/FR-03
+    
+    Test/fr 03
+
+commit 3da7d9702c8379f33a5a8c09d89f4fc642823f52 (origin/test/FR-03, test/FR-03)
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Tue Jun 30 12:38:33 2026 +0000
+
+    refactor: clarify domain testing derivation process for FR-03 in main report
+
+commit 12db8bc1229de0db6ba35f63958e6b77d9f3a2c8
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Tue Jun 30 09:31:47 2026 +0000
+
+    Refactor code structure for improved readability and maintainability
+
+commit c6a9aceac3cf1747424fddeb453abc1f28d304f4
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Mon Jun 29 08:36:56 2026 +0000
+
+    feat: add domain testing and boundary value analysis test cases for forgot password feature and update project reports
+
+commit 6c42cbbe51771e279169bf3fe4312026d0bd4ef3
+Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+Date:   Fri Jun 26 12:50:06 2026 +0000
+
+    Add System Requirements Specification, API Specification, and Prompt Logging for HW02 EShop
+    
+    - Created SystemRequirementsSpecification.md detailing system overview, account management, product management, and mobile app features.
+    - Added api_specification.md outlining backend API endpoints for authentication, user management, product management, cart operations, and admin functionalities.
+    - Introduced prompt-log-eshop skill for logging AI interactions to facilitate AI Audit Report generation.
+    - Established reports/prompt_log.md to maintain a record of AI usage during HW02, including prompts, outputs, and human reviews.
+    - Developed requirement.md to guide students on HW02 tasks, emphasizing AI application, documentation, and audit report requirements.
+
+commit 15ad5507e293da1a752be8539fc34f3eaeeb27e2 (origin/chore/init-repo-structure, chore/init-repo-structure)
+Author: Lam Vi Khang <lvkhang16@gmail.com>
+Date:   Sat Jun 20 13:17:13 2026 +0700
+
+    chore: initialize repo structure for testing docs
+
+commit 969e1566f2c1195effaf95fbb322052292cec08a (origin/test/fr-01, origin/main, origin/HEAD, main)
+Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+Date:   Wed Jun 10 17:06:05 2026 +0700
+
+    Remove commiting database to git
+
+commit 807c1b7bb341bf46e297ca13f0f055fb1ec17029
+Merge: e59ee5a 371b104
+Author: lchkhai <146848152+lmchkhi@users.noreply.github.com>
+Date:   Wed Jun 10 16:39:00 2026 +0700
+
+    Merge pull request #5 from lmchkhi/issues_template
+    
+    Update issue templates
+
+commit 371b104543ac51815007136e15c1ec0325aafec1
+Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+Date:   Tue Jun 9 11:24:22 2026 +0700
+
+    Fixing template comment
+
+commit 538890ac17bd41fdc9fa6bdceaeec2a748e82d07
+Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+Date:   Tue Jun 9 11:18:46 2026 +0700
+
+    Adding default label to template
+
+commit 563335450fc9d033acc0f86a05e6d907c3e9f5fd
+Author: lchkhai <146848152+lmchkhi@users.noreply.github.com>
+Date:   Tue Jun 9 09:59:12 2026 +0700
+
+    Update issue templates
+    
+    Adding bug issues template from CS423/CSC15003 Software testing
+
+commit e59ee5a6251c33f30933eb4f8ba5352274f003cc (origin/manage-pic-file-lfs)
+Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+Date:   Mon Jun 8 16:38:13 2026 +0700
+
+    adding .gitignore
+
+commit 85af3ba875c88283615e22cb108f13e2fccaf0e9
+Author: ttbhanh-hcmus <ttbhanh@hcmus.edu.vn>
+Date:   Fri May 15 08:30:35 2026 +0700
+
+    first upload
+
+commit 2f9bf2bab45855abf211377a5d5eba10031649e3
+Author: Hanh Tran <ttbhanh@fit.hcmus.edu.vn>
+Date:   Fri May 15 08:27:44 2026 +0700
+
+    Initial commit
+thanhngo@LAPTOP-2HV4BMKM:~/testing/hw02/CS423-CSC15003-Testing-N08$ 

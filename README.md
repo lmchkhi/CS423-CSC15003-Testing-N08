@@ -48,20 +48,20 @@
 
 | Bug ID | Feature | Severity | Status | GitHub Issue |
 |---|---|---|---|---|
-| BUG-FR03-001 | FR-03 | Major | Open | TBD |
-| BUG-FR03-002 | FR-03 | Major | Open | TBD |
-| BUG-FR03-003 | FR-03 | Major | Open | TBD |
-| BUG-FR03-004 | FR-03 | Major | Open | TBD |
-| BUG-FR03-005 | FR-03 | Critical | Open | TBD |
-| BUG-FR11-007 | FR-11 | Critical | Open | TBD |
-| BUG-FR11-012 | FR-11 | Minor | Open | TBD |
-| BUG-FR14-001 | FR-14 | Critical | Open | TBD |
-| BUG-FR14-002 | FR-14 | Major | Open | TBD |
-| BUG-FR14-003 | FR-14 | Major | Open | TBD |
-| BUG-FR23-001 | FR-23 | Critical | Open | TBD |
-| BUG-FR23-002 | FR-23 | Major | Open | TBD |
-| BUG-FR23-003 | FR-23 | Major | Open | TBD |
-| BUG-FR23-004 | FR-23 | Major | Open | TBD |
+| BUG-FR03-001 | FR-03 | Major | Open | [#52](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/52) |
+| BUG-FR03-002 | FR-03 | Major | Open | [#53](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/53) |
+| BUG-FR03-003 | FR-03 | Major | Open | [#54](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/54) |
+| BUG-FR03-004 | FR-03 | Major | Open | [#55](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/55) |
+| BUG-FR03-005 | FR-03 | Critical | Open | [#56](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/56) |
+| BUG-FR11-007 | FR-11 | Critical | Open | [#59](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/59) |
+| BUG-FR11-012 | FR-11 | Minor | Open | [#60](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/60) |
+| BUG-FR14-001 | FR-14 | Critical | Open | [#62](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/62) |
+| BUG-FR14-002 | FR-14 | Major | Open | [#63](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/63) |
+| BUG-FR14-003 | FR-14 | Major | Open | [#64](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/64) |
+| BUG-FR23-001 | FR-23 | Critical | Open | [#80](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/80) |
+| BUG-FR23-002 | FR-23 | Major | Open | [#81](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/81) |
+| BUG-FR23-003 | FR-23 | Major | Open | [#82](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/82) |
+| BUG-FR23-004 | FR-23 | Major | Open | [#83](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/83) |
 
 > **Tổng số bugs:** 14
 
@@ -69,8 +69,4 @@
 
 | Feature | Technique | Video Link |
 |---|---|---|
-| FR-03 | Domain Testing + BVA | [YouTube](link) |
-| FR-11 | Domain Testing + BVA | [YouTube](link) |
-| FR-14 | Domain Testing + BVA | [YouTube](link) |
-| FR-23 | Domain Testing + BVA | [YouTube](link) |
-| Agent Skill Demo | — | [YouTube](link) |
+| FR-11 | Domain Testing + BVA | [YouTube](https://youtu.be/-46x3OEIPFs) |
