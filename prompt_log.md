@@ -315,3 +315,325 @@ Output:
 
 ### Notes
 Một phần hội thoại trước đó và tool output dài không được chép đầy đủ vào entry này; chỉ log conversation context khả dụng và các đoạn evidence còn cần thiết cho task. Các artifact chính đã tạo gồm `analysis/FR-02-login/bva-analysis.md`, 6 test case trong `tests/test-cases/FR-02-login/bva/`, và `reviews/FR-02-login/bva-review.md`.
+
+## Prompt Log Entry - 2026-07-01 13:16:15 +07
+
+### Transcript
+
+````text
+User:
+<environment_context>
+  <cwd>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</cwd>
+  <shell>zsh</shell>
+  <current_date>2026-07-01</current_date>
+  <timezone>Asia/Ho_Chi_Minh</timezone>
+  <filesystem><workspace_roots><root>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</root></workspace_roots><permission_profile type="managed"><file_system type="restricted"><entry access="read"><special>:root</special></entry><entry access="write"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08</path></entry><entry access="write"><special>:slash_tmp</special></entry><entry access="write"><special>:tmpdir</special></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.git</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents</path></entry><entry access="read"><path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.codex</path></entry></file_system></permission_profile></filesystem>
+</environment_context>
+
+User:
+# Context from my IDE setup:
+
+## Open tabs:
+- FR10-bug-summary-v2.md: bugreportsagelam/FR10-bug-summary-v2.md
+- FR02-bug-summary-v2.md: bugreportsagelam/FR02-bug-summary-v2.md
+- FR02-bug-summary.md: bugreportsagelam/FR02-bug-summary.md
+- BUG-FR10-003.md: bugreportsagelam/BUG-FR10-003.md
+- BUG-FR10-002.md: bugreportsagelam/BUG-FR10-002.md
+
+## My request for Codex:
+$test-execution
+$prompt-log
+
+Ghi nhận kết quả tôi đã tự thực thi cho FR-02:
+
+1. TC-FR02-DT-004, TC-FR02-BVA-001
+   - Actual result: Tài khoản bị khóa chỉ sau 2 lần nhập sai mật khẩu (đúng ra phải là 3 lần). Ở lần thử thứ 3, dù nhập đúng mật khẩu nhưng vẫn bị báo lỗi "Tài khoản bị khóa", không đăng nhập được.
+   - Evidence: screenshots/Screenshot 2026-07-01 at 11.24.01.png
+
+2. TC-FR02-DT-007, TC-FR02-BVA-005, TC-FR02-BVA-006
+   - Actual result: Thời gian khóa tài khoản kéo dài tới khoảng ~180 giây thay vì 30 giây như yêu cầu. Đã thử đăng nhập lại ở giây 30 và 31 nhưng vẫn báo lỗi tài khoản bị khóa, phải chờ đến 180 giây mới vào được.
+   - Evidence: 
+     - screenshots/giay0.jpg
+     - screenshots/giay30.jpg
+     - screenshots/giay33.jpg
+     - screenshots/giay180.jpg
+
+3. TC-FR02-DT-002
+   - Actual result: Ô nhập email đang dùng type="text" nên trình duyệt không kiểm tra định dạng. Khi nhập "abc" vẫn bấm gửi được, sau đó mới hiện lỗi đăng nhập. Thêm nữa, ô nhập mật khẩu cũng đang dùng type="text".
+   - Evidence: screenshots/matkhauemail.png
+
+4. TC-FR02-DT-001 (quan sát trong khi thực thi)
+   - Actual result: Sau khi đăng nhập thành công, API trả về toàn bộ dữ liệu user bao gồm cả mật khẩu (password) ở dạng không mã hóa và các trường ẩn khác. Việc này làm lộ mật khẩu trong response của API.
+   - Evidence:
+     
+     screenshots/passwordinres.png
+
+5. TC-FR02-DT-006 (quan sát trong khi thực thi)
+   - Actual result: Khi tài khoản bị khóa, giao diện chỉ báo lỗi chung chung là "Đăng nhập thất bại". Kiểm tra API thấy backend có trả về dòng "Tài khoản đã bị khóa" nhưng frontend không hiển thị lên cho người dùng thấy.
+   - Evidence: screenshots/taikhoanbikhoa.png
+
+6. TC-FR02-DT-009 (quan sát trong khi thực thi)
+   - Actual result: Khi gõ mật khẩu, ký tự hiện rõ trên màn hình do ô input bị để thuộc tính type="text" thay vì password.
+   - Evidence: screenshots/matkhauemail.png
+
+7. Các TC còn lại: giống với expected
+Đối chiếu từng test case, xác định Pass/Fail/Blocked và cập nhật test run theo template và cấu trúc hiện có. Đồng thời đổi tên file screenshot cho phù hợp
+
+Sau khi hoàn tất, append log.
+
+User:
+<skill>
+<name>prompt-log</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md</path>
+---
+name: prompt-log
+description: Append a verbatim, unedited transcript of the completed Codex prompt session or available conversation context to prompt_log.md. Use when the user asks to log prompts, save the chat, copy the full conversation exactly after a prompt finishes, preserve AI interaction evidence, or maintain a prompt log for assignment submission.
+---
+
+# Prompt Log Skill
+
+## 1. Mục đích
+
+Ghi lại nguyên văn toàn bộ đoạn chat hoặc phần hội thoại khả dụng vào `prompt_log.md` sau khi một prompt/task đã hoàn thành. Skill này dùng để lưu evidence về cách đã dùng AI trong bài tập, nên độ trung thực của transcript quan trọng hơn độ gọn đẹp.
+
+## 2. Nguyên tắc bắt buộc
+
+1. Ghi log sau khi đã hoàn thành việc chính của prompt.
+2. Không thay thế nội dung cũ trong `prompt_log.md`; luôn append thêm entry mới.
+3. Nếu không truy cập được toàn bộ lịch sử hội thoại, ghi rõ phạm vi log là `conversation context khả dụng`.
+4. Copy nguyên văn câu chữ, thứ tự, lỗi chính tả, cách viết tắt, dấu câu và ngôn ngữ của từng message trong context.
+5. Không tóm tắt, không diễn giải, không sửa văn phong, không dịch, không chuẩn hóa câu chữ.
+6. Không bịa lại nội dung chat không có trong context.
+7. Chỉ được thay đổi nội dung khi cần che bí mật như token, password, key hoặc credential; thay đúng phần bí mật bằng `[REDACTED]`.
+8. Nếu có tool output quá dài không còn đầy đủ trong context, ghi nguyên văn phần còn thấy được và ghi chú rõ phần bị thiếu.
+
+## 3. File output
+
+Ghi tại root project:
+
+`prompt_log.md`
+
+Nếu file chưa tồn tại, tạo file mới.
+
+## 4. Format entry
+
+Mỗi lần ghi log, thêm một entry:
+
+```md
+## Prompt Log Entry - <YYYY-MM-DD HH:mm:ss TZ>
+
+### Transcript
+
+```text
+User:
+<copy nguyên văn user message>
+
+Assistant:
+<copy nguyên văn assistant message>
+
+Tool:
+<copy nguyên văn tool call/output khả dụng nếu cần lưu evidence>
+```
+
+### Notes
+<Chỉ ghi metadata hoặc giới hạn context, ví dụ: "Một phần hội thoại trước đó không còn trong context". Không tóm tắt nội dung chat tại đây trừ khi người dùng yêu cầu riêng.>
+```
+
+## 5. Khi người dùng yêu cầu "toàn bộ đoạn chat"
+
+1. Ghi transcript đầy đủ nhất có trong context hiện tại.
+2. Phân vai rõ `User`, `Assistant`, `Tool`, hoặc `System note` nếu cần.
+3. Nếu context đã bị compact hoặc thiếu đoạn cũ, ghi chú: `Một phần hội thoại trước đó không còn trong context, chỉ log phần khả dụng`.
+4. Không tự tạo lại nguyên văn những đoạn không còn nhìn thấy.
+5. Không thay một đoạn chat bằng summary. Nếu đoạn nào không thể copy nguyên văn, bỏ đoạn đó và ghi rõ lý do trong `Notes`.
+
+## 6. Khi dùng cùng skill khác
+
+Nếu prompt chính dùng `$qa-workflow`, `$domain-testing`, `$boundary-value-analysis`, `$test-case-review`, `$test-execution`, hoặc `$bug-report`, hoàn thành skill chính trước. Sau đó mới dùng `$prompt-log` để append entry vào `prompt_log.md`.
+
+</skill>
+
+User:
+<skill>
+<name>test-execution</name>
+<path>/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/test-execution/SKILL.md</path>
+---
+name: test-execution
+description: Execute or document execution of approved manual QA test cases. Use when Codex is asked to run test cases, fill Actual Result, determine Pass/Fail/Blocked/Not Run, collect evidence, or update tests/test-runs. Must not guess results when the system cannot actually be accessed or exercised.
+---
+
+# Test Execution Skill
+
+## 1. Mục đích
+
+Ghi nhận kết quả execution cho các test case đã được approve. Skill này chỉ đánh giá Pass/Fail khi có Actual Result quan sát được từ hệ thống, browser, API response, log, screenshot, hoặc bằng chứng người dùng cung cấp.
+
+## 2. Quy tắc ngôn ngữ
+
+1. Toàn bộ nội dung output viết bằng tiếng Việt có dấu chuẩn.
+2. Giữ nguyên ID, field name, URL, route, test data, message thực tế và tên file evidence.
+3. Có thể giữ các thuật ngữ: Actual Result, Expected Result, Pass, Fail, Blocked, Not Run, Evidence, Environment.
+
+## 3. Nguyên tắc bắt buộc
+
+1. Không tự đoán kết quả.
+2. Nếu không truy cập được hệ thống hoặc không có evidence, ghi `Not Run` hoặc `Blocked`.
+3. Không sửa Expected Result trong lúc execution trừ khi người dùng yêu cầu review/sửa test case.
+4. Không tạo bug report nếu chưa có status `Fail`.
+5. Phân biệt:
+   - `Fail`: đã chạy và Actual Result khác Expected Result.
+   - `Pass`: đã chạy và Actual Result phù hợp Expected Result.
+   - `Blocked`: không thể chạy do môi trường, account, data, build, dependency, hoặc thiếu thông tin.
+   - `Not Run`: chưa thực hiện.
+6. Evidence phải truy vết được đến test case và thời điểm chạy.
+
+## 4. Đầu vào mong đợi
+
+- Test case file trong `tests/test-cases/`
+- Requirement và analysis liên quan
+- Môi trường test: browser, OS, build, base URL, account, database state nếu có
+- Evidence: screenshot, video, API response, console log, người dùng mô tả actual result
+- Đường dẫn file test run nếu đã có
+
+## 5. Quy trình execution
+
+### Bước 1: Xác định phạm vi
+
+Lập danh sách test case sẽ chạy:
+
+| Test Case ID | File | Technique | Trạng thái trước khi chạy |
+|---|---|---|---|
+
+Bỏ qua test case chưa sẵn sàng hoặc thiếu preconditions và ghi lý do.
+
+### Bước 2: Chuẩn bị môi trường
+
+Ghi rõ:
+
+- Tester
+- Ngày giờ chạy
+- Browser / OS / device
+- Base URL hoặc build
+- Account/data dùng để test
+- Cách reset hoặc chuẩn bị data nếu có
+
+Nếu thiếu môi trường, không chạy giả định; ghi `Blocked`.
+
+### Bước 3: Thực hiện test steps
+
+Với mỗi test case:
+
+1. Đọc Preconditions, Test data, Test steps, Expected Result.
+2. Thực hiện từng step đúng thứ tự.
+3. Ghi Actual Result bằng hành vi quan sát được.
+4. Gán status theo bảng:
+
+| Điều kiện | Status |
+|---|---|
+| Actual Result khớp Expected Result | Pass |
+| Actual Result khác Expected Result | Fail |
+| Không thể chạy vì blocker | Blocked |
+| Chưa chạy | Not Run |
+
+### Bước 4: Lưu evidence
+
+Nếu có file evidence, lưu hoặc tham chiếu theo quy ước:
+
+`bug-reports/screenshots/<TEST-CASE-ID>-<short-note>.<ext>`
+
+Hoặc ghi đường dẫn evidence người dùng đã cung cấp.
+
+### Bước 5: Cập nhật test run
+
+Tạo hoặc cập nhật:
+
+`tests/test-runs/<FEATURE-ID>-<feature-name>-run.md`
+
+Cấu trúc:
+
+```md
+# Test Run: <FR-ID> — <Tên chức năng>
+
+## Thông tin chung
+
+| Field | Value |
+|---|---|
+| **Requirement** | <FR-ID>: <Tên chức năng> |
+| **Ngày thực thi** | DD/MM/YYYY |
+| **Môi trường** | Browser: <browser> · OS: <os> · URL: <url> |
+| **Build / Commit** | `<commit_hash>` |
+
+---
+
+## Kết quả thực thi
+
+### Domain Testing
+
+| Test Case ID | Mô tả | Tester | Result | Related Bug | Note |
+|---|---|---|---|---|---|
+| <TC-ID> | <Mô tả test case> | | Not Run | | |
+
+### Boundary Value Analysis (BVA)
+
+| Test Case ID | Mô tả | Tester | Result | Related Bug | Note |
+|---|---|---|---|---|---|
+| <TC-ID> | <Mô tả test case> | | Not Run | | |
+
+---
+
+## Tổng kết
+
+| Trạng thái | Số lượng |
+|---|---:|
+| Passed | 0 |
+| Failed | 0 |
+| Blocked | 0 |
+| Not Run | <total_not_run> |
+| **Tổng** | **<total>** |
+
+> **Ghi chú:** Khi Result = **Failed** hoặc **Blocked** → phải có **Related Bug** (link đến GitHub Issue) hoặc lý do rõ ràng trong cột **Note**.
+```
+
+## 6. Cập nhật test case file
+
+Chỉ cập nhật mục `Status / Related bugs` trong test case nếu người dùng yêu cầu hoặc workflow yêu cầu đồng bộ. Không chèn log dài vào test case; để chi tiết trong test run.
+
+## 7. Khi gặp Fail
+
+1. Ghi Actual Result cụ thể.
+2. Ghi evidence.
+3. Đánh dấu Related Bug là `Pending` nếu chưa tạo bug.
+4. Đề xuất dùng `$bug-report` để tạo bug report từ test case fail.
+
+</skill>
+
+Assistant:
+Mình sẽ dùng `test-execution` trước để cập nhật test run và evidence, sau đó dùng `prompt-log` để append transcript đúng thứ tự. Trước hết mình đọc cấu trúc file hiện có để khớp format và tránh làm lệch các báo cáo bạn đang mở.
+
+Assistant:
+Mình thấy evidence thực tế đang nằm trong `bug-reports/screenshots/`, không phải thư mục `screenshots/` ở root. Có một file `dummy.jpg` đang bị xóa sẵn trong worktree; mình sẽ để nguyên trạng thái đó và chỉ đụng vào các screenshot/test-run liên quan FR-02.
+
+Assistant:
+Test-run `FR-02-login-run.md` có vẻ đang trống, nên mình sẽ dựng lại theo template hiện có. Vì bạn ghi “các TC còn lại giống expected”, mình sẽ mark Pass cho những case không nằm trong nhóm actual lỗi bạn liệt kê, còn các case có actual lệch expected sẽ Fail với `Related Bug = Pending`.
+
+Assistant:
+Mình sẽ đổi tên evidence theo test case/hiện tượng để mỗi dòng test run truy vết được ngay. Sau đó mình ghi test run với môi trường còn thiếu được đánh dấu rõ là “chưa cung cấp”, còn URL/build lấy từ repo: base URL `http://localhost:3000`, commit `a172955`.
+
+Assistant:
+Nhóm screenshot thời gian khóa đã được đặt lại tên theo mốc 0/30/33/180 giây. Mình đang đổi nốt các evidence còn lại rồi sẽ cập nhật nội dung test run.
+
+Assistant:
+Mình sắp ghi `tests/test-runs/FR-02-login-run.md`: toàn bộ 15 test case sẽ có Pass/Fail, `Blocked` và `Not Run` đều bằng 0 vì bạn đã cung cấp kết quả cho phần lỗi và xác nhận các case còn lại khớp expected. Các lỗi chưa có bug report riêng sẽ để `Pending` đúng quy tắc execution.
+
+Assistant:
+Test run đã được cập nhật xong. Mình đang kiểm tra nhanh đường dẫn evidence, số lượng Pass/Fail và trạng thái git trước khi append `prompt_log.md`, để log cuối cùng phản ánh đúng phần việc đã hoàn tất.
+
+Assistant:
+Bây giờ mình append `prompt_log.md`. Mình sẽ ghi phạm vi là “conversation context khả dụng” và không bịa lại phần nào ngoài những message hiện còn thấy trong lượt này; các tool output dài sẽ được ghi chú là không đưa đầy đủ để tránh biến log thành bản dump nhiễu.
+
+Assistant:
+Mình sẽ append log ngay dưới cuối file hiện có. Vì nội dung user có các khối code fence trong skill, mình dùng fence dài hơn cho transcript để giữ nguyên chữ mà không làm vỡ Markdown.
+````
+
+### Notes
+Một phần tool output dài không được chép đầy đủ vào entry này; transcript ghi conversation context khả dụng gồm các message người dùng và các cập nhật assistant còn thấy trong lượt hiện tại. Công việc chính đã hoàn tất trước khi append log: cập nhật `tests/test-runs/FR-02-login-run.md` và đổi tên evidence trong `bug-reports/screenshots/`.

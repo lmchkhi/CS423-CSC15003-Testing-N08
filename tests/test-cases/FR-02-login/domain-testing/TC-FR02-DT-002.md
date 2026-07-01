@@ -44,4 +44,4 @@ Authentication / Functional / Domain Testing
 Form không chấp nhận giá trị email sai định dạng theo HTML5. Đăng nhập không được thực hiện thành công, người dùng vẫn ở trạng thái chưa đăng nhập, và không có token mới được lưu phía client.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

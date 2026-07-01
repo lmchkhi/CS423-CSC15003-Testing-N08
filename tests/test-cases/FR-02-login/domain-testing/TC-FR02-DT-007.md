@@ -49,4 +49,4 @@ Authentication / Functional / Domain Testing
 Đăng nhập được chấp nhận lại sau khi hết 30 giây tạm khóa. Token được lưu phía client, người dùng vào trạng thái đã đăng nhập và truy cập được chức năng yêu cầu xác thực.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

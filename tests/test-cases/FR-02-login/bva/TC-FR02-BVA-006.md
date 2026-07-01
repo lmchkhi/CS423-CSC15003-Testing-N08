@@ -46,4 +46,4 @@ Authentication / Functional / Boundary Value Analysis (BVA)
 Ở thời điểm 31 giây sau khi bị khóa, thời gian khóa 30 giây đã kết thúc. Đăng nhập bằng mật khẩu đúng được chấp nhận, token được lưu phía client và người dùng vào trạng thái đã đăng nhập.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

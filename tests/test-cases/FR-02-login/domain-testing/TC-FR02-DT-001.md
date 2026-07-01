@@ -46,4 +46,4 @@ Authentication / Functional / Domain Testing
 Đăng nhập được chấp nhận. Người dùng được đưa vào trạng thái đã đăng nhập, token được lưu phía client, và người dùng truy cập được chức năng yêu cầu xác thực. Không hiện thông báo lỗi đăng nhập.
 
 ## Status / Related bugs
-Not Run / None
+Fail / Pending

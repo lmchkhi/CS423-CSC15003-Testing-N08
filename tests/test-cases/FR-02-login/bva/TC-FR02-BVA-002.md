@@ -46,4 +46,4 @@ Authentication / Functional / Boundary Value Analysis (BVA)
 Ba lần đăng nhập sai đều bị từ chối và không tạo token. Tại lần sai thứ 3, tài khoản bị tạm khóa 30 giây. Bước 3 bị từ chối dù mật khẩu đúng; hệ thống trả về thông báo lỗi phù hợp và không lộ chi tiết nguyên nhân.
 
 ## Status / Related bugs
-Not Run / None
+Pass / None
