@@ -1,76 +1,136 @@
-# Báo cáo AI Audit - HW02 Domain Testing
+# AI Audit Report - HW02 Domain Testing on EShop
 
-> **Sinh viên:** Hà Bảo Ngọc - 23127300  
-> **Nhóm:** N08  
-> **Môn:** CS423 / CSC15003 - Kiểm thử Phần mềm  
-> **Bài tập:** HW02 - Domain Testing on EShop  
-> **Công cụ AI đã dùng:** Codex, AI assistant dạng ChatGPT  
-> **Nguồn prompt log:** `prompt_log.md`
+Khoa Công nghệ Thông tin (FIT) - Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM  
+CS423 / CSC15003 - Kiểm thử Phần mềm (AI-augmented, 2026)  
+AI Audit Report - mẫu 5 phần cho từng artifact
+
+Phụ lục bắt buộc cho bài tập có sử dụng AI.
 
 ---
 
 ## 1. Thông tin sinh viên
 
-| Mục | Giá trị |
+| Trường | Giá trị |
 |---|---|
 | Họ tên sinh viên | Hà Bảo Ngọc |
 | MSSV | 23127300 |
 | Lớp / Nhóm | CS423 / CSC15003 - N08 |
-| Mã bài tập | HW02-AI |
+| Mã bài tập | HW#02 - Domain Testing on EShop |
 | Ngày làm bài | 01/07/2026 |
-| Feature đã chọn | FR-02, FR-10, FR-13, FR-26 |
+| AI tool(s) used | Codex, AI assistant dạng ChatGPT |
+| Có sử dụng AI? | [x] Yes  [ ] No |
 
-## 2. Cách audit
+## 2. Hướng dẫn điền báo cáo
 
-Báo cáo này audit các artifact có AI hỗ trợ trong HW02. Lịch sử prompt chi tiết được lưu ở `prompt_log.md`; file này tóm tắt các tương tác AI chính, artifact sinh ra, kết quả review, lý do đánh giá và phần sinh viên đã sửa.
+- Mỗi artifact do AI hỗ trợ được ghi thành một dòng audit riêng.
+- `Prompt` phải được dán nguyên văn, không diễn giải lại.
+- `AI Output` ghi output nguyên văn khi phù hợp; nếu output quá dài thì ghi rõ artifact được tạo và evidence tương ứng trong `prompt_log.md`.
+- `Verdict` dùng một trong ba giá trị: `VALID` / `INVALID` / `INCOMPLETE`.
+- Phần lý do đánh giá phải viện dẫn kỹ thuật kiểm thử, ISTQB hoặc tài liệu kỹ thuật liên quan.
+- Phần `Student Fix` phải nêu rõ sinh viên đã sửa hoặc chấp nhận artifact như thế nào.
+- Các dòng ví dụ trong template gốc đã được bỏ và thay bằng artifact thật của HW02.
 
-Ý nghĩa verdict:
+## 3. Audit Table - mỗi artifact một dòng
 
-- **VALID**: Kết quả được chấp nhận sau review, không cần sửa nội dung chính.
-- **INCOMPLETE**: Bản nháp hữu ích nhưng cần sinh viên sửa hoặc bổ sung.
-- **INVALID**: Bị loại vì mâu thuẫn với requirement hoặc kỹ thuật kiểm thử.
+### Artifact #1
 
-## 3. Bảng audit
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-06-26 23:36:02 +07<br><br>Prompt:<br><pre>$domain-testing<br>$test-case-review<br>$prompt-log<br><br>Áp dụng Domain Testing cho FR-02 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Tạo analysis và test case theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre> | Tạo `analysis/FR-02-login/domain-testing-analysis.md`, 9 Domain Testing test case và `reviews/FR-02-login/domain-testing-review.md`. Log ghi output chính: `Created 9 test case files`. | INCOMPLETE | Domain Testing phù hợp cho email/password, trạng thái tài khoản, trạng thái khóa và token. Tuy nhiên audit sau đó phát hiện reference `FR-22` bị hallucinate trong artifact FR-02. Theo ISTQB CTFL v4.0, Sec. 4.1/4.2, test phải được suy ra từ test basis hợp lệ, không được dựa trên requirement không tồn tại. | Đã thay reference sai `FR-22` bằng `GUI-02`; giữ lại các domain class có traceability với SRS; không đưa chi tiết kỹ thuật API vào test case steps. |
 
-| Artifact | Prompt + Công cụ | Output của AI | Verdict | Lý do đánh giá | Sinh viên đã sửa |
-|---|---|---|---|---|---|
-| Phân tích Domain Testing và test case FR-10 | Công cụ: Codex. Prompt: tạo artifact Domain Testing cho FR-10 Order State Machine, giữ hướng black-box và không đưa chi tiết API vào test case. | Tạo `analysis/FR-10-order-state-machine/domain-testing-analysis.md`, 14 test case và file review. | **INCOMPLETE** | Độ bao phủ state machine hữu ích, nhưng FR-10 không đặc tả trực tiếp mọi điều kiện actor/xác thực. Một số case cần ghi là giả định thay vì rule chắc chắn. | Giữ 14 case đại diện, đánh dấu Guest/chưa đăng nhập là `Giả định cần xác nhận`, và không khẳng định Admin được hủy đơn `shipping` nếu requirement chưa nêu. |
-| Phân tích Boundary Value Analysis cho FR-10 | Công cụ: Codex. Prompt: chỉ áp dụng BVA cho FR-10 nếu có boundary thật. | Tạo BVA analysis và review kết luận không áp dụng BVA; không sinh test case BVA. | **VALID** | Input chính của FR-10 là trạng thái và actor/action dạng phân loại. Nếu xem thứ tự trạng thái là boundary số học thì sẽ bịa constraint. | Chấp nhận. Artifact BVA giải thích rõ vì sao không tạo test case BVA. |
-| Execution và bug report FR-10 | Công cụ: Codex. Prompt: ghi nhận kết quả execution người dùng cung cấp và tạo bug report cho các test case Fail của FR-10. | Tạo `tests/test-runs/FR-10-order-state-machine-run.md` và `BUG-FR10-001` đến `BUG-FR10-003`. | **VALID** | Bug report dựa trên test case Fail, Actual Result và screenshot evidence. Ba defect được tách theo root cause: chuyển từ final state, User hủy đơn shipping, và lỗi phân quyền API Admin. | Chấp nhận sau khi map từng test case Fail với một bug report và liên kết screenshot evidence. |
-| Cập nhật main report và README sau khi merge FR-10 | Công cụ: Codex. Prompt: đọc material mới, cập nhật `reports/main-report.md`, `README.md` và file liên quan; thêm link video demo. | Cập nhật tổng số test case, section FR-10, bug summary và link demo. | **INCOMPLETE** | Phần FR-10 đã được nối đúng, nhưng review sau đó phát hiện còn thiếu PDF export, link GitHub Issue đang `TBD`, và dòng đề bài còn ghi filename. | Sửa trong lượt tài liệu này; link GitHub Issue được để sang phase tạo issue. |
-| Audit toàn repo theo đề HW02 | Công cụ: Codex. Prompt: scan repo theo đề HW02 - Domain Testing on EShop và liệt kê tài liệu thiếu/sai, khác format, alignment bug report và nguy cơ hallucination. | Tạo báo cáo readiness, chỉ ra thiếu AI Critique, sai AI Audit Report, gap analysis rỗng, git log placeholder, thiếu PDF, hallucination `FR-22`, và thiếu link GitHub Issue. | **VALID** | Audit phát hiện các lỗi ở mức bài nộp mà main report không tự thể hiện. | Dùng làm cơ sở cho kế hoạch sửa tài liệu hiện tại. |
-| Review reference FR-02 | Công cụ: Codex. Prompt: kiểm tra analysis có đúng và không hallucination không. | Phát hiện các tham chiếu `FR-22` trong Domain Testing analysis/review của FR-02. | **INCOMPLETE** | Finding đúng: artifact gốc tham chiếu requirement không tồn tại. Nguồn đúng là GUI requirement `GUI-02`. | Thay `FR-22` bằng `GUI-02` và chỉnh lại wording tiếng Việt trong FR-02. |
-| Review evidence bug FR-26 | Công cụ: Codex + giải thích của sinh viên. Prompt: kiểm tra bug report có khớp screenshot/test case không. | Ban đầu đánh dấu `BUG-FR26-003` là evidence yếu hơn vì không có screenshot dialog. | **INCOMPLETE** | Sinh viên xác nhận defect là dialog không xuất hiện và item bị xóa ngay, nên không thể có screenshot của dialog. Screenshot dùng chung + Actual Result trong test run là evidence hợp lý. | Giữ screenshot mobile cart dùng chung và bổ sung ghi chú evidence giải thích vì sao việc không xuất hiện dialog được chứng minh bằng quan sát execution. |
-| Tái sử dụng script export PDF | Công cụ: Codex. Prompt: dùng lại `export_pdf.py` từ homework trước và sửa nhẹ cho repo hiện tại. | Cập nhật danh sách file export và đường dẫn output cho HW02. | **VALID** | Việc tái sử dụng script phù hợp vì đề yêu cầu bản Markdown và PDF. Script cũ chỉ cần đổi path và danh sách file. | Export hiện gồm README, main report, AI Critique, AI Audit Report, prompt log và git log. |
+### Artifact #2
 
-## 4. Tóm tắt độ chính xác của AI
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-06-26 23:54:50 +07<br><br>Prompt:<br><pre>$boundary-value-analysis<br>$test-case-review<br>$prompt-log<br><br>Đánh giá và áp dụng BVA cho FR-02 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Chỉ tạo BVA analysis và test case nếu FR-02 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.<br><br>Tạo output theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre> | Tạo `analysis/FR-02-login/bva-analysis.md`, 6 BVA test case và `reviews/FR-02-login/bva-review.md`. | VALID | FR-02 có boundary thật: số lần đăng nhập sai quanh ngưỡng 3 lần và thời gian khóa quanh 30 giây. Cách chọn này phù hợp với ISTQB CTFL v4.0, Sec. 4.2.2 Boundary Value Analysis. | Chấp nhận. Có ghi chú rằng dung sai chính xác tại mốc 30 giây là requirement gap, nên khi execution phải ghi Actual Result cẩn thận. |
 
-| Metric | Số lượng | Tỷ lệ |
+### Artifact #3
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-07-01 13:16:15 +07 and 13:25:57 +07<br><br>Prompt:<br><pre>$test-execution<br>$prompt-log<br><br>Ghi nhận kết quả tôi đã tự thực thi cho FR-02:<br><br>1. TC-FR02-DT-004, TC-FR02-BVA-001<br>   - Actual result: Tài khoản bị khóa chỉ sau 2 lần nhập sai mật khẩu (đúng ra phải là 3 lần). Ở lần thử thứ 3, dù nhập đúng mật khẩu nhưng vẫn bị báo lỗi "Tài khoản bị khóa", không đăng nhập được.<br>   - Evidence: screenshots/Screenshot 2026-07-01 at 11.24.01.png<br><br>2. TC-FR02-DT-007, TC-FR02-BVA-005, TC-FR02-BVA-006<br>   - Actual result: Thời gian khóa tài khoản kéo dài tới khoảng ~180 giây thay vì 30 giây như yêu cầu. Đã thử đăng nhập lại ở giây 30 và 31 nhưng vẫn báo lỗi tài khoản bị khóa, phải chờ đến 180 giây mới vào được.<br>   - Evidence:<br>     - screenshots/giay0.jpg<br>     - screenshots/giay30.jpg<br>     - screenshots/giay33.jpg<br>     - screenshots/giay180.jpg<br><br>3. TC-FR02-DT-002<br>   - Actual result: Ô nhập email đang dùng type="text" nên trình duyệt không kiểm tra định dạng. Khi nhập "abc" vẫn bấm gửi được, sau đó mới hiện lỗi đăng nhập. Thêm nữa, ô nhập mật khẩu cũng đang dùng type="text".<br>   - Evidence: screenshots/matkhauemail.png<br><br>4. TC-FR02-DT-001 (quan sát trong khi thực thi)<br>   - Actual result: Sau khi đăng nhập thành công, API trả về toàn bộ dữ liệu user bao gồm cả mật khẩu (password) ở dạng không mã hóa và các trường ẩn khác. Việc này làm lộ mật khẩu trong response của API.<br>   - Evidence:<br><br>     screenshots/passwordinres.png<br><br>5. TC-FR02-DT-006 (quan sát trong khi thực thi)<br>   - Actual result: Khi tài khoản bị khóa, giao diện chỉ báo lỗi chung chung là "Đăng nhập thất bại". Kiểm tra API thấy backend có trả về dòng "Tài khoản đã bị khóa" nhưng frontend không hiển thị lên cho người dùng thấy.<br>   - Evidence: screenshots/taikhoanbikhoa.png<br><br>6. TC-FR02-DT-009 (quan sát trong khi thực thi)<br>   - Actual result: Khi gõ mật khẩu, ký tự hiện rõ trên màn hình do ô input bị để thuộc tính type="text" thay vì password.<br>   - Evidence: screenshots/matkhauemail.png<br><br>7. Các TC còn lại: giống với expected<br>Đối chiếu từng test case, xác định Pass/Fail/Blocked và cập nhật test run theo template và cấu trúc hiện có. Đồng thời đổi tên file screenshot cho phù hợp<br><br>Sau khi hoàn tất, append log.</pre><br>Prompt tiếp theo:<br><pre>$bug-report<br>$prompt-log<br><br>Tạo bug report cho các test case Fail của FR-02.<br><br>Tự tìm test case, test run và evidence tương ứng.<br>Dùng template và cấu trúc hiện có.<br>Không tạo bug trùng hoặc bug cho test chưa có kết quả Fail.<br><br>Sau khi hoàn tất, append log.</pre> | Tạo `tests/test-runs/FR-02-login-run.md` và `BUG-FR02-001` đến `BUG-FR02-005`; cập nhật test case liên quan và đổi tên screenshot evidence. | VALID | Kết quả execution dựa trên Actual Result và evidence do sinh viên cung cấp, không phải AI tự đoán. Các defect được gom theo root cause, phù hợp với ISTQB CTFL v4.0, Sec. 5.5 Defect Management. | Chấp nhận. Sinh viên cung cấp evidence; AI liên kết các failed test case vào 5 bug report duy nhất thay vì tạo bug trùng cho từng test case. |
+
+### Artifact #4
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-06-30 20:02:43 +07 and 20:06:47 +07<br><br>Prompt:<br><pre>$domain-testing<br>$test-case-review<br>$prompt-log<br><br>Áp dụng Domain Testing cho FR-13 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Tạo analysis và test case theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre><br>Prompt BVA:<br><pre>$boundary-value-analysis<br>$test-case-review<br>$prompt-log<br><br>Đánh giá và áp dụng BVA cho FR-13 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Chỉ tạo BVA analysis và test case nếu FR-13 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.<br><br>Tạo output theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre> | Tạo `analysis/FR-13-dashboard/domain-testing-analysis.md`, 6 DT test case, `reviews/FR-13-dashboard/domain-testing-review.md`, `analysis/FR-13-dashboard/bva-analysis.md` và `reviews/FR-13-dashboard/bva-review.md`. Không tạo BVA test case. | VALID | Dữ liệu dashboard của FR-13 được chia partition theo dataset/trạng thái đơn hàng và quyền Admin, nên Domain Testing là phù hợp. BVA không phù hợp vì requirement không có min/max, threshold hoặc range; điều này bám theo ISTQB CTFL v4.0, Sec. 4.2.1 và 4.2.2. | Chấp nhận. Artifact ghi rõ BVA không áp dụng, tránh ép boundary số học cho doanh thu hoặc số lượng đơn hàng. |
+
+### Artifact #5
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-06-30 21:03:40 +07 and 21:10:52 +07<br><br>Prompt:<br><pre>$test-execution<br>$prompt-log<br><br>Ghi nhận kết quả tôi đã tự thực thi cho FR-02:<br><br>1. `TC-FR13-DT-001`<br>   - Actual result: giống với expected result<br><br>2. `TC-FR13-DT-002`<br>   - Actual result: doanh thu hiển thị 60,000,000 đ<br>   - Evidence: bug-reports/screenshots/Screenshot 2026-06-30 at 20.46.12.png, bug-reports/screenshots/Screenshot 2026-06-30 at 20.46.17.png<br><br>3. `TC-FR13-DT-003`<br>   - Actual result: doanh thu hiển thị 72,000,000 đ<br>   - Evidence: bug-reports/screenshots/Screenshot 2026-06-30 at 20.47.39.png, bug-reports/screenshots/Screenshot 2026-06-30 at 20.47.41.png<br><br>4. `TC-FR13-DT-004`<br>   - Actual result: doanh thu hiển thị 90,000,000 đ<br>   - Evidence: bug-reports/screenshots/Screenshot 2026-06-30 at 20.50.31.png, bug-reports/screenshots/Screenshot 2026-06-30 at 20.50.34.png<br><br>5. `TC-FR13-DT-005`<br>   - Actual result: giống với expected result<br><br>6. `TC-FR13-DT-006`<br>   - Actual result: giống với expected result<br><br>Đối chiếu từng test case, xác định Pass/Fail/Blocked và cập nhật test run theo template và cấu trúc hiện có.<br><br>Sau khi hoàn tất, append log.</pre><br>Prompt tiếp theo:<br><pre>$bug-report<br>$prompt-log<br><br>Tạo bug report cho các test case Fail của FR-13.<br><br>Tự tìm test case, test run và evidence tương ứng.<br>Dùng template và cấu trúc hiện có.<br>Không tạo bug trùng hoặc bug cho test chưa có kết quả Fail.<br><br>Sau khi hoàn tất, append log.</pre> | Tạo `tests/test-runs/FR-13-dashboard-run.md`, `BUG-FR13-001.md` và liên kết 3 failed dashboard revenue test case vào cùng một bug report. | VALID | Prompt ghi nhầm feature là FR-02, nhưng Test Case ID đều thuộc FR-13. AI đã xác định đúng scope theo Test Case ID. Việc gom 3 failure vào một bug tính sai doanh thu giúp tránh duplicate defect report, phù hợp với nguyên tắc defect management của ISTQB. | Chấp nhận. Giữ một bug cho root cause chung và bảo toàn screenshot evidence. |
+
+### Artifact #6
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-07-01 00:31:47 +07<br><br>Prompt:<br><pre>$domain-testing<br>$test-case-review<br>$prompt-log<br><br>Áp dụng Domain Testing cho FR-26 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Tạo analysis và test case theo cấu trúc hiện có. Tên thư mục là tiếng anh.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre> | Tạo Domain Testing analysis, test case và review cho FR-26 Mobile Cart trong thư mục `FR-26-mobile-cart`. Repo hiện tại có 14 FR-26 DT test case. | INCOMPLETE | Domain Testing phù hợp với các trạng thái UI mobile cart và hành vi categorical. Tuy nhiên log ban đầu nhắc đến 8 test case, trong khi artifact cuối cùng có 14 test case. Chênh lệch này chỉ chấp nhận được vì đã cross-check file hiện tại và review. ISTQB CTFL v4.0, Sec. 4.1 yêu cầu traceability từ test basis đến test case cuối cùng. | Chấp nhận artifact cuối sau review. Báo cáo ghi rõ discrepancy và không dựa vào summary trong prompt log ban đầu như nguồn duy nhất. |
+
+### Artifact #7
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-07-01 00:43:28 +07<br><br>Prompt:<br><pre>$boundary-value-analysis<br>$test-case-review<br>$prompt-log<br><br>Đánh giá và áp dụng BVA cho FR-26 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Chỉ tạo BVA analysis và test case nếu FR-26 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.<br><br>Tạo output theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre> | Prompt log ghi rằng AI ban đầu kết luận BVA không áp dụng và chỉ tạo analysis/review. Repo hiện tại lại có `analysis/FR-26-mobile-cart/bva-analysis.md`, `reviews/FR-26-mobile-cart/bva-review.md` và 5 BVA test case. | INCOMPLETE | Đây là bằng chứng rõ nhất rằng chỉ dựa vào `prompt_log.md` thì chưa đủ tin cậy. Artifact BVA cuối có thể hợp lý vì lower boundary của `cartLineQuantity` và empty/non-empty boundary của `cartItemCount` là kiểm thử được, nhưng transcript không giải thích đầy đủ quá trình sửa từ “không áp dụng” thành 5 test case. ISTQB BVA yêu cầu boundary derivation và traceability rõ ràng. | Đã review trực tiếp các file cuối. Báo cáo đánh dấu evidence log là `INCOMPLETE`, chỉ giữ artifact BVA cuối vì analysis/review hiện tại đã document boundary `0/1/2` cho quantity và `0/1` cho cart count, đồng thời ghi upper boundary còn thiếu là requirement gap. |
+
+### Artifact #8
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-07-01 01:17:33 +07 and 09:43:52 +07<br><br>Prompt:<br><pre>$test-execution<br>$prompt-log<br><br>Ghi nhận kết quả tôi đã tự thực thi cho FR-02:<br><br>BVA:<br>- 1: giôngs expected<br>- 2: ko có dialog, sau khi nhấn xoá thì sản phẩm biến mất<br>- 3: ko có nút cộng<br>- 4: giôngs expected<br>- 5: giôngs expected<br>DT:<br>- 001: giống Expected result<br>- 002: hiện là "Giá"<br>- 3: không có nút + -, chỉnh bằng cách dùng bàn phím<br>- 4: không có nút tăng, tổng tiền hiển thị "Tổng tạm tính"<br>- 5: ko có nút giảm,  tổng tiền hiển thị "Tổng tạm tính"<br>- 6: giôngs expected<br>- 7: ko có dialog<br>- 8: ko có dialog<br>- 9: ko có dialog<br>- 10: nút hiển thị :"Mua tiếp",  Dữ liệu giỏ hàng không bị xóa hoặc thay đổi<br>- 11: màn hình hiển thị "Tổng tạm tính"<br>- 12: giôngs expected<br>- 13: giống expected<br>- 14: giống expected<br><br>Đối chiếu từng test case, xác định Pass/Fail/Blocked và cập nhật test run theo template và cấu trúc hiện có.</pre><br>Prompt tiếp theo:<br><pre>$bug-report<br>$prompt-log<br><br>Tạo bug report cho các test case Fail của FR-26.<br><br>Tự tìm test case, test run và evidence tương ứng.<br>Dùng template và cấu trúc hiện có.<br>Không tạo bug trùng hoặc bug cho test chưa có kết quả Fail.<br><br>Sau khi hoàn tất, append log.</pre> | Tạo `tests/test-runs/FR-26-mobile-cart-run.md`, `BUG-FR26-001` đến `BUG-FR26-005` và liên kết related bug. | VALID | Prompt ghi nhầm feature là FR-02, nhưng toàn bộ Test Case ID và file đang mở đều thuộc FR-26. AI map đúng sang FR-26. Nhiều failed case được gom thành 5 bug theo root cause, tốt hơn việc tạo một bug cho từng assertion. | Chấp nhận. Bổ sung ghi chú evidence cho bug không có dialog xác nhận xóa, vì bản chất defect là dialog không xuất hiện nên không thể có screenshot của dialog; Actual Result trong test run là evidence chính. |
+
+### Artifact #9
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-06-27 00:04:44 +07 and 00:11:08 +07<br><br>Prompt:<br><pre>$domain-testing<br>$test-case-review<br>$prompt-log<br><br>Áp dụng Domain Testing cho FR-10 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Tạo analysis và test case theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre><br>Prompt BVA:<br><pre>$boundary-value-analysis<br>$test-case-review<br>$prompt-log<br><br>Đánh giá và áp dụng BVA cho FR-10 dựa trên `requirements/system-requirements.md`.<br><br>Dùng `requirements/api-specification.md` chỉ để kiểm tra tính nhất quán và xác minh chi tiết kỹ thuật, không đưa endpoint, method, request body hoặc công cụ kiểm thử vào analysis/test case trừ khi requirement bắt buộc phải thể hiện.<br><br>Chỉ tạo BVA analysis và test case nếu FR-10 thực sự có boundary phù hợp; nếu không phù hợp thì ghi rõ lý do và không tạo test case gượng ép.<br><br>Tạo output theo cấu trúc hiện có.<br>Sau khi hoàn tất, review và sửa kết quả, rồi append log vào `prompt_log.md`.</pre> | Tạo `analysis/FR-10-order-state-machine/domain-testing-analysis.md`, 14 DT test case, `reviews/FR-10-order-state-machine/domain-testing-review.md`, BVA analysis và BVA review. Không tạo FR-10 BVA test case. | VALID | FR-10 là state machine với trạng thái và quyền actor dạng categorical. Domain/state-transition style coverage là phù hợp; nếu áp dụng BVA sẽ bịa thứ tự số học cho trạng thái. Đây là cách chọn kỹ thuật black-box hợp lý theo ISTQB. | Chấp nhận. Review giữ Guest/chưa đăng nhập và một số actor case dưới dạng assumption/gap, không biến thành rule chắc chắn khi requirement chưa nêu. |
+
+### Artifact #10
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-07-01 16:22:46 +07 and 16:30:45 +07<br><br>Prompt:<br><pre>$prompt-log<br><br>Ghi nhận kết quả tôi đã tự thực thi cho FR-10, các ảnh trong folder bug-reports/screenshots:<br><br>1. TC-FR10-DT-010<br>   - Actual result: User vẫn có nút hủy đơn khi trạng thái đang giao và hủy thành công.<br><br>2. TC-FR10-DT-011<br>   - Actual result: Endpoint cập nhật trạng thái đơn hàng (PUT /api/admin/orders/:id/status) không kiểm tra quyền Admin. Dù là User thường, chỉ cần lấy token gọi API qua DevTools là có thể tự do thay đổi trạng thái đơn hàng của bất kỳ ai (API trả về HTTP 200 thành công).<br><br>3. TC-FR10-DT-009 (quan sát trong khi thực thi, không có được miêu tả trong test case)<br>   - Actual result: Đơn hàng đã hủy vẫn còn nút đánh dấu đã giao và chuyển được sang trạng thái đã giao.</pre><br>Prompt tiếp theo:<br><pre>$bug-report<br>$prompt-log<br><br>Tạo bug report cho các test case Fail của FR-10.<br><br>Tìm test case, test run và evidence tương ứng.<br>Dùng template và cấu trúc hiện có.<br>Miêu tả giống trong screenshot.<br>Không tạo bug trùng hoặc bug cho test chưa có kết quả Fail.<br>Environment:<br>Browser: Chrome Version 149.0.7827.103<br>OS: macOS Tahoe 26.5.1<br>URL: Backend http://localhost:3000; Frontend Admin http://localhost:5174/; Frontend Web http://localhost:5173/<br><br>Sau khi hoàn tất, append log. Đổi status thành Passed và Failed</pre> | Tạo `tests/test-runs/FR-10-order-state-machine-run.md`, `BUG-FR10-001` đến `BUG-FR10-003`, cập nhật 14 test case với status Passed/Failed và bug link. | VALID | AI dùng Actual Result và screenshot do sinh viên cung cấp, sau đó tách 3 failure theo root cause: transition từ final state, User hủy đơn ở trạng thái shipping, và lỗi phân quyền Admin API. Cách tách này phù hợp với traceability và defect isolation. | Chấp nhận. Environment được cập nhật theo prompt của sinh viên. |
+
+### Artifact #11
+
+| (1) Prompt + Tool | (2) AI Output | (3) Verdict | (4) Lý do đánh giá (ISTQB) | (5) Sinh viên đã sửa |
+|---|---|---|---|---|
+| Tool: Codex<br>Time: 2026-07-01 14:35:07 +07 and 17:01:59 +07<br><br>Prompt:<br><pre>[$prompt-log](/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md)<br><br>viết phần main report trong folder reports/ cho 2026.HW02.Domain Testing_En (1).pdf, sử dụng các materials hiện có, ngoài các FR hiện có sẽ có thêm FR-10 nữa.<br><br>Sau khi hoàn tất, append log.</pre><br>Prompt sửa scope sau đó:<br><pre>[$prompt-log](/Users/hbn/Documents/CS423-CSC15003-Testing-N08/.agents/skills/prompt-log/SKILL.md)<br>tôi đã merge FR-10 vào nhánh này, tôi cần bạn đọc các materials mới và sửa lại reports/main-report.md, README.md và các files liên quan<br><br>đồng thời thêm link video demo skills vào docs: https://youtu.be/QkuGNTtqedA<br><br>sau khi hoàn thành, append log.</pre> | Tạo/cập nhật `reports/main-report.md`, `README.md` và các bảng tổng hợp. Số liệu hiện tại: 54 test case, 28 Passed, 26 Failed, 14 unique bugs. | INCOMPLETE | Prompt main report đầu tiên bị ngắt và sau đó đổi scope vì FR-10 chưa merge. Prompt sau đã sửa lại scope sau khi FR-10 được merge. Kết quả cuối chấp nhận được, nhưng audit phải ghi rõ chuỗi thay đổi này để không hiểu nhầm đây là một AI output sạch ngay từ đầu. | File cuối `main-report.md` và `README.md` đã được cross-check với số lượng artifact hiện tại và không còn ghi “FR-10 pending”. |
+
+## 4. Tóm tắt độ chính xác của AI (AI Accuracy)
+
+| Chỉ số | Số lượng | Tỷ lệ |
 |---|---:|---:|
-| Nhóm artifact có AI hỗ trợ được audit | 8 | 100% |
-| VALID | 4 | 50% |
-| INCOMPLETE | 4 | 50% |
-| INVALID | 0 | 0% |
+| Tổng artifact có AI hỗ trợ được audit | 11 | 100% |
+| VALID - đúng hoặc được chấp nhận sau review thông thường | 7 | 63.6% |
+| INVALID - sai và bị loại | 0 | 0% |
+| INCOMPLETE - chỉ dùng được sau khi sửa, cross-check hoặc chỉnh lại scope | 4 | 36.4% |
 
-## 5. Rủi ro AI đã phát hiện
+## 5. Kết luận - Khi nào nên dùng AI?
 
-| Rủi ro | Ví dụ | Cách xử lý |
-|---|---|---|
-| Bịa requirement reference | FR-02 analysis từng tham chiếu `FR-22`, trong khi requirement này không tồn tại. | Thay bằng `GUI-02` và kiểm lại traceability. |
-| Ép dùng BVA quá mức | FR-10 có thể bị hiểu nhầm là có thứ tự trạng thái dạng số học. | Ghi BVA không áp dụng vì state là categorical. |
-| Quá tự tin ở boundary mơ hồ | Hành vi đúng tại mốc 30.000 giây của FR-02 và thao tác giảm số lượng về 0 của FR-26 chưa được đặc tả đầy đủ. | Ghi giả định và giữ Expected Result theo hành vi quan sát được từ requirement. |
-| Lệch appendix submission | File AI Audit Report ban đầu thuộc task khác/không khớp HW02. | Viết lại audit report riêng cho HW02 từ artifact hiện tại và prompt log. |
-| Diễn giải evidence chưa đủ tinh tế | Không thể chụp dialog xóa FR-26 vì defect là dialog không xuất hiện. | Ghi rõ evidence gồm screenshot trạng thái trước thao tác và Actual Result item bị xóa ngay. |
+AI hữu ích khi cần dựng nhanh artifact QA có cấu trúc: equivalence class, BVA matrix, test case file, review checklist, test run, bug report, README summary và main report. AI làm tốt nhất khi requirement có category hoặc boundary rõ, ví dụ FR-02 lockout và FR-10 state transition. AI yếu hơn khi test basis thiếu hoặc mơ hồ: từng giữ tham chiếu sai `FR-22`, đánh giá chưa ổn ở FR-26 BVA, và nhiều lúc chỉ dựa được trên `conversation context khả dụng`. Vì vậy AI nên được dùng như công cụ draft và review, không phải nguồn chân lý. Quyết định cuối phải dựa trên traceability với requirement, evidence thực tế và human review.
 
-## 6. Khai báo sử dụng AI
+## 6. Khai báo bắt buộc (Mandatory Disclosure)
 
-Tôi có sử dụng AI để hỗ trợ phân tích requirement, tạo Domain Testing, tạo Boundary Value Analysis, draft test case, review artifact, ghi nhận execution, draft bug report, draft main report, audit repository và sửa script export PDF. Tôi đã review và chỉnh sửa output của AI dựa trên `requirements/system-requirements.md`, `requirements/api-specification.md`, đề HW02 - Domain Testing on EShop và checklist review của project. Tôi không chấp nhận trực tiếp output AI khi output đó bịa constraint, tham chiếu requirement không tồn tại hoặc cố áp dụng BVA khi không có boundary thật.
+"Các test case, analysis file, test-run table, bug-report draft, README/report update và AI Audit Report này được tạo hoặc chỉnh sửa ban đầu với sự hỗ trợ của Codex / AI assistant; tôi đã review và chỉnh sửa reasoning của Domain Testing/BVA, sửa các reference requirement bị hallucinate hoặc mơ hồ, gom bug report trùng theo root cause, bổ sung execution evidence và cross-check số lượng artifact với repository. AI Audit Report chi tiết được đính kèm ở Appendix A. Tôi xác nhận không dùng AI để tạo artifact thuộc nhóm bị cấm."
 
-## 7. Chữ ký
+## Chữ ký
 
-| Mục | Giá trị |
+| Trường | Giá trị |
 |---|---|
 | Họ tên sinh viên | Hà Bảo Ngọc |
 | MSSV | 23127300 |
+| Lớp / Nhóm | CS423 / CSC15003 - N08 |
+| Môn học | CS423 / CSC15003 - Kiểm thử Phần mềm |
+| Giảng viên |  |
 | Ngày | 01/07/2026 |
 | Chữ ký | Hà Bảo Ngọc |
+
+## Tài liệu tham khảo
+
+- FIT@HCMUS CS423 / CSC15003, AI Audit Report template: `[AI-02] - FIT@HCMUS - AI Audit Report_En.docx`.
+- ISTQB Foundation Level Syllabus v4.0, Chapter 4: Test Analysis and Design; Sec. 4.2.1 Equivalence Partitioning; Sec. 4.2.2 Boundary Value Analysis.
+- ISTQB Foundation Level Syllabus v4.0, Sec. 5.5 Defect Management.
+- `prompt_log.md`, evidence prompt hiện tại trong repository.
+- `requirements/system-requirements.md` và `requirements/api-specification.md`, test basis hiện tại trong repository.
