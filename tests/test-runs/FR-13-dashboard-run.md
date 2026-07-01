@@ -17,12 +17,12 @@
 
 | Test Case ID | Mô tả | Tester | Result | Related Bug | Note |
 |---|---|---|---|---|---|
-| TC-FR13-DT-001 | Hiển thị Dashboard khi chưa có đơn hàng | 23127300 | Pass | None | Actual Result: giống với Expected Result. |
-| TC-FR13-DT-002 | Tính doanh thu với một đơn hàng delivered | 23127300 | Fail | BUG-FR13-001 | Expected: tổng doanh thu `120000`, tổng số đơn hàng `1`. Actual Result: doanh thu hiển thị `60,000,000 đ`. Evidence: `bug-reports/screenshots/BUG-FR13-001-evidence-01-tc002-dashboard.png`, `bug-reports/screenshots/BUG-FR13-001-evidence-02-tc002-orders.png`. |
-| TC-FR13-DT-003 | Cộng dồn doanh thu của nhiều đơn hàng delivered | 23127300 | Fail | BUG-FR13-001 | Expected: tổng doanh thu `200000`, tổng số đơn hàng `2`. Actual Result: doanh thu hiển thị `72,000,000 đ`. Evidence: `bug-reports/screenshots/BUG-FR13-001-evidence-03-tc003-dashboard.png`, `bug-reports/screenshots/BUG-FR13-001-evidence-04-tc003-orders.png`. |
-| TC-FR13-DT-004 | Chỉ tính doanh thu của đơn delivered khi dữ liệu có nhiều trạng thái | 23127300 | Fail | BUG-FR13-001 | Expected: tổng doanh thu `120000`, tổng số đơn hàng `5`. Actual Result: doanh thu hiển thị `90,000,000 đ`. Evidence: `bug-reports/screenshots/BUG-FR13-001-evidence-05-tc004-dashboard.png`, `bug-reports/screenshots/BUG-FR13-001-evidence-06-tc004-orders.png`. |
-| TC-FR13-DT-005 | Hiển thị doanh thu bằng 0 khi không có đơn delivered | 23127300 | Pass | None | Actual Result: giống với Expected Result. |
-| TC-FR13-DT-006 | Từ chối hiển thị Dashboard cho người dùng không có quyền Admin | 23127300 | Pass | None | Actual Result: giống với Expected Result. |
+| TC-FR13-DT-001 | Hiển thị Dashboard khi chưa có đơn hàng | 23127300 | Passed | None | Actual Result: giống với Expected Result. |
+| TC-FR13-DT-002 | Tính doanh thu với một đơn hàng delivered | 23127300 | Failed | BUG-FR13-001 | Expected: tổng doanh thu `120000`, tổng số đơn hàng `1`. Actual Result: doanh thu hiển thị `60,000,000 đ`. Evidence: `bug-reports/screenshots/BUG-FR13-001-evidence-01-tc002-dashboard.png`, `bug-reports/screenshots/BUG-FR13-001-evidence-02-tc002-orders.png`. |
+| TC-FR13-DT-003 | Cộng dồn doanh thu của nhiều đơn hàng delivered | 23127300 | Failed | BUG-FR13-001 | Expected: tổng doanh thu `200000`, tổng số đơn hàng `2`. Actual Result: doanh thu hiển thị `72,000,000 đ`. Evidence: `bug-reports/screenshots/BUG-FR13-001-evidence-03-tc003-dashboard.png`, `bug-reports/screenshots/BUG-FR13-001-evidence-04-tc003-orders.png`. |
+| TC-FR13-DT-004 | Chỉ tính doanh thu của đơn delivered khi dữ liệu có nhiều trạng thái | 23127300 | Failed | BUG-FR13-001 | Expected: tổng doanh thu `120000`, tổng số đơn hàng `5`. Actual Result: doanh thu hiển thị `90,000,000 đ`. Evidence: `bug-reports/screenshots/BUG-FR13-001-evidence-05-tc004-dashboard.png`, `bug-reports/screenshots/BUG-FR13-001-evidence-06-tc004-orders.png`. |
+| TC-FR13-DT-005 | Hiển thị doanh thu bằng 0 khi không có đơn delivered | 23127300 | Passed | None | Actual Result: giống với Expected Result. |
+| TC-FR13-DT-006 | Từ chối hiển thị Dashboard cho người dùng không có quyền Admin | 23127300 | Passed | None | Actual Result: giống với Expected Result. |
 
 ### Boundary Value Analysis (BVA)
 
@@ -42,4 +42,4 @@
 | Not Run | 0 |
 | **Tổng** | **6** |
 
-> **Ghi chú:** Khi Result = **Failed** hoặc **Blocked** → phải có **Related Bug** (link đến GitHub Issue) hoặc lý do rõ ràng trong cột **Note**. Các test case Fail đã được liên kết đến bug report `BUG-FR13-001`.
+> **Ghi chú:** Khi Result = **Failed** hoặc **Blocked** → phải có **Related Bug** (link đến GitHub Issue) hoặc lý do rõ ràng trong cột **Note**. Các test case Failed đã được liên kết đến bug report `BUG-FR13-001`.

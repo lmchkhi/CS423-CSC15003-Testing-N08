@@ -59,7 +59,7 @@ Mỗi feature được tổ chức theo chuỗi artifact nhất quán:
 | 3 | `tests/test-cases/<feature>/.../TC-*.md` | Chuyển từng condition thành test case có dữ liệu cụ thể |
 | 4 | `reviews/<feature>/*-review.md` | Human review để kiểm tra expected result, duplicate, invalid isolation và gap |
 | 5 | `tests/test-runs/<feature>-run.md` | Ghi Actual Result sau execution |
-| 6 | `bug-reports/BUG-*.md` | Báo cáo bug cho các test case Fail có evidence |
+| 6 | `bug-reports/BUG-*.md` | Báo cáo bug cho các test case Failed có evidence |
 
 Report này không thay thế các file analysis chi tiết. Thay vào đó, report trình bày reasoning chính để người chấm thấy được quy trình áp dụng kỹ thuật, còn artifact gốc giữ vai trò evidence chi tiết.
 
@@ -70,7 +70,7 @@ Các output do AI hỗ trợ đều được review trước khi đưa vào exec
 - Expected Result phải quan sát được qua UI/API, không dùng thông báo lỗi cụ thể nếu requirement không đặc tả.
 - BVA chỉ dùng boundary có thật; không tạo min/max, length, stock limit hoặc pagination limit nếu requirement không nêu.
 - Invalid case ưu tiên isolate một điều kiện sai chính; input còn lại giữ valid nominal.
-- Test case Fail chỉ được chuyển thành bug report khi có Actual Result và evidence hoặc mô tả quan sát được.
+- Test case Failed chỉ được chuyển thành bug report khi có Actual Result và evidence hoặc mô tả quan sát được.
 
 ## 3. Tổng kết test hiện tại
 
@@ -135,12 +135,12 @@ Các boundary khác như độ dài email, độ dài password, giới hạn s�
 
 | Test Case ID | Boundary point | Result khi execution |
 |---|---|---|
-| TC-FR02-BVA-001 | 2 lần sai liên tiếp | Fail |
-| TC-FR02-BVA-002 | 3 lần sai liên tiếp | Pass |
-| TC-FR02-BVA-003 | 4 lần sai liên tiếp | Pass |
-| TC-FR02-BVA-004 | Thử lại sau 29 giây | Pass |
-| TC-FR02-BVA-005 | Thử lại tại mốc 30 giây | Fail |
-| TC-FR02-BVA-006 | Thử lại sau 31 giây | Fail |
+| TC-FR02-BVA-001 | 2 lần sai liên tiếp | Failed |
+| TC-FR02-BVA-002 | 3 lần sai liên tiếp | Passed |
+| TC-FR02-BVA-003 | 4 lần sai liên tiếp | Passed |
+| TC-FR02-BVA-004 | Thử lại sau 29 giây | Passed |
+| TC-FR02-BVA-005 | Thử lại tại mốc 30 giây | Failed |
+| TC-FR02-BVA-006 | Thử lại sau 31 giây | Failed |
 
 ### 4.4. Execution result và bugs
 
@@ -180,12 +180,12 @@ Bộ Domain Testing gồm 6 test case:
 
 | Test Case ID | Mục tiêu | Result |
 |---|---|---|
-| TC-FR13-DT-001 | Dashboard khi chưa có đơn hàng | Pass |
-| TC-FR13-DT-002 | Tính doanh thu với một đơn delivered | Fail |
-| TC-FR13-DT-003 | Cộng dồn doanh thu của nhiều đơn delivered | Fail |
-| TC-FR13-DT-004 | Chỉ tính delivered khi dataset có nhiều trạng thái | Fail |
-| TC-FR13-DT-005 | Doanh thu bằng 0 khi không có delivered order | Pass |
-| TC-FR13-DT-006 | Từ chối hiển thị dashboard cho user không có quyền Admin | Pass |
+| TC-FR13-DT-001 | Dashboard khi chưa có đơn hàng | Passed |
+| TC-FR13-DT-002 | Tính doanh thu với một đơn delivered | Failed |
+| TC-FR13-DT-003 | Cộng dồn doanh thu của nhiều đơn delivered | Failed |
+| TC-FR13-DT-004 | Chỉ tính delivered khi dataset có nhiều trạng thái | Failed |
+| TC-FR13-DT-005 | Doanh thu bằng 0 khi không có delivered order | Passed |
+| TC-FR13-DT-006 | Từ chối hiển thị dashboard cho user không có quyền Admin | Passed |
 
 ### 5.3. Boundary Value Analysis
 
@@ -223,26 +223,26 @@ FR-26 yêu cầu Mobile App hỗ trợ Giỏ hàng tương đương FR-07. Màn 
 
 Quy trình Domain Testing cho FR-26 bắt đầu từ requirement “Mobile tương đương FR-07”, nên analysis kế thừa các nghĩa vụ chính của giỏ hàng web nhưng điều chỉnh context sang Mobile App. Các class không chỉ kiểm tra dữ liệu giỏ hàng mà còn kiểm tra tính đầy đủ của UI mobile: nhãn `Đơn giá`, control `+/-`, dialog xác nhận xóa, nút `Tiếp tục mua sắm`, nhãn tổng tiền `Tổng cộng`, empty state và cách hiển thị nhiều sản phẩm.
 
-Bộ test được tách thành 14 case thay vì gộp nhiều assertion vào vài test lớn. Lý do là FR-26 có nhiều requirement UI độc lập; nếu gộp vào một case, khi Fail sẽ khó xác định requirement nào bị vi phạm và khó tạo bug report theo root cause. Review cũng đã điều chỉnh để dữ liệu test cụ thể hơn, ví dụ dùng `iPhone 15 Pro Max` và `Samsung Galaxy S24 Ultra` với đơn giá rõ ràng.
+Bộ test được tách thành 14 case thay vì gộp nhiều assertion vào vài test lớn. Lý do là FR-26 có nhiều requirement UI độc lập; nếu gộp vào một case, khi Failed sẽ khó xác định requirement nào bị vi phạm và khó tạo bug report theo root cause. Review cũng đã điều chỉnh để dữ liệu test cụ thể hơn, ví dụ dùng `iPhone 15 Pro Max` và `Samsung Galaxy S24 Ultra` với đơn giá rõ ràng.
 
 Bộ Domain Testing gồm 14 test case để đồng bộ mức chi tiết với FR-07:
 
 | Test Case ID | Mục tiêu | Result |
 |---|---|---|
-| TC-FR26-DT-001 | Hiển thị danh sách sản phẩm với đủ thông tin | Pass |
-| TC-FR26-DT-002 | Hiển thị đúng nhãn Đơn giá | Fail |
-| TC-FR26-DT-003 | Cột Số lượng có nút + và nút - | Fail |
-| TC-FR26-DT-004 | Bấm nút + để tăng số lượng | Fail |
-| TC-FR26-DT-005 | Bấm nút - để giảm số lượng | Fail |
-| TC-FR26-DT-006 | Thêm cùng sản phẩm tăng số lượng, không tạo dòng mới | Pass |
-| TC-FR26-DT-007 | Nút xóa hiện dialog xác nhận trước khi xóa | Fail |
-| TC-FR26-DT-008 | Xác nhận xóa sản phẩm khỏi giỏ | Fail |
-| TC-FR26-DT-009 | Hủy xóa sản phẩm trong dialog | Fail |
-| TC-FR26-DT-010 | Nút Tiếp tục mua sắm quay về trang chủ Mobile | Fail |
-| TC-FR26-DT-011 | Nhãn tổng tiền là Tổng cộng | Fail |
-| TC-FR26-DT-012 | Giỏ hàng trống có hình minh họa và thông báo | Pass |
-| TC-FR26-DT-013 | Thành tiền bằng Đơn giá nhân Số lượng | Pass |
-| TC-FR26-DT-014 | Nhiều sản phẩm khác nhau hiển thị nhiều dòng riêng | Pass |
+| TC-FR26-DT-001 | Hiển thị danh sách sản phẩm với đủ thông tin | Passed |
+| TC-FR26-DT-002 | Hiển thị đúng nhãn Đơn giá | Failed |
+| TC-FR26-DT-003 | Cột Số lượng có nút + và nút - | Failed |
+| TC-FR26-DT-004 | Bấm nút + để tăng số lượng | Failed |
+| TC-FR26-DT-005 | Bấm nút - để giảm số lượng | Failed |
+| TC-FR26-DT-006 | Thêm cùng sản phẩm tăng số lượng, không tạo dòng mới | Passed |
+| TC-FR26-DT-007 | Nút xóa hiện dialog xác nhận trước khi xóa | Failed |
+| TC-FR26-DT-008 | Xác nhận xóa sản phẩm khỏi giỏ | Failed |
+| TC-FR26-DT-009 | Hủy xóa sản phẩm trong dialog | Failed |
+| TC-FR26-DT-010 | Nút Tiếp tục mua sắm quay về trang chủ Mobile | Failed |
+| TC-FR26-DT-011 | Nhãn tổng tiền là Tổng cộng | Failed |
+| TC-FR26-DT-012 | Giỏ hàng trống có hình minh họa và thông báo | Passed |
+| TC-FR26-DT-013 | Thành tiền bằng Đơn giá nhân Số lượng | Passed |
+| TC-FR26-DT-014 | Nhiều sản phẩm khác nhau hiển thị nhiều dòng riêng | Passed |
 
 ### 6.3. Boundary Value Analysis
 
@@ -259,11 +259,11 @@ Không tạo test cho `cartItemCount = -1` vì trạng thái này không thể t
 
 | Test Case ID | Boundary point | Result |
 |---|---|---|
-| TC-FR26-BVA-001 | Số lượng dòng giỏ hàng bằng 1 | Pass |
-| TC-FR26-BVA-002 | Không cho dòng giỏ hàng tồn tại với số lượng 0 | Fail |
-| TC-FR26-BVA-003 | Số lượng tăng lên 2 ngay trên biên dưới | Fail |
-| TC-FR26-BVA-004 | Giỏ hàng có 0 dòng sản phẩm | Pass |
-| TC-FR26-BVA-005 | Giỏ hàng có 1 dòng sản phẩm | Pass |
+| TC-FR26-BVA-001 | Số lượng dòng giỏ hàng bằng 1 | Passed |
+| TC-FR26-BVA-002 | Không cho dòng giỏ hàng tồn tại với số lượng 0 | Failed |
+| TC-FR26-BVA-003 | Số lượng tăng lên 2 ngay trên biên dưới | Failed |
+| TC-FR26-BVA-004 | Giỏ hàng có 0 dòng sản phẩm | Passed |
+| TC-FR26-BVA-005 | Giỏ hàng có 1 dòng sản phẩm | Passed |
 
 ### 6.4. Execution result và bugs
 
@@ -328,6 +328,6 @@ Nguyên tắc rút ra là AI hữu ích để tạo khung phân tích và đề 
 
 ## 11. Kết luận chung
 
-Trong phạm vi hiện tại, project đã thiết kế và thực thi 40 test case cho 3 feature: FR-02, FR-13 và FR-26. Kết quả có 17 test case Pass và 23 test case Fail, tạo 11 bug report duy nhất. Các lỗi có mức ảnh hưởng cao nhất tập trung ở FR-02, gồm lộ mật khẩu trong response, khóa tài khoản sai ngưỡng và thời gian khóa dài hơn requirement. FR-13 phát hiện lỗi tính doanh thu dashboard. FR-26 phát hiện nhiều lỗi UI/interaction trên Mobile, đặc biệt là thiếu nút +/-, thiếu dialog xác nhận xóa và sai nhãn tổng tiền.
+Trong phạm vi hiện tại, project đã thiết kế và thực thi 40 test case cho 3 feature: FR-02, FR-13 và FR-26. Kết quả có 17 test case Passed và 23 test case Failed, tạo 11 bug report duy nhất. Các lỗi có mức ảnh hưởng cao nhất tập trung ở FR-02, gồm lộ mật khẩu trong response, khóa tài khoản sai ngưỡng và thời gian khóa dài hơn requirement. FR-13 phát hiện lỗi tính doanh thu dashboard. FR-26 phát hiện nhiều lỗi UI/interaction trên Mobile, đặc biệt là thiếu nút +/-, thiếu dialog xác nhận xóa và sai nhãn tổng tiền.
 
 FR-10 sẽ được bổ sung sau khi artifact liên quan được merge, để hoàn thiện feature Pool B theo đúng yêu cầu đề bài.

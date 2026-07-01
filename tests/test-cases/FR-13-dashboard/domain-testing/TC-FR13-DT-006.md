@@ -44,4 +44,4 @@ Web Admin Dashboard / Functional / Domain Testing
 Hệ thống từ chối truy cập Dashboard cho người dùng không có quyền Admin. Các chỉ số tổng doanh thu và tổng số đơn hàng không được hiển thị cho người dùng này. Cách hiển thị lỗi hoặc redirect cụ thể chưa được đặc tả.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

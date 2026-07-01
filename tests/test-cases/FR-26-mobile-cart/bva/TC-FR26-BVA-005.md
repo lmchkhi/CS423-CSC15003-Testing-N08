@@ -49,4 +49,4 @@ Giỏ hàng trên Mobile / Functional / Boundary Value Analysis (BVA)
 Màn Giỏ hàng hiển thị đúng 1 dòng sản phẩm `iPhone 15 Pro Max` với thông tin Sản phẩm, Đơn giá, Số lượng, Thành tiền và Thao tác. Màn hình không hiển thị empty state khi giỏ có một dòng sản phẩm.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

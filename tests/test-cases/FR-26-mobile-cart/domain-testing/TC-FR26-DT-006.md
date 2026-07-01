@@ -47,4 +47,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Giỏ hàng chỉ hiển thị 1 dòng iPhone 15 Pro Max. Số lượng của dòng iPhone 15 Pro Max tăng từ 1 lên 2. Hệ thống không tạo dòng iPhone 15 Pro Max thứ hai.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

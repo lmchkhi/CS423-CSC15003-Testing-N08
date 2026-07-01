@@ -44,4 +44,4 @@ Giỏ hàng trên Mobile / Functional / Boundary Value Analysis (BVA)
 Màn Giỏ hàng hiển thị trạng thái giỏ trống với hình minh họa và thông báo rõ ràng. Màn hình không hiển thị danh sách sản phẩm không tồn tại và không chỉ hiển thị khoảng trắng.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

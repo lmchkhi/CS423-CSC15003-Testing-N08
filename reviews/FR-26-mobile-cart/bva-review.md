@@ -32,7 +32,7 @@
 | REV-FR26-BVA-001 | Major | `analysis/FR-26-mobile-cart/bva-analysis.md` | Cần đổi test data sản phẩm cũ sang sản phẩm yêu cầu trong prompt hiện tại. | Dữ liệu test không khớp yêu cầu người dùng và dễ giống artifact nhánh khác. | Thay bằng `iPhone 15 Pro Max` giá `30000000` và cập nhật thành tiền tương ứng. | Đã xử lý |
 | REV-FR26-BVA-002 | Major | `analysis/FR-26-mobile-cart/bva-analysis.md` | Có thể bổ sung boundary meaningful cho `cartItemCount` vì requirement có trạng thái giỏ trống và giỏ có sản phẩm. | Thiếu cơ hội cover BVA không trùng hoàn toàn với FR-07. | Thêm `cartItemCount = 0` và `cartItemCount = 1`; không tạo `-1` vì không executable qua black-box. | Đã xử lý |
 | REV-FR26-BVA-003 | Major | `tests/test-cases/FR-26-mobile-cart/bva/TC-FR26-BVA-002.md` | OFF⁻ = 0 của quantity liên quan đến hành vi xóa sản phẩm, nhưng FR-26 không đặc tả chính xác bấm - tại số lượng 1 phải giữ nguyên hay mở dialog. | Expected Result có thể vượt quá requirement nếu ép một hành vi cụ thể. | Viết Expected Result theo ràng buộc quan sát được: không hiển thị dòng số lượng 0; nếu xóa thì phải có dialog xác nhận trước. | Đã xử lý |
-| REV-FR26-BVA-004 | Minor | Tất cả test case BVA | Cần bảo đảm không gán Pass/Fail khi chưa execution. | Sai trạng thái test trước khi chạy. | Đặt `Status / Related bugs` là `Not Run / None`. | Đã xử lý |
+| REV-FR26-BVA-004 | Minor | Tất cả test case BVA | Cần bảo đảm không gán Passed/Failed khi chưa execution. | Sai trạng thái test trước khi chạy. | Đặt `Status / Related bugs` là `Not Run / None`. | Đã xử lý |
 
 Không còn finding mở cần sửa trước execution.
 

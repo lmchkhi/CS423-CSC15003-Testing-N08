@@ -45,4 +45,4 @@ Authentication / Functional / Domain Testing
 Đăng nhập bị từ chối. Hệ thống hiện thông báo lỗi phù hợp ở mức chung, không nói rõ email không tồn tại hay mật khẩu sai. Người dùng vẫn ở trạng thái chưa đăng nhập và không có token mới được lưu phía client.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

@@ -46,4 +46,4 @@ Authentication / Functional / Boundary Value Analysis (BVA)
 Theo giả định hết đủ 30 giây thì khóa kết thúc, đăng nhập ở bước 3 được chấp nhận. Token được lưu phía client và người dùng vào trạng thái đã đăng nhập. Nếu hệ thống vẫn từ chối tại đúng mốc 30 giây, cần ghi Actual Result để đối chiếu với requirement vì dung sai thời gian chưa được đặc tả.
 
 ## Status / Related bugs
-Fail / [BUG-FR02-005](../../../../bug-reports/BUG-FR02-005.md)
+Failed / [BUG-FR02-005](../../../../bug-reports/BUG-FR02-005.md)

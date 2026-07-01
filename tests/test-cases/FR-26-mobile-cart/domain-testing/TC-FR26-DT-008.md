@@ -46,4 +46,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Dialog xác nhận xuất hiện trước khi xóa. Sau khi chọn xác nhận, dòng iPhone 15 Pro Max bị xóa khỏi giỏ. Nếu đây là sản phẩm duy nhất trong giỏ, màn hình chuyển sang trạng thái giỏ hàng trống có hình minh họa và thông báo rõ ràng.
 
 ## Status / Related bugs
-Fail / [BUG-FR26-003](../../../../bug-reports/BUG-FR26-003.md)
+Failed / [BUG-FR26-003](../../../../bug-reports/BUG-FR26-003.md)

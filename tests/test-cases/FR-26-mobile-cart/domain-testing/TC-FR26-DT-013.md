@@ -46,4 +46,4 @@ Giỏ hàng trên Mobile / Functional / Domain Testing
 Thành tiền của dòng iPhone 15 Pro Max hiển thị 90000000, đúng bằng Đơn giá 30000000 nhân Số lượng 3. Khu vực Tổng cộng phản ánh đúng giá trị 90000000 khi giỏ chỉ có dòng sản phẩm này.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

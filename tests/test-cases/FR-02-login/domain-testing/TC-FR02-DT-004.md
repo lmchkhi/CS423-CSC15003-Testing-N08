@@ -48,4 +48,4 @@ Authentication / Functional / Domain Testing
 Hai lần đăng nhập sai đầu tiên đều bị từ chối, không tạo token và hiện thông báo lỗi phù hợp ở mức chung. Tài khoản không bị khóa trước lần sai thứ 3; bước đăng nhập bằng mật khẩu đúng sau 2 lần sai vẫn được chấp nhận và tạo trạng thái đã xác thực.
 
 ## Status / Related bugs
-Fail / [BUG-FR02-003](../../../../bug-reports/BUG-FR02-003.md)
+Failed / [BUG-FR02-003](../../../../bug-reports/BUG-FR02-003.md)

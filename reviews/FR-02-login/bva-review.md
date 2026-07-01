@@ -60,7 +60,7 @@ Không phát hiện duplicate không cần thiết. Các test case thời gian �
 
 Trạng thái: Sẵn sàng execution.
 
-Bộ BVA có thể dùng để execution với lưu ý rằng `TC-FR02-BVA-005` cần ghi Actual Result cẩn thận vì hành vi tại đúng mốc 30 giây phụ thuộc dung sai thời gian chưa được requirement đặc tả. Chưa có Actual Result nên không gán Pass/Fail và không tạo bug report.
+Bộ BVA có thể dùng để execution với lưu ý rằng `TC-FR02-BVA-005` cần ghi Actual Result cẩn thận vì hành vi tại đúng mốc 30 giây phụ thuộc dung sai thời gian chưa được requirement đặc tả. Chưa có Actual Result nên không gán Passed/Failed và không tạo bug report.
 
 ## 7. Giả định và thông tin cần xác nhận
 

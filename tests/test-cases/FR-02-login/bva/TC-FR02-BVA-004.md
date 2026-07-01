@@ -46,4 +46,4 @@ Authentication / Functional / Boundary Value Analysis (BVA)
 Ở thời điểm 29 giây sau khi bị khóa, đăng nhập vẫn bị từ chối dù mật khẩu đúng. Hệ thống không tạo token và hiển thị thông báo lỗi phù hợp, không lộ chi tiết nguyên nhân.
 
 ## Status / Related bugs
-Pass / None
+Passed / None

@@ -49,4 +49,4 @@ Giỏ hàng trên Mobile / Functional / Boundary Value Analysis (BVA)
 Hệ thống không hiển thị dòng sản phẩm `iPhone 15 Pro Max` với số lượng 0. Nếu thao tác giảm từ 1 được xử lý như xóa sản phẩm, dialog xác nhận phải xuất hiện trước khi sản phẩm bị xóa. Nếu không có xác nhận xóa, sản phẩm vẫn còn trong giỏ với số lượng không nhỏ hơn 1.
 
 ## Status / Related bugs
-Fail / [BUG-FR26-003](../../../../bug-reports/BUG-FR26-003.md)
+Failed / [BUG-FR26-003](../../../../bug-reports/BUG-FR26-003.md)

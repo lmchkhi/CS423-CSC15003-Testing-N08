@@ -68,7 +68,7 @@ Không phát hiện duplicate không cần thiết. Các chuỗi thao tác trong
 
 Trạng thái: Sẵn sàng execution.
 
-Bộ artifact đã có analysis, domain matrix, 9 test case riêng lẻ, traceability và coverage đầy đủ cho các miền có thể suy ra từ FR-02. Chưa có Actual Result nên không gán Pass/Fail và không tạo bug report.
+Bộ artifact đã có analysis, domain matrix, 9 test case riêng lẻ, traceability và coverage đầy đủ cho các miền có thể suy ra từ FR-02. Chưa có Actual Result nên không gán Passed/Failed và không tạo bug report.
 
 ## 7. Giả định và thông tin cần xác nhận
 

@@ -44,4 +44,4 @@ Authentication / Functional / Domain Testing
 Form không chấp nhận đăng nhập khi Mật khẩu để trống. Người dùng vẫn ở trạng thái chưa đăng nhập và không có token mới được lưu phía client. Nội dung thông báo lỗi cụ thể: Chưa được đặc tả.
 
 ## Status / Related bugs
-Fail / [BUG-FR02-002](../../../../bug-reports/BUG-FR02-002.md)
+Failed / [BUG-FR02-002](../../../../bug-reports/BUG-FR02-002.md)

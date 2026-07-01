@@ -46,4 +46,4 @@ Authentication / Functional / Domain Testing
 Sau lần đăng nhập sai thứ 3 liên tiếp, tài khoản bị tạm khóa 30 giây. Hệ thống hiện thông báo lỗi phù hợp ở mức chung, không để lộ chi tiết nguyên nhân, không tạo token và người dùng không vào được trạng thái đã xác thực.
 
 ## Status / Related bugs
-Pass / None
+Passed / None
