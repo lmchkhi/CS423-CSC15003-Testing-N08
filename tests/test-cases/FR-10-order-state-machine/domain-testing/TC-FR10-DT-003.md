@@ -46,4 +46,4 @@ Quản lý Đơn hàng / Functional / Domain Testing
 Hệ thống chấp nhận thao tác, trạng thái của `ORDER-FR10-003` được cập nhật từ `shipping` sang `delivered`, và giao diện hiển thị phản hồi thao tác thành công.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None

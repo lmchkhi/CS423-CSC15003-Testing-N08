@@ -45,4 +45,4 @@ FR-10
 Hệ thống từ chối thao tác, hiển thị lỗi phù hợp vì xác nhận đơn hàng là thao tác của Admin, và trạng thái của `ORDER-FR10-011` vẫn là `pending`.
 
 ## Status / Related bugs
-Not Run / None
+Failed / [BUG-FR10-003](../../../../bug-reports/BUG-FR10-003.md)

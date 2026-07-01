@@ -46,4 +46,4 @@ Quản lý Đơn hàng / Functional / Domain Testing
 Hệ thống từ chối thao tác, hiển thị lỗi phù hợp về chuyển đổi trạng thái không hợp lệ, và trạng thái của `ORDER-FR10-006` vẫn là `pending`.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None

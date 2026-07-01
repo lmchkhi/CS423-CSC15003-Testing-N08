@@ -46,4 +46,4 @@ Quản lý Đơn hàng / Functional / Domain Testing
 Hệ thống từ chối thao tác, hiển thị lỗi phù hợp vì `canceled` là trạng thái kết thúc, và trạng thái của `ORDER-FR10-009` vẫn là `canceled`.
 
 ## Status / Related bugs
-Not Run / None
+Failed / [BUG-FR10-001](../../../../bug-reports/BUG-FR10-001.md)

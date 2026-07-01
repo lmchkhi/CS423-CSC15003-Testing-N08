@@ -46,4 +46,4 @@ FR-10
 Hệ thống từ chối thao tác hủy, hiển thị lỗi phù hợp vì User không được tự hủy đơn hàng ở trạng thái `shipping`, và trạng thái của `ORDER-FR10-010` vẫn là `shipping`.
 
 ## Status / Related bugs
-Not Run / None
+Failed / [BUG-FR10-002](../../../../bug-reports/BUG-FR10-002.md)

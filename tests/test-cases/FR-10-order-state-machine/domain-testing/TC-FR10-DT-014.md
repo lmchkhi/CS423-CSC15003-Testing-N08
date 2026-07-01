@@ -45,4 +45,4 @@ FR-10
 Hệ thống từ chối thao tác, không chuyển `ORDER-FR10-014` sang `canceled`, và trạng thái đơn hàng vẫn là `pending`. Chi tiết phản hồi cho actor chưa đăng nhập là giả định cần xác nhận vì FR-10 chưa đặc tả trực tiếp.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None

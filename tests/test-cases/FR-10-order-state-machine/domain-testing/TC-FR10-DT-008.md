@@ -46,4 +46,4 @@ Quản lý Đơn hàng / Functional / Domain Testing
 Hệ thống từ chối thao tác, hiển thị lỗi phù hợp vì `delivered` là trạng thái kết thúc, và trạng thái của `ORDER-FR10-008` vẫn là `delivered`.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None

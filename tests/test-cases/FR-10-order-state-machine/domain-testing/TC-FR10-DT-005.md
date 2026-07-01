@@ -46,4 +46,4 @@ Quản lý Đơn hàng / Functional / Domain Testing
 Hệ thống chấp nhận thao tác, trạng thái của `ORDER-FR10-005` được cập nhật từ `confirmed` sang `canceled`, và đơn hàng không còn có thao tác chuyển trạng thái tiếp theo.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None

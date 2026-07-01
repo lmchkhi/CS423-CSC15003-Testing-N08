@@ -46,4 +46,4 @@ Quản lý Đơn hàng / Functional / Domain Testing
 Hệ thống từ chối xử lý, hiển thị lỗi phù hợp vì trạng thái hiện tại `returned` không thuộc domain của FR-10, và không tạo chuyển đổi trạng thái cho `ORDER-FR10-013`.
 
 ## Status / Related bugs
-Not Run / None
+Passed / None
