@@ -46,4 +46,4 @@ Authentication / Functional / Domain Testing
 Đăng nhập bị từ chối vì tài khoản đang trong 30 giây tạm khóa. Hệ thống hiện thông báo lỗi phù hợp ở mức chung, không tạo token mới và người dùng vẫn ở trạng thái chưa đăng nhập.
 
 ## Status / Related bugs
-Fail / Pending
+Fail / [BUG-FR02-004](../../../../bug-reports/BUG-FR02-004.md)

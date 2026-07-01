@@ -46,4 +46,4 @@ Authentication / Functional / Boundary Value Analysis (BVA)
 Hai lần đăng nhập sai đều bị từ chối và không tạo token. Tài khoản chưa bị khóa ở mức 2 lần sai liên tiếp; lần đăng nhập bằng mật khẩu đúng ở bước 3 được chấp nhận, token được lưu phía client.
 
 ## Status / Related bugs
-Fail / Pending
+Fail / [BUG-FR02-003](../../../../bug-reports/BUG-FR02-003.md)
