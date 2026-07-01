@@ -1,4 +1,4 @@
-# Main Report - HW02 Domain Testing on EShop
+# Báo cáo chính - HW02 Domain Testing on EShop
 
 > Sinh viên: Hà Bảo Ngọc - 23127300  
 > Nhóm: N08  
@@ -13,7 +13,7 @@ Báo cáo này tổng hợp quá trình thiết kế và thực thi test theo Do
 
 | Nhóm tài liệu | Đường dẫn |
 |---|---|
-| Đề bài | `2026.HW02.Domain Testing_En.pdf` |
+| Đề bài | HW02 - Domain Testing on EShop |
 | Requirement nguồn | `requirements/system-requirements.md` |
 | API specification | `requirements/api-specification.md` |
 | Analysis | `analysis/FR-02-login/`, `analysis/FR-10-order-state-machine/`, `analysis/FR-13-dashboard/`, `analysis/FR-26-mobile-cart/` |
@@ -52,7 +52,7 @@ BVA chỉ được áp dụng khi requirement có boundary, threshold, range, qu
 
 Mỗi feature được tổ chức theo chuỗi artifact nhất quán:
 
-| Bước | Artifact | Mục đích |
+| Bước | Artifact / tài liệu | Mục đích |
 |---|---|---|
 | 1 | Requirement trong `requirements/system-requirements.md` | Xác định rule đúng của hệ thống |
 | 2 | `analysis/<feature>/domain-testing-analysis.md` hoặc `bva-analysis.md` | Chứng minh cách suy ra class, dependency, boundary và test condition |

@@ -15,7 +15,7 @@ Review được thực hiện theo hướng black-box. Tài liệu API chỉ đ�
 
 | Tiêu chí | Kết quả |
 |---|---|
-| Requirement reference | Đạt: các file tham chiếu FR-02, riêng email/password field có tham chiếu FR-22 khi cần. |
+| Requirement reference | Đạt: các file tham chiếu FR-02, riêng email/password field có tham chiếu GUI-02 khi cần. |
 | Technique | Đạt: analysis và test case dùng Domain Testing. |
 | Test data cụ thể | Đạt: mỗi test case có giá trị cụ thể như `test@eshop.com`, `Test1234!`, `Wrong123!`, `abc`. |
 | Expected Result quan sát được | Đạt: nêu rõ accepted/rejected, token/trạng thái xác thực, lockout 30 giây, không tạo token. |
@@ -36,14 +36,14 @@ Không còn finding Critical hoặc Major sau khi sửa.
 | Test Case ID | Requirement | Analysis condition | Class/Boundary | Trạng thái | Ghi chú |
 |---|---|---|---|---|---|
 | TC-FR02-DT-001 | FR-02 | COND-FR02-DT-001 | EC-EMAIL-V01, EC-PASSWORD-V01, EC-ACCOUNT-V01, EC-TOKEN-V01, DC-01, DC-05 | Hợp lệ | Luồng đăng nhập thành công danh nghĩa. |
-| TC-FR02-DT-002 | FR-02, FR-22 | COND-FR02-DT-002 | EC-EMAIL-I01, EC-PASSWORD-V01, EC-TOKEN-I01 | Hợp lệ | Email sai HTML5 format. |
+| TC-FR02-DT-002 | FR-02, GUI-02 | COND-FR02-DT-002 | EC-EMAIL-I01, EC-PASSWORD-V01, EC-TOKEN-I01 | Hợp lệ | Email sai HTML5 format. |
 | TC-FR02-DT-003 | FR-02 | COND-FR02-DT-003 | EC-EMAIL-V02, EC-PASSWORD-V01, EC-TOKEN-I01, DC-01 | Hợp lệ | Email đúng format nhưng không tồn tại. |
 | TC-FR02-DT-004 | FR-02 | COND-FR02-DT-004 | EC-EMAIL-V01, EC-PASSWORD-I01, EC-ACCOUNT-V01, EC-COUNTER-V01, EC-TOKEN-I01, DC-02 | Hợp lệ | Dưới ngưỡng 3 lần sai liên tiếp. |
 | TC-FR02-DT-005 | FR-02 | COND-FR02-DT-005 | EC-EMAIL-V01, EC-PASSWORD-I01, EC-COUNTER-I01, EC-ACCOUNT-I01, EC-TOKEN-I01, DC-02, DC-03 | Hợp lệ | Lần sai thứ 3 kích hoạt khóa. |
 | TC-FR02-DT-006 | FR-02 | COND-FR02-DT-006 | EC-EMAIL-V01, EC-PASSWORD-V01, EC-ACCOUNT-I01, EC-TOKEN-I01, DC-04 | Hợp lệ | Tài khoản đang khóa dù password đúng. |
 | TC-FR02-DT-007 | FR-02 | COND-FR02-DT-007 | EC-EMAIL-V01, EC-PASSWORD-V01, EC-ACCOUNT-V02, EC-TOKEN-V01, DC-03, DC-05 | Hợp lệ | Hết 30 giây tạm khóa. |
 | TC-FR02-DT-008 | FR-02 | COND-FR02-DT-008 | EC-EMAIL-I02, EC-PASSWORD-V01, EC-TOKEN-I01 | Hợp lệ | Email trống; message cụ thể Chưa được đặc tả. |
-| TC-FR02-DT-009 | FR-02, FR-22 | COND-FR02-DT-009 | EC-EMAIL-V01, EC-PASSWORD-I02, EC-TOKEN-I01 | Hợp lệ | Mật khẩu trống và password field. |
+| TC-FR02-DT-009 | FR-02, GUI-02 | COND-FR02-DT-009 | EC-EMAIL-V01, EC-PASSWORD-I02, EC-TOKEN-I01 | Hợp lệ | Mật khẩu trống và password field. |
 
 ## 5. Coverage và duplicate audit
 

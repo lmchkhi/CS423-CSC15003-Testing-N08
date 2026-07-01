@@ -67,8 +67,9 @@
 | BUG-FR26-005 | FR-26 | Low / P2 | Open | [BUG-FR26-005](bug-reports/BUG-FR26-005.md) | TBD |
 
 > **Tổng số bugs:** 14 unique bugs.
+> Link GitHub Issue được để `TBD` cho phase tạo issue tiếp theo; bug report nội bộ và screenshot đã được chuẩn bị trong `bug-reports/`.
 
-### 2.4. Test Run Evidence
+### 2.4. Bằng chứng test run
 
 | Feature | Test Run |
 |---|---|
@@ -89,9 +90,13 @@
 
 | Deliverable | Path |
 |---|---|
-| Main report | [reports/main-report.md](reports/main-report.md) |
-| AI critique | [reports/ai-critique.md](reports/ai-critique.md) |
-| AI audit report | [reports/ai-audit-report.md](reports/ai-audit-report.md) |
+| Báo cáo chính | [reports/main-report.md](reports/main-report.md) |
+| Báo cáo chính PDF | [reports/main-report.pdf](reports/main-report.pdf) |
+| AI Critique | [reports/ai-critique.md](reports/ai-critique.md) |
+| AI Critique PDF | [reports/ai-critique.pdf](reports/ai-critique.pdf) |
+| AI Audit Report | [reports/ai-audit-report.md](reports/ai-audit-report.md) |
+| AI Audit Report PDF | [reports/ai-audit-report.pdf](reports/ai-audit-report.pdf) |
+| AI Gap Analysis | [ai-gap-analysis/HW02-ai-gap-analysis.md](ai-gap-analysis/HW02-ai-gap-analysis.md) |
 | Prompt log | [prompt_log.md](prompt_log.md) |
 | Git commit log | [git-log.txt](git-log.txt) |
 | Requirements | [requirements/](requirements/) |

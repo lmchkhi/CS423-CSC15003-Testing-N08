@@ -6,7 +6,6 @@
 |---|---|
 | Requirement chính | `requirements/system-requirements.md`, FR-26 và FR-07 được tham chiếu bởi FR-26 |
 | Tài liệu đối chiếu kỹ thuật | `requirements/api-specification.md`, chỉ dùng để kiểm tra tính nhất quán kỹ thuật, không đưa chi tiết kỹ thuật triển khai hoặc công cụ kiểm thử vào artifact |
-| Tài liệu đối chiếu coverage | `reports/main-report.md` trên nhánh `origin/23127062`, phần FR-07 có 14 test case Domain Testing |
 | Analysis | `analysis/FR-26-mobile-cart/domain-testing-analysis.md` |
 | Test cases | `tests/test-cases/FR-26-mobile-cart/domain-testing/TC-FR26-DT-001.md` đến `TC-FR26-DT-014.md` |
 

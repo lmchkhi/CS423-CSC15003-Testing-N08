@@ -1,1 +1,0 @@
-# AI Gap Analysis - FR-01 - Register
