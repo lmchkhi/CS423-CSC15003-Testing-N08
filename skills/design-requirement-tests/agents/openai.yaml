@@ -1,0 +1,4 @@
+interface:
+  display_name: "Decision Table Test Designer"
+  short_description: "Thiết kế black-box bằng Decision Table/Pairwise"
+  default_prompt: "Use $design-requirement-tests to create requirement-only black-box analysis, test cases, and a test run."
