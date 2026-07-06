@@ -1,0 +1,4 @@
+name,price,description,imageUrl,category_id
+Laptop Dell,15000000,Laptop văn phòng,https://img.com/dell.jpg,1
+iPhone 15,-50000,Điện thoại cao cấp,https://img.com/iphone.jpg,2
+Tai nghe Sony,1500000,Tai nghe chống ồn,https://img.com/sony.jpg,3
