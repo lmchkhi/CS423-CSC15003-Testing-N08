@@ -783,3 +783,81 @@ Codex đọc template summary report, các test run/bug report của FR-02, FR-0
 
 - Số liệu FR-12 được lấy từ branch khác, chưa merge vào working tree hiện tại; report đã ghi rõ nguồn commit `670a2b7`.
 - Người làm nên kiểm tra lại tên sinh viên/mã số và quyết định có giữ các bug FR-03 Use Case tách riêng hay gộp với bug DT/BVA khi nộp cuối.
+
+## 2026-07-06 17:17 +07 - Append report 23127475 vào Test Summary Report
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Report Writing |
+| Goal | Append nội dung `reports/23127475-selected-test-cases-and-bugs-summary.md` vào cuối `reports/Test-Summary-Report.md` |
+| Files changed | `reports/Test-Summary-Report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+giờ tôi cần append file reports/23127475-selected-test-cases-and-bugs-summary.md vào reports/Test-Summary-Report.md
+```
+
+### AI output
+
+```text
+Codex kiểm tra file nguồn và file đích, sau đó append nguyên nội dung báo cáo 23127475 vào cuối `reports/Test-Summary-Report.md` sau một đường phân cách Markdown. Codex xác nhận phần mới bắt đầu tại dòng 215 và vẫn giữ các số liệu chính: 111 test case, 29 bug report.
+```
+
+### Human review
+
+- Nội dung được append nguyên khối từ file nguồn; chưa chỉnh sửa số liệu hoặc wording trong phần 23127475.
+
+## 2026-07-06 17:19 +07 - Chỉnh format phần 23127475 trong Test Summary Report
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Report Writing |
+| Goal | Chỉnh phần đã append trong `reports/Test-Summary-Report.md` theo đúng format chung của file |
+| Files changed | `reports/Test-Summary-Report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+theo định dạng giống của reports/Test-Summary-Report.md chứ không phải append thuần
+```
+
+### AI output
+
+```text
+Codex đổi phần `23127475` từ một report độc lập append thô thành section cùng format với các thành viên khác: thêm dòng `23127475 - Ngô Hồng Thanh` vào bảng thông tin nhóm, đổi heading thành `## 23127475 - Ngô Hồng Thanh`, đổi các mục con thành `### Tổng quan test case`, `### Coverage của test case`, `### Trạng thái test case`, `### Tổng quan bug`, `### Bug coverage theo requirement`, và chuyển các requirement bug coverage sang dạng chữ đậm thay vì heading cấp riêng.
+```
+
+### Human review
+
+- Outline của `reports/Test-Summary-Report.md` đã được kiểm tra lại bằng `rg`, phần 23127475 bắt đầu tại heading cấp 2 giống các thành viên khác.
+
+## 2026-07-06 17:22 +07 - Tích hợp report 23127464 vào Test Summary Report
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Report Writing |
+| Goal | Chèn nội dung `reports/23127464-selected-test-cases-and-bugs-summary.md` vào `reports/Test-Summary-Report.md` theo đúng format chung của file |
+| Files changed | `reports/Test-Summary-Report.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tiếp tục làm tương tự với reports/23127464-selected-test-cases-and-bugs-summary.md
+```
+
+### AI output
+
+```text
+Codex đọc file summary của 23127464 và chèn vào `reports/Test-Summary-Report.md` theo định dạng chung: thêm `23127464 - Trần Minh Quang` vào bảng thông tin nhóm, thêm section `## 23127464 - Trần Minh Quang`, đổi các mục của report nguồn thành heading cấp `###`, và chuyển các bug coverage theo FR sang dạng chữ đậm để đồng bộ với các section thành viên khác. Số liệu giữ nguyên từ file nguồn: 31 test case, 14 Passed / 16 Failed / 0 Blocked / 1 Not Run, 17 bug.
+```
+
+### Human review
+
+- Section 23127464 được đặt trước 23127475 để giữ thứ tự MSSV tăng dần trong `Test-Summary-Report.md`.
