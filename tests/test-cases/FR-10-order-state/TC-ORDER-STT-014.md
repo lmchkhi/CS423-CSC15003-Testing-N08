@@ -28,5 +28,4 @@ Order State / Functional / State Transition Testing
 - Hệ thống không cho phép khôi phục hoặc hoàn tất một đơn hàng đã hủy.
 
 ## Status / Related bugs
-Not Run / None
-
+Fail / BUG-ORDER-STT-002

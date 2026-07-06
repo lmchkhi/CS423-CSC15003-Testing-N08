@@ -27,5 +27,4 @@ Order State / Functional / State Transition Testing
 - Hệ thống không cho user tự hủy đơn khi đơn đang được giao.
 
 ## Status / Related bugs
-Not Run / None
-
+Fail / BUG-ORDER-STT-001
