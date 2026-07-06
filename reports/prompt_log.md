@@ -674,3 +674,112 @@ Codex đọc `tests/test-runs/FR-02-login-run.md`, các test case FR-02 và bug 
 
 - Bug report dựa trên note tester trong test run; chưa có API verification bổ sung trong lần này.
 - Người làm cần bổ sung screenshot/video hoặc GitHub Issue link nếu bài nộp yêu cầu bằng chứng trực quan.
+
+## 2026-07-06 16:45 +07 - Tạo test design analysis FR-03 Use Case
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Use Case Testing |
+| Goal | Tạo test design analysis cho FR-03 Quên mật khẩu & Đặt lại mật khẩu bằng Use Case Testing |
+| Files changed | `tests/test-design/FR-03-forgot-password-use-case.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+bây giờ tạo test design analysis cho fr03 dùng use case testing giúp tôi
+```
+
+### AI output
+
+```text
+Codex đọc skill Use Case Testing, prompt-log skill, SRS FR-03, API `POST /api/forgot-password` và `POST /api/reset-password`, cùng phần FR-03 hiện có trong main report. Codex tạo `tests/test-design/FR-03-forgot-password-use-case.md` gồm source documents, scope, black-box principles, assumptions, use case summary, actors/responsibilities, main success scenario, alternative flows, exception flows, use case coverage matrix, test data guidance và risks/AI gap notes. Chưa tạo test case chi tiết.
+```
+
+### Human review
+
+- Người làm cần đọc lại candidate TC trong coverage matrix để quyết định có giữ optional flow request OTP lại hay không khi tạo test case chi tiết.
+- File design lưu ý khác biệt giữa SRS yêu cầu confirm password và API chỉ nêu `newPassword`.
+
+## 2026-07-06 16:55 +07 - Tạo test case và test run FR-03 Use Case
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Use Case Testing / Test Run |
+| Goal | Dùng skill Use Case Testing và test design analysis FR-03 để tạo test case chi tiết và test run chưa thực thi |
+| Files changed | `tests/test-cases/FR-03-forgot-password/use-case-testing/TC-FR03-UC-001.md` đến `TC-FR03-UC-012.md`, `tests/test-runs/FR-03-forgot-password-use-case-run.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+rồi tạo test case cho fr03 và test run giúp tôi đi, tạo thêm folder fr03 nhưng cho use case testing trong folder test-case
+```
+
+### AI output
+
+```text
+Codex đọc skill Use Case Testing, file `tests/test-design/FR-03-forgot-password-use-case.md`, prompt-log skill và format test run/test case hiện có. Codex tạo folder `tests/test-cases/FR-03-forgot-password/use-case-testing/` và 12 test case `TC-FR03-UC-001` đến `TC-FR03-UC-012`, bao phủ main success flow, quay lại đăng nhập, email rỗng/sai định dạng/chưa đăng ký, reset khi chưa lấy OTP, OTP sai, OTP của email khác, mật khẩu yếu, confirm không khớp, mật khẩu rỗng và request OTP lại nếu UI/API hỗ trợ. Codex tạo test run riêng `tests/test-runs/FR-03-forgot-password-use-case-run.md` với toàn bộ Result = `Not Run`, tổng Not Run = 12.
+```
+
+### Human review
+
+- Người làm cần chạy 12 test case Use Case trên SUT thật rồi cập nhật test run/test case.
+- `TC-FR03-UC-012` là flow optional; nếu UI không hỗ trợ request OTP lại, nên ghi Blocked/Not Applicable trong test run thay vì sửa expected theo implementation.
+
+## 2026-07-06 17:01 +07 - Thực thi FR-03 Use Case và tạo bug report riêng
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-03 |
+| Technique | Use Case Testing / Bug Reporting |
+| Goal | Chạy/đối chiếu 12 test case Use Case FR-03 trên frontend/backend đang chạy, cập nhật test run và tạo bug report riêng cho Use Case Testing |
+| Files changed | `tests/test-runs/FR-03-forgot-password-use-case-run.md`, `tests/test-cases/FR-03-forgot-password/use-case-testing/TC-FR03-UC-001.md` đến `TC-FR03-UC-012.md`, `bug-reports/BUG-FR03-UC-001.md` đến `BUG-FR03-UC-007.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+test giúp tôi fr03 và tạo test run, xem tests/test-cases/FR-03-forgot-password, tests/test-runs/FR-03-forgot-password-run.md, các bug report FR-03 đang có sẵn (dùng dt và bva) để tham khảo bug và tạo các bug report riêng cho use case testing giúp tôi. tôi đang chạy be và fe web sẵn rồi
+```
+
+### AI output
+
+```text
+Codex đọc skill Use Case Testing, prompt-log skill, test design FR-03, test run DT/BVA cũ, 12 test case UC và các bug FR-03 hiện có. Codex kiểm tra frontend/backend đang chạy qua localhost, dùng API `POST /api/forgot-password`, `POST /api/reset-password`, `POST /api/register`, `POST /api/login` để xác minh các flow liên quan, không ghi OTP/token thật vào artifact. Codex cập nhật test run Use Case thành 4 Passed, 8 Failed, 0 Blocked, 0 Not Run; cập nhật Status / Related bugs trong UC-001..UC-012; tạo 7 bug report riêng `BUG-FR03-UC-001` đến `BUG-FR03-UC-007` cho OTP 4 chữ số, thiếu Step Indicator, thiếu Quay lại đăng nhập, sai lỗi email format, thiếu confirm password, frontend chặn password mạnh và backend nhận password yếu/rỗng.
+```
+
+### Human review
+
+- Một số lỗi trùng bản chất với bug DT/BVA cũ nhưng được ghi riêng theo test case Use Case để trace coverage actor goal/end-to-end flow.
+- API test từng làm thay đổi mật khẩu `test@eshop.com`; Codex đã khôi phục về `Test1234!` và kiểm tra login thành công.
+- Người làm nên bổ sung screenshot UI cho các bug UC nếu rubric yêu cầu bằng chứng trực quan.
+
+## 2026-07-06 17:08 +07 - Viết báo cáo tổng hợp test case và bug 23127475
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-02 / FR-03 / FR-11 / FR-14 / FR-12 / FR-23 |
+| Technique | Report Writing |
+| Goal | Viết report theo template `reports/selected-test-cases-and-bugs-summary.md`, đặt tên `23127475-selected-test-cases-and-bugs-summary.md`, tổng hợp test case/bug đã làm và bổ sung FR-12 từ commit mới nhất của branch `fr12-decision-table-testing` |
+| Files changed | `reports/23127475-selected-test-cases-and-bugs-summary.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tiếp theo giúp tôi viết report theo template reports/selected-test-cases-and-bugs-summary.md đặt tên là 23127475-selected-test-cases-and-bugs-summary.md lấy thông tin dựa trên FR-02, FR-03, FR-11, FR14, FR-23 mà tôi đã làm, thêm với commit mới nhất (chứa các test case của FR-12) của branch fr12-decision-table-testing
+```
+
+### AI output
+
+```text
+Codex đọc template summary report, các test run/bug report của FR-02, FR-03, FR-11, FR-14, FR-23 trong working tree hiện tại, và đọc commit `670a2b7` của branch `fr12-decision-table-testing` để lấy thông tin FR-12 Decision Table/Pairwise. Codex tạo `reports/23127475-selected-test-cases-and-bugs-summary.md` với tổng 111 test case, trạng thái 61 Passed / 47 Failed / 3 Blocked / 0 Not Run, tổng 29 bug report và phân loại severity 11 Critical / 16 Major / 2 Minor.
+```
+
+### Human review
+
+- Số liệu FR-12 được lấy từ branch khác, chưa merge vào working tree hiện tại; report đã ghi rõ nguồn commit `670a2b7`.
+- Người làm nên kiểm tra lại tên sinh viên/mã số và quyết định có giữ các bug FR-03 Use Case tách riêng hay gộp với bug DT/BVA khi nộp cuối.
