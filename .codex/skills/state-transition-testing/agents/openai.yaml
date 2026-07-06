@@ -1,0 +1,4 @@
+interface:
+  display_name: "State Transition Testing"
+  short_description: "Design state-machine test cases and bug reports"
+  default_prompt: "Use $state-transition-testing to analyze a requirement and generate state transition test cases, traceability, test run evidence, and bug reports."

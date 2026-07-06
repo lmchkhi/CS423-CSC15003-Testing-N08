@@ -1,0 +1,7 @@
+interface:
+  display_name: "Use Case Testing"
+  short_description: "Design UCT test cases and bug reports"
+  default_prompt: "Use $use-case-testing to design use case testing artifacts for this requirement."
+
+policy:
+  allow_implicit_invocation: true
