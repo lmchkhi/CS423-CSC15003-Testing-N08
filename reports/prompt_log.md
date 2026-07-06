@@ -485,3 +485,192 @@ Codex đọc skill Prompt Log, Domain Testing và BVA; đọc template AI Audit 
 - Người làm cần xem lại `reports/ai-audit-report.md` để đảm bảo mức độ chi tiết phù hợp yêu cầu nộp.
 - Chức năng copy markdown trong UI không được dùng trực tiếp; thay vào đó Codex đọc transcript jsonl cục bộ và `prompt_log.md`, nên không cần copy tay.
 - Report tránh ghi token thật, OTP/resetToken thật hoặc dữ liệu nhạy cảm.
+
+## 2026-07-06 15:47 +07 - Tạo skill State Transition Testing và Use Case Testing
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Skill Creation |
+| Goal | Tạo 2 skill mới cho HW02 EShop để áp dụng kỹ thuật State Transition Testing và Use Case Testing khi thiết kế/phát sinh test case |
+| Files changed | `.codex/skills/state-transition-testing-eshop/SKILL.md`, `.codex/skills/state-transition-testing-eshop/agents/openai.yaml`, `.codex/skills/use-case-testing-eshop/SKILL.md`, `.codex/skills/use-case-testing-eshop/agents/openai.yaml`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+[$skill-creator](/home/thanhngo/.codex/skills/.system/skill-creator/SKILL.md) giúp tôi tạo 2 skill cho việc áp dụng kĩ thuật state transition testing và use case testing để thiết kế và phát sinh test case
+```
+
+### AI output
+
+```text
+Codex dùng skill-creator để scaffold 2 skill trong `.codex/skills`: `state-transition-testing-eshop` và `use-case-testing-eshop`. Mỗi skill có `SKILL.md` mô tả nguyên tắc black-box, tài liệu cần đọc, quy trình phân tích, gợi ý theo FR-03/FR-11/FR-14/FR-23, template test case Markdown và tiêu chuẩn chất lượng. Codex cũng tạo/cập nhật `agents/openai.yaml`, sửa lỗi shell làm mất literal `$skill-name` trong default prompt, rồi chạy `quick_validate.py` và cả hai skill đều hợp lệ.
+```
+
+### Human review
+
+- Người làm cần đọc lại hai skill mới để xác nhận tên thư mục test case (`state-transition-testing`, `use-case-testing`) và format mã test case (`ST`, `UC`) phù hợp với cách nộp bài.
+- Chưa phát sinh test case mới trong lần này; các skill chỉ chuẩn bị quy trình cho những lần thiết kế test tiếp theo.
+
+## 2026-07-06 15:52 +07 - Sửa skill sang tiếng Việt có dấu
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | General |
+| Technique | Skill Creation |
+| Goal | Chuyển nội dung 2 skill State Transition Testing và Use Case Testing từ tiếng Việt không dấu sang tiếng Việt có dấu |
+| Files changed | `.codex/skills/state-transition-testing-eshop/SKILL.md`, `.codex/skills/use-case-testing-eshop/SKILL.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+sửa lại skill dùng tiếng việt có dấu
+```
+
+### AI output
+
+```text
+Codex sửa lại toàn bộ phần description và body của `state-transition-testing-eshop/SKILL.md` và `use-case-testing-eshop/SKILL.md` sang tiếng Việt có dấu, giữ nguyên `name` dạng hyphen-case để skill vẫn trigger đúng. Codex chạy `quick_validate.py` cho cả hai skill và đều hợp lệ.
+```
+
+### Human review
+
+- Người làm cần đọc nhanh hai skill mới để xác nhận câu chữ tiếng Việt phù hợp văn phong bài nộp.
+- Không phát sinh hoặc sửa test case trong lần này.
+
+## 2026-07-06 15:57 +07 - Cập nhật skill State Transition cho FR-02
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-02 / General |
+| Technique | Skill Creation |
+| Goal | Thêm FR-02 Login and account lockout vào gợi ý state của skill State Transition Testing và làm rõ các FR trong skill là gợi ý có sẵn, không phải giới hạn cứng |
+| Files changed | `.codex/skills/state-transition-testing-eshop/SKILL.md`, `.codex/skills/use-case-testing-eshop/SKILL.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+à 2 skill đang mặc định dùng cho các FR cụ thể như FR-03, FR-11, FR-14, FR-23. nhưng tôi định dùng skill state transition cho FR-02 và use case cho FR-03 để tạo test case. có thể thêm FR-02 vào Gợi ý state theo feature
+```
+
+### AI output
+
+```text
+Codex đọc SRS/API cho FR-02 và cập nhật `state-transition-testing-eshop/SKILL.md`: thêm FR-02 vào description, danh sách feature có gợi ý sẵn, và thêm section `FR-02 Login and account lockout` với object, state, event, guard, valid/invalid transition và API `POST /api/login`. Codex cũng chỉnh wording trong `use-case-testing-eshop/SKILL.md` để nói rõ các FR hiện có là gợi ý có sẵn, còn skill vẫn áp dụng được cho FR khác nếu phù hợp kỹ thuật. Cả hai skill được validate lại bằng `quick_validate.py`.
+```
+
+### Human review
+
+- FR-02 hợp với State Transition vì có failed-login counter, trạng thái account locked, lockout timer 30 giây và authenticated session.
+- Use Case Testing cho FR-03 đã có sẵn trong skill nên chưa cần thêm section mới.
+
+## 2026-07-06 16:11 +07 - Tạo test design analysis FR-02 State Transition
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-02 / General |
+| Technique | State Transition Testing / Skill Creation |
+| Goal | Tạo test design analysis cho FR-02 bằng State Transition Testing và cập nhật 2 skill mới để bắt buộc đọc test design analysis trước khi tạo test case |
+| Files changed | `tests/test-design/FR-02-login-state-transition.md`, `.codex/skills/state-transition-testing-eshop/SKILL.md`, `.codex/skills/use-case-testing-eshop/SKILL.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tạo test design analysis cho FR-02 dùng state transition testing đặt ở tests/test-design giúp tôi và chỉnh sửa 2 skill mới yêu cầu đọc test design analysis trước mới tạo test case (chưa cần tạo test design analysis cho FR-03 dùng state transition)
+```
+
+### AI output
+
+```text
+Codex tạo `tests/test-design/FR-02-login-state-transition.md` gồm source documents, black-box principles, assumptions, state definitions, events, guards, state transition table, coverage strategy, candidate test case derivation, test data guidance và AI gap notes cho FR-02 Login/account lockout. Codex cập nhật `state-transition-testing-eshop` và `use-case-testing-eshop` để trước khi sinh test case phải đọc file liên quan trong `tests/test-design/`; nếu chưa có test design analysis thì tạo/đề xuất tạo trước. Không tạo test design analysis FR-03 State Transition và chưa tạo test case chi tiết.
+```
+
+### Human review
+
+- Người làm cần đọc lại candidate TC trong file design FR-02 để quyết định số lượng test case chi tiết sẽ tạo sau này.
+- Khi sinh test case FR-02, dùng file design này làm nguồn trace chính cho transition ID và coverage.
+
+## 2026-07-06 16:18 +07 - Tạo test case FR-02 State Transition
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-02 |
+| Technique | State Transition Testing |
+| Goal | Dùng skill State Transition Testing và test design analysis FR-02 để tạo test case chi tiết cho FR-02 Login/account lockout |
+| Files changed | `tests/test-cases/FR-02-login/state-transition-testing/TC-FR02-ST-001.md` đến `TC-FR02-ST-009.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+oke dùng skill .codex/skills/state-transition-testing-eshop/SKILL.md và tests/test-design/FR-02-login-state-transition.md để tạo test case cho FR-02 giúp tôi. chưa cần sửa reports/main-report.md
+```
+
+### AI output
+
+```text
+Codex đọc skill State Transition Testing, file `tests/test-design/FR-02-login-state-transition.md`, prompt-log skill và các test case mẫu. Codex tạo 9 test case Markdown cho FR-02 trong `tests/test-cases/FR-02-login/state-transition-testing/`, bao phủ T1/T9 login thành công và dùng JWT, T2 sai lần 1, T2/T3 sai lần 2, T2/T3/T4 khóa sau lần sai thứ 3, T5 login đúng khi đang bị khóa, T6/T7 hết 30 giây rồi login lại, T8 email sai định dạng bị UI chặn, T2/T10 sai 1 lần rồi đúng, và T2/T3/T11 sai 2 lần rồi đúng. Toàn bộ test case đang ở trạng thái `Not Run / None`. Codex không sửa `reports/main-report.md`.
+```
+
+### Human review
+
+- Người làm cần chạy SUT thật rồi ghi kết quả vào test run/test case sau.
+- Các test lockout nên dùng tài khoản test riêng hoặc đảm bảo tài khoản `test@eshop.com` được đưa về trạng thái không khóa trước mỗi case để tránh nhiễu giữa các test.
+
+## 2026-07-06 16:31 +07 - Tạo test run FR-02 chưa thực thi
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-02 |
+| Technique | State Transition Testing / Test Run |
+| Goal | Tạo file test run cho FR-02 với toàn bộ kết quả ở trạng thái Not Run để người làm thực thi và cập nhật sau |
+| Files changed | `tests/test-runs/FR-02-login-run.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+viết thêm test run cho fr02 nữa, kết quả cứ để not run tôi sẽ test rồi cập nhật lại sau
+```
+
+### AI output
+
+```text
+Codex tham khảo format các test run hiện có và tạo `tests/test-runs/FR-02-login-run.md` cho FR-02 Đăng nhập & Khóa tài khoản. File gồm thông tin chung, section State Transition Testing với 9 test case `TC-FR02-ST-001` đến `TC-FR02-ST-009`, toàn bộ Result = `Not Run`, Related Bug/Note để trống, và tổng kết Passed 0, Failed 0, Blocked 0, Not Run 9, Tổng 9.
+```
+
+### Human review
+
+- Người làm sẽ chạy 9 test case FR-02 trên SUT thật rồi cập nhật Result, Related Bug và Note.
+- Khi có Failed hoặc Blocked, cần tạo/ghi bug report hoặc lý do rõ ràng theo ghi chú trong test run.
+
+## 2026-07-06 16:41 +07 - Cập nhật kết quả test run và bug report cho FR-02
+
+| Field | Value |
+| --- | --- |
+| AI tool | Codex |
+| Feature | FR-02 |
+| Technique | State Transition Testing / Bug Reporting |
+| Goal | Rà soát kết quả tester đã note trong test run FR-02, chuẩn hóa test run/test case status và tạo bug report |
+| Files changed | `tests/test-runs/FR-02-login-run.md`, các test case FR-02 liên quan trong `tests/test-cases/FR-02-login/state-transition-testing/`, `bug-reports/BUG-FR02-001.md`, `bug-reports/BUG-FR02-002.md`, `bug-reports/BUG-FR02-003.md`, `reports/prompt_log.md` |
+
+### Prompt
+
+```text
+tôi đã test và điền kết quả, note vào test run rồi, đọc lại và chỉnh sửa, format nếu cần sau đó tạo bug report cho tôi
+```
+
+### AI output
+
+```text
+Codex đọc `tests/test-runs/FR-02-login-run.md`, các test case FR-02 và bug report mẫu. Codex chuẩn hóa test run thành 5 Passed, 4 Failed, 0 Blocked, 0 Not Run; cập nhật Related Bug cho các case failed và case passed có observation phụ. Codex cập nhật Status / Related bugs trong các test case FR-02 liên quan và tạo 3 bug report: `BUG-FR02-001` cho lỗi bị khóa sau 2 lần sai dù lần thứ 3 nhập đúng, `BUG-FR02-002` cho lỗi khóa lâu hơn 30 giây, và `BUG-FR02-003` cho lỗi email sai định dạng vẫn gọi API login.
+```
+
+### Human review
+
+- Bug report dựa trên note tester trong test run; chưa có API verification bổ sung trong lần này.
+- Người làm cần bổ sung screenshot/video hoặc GitHub Issue link nếu bài nộp yêu cầu bằng chứng trực quan.

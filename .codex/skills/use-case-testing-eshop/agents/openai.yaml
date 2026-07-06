@@ -1,0 +1,4 @@
+interface:
+  display_name: "Use Case Testing EShop"
+  short_description: "Thiết kế test use case EShop"
+  default_prompt: "Use $use-case-testing-eshop to design use case test cases for an EShop feature."

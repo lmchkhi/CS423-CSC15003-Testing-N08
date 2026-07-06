@@ -1,0 +1,4 @@
+interface:
+  display_name: "State Transition EShop"
+  short_description: "Thiết kế test chuyển trạng thái EShop"
+  default_prompt: "Use $state-transition-testing-eshop to design state transition test cases for an EShop feature."
