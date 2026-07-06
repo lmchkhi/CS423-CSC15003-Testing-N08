@@ -1,0 +1,4 @@
+interface:
+  display_name: "Decision Table Testing"
+  short_description: "Design and review decision-table tests"
+  default_prompt: "Use $decision-table-testing to derive concise decision-table test cases from these business rules."
