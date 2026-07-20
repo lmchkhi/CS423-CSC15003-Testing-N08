@@ -1,0 +1,4 @@
+interface:
+  display_name: "GUI Checklist EShop"
+  short_description: "Tạo checklist GUI blackbox EShop"
+  default_prompt: "Use $gui-checklist-testing-eshop to create a blackbox GUI testing checklist for an EShop feature."
