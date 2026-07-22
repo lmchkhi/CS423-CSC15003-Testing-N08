@@ -1,0 +1,4 @@
+interface:
+  display_name: "GUI Bug Report Writer"
+  short_description: "Create Vietnamese GUI bug report Markdown"
+  default_prompt: "Use $gui-bug-report-writer to create a Vietnamese bug report Markdown from this failed checklist item and bug observation."

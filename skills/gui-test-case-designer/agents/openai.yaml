@@ -1,0 +1,4 @@
+interface:
+  display_name: "GUI Test Case Designer"
+  short_description: "Create screen-based Vietnamese GUI checklists"
+  default_prompt: "Use $gui-test-case-designer to analyze these GUI requirements/screens and create Vietnamese Markdown checklists grouped by actual screen, using columns: ID, Screen, Category, Checklist Item, Expected Result, Actual Result, Status."
