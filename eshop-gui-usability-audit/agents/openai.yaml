@@ -1,0 +1,4 @@
+interface:
+  display_name: "EShop GUI Usability Audit"
+  short_description: "Black-box HW03 GUI and usability testing"
+  default_prompt: "Use $eshop-gui-usability-audit to prepare HW03 testing evidence."
