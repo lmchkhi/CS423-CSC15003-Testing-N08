@@ -19,8 +19,8 @@
 
 | Field             | Content                                             |
 | ----------------- | --------------------------------------------------- |
-| **Tool**          | Codex (GPT 5.6 Sol Medium)                          |
-| **Timestamp**     | 24/07/2026 13:49:32 (UTC+7)                         |
+| **Tool**          | Codex (GPT-5.6 Sol Medium)                          |
+| **Timestamp**     | 24/07/2026 13:49:32                                 |
 | **Artifact type** | Tạo agent skill sinh checklist GUI cho yêu cầu HW03 |
 
 **Full prompt:**
@@ -76,7 +76,65 @@ Skill `$generate-gui-checklist`:
 ### (4) Reasoning
 
 - Yêu cầu đề bài định nghĩa IA-01 đến IA-04 một cách độc lập, nhưng skill lại liên kết chúng với các requirements FR-21, FR-22, FR-23, FR-24. Điều này có thể dẫn đến việc bỏ sót các hành vi cần kiểm tra nếu chúng không được nêu trong các yêu cầu đó.
+- Đề yêu cầu gui checklist định dạng Excel nhưng skill chưa chỉ nói chung là CSV hoặc XLSX.
 
 ### (5) Student Fix
 
 - Bỏ việc liên kết IA-01 đến IA-04 với các yêu cầu FR-21, FR-22, FR-23, FR-24.
+- Nói rõ định dạng đầu ra là Excel (XLSX) thay vì CSV.
+
+## Entry #2
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                        |
+| ----------------- | -------------------------------------------------------------- |
+| **Tool**          | Codex (GPT-5.6 Sol Medium)                                     |
+| **Timestamp**     | 24/07/2026 17:10:13                                            |
+| **Artifact type** | Tạo workbook checklist kiểm thử GUI cho bốn màn hình của EShop |
+
+**Full prompt:**
+
+```
+Sử dụng skill generate-gui-checklist để tạo một gui checklist cho các screens sau:
+- Profile page
+- Update profile form
+- Order history screen
+- Admin order management
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ kiểm tra skill `generate-gui-checklist` trong workspace trước. Nếu skill không có trong danh sách đã nạp nhưng tồn tại cục bộ trong dự án, mình sẽ đọc đúng hướng dẫn của nó rồi tạo checklist cho 4 màn hình.
+
+Đã tìm thấy skill cục bộ tại `skills/generate-gui-checklist/SKILL.md`. Mình sẽ dùng skill này; bước tiếp theo là đọc toàn bộ quy trình và các mẫu đầu ra mà skill yêu cầu.
+
+Skill yêu cầu tạo và kiểm định workbook XLSX bằng skill Spreadsheets. Mình sẽ dùng thêm skill đó, đồng thời đọc mô hình bao phủ IA bắt buộc và rà soát các tài liệu/mã nguồn sẵn có để checklist bám sát ứng dụng thay vì chỉ dùng heuristic chung. Vì bạn chưa chỉ định màn hình chính, mình tạm coi `Profile page` là màn hình chính theo quy tắc của skill.
+
+Mình đã đối chiếu SRS (`FR-04`, `FR-10`, `FR-11`, `FR-18`, `FR-21`–`FR-24`), API và mã nguồn thực tế. Checklist sẽ là bản thiết kế, nên toàn bộ trạng thái giữ `Chưa thực hiện`; các kỳ vọng bắt buộc sẽ dẫn FR/SEC, còn hành vi hợp lý nhưng chưa được đặc tả sẽ ghi rõ `Heuristic:`. Mình đang phân bổ 52 mục, đủ cả bốn IA và giữ `Profile page` có độ bao phủ sâu nhất.
+
+Workbook đã được tạo: 52 mục, mỗi IA có 13 mục; phân bổ theo màn hình là 16/14/9/9 và 4 mục liên màn hình. Các công thức tóm tắt đều tính đúng, 8 cổng chất lượng đều `Đạt`, và chưa phát hiện lỗi công thức. Mình đang xem trực quan cả 4 worksheet để sửa mọi lỗi cắt chữ hoặc bố cục trước khi bàn giao.
+
+Kiểm tra gói XLSX cho thấy bộ lọc, dropdown trạng thái, conditional formatting và wrap text đều đã được ghi đúng. Riêng thao tác freeze pane của thư viện tạo workbook không được xuất ra OOXML dù API đã được gọi đúng; mình đang áp dụng một sửa chữa định dạng nhỏ ở lớp XLSX để bảo đảm header thực sự được cố định theo yêu cầu của skill, rồi sẽ kiểm tra lại cấu trúc file.
+
+Đã tạo [GUI checklist XLSX](/Users/lvkhang/Documents/uni/software-testing/HW3/submissions/gui-checklist-profile-page.xlsx) :codex-file-citation{path="/Users/lvkhang/Documents/uni/software-testing/HW3/submissions/gui-checklist-profile-page.xlsx" purpose="output"}
+
+- 52 mục kiểm tra, mỗi IA có 13 mục.
+- 4 worksheet đúng cấu trúc yêu cầu.
+- Tạm chọn `Profile page` làm màn hình chính.
+- Toàn bộ trạng thái là `Chưa thực hiện`.
+- Đã kiểm tra công thức, bộ lọc, dropdown, freeze header và bố cục trực quan.
+  '''
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- AI tạo GUI checklist chia theo IA thay vì screen.
+
+### (5) Student Fix
+
+- Sửa lại checklist chia theo screen và cập nhật lại skill generate-gui-checklist để tạo checklist theo screen thay vì IA.

@@ -1,4 +1,4 @@
 interface:
   display_name: "Generate GUI Checklist"
-  short_description: "Create Vietnamese IA-01 to IA-04 checklists"
-  default_prompt: "Use $generate-gui-checklist to create a Vietnamese GUI checklist for my primary and supporting app screens."
+  short_description: "Create screen-first Vietnamese GUI XLSX checklists"
+  default_prompt: "Use $generate-gui-checklist to create a validated, screen-first Vietnamese XLSX GUI checklist for my primary and supporting app screens."

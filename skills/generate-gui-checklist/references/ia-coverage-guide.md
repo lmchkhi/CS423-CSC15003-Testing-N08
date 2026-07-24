@@ -50,6 +50,18 @@ Allocate the deepest coverage to the primary screen. Supporting screens should:
 - verify cross-screen consistency;
 - avoid repeating the same generic visual check for every screen.
 
+### Screen-first organization
+
+Use screens as the checklist's top-level grouping:
+
+1. primary screen;
+2. supporting screens in the order supplied by the user;
+3. `Nhiều màn hình` for genuine cross-screen assertions.
+
+Keep all rows for one screen contiguous. Within each screen block, use IA order `IA-01`, `IA-02`, `IA-03`, then `IA-04`; omit an IA when it is not meaningful for that screen. IA identifies coverage and provides a secondary sort key—it must not divide the complete checklist into IA-first blocks or separate IA worksheets.
+
+After ordering the final rows, assign sequential IDs `GUI-001`, `GUI-002`, and so on in displayed row order. If updating an already executed checklist, preserve existing IDs unless the user explicitly asks to renumber them so evidence and results remain traceable.
+
 ## 3. IA coverage model
 
 Assign exactly one primary IA to each item according to its main test intent. Mention related requirements in the expected result instead of duplicating the item under multiple IAs.
@@ -188,6 +200,7 @@ Additional allocation rules:
 - Include cross-screen rows only when they test a real relationship or consistency rule.
 - Do not meet a quota with near-duplicates.
 - Increase beyond 48 when many screens contain distinct forms, navigation paths, or states.
+- Do not scatter one screen across multiple IA sections; keep its allocated rows together.
 
 Before finalizing, calculate counts directly from the generated rows. Do not estimate them.
 
@@ -245,11 +258,13 @@ Reject or revise the draft unless every answer is yes:
 3. Does every IA meet its hard minimum?
 4. Does every selected supporting screen have at least two meaningful rows?
 5. Does the primary screen have more screen-specific rows than any one supporting screen?
-6. Does every row name a screen and one primary IA?
-7. Is every expected result observable?
-8. Are project-specific requirements used where available?
-9. Are undocumented expectations labeled as heuristics rather than presented as requirements?
-10. Are duplicate and compound rows removed?
-11. Are design-only statuses still `Chưa thực hiện`?
-12. Is the deliverable in Vietnamese?
-13. Are human-review suggestions clearly separated from AI-generated checklist rows?
+6. Are screen blocks contiguous and ordered as primary, supporting screens in input order, then `Nhiều màn hình`?
+7. Within each screen block, are rows ordered from `IA-01` through `IA-04`?
+8. Does every row name a screen and one primary IA?
+9. Is every expected result observable?
+10. Are project-specific requirements used where available?
+11. Are undocumented expectations labeled as heuristics rather than presented as requirements?
+12. Are duplicate and compound rows removed?
+13. Are design-only statuses still `Chưa thực hiện`?
+14. Is the deliverable in Vietnamese?
+15. Are human-review suggestions clearly separated from AI-generated checklist rows?
