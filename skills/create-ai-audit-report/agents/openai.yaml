@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create AI Audit Report"
+  short_description: "Turn a chat transcript into Vietnamese audit entries"
+  default_prompt: "Use $create-ai-audit-report to append this conversation to my AI audit report."
