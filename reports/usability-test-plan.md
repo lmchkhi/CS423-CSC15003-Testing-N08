@@ -27,9 +27,29 @@ Facilitator phải đọc nguyên văn kịch bản. Kịch bản chỉ nêu k�
 | Session prerequisites | EShop có thể truy cập; có ít nhất một sản phẩm có thể mua; facilitator đã xác minh riêng một coupon hợp lệ nhưng không hiển thị cho participant; môi trường test cho phép đi hết checkout và xác nhận thanh toán mà không tạo giao dịch tài chính thật. Nếu thiếu điều kiện nào, ghi task tương ứng là blocked. |
 | Recording consent | Xin consent trước khi ghi hình/ghi âm; ghi quyết định vào Participant table. |
 | Target duration | 20–30 phút cho mỗi participant, bao gồm bảng hỏi SUS. |
-| Measurement instrument | Chỉ dùng SUS: 10 phát biểu chuẩn, mỗi câu dùng thang đồng ý 1–5. Không triển khai hoặc báo cáo UEQ-S. |
 | Success criteria | Participant tự thêm sản phẩm, xem lại giỏ, xóa hoặc cập nhật ít nhất một sản phẩm, đến checkout, thử một coupon mà họ kỳ vọng được chấp nhận và một coupon mà họ kỳ vọng bị từ chối, hiểu phản hồi và tổng tiền tương ứng, xác nhận thanh toán và nhận biết trạng thái hoàn tất. |
 | Non-leading prompts | “Bạn đang tìm kiếm điều gì?”, “Bạn mong đợi điều gì sẽ xảy ra?”, “Bạn hiểu thông báo này như thế nào?”, “Bạn sẽ làm gì tiếp theo?”, “Bạn cảm thấy chắc chắn đến mức nào?” |
+| Measurement instrument | Chỉ dùng SUS: 10 phát biểu chuẩn, mỗi câu dùng thang đồng ý 1–5. Không triển khai hoặc báo cáo UEQ-S. |
+
+### Post-task probe questions
+
+Chỉ hỏi các câu dưới đây sau khi participant đã hoàn thành task và hoàn thành toàn bộ 10 câu SUS:
+
+1. **Clarity:** Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn?
+2. **Error recovery:** Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống?
+3. **Speed:** Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao?
+4. **Trust:** Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán?
+5. **Coupon discoverability:** Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao?
+
+| Participant | Câu trả lời Clarity | Câu trả lời Error recovery | Câu trả lời Speed | Câu trả lời Trust | Câu trả lời Coupon discoverability |
+|---|---|---|---|---|---|
+| P01 |  |  |  |  |  |
+| P02 |  |  |  |  |  |
+| P03 |  |  |  |  |  |
+| P04 |  |  |  |  |  |
+| P05 |  |  |  |  |  |
+| P06 |  |  |  |  |  |
+| P07 |  |  |  |  |  |
 
 ### Quy trình dành cho facilitator
 
@@ -53,16 +73,54 @@ Facilitator phải đọc nguyên văn kịch bản. Kịch bản chỉ nêu k�
 
 | ID | Relevant experience | Device/browser | Session date | Consent | Completion | Notes |
 |---|---|---|---|---|---|---|
+| P01 |  |  |  |  |  |  |
+| P02 |  |  |  |  |  |  |
+| P03 |  |  |  |  |  |  |
+| P04 |  |  |  |  |  |  |
+| P05 |  |  |  |  |  |  |
+| P06 |  |  |  |  |  |  |
+| P07 |  |  |  |  |  |  |
 
 ## Observation notes
 
 | Participant | Time | Participant action/quote | Observed UI/state | Outcome | Possible finding | Evidence ref |
 |---|---|---|---|---|---|---|
+| P01 |  |  |  |  |  |  |
+| P02 |  |  |  |  |  |  |
+| P03 |  |  |  |  |  |  |
+| P04 |  |  |  |  |  |  |
+| P05 |  |  |  |  |  |  |
+| P06 |  |  |  |  |  |  |
+| P07 |  |  |  |  |  |  |
+
+## Bộ 10 câu SUS
+
+Facilitator phải đọc nguyên văn các phát biểu dưới đây cho participant, đúng thứ tự và không diễn giải lại theo ý riêng.
+
+**Thang trả lời:** 1 — Hoàn toàn không đồng ý; 2 — Không đồng ý; 3 — Trung lập; 4 — Đồng ý; 5 — Hoàn toàn đồng ý.
+
+1. Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên.
+2. Tôi thấy hệ thống này phức tạp một cách không cần thiết.
+3. Tôi nghĩ hệ thống này dễ sử dụng.
+4. Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này.
+5. Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt.
+6. Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán.
+7. Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh.
+8. Tôi thấy hệ thống này rất rườm rà khi sử dụng.
+9. Tôi cảm thấy rất tự tin khi sử dụng hệ thống này.
+10. Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này.
 
 ## SUS result summary
 
 | Participant | SUS raw score | Notes |
 |---|---:|---|
+| P01 |  |  |
+| P02 |  |  |
+| P03 |  |  |
+| P04 |  |  |
+| P05 |  |  |
+| P06 |  |  |
+| P07 |  |  |
 
 Các trường tổng hợp chỉ được điền sau các phiên test thật:
 
