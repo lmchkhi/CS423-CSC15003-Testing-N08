@@ -138,3 +138,74 @@ Kiểm tra gói XLSX cho thấy bộ lọc, dropdown trạng thái, conditional 
 ### (5) Student Fix
 
 - Sửa lại checklist chia theo screen và cập nhật lại skill generate-gui-checklist để tạo checklist theo screen thay vì IA.
+
+## Entry #3
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                         |
+| ----------------- | --------------------------------------------------------------- |
+| **Tool**          | Codex (GPT-5.6 Sol Medium)                                      |
+| **Timestamp**     | 25/07/2026 17:18:57                                             |
+| **Artifact type** | Tạo agent skill thiết kế đánh giá usability cho end-to-end flow |
+
+**Full prompt:**
+
+```
+Dựa vào yêu cầu cho HW03, giúp tôi tạo một agent skills cho việc tạo các phân tích về usability khi người dùng input vào một flow end to end.
+Agent sẽ:
+- Đưa ra mục tiêu test cụ thể cho flow đó
+- Viết task scenario cụ thể và thực tế để test flow (không ghi cụ thể từng bước chi tiết)
+- Chọn hình thức đánh giá thích hợp (SUS hoặc UEQ-S) cho flow test đó và một list các câu hỏi mở khác cover được ít nhất 4 tiêu chí được yêu cầu trong specs
+Tạo skills bằng tiếng anh nhưng output của agent là tiếng việt.
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `skill-creator` để đóng gói đúng chuẩn Codex, đồng thời đọc yêu cầu HW03 trong workspace để các mục tiêu, scenario và bộ câu hỏi bám sát rubric/spec. Skill sẽ được viết bằng tiếng Anh nhưng quy định rõ mọi đầu ra phân tích phải bằng tiếng Việt.
+
+Tài liệu yêu cầu là PDF, nên mình cũng dùng skill `pdf` để trích xuất và kiểm tra đúng phần usability study/rubric thay vì suy đoán từ tên bài. Sau đó mình sẽ tạo skill ngay trong thư mục `skills/` của HW3 và chạy bộ kiểm tra cấu trúc chuẩn.
+
+Skill đã được khởi tạo với workflow riêng cho HW03: chuẩn hóa flow, tạo mục tiêu có bằng chứng quan sát, viết scenario không “chỉ đường”, chọn đúng một trong SUS/UEQ-S, và kiểm tra đủ bốn tiêu chí `clarity / error recovery / speed / trust`. Mình đang chạy validation và rà lại các ràng buộc chống bịa dữ liệu participant/kết quả.
+
+Bộ validator chuẩn đang thiếu dependency `PyYAML` trong runtime, không phải lỗi của skill. Mình sẽ cài dependency này vào thư mục tạm (không thay đổi môi trường dự án) để chạy đúng validator thay vì bỏ qua bước kiểm tra.
+
+Đã tạo và validate thành công skill `design-usability-flow-evaluation`.
+
+Các tệp chính:
+
+- [SKILL.md](/Users/lvkhang/Documents/uni/software-testing/HW3/skills/design-usability-flow-evaluation/SKILL.md)
+- [HW03 usability design guide](/Users/lvkhang/Documents/uni/software-testing/HW3/skills/design-usability-flow-evaluation/references/hw03-usability-design-guide.md)
+- [Agent metadata](/Users/lvkhang/Documents/uni/software-testing/HW3/skills/design-usability-flow-evaluation/agents/openai.yaml)
+
+Skill được viết bằng tiếng Anh nhưng bắt buộc đầu ra bằng tiếng Việt. Khi nhận một end-to-end flow, agent sẽ:
+
+- Tạo 3–5 mục tiêu kiểm thử cụ thể kèm bằng chứng/chỉ số quan sát.
+- Viết task scenario thực tế, hướng đến mục tiêu và không tiết lộ từng bước thao tác.
+- Chọn đúng một thang đo SUS hoặc UEQ-S, giải thích theo đặc điểm flow và hướng dẫn cách chấm.
+- Tạo 6–8 câu hỏi mở, bao phủ rõ ràng bốn tiêu chí: tính rõ ràng, khôi phục lỗi, tốc độ và độ tin cậy.
+- Kiểm tra coverage và ngăn việc bịa participant, kết quả, thời gian hoặc quan sát.
+
+Ví dụ sử dụng:
+
+```text
+Use $design-usability-flow-evaluation for the flow:
+Đăng ký tài khoản → tìm sản phẩm → thêm vào giỏ hàng →
+áp dụng mã giảm giá → hoàn tất checkout.
+```
+
+Bộ `quick_validate.py` chính thức đã xác nhận: `Skill is valid!`
+'''
+
+### (3) Verdict
+
+**`COMPLETE`**
+
+### (4) Reasoning
+
+- AI tạo ra skills hoàn chỉnh.
+
+### (5) Student Fix
+
+- Không cần fix.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Usability Flow Evaluation"
+  short_description: "Plan Vietnamese usability tests for end-to-end flows"
+  default_prompt: "Use $design-usability-flow-evaluation to design a Vietnamese usability evaluation for my end-to-end user flow."
