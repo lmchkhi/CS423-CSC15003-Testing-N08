@@ -1,8 +1,8 @@
 ## Participant table
 
-| ID  | Relevant experience | Device/browser               | Session date          | Consent | Completion              | Notes                                                                                                        |
-| --- | ------------------- | ---------------------------- | --------------------- | ------- | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
-| P01 |                     | Máy tính, Windows 10, Chrome | 23h46 ngày 25/07/2026 | Yes     | Hoàn thành có can thiệp | Đã xác minh danh tính người tham gia, thông tin liên hệ lưu riêng ngoài file này (không ghi tên/SĐT vào đây) |
+| ID  | Relevant experience                                      | Device/browser               | Session date          | Consent | Completion              | Notes                                                                                                        |
+| --- | -------------------------------------------------------- | ---------------------------- | --------------------- | ------- | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
+| P01 | Đã từng sử dụng app mua hàng online (shoppe, lazada,...) | Máy tính, Windows 10, Chrome | 23h46 ngày 24/07/2026 | Yes     | Hoàn thành có can thiệp | Đã xác minh danh tính người tham gia, thông tin liên hệ lưu riêng ngoài file này (không ghi tên/SĐT vào đây) |
 
 ## Observation notes
 
