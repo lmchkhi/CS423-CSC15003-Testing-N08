@@ -28,3 +28,6 @@ Trang danh sách sản phẩm quay lại đúng nội dung nhưng vị trí cu�
 
 ## Evidence
 Không có bug nào về mặt nội dung (dữ liệu danh sách vẫn đúng), lỗi chỉ ở vị trí cuộn — không cần ảnh chụp minh họa riêng vì trạng thái cuối cùng trông giống trang tải mới bình thường; xem lại bằng cách tái hiện các bước trên.
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/99

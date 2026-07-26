@@ -28,3 +28,6 @@ Không có sản phẩm nào trong 5 sản phẩm hiển thị tên danh mục t
 
 ## Evidence
 ![BUG-IA01-PRODUCTDETAIL-002](screenshots/BUG-IA01-PRODUCTDETAIL-002.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/95

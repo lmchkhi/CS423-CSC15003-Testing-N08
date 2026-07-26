@@ -27,3 +27,6 @@ Component `ProductDetail.jsx` render trực tiếp `<img src={product.imageUrl} 
 
 ## Evidence
 ![BUG-IA01-PRODUCTDETAIL-003](screenshots/BUG-IA01-PRODUCTDETAIL-003.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/96

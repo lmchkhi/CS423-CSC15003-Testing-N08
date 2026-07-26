@@ -28,3 +28,6 @@ Không có breadcrumb nào được render trên trang chi tiết sản phẩm. 
 
 ## Evidence
 ![BUG-IA03-PRODUCTDETAIL-001](screenshots/BUG-IA03-PRODUCTDETAIL-001.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/98

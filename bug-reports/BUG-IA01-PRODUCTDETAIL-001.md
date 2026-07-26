@@ -29,3 +29,6 @@ Nút "Thêm vào giỏ hàng" trên trang chi tiết sản phẩm dùng class `b
 ## Evidence
 ![BUG-IA01-PRODUCTDETAIL-001](screenshots/BUG-IA01-PRODUCTDETAIL-001.png)
 ![BUG-IA01-PRODUCTDETAIL-001-grid-compare](screenshots/BUG-IA01-PRODUCTDETAIL-001-grid-compare.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/94

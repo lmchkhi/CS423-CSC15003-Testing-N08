@@ -43,3 +43,6 @@ Critical / P0
 
 ## Evidence
 ![BUG-IA04-PRODUCTDETAIL-001](screenshots/BUG-IA04-PRODUCTDETAIL-001.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/100
