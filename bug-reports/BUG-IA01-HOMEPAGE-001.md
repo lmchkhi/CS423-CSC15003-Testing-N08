@@ -18,7 +18,7 @@ Major / P1
 ## Steps to reproduce
 1. Mở trang chủ (http://localhost:5173/), đã đăng nhập test@eshop.com.
 2. Chạy `document.querySelectorAll('h1')` trên console — trả về 2 phần tử: `"Danh sách sản phẩm"` (tiêu đề đầu trang) và `"Hiển thị 5 sản phẩm"` (dòng thống kê cuối danh sách sản phẩm).
-3. Xác nhận qua source `frontend-web/src/pages/Home.jsx`: dòng 43 dùng `<h1 className="text-3xl font-bold">Danh sách sản phẩm</h1>`, và dòng 110 dùng lại `<h1 className="text-center text-gray-400 mt-8 text-sm">Hiển thị {products.length} sản phẩm</h1>` — thẻ thứ hai lẽ ra phải là `<p>` chứ không phải `<h1>` thứ hai.
+3. Kiểm tra qua DevTools: thẻ thứ hai ("Hiển thị 5 sản phẩm") là dòng thống kê nhỏ ở cuối danh sách sản phẩm, về mặt nội dung/vai trò rõ ràng không phải là tiêu đề trang — lẽ ra phải là một đoạn văn bản thường (`<p>`) chứ không phải heading cấp 1 thứ hai.
 
 ## Expected result
 Trang chủ chỉ có đúng 1 thẻ `<h1>` duy nhất, mô tả nội dung trang.

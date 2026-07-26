@@ -28,10 +28,10 @@
 - **GUI checklist screens (Task 1)**: Home page (incl. product grid),
   Search results, Empty search state, Product detail page. 4 effective
   screens — Product grid was folded into Home page rather than checklisted
-  separately, since both are the same `Home.jsx` component/state
-  (`frontend-web/src/pages/Home.jsx`) and the Home Page IA01/IA04 batches
-  already cover card layout, image ratio, price formatting, and grid
-  responsiveness; re-testing the same cards under a second label would be
+  separately, since both are the same rendered page/state and the Home Page
+  IA01/IA04 batches already cover card layout, image ratio, price
+  formatting, and grid responsiveness; re-testing the same cards under a
+  second label would be
   duplication, not added coverage.
 - **Usability flow (Task 2)**: Browse products → search by keyword → open
   product detail → choose quantity → add product to cart.

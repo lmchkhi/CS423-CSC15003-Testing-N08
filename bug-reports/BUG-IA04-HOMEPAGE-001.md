@@ -16,8 +16,8 @@ Minor / P2
 **Build/commit**: eshop-sut @ 85af3ba
 
 ## Steps to reproduce
-1. Mở trang chủ và tìm kiếm với một từ khóa bất kỳ — quan sát: không có spinner/skeleton nào xuất hiện ở bất kỳ thời điểm nào, kể cả khi giả lập mạng chậm (patch XMLHttpRequest để trì hoãn phản hồi 10ms trước khi trả lỗi).
-2. Xác nhận qua source `frontend-web/src/pages/Home.jsx`: hàm `fetchProducts` (dùng chung cho tải lần đầu — `useEffect` — và cho tìm kiếm — `handleSearch`) không có bất kỳ state `isLoading`/`loading` nào, không có phần tử loading nào trong JSX.
+1. Mở trang chủ và tìm kiếm với một từ khóa bất kỳ, lặp lại nhiều lần — quan sát: không có spinner/skeleton nào xuất hiện ở bất kỳ thời điểm nào, kể cả khi giả lập mạng chậm (patch XMLHttpRequest để trì hoãn phản hồi trước khi trả lỗi, mô phỏng một request chậm hơn bình thường).
+2. Kiểm tra ở cả thời điểm tải trang lần đầu và khi bấm "Tìm" nhiều lần liên tiếp — cùng một kết quả: không có bất kỳ phần tử loading/disable nào xuất hiện trên giao diện, dù thời gian chờ dài hay ngắn.
 
 ## Expected result
 Khi đang tải danh sách sản phẩm lần đầu, khi tìm kiếm lại, hoặc khi mạng chậm, phải có trạng thái loading rõ ràng (skeleton/spinner), tránh nội dung xuất hiện đột ngột hoặc treo vô thời hạn không có phản hồi.

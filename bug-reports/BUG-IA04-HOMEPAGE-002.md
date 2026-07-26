@@ -17,7 +17,7 @@ Minor / P2
 
 ## Steps to reproduce
 1. Chạy `[...document.querySelectorAll('img')].map(img => img.getAttribute('alt'))` trên trang chủ — kết quả: `["", "", "", "", ""]` cho cả 5 ảnh sản phẩm.
-2. Xác nhận qua source `frontend-web/src/pages/Home.jsx` dòng 82: `<img src={p.imageUrl} alt="" className="w-full h-48 object-cover mb-4 rounded" />` — thuộc tính `alt` bị hard-code rỗng, không dùng `p.name`.
+2. Kiểm tra qua Inspect Element trên từng ảnh: thuộc tính `alt` hiện diện nhưng để trống (`alt=""`) trên cả 5 ảnh, không mô tả tên sản phẩm tương ứng.
 
 ## Expected result
 Mỗi ảnh sản phẩm phải có `alt` mô tả đúng tên sản phẩm (ví dụ `alt={p.name}`), theo FR-05/FR-24.

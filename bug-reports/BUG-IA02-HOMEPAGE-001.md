@@ -16,8 +16,8 @@ Minor / P3
 **Build/commit**: eshop-sut @ 85af3ba
 
 ## Steps to reproduce
-1. Xác nhận qua source `frontend-web/src/pages/Home.jsx`: `<input type="text" placeholder="Tìm kiếm..." value={search} onChange={...} className="border p-2 rounded" />` — không có `aria-label`, không có `id` gắn với `<label htmlFor>` nào.
-2. Khi người dùng bắt đầu gõ, placeholder biến mất và không còn văn bản nào mô tả mục đích ô nhập cho screen reader.
+1. Kiểm tra qua DevTools (Inspect Element / Accessibility tree): ô tìm kiếm không có thuộc tính `aria-label`, và không có phần tử `<label>` nào trên trang liên kết tới ô nhập này qua `for`/`id`.
+2. Khi người dùng bắt đầu gõ, placeholder biến mất khỏi màn hình và không còn văn bản nào mô tả mục đích ô nhập cho screen reader (tên truy cập của ô nhập trong Accessibility tree chỉ còn dựa vào placeholder, vốn không phải nguồn tên truy cập bền vững).
 
 ## Expected result
 Ô tìm kiếm cần có tên truy cập (accessible name) bền vững — qua `aria-label="Tìm kiếm sản phẩm"` hoặc một `<label>` liên kết — không chỉ dựa vào placeholder vốn biến mất khi có giá trị.

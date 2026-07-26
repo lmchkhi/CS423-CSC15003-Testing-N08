@@ -24,7 +24,7 @@ Major / P2
 FR-06 yêu cầu trang chi tiết hiển thị đầy đủ Ảnh lớn, Tên, Giá, Mô tả, **Danh mục**.
 
 ## Actual result
-Không có sản phẩm nào trong 5 sản phẩm hiển thị tên danh mục trên trang chi tiết, mặc dù backend đã có sẵn `category_id` cho mọi sản phẩm (`iPhone 15 Pro Max`: category_id=1, `MacBook Pro M3`: category_id=2, v.v.). Xác nhận qua source `frontend-web/src/pages/ProductDetail.jsx` — component chỉ render `product.name`, `product.price`, `product.description`, không có dòng nào render category.
+Không có sản phẩm nào trong 5 sản phẩm hiển thị tên danh mục trên trang chi tiết, mặc dù API `GET /api/products` xác nhận backend đã có sẵn trường `category_id` cho mọi sản phẩm (`iPhone 15 Pro Max`: category_id=1, `MacBook Pro M3`: category_id=2, v.v.) — dữ liệu tồn tại ở tầng API nhưng trang chi tiết chỉ hiển thị Tên, Giá, Mô tả, hoàn toàn thiếu Danh mục.
 
 ## Evidence
 ![BUG-IA01-PRODUCTDETAIL-002](screenshots/BUG-IA01-PRODUCTDETAIL-002.png)

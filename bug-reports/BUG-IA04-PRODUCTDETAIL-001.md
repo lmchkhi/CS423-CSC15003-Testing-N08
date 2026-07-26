@@ -23,9 +23,9 @@ Critical / P0
 4. Vào trang Giỏ hàng bằng link "Giỏ hàng" trên navbar (client-side navigation) — giỏ hàng trống.
 5. Quay lại trang chi tiết, bấm "Thêm vào giỏ hàng" **lần thứ hai liên tiếp** — lần này chữ trên nút đổi thành "Đã thêm" trong 2 giây, và item mới xuất hiện trong giỏ hàng.
 6. Tải lại trang (F5) hoặc điều hướng bằng URL trực tiếp (hard navigation) sau khi đã thêm hàng thành công — giỏ hàng trống trở lại, không có cảnh báo nào cho người dùng.
-7. Xác nhận qua source `frontend-web/src/pages/ProductDetail.jsx` dòng 21-31 (`handleAddToCart`): có biến `clickCount` khiến lần bấm đầu tiên luôn `return` mà không làm gì; và `frontend-web/src/context/CartContext.jsx`: giỏ hàng chỉ là `useState([])` thuần React, không gọi API, không lưu `localStorage` — mất hoàn toàn khi component/app unmount.
-8. Xác nhận qua `frontend-web/src/App.jsx`: link "Giỏ hàng" không có badge số lượng ở bất kỳ đâu trong code.
-9. Xác nhận qua `CartContext.jsx` hàm `addToCart`: luôn `setCart([...cart, {...product, quantity}])` — thêm dòng mới thay vì cộng dồn số lượng nếu sản phẩm đã có trong giỏ.
+7. Lặp lại quy trình bấm 1 lần / 2 lần liên tiếp trên nhiều sản phẩm khác nhau: xác nhận đây là hành vi nhất quán, có quy luật rõ ràng (luôn là lần bấm thứ hai mới có tác dụng, không phải ngẫu nhiên). Kiểm tra tab Application (DevTools) → Local Storage: rỗng, xác nhận giỏ hàng không được lưu bền vững ở bất kỳ đâu ngoài bộ nhớ tạm của trang.
+8. Rà soát navbar ở mọi trạng thái giỏ hàng (0, 1, 2+ sản phẩm) trên toàn bộ các trang — không phát hiện badge số lượng xuất hiện ở bất kỳ đâu cạnh link "Giỏ hàng".
+9. Thêm cùng một sản phẩm hai lần liên tiếp (đã bấm đủ số lần cần thiết cho mỗi lần) rồi vào trang Giỏ hàng — quan sát 2 dòng riêng biệt cùng sản phẩm thay vì 1 dòng đã cộng dồn số lượng.
 
 ## Expected result
 - Mỗi lần bấm "Thêm vào giỏ hàng" (kể cả lần đầu) phải thêm đúng sản phẩm vào giỏ và hiển thị phản hồi trực quan ngay lập tức (toast và/hoặc badge số lượng cập nhật) — theo FR-06/FR-24.
@@ -45,13 +45,15 @@ Critical / P0
 ![BUG-IA04-PRODUCTDETAIL-001](screenshots/BUG-IA04-PRODUCTDETAIL-001.png)
 
 ## Cũng xác nhận trên Home Page
-Cùng root cause (`CartContext.jsx`) tái hiện trên trang chủ (GUI-068, GUI-076,
-GUI-077, GUI-081 trong `checklist/gui-checklist.md`), qua nút "Thêm vào giỏ"
-trên từng thẻ sản phẩm trong lưới:
+Cùng hành vi giỏ hàng (không toast/badge, không cộng dồn số lượng) tái hiện
+trên trang chủ (GUI-068, GUI-076, GUI-077, GUI-081 trong
+`checklist/gui-checklist.md`), qua nút "Thêm vào giỏ" trên từng thẻ sản
+phẩm trong lưới:
 - Không có toast/badge nào xuất hiện sau khi bấm (GUI-076/077) — khác với
-  Product Detail, ở đây nút hoạt động ngay từ **lần bấm đầu tiên** (Home.jsx
-  không có biến `clickCount` như `ProductDetail.jsx`), nhưng vẫn hoàn toàn
-  không có phản hồi trực quan nào.
+  Product Detail, ở đây nút hoạt động ngay từ **lần bấm đầu tiên** (xác nhận
+  qua thao tác thực tế: 1 lần bấm là đủ để sản phẩm xuất hiện trong giỏ,
+  không cần bấm lần hai như ở Product Detail), nhưng vẫn hoàn toàn không có
+  phản hồi trực quan nào tại thời điểm bấm.
 - Link "Giỏ hàng" trên navbar không có badge số lượng dù giỏ đã có 2 sản
   phẩm (GUI-068).
 - Thêm cùng sản phẩm (iPhone 15 Pro Max) hai lần từ trang chủ tạo ra 2 dòng

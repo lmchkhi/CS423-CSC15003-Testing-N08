@@ -28,8 +28,7 @@ Critical / P1
 
 ## Actual result
 - Sản phẩm với số lượng = 0 được thêm thành công vào giỏ hàng (dòng "Samsung Galaxy S24 Ultra — Số lượng: 0 — Thành tiền: 0 ₫"), không có bất kỳ thông báo lỗi nào.
-- Input số lượng không có thuộc tính `min`/`max`/`step` (`<input type="number" .../>` trống, xác nhận qua DOM và source `ProductDetail.jsx` dòng 56-61: `onChange={(e) => setQuantity(e.target.value)}`, không có validate).
-- Giá trị được đưa thẳng vào `addToCart(product, parseInt(quantity))` mà không qua bất kỳ điều kiện kiểm tra nào.
+- Input số lượng không có thuộc tính `min`/`max`/`step` nào (xác nhận qua kiểm tra thuộc tính DOM của `<input type="number">`) — nhập 0, số âm, hoặc để trống đều được chấp nhận và đưa thẳng vào giỏ hàng mà không qua bất kỳ điều kiện kiểm tra nào.
 - Nhãn "Số lượng:" không có dấu `*`.
 - Do đó nút submit không bao giờ bị disable và không có cơ chế validate on-blur/on-submit nào tồn tại.
 

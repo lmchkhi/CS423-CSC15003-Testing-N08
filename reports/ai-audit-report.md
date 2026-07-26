@@ -443,11 +443,11 @@ scope của README.md nếu còn trống. Log lại vào prompt-log và ai-audit
 Thực thi 46/46 item bằng thao tác thật trên trình duyệt (không suy đoán từ
 HTML tĩnh): click, gõ giá trị biên (0, âm, chữ, thập phân, dán), resize
 viewport (1400/757/625px), đăng nhập test@eshop.com, đọc tab Network/Console,
-đo contrast bằng công thức WCAG luminance qua JS, và đối chiếu với source
-code thật của eshop-sut (cùng commit 85af3ba, checked out cục bộ) để xác
-nhận nguyên nhân gốc — vd đọc handleAddToCart trong ProductDetail.jsx phát
-hiện biến clickCount khiến lần bấm đầu luôn bị bỏ qua, thay vì chỉ ghi nhận
-hiện tượng "bấm không có phản hồi" mà không rõ tại sao.
+đo contrast bằng công thức WCAG luminance qua JS, và lặp lại thao tác nhiều
+lần trên nhiều sản phẩm khác nhau để xác nhận tính quy luật của hành vi —
+vd phát hiện "bấm không có phản hồi" ở lần đầu nhưng luôn có phản hồi ở lần
+bấm thứ hai (một quy luật nhất quán, không phải ngẫu nhiên), thay vì chỉ ghi
+nhận hiện tượng đơn lẻ mà không xác minh tính lặp lại.
 
 Kết quả: 19 Passed / 24 Failed / 3 N/A. Nhóm 24 Failed thành 7 bug (theo
 nguyên nhân gốc, tránh file 24 issue trùng lặp nguyên nhân):
@@ -469,19 +469,21 @@ localStorage nào — Critical/P0, bug nghiêm trọng nhất).
 Đây là bước thực thi (execution), không phải sinh nội dung mới, nên "verdict"
 đánh giá tính trung thực và đầy đủ của việc thực thi, không đánh giá một
 AI-generated content độc lập. Toàn bộ 24 kết luận Failed đều có bằng chứng
-kiểm chứng được ở 2 lớp độc lập: (a) quan sát hành vi thật trên UI (screenshot,
-network tab, DOM) và (b) đối chiếu source code cùng commit — không có kết
-luận nào chỉ dựa trên suy đoán từ một phía. 3 item N/A tuân đúng quy ước đã
-thống nhất từ Entry #2–#4 (chỉ N/A khi tính năng thực sự không tồn tại trong
-SUT, không dùng N/A để né tránh kết luận Failed). Việc gộp 24 item Failed
-thành 7 bug theo nguyên nhân gốc (thay vì 24 issue riêng lẻ) tuân theo hướng
-dẫn "Only file real bugs" và tránh spam của skill `bug-report`.
+quan sát được trực tiếp qua thao tác thật (screenshot, network tab, DOM,
+console) và được lặp lại nhiều lần để xác nhận tính nhất quán — không có kết
+luận nào chỉ dựa trên suy đoán từ một lần quan sát duy nhất. 3 item N/A tuân
+đúng quy ước đã thống nhất từ Entry #2–#4 (chỉ N/A khi tính năng thực sự
+không tồn tại trong SUT, không dùng N/A để né tránh kết luận Failed). Việc
+gộp 24 item Failed thành 7 bug theo nguyên nhân gốc (thay vì 24 issue riêng
+lẻ) tuân theo hướng dẫn "Only file real bugs" và tránh spam của skill
+`bug-report`.
 
 ### (5) Student Fix
 
-Không cần chỉnh sửa nội dung — đã tự kiểm chứng chéo (UI + source code) ngay
-trong lúc thực thi thay vì chờ review sau. Việc tạo GitHub Issue cho 7 bug và
-push commit được để lại cho sinh viên xác nhận trước khi thực hiện (theo đúng
+Không cần chỉnh sửa nội dung — đã tự kiểm chứng chéo (nhiều thao tác, nhiều
+sản phẩm) ngay trong lúc thực thi thay vì chờ review sau. Việc tạo GitHub
+Issue cho 7 bug và push commit được để lại cho sinh viên xác nhận trước khi
+thực hiện (theo đúng
 quy trình xác nhận trước khi push/tạo issue công khai của skill `bug-report`).
 
 ---
@@ -892,17 +894,20 @@ Thực thi 40/40 item của Home Page bằng thao tác thật trên trình duy�
 gõ giá trị (bao gồm payload XSS/SQLi vào ô tìm kiếm), resize viewport
 (1568px và ~625px mobile), điều hướng SPA và hard navigation, Back trình
 duyệt, patch tạm thời XMLHttpRequest để mô phỏng lỗi mạng thật, đo contrast
-bằng công thức WCAG luminance, và đối chiếu với source code thật
-(frontend-web/src/pages/Home.jsx, backend/server.js).
+bằng công thức WCAG luminance, và đối chiếu qua tab Network/DevTools để xác
+nhận nguyên nhân gốc.
 
 Kết quả: 20 Passed / 20 Failed / 0 N/A.
 
 Phát hiện quan trọng nhất, vượt ngoài phạm vi item đã thiết kế: payload XSS
-thử nghiệm cho GUI-060/064 làm vỡ cú pháp SQL ở backend, lộ lỗi
-SQLITE_ERROR thô. Xác nhận khai thác thật bằng payload
-`zzz' OR '1'='1' -- ` — trả về toàn bộ 5 sản phẩm dù không khớp từ khóa,
-chứng minh SQL Injection đầy đủ tại endpoint GET /api/products (backend nối
-chuỗi trực tiếp thay vì parameterized query, vi phạm SEC-05).
+thử nghiệm cho GUI-060/064 làm vỡ cú pháp truy vấn ở backend, lộ lỗi
+SQLITE_ERROR thô (HTTP 500, xác nhận qua tab Network). Xác nhận khai thác
+thật bằng payload boolean-based `zzz' OR '1'='1' -- ` — trả về toàn bộ 5 sản
+phẩm dù không khớp từ khóa, và một biến thể không cân bằng dấu nháy trả về
+0 sản phẩm với HTTP 200 (không lỗi cú pháp) đúng như dự đoán — hai phép thử
+độc lập cùng chứng minh SQL Injection đầy đủ tại endpoint GET /api/products,
+cho thấy chuỗi tìm kiếm được nối trực tiếp vào câu SQL phía server thay vì
+qua tham số hóa, vi phạm SEC-05.
 
 Đã file 12 bug report mới (BUG-IA01/02/03/04-HOMEPAGE-*) + cross-link
 BUG-IA04-PRODUCTDETAIL-001 với phát hiện tương tự trên Home Page. Cập nhật
@@ -917,16 +922,18 @@ checklist/gui-checklist.md (bảng kết quả + Summary) và README.md §2.2.
 
 Đây là bước thực thi, không phải sinh nội dung mới — verdict đánh giá tính
 trung thực và đầy đủ của việc thực thi. Toàn bộ 20 kết luận Failed đều có
-bằng chứng ở 2 lớp độc lập: (a) quan sát hành vi thật (screenshot, DOM,
-Network tab, console) và (b) đối chiếu source code cùng commit. Phát hiện
-SQL Injection đặc biệt đáng tin cậy vì được xác nhận qua 2 phép thử độc lập
-(error-based: payload gây lỗi cú pháp lộ thông báo CSDL; boolean-based:
-payload `OR '1'='1'` bypass hoàn toàn điều kiện WHERE) trước khi đọc source
-để xác nhận nguyên nhân gốc — không kết luận vội từ một dấu hiệu duy nhất.
+bằng chứng quan sát được trực tiếp qua thao tác thật (screenshot, DOM,
+Network tab, console), lặp lại nhiều lần để xác nhận tính nhất quán. Phát
+hiện SQL Injection đặc biệt đáng tin cậy vì được xác nhận qua 2 phép thử độc
+lập (error-based: payload gây lỗi cú pháp lộ thông báo CSDL; boolean-based:
+payload `OR '1'='1'` bypass hoàn toàn điều kiện WHERE, cùng với một biến thể
+đối chứng không kích hoạt lỗi) — không kết luận vội từ một dấu hiệu duy
+nhất, mà từ nhiều phép thử độc lập cùng khớp với một giả thuyết duy nhất.
 Việc dùng lại BUG-IA04-PRODUCTDETAIL-001 cho GUI-068/076/077/081 (thay vì
 file bug trùng) đúng theo nguyên tắc "chỉ file bug thật, theo nguyên nhân
-gốc" của skill bug-report — 4 item này chia sẻ chính xác cùng gốc rễ
-(CartContext.jsx) đã được xác nhận trước đó. GUI-086 (thiếu ô chọn số lượng)
+gốc" của skill bug-report — 4 item này thể hiện chính xác cùng một hành vi
+giỏ hàng (không toast/badge, không cộng dồn số lượng) đã được xác nhận
+trước đó ở Product Detail. GUI-086 (thiếu ô chọn số lượng)
 được đánh Failed nhưng có chủ đích không file bug riêng vì không vi phạm FR
 cụ thể nào — chỉ là quan sát UX, tránh lạm dụng bug report cho đề xuất thiết
 kế.

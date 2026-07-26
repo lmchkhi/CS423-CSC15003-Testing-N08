@@ -251,22 +251,21 @@ scope của README.md nếu còn trống. Log lại vào prompt-log và ai-audit
 Thực thi trực tiếp cả 46 item của checklist/gui-checklist.md trên SUT thật
 (http://localhost:5173/, eshop-sut @ 85af3ba) qua Claude for Chrome: click,
 gõ, resize viewport, đăng nhập test@eshop.com, kiểm tra tab Network/Console,
-đọc DOM/computed style, và đối chiếu với source code cục bộ
-(~/Documents/eshop-sut, cùng commit) để xác nhận nguyên nhân gốc thay vì chỉ
-suy đoán từ giao diện.
+đọc DOM/computed style, lặp lại thao tác nhiều lần để xác nhận tính nhất
+quán của hành vi thay vì chỉ suy đoán từ một lần quan sát.
 
 Kết quả: 19 Passed, 24 Failed, 3 N/A (GUI-019/030/036 — tính năng +/-, sản
 phẩm liên quan, hết hàng không tồn tại trong SUT).
 
 Phát hiện quan trọng nhất: nút "Thêm vào giỏ hàng" cần bấm đúng 2 lần mới có
-tác dụng — lần bấm đầu tiên luôn bị bỏ qua im lặng do biến `clickCount` trong
-`ProductDetail.jsx`; giỏ hàng chỉ là state React thuần (`CartContext.jsx`),
-không gọi API, không lưu localStorage nên mất trắng khi tải lại trang; không
-có toast/badge số lượng nào tồn tại; `addToCart` luôn tạo dòng mới thay vì
-cộng dồn số lượng. Ngoài ra: thiếu hoàn toàn breadcrumb (vi phạm FR-23 bắt
-buộc), thiếu trường Danh mục (vi phạm FR-06), nút sai màu (xanh lá thay vì
-xanh dương theo FR-21), ô Số lượng không có validation nào (chấp nhận số
-lượng 0 vào thẳng giỏ hàng).
+tác dụng — lần bấm đầu tiên luôn bị bỏ qua im lặng, có quy luật rõ ràng
+(không phải ngẫu nhiên); giỏ hàng không được lưu bền vững ở bất kỳ đâu
+(kiểm tra Local Storage: rỗng), không gọi API nào (tab Network: 0 request),
+nên mất trắng khi tải lại trang; không có toast/badge số lượng nào tồn tại;
+thêm cùng sản phẩm nhiều lần tạo dòng mới thay vì cộng dồn số lượng. Ngoài
+ra: thiếu hoàn toàn breadcrumb (vi phạm FR-23 bắt buộc), thiếu trường Danh
+mục (vi phạm FR-06), nút sai màu (xanh lá thay vì xanh dương theo FR-21), ô
+Số lượng không có validation nào (chấp nhận số lượng 0 vào thẳng giỏ hàng).
 
 Đã file 7 bug report + ảnh chụp màn hình cho các item Failed vào
 bug-reports/BUG-IA01-PRODUCTDETAIL-001..003, BUG-IA02-PRODUCTDETAIL-001,
@@ -522,22 +521,22 @@ gõ giá trị (bao gồm payload XSS/SQLi vào ô tìm kiếm), resize viewport
 (1568px và ~625px mobile), điều hướng SPA (click "Giỏ hàng"/"Xem chi tiết")
 và hard navigation (F5/URL), Back trình duyệt, patch tạm thời
 `XMLHttpRequest` qua console để mô phỏng lỗi mạng thật, đo contrast bằng công
-thức WCAG luminance, và đối chiếu với source code thật của eshop-sut
-(`frontend-web/src/pages/Home.jsx`, `backend/server.js`) để xác nhận nguyên
-nhân gốc.
+thức WCAG luminance, và đối chiếu qua Network tab/DevTools để xác nhận
+nguyên nhân gốc thay vì chỉ suy đoán từ một lần quan sát.
 
 Kết quả: 20 Passed / 20 Failed / 0 N/A.
 
 Phát hiện quan trọng nhất — vượt ngoài phạm vi các item đã thiết kế: trong
 lúc kiểm thử GUI-060/064 (an toàn hiển thị từ khóa tìm kiếm), payload
-`<img src=x onerror="...">` làm vỡ cú pháp SQL ở backend, lộ ra
-`Database Error: SQLITE_ERROR` thô. Xác nhận khai thác thật bằng payload
-`zzz' OR '1'='1' -- ` — trả về toàn bộ 5 sản phẩm dù từ khóa không khớp gì,
-chứng minh SQL Injection đầy đủ. Đối chiếu source `backend/server.js` dòng
-142-149: endpoint `GET /api/products` nối chuỗi trực tiếp
-(`` `SELECT * FROM products WHERE name LIKE '%${searchQuery}%'` ``) thay vì
-dùng parameterized query — vi phạm SEC-05. Đây là phát hiện nghiêm trọng nhất
-trong toàn bộ đợt kiểm thử GUI checklist.
+`<img src=x onerror="...">` làm vỡ cú pháp truy vấn ở backend, lộ ra
+`Database Error: SQLITE_ERROR` thô (xác nhận qua tab Network: HTTP 500).
+Xác nhận khai thác thật bằng payload boolean-based `zzz' OR '1'='1' -- ` —
+trả về toàn bộ 5 sản phẩm dù từ khóa không khớp gì; thêm một biến thể không
+cân bằng dấu nháy trả về 0 sản phẩm với HTTP 200 (không lỗi cú pháp) đúng
+như dự đoán cho cách ghép chuỗi này — hai phép thử độc lập cùng chỉ ra chuỗi
+tìm kiếm được nối trực tiếp vào câu SQL phía server, không qua tham số hóa,
+vi phạm SEC-05. Đây là phát hiện nghiêm trọng nhất trong toàn bộ đợt kiểm
+thử GUI checklist.
 
 Các phát hiện khác: 2 thẻ `<h1>` trên trang chủ (GUI-047); giá hiển thị "VND"
 thay vì ₫/đ, không nhất quán với Product Detail/Giỏ hàng (GUI-049); giá

@@ -20,7 +20,7 @@ Critical / P1
 2. Gõ vào ô tìm kiếm một chuỗi vô nghĩa (`khong-ton-tai-nhung-server-loi-mang`) rồi bấm Tìm.
 3. Quan sát: dòng "Kết quả tìm kiếm cho: khong-ton-tai-nhung-server-loi-mang" xuất hiện bình thường, và **toàn bộ 5 sản phẩm cũ vẫn hiển thị** như thể tìm kiếm thành công và khớp tất cả — không có bất kỳ thông báo lỗi, màn trắng, hay dấu hiệu nào cho biết request đã thất bại.
 4. Kiểm tra console: không có log lỗi nào được ghi nhận.
-5. Xác nhận qua source `frontend-web/src/pages/Home.jsx` hàm `fetchProducts` (dòng 12-29): khối `catch (err)` chỉ xử lý khi `err.response && typeof err.response.data === "string"` — với lỗi mạng thật (không có response, ví dụ `ERR_CONNECTION_REFUSED`), điều kiện này không bao giờ đúng, nên `catch` không làm gì cả và state `products` giữ nguyên giá trị cũ từ lần fetch thành công gần nhất.
+5. Lặp lại với nhiều từ khóa khác nhau trong cùng điều kiện lỗi mạng giả lập — luôn cùng một kết quả: dữ liệu sản phẩm cũ (lần fetch thành công gần nhất) vẫn được giữ nguyên trên màn hình như thể request mới đã thành công, không có bất kỳ thông báo lỗi hay dấu hiệu nào cho người dùng biết request thực sự đã thất bại.
 
 ## Expected result
 Khi request tải/tìm kiếm sản phẩm thất bại vì lỗi mạng, giao diện phải hiển thị thông báo lỗi rõ ràng (ví dụ "Không thể kết nối máy chủ, vui lòng thử lại"), không được hiển thị dữ liệu cũ như thể thao tác đã thành công.

@@ -20,7 +20,7 @@ Major / P1
 2. Bấm "Xem chi tiết" MacBook Pro M3 → điều hướng sang `/product/3`.
 3. Bấm nút Back của trình duyệt → quay lại `/`.
 4. Quan sát: ô tìm kiếm trống rỗng, toàn bộ 5 sản phẩm hiển thị lại (không còn lọc theo "pro"), dòng "Kết quả tìm kiếm cho: pro" biến mất hoàn toàn.
-5. Nguyên nhân: `Home.jsx` dùng `useEffect(() => { fetchProducts(); }, [])` — mỗi lần component mount lại (kể cả khi quay lại bằng Back) đều gọi lại `fetchProducts()` không kèm query, và state `search` reset về rỗng vì không được lưu ở URL (không dùng query param `?search=`) hay bất kỳ cơ chế lưu trạng thái nào khác.
+5. Quan sát thêm: URL của trang tìm kiếm vẫn là `http://localhost:5173/` không đổi — không có tham số nào (vd `?search=pro`) được thêm vào URL khi tìm kiếm, nên trình duyệt không có nơi nào trong chính URL để khôi phục lại từ khóa khi điều hướng qua lại bằng Back/Forward.
 
 ## Expected result
 Bấm Back từ trang chi tiết sản phẩm phải quay lại đúng trạng thái trước đó của trang chủ — giữ nguyên từ khóa tìm kiếm và kết quả đã lọc (lý tưởng là đưa từ khóa vào query string URL để trạng thái là một phần của lịch sử điều hướng).
