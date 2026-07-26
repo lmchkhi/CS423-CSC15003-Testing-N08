@@ -416,16 +416,86 @@ sót kịch bản slow-network riêng biệt với network-error.
 
 ---
 
+## Entry #6
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code + Claude for Chrome) |
+| **Timestamp**     | 6:10 PM 26/07/2026 |
+| **Artifact type** | Thực thi 46 item checklist trên SUT thật + 7 bug report (Product Detail) |
+
+**Full prompt:**
+```
+SUT chạy tại http://localhost:5173/, commit 85af3ba (repo eshop-sut). Claude
+for Chrome đã kết nối — tự mở Product Detail, thực thi toàn bộ item trong
+checklist/gui-checklist.md cho màn này, đánh dấu Passed/Failed dựa trên những
+gì bạn thấy thật trên trang, screenshot các item Failed, và file bug qua
+skill bug-report nếu có.
+Ghi "Build/commit tested" và "URL" thật (không phải placeholder) vào phần
+scope của README.md nếu còn trống. Log lại vào prompt-log và ai-audit-log.
+```
+
+### (2) AI Output
+
+```
+Thực thi 46/46 item bằng thao tác thật trên trình duyệt (không suy đoán từ
+HTML tĩnh): click, gõ giá trị biên (0, âm, chữ, thập phân, dán), resize
+viewport (1400/757/625px), đăng nhập test@eshop.com, đọc tab Network/Console,
+đo contrast bằng công thức WCAG luminance qua JS, và đối chiếu với source
+code thật của eshop-sut (cùng commit 85af3ba, checked out cục bộ) để xác
+nhận nguyên nhân gốc — vd đọc handleAddToCart trong ProductDetail.jsx phát
+hiện biến clickCount khiến lần bấm đầu luôn bị bỏ qua, thay vì chỉ ghi nhận
+hiện tượng "bấm không có phản hồi" mà không rõ tại sao.
+
+Kết quả: 19 Passed / 24 Failed / 3 N/A. Nhóm 24 Failed thành 7 bug (theo
+nguyên nhân gốc, tránh file 24 issue trùng lặp nguyên nhân):
+BUG-IA01-PRODUCTDETAIL-001 (màu nút sai FR-21), -002 (thiếu Danh mục FR-06),
+-003 (không skeleton ảnh); BUG-IA02-PRODUCTDETAIL-001 (ô Số lượng không
+validate, chấp nhận 0 vào giỏ — Critical); BUG-IA03-PRODUCTDETAIL-001 (thiếu
+breadcrumb bắt buộc theo FR-23), -002 (mất vị trí cuộn khi back);
+BUG-IA04-PRODUCTDETAIL-001 (nút Thêm vào giỏ cần bấm 2 lần, không toast/
+badge, không cộng dồn, giỏ hàng mất khi tải lại trang do không có API/
+localStorage nào — Critical/P0, bug nghiêm trọng nhất).
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là bước thực thi (execution), không phải sinh nội dung mới, nên "verdict"
+đánh giá tính trung thực và đầy đủ của việc thực thi, không đánh giá một
+AI-generated content độc lập. Toàn bộ 24 kết luận Failed đều có bằng chứng
+kiểm chứng được ở 2 lớp độc lập: (a) quan sát hành vi thật trên UI (screenshot,
+network tab, DOM) và (b) đối chiếu source code cùng commit — không có kết
+luận nào chỉ dựa trên suy đoán từ một phía. 3 item N/A tuân đúng quy ước đã
+thống nhất từ Entry #2–#4 (chỉ N/A khi tính năng thực sự không tồn tại trong
+SUT, không dùng N/A để né tránh kết luận Failed). Việc gộp 24 item Failed
+thành 7 bug theo nguyên nhân gốc (thay vì 24 issue riêng lẻ) tuân theo hướng
+dẫn "Only file real bugs" và tránh spam của skill `bug-report`.
+
+### (5) Student Fix
+
+Không cần chỉnh sửa nội dung — đã tự kiểm chứng chéo (UI + source code) ngay
+trong lúc thực thi thay vì chờ review sau. Việc tạo GitHub Issue cho 7 bug và
+push commit được để lại cho sinh viên xác nhận trước khi thực hiện (theo đúng
+quy trình xác nhận trước khi push/tạo issue công khai của skill `bug-report`).
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 5     | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 3     | 60%        |
+| **Tổng số artifact do AI tạo được audit**       | 6     | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 4     | 66.7%      |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 2   | 40%        |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 2   | 33.3%      |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 
