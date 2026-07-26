@@ -42,17 +42,21 @@
 
 | IA aspect | Designed | Executed | Passed | Failed |
 |---|---|---|---|---|
-| IA01 — General UI | 14 | 14 | 11 | 3 |
-| IA02 — Forms | 11 | 11 | 5 | 5 |
-| IA03 — Navigation | 10 | 10 | 2 | 7 |
-| IA04 — Feedback/state | 11 | 11 | 1 | 9 |
-| **Total** | **46** | **46** | **19** | **24** |
+| IA01 — General UI | 27 | 27 | 20 | 7 |
+| IA02 — Forms | 21 | 21 | 10 | 10 |
+| IA03 — Navigation | 19 | 19 | 7 | 11 |
+| IA04 — Feedback/state | 19 | 19 | 2 | 16 |
+| **Total** | **86** | **86** | **39** | **44** |
 
 > Chưa tính 3 item `N/A` (GUI-019, GUI-030, GUI-036 — tính năng không tồn tại
-> trong SUT). Xem `checklist/gui-checklist.md` để biết chi tiết từng item và
-> `bug-reports/` cho 7 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
+> trong SUT). Covers Product Detail (GUI-001–046) and Home Page (GUI-047–086).
+> Xem `checklist/gui-checklist.md` để biết chi tiết từng item và
+> `bug-reports/` cho 19 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
 > BUG-IA02-PRODUCTDETAIL-001, BUG-IA03-PRODUCTDETAIL-001..002,
-> BUG-IA04-PRODUCTDETAIL-001).
+> BUG-IA04-PRODUCTDETAIL-001, BUG-IA01-HOMEPAGE-001..003,
+> BUG-IA02-HOMEPAGE-001..003, BUG-IA03-HOMEPAGE-001..003,
+> BUG-IA04-HOMEPAGE-001..003). Most severe: `BUG-IA02-HOMEPAGE-003` — SQL
+> Injection in the product search API.
 
 > Full table: `checklist/gui-checklist.md` / `checklist/gui-checklist.xlsx`.
 
