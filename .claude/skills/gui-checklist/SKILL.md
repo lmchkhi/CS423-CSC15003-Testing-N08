@@ -5,6 +5,15 @@ description: Run HW03 Task 1 end to end — design a 40+ item GUI checklist cove
 
 # GUI Checklist (HW03 Task 1)
 
+**Language: every file this skill writes (`checklist/gui-checklist.md`,
+`ai-gap-analysis/*.md`, the Task 1 section of `reports/main-report.md`) must
+be natural, fluent Vietnamese — checklist item text, gap-analysis reasoning,
+notes, everything. Only keep jargon in English: IA01–IA04 codes, field/column
+names that are schema (`Source`, `Result`, `Bug ID`), and UI/technical terms
+with no natural Vietnamese equivalent (e.g. "skeleton state", "touch target").
+Checklist items you draft or ask the AI to draft should read as something a
+Vietnamese tester would actually write, not a translated English sentence.**
+
 Guides the AI through the checklist technique step by step, the way it's
 taught — not a single "generate a GUI checklist" prompt. Output lands in
 `checklist/gui-checklist.md` (the working table) which the student exports to

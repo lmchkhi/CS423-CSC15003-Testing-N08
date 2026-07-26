@@ -5,6 +5,16 @@ description: Run HW03 Task 2 end to end — plan a moderated usability study of 
 
 # Usability Evaluation (HW03 Task 2)
 
+**Language: every file this skill writes under `usability/` (plan, session
+notes, analysis, roll-up) must be natural, fluent Vietnamese — objectives,
+scenario text, observation notes, probe answers, synthesis, everything except
+proper nouns the participant actually said in another language. Only keep
+jargon in English: SUS/UEQ-S, instrument item names, and field labels that
+are fixed schema (`Date/time`, `Consent to record`). Session-script spoken
+lines should already be in Vietnamese since sessions run with Vietnamese
+participants — do not draft them in English and expect the student to
+translate live.**
+
 Three phases, matching the spec exactly. Output lives under `usability/`.
 This task is worth 40/100 and is the one with explicit anti-cheat
 constraints — treat the participant list and session data as ground truth
@@ -73,25 +83,25 @@ real — clearly-marked TODO placeholders are fine, fake-looking data is not.
 For each of the 7 sessions, create `usability/sessions/session-0N.md`:
 
 ```markdown
-# Session 0N — Participant #N
+# Session 0N — Người tham gia #N
 
-- **Date/time**:
-- **Consent to record**: Yes/No
-- **Task start / end time**, **task success**: Y/N/Partial
+- **Ngày/giờ**:
+- **Đồng ý ghi hình (Consent to record)**: Yes/No
+- **Giờ bắt đầu/kết thúc task**, **kết quả task (task success)**: Y/N/Partial
 
-## Observation notes (structured, captured live)
-| Time | Step in flow | Observation (friction/error/hesitation/quote) |
+## Ghi chú quan sát (structured, ghi trực tiếp trong lúc test)
+| Thời điểm | Bước trong flow | Quan sát (khó khăn/lỗi/do dự/câu nói của người dùng) |
 |---|---|---|
 
-## SUS / UEQ-S responses
-<raw per-item scores, not just the computed total — needed for Phase 3>
+## Kết quả SUS / UEQ-S
+<điểm từng câu, không chỉ điểm tổng — cần cho Phase 3>
 
-## Probe question answers
-- Clarity:
-- Error recovery:
-- Speed:
-- Trust:
-- (any flow-specific probes)
+## Trả lời câu hỏi probe
+- Độ rõ ràng (Clarity):
+- Khả năng phục hồi sau lỗi (Error recovery):
+- Tốc độ (Speed):
+- Độ tin cậy (Trust):
+- (các câu probe riêng cho flow này, nếu có)
 ```
 
 Follow `usability/session-script.md` verbatim for the spoken parts (set the

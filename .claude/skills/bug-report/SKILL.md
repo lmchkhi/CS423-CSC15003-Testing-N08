@@ -5,6 +5,16 @@ description: File a bug found during HW03 GUI-checklist execution, usability ses
 
 # Bug Report
 
+**Language: section headers (`Found by Test Case`, `Severity / Priority`,
+etc.) stay in English exactly as in
+`.github/ISSUE_TEMPLATE/bug-report-template.md` — do not translate them, the
+grader/GitHub matches on these literally. Everything you write *inside* those
+sections (steps to reproduce, expected/actual result, title, notes) must be
+natural, fluent Vietnamese — the repo's own template already models this
+(see its Vietnamese example under "Steps to reproduce"). Only keep jargon in
+English: IDs (`BUG-...`, `GUI-...`), severity labels (`Critical`/`Major`/
+`Minor`/`Trivial`), browser/OS/device names.**
+
 Shared utility invoked by `gui-checklist`, `usability-evaluation`, and
 `cross-platform-testing`. Produces one bug both as a Markdown file (for the
 main report) and as a GitHub Issue (required by HW03 §6 — "Report all

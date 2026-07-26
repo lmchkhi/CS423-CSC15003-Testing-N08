@@ -5,6 +5,14 @@ description: Run HW03 Task 3 end to end — plan and record a >=3-platform cross
 
 # Cross-Browser / Cross-Platform (HW03 Task 3)
 
+**Language: every file this skill writes (`cross-platform/report.md`, the
+Task 3 section of `reports/main-report.md`) must be natural, fluent
+Vietnamese — notes, descriptions of rendering issues, everything. Only keep
+jargon in English: browser/OS/device names, column names that are fixed
+schema (`Platform`, `Result`), and CSS/rendering terms with no natural
+Vietnamese equivalent. The username watermark stamped on screenshots stays
+as literally specified (`StudentID@hcmus.edu.vn`) — do not translate it.**
+
 Output lives in `cross-platform/report.md` (results table) and
 `cross-platform/screenshots/` (stamped evidence). Needs at least 3 platforms;
 BrowserStack/LambdaTest strongly preferred over local browsers because they
