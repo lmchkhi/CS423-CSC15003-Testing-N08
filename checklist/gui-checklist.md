@@ -53,6 +53,7 @@ covering all of IA01–IA04. `Source` = `AI` or `Human`. Screenshots only for
 | GUI-043 | IA02 | Product Detail | Ô nhập Số lượng và nút "Thêm vào giỏ hàng" tiếp cận được và thao tác được hoàn toàn bằng bàn phím (Tab tới ô, gõ số, Tab tới nút, Enter/Space để submit), có focus ring rõ ràng ở cả hai | Human | Not Run | | | |
 | GUI-044 | IA04 | Product Detail | Nếu phiên đăng nhập hết hạn ngay khi người dùng bấm "Thêm vào giỏ hàng", hệ thống hiển thị thông báo yêu cầu đăng nhập lại rõ ràng, không âm thầm redirect về trang đăng nhập không giải thích | Human | Not Run | | | |
 | GUI-045 | IA01 | Product Detail | Tên sản phẩm, mô tả và tên danh mục có dấu tiếng Việt (ví dụ: "Bàn phím cơ", "Tai nghe không dây") hiển thị đúng font, không bị vỡ dấu, mất dấu, hoặc hiển thị ô vuông thay ký tự | Human | Not Run | | | |
+| GUI-046 | IA04 | Product Detail | Khi mạng chậm (throttle 3G) lúc bấm "Thêm vào giỏ hàng", không bị treo spinner vô thời hạn — có timeout và thông báo lỗi rõ ràng nếu request quá lâu, thay vì im lặng chờ mãi | Human | Not Run | | | |
 
 ## Summary
 

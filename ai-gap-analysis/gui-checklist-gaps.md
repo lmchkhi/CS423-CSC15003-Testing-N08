@@ -71,3 +71,22 @@ prompt sent — see `.claude/skills/gui-checklist/SKILL.md` Phase C.
 - **Added by**: Hà Bảo Ngọc (23127300)
 
 ---
+
+## Item GUI-046: Phản hồi khi mạng chậm lúc bấm Thêm vào giỏ hàng
+
+- **AI prompt that should have surfaced this**: prompt IA04 (Entry #4) có
+  item "nếu thêm vào giỏ hàng thất bại (lỗi mạng, lỗi server), hiển thị
+  thông báo lỗi cụ thể" — nhưng item đó chỉ nói tới trường hợp request đã
+  *thất bại hẳn*, không nói tới trường hợp mạng chậm khiến request treo lâu
+  mà chưa thất bại/thành công (infinite-spinner scenario).
+- **Why the AI missed it**: Lỗi phạm vi prompt — "lỗi mạng" trong output AI
+  ngầm hiểu là network error (request fail hẳn, có response lỗi), không bao
+  quát trường hợp slow-network (request vẫn đang chạy nhưng rất chậm, chưa
+  có response). Đây là 2 kịch bản khác nhau về mặt kiểm thử: một cái test
+  UI khi có lỗi, một cái test UI khi *chưa* có lỗi nhưng thời gian chờ vượt
+  ngưỡng chấp nhận được — sub-topic "network-offline/slow-network feedback,
+  no infinite spinners" được liệt kê riêng trong `ia-seed-categories.md`
+  mục IA04 mà AI không tự tách ra khỏi item lỗi mạng chung.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---
