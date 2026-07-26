@@ -347,16 +347,85 @@ chế này, đánh N/A tương tự cách xử lý item "sản phẩm liên quan
 
 ---
 
+## Entry #5
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 5:25 PM 26/07/2026 |
+| **Artifact type** | Gap-analysis review — 1 item mới (GUI-046) + xác nhận 3 gap trước đã đủ (Product Detail) |
+
+**Full prompt:**
+
+```
+Review các item AI vừa tạo cho Product Detail, tìm gap AI bỏ sót
+(accessibility, dark mode, định dạng ₫/VN, offline/slow-network...), ghi lý
+do vào ai-gap-analysis, log vào prompt-log và ai-audit-log.
+```
+
+### (2) AI Output
+
+```
+Rà soát 41 item AI-generated (GUI-001–041, batch Entry #1-#4) đối chiếu với
+ia-seed-categories.md mục "Commonly AI-missed" và các sub-topic IA01-IA04
+chuẩn. Kết quả: 3 gap đã được thêm ở lượt review trước (GUI-042 dark mode,
+GUI-043 keyboard-only cho ô Số lượng/nút submit, GUI-045 dấu tiếng Việt) cộng
+GUI-044 (session/auth expiry). Rà lại theo đúng 4 khía cạnh user yêu cầu lần
+này (accessibility, dark mode, định dạng ₫/VN, offline/slow-network):
+
+- accessibility (alt text, keyboard, contrast): đã có GUI-010 (contrast, AI),
+  GUI-031 (keyboard cho link, AI), GUI-035 (alt text, AI), GUI-043 (keyboard
+  cho form control, Human) — đủ, không cần thêm.
+- dark mode: đã có GUI-042 (Human) từ lượt trước — đủ.
+- định dạng ₫/VN: đã có GUI-003 (₫ formatting, AI), GUI-045 (dấu tiếng Việt,
+  Human) — đủ.
+- offline/slow-network: GUI-038 (AI) chỉ nói "lỗi mạng, lỗi server" tức
+  network error đã xảy ra hẳn — CHƯA có item cho kịch bản mạng CHẬM (request
+  treo lâu, chưa fail hẳn, nguy cơ infinite spinner). Đây là gap thật, thêm
+  GUI-046: "Khi mạng chậm (throttle 3G) lúc bấm Thêm vào giỏ hàng, không bị
+  treo spinner vô thời hạn — có timeout và thông báo lỗi rõ ràng nếu request
+  quá lâu."
+
+Đã ghi lý do gap GUI-046 vào ai-gap-analysis/gui-checklist-gaps.md, thêm dòng
+GUI-046 (Source=Human) vào checklist/gui-checklist.md.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là bước review chứ không phải generate mới, nên "verdict" ở đây đánh giá
+tính đầy đủ của việc rà soát chứ không đánh giá một AI-output độc lập. Rà lại
+thủ công cho thấy phân loại đúng: 3/4 khía cạnh user nêu (accessibility, dark
+mode, ₫/VN formatting) đã được phủ bởi các item có sẵn từ Entry #1-#4 cộng gap
+đã thêm trước đó (GUI-042/043/045), không cần thêm trùng lặp. Khía cạnh còn
+lại (offline/slow-network) đúng là một gap thật: GUI-038 chỉ cover network
+error đã xảy ra, không cover slow-network/treo spinner — đây là 2 test
+scenario khác nhau theo đúng phân loại của `ia-seed-categories.md`, nên việc
+thêm GUI-046 là hợp lý, không phải thêm cho đủ số lượng.
+
+### (5) Student Fix
+
+Thêm GUI-046 vào `checklist/gui-checklist.md` (Source=Human, IA04) và entry
+tương ứng vào `ai-gap-analysis/gui-checklist-gaps.md` giải thích lý do AI bỏ
+sót kịch bản slow-network riêng biệt với network-error.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 4     | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 2     | 50%        |
+| **Tổng số artifact do AI tạo được audit**       | 5     | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 3     | 60%        |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 2   | 50%        |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 2   | 40%        |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 
