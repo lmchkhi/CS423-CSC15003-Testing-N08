@@ -502,3 +502,61 @@ Home Page); cột Executed/Passed/Failed giữ nguyên vì Home Page chưa thự
 ```
 
 ---
+
+## [12] Claude (Sonnet 5, Claude Code + Claude for Chrome) — 8:16 PM 26/07/2026
+
+**Prompt:**
+```
+SUT chạy tại http://localhost:5173/, commit 85af3ba (repo eshop-sut). Claude
+for Chrome đã kết nối — tự mở Home Page, thực thi toàn bộ 40 item
+(GUI-047–086) trong checklist/gui-checklist.md cho màn này, đánh dấu
+Passed/Failed dựa trên những gì bạn thấy thật trên trang, screenshot các item
+Failed, và file bug qua skill bug-report nếu có.
+Log lại vào prompt-log và ai-audit-log.
+```
+
+**Output:**
+```
+Thực thi 40/40 item của Home Page bằng thao tác thật trên trình duyệt: click,
+gõ giá trị (bao gồm payload XSS/SQLi vào ô tìm kiếm), resize viewport
+(1568px và ~625px mobile), điều hướng SPA (click "Giỏ hàng"/"Xem chi tiết")
+và hard navigation (F5/URL), Back trình duyệt, patch tạm thời
+`XMLHttpRequest` qua console để mô phỏng lỗi mạng thật, đo contrast bằng công
+thức WCAG luminance, và đối chiếu với source code thật của eshop-sut
+(`frontend-web/src/pages/Home.jsx`, `backend/server.js`) để xác nhận nguyên
+nhân gốc.
+
+Kết quả: 20 Passed / 20 Failed / 0 N/A.
+
+Phát hiện quan trọng nhất — vượt ngoài phạm vi các item đã thiết kế: trong
+lúc kiểm thử GUI-060/064 (an toàn hiển thị từ khóa tìm kiếm), payload
+`<img src=x onerror="...">` làm vỡ cú pháp SQL ở backend, lộ ra
+`Database Error: SQLITE_ERROR` thô. Xác nhận khai thác thật bằng payload
+`zzz' OR '1'='1' -- ` — trả về toàn bộ 5 sản phẩm dù từ khóa không khớp gì,
+chứng minh SQL Injection đầy đủ. Đối chiếu source `backend/server.js` dòng
+142-149: endpoint `GET /api/products` nối chuỗi trực tiếp
+(`` `SELECT * FROM products WHERE name LIKE '%${searchQuery}%'` ``) thay vì
+dùng parameterized query — vi phạm SEC-05. Đây là phát hiện nghiêm trọng nhất
+trong toàn bộ đợt kiểm thử GUI checklist.
+
+Các phát hiện khác: 2 thẻ `<h1>` trên trang chủ (GUI-047); giá hiển thị "VND"
+thay vì ₫/đ, không nhất quán với Product Detail/Giỏ hàng (GUI-049); giá
+sản phẩm không đạt contrast AA — 3.76:1 (GUI-056); không có bất kỳ trạng
+thái loading nào (GUI-058/063/080/082); ô tìm kiếm thiếu label thực sự
+(GUI-059); reflected XSS qua `dangerouslySetInnerHTML` (GUI-060/064); không
+có active-state trên Navbar (GUI-067); Back làm mất từ khóa tìm kiếm đã lọc
+(GUI-071); tap target mobile chỉ 36px (GUI-074); ảnh có `alt=""` rỗng
+(GUI-078); lỗi mạng thật bị nuốt âm thầm, giao diện hiện dữ liệu cũ như
+thành công (GUI-079) — mô phỏng bằng cách patch XMLHttpRequest để buộc
+request thất bại rồi quan sát UI không hề báo lỗi. Cùng root cause với
+BUG-IA04-PRODUCTDETAIL-001 (không badge/toast, không cộng dồn số lượng) tái
+hiện qua GUI-068/076/077/081 — tham chiếu lại bug cũ thay vì file trùng.
+
+Đã file 12 bug report mới (BUG-IA01-HOMEPAGE-001..003, BUG-IA02-HOMEPAGE-
+001..003, BUG-IA03-HOMEPAGE-001..003, BUG-IA04-HOMEPAGE-001..003) + cross-
+link BUG-IA04-PRODUCTDETAIL-001 với phát hiện trên Home Page — chưa tạo
+GitHub Issue (cần xác nhận từ sinh viên trước). Cập nhật đầy đủ bảng kết quả
+và Summary trong checklist/gui-checklist.md và §2.2 README.md.
+```
+
+---
