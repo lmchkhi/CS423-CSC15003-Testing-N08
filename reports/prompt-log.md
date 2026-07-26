@@ -195,3 +195,40 @@ Viết bằng tiếng Việt tự nhiên, như một tester Việt Nam thực s�
 ```
 
 ---
+
+## [5] Claude (Sonnet 5, Claude Code) — 5:25 PM 26/07/2026
+
+**Prompt:**
+```
+Review các item AI vừa tạo cho Product Detail, tìm gap AI bỏ sót
+(accessibility, dark mode, định dạng ₫/VN, offline/slow-network...), ghi lý
+do vào ai-gap-analysis, log vào prompt-log và ai-audit-log.
+```
+
+**Output:**
+```
+Rà soát 41 item AI-generated (GUI-001–041, batch Entry #1-#4) đối chiếu với
+ia-seed-categories.md mục "Commonly AI-missed" và các sub-topic IA01-IA04
+chuẩn. Kết quả: 3 gap đã được thêm ở lượt review trước (GUI-042 dark mode,
+GUI-043 keyboard-only cho ô Số lượng/nút submit, GUI-045 dấu tiếng Việt) cộng
+GUI-044 (session/auth expiry). Rà lại theo đúng 4 khía cạnh user yêu cầu lần
+này (accessibility, dark mode, định dạng ₫/VN, offline/slow-network):
+
+- accessibility (alt text, keyboard, contrast): đã có GUI-010 (contrast, AI),
+  GUI-031 (keyboard cho link, AI), GUI-035 (alt text, AI), GUI-043 (keyboard
+  cho form control, Human) — đủ, không cần thêm.
+- dark mode: đã có GUI-042 (Human) từ lượt trước — đủ.
+- định dạng ₫/VN: đã có GUI-003 (₫ formatting, AI), GUI-045 (dấu tiếng Việt,
+  Human) — đủ.
+- offline/slow-network: GUI-038 (AI) chỉ nói "lỗi mạng, lỗi server" tức
+  network error đã xảy ra hẳn — CHƯA có item cho kịch bản mạng CHẬM (request
+  treo lâu, chưa fail hẳn, nguy cơ infinite spinner). Đây là gap thật, thêm
+  GUI-046: "Khi mạng chậm (throttle 3G) lúc bấm Thêm vào giỏ hàng, không bị
+  treo spinner vô thời hạn — có timeout và thông báo lỗi rõ ràng nếu request
+  quá lâu."
+
+Đã ghi lý do gap GUI-046 vào ai-gap-analysis/gui-checklist-gaps.md, thêm dòng
+GUI-046 (Source=Human) vào checklist/gui-checklist.md.
+```
+
+---
