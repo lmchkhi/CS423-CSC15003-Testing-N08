@@ -1,36 +1,43 @@
 ## Participant table
 
-| ID | Relevant experience | Device/browser | Session date | Consent | Completion | Notes |
-|---|---|---|---|---|---|---|
-| P04 |  |  |  |  |  |  |
+| ID  | Relevant experience                                                           | Device/browser             | Session date          | Consent | Completion              | Notes                                                                            |
+| --- | ----------------------------------------------------------------------------- | -------------------------- | --------------------- | ------- | ----------------------- | -------------------------------------------------------------------------------- |
+| P04 | Đã từng trải nghiệm các sàn thương mại điện tử trước đây (Shopee, Lazada,...) | Laptop, Windows 10, Chrome | 10h01 ngày 26/07/2026 | Yes     | Hoàn thành có can thiệp | Đã xác minh danh tính người tham gia, thông tin liên hệ lưu riêng ngoài file này |
 
 ## Observation notes
 
-| Participant | Time | Participant action/quote | Observed UI/state | Outcome | Possible finding | Evidence ref |
-|---|---|---|---|---|---|---|
-| P04 |  |  |  |  |  |  |
+| Participant | Time             | Participant action/quote                                                                                                                             | Observed UI/state                                                                         | Outcome                        | Possible finding                                                                                                                   | Evidence ref |
+| ----------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| P04         | 10h01 26/07/2026 | "Nhận diện danh sách sản phẩm tại trang chính, lựa chọn tai nghe trong 5 sản phẩm, xem chi tiết, chỉnh số lượng thành 3, thêm vào giỏ hàng"          | Thao tác chỉnh số lượng và thêm giỏ diễn ra bình thường                                   | Hoàn thành độc lập             |                                                                                                                                    |              |
+| P04         | 10h02 26/07/2026 | "Vào giỏ hàng kiểm tra, xác nhận tai nghe đã tồn tại trong giỏ. Quay lại trang chủ, dùng thanh search để tìm bàn phím, xem chi tiết, chọn mua 6 cái" | Search hoạt động, tìm đúng sản phẩm mong muốn                                             | Hoàn thành độc lập             |                                                                                                                                    |              |
+| P04         | 10h02 26/07/2026 | "Vào lại giỏ hàng, xóa đi toàn bộ tai nghe đã thêm trước đó"                                                                                         | Sản phẩm bị xóa ngay lập tức khi bấm                                                      | Hoàn thành độc lập             | Xác nhận lại việc xóa không có bước xác nhận (khớp GUI-36)                                                                         |              |
+| P04         | 10h02 26/07/2026 | "Trở về trang chủ, chọn mua macbook, xem chi tiết, mua 9 cái. Sau đó quay lại giỏ hàng, xóa bàn phím đã thêm, tiến hành thanh toán macbook"          | Giỏ hàng cập nhật đúng sau khi xóa bàn phím, chỉ còn macbook                              | Hoàn thành độc lập             |                                                                                                                                    |              |
+| P04         | 10h02 26/07/2026 | "Tại trang thanh toán, nhập mã tự suy đoán là đúng nhưng kết quả sai"                                                                                | Hệ thống báo coupon không hợp lệ                                                          | Không hoàn thành (lần thử đầu) | Không có gợi ý mã nào trên UI, participant tự đoán dựa trên kinh nghiệm từ nền tảng khác                                           |              |
+| P04         | 10h02 26/07/2026 | "[Intervention] Participant hỏi mã tồn tại trên hệ thống → Facilitator cung cấp mã SAVE10"                                                           | Participant nhập SAVE10, áp dụng được, kiểm tra toàn bộ rồi xác nhận hoàn thành quy trình | Hoàn thành có can thiệp        | Xác nhận lại finding discoverability đã ghi ở các phiên trước; participant không báo cáo phát hiện vấn đề về cách tính toán của mã |              |
 
 ## Bộ 10 câu SUS
 
-| Câu | Phát biểu SUS | Điểm (1–5) |
-|---:|---|---:|
-| 1 | Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên. |  |
-| 2 | Tôi thấy hệ thống này phức tạp một cách không cần thiết. |  |
-| 3 | Tôi nghĩ hệ thống này dễ sử dụng. |  |
-| 4 | Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này. |  |
-| 5 | Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt. |  |
-| 6 | Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán. |  |
-| 7 | Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh. |  |
-| 8 | Tôi thấy hệ thống này rất rườm rà khi sử dụng. |  |
-| 9 | Tôi cảm thấy rất tự tin khi sử dụng hệ thống này. |  |
-| 10 | Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này. |  |
+| Câu | Phát biểu SUS                                                                                           | Điểm (1–5) |
+| --: | ------------------------------------------------------------------------------------------------------- | ---------: |
+|   1 | Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên.                                               |          4 |
+|   2 | Tôi thấy hệ thống này phức tạp một cách không cần thiết.                                                |          1 |
+|   3 | Tôi nghĩ hệ thống này dễ sử dụng.                                                                       |          5 |
+|   4 | Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này. |          1 |
+|   5 | Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt.                                  |          4 |
+|   6 | Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán.                                           |          1 |
+|   7 | Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh.                             |          5 |
+|   8 | Tôi thấy hệ thống này rất rườm rà khi sử dụng.                                                          |          1 |
+|   9 | Tôi cảm thấy rất tự tin khi sử dụng hệ thống này.                                                       |          4 |
+|  10 | Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này.                                |          1 |
+
+**SUS score:** 92.5/100
 
 ## Post-task probe questions
 
-| Participant | Khía cạnh | Câu hỏi | Câu trả lời |
-|---|---|---|---|
-| P04 | Clarity | Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn? |  |
-| P04 | Error recovery | Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống? |  |
-| P04 | Speed | Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao? |  |
-| P04 | Trust | Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán? |  |
-| P04 | Coupon discoverability | Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao? |  |
+| Participant | Khía cạnh              | Câu hỏi                                                                                                                           | Câu trả lời                                                                                                                                                                                                                                                                     |
+| ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P04         | Clarity                | Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn?                | "Rõ ràng: các giao diện xem chi tiết cũng như giỏ hàng hiển thị đủ nội dung cần thiết. Chưa rõ: không biết các mã giảm giá thật sự tồn tại trên hệ thống, gây do dự khi nhập."                                                                                                  |
+| P04         | Error recovery         | Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống? | "Theo thói quen, khi gặp kết quả không như mong đợi sẽ chọn phương án reload lại trang và chờ phản hồi."                                                                                                                                                                        |
+| P04         | Speed                  | Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao?                                                       | "Toàn bộ tốc độ dường như là chuẩn mực, phù hợp."                                                                                                                                                                                                                               |
+| P04         | Trust                  | Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán?                                | "Chưa có ngần ngại vì đã từng sử dụng các nền tảng tương tự trước đây."                                                                                                                                                                                                         |
+| P04         | Coupon discoverability | Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao?                                            | "Nhờ một mã tưởng như hợp lý nhưng khi nhập nhận kết quả sai, dẫn đến phải nhờ admin cung cấp mã hợp lệ trên hệ thống (SAVE10) mới sử dụng được. Đề xuất hệ thống nên bổ sung danh sách các mã tồn tại và còn sử dụng được để tránh gây hoang mang, do dự trong quá trình làm." |
