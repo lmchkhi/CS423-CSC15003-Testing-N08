@@ -90,3 +90,49 @@ prompt sent — see `.claude/skills/gui-checklist/SKILL.md` Phase C.
 - **Added by**: Hà Bảo Ngọc (23127300)
 
 ---
+
+## Item GUI-084: Độ tương phản ở dark mode trên lưới sản phẩm trang chủ
+
+- **AI prompt that should have surfaced this**: prompt IA01 cho Home Page yêu
+  cầu "color contrast (WCAG AA)" và "responsive layout" nhưng không nhắc
+  riêng dark mode — cùng dạng lỗi đã xảy ra ở GUI-042 (Product Detail).
+- **Why the AI missed it**: Lỗi phạm vi prompt (prompt scope) — tôi lại quên
+  đưa "dark mode" vào danh sách sub-topic IA01 khi soạn prompt cho Home Page,
+  dù đã biết đây là gap ở Product Detail. AI chỉ bám đúng các khía cạnh được
+  liệt kê trong prompt, không tự bổ sung thêm.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---
+
+## Item GUI-085: Tìm kiếm với từ khóa có dấu tiếng Việt
+
+- **AI prompt that should have surfaced this**: prompt IA02 cho Home Page có
+  yêu cầu kiểm tra ký tự đặc biệt/an toàn hiển thị từ khóa (XSS) nhưng không
+  yêu cầu kiểm tra riêng từ khóa có dấu tiếng Việt (diacritics) — cùng loại
+  gap đã xảy ra ở GUI-045 (Product Detail, tên/mô tả sản phẩm có dấu).
+- **Why the AI missed it**: Đặc thù giao diện EShop (interface-specific
+  trait) — SUT tiếng Việt nên tìm kiếm bằng từ khóa có dấu là thao tác người
+  dùng thật sự sẽ làm, nhưng AI được huấn luyện chủ yếu trên SUT tiếng Anh
+  nên không tự nghĩ ra rủi ro encoding riêng cho input tiếng Việt trong ô tìm
+  kiếm (khác với hiển thị tĩnh đã có ở GUI-045) dù `ia-seed-categories.md` đã
+  liệt kê "Vietnamese-specific: diacritics rendering in inputs/fonts".
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---
+
+## Item GUI-086: Không có cách chọn/xác nhận số lượng khi thêm từ trang chủ
+
+- **AI prompt that should have surfaced this**: không prompt nào trong 4
+  prompt IA01-IA04 cho Home Page yêu cầu kiểm tra việc trang chủ hoàn toàn
+  thiếu ô chọn số lượng trên thẻ sản phẩm (khác với Product Detail có ô Số
+  lượng theo FR-06) — prompt IA02 chỉ hỏi về ô tìm kiếm, không hỏi về hành vi
+  ẩn của nút "Thêm vào giỏ" trên từng thẻ.
+- **Why the AI missed it**: Giới hạn mô hình (model limitation) — AI chỉ trả
+  lời đúng phạm vi được hỏi (ô tìm kiếm) chứ không tự đặt câu hỏi ngược "nút
+  Thêm vào giỏ ở đây thiếu gì so với màn Product Detail". Đây là một khoảng
+  trống thiết kế implicit (default quantity = 1, không hiển thị/không cho
+  sửa) mà chỉ người kiểm thử tự đối chiếu hai màn hình với nhau mới nhận ra,
+  không phải thứ AI tự suy luận ra từ một prompt riêng lẻ về từng màn.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---

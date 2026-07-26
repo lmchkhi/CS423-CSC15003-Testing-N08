@@ -62,16 +62,61 @@ và `reports/ai-audit-report.md` Entry #2/#3/#4 về quy ước N/A này).
 | GUI-044 | IA04 | Product Detail | Nếu phiên đăng nhập hết hạn ngay khi người dùng bấm "Thêm vào giỏ hàng", hệ thống hiển thị thông báo yêu cầu đăng nhập lại rõ ràng, không âm thầm redirect về trang đăng nhập không giải thích | Human | Failed | Không thể xảy ra kịch bản này theo đúng nghĩa vì hành động thêm giỏ hàng không hề gọi API (không kiểm tra JWT/session ở bất kỳ đâu) — do đó không có đường xử lý hết phiên nào tồn tại, item không được thỏa mãn dù theo cách nào | checklist/screenshots/GUI-038-039-044-046-cart-lost-after-reload.png | BUG-IA04-PRODUCTDETAIL-001 |
 | GUI-045 | IA01 | Product Detail | Tên sản phẩm, mô tả và tên danh mục có dấu tiếng Việt (ví dụ: "Bàn phím cơ", "Tai nghe không dây") hiển thị đúng font, không bị vỡ dấu, mất dấu, hoặc hiển thị ô vuông thay ký tự | Human | Passed | Quan sát trực tiếp trên "Bàn phím cơ Keychron Q1", "Tai nghe AirPods Pro 2", "Điện thoại cao cấp của Apple" — toàn bộ dấu tiếng Việt hiển thị đúng, không vỡ font/tofu box (Danh mục thì không có trường nào để kiểm tra dấu — xem GUI-005) | | |
 | GUI-046 | IA04 | Product Detail | Khi mạng chậm (throttle 3G) lúc bấm "Thêm vào giỏ hàng", không bị treo spinner vô thời hạn — có timeout và thông báo lỗi rõ ràng nếu request quá lâu, thay vì im lặng chờ mãi | Human | Failed | Không có network request nào cho hành động này (xem GUI-038/039) nên không có gì để throttle/timeout — về mặt kỹ thuật "không treo spinner" là đúng, nhưng chỉ vì tính năng chưa từng thực sự tồn tại, không phải vì được xử lý tốt | | BUG-IA04-PRODUCTDETAIL-001 |
+| GUI-047 | IA01 | Home Page | Trang chủ có đúng 1 thẻ `<h1>` duy nhất mô tả nội dung trang, không có thẻ `<h1>` nào khác xuất hiện thêm ở bất kỳ đâu trên trang | AI | Not Run | | | |
+| GUI-048 | IA01 | Home Page | Toàn bộ nhãn, placeholder, nút bấm trên trang chủ đều dùng tiếng Việt, không sót chuỗi tiếng Anh chưa dịch | AI | Not Run | | | |
+| GUI-049 | IA01 | Home Page | Giá mỗi sản phẩm trong lưới hiển thị đúng ký hiệu ₫ và có dấu phân cách hàng nghìn (vd "30.000.000 ₫", không phải "30000000" hay đơn vị khác) | AI | Not Run | | | |
+| GUI-050 | IA01 | Home Page | Nút "Thêm vào giỏ" trên từng thẻ sản phẩm dùng màu xanh dương (màu hành động tích cực), không trùng màu với nút nguy hiểm/hủy | AI | Not Run | | | |
+| GUI-051 | IA01 | Home Page | Mỗi thẻ sản phẩm trong lưới hiển thị đủ Ảnh, Tên, Giá — không thiếu trường nào so với yêu cầu | AI | Not Run | | | |
+| GUI-052 | IA01 | Home Page | Ảnh sản phẩm trong lưới giữ đúng tỷ lệ khung hình chuẩn, không bị méo hoặc kéo giãn khi hiển thị | AI | Not Run | | | |
+| GUI-053 | IA01 | Home Page | Tên sản phẩm dài (>60 ký tự) không làm vỡ layout thẻ sản phẩm — có truncate hoặc wrap hợp lý, không tràn ra ngoài khung hoặc đè lên thẻ bên cạnh | AI | Not Run | | | |
+| GUI-054 | IA01 | Home Page | Bố cục lưới sản phẩm (grid) canh đều, khoảng cách giữa các thẻ sản phẩm nhất quán, không lệch hàng/cột | AI | Not Run | | | |
+| GUI-055 | IA01 | Home Page | Font chữ, cỡ chữ, màu chữ trên trang chủ nhất quán với các màn hình khác (product detail), không lệch style | AI | Not Run | | | |
+| GUI-056 | IA01 | Home Page | Độ tương phản giữa chữ (tên, giá sản phẩm) và nền đạt chuẩn WCAG AA (tối thiểu 4.5:1 với chữ thường) | AI | Not Run | | | |
+| GUI-057 | IA01 | Home Page | Layout responsive hợp lý ở cả desktop, tablet và mobile — số cột của lưới sản phẩm tự điều chỉnh, không đè/tràn nội dung | AI | Not Run | | | |
+| GUI-058 | IA01 | Home Page | Khi danh sách sản phẩm đang tải từ server, có trạng thái loading rõ ràng (skeleton/spinner) thay vì khoảng trắng rồi giật hiện nội dung | AI | Not Run | | | |
+| GUI-059 | IA02 | Home Page | Ô tìm kiếm có placeholder rõ ràng ("Tìm kiếm...") nhưng không dùng placeholder thay thế hoàn toàn cho nhãn — vẫn cần có cách xác định mục đích ô nhập cho screen reader | AI | Not Run | | | |
+| GUI-060 | IA02 | Home Page | Từ khóa tìm kiếm người dùng nhập vào được hiển thị lại an toàn ở dòng "Kết quả tìm kiếm cho: ...", không bị render thành HTML/thực thi script | AI | Not Run | | | |
+| GUI-061 | IA02 | Home Page | Nút "Tìm" submit đúng form tìm kiếm khi bấm, và ô tìm kiếm cũng submit được khi nhấn phím Enter | AI | Not Run | | | |
+| GUI-062 | IA02 | Home Page | Khi bấm "Tìm" với ô tìm kiếm để trống, hệ thống xử lý hợp lý (hiển thị lại toàn bộ sản phẩm), không báo lỗi hoặc trả về màn trắng | AI | Not Run | | | |
+| GUI-063 | IA02 | Home Page | Trong lúc chờ kết quả tìm kiếm trả về, nút "Tìm" hoặc form có trạng thái loading/disable tạm thời, tránh double-submit khi người dùng bấm liên tục | AI | Not Run | | | |
+| GUI-064 | IA02 | Home Page | Từ khóa tìm kiếm chứa ký tự đặc biệt (`<`, `>`, `"`, thẻ `<script>`) không làm vỡ layout hoặc thực thi được mã lệnh trên trang | AI | Not Run | | | |
+| GUI-065 | IA02 | Home Page | Thứ tự Tab khi thao tác trên trang chủ đi từ ô tìm kiếm → nút Tìm → các thẻ sản phẩm theo đúng thứ tự trên xuống dưới, trái sang phải | AI | Not Run | | | |
+| GUI-066 | IA02 | Home Page | Ô tìm kiếm giữ lại đúng từ khóa đã nhập sau khi có kết quả trả về, không tự động bị xóa trắng | AI | Not Run | | | |
+| GUI-067 | IA03 | Home Page | Thanh điều hướng (Navbar) highlight đúng mục "Trang chủ" khi người dùng đang ở trang chủ | AI | Not Run | | | |
+| GUI-068 | IA03 | Home Page | Link "Giỏ hàng" trên navbar hiển thị đúng badge số lượng sản phẩm hiện có trong giỏ ngay từ trang chủ, không cần vào trang khác mới thấy | AI | Not Run | | | |
+| GUI-069 | IA03 | Home Page | Nút/link "Xem chi tiết" trên mỗi thẻ sản phẩm điều hướng đúng sang trang chi tiết của chính sản phẩm đó, không nhầm lẫn sang sản phẩm khác | AI | Not Run | | | |
+| GUI-070 | IA03 | Home Page | Ô tìm kiếm được đặt ở vị trí dễ thấy, nhất quán (đầu trang), người dùng nhận ra ngay chức năng tìm kiếm mà không cần hướng dẫn thêm | AI | Not Run | | | |
+| GUI-071 | IA03 | Home Page | Sau khi vào trang chi tiết sản phẩm rồi bấm Back trình duyệt, quay lại đúng trang chủ, giữ nguyên từ khóa tìm kiếm và vị trí cuộn trước đó, không mất trạng thái | AI | Not Run | | | |
+| GUI-072 | IA03 | Home Page | Truy cập trực tiếp URL trang chủ (gõ tay hoặc F5 reload) hiển thị đúng danh sách sản phẩm, không lỗi hoặc màn trắng | AI | Not Run | | | |
+| GUI-073 | IA03 | Home Page | Toàn bộ thẻ sản phẩm và link "Xem chi tiết" truy cập được bằng bàn phím (Tab + Enter), có focus ring hiển thị rõ ràng | AI | Not Run | | | |
+| GUI-074 | IA03 | Home Page | Trên mobile, vùng bấm của nút "Xem chi tiết" và nút "Thêm vào giỏ" trên mỗi thẻ sản phẩm đủ lớn (~44×44px), không chồng lấn nhau khó bấm trúng | AI | Not Run | | | |
+| GUI-075 | IA03 | Home Page | Trang chủ không hiển thị breadcrumb thừa dạng "Trang chủ > Trang chủ" — đúng vì đây là trang gốc, không phải trang con nên breadcrumb theo FR-23 không bắt buộc ở đây | AI | Not Run | | | |
+| GUI-076 | IA04 | Home Page | Sau khi bấm "Thêm vào giỏ" trên một thẻ sản phẩm ở trang chủ, có phản hồi trực quan ngay lập tức (toast/badge cập nhật số lượng), không cần tải lại trang | AI | Not Run | | | |
+| GUI-077 | IA04 | Home Page | Toast/thông báo "Đã thêm vào giỏ hàng" (nếu có) hiển thị đủ lâu để đọc được và có thể đóng sớm nếu người dùng muốn | AI | Not Run | | | |
+| GUI-078 | IA04 | Home Page | Mỗi ảnh sản phẩm trong lưới có thuộc tính `alt` mô tả đúng tên sản phẩm, không để trống hoặc alt chung chung như "image" | AI | Not Run | | | |
+| GUI-079 | IA04 | Home Page | Khi API tải danh sách sản phẩm gặp lỗi (mất kết nối, lỗi server), trang hiển thị thông báo lỗi cụ thể, không phải màn trắng hoặc treo im lặng | AI | Not Run | | | |
+| GUI-080 | IA04 | Home Page | Khi người dùng tìm kiếm lại (bấm nút Tìm lần thứ 2 trở đi trong cùng phiên), danh sách sản phẩm cũ không biến mất đột ngột thành trắng trơn trong lúc chờ kết quả mới — có trạng thái loading/transition rõ ràng riêng cho hành động tìm kiếm, khác với loading lần đầu tải trang (đã có ở GUI-058) | AI (sửa bởi Human — xem Entry #10 ai-audit-report.md) | Not Run | | | |
+| GUI-081 | IA04 | Home Page | Nếu bấm "Thêm vào giỏ" nhiều lần liên tiếp cho cùng 1 sản phẩm từ trang chủ, số lượng badge/toast phản ánh đúng tổng đã cộng dồn, không tạo dòng riêng biệt sai lệch | AI | Not Run | | | |
+| GUI-082 | IA04 | Home Page | Khi mạng chậm lúc bấm "Thêm vào giỏ" từ trang chủ, không bị treo vô thời hạn — có timeout hoặc thông báo rõ ràng nếu request quá lâu | AI | Not Run | | | |
+| GUI-083 | IA04 | Home Page | Nút "Thêm vào giỏ" trên từng thẻ sản phẩm hoạt động ngay từ lần bấm đầu tiên, không yêu cầu bấm 2 lần mới có tác dụng | AI | Not Run | | | |
+| GUI-084 | IA01 | Home Page | Ở chế độ dark mode (nếu trình duyệt/hệ điều hành bật), chữ và nền trên lưới sản phẩm ở trang chủ vẫn giữ độ tương phản đọc được, không bị chữ tối trên nền tối | Human | Not Run | | | |
+| GUI-085 | IA02 | Home Page | Tìm kiếm với từ khóa có dấu tiếng Việt (vd "bàn phím", "chuột không dây") trả về đúng kết quả, không bị lỗi encoding hoặc bị bỏ qua dấu | Human | Not Run | | | |
+| GUI-086 | IA02 | Home Page | Nút "Thêm vào giỏ" trên mỗi thẻ sản phẩm ở trang chủ luôn thêm số lượng mặc định là 1 mà không có ô/chỉ báo nào cho người dùng biết hoặc điều chỉnh số lượng trước khi thêm — cần rõ ràng về số lượng sẽ thêm để tránh hiểu nhầm | Human | Not Run | | | |
 
 ## Summary
 
 | IA aspect | Designed | Executed | Passed | Failed | N/A |
 |---|---|---|---|---|---|
-| IA01 — General UI | 14 | 14 | 11 | 3 | 0 |
-| IA02 — Forms | 11 | 11 | 5 | 5 | 1 |
-| IA03 — Navigation | 10 | 10 | 2 | 7 | 1 |
-| IA04 — Feedback/state | 11 | 11 | 1 | 9 | 1 |
-| **Total** | **46** | **46** | **19** | **24** | **3** |
+| IA01 — General UI | 27 | 14 | 11 | 3 | 0 |
+| IA02 — Forms | 21 | 11 | 5 | 5 | 1 |
+| IA03 — Navigation | 19 | 10 | 2 | 7 | 1 |
+| IA04 — Feedback/state | 19 | 11 | 1 | 9 | 1 |
+| **Total** | **86** | **46** | **19** | **24** | **3** |
+
+> Home Page (GUI-047–086, 40 item) đã thiết kế xong (Phase B+C) nhưng **chưa
+> thực thi** trên SUT — cột Executed/Passed/Failed ở trên chỉ tính các item
+> đã chạy thật (Product Detail). Xem `ai-gap-analysis/gui-checklist-gaps.md`
+> cho lý do 3 gap Human (GUI-084–086) của màn Home Page.
 
 Bug tổng hợp theo item, xem chi tiết từng bug tại `bug-reports/`:
 - `BUG-IA01-PRODUCTDETAIL-001` — nút thêm giỏ hàng sai màu (GUI-004)
