@@ -232,3 +232,49 @@ GUI-046 (Source=Human) vào checklist/gui-checklist.md.
 ```
 
 ---
+
+## [6] Claude (Sonnet 5, Claude Code + Claude for Chrome) — 6:10 PM 26/07/2026
+
+**Prompt:**
+```
+SUT chạy tại http://localhost:5173/, commit 85af3ba (repo eshop-sut). Claude
+for Chrome đã kết nối — tự mở Product Detail, thực thi toàn bộ item trong
+checklist/gui-checklist.md cho màn này, đánh dấu Passed/Failed dựa trên những
+gì bạn thấy thật trên trang, screenshot các item Failed, và file bug qua
+skill bug-report nếu có.
+Ghi "Build/commit tested" và "URL" thật (không phải placeholder) vào phần
+scope của README.md nếu còn trống. Log lại vào prompt-log và ai-audit-log.
+```
+
+**Output:**
+```
+Thực thi trực tiếp cả 46 item của checklist/gui-checklist.md trên SUT thật
+(http://localhost:5173/, eshop-sut @ 85af3ba) qua Claude for Chrome: click,
+gõ, resize viewport, đăng nhập test@eshop.com, kiểm tra tab Network/Console,
+đọc DOM/computed style, và đối chiếu với source code cục bộ
+(~/Documents/eshop-sut, cùng commit) để xác nhận nguyên nhân gốc thay vì chỉ
+suy đoán từ giao diện.
+
+Kết quả: 19 Passed, 24 Failed, 3 N/A (GUI-019/030/036 — tính năng +/-, sản
+phẩm liên quan, hết hàng không tồn tại trong SUT).
+
+Phát hiện quan trọng nhất: nút "Thêm vào giỏ hàng" cần bấm đúng 2 lần mới có
+tác dụng — lần bấm đầu tiên luôn bị bỏ qua im lặng do biến `clickCount` trong
+`ProductDetail.jsx`; giỏ hàng chỉ là state React thuần (`CartContext.jsx`),
+không gọi API, không lưu localStorage nên mất trắng khi tải lại trang; không
+có toast/badge số lượng nào tồn tại; `addToCart` luôn tạo dòng mới thay vì
+cộng dồn số lượng. Ngoài ra: thiếu hoàn toàn breadcrumb (vi phạm FR-23 bắt
+buộc), thiếu trường Danh mục (vi phạm FR-06), nút sai màu (xanh lá thay vì
+xanh dương theo FR-21), ô Số lượng không có validation nào (chấp nhận số
+lượng 0 vào thẳng giỏ hàng).
+
+Đã file 7 bug report + ảnh chụp màn hình cho các item Failed vào
+bug-reports/BUG-IA01-PRODUCTDETAIL-001..003, BUG-IA02-PRODUCTDETAIL-001,
+BUG-IA03-PRODUCTDETAIL-001..002, BUG-IA04-PRODUCTDETAIL-001 (chưa tạo GitHub
+Issue — cần xác nhận từ sinh viên trước khi push/tạo issue theo đúng quy
+trình của skill bug-report). Cập nhật README.md §2.1 (commit `85af3ba`, URL
+`http://localhost:5173/`) và bảng tổng hợp §2.2. Cập nhật đầy đủ bảng kết quả
+và Summary trong checklist/gui-checklist.md.
+```
+
+---
