@@ -278,3 +278,227 @@ và Summary trong checklist/gui-checklist.md.
 ```
 
 ---
+
+## [7] Claude (Sonnet 5, Claude Code) — 7:31 PM 26/07/2026
+
+**Prompt:**
+```
+Bạn là một tester đang thiết kế GUI checklist theo kỹ thuật checklist-based
+testing cho màn Home Page (trang chủ) của hệ thống EShop.
+
+Ground truth — trích từ sut-requirements.md:
+- FR-05 (Xem danh sách & Tìm kiếm sản phẩm): "Trang chủ hiển thị danh sách
+  tất cả sản phẩm dạng lưới (grid). Mỗi sản phẩm hiển thị: Ảnh (tỷ lệ chuẩn,
+  có alt text mô tả), Tên sản phẩm, Giá (đơn vị: ₫, định dạng phân cách hàng
+  nghìn)... Khi đang tải dữ liệu phải hiển thị trạng thái loading... Trang
+  chủ chỉ có đúng một thẻ <h1>."
+- FR-21 (Tiêu chuẩn Giao diện Chung): "Nhất quán ngôn ngữ: toàn bộ giao diện
+  dùng tiếng Việt. Nhất quán màu sắc: nút hành động tích cực dùng màu xanh
+  dương. Nhất quán đơn vị tiền: luôn dùng ký hiệu ₫ với định dạng phân cách
+  hàng nghìn. Tiêu đề trang: mỗi trang có đúng 1 thẻ <h1>. Tab Order: thứ tự
+  focus theo Tab phải đi từ trên xuống dưới, trái sang phải."
+
+Chỉ tập trung vào IA01 — General UI standards (KHÔNG phải form, navigation,
+hay feedback/state, những phần đó sẽ có prompt riêng). Liệt kê 10-12 checklist
+item kiểm tra tiêu chuẩn giao diện chung cho riêng màn Home Page, bám sát
+FR-05 và FR-21 ở trên, và cân nhắc thêm các khía cạnh IA01 chuẩn (visual
+consistency, alignment/grid, color contrast, responsive layout, truncation
+cho tên sản phẩm dài, currency/number formatting, loading performance) áp
+dụng cho lưới sản phẩm ở trang chủ.
+
+Trả về dạng bảng Markdown với các cột: Item (mô tả kiểm tra), Lý do liên kết
+tới FR nào (nếu có). Viết bằng tiếng Việt tự nhiên, như một tester Việt Nam
+thực sự sẽ viết, không phải câu dịch máy từ tiếng Anh.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Trang chủ có đúng 1 thẻ `<h1>` duy nhất mô tả nội dung trang, không có thẻ `<h1>` nào khác xuất hiện thêm ở bất kỳ đâu trên trang | FR-21, FR-05 |
+| Toàn bộ nhãn, placeholder, nút bấm trên trang chủ đều dùng tiếng Việt, không sót chuỗi tiếng Anh chưa dịch | FR-21 |
+| Giá mỗi sản phẩm trong lưới hiển thị đúng ký hiệu ₫ và có dấu phân cách hàng nghìn (vd "30.000.000 ₫", không phải "30000000" hay đơn vị khác) | FR-05, FR-21 |
+| Nút "Thêm vào giỏ" trên từng thẻ sản phẩm dùng màu xanh dương (màu hành động tích cực), không trùng màu với nút nguy hiểm/hủy | FR-21 |
+| Mỗi thẻ sản phẩm trong lưới hiển thị đủ Ảnh, Tên, Giá — không thiếu trường nào so với yêu cầu | FR-05 |
+| Ảnh sản phẩm trong lưới giữ đúng tỷ lệ khung hình chuẩn, không bị méo hoặc kéo giãn khi hiển thị | FR-05 |
+| Tên sản phẩm dài (>60 ký tự) không làm vỡ layout thẻ sản phẩm — có truncate hoặc wrap hợp lý, không tràn ra ngoài khung hoặc đè lên thẻ bên cạnh | IA01 chuẩn |
+| Bố cục lưới sản phẩm (grid) canh đều, khoảng cách giữa các thẻ sản phẩm nhất quán, không lệch hàng/cột | IA01 chuẩn |
+| Font chữ, cỡ chữ, màu chữ trên trang chủ nhất quán với các màn hình khác (product detail), không lệch style | FR-21 |
+| Độ tương phản giữa chữ (tên, giá sản phẩm) và nền đạt chuẩn WCAG AA (tối thiểu 4.5:1 với chữ thường) | IA01 chuẩn |
+| Layout responsive hợp lý ở cả desktop, tablet và mobile — số cột của lưới sản phẩm tự điều chỉnh, không đè/tràn nội dung | IA01 chuẩn |
+| Khi danh sách sản phẩm đang tải từ server, có trạng thái loading rõ ràng (skeleton/spinner) thay vì khoảng trắng rồi giật hiện nội dung | FR-05 |
+```
+
+---
+
+## [8] Claude (Sonnet 5, Claude Code) — 7:32 PM 26/07/2026
+
+**Prompt:**
+```
+Bạn là một tester đang thiết kế GUI checklist theo kỹ thuật checklist-based
+testing cho màn Home Page của hệ thống EShop, tập trung riêng vào IA02 —
+Forms. Lưu ý: khác với Product Detail (có ô Số lượng theo FR-06), Home Page
+KHÔNG có form chọn số lượng — form duy nhất ở đây là ô tìm kiếm sản phẩm.
+
+Ground truth — trích từ sut-requirements.md:
+- FR-05: "Thanh tìm kiếm tìm theo tên sản phẩm. Từ khóa tìm kiếm phải được
+  hiển thị an toàn (không render HTML). Khi đang tải dữ liệu phải hiển thị
+  trạng thái loading. Khi không có kết quả tìm kiếm phải hiển thị thông báo
+  empty state phù hợp."
+- FR-22 (Form Requirements): "Tất cả trường bắt buộc phải có ký hiệu * bên
+  cạnh nhãn. Thông báo lỗi phải xuất hiện TRÊN nút submit, không phải bên
+  dưới."
+- FR-21: "Tab Order: thứ tự focus theo Tab phải đi từ trên xuống dưới, trái
+  sang phải."
+
+Chỉ tập trung vào IA02 — Forms cho riêng ô tìm kiếm ở Home Page (KHÔNG phải
+general UI, navigation, hay feedback/state). Liệt kê 8-10 checklist item bám
+sát FR-05 và FR-22, và cân nhắc thêm các khía cạnh IA02 chuẩn liên quan
+(placeholder không thay thế nhãn, an toàn hiển thị input — liên hệ XSS, submit
+qua Enter, double-submit, tab order). Không đưa item về validation bắt buộc/*
+vì ô tìm kiếm không phải trường bắt buộc.
+
+Trả về dạng bảng Markdown với 2 cột: Item, Lý do liên kết tới FR nào (nếu
+có). Viết bằng tiếng Việt tự nhiên, như một tester Việt Nam thực sự sẽ viết.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Ô tìm kiếm có placeholder rõ ràng ("Tìm kiếm...") nhưng không dùng placeholder thay thế hoàn toàn cho nhãn — vẫn cần có cách xác định mục đích ô nhập cho screen reader | FR-22, IA02 chuẩn |
+| Từ khóa tìm kiếm người dùng nhập vào được hiển thị lại an toàn ở dòng "Kết quả tìm kiếm cho: ...", không bị render thành HTML/thực thi script | FR-05 |
+| Nút "Tìm" submit đúng form tìm kiếm khi bấm, và ô tìm kiếm cũng submit được khi nhấn phím Enter | IA02 chuẩn |
+| Khi bấm "Tìm" với ô tìm kiếm để trống, hệ thống xử lý hợp lý (hiển thị lại toàn bộ sản phẩm), không báo lỗi hoặc trả về màn trắng | IA02 chuẩn |
+| Trong lúc chờ kết quả tìm kiếm trả về, nút "Tìm" hoặc form có trạng thái loading/disable tạm thời, tránh double-submit khi người dùng bấm liên tục | FR-05, IA02 chuẩn |
+| Từ khóa tìm kiếm chứa ký tự đặc biệt (`<`, `>`, `"`, thẻ `<script>`) không làm vỡ layout hoặc thực thi được mã lệnh trên trang | FR-05 |
+| Thứ tự Tab khi thao tác trên trang chủ đi từ ô tìm kiếm → nút Tìm → các thẻ sản phẩm theo đúng thứ tự trên xuống dưới, trái sang phải | FR-21 |
+| Ô tìm kiếm giữ lại đúng từ khóa đã nhập sau khi có kết quả trả về, không tự động bị xóa trắng | IA02 chuẩn |
+```
+
+---
+
+## [9] Claude (Sonnet 5, Claude Code) — 7:33 PM 26/07/2026
+
+**Prompt:**
+```
+Bạn là một tester đang thiết kế GUI checklist theo kỹ thuật checklist-based
+testing cho màn Home Page của hệ thống EShop, tập trung riêng vào IA03 —
+Navigation. Lưu ý: khác với Product Detail, Home Page là trang gốc (root)
+nên KHÔNG cần breadcrumb (FR-23 chỉ bắt buộc breadcrumb ở "trang con") và
+KHÔNG có phần "sản phẩm liên quan" — hãy tập trung vào các khía cạnh
+navigation thực sự áp dụng cho trang chủ: navbar active-state, link từ thẻ
+sản phẩm sang trang chi tiết, khả năng phát hiện ô tìm kiếm, hành vi back/
+forward, deep link, keyboard nav và tap target trên lưới sản phẩm.
+
+Ground truth — trích từ sut-requirements.md:
+- FR-23 (Navigation Requirements): "Thanh điều hướng (Navbar) phải highlight
+  trang đang được chọn. Link 'Giỏ hàng' phải hiển thị badge số lượng sản phẩm
+  trong giỏ. Breadcrumb bắt buộc có ở các trang con (Giỏ hàng, Thanh toán,
+  Chi tiết sản phẩm)." — ngụ ý Home Page (không phải trang con) không bắt
+  buộc breadcrumb.
+
+Liệt kê 8-10 checklist item cho riêng màn Home Page, bám sát FR-23, và cân
+nhắc thêm các khía cạnh IA03 chuẩn (search discoverable, browser back giữ
+trạng thái, deep link, keyboard-only navigation, tap target mobile).
+
+Trả về dạng bảng Markdown với 2 cột: Item, Lý do liên kết tới FR nào (nếu có).
+Viết bằng tiếng Việt tự nhiên, như một tester Việt Nam thực sự sẽ viết.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Thanh điều hướng (Navbar) highlight đúng mục "Trang chủ" khi người dùng đang ở trang chủ | FR-23 |
+| Link "Giỏ hàng" trên navbar hiển thị đúng badge số lượng sản phẩm hiện có trong giỏ ngay từ trang chủ, không cần vào trang khác mới thấy | FR-23 |
+| Nút/link "Xem chi tiết" trên mỗi thẻ sản phẩm điều hướng đúng sang trang chi tiết của chính sản phẩm đó, không nhầm lẫn sang sản phẩm khác | IA03 chuẩn |
+| Ô tìm kiếm được đặt ở vị trí dễ thấy, nhất quán (đầu trang), người dùng nhận ra ngay chức năng tìm kiếm mà không cần hướng dẫn thêm | IA03 chuẩn |
+| Sau khi vào trang chi tiết sản phẩm rồi bấm Back trình duyệt, quay lại đúng trang chủ, giữ nguyên từ khóa tìm kiếm và vị trí cuộn trước đó, không mất trạng thái | IA03 chuẩn |
+| Truy cập trực tiếp URL trang chủ (gõ tay hoặc F5 reload) hiển thị đúng danh sách sản phẩm, không lỗi hoặc màn trắng | IA03 chuẩn |
+| Toàn bộ thẻ sản phẩm và link "Xem chi tiết" truy cập được bằng bàn phím (Tab + Enter), có focus ring hiển thị rõ ràng | IA03 chuẩn |
+| Trên mobile, vùng bấm của nút "Xem chi tiết" và nút "Thêm vào giỏ" trên mỗi thẻ sản phẩm đủ lớn (~44×44px), không chồng lấn nhau khó bấm trúng | IA03 chuẩn |
+| Trang chủ không hiển thị breadcrumb thừa dạng "Trang chủ > Trang chủ" — đúng vì đây là trang gốc, không phải trang con nên breadcrumb theo FR-23 không bắt buộc ở đây | FR-23 |
+```
+
+---
+
+## [10] Claude (Sonnet 5, Claude Code) — 7:34 PM 26/07/2026
+
+**Prompt:**
+```
+Bạn là một tester đang thiết kế GUI checklist theo kỹ thuật checklist-based
+testing cho màn Home Page của hệ thống EShop, tập trung riêng vào IA04 —
+Feedback / State.
+
+Ground truth — trích từ sut-requirements.md:
+- FR-05: "Khi đang tải dữ liệu phải hiển thị trạng thái loading."
+- FR-24 (Feedback & State Requirements): "Sau khi bấm 'Thêm vào giỏ', phải có
+  phản hồi trực quan (toast/badge). Tất cả ảnh sản phẩm phải có thuộc tính
+  alt mô tả nội dung ảnh (không để rỗng)."
+
+Chỉ tập trung vào IA04 — Feedback/State cho riêng màn Home Page. Liệt kê 8-10
+checklist item về: phản hồi trực quan sau khi bấm "Thêm vào giỏ" trực tiếp từ
+thẻ sản phẩm trong lưới (không qua trang chi tiết), thuộc tính alt của ảnh
+sản phẩm, trạng thái loading khi tải danh sách, lỗi khi tải/thêm giỏ thất
+bại, và độ tin cậy của nút thêm giỏ (không yêu cầu bấm nhiều lần).
+
+Trả về dạng bảng Markdown với 2 cột: Item, Lý do liên kết tới FR nào (nếu có).
+Viết bằng tiếng Việt tự nhiên, như một tester Việt Nam thực sự sẽ viết.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Sau khi bấm "Thêm vào giỏ" trên một thẻ sản phẩm ở trang chủ, có phản hồi trực quan ngay lập tức (toast/badge cập nhật số lượng), không cần tải lại trang | FR-24 |
+| Toast/thông báo "Đã thêm vào giỏ hàng" (nếu có) hiển thị đủ lâu để đọc được và có thể đóng sớm nếu người dùng muốn | IA04 chuẩn |
+| Mỗi ảnh sản phẩm trong lưới có thuộc tính `alt` mô tả đúng tên sản phẩm, không để trống hoặc alt chung chung như "image" | FR-24 |
+| Khi API tải danh sách sản phẩm gặp lỗi (mất kết nối, lỗi server), trang hiển thị thông báo lỗi cụ thể, không phải màn trắng hoặc treo im lặng | IA04 chuẩn |
+| Trong lúc chờ danh sách sản phẩm tải về, có trạng thái loading rõ ràng (spinner/skeleton) thay vì nội dung xuất hiện đột ngột gây giật hình | FR-05 |
+| Nếu bấm "Thêm vào giỏ" nhiều lần liên tiếp cho cùng 1 sản phẩm từ trang chủ, số lượng badge/toast phản ánh đúng tổng đã cộng dồn, không tạo dòng riêng biệt sai lệch | IA04 chuẩn |
+| Khi mạng chậm lúc bấm "Thêm vào giỏ" từ trang chủ, không bị treo vô thời hạn — có timeout hoặc thông báo rõ ràng nếu request quá lâu | IA04 chuẩn |
+| Nút "Thêm vào giỏ" trên từng thẻ sản phẩm hoạt động ngay từ lần bấm đầu tiên, không yêu cầu bấm 2 lần mới có tác dụng | IA04 chuẩn |
+```
+
+---
+
+## [11] Claude (Sonnet 5, Claude Code) — 7:36 PM 26/07/2026
+
+**Prompt:**
+```
+Review các item AI vừa tạo cho Home Page (IA01-IA04), tìm gap AI bỏ sót
+(accessibility, dark mode, định dạng ₫/VN, offline/slow-network, so sánh
+với Product Detail xem thiếu gì...), ghi lý do vào ai-gap-analysis, log vào
+prompt-log và ai-audit-log.
+```
+
+**Output:**
+```
+Rà soát 37 item AI-generated (GUI-047–083, batch Entry #7-#10) đối chiếu với
+ia-seed-categories.md và so sánh chéo với batch Product Detail đã làm trước
+đó (GUI-001-046) để tìm gap tái diễn hoặc gap riêng của Home Page:
+
+- dark mode: KHÔNG có item nào cho Home Page dù đây là gap đã biết ở Product
+  Detail (GUI-042) — lặp lại đúng lỗi phạm vi prompt cũ. Thêm GUI-084.
+- Vietnamese-specific (dấu tiếng Việt): batch IA02 có kiểm tra XSS/ký tự đặc
+  biệt trong ô tìm kiếm nhưng không kiểm tra riêng từ khóa có dấu tiếng Việt
+  (khác GUI-045 vốn chỉ nói về hiển thị tĩnh, ở đây là input động qua search).
+  Thêm GUI-085.
+- So sánh với Product Detail: Product Detail có ô Số lượng (FR-06) nhưng
+  Home Page thêm giỏ thẳng từ thẻ sản phẩm mà không có bất kỳ cách nào để
+  chọn/xác nhận số lượng trước — đây là một khoảng trống thiết kế mà không
+  prompt IA02/IA04 nào của Home Page tự hỏi ra, chỉ lộ ra khi đối chiếu 2 màn
+  hình với nhau. Thêm GUI-086.
+- accessibility (keyboard, alt, contrast), offline/slow-network: đã có đủ
+  trong batch AI (GUI-056 contrast, GUI-073 keyboard, GUI-078 alt, GUI-082
+  slow-network) — không cần thêm trùng lặp.
+
+Đã ghi lý do 3 gap (GUI-084, GUI-085, GUI-086) vào
+ai-gap-analysis/gui-checklist-gaps.md, thêm 3 dòng tương ứng (Source=Human)
+vào checklist/gui-checklist.md, và cập nhật bảng Summary (Designed) trong
+cùng file để phản ánh tổng 86 item thiết kế trên 2 màn (Product Detail +
+Home Page); cột Executed/Passed/Failed giữ nguyên vì Home Page chưa thực thi.
+```
+
+---
