@@ -1,0 +1,32 @@
+# BUG-IA04-HOMEPAGE-003: Khi API tìm kiếm/tải sản phẩm thất bại thật (lỗi mạng), giao diện âm thầm hiển thị dữ liệu cũ như thể thành công
+
+## Found by Test Case
+GUI-079
+
+## Requirement liên quan
+IA04 chuẩn (Error feedback phải cụ thể, không phải im lặng/màn trắng)
+
+## Severity / Priority
+Critical / P1
+
+## Environment
+**Browser/Device**: Chrome (desktop, qua Claude for Chrome) — mô phỏng lỗi mạng bằng cách patch `XMLHttpRequest.prototype.open` để chuyển hướng request `/api/products` sang một cổng không tồn tại rồi tự bắn sự kiện `error`
+**OS**: macOS
+**URL**: http://localhost:5173/
+**Build/commit**: eshop-sut @ 85af3ba
+
+## Steps to reproduce
+1. Patch `window.XMLHttpRequest` qua console để mọi request tới `/api/products` bị chuyển hướng tới `http://localhost:9999/blackhole` (cổng không có server) và bắn sự kiện `error` sau 10ms.
+2. Gõ vào ô tìm kiếm một chuỗi vô nghĩa (`khong-ton-tai-nhung-server-loi-mang`) rồi bấm Tìm.
+3. Quan sát: dòng "Kết quả tìm kiếm cho: khong-ton-tai-nhung-server-loi-mang" xuất hiện bình thường, và **toàn bộ 5 sản phẩm cũ vẫn hiển thị** như thể tìm kiếm thành công và khớp tất cả — không có bất kỳ thông báo lỗi, màn trắng, hay dấu hiệu nào cho biết request đã thất bại.
+4. Kiểm tra console: không có log lỗi nào được ghi nhận.
+5. Xác nhận qua source `frontend-web/src/pages/Home.jsx` hàm `fetchProducts` (dòng 12-29): khối `catch (err)` chỉ xử lý khi `err.response && typeof err.response.data === "string"` — với lỗi mạng thật (không có response, ví dụ `ERR_CONNECTION_REFUSED`), điều kiện này không bao giờ đúng, nên `catch` không làm gì cả và state `products` giữ nguyên giá trị cũ từ lần fetch thành công gần nhất.
+
+## Expected result
+Khi request tải/tìm kiếm sản phẩm thất bại vì lỗi mạng, giao diện phải hiển thị thông báo lỗi rõ ràng (ví dụ "Không thể kết nối máy chủ, vui lòng thử lại"), không được hiển thị dữ liệu cũ như thể thao tác đã thành công.
+
+## Actual result
+Giao diện hiển thị nhãn tìm kiếm và toàn bộ sản phẩm cũ một cách "giả thành công" khi request thực sự đã thất bại hoàn toàn — đây là lỗi nghiêm trọng hơn một thông báo lỗi bị thiếu: người dùng bị đánh lừa tin rằng từ khóa của họ khớp với tất cả 5 sản phẩm, trong khi thực tế server chưa từng phản hồi.
+
+## Evidence
+![BUG-IA04-HOMEPAGE-003](screenshots/BUG-IA04-HOMEPAGE-003.png)

@@ -44,5 +44,20 @@ Critical / P0
 ## Evidence
 ![BUG-IA04-PRODUCTDETAIL-001](screenshots/BUG-IA04-PRODUCTDETAIL-001.png)
 
+## Cũng xác nhận trên Home Page
+Cùng root cause (`CartContext.jsx`) tái hiện trên trang chủ (GUI-068, GUI-076,
+GUI-077, GUI-081 trong `checklist/gui-checklist.md`), qua nút "Thêm vào giỏ"
+trên từng thẻ sản phẩm trong lưới:
+- Không có toast/badge nào xuất hiện sau khi bấm (GUI-076/077) — khác với
+  Product Detail, ở đây nút hoạt động ngay từ **lần bấm đầu tiên** (Home.jsx
+  không có biến `clickCount` như `ProductDetail.jsx`), nhưng vẫn hoàn toàn
+  không có phản hồi trực quan nào.
+- Link "Giỏ hàng" trên navbar không có badge số lượng dù giỏ đã có 2 sản
+  phẩm (GUI-068).
+- Thêm cùng sản phẩm (iPhone 15 Pro Max) hai lần từ trang chủ tạo ra 2 dòng
+  riêng biệt trong giỏ thay vì cộng dồn số lượng = 2 (GUI-081) — xác nhận
+  qua thao tác thật: giỏ hàng hiển thị 2 dòng "iPhone 15 Pro Max, Số lượng: 1"
+  thay vì 1 dòng "Số lượng: 2".
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/100
