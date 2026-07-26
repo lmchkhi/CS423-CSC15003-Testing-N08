@@ -30,17 +30,23 @@
 - **Usability flow (Task 2)**: Browse products → search by keyword → open
   product detail → choose quantity → add product to cart.
 - **SUT**: EShop — `github.com/ttbhanh/eshop-sut`, build/commit tested
-  `<TODO — commit hash>`, URL `<TODO — http://localhost:xxxx>`.
+  `85af3ba`, URL `http://localhost:5173/`.
 
 ### 2.2. GUI Checklist Summary (Task 1)
 
 | IA aspect | Designed | Executed | Passed | Failed |
 |---|---|---|---|---|
-| IA01 — General UI | | | | |
-| IA02 — Forms | | | | |
-| IA03 — Navigation | | | | |
-| IA04 — Feedback/state | | | | |
-| **Total** | | | | |
+| IA01 — General UI | 14 | 14 | 11 | 3 |
+| IA02 — Forms | 11 | 11 | 5 | 5 |
+| IA03 — Navigation | 10 | 10 | 2 | 7 |
+| IA04 — Feedback/state | 11 | 11 | 1 | 9 |
+| **Total** | **46** | **46** | **19** | **24** |
+
+> Chưa tính 3 item `N/A` (GUI-019, GUI-030, GUI-036 — tính năng không tồn tại
+> trong SUT). Xem `checklist/gui-checklist.md` để biết chi tiết từng item và
+> `bug-reports/` cho 7 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
+> BUG-IA02-PRODUCTDETAIL-001, BUG-IA03-PRODUCTDETAIL-001..002,
+> BUG-IA04-PRODUCTDETAIL-001).
 
 > Full table: `checklist/gui-checklist.md` / `checklist/gui-checklist.xlsx`.
 
