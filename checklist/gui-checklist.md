@@ -1,12 +1,5 @@
 # GUI Checklist — HW03 Task 1
 
-## Scope
-
-- **Screens covered**: <TODO — e.g. Home, Product Detail, Cart, Checkout>
-- **Build/commit tested**: `<commit_hash>`
-- **URL**: `<http://localhost:xxxx>`
-- **Why these screens**: <TODO>
-
 ## Checklist
 
 Populate with `.claude/skills/gui-checklist/SKILL.md`. Target: **> 40 items**,

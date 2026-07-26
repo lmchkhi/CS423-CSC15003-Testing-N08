@@ -25,17 +25,31 @@ taught — not a single "generate a GUI checklist" prompt. Output lands in
    One screen is allowed but won't realistically reach 40 non-repetitive
    items (per §5) — recommend 3–5 screens across pools, e.g. Home + Product
    Detail + Cart + Checkout, or an Admin screen, or a Mobile screen.
-2. Check `checklist/gui-checklist.md`'s header (or the student directly) for
-   which screens teammates already claimed — §5 forbids duplicating a
-   teammate's primary screen within the group.
-3. Record the chosen screens and why, in `checklist/gui-checklist.md`.
+2. Check `README.md`'s scope section (or the student directly) for which
+   screens teammates already claimed — §5 forbids duplicating a teammate's
+   primary screen within the group.
+3. Record the chosen screens, the build/commit tested, and the SUT URL in
+   `README.md`'s scope section — not in `checklist/gui-checklist.md`, which
+   the spec (§6, §14) only requires to hold the item table and per-IA
+   summary, nothing else.
 4. Commit:
    ```bash
-   git add checklist/gui-checklist.md
-   git commit -m "docs(checklist): select scope — <screens>"
+   git add README.md
+   git commit -m "docs: select GUI checklist scope — <screens>"
    ```
 
 ## Phase B — AI-generated first pass, one IA aspect at a time
+
+Before generating for any screen, read `sut-requirements.md` (repo root) —
+the SUT's own FR spec, curated by the student from `eshop-sut/README.md`.
+FR-05/FR-06 describe the product listing/detail screens' required elements,
+and FR-21–FR-24 map almost directly onto IA01–IA04 (general UI, forms,
+navigation, feedback/state). Ground every generated item in these FRs where
+one applies — this gives the AI concrete, checkable ground truth instead of
+free-associating from a live screenshot alone. Don't skip this file just
+because Claude for Chrome can see the rendered page; the FRs state
+requirements (e.g. "breadcrumb required on sub-pages") that aren't always
+obvious from looking at one state of the UI.
 
 Do **not** ask for all 40+ items in one generic prompt. Run one focused prompt
 per (IA aspect × screen) combination, e.g. "List IA02 (forms) checklist items
@@ -73,12 +87,11 @@ the AI missed it." This is graded, so do it deliberately:
    (currency formatting ₫, date format, diacritics rendering, VN phone/ID
    validation).
 2. For every item you (the human) add, write a one-line reason in a
-   `ai-gap-analysis/gui-checklist-gaps.md` entry — mirror the existing
-   `ai-gap-analysis/FR-01-register.md` style — attributing the miss to one of:
-   prompt scope (you didn't ask), model limitation (it doesn't know this
-   SUT's specifics), or interface-specific trait (something unique to EShop's
-   design). Do not write generic filler reasons; tie each to the actual
-   prompt that was sent.
+   `ai-gap-analysis/gui-checklist-gaps.md` entry, following the template
+   already in that file — attributing the miss to one of: prompt scope (you
+   didn't ask), model limitation (it doesn't know this SUT's specifics), or
+   interface-specific trait (something unique to EShop's design). Do not
+   write generic filler reasons; tie each to the actual prompt that was sent.
 3. Mark those rows `Source = Human` in the checklist table.
 4. Commit:
    ```bash
@@ -89,7 +102,8 @@ the AI missed it." This is graded, so do it deliberately:
 ## Phase D — Execution against the running SUT
 
 1. Confirm the SUT is running locally (per `eshop-sut` repo instructions) and
-   record the build/commit hash and URL in the checklist header.
+   record the build/commit hash and URL in `README.md`'s scope section (fill
+   in the `<TODO>` placeholders left from Phase A if not already done).
 2. **If the Claude for Chrome extension is connected**, drive the browser
    directly instead of waiting for the student to narrate each check:
    - Navigate to the target screen yourself, perform the exact interaction
