@@ -30,3 +30,6 @@ Từ khóa tìm kiếm và kết quả lọc bị mất hoàn toàn sau khi Back
 
 ## Evidence
 ![BUG-IA03-HOMEPAGE-002](screenshots/BUG-IA03-HOMEPAGE-002.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/108

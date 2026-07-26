@@ -30,3 +30,6 @@ Giao diện hiển thị nhãn tìm kiếm và toàn bộ sản phẩm cũ một
 
 ## Evidence
 ![BUG-IA04-HOMEPAGE-003](screenshots/BUG-IA04-HOMEPAGE-003.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/112

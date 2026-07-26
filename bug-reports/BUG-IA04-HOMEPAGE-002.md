@@ -27,3 +27,6 @@ Toàn bộ 5 ảnh sản phẩm trên trang chủ có `alt=""` rỗng — ngư�
 
 ## Evidence
 ![BUG-IA04-HOMEPAGE-002](screenshots/BUG-IA04-HOMEPAGE-002.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/111

@@ -28,3 +28,6 @@ Chiều cao nút chỉ 36px (thiếu ~8px so với khuyến nghị) — không g
 
 ## Evidence
 ![BUG-IA03-HOMEPAGE-003](screenshots/BUG-IA03-HOMEPAGE-003.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/109

@@ -27,3 +27,6 @@ Không tồn tại bất kỳ trạng thái loading nào trong toàn bộ luồn
 
 ## Evidence
 ![BUG-IA04-HOMEPAGE-001](screenshots/BUG-IA04-HOMEPAGE-001.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/110

@@ -28,3 +28,6 @@ Riêng trang chủ hiển thị đơn vị "VND" bằng chữ, khác với Produ
 
 ## Evidence
 ![BUG-IA01-HOMEPAGE-002](screenshots/BUG-IA01-HOMEPAGE-002.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/102

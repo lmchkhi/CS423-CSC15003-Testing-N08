@@ -29,3 +29,6 @@ Endpoint `GET /api/products?search=` cho phép SQL Injection đầy đủ — đ
 
 ## Evidence
 ![BUG-IA02-HOMEPAGE-003](screenshots/BUG-IA02-HOMEPAGE-003.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/106

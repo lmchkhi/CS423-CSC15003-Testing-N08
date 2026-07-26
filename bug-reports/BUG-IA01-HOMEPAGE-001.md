@@ -28,3 +28,6 @@ Trang chủ có 2 thẻ `<h1>` — dòng thống kê "Hiển thị N sản phẩ
 
 ## Evidence
 ![BUG-IA01-HOMEPAGE-001](screenshots/BUG-IA01-HOMEPAGE-001.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/101

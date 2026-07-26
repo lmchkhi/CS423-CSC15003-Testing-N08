@@ -28,3 +28,6 @@ Giá sản phẩm (`text-red-500`) chỉ đạt 3.76:1, dưới ngưỡng 4.5:1 
 
 ## Evidence
 ![BUG-IA01-HOMEPAGE-003](screenshots/BUG-IA01-HOMEPAGE-003.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/103

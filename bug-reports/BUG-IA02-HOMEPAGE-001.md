@@ -27,3 +27,6 @@ Minor / P3
 
 ## Evidence
 ![BUG-IA02-HOMEPAGE-001](screenshots/BUG-IA02-HOMEPAGE-001.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/104

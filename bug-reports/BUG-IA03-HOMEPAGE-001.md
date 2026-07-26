@@ -27,3 +27,6 @@ Không tồn tại mục "Trang chủ" trong navbar, và không có bất kỳ c
 
 ## Evidence
 ![BUG-IA03-HOMEPAGE-001](screenshots/BUG-IA03-HOMEPAGE-001.png)
+
+## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/107
