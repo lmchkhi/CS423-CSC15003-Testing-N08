@@ -1,6 +1,6 @@
 # HW02 – Domain Testing on EShop
 
-> **Sinh viên:** Họ Tên — MSSV
+> **Sinh viên:** Hà Bảo Ngọc — 23127300
 > **Nhóm:** N08
 > **Môn:** CS423 / CSC15003 — Kiểm thử Phần mềm
 
