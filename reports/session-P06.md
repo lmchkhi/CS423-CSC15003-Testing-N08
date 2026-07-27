@@ -1,36 +1,43 @@
 ## Participant table
 
-| ID | Relevant experience | Device/browser | Session date | Consent | Completion | Notes |
-|---|---|---|---|---|---|---|
-| P06 |  |  |  |  |  |  |
+| ID  | Relevant experience                                                                | Device/browser        | Session date          | Consent | Completion              | Notes                                                                            |
+| --- | ---------------------------------------------------------------------------------- | --------------------- | --------------------- | ------- | ----------------------- | -------------------------------------------------------------------------------- |
+| P06 | Đã từng trải nghiệm các sàn thương mại điện tử trước đây (Shopee, TikTok Shop,...) | Laptop, Windows, Edge | 22h56 ngày 26/07/2026 | Yes     | Hoàn thành có can thiệp | Đã xác minh danh tính người tham gia, thông tin liên hệ lưu riêng ngoài file này |
 
 ## Observation notes
 
-| Participant | Time | Participant action/quote | Observed UI/state | Outcome | Possible finding | Evidence ref |
-|---|---|---|---|---|---|---|
-| P06 |  |  |  |  |  |  |
+| Participant | Time             | Participant action/quote                                                                                                                        | Observed UI/state                                                                            | Outcome                                                   | Possible finding                                                                                                                                                                  | Evidence ref |
+| ----------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| P06         | 22h56 26/07/2026 | "Sau khi ấn thêm giỏ hàng, thắc mắc facilitator đã thêm hay chưa → Facilitator trả lời có vẻ đã thêm, đề nghị participant tự kiểm tra giỏ hàng" | Không có phản hồi rõ ràng ngay sau khi bấm thêm                                              | Hoàn thành có can thiệp (được facilitator gợi ý kiểm tra) | Xác nhận lại vấn đề thiếu phản hồi khi thêm giỏ hàng                                                                                                                              |              |
+| P06         | 22h57 26/07/2026 | "Truy cập vào giỏ để kiểm tra, quay lại trang chủ thêm tai nghe, quay lại giỏ hàng để thanh toán"                                               | Thao tác thêm/kiểm tra giỏ diễn ra bình thường sau khi đã tự xác minh                        | Hoàn thành độc lập                                        |                                                                                                                                                                                   |              |
+| P06         | 22h57 26/07/2026 | "Tại trang thanh toán, thử nhập coupon tự nghĩ, kết quả chưa đúng"                                                                              | Hệ thống báo coupon không hợp lệ                                                             | Không hoàn thành (lần thử đầu)                            | Không có gợi ý mã nào trên UI                                                                                                                                                     |              |
+| P06         | 22h57 26/07/2026 | "[Intervention] Participant hỏi coupon → Facilitator cung cấp mã SAVE10"                                                                        | Participant nhận ra 'điểm kỳ lạ về mặt tính toán của SAVE10' nhưng không chỉ rõ cụ thể là gì | Hoàn thành có can thiệp                                   | Có khả năng liên quan đến bug đã log ở Task 1 (GUI-07/GUI-049 — coupon SAVE10 tính sai), nhưng participant không nêu cụ thể nên không thể khẳng định chắc chắn là cùng một vấn đề |              |
+| P06         | 22h57 26/07/2026 | "Thao tác và thắc mắc tại sao có thể thay đổi được giá tiền của đơn hàng"                                                                       | Trường tổng tiền là input có thể chỉnh sửa trực tiếp                                         | Hoàn thành độc lập (phát hiện ngẫu nhiên)                 | Xác nhận độc lập bug đã log ở Task 1 (GUI-17 — tổng tiền không phải trường chỉ đọc), đây là người thứ 2 (sau P02) tự phát hiện vấn đề này                                         |              |
+| P06         | 22h58 26/07/2026 | "Hoàn thành thanh toán"                                                                                                                         | Xác nhận đơn hàng hiển thị                                                                   | Hoàn thành có can thiệp                                   |                                                                                                                                                                                   |              |
 
 ## Bộ 10 câu SUS
 
-| Câu | Phát biểu SUS | Điểm (1–5) |
-|---:|---|---:|
-| 1 | Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên. |  |
-| 2 | Tôi thấy hệ thống này phức tạp một cách không cần thiết. |  |
-| 3 | Tôi nghĩ hệ thống này dễ sử dụng. |  |
-| 4 | Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này. |  |
-| 5 | Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt. |  |
-| 6 | Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán. |  |
-| 7 | Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh. |  |
-| 8 | Tôi thấy hệ thống này rất rườm rà khi sử dụng. |  |
-| 9 | Tôi cảm thấy rất tự tin khi sử dụng hệ thống này. |  |
-| 10 | Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này. |  |
+| Câu | Phát biểu SUS                                                                                           | Điểm (1–5) |
+| --: | ------------------------------------------------------------------------------------------------------- | ---------: |
+|   1 | Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên.                                               |          4 |
+|   2 | Tôi thấy hệ thống này phức tạp một cách không cần thiết.                                                |          1 |
+|   3 | Tôi nghĩ hệ thống này dễ sử dụng.                                                                       |          5 |
+|   4 | Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này. |          1 |
+|   5 | Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt.                                  |          4 |
+|   6 | Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán.                                           |          1 |
+|   7 | Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh.                             |          5 |
+|   8 | Tôi thấy hệ thống này rất rườm rà khi sử dụng.                                                          |          1 |
+|   9 | Tôi cảm thấy rất tự tin khi sử dụng hệ thống này.                                                       |          4 |
+|  10 | Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này.                                |          1 |
+
+**SUS score:** 92.5/100
 
 ## Post-task probe questions
 
-| Participant | Khía cạnh | Câu hỏi | Câu trả lời |
-|---|---|---|---|
-| P06 | Clarity | Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn? |  |
-| P06 | Error recovery | Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống? |  |
-| P06 | Speed | Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao? |  |
-| P06 | Trust | Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán? |  |
-| P06 | Coupon discoverability | Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao? |  |
+| Participant | Khía cạnh              | Câu hỏi                                                                                                                           | Câu trả lời                                                                                  |
+| ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| P06         | Clarity                | Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn?                | "Khá hay, đang trong giai đoạn phát triển, dễ thao tác."                                     |
+| P06         | Error recovery         | Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống? | "Sẽ nhắn tin phía chăm sóc khách hàng, tiêu biểu là hỏi facilitator trong buổi test này."    |
+| P06         | Speed                  | Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao?                                                       | "Không có phần nào quá nhanh hay quá chậm, vì nghĩ đây chỉ đang trong giai đoạn phát triển." |
+| P06         | Trust                  | Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán?                                | "Ngần ngại vì sao có thể chỉnh được giá đơn hàng."                                           |
+| P06         | Coupon discoverability | Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao?                                            | "Thử mò theo trí nhớ, sau đó hỏi mã và nhập."                                                |

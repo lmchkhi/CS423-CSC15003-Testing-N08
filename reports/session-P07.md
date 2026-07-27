@@ -1,36 +1,44 @@
 ## Participant table
 
-| ID | Relevant experience | Device/browser | Session date | Consent | Completion | Notes |
-|---|---|---|---|---|---|---|
-| P07 |  |  |  |  |  |  |
+| ID  | Relevant experience                                                           | Device/browser          | Session date          | Consent | Completion              | Notes                                                                            |
+| --- | ----------------------------------------------------------------------------- | ----------------------- | --------------------- | ------- | ----------------------- | -------------------------------------------------------------------------------- |
+| P07 | Đã từng trải nghiệm các sàn thương mại điện tử trước đây (Shopee, Lazada,...) | Laptop, Windows, Chrome | 00h14 ngày 27/07/2026 | Yes     | Hoàn thành có can thiệp | Đã xác minh danh tính người tham gia, thông tin liên hệ lưu riêng ngoài file này |
 
 ## Observation notes
 
-| Participant | Time | Participant action/quote | Observed UI/state | Outcome | Possible finding | Evidence ref |
-|---|---|---|---|---|---|---|
-| P07 |  |  |  |  |  |  |
+| Participant | Time             | Participant action/quote                                                                                                                                                                                      | Observed UI/state                                    | Outcome                                                                                                                                | Possible finding                                                                                                                                                        | Evidence ref |
+| ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| P07         | 00h14 27/07/2026 | "Ấn thêm giỏ hàng tại các sản phẩm trên giao diện, hỏi 'có vẻ như không thông báo thêm giỏ hàng thành công đúng không?' → Facilitator phản hồi có vẻ trang web không hỗ trợ, hướng dẫn vào giỏ hàng kiểm tra" | Không có thông báo xác nhận thêm giỏ hàng            | Hoàn thành có can thiệp                                                                                                                | Xác nhận lại vấn đề thiếu phản hồi thêm giỏ hàng                                                                                                                        |              |
+| P07         | 00h15 27/07/2026 | "Thắc mắc tại giỏ hàng không thể tăng số lượng, phải quay lại trang chính để thêm → Facilitator giải đáp có thể vào chi tiết sản phẩm để chỉnh số lượng"                                                      | Giỏ hàng không có điều khiển tăng/giảm số lượng      | Hoàn thành có can thiệp                                                                                                                | Xác nhận độc lập bug đã log ở Task 1 (GUI-13/GUI-14 — Blocked vì thiếu control số lượng ở Cart)                                                                         |              |
+| P07         | 00h16 27/07/2026 | "Ấn thêm sản phẩm 1 lần, vào giỏ hàng nhưng chưa thấy → Facilitator hướng dẫn ấn 2 lần thay vì 1 lần"                                                                                                         | Cần bấm 2 lần mới ghi nhận thêm vào giỏ              | Hoàn thành có can thiệp (facilitator hướng dẫn trực tiếp, mức can thiệp cao hơn các phiên trước vì được chỉ dẫn cụ thể cách khắc phục) | Xác nhận lại vấn đề 'phải ấn 2 lần'                                                                                                                                     |              |
+| P07         | 00h16 27/07/2026 | "Thắc mắc mã giảm giá sẽ lấy từ đâu → Facilitator phản hồi trang web không cung cấp danh sách, cho mã SAVE10. Participant thắc mắc chữ hoa/thường, thử nhập thì website tự động in hoa dù nhập dạng nào"      | Ô nhập coupon tự động chuyển thành chữ hoa           | Hoàn thành có can thiệp                                                                                                                | Xác nhận lại finding discoverability; đồng thời quan sát thêm hành vi auto-uppercase của ô nhập coupon (thông tin bổ sung, chưa rõ là vấn đề hay tính năng có chủ đích) |              |
+| P07         | 00h16 27/07/2026 | "Nhận thấy giá trị đơn hàng có thể chỉnh sửa và cảm thấy hoang mang"                                                                                                                                          | Trường tổng tiền là input có thể chỉnh sửa trực tiếp | Hoàn thành độc lập (phát hiện ngẫu nhiên)                                                                                              | Xác nhận độc lập bug đã log ở Task 1 (GUI-17)                                                                                                                           |              |
+| P07         | 00h17 27/07/2026 | "Sau khi áp dụng mã SAVE10, nhận thấy coupon tính toán sai → Facilitator cung cấp lại mã VIP100, participant thấy đúng"                                                                                       | SAVE10 tính sai, VIP100 tính đúng                    | Hoàn thành có can thiệp                                                                                                                | Xác nhận độc lập bug đã log ở Task 1 (GUI-07/GUI-049)                                                                                                                   |              |
+| P07         | 00h17 27/07/2026 | "Xác nhận thanh toán, hoàn thành quy trình"                                                                                                                                                                   | Xác nhận đơn hàng hiển thị                           | Hoàn thành có can thiệp                                                                                                                |                                                                                                                                                                         |              |
 
 ## Bộ 10 câu SUS
 
-| Câu | Phát biểu SUS | Điểm (1–5) |
-|---:|---|---:|
-| 1 | Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên. |  |
-| 2 | Tôi thấy hệ thống này phức tạp một cách không cần thiết. |  |
-| 3 | Tôi nghĩ hệ thống này dễ sử dụng. |  |
-| 4 | Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này. |  |
-| 5 | Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt. |  |
-| 6 | Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán. |  |
-| 7 | Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh. |  |
-| 8 | Tôi thấy hệ thống này rất rườm rà khi sử dụng. |  |
-| 9 | Tôi cảm thấy rất tự tin khi sử dụng hệ thống này. |  |
-| 10 | Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này. |  |
+| Câu | Phát biểu SUS                                                                                           | Điểm (1–5) |
+| --: | ------------------------------------------------------------------------------------------------------- | ---------: |
+|   1 | Tôi nghĩ rằng tôi muốn sử dụng hệ thống này thường xuyên.                                               |          1 |
+|   2 | Tôi thấy hệ thống này phức tạp một cách không cần thiết.                                                |          2 |
+|   3 | Tôi nghĩ hệ thống này dễ sử dụng.                                                                       |          4 |
+|   4 | Tôi nghĩ rằng tôi sẽ cần sự hỗ trợ của một người có chuyên môn kỹ thuật để có thể sử dụng hệ thống này. |          4 |
+|   5 | Tôi thấy các chức năng khác nhau trong hệ thống này được tích hợp tốt.                                  |          2 |
+|   6 | Tôi nghĩ rằng hệ thống này có quá nhiều điểm không nhất quán.                                           |          4 |
+|   7 | Tôi cho rằng phần lớn mọi người sẽ học cách sử dụng hệ thống này rất nhanh.                             |          3 |
+|   8 | Tôi thấy hệ thống này rất rườm rà khi sử dụng.                                                          |          2 |
+|   9 | Tôi cảm thấy rất tự tin khi sử dụng hệ thống này.                                                       |          3 |
+|  10 | Tôi cần học rất nhiều thứ trước khi có thể bắt đầu sử dụng hệ thống này.                                |          3 |
+
+**SUS score:** 45/100
 
 ## Post-task probe questions
 
-| Participant | Khía cạnh | Câu hỏi | Câu trả lời |
-|---|---|---|---|
-| P07 | Clarity | Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn? |  |
-| P07 | Error recovery | Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống? |  |
-| P07 | Speed | Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao? |  |
-| P07 | Trust | Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán? |  |
-| P07 | Coupon discoverability | Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao? |  |
+| Participant | Khía cạnh              | Câu hỏi                                                                                                                           | Câu trả lời                                                                                                                |
+| ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| P07         | Clarity                | Những thông tin hoặc phản hồi nào trong quá trình mua hàng là rõ ràng, và những phần nào chưa rõ ràng đối với bạn?                | "Chưa rõ: thêm giỏ hàng chưa có thông báo rõ ràng, giá tiền sản phẩm có thể chỉnh sửa, và chưa biết danh sách coupon."     |
+| P07         | Error recovery         | Khi gặp kết quả không như mong đợi, bạn đã quyết định làm gì tiếp theo, và điều gì đã giúp hoặc cản trở bạn khắc phục tình huống? | "Chờ một lúc sau sẽ thao tác lại; nếu không thể đáp ứng sẽ không dùng nữa."                                                |
+| P07         | Speed                  | Những phần nào của quá trình khiến bạn cảm thấy nhanh hoặc chậm, và vì sao?                                                       | "Quá chậm tại bước thêm sản phẩm ở trang chi tiết vì phải ấn 2 lần."                                                       |
+| P07         | Trust                  | Những yếu tố nào trong trải nghiệm khiến bạn tin tưởng hoặc còn ngần ngại khi xác nhận thanh toán?                                | "Tại phần nhập mã thấy chưa chính xác và có thể chỉnh sửa giá thấp hơn giá trị thật, không biết liệu có thành công không." |
+| P07         | Coupon discoverability | Bạn đã tìm và quyết định nhập mã coupon như thế nào, và trải nghiệm đó diễn ra ra sao?                                            | "Nhận thấy web không có danh sách mã, buộc phải hỏi để nhận được mã."                                                      |
