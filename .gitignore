@@ -9,3 +9,11 @@
 api_specification.md
 description_project.md
 **/src
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
