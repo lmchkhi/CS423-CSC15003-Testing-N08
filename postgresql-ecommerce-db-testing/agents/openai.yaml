@@ -1,0 +1,4 @@
+interface:
+  display_name: "PostgreSQL E-Commerce DB Testing"
+  short_description: "Test PostgreSQL e-commerce data layers"
+  default_prompt: "Use $postgresql-ecommerce-db-testing to execute the E-Commerce PostgreSQL mini lab."
