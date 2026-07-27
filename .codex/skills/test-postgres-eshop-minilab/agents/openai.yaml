@@ -1,0 +1,4 @@
+interface:
+  display_name: "Postgres EShop Mini Lab"
+  short_description: "Test mini lab PostgreSQL E-Commerce"
+  default_prompt: "Use $test-postgres-eshop-minilab to implement and report the PostgreSQL E-Commerce database testing mini lab."
