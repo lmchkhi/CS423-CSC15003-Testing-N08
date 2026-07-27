@@ -1,0 +1,259 @@
+[
+  {
+    "id": "FR01-TC-001",
+    "titleVi": "Đăng ký thành công với dữ liệu hợp lệ",
+    "category": "positive",
+    "coveredRule": "Dữ liệu hợp lệ được chấp nhận và chuyển đến trang đăng nhập",
+    "journey": "submit",
+    "input": {
+      "name": "Nguyễn Minh An",
+      "email": "fr01.tc001.{{RUN_ID}}@example.com",
+      "password": "Valid123@",
+      "confirmPassword": "Valid123@"
+    },
+    "expected": {
+      "kind": "navigation",
+      "value": "/login"
+    }
+  },
+  {
+    "id": "FR01-TC-002",
+    "titleVi": "Từ chối khi bỏ trống họ tên",
+    "category": "negative",
+    "coveredRule": "Họ tên là bắt buộc",
+    "journey": "submit",
+    "input": {
+      "name": "",
+      "email": "fr01.tc002.{{RUN_ID}}@example.com",
+      "password": "Valid123@",
+      "confirmPassword": "Valid123@"
+    },
+    "expected": {
+      "kind": "browserValidation",
+      "field": "name"
+    }
+  },
+  {
+    "id": "FR01-TC-003",
+    "titleVi": "Từ chối khi bỏ trống email",
+    "category": "negative",
+    "coveredRule": "Email là bắt buộc",
+    "journey": "submit",
+    "input": {
+      "name": "Nguyễn Minh An",
+      "email": "",
+      "password": "Valid123@",
+      "confirmPassword": "Valid123@"
+    },
+    "expected": {
+      "kind": "browserValidation",
+      "field": "email"
+    }
+  },
+  {
+    "id": "FR01-TC-004",
+    "titleVi": "Từ chối khi bỏ trống mật khẩu",
+    "category": "negative",
+    "coveredRule": "Mật khẩu là bắt buộc",
+    "journey": "submit",
+    "input": {
+      "name": "Nguyễn Minh An",
+      "email": "fr01.tc004.{{RUN_ID}}@example.com",
+      "password": "",
+      "confirmPassword": ""
+    },
+    "expected": {
+      "kind": "browserValidation",
+      "field": "password"
+    }
+  },
+  {
+    "id": "FR01-TC-005",
+    "titleVi": "Từ chối email sai định dạng",
+    "category": "validation",
+    "coveredRule": "Email phải có định dạng user@domain.com",
+    "journey": "submit",
+    "input": {
+      "name": "Nguyễn Minh An",
+      "email": "email-khong-hop-le",
+      "password": "Valid123@",
+      "confirmPassword": "Valid123@"
+    },
+    "expected": {
+      "kind": "browserValidation",
+      "field": "email"
+    }
+  },
+  {
+    "id": "FR01-TC-006",
+    "titleVi": "Từ chối email đã tồn tại",
+    "category": "negative",
+    "coveredRule": "Email phải là duy nhất trong hệ thống",
+    "journey": "duplicateEmail",
+    "input": {
+      "name": "Nguyễn Minh An",
+      "email": "fr01.tc006.{{RUN_ID}}@example.com",
+      "password": "Valid123@",
+      "confirmPassword": "Valid123@"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "email.*(tồn tại|đã.*dùng|trùng)"
+    }
+  },
+  {
+    "id": "FR01-TC-007",
+    "titleVi": "Chấp nhận mật khẩu mạnh đúng 8 ký tự",
+    "category": "boundary",
+    "coveredRule": "Mật khẩu tối thiểu 8 ký tự và đủ bốn nhóm ký tự",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc007.{{RUN_ID}}@example.com",
+      "password": "Aa1@aaaa",
+      "confirmPassword": "Aa1@aaaa"
+    },
+    "expected": {
+      "kind": "navigation",
+      "value": "/login"
+    }
+  },
+  {
+    "id": "FR01-TC-008",
+    "titleVi": "Từ chối mật khẩu chỉ có 7 ký tự",
+    "category": "boundary",
+    "coveredRule": "Mật khẩu phải có ít nhất 8 ký tự",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc008.{{RUN_ID}}@example.com",
+      "password": "Aa1@aaa",
+      "confirmPassword": "Aa1@aaa"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(8 ký tự|tối thiểu 8)"
+    }
+  },
+  {
+    "id": "FR01-TC-009",
+    "titleVi": "Từ chối mật khẩu thiếu chữ hoa",
+    "category": "validation",
+    "coveredRule": "Mật khẩu phải có ít nhất một chữ hoa",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc009.{{RUN_ID}}@example.com",
+      "password": "valid123@",
+      "confirmPassword": "valid123@"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(chữ hoa|mật khẩu.*yếu)"
+    }
+  },
+  {
+    "id": "FR01-TC-010",
+    "titleVi": "Từ chối mật khẩu thiếu chữ thường",
+    "category": "validation",
+    "coveredRule": "Mật khẩu phải có ít nhất một chữ thường",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc010.{{RUN_ID}}@example.com",
+      "password": "VALID123@",
+      "confirmPassword": "VALID123@"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(chữ thường|mật khẩu.*yếu)"
+    }
+  },
+  {
+    "id": "FR01-TC-011",
+    "titleVi": "Từ chối mật khẩu thiếu chữ số",
+    "category": "validation",
+    "coveredRule": "Mật khẩu phải có ít nhất một chữ số",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc011.{{RUN_ID}}@example.com",
+      "password": "ValidPwd@",
+      "confirmPassword": "ValidPwd@"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(số|mật khẩu.*yếu)"
+    }
+  },
+  {
+    "id": "FR01-TC-012",
+    "titleVi": "Từ chối mật khẩu thiếu ký tự đặc biệt",
+    "category": "validation",
+    "coveredRule": "Mật khẩu phải có ít nhất một ký tự đặc biệt cho phép",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc012.{{RUN_ID}}@example.com",
+      "password": "Valid1234",
+      "confirmPassword": "Valid1234"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(ký tự đặc biệt|mật khẩu.*yếu)"
+    }
+  },
+  {
+    "id": "FR01-TC-013",
+    "titleVi": "Từ chối ký tự đặc biệt ngoài danh sách cho phép",
+    "category": "validation",
+    "coveredRule": "Ký tự đặc biệt chỉ thuộc @, $, !, %, *, ?, &",
+    "journey": "submit",
+    "input": {
+      "name": "Trần Thu Hà",
+      "email": "fr01.tc013.{{RUN_ID}}@example.com",
+      "password": "Valid123#",
+      "confirmPassword": "Valid123#"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(ký tự đặc biệt|mật khẩu.*yếu)"
+    }
+  },
+  {
+    "id": "FR01-TC-014",
+    "titleVi": "Biểu mẫu có trường xác nhận mật khẩu được che",
+    "category": "structure",
+    "coveredRule": "Phải có trường xác nhận mật khẩu",
+    "journey": "inspectField",
+    "input": {
+      "name": "",
+      "email": "",
+      "password": "",
+      "confirmPassword": ""
+    },
+    "expected": {
+      "kind": "fieldAttribute",
+      "field": "confirmPassword",
+      "attribute": "type",
+      "value": "password"
+    }
+  },
+  {
+    "id": "FR01-TC-015",
+    "titleVi": "Từ chối khi xác nhận mật khẩu không khớp",
+    "category": "validation",
+    "coveredRule": "Mật khẩu và xác nhận mật khẩu phải khớp nhau",
+    "journey": "submit",
+    "input": {
+      "name": "Lê Hoàng Nam",
+      "email": "fr01.tc015.{{RUN_ID}}@example.com",
+      "password": "Valid123@",
+      "confirmPassword": "Different123@"
+    },
+    "expected": {
+      "kind": "errorMessage",
+      "value": "(xác nhận|mật khẩu).*(không khớp|khác)"
+    }
+  }
+]

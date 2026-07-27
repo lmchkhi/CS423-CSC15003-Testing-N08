@@ -1,0 +1,4 @@
+interface:
+  display_name: "Generate HW04 Playwright Tests"
+  short_description: "Generate Vietnamese HW04 Playwright automation"
+  default_prompt: "Use $generate-hw04-playwright-tests to turn my web-feature requirement into a complete Playwright automation package."
