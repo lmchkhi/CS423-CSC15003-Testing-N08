@@ -1,0 +1,16 @@
+{
+  "name": "eshop-fr03-playwright-automation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:list": "playwright test --list",
+    "test:fr03": "playwright test tests/fr03-forgot-reset-password.spec.ts",
+    "test:fr03:matrix": "node scripts/run-fr03-matrix.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  }
+}

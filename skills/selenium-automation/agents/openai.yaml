@@ -1,0 +1,4 @@
+interface:
+  display_name: "Selenium Automation"
+  short_description: "Create Selenium HW04 automation reports"
+  default_prompt: "Use -automation to create Selenium HW04 automation with cross-browser reports."

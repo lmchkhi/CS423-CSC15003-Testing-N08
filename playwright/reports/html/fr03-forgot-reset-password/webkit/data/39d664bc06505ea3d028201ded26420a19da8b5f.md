@@ -1,0 +1,261 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: fr03-forgot-reset-password.spec.ts >> FR03-TC-001 Step 1 shows a visible two-step indicator
+- Location: tests/fr03-forgot-reset-password.spec.ts:259:3
+
+# Error details
+
+```
+Error: expect(locator).toContainText(expected) failed
+
+Locator: locator('body')
+Timeout: 7000ms
+Expected pattern: /Bước\s*1\s*\/\s*2|Step\s*1\s*\/\s*2/
+Received string:  "
+    EShopGiỏ hàngĐăng nhậpĐăng kýQuên Mật KhẩuNhập Email của bạnLấy mã OTP© 2026 EShop SUT. Dành cho mục đích kiểm thử.·········
+"
+
+Call log:
+  - Expect "toContainText" with timeout 7000ms
+  - waiting for locator('body')
+    18 × locator resolved to <body>…</body>
+       - unexpected value "
+    EShopGiỏ hàngĐăng nhậpĐăng kýQuên Mật KhẩuNhập Email của bạnLấy mã OTP© 2026 EShop SUT. Dành cho mục đích kiểm thử.
+    
+  
+
+"
+
+```
+
+```yaml
+- banner:
+  - link "EShop":
+    - /url: /
+  - navigation:
+    - link "Giỏ hàng":
+      - /url: /cart
+    - link "Đăng nhập":
+      - /url: /login
+    - link "Đăng ký":
+      - /url: /register
+- main:
+  - heading "Quên Mật Khẩu" [level=2]
+  - text: Nhập Email của bạn
+  - textbox
+  - button "Lấy mã OTP"
+- contentinfo: © 2026 EShop SUT. Dành cho mục đích kiểm thử.
+```
+
+# Test source
+
+```ts
+  163 |     { timeout: 3_000 }
+  164 |   );
+  165 |   const otp = await maybeVisibleOtp(page, testCase);
+  166 |   if (!otp) {
+  167 |     throw new Error('Could not extract a visible OTP from the forgot-password page.');
+  168 |   }
+  169 |   return otp;
+  170 | }
+  171 | 
+  172 | async function requestOtpViaUi(
+  173 |   page: Page,
+  174 |   testCase: Fr03Case,
+  175 |   email: string | null
+  176 | ): Promise<{ responseStatus: number | null; otp: string | null }> {
+  177 |   await openForgotPasswordPage(page, testCase);
+  178 | 
+  179 |   if (email !== null) {
+  180 |     await fillForgotPasswordEmail(page, email);
+  181 |   }
+  182 | 
+  183 |   const responsePromise = page
+  184 |     .waitForResponse((response) => response.url().includes('/api/forgot-password'), { timeout: 3_000 })
+  185 |     .catch(() => null);
+  186 |   await submitCurrentForm(page);
+  187 |   const response = await responsePromise;
+  188 |   await page.waitForTimeout(250);
+  189 | 
+  190 |   return {
+  191 |     responseStatus: response?.status() ?? null,
+  192 |     otp: await maybeVisibleOtp(page, testCase)
+  193 |   };
+  194 | }
+  195 | 
+  196 | async function createUserAndRequestOtp(
+  197 |   page: Page,
+  198 |   request: APIRequestContext,
+  199 |   testCase: Fr03Case
+  200 | ): Promise<{ email: string; otp: string }> {
+  201 |   const email = uniqueEmail(testCase);
+  202 |   await createUser(request, testCase, email);
+  203 |   const result = await requestOtpViaUi(page, testCase, email);
+  204 | 
+  205 |   expect(result.responseStatus, 'registered email OTP request should succeed').toBe(200);
+  206 |   const otp = await requireVisibleOtp(page, testCase);
+  207 |   return { email, otp };
+  208 | }
+  209 | 
+  210 | async function fillResetForm(page: Page, otp: string, newPassword: string, confirmPassword?: string): Promise<number> {
+  211 |   const otpInput = await firstVisible(
+  212 |     [
+  213 |       page.getByLabel(/otp|mã|token/i),
+  214 |       page.getByPlaceholder(/otp|mã|token/i),
+  215 |       page.locator(
+  216 |         'input[name*="otp" i], input[name*="token" i], input[autocomplete="one-time-code"], input[type="number"], input[type="text"]'
+  217 |       )
+  218 |     ],
+  219 |     'OTP input'
+  220 |   );
+  221 |   await otpInput.fill(otp);
+  222 |   await expect(otpInput).toHaveValue(otp);
+  223 | 
+  224 |   const passwordInputs = page.locator('input[type="password"]');
+  225 |   const passwordInputCount = await passwordInputs.count();
+  226 |   expect(passwordInputCount, 'reset step should expose at least one password input').toBeGreaterThanOrEqual(1);
+  227 | 
+  228 |   await passwordInputs.nth(0).fill(newPassword);
+  229 |   await expect(passwordInputs.nth(0)).toHaveValue(newPassword);
+  230 |   if (passwordInputCount >= 2) {
+  231 |     await passwordInputs.nth(1).fill(confirmPassword ?? newPassword);
+  232 |     await expect(passwordInputs.nth(1)).toHaveValue(confirmPassword ?? newPassword);
+  233 |   }
+  234 | 
+  235 |   return passwordInputCount;
+  236 | }
+  237 | 
+  238 | async function submitReset(page: Page): Promise<number | null> {
+  239 |   const responsePromise = page
+  240 |     .waitForResponse((response) => response.url().includes('/api/reset-password'), { timeout: 3_000 })
+  241 |     .catch(() => null);
+  242 |   await submitCurrentForm(page);
+  243 |   const response = await responsePromise;
+  244 |   await page.waitForTimeout(250);
+  245 |   return response?.status() ?? null;
+  246 | }
+  247 | 
+  248 | async function expectPasswordUnchanged(
+  249 |   request: APIRequestContext,
+  250 |   email: string,
+  251 |   oldPassword: string,
+  252 |   rejectedPassword: string
+  253 | ): Promise<void> {
+  254 |   expect(await loginStatus(request, email, rejectedPassword), 'rejected password must not become valid').not.toBe(200);
+  255 |   await assertLoginSucceeds(request, email, oldPassword);
+  256 | }
+  257 | 
+  258 | for (const testCase of loadFr03Cases()) {
+  259 |   test(`${testCase.id} ${testCase.title}`, async ({ page, request }) => {
+  260 |     switch (testCase.kind) {
+  261 |       case 'stepOneIndicator': {
+  262 |         await openForgotPasswordPage(page, testCase);
+> 263 |         await expect(page.locator('body')).toContainText(new RegExp(testCase.expectedStepOnePattern ?? 'Bước\\s*1'));
+      |                                            ^ Error: expect(locator).toContainText(expected) failed
+  264 |         break;
+  265 |       }
+  266 | 
+  267 |       case 'backToLogin': {
+  268 |         await openForgotPasswordPage(page, testCase);
+  269 |         const backText = new RegExp(testCase.expectedBackToLoginPattern ?? 'Quay lại đăng nhập', 'i');
+  270 |         const backControl = page.getByText(backText);
+  271 |         await expect(backControl).toBeVisible({ timeout: 1_500 });
+  272 |         await backControl.click();
+  273 |         await expect(page).toHaveURL(new RegExp(pathOrDefault(testCase.loginPath, '/login')));
+  274 |         break;
+  275 |       }
+  276 | 
+  277 |       case 'emailInputType': {
+  278 |         await openForgotPasswordPage(page, testCase);
+  279 |         await expect(await emailInput(page)).toHaveAttribute('type', testCase.expectedEmailType ?? 'email');
+  280 |         break;
+  281 |       }
+  282 | 
+  283 |       case 'emptyEmailRejected': {
+  284 |         const result = await requestOtpViaUi(page, testCase, null);
+  285 |         expect(result.responseStatus, 'empty email should not be accepted by the UI/API').not.toBe(200);
+  286 |         expect(result.otp, 'empty email must not produce a visible OTP').toBeNull();
+  287 |         await expect(page.locator('body')).not.toContainText(extractionPattern(testCase));
+  288 |         break;
+  289 |       }
+  290 | 
+  291 |       case 'invalidEmailRejected': {
+  292 |         const result = await requestOtpViaUi(page, testCase, testCase.requestEmail ?? 'not-an-email');
+  293 |         expect(result.responseStatus, 'invalid email format should not be accepted').not.toBe(200);
+  294 |         expect(result.otp, 'invalid email format must not produce a visible OTP').toBeNull();
+  295 |         break;
+  296 |       }
+  297 | 
+  298 |       case 'unregisteredEmailRejected': {
+  299 |         const result = await requestOtpViaUi(page, testCase, uniqueEmail(testCase));
+  300 |         expect(result.responseStatus, 'unregistered email should not receive an OTP').not.toBe(200);
+  301 |         expect(result.otp, 'unregistered email must not produce a visible OTP').toBeNull();
+  302 |         break;
+  303 |       }
+  304 | 
+  305 |       case 'otpSixDigits': {
+  306 |         const { otp } = await createUserAndRequestOtp(page, request, testCase);
+  307 |         await expect(page.locator('body')).toContainText(expectedOtpPattern(testCase), { timeout: 1_500 });
+  308 |         expect(otp, 'OTP must be exactly 6 digits').toMatch(/^\d{6}$/);
+  309 |         break;
+  310 |       }
+  311 | 
+  312 |       case 'stepTwoIndicator': {
+  313 |         const email = uniqueEmail(testCase);
+  314 |         await createUser(request, testCase, email);
+  315 |         await requestOtpViaUi(page, testCase, email);
+  316 |         await expect(page.locator('body')).toContainText(new RegExp(testCase.expectedStepTwoPattern ?? 'Bước\\s*2'));
+  317 |         break;
+  318 |       }
+  319 | 
+  320 |       case 'resetFormFields': {
+  321 |         const email = uniqueEmail(testCase);
+  322 |         await createUser(request, testCase, email);
+  323 |         await requestOtpViaUi(page, testCase, email);
+  324 |         await expect(page.locator('input')).toHaveCount(
+  325 |           Math.max(2, testCase.expectedPasswordInputCount ?? 2),
+  326 |           { timeout: 1_500 }
+  327 |         );
+  328 |         expect(await page.locator('input[type="password"]').count()).toBeGreaterThanOrEqual(
+  329 |           testCase.expectedPasswordInputCount ?? 2
+  330 |         );
+  331 |         break;
+  332 |       }
+  333 | 
+  334 |       case 'weakPasswordRejected': {
+  335 |         const { email, otp } = await createUserAndRequestOtp(page, request, testCase);
+  336 |         const passwordInputCount = await fillResetForm(page, otp, testCase.newPassword ?? 'Aa1!');
+  337 |         expect
+  338 |           .soft(passwordInputCount, 'reset form should still provide password confirmation')
+  339 |           .toBeGreaterThanOrEqual(2);
+  340 |         const resetStatus = await submitReset(page);
+  341 |         expect(resetStatus, 'weak password reset should be rejected').not.toBe(200);
+  342 |         await expectPasswordUnchanged(
+  343 |           request,
+  344 |           email,
+  345 |           testCase.initialPassword ?? 'OldPass123!',
+  346 |           testCase.newPassword ?? 'Aa1!'
+  347 |         );
+  348 |         break;
+  349 |       }
+  350 | 
+  351 |       case 'mismatchedConfirmRejected': {
+  352 |         const { email, otp } = await createUserAndRequestOtp(page, request, testCase);
+  353 |         const passwordInputCount = await fillResetForm(
+  354 |           page,
+  355 |           otp,
+  356 |           testCase.newPassword ?? 'NewPass123!',
+  357 |           testCase.confirmPassword ?? 'Different123!'
+  358 |         );
+  359 |         expect(passwordInputCount, 'FR-03 requires a confirm-new-password field').toBeGreaterThanOrEqual(2);
+  360 |         const resetStatus = await submitReset(page);
+  361 |         expect(resetStatus, 'mismatched password confirmation should be rejected').not.toBe(200);
+  362 |         await expectPasswordUnchanged(
+  363 |           request,
+```

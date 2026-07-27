@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Playwright Assignment"
+  short_description: "Create Playwright HW automation submissions"
+  default_prompt: "Use -playwright-assignment to create a data-driven Playwright assignment with reports."
