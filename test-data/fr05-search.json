@@ -1,0 +1,9 @@
+[
+  {
+    "id": "FR05-DD-001",
+    "category": "positive-search",
+    "query": "iPhone",
+    "expectedProductName": "iPhone 15 Pro Max",
+    "expectedMinimumResults": 1
+  }
+]

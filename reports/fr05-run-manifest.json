@@ -1,0 +1,32 @@
+{
+  "studentId": "23127464",
+  "feature": "fr05-search",
+  "startedAt": "2026-07-27T07:57:58.805Z",
+  "completedAt": "2026-07-27T07:58:33.363Z",
+  "cells": [
+    {
+      "feature": "fr05-search",
+      "browser": "chromium",
+      "exitCode": 0,
+      "report": "reports\\html\\fr05-search\\chromium\\index.html",
+      "runTimestamp": "2026-07-27T07:57:58.809Z",
+      "labelVerified": true
+    },
+    {
+      "feature": "fr05-search",
+      "browser": "firefox",
+      "exitCode": 0,
+      "report": "reports\\html\\fr05-search\\firefox\\index.html",
+      "runTimestamp": "2026-07-27T07:58:02.787Z",
+      "labelVerified": true
+    },
+    {
+      "feature": "fr05-search",
+      "browser": "webkit",
+      "exitCode": 0,
+      "report": "reports\\html\\fr05-search\\webkit\\index.html",
+      "runTimestamp": "2026-07-27T07:58:28.681Z",
+      "labelVerified": true
+    }
+  ]
+}

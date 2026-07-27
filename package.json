@@ -1,0 +1,13 @@
+{
+  "name": "hw04-fr05-playwright",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:fr05": "playwright test tests/automation/fr05-search.spec.js",
+    "test:fr05:matrix": "node scripts/run-fr05-matrix.mjs",
+    "test:list": "playwright test --list"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0"
+  }
+}
