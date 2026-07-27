@@ -1,9 +1,16 @@
 [
-  {
-    "id": "FR05-DD-001",
-    "category": "positive-search",
-    "query": "iPhone",
-    "expectedProductName": "iPhone 15 Pro Max",
-    "expectedMinimumResults": 1
-  }
+  {"id":"FR05-DD-001","category":"layout","action":"openHome","expected":{"type":"gridDisplay","value":"grid"}},
+  {"id":"FR05-DD-002","category":"listing","action":"openHome","expected":{"type":"headingCount","value":5}},
+  {"id":"FR05-DD-003","category":"positive-search","action":"search","query":"iPhone","expected":{"type":"productVisible","value":"iPhone 15 Pro Max"}},
+  {"id":"FR05-DD-004","category":"case-insensitive-search","action":"search","query":"iphone","expected":{"type":"productVisible","value":"iPhone 15 Pro Max"}},
+  {"id":"FR05-DD-005","category":"empty-result","action":"search","query":"xyznoexist123","expected":{"type":"textVisible","value":"Không tìm thấy sản phẩm"}},
+  {"id":"FR05-DD-006","category":"special-characters","action":"search","query":"Áo @#$%","expected":{"type":"textHidden","value":"Database Error"}},
+  {"id":"FR05-DD-007","category":"whitespace","action":"search","query":"   ","expected":{"type":"headingCount","value":5}},
+  {"id":"FR05-DD-008","category":"xss-safety","action":"search","query":"<script>alert('XSS')</script>","expected":{"type":"textVisible","value":"<script>alert('XSS')</script>"}},
+  {"id":"FR05-DD-009","category":"sql-injection-safety","action":"search","query":"' OR '1'='1' --","expected":{"type":"headingCountLessThan","value":5}},
+  {"id":"FR05-DD-010","category":"loading-state","action":"delayedHomeLoad","expected":{"type":"textVisiblePattern","value":"đang tải|loading"}},
+  {"id":"FR05-DD-011","category":"heading-structure","action":"openHome","expected":{"type":"h1Count","value":1}},
+  {"id":"FR05-DD-012","category":"image-accessibility","action":"openHome","expected":{"type":"firstImageAltNonEmpty","value":true}},
+  {"id":"FR05-DD-013","category":"price-format","action":"openHome","expected":{"type":"firstPricePattern","value":"^30[.,]000[.,]000\\s*₫$"}},
+  {"id":"FR05-DD-014","category":"product-card-content","action":"openHome","expected":{"type":"productVisible","value":"iPhone 15 Pro Max"}}
 ]

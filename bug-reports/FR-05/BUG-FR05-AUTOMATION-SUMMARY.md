@@ -1,53 +1,46 @@
-# [BUG][FR-05] Automation execution summary — no product defect observed
+# [BUG][FR-05] Automation result summary — seven reproducible failures
 
 ## Found by Test Case
 
-FR05-DD-001 — search `iPhone` and verify that `iPhone 15 Pro Max` is shown.
+FR05-DD-005, FR05-DD-008, FR05-DD-009, FR05-DD-010, FR05-DD-011, FR05-DD-012, and FR05-DD-013.
 
 ## Requirement liên quan
 
-FR-05 — Product listing and search: the search bar finds products by product name.
+FR-05: empty state, safe search-keyword display, loading state, exactly one `h1`, descriptive product-image alt text, and `₫` price formatting.
 
 ## Severity / Priority
 
-N/A — this execution did not reveal a reproducible product defect. No GitHub Issue should be created from this report.
+- Critical / P0: FR05-DD-009 — SQL-injection input returned all five listed products.
+- Major / P1: FR05-DD-008 — XSS input was not presented as literal text.
+- Minor / P2: FR05-DD-005, FR05-DD-010, FR05-DD-011, FR05-DD-012, FR05-DD-013.
 
 ## Environment
 
-- SUT web URL: `http://127.0.0.1:5173/`
+- SUT URL: `http://127.0.0.1:5173/`
 - Student ID: `23127464`
-- Execution window: `2026-07-27T07:57:58.805Z` to `2026-07-27T07:58:33.363Z`
+- Run completed: `2026-07-27T08:31:00.171Z`
 - Browsers: Chromium, Firefox (headed), WebKit
 
 ## Steps to reproduce
 
 1. Open the EShop home page.
-2. Enter `iPhone` in the product-search box.
-3. Submit the search.
-4. Observe the returned product list.
+2. Perform the relevant search from the external data record, or observe the initial product listing.
+3. Compare the visible UI result with FR-05.
 
 ## Expected result
 
-The search result includes the product named `iPhone 15 Pro Max`.
+The UI provides empty/loading states, displays search data safely as text, prevents search manipulation from returning the complete list, contains one `h1`, uses descriptive image alt text, and formats prices with `₫`.
 
 ## Actual result
 
-The expected product was visible and all assertions passed in Chromium, Firefox, and WebKit.
+All seven failures reproduced in Chromium, Firefox, and WebKit. The precise failed cases and expected UI outcomes are recorded in the HTML reports and the automation summary.
 
 ## Evidence
 
-| Browser | Result | HTML report |
-| --- | --- | --- |
-| Chromium | Passed | [Chromium report](../../reports/html/fr05-search/chromium/index.html) |
-| Firefox | Passed | [Firefox report](../../reports/html/fr05-search/firefox/index.html) |
-| WebKit | Passed | [WebKit report](../../reports/html/fr05-search/webkit/index.html) |
+- [Run manifest](../../reports/fr05-run-manifest.json)
+- [Automation summary](../../reports/automation-fr05-summary.md)
+- [Chromium report](../../reports/html/fr05-search/chromium/index.html)
+- [Firefox report](../../reports/html/fr05-search/firefox/index.html)
+- [WebKit report](../../reports/html/fr05-search/webkit/index.html)
 
-The [run manifest](../../reports/fr05-run-manifest.json) records exit code `0` and a verified `Run by: 23127464` label with ISO timestamp for each browser.
-
-### Execution note — not a product bug
-
-Firefox initially could not start in headless mode because the local graphics compositor failed. Running Firefox in headed mode with GUI permission allowed the same test to complete successfully. This is an execution-environment constraint, not a defect observed in the EShop UI.
-
-### Scope limitation
-
-This report covers one positive, data-driven FR-05 case only. It does not establish that FR-05 is defect-free; negative, empty-result, loading-state, safety, accessibility, and formatting cases remain outside this run.
+Each report contains failure screenshots and the visible label `Run by: 23127464` with its ISO execution timestamp.
