@@ -28,7 +28,7 @@ Dùng functional requirement để tạo item theo màn hình:
 - Catalog: product grid/search, product detail và quantity.
 - Cart/checkout: bảng cart, nút tăng/giảm quantity, confirmation khi xóa, tổng tiền, checkout authorization, trạng thái coupon.
 - Orders: lịch sử đơn hàng của user, nhãn/màu trạng thái.
-- Admin: dashboard, CRUD form, CSV import, quản lý order/user/coupon.
+- Admin: dashboard, CRUD form, Product Management gồm section CSV import, quản lý order/user/coupon.
 - Mobile: cart, checkout, coupon, quên mật khẩu, order history khi được chọn.
 
 ## Category Theo Slide GUI Testing

@@ -41,6 +41,7 @@ Chỉ dùng tài liệu, API contract, hành vi UI nhìn thấy được, render
 1. Xác định phạm vi.
    - Nếu người dùng đưa danh sách màn hình, dùng đúng danh sách đó.
    - Nếu chưa có, chọn đủ màn hình quan trọng để tạo hơn 40 item không lặp, ví dụ Home/Product Listing, Product Detail, Login/Register/Forgot Password, Cart, Checkout, Order History hoặc màn hình Admin.
+   - Với phạm vi Admin, xem CSV import là một section trong Product Management, không tách thành một screen/page riêng trừ khi SUT hoặc người dùng nêu rõ có route/màn hình riêng.
    - Ghi giả định môi trường: frontend URL, admin URL, backend URL, browser/device/viewport, tài khoản dùng để test và ngày test.
    - Nếu người dùng chỉ yêu cầu thiết kế checklist, sample hoặc draft, dừng đúng mức đó và để kết quả thực thi là `Not Run`.
 
@@ -80,7 +81,7 @@ Chỉ dùng tài liệu, API contract, hành vi UI nhìn thấy được, render
    - Sau khi tạo file bug report cục bộ, có thể dùng cùng nội dung để tạo GitHub Issue; khi có issue number/link thì cập nhật lại cột `Bug ID`.
 
 7. Tổng kết Task 1.
-   - Báo cáo tổng số item, số item theo IA, số item theo Category, màn hình đã phủ, số Pass/Fail/Blocked/Not Run, số bug, màn hình rủi ro cao nhất và item được thêm trong human review.
+   - Trình bày chi tiết trong `reports/main-report.md`: phạm vi màn hình đã chọn, cách tạo checklist, tổng số item, số item theo IA, số item theo Category, số Pass/Fail/Blocked/Not Run, số bug, màn hình rủi ro cao nhất và item được thêm trong human review.
    - Nêu rõ các folder mã nguồn bị cấm đã không được đọc.
 
 8. Ghi AI Audit Report cho mọi tin nhắn liên quan.
@@ -96,8 +97,8 @@ Chỉ dùng tài liệu, API contract, hành vi UI nhìn thấy được, render
 Ưu tiên tạo hoặc cập nhật các artifact Markdown sau, trừ khi người dùng yêu cầu path khác:
 
 - `reports/gui-checklist.md`: bảng checklist dựa trên `assets/gui-checklist-template.md`.
-- `reports/gui-task1-summary.md`: tổng kết thực thi và ghi chú AI/human-review.
-- `reports/ai-audit-report.md`: log mọi tin nhắn/tương tác liên quan đến skill checklist.
+- `reports/main-report.md`: trình bày chi tiết Task 1, gồm phạm vi, quy trình tạo checklist, kết quả thực thi, ghi chú AI/human-review, bug summary và kết luận black-box.
+- `reports/ai-audit-report.md`: log mọi tin nhắn/tương tác.
 - `bug-reports/BUG-GUI-xxx.md`: mỗi file cho một failed item, theo `.github/ISSUE_TEMPLATE/bug-report-template.md`.
 
 ## Tiêu Chí Chất Lượng
