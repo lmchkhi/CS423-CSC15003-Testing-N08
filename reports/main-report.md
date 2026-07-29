@@ -122,15 +122,17 @@ Facilitator phải đọc nguyên văn kịch bản. Kịch bản chỉ nêu k�
 
 ### Participants
 
-| ID  | Thiết bị/browser             | Ngày                  | Completion              |
-| --- | ---------------------------- | --------------------- | ----------------------- |
-| P01 | Máy tính, Windows 10, Chrome | 23h46 ngày 24/07/2026 | Hoàn thành có can thiệp |
-| P02 | Laptop, Windows 11, Edge     | 22h23 ngày 25/07/2026 | Hoàn thành có can thiệp |
-| P03 | Laptop, Linux, Firefox       | 22h45 25/07/2026      | Hoàn thành có can thiệp |
-| P04 | Laptop, Windows 10, Chrome   | 10h01 ngày 26/07/2026 | Hoàn thành có can thiệp |
-| P05 | Laptop, Linux, Chrome        | 22h20 ngày 26/07/2026 | Hoàn thành có can thiệp |
-| P06 | Laptop, Windows, Edge        | 22h56 ngày 26/07/2026 | Hoàn thành có can thiệp |
-| P07 | Laptop, Windows, Chrome      | 00h14 ngày 27/07/2026 | Hoàn thành có can thiệp |
+**Đường dẫn thực hiện:**[Usability Test](https://testing-23127464.vercel.app/)
+
+| ID  | Participant | Email                       | Thiết bị/browser             | Ngày                  | Completion              |
+| --- | ----------- | --------------------------- | ---------------------------- | --------------------- | ----------------------- |
+| P01 | Khoa        | vankhoa0506@gmail.com       | Máy tính, Windows 10, Chrome | 23h46 ngày 24/07/2026 | Hoàn thành có can thiệp |
+| P02 | Huy         | Vumanhhuy111975@gmail.com   | Laptop, Windows 11, Edge     | 22h23 ngày 25/07/2026 | Hoàn thành có can thiệp |
+| P03 | Phong       | ltphong23@clc.fitus.edu.vn  | Laptop, Linux, Firefox       | 22h45 ngày 25/07/2026 | Hoàn thành có can thiệp |
+| P04 | Minh        | pvminh23@clc.fitus.edu.vn   | Laptop, Windows 10, Chrome   | 10h01 ngày 26/07/2026 | Hoàn thành có can thiệp |
+| P05 | Duyên       | mtkduyen23@clc.fitus.edu.vn | Laptop, Linux, Chrome        | 22h20 ngày 26/07/2026 | Hoàn thành có can thiệp |
+| P06 | Nhật        | lnnhat23@clc.fitus.edu.vn   | Laptop, Windows, Edge        | 22h56 ngày 26/07/2026 | Hoàn thành có can thiệp |
+| P07 | Owen        | ntowen23@clc.fitus.edu.vn   | Laptop, Windows, Chrome      | 00h14 ngày 27/07/2026 | Hoàn thành có can thiệp |
 
 ### Kết quả SUS
 
