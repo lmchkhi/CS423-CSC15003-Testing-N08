@@ -41,4 +41,4 @@ Mục “Mã Giảm Giá” được highlight màu xanh và mở đúng màn h�
 
 ## Evidence
 
-[GUI_23_33_34.png](../../evidence/hw03/GUI_23_33_34.png)
+[GUI_23_33_34.png](../../evidence/hw03/Chrome/GUI_23_33_34.png)

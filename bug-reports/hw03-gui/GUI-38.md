@@ -41,4 +41,4 @@ Khi mất kết nối mạng lúc submit, hệ thống hiển thị alert lỗi 
 
 ## Evidence
 
-[GUI_38_43.png](../../evidence/hw03/GUI_38_43.png)
+[GUI_38_43.png](../../evidence/hw03/Chrome/GUI_38_43.png)

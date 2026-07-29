@@ -40,4 +40,4 @@ Không thể kiểm tra focus-order vì control tăng/giảm số lượng khôn
 
 ## Evidence
 
-[GUI_13_14.png](../../evidence/hw03/GUI_13_14.png)
+[GUI_13_14.png](../../evidence/hw03/Chrome/GUI_13_14.png)

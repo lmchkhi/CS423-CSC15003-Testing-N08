@@ -44,4 +44,4 @@ Cart hiển thị hai dòng cùng tên sản phẩm, mỗi dòng có số lượ
 
 ## Evidence
 
-[GUI_13_14.png](../evidence/hw03/GUI_13_14.png)
+[GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)

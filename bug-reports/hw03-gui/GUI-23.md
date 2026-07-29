@@ -40,4 +40,4 @@ Form tạo coupon không hiển thị ký hiệu `*` cho các trường bắt bu
 
 ## Evidence
 
-[GUI_23_33_34.png](../../evidence/hw03/GUI_23_33_34.png)
+[GUI_23_33_34.png](../../evidence/hw03/Chrome/GUI_23_33_34.png)

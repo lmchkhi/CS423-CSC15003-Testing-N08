@@ -41,4 +41,4 @@ Khi mạng chậm (Slow 4G), bảng danh sách coupon hiển thị trống hoàn
 
 ## Evidence
 
-[GUI_44.png](../../evidence/hw03/GUI_44.png)
+[GUI_44.png](../../evidence/hw03/Chrome/GUI_44.png)

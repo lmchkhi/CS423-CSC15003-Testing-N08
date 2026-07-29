@@ -40,4 +40,4 @@ Không có dấu `*` hoặc dấu hiệu nào cho trường bắt buộc.
 
 ## Evidence
 
-[GUI_15_16.png](../../evidence/hw03/GUI_15_16.png)
+[GUI_15_16.png](../../evidence/hw03/Chrome/GUI_15_16.png)

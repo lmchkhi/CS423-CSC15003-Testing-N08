@@ -40,4 +40,4 @@ Khi không tải được chi tiết xác nhận, màn hình có trạng thái l
 
 ## Evidence
 
-[GUI_38_43.png](../../evidence/hw03/GUI_38_43.png). Evidence hiện tại không ghi lại màn hình Checkout Success.
+[GUI_38_43.png](../../evidence/hw03/Chrome/GUI_38_43.png). Evidence hiện tại không ghi lại màn hình Checkout Success.

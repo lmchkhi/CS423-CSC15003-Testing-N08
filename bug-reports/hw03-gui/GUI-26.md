@@ -40,4 +40,4 @@ Không có breadcrumb/navbar/step indicator nào thể hiện Cart là bước h
 
 ## Evidence
 
-[GUI_26_27_36.png](../../evidence/hw03/GUI_26_27_36.png)
+[GUI_26_27_36.png](../../evidence/hw03/Chrome/GUI_26_27_36.png)

@@ -41,4 +41,4 @@ Không thể kiểm tra min-quantity vì control tăng/giảm số lượng khô
 
 ## Evidence
 
-[GUI_13_14.png](../../evidence/hw03/GUI_13_14.png)
+[GUI_13_14.png](../../evidence/hw03/Chrome/GUI_13_14.png)

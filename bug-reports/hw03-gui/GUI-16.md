@@ -40,4 +40,4 @@ Checkout không có bất kỳ trường thông tin giao hàng/thanh toán bắt
 
 ## Evidence
 
-[GUI_15_16.png](../../evidence/hw03/GUI_15_16.png)
+[GUI_15_16.png](../../evidence/hw03/Chrome/GUI_15_16.png)

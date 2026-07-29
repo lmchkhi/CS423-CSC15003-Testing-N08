@@ -40,4 +40,4 @@ Với toàn bộ dữ liệu hợp lệ, form chấp nhận gửi; dữ liệu t
 
 ## Evidence
 
-[GUI_17.png](../../evidence/hw03/GUI_17.png)
+[GUI_17.png](../../evidence/hw03/Chrome/GUI_17.png)

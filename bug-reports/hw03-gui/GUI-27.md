@@ -40,4 +40,4 @@ Luồng Cart → Checkout không có breadcrumb/step indicator nào thể hiện
 
 ## Evidence
 
-[GUI_26_27_36.png](../../evidence/hw03/GUI_26_27_36.png)
+[GUI_26_27_36.png](../../evidence/hw03/Chrome/GUI_26_27_36.png)
