@@ -308,3 +308,541 @@ AI đã cập nhật `reports/gui-checklist.md`:
 - Kiểm tra bảng mới có 5 dòng human-review và đủ số cột.
 - Thêm Entry #8 vào `reports/ai-audit-report.md` cho lượt cập nhật này.
 ```
+
+## Entry #9
+
+### (1) Prompt + Tool
+
+| Field             | Content                               |
+| ----------------- | ------------------------------------- |
+| **Tool**          | Codex                                 |
+| **Timestamp**     | 29/07/2026 16:27 GMT+7                |
+| **Artifact type** | Agent skill cập nhật + GitHub issue workflow |
+
+**Full prompt:**
+
+```text
+tôi có tải gh về và login rồi, bây giờ giúp tôi tạo thêm 1 skill mới hoặc sửa, thêm trong skill generate-gui-checklist-eshop để thêm qui trình tạo issue trên github giúp tôi khi đã thực thi checklist xong, có các bug report và tạo issue theo template đó. lưu ý mỗi issue cần gắn thêm 3 label nữa là Module, Priority, Severity ngoài 2 label có sẵn trong template. các label đa số đã có sẵn trên github rồi nên dùng gh label list --limit 100 để xem (nếu không có --limit 100 có thể sẽ chỉ hiện 30/52 labels) và dùng lại các label đó, khi nào không có mới tạo label mới. về phần screenshot và gắn hình trong issue thì các hình ảnh đã được push lên github trong folder reports/screenshots rồi, có thể để link ở đó rồi tôi tự upload sau. nhớ dùng skill write-ai-audit-report
+```
+
+### (2) AI Output
+
+```text
+AI đã cập nhật skill `skills/generate-gui-checklist-eshop` để bổ sung workflow tạo GitHub issue:
+
+- Sửa `skills/generate-gui-checklist-eshop/SKILL.md`:
+  - Mở rộng description để trigger cả việc tạo GitHub issue bằng `gh`.
+  - Thêm bước tạo GitHub issue sau khi checklist đã chạy và bug report cục bộ đã có.
+  - Quy định kiểm tra `gh auth status`, `gh repo view --json nameWithOwner,url`.
+  - Quy định chạy `gh label list --limit 100` trước khi gắn label.
+  - Mỗi issue phải có 5 label: `Type: Bug`, `Status: New`, `Module: ...`, `Priority: ...`, `Severity: ...`.
+  - Dùng lại label có sẵn, chỉ tạo label mới khi thiếu bằng `gh label create`.
+  - Không tạo issue trùng nếu checklist/bug report đã có issue number hoặc link.
+  - Cập nhật lại `Bug ID` trong `reports/gui-checklist.md` và issue link trong bug report sau khi tạo issue.
+  - Ghi rõ screenshot dùng relative path/GitHub blob URL tới `reports/screenshots/...`, không cố upload ảnh local bằng `gh`.
+
+- Sửa `skills/generate-gui-checklist-eshop/assets/bug-report-template.md`:
+  - Thêm section `GitHub labels` để nhắc đủ 5 label khi publish issue.
+  - Thêm hướng dẫn evidence screenshot đã push trong `reports/screenshots/`.
+
+- Sửa `skills/generate-gui-checklist-eshop/agents/openai.yaml`:
+  - Cập nhật short description/default prompt để nhắc bug report, GitHub issue và label Module/Priority/Severity.
+
+- Kiểm tra sơ `reports/gui-checklist.md` và xác nhận checklist đã có nhiều dòng Fail kèm screenshot path trong `reports/screenshots/gui-checklist/...`.
+- Chạy validator chính thức bằng script `quick_validate.py` không thành công vì môi trường Python thiếu module `yaml` (`ModuleNotFoundError: No module named 'yaml'`).
+- Kiểm tra thay thế bằng Ruby YAML và rule thủ công: frontmatter parse được, chỉ có key `name`/`description`, tên skill hợp lệ, description dài 765 ký tự, không có angle bracket.
+- Thêm Entry #9 vào `reports/ai-audit-report.md` cho lượt cập nhật này.
+```
+
+## Entry #10
+
+### (1) Prompt + Tool
+
+| Field             | Content                       |
+| ----------------- | ----------------------------- |
+| **Tool**          | Codex                         |
+| **Timestamp**     | 30/07/2026 02:13 GMT+7        |
+| **Artifact type** | Bug report + main report      |
+
+**Full prompt:**
+
+```text
+xem qua reports/gui-checklist.md đã test xong và có result, note, screenshot. hãy giúp tôi viết bug report cho các item fail, rồi cập nhật reports/main-report.md luôn, chưa cần tạo issue trên github, phần đó sẽ làm ở bước sau. do có nhiều item fail (tầm 37) kéo theo phải tại nhiều bug report nên mỗi lần làm 10 item thôi rồi tôi sẽ xem xét rồi khi tôi yêu cầu tiếp tục thì mới làm tiếp
+```
+
+### (2) AI Output
+
+```text
+AI đã dùng skill `generate-gui-checklist-eshop` và quy tắc `write-ai-audit-report` để xử lý batch bug report đầu tiên, chưa tạo GitHub issue.
+
+- Đọc `reports/gui-checklist.md`, `.github/ISSUE_TEMPLATE/bug-report-template.md`, `reports/main-report.md`, `skills/generate-gui-checklist-eshop/SKILL.md`, `skills/write-ai-audit-report/SKILL.md`.
+- Không đọc các thư mục mã nguồn bị cấm: `backend/`, `frontend-admin/`, `frontend-web/`, `frontend-mobile/`.
+- Xác định 10 failed item đầu tiên theo thứ tự checklist: `GUI-001`, `GUI-002`, `GUI-003`, `GUI-005`, `GUI-009`, `GUI-012`, `GUI-018`, `GUI-019`, `GUI-020`, `GUI-022`.
+- Tạo 10 bug report cục bộ:
+  - `bug-reports/BUG-GUI-001.md`
+  - `bug-reports/BUG-GUI-002.md`
+  - `bug-reports/BUG-GUI-003.md`
+  - `bug-reports/BUG-GUI-004.md`
+  - `bug-reports/BUG-GUI-005.md`
+  - `bug-reports/BUG-GUI-006.md`
+  - `bug-reports/BUG-GUI-007.md`
+  - `bug-reports/BUG-GUI-008.md`
+  - `bug-reports/BUG-GUI-009.md`
+  - `bug-reports/BUG-GUI-010.md`
+- Mỗi bug report có đủ các section chính theo template: Found by Test Case, Requirement liên quan, Severity / Priority, Environment, Steps to reproduce, Expected result, Actual result, Evidence; đồng thời thêm `GitHub labels` để dùng ở bước tạo issue sau.
+- Cập nhật `reports/gui-checklist.md`:
+  - Gắn cột `Bug ID` của 10 dòng đã xử lý về file bug report tương ứng.
+  - Bổ sung screenshot path `reports/screenshots/gui-checklist/GUI-020.png` cho `GUI-020` vì file evidence tồn tại trên disk.
+- Cập nhật `reports/main-report.md`:
+  - Thêm phạm vi test, nguyên tắc black-box, thống kê 65 checklist item, 28 Pass, 37 Fail.
+  - Thêm phân bố theo IA, Category, Screen.
+  - Thêm bảng bug report status cho batch 1, ghi rõ đã xử lý 10/37 failed item và batch tiếp theo bắt đầu từ `GUI-024`.
+- Kiểm tra bằng `rg` xác nhận 10 bug report có các heading quan trọng và `reports/gui-checklist.md`/`reports/main-report.md` đều tham chiếu đủ 10 bug report.
+```
+
+## Entry #11
+
+### (1) Prompt + Tool
+
+| Field             | Content                       |
+| ----------------- | ----------------------------- |
+| **Tool**          | Codex                         |
+| **Timestamp**     | 30/07/2026 02:29 GMT+7        |
+| **Artifact type** | Bug report + main report      |
+
+**Full prompt:**
+
+```text
+bây giờ tiếp tục với 10 item fail kế tiếp
+```
+
+### (2) AI Output
+
+```text
+AI tiếp tục batch 2 cho 10 failed item kế tiếp, chưa tạo GitHub issue.
+
+- Đọc lại `skills/generate-gui-checklist-eshop/SKILL.md`, `skills/write-ai-audit-report/SKILL.md`, `reports/gui-checklist.md`, `reports/main-report.md` và danh sách file trong `bug-reports/`.
+- Không đọc các thư mục mã nguồn bị cấm: `backend/`, `frontend-admin/`, `frontend-web/`, `frontend-mobile/`.
+- Xác định 10 failed item kế tiếp sau `GUI-022`: `GUI-024`, `GUI-025`, `GUI-026`, `GUI-027`, `GUI-028`, `GUI-031`, `GUI-032`, `GUI-034`, `GUI-035`, `GUI-036`.
+- Tạo 10 bug report cục bộ:
+  - `bug-reports/BUG-GUI-011.md`
+  - `bug-reports/BUG-GUI-012.md`
+  - `bug-reports/BUG-GUI-013.md`
+  - `bug-reports/BUG-GUI-014.md`
+  - `bug-reports/BUG-GUI-015.md`
+  - `bug-reports/BUG-GUI-016.md`
+  - `bug-reports/BUG-GUI-017.md`
+  - `bug-reports/BUG-GUI-018.md`
+  - `bug-reports/BUG-GUI-019.md`
+  - `bug-reports/BUG-GUI-020.md`
+- Cập nhật `reports/gui-checklist.md` để gắn `Bug ID` cho 10 dòng đã xử lý.
+- Cập nhật `reports/main-report.md`:
+  - Thêm 10 dòng bug report batch 2 vào bảng Bug report status.
+  - Đổi trạng thái đã có bug report từ `10/37` thành `20/37`.
+  - Ghi số failed item còn lại là 17 và batch tiếp theo bắt đầu từ `GUI-037`.
+  - Bổ sung đánh giá rủi ro cho các lỗi validation/destructive action trong batch 2.
+- Kiểm tra bằng `rg` xác nhận 10 bug report mới có các heading `Requirement liên quan`, `GitHub labels`, `Evidence`, và `reports/gui-checklist.md`/`reports/main-report.md` đều tham chiếu đủ `BUG-GUI-011.md` đến `BUG-GUI-020.md`.
+```
+
+## Entry #12
+
+### (1) Prompt + Tool
+
+| Field             | Content                          |
+| ----------------- | -------------------------------- |
+| **Tool**          | Codex                            |
+| **Timestamp**     | 30/07/2026 02:43 GMT+7           |
+| **Artifact type** | Bug report chỉnh sửa + report    |
+
+**Full prompt:**
+
+```text
+chỉnh lại các bug report hiện tại viết bằng tiếng việt, những từ thuật ngữ thì không cần dịch, vẫn giữ đúng template chỉ sửa nội dung đã điền vào template và bug id ở reports/gui-checklist.md và reports/main-report.md chỉ điền id (khong điền cả đường dẫn vào), và id các bug report nên đặt theo số thự tự của gui id luôn cho dễ nhận biết, ví dụ như BUG-GUI-001 là bug của gui 001 chứ không đánh theo số thứ tự bug.
+```
+
+### (2) AI Output
+
+```text
+AI đã chỉnh lại 20 bug report hiện có theo yêu cầu:
+
+- Đổi tên file bug report để `BUG-GUI-xxx` khớp trực tiếp với `GUI-xxx`, ví dụ `GUI-024` dùng `BUG-GUI-024.md`.
+- Các file bug report hiện tại gồm:
+  `BUG-GUI-001`, `BUG-GUI-002`, `BUG-GUI-003`, `BUG-GUI-005`, `BUG-GUI-009`, `BUG-GUI-012`, `BUG-GUI-018`, `BUG-GUI-019`, `BUG-GUI-020`, `BUG-GUI-022`, `BUG-GUI-024`, `BUG-GUI-025`, `BUG-GUI-026`, `BUG-GUI-027`, `BUG-GUI-028`, `BUG-GUI-031`, `BUG-GUI-032`, `BUG-GUI-034`, `BUG-GUI-035`, `BUG-GUI-036`.
+- Viết lại nội dung đã điền trong bug report bằng tiếng Việt, giữ các thuật ngữ cần thiết như `input`, `loading`, `disabled`, `native validation`, `h1`.
+- Giữ đúng các section chính của template `.github/ISSUE_TEMPLATE/bug-report-template.md`: Found by Test Case, Requirement liên quan, Severity / Priority, Environment, Steps to reproduce, Expected result, Actual result, Evidence.
+- Bỏ section phụ `GitHub labels` khỏi bug report local để nội dung bám sát template hơn.
+- Cập nhật `skills/generate-gui-checklist-eshop/SKILL.md` để nhắc không thêm section phụ chỉ để chứa GitHub label; label sẽ được suy ra khi tạo issue.
+- Cập nhật `skills/generate-gui-checklist-eshop/assets/bug-report-template.md` để bỏ section `GitHub labels`, giúp các batch sau giữ đúng template.
+- Cập nhật `reports/gui-checklist.md`: cột `Bug ID` chỉ còn ID như `BUG-GUI-024`, không còn đường dẫn file.
+- Cập nhật `reports/main-report.md`: bảng Bug report status dùng Bug ID dạng `BUG-GUI-xxx`, không còn `bug-reports/BUG-GUI-xxx.md`.
+- Kiểm tra bằng script Ruby xác nhận mọi file `BUG-GUI-xxx.md` có `Found by Test Case` tương ứng `GUI-xxx`.
+- Kiểm tra bằng `rg` xác nhận không còn `GitHub labels` trong bug report và không còn đường dẫn `bug-reports/BUG-GUI` trong checklist/main report.
+```
+
+## Entry #13
+
+### (1) Prompt + Tool
+
+| Field             | Content                       |
+| ----------------- | ----------------------------- |
+| **Tool**          | Codex                         |
+| **Timestamp**     | 30/07/2026 02:49 GMT+7        |
+| **Artifact type** | Bug report + main report      |
+
+**Full prompt:**
+
+```text
+oke bây giờ tiếp tục viết bug report cho 10 item fail tiếp theo và cập nhật main-report đi
+```
+
+### (2) AI Output
+
+```text
+AI tiếp tục batch 3 cho 10 failed item kế tiếp, chưa tạo GitHub issue.
+
+- Đọc lại `skills/generate-gui-checklist-eshop/SKILL.md`, `skills/write-ai-audit-report/SKILL.md`, `reports/gui-checklist.md`, `reports/main-report.md` và danh sách file trong `bug-reports/`.
+- Không đọc các thư mục mã nguồn bị cấm: `backend/`, `frontend-admin/`, `frontend-web/`, `frontend-mobile/`.
+- Xác định 10 failed item kế tiếp sau `GUI-036`: `GUI-037`, `GUI-038`, `GUI-039`, `GUI-040`, `GUI-041`, `GUI-044`, `GUI-045`, `GUI-046`, `GUI-049`, `GUI-050`.
+- Tạo 10 bug report cục bộ:
+  - `bug-reports/BUG-GUI-037.md`
+  - `bug-reports/BUG-GUI-038.md`
+  - `bug-reports/BUG-GUI-039.md`
+  - `bug-reports/BUG-GUI-040.md`
+  - `bug-reports/BUG-GUI-041.md`
+  - `bug-reports/BUG-GUI-044.md`
+  - `bug-reports/BUG-GUI-045.md`
+  - `bug-reports/BUG-GUI-046.md`
+  - `bug-reports/BUG-GUI-049.md`
+  - `bug-reports/BUG-GUI-050.md`
+- Mỗi bug report dùng tiếng Việt, giữ thuật ngữ cần thiết, đúng template và không thêm section `GitHub labels`.
+- Cập nhật `reports/gui-checklist.md` để gắn `Bug ID` dạng ID cho 10 dòng đã xử lý.
+- Cập nhật `reports/main-report.md`:
+  - Thêm 10 dòng bug report batch 3 vào bảng Bug report status.
+  - Đổi trạng thái đã có bug report từ `20/37` thành `30/37`.
+  - Ghi số failed item còn lại là 7 và batch tiếp theo bắt đầu từ `GUI-053`.
+  - Bổ sung đánh giá rủi ro cho Product Management/CSV import.
+- Kiểm tra bằng Ruby xác nhận mọi file `BUG-GUI-xxx.md` có `Found by Test Case` tương ứng `GUI-xxx`.
+- Kiểm tra bằng `rg` xác nhận 10 bug report mới có các heading template quan trọng, checklist/main report tham chiếu đủ `BUG-GUI-037` đến `BUG-GUI-050`, không có section `GitHub labels` trong các file mới.
+```
+
+## Entry #14
+
+### (1) Prompt + Tool
+
+| Field             | Content                       |
+| ----------------- | ----------------------------- |
+| **Tool**          | Codex                         |
+| **Timestamp**     | 30/07/2026 02:52 GMT+7        |
+| **Artifact type** | Bug report + main report      |
+
+**Full prompt:**
+
+```text
+bây giờ tiếp tục với 7 item cuối cùng, vẫn chưa tạo issue trên github
+```
+
+### (2) AI Output
+
+```text
+AI xử lý batch cuối cho 7 failed item còn lại, chưa tạo GitHub issue.
+
+- Đọc lại `skills/generate-gui-checklist-eshop/SKILL.md`, `skills/write-ai-audit-report/SKILL.md`, `reports/gui-checklist.md`, `reports/main-report.md` và danh sách file trong `bug-reports/`.
+- Không đọc các thư mục mã nguồn bị cấm: `backend/`, `frontend-admin/`, `frontend-web/`, `frontend-mobile/`.
+- Xác định 7 failed item cuối: `GUI-053`, `GUI-054`, `GUI-055`, `GUI-056`, `HR-GUI-001`, `HR-GUI-002`, `HR-GUI-003`.
+- Tạo 7 bug report cục bộ:
+  - `bug-reports/BUG-GUI-053.md`
+  - `bug-reports/BUG-GUI-054.md`
+  - `bug-reports/BUG-GUI-055.md`
+  - `bug-reports/BUG-GUI-056.md`
+  - `bug-reports/BUG-HR-GUI-001.md`
+  - `bug-reports/BUG-HR-GUI-002.md`
+  - `bug-reports/BUG-HR-GUI-003.md`
+- Mỗi bug report dùng tiếng Việt, giữ thuật ngữ cần thiết, đúng template và không thêm section `GitHub labels`.
+- Cập nhật `reports/gui-checklist.md` để gắn `Bug ID` cho 4 dòng `GUI-*` và 3 dòng `HR-GUI-*`.
+- Cập nhật `reports/main-report.md`:
+  - Thêm 7 dòng bug report batch cuối vào bảng Bug report status.
+  - Đổi trạng thái đã có bug report từ `30/37` thành `37/37`.
+  - Ghi số failed item còn lại là 0.
+  - Bổ sung đánh giá rủi ro cho User Management và human-review state.
+- Kiểm tra bằng Ruby xác nhận mọi file `BUG*.md` có `Found by Test Case` tương ứng với Bug ID.
+- Kiểm tra bằng Ruby xác nhận mọi dòng `Fail` trong `reports/gui-checklist.md` đều có `Bug ID`.
+- Kiểm tra số lượng bug report hiện tại là 37 file.
+- Kiểm tra bằng `rg` xác nhận không còn section `GitHub labels` trong các bug report.
+```
+
+## Entry #15
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + GitHub CLI `gh`  |
+| **Timestamp**     | 30/07/2026 03:08 GMT+7   |
+| **Artifact type** | GitHub issue + main report |
+
+**Full prompt:**
+
+```text
+bây giờ dựa vào skill generate-gui-checklist-eshop phần tạo issue trên github và tạo giúp tôi 10 issue cho 10 bug report đầu tiên
+```
+
+### (2) AI Output
+
+```text
+AI đã dùng workflow tạo GitHub issue trong skill `generate-gui-checklist-eshop` để tạo 10 issue đầu tiên từ bug report cục bộ.
+
+- Đọc lại `skills/generate-gui-checklist-eshop/SKILL.md`, `skills/write-ai-audit-report/SKILL.md` và 10 bug report đầu tiên:
+  - `BUG-GUI-001`
+  - `BUG-GUI-002`
+  - `BUG-GUI-003`
+  - `BUG-GUI-005`
+  - `BUG-GUI-009`
+  - `BUG-GUI-012`
+  - `BUG-GUI-018`
+  - `BUG-GUI-019`
+  - `BUG-GUI-020`
+  - `BUG-GUI-022`
+- Chạy `gh auth status` và xác nhận GitHub CLI đăng nhập bằng account `hnaht277`.
+- Chạy `gh repo view --json nameWithOwner,url` và xác nhận repo target là `lmchkhi/CS423-CSC15003-Testing-N08`.
+- Chạy `gh label list --limit 100` để lấy đủ label hiện có.
+- Dùng lại label có sẵn, không tạo label mới:
+  - `Type: Bug`
+  - `Status: New`
+  - `Module: Login` cho Admin Login
+  - `Module: Dashboard` cho Admin Dashboard
+  - `Module: Category CRUD` cho Category Management
+  - `Priority: P1/P2/P3`
+  - `Severity: Major/Minor`
+- Kiểm tra exact title trước khi tạo issue, không phát hiện issue trùng.
+- Tạo 10 GitHub issue:
+  - `BUG-GUI-001` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/152
+  - `BUG-GUI-002` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/153
+  - `BUG-GUI-003` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/154
+  - `BUG-GUI-005` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/155
+  - `BUG-GUI-009` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/156
+  - `BUG-GUI-012` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/157
+  - `BUG-GUI-018` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/158
+  - `BUG-GUI-019` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/159
+  - `BUG-GUI-020` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/160
+  - `BUG-GUI-022` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/161
+- Chạy `gh issue view` cho issue #152 đến #161 để xác nhận mỗi issue có đủ 5 label bắt buộc: Type, Status, Module, Priority, Severity.
+- Cập nhật `reports/main-report.md`:
+  - Ghi rõ đã publish GitHub issue cho 10 bug report đầu tiên.
+  - Thêm section `GitHub issue publish status` với mapping `BUG-GUI-*` sang issue URL.
+  - Giữ cột `Bug ID` trong checklist/main report ở dạng ID cục bộ theo quy ước trước đó.
+```
+
+## Entry #16
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + GitHub CLI `gh`  |
+| **Timestamp**     | 30/07/2026 03:13 GMT+7   |
+| **Artifact type** | GitHub issue + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tiếp tục cho 10 bug report tiếp theo
+```
+
+### (2) AI Output
+
+```text
+AI đã tiếp tục workflow tạo GitHub issue trong skill `generate-gui-checklist-eshop` cho 10 bug report kế tiếp.
+
+- Đọc lại workflow tạo issue trong `skills/generate-gui-checklist-eshop/SKILL.md` và workflow audit trong `skills/write-ai-audit-report/SKILL.md`.
+- Kiểm tra nội dung 10 bug report:
+  - `BUG-GUI-024`
+  - `BUG-GUI-025`
+  - `BUG-GUI-026`
+  - `BUG-GUI-027`
+  - `BUG-GUI-028`
+  - `BUG-GUI-031`
+  - `BUG-GUI-032`
+  - `BUG-GUI-034`
+  - `BUG-GUI-035`
+  - `BUG-GUI-036`
+- Chạy `gh auth status` và xác nhận GitHub CLI đã đăng nhập.
+- Chạy `gh repo view --json nameWithOwner,url` và xác nhận repo target là `lmchkhi/CS423-CSC15003-Testing-N08`.
+- Chạy `gh label list --limit 100` để lấy đủ label hiện có.
+- Dùng lại các label đã có:
+  - `Type: Bug`
+  - `Status: New`
+  - `Module: Category CRUD`
+  - `Priority: P1/P2/P3`
+  - `Severity: Major/Minor`
+- Tạo label mới còn thiếu:
+  - `Module: Product Management`
+- Kiểm tra exact title trước khi tạo issue, không phát hiện issue trùng.
+- Tạo 10 GitHub issue:
+  - `BUG-GUI-024` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/162
+  - `BUG-GUI-025` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/163
+  - `BUG-GUI-026` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/164
+  - `BUG-GUI-027` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/165
+  - `BUG-GUI-028` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/166
+  - `BUG-GUI-031` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/167
+  - `BUG-GUI-032` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/168
+  - `BUG-GUI-034` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/169
+  - `BUG-GUI-035` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/170
+  - `BUG-GUI-036` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/171
+- Chạy `gh issue view` cho issue #162 đến #171 để xác nhận mỗi issue có đủ 5 label bắt buộc: Type, Status, Module, Priority, Severity.
+- Cập nhật `reports/main-report.md`:
+  - Ghi rõ đã publish GitHub issue cho 20 bug report đầu tiên.
+  - Thêm mapping `BUG-GUI-024` đến `BUG-GUI-036` sang issue URL.
+  - Giữ cột `Bug ID` trong checklist/main report ở dạng ID cục bộ theo quy ước trước đó.
+```
+
+## Entry #17
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + GitHub CLI `gh`  |
+| **Timestamp**     | 30/07/2026 03:18 GMT+7   |
+| **Artifact type** | GitHub issue + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tiếp tục với 10 bug report tiếp theo
+```
+
+### (2) AI Output
+
+```text
+AI đã tiếp tục workflow tạo GitHub issue cho 10 bug report tiếp theo sau 20 issue đầu tiên.
+
+- Kiểm tra nội dung và metadata 10 bug report:
+  - `BUG-GUI-037`
+  - `BUG-GUI-038`
+  - `BUG-GUI-039`
+  - `BUG-GUI-040`
+  - `BUG-GUI-041`
+  - `BUG-GUI-044`
+  - `BUG-GUI-045`
+  - `BUG-GUI-046`
+  - `BUG-GUI-049`
+  - `BUG-GUI-050`
+- Chạy `gh label list --limit 100` để lấy đủ label hiện có.
+- Dùng lại các label đã có:
+  - `Type: Bug`
+  - `Status: New`
+  - `Module: Product Management`
+  - `Module: CSV Import`
+  - `Priority: P1/P2/P3`
+  - `Severity: Major/Minor`
+- Tạo label mới còn thiếu:
+  - `Module: User Management`
+- Kiểm tra exact title trước khi tạo issue, không phát hiện issue trùng.
+- Tạo 10 GitHub issue:
+  - `BUG-GUI-037` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/172
+  - `BUG-GUI-038` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/173
+  - `BUG-GUI-039` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/174
+  - `BUG-GUI-040` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/175
+  - `BUG-GUI-041` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/176
+  - `BUG-GUI-044` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/177
+  - `BUG-GUI-045` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/178
+  - `BUG-GUI-046` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/179
+  - `BUG-GUI-049` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/180
+  - `BUG-GUI-050` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/181
+- Chạy `gh issue view` cho issue #172 đến #181 để xác nhận mỗi issue có đủ 5 label bắt buộc: Type, Status, Module, Priority, Severity.
+- Cập nhật `reports/main-report.md`:
+  - Ghi rõ đã publish GitHub issue cho 30 bug report đầu tiên.
+  - Thêm mapping `BUG-GUI-037` đến `BUG-GUI-050` sang issue URL.
+  - Giữ cột `Bug ID` trong checklist/main report ở dạng ID cục bộ theo quy ước trước đó.
+```
+
+## Entry #18
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + GitHub CLI `gh`  |
+| **Timestamp**     | 30/07/2026 03:24 GMT+7   |
+| **Artifact type** | GitHub issue + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tiếp tục với 7 bug report cuối cho tôi
+```
+
+### (2) AI Output
+
+```text
+AI đã tạo GitHub issue cho 7 bug report cuối cùng và hoàn tất publish issue cho toàn bộ 37 bug report cục bộ.
+
+- Đọc lại workflow tạo issue trong `skills/generate-gui-checklist-eshop/SKILL.md` và workflow audit trong `skills/write-ai-audit-report/SKILL.md`.
+- Kiểm tra metadata 7 bug report cuối:
+  - `BUG-GUI-053`
+  - `BUG-GUI-054`
+  - `BUG-GUI-055`
+  - `BUG-GUI-056`
+  - `BUG-HR-GUI-001`
+  - `BUG-HR-GUI-002`
+  - `BUG-HR-GUI-003`
+- Chạy `gh auth status` và xác nhận GitHub CLI đã đăng nhập.
+- Chạy `gh repo view --json nameWithOwner,url` và xác nhận repo target là `lmchkhi/CS423-CSC15003-Testing-N08`.
+- Chạy `gh label list --limit 100` để lấy đủ label hiện có.
+- Dùng lại các label đã có:
+  - `Type: Bug`
+  - `Status: New`
+  - `Module: User Management`
+  - `Module: Login`
+  - `Priority: P0/P1/P2`
+  - `Severity: Critical/Major/Minor`
+- Tạo label mới còn thiếu:
+  - `Module: All Admin Screens`
+- Kiểm tra exact title trước khi tạo issue, không phát hiện issue trùng.
+- Tạo 7 GitHub issue:
+  - `BUG-GUI-053` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/182
+  - `BUG-GUI-054` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/183
+  - `BUG-GUI-055` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/184
+  - `BUG-GUI-056` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/185
+  - `BUG-HR-GUI-001` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/186
+  - `BUG-HR-GUI-002` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/187
+  - `BUG-HR-GUI-003` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/188
+- Chạy `gh issue view` cho issue #182 đến #188 để xác nhận mỗi issue có đủ 5 label bắt buộc: Type, Status, Module, Priority, Severity.
+- Cập nhật `reports/main-report.md`:
+  - Ghi rõ đã publish GitHub issue cho toàn bộ 37 bug report.
+  - Thêm mapping 7 bug report cuối sang issue URL.
+  - Giữ cột `Bug ID` trong checklist/main report ở dạng ID cục bộ theo quy ước trước đó.
+```
+
+## Entry #19
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 30/07/2026 03:34 GMT+7   |
+| **Artifact type** | Bug report + AI audit report |
+
+**Full prompt:**
+
+```text
+oke đã up hết bug report lên issue rổi, bây giờ sửa lại các file bug report phần evidence screenshot thay vì để dạng đường dẫn như hiện tại thì để dạng mà  github có thể hiển thị luôn ảnh giúp tôi
+
+link chỉ cần dạng reports/screenshots/gui-checklist/GUI-006.png là được mà, đâu cần phải https://raw.githubusercontent.com/
+```
+
+### (2) AI Output
+
+```text
+AI đã cập nhật toàn bộ file bug report cục bộ trong `bug-reports/*.md` để Evidence screenshot dùng Markdown image syntax với relative path ngắn.
+
+- Không dùng link `raw.githubusercontent.com`.
+- Đổi các dòng dạng:
+  - `- Screenshot: `reports/screenshots/gui-checklist/GUI-001.png``
+- Thành dạng GitHub Markdown image:
+  - `- Screenshot: ![Screenshot](../reports/screenshots/gui-checklist/GUI-001.png)`
+- Cập nhật 39 screenshot references trong 37 bug report, bao gồm các bug có 2 screenshot như `BUG-GUI-041` và `BUG-GUI-055`.
+- Kiểm tra bằng `rg` xác nhận không còn dòng screenshot dạng code path cũ `- Screenshot: `...`` trong `bug-reports/`.
+- Kiểm tra bằng `rg` xác nhận các dòng screenshot mới đều dùng dạng `![Screenshot](../reports/screenshots/gui-checklist/...)`.
+```

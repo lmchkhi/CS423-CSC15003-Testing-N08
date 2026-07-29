@@ -33,4 +33,8 @@ SRS GUI-<ID>
 <!--Mô tả hành vi thực tế quan sát được.-->
 
 ## Evidence
-<!--Screenshot / video / console log-->
+<!--
+Screenshot / video / console log.
+Nếu screenshot đã push trong reports/screenshots/, ghi relative path hoặc GitHub blob URL.
+Không cần upload ảnh local bằng gh; người học có thể upload thủ công trong GitHub UI để có ảnh inline.
+-->

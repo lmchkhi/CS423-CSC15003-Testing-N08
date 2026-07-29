@@ -1,6 +1,6 @@
 interface:
   display_name: "GUI Checklist EShop"
-  short_description: "Tạo checklist GUI và ghi audit"
-  default_prompt: "Dùng $generate-gui-checklist-eshop để thiết kế/thực thi GUI checklist Task 1 HW03 cho EShop và tự ghi mọi tin nhắn liên quan vào reports/ai-audit-report.md."
+  short_description: "Tạo checklist GUI, bug report, GitHub issue và ghi audit"
+  default_prompt: "Dùng $generate-gui-checklist-eshop để thiết kế/thực thi GUI checklist Task 1 HW03 cho EShop, tạo bug report/GitHub issue cho failed item với label Module/Priority/Severity, và tự ghi mọi tin nhắn liên quan vào reports/ai-audit-report.md."
 policy:
   allow_implicit_invocation: true
