@@ -31,3 +31,4 @@ Khoảng trắng thừa không được trim ở backend, khiến từ khóa h�
 ![BUG-IA02-SEARCHRESULTS-002](screenshots/BUG-IA02-SEARCHRESULTS-002.png)
 
 ## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/191

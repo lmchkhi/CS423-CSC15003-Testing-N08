@@ -32,3 +32,4 @@ Lưới sản phẩm và dòng chú thích kết quả có thể lệch nhau —
 ![BUG-IA04-SEARCHRESULTS-002-b](screenshots/BUG-IA04-SEARCHRESULTS-002-b.png)
 
 ## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/193

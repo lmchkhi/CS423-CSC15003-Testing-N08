@@ -30,3 +30,4 @@ Người dùng phải tự xóa tay toàn bộ nội dung ô tìm kiếm rồi b
 ![BUG-IA02-SEARCHRESULTS-001](screenshots/BUG-IA02-SEARCHRESULTS-001.png)
 
 ## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/190

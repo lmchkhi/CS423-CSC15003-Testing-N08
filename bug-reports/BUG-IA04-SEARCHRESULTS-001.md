@@ -30,3 +30,4 @@ Không có `aria-live` nào tồn tại trên trang, và focus luôn ở lại n
 ![BUG-IA04-SEARCHRESULTS-001](screenshots/BUG-IA04-SEARCHRESULTS-001.png)
 
 ## GitHub Issue
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/192
