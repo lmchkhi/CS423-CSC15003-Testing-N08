@@ -31,5 +31,18 @@ Từ khóa tìm kiếm và kết quả lọc bị mất hoàn toàn sau khi Back
 ## Evidence
 ![BUG-IA03-HOMEPAGE-002](screenshots/BUG-IA03-HOMEPAGE-002.png)
 
+## Cũng xác nhận trên màn Search Results
+Cùng root cause (từ khóa tìm kiếm không được lưu vào URL dưới bất kỳ hình
+thức nào) tái hiện theo 2 hướng riêng biệt khi kiểm thử trực tiếp màn Search
+Results (`checklist/gui-checklist.md`):
+- **Chiều ra (outbound)** — GUI-091: sau khi submit một tìm kiếm hợp lệ và
+  ra đúng kết quả, `location.search` vẫn luôn là chuỗi rỗng — xác nhận qua
+  `location.href === 'http://localhost:5173/'` ngay cả khi đang xem kết quả
+  đã lọc theo "pro".
+- **Chiều vào (inbound)** — GUI-094: truy cập trực tiếp
+  `http://localhost:5173/?search=pro` không hề áp dụng query param này —
+  trang tải lên với ô tìm kiếm trống và hiển thị toàn bộ 5 sản phẩm, hoàn
+  toàn bỏ qua tham số `search` trên URL.
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/108

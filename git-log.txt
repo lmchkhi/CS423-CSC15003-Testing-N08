@@ -1,1 +1,46 @@
-gitlog...
+862ca98 2026-07-30 docs(checklist): design + gap analysis for Search Results & Empty Search State
+65f4cf1 2026-07-26 fix(usability): force the search step, don't just imply it
+4462b44 2026-07-26 fix(usability): correct price bands in task-scenarios to match real catalog
+6db733e 2026-07-26 fix(screenshots): recapture Product Detail evidence as lossless PNG
+8d2d498 2026-07-26 fix(screenshots): recapture Home Page evidence as lossless PNG
+358f9ae 2026-07-26 docs(bug): cross-link BUG-IA01..IA04-HOMEPAGE to GitHub issues #101-#112
+1e6f9fd 2026-07-26 docs: reframe evidence as black-box observations, not repo source reads
+2b45c07 2026-07-26 docs(ai-audit): log entry #12 — Home Page execution pass, update §4 summary
+dbf7c8b 2026-07-26 docs(prompt-log): entry [12] — Claude, Home Page execution pass
+4918bf2 2026-07-26 docs(bug): file 12 bugs from Home Page execution pass
+23ca1fd 2026-07-26 test(checklist): execute Home Page items against SUT (40/40)
+effd617 2026-07-26 docs: fold Product Grid into Home Page scope (same component/state)
+bfa7ccf 2026-07-26 docs(checklist): design + gap analysis for Home Page (IA01-IA04)
+845c1ab 2026-07-26 docs(ai-audit): log entries #7-#10 — Home Page IA01-IA04 checklist batches
+9ee6b79 2026-07-26 docs(prompt-log): entries [7]-[10] — Claude, Home Page IA01-IA04 checklist generation
+d33b1ba 2026-07-26 docs(bug): cross-link BUG-IA01..IA04-PRODUCTDETAIL to GitHub issues #94-#100
+d8eed2c 2026-07-26 docs(ai-audit): log entry #6 — Product Detail execution pass, update §4 summary
+92d2c7f 2026-07-26 docs(prompt-log): entry [6] — Claude, Product Detail execution pass
+2450f73 2026-07-26 docs(bug): file 7 bugs from Product Detail execution pass
+8a7f9bb 2026-07-26 test(checklist): execute Product Detail items against SUT (46/46)
+743b6d6 2026-07-26 docs(ai-audit): log entry #5 — Product Detail gap-review pass, update §4 summary
+3a4254e 2026-07-26 docs(prompt-log): entry [5] — Claude, Product Detail gap-review pass
+98415dd 2026-07-26 docs(checklist): add gap GUI-046 — slow-network feedback missed by AI batch
+e420f59 2026-07-26 docs(ai-audit): log entries #1-#4 — Product Detail IA01-IA04 checklist batches
+81920ac 2026-07-26 docs(prompt-log): entries [1]-[4] — Claude, Product Detail IA01-IA04 checklist generation
+caa2e55 2026-07-26 docs(checklist): design + gap analysis for Product Detail (IA01-IA04)
+a30620d 2026-07-26 docs: correct HW03 individual-scope framing, ground checklist gen in SUT's FR spec
+fea11f8 2026-07-26 chore: remove leftover HW02 artifacts from shared N08 repo
+b0d1bc6 2026-07-26 Revert "docs(checklist): select scope — Home, product grid, search results, empty search state, product detail"
+ea46b0e 2026-07-26 docs(checklist): select scope — Home, product grid, search results, empty search state, product detail
+f9d93ab 2026-07-26 feat(skills): split AI logging into prompt-log + ai-audit-report, add VN-output guardrails
+ef91f95 2026-07-26 docs: fill in student name/ID in README header
+22965c9 2026-07-26 chore: scaffold deliverable structure for Task 1-3 (empty templates)
+9f7da82 2026-07-26 feat(skills): add Agent Skills for HW03 Tasks 1-3
+0401374 2026-07-26 docs: add project context for HW03 (scope, SUT, skill index)
+f449e41 2026-07-26 chore: track .claude/skills as a graded deliverable, ignore demo-scratch
+1cd3693 2026-07-26 chore: remove redundant files
+15ad550 2026-06-20 chore: initialize repo structure for testing docs
+969e156 2026-06-10 Remove commiting database to git
+807c1b7 2026-06-10 Merge pull request #5 from lmchkhi/issues_template
+371b104 2026-06-09 Fixing template comment
+538890a 2026-06-09 Adding default label to template
+5633354 2026-06-09 Update issue templates
+e59ee5a 2026-06-08 adding .gitignore
+85af3ba 2026-05-15 first upload
+2f9bf2b 2026-05-15 Initial commit

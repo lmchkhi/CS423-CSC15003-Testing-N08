@@ -882,3 +882,65 @@ thêm 2 dòng (Source=Human) vào checklist/gui-checklist.md.
 ```
 
 ---
+
+## [23] Claude (Sonnet 5, Claude Code + Claude for Chrome) — 12:20 AM 31/07/2026
+
+**Prompt:**
+```
+ok now execute the new entries in the gui checklist
+```
+(tiếp theo, sau khi xác nhận SUT đã chạy ở localhost:5173)
+```
+ok just ran the web on 5173, now you can execute the tests via claude for
+chrome, ensure the screenshot quality
+```
+
+**Output:**
+```
+Thực thi toàn bộ 24 item còn lại (GUI-087–110, màn Search Results và Empty
+Search State) bằng thao tác thật trên trình duyệt qua Claude for Chrome:
+gõ từ khóa, submit tìm kiếm (click "Tìm"/Enter), deep-link trực tiếp bằng
+URL query, patch tạm thời XMLHttpRequest qua console để mô phỏng lỗi mạng
+thật, gọi trực tiếp API `/api/products` để đối chiếu ground truth độc lập
+với UI, đo `document.activeElement`/`[aria-live]`/`document.styleSheets` cho
+các item accessibility/dark-mode, và chụp ảnh evidence bằng `zoom` (lossless
+PNG, không dùng `screenshot` JPEG) cho mọi item Failed.
+
+Kết quả: 8 Passed / 15 Failed / 1 N/A (GUI-093 — không có tính năng phân
+trang trong SUT chỉ 5 sản phẩm).
+
+Phát hiện quan trọng nhất — vượt ngoài phạm vi các item đã thiết kế: khi gõ
+từ khóa vào ô tìm kiếm mà KHÔNG bấm "Tìm", dòng "Kết quả tìm kiếm cho" cập
+nhật ngay theo từng ký tự, nhưng lưới sản phẩm bên dưới cập nhật KHÔNG nhất
+quán giữa các lần thao tác giống hệt nhau — đôi khi tự cập nhật live theo ký
+tự gõ, đôi khi chỉ cập nhật khi submit — khiến dòng chú thích và lưới sản
+phẩm hiển thị lẫn lộn dữ liệu cũ/mới không giới hạn thời gian (GUI-096). Xác
+nhận qua nhiều lần lặp lại độc lập (từ khóa "pro", "macbook", "zzz",
+"macbookpro") và đối chiếu trực tiếp với API để phân biệt rạch ròi với phát
+hiện riêng biệt: Empty Search State (khi search thực sự được submit và ra 0
+kết quả hợp lệ) lại hiển thị ĐÚNG — hoàn toàn trống trơn, không icon/message
+nào (GUI-100), vi phạm trực tiếp FR-05/FR-24, nhưng không fallback sai về
+danh sách cũ (GUI-106 Passed, khác với lo ngại ban đầu). Test thêm với
+payload gây lỗi backend thật (`test'quote`, xác nhận HTTP 500 SQLITE_ERROR
+qua fetch trực tiếp) cho thấy lỗi thật KHÔNG bị hiển thị lẫn thành trạng thái
+trống — trang lộ nguyên văn khối lỗi kỹ thuật, khác hẳn khoảng trắng của
+trạng thái trống thật (GUI-107 Passed với caveat, liên hệ BUG-IA02-HOMEPAGE-002/003
+đã ghi nhận).
+
+Các phát hiện khác: không có nút xóa bộ lọc tìm kiếm (GUI-090); URL không
+bao giờ phản ánh từ khóa tìm kiếm dù outbound hay inbound, cùng root cause
+với BUG-IA03-HOMEPAGE-002 đã có (GUI-091, 094); không có aria-live/focus
+management cho nội dung động ở cả 2 màn (GUI-092, 095, 108); lỗi mạng thật
+khi đang xem kết quả bị nuốt âm thầm, cùng root cause BUG-IA04-HOMEPAGE-003
+(GUI-097); khoảng trắng thừa ở đầu/cuối từ khóa không được trim ở backend,
+xác nhận qua gọi API trực tiếp (GUI-098).
+
+Đã file 4 bug report mới (BUG-IA02-SEARCHRESULTS-001..002,
+BUG-IA04-SEARCHRESULTS-001..002, BUG-IA04-EMPTYSEARCH-001) + cross-link
+BUG-IA03-HOMEPAGE-002 và BUG-IA04-HOMEPAGE-003 với phát hiện tương tự trên
+Search Results — chưa tạo GitHub Issue (cần xác nhận từ sinh viên trước).
+Cập nhật đầy đủ bảng kết quả và Summary trong checklist/gui-checklist.md và
+§2.2 README.md — toàn bộ 110/110 item đã thiết kế đều đã thực thi.
+```
+
+---

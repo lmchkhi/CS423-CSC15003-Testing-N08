@@ -1552,16 +1552,103 @@ Thêm GUI-109 (Human, IA02) và GUI-110 (Human, IA01) vào
 
 ---
 
+## Entry #23
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code + Claude for Chrome) |
+| **Timestamp**     | 12:20 AM 31/07/2026 |
+| **Artifact type** | Thực thi 24 GUI checklist item (GUI-087–110, Search Results + Empty Search State) trên SUT thật |
+
+**Full prompt:**
+
+```
+ok now execute the new entries in the gui checklist
+```
+(tiếp theo, sau khi xác nhận SUT đã chạy ở localhost:5173)
+```
+ok just ran the web on 5173, now you can execute the tests via claude for
+chrome, ensure the screenshot quality
+```
+
+### (2) AI Output
+
+```
+Thực thi toàn bộ 24 item còn lại (GUI-087–110) bằng thao tác thật trên trình
+duyệt qua Claude for Chrome: gõ từ khóa, submit tìm kiếm, deep-link trực
+tiếp bằng URL query, patch tạm thời XMLHttpRequest để mô phỏng lỗi mạng
+thật, gọi trực tiếp API `/api/products` để đối chiếu ground truth độc lập
+với UI, đo `document.activeElement`/`[aria-live]`/`document.styleSheets`,
+chụp evidence bằng `zoom` (lossless PNG) cho mọi item Failed.
+
+Kết quả: 8 Passed / 15 Failed / 1 N/A.
+
+Phát hiện quan trọng nhất: dòng "Kết quả tìm kiếm cho" cập nhật ngay theo
+từng ký tự gõ, nhưng lưới sản phẩm cập nhật không nhất quán giữa các lần
+thao tác giống hệt nhau (đôi khi live, đôi khi chỉ khi submit) — dòng chú
+thích và lưới có thể lệch dữ liệu cũ/mới không giới hạn thời gian (GUI-096).
+Tách bạch rõ với 2 phát hiện liên quan nhưng khác nhau: Empty Search State
+khi search thực sự submit và ra 0 kết quả hợp lệ lại hiển thị ĐÚNG (0 sản
+phẩm, không fallback sai — GUI-106 Passed), nhưng trạng thái đó lại hoàn
+toàn trống trơn, không icon/message, vi phạm FR-05/FR-24 (GUI-100 Failed).
+Test riêng với payload gây lỗi backend thật (`test'quote`, xác nhận qua
+fetch trực tiếp: HTTP 500 SQLITE_ERROR) cho thấy lỗi thật KHÔNG bị hiển thị
+lẫn thành trạng thái trống — trang lộ nguyên văn lỗi kỹ thuật thay vì giả
+vờ "không tìm thấy" (GUI-107 Passed, với caveat liên hệ bug rò rỉ lỗi đã có).
+
+File 4 bug mới (BUG-IA02-SEARCHRESULTS-001..002, BUG-IA04-SEARCHRESULTS-
+001..002, BUG-IA04-EMPTYSEARCH-001), cross-link BUG-IA03-HOMEPAGE-002 và
+BUG-IA04-HOMEPAGE-003. Cập nhật checklist/gui-checklist.md (toàn bộ 110/110
+item đã thực thi) và README.md §2.2.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là bước thực thi, verdict đánh giá tính trung thực và đầy đủ của việc
+thực thi chứ không phải nội dung sinh mới. Điểm đáng chú ý nhất của lượt này
+là quá trình tự sửa sai giữa chừng: giả thuyết ban đầu về GUI-096 ("lưới chỉ
+cập nhật khi submit") bị chính một lần thử lặp lại sau đó phủ định (một lần
+gõ "pro" không submit vẫn ra đúng kết quả live) — thay vì giữ nguyên kết
+luận sai hoặc xóa bỏ bằng chứng mâu thuẫn, kết luận cuối cùng được viết lại
+chính xác hơn ("không nhất quán giữa các lần thao tác giống hệt") để phản
+ánh đúng những gì quan sát được qua ~6 lần thử độc lập, đúng tinh thần
+"observable-behavior evidence only" (không suy đoán cơ chế implementation
+cụ thể mà không có bằng chứng). Việc phân biệt GUI-096 (transient, trước
+khi submit) với GUI-106 (kết quả cuối cùng sau khi submit, đúng) và GUI-107
+(lỗi backend thật, được hiển thị dù thô) là 3 kết luận khác nhau cho 3 kịch
+bản dễ nhầm lẫn với nhau — đòi hỏi kiểm chứng chéo bằng fetch trực tiếp tới
+API để tách bạch UI-level noise khỏi backend ground truth, tránh kết luận
+vội một chiều. Việc dùng lại BUG-IA03-HOMEPAGE-002 (GUI-091/094) và
+BUG-IA04-HOMEPAGE-003 (GUI-097) đúng nguyên tắc "chỉ file bug thật theo
+nguyên nhân gốc" — cả 2 tái hiện chính xác root cause đã biết ở một ngữ
+cảnh mới (màn Search Results) chứ không phải bug mới.
+
+### (5) Student Fix
+
+Không cần chỉnh sửa nội dung — đã tự kiểm chứng chéo (UI + DOM + API trực
+tiếp) ngay trong lúc thực thi, kể cả tự phát hiện và sửa một giả thuyết sai
+giữa chừng (xem Reasoning). Việc tạo GitHub Issue cho 5 bug (4 mới + xác
+nhận cross-link) và push commit được để lại cho sinh viên xác nhận trước
+khi thực hiện, theo đúng quy trình của skill `bug-report`.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 22    | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 16    | 72.7%      |
+| **Tổng số artifact do AI tạo được audit**       | 23    | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 17    | 73.9%      |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 6   | 27.3%      |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 6   | 26.1%      |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 

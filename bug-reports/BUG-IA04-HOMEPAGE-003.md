@@ -31,5 +31,19 @@ Giao diện hiển thị nhãn tìm kiếm và toàn bộ sản phẩm cũ một
 ## Evidence
 ![BUG-IA04-HOMEPAGE-003](screenshots/BUG-IA04-HOMEPAGE-003.png)
 
+## Cũng xác nhận trên màn Search Results
+Cùng root cause tái hiện ở một ngữ cảnh khác khi kiểm thử trực tiếp màn
+Search Results (GUI-097, `checklist/gui-checklist.md`): lần này lỗi mạng giả
+lập xảy ra **trong lúc người dùng đã đang xem một kết quả tìm kiếm hợp lệ
+trước đó** (đã có 3 sản phẩm khớp "pro"), không phải lúc tải trang lần đầu.
+Gõ từ khóa mới ("iphone") rồi bấm Tìm trong điều kiện `/api/products` bị
+patch để luôn fail — dòng "Kết quả tìm kiếm cho: iphone" cập nhật đúng,
+nhưng lưới sản phẩm vẫn giữ nguyên 3 kết quả cũ của "pro" (không phải 5 sản
+phẩm gốc như ở Home Page, mà là kết quả lọc gần nhất trước lỗi) — xác nhận
+`document.body.innerText` không chứa bất kỳ từ nào liên quan lỗi
+("lỗi"/"error"/"thất bại"). Chứng minh: hành vi "âm thầm giữ dữ liệu cũ khi
+request thất bại" không chỉ xảy ra ở lần tải đầu tiên mà ở bất kỳ thời điểm
+nào request thất bại, kể cả khi đang xem một trạng thái đã lọc hợp lệ.
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/112

@@ -40,26 +40,28 @@
 
 ### 2.2. GUI Checklist Summary (Task 1)
 
-| IA aspect | Designed | Executed | Passed | Failed | Not Run |
+| IA aspect | Designed | Executed | Passed | Failed | N/A |
 |---|---|---|---|---|---|
-| IA01 — General UI | 34 | 27 | 20 | 7 | 7 |
-| IA02 — Forms | 27 | 21 | 10 | 10 | 6 |
-| IA03 — Navigation | 24 | 19 | 7 | 11 | 5 |
-| IA04 — Feedback/state | 25 | 19 | 2 | 16 | 6 |
-| **Total** | **110** | **86** | **39** | **44** | **24** |
+| IA01 — General UI | 34 | 34 | 24 | 10 | 0 |
+| IA02 — Forms | 27 | 27 | 12 | 14 | 1 |
+| IA03 — Navigation | 24 | 24 | 7 | 15 | 2 |
+| IA04 — Feedback/state | 25 | 25 | 4 | 20 | 1 |
+| **Total** | **110** | **110** | **47** | **59** | **4** |
 
-> Chưa tính 3 item `N/A` (GUI-019, GUI-030, GUI-036 — tính năng không tồn tại
-> trong SUT). Covers Product Detail (GUI-001–046) and Home Page (GUI-047–086)
-> — cả 2 đã thực thi xong trên SUT thật. Search Results (GUI-087–099) và
-> Empty Search State (GUI-100–110) mới xong Phase B/C (thiết kế + gap
-> analysis con người, 24 item, `Result = Not Run`) — thực thi để lượt kế
-> tiếp. Xem `checklist/gui-checklist.md` để biết chi tiết từng item và
-> `bug-reports/` cho 19 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
+> Covers all 4 declared screens, fully designed and executed on the real
+> SUT: Product Detail (GUI-001–046), Home Page (GUI-047–086), Search Results
+> (GUI-087–099), Empty Search State (GUI-100–110). Search Results/Empty
+> Search State executed via Claude for Chrome on 31/07/2026 — 24/24 item,
+> 8 Passed / 15 Failed / 1 N/A. Xem `checklist/gui-checklist.md` để biết chi
+> tiết từng item và `bug-reports/` cho 24 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
 > BUG-IA02-PRODUCTDETAIL-001, BUG-IA03-PRODUCTDETAIL-001..002,
 > BUG-IA04-PRODUCTDETAIL-001, BUG-IA01-HOMEPAGE-001..003,
 > BUG-IA02-HOMEPAGE-001..003, BUG-IA03-HOMEPAGE-001..003,
-> BUG-IA04-HOMEPAGE-001..003). Most severe: `BUG-IA02-HOMEPAGE-003` — SQL
-> Injection in the product search API.
+> BUG-IA04-HOMEPAGE-001..003, BUG-IA02-SEARCHRESULTS-001..002,
+> BUG-IA04-SEARCHRESULTS-001..002, BUG-IA04-EMPTYSEARCH-001). Most severe:
+> `BUG-IA02-HOMEPAGE-003` (SQL Injection in the product search API) and
+> `BUG-IA04-EMPTYSEARCH-001` (Empty Search State violates FR-05/FR-24 —
+> renders completely blank, no icon/message/exit).
 
 > Full table: `checklist/gui-checklist.md` / `checklist/gui-checklist.xlsx`.
 
