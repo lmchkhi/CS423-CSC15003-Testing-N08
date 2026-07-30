@@ -136,3 +136,73 @@ prompt sent — see `.claude/skills/gui-checklist/SKILL.md` Phase C.
 - **Added by**: Hà Bảo Ngọc (23127300)
 
 ---
+
+## Item GUI-098: Tìm kiếm với khoảng trắng thừa ở đầu/cuối từ khóa (Search Results)
+
+- **AI prompt that should have surfaced this**: prompt IA02 cho Search
+  Results (`reports/ai-audit-report.md` Entry #14) chỉ hỏi về đường dẫn xóa
+  bộ lọc và URL phản ánh từ khóa — không yêu cầu kiểm tra việc chuẩn hóa input
+  (input normalization) như khoảng trắng thừa.
+- **Why the AI missed it**: Lỗi phạm vi prompt (prompt scope) — tôi cố tình
+  tách phạm vi IA02 của Search Results ra khỏi các item validate/an toàn ô
+  tìm kiếm đã có sẵn ở Home Page (GUI-059–066) để tránh trùng lặp, nhưng khi
+  làm vậy lại bỏ sót luôn một edge case chưa từng được kiểm tra ở batch nào
+  trước đó: khoảng trắng thừa có bị BE/FE coi là một chuỗi tìm kiếm khác đi
+  hay không. Đây là gap thật do ranh giới giữa 2 batch (Home Page vs Search
+  Results) bị vẽ hơi hẹp, không phải AI tự bỏ qua trong phạm vi được hỏi.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---
+
+## Item GUI-099: Độ tương phản dark mode ở dòng thông báo kết quả tìm kiếm
+
+- **AI prompt that should have surfaced this**: prompt IA01 cho Search
+  Results (Entry #13) yêu cầu kiểm tra style dòng thông báo kết quả và bố
+  cục lưới, nhưng không nhắc riêng dark mode — cùng dạng lỗi đã lặp lại 2 lần
+  trước đó (GUI-042 ở Product Detail, GUI-084 ở Home Page).
+- **Why the AI missed it**: Lỗi phạm vi prompt (prompt scope), lặp lại có hệ
+  thống — tôi tiếp tục quên đưa "dark mode" vào danh sách sub-topic IA01 dù
+  đã biết đây là gap ở cả 2 màn trước. Việc gap này lặp lại lần thứ 3 tự nó
+  là một quan sát: AI không "nhớ" các gap đã phát hiện ở batch trước để tự bù
+  đắp cho batch sau — mỗi prompt IA01 mới đều cần liệt kê tường minh dark mode
+  nếu muốn AI cover, không thể trông chờ AI tự suy luận ra từ ngữ cảnh những
+  lần trước.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---
+
+## Item GUI-109: Từ khóa có dấu tiếng Việt không khớp sản phẩm nào (Empty Search State)
+
+- **AI prompt that should have surfaced this**: không prompt nào trong 4
+  prompt IA01-IA04 cho Empty Search State (Entry #18–#21) yêu cầu kiểm tra
+  riêng từ khóa có dấu tiếng Việt trong ngữ cảnh 0 kết quả — cùng loại gap đã
+  xảy ra ở GUI-045 (Product Detail) và GUI-085 (Home Page, khi CÓ kết quả).
+- **Why the AI missed it**: Đặc thù giao diện EShop (interface-specific
+  trait), lặp lại lần thứ 3 — SUT tiếng Việt nên rủi ro vỡ dấu/encoding khi xử
+  lý input tiếng Việt là rủi ro thực tế ở bất kỳ ngữ cảnh nào (hiển thị tĩnh,
+  tìm kiếm có kết quả, và cả tìm kiếm 0 kết quả), nhưng AI được huấn luyện chủ
+  yếu trên SUT tiếng Anh nên không tự khái quát hóa gap này sang một trạng
+  thái màn hình mới (empty state) dù đã từng được nhắc ở 2 batch trước —
+  `ia-seed-categories.md` liệt kê "Vietnamese-specific: diacritics rendering
+  in inputs/fonts" như một mục chung, không tách riêng theo từng trạng thái
+  màn hình, nên tôi phải tự bổ sung cho từng ngữ cảnh cụ thể.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---
+
+## Item GUI-110: Độ tương phản dark mode ở trạng thái Empty Search State
+
+- **AI prompt that should have surfaced this**: prompt IA01 cho Empty Search
+  State (Entry #18) yêu cầu kiểm tra icon/minh họa và responsive nhưng không
+  nhắc riêng dark mode — lần lặp lại thứ 4 của cùng loại gap (GUI-042,
+  GUI-084, GUI-099).
+- **Why the AI missed it**: Lỗi phạm vi prompt (prompt scope), lặp lại có hệ
+  thống — xác nhận rõ ràng hơn nhận xét đã ghi ở GUI-099: đây không còn là
+  một lần sơ suất ngẫu nhiên mà là một pattern thật trong cách tôi soạn prompt
+  IA01 cho mọi màn hình mới. Bài học rút ra (ghi lại để áp dụng cho các màn
+  hình tiếp theo ngoài phạm vi HW03 này): nên đưa "dark mode contrast" vào
+  một checklist-of-checklists cố định để tự kiểm tra prompt IA01 trước khi
+  gửi, thay vì dựa vào trí nhớ.
+- **Added by**: Hà Bảo Ngọc (23127300)
+
+---

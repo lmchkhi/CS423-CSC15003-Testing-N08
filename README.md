@@ -40,17 +40,20 @@
 
 ### 2.2. GUI Checklist Summary (Task 1)
 
-| IA aspect | Designed | Executed | Passed | Failed |
-|---|---|---|---|---|
-| IA01 — General UI | 27 | 27 | 20 | 7 |
-| IA02 — Forms | 21 | 21 | 10 | 10 |
-| IA03 — Navigation | 19 | 19 | 7 | 11 |
-| IA04 — Feedback/state | 19 | 19 | 2 | 16 |
-| **Total** | **86** | **86** | **39** | **44** |
+| IA aspect | Designed | Executed | Passed | Failed | Not Run |
+|---|---|---|---|---|---|
+| IA01 — General UI | 34 | 27 | 20 | 7 | 7 |
+| IA02 — Forms | 27 | 21 | 10 | 10 | 6 |
+| IA03 — Navigation | 24 | 19 | 7 | 11 | 5 |
+| IA04 — Feedback/state | 25 | 19 | 2 | 16 | 6 |
+| **Total** | **110** | **86** | **39** | **44** | **24** |
 
 > Chưa tính 3 item `N/A` (GUI-019, GUI-030, GUI-036 — tính năng không tồn tại
-> trong SUT). Covers Product Detail (GUI-001–046) and Home Page (GUI-047–086).
-> Xem `checklist/gui-checklist.md` để biết chi tiết từng item và
+> trong SUT). Covers Product Detail (GUI-001–046) and Home Page (GUI-047–086)
+> — cả 2 đã thực thi xong trên SUT thật. Search Results (GUI-087–099) và
+> Empty Search State (GUI-100–110) mới xong Phase B/C (thiết kế + gap
+> analysis con người, 24 item, `Result = Not Run`) — thực thi để lượt kế
+> tiếp. Xem `checklist/gui-checklist.md` để biết chi tiết từng item và
 > `bug-reports/` cho 19 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
 > BUG-IA02-PRODUCTDETAIL-001, BUG-IA03-PRODUCTDETAIL-001..002,
 > BUG-IA04-PRODUCTDETAIL-001, BUG-IA01-HOMEPAGE-001..003,

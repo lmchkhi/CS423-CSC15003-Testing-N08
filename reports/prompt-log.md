@@ -559,3 +559,326 @@ và Summary trong checklist/gui-checklist.md và §2.2 README.md.
 ```
 
 ---
+
+## [13] Claude (Sonnet 5, Claude Code) — 4:10 PM 30/07/2026
+
+**Prompt:**
+```
+Bạn là một tester đang thiết kế GUI checklist theo kỹ thuật checklist-based
+testing cho màn Search Results — trạng thái lưới sản phẩm trên trang chủ khi
+tìm kiếm trả về ÍT NHẤT 1 sản phẩm khớp (khác với trạng thái không có kết
+quả, sẽ có prompt riêng) của hệ thống EShop.
+
+Ground truth — trích từ sut-requirements.md:
+- FR-05 (Xem danh sách & Tìm kiếm sản phẩm): "Trang chủ hiển thị danh sách
+  tất cả sản phẩm dạng lưới (grid)... Thanh tìm kiếm tìm theo tên sản phẩm."
+- FR-21: "Tiêu đề trang: mỗi trang có đúng 1 thẻ <h1>."
+
+Lưu ý: cơ chế gõ/nhập vào ô tìm kiếm, an toàn hiển thị từ khóa (XSS/SQLi), và
+việc ô tìm kiếm giữ lại giá trị đã gõ đã được kiểm thử riêng ở batch Home
+Page (GUI-059 đến GUI-066, GUI-085) — KHÔNG lặp lại các item đó. Chỉ tập
+trung vào cách TRÌNH BÀY của trạng thái kết quả tìm kiếm khi đã có khớp —
+những gì khác biệt so với lưới sản phẩm mặc định lúc chưa tìm kiếm.
+
+Chỉ tập trung vào IA01 — General UI standards. Liệt kê 3 checklist item cho
+trạng thái này, cân nhắc: định dạng/vị trí dòng thông báo "Kết quả tìm kiếm
+cho: ...", độ chính xác của số lượng hiển thị so với số thẻ thực render, và
+tính nhất quán bố cục lưới so với lưới mặc định khi số kết quả ít hơn 5.
+
+Trả về dạng bảng Markdown với các cột: Item, Lý do liên kết tới FR nào (nếu
+có). Viết bằng tiếng Việt tự nhiên, như một tester Việt Nam thực sự sẽ viết.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Dòng "Kết quả tìm kiếm cho: <từ khóa>" hiển thị ngay phía trên lưới sản phẩm, dùng cùng kiểu chữ/cỡ chữ với tiêu đề "Danh sách sản phẩm" mặc định, không lệch style | FR-21 |
+| Số lượng sản phẩm nêu trong thông báo kết quả (vd "Hiển thị 3 sản phẩm") khớp chính xác với số thẻ sản phẩm thực sự render trong lưới ngay bên dưới, không lệch số | FR-05 |
+| Bố cục lưới kết quả tìm kiếm (khoảng cách giữa các thẻ, số cột theo từng breakpoint) giữ nguyên đúng như lưới mặc định của trang chủ, không bị thu hẹp/co cụm lại khi số kết quả ít hơn 5 | FR-05 |
+```
+
+---
+
+## [14] Claude (Sonnet 5, Claude Code) — 4:14 PM 30/07/2026
+
+**Prompt:**
+```
+Tiếp tục màn Search Results, tập trung riêng vào IA02 — Forms.
+
+Ground truth: FR-05 (tìm kiếm theo tên sản phẩm, trang chủ hiển thị lưới).
+
+Cùng lưu ý như prompt IA01 trước: KHÔNG lặp lại cơ chế gõ/validate/giữ giá
+trị ô tìm kiếm đã kiểm thử ở Home Page (GUI-059–066, GUI-085). Batch này chỉ
+nói về những tương tác CHỈ tồn tại ở trạng thái đang xem kết quả (không tồn
+tại ở trạng thái mặc định): cách thoát khỏi bộ lọc kết quả để quay về xem
+toàn bộ, và việc URL có phản ánh đúng trạng thái tìm kiếm hay không (để có
+thể chia sẻ/bookmark/reload).
+
+Liệt kê 2 checklist item. Trả về bảng Markdown: Item, FR liên quan. Tiếng
+Việt tự nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Có đường dẫn/nút rõ ràng để xóa bộ lọc tìm kiếm và quay về xem toàn bộ danh sách sản phẩm, không chỉ dựa vào việc người dùng tự xóa tay nội dung ô tìm kiếm rồi bấm "Tìm" lại | FR-05 |
+| URL của trang phản ánh đúng từ khóa đang tìm kiếm (vd dạng query string), để có thể copy/chia sẻ hoặc bookmark đúng trạng thái kết quả đang xem, và F5 reload tại URL đó vẫn ra đúng kết quả đã lọc | FR-05 |
+```
+
+---
+
+## [15] Claude (Sonnet 5, Claude Code) — 4:18 PM 30/07/2026
+
+**Prompt:**
+```
+Tiếp tục màn Search Results, tập trung riêng vào IA03 — Navigation.
+
+Liệt kê 3 checklist item về: nơi focus/screen reader chuyển tới sau khi có
+kết quả tìm kiếm mới, hành vi điều hướng khi kết quả có phân trang (nếu có),
+và việc deep-link/reload URL mang query tìm kiếm ra đúng trạng thái đã lọc.
+
+Trả về bảng Markdown: Item, FR liên quan (hoặc "IA03 chuẩn" nếu không map
+trực tiếp vào FR nào). Tiếng Việt tự nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Sau khi tìm kiếm ra kết quả, focus hoặc thứ tự đọc của screen reader chuyển tới vùng thông báo kết quả mới, không giữ nguyên ở ô tìm kiếm khiến người dùng không biết nội dung trang đã thay đổi | IA03 chuẩn |
+| Nếu kết quả tìm kiếm có phân trang hoặc infinite scroll, việc chuyển trang kết quả vẫn giữ nguyên từ khóa đang tìm kiếm, không bị mất/reset về danh sách đầy đủ | FR-05 |
+| Truy cập trực tiếp hoặc F5 reload tại URL đang mang query tìm kiếm hiển thị đúng ngay kết quả đã lọc đó, không tự động trả về toàn bộ danh sách sản phẩm | FR-05 |
+```
+
+Được sửa lại ở `reports/ai-audit-report.md` Entry #15 (item phân trang cần
+điều kiện hóa theo quy ước N/A của GUI-019/030) trước khi đưa vào
+`checklist/gui-checklist.md` thành GUI-093.
+
+---
+
+## [16] Claude (Sonnet 5, Claude Code) — 4:22 PM 30/07/2026
+
+**Prompt:**
+```
+Tiếp tục màn Search Results, tập trung riêng vào IA04 — Feedback/State.
+
+Ground truth liên quan: BUG-IA04-HOMEPAGE-003 đã ghi nhận trước đó (lỗi mạng
+thật bị nuốt âm thầm ở Home Page, giao diện hiện dữ liệu cũ như thành công).
+
+Liệt kê 3 checklist item: công bố số lượng kết quả cho screen reader
+(aria-live), không có khung hình lẫn lộn giữa kết quả cũ/mới khi tìm kiếm lại
+trong lúc đang xem trang kết quả, và việc lỗi server thật xảy ra trong lúc
+đang xem trang kết quả (không phải lúc tải lần đầu) phải hiển thị lỗi rõ ràng
+thay vì lặp lại kiểu lỗi đã có ở BUG-IA04-HOMEPAGE-003.
+
+Trả về bảng Markdown: Item, FR liên quan. Tiếng Việt tự nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Thông báo số lượng kết quả tìm kiếm được công bố cho screen reader ngay khi cập nhật (vùng có `aria-live` hoặc tương đương), không chỉ thay đổi im lặng trên DOM | IA04 chuẩn |
+| Khi kết quả tìm kiếm mới thay thế kết quả cũ đang hiển thị, không có khung thời gian nào hiển thị lẫn lộn giữa 2 bộ kết quả (không nhấp nháy, không chồng dữ liệu cũ/mới) | IA04 chuẩn |
+| Nếu server trả lỗi thật trong lúc đang xem trang kết quả tìm kiếm (không phải lỗi lúc tải trang lần đầu), trang hiển thị thông báo lỗi rõ ràng thay vì âm thầm giữ nguyên kết quả cũ như đã xảy ra ở BUG-IA04-HOMEPAGE-003 | FR-05 |
+```
+
+---
+
+## [17] Claude (Sonnet 5, Claude Code) — 4:27 PM 30/07/2026
+
+**Prompt:**
+```
+Review 11 item AI vừa tạo cho Search Results (GUI-087–097, Entry #13–#16),
+đối chiếu ia-seed-categories.md (đặc biệt mục "Commonly AI-missed": dark
+mode, Vietnamese-specific) tìm gap AI bỏ sót. Ghi lý do vào ai-gap-analysis,
+log vào prompt-log và ai-audit-log.
+```
+
+**Output:**
+```
+Rà soát 11 item AI-generated (GUI-087–097) đối chiếu ia-seed-categories.md:
+
+- dark mode: KHÔNG có item nào cho Search Results, dù đây là gap đã xảy ra 2
+  lần trước (GUI-042 Product Detail, GUI-084 Home Page) — gap thật, lặp lại
+  có hệ thống vì tôi tiếp tục quên đưa dark mode vào prompt IA01. Thêm
+  GUI-099: "Ở chế độ dark mode (nếu trình duyệt/hệ điều hành bật), dòng 'Kết
+  quả tìm kiếm cho' và số lượng kết quả vẫn giữ độ tương phản đọc được, không
+  bị chữ tối trên nền tối."
+- Vietnamese-specific (dấu tiếng Việt): đã có GUI-085 (Home Page, tìm kiếm có
+  dấu ra đúng kết quả) — không cần lặp lại y hệt cho Search Results vì cùng
+  cơ chế tìm kiếm, cùng input. Đủ.
+- input normalization (khoảng trắng thừa): KHÔNG có item nào ở bất kỳ batch
+  nào (Home Page hay Search Results) kiểm tra input có khoảng trắng thừa ở
+  đầu/cuối — gap thật, edge case input chưa từng được hỏi. Thêm GUI-098: "Tìm
+  kiếm với khoảng trắng thừa ở đầu/cuối từ khóa (vd ' iphone ') vẫn trả về
+  đúng kết quả như khi gõ 'iphone' không có khoảng trắng thừa, không bị hệ
+  thống coi là một từ khóa khác rồi trả về sai/rỗng."
+- accessibility khác (contrast, alt, keyboard): đã có GUI-092 (focus
+  screen reader), không cần thêm.
+
+Đã ghi lý do gap GUI-098, GUI-099 vào
+ai-gap-analysis/gui-checklist-gaps.md, thêm 2 dòng (Source=Human) vào
+checklist/gui-checklist.md.
+```
+
+---
+
+## [18] Claude (Sonnet 5, Claude Code) — 4:33 PM 30/07/2026
+
+**Prompt:**
+```
+Bạn là một tester đang thiết kế GUI checklist theo kỹ thuật checklist-based
+testing cho màn Empty Search State — trạng thái lưới sản phẩm khi tìm kiếm
+KHÔNG khớp sản phẩm nào (0 kết quả) của hệ thống EShop.
+
+Ground truth — trích từ sut-requirements.md:
+- FR-05: "Khi không có kết quả tìm kiếm phải hiển thị thông báo empty state
+  phù hợp."
+- FR-24 (Feedback & State Requirements): "Trang trống (Empty State) phải có
+  icon/hình minh họa và message thân thiện."
+
+Chỉ tập trung vào IA01 — General UI standards. Liệt kê 2 checklist item về
+sự hiện diện của icon/hình minh họa + thông điệp thân thiện, và về khả năng
+responsive của trạng thái trống trên mobile.
+
+Trả về bảng Markdown: Item, FR liên quan. Tiếng Việt tự nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Trạng thái không tìm thấy sản phẩm nào hiển thị icon/hình minh họa kèm thông điệp thân thiện (vd "Không tìm thấy sản phẩm phù hợp"), không chỉ là một lưới trống trơn im lặng | FR-05, FR-24 |
+| Trạng thái trống responsive tốt trên mobile — icon/hình minh họa và thông điệp không bị tràn, vỡ layout, hoặc bị cắt ở màn hình hẹp | IA01 chuẩn |
+```
+
+---
+
+## [19] Claude (Sonnet 5, Claude Code) — 4:37 PM 30/07/2026
+
+**Prompt:**
+```
+Tiếp tục màn Empty Search State, tập trung riêng vào IA02 — Forms.
+
+Liệt kê 2 checklist item: ô tìm kiếm có giữ lại từ khóa vừa gõ khi kết quả
+trống hay không, và thông điệp trạng thái trống có hướng dẫn hành động tiếp
+theo hay chỉ nói "không có sản phẩm" chung chung.
+
+Trả về bảng Markdown: Item, FR liên quan (hoặc "IA02 chuẩn"). Tiếng Việt tự
+nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Ô tìm kiếm vẫn hiển thị đúng từ khóa vừa gõ khi kết quả trống, để người dùng biết chính xác họ đã tìm gì và có thể sửa lại ngay mà không cần gõ lại từ đầu | IA02 chuẩn |
+| Thông điệp trạng thái trống có hướng dẫn người dùng nên làm gì tiếp theo, không chỉ nói chung chung rằng không có sản phẩm nào | IA02 chuẩn |
+```
+
+Được sửa lại ở `reports/ai-audit-report.md` Entry #19 (item 2 quá mơ hồ để
+kiểm thử được, cần cụ thể hóa tiêu chí) trước khi đưa vào
+`checklist/gui-checklist.md` thành GUI-103.
+
+---
+
+## [20] Claude (Sonnet 5, Claude Code) — 4:41 PM 30/07/2026
+
+**Prompt:**
+```
+Tiếp tục màn Empty Search State, tập trung riêng vào IA03 — Navigation.
+
+Liệt kê 2 checklist item: có đường quay lại xem toàn bộ sản phẩm rõ ràng
+(không phải dead-end chỉ thoát được bằng nút Back trình duyệt), và
+nút/link đó tiếp cận được bằng bàn phím.
+
+Trả về bảng Markdown: Item, FR liên quan (hoặc "IA03 chuẩn"). Tiếng Việt tự
+nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Trạng thái trống có nút/link rõ ràng để quay về xem toàn bộ danh sách sản phẩm, không phải là điểm chết (dead-end) chỉ có thể thoát bằng nút Back của trình duyệt | IA03 chuẩn |
+| Nút/link "xem tất cả sản phẩm" ở trạng thái trống tiếp cận được bằng bàn phím (Tab + Enter), có focus ring hiển thị rõ | IA03 chuẩn |
+```
+
+---
+
+## [21] Claude (Sonnet 5, Claude Code) — 4:45 PM 30/07/2026
+
+**Prompt:**
+```
+Tiếp tục màn Empty Search State, tập trung riêng vào IA04 — Feedback/State.
+
+Ground truth liên quan: BUG-IA04-HOMEPAGE-003 (lỗi mạng thật bị nuốt âm
+thầm, giao diện hiện dữ liệu cũ như thành công) và BUG-IA02-HOMEPAGE-003
+(SQL Injection trong API tìm kiếm, một payload gây lỗi cú pháp thật ở
+backend).
+
+Liệt kê 3 checklist item: hệ thống có thực sự hiển thị trạng thái trống khi 0
+kết quả (không lặp lại kiểu lỗi ở BUG-IA04-HOMEPAGE-003), trạng thái trống
+được công bố cho screen reader, và ranh giới giữa "0 kết quả hợp lệ thật" với
+"lỗi backend thật" (liên hệ BUG-IA02-HOMEPAGE-003) có bị giao diện gộp lẫn
+thành cùng một thông điệp thân thiện hay không.
+
+Trả về bảng Markdown: Item, FR liên quan. Tiếng Việt tự nhiên.
+```
+
+**Output:**
+```
+| Item | FR liên quan |
+|---|---|
+| Khi tìm kiếm với từ khóa không khớp sản phẩm nào, hệ thống thực sự hiển thị trạng thái "không tìm thấy" — không lặng lẽ hiển thị lại toàn bộ danh sách sản phẩm cũ như thể tìm kiếm thành công, cùng loại lỗi với BUG-IA04-HOMEPAGE-003 đã ghi nhận | FR-05 |
+| Vùng thông báo "không tìm thấy sản phẩm nào" được công bố cho screen reader ngay khi xuất hiện (`aria-live` hoặc tương đương), không chỉ là text tĩnh không được công bố | IA04 chuẩn |
+| Trạng thái trống phải phân biệt được với trạng thái lỗi mạng/lỗi server thật, không dùng chung một thông điệp hoặc màu sắc cảnh báo đỏ cho cả 2 trường hợp khác nhau | IA04 chuẩn |
+```
+
+Được sửa lại ở `reports/ai-audit-report.md` Entry #21 (item 3 viết lại tập
+trung vào failure mode "lỗi backend thật bị hiển thị lẫn thành empty state
+thân thiện", liên hệ trực tiếp BUG-IA02-HOMEPAGE-003) trước khi đưa vào
+`checklist/gui-checklist.md` thành GUI-107.
+
+---
+
+## [22] Claude (Sonnet 5, Claude Code) — 4:50 PM 30/07/2026
+
+**Prompt:**
+```
+Review 9 item AI vừa tạo cho Empty Search State (GUI-100–108, Entry
+#18–#21), đối chiếu ia-seed-categories.md tìm gap AI bỏ sót, đặc biệt so với
+2 pattern đã lặp lại nhiều lần ở các màn trước (dark mode, dấu tiếng Việt).
+Ghi lý do vào ai-gap-analysis, log vào prompt-log và ai-audit-log.
+```
+
+**Output:**
+```
+Rà soát 9 item AI-generated (GUI-100–108) đối chiếu ia-seed-categories.md và
+2 pattern gap đã lặp lại ở các màn trước:
+
+- dark mode: KHÔNG có item nào cho Empty Search State — lần lặp lại thứ 4
+  của cùng gap (GUI-042, GUI-084, GUI-099). Thêm GUI-110: "Ở chế độ dark mode
+  (nếu trình duyệt/hệ điều hành bật), icon minh họa và thông điệp của trạng
+  thái trống vẫn giữ độ tương phản đọc được, không bị chữ/icon tối trên nền
+  tối."
+- dấu tiếng Việt: KHÔNG có item nào kiểm tra từ khóa có dấu tiếng Việt trong
+  ngữ cảnh RIÊNG của 0 kết quả (GUI-085 chỉ test trường hợp CÓ kết quả) — gap
+  thật, lần lặp lại thứ 3 (GUI-045, GUI-085). Thêm GUI-109: "Từ khóa có dấu
+  tiếng Việt nhưng thực sự không khớp sản phẩm nào (vd 'khôngtồntại') vẫn
+  hiển thị đúng trạng thái trống, không vỡ do lỗi encoding hoặc bị hiểu nhầm
+  thành tìm kiếm thành công."
+- accessibility khác (keyboard, contrast chữ thường): đã có GUI-105
+  (keyboard) — đủ, không cần thêm.
+- offline/slow-network: đã có GUI-097 ở batch Search Results (lỗi server
+  thật trong lúc xem kết quả) — cùng root cause áp dụng cho Empty State
+  không cần lặp lại một item gần như giống hệt.
+
+Đã ghi lý do gap GUI-109, GUI-110 vào ai-gap-analysis/gui-checklist-gaps.md,
+thêm 2 dòng (Source=Human) vào checklist/gui-checklist.md.
+```
+
+---

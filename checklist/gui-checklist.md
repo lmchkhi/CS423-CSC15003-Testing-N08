@@ -6,14 +6,18 @@ Populate with `.claude/skills/gui-checklist/SKILL.md`. Target: **> 40 items**,
 covering all of IA01–IA04. `Source` = `AI` or `Human`. Screenshots only for
 `Failed` rows.
 
-**Thực thi**: Toàn bộ 46 item dưới đây đã được thực thi trực tiếp trên SUT
-đang chạy (`http://localhost:5173/`, eshop-sut @ `85af3ba`) qua Claude for
-Chrome — thao tác thật (click, gõ, resize, đăng nhập, kiểm tra Network/DOM/
-console qua DevTools) trên 5 sản phẩm thật của hệ thống, không suy đoán.
-`Result` =
-`Passed` / `Failed` / `N/A` (N/A dành cho các item điều kiện "nếu có" mà tính
-năng đó không tồn tại trong SUT — xem `ai-gap-analysis/gui-checklist-gaps.md`
-và `reports/ai-audit-report.md` Entry #2/#3/#4 về quy ước N/A này).
+**Thực thi**: 86/110 item dưới đây (Product Detail: GUI-001–046, Home Page:
+GUI-047–086) đã được thực thi trực tiếp trên SUT đang chạy
+(`http://localhost:5173/`, eshop-sut @ `85af3ba`) qua Claude for Chrome —
+thao tác thật (click, gõ, resize, đăng nhập, kiểm tra Network/DOM/console qua
+DevTools) trên 5 sản phẩm thật của hệ thống, không suy đoán. 24 item còn lại
+(Search Results: GUI-087–099, Empty Search State: GUI-100–110) mới ở giai
+đoạn thiết kế + gap analysis (Phase B/C) — thực thi trên SUT thật sẽ làm ở
+lượt kế tiếp, `Result` để nguyên `Not Run`, không suy đoán Pass/Fail.
+`Result` = `Passed` / `Failed` / `N/A` / `Not Run` (N/A dành cho các item
+điều kiện "nếu có" mà tính năng đó không tồn tại trong SUT — xem
+`ai-gap-analysis/gui-checklist-gaps.md` và `reports/ai-audit-report.md` Entry
+#2/#3/#4 về quy ước N/A này).
 
 | ID | IA | Screen | Item | Source | Result | Notes | Screenshot | Bug ID |
 |---|---|---|---|---|---|---|---|---|
@@ -103,21 +107,48 @@ và `reports/ai-audit-report.md` Entry #2/#3/#4 về quy ước N/A này).
 | GUI-084 | IA01 | Home Page | Ở chế độ dark mode (nếu trình duyệt/hệ điều hành bật), chữ và nền trên lưới sản phẩm ở trang chủ vẫn giữ độ tương phản đọc được, không bị chữ tối trên nền tối | Human | Passed | Quét `document.styleSheets` xác nhận 0 rule `@media (prefers-color-scheme: dark)` — trang dùng màu Tailwind cố định, hiển thị giống hệt nhau bất kể chế độ sáng/tối hệ điều hành; độ tương phản không đổi so với GUI-056 (giá vẫn có vấn đề contrast riêng, đã ghi nhận ở BUG-IA01-HOMEPAGE-003, không phải do dark mode) | | |
 | GUI-085 | IA02 | Home Page | Tìm kiếm với từ khóa có dấu tiếng Việt (vd "bàn phím", "chuột không dây") trả về đúng kết quả, không bị lỗi encoding hoặc bị bỏ qua dấu | Human | Passed | Tìm "bàn phím" trả về đúng "Bàn phím cơ Keychron Q1" duy nhất, dấu tiếng Việt hiển thị đúng cả trong ô tìm kiếm lẫn dòng kết quả, không lỗi encoding | | |
 | GUI-086 | IA02 | Home Page | Nút "Thêm vào giỏ" trên mỗi thẻ sản phẩm ở trang chủ luôn thêm số lượng mặc định là 1 mà không có ô/chỉ báo nào cho người dùng biết hoặc điều chỉnh số lượng trước khi thêm — cần rõ ràng về số lượng sẽ thêm để tránh hiểu nhầm | Human | Failed | Xác nhận qua DOM và source: card sản phẩm trên trang chủ chỉ có 1 nút "Thêm vào giỏ" (`onClick={() => addToCart({...p, quantity: 1}, 1)}`), không có ô/hiển thị số lượng nào — khác biệt thiết kế thật với Product Detail (có ô Số lượng theo FR-06), nhưng không vi phạm FR cụ thể nào nên không file bug riêng, chỉ ghi nhận là quan sát UX | | |
+| GUI-087 | IA01 | Search Results | Dòng "Kết quả tìm kiếm cho: <từ khóa>" hiển thị ngay phía trên lưới sản phẩm, dùng cùng kiểu chữ/cỡ chữ với tiêu đề "Danh sách sản phẩm" mặc định, không lệch style | AI | Not Run | | | |
+| GUI-088 | IA01 | Search Results | Số lượng sản phẩm nêu trong thông báo kết quả (vd "Hiển thị 3 sản phẩm") khớp chính xác với số thẻ sản phẩm thực sự render trong lưới ngay bên dưới, không lệch số | AI | Not Run | | | |
+| GUI-089 | IA01 | Search Results | Bố cục lưới kết quả tìm kiếm (khoảng cách giữa các thẻ, số cột theo từng breakpoint) giữ nguyên đúng như lưới mặc định của trang chủ, không bị thu hẹp/co cụm lại khi số kết quả ít hơn 5 | AI | Not Run | | | |
+| GUI-090 | IA02 | Search Results | Có đường dẫn/nút rõ ràng để xóa bộ lọc tìm kiếm và quay về xem toàn bộ danh sách sản phẩm, không chỉ dựa vào việc người dùng tự xóa tay nội dung ô tìm kiếm rồi bấm "Tìm" lại | AI | Not Run | | | |
+| GUI-091 | IA02 | Search Results | URL của trang phản ánh đúng từ khóa đang tìm kiếm (vd dạng query string), để có thể copy/chia sẻ hoặc bookmark đúng trạng thái kết quả đang xem, và F5 reload tại URL đó vẫn ra đúng kết quả đã lọc | AI | Not Run | | | |
+| GUI-092 | IA03 | Search Results | Sau khi tìm kiếm ra kết quả, focus hoặc thứ tự đọc của screen reader chuyển tới vùng thông báo kết quả mới, không giữ nguyên ở ô tìm kiếm khiến người dùng không biết nội dung trang đã thay đổi | AI | Not Run | | | |
+| GUI-093 | IA03 | Search Results | Nếu có phân trang hoặc infinite scroll cho kết quả tìm kiếm (xác nhận tính năng tồn tại trước khi Pass/Fail — theo quy ước N/A đã dùng ở GUI-019/030), việc chuyển trang kết quả vẫn giữ nguyên từ khóa đang tìm kiếm, không bị mất/reset về danh sách đầy đủ | AI (sửa bởi Human — xem Entry #15 ai-audit-report.md) | Not Run | | | |
+| GUI-094 | IA03 | Search Results | Truy cập trực tiếp hoặc F5 reload tại URL đang mang query tìm kiếm hiển thị đúng ngay kết quả đã lọc đó, không tự động trả về toàn bộ danh sách sản phẩm | AI | Not Run | | | |
+| GUI-095 | IA04 | Search Results | Thông báo số lượng kết quả tìm kiếm được công bố cho screen reader ngay khi cập nhật (vùng có `aria-live` hoặc tương đương), không chỉ thay đổi im lặng trên DOM | AI | Not Run | | | |
+| GUI-096 | IA04 | Search Results | Khi kết quả tìm kiếm mới thay thế kết quả cũ đang hiển thị, không có khung thời gian nào hiển thị lẫn lộn giữa 2 bộ kết quả (không nhấp nháy, không chồng dữ liệu cũ/mới) | AI | Not Run | | | |
+| GUI-097 | IA04 | Search Results | Nếu server trả lỗi thật trong lúc đang xem trang kết quả tìm kiếm (không phải lỗi lúc tải trang lần đầu), trang hiển thị thông báo lỗi rõ ràng thay vì âm thầm giữ nguyên kết quả cũ như đã xảy ra ở BUG-IA04-HOMEPAGE-003 | AI | Not Run | | | |
+| GUI-098 | IA02 | Search Results | Tìm kiếm với khoảng trắng thừa ở đầu/cuối từ khóa (vd " iphone ") vẫn trả về đúng kết quả như khi gõ "iphone" không có khoảng trắng thừa, không bị hệ thống coi là một từ khóa khác rồi trả về sai/rỗng | Human | Not Run | | | |
+| GUI-099 | IA01 | Search Results | Ở chế độ dark mode (nếu trình duyệt/hệ điều hành bật), dòng "Kết quả tìm kiếm cho" và số lượng kết quả vẫn giữ độ tương phản đọc được, không bị chữ tối trên nền tối | Human | Not Run | | | |
+| GUI-100 | IA01 | Empty Search State | Trạng thái không tìm thấy sản phẩm nào hiển thị icon/hình minh họa kèm thông điệp thân thiện (vd "Không tìm thấy sản phẩm phù hợp"), không chỉ là một lưới trống trơn im lặng | AI | Not Run | | | |
+| GUI-101 | IA01 | Empty Search State | Trạng thái trống responsive tốt trên mobile — icon/hình minh họa và thông điệp không bị tràn, vỡ layout, hoặc bị cắt ở màn hình hẹp | AI | Not Run | | | |
+| GUI-102 | IA02 | Empty Search State | Ô tìm kiếm vẫn hiển thị đúng từ khóa vừa gõ khi kết quả trống, để người dùng biết chính xác họ đã tìm gì và có thể sửa lại ngay mà không cần gõ lại từ đầu | AI | Not Run | | | |
+| GUI-103 | IA02 | Empty Search State | Thông điệp trạng thái trống gợi ý cụ thể ít nhất một hành động tiếp theo — hoặc một nút/link rõ ràng để xem lại toàn bộ sản phẩm, hoặc gợi ý kiểm tra lại chính tả từ khóa — không chỉ nói chung chung "không có sản phẩm" rồi để người dùng tự loay hoay | AI (sửa bởi Human — xem Entry #19 ai-audit-report.md) | Not Run | | | |
+| GUI-104 | IA03 | Empty Search State | Trạng thái trống có nút/link rõ ràng để quay về xem toàn bộ danh sách sản phẩm, không phải là điểm chết (dead-end) chỉ có thể thoát bằng nút Back của trình duyệt | AI | Not Run | | | |
+| GUI-105 | IA03 | Empty Search State | Nút/link "xem tất cả sản phẩm" ở trạng thái trống tiếp cận được bằng bàn phím (Tab + Enter), có focus ring hiển thị rõ | AI | Not Run | | | |
+| GUI-106 | IA04 | Empty Search State | Khi tìm kiếm với từ khóa không khớp sản phẩm nào, hệ thống thực sự hiển thị trạng thái "không tìm thấy" — không lặng lẽ hiển thị lại toàn bộ danh sách sản phẩm cũ như thể tìm kiếm thành công, cùng loại lỗi với BUG-IA04-HOMEPAGE-003 đã ghi nhận | AI | Not Run | | | |
+| GUI-107 | IA04 | Empty Search State | Nếu một truy vấn tìm kiếm gây ra lỗi thật ở backend (không phải trường hợp 0 kết quả hợp lệ), giao diện không được âm thầm hiển thị lẫn thành trạng thái "không tìm thấy sản phẩm" thân thiện — phải phân biệt được lỗi hệ thống thật với 0 kết quả tìm kiếm thật, tránh che giấu lỗi dưới vỏ bọc UX thân thiện | AI (sửa bởi Human — xem Entry #21 ai-audit-report.md) | Not Run | | | |
+| GUI-108 | IA04 | Empty Search State | Vùng thông báo "không tìm thấy sản phẩm nào" được công bố cho screen reader ngay khi xuất hiện (`aria-live` hoặc tương đương), không chỉ là text tĩnh không được công bố | AI | Not Run | | | |
+| GUI-109 | IA02 | Empty Search State | Từ khóa có dấu tiếng Việt nhưng thực sự không khớp sản phẩm nào (vd "khôngtồntại") vẫn hiển thị đúng trạng thái trống, không vỡ do lỗi encoding hoặc bị hiểu nhầm thành tìm kiếm thành công | Human | Not Run | | | |
+| GUI-110 | IA01 | Empty Search State | Ở chế độ dark mode (nếu trình duyệt/hệ điều hành bật), icon minh họa và thông điệp của trạng thái trống vẫn giữ độ tương phản đọc được, không bị chữ/icon tối trên nền tối | Human | Not Run | | | |
 
 ## Summary
 
-| IA aspect | Designed | Executed | Passed | Failed | N/A |
-|---|---|---|---|---|---|
-| IA01 — General UI | 27 | 27 | 20 | 7 | 0 |
-| IA02 — Forms | 21 | 21 | 10 | 10 | 1 |
-| IA03 — Navigation | 19 | 19 | 7 | 11 | 1 |
-| IA04 — Feedback/state | 19 | 19 | 2 | 16 | 1 |
-| **Total** | **86** | **86** | **39** | **44** | **3** |
+| IA aspect | Designed | Executed | Passed | Failed | N/A | Not Run |
+|---|---|---|---|---|---|---|
+| IA01 — General UI | 34 | 27 | 20 | 7 | 0 | 7 |
+| IA02 — Forms | 27 | 21 | 10 | 10 | 1 | 6 |
+| IA03 — Navigation | 24 | 19 | 7 | 11 | 1 | 5 |
+| IA04 — Feedback/state | 25 | 19 | 2 | 16 | 1 | 6 |
+| **Total** | **110** | **86** | **39** | **44** | **3** | **24** |
 
-> Cả 2 màn (Product Detail: GUI-001–046, Home Page: GUI-047–086) đã được
-> thiết kế và thực thi đầy đủ trên SUT thật. Home Page thực thi qua Claude
-> for Chrome ngày 26/07/2026 — phát hiện quan trọng nhất: **SQL Injection**
-> thật (không chỉ XSS) trong API tìm kiếm sản phẩm (`GET /api/products`),
+> 4 màn hình đã được thiết kế đầy đủ: Product Detail (GUI-001–046) và Home
+> Page (GUI-047–086) đã thực thi xong trên SUT thật; Search Results
+> (GUI-087–099) và Empty Search State (GUI-100–110) mới xong Phase B/C
+> (thiết kế + gap analysis con người), thực thi để lượt kế tiếp — xem ghi
+> chú "Search Results & Empty Search State" bên dưới. Home Page thực thi qua
+> Claude for Chrome ngày 26/07/2026 — phát hiện quan trọng nhất: **SQL
+> Injection** thật (không chỉ XSS) trong API tìm kiếm sản phẩm (`GET /api/products`),
 > xem `BUG-IA02-HOMEPAGE-003`. Bug tổng hợp cho Home Page:
 > - `BUG-IA01-HOMEPAGE-001` — trang chủ có 2 thẻ `<h1>` (GUI-047)
 > - `BUG-IA01-HOMEPAGE-002` — giá hiển thị "VND" thay vì ₫/đ (GUI-049)
@@ -135,6 +166,17 @@ và `reports/ai-audit-report.md` Entry #2/#3/#4 về quy ước N/A này).
 >
 > GUI-086 (thiếu ô chọn số lượng trên lưới) là quan sát UX, không vi phạm FR
 > cụ thể nên không file bug riêng — xem Notes của dòng đó.
+
+> **Search Results & Empty Search State (GUI-087–110)**: 2 màn hình còn lại
+> trong phạm vi đã khai báo ở README §2.1 (Home page, Search results, Empty
+> search state, Product detail page). Đã hoàn tất Phase B (AI-generated first
+> pass, tách riêng theo từng IA × màn hình) và Phase C (critical human
+> review) — xem 4 item Human (GUI-098, 099, 109, 110) và lý do thêm ở
+> `ai-gap-analysis/gui-checklist-gaps.md`, toàn bộ prompt/output/verdict ở
+> `reports/ai-audit-report.md` Entry #13–#22. Chưa thực thi trên SUT thật
+> (`Result = Not Run`, không có Screenshot/Bug ID) — để dành cho lượt kế
+> tiếp theo đúng Phase D của skill `gui-checklist`, tránh suy đoán Pass/Fail
+> khi chưa thao tác thật trên trình duyệt.
 
 Bug tổng hợp theo item, xem chi tiết từng bug tại `bug-reports/`:
 - `BUG-IA01-PRODUCTDETAIL-001` — nút thêm giỏ hàng sai màu (GUI-004)
