@@ -990,3 +990,23 @@ cần sinh viên xác nhận lại danh tính participant #6 vì suy luận bằ
 trừ, và cân nhắc bổ sung cột Profile còn để trống).
 
 ---
+
+## [25] Claude (Sonnet 5, Claude Code) — 31/07/2026
+
+**Prompt:**
+```
+it is Quoc Huy, Phi is mistranscript from the AI, like Nguyen Thanh Dat
+```
+
+**Output:**
+```
+Cập nhật usability/participants.md và usability/sessions/session-06.md: bỏ
+cách diễn đạt "khớp qua loại trừ", thay bằng xác nhận trực tiếp participant
+#6 = Nguyễn Quốc Huy; "anh Phi" là lỗi speech-to-text của AI khi phiên âm
+transcript (cùng loại lỗi với participant #2, "Nguyễn Thanh Đẹp" thay vì
+"Nguyễn Thành Đạt"). Cập nhật reports/ai-audit-report.md Entry #24 — thêm
+mục "Cập nhật (31/07/2026)" vào Student Fix ghi nhận mục (1) đã giải quyết,
+giữ nguyên phần Verdict/Reasoning gốc làm bản ghi lịch sử thay vì viết đè.
+```
+
+---

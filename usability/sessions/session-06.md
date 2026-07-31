@@ -5,8 +5,9 @@
 - **Đồng ý ghi hình (Consent to record)**: Yes (bằng lời, off-record, theo
   `session-script.md` bước 1 — không có trong bản ghi hình)
 - **Nhiệm vụ giao**: dùng ô tìm kiếm gõ "Galaxy", mở chi tiết, mua 3 cái, bỏ
-  vào giỏ hàng (điều phối viên gọi participant là "anh Phi" trên băng ghi âm
-  — khớp Nguyễn Quốc Huy qua loại trừ, xem ghi chú đối chiếu trong
+  vào giỏ hàng (transcript nghe thành "anh Phi" — lỗi speech-to-text của AI,
+  cùng loại lỗi với participant #2 ("Nguyễn Thanh Đẹp" thay vì "Nguyễn Thành
+  Đạt"); sinh viên xác nhận trực tiếp đây là Nguyễn Quốc Huy, xem
   `usability/participants.md`)
 - **Giờ bắt đầu/kết thúc task**: ~0:13 → ~1:22 (~69 giây)
 - **Kết quả task (task success)**: **Y (Yes), có lệch hướng nhiệm vụ** —

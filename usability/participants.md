@@ -20,9 +20,10 @@ không chỉnh sửa, từ `usability/EShop Usability Test - Khảo sát Trải 
 Người dùng (SUS) (Responses) - Form Responses 1.csv` (7 phản hồi thật, gửi
 7/26–7/27/2026), đối chiếu chéo với tên/từ khóa nhiệm vụ được nhắc tới trong
 từng file `usability/transcript/participant_N.tsv` tương ứng để xác nhận
-đúng người — participant #6 được điều phối viên gọi bằng tên khác trên băng
-ghi âm ("anh Phi") nhưng khớp Nguyễn Quốc Huy qua loại trừ (6 người còn lại
-đều được xác nhận trực tiếp qua tên/biệt danh nói trong băng).
+đúng người — participant #6 được nghe thành "anh Phi" trên transcript do
+lỗi speech-to-text của AI (cùng loại lỗi với participant #2, nghe thành
+"Nguyễn Thanh Đẹp" thay vì "Nguyễn Thành Đạt"); **đã được sinh viên xác nhận
+trực tiếp là Nguyễn Quốc Huy**, không còn là suy luận qua loại trừ.
 
 **Giới hạn cần ghi nhận trung thực**: form khảo sát không có câu hỏi riêng
 về nghề nghiệp/độ tuổi/mức quen thuộc với công nghệ, nên không thể điền cột

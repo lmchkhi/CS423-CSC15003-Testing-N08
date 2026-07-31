@@ -1714,6 +1714,16 @@ cột Profile trong `participants.md` nếu muốn hồ sơ đầy đủ hơn; (
 tự rà soát thay cho pilot) khi nộp bài — đã ghi rõ cả hai lựa chọn trong
 `usability/plan.md`.
 
+**Cập nhật (31/07/2026, sau khi sinh viên xem lại)**: mục (1) đã được giải
+quyết — sinh viên xác nhận trực tiếp participant #6 đúng là Nguyễn Quốc Huy;
+"anh Phi" là lỗi speech-to-text của AI khi phiên âm transcript, cùng loại
+lỗi hệ thống đã xảy ra với participant #2 ("Nguyễn Thanh Đẹp" thay vì
+"Nguyễn Thành Đạt" — AI phiên âm sai tên riêng ít phổ biến/phát âm không rõ
+trong băng ghi âm chất lượng thấp). Đã cập nhật `usability/participants.md`
+và `usability/sessions/session-06.md` để phản ánh đây là xác nhận thật, không
+còn là suy luận qua loại trừ. Mục (2) và (3) vẫn để ngỏ, tùy sinh viên quyết
+định trước khi nộp.
+
 ---
 
 ## 4. Tổng hợp độ chính xác của AI
