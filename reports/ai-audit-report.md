@@ -1847,16 +1847,93 @@ bổ sung cho đầy đủ hồ sơ.
 
 ---
 
+## Entry #27
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code + Claude for Chrome) |
+| **Timestamp**     | 31/07/2026 |
+| **Artifact type** | Task 3 Cross-Browser/Cross-Platform: 3 platform test pass, `cross-platform/report.md`, 8 screenshot có watermark, `bug-reports/BUG-XPLAT-DEEPLINK-001.md` |
+
+**Full prompt:**
+
+```
+https://live.browserstack.com/dashboard?... (BrowserStack Live URL thật)
+i also deployed the web: https://frontend-web-eight-mu.vercel.app/
+you can use claude for chrome to test and report
+```
+
+### (2) AI Output
+
+```
+Chạy lại flow đã chọn ở Task 1/2 (Home → Search → Product Detail → Add to
+cart → Cart) trên bản deploy thật, 3 platform: Chrome (desktop, local),
+Firefox 153/Windows 11 (BrowserStack Live), Chrome/Android 14 (Google
+Pixel 8, BrowserStack real device).
+
+Gặp và tự chẩn đoán một lỗi công cụ nghiêm trọng trên Android: bàn phím ảo
+remote rớt ký tự có hệ thống khi gõ qua automation (luôn rớt đúng chữ "h"
+trong "eight" → "eigt", tái hiện qua nhiều phương pháp gõ khác nhau kể cả
+gõ từng ký tự có chờ 1s). Chẩn đoán sai ban đầu (nghĩ là do autocomplete
+lịch sử ghi đè) trước khi xác nhận đúng nguyên nhân bằng cách so sánh với
+cùng chuỗi text gửi qua tool `navigate` (không qua bàn phím) — cũng bị lỗi
+tương tự khi chứa "gh" liền nhau, gợi ý lỗi ở tầng dispatch phím ảo chứ
+không phải autocomplete. Workaround cuối cùng: dùng gợi ý "Link you copied"
+của Chrome (ghi URL vào clipboard qua JS, tap gợi ý thay vì gõ) để vào đúng
+trang, và thay bước search-bằng-gõ-chữ trên Android bằng điều hướng UI trực
+tiếp — ghi rõ giới hạn này trong report thay vì giả vờ đã test đủ.
+
+Xác nhận lại BUG-IA04-PRODUCTDETAIL-001 (nút thêm giỏ hàng cần 2 lần bấm)
+giống hệt trên cả 3 platform. Phát hiện bug MỚI (BUG-XPLAT-DEEPLINK-001):
+deep link/reload vào `/product/:id` trả về 404 của Vercel — chỉ xuất hiện
+trên bản deploy thật, không xuất hiện trên dev server đã dùng ở Task 1/2 —
+xác nhận qua cả Chrome và Firefox desktop, cùng lỗi giống hệt.
+
+Stamp watermark 8 screenshot, viết report.md, file bug report mới — chưa
+tạo GitHub Issue (cần sinh viên xác nhận trước theo quy trình `bug-report`).
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Toàn bộ kết luận đều có bằng chứng trực tiếp (screenshot + URL/mã lỗi thật
+từ Vercel, không suy đoán). Điểm đáng chú ý nhất là quá trình tự chẩn đoán
+lỗi công cụ (bàn phím ảo rớt ký tự): thay vì âm thầm chấp nhận kết quả sai
+(URL bị gõ sai dẫn tới DEPLOYMENT_NOT_FOUND) và báo cáo nhầm thành lỗi SUT,
+AI đã nghi ngờ, thử nhiều phương pháp độc lập để cô lập nguyên nhân (gõ
+từng ký tự, dùng `navigate` tool trực tiếp, percent-encoding để né ký tự
+lỗi, cuối cùng dùng cơ chế "Link you copied" của chính trình duyệt để tránh
+gõ phím hoàn toàn), và ghi nhận minh bạch giới hạn công cụ trong báo cáo
+thay vì che giấu. Đây đúng tinh thần "không suy đoán, xác minh trước khi
+kết luận" đã áp dụng xuyên suốt Task 1. Việc phân biệt rạch ròi bug thật
+của SUT (thêm giỏ hàng 2 lần bấm, deep link 404) với hạn chế của công cụ
+test (bàn phím ảo) là điểm quan trọng nhất để không làm nhiễu báo cáo cuối.
+
+### (5) Student Fix
+
+Cần: (1) xác nhận và tạo GitHub Issue cho BUG-XPLAT-DEEPLINK-001 (đính kèm
+2 screenshot 404); (2) cân nhắc có muốn thử lại search trên Android bằng
+phương pháp khác (vd JS injection set giá trị input) nếu muốn coverage đầy
+đủ hơn cho platform này, hiện đã ghi nhận trung thực là dùng điều hướng UI
+thay thế.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 26    | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 18    | 69.2%      |
+| **Tổng số artifact do AI tạo được audit**       | 27    | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 19    | 70.4%      |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 30.8%      |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 29.6%      |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 

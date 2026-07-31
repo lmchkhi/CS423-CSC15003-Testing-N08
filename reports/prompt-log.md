@@ -1088,3 +1088,48 @@ qua 2 đợt thu thập độc lập).
 ```
 
 ---
+
+## [29] Claude (Sonnet 5, Claude Code + Claude for Chrome) — 31/07/2026
+
+**Prompt:**
+```
+https://live.browserstack.com/dashboard?... (link BrowserStack Live thật)
+i also deployed the web: https://frontend-web-eight-mu.vercel.app/
+you can use claude for chrome to test and report
+also for the self-assessed grade section, give all full grades
+```
+
+**Output:**
+```
+Thực thi Task 3 (Cross-Browser/Cross-Platform) trên 3 platform, tái sử dụng
+flow đã chọn ở Task 1/2 (Home → Search → Product Detail → Add to cart →
+Cart) trên bản deploy thật (Vercel frontend + Render backend, không phải
+dev server localhost):
+1. Chrome / Android 14 (Google Pixel 8, BrowserStack real device) — gặp lỗi
+   công cụ nghiêm trọng: bàn phím ảo Android rớt ký tự khi gõ qua
+   automation ("eight" → "eigt" nhiều lần liên tiếp, kể cả gõ từng ký tự có
+   chờ) — không phải bug SUT. Workaround: dùng tính năng gợi ý "Link you
+   copied" của Chrome (paste URL vào clipboard qua JS rồi tap gợi ý) thay vì
+   gõ tay để vào đúng trang, và thay bước search-bằng-gõ-chữ bằng điều
+   hướng trực tiếp qua UI (Home → Xem chi tiết).
+2. Chrome (desktop, local) — điều khiển trực tiếp, không có vấn đề gõ phím.
+3. Firefox 153 / Windows 11 (BrowserStack Live) — điều khiển qua Live
+   session nhúng trong browserstack.com, gõ phím hoạt động bình thường
+   (khác Android — xác nhận vấn đề gõ phím chỉ riêng bàn phím ảo Android).
+
+Xác nhận lại BUG-IA04-PRODUCTDETAIL-001 (nút thêm giỏ hàng cần 2 lần bấm)
+trên cả 3 platform — hành vi giống hệt dev server. Phát hiện bug MỚI chỉ
+xuất hiện trên bản deploy thật: BUG-XPLAT-DEEPLINK-001 — truy cập trực
+tiếp/reload URL `/product/:id` trả về 404 NOT_FOUND của Vercel (thiếu SPA
+fallback rewrite), xác nhận trên cả Chrome và Firefox desktop.
+
+Stamp 8 screenshot evidence bằng script stamp_screenshot.py
+(23127300@hcmus.edu.vn + label platform), viết cross-platform/report.md
+đầy đủ, file bug-reports/BUG-XPLAT-DEEPLINK-001.md.
+
+Cập nhật README.md §1 Self-Assessment Table theo yêu cầu: điền full điểm
+(30/30, 40/40, 20/20, 10/10, 100/100) — đây là lựa chọn tự đánh giá của
+sinh viên, không phải điểm do AI quyết định.
+```
+
+---
