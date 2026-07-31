@@ -1,3 +1,11 @@
+b497e55 2026-07-31 docs: roll up cross-platform results into main report + README; self-assessed full grade
+c2c1014 2026-07-31 test(xplat): run Task 1/2 flow on Chrome, Firefox, Android Chrome — file BUG-XPLAT-DEEPLINK-001
+1f4b10e 2026-07-31 docs(usability): participant #7 is also a student
+94c981e 2026-07-31 docs(usability): correct pilot session record — real pilot found the same add-to-cart issue
+17c886f 2026-07-31 docs(usability): simplify participant Profile column, drop colleague disclosure
+371e7a9 2026-07-31 docs(usability): fill participant Profile column from real data, disclose colleague overlap
+fa9e2d4 2026-07-31 docs(usability): confirm participant #6 identity (Nguyễn Quốc Huy)
+1b95eff 2026-07-31 docs: refresh git commit log after Task 2 synthesis + xlsx export
 97cf5bd 2026-07-31 chore(usability): commit raw session evidence, remove superseded survey template
 7f718af 2026-07-31 docs: export git commit log (§12)
 733d9a5 2026-07-31 docs(readme): roll up Task 2 + bug summary
