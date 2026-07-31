@@ -1,0 +1,25 @@
+start	end	text
+0	15000	Ok, bây giờ mình sẽ giao cho bạn Trúc May 1 cái test là dùng ô tìm kiếm trên web này, gõ tay nghe để tìm sản phẩm, mở chen chi tiết, chọn mua 2 cái rồi bỏ vào vỏ hèn nha
+15000	17000	Ok
+17000	29000	Ủa, tôi thấy có 1 sản phẩm thôi mà
+29000	42000	Ủa, tôi thấy vẫy mà mua 2 cái hả?
+42000	56000	Ủa, tôi bấm thêm về nhỏ hàng, sao mới biết nó thêm chưa vậy?
+56000	58000	Ủa
+62000	69000	Em sẽ kiểu giả hẹn ở ngoài, nó không có hiện là đang mấy sản phẩm hả?
+69000	76000	Ờ, ok, ghi lệ. Vậy nên hoàn thành cái bài test
+76000	80000	Ok
+80000	84000	Ok, bây giờ mình sẽ hỏi bạn 1 số câu hỏi
+84000	90000	Thì lúc nãy ở chỗ bấm thêm vào vỏ hàng thì bạn hơi khừng lại, thì lúc đó bạn đang nghĩ gì?
+90000	92000	Ừm
+96000	104000	Mình không có biết là mình đã theo viên giả hẹn chưa á, mình chỉ thấy là cái nút đó nó đậm hơn lúc mà mình bấm vô hả?
+104000	108000	Ok, rồi có chỗ nào khiến bạn bấm nhầm không? Vậy lúc đó bạn xử lý như thế nào?
+108000	122000	Bấm nhầm thì cũng không, bởi vì cái theo tag bạn giao cho mình làm cũng đơn giản, chắc vậy á
+122000	130000	Ok, và lúc thực hiện thì bạn có thấy nhanh, cái web nó xử lý nhanh hay là chậm hơn bạn nghĩ không về bước nào lâu nhất?
+132000	142000	Ừm, mình thấy cũng nhanm trừ cái đoạn thêm vào vỏ hàng là mình hơi vân vân, hơi bối rối
+142000	144000	Ừ, đúng rồi
+144000	145000	Ừm
+145000	151000	Với lại lúc thêm vào vỏ thì bạn có thấy khó khăn gì không
+151000	155000	Cũng như bạn có chắc là web ghi đúng số lượng sản phẩm không?
+157000	159000	À, cái đó mình thấy bình thường á
+159000	162000	Vì web cho mình nhập số lượng
+163000	165000	Ok, cảm ơn bạn
