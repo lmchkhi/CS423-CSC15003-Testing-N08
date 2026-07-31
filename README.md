@@ -69,20 +69,24 @@
 
 | Metric | Value |
 |---|---|
-| Participants | 7 |
-| Mean SUS / UEQ-S score | |
-| Findings (Blocker / Major / Minor) | / / |
-| Bugs filed | |
+| Participants | 7 (real, ngoài lớp học phần — `usability/participants.md`) |
+| Mean SUS score | **53.2 / 100** (min 15, max 87.5, SD ≈ 27.8) |
+| Task success | 4 Yes (hesitant) / 2 Partial / 1 No (thất bại hoàn toàn — participant #7) |
+| Findings (Blocker / Major / Minor) | 1 / 1 / 2 |
+| Bugs filed | 0 mới — 2 bug đã có từ Task 1 được cross-link làm bằng chứng bổ sung (`BUG-IA04-PRODUCTDETAIL-001`, `BUG-IA03-HOMEPAGE-002`) |
 
-> Full detail: `usability/plan.md`, `usability/sessions/`, `usability/analysis.md`.
+> Phát hiện quan trọng nhất: SUS không tương quan với task success —
+> participant #7 có SUS cao thứ 3 (82.5) nhưng task thất bại hoàn toàn sau
+> 3 lần thử. Full detail: `usability/plan.md`, `usability/sessions/`,
+> `usability/analysis.md`.
 
 ### 2.4. Cross-Platform Summary (Task 3)
 
 | Platform | Status |
 |---|---|
-| Chrome | |
-| Firefox | |
-| Safari / Android Chrome | |
+| Chrome | TODO — chờ tài khoản trial BrowserStack/LambdaTest |
+| Firefox | TODO — chờ tài khoản trial BrowserStack/LambdaTest |
+| Safari / Android Chrome | TODO — chờ tài khoản trial BrowserStack/LambdaTest |
 
 > Full detail: `cross-platform/report.md`.
 
@@ -90,16 +94,41 @@
 
 | Bug ID | Source (Task) | Severity | Status | GitHub Issue |
 |---|---|---|---|---|
-| | | | | |
+| BUG-IA02-HOMEPAGE-003 | Task 1 | Critical | Open | [#106](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/106) |
+| BUG-IA02-HOMEPAGE-002 | Task 1 | Critical | Open | [#105](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/105) |
+| BUG-IA02-PRODUCTDETAIL-001 | Task 1 | Critical | Open | [#97](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/97) |
+| BUG-IA04-HOMEPAGE-003 | Task 1 | Critical | Open | [#112](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/112) |
+| BUG-IA04-PRODUCTDETAIL-001 | Task 1 + xác nhận qua Task 2 (5/7 participant) | Critical | Open | [#100](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/100) |
+| BUG-IA01-HOMEPAGE-001 | Task 1 | Major | Open | [#101](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/101) |
+| BUG-IA01-PRODUCTDETAIL-002 | Task 1 | Major | Open | [#95](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/95) |
+| BUG-IA03-HOMEPAGE-002 | Task 1 + liên hệ giả thuyết Task 2 (1/7) | Major | Open | [#108](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/108) |
+| BUG-IA03-PRODUCTDETAIL-001 | Task 1 | Major | Open | [#98](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/98) |
+| BUG-IA04-EMPTYSEARCH-001 | Task 1 | Major | Open | [#194](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/194) |
+| BUG-IA04-SEARCHRESULTS-002 | Task 1 | Major | Open | [#193](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/193) |
+| BUG-IA01-HOMEPAGE-002 | Task 1 | Minor | Open | [#102](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/102) |
+| BUG-IA01-HOMEPAGE-003 | Task 1 | Minor | Open | [#103](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/103) |
+| BUG-IA01-PRODUCTDETAIL-001 | Task 1 | Minor | Open | [#94](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/94) |
+| BUG-IA01-PRODUCTDETAIL-003 | Task 1 | Minor | Open | [#96](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/96) |
+| BUG-IA02-HOMEPAGE-001 | Task 1 | Minor | Open | [#104](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/104) |
+| BUG-IA02-SEARCHRESULTS-001 | Task 1 | Minor | Open | [#190](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/190) |
+| BUG-IA02-SEARCHRESULTS-002 | Task 1 | Minor | Open | [#191](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/191) |
+| BUG-IA03-HOMEPAGE-001 | Task 1 | Minor | Open | [#107](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/107) |
+| BUG-IA03-HOMEPAGE-003 | Task 1 | Minor | Open | [#109](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/109) |
+| BUG-IA03-PRODUCTDETAIL-002 | Task 1 | Minor | Open | [#99](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/99) |
+| BUG-IA04-HOMEPAGE-001 | Task 1 | Minor | Open | [#110](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/110) |
+| BUG-IA04-HOMEPAGE-002 | Task 1 | Minor | Open | [#111](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/111) |
+| BUG-IA04-SEARCHRESULTS-001 | Task 1 | Minor | Open | [#192](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/192) |
 
-> **Tổng số bugs:**
+> **Tổng số bugs: 24** (5 Critical, 6 Major, 13 Minor) — tất cả từ Task 1;
+> Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm bằng chứng
+> bổ sung từ người dùng thật (xem cột Source).
 
 ### 2.6. Demo Videos
 
 | Skill / Flow | Video Link |
 |---|---|
-| `gui-checklist` demo | |
-| `usability-evaluation` demo | |
+| `gui-checklist` demo | TODO — cần quay + upload YouTube (§7) |
+| `usability-evaluation` demo | TODO — cần quay + upload YouTube (§7) |
 
 ---
 
