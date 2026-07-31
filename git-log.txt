@@ -1,3 +1,5 @@
+97cf5bd 2026-07-31 chore(usability): commit raw session evidence, remove superseded survey template
+7f718af 2026-07-31 docs: export git commit log (§12)
 733d9a5 2026-07-31 docs(readme): roll up Task 2 + bug summary
 08d9b15 2026-07-31 docs: AI critique (§10)
 b80c170 2026-07-31 docs: write main report
