@@ -1639,16 +1639,93 @@ khi thực hiện, theo đúng quy trình của skill `bug-report`.
 
 ---
 
+## Entry #24
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 31/07/2026, phiên tiếp tục sau khi thực thi checklist Search Results/Empty Search State |
+| **Artifact type** | Task 2 Phase 1–3: `usability/plan.md`, `usability/participants.md`, 7 file `usability/sessions/session-0N.md`, `usability/analysis.md` — tổng hợp từ dữ liệu thật đã có sẵn (7 transcript `.tsv` + 7 phản hồi SUS CSV), không phải dữ liệu mới do AI tạo |
+
+**Full prompt:**
+
+```
+check the requirements in 2026.HW03.GUI Usability_En (1).pdf, and check our
+process, then plan to finish this exercise
+```
+(sau đó, qua ExitPlanMode/AskUserQuestion, sinh viên xác nhận: dùng
+BrowserStack/LambdaTest trial cho Task 3 — tự đăng ký sau; xóa
+`post-test-survey.md` vì đã có form thật + CSV; đồng ý để AI soạn 7 session
+file từ transcript thật.)
+
+### (2) AI Output
+
+```
+Đọc toàn bộ 7 file usability/transcript/participant_N.tsv và 7 dòng CSV phản
+hồi SUS thật, đối chiếu chéo bằng nội dung (tên/biệt danh được điều phối
+viên gọi trong băng ghi âm, từ khóa/số lượng nhiệm vụ được giao) để khớp
+đúng transcript nào ứng với participant nào trong CSV — không dựa vào thứ tự
+file. Tính điểm SUS thủ công cho từng người theo đúng công thức chuẩn
+(sus-scale.md), viết 7 session file theo template của SKILL.md (task
+success, bảng quan sát theo mốc thời gian, điểm SUS từng câu, trả lời 4 câu
+probe), điền usability/plan.md (objectives, task-scenario trade-off, pilot
+— khai báo trung thực là KHÔNG có buổi pilot riêng biệt thay vì bịa), điền
+usability/participants.md (mask 4 số giữa của SĐT/email), và viết
+usability/analysis.md (mean/min/max/stdev SUS, phát hiện quan trọng nhất là
+SUS không tương quan với task success ở participant #7, phân loại systemic
+vs isolated, xếp severity Blocker/Major/Minor, cross-link 2 bug đã có ở
+Task 1 thay vì file bug trùng lặp).
+
+Phát hiện đáng chú ý: participant #4 có ~155 giây nội dung băng ghi âm sau
+mốc dừng ghi hình quy định trong session-script.md, rõ ràng không liên quan
+tới buổi test (đùa giỡn, đọc SUS to tiếng với người khác) — đoạn này được
+loại khỏi phân tích, ghi chú rõ trong session-04.md thay vì bị lờ đi âm
+thầm hoặc dùng nhầm làm bằng chứng thật.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần lớn artifact hợp lệ ngay (VALID-level): việc khớp transcript↔CSV bằng
+nội dung, tính SUS thủ công (đã kiểm lại bằng tay 2/7 phép tính, khớp), và
+việc từ chối bịa một buổi pilot không có bằng chứng đều đúng tinh thần
+"không fabricate participant/score" của `usability-evaluation` SKILL.md.
+Tuy nhiên xếp `INCOMPLETE` chứ không phải `VALID` vì 2 lý do cần con người
+xác nhận trước khi coi là final: (a) việc khớp participant #6 với "Nguyễn
+Quốc Huy" dựa trên loại trừ (6/7 người kia khớp trực tiếp qua tên nói trong
+băng, còn lại 1 người) — suy luận hợp lý nhưng không phải bằng chứng trực
+tiếp như 6 người kia, cần sinh viên xác nhận lại vì đây là dữ liệu thuộc
+diện TA có thể gọi điện xác minh (§11); (b) cột "Profile" trong
+participants.md để trống có chú thích thay vì bịa, đúng nguyên tắc, nhưng
+làm giảm chất lượng hồ sơ participant nếu không được sinh viên bổ sung thủ
+công trước khi nộp.
+
+### (5) Student Fix
+
+Cần: (1) xác nhận lại danh tính participant #6 (đối chiếu trực tiếp với
+người đã tham gia thay vì suy luận loại trừ); (2) cân nhắc bổ sung thủ công
+cột Profile trong `participants.md` nếu muốn hồ sơ đầy đủ hơn; (3) quyết
+định có chạy thêm 1 buổi pilot thật hay chấp nhận khai báo hiện tại (2 vòng
+tự rà soát thay cho pilot) khi nộp bài — đã ghi rõ cả hai lựa chọn trong
+`usability/plan.md`.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 23    | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 17    | 73.9%      |
+| **Tổng số artifact do AI tạo được audit**       | 24    | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 17    | 70.8%      |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 6   | 26.1%      |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 7   | 29.2%      |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 

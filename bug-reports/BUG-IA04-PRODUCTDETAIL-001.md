@@ -61,5 +61,19 @@ phẩm trong lưới:
   qua thao tác thật: giỏ hàng hiển thị 2 dòng "iPhone 15 Pro Max, Số lượng: 1"
   thay vì 1 dòng "Số lượng: 2".
 
+## Cũng xác nhận qua Usability Testing (HW03 Task 2)
+
+Đây chính là root cause của điểm nghẽn lớn nhất quan sát được ở 7 người
+dùng thật (xem `usability/analysis.md` — Severity: Blocker/Major):
+- **Blocker**: participant #7 (`usability/sessions/session-07.md`) lặp lại
+  toàn bộ chu trình search → chi tiết → thêm giỏ hàng **3 lần liên tiếp**
+  mà giỏ hàng vẫn trống ở lần kiểm tra cuối — task thất bại hoàn toàn, không
+  chỉ là bối rối.
+- **Major**: 4/7 participant khác (#1, #2, #3, #4) nêu trực tiếp trong câu
+  trả lời probe rằng không biết đã thêm vào giỏ hàng thành công hay chưa vì
+  không có thông báo nào; participant #2 vì vậy bấm lại nhiều lần và vô tình
+  thêm dư sản phẩm (over-add) — hệ quả trực tiếp của cùng cơ chế "lần bấm
+  đầu bị bỏ qua im lặng" mô tả ở trên.
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/100

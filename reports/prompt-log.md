@@ -944,3 +944,49 @@ Cập nhật đầy đủ bảng kết quả và Summary trong checklist/gui-che
 ```
 
 ---
+
+## [24] Claude (Sonnet 5, Claude Code) — 31/07/2026
+
+**Prompt:**
+```
+check the requirements in 2026.HW03.GUI Usability_En (1).pdf, and check our
+process, then plan to finish this exercise
+```
+
+**Output:**
+```
+Đọc PDF đề bài đầy đủ (17 mục), audit toàn bộ repo so với §6/§9/§10/§12/§14,
+lập kế hoạch qua EnterPlanMode, hỏi 3 câu qua AskUserQuestion (Task 3 dùng
+BrowserStack trial tự đăng ký; xóa post-test-survey.md vì đã có form thật;
+đồng ý AI soạn session file từ transcript). Sau khi được duyệt kế hoạch,
+thực thi Task 2 Phase 1–3:
+
+- usability/plan.md: objectives, ghi nhận trung thực trade-off "task
+  scenario không hoàn toàn goal-oriented" (buộc từ khóa cụ thể để đảm bảo
+  bước search luôn xảy ra), khai báo KHÔNG có buổi pilot riêng biệt (chỉ có
+  2 vòng tự rà soát bắt lỗi giá tiền + lỗi thiết kế nhiệm vụ).
+- usability/participants.md: điền 7 dòng từ CSV phản hồi SUS thật, mask 4
+  số giữa SĐT/email, đối chiếu tên với transcript bằng nội dung (tên/biệt
+  danh moderator gọi trong băng) chứ không theo thứ tự file.
+- 7 file usability/sessions/session-0N.md: bảng quan sát theo mốc thời gian
+  từ transcript thật, điểm SUS từng câu tính tay theo công thức chuẩn, trả
+  lời 4 câu probe trích dẫn nguyên văn. Phát hiện và ghi chú riêng phần băng
+  ghi âm participant #4 bị lố quá điểm dừng quy định (nội dung không liên
+  quan lọt vào bản ghi) — loại khỏi phân tích, không dùng nhầm làm dữ liệu
+  thật.
+- usability/analysis.md: mean SUS 53.2 (min 15, max 87.5, SD≈27.8); phát
+  hiện chính: SUS không tương quan với task success (participant #7 SUS=82.5
+  nhưng task thất bại hoàn toàn sau 3 lần thử); phân loại systemic (thiếu
+  phản hồi thêm-giỏ-hàng, 5/7 người) vs isolated (lệch nhiệm vụ ở #6, ẩn nút
+  số lượng ở #5); xếp severity Blocker/Major/Minor; cross-link 2 bug đã có
+  từ Task 1 (BUG-IA04-PRODUCTDETAIL-001, BUG-IA03-HOMEPAGE-002) thay vì file
+  bug trùng lặp — không phát hiện defect nào hoàn toàn mới.
+- Cập nhật bug-reports/BUG-IA04-PRODUCTDETAIL-001.md: thêm mục "Cũng xác
+  nhận qua Usability Testing" dẫn chứng 5 session thật.
+```
+
+Được sửa lại ở `reports/ai-audit-report.md` Entry #24 (verdict INCOMPLETE:
+cần sinh viên xác nhận lại danh tính participant #6 vì suy luận bằng loại
+trừ, và cân nhắc bổ sung cột Profile còn để trống).
+
+---
