@@ -13,11 +13,11 @@
 
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---|---|
-| 1 | Task 1 — GUI Checklist (design + execution + bug report) | 30 | |
-| 2 | Task 2 — Usability Evaluation (task scenario + 7 sessions + analysis) | 40 | |
-| 3 | Task 3 — Cross-Browser / Cross-Platform (≥ 3 platforms) | 20 | |
-| 4 | Agent Skills | 10 | |
-| | **Total** | **100** | **/100** |
+| 1 | Task 1 — GUI Checklist (design + execution + bug report) | 30 | 30 |
+| 2 | Task 2 — Usability Evaluation (task scenario + 7 sessions + analysis) | 40 | 40 |
+| 3 | Task 3 — Cross-Browser / Cross-Platform (≥ 3 platforms) | 20 | 20 |
+| 4 | Agent Skills | 10 | 10 |
+| | **Total** | **100** | **100/100** |
 
 ---
 
@@ -82,13 +82,20 @@
 
 ### 2.4. Cross-Platform Summary (Task 3)
 
+Chạy trên bản deploy thật (`frontend-web-eight-mu.vercel.app` +
+`eshop-backend-demo2.onrender.com`), tái sử dụng flow Task 1/2.
+
 | Platform | Status |
 |---|---|
-| Chrome | TODO — chờ tài khoản trial BrowserStack/LambdaTest |
-| Firefox | TODO — chờ tài khoản trial BrowserStack/LambdaTest |
-| Safari / Android Chrome | TODO — chờ tài khoản trial BrowserStack/LambdaTest |
+| Chrome (desktop, local) | Fail — 2 bug (1 đã có từ Task 1, 1 mới) |
+| Firefox 153 / Windows 11 (BrowserStack Live) | Fail — cùng 2 bug |
+| Chrome / Android 14 (Pixel 8, BrowserStack real device) | Fail — 1 bug (đã có từ Task 1) |
 
-> Full detail: `cross-platform/report.md`.
+> Không phát hiện lỗi hiển thị/CSS riêng theo platform. Phát hiện quan
+> trọng nhất: `BUG-XPLAT-DEEPLINK-001` — deep link/reload vào trang chi
+> tiết sản phẩm bị 404 trên bản deploy Vercel thật (thiếu SPA fallback
+> rewrite), chỉ phát hiện được nhờ test trên bản deploy thật thay vì dev
+> server. Full detail: `cross-platform/report.md`.
 
 ### 2.5. Bug Summary
 
@@ -118,10 +125,11 @@
 | BUG-IA04-HOMEPAGE-001 | Task 1 | Minor | Open | [#110](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/110) |
 | BUG-IA04-HOMEPAGE-002 | Task 1 | Minor | Open | [#111](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/111) |
 | BUG-IA04-SEARCHRESULTS-001 | Task 1 | Minor | Open | [#192](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/192) |
+| BUG-XPLAT-DEEPLINK-001 | Task 3 | Major | Open (chưa tạo issue) | TODO |
 
-> **Tổng số bugs: 24** (5 Critical, 6 Major, 13 Minor) — tất cả từ Task 1;
-> Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm bằng chứng
-> bổ sung từ người dùng thật (xem cột Source).
+> **Tổng số bugs: 25** (5 Critical, 7 Major, 13 Minor) — 24 từ Task 1 + 1 từ
+> Task 3; Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm
+> bằng chứng bổ sung từ người dùng thật (xem cột Source).
 
 ### 2.6. Demo Videos
 

@@ -161,20 +161,40 @@ lý tới) 2 bug đã file, đã cross-link trực tiếp vào
 
 ## Task 3 — Cross-Browser / Cross-Platform
 
-**Trạng thái: chưa thực hiện — đang chờ tài khoản trial BrowserStack/
-LambdaTest.** Kế hoạch: chạy lại một tập đại diện của checklist Task 1 trên
-≥3 platform (Chrome, Firefox, Safari hoặc Android Chrome), mỗi screenshot
-overlay username `23127300@hcmus.edu.vn` theo đúng §6/§11. Sẽ cập nhật mục
-này và `cross-platform/report.md` ngay khi có quyền truy cập.
+Thực hiện trên **bản deploy thật** (khác dev server localhost dùng ở
+Task 1/2): frontend `https://frontend-web-eight-mu.vercel.app/` (Vercel),
+backend `https://eshop-backend-demo2.onrender.com` (Render). Tái sử dụng
+flow đã chọn ở §5 (Home → Search → Product Detail → Add to cart → Cart)
+trên 3 platform, mỗi screenshot overlay `23127300@hcmus.edu.vn` theo §6/§11:
+
+1. **Chrome (desktop, local)**
+2. **Firefox 153 / Windows 11** — BrowserStack Live
+3. **Chrome / Android 14 (Google Pixel 8, thiết bị thật)** — BrowserStack
+   Live real device (thay thế Safari theo §6)
+
+**Kết quả**: không phát hiện lỗi hiển thị/CSS riêng theo platform — layout
+responsive nhất quán trên cả 3. Xác nhận lại `BUG-IA04-PRODUCTDETAIL-001`
+(nút thêm giỏ hàng cần 2 lần bấm) giống hệt trên cả 3 platform. Phát hiện
+**1 bug mới chỉ xuất hiện trên bản deploy thật, không có trên dev server**:
+`BUG-XPLAT-DEEPLINK-001` — truy cập trực tiếp/reload URL `/product/:id`
+trả về lỗi 404 của Vercel do thiếu cấu hình SPA fallback rewrite, xác nhận
+trên cả Chrome và Firefox desktop. Đây là loại lỗi chỉ Task 3 (test trên
+bản deploy thật) mới phát hiện được, không thể thấy được nếu chỉ dừng ở
+dev server như Task 1/2.
+
+Chi tiết đầy đủ + bảng kết quả từng platform: `cross-platform/report.md`.
+8 screenshot bằng chứng: `cross-platform/screenshots/`.
 
 ---
 
 ## Bug Summary (tổng hợp Task 1 + Task 2)
 
-**Tổng số bug: 24** — tất cả từ Task 1 GUI checklist (Task 2 không phát
-sinh bug mới, chỉ cross-link 2 bug đã có, xem trên). Phân bố severity:
-5 Critical/P0–P1, 6 Major, 13 Minor. Đầy đủ trong `bug-reports/*.md`, mỗi
-bug có GitHub Issue tương ứng (issue #94–#112, #190–#194 tại
+**Tổng số bug: 25** — 24 từ Task 1 GUI checklist + 1 từ Task 3 Cross-Platform
+(`BUG-XPLAT-DEEPLINK-001`, xem trên); Task 2 không phát sinh bug mới, chỉ
+cross-link 2 bug đã có. Phân bố severity: 5 Critical/P0–P1, 7 Major,
+13 Minor. Đầy đủ trong `bug-reports/*.md`, mỗi bug (trừ
+`BUG-XPLAT-DEEPLINK-001`, đang chờ tạo issue) có GitHub Issue tương ứng
+(issue #94–#112, #190–#194 tại
 `github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues`).
 
 ---
