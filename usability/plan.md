@@ -67,15 +67,26 @@ hay gõ số cho ô số lượng, không nói vị trí nút "Thêm vào giỏ 
 
 ## Pilot session
 
-**Không có một buổi pilot riêng biệt với 1 người ngoài danh sách 7 người
-thật** (đề §6 Phase 1 yêu cầu buổi pilot tách biệt để bắt lỗi kịch bản trước
-khi chạy thật — đây là một khoảng lệch so với quy trình chuẩn, ghi nhận
-trung thực thay vì bịa một buổi pilot không có bằng chứng).
+**Có chạy 1 buổi pilot thật với 1 người ngoài danh sách 7 người chính
+thức**, trước khi vào 7 buổi thật — nhưng **không ghi hình/ghi âm** buổi
+này (khác với 7 buổi chính thức, đều có transcript trong
+`usability/transcript/`), nên không có file bằng chứng thô để đính kèm.
+Ghi nhận trung thực thay vì bịa file transcript không tồn tại; ngày cụ thể
+chưa được ghi lại.
 
-Thay vào đó, kịch bản đã trải qua 2 vòng tự rà soát/dry-run trước khi chạy
-7 buổi thật, và cả 2 lần đều bắt được lỗi thiết kế cụ thể (xem lịch sử commit
-`fix(usability): correct price bands...` và `fix(usability): force the
-search step...`, nội dung đầy đủ trong `usability/task-scenarios.md`):
+**Phát hiện chính từ pilot**: cùng vấn đề lớn nhất mà sau này 5/7 buổi
+chính thức xác nhận lại — nút "Thêm vào giỏ hàng" không có phản hồi/xác
+nhận rõ ràng (cùng root cause với `bug-reports/BUG-IA04-PRODUCTDETAIL-001.md`).
+Việc buổi pilot (chạy độc lập, trước cả 7 buổi thật) đã bắt đúng vấn đề này
+ngay từ sớm là một tín hiệu tốt cho độ tin cậy của phát hiện — không phải
+ngẫu nhiên chỉ xuất hiện ở một nhóm nhỏ, mà lặp lại nhất quán qua 2 đợt thu
+thập dữ liệu độc lập (pilot + 7 buổi chính thức).
+
+Ngoài ra, kịch bản cũng trải qua 2 vòng tự rà soát/dry-run thiết kế (tách
+biệt với buổi pilot ở trên) bắt được 2 lỗi kịch bản cụ thể trước khi chạy
+7 buổi thật (xem lịch sử commit `fix(usability): correct price bands...` và
+`fix(usability): force the search step...`, nội dung đầy đủ trong
+`usability/task-scenarios.md`):
 
 1. **Lỗi giá tiền**: mức giá gán cho nhiệm vụ (300.000₫–1.000.000₫) thấp hơn
    sản phẩm rẻ nhất trong catalog thật rất nhiều — không sản phẩm nào khớp,
@@ -85,8 +96,8 @@ search step...`, nội dung đầy đủ trong `usability/task-scenarios.md`):
    thích") cho phép participant bỏ qua hoàn toàn ô tìm kiếm. → Sửa: giao từ
    khóa cụ thể bắt buộc gõ vào ô tìm kiếm (xem mục Task scenario ở trên).
 
-**Khuyến nghị cho lần sau**: nếu lặp lại nghiên cứu này, nên chạy 1 buổi
-pilot thật với người ngoài 7 người chính thức, ghi hình riêng, trước khi vào
-7 buổi thật — quy trình 2-vòng-tự-rà-soát ở trên giảm rủi ro nhưng không
-thay thế hoàn toàn việc quan sát một người dùng thật đọc câu nhiệm vụ lần
-đầu tiên.
+**Khuyến nghị cho lần sau**: ghi hình/ghi âm buổi pilot giống hệt 7 buổi
+chính thức — dù không tính vào 7 participant chính thức, đây vẫn là dữ liệu
+quan sát thật rất có giá trị (ở đây đã xác nhận sớm phát hiện quan trọng
+nhất của cả nghiên cứu) và nên có bằng chứng thô đi kèm thay vì chỉ ghi lại
+kết luận.

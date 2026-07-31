@@ -1064,3 +1064,27 @@ mở ở Entry #25 Student Fix).
 ```
 
 ---
+
+## [28] Claude (Sonnet 5, Claude Code) — 31/07/2026
+
+**Prompt:**
+```
+the pilot session found the same problems as the official sessions, the
+add button
+```
+
+**Output:**
+```
+Viết lại usability/plan.md §Pilot session — sửa khẳng định sai trước đó
+("không có buổi pilot riêng biệt") thành: có chạy 1 buổi pilot thật với
+người ngoài 7 người chính thức, không ghi hình nên không có transcript,
+phát hiện chính là cùng vấn đề nút "Thêm vào giỏ hàng" thiếu phản hồi mà
+5/7 buổi chính thức sau này xác nhận lại (BUG-IA04-PRODUCTDETAIL-001) — giữ
+nguyên 2 lỗi thiết kế kịch bản đã ghi trước đó (giá tiền, ép bước search)
+vì không bị mâu thuẫn bởi thông tin mới. Cập nhật reports/main-report.md
+(sửa câu tương tự) và usability/analysis.md (thêm ghi chú "Củng cố thêm bởi
+buổi pilot" vào systemic issue #1, nhấn mạnh phát hiện lặp lại nhất quán
+qua 2 đợt thu thập độc lập).
+```
+
+---

@@ -1794,16 +1794,69 @@ nhật `usability/participants.md` theo đúng yêu cầu.
 
 ---
 
+## Entry #26
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 31/07/2026 |
+| **Artifact type** | Sửa lại `usability/plan.md` §Pilot session, `reports/main-report.md`, `usability/analysis.md` theo thông tin thật mới về buổi pilot |
+
+**Full prompt:**
+
+```
+the pilot session found the same problems as the official sessions, the
+add button
+```
+
+### (2) AI Output
+
+```
+Phát hiện mâu thuẫn: plan.md trước đó khẳng định "không có buổi pilot" (dựa
+trên suy đoán khi thiếu thông tin, đã tự gắn cờ ở Entry gốc là điểm cần xác
+nhận thay vì bịa) — nay sinh viên xác nhận CÓ chạy pilot thật, chỉ là không
+ghi hình. Sửa lại 3 file để phản ánh đúng: (1) plan.md — pilot thật đã chạy,
+không có transcript vì không ghi hình, phát hiện chính là vấn đề nút thêm
+giỏ hàng, trùng khớp phát hiện lớn nhất ở 5/7 buổi chính thức sau này; giữ
+nguyên 2 lỗi thiết kế kịch bản đã ghi (giá tiền, ép search) vì sinh viên
+không phủ nhận; (2) main-report.md — sửa câu tóm tắt tương ứng; (3)
+analysis.md — thêm ghi chú corroboration vào systemic issue #1.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là một correction thẳng dựa trên thông tin thật mới do sinh viên cung
+cấp, không phải một judgment call cần đánh giá độ chính xác — AI chỉ cập
+nhật 3 file để nhất quán với sự thật mới, không suy đoán thêm chi tiết nào
+ngoài phạm vi câu prompt (không tự bịa ngày tháng hay danh tính người pilot
+vì sinh viên không cung cấp). Điểm cần lưu ý: bản ghi cũ (khẳng định sai
+"không có pilot") vẫn giữ nguyên trong lịch sử git thay vì bị xóa dấu vết —
+đúng nguyên tắc §12 (không amend/rebase để "dọn dẹp" lịch sử).
+
+### (5) Student Fix
+
+Không cần sửa thêm — nội dung đã khớp với thông tin sinh viên cung cấp.
+Còn để ngỏ (không bắt buộc): ngày cụ thể của buổi pilot, nếu sinh viên muốn
+bổ sung cho đầy đủ hồ sơ.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 25    | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 17    | 68.0%      |
+| **Tổng số artifact do AI tạo được audit**       | 26    | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 18    | 69.2%      |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 32.0%      |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 30.8%      |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 

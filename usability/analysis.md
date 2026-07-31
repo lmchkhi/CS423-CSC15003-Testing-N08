@@ -61,6 +61,10 @@ thật sự của lỗi thêm-vào-giỏ-hàng.
      **Không file bug mới** — đã cross-link 5 session làm bằng chứng bổ
      sung trực tiếp vào bug report này (xem mục "Cũng xác nhận qua Usability
      Testing" trong file đó).
+   - **Củng cố thêm bởi buổi pilot** (`usability/plan.md` §Pilot session):
+     buổi pilot chạy độc lập, trước cả 7 buổi chính thức, cũng bắt đúng vấn
+     đề này — cùng một root cause xuất hiện nhất quán qua 2 đợt thu thập dữ
+     liệu độc lập, không phải hiện tượng ngẫu nhiên của riêng nhóm 7 người.
 2. **Mất dấu mục tiêu khi điều hướng qua nhiều trang** — participant #6
    (người đánh giá giao diện tích cực nhất) vẫn thêm nhầm một sản phẩm
    ngoài nhiệm vụ (iPhone Pro Max thay vì Galaxy S24 Ultra) sau khi quay về

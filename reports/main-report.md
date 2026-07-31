@@ -99,9 +99,14 @@ phát hiện ở Task 1 có gây bối rối ở quy mô lớn hơn không), vi�
 scenario cho 7 biến thể từ khóa (`usability/task-scenarios.md`), chọn thang
 đo SUS (10 câu chuẩn, xem `.claude/skills/usability-evaluation/references/
 sus-scale.md`) + 4 câu probe bắt buộc (clarity/error recovery/speed/trust).
-Không chạy một buổi pilot tách biệt với người ngoài 7 người — thay vào đó
-2 vòng tự rà soát bắt được 2 lỗi thiết kế cụ thể trước khi chạy thật (chi
-tiết + khuyến nghị cho lần sau: `usability/plan.md` §Pilot session).
+Có chạy 1 buổi pilot thật với người ngoài 7 người chính thức trước khi vào
+7 buổi thật — không ghi hình/ghi âm nên không có transcript đính kèm, nhưng
+phát hiện chính của pilot (nút "Thêm vào giỏ hàng" thiếu phản hồi/xác nhận)
+trùng khớp với phát hiện lớn nhất sau này ở 5/7 buổi chính thức, củng cố độ
+tin cậy của phát hiện này qua 2 đợt thu thập độc lập. Ngoài ra 2 vòng tự rà
+soát kịch bản (tách biệt với pilot) bắt thêm 2 lỗi thiết kế cụ thể trước
+khi chạy thật (chi tiết + khuyến nghị cho lần sau: `usability/plan.md`
+§Pilot session).
 
 **Phase 2 — Conduct sessions**: 7 buổi test thật, mỗi người 1 kịch bản biến
 thể (từ khóa + số lượng khác nhau, cùng cấu trúc), ghi âm + ghi chú quan
