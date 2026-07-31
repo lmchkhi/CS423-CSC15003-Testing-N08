@@ -1,3 +1,19 @@
+733d9a5 2026-07-31 docs(readme): roll up Task 2 + bug summary
+08d9b15 2026-07-31 docs: AI critique (§10)
+b80c170 2026-07-31 docs: write main report
+ea2341e 2026-07-31 docs(checklist): export to .xlsx per §14
+e928516 2026-07-31 docs(usability): score + synthesise + prioritise findings
+69ac4c6 2026-07-31 test(usability): session 07 — Lê Hữu Sang
+77fc937 2026-07-31 test(usability): session 06 — Nguyễn Quốc Huy
+8c07509 2026-07-31 test(usability): session 05 — Dương Quang Thắng
+fdf72f1 2026-07-31 test(usability): session 04 — Huỳnh Yến Nhi
+258e536 2026-07-31 test(usability): session 03 — Nguyễn Ngọc Trúc Mây
+0d13c71 2026-07-31 test(usability): session 02 — Nguyễn Thành Đạt
+96ccd6f 2026-07-31 test(usability): session 01 — Nguyễn Hà Chiêu Dương
+2ded108 2026-07-31 docs(usability): populate real participant table from survey responses
+b25feba 2026-07-31 docs(usability): fill plan — objectives, instrument, pilot
+918bdda 2026-07-31 docs(bug): cross-link Search Results & Empty Search State bugs to GitHub issues #190-194
+53041ae 2026-07-31 test(checklist): execute Search Results & Empty Search State against SUT
 862ca98 2026-07-30 docs(checklist): design + gap analysis for Search Results & Empty Search State
 65f4cf1 2026-07-26 fix(usability): force the search step, don't just imply it
 4462b44 2026-07-26 fix(usability): correct price bands in task-scenarios to match real catalog
