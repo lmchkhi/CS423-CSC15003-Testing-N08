@@ -1786,6 +1786,12 @@ chính xác của "junior" ở participant #6 (Nguyễn Quốc Huy) — chức d
 việc tại NAVER hay năm học đại học — rồi cập nhật lại `usability/
 participants.md` nếu khác với diễn giải hiện tại.
 
+**Cập nhật (31/07/2026)**: sinh viên xác nhận participant #7 cũng sinh năm
+2004 (không phải "chưa xác nhận" như suy luận thận trọng ban đầu), và yêu
+cầu rút gọn toàn bộ cột Profile về chỉ năm sinh + student/FTE/cả hai, đồng
+thời xóa mục công bố quan hệ đồng nghiệp NAVER đã thêm ở Entry #25 — đã cập
+nhật `usability/participants.md` theo đúng yêu cầu.
+
 ---
 
 ## 4. Tổng hợp độ chính xác của AI

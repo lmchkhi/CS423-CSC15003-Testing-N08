@@ -1043,3 +1043,24 @@ mềm" (session nghiêm trọng nhất trong 7 buổi chính là 1 trong 3 ngư�
 ```
 
 ---
+
+## [27] Claude (Sonnet 5, Claude Code) — 31/07/2026
+
+**Prompt:**
+```
+remove the Luu y can ghi nhan trung thuc, and skim down the details of the
+profile, just leave the birth year, and student or fte, or both, and Le
+Huu Sang is also 2k4
+```
+
+**Output:**
+```
+Xóa mục "Lưu ý cần ghi nhận trung thực" (công bố đồng nghiệp NAVER) khỏi
+usability/participants.md theo yêu cầu. Rút gọn cột Profile về đúng 2
+trường: năm sinh + student/FTE/cả hai — bỏ tên công ty, chức danh, quan hệ
+đồng nghiệp: #1-4 "2005, student"; #5 "2004, student + FTE"; #6 "2003, FTE";
+#7 "2004, FTE" (cập nhật năm sinh #7 theo xác nhận mới — giải quyết mục còn
+mở ở Entry #25 Student Fix).
+```
+
+---
