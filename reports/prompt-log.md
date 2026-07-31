@@ -1010,3 +1010,36 @@ giữ nguyên phần Verdict/Reasoning gốc làm bản ghi lịch sử thay vì
 ```
 
 ---
+
+## [26] Claude (Sonnet 5, Claude Code) — 31/07/2026
+
+**Prompt:**
+```
+for the 4. profile:
+participant:
+1, 2, 3, 4. uni student, 2005
+5,7: uni student, 2004, Thang is an intern at NAVER Vietnam like me, we're
+the same team, Sang is SWE I at Axon, ex NAVER, same team as me
+6: 2003, junior at NAVER Vietnam, same team as me
+```
+
+**Output:**
+```
+Điền cột Profile trong usability/participants.md bằng dữ liệu thật do sinh
+viên cung cấp trực tiếp (không suy đoán): participant #1-4 sinh viên đại
+học sinh năm 2005; #5 (Dương Quang Thắng) sinh viên đại học sinh năm 2004,
+thực tập sinh NAVER Vietnam cùng team với người thực hiện nghiên cứu; #6
+(Nguyễn Quốc Huy) sinh năm 2003, "junior" tại NAVER Vietnam cùng team; #7
+(Lê Hữu Sang) SWE I tại Axon, từng ở NAVER cùng team, năm sinh chưa xác
+nhận (prompt gộp "uni student, 2004" cho cả #5 và #7 nhưng mâu thuẫn với
+việc #7 đã là SWE I full-time, nên chỉ áp dụng "2004" cho #5, để ngỏ năm
+sinh #7 thay vì suy đoán).
+
+Thêm mục "Lưu ý cần ghi nhận trung thực" công bố 3/7 participant là đồng
+nghiệp cùng team với người thực hiện nghiên cứu — vẫn hợp lệ theo điều kiện
+đề (§6: ngoài lớp học phần), nhưng là giới hạn về tính độc lập của mẫu cần
+minh bạch, kèm nhận xét dữ liệu thực tế không cho thấy dấu hiệu bị "làm
+mềm" (session nghiêm trọng nhất trong 7 buổi chính là 1 trong 3 người này).
+```
+
+---

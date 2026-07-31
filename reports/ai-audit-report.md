@@ -1726,16 +1726,78 @@ còn là suy luận qua loại trừ. Mục (2) và (3) vẫn để ngỏ, tùy 
 
 ---
 
+## Entry #25
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 31/07/2026 |
+| **Artifact type** | Điền cột Profile trong `usability/participants.md` bằng dữ liệu thật do sinh viên cung cấp trực tiếp |
+
+**Full prompt:**
+
+```
+for the 4. profile:
+participant:
+1, 2, 3, 4. uni student, 2005
+5,7: uni student, 2004, Thang is an intern at NAVER Vietnam like me, we're
+the same team, Sang is SWE I at Axon, ex NAVER, same team as me
+6: 2003, junior at NAVER Vietnam, same team as me
+```
+
+### (2) AI Output
+
+```
+Điền Profile cho 7 participant từ dữ liệu thật (#1-4: sinh viên đại học,
+2005; #5: sinh viên đại học, 2004, intern NAVER Vietnam cùng team; #6: sinh
+năm 2003, "junior" NAVER Vietnam cùng team; #7: SWE I tại Axon, từng ở
+NAVER cùng team). Không áp "uni student, 2004" cho #7 dù prompt gộp chung
+"5,7" vì mâu thuẫn trực tiếp với "SWE I full-time" — để ngỏ năm sinh #7
+thay vì suy đoán, đánh dấu "chưa xác nhận". Thêm mục công bố minh bạch: 3/7
+participant (#5, #6, #7) là đồng nghiệp cùng team với người thực hiện
+nghiên cứu tại NAVER Vietnam — vẫn hợp lệ theo §6 (chỉ yêu cầu ngoài lớp
+học phần) nhưng là giới hạn về tính độc lập mẫu cần công bố, kèm nhận xét
+dữ liệu thực tế (session nghiêm trọng nhất trong 7 buổi là 1 trong 3 người
+này) làm bằng chứng phản bác khả năng dữ liệu bị "làm mềm" vì quen biết.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần diễn giải dữ liệu do sinh viên cung cấp là đúng và trung thực (không
+suy đoán thêm ngoài phần được cho). Xếp `INCOMPLETE` vì một điểm mơ hồ
+trong chính câu prompt gốc chưa được giải quyết: "uni student, 2004" được
+viết chung cho cả "5,7" nhưng mâu thuẫn với việc participant #7 đã là SWE I
+full-time (không còn là sinh viên) — AI chọn diễn giải thận trọng (chỉ áp
+dụng cho #5, để ngỏ năm sinh #7) thay vì đoán, nhưng đây vẫn là một suy
+luận về ý định của câu prompt, không phải xác nhận trực tiếp, nên cần sinh
+viên xác nhận lại năm sinh thật của participant #7 (và làm rõ "junior" ở
+#6 là chức danh công việc hay năm học) trước khi coi là final.
+
+### (5) Student Fix
+
+Cần: xác nhận năm sinh thật của participant #7 (Lê Hữu Sang) và ý nghĩa
+chính xác của "junior" ở participant #6 (Nguyễn Quốc Huy) — chức danh công
+việc tại NAVER hay năm học đại học — rồi cập nhật lại `usability/
+participants.md` nếu khác với diễn giải hiện tại.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 24    | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 17    | 70.8%      |
+| **Tổng số artifact do AI tạo được audit**       | 25    | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 17    | 68.0%      |
 | **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 7   | 29.2%      |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 32.0%      |
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 
