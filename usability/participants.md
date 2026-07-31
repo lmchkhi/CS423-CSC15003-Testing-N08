@@ -13,7 +13,7 @@ class, with verifiable contact info (middle 4 digits masked). The TA may call
 | 4 | Huỳnh Yến Nhi | SĐT: 082****194 | 2005, student | Yes | Yes (bằng lời, off-record — theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-04.md` |
 | 5 | Dương Quang Thắng | SĐT: 094****813 | 2004, student + FTE | Yes | Yes (bằng lời, off-record — theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-05.md` |
 | 6 | Nguyễn Quốc Huy | Email: ngu****123@gmail.com | 2003, FTE | Yes | Yes (bằng lời, off-record — theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-06.md` |
-| 7 | Lê Hữu Sang | SĐT: 032****546 | 2004, FTE | Yes | Yes (bằng lời, off-record — theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-07.md` |
+| 7 | Lê Hữu Sang | SĐT: 032****546 | 2004, student + FTE | Yes | Yes (bằng lời, off-record — theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-07.md` |
 
 **Nguồn dữ liệu**: Tên, thông tin liên hệ, ngày tham gia lấy trực tiếp,
 không chỉnh sửa, từ `usability/EShop Usability Test - Khảo sát Trải nghiệm
