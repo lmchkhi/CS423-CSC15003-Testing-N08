@@ -42,7 +42,13 @@ def stamp(input_path: str, output_path: str, username: str, corner: str = "br", 
     font = find_font(font_size)
     small_font = find_font(max(11, int(font_size * 0.75)))
 
-    lines = [username] + ([label] if label else [])
+    if label is None:
+        extra = []
+    elif isinstance(label, str):
+        extra = [label]
+    else:
+        extra = list(label)
+    lines = [username] + extra
     text_sizes = [draw.textbbox((0, 0), line, font=font if i == 0 else small_font) for i, line in enumerate(lines)]
     pad = int(font_size * 0.6)
     block_w = max(b[2] - b[0] for b in text_sizes) + pad * 2
@@ -77,7 +83,9 @@ if __name__ == "__main__":
     parser.add_argument("output")
     parser.add_argument("username", help="e.g. 23127300@hcmus.edu.vn")
     parser.add_argument("--corner", choices=CORNERS.keys(), default="br")
-    parser.add_argument("--label", default=None, help="optional second line, e.g. browser/OS name")
+    parser.add_argument("--label", action="append", default=None,
+                        help="extra line under the username; repeat for several lines "
+                             "(e.g. --label 'Ha Bao Ngoc' --label 'Chrome 150 / macOS 26.5.2')")
     args = parser.parse_args()
 
     if "@hcmus.edu.vn" not in args.username:
