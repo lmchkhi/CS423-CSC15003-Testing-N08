@@ -601,7 +601,7 @@ AI Audit Entry:
 **Full prompt:**
 
 ```
-Tôi tự review và phát hiện checklist còn thiếu các khía cạnh sau, đã đối chiếu và xác nhận không trùng với 46 item hiện có: (1) Cart — tổng tiền có tính đúng khi giỏ có dòng trùng sản phẩm do lỗi thêm lại không cộng dồn; (2) Admin Coupon Management — thứ tự Tab bàn phím khi di chuyển giữa danh sách, form tạo và nút sửa/xóa gộp chung 1 màn hình; (3) Coupon section — nhãn hiển thị loại coupon percent có khớp chiều hướng tính toán thực tế; (4) Checkout — dữ liệu form có bị mất khi refresh giữa chừng khi không có cảnh báo rời trang. Hãy thêm 4 item này vào bảng 'Human-review additions' trong hw03-gui-checklist.md, gán ID từ GUI-047 đến GUI-050, giữ nguyên nội dung tôi mô tả không diễn giải thêm, Status = 'Not run', Origin = 'Human'.
+Tôi tự review và phát hiện checklist còn thiếu các khía cạnh sau, đã đối chiếu và xác nhận không trùng với 46 item hiện có: (1) Cart — tổng tiền có tính đúng khi giỏ có dòng trùng sản phẩm do lỗi thêm lại không cộng dồn; (2) Admin Coupon Management — thứ tự Tab bàn phím khi di chuyển giữa danh sách, form tạo và nút sửa/xóa gộp chung 1 màn hình; (3) Coupon section — nhãn hiển thị loại coupon percent có khớp chiều hướng tính toán thực tế; (4) Checkout — dữ liệu form có bị mất khi refresh giữa chừng khi không có cảnh báo rời trang. Hãy thêm 4 item này vào bảng 'Human-review additions' trong hw03-gui-checklist.md, gán ID từ GUI-047 đến GUI-50, giữ nguyên nội dung tôi mô tả không diễn giải thêm, Status = 'Not run', Origin = 'Human'.
 ```
 
 ### (2) AI Output
@@ -609,7 +609,7 @@ Tôi tự review và phát hiện checklist còn thiếu các khía cạnh sau, 
 ```
 Mình tiếp tục áp dụng skill `eshop-gui-usability-audit` vì đây là vòng human review của checklist HW03. Mình sẽ chỉ bổ sung đúng bốn nội dung bạn cung cấp, giữ nguyên câu chữ của từng check; các cột phân loại và lý do AI có thể bỏ sót sẽ được ghi riêng theo yêu cầu audit của skill.
 
-Đã thêm `GUI-047` đến `GUI-050` vào bảng Human-review additions tại [hw03-gui-checklist.md](E:\Testing\CS423-CSC15003-Testing-N08\reports\hw03-gui-checklist.md).
+Đã thêm `GUI-047` đến `GUI-50` vào bảng Human-review additions tại [hw03-gui-checklist.md](E:\Testing\CS423-CSC15003-Testing-N08\reports\hw03-gui-checklist.md).
 
 - Nội dung bốn check được giữ nguyên.
 - Cả bốn có `Status = Not run`, `Origin = Human`.
@@ -621,7 +621,7 @@ Commit đề xuất: `test(hw03): add human-reviewed GUI checklist items`
 AI Audit Entry:
 - Tool: Codex AI assistant / model not visible
 - Date: 2026-07-24 03:18:16 +07:00
-- User Prompt: Thêm bốn mục human review GUI-047 đến GUI-050 vào checklist
+- User Prompt: Thêm bốn mục human review GUI-047 đến GUI-50 vào checklist
 - AI Action: Đã thêm bốn mục với nguyên văn nội dung, phân loại IA, lý do AI bỏ sót, trạng thái Not run và nguồn Human
 ```
 
@@ -638,25 +638,25 @@ AI Audit Entry:
 **Full prompt:**
 
 ```
-Tôi vừa thực thi trên Cart thật: cập nhật GUI-13/14 Blocked, tạo GUI-BUG-01 cho dòng sản phẩm trùng, GUI-047 pass, GUI-36 failed. Thực thi Coupon: GUI-07 và GUI-049 failed do SAVE10 tăng tổng tiền. Checkout: GUI-15 failed, GUI-050 failed vì mất dữ liệu. Admin: GUI-34 failed; GUI-048 chỉ cập nhật sau khi có kết quả thật. Chỉ đính evidence cho FAILED/BLOCKED.
+Tôi vừa thực thi trên Cart thật: cập nhật GUI-13/14 Blocked, tạo GUI-BUG-01 cho dòng sản phẩm trùng, GUI-047 pass, GUI-36 failed. Thực thi Coupon: GUI-07 và GUI-49 failed do SAVE10 tăng tổng tiền. Checkout: GUI-15 failed, GUI-50 failed vì mất dữ liệu. Admin: GUI-34 failed; GUI-48 chỉ cập nhật sau khi có kết quả thật. Chỉ đính evidence cho FAILED/BLOCKED.
 ```
 
 ### (2) AI Output
 
 ```
-Mình tiếp tục dùng skill `eshop-gui-usability-audit` để cập nhật kết quả black-box và tách `GUI-BUG-01` khỏi hai mục bị chặn. Mình sẽ chỉ dùng các quan sát bạn vừa cung cấp, kiểm tra evidence hiện có trong `./evidence/hw03`, và không suy đoán kết quả `GUI-048` vì phần đó vẫn là placeholder chưa có kết quả quan sát thật.
+Mình tiếp tục dùng skill `eshop-gui-usability-audit` để cập nhật kết quả black-box và tách `GUI-BUG-01` khỏi hai mục bị chặn. Mình sẽ chỉ dùng các quan sát bạn vừa cung cấp, kiểm tra evidence hiện có trong `./evidence/hw03`, và không suy đoán kết quả `GUI-48` vì phần đó vẫn là placeholder chưa có kết quả quan sát thật.
 
-Mình đã tìm thấy evidence phù hợp cho `GUI-13/14`, `GUI-07/049`, `GUI-15`, `GUI-36` và `GUI-34`. Hiện chưa có ảnh dành cho `GUI-050`, nên mục này có thể ghi nhận kết quả và note nhưng evidence phải được đánh dấu là còn thiếu; `GUI-048` sẽ giữ `Not run` vì chưa có thứ tự focus quan sát thực tế để ghi. Skill yêu cầu tuyệt đối không biến placeholder thành kết quả đã thực thi.
+Mình đã tìm thấy evidence phù hợp cho `GUI-13/14`, `GUI-07/049`, `GUI-15`, `GUI-36` và `GUI-34`. Hiện chưa có ảnh dành cho `GUI-50`, nên mục này có thể ghi nhận kết quả và note nhưng evidence phải được đánh dấu là còn thiếu; `GUI-48` sẽ giữ `Not run` vì chưa có thứ tự focus quan sát thực tế để ghi. Skill yêu cầu tuyệt đối không biến placeholder thành kết quả đã thực thi.
 
 Đã cập nhật [GUI checklist](E:\Testing\CS423-CSC15003-Testing-N08\reports\hw03-gui-checklist.md):
 
 - `GUI-13`, `GUI-14`: `Blocked`
-- `GUI-07`, `GUI-15`, `GUI-36`, `GUI-049`, `GUI-050`: failed theo yêu cầu
+- `GUI-07`, `GUI-15`, `GUI-36`, `GUI-49`, `GUI-50`: failed theo yêu cầu
 - `GUI-34`: `Failed`
 - `GUI-047`: `PASSED`
-- `GUI-048`: giữ `Not run` vì chưa có kết quả focus-order thực tế
+- `GUI-48`: giữ `Not run` vì chưa có kết quả focus-order thực tế
 - Chỉ các dòng failed/blocked được gắn evidence
-- `GUI-050` đã ghi nhận failed nhưng đánh dấu thiếu file evidence trong thư mục
+- `GUI-50` đã ghi nhận failed nhưng đánh dấu thiếu file evidence trong thư mục
 
 Đã tạo bug riêng [GUI-BUG-01.md](E:\Testing\CS423-CSC15003-Testing-N08\bug-reports\GUI-BUG-01.md), dùng đúng headings của issue template và tách khỏi `GUI-13/14`.
 
@@ -668,7 +668,7 @@ AI Audit Entry:
 - Tool: Codex AI assistant / model not visible
 - Date: 2026-07-24 03:21:57 +07:00
 - User Prompt: Cập nhật kết quả thực thi Cart, Coupon, Checkout và Admin Coupon Management; tạo GUI-BUG-01
-- AI Action: Đã cập nhật status/notes/evidence, giữ GUI-048 Not run, ghi nhận thiếu evidence GUI-050 và tạo bug report dòng sản phẩm trùng
+- AI Action: Đã cập nhật status/notes/evidence, giữ GUI-48 Not run, ghi nhận thiếu evidence GUI-50 và tạo bug report dòng sản phẩm trùng
 ```
 
 ---
@@ -773,22 +773,22 @@ evidence cho GUI_43 và GUI_48 cũng đã được cung cấp bổ sung thêm n�
 ### (2) AI Output
 
 ```
-Mình tiếp tục dùng skill `eshop-gui-usability-audit` để cập nhật evidence cho `GUI-43` và `GUI-048`. Mình sẽ ghi nhận đúng những gì hai ảnh thể hiện, đồng thời phân biệt rõ phần nào ảnh tĩnh chưa chứng minh được—đặc biệt là trạng thái Checkout Success của `GUI-43` và thứ tự Tab thực tế của `GUI-048`.
+Mình tiếp tục dùng skill `eshop-gui-usability-audit` để cập nhật evidence cho `GUI-43` và `GUI-48`. Mình sẽ ghi nhận đúng những gì hai ảnh thể hiện, đồng thời phân biệt rõ phần nào ảnh tĩnh chưa chứng minh được—đặc biệt là trạng thái Checkout Success của `GUI-43` và thứ tự Tab thực tế của `GUI-48`.
 
 Đã cập nhật [hw03-gui-checklist.md](E:\Testing\CS423-CSC15003-Testing-N08\reports\hw03-gui-checklist.md):
 
 - `GUI-43`: bổ sung quan sát về alert Network Error, request pending và nút kẹt ở “Đang xử lý...”; ghi rõ ảnh không thể hiện Checkout Success.
-- `GUI-048`: bổ sung bố cục form và danh sách coupon chung màn hình; ghi rõ ảnh tĩnh không xác nhận được thứ tự Tab.
+- `GUI-48`: bổ sung bố cục form và danh sách coupon chung màn hình; ghi rõ ảnh tĩnh không xác nhận được thứ tự Tab.
 - Đã liên kết đúng [GUI_38_43.png](E:\Testing\CS423-CSC15003-Testing-N08\evidence\hw03\GUI_38_43.png) và [GUI_48.png](E:\Testing\CS423-CSC15003-Testing-N08\evidence\hw03\GUI_48.png).
-- Giữ nguyên Status hiện có: `GUI-43 = FAILED`, `GUI-048 = PASSED`.
+- Giữ nguyên Status hiện có: `GUI-43 = FAILED`, `GUI-48 = PASSED`.
 - `git diff --check` không phát hiện lỗi.
 
-Commit đề xuất: `test(hw03): document evidence for GUI-43 and GUI-048`
+Commit đề xuất: `test(hw03): document evidence for GUI-43 and GUI-48`
 
 AI Audit Entry:
 - Tool: Codex AI assistant / model not visible
 - Date: 2026-07-24 03:46:32 +07:00
-- User Prompt: Bổ sung nội dung evidence cho GUI-43 và GUI-048
+- User Prompt: Bổ sung nội dung evidence cho GUI-43 và GUI-48
 - AI Action: Đã cập nhật notes và liên kết hai ảnh, đồng thời ghi rõ giới hạn bằng chứng của ảnh tĩnh
 ```
 
@@ -805,7 +805,7 @@ AI Audit Entry:
 **Full prompt:**
 
 ```
-Với toàn bộ item đang có Status FAILED hoặc BLOCKED và đã có evidence (GUI-07, GUI-13, GUI-14, GUI-15, GUI-16, GUI-17, GUI-23, GUI-26, GUI-27, GUI-33, GUI-34, GUI-36, GUI-38, GUI-43, GUI-44, GUI-46, GUI-048, GUI-049, GUI-050, GUI-051), hãy inspect .github/ISSUE_TEMPLATE trong repo eshop-sut trước, sau đó soạn GitHub Issue riêng cho từng lỗi theo đúng template hiện có, gồm test case, environment, bước tái hiện, expected, actual và evidence; không dùng code/DOM. Xếp Severity theo bốn mức được chỉ định và map theo field chuẩn của template nếu cần.
+Với toàn bộ item đang có Status FAILED hoặc BLOCKED và đã có evidence (GUI-07, GUI-13, GUI-14, GUI-15, GUI-16, GUI-17, GUI-23, GUI-26, GUI-27, GUI-33, GUI-34, GUI-36, GUI-38, GUI-43, GUI-44, GUI-46, GUI-48, GUI-49, GUI-50, GUI-51), hãy inspect .github/ISSUE_TEMPLATE trong repo eshop-sut trước, sau đó soạn GitHub Issue riêng cho từng lỗi theo đúng template hiện có, gồm test case, environment, bước tái hiện, expected, actual và evidence; không dùng code/DOM. Xếp Severity theo bốn mức được chỉ định và map theo field chuẩn của template nếu cần.
 ```
 
 ### (2) AI Output
@@ -819,10 +819,10 @@ Trong `src/eshop-sut` không có thư mục `.github/ISSUE_TEMPLATE`; template k
 
 Mình đã đối chiếu 19 dòng hiện có; có hai sai lệch dữ liệu cần giữ trung thực trong bộ issue:
 
-- `GUI-048` hiện đang là `PASSED`, Notes/ảnh không ghi lại thứ tự focus cụ thể, dù prompt này xếp nó vào nhóm lỗi Tab.
-- `GUI-051` chưa tồn tại trong checklist và `GUI-050` chưa có file ảnh trong `evidence/hw03`.
+- `GUI-48` hiện đang là `PASSED`, Notes/ảnh không ghi lại thứ tự focus cụ thể, dù prompt này xếp nó vào nhóm lỗi Tab.
+- `GUI-51` chưa tồn tại trong checklist và `GUI-50` chưa có file ảnh trong `evidence/hw03`.
 
-Mình vẫn sẽ tạo đủ 20 issue draft: `GUI-048` và `GUI-043` sẽ ghi rõ giới hạn evidence; `GUI-050` ghi rõ ảnh còn thiếu; `GUI-051` dùng quan sát đã xác nhận trước đó và ảnh `GUI_13_14.png`, không bịa dữ liệu.
+Mình vẫn sẽ tạo đủ 20 issue draft: `GUI-48` và `GUI-043` sẽ ghi rõ giới hạn evidence; `GUI-50` ghi rõ ảnh còn thiếu; `GUI-51` dùng quan sát đã xác nhận trước đó và ảnh `GUI_13_14.png`, không bịa dữ liệu.
 
 Đã tạo đủ 20 issue draft riêng theo template. Mình đang chạy kiểm tra chéo tự động: số heading bắt buộc, mức Severity/Priority, environment, test case ID và đường dẫn evidence; sau đó mình sẽ sửa mọi chỗ chưa khớp nguyên văn Check/Notes.
 
@@ -840,9 +840,9 @@ Mỗi issue dùng đúng headings của template, có test case, environment, b�
 Các giới hạn được ghi rõ:
 
 - `GUI-43`: ảnh không thể hiện Checkout Success.
-- `GUI-048`: checklist hiện là `PASSED`; ảnh tĩnh không chứng minh thứ tự Tab.
-- `GUI-050`: chưa có file evidence.
-- `GUI-051`: chưa có trong checklist; issue dựa trên quan sát đã xác nhận trước đó và `GUI_13_14.png`.
+- `GUI-48`: checklist hiện là `PASSED`; ảnh tĩnh không chứng minh thứ tự Tab.
+- `GUI-50`: chưa có file evidence.
+- `GUI-51`: chưa có trong checklist; issue dựa trên quan sát đã xác nhận trước đó và `GUI_13_14.png`.
 - `GUI-34`: map thành `Minor/P2` do không được phân hạng trực tiếp trong prompt.
 
 `git diff --check` không phát hiện lỗi.
@@ -875,24 +875,24 @@ Chỉnh sửa lại nội dung của GUI-50 kết quả thực tế biểu thị
 ### (2) AI Output
 
 ```
-Mình tiếp tục dùng skill `eshop-gui-usability-audit` để cập nhật quan sát black-box cho `GUI-050`. Mình sẽ kiểm tra file evidence mới, sửa Notes trong checklist và Actual result/Evidence của issue tương ứng, không bổ sung nguyên nhân kỹ thuật ngoài hiện tượng UI `404: NOT_FOUND`.
+Mình tiếp tục dùng skill `eshop-gui-usability-audit` để cập nhật quan sát black-box cho `GUI-50`. Mình sẽ kiểm tra file evidence mới, sửa Notes trong checklist và Actual result/Evidence của issue tương ứng, không bổ sung nguyên nhân kỹ thuật ngoài hiện tượng UI `404: NOT_FOUND`.
 
 Mình đã kiểm tra `GUI_50.png`: file tồn tại và sẽ được liên kết đúng. Tuy nhiên ảnh hiện tại hiển thị Checkout trước/sau refresh với dữ liệu bị reset về tổng `0 ₫`, không hiển thị trực tiếp trang `404: NOT_FOUND`. Mình vẫn sẽ ghi nhận `404: NOT_FOUND` theo quan sát bạn vừa xác nhận, nhưng sẽ nêu rõ giới hạn này trong phần Evidence để không gán cho ảnh điều nó không thể hiện.
 
 Đã cập nhật:
 
-- [Checklist GUI-050](E:\Testing\CS423-CSC15003-Testing-N08\reports\hw03-gui-checklist.md): Actual Notes ghi UI hiển thị **404: NOT_FOUND** khi refresh trong lúc nhập.
-- [Issue GUI-050](E:\Testing\CS423-CSC15003-Testing-N08\bug-reports\hw03-gui\GUI-050.md): sửa tiêu đề, bước tái hiện, Actual result và liên kết evidence.
+- [Checklist GUI-50](E:\Testing\CS423-CSC15003-Testing-N08\reports\hw03-gui-checklist.md): Actual Notes ghi UI hiển thị **404: NOT_FOUND** khi refresh trong lúc nhập.
+- [Issue GUI-50](E:\Testing\CS423-CSC15003-Testing-N08\bug-reports\hw03-gui\GUI-50.md): sửa tiêu đề, bước tái hiện, Actual result và liên kết evidence.
 - Evidence: [GUI_50.png](E:\Testing\CS423-CSC15003-Testing-N08\evidence\hw03\GUI_50.png).
 
 Ảnh hiện tại thể hiện dữ liệu/tổng tiền bị reset sau refresh nhưng không trực tiếp hiển thị trang 404, nên issue đã ghi rõ `404: NOT_FOUND` là quan sát do người kiểm thử cung cấp.
 
-Commit đề xuất: `test(hw03): update GUI-050 refresh failure evidence`
+Commit đề xuất: `test(hw03): update GUI-50 refresh failure evidence`
 
 AI Audit Entry:
 - Tool: Codex AI assistant / model not visible
 - Date: 2026-07-27 22:15:49 +07:00
-- User Prompt: Cập nhật GUI-050 để phản ánh refresh khi đang nhập hiển thị 404 NOT_FOUND
+- User Prompt: Cập nhật GUI-50 để phản ánh refresh khi đang nhập hiển thị 404 NOT_FOUND
 - AI Action: Đã cập nhật checklist, issue và evidence reference; đồng thời ghi rõ giới hạn của ảnh hiện có
 ```
 

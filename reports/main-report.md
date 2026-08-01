@@ -35,16 +35,16 @@
 
 ### Quy trình thiết kế checklist
 
-AI được sử dụng để sinh 46 item ban đầu, bao phủ bốn nhóm IA-01 đến IA-04. Sau đó, checklist được human review và bổ sung 4 item GUI-047 đến GUI-050.
+AI được sử dụng để sinh 46 item ban đầu, bao phủ bốn nhóm IA-01 đến IA-04. Sau đó, checklist được human review và bổ sung 4 item GUI-047 đến GUI-50.
 
 ### Các item Human-added
 
 | ID      | Why AI may have missed it                                                |
 | ------- | ------------------------------------------------------------------------ |
 | GUI-047 | Hành vi phụ thuộc trạng thái lỗi hiếm gặp với các dòng sản phẩm trùng.   |
-| GUI-048 | Sắc thái accessibility của nhiều vùng tương tác gộp trong một màn hình.  |
-| GUI-049 | Kỳ vọng ngữ nghĩa giữa nhãn hiển thị và kết quả tính toán có thể mơ hồ.  |
-| GUI-050 | Hành vi lưu trạng thái chỉ xuất hiện qua chuyển tiếp refresh giữa chừng. |
+| GUI-48 | Sắc thái accessibility của nhiều vùng tương tác gộp trong một màn hình.  |
+| GUI-49 | Kỳ vọng ngữ nghĩa giữa nhãn hiển thị và kết quả tính toán có thể mơ hồ.  |
+| GUI-50 | Hành vi lưu trạng thái chỉ xuất hiện qua chuyển tiếp refresh giữa chừng. |
 
 ### Tóm tắt kết quả thực thi
 
@@ -52,13 +52,10 @@ AI được sử dụng để sinh 46 item ban đầu, bao phủ bốn nhóm IA-
 | -----------: | -----: | -----: | ------: |
 |           51 |     32 |     16 |       3 |
 
-### Các item FAILED
+### 16 item FAILED tại baseline Chrome/Windows
 
 - **GUI-07:** Coupon SAVE10 tăng giá thay vì giảm, sai logic áp dụng, không phải lỗi định dạng. Evidence: [GUI_07_49.png](../evidence/hw03/Chrome/GUI_07_49.png)
-- **GUI-13:** Không có control tăng/giảm số lượng trong Cart. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
-- **GUI-14:** Không thể kiểm tra focus của control số lượng trong Cart. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
 - **GUI-15:** Không có dấu `*` hoặc dấu hiệu nào cho trường bắt buộc. Evidence: [GUI_15_16.png](../evidence/hw03/Chrome/GUI_15_16.png)
-- **GUI-16:** Không có trường bắt buộc để kiểm tra submit rỗng. Evidence: [GUI_15_16.png](../evidence/hw03/Chrome/GUI_15_16.png)
 - **GUI-17:** Ô Tổng tiền thanh toán là input có thể chỉnh sửa trực tiếp bằng bàn phím, không phải trường chỉ đọc như kỳ vọng. Evidence: [GUI_17.png](../evidence/hw03/Chrome/GUI_17.png)
 - **GUI-23:** Form tạo coupon không hiển thị ký hiệu `*` cho các trường bắt buộc; các ô nhập chủ yếu chỉ dùng placeholder, không có nhãn văn bản riêng hiển thị cạnh từng control. Evidence: [GUI_23_33_34.png](../evidence/hw03/Chrome/GUI_23_33_34.png)
 - **GUI-26:** Không có breadcrumb/navbar/step indicator nào thể hiện Cart là bước hiện tại trước khi chuyển sang Checkout. Evidence: [GUI_26_27_36.png](../evidence/hw03/Chrome/GUI_26_27_36.png)
@@ -70,9 +67,20 @@ AI được sử dụng để sinh 46 item ban đầu, bao phủ bốn nhóm IA-
 - **GUI-43:** Ảnh ghi nhận tại Checkout khi mất mạng: alert “Lỗi khi thanh toán: Network Error”, request checkout ở trạng thái pending và nút hiển thị “Đang xử lý...”; ảnh không hiển thị màn hình Checkout Success hoặc trạng thái tải lại chi tiết xác nhận. Evidence: [GUI_38_43.png](../evidence/hw03/Chrome/GUI_38_43.png)
 - **GUI-44:** Khi mạng chậm (Slow 4G), bảng danh sách coupon hiển thị trống hoàn toàn, không có loading indicator nào trong lúc chờ dữ liệu. Evidence: [GUI_44.png](../evidence/hw03/Chrome/GUI_44.png)
 - **GUI-46:** Xóa coupon SAVE10 không xuất hiện hộp thoại xác nhận nào; danh sách cập nhật ngay từ 4 xuống 3 dòng. Evidence: [GUI_46.png](../evidence/hw03/Chrome/GUI_46.png)
-- **GUI-049:** Nhãn hiển thị “Giảm 10%” đúng, nhưng tổng tiền tăng từ 103.000.000 ₫ lên 1.030.000.000 ₫ nên kết quả cuối cùng không phù hợp. Evidence: [GUI_07_49.png](../evidence/hw03/Chrome/GUI_07_49.png)
-- **GUI-050:** Nếu đang trong quá trình nhập mà refresh, UI hiển thị **404: NOT_FOUND**. Evidence: [GUI_50.png](../evidence/hw03/Chrome/GUI_50.png)
-- **GUI-051:** Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
+- **GUI-49:** Nhãn hiển thị “Giảm 10%” đúng, nhưng tổng tiền tăng từ 103.000.000 ₫ lên 1.030.000.000 ₫ nên kết quả cuối cùng không phù hợp. Evidence: [GUI_07_49.png](../evidence/hw03/Chrome/GUI_07_49.png)
+- **GUI-50:** Nếu đang trong quá trình nhập mà refresh, UI hiển thị **404: NOT_FOUND**. Evidence: [GUI_50.png](../evidence/hw03/Chrome/GUI_50.png)
+- **GUI-51:** Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
+
+### 4 bug bổ sung ngoài nhóm FAILED baseline
+
+Bốn bug dưới đây có GitHub Issue và evidence riêng nhưng không làm thay đổi tổng trạng thái checklist `32 PASSED / 16 FAILED / 3 BLOCKED`:
+
+- **GUI-13 — BLOCKED:** Cart không có control tăng/giảm số lượng, nên không thể thực thi kiểm tra giới hạn số lượng. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
+- **GUI-14 — BLOCKED:** Không tồn tại control số lượng để kiểm tra focus và thứ tự bàn phím. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
+- **GUI-16 — BLOCKED:** Checkout không có trường bắt buộc để thực thi kịch bản submit khi bỏ trống. Evidence: [GUI_15_16.png](../evidence/hw03/Chrome/GUI_15_16.png)
+- **GUI-48 — PASSED trong checklist:** Human review ghi nhận item đã thực thi; bug report riêng phản ánh vấn đề thứ tự Tab giữa form và danh sách coupon. Evidence: [GUI_48.png](../evidence/hw03/Chrome/GUI_48.png)
+
+Như vậy, tổng số bug riêng biệt đã báo cáo trên GitHub Issues là **20**: 16 bug thuộc nhóm `FAILED` baseline và 4 bug bổ sung nêu trên.
 
 ### Bug đã báo cáo lên GitHub Issues
 
@@ -94,10 +102,10 @@ AI được sử dụng để sinh 46 item ban đầu, bao phủ bốn nhóm IA-
 | GUI-43  | [BUG][Checkout Success] Không có trạng thái khôi phục rõ khi mất mạng  | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/145) |
 | GUI-44  | [BUG][Admin Coupon] Danh sách trống khi tải chậm không có loading      | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/146) |
 | GUI-46  | [BUG][Admin Coupon] Xóa coupon không có xác nhận                       | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/147) |
-| GUI-048 | [BUG][Admin Coupon] Thứ tự Tab giữa form và danh sách không hợp lý     | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/148) |
-| GUI-049 | [BUG][Coupon] Nhãn giảm 10% không khớp tổng tiền cuối                  | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/149) |
-| GUI-050 | [BUG][Checkout] Refresh khi đang nhập hiển thị 404 NOT_FOUND           | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/150) |
-| GUI-051 | [BUG][Cart] Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
+| GUI-48 | [BUG][Admin Coupon] Thứ tự Tab giữa form và danh sách không hợp lý     | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/148) |
+| GUI-49 | [BUG][Coupon] Nhãn giảm 10% không khớp tổng tiền cuối                  | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/149) |
+| GUI-50 | [BUG][Checkout] Refresh khi đang nhập hiển thị 404 NOT_FOUND           | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/150) |
+| GUI-51 | [BUG][Cart] Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
 
 ---
 
@@ -156,7 +164,7 @@ Facilitator phải đọc nguyên văn kịch bản. Kịch bản chỉ nêu k�
 
 | Rank | Finding                                                               | Evidence                                                                                                  | Impact                                                                                                              | Frequency                                            | Persistence                                         | Severity | Recommendation                                                                 |
 | ---: | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------- | -------- | ------------------------------------------------------------------------------ |
-|    1 | **GUI-07/GUI-049:** SAVE10 tính sai, làm tổng tiền tăng thay vì giảm. | P02, P05 và P07 tự phát hiện; P06 nhận thấy điểm kỳ lạ nhưng không nêu đủ cụ thể để xác nhận cùng vấn đề. | Sai giá trị thanh toán và làm giảm niềm tin vào coupon/tổng tiền.                                                   | 3/7 xác nhận; 1/7 nghi ngờ nhưng chưa đủ bằng chứng. | Tái diễn ở nhiều phiên khi dùng SAVE10.             | Critical | Sửa công thức SAVE10 và kiểm thử lại tổng tiền trước/sau áp mã.                |
+|    1 | **GUI-07/GUI-49:** SAVE10 tính sai, làm tổng tiền tăng thay vì giảm. | P02, P05 và P07 tự phát hiện; P06 nhận thấy điểm kỳ lạ nhưng không nêu đủ cụ thể để xác nhận cùng vấn đề. | Sai giá trị thanh toán và làm giảm niềm tin vào coupon/tổng tiền.                                                   | 3/7 xác nhận; 1/7 nghi ngờ nhưng chưa đủ bằng chứng. | Tái diễn ở nhiều phiên khi dùng SAVE10.             | Critical | Sửa công thức SAVE10 và kiểm thử lại tổng tiền trước/sau áp mã.                |
 |    2 | **GUI-17:** tổng tiền tại checkout có thể chỉnh sửa trực tiếp.        | P02, P06 và P07 tự phát hiện ngẫu nhiên trong lúc thao tác.                                               | Người dùng có thể thay đổi giá trị đơn hàng; ảnh hưởng nghiêm trọng đến tính toàn vẹn và độ tin cậy của thanh toán. | 3/7.                                                 | Xuất hiện tại checkout trong cả ba phiên phát hiện. | Critical | Chuyển tổng tiền thành giá trị chỉ đọc và tính lại phía hệ thống khi xác nhận. |
 |    6 | **GUI-13/GUI-14:** Cart thiếu control tăng/giảm số lượng.             | P07 không thể tăng số lượng trong Cart và cần facilitator chỉ sang trang chi tiết.                        | Cản trở điều chỉnh giỏ tại đúng ngữ cảnh, buộc người dùng rời Cart.                                                 | 1/7.                                                 | Tồn tại trong luồng Cart của phiên P07.             | Medium   | Bổ sung control số lượng tại Cart với phản hồi cập nhật tổng tiền.             |
 |    7 | **GUI-36:** xóa sản phẩm không có bước xác nhận.                      | P04 quan sát sản phẩm bị xóa ngay lập tức khi bấm.                                                        | Tăng nguy cơ xóa nhầm và mất công khôi phục lựa chọn.                                                               | 1/7.                                                 | Quan sát tại thao tác xóa trong Cart.               | Medium   | Thêm xác nhận hoặc cơ chế Undo sau khi xóa.                                    |

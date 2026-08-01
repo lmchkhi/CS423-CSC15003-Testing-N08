@@ -6,7 +6,7 @@ assignees: "Trần Minh Quang"
 
 ## Found by Test Case
 
-GUI-050
+GUI-50
 
 ## Requirement liên quan
 

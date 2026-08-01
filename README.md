@@ -36,28 +36,32 @@ Safari chuyển GUI-38, GUI-43 và GUI-44 từ `FAILED` sang `BLOCKED`: Safari k
 
 ### 2.3. Bug summary
 
-Danh sách dưới đây là toàn bộ 16 item `FAILED` có evidence tại Chrome/Windows (baseline). Các lần tái hiện ở Firefox/Safari không được đếm thành bug mới.
+Tổng cộng đã báo cáo **20 bug riêng biệt** trên GitHub Issues. Trong đó, 16 bug gắn với các item `FAILED` có evidence tại Chrome/Windows (baseline); 4 bug bổ sung là GUI-13, GUI-14, GUI-16 và GUI-48. Các bug có thể cùng screen, topic hoặc dùng chung ảnh evidence nhưng khác nội dung kiểm tra, expected/actual result hoặc phạm vi tác động nên được tính riêng. Các lần tái hiện cùng bug ở Firefox/Safari không được đếm thành bug mới.
 
-| ID      | Severity      | Mô tả ngắn                                                                                |
-| ------- | ------------- | ----------------------------------------------------------------------------------------- |
-| GUI-07  | Critical / P0 | Coupon `SAVE10` làm tổng tiền tăng thay vì giảm.                                          |
-| GUI-15  | Minor / P2    | Checkout không hiển thị dấu hiệu cho trường bắt buộc.                                     |
-| GUI-17  | Major / P1    | Tổng tiền thanh toán là input có thể chỉnh sửa trực tiếp.                                 |
-| GUI-23  | Minor / P2    | Form tạo coupon thiếu nhãn văn bản và dấu bắt buộc cho các trường.                        |
-| GUI-26  | Trivial / P3  | Cart không có chỉ báo vị trí hiện tại trước khi chuyển Checkout.                          |
-| GUI-27  | Trivial / P3  | Luồng Cart → Checkout thiếu breadcrumb/step indicator.                                    |
-| GUI-33  | Trivial / P3  | Back ở Admin Coupon Management rời về trang chủ trình duyệt thay vì tab trước.            |
-| GUI-34  | Minor / P2    | Các luồng xem/tạo/sửa/xóa coupon bị gộp trên một màn hình.                                |
-| GUI-36  | Major / P1    | Xóa sản phẩm diễn ra ngay, không có xác nhận.                                             |
-| GUI-38  | Major / P1    | Lỗi mạng khi submit khiến nút thanh toán kẹt ở trạng thái xử lý và không rõ cách thử lại. |
-| GUI-43  | Trivial / P3  | Không có trạng thái khôi phục rõ cho lỗi tải chi tiết Checkout Success.                   |
-| GUI-44  | Minor / P2    | Danh sách coupon trống khi tải chậm nhưng không có loading indicator.                     |
-| GUI-46  | Major / P1    | Xóa coupon `SAVE10` không có xác nhận.                                                    |
-| GUI-049 | Critical / P0 | Nhãn “Giảm 10%” không khớp kết quả: tổng tiền tăng từ 103.000.000 ₫ lên 1.030.000.000 ₫.  |
-| GUI-050 | Trivial / P3  | Refresh trong lúc nhập Checkout hiển thị `404: NOT_FOUND`.                                |
-| GUI-051 | Major / P1    | Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng.                               |
+| ID     | Severity      | Mô tả ngắn                                                                                |
+| ------ | ------------- | ----------------------------------------------------------------------------------------- |
+| GUI-07 | Critical / P0 | Coupon `SAVE10` làm tổng tiền tăng thay vì giảm.                                          |
+| GUI-13 | Minor / P2    | Cart không có điều khiển tăng/giảm số lượng sản phẩm.                                     |
+| GUI-14 | Minor / P2    | Không thể thao tác và kiểm tra focus bàn phím của điều khiển số lượng trong Cart.         |
+| GUI-15 | Minor / P2    | Checkout không hiển thị dấu hiệu cho trường bắt buộc.                                     |
+| GUI-16 | Minor / P2    | Checkout thiếu trường bắt buộc để kiểm tra hành vi submit khi bỏ trống.                   |
+| GUI-17 | Major / P1    | Tổng tiền thanh toán là input có thể chỉnh sửa trực tiếp.                                 |
+| GUI-23 | Minor / P2    | Form tạo coupon thiếu nhãn văn bản và dấu bắt buộc cho các trường.                        |
+| GUI-26 | Trivial / P3  | Cart không có chỉ báo vị trí hiện tại trước khi chuyển Checkout.                          |
+| GUI-27 | Trivial / P3  | Luồng Cart → Checkout thiếu breadcrumb/step indicator.                                    |
+| GUI-33 | Trivial / P3  | Back ở Admin Coupon Management rời về trang chủ trình duyệt thay vì tab trước.            |
+| GUI-34 | Minor / P2    | Các luồng xem/tạo/sửa/xóa coupon bị gộp trên một màn hình.                                |
+| GUI-36 | Major / P1    | Xóa sản phẩm diễn ra ngay, không có xác nhận.                                             |
+| GUI-38 | Major / P1    | Lỗi mạng khi submit khiến nút thanh toán kẹt ở trạng thái xử lý và không rõ cách thử lại. |
+| GUI-43 | Trivial / P3  | Không có trạng thái khôi phục rõ cho lỗi tải chi tiết Checkout Success.                   |
+| GUI-44 | Minor / P2    | Danh sách coupon trống khi tải chậm nhưng không có loading indicator.                     |
+| GUI-46 | Major / P1    | Xóa coupon `SAVE10` không có xác nhận.                                                    |
+| GUI-48 | Minor / P2    | Thứ tự Tab giữa form và danh sách coupon không hợp lý.                                    |
+| GUI-49 | Critical / P0 | Nhãn “Giảm 10%” không khớp kết quả: tổng tiền tăng từ 103.000.000 ₫ lên 1.030.000.000 ₫.  |
+| GUI-50 | Trivial / P3  | Refresh trong lúc nhập Checkout hiển thị `404: NOT_FOUND`.                                |
+| GUI-51 | Major / P1    | Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng.                               |
 
-Evidence và bug report tương ứng nằm trong `evidence/hw03/<platform>/` và `bug-reports/hw03-gui/`.
+Evidence và 20 bug report tương ứng nằm trong `evidence/hw03/<platform>/`, `bug-reports/hw03-gui/` và `bug-reports/screenshots_issues/`.
 
 ### 2.4. Usability evaluation — SUS
 
@@ -77,9 +81,16 @@ Mẫu có `n = 7`; cả 7 participant hoàn thành flow có can thiệp. README 
 
 ### 2.5. Demo videos
 
-| Video            | Link                                                            |
-| ---------------- | --------------------------------------------------------------- |
-| Agent Skill demo | [Demo using agent in GUI Testing](https://youtu.be/20f_YV-PS4A) |
+| Video                 | Link                                                                     |
+| --------------------- | ------------------------------------------------------------------------ |
+| Agent Skill demo      | [Demo using agent in GUI Testing](https://youtu.be/20f_YV-PS4A)          |
+| Usability session P01 | [Video P01](https://youtu.be/yNWfs-Z4MqY)                                 |
+| Usability session P02 | [Video P02](https://youtu.be/3PnK0Gon4dE)                                 |
+| Usability session P03 | [Video P03](https://youtu.be/j-RkKLtdni0)                                 |
+| Usability session P04 | [Video P04](https://youtu.be/eshhExP4SNo)                                 |
+| Usability session P05 | [Video P05](https://youtu.be/fWkFW9seKGc)                                 |
+| Usability session P06 | [Video P06](https://youtu.be/fHVS8BKAV-I)                                 |
+| Usability session P07 | [Video P07](https://youtu.be/HOA_h8H6R0I)                                 |
 
 ---
 
@@ -116,8 +127,6 @@ CS423-CSC15003-Testing-N08/
 └── eshop-gui-usability-audit/
     └── references/                     # Template/hướng dẫn agent skill
 ```
-
-> Repository hiện không có file Excel checklist hoặc `git-commit-log.txt`; file commit log đang có là `git-log.txt`.
 
 ---
 
