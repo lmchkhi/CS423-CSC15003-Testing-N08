@@ -4,7 +4,7 @@
 GUI-004
 
 ## Requirement liên quan
-FR-21 (Tiêu chuẩn Giao diện Chung — "nút hành động tích cực dùng màu xanh dương")
+FR-21 (Tiêu chuẩn Giao diện Chung: "nút hành động tích cực dùng màu xanh dương")
 
 ## Severity / Priority
 Minor / P3
@@ -16,7 +16,7 @@ Minor / P3
 **Build/commit**: eshop-sut @ 85af3ba
 
 ## Steps to reproduce
-1. Vào trang chủ http://localhost:5173/ — quan sát nút "Thêm vào giỏ" trên các thẻ sản phẩm trong lưới: nút có màu xanh dương (`bg-blue-600`).
+1. Vào trang chủ http://localhost:5173/, quan sát nút "Thêm vào giỏ" trên các thẻ sản phẩm trong lưới: nút có màu xanh dương (`bg-blue-600`).
 2. Bấm "Xem chi tiết" bất kỳ sản phẩm nào để vào trang Product Detail.
 3. Quan sát nút "Thêm vào giỏ hàng" trên trang chi tiết.
 
@@ -24,7 +24,7 @@ Minor / P3
 Theo FR-21, nút hành động tích cực (submit/mua hàng) phải dùng màu xanh dương, nhất quán với nút cùng chức năng ở trang danh sách sản phẩm.
 
 ## Actual result
-Nút "Thêm vào giỏ hàng" trên trang chi tiết sản phẩm hiển thị màu xanh lá (`bg-green-600` theo class quan sát được qua DevTools), khác màu với chính nút "Thêm vào giỏ" cùng chức năng ở trang danh sách (`bg-blue-600`) — vừa vi phạm FR-21, vừa không nhất quán trong cùng một hệ thống.
+Nút "Thêm vào giỏ hàng" trên trang chi tiết sản phẩm hiển thị màu xanh lá (`bg-green-600` theo class quan sát được qua DevTools), khác màu với chính nút "Thêm vào giỏ" cùng chức năng ở trang danh sách (`bg-blue-600`), vừa vi phạm FR-21, vừa không nhất quán trong cùng một hệ thống.
 
 ## Evidence
 ![BUG-IA01-PRODUCTDETAIL-001](screenshots/BUG-IA01-PRODUCTDETAIL-001.png)

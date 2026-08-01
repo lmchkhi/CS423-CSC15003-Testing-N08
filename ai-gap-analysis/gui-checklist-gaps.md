@@ -1,8 +1,12 @@
-# AI Gap Analysis — GUI Checklist (HW03 Task 1)
+# Phân tích khoảng trống của AI (GUI Checklist, HW03 Task 1)
 
-For every checklist item added by a human (not the AI's first pass), one
-entry below explaining *why* the AI missed it. Tie each reason to the actual
-prompt sent — see `.claude/skills/gui-checklist/SKILL.md` Phase C.
+12 item dưới đây là do tôi tự thêm sau khi đọc lại kết quả AI sinh ra, không
+nằm trong bất kỳ batch nào của AI. Với mỗi item, tôi đối chiếu ngược lại prompt
+đã gửi để xác định vì sao AI không đưa ra item đó, và quy về 3 nhóm nguyên
+nhân: phạm vi prompt do tôi viết thiếu, đặc thù của một giao diện tiếng Việt,
+và giới hạn của chính mô hình.
+
+Tất cả 12 item đều do Hà Bảo Ngọc (23127300) bổ sung.
 
 ## Item GUI-042: Độ tương phản ở dark mode trên Product Detail
 

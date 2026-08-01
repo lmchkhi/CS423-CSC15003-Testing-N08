@@ -24,7 +24,7 @@ Minor / P3
 Vùng bấm của các nút trên mobile nên đạt tối thiểu ~44×44px để dễ bấm trúng bằng ngón tay, theo khuyến nghị accessibility chuẩn (WCAG 2.5.5, Apple/Material tap target guideline).
 
 ## Actual result
-Chiều cao nút chỉ 36px (thiếu ~8px so với khuyến nghị) — không gây chồng lấn nhưng vẫn dưới chuẩn tap target tối thiểu, có thể gây khó bấm trúng cho một số người dùng trên màn hình nhỏ.
+Chiều cao nút chỉ 36px (thiếu ~8px so với khuyến nghị), không gây chồng lấn nhưng vẫn dưới chuẩn tap target tối thiểu, có thể gây khó bấm trúng cho một số người dùng trên màn hình nhỏ.
 
 ## Evidence
 ![BUG-IA03-HOMEPAGE-003](screenshots/BUG-IA03-HOMEPAGE-003.png)

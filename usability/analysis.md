@@ -1,116 +1,130 @@
-# Usability Analysis — HW03 Task 2, Phase 3
+# Phân tích kết quả usability (HW03 Task 2, Phase 3)
 
-## Scores
+## Điểm số
 
-Công thức: `SUS = 2.5 × (20 + sum(odd) − sum(even))` — xem
-`.claude/skills/usability-evaluation/references/sus-scale.md`. Chi tiết
-từng câu/từng participant nằm trong `usability/sessions/session-0N.md`.
+Công thức SUS chuẩn theo Brooke (1996): `SUS = 2.5 × (20 + tổng câu lẻ − tổng
+câu chẵn)`. Chi tiết từng câu của từng người nằm trong
+`usability/sessions/session-0N.md`.
 
-| # | Participant | Task success | SUS score |
+| # | Người tham gia | Kết quả task | Điểm SUS |
 |---|---|---|---|
-| 1 | Nguyễn Hà Chiêu Dương | Y (hesitant) | 35 |
-| 2 | Nguyễn Thành Đạt | Partial (over-add) | 15 |
-| 3 | Nguyễn Ngọc Trúc Mây | Y (hesitant) | 87.5 |
-| 4 | Huỳnh Yến Nhi | Partial (multi-add failed) | 20 |
+| 1 | Nguyễn Hà Chiêu Dương | Y (có do dự) | 35 |
+| 2 | Nguyễn Thành Đạt | Một phần (thêm dư sản phẩm) | 15 |
+| 3 | Nguyễn Ngọc Trúc Mây | Y (có do dự) | 87.5 |
+| 4 | Huỳnh Yến Nhi | Một phần (thêm nhiều số lượng không thành) | 20 |
 | 5 | Dương Quang Thắng | Y | 57.5 |
-| 6 | Nguyễn Quốc Huy | Y (task deviation, self-corrected) | 75 |
-| 7 | Lê Hữu Sang | **N (3 lần thử thất bại)** | 82.5 |
-| **Mean** | | 4 Y / 2 Partial / 1 N | **53.2** |
+| 6 | Nguyễn Quốc Huy | Y (đi lệch nhiệm vụ rồi tự sửa) | 75 |
+| 7 | Lê Hữu Sang | **N (3 lần thử đều thất bại)** | 82.5 |
+| **Trung bình** | | 4 Y / 2 một phần / 1 N | **53.2** |
 
-**Min** = 15 (participant #2) · **Max** = 87.5 (participant #3) · **Độ lệch
-chuẩn (population)** ≈ 27.8 — độ tản mát rất lớn giữa 7 người, phản ánh
-đúng những gì quan sát định tính cho thấy: trải nghiệm không đồng đều, phụ
-thuộc nhiều vào việc từng người có tình cờ hiểu đúng cơ chế "bấm 2 lần" hay
-không hơn là vào chất lượng UI tổng thể. Mốc tham khảo thường dùng cho SUS
-là ~68 = "trung bình" (Bangor et al.) — 53.2 nằm **dưới** mốc này, nhưng bản
-thân con số trung bình che giấu vấn đề nghiêm trọng nhất của nghiên cứu này
-(xem "SUS vs. task success" bên dưới).
+Thấp nhất 15 (người #2), cao nhất 87.5 (người #3), độ lệch chuẩn tổng thể
+khoảng 27.8. Độ tản mát này rất lớn so với một nhóm chỉ 7 người, và nó khớp
+với quan sát định tính: trải nghiệm phụ thuộc nhiều vào chuyện từng người có
+tình cờ hiểu ra cơ chế "bấm 2 lần" hay không, hơn là vào chất lượng giao diện
+nói chung.
 
-### SUS vs. task success — phát hiện quan trọng nhất của Phase 3
+Mốc tham chiếu thường dùng cho SUS là 68 điểm cho mức "trung bình" (Bangor,
+Kortum & Miller, 2008). Con số 53.2 nằm dưới mốc đó, nhưng bản thân giá trị
+trung bình lại che mất vấn đề nghiêm trọng nhất mà nghiên cứu này tìm ra.
 
-SUS **không tương quan** với việc task có thành công hay không trong dữ
-liệu này — ví dụ rõ nhất là **participant #7**: SUS = 82.5 (cao thứ 3 trong
-7 người) nhưng đây lại là buổi **thất bại hoàn toàn** (3 lần thử, giỏ hàng
-vẫn trống). Ngược lại **participant #2** có SUS thấp nhất (15) dù cuối cùng
-sản phẩm vẫn vào được giỏ hàng (chỉ là thêm dư). Kết luận: SUS đo cảm nhận
-tổng thể về hệ thống (điều hướng, bố cục, tốc độ cảm nhận...), không phải
-thước đo độ tin cậy của riêng bước "thêm vào giỏ hàng" — đúng như cảnh báo
-trong `references/sus-scale.md` ("SUS is a single composite score, not a
-diagnostic tool by itself"). Không có phân tích định tính (7 session file),
-con số trung bình 53.2 sẽ khiến người đọc đánh giá thấp mức độ nghiêm trọng
-thật sự của lỗi thêm-vào-giỏ-hàng.
+### Điểm SUS không đi cùng kết quả task
 
-## Synthesis
+Trong bộ dữ liệu này, điểm SUS và việc task có hoàn thành hay không gần như
+không liên quan tới nhau. Ví dụ rõ nhất là **người #7**: SUS 82.5, cao thứ nhì
+trong 7 người, nhưng đây lại là buổi thất bại hoàn toàn, thử đủ 3 lần mà giỏ
+hàng vẫn trống. Ở chiều ngược lại, người #2 có điểm thấp nhất (15) nhưng cuối
+cùng vẫn đưa được sản phẩm vào giỏ, chỉ là thêm dư.
 
-### Systemic design issues (nhiều participant cùng gặp)
+Lý do là SUS đo cảm nhận tổng thể về hệ thống, gồm điều hướng, bố cục, tốc độ
+cảm nhận, chứ không đo độ tin cậy của riêng một bước. Brooke (1996) mô tả SUS
+là một thang đo tổng hợp một chiều, dùng để so sánh giữa các hệ thống, không
+phải công cụ chẩn đoán lỗi cụ thể. Nếu chỉ báo cáo con số 53.2 mà không kèm
+phần phân tích định tính từ 7 buổi test, người đọc sẽ đánh giá thấp hẳn mức
+nghiêm trọng của lỗi thêm vào giỏ hàng.
 
-1. **Không có phản hồi trực quan sau khi bấm "Thêm vào giỏ hàng"** — root
-   cause duy nhất, xuất hiện dưới nhiều hình thức ở **5/7 người** (nêu trực
-   tiếp trong probe: #1, #2, #3, #4, #7; #5/#6 không phàn nàn trực tiếp
-   nhưng cả hai vẫn phải tự vào giỏ hàng/mô tả hành vi kiểm tra thủ công
-   tương tự). Hệ quả quan sát được, từ nhẹ tới nặng:
-   - Bối rối/do dự tại chỗ, phải tự vào giỏ hàng kiểm tra (#1, #3).
-   - Hiểu lầm là lỗi kỹ thuật, bấm lại nhiều lần, dẫn tới thêm dư sản phẩm
-     ngoài ý muốn (#2).
-   - Task thất bại một phần — không rõ thao tác thêm nhiều số lượng có
-     thành công không (#4).
-   - Task thất bại hoàn toàn sau 3 lần thử (#7) — mức độ nghiêm trọng nhất.
-   - Đây chính xác là root cause đã được xác định qua kiểm thử GUI Task 1:
-     `bug-reports/BUG-IA04-PRODUCTDETAIL-001.md` ("nút cần bấm 2 lần, lần
-     đầu bị bỏ qua im lặng, không toast/badge, không cộng dồn số lượng").
-     **Không file bug mới** — đã cross-link 5 session làm bằng chứng bổ
-     sung trực tiếp vào bug report này (xem mục "Cũng xác nhận qua Usability
-     Testing" trong file đó).
-   - **Củng cố thêm bởi buổi pilot** (`usability/plan.md` §Pilot session):
-     buổi pilot chạy độc lập, trước cả 7 buổi chính thức, cũng bắt đúng vấn
-     đề này — cùng một root cause xuất hiện nhất quán qua 2 đợt thu thập dữ
-     liệu độc lập, không phải hiện tượng ngẫu nhiên của riêng nhóm 7 người.
-2. **Mất dấu mục tiêu khi điều hướng qua nhiều trang** — participant #6
-   (người đánh giá giao diện tích cực nhất) vẫn thêm nhầm một sản phẩm
-   ngoài nhiệm vụ (iPhone Pro Max thay vì Galaxy S24 Ultra) sau khi quay về
-   trang chủ giữa chừng. Quan sát đơn lẻ (1/7) nên xếp Minor, nhưng có khả
-   năng liên quan tới `bug-reports/BUG-IA03-HOMEPAGE-002.md` (từ khóa tìm
-   kiếm bị mất khi bấm Back/quay về trang chủ) — nếu từ khóa lọc không được
-   giữ lại, người dùng quay lại danh sách đầy đủ 5 sản phẩm thay vì danh
-   sách đã lọc, dễ chọn nhầm sản phẩm. Đây là suy luận có cơ sở nhưng chưa
-   được kiểm chứng trực tiếp trong session — ghi nhận như một giả thuyết
-   cần kiểm chứng thêm, không khẳng định chắc chắn.
+## Tổng hợp phát hiện
 
-### Isolated bugs (không file mới — đã có sẵn, chỉ cross-link)
+### Vấn đề thiết kế mang tính hệ thống
 
-| Bug ID | Severity | Participants affected | Link |
+**1. Không có phản hồi trực quan sau khi bấm "Thêm vào giỏ hàng".** Đây là một
+root cause duy nhất nhưng biểu hiện ra nhiều mức độ khác nhau ở 5 trên 7 người
+(#1, #2, #3, #4, #7 nêu trực tiếp trong phần probe; #5 và #6 không phàn nàn
+nhưng vẫn tự vào giỏ hàng kiểm tra bằng tay). Hậu quả quan sát được, xếp từ
+nhẹ tới nặng:
+
+- Bối rối tại chỗ, phải tự vào giỏ hàng kiểm tra (#1, #3).
+- Hiểu là lỗi kỹ thuật nên bấm lại nhiều lần, kết quả là thêm dư sản phẩm
+  ngoài ý muốn (#2).
+- Task hoàn thành một phần, người dùng không rõ thao tác thêm nhiều số lượng
+  có thành công hay không (#4).
+- Task thất bại hoàn toàn sau 3 lần thử (#7).
+
+Đây đúng là root cause đã xác định được từ kiểm thử GUI ở Task 1, ghi trong
+`bug-reports/BUG-IA04-PRODUCTDETAIL-001.md`: nút cần bấm 2 lần, lần đầu bị bỏ
+qua im lặng, không có toast hay badge, số lượng không cộng dồn. Tôi không file
+bug mới cho phát hiện này, thay vào đó cross-link 5 buổi test vào chính bug
+report đó làm bằng chứng bổ sung từ người dùng thật.
+
+Buổi pilot chạy độc lập trước cả 7 buổi chính thức cũng bắt đúng vấn đề này
+(`usability/plan.md`, mục Pilot). Cùng một root cause xuất hiện ở 2 đợt thu
+thập dữ liệu tách biệt nhau nên khó có khả năng là hiện tượng ngẫu nhiên của
+riêng nhóm 7 người.
+
+**2. Mất dấu sản phẩm mục tiêu khi đi qua lại nhiều trang.** Người #6, cũng là
+người đánh giá giao diện tích cực nhất, vẫn thêm nhầm một sản phẩm ngoài nhiệm
+vụ (iPhone 15 Pro Max thay vì Galaxy S24 Ultra) sau khi quay về trang chủ giữa
+chừng. Chỉ 1 trên 7 người nên tôi xếp Minor.
+
+Quan sát này có thể liên quan tới `bug-reports/BUG-IA03-HOMEPAGE-002.md` (từ
+khóa tìm kiếm bị mất khi quay về trang chủ): nếu bộ lọc không được giữ lại,
+người dùng quay lại danh sách đầy đủ 5 sản phẩm thay vì danh sách đã lọc và dễ
+chọn nhầm. Tôi không kiểm chứng được mối liên hệ này ngay trong buổi test, nên
+ghi lại như một giả thuyết cần xác minh thêm, không khẳng định.
+
+### Bug liên quan (đều đã có sẵn từ Task 1, chỉ cross-link)
+
+| Bug ID | Mức độ | Người tham gia bị ảnh hưởng | Liên kết |
 |---|---|---|---|
-| BUG-IA04-PRODUCTDETAIL-001 | Critical/P0 (đã có từ Task 1) | #1, #2, #3, #4, #7 (5/7) | `bug-reports/BUG-IA04-PRODUCTDETAIL-001.md`, GitHub #100 |
-| BUG-IA03-HOMEPAGE-002 (liên hệ giả thuyết, chưa xác nhận) | Major (đã có từ Task 1) | #6 (1/7, suy luận) | `bug-reports/BUG-IA03-HOMEPAGE-002.md` |
+| BUG-IA04-PRODUCTDETAIL-001 | Critical/P0 | #1, #2, #3, #4, #7 (5/7) | `bug-reports/BUG-IA04-PRODUCTDETAIL-001.md`, GitHub #100 |
+| BUG-IA03-HOMEPAGE-002 (giả thuyết, chưa xác nhận) | Major | #6 (1/7, suy luận) | `bug-reports/BUG-IA03-HOMEPAGE-002.md` |
 
-Không phát hiện defect nào hoàn toàn mới ngoài các bug đã file ở Task 1 —
-tất cả friction quan sát được trong 7 buổi test đều quy về (hoặc suy luận
-hợp lý về) 2 root cause đã biết ở trên. Đây là tín hiệu tốt cho độ bao phủ
-của checklist GUI ở Task 1 (đã bắt đúng lỗi lớn nhất từ trước khi có dữ liệu
-người dùng thật).
+7 buổi test không làm lộ ra defect nào nằm ngoài các bug đã file ở Task 1. Mọi
+điểm vướng quan sát được đều quy về 2 root cause đã biết ở trên. Điều này cho
+thấy checklist GUI ở Task 1 đã bắt đúng lỗi lớn nhất từ trước khi có dữ liệu
+người dùng thật.
 
-### Isolated một-lần (Minor, không đủ điều kiện file bug)
+### Quan sát đơn lẻ, chưa đủ căn cứ để file bug
 
-- Participant #5: "nút số lượng bị ẩn" — ô/nút chọn số lượng không đủ nổi
-  bật trên giao diện. 1/7, không lặp lại ở người khác, không đủ căn cứ để
-  kết luận là defect (có thể do thói quen cá nhân) — ghi nhận làm gợi ý cải
-  tiến UI, không file bug.
+Người #5 nói "nút số lượng bị ẩn", tức là ô chọn số lượng chưa đủ nổi bật trên
+giao diện. Chỉ xuất hiện 1 lần, không lặp lại ở người khác, và có thể do thói
+quen cá nhân, nên tôi ghi lại như một gợi ý cải tiến chứ chưa file bug.
 
-## Severity-ranked findings
+## Xếp hạng theo mức độ nghiêm trọng
 
-| Severity | Finding | Evidence (session refs) |
+| Mức độ | Phát hiện | Bằng chứng |
 |---|---|---|
-| **Blocker** | Thêm vào giỏ hàng thất bại hoàn toàn sau 3 lần thử lặp lại đầy đủ chu trình — task không hoàn thành | `session-07.md` (participant #7) |
-| **Major** | Không có phản hồi trực quan (toast/badge) sau khi bấm "Thêm vào giỏ hàng" khiến người dùng không chắc thao tác đã thành công, phải tự kiểm tra thủ công hoặc bấm lại nhiều lần (dẫn tới thêm dư sản phẩm ở #2) | `session-01.md`, `session-02.md`, `session-03.md`, `session-04.md` |
-| **Minor** | Mất dấu sản phẩm mục tiêu khi điều hướng qua lại giữa nhiều trang, thêm nhầm sản phẩm ngoài nhiệm vụ | `session-06.md` (participant #6) |
-| **Minor** | Ô/nút chọn số lượng không đủ nổi bật trên trang chi tiết sản phẩm | `session-05.md` (participant #5) |
+| **Blocker** | Thêm vào giỏ hàng thất bại hoàn toàn sau 3 lần lặp lại đầy đủ chu trình, task không hoàn thành | `session-07.md` (người #7) |
+| **Major** | Không có phản hồi trực quan sau khi bấm "Thêm vào giỏ hàng", khiến người dùng không chắc thao tác đã thành công, phải tự kiểm tra bằng tay hoặc bấm lại nhiều lần (dẫn tới thêm dư ở #2) | `session-01.md`, `session-02.md`, `session-03.md`, `session-04.md` |
+| **Minor** | Mất dấu sản phẩm mục tiêu khi đi qua lại giữa nhiều trang, thêm nhầm sản phẩm ngoài nhiệm vụ | `session-06.md` (người #6) |
+| **Minor** | Ô chọn số lượng trên trang chi tiết chưa đủ nổi bật | `session-05.md` (người #5) |
 
-## Ghi chú AI-assisted
+Thang phân loại theo mức độ nghiêm trọng dựa trên tiêu chí của Nielsen (1994):
+tần suất gặp phải, mức tác động lên người dùng, và khả năng người dùng tự vượt
+qua được.
 
-Việc tính điểm SUS (áp dụng công thức cố định cho 7×10 câu trả lời), gộp
-nhóm friction points từ 7 session thành systemic vs. isolated, và xếp hạng
-severity ở trên có sự hỗ trợ của AI (Claude) — xem
-`reports/ai-audit-report.md` Entry #24 và `reports/prompt-log.md` cho toàn
-bộ prompt/output, bao gồm cả các quyết định thủ công (không file bug trùng
-lặp, xếp participant #6 là giả thuyết chưa xác nhận thay vì kết luận chắc
-chắn).
+## Ghi chú về phần AI hỗ trợ
+
+AI (Claude) có tham gia vào việc áp công thức SUS cho 7×10 câu trả lời, gom
+nhóm các điểm vướng từ 7 buổi test thành nhóm hệ thống và nhóm đơn lẻ, và đề
+xuất thứ tự severity. Toàn bộ prompt và output nằm ở `reports/prompt-log.md`
+và `reports/ai-audit-report.md` Entry #24, gồm cả các quyết định tôi tự đưa ra
+ngược với đề xuất của AI: không file bug trùng lặp, và hạ kết luận về người #6
+xuống thành giả thuyết chưa xác nhận.
+
+## Tài liệu tham khảo
+
+- Brooke, J. (1996). *SUS: A "quick and dirty" usability scale.* Usability
+  Evaluation in Industry.
+- Bangor, A., Kortum, P. & Miller, J. (2008). *An Empirical Evaluation of the
+  System Usability Scale.* International Journal of Human-Computer Interaction.
+- Nielsen, J. (1994). *Severity Ratings for Usability Problems.*

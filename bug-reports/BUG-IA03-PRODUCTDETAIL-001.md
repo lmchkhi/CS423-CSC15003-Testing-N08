@@ -4,7 +4,7 @@
 GUI-023, GUI-024, GUI-025, GUI-026, GUI-031, GUI-032
 
 ## Requirement liên quan
-FR-23 (Navigation Requirements — "Breadcrumb bắt buộc có ở các trang con (Giỏ hàng, Thanh toán, Chi tiết sản phẩm)")
+FR-23 (Navigation Requirements: "Breadcrumb bắt buộc có ở các trang con (Giỏ hàng, Thanh toán, Chi tiết sản phẩm)")
 
 ## Severity / Priority
 Major / P2
@@ -24,7 +24,7 @@ Major / P2
 FR-23 quy định breadcrumb là **bắt buộc** ở trang Chi tiết sản phẩm (vd: Trang chủ > Danh mục > Tên sản phẩm), với các mắt trước là link, mắt cuối là text.
 
 ## Actual result
-Không có breadcrumb nào được render trên trang chi tiết sản phẩm. Toàn bộ nội dung trang chỉ gồm: ảnh, tên (h1), giá, mô tả, ô số lượng, nút thêm vào giỏ — không có đường dẫn breadcrumb, cũng không có nút/link "Quay lại danh sách sản phẩm" nào khác. Người dùng chỉ có thể quay lại bằng nút Back của trình duyệt hoặc click logo "EShop". Do breadcrumb không tồn tại, các hành vi phụ thuộc vào nó (click từng mắt, điều hướng bàn phím, tap target trên mobile) đều không thể kiểm thử được.
+Không có breadcrumb nào được render trên trang chi tiết sản phẩm. Toàn bộ nội dung trang chỉ gồm: ảnh, tên (h1), giá, mô tả, ô số lượng, nút thêm vào giỏ, không có đường dẫn breadcrumb, cũng không có nút/link "Quay lại danh sách sản phẩm" nào khác. Người dùng chỉ có thể quay lại bằng nút Back của trình duyệt hoặc click logo "EShop". Do breadcrumb không tồn tại, các hành vi phụ thuộc vào nó (click từng mắt, điều hướng bàn phím, tap target trên mobile) đều không thể kiểm thử được.
 
 ## Evidence
 ![BUG-IA03-PRODUCTDETAIL-001](screenshots/BUG-IA03-PRODUCTDETAIL-001.png)

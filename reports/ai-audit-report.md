@@ -13,16 +13,26 @@
 | **Ngày làm bài:**         | 26/07/2026          |
 | **Công cụ AI đã dùng:**   | Claude (Sonnet 5, Claude Code) |
 
-## 2. Hướng dẫn (đọc trước khi điền)
+## 2. Khai báo sử dụng AI (§9)
 
-- Thêm một entry cho mỗi artifact do AI tạo ra (checklist item, kịch bản test, bản phân tích gap, bug report, ...).
-- Dán nguyên văn prompt — KHÔNG diễn giải lại.
-- Dán nguyên văn output của AI (hoặc kèm ảnh chụp màn hình có chú thích).
-- Gắn nhãn verdict: `VALID` / `INVALID` / `INCOMPLETE`.
-- Phần lý giải (Reasoning) phải trích dẫn slide môn học, mục ISTQB, hoặc tài liệu kỹ thuật liên quan.
-- Trình bày bản sửa của sinh viên, có đánh dấu phần thay đổi.
+**I use AI tools for the following tasks:** thiết kế checklist GUI cho 4 màn
+hình (Task 1), phân tích khoảng trống của chính bản checklist đó, thực thi
+checklist trên SUT đang chạy, soạn và phân loại bug report, chuẩn bị công cụ
+đo cho nghiên cứu usability và tổng hợp kết quả 7 buổi test (Task 2), chạy và
+ghi nhận kết quả kiểm thử đa nền tảng (Task 3).
 
-## 3. Audit Table — mỗi artifact một entry
+Công cụ đã dùng: Claude (Sonnet 5) qua Claude Code và Claude for Chrome.
+
+Dữ liệu người tham gia ở Task 2 (họ tên, liên hệ, câu trả lời, điểm SUS) và
+các buổi test không do AI sinh ra: toàn bộ lấy từ 7 phản hồi Google Form thật
+và 7 bản ghi âm thật, AI chỉ dùng để tính điểm theo công thức và sắp xếp lại
+nội dung.
+
+Mỗi entry dưới đây ghi đủ 4 trường bắt buộc theo §9 (tên công cụ, thời điểm,
+prompt nguyên văn, output nguyên văn), kèm 3 trường đánh giá của sinh viên
+(Verdict, Reasoning, Student Fix).
+
+## 3. Bảng audit, mỗi artifact một entry
 
 ## Entry #1
 
