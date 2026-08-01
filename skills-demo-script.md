@@ -1,11 +1,11 @@
 # Kịch bản 2 video demo Agent Skills — HW03 (§7)
 
-**Sinh viên:** Hà Bảo Ngọc — 23127300 — nhóm N08
+**Sinh viên:** Hà Bảo Ngọc, 23127300, nhóm N08
 **Mục đích:** §7 yêu cầu nộp skill kèm video demo cho thấy **end-to-end** cách
 dùng skill trên một màn hình / một luồng hoàn chỉnh.
 **Định dạng:** 2 video, mỗi video 6–8 phút, quay màn hình + thuyết minh.
 **Cách dùng file này:** phần *[Thao tác]* là việc cần làm trên màn hình, phần
-**"..."** là lời nói. Không cần đọc y nguyên từng chữ — đọc thoải mái, tự
+**"..."** là lời nói. Không cần đọc y nguyên từng chữ, cứ nói thoải mái, tự
 nhiên, miễn giữ đúng ý và đúng thứ tự.
 
 ---
@@ -13,8 +13,8 @@ nhiên, miễn giữ đúng ý và đúng thứ tự.
 ## Phần mở đầu chung (dùng cho cả 2 video, ~60 giây)
 
 > "Chào thầy cô và các bạn. Em là Hà Bảo Ngọc, MSSV 23127300, nhóm N08.
-> Trong video này em sẽ demo bộ Agent Skills mà em đã xây dựng cho bài HW03 —
-> GUI và Usability Testing: trên hệ thống EShop."
+> Trong video này em sẽ demo bộ Agent Skills mà em đã xây dựng cho bài HW03,
+> tức GUI và Usability Testing, trên hệ thống EShop."
 
 *[Thao tác: mở terminal, gõ `ls .claude/skills/` để hiện ra 6 thư mục skill]*
 
@@ -140,7 +140,7 @@ gõ từ khóa, bấm Tìm, mở DevTools kiểm tra DOM]*
 
 *[Thao tác: dừng lại ở item GUI-098: tìm kiếm có khoảng trắng thừa]*
 
-> "Ví dụ item này: em gọi thẳng API để cô lập khỏi giao diện —
+> "Ví dụ item này: em gọi thẳng API để cô lập khỏi giao diện.
 > `search=iphone` trả về một kết quả, còn `search=%20iphone%20` trả về không
 > kết quả nào. Backend không trim khoảng trắng. Đây là bằng chứng quan sát
 > được, không phải phỏng đoán."
@@ -162,7 +162,7 @@ gõ từ khóa, bấm Tìm, mở DevTools kiểm tra DOM]*
 
 *[Thao tác: mở GitHub Issues, lọc ra các issue của mình, mở một issue có ảnh]*
 
-> "Đây là 24 issue em đã tạo cho Task 1: cùng một cấu trúc, cùng bộ label
+> "Đây là 25 issue em đã tạo cho Task 1: cùng một cấu trúc, cùng bộ label
 > Severity, Priority, Status, Module, và issue nào cũng có ảnh chứng minh."
 
 ### 7. Kết video 1 (~30 giây)
@@ -319,8 +319,8 @@ cross-link Task 2]*
 
 - Nhớ để **email `23127300@hcmus.edu.vn` hiện trên màn hình** ở đầu mỗi video
   (mở sẵn một tab hoặc để trên taskbar) cho khớp với watermark trên screenshot.
-- Đoạn AI chạy lâu thì **tua nhanh 4×** và giữ lời thuyết minh chạy đè lên —
+- Đoạn AI chạy lâu thì **tua nhanh 4×** và giữ lời thuyết minh chạy đè lên,
   đừng để khoảng lặng chờ.
 - Sau khi upload, dán link YouTube vào `README.md` mục **2.6 Demo Videos**
-  (hiện đang là TODO) rồi commit — §7 và §14 đều yêu cầu link này.
+  (hiện đang là TODO) rồi commit. §7 và §14 đều yêu cầu link này.
 - Để chế độ **Unlisted** nếu không muốn công khai; §7 chỉ yêu cầu link xem được.
