@@ -160,7 +160,7 @@ và Task 2: frontend `https://frontend-web-eight-mu.vercel.app/` (Vercel),
 backend `https://eshop-backend-demo2.onrender.com` (Render). Lý do chọn bản
 deploy thật thay vì localhost được giải thích trong `cross-platform/report.md`.
 
-3 platform, mỗi screenshot có overlay `23127300@hcmus.edu.vn` và họ tên theo §6
+3 platform, mỗi screenshot có overlay `23127300@student.hcmus.edu.vn` và họ tên theo §6
 và §11:
 
 1. **Chrome (desktop, macOS)**

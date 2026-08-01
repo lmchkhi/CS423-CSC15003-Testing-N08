@@ -317,7 +317,7 @@ cross-link Task 2]*
 
 ## Ghi chú khi quay
 
-- Nhớ để **email `23127300@hcmus.edu.vn` hiện trên màn hình** ở đầu mỗi video
+- Nhớ để **email `23127300@student.hcmus.edu.vn` hiện trên màn hình** ở đầu mỗi video
   (mở sẵn một tab hoặc để trên taskbar) cho khớp với watermark trên screenshot.
 - Đoạn AI chạy lâu thì **tua nhanh 4×** và giữ lời thuyết minh chạy đè lên,
   đừng để khoảng lặng chờ.

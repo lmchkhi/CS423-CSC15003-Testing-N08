@@ -147,13 +147,13 @@ fallback rewrite. GitHub issue
 
 ## Danh sách ảnh bằng chứng
 
-Mỗi ảnh đều có watermark `23127300@hcmus.edu.vn`, họ tên `Hà Bảo Ngọc`, và tên
+Mỗi ảnh đều có watermark `23127300@student.hcmus.edu.vn`, họ tên `Hà Bảo Ngọc`, và tên
 trình duyệt/hệ điều hành/thiết bị theo §6 và §11.
 
 | Nền tảng | File |
 |---|---|
 | Chrome / macOS | `desktop-chrome-home-grid.png`, `desktop-chrome-search-results.png`, `desktop-chrome-cart-added.png`, `desktop-chrome-deeplink-404.png` |
-| Firefox / Win 11 | `desktop-firefox-home-grid.png`, `desktop-firefox-search-results.png`, `desktop-firefox-product-detail-spinner.png`, `desktop-firefox-cart-empty-one-click.png`, `desktop-firefox-back-loses-search.png`, `desktop-firefox-deeplink-404.png`, `desktop-firefox-cart-added.png`, `desktop-firefox-diacritics-tooling-limit.png` |
+| Firefox / Win 11 | `desktop-firefox-home-grid.png`, `desktop-firefox-product-detail-spinner.png`, `desktop-firefox-cart-empty-one-click.png`, `desktop-firefox-back-loses-search.png`, `desktop-firefox-deeplink-404.png`, `desktop-firefox-diacritics-tooling-limit.png` |
 | Chrome / Android 14 | `android-chrome-deeplink-404.png`, `android-chrome-product-detail.png`, `android-chrome-cart-added.png` |
 
 Ảnh gốc chưa đóng watermark của lượt chạy này nằm trong `raw-firefox/` và

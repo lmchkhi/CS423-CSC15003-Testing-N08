@@ -7,7 +7,7 @@
   because we point at the same SUT and coordinate so no two members pick the
   same primary GUI screen or the same usability flow (§5's anti-duplication
   rule) — it is not a group project split.
-- **Student**: StudentID `23127300`. Use `23127300@hcmus.edu.vn` for any
+- **Student**: StudentID `23127300`. Use `23127300@student.hcmus.edu.vn` for any
   required screenshot username overlay.
 - **My HW03 scope** (my own choice, coordinated with N08 only to avoid
   duplicating a teammate's primary screen/flow per §5):

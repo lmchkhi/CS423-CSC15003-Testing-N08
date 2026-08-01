@@ -2,12 +2,12 @@
 """Overlay a username watermark onto a cross-platform screenshot.
 
 HW03 requires every cross-platform screenshot to overlay the username in the
-form StudentID@hcmus.edu.vn (spec §6, Task 3). This stamps it directly onto
+form <StudentID>@student.hcmus.edu.vn (spec §6, Task 3). This stamps it directly onto
 the image so it can't be cropped out accidentally, rather than relying on the
 student to remember to type it into a browser dev-tools overlay each time.
 
 Usage:
-    python3 stamp_screenshot.py <input.png> <output.png> "23127300@hcmus.edu.vn" \
+    python3 stamp_screenshot.py <input.png> <output.png> "23127300@student.hcmus.edu.vn" \
         [--corner br|bl|tr|tl] [--label "Chrome / Windows 11"]
 """
 import argparse
@@ -81,14 +81,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input")
     parser.add_argument("output")
-    parser.add_argument("username", help="e.g. 23127300@hcmus.edu.vn")
+    parser.add_argument("username", help="e.g. 23127300@student.hcmus.edu.vn")
     parser.add_argument("--corner", choices=CORNERS.keys(), default="br")
     parser.add_argument("--label", action="append", default=None,
                         help="extra line under the username; repeat for several lines "
                              "(e.g. --label 'Ha Bao Ngoc' --label 'Chrome 150 / macOS 26.5.2')")
     args = parser.parse_args()
 
-    if "@hcmus.edu.vn" not in args.username:
+    if "hcmus.edu.vn" not in args.username:
         print("warning: username doesn't look like <StudentID>@hcmus.edu.vn — check §6 format", file=sys.stderr)
 
     stamp(args.input, args.output, args.username, args.corner, args.label)
