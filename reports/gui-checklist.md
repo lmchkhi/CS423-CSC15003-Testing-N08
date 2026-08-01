@@ -4,7 +4,7 @@ Category hợp lệ: `Visual`, `Functional`, `Validation`, `Usability`, `Respons
 
 Phạm vi: Admin Login, Admin Dashboard, Category Management, Product Management (bao gồm section CSV import), User Management.
 
-Ghi chú: Checklist ban đầu được tạo ở pha thiết kế; cột `Result`, `Notes` và `Screenshot` đã được cập nhật sau khi test trên Web Admin bằng Chromium headless tại `http://localhost:5174/` với backend `http://localhost:3000`. Mobile chưa test. Các mục chưa đủ điều kiện kiểm tra được giữ `Not Run` hoặc `Blocked` với lý do trong Notes.
+Ghi chú: Checklist ban đầu được tạo ở pha thiết kế; cột `Result`, `Notes` và `Screenshot` đã được cập nhật sau khi test trên Web Admin bằng Chrome tại `http://localhost:5174/` với backend `http://localhost:3000`. Mobile chưa test. Các mục chưa đủ điều kiện kiểm tra được giữ `Not Run` hoặc `Blocked` với lý do trong Notes.
 
 | ID | IA | Screen | Category | Expected result | origin | Result | Notes | Screenshot | Bug ID |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

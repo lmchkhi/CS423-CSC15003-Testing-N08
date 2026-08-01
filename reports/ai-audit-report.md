@@ -846,3 +846,52 @@ AI đã cập nhật toàn bộ file bug report cục bộ trong `bug-reports/*.
 - Kiểm tra bằng `rg` xác nhận không còn dòng screenshot dạng code path cũ `- Screenshot: `...`` trong `bug-reports/`.
 - Kiểm tra bằng `rg` xác nhận các dòng screenshot mới đều dùng dạng `![Screenshot](../reports/screenshots/gui-checklist/...)`.
 ```
+
+## Entry #20
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + skill-creator    |
+| **Timestamp**     | 02/08/2026 03:29 GMT+7   |
+| **Artifact type** | Agent skill tạo mới + AI audit report |
+
+**Full prompt:**
+
+```text
+[$skill-creator](/Users/thanhngo/.codex/skills/.system/skill-creator/SKILL.md) 
+giúp tôi chuẩn bị skill để làm task 2
+```
+
+### (2) AI Output
+
+```text
+AI đã dùng `skill-creator` để chuẩn bị skill mới cho Task 2 HW03 Usability Evaluation.
+
+- Đọc phần Task 2, Agent Skill, AI Audit, Anti-AI-Cheat và submission requirements trong `HW03-GUI&Usability.md`.
+- Tạo skill mới tại `skills/run-usability-evaluation-eshop/`.
+- Cập nhật `skills/run-usability-evaluation-eshop/SKILL.md` với workflow:
+  - chọn flow và objective;
+  - chuẩn bị scenario, SUS/UEQ-S, probe questions và participant table;
+  - pilot/refine;
+  - thu thập 7 session thật;
+  - tính điểm survey;
+  - tổng hợp findings;
+  - tạo bug report/GitHub issue khi người dùng yêu cầu;
+  - cập nhật `reports/main-report.md` và `reports/ai-audit-report.md`.
+- Thêm reference chi tiết:
+  - `skills/run-usability-evaluation-eshop/references/hw03-task2-usability-workflow.md`
+- Thêm templates:
+  - `skills/run-usability-evaluation-eshop/assets/usability-plan-template.md`
+  - `skills/run-usability-evaluation-eshop/assets/participant-list-template.md`
+  - `skills/run-usability-evaluation-eshop/assets/session-notes-template.md`
+  - `skills/run-usability-evaluation-eshop/assets/usability-report-template.md`
+- Thêm script scoring:
+  - `skills/run-usability-evaluation-eshop/scripts/score_usability.py`
+- Cập nhật `skills/run-usability-evaluation-eshop/agents/openai.yaml`.
+- Test script scoring với sample CSV cho SUS và UEQ-S, kết quả chạy thành công.
+- Kiểm tra cú pháp Python bằng `py_compile` với cache path trong `/tmp`, kết quả thành công.
+- Kiểm tra YAML frontmatter của `SKILL.md` và metadata `agents/openai.yaml` bằng Ruby, kết quả thành công.
+- Chạy quick validator chính thức của `skill-creator` nhưng môi trường Python thiếu module `yaml`/PyYAML nên validator không chạy được; không phát hiện lỗi skill qua các kiểm tra thay thế.
+```

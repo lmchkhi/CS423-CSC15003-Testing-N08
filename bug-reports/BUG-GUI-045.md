@@ -17,7 +17,7 @@ SRS FR-16 + GUI_Testing validation
 Major / P1
 
 ## Environment
-Chromium headless, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI.
+Chrome, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI.
 
 ## Steps to reproduce
 1. Đăng nhập Web Admin bằng tài khoản admin hợp lệ.
@@ -33,5 +33,5 @@ Khi CSV có dòng thiếu `name` hoặc `price` không dương, giao diện hi�
 CSV có `name` rỗng và `price` bằng 0 vẫn được preview thành 1 dòng. UI không hiển thị lỗi theo dòng hoặc lý do lỗi rõ ràng trước khi import.
 
 ## Evidence
-- Screenshot: ![Screenshot](../reports/screenshots/gui-checklist/GUI-052.png)
+- Screenshot: ![Screenshot](../reports/screenshots/gui-checklist/GUI-051.png)
 - Checklist row: `GUI-045`

@@ -17,7 +17,7 @@ GUI_Testing responsive + SRS GUI-01
 Major / P2
 
 ## Environment
-Chrome/Chromium với viewport hẹp, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI. Chưa test trực tiếp trên mobile app/page.
+Chrome với viewport hẹp, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI. Chưa test trực tiếp trên mobile app/page.
 
 ## Steps to reproduce
 1. Đăng nhập Web Admin bằng tài khoản admin hợp lệ.

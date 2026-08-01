@@ -10,7 +10,7 @@ Checklist GUI được thiết kế và thực thi cho các màn hình Admin c�
 - Product Management, bao gồm section CSV import
 - User Management
 
-Việc thực thi checklist được ghi nhận trên Web Admin tại `http://localhost:5174/` với backend `http://localhost:3000`. Checklist ghi chú đã test bằng Chromium headless; một số mục compatibility cũng ghi nhận đã chạy trên Chrome và Edge. Mobile chưa được test trực tiếp; các mục responsive được kiểm tra bằng viewport hẹp trên browser.
+Việc thực thi checklist được ghi nhận trên Web Admin tại `http://localhost:5174/` với backend `http://localhost:3000`. Checklist ghi chú đã test bằng Chrome; một số mục compatibility cũng ghi nhận đã chạy trên Chrome và Edge. Mobile chưa được test trực tiếp; các mục responsive được kiểm tra bằng viewport hẹp trên browser.
 
 ## Nguyên tắc black-box
 
@@ -176,3 +176,5 @@ Tính trên toàn checklist, Product Management là khu vực có nhiều failed
 Checklist ban đầu được tạo bởi AI theo requirement và quy trình GUI testing. Sau đó người học bổ sung thêm bảng `Human Review Additions` để chỉ ra các item AI bỏ sót và lý do, gồm business state đăng nhập sai nhiều lần, HTML email input type, consistency màu nút, CSV RFC 4180 và alt text hình ảnh sản phẩm.
 
 Các bug report trong batch 1, batch 2, batch 3 và batch cuối được viết dựa trên kết quả đã test trong `reports/gui-checklist.md`, notes quan sát, screenshot evidence và template `.github/ISSUE_TEMPLATE/bug-report-template.md`. Hiện đã publish GitHub issue cho toàn bộ 37 bug report.
+
+## Video demo agent skill: [https://youtu.be/KGLVbTaVeB4](https://youtu.be/KGLVbTaVeB4)

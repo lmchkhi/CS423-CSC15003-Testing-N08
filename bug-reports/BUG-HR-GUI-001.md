@@ -17,7 +17,7 @@ SRS FR-02 + GUI_Testing state-based
 Major / P1
 
 ## Environment
-Chromium headless, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI và phần Human Review Additions.
+Chrome, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI và phần Human Review Additions.
 
 ## Steps to reproduce
 1. Mở trang Admin Login tại `http://localhost:5174/`.

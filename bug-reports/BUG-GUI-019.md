@@ -17,7 +17,7 @@ GUI_Testing state-based + Usability heuristic
 Major / P1
 
 ## Environment
-Chromium headless, Web Admin URL `http://localhost:5174/`, backend không khả dụng trong bước kiểm tra error state.
+Chrome, Web Admin URL `http://localhost:5174/`, backend không khả dụng trong bước kiểm tra error state.
 
 ## Steps to reproduce
 1. Đăng nhập Web Admin bằng tài khoản admin hợp lệ.

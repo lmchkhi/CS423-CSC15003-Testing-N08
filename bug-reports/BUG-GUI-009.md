@@ -17,7 +17,7 @@ GUI_Testing state-based + SRS GUI-04
 Minor / P2
 
 ## Environment
-Chromium headless, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI.
+Chrome, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI.
 
 ## Steps to reproduce
 1. Mở trang Admin Login tại `http://localhost:5174/`.

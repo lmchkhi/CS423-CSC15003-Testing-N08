@@ -17,7 +17,7 @@ SRS FR-15 + GUI-02
 Minor / P2
 
 ## Environment
-Chromium headless, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI.
+Chrome, Web Admin URL `http://localhost:5174/`, Backend URL `http://localhost:3000`, thực thi theo checklist GUI.
 
 ## Steps to reproduce
 1. Đăng nhập Web Admin bằng tài khoản admin hợp lệ.
