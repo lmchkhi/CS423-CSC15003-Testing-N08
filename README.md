@@ -3,9 +3,9 @@
 > **Sinh viên:** Hà Bảo Ngọc — 23127300
 > **Nhóm:** N08
 > **Môn:** CS423 / CSC15003 — Kiểm thử Phần mềm
-> **Hình thức:** Bài tập cá nhân (individual) — repo dùng chung với nhóm N08
-> chỉ để trỏ về cùng SUT và tránh trùng màn hình/luồng chính với đồng đội
-> (§5), không phải bài nộp nhóm.
+> **Hình thức:** Bài tập cá nhân. Repo dùng chung với nhóm N08 chỉ để trỏ về
+> cùng một SUT và tránh trùng màn hình, luồng chính với đồng đội theo §5,
+> không phải bài nộp nhóm.
 
 ---
 
@@ -23,100 +23,96 @@
 
 ## 2. Test Summary Report
 
-### 2.1. Scope
+### 2.1. Phạm vi
 
-- **GUI checklist screens (Task 1)**: Home page (incl. product grid),
-  Search results, Empty search state, Product detail page. 4 effective
-  screens — Product grid was folded into Home page rather than checklisted
-  separately, since both are the same rendered page/state and the Home Page
-  IA01/IA04 batches already cover card layout, image ratio, price
-  formatting, and grid responsiveness; re-testing the same cards under a
-  second label would be
-  duplication, not added coverage.
-- **Usability flow (Task 2)**: Browse products → search by keyword → open
-  product detail → choose quantity → add product to cart.
-- **SUT**: EShop — `github.com/ttbhanh/eshop-sut`, build/commit tested
-  `85af3ba`, URL `http://localhost:5173/`.
+- **Màn hình cho GUI checklist (Task 1)**: Trang chủ (gồm lưới sản phẩm), Kết
+  quả tìm kiếm, Trạng thái tìm kiếm rỗng, Chi tiết sản phẩm. Tính là 4 màn
+  hình hiệu dụng: lưới sản phẩm được gộp vào trang chủ vì cả hai là cùng một
+  trang render, và các batch IA01/IA04 của trang chủ đã bao phủ bố cục thẻ, tỷ
+  lệ ảnh, định dạng giá và tính responsive của lưới. Tách riêng ra thành một
+  màn hình thứ năm sẽ là kiểm thử lặp lại chứ không thêm độ bao phủ.
+- **Luồng cho usability (Task 2)**: Duyệt sản phẩm → tìm theo từ khóa → mở chi
+  tiết → chọn số lượng → thêm vào giỏ hàng.
+- **SUT**: EShop, `github.com/ttbhanh/eshop-sut`, build đã kiểm thử `85af3ba`,
+  chạy tại `http://localhost:5173/`.
 
-### 2.2. GUI Checklist Summary (Task 1)
+### 2.2. GUI Checklist (Task 1)
 
-| IA aspect | Designed | Executed | Passed | Failed | N/A |
+| Khía cạnh IA | Thiết kế | Thực thi | Passed | Failed | N/A |
 |---|---|---|---|---|---|
-| IA01 — General UI | 34 | 34 | 24 | 10 | 0 |
-| IA02 — Forms | 27 | 27 | 12 | 14 | 1 |
-| IA03 — Navigation | 24 | 24 | 7 | 15 | 2 |
-| IA04 — Feedback/state | 25 | 25 | 4 | 20 | 1 |
-| **Total** | **110** | **110** | **47** | **59** | **4** |
+| IA01 — Giao diện chung | 34 | 34 | 24 | 10 | 0 |
+| IA02 — Form | 27 | 27 | 12 | 14 | 1 |
+| IA03 — Điều hướng | 24 | 24 | 7 | 15 | 2 |
+| IA04 — Phản hồi và trạng thái | 25 | 25 | 4 | 20 | 1 |
+| **Tổng** | **110** | **110** | **47** | **59** | **4** |
 
-> Covers all 4 declared screens, fully designed and executed on the real
-> SUT: Product Detail (GUI-001–046), Home Page (GUI-047–086), Search Results
-> (GUI-087–099), Empty Search State (GUI-100–110). Search Results/Empty
-> Search State executed via Claude for Chrome on 31/07/2026 — 24/24 item,
-> 8 Passed / 15 Failed / 1 N/A. Xem `checklist/gui-checklist.md` để biết chi
-> tiết từng item và `bug-reports/` cho 24 bug đã file (BUG-IA01-PRODUCTDETAIL-001..003,
-> BUG-IA02-PRODUCTDETAIL-001, BUG-IA03-PRODUCTDETAIL-001..002,
-> BUG-IA04-PRODUCTDETAIL-001, BUG-IA01-HOMEPAGE-001..003,
-> BUG-IA02-HOMEPAGE-001..003, BUG-IA03-HOMEPAGE-001..003,
-> BUG-IA04-HOMEPAGE-001..003, BUG-IA02-SEARCHRESULTS-001..002,
-> BUG-IA04-SEARCHRESULTS-001..002, BUG-IA04-EMPTYSEARCH-001). Most severe:
-> `BUG-IA02-HOMEPAGE-003` (SQL Injection in the product search API) and
-> `BUG-IA04-EMPTYSEARCH-001` (Empty Search State violates FR-05/FR-24 —
-> renders completely blank, no icon/message/exit).
+Cả 4 màn hình đều đã thiết kế và thực thi đầy đủ trên SUT thật: Chi tiết sản
+phẩm (GUI-001–046), Trang chủ (GUI-047–086), Kết quả tìm kiếm (GUI-087–099),
+Trạng thái tìm kiếm rỗng (GUI-100–110). Chi tiết từng item ở
+`checklist/gui-checklist.md`, bản Excel ở `checklist/gui-checklist.xlsx`.
 
-> Full table: `checklist/gui-checklist.md` / `checklist/gui-checklist.xlsx`.
+Trong 110 item có 12 item do tôi tự thêm sau khi phản biện kết quả AI, mỗi item
+kèm lý do AI bỏ sót, quy về 3 nhóm nguyên nhân
+(`ai-gap-analysis/gui-checklist-gaps.md`).
 
-### 2.3. Usability Evaluation Summary (Task 2)
+Hai bug nặng nhất: `BUG-IA02-HOMEPAGE-003` (SQL Injection trong API tìm kiếm
+sản phẩm) và `BUG-IA04-EMPTYSEARCH-001` (trạng thái 0 kết quả hiển thị hoàn
+toàn trống, vi phạm FR-05 và FR-24).
 
-| Metric | Value |
+### 2.3. Usability Evaluation (Task 2)
+
+| Chỉ số | Giá trị |
 |---|---|
-| Participants | 7 (real, ngoài lớp học phần — `usability/participants.md`) |
-| Mean SUS score | **53.2 / 100** (min 15, max 87.5, SD ≈ 27.8) |
-| Task success | 4 Yes (hesitant) / 2 Partial / 1 No (thất bại hoàn toàn — participant #7) |
+| Số người tham gia | 7 người thật, ngoài lớp học phần (`usability/participants.md`) |
+| SUS trung bình | **53.2 / 100** (thấp nhất 15, cao nhất 87.5, độ lệch chuẩn ≈ 27.8) |
+| Kết quả task | 4 hoàn thành (có do dự) / 2 một phần / 1 thất bại hoàn toàn (người #7) |
 | Findings (Blocker / Major / Minor) | 1 / 1 / 2 |
-| Bugs filed | 0 mới — 2 bug đã có từ Task 1 được cross-link làm bằng chứng bổ sung (`BUG-IA04-PRODUCTDETAIL-001`, `BUG-IA03-HOMEPAGE-002`) |
+| Bug mới | 0. Cross-link 2 bug đã có từ Task 1 làm bằng chứng bổ sung (`BUG-IA04-PRODUCTDETAIL-001`, `BUG-IA03-HOMEPAGE-002`) |
 
-> Phát hiện quan trọng nhất: SUS không tương quan với task success —
-> participant #7 có SUS cao thứ 3 (82.5) nhưng task thất bại hoàn toàn sau
-> 3 lần thử. Full detail: `usability/plan.md`, `usability/sessions/`,
-> `usability/analysis.md`.
+Phát hiện đáng chú ý nhất: điểm SUS không đi cùng kết quả task. Người #7 có SUS
+82.5, cao thứ nhì trong 7 người, nhưng lại là buổi thất bại hoàn toàn sau 3 lần
+thử. Chi tiết ở `usability/plan.md`, `usability/sessions/`,
+`usability/analysis.md`.
 
-### 2.4. Cross-Platform Summary (Task 3)
+### 2.4. Cross-Platform (Task 3)
 
 Chạy trên bản deploy thật (`frontend-web-eight-mu.vercel.app` +
-`eshop-backend-demo2.onrender.com`), tái sử dụng flow Task 1/2.
+`eshop-backend-demo2.onrender.com`), tái sử dụng một tập con các item của Task 1.
 
-| Platform | Status |
+| Platform | Kết quả |
 |---|---|
-| Chrome (desktop, local) | Fail — 2 bug (1 đã có từ Task 1, 1 mới) |
-| Firefox 153 / Windows 11 (BrowserStack Live) | Fail — cùng 2 bug |
-| Chrome / Android 14 (Pixel 8, BrowserStack real device) | Fail — 1 bug (đã có từ Task 1) |
+| Chrome (desktop, macOS) | Fail, 2 vấn đề |
+| Firefox 153 / Windows 11 (BrowserStack Live) | Fail, cùng 2 vấn đề |
+| Chrome / Android 14 (Pixel 8, BrowserStack real device) | Fail, 1 vấn đề |
 
-> Không phát hiện lỗi hiển thị/CSS riêng theo platform. Phát hiện quan
-> trọng nhất: `BUG-XPLAT-DEEPLINK-001` — deep link/reload vào trang chi
-> tiết sản phẩm bị 404 trên bản deploy Vercel thật (thiếu SPA fallback
-> rewrite), chỉ phát hiện được nhờ test trên bản deploy thật thay vì dev
-> server. Full detail: `cross-platform/report.md`.
+Không phát hiện lỗi hiển thị hay CSS riêng theo từng platform. Phát hiện riêng
+của Task 3: `BUG-XPLAT-DEEPLINK-001`, deep link hoặc reload vào trang chi tiết
+sản phẩm trả về 404 trên bản deploy Vercel do thiếu SPA fallback rewrite. Lỗi
+này chỉ thấy được khi test trên bản deploy thật, không xuất hiện trên dev
+server dùng ở Task 1 và Task 2. Chi tiết ở `cross-platform/report.md`.
 
-### 2.5. Bug Summary
+### 2.5. Tổng hợp bug
 
-| Bug ID | Source (Task) | Severity | Status | GitHub Issue |
+| Bug ID | Nguồn | Mức độ | Trạng thái | GitHub Issue |
 |---|---|---|---|---|
 | BUG-IA02-HOMEPAGE-003 | Task 1 | Critical | Open | [#106](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/106) |
 | BUG-IA02-HOMEPAGE-002 | Task 1 | Critical | Open | [#105](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/105) |
 | BUG-IA02-PRODUCTDETAIL-001 | Task 1 | Critical | Open | [#97](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/97) |
 | BUG-IA04-HOMEPAGE-003 | Task 1 | Critical | Open | [#112](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/112) |
-| BUG-IA04-PRODUCTDETAIL-001 | Task 1 + xác nhận qua Task 2 (5/7 participant) | Critical | Open | [#100](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/100) |
+| BUG-IA04-PRODUCTDETAIL-001 | Task 1, xác nhận thêm qua Task 2 (5/7 người) | Critical | Open | [#100](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/100) |
 | BUG-IA01-HOMEPAGE-001 | Task 1 | Major | Open | [#101](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/101) |
 | BUG-IA01-PRODUCTDETAIL-002 | Task 1 | Major | Open | [#95](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/95) |
-| BUG-IA03-HOMEPAGE-002 | Task 1 + liên hệ giả thuyết Task 2 (1/7) | Major | Open | [#108](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/108) |
+| BUG-IA03-HOMEPAGE-002 | Task 1, giả thuyết liên hệ Task 2 (1/7) | Major | Open | [#108](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/108) |
 | BUG-IA03-PRODUCTDETAIL-001 | Task 1 | Major | Open | [#98](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/98) |
 | BUG-IA04-EMPTYSEARCH-001 | Task 1 | Major | Open | [#194](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/194) |
 | BUG-IA04-SEARCHRESULTS-002 | Task 1 | Major | Open | [#193](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/193) |
+| BUG-XPLAT-DEEPLINK-001 | Task 3 | Major | Open | [#197](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/197) |
 | BUG-IA01-HOMEPAGE-002 | Task 1 | Minor | Open | [#102](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/102) |
 | BUG-IA01-HOMEPAGE-003 | Task 1 | Minor | Open | [#103](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/103) |
 | BUG-IA01-PRODUCTDETAIL-001 | Task 1 | Minor | Open | [#94](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/94) |
 | BUG-IA01-PRODUCTDETAIL-003 | Task 1 | Minor | Open | [#96](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/96) |
 | BUG-IA02-HOMEPAGE-001 | Task 1 | Minor | Open | [#104](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/104) |
+| BUG-IA02-HOMEPAGE-004 | Task 1 | Minor | Open | [#196](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/196) |
 | BUG-IA02-SEARCHRESULTS-001 | Task 1 | Minor | Open | [#190](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/190) |
 | BUG-IA02-SEARCHRESULTS-002 | Task 1 | Minor | Open | [#191](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/191) |
 | BUG-IA03-HOMEPAGE-001 | Task 1 | Minor | Open | [#107](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/107) |
@@ -125,23 +121,24 @@ Chạy trên bản deploy thật (`frontend-web-eight-mu.vercel.app` +
 | BUG-IA04-HOMEPAGE-001 | Task 1 | Minor | Open | [#110](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/110) |
 | BUG-IA04-HOMEPAGE-002 | Task 1 | Minor | Open | [#111](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/111) |
 | BUG-IA04-SEARCHRESULTS-001 | Task 1 | Minor | Open | [#192](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/192) |
-| BUG-XPLAT-DEEPLINK-001 | Task 3 | Major | Open (chưa tạo issue) | TODO |
 
-> **Tổng số bugs: 25** (5 Critical, 7 Major, 13 Minor) — 24 từ Task 1 + 1 từ
-> Task 3; Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm
-> bằng chứng bổ sung từ người dùng thật (xem cột Source).
+**Tổng: 26 bug** (5 Critical, 7 Major, 14 Minor). 25 bug từ Task 1 và 1 bug từ
+Task 3. Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm bằng
+chứng bổ sung từ người dùng thật.
 
 ### 2.6. Demo Videos
 
-| Skill / Flow | Video Link |
+| Skill | Link |
 |---|---|
-| `gui-checklist` demo | TODO — cần quay + upload YouTube (§7) |
-| `usability-evaluation` demo | TODO — cần quay + upload YouTube (§7) |
+| `gui-checklist` | _chờ cập nhật sau khi upload_ |
+| `usability-evaluation` | _chờ cập nhật sau khi upload_ |
+
+Kịch bản quay: `skills-demo-script.md`.
 
 ---
 
 ## 3. AI Critique & Audit
 
-- AI Critique (200–300 từ): `reports/ai-critique.md`
-- AI Audit Report (mandatory appendix, §9): `reports/ai-audit-report.md`
-- Raw prompt log (unfiltered, per TA instruction): `reports/prompt-log.md`
+- AI Critique (200–300 từ, §10): `reports/ai-critique.md`
+- AI Audit Report (phụ lục bắt buộc, §9): `reports/ai-audit-report.md`
+- Prompt log thô, không lọc: `reports/prompt-log.md`

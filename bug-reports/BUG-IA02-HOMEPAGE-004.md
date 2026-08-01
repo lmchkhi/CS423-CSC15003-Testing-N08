@@ -42,4 +42,4 @@ trang chi tiết mới chọn được số lượng.
 ![Thẻ sản phẩm trang chủ không có ô hay chỉ báo số lượng](../checklist/screenshots/GUI-086-home-card-no-quantity.png)
 
 ## GitHub Issue
-<chờ tạo>
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/196

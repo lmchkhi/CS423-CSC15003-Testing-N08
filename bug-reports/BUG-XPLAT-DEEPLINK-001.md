@@ -43,4 +43,4 @@ Truy cập trực tiếp bằng URL sản phẩm (deep link) hoặc tải lại 
 ![Desktop Firefox 404](screenshots/desktop-firefox-deeplink-404.png)
 
 ## GitHub Issue
-<TODO: tạo issue mới sau khi xác nhận với sinh viên, đính kèm 2 screenshot trên>
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/197
