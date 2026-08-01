@@ -77,19 +77,30 @@ thử. Chi tiết ở `usability/plan.md`, `usability/sessions/`,
 ### 2.4. Cross-Platform (Task 3)
 
 Chạy trên bản deploy thật (`frontend-web-eight-mu.vercel.app` +
-`eshop-backend-demo2.onrender.com`), tái sử dụng một tập con các item của Task 1.
+`eshop-backend-demo2.onrender.com`), dùng **16 item** của Task 1 thực sự phụ
+thuộc vào engine render, hệ điều hành hoặc loại thiết bị. Lý do chọn tập con và
+lập luận vì sao 94 item còn lại là platform-invariant:
+`cross-platform/subset-rationale.md`.
 
-| Platform | Kết quả |
-|---|---|
-| Chrome (desktop, macOS) | Fail, 2 vấn đề |
-| Firefox 153 / Windows 11 (BrowserStack Live) | Fail, cùng 2 vấn đề |
-| Chrome / Android 14 (Pixel 8, BrowserStack real device) | Fail, 1 vấn đề |
+| Platform | Số ô đã test | Kết quả |
+|---|---|---|
+| Chrome 150 / macOS 26.5.2 | 8 | 3 Fail (định dạng giá, tương phản, deep link 404) |
+| Firefox 153 / Windows 11 (BrowserStack Live) | 12 | 6 Fail (cùng các lỗi Task 1, tái hiện y hệt) |
+| Chrome / Android 14 (Pixel 8, BrowserStack real device) | 6 | 1 Fail (deep link 404) |
 
-Không phát hiện lỗi hiển thị hay CSS riêng theo từng platform. Phát hiện riêng
-của Task 3: `BUG-XPLAT-DEEPLINK-001`, deep link hoặc reload vào trang chi tiết
-sản phẩm trả về 404 trên bản deploy Vercel do thiếu SPA fallback rewrite. Lỗi
-này chỉ thấy được khi test trên bản deploy thật, không xuất hiện trên dev
-server dùng ở Task 1 và Task 2. Chi tiết ở `cross-platform/report.md`.
+Không phát hiện lỗi hiển thị hay CSS riêng theo từng platform; layout responsive
+nhất quán (3 cột desktop, 1 cột điện thoại). Khác biệt trình duyệt duy nhất là
+nút spinner mặc định của Firefox trên ô Số lượng, vô hại.
+
+Phát hiện riêng của Task 3: `BUG-XPLAT-DEEPLINK-001`, deep link hoặc reload vào
+trang chi tiết sản phẩm trả về 404 trên bản deploy Vercel do thiếu SPA fallback
+rewrite. **Xác nhận trên cả 3 platform**, nên đây là lỗi cấu hình hosting chứ
+không phải vấn đề trình duyệt. Lỗi này chỉ thấy được khi test trên bản deploy
+thật, không xuất hiện trên dev server dùng ở Task 1 và Task 2.
+
+3 ô không kiểm thử được do bàn phím điều khiển từ xa làm hỏng ký tự nhập vào,
+đã ghi rõ là không kiểm thử thay vì suy đoán. Chi tiết:
+`cross-platform/report.md`.
 
 ### 2.5. Tổng hợp bug
 

@@ -168,18 +168,37 @@ và §11:
 3. **Chrome / Android 14 (Google Pixel 8, thiết bị thật)**, qua BrowserStack
    Live real device, thay thế Safari theo §6
 
-Thay vì chạy lại toàn bộ 110 item trên cả 3 platform, tôi chọn một tập con các
-item thực sự phụ thuộc vào engine hoặc hệ điều hành, kèm lập luận vì sao các
-item còn lại là platform-invariant. Chi tiết tập con và bảng kết quả từng item
+Thay vì chạy lại toàn bộ 110 item trên cả 3 platform, tôi chọn **16 item** thực
+sự phụ thuộc vào engine render, hệ điều hành hoặc loại thiết bị, kèm lập luận
+vì sao 94 item còn lại là platform-invariant (hành vi backend, cấu trúc DOM,
+tính năng không tồn tại, logic nghiệp vụ). Chạy lại những item đó trên 3
+platform chỉ đo lại backend 3 lần chứ không đo được gì về platform. Danh sách
+tập con và lý do: `cross-platform/subset-rationale.md`; bảng kết quả từng item
 trên từng platform: `cross-platform/report.md`.
 
-**Kết quả**: không phát hiện lỗi hiển thị hay CSS riêng theo platform, layout
-responsive nhất quán trên cả 3. `BUG-IA04-PRODUCTDETAIL-001` (nút thêm giỏ hàng
-cần 2 lần bấm) tái hiện giống hệt trên cả 3 platform. Phát hiện riêng của Task
-3 là **BUG-XPLAT-DEEPLINK-001**: truy cập trực tiếp hoặc reload URL
-`/product/:id` trả về 404 của Vercel do thiếu cấu hình SPA fallback rewrite,
-xác nhận trên cả Chrome và Firefox desktop. Đây là loại lỗi chỉ Task 3 mới phát
-hiện được, không thể thấy nếu chỉ dừng ở dev server.
+**Kết quả**: 26 ô đã kiểm thử ở lượt này, phủ cả 4 khía cạnh IA trên mỗi
+platform. Không phát hiện lỗi hiển thị hay CSS riêng theo platform; layout
+responsive nhất quán (3 cột desktop, 1 cột điện thoại). Mọi bug hành vi từ Task
+1 đều tái hiện y hệt, gồm `BUG-IA04-PRODUCTDETAIL-001` (bấm đúng 1 lần trên
+Firefox thì giỏ hàng vẫn trống), `BUG-IA03-HOMEPAGE-002` (Back làm mất từ khóa)
+và `BUG-IA04-EMPTYSEARCH-001` (trạng thái 0 kết quả trống trơn).
+
+Phát hiện riêng của Task 3 là **BUG-XPLAT-DEEPLINK-001**: truy cập trực tiếp
+hoặc reload URL `/product/:id` trả về 404 của Vercel do thiếu cấu hình SPA
+fallback rewrite. Xác nhận trên **cả 3 platform**, tức 3 engine và 3 hệ điều
+hành khác nhau, nên đây chắc chắn là lỗi cấu hình hosting chứ không phải vấn đề
+tương thích trình duyệt. Đây là loại lỗi chỉ Task 3 mới phát hiện được, không
+thể thấy nếu chỉ dừng ở dev server localhost.
+
+Khác biệt trình duyệt thật sự duy nhất tìm được: Firefox vẽ nút tăng/giảm mặc
+định trên ô `type="number"` của trường Số lượng, Chrome thì không. Vô hại,
+không phải defect.
+
+**Giới hạn cần ghi nhận**: 3 ô trong bảng không kiểm thử được vì bàn phím điều
+khiển từ xa của BrowserStack làm hỏng ký tự nhập vào (`bàn phím` tới nơi thành
+`bn phm`; URL bị rớt ký tự và sai dấu). Việc gõ từ khóa có dấu, bàn phím số và
+kích thước vùng chạm trên Android vì vậy được ghi là không kiểm thử, không suy
+đoán kết quả. Chi tiết ở `cross-platform/report.md`.
 
 ---
 
