@@ -895,3 +895,69 @@ AI đã dùng `skill-creator` để chuẩn bị skill mới cho Task 2 HW03 Usa
 - Kiểm tra YAML frontmatter của `SKILL.md` và metadata `agents/openai.yaml` bằng Ruby, kết quả thành công.
 - Chạy quick validator chính thức của `skill-creator` nhưng môi trường Python thiếu module `yaml`/PyYAML nên validator không chạy được; không phát hiện lỗi skill qua các kiểm tra thay thế.
 ```
+
+## Entry #21
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + run-usability-evaluation-eshop |
+| **Timestamp**     | 02/08/2026 04:14 GMT+7   |
+| **Artifact type** | Usability evaluation plan + SUS instruments + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+ở task 2 flow tôi đảm nhận là: admin login -> view dashboard -> create category -> create/edit/delete product -> import products by csv -> inspect/delete user. bây giờ có thể làm các phần sau rồi đúng không, nếu được rồi thì làm giúp tôi:
+Define your objectives.
+Write the task scenario.
+Prepare the instruments(tôi chọn SUS).
+```
+
+### (2) AI Output
+
+```text
+AI đã dùng skill `run-usability-evaluation-eshop` để chuẩn bị Phase 1 cho Task 2 Usability Evaluation dựa trên flow admin người dùng đã chọn.
+
+- Đọc `skills/run-usability-evaluation-eshop/SKILL.md`.
+- Đọc `skills/run-usability-evaluation-eshop/references/hw03-task2-usability-workflow.md`.
+- Đọc phần Task 2 trong `HW03-GUI&Usability.md`.
+- Đọc `skills/write-ai-audit-report/SKILL.md` để ghi audit.
+- Đọc requirement công khai liên quan trong `SystemRequirementsSpecification.md` và `api_specification.md`, không đọc các thư mục source bị cấm.
+- Tạo các artifact trong `reports/usability/`:
+  - `usability-plan.md`: flow, objectives, target profile, environment, participant task scenario, moderator setup notes, success criteria, SUS instrument summary, probe questions và pilot plan.
+  - `sus-questionnaire.md`: 10 câu SUS, thang điểm 1-5 và công thức scoring.
+  - `participants.md`: bảng placeholder cho 7 participant thật, không có dữ liệu giả.
+  - `session-notes-template.md`: template ghi notes cho pilot và từng session thật.
+  - `sus-responses.csv`: CSV template nhập raw SUS responses.
+  - `admin-import-products-task.csv`: CSV mẫu phục vụ bước import products trong task scenario.
+- Cập nhật `reports/main-report.md` với section `Task 2 - Usability Evaluation Plan`, gồm flow, artifact list, objectives, scenario và instruments.
+- Kiểm tra bằng `rg` để xác nhận các nội dung chính về Objectives, Task Scenario, SUS, probe questions và participant placeholder đã có trong file.
+```
+
+## Entry #22
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 02/08/2026 04:29 GMT+7   |
+| **Artifact type** | SUS questionnaire + AI audit report |
+
+**Full prompt:**
+
+```text
+sửa các câu hỏi trong reports/usability/sus-questionnaire.md sang tiếng việt có dấu
+```
+
+### (2) AI Output
+
+```text
+AI đã cập nhật `reports/usability/sus-questionnaire.md`:
+
+- Việt hóa heading, hướng dẫn thang điểm, tên cột, 10 câu SUS và phần cách tính điểm.
+- Giữ nguyên ID `Q1` đến `Q10` và lệnh scoring để tương thích với `reports/usability/sus-responses.csv` và script `score_usability.py`.
+- Kiểm tra bằng `rg` xác nhận không còn các câu tiếng Anh cũ trong questionnaire.
+```

@@ -1,6 +1,12 @@
-# HW03 Task 1 - GUI Testing Main Report
+# HW03 – GUI & Usability
 
-## Phạm vi kiểm thử
+# Thông tin sinh viên
+- Họ tên: Ngô Hồng Thanh
+- MSSV: 23127475
+
+## Task 1 - GUI Testing Main Report
+
+### Phạm vi kiểm thử
 
 Checklist GUI được thiết kế và thực thi cho các màn hình Admin của EShop:
 
@@ -12,7 +18,7 @@ Checklist GUI được thiết kế và thực thi cho các màn hình Admin c�
 
 Việc thực thi checklist được ghi nhận trên Web Admin tại `http://localhost:5174/` với backend `http://localhost:3000`. Checklist ghi chú đã test bằng Chrome; một số mục compatibility cũng ghi nhận đã chạy trên Chrome và Edge. Mobile chưa được test trực tiếp; các mục responsive được kiểm tra bằng viewport hẹp trên browser.
 
-## Nguyên tắc black-box
+### Nguyên tắc black-box
 
 Quy trình kiểm thử dùng tài liệu yêu cầu, hành vi UI quan sát được, rendered DOM/accessibility tree, screenshot và thao tác thủ công. Không đọc các thư mục mã nguồn triển khai trong quá trình thiết kế/thực thi checklist và viết bug report:
 
@@ -21,7 +27,7 @@ Quy trình kiểm thử dùng tài liệu yêu cầu, hành vi UI quan sát đư
 - `frontend-web/`
 - `frontend-mobile/`
 
-## Kết quả checklist
+### Kết quả checklist
 
 Tổng số checklist item hiện tại: 65.
 
@@ -65,9 +71,7 @@ Phân bố theo màn hình:
 | User Management | 10 |
 | All Admin Screens | 1 |
 
-## Bug report status
-
-Do số lượng failed item lớn, bug report được tạo theo từng batch để người học review trước khi tiếp tục. Batch 1, batch 2, batch 3 và batch cuối đã tạo bug report cho toàn bộ 37 failed item theo thứ tự xuất hiện trong `reports/gui-checklist.md`. GitHub issue đã được tạo cho toàn bộ 37 bug report.
+### Bug report status
 
 | Bug ID | Test case | Module | Severity / Priority | Tóm tắt lỗi | Evidence |
 | --- | --- | --- | --- | --- | --- |
@@ -109,13 +113,7 @@ Do số lượng failed item lớn, bug report được tạo theo từng batch 
 | `BUG-HR-GUI-002` | HR-GUI-002 | Admin Login | Major / P1 | Trường Email không sử dụng HTML5 `type="email"`. | `reports/screenshots/gui-checklist/HR-GUI-002.png` |
 | `BUG-HR-GUI-003` | HR-GUI-003 | All Admin Screens | Minor / P2 | Màu nút hành động tích cực chưa nhất quán. | `reports/screenshots/gui-checklist/HR-GUI-003.png` |
 
-Số failed item đã có bug report: 37/37.
-
-Số failed item còn lại cần xử lý ở các batch sau: 0. Toàn bộ failed item hiện tại đã có bug report cục bộ.
-
-## GitHub issue publish status
-
-Đã tạo GitHub issue cho toàn bộ 37 bug report. Cột `Bug ID` trong checklist/main report vẫn giữ dạng ID cục bộ để dễ đối chiếu với checklist.
+### GitHub issue publish status
 
 | Bug ID | GitHub issue |
 | --- | --- |
@@ -157,7 +155,7 @@ Số failed item còn lại cần xử lý ở các batch sau: 0. Toàn bộ fai
 | `BUG-HR-GUI-002` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/187 |
 | `BUG-HR-GUI-003` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/188 |
 
-## Đánh giá rủi ro
+### Đánh giá rủi ro
 
 Các lỗi rủi ro cao nhất trong batch đầu tập trung ở validation và state handling:
 
@@ -171,10 +169,40 @@ Các lỗi rủi ro cao nhất trong batch đầu tập trung ở validation và
 
 Tính trên toàn checklist, Product Management là khu vực có nhiều failed item nhất và cần được ưu tiên trong các batch bug report tiếp theo.
 
-## Ghi chú AI và human review
+### Video demo agent skill: [https://youtu.be/KGLVbTaVeB4](https://youtu.be/KGLVbTaVeB4)
 
-Checklist ban đầu được tạo bởi AI theo requirement và quy trình GUI testing. Sau đó người học bổ sung thêm bảng `Human Review Additions` để chỉ ra các item AI bỏ sót và lý do, gồm business state đăng nhập sai nhiều lần, HTML email input type, consistency màu nút, CSV RFC 4180 và alt text hình ảnh sản phẩm.
+## Task 2 - Usability Evaluation Plan
 
-Các bug report trong batch 1, batch 2, batch 3 và batch cuối được viết dựa trên kết quả đã test trong `reports/gui-checklist.md`, notes quan sát, screenshot evidence và template `.github/ISSUE_TEMPLATE/bug-report-template.md`. Hiện đã publish GitHub issue cho toàn bộ 37 bug report.
+Flow phụ trách cho Task 2: Admin Login -> View Dashboard -> Create Category -> Create/Edit/Delete Product -> Import Products by CSV -> Inspect/Delete User.
 
-## Video demo agent skill: [https://youtu.be/KGLVbTaVeB4](https://youtu.be/KGLVbTaVeB4)
+Phase 1 đã chuẩn bị các artifact sau:
+
+- `reports/usability/usability-plan.md`: objectives, target user profile, task scenario, moderator setup, success criteria, probe questions và pilot plan.
+- `reports/usability/sus-questionnaire.md`: SUS instrument gồm 10 câu và quy tắc scoring.
+- `reports/usability/participants.md`: bảng 7 participant thật cần điền sau, không có dữ liệu giả.
+- `reports/usability/session-notes-template.md`: template ghi chú cho pilot và 7 session thật.
+- `reports/usability/sus-responses.csv`: template nhập raw SUS responses để tính điểm bằng script.
+- `reports/usability/admin-import-products-task.csv`: file CSV mẫu phục vụ bước import trong task scenario.
+
+### Objectives
+
+1. Đánh giá liệu người dùng có hiểu được luồng quản trị chính từ đăng nhập đến các màn hình Dashboard, Category, Product, CSV Import và User Management mà không cần hướng dẫn từng bước hay không.
+2. Xác định các điểm gây chậm, nhầm lẫn hoặc cần trợ giúp trong những thao tác admin quan trọng: tạo danh mục, tạo/sửa/xóa sản phẩm, import CSV và kiểm tra/xóa người dùng.
+3. Đo mức độ tự tin và cảm nhận kiểm soát của người dùng khi thực hiện các thao tác có rủi ro cao như xóa sản phẩm/người dùng hoặc import dữ liệu hàng loạt.
+4. Thu thập phản hồi về clarity, error recovery, speed và trust để phân biệt genuine bugs với vấn đề thiết kế/usability mang tính hệ thống.
+
+### Task Scenario
+
+```text
+Bạn đang đóng vai nhân viên quản trị của một cửa hàng EShop. Cửa hàng vừa có một nhóm sản phẩm mới cần được chuẩn bị trước khi mở bán. Hãy đăng nhập vào trang quản trị, kiểm tra nhanh tình trạng tổng quan, tạo một danh mục phù hợp cho nhóm sản phẩm mới, thêm một sản phẩm vào danh mục đó, chỉnh sửa lại thông tin sản phẩm nếu thấy cần, xóa sản phẩm thử nghiệm sau khi kiểm tra, import thêm danh sách sản phẩm từ file CSV được cung cấp, sau đó kiểm tra danh sách người dùng và xóa một tài khoản thử nghiệm nếu bạn cho rằng tài khoản đó không còn cần thiết.
+
+Trong khi thực hiện, hãy nói to suy nghĩ của bạn: điều gì dễ hiểu, điều gì làm bạn phân vân, chỗ nào bạn không chắc thao tác đã thành công hay chưa. Đây là buổi đánh giá sản phẩm, không phải đánh giá năng lực của bạn.
+```
+
+### Instruments
+
+Usability scale được chọn là SUS. Sau mỗi session, participant trả lời 10 câu SUS theo thang 1-5. Ngoài SUS, moderator dùng probe questions mở để hỏi về clarity, error recovery, speed, trust, navigation và risk perception. Raw SUS responses sẽ được nhập vào `reports/usability/sus-responses.csv` và tính điểm bằng:
+
+```bash
+python3 skills/run-usability-evaluation-eshop/scripts/score_usability.py sus reports/usability/sus-responses.csv
+```
