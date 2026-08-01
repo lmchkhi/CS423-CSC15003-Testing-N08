@@ -54,7 +54,7 @@ Nguồn: CSV response 27/07/2026 11:05:44, hàng "Lê Hữu Sang".
 | 10 | Cần học nhiều trước khi dùng | Hoàn toàn không đồng ý | 1 |
 
 **SUS = 2.5 × [(1−1)+(5−1)+(3−1)+(5−1)+(5−1) + (5−1)+(5−1)+(5−2)+(5−1)+(5−1)]
-= 2.5 × (14 + 19) = 82.5 / 100**: điểm cao thứ 3, **mâu thuẫn rõ rệt với
+= 2.5 × (14 + 19) = 82.5 / 100**: điểm cao thứ nhì, **mâu thuẫn rõ rệt với
 việc task thất bại hoàn toàn** (xem phân tích ở `usability/analysis.md`: SUS
 đo cảm nhận tổng thể về hệ thống: điều hướng/tìm kiếm/UI nhìn chung dễ
 dùng: chứ không phải "task này có thành công hay không"; đây là ví dụ rõ
