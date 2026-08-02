@@ -961,3 +961,309 @@ AI đã cập nhật `reports/usability/sus-questionnaire.md`:
 - Giữ nguyên ID `Q1` đến `Q10` và lệnh scoring để tương thích với `reports/usability/sus-responses.csv` và script `score_usability.py`.
 - Kiểm tra bằng `rg` xác nhận không còn các câu tiếng Anh cũ trong questionnaire.
 ```
+
+## Entry #23
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 02/08/2026 14:00 GMT+7   |
+| **Artifact type** | Excel SUS questionnaire + AI audit report |
+
+**Full prompt:**
+
+```text
+giúp tôi tạo 1 file excel cho các câu hỏi sus để tôi có thể upload lên drive và share cho mọi người điền. trong đó có nhiều sheet ứng với mỗi người. nhớ có phần câu hỏi mở chỗ mỗi sheet nữa (chung với sus)
+```
+
+### (2) AI Output
+
+```text
+AI đã tạo file Excel `reports/usability/sus-questionnaire-admin-flow.xlsx` để upload lên Drive/Google Sheets và share cho participants điền.
+
+- Workbook có 9 sheet:
+  - `Hướng dẫn`
+  - `Tổng hợp`
+  - `P01` đến `P07`
+- Mỗi sheet participant có:
+  - metadata participant/session;
+  - 10 câu SUS tiếng Việt;
+  - ô nhập điểm 1-5;
+  - công thức tính SUS score;
+  - phần câu hỏi mở sau session chung với SUS.
+- Sheet `Tổng hợp` tham chiếu SUS score từ từng participant và tính mean/min/max khi mở bằng Excel hoặc Google Sheets.
+- Kiểm tra `.xlsx` bằng Python `zipfile.testzip()`, kết quả OK.
+- Kiểm tra workbook có 9 worksheet, participant sheet có data validation, câu hỏi mở và công thức SUS.
+```
+
+## Entry #24
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + run-usability-evaluation-eshop |
+| **Timestamp**     | 03/08/2026 03:37 GMT+7   |
+| **Artifact type** | Usability session notes + SUS analysis + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tôi đã phỏng vấn xong 7 người và điền thông tin các câu hỏi sus, câu hỏi mở của 7 người vào file reports/usability/sus-questionnaire-admin-flow2.xlsx rồi. đọc toàn bộ file đó (của 7 Participants) để hiểu những vấn đề của flow usability testing này. sau đó mới đọc file transcript P01 trong reports/usability/transcript. các file transcript được tạo từ whisper nên nội dung sẽ không rõ ràng và chính xác được vì vậy cần đọc sus và các câu hỏi mở trước để nắm vấn đề chung rồi mới đoán và hiểu được các file transcript, các file transcript chủ yếu để điền thông tin phần Observation Notes trong reports/usability/session-notes-template.md, phần đó chỉ cần note những bước quan trọng, không ghi chi tiết như transcript. hoàn thiện session note cho Participant đầu tiên và những file liên quan giúp tôi. về phần Task completion thì tất cả đều Partial do chức năng cập nhật sản phẩm bug nên không hoàn thành được, còn những việc khác thì hoàn thành hết. Time on task dựa vào thời gian trong transcript, Hints/assist count là 0 vì tôi không nhắc họ phải làm như thế nào
+```
+
+### (2) AI Output
+
+```text
+AI đã xử lý Task 2 usability data cho P01 theo đúng thứ tự người dùng yêu cầu.
+
+- Đọc `skills/run-usability-evaluation-eshop/SKILL.md` và reference workflow Task 2.
+- Đọc toàn bộ workbook `reports/usability/sus-questionnaire-admin-flow2.xlsx` cho 7 sheet participant P01-P07 trước khi đọc transcript.
+- Tổng hợp vấn đề chung từ SUS/open answers:
+  - product edit không đáng tin/có bug;
+  - thiếu confirmation dialog khi xóa;
+  - thiếu feedback sau create/delete;
+  - validation/error recovery yếu;
+  - navigation qua sidebar nhìn chung dễ tìm;
+  - CSV import tương đối dễ hiểu khi thành công.
+- Sau đó mới đọc transcript `reports/usability/transcript/P01.txt`.
+- Cập nhật `reports/usability/sus-responses.csv` bằng 7 bộ raw SUS score từ workbook.
+- Chạy `python3 skills/run-usability-evaluation-eshop/scripts/score_usability.py sus reports/usability/sus-responses.csv`, kết quả mean SUS = 60.4, min = 42.5, max = 72.5.
+- Tạo `reports/usability/sus-summary.md` với điểm SUS và themes từ 7 participant.
+- Tạo `reports/usability/session-notes-P01.md`:
+  - Task completion = Partial;
+  - Time on task = 2 phút 59 giây dựa trên transcript 00:00-02:59;
+  - Hints/assist count = 0;
+  - observation notes chỉ giữ các mốc quan trọng;
+  - ghi rõ transcript P01 không capture rõ đoạn User Management nên đánh dấu evidence gap.
+- Cập nhật `reports/usability/participants.md` để đồng bộ giờ session P01 theo workbook.
+- Cập nhật `reports/main-report.md` với `Current Task 2 Data Status`.
+```
+
+## Entry #25
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 03:49 GMT+7   |
+| **Artifact type** | Usability session notes + AI audit report |
+
+**Full prompt:**
+
+```text
+ở reports/usability/session-notes-P01.md, phần SUS Raw Answers và Probe Answers tôi muốn trình bày rõ câu hỏi và câu trả lời của Participant
+```
+
+### (2) AI Output
+
+```text
+AI đã cập nhật `reports/usability/session-notes-P01.md`:
+
+- Đổi `SUS Raw Answers` từ bảng điểm ngắn sang bảng có `ID`, câu hỏi SUS, điểm và ghi chú/câu trả lời của participant.
+- Giữ SUS score của P01 là 65.
+- Đổi `Probe Answers` từ bullet tóm tắt sang bảng gồm chủ đề, câu hỏi mở đầy đủ và câu trả lời của participant.
+- Kiểm tra lại đoạn Markdown sau khi sửa để xác nhận bảng có header và nội dung đầy đủ.
+```
+
+## Entry #26
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 03:54 GMT+7   |
+| **Artifact type** | Usability session notes + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tiếp tục với P02 và P03
+```
+
+### (2) AI Output
+
+```text
+AI đã tiếp tục xử lý Task 2 usability data cho participant P02 và P03.
+
+- Đọc lại dữ liệu P02/P03 từ `reports/usability/sus-questionnaire-admin-flow2.xlsx`, gồm metadata, SUS scores, ghi chú tùy chọn và câu hỏi mở.
+- Đọc transcript:
+  - `reports/usability/transcript/P02.txt`
+  - `reports/usability/transcript/P03.txt`
+- Tạo `reports/usability/session-notes-P02.md`:
+  - Task completion = Partial;
+  - Time on task = 1 phút 57 giây;
+  - Hints/assist count = 0;
+  - SUS score = 65;
+  - observation notes tóm tắt các mốc chính, không chép chi tiết transcript.
+- Tạo `reports/usability/session-notes-P03.md`:
+  - Task completion = Partial;
+  - Time on task = 1 phút 38 giây;
+  - Hints/assist count = 0;
+  - SUS score = 52.5;
+  - observation notes tóm tắt các mốc chính, không chép chi tiết transcript.
+- Cập nhật `reports/usability/sus-summary.md` với `Session Notes Progress` cho P01-P03.
+- Cập nhật `reports/main-report.md` để ghi rõ session notes đã hoàn thiện cho P01, P02 và P03.
+- Kiểm tra bằng `rg` xác nhận P02/P03 có `Task completion: Partial`, `Time on task`, `SUS score` và `Probe Answers`.
+```
+
+## Entry #27
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 04:04 GMT+7   |
+| **Artifact type** | Usability session notes + summary reports + AI audit report |
+
+**Full prompt:**
+
+```text
+tiếp tục với các Participant còn lại
+```
+
+### (2) AI Output
+
+```text
+AI đã hoàn thiện session notes cho các participant còn lại của Task 2 usability testing.
+
+- Đọc transcript P06/P07 để bổ sung observation và thời gian thực hiện:
+  - `reports/usability/transcript/P06.txt`
+  - `reports/usability/transcript/P07.txt`
+- Sử dụng dữ liệu SUS/open answers đã đọc từ `reports/usability/sus-questionnaire-admin-flow2.xlsx` để diễn giải transcript Whisper không rõ.
+- Tạo mới:
+  - `reports/usability/session-notes-P04.md`
+  - `reports/usability/session-notes-P05.md`
+  - `reports/usability/session-notes-P06.md`
+  - `reports/usability/session-notes-P07.md`
+- Mỗi session note giữ `Task completion: Partial`, `Hints/assist count: 0`, có Time on task theo transcript, Observation Notes, Participant Quotes, SUS Raw Answers, Probe Answers và Potential Findings.
+- Cập nhật `reports/usability/sus-summary.md` để đánh dấu P01-P07 đều Completed.
+- Cập nhật `reports/main-report.md` để ghi nhận toàn bộ session notes P01-P07 đã hoàn thiện.
+```
+
+## Entry #28
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 04:30 GMT+7   |
+| **Artifact type** | Usability session notes + AI audit report |
+
+**Full prompt:**
+
+```text
+tôi vừa sửa lại reports/usability/transcript/P04.txt do lúc nảy dùng whisper có sai sót, giúp tôi sửa lại reports/usability/session-notes-P04.md và những nội dung liên quan
+```
+
+### (2) AI Output
+
+```text
+AI đã đọc lại `reports/usability/transcript/P04.txt` sau khi transcript được sửa và cập nhật các nội dung liên quan:
+
+- Cập nhật `reports/usability/session-notes-P04.md`:
+  - Time on task từ 1 phút 57 giây thành 4 phút 33 giây.
+  - Điều chỉnh toàn bộ Observation Notes theo timestamp mới trong transcript.
+  - Cập nhật Participant Quotes theo transcript đã sửa.
+  - Cập nhật timestamp evidence trong Potential Findings.
+  - Giữ nguyên SUS Raw Answers và Probe Answers vì dữ liệu workbook/câu hỏi mở không thay đổi.
+- Rà lại `reports/usability/sus-summary.md` và `reports/main-report.md`; các nội dung tổng hợp hiện không cần sửa vì chỉ ghi summary/SUS/progress, không chứa timestamp P04 cũ.
+```
+
+## Entry #29
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + run-usability-evaluation-eshop |
+| **Timestamp**     | 03/08/2026 04:42 GMT+7   |
+| **Artifact type** | Usability final report + findings + bug reports + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+bây giờ theo skill và đề task 2 rồi hoàn thiện tiếp các phần còn lại của task 2 giúp tôi
+```
+
+### (2) AI Output
+
+```text
+AI đã hoàn thiện các artifact phân tích còn lại cho Task 2 theo skill `run-usability-evaluation-eshop` và yêu cầu Task 2 trong `HW03-GUI&Usability.md`.
+
+- Đọc lại:
+  - `skills/run-usability-evaluation-eshop/SKILL.md`
+  - `skills/run-usability-evaluation-eshop/references/hw03-task2-usability-workflow.md`
+  - phần Task 2 / AI Audit / Anti-AI-Cheat / submission requirements trong `HW03-GUI&Usability.md`
+  - requirement Web Admin liên quan trong `SystemRequirementsSpecification.md`
+  - `skills/write-ai-audit-report/SKILL.md`
+- Tạo `reports/usability/usability-findings.md`:
+  - severity-ranked findings USAB-F-001 đến USAB-F-008;
+  - phân loại genuine bug, design issue và positive pattern;
+  - mapping sang bug reports `BUG-USAB-001` đến `BUG-USAB-005`.
+- Tạo `reports/usability/usability-report.md`:
+  - method, participant summary, scenario, SUS results, qualitative findings, genuine bugs, limitations và conclusion.
+- Tạo 5 Markdown bug reports:
+  - `bug-reports/BUG-USAB-001.md`
+  - `bug-reports/BUG-USAB-002.md`
+  - `bug-reports/BUG-USAB-003.md`
+  - `bug-reports/BUG-USAB-004.md`
+  - `bug-reports/BUG-USAB-005.md`
+- Cập nhật `reports/main-report.md` với Task 2 final report summary, participant/completion table, SUS results, severity-ranked findings, bug list và limitations.
+- Chạy lại SUS scoring script, kết quả vẫn là mean SUS = 60.4, min = 42.5, max = 72.5.
+- Chưa tạo GitHub issues trong lượt này; các bug reports đánh dấu GitHub issue là Pending vì người dùng chưa yêu cầu thao tác `gh issue create`.
+```
+
+## Entry #30
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex + run-usability-evaluation-eshop + GitHub CLI |
+| **Timestamp**     | 03/08/2026 05:38 GMT+7   |
+| **Artifact type** | Usability report updates + GitHub issues + AI audit report |
+
+**Full prompt:**
+
+```text
+tôi đã tạo folder reports/usability/session-notes và move các file session note của 7 Participant vào đó rồi, sửa giúp tôi những file có ghi đường dẫn đến các file đó. tôi cũng đã thêm link các video Evidence vào main report và usability report rồi, còn chỗ nào cần cật nhật thì cập nhật giúp tôi luôn về pilot test thì P02 là người đầu tiên cũng là pilot test. xong sau đó thì tạo github issue giúp tôi luôn, nếu trong sandbox lỗi thì yêu cầu quyền từ tôi để tạo
+```
+
+### (2) AI Output
+
+```text
+AI đã cập nhật Task 2 artifacts sau khi session notes được move vào `reports/usability/session-notes/`, đồng thời tạo GitHub issues cho usability bugs.
+
+- Đọc lại skill `run-usability-evaluation-eshop` và `write-ai-audit-report`.
+- Rà file hiện có bằng `find`/`rg` để xác định path session notes mới và các reference cũ.
+- Cập nhật các file report/bug report để dùng path mới:
+  - `reports/usability/sus-summary.md`
+  - `reports/usability/usability-plan.md`
+  - `reports/usability/usability-findings.md`
+  - `reports/usability/usability-report.md`
+  - `reports/main-report.md`
+  - `bug-reports/BUG-USAB-001.md` đến `bug-reports/BUG-USAB-005.md`
+- Cập nhật pilot information:
+  - P02 là participant đầu tiên và cũng là pilot test;
+  - scenario/SUS/probe questions được giữ nguyên sau P02 vì task wording đủ rõ, friction chính đến từ sản phẩm.
+- Kiểm tra GitHub context:
+  - `gh auth status`
+  - `gh repo view --json nameWithOwner,url`
+  - `gh label list --limit 100`
+- Dùng lại labels có sẵn, trong đó `BUG-USAB-002` dùng label repo hiện có `Module: Category CRUD`.
+- Tạo GitHub issues:
+  - `BUG-USAB-001` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/198
+  - `BUG-USAB-002` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/199
+  - `BUG-USAB-003` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/200
+  - `BUG-USAB-004` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/201
+  - `BUG-USAB-005` -> https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/202
+- Cập nhật lại `reports/usability/usability-report.md`, `reports/usability/usability-findings.md`, `reports/main-report.md` và từng `BUG-USAB-*` bug report để thay Pending bằng issue URL thật.
+- Chạy lại SUS scoring script, kết quả vẫn là mean SUS = 60.4, min = 42.5, max = 72.5.
+```

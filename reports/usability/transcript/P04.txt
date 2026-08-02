@@ -1,0 +1,44 @@
+[00:00:00.000 --> 00:00:05.500]  Ok, bây giờ mình sẽ đăng nhập bằng tài khoản admin.
+[00:00:05.500 --> 00:00:09.500]  Ok, mình đã đăng nhập thành công.
+[00:00:09.500 --> 00:00:18.500]  Sau khi đăng nhập, mình thấy dashboard hiển thị tổng doanh thu
+[00:00:18.500 --> 00:00:24.500]  và tổng số đơn hàng của hệ thống.
+[00:00:24.500 --> 00:00:30.000]  Tiếp theo mình sẽ chuyển sang phần Danh mục
+[00:00:30.000 --> 00:00:34.500]  và thử tạo một danh mục mới.
+[00:00:34.500 --> 00:00:43.000]  Khi mình tạo danh mục với tên để trống,
+[00:00:43.000 --> 00:00:50.000]  hệ thống không hiển thị thông báo lỗi
+[00:00:50.000 --> 00:00:54.500]  mà vẫn cho phép tạo thành công.
+[00:00:54.500 --> 00:01:01.000]  Bây giờ mình sẽ tạo lại một danh mục mới
+[00:01:01.000 --> 00:01:06.500]  với tên là "Tai nghe".
+[00:01:06.500 --> 00:01:11.500]  Danh mục đã được tạo thành công.
+[00:01:11.500 --> 00:01:18.000]  Tiếp theo mình chuyển sang phần Sản phẩm.
+[00:01:18.000 --> 00:01:25.000]  Ở đây mình thấy có khá nhiều trường nhập liệu,
+[00:01:25.000 --> 00:01:32.000]  nhưng không có hướng dẫn trường nào là bắt buộc.
+[00:01:32.000 --> 00:01:40.000]  Bây giờ mình sẽ tạo sản phẩm với tên "AirPod",
+[00:01:40.000 --> 00:01:46.000]  giá là 5 triệu,
+[00:01:46.000 --> 00:01:51.000]  chọn danh mục "Tai nghe"
+[00:01:51.000 --> 00:01:55.000]  rồi bấm Lưu.
+[00:01:55.000 --> 00:02:02.000]  Sau khi bấm Lưu,
+[00:02:02.000 --> 00:02:09.000]  mình không thấy thông báo tạo thành công.
+[00:02:09.000 --> 00:02:16.000]  Chỉ khi kéo xuống danh sách sản phẩm
+[00:02:16.000 --> 00:02:20.000]  thì mới thấy sản phẩm vừa được thêm.
+[00:02:20.000 --> 00:02:26.000]  Tiếp theo mình sẽ thử chỉnh sửa sản phẩm.
+[00:02:26.000 --> 00:02:33.000]  Mình sửa mô tả thành
+[00:02:33.000 --> 00:02:38.000]  "Mô tả cho AirPod",
+[00:02:38.000 --> 00:02:42.000]  và sửa giá thành 10 triệu.
+[00:02:42.000 --> 00:02:49.000]  Sau khi lưu,
+[00:02:49.000 --> 00:02:56.000]  hệ thống có hiển thị thông báo thành công.
+[00:02:56.000 --> 00:03:04.000]  Tuy nhiên mình phát hiện tất cả sản phẩm có sẵn
+[00:03:04.000 --> 00:03:10.000]  đều bị đổi tên thành "AirPod",
+[00:03:10.000 --> 00:03:15.000]  trong khi giá lại chưa được cập nhật.
+[00:03:15.000 --> 00:03:21.000]  Tiếp theo mình sẽ xóa sản phẩm vừa tạo.
+[00:03:21.000 --> 00:03:28.000]  Sau khi xóa,
+[00:03:28.000 --> 00:03:34.000]  các sản phẩm khác đã quay trở lại đúng tên ban đầu.
+[00:03:34.000 --> 00:03:40.000]  Bây giờ mình sẽ thử chức năng Import sản phẩm.
+[00:03:40.000 --> 00:03:46.000]  Quá trình import đã hoàn tất thành công.
+[00:03:46.000 --> 00:03:51.000]  Cuối cùng mình chuyển sang phần Người dùng.
+[00:03:51.000 --> 00:03:58.000]  Mình sẽ thử xóa tài khoản "Test".
+[00:03:58.000 --> 00:04:05.000]  Sau khi xóa,
+[00:04:05.000 --> 00:04:12.000]  hệ thống không hiển thị bất kỳ cảnh báo
+[00:04:12.000 --> 00:04:17.000]  hay hộp thoại xác nhận nào.
+[00:04:17.000 --> 00:04:33.000]  Như vậy, trong quá trình kiểm thử mình đã phát hiện
+[00:04:33.000 --> 00:04:33.000]  nhiều vấn đề liên quan đến kiểm tra dữ liệu đầu vào, phản hồi của hệ thống và chức năng cập nhật dữ liệu.

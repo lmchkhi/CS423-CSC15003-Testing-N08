@@ -1,0 +1,45 @@
+[00:00:00.000 --> 00:00:10.000]   Ok, bây giờ tôi sẽ gửi hướng dẫn cho Khang trên chat để Khang đọc, Khang làm nha
+[00:00:10.000 --> 00:00:12.000]   Rồi bây giờ Khang đọc rồi Khang bắt đầu đi
+[00:00:12.000 --> 00:00:14.000]   Ok ok
+[00:00:30.000 --> 00:00:37.000]   Rồi ok thì bây giờ tôi sẽ đăng nhập vào cái tài khoản admin theo cái hướng dẫn
+[00:00:37.000 --> 00:00:39.000]   Ok
+[00:00:39.000 --> 00:00:47.000]   Khi mà vừa mở lên thì nó có một cái trang dashboard có hiển thị cái tổng doanh thu của shop cũng như là số lượng đơn hàng
+[00:00:47.000 --> 00:00:57.000]   Bây giờ khi mà qua cái phần danh mục thì nó có những cái danh mục đã có sẵn ở đây và tôi sẽ thử theo một cái danh mục là iPad
+[00:01:00.000 --> 00:01:03.000]   Thì iPad nó được thêm bình thường ở đây
+[00:01:03.000 --> 00:01:06.000]   Bây giờ sẽ qua cái phần sản phẩm
+[00:01:09.000 --> 00:01:15.000]   Qua cái phần sản phẩm thì mình sẽ thử tạo một cái sản phẩm mới cho cái danh mục vừa nãy là
+[00:01:27.000 --> 00:01:29.000]   Sau khi tạo thì mình thấy là
+[00:01:29.000 --> 00:01:30.000]   Có cái sản phẩm mới là
+[00:01:30.000 --> 00:01:34.000]   Có cái sản phẩm mới ở dưới đây nhưng mà cái hình của nó lại chưa có được hiển thị đúng
+[00:01:34.000 --> 00:01:37.000]   Bây giờ mình sẽ thử sửa cái sản phẩm này
+[00:01:49.000 --> 00:01:53.000]   Sau khi mình cập nhật thì nó sẽ có một cái thông báo là cập nhật thành công ở đây
+[00:01:53.000 --> 00:01:55.000]   Và
+[00:01:55.000 --> 00:01:59.000]   Khi mà mình đi xuống đây thì tất cả mọi sản phẩm nó đều cập nhật theo cái tên của cái sản phẩm mới
+[00:01:59.000 --> 00:02:10.000]   Và cũng như là khi bấm vào sửa thì mình cũng không có biết là sản phẩm nó đang được sửa ở đâu
+[00:02:10.000 --> 00:02:12.000]   Nhưng mà hình như là nó được cập nhật thông tin ở đây
+[00:02:12.000 --> 00:02:18.000]   Với lại những cái phần URL của ảnh với lại mô tả hồi nãy mình vừa viết thì nó bây giờ nó lại bị mất
+[00:02:18.000 --> 00:02:23.000]   Giờ mình sẽ thử xóa cái sản phẩm này
+[00:02:23.000 --> 00:02:28.000]   Khi xóa xong thì tất cả những cái sản phẩm khác
+[00:02:28.000 --> 00:02:31.000]   Các sản phẩm khác nó lại quay lại như cũ
+[00:02:31.000 --> 00:02:32.000]   Ở đây
+[00:02:32.000 --> 00:02:36.000]   Và bây giờ mình sẽ thử thêm một chức năng nữa là import từ CSV
+[00:02:43.000 --> 00:02:49.000]   Khi mà chọn file xong thì nó sẽ cho mình xem trước những cái sản phẩm mà sẽ được đưa vào và mình sẽ import
+[00:02:51.000 --> 00:02:53.000]   Ở đây có một cái thông báo thành công và
+[00:02:53.000 --> 00:02:57.000]   Và nó có thông báo là 2/2 sản phẩm đã được thêm
+[00:02:57.000 --> 00:03:01.000]   Khi mình xuống đây thì có 2 cái sản phẩm đã được thêm vào hiệp
+[00:03:01.000 --> 00:03:07.000]   Ok bây giờ qua phần người dùng đi
+[00:03:07.000 --> 00:03:11.000]   Người dùng
+[00:03:11.000 --> 00:03:16.000]   Xem danh sách người dùng và thử xóa một user
+[00:03:16.000 --> 00:03:18.000]   Ok
+[00:03:18.000 --> 00:03:22.000]   Giờ thì mình sẽ qua phần người dùng
+[00:03:22.000 --> 00:03:24.000]   Ở đây thì mình thấy có 2 cái người dùng
+[00:03:24.000 --> 00:03:26.000]   Ở đây thì mình sẽ thử xóa cái người dùng thứ 2
+[00:03:26.000 --> 00:03:31.000]   Sau khi xóa thì nó cũng không có thông báo
+[00:03:31.000 --> 00:03:35.000]   Nó cũng không có cái màn hình để mình confirm cái hành động của mình
+[00:03:35.000 --> 00:03:38.000]   Cũng như là xóa xong thì nó cũng không có thông báo là xóa thành công gì hết
+[00:03:38.000 --> 00:03:40.000]   Mà tài khoản nó chỉ mất thôi
+[00:03:40.000 --> 00:03:42.000]   Giờ thì mình sẽ qua trang khác rồi quay lại
+[00:03:42.000 --> 00:03:44.000]   Thì kết quả nó dẫn như vậy
+[00:03:44.000 --> 00:03:45.000]   Ok
+[00:03:45.000 --> 00:03:46.000]   Rồi được rồi
+[00:03:46.000 --> 00:03:48.000]   Ok

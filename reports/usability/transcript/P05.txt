@@ -1,0 +1,139 @@
+[00:00:00.000 --> 00:00:08.280]   Ừ rồi á Ừ ok chào bạn thì
+[00:00:08.920 --> 00:00:14.680]   Hôm nay mình phải làm gì nhỉ bây giờ bạn giúp mình test cái web này nha Để mình gửi yêu cầu
+[00:00:16.340 --> 00:00:33.120]   Đây là cái yêu cầu nha
+[00:00:36.400 --> 00:00:42.580]   ừ ừ bây giờ mình gửi bạn cái tài khoản mật khẩu để đăng nhập vào web luôn nha Ừ ok
+[00:00:42.580 --> 00:00:45.080]   ừ ừ
+[00:00:46.340 --> 00:01:02.180]   bây giờ mình đã nhận tài khoản ha 
+[00:01:16.340 --> 00:01:25.880]   rồi thì nó đăng nhập xong
+[00:01:25.880 --> 00:01:32.600]   Ồ thì ở đây là do có thể là hệ
+[00:01:32.600 --> 00:01:41.840]   thống là chưa có đơn hàng nào do đó là dành thu bằng không và tiếp tục tạo một danh mục phù hợp
+[00:01:41.840 --> 00:01:52.460]   cho sản phẩm mới một là cái này ok ở sản phẩm mới thêm một sản phẩm vào danh mục vừa tạo
+[00:01:52.460 --> 00:02:04.460]   ở đây là được thêm danh mục mà mình thử anh một rỗng coi được không ta Ừ sao danh mục rỗng lại được
+[00:02:04.460 --> 00:02:14.540]   hả Có gì đó sai sai ha bây giờ đó là một cái bất ngờ mà mình giả sử bấm xóa thì mình đang mong chờ là
+[00:02:14.540 --> 00:02:22.560]   cái nó phải có một cái thông báo nhưng mà ở đây như có vẻ là là web không có hỗ trợ cái kiểu thông
+[00:02:22.560 --> 00:02:33.360]   báo mà mình xóa thì nó sẽ dùng mình lỡ xóa lộn chắc là mình khó hoàn lại các bạn ơi chắc là có gì mà
+[00:02:33.360 --> 00:02:37.860]   mình coi lại rồi bây giờ mình thêm một cái danh mục bây giờ có điện thoại laptop phụ kiện thì mình
+[00:02:37.860 --> 00:02:49.940]   cho là chuột đi hả hai rồi cho chuột chuột ở trên mái rồi khó chuột
+[00:02:50.780 --> 00:03:00.140]   Ừ rồi Tiếp theo là gì tạo một danh mục phù hợp với các sản phẩm mới thêm một sản phẩm vào danh mục
+[00:03:00.140 --> 00:03:11.000]   mới bây giờ sản phẩm em thấy danh sách sản phẩm ngang thị cũng đầy đủ nhưng mà bị một cái là kiểu
+[00:03:11.000 --> 00:03:19.000]   bây giờ giả sử mình nhập thử tên thôi mình thử tên ở đây thì bình thường mình giả sử mình cũng thử qua
+[00:03:19.000 --> 00:03:24.580]   với cái test mà mà làm tạo rồi thì thường là mấy cái trường này bắt nhập cho sử mình không nhập thì
+[00:03:24.580 --> 00:03:31.900]   hiện đỏ mà ở đây nó lại không có hiện đỏ là mình không biết nó bắt một không Mình thử nha Ok được
+[00:03:31.900 --> 00:03:46.380]   luôn này cha cũng giai đoạn đầu phát triển thấy cũng hơi hơi lạ đấy mình thử chắc xóa thử là tạo mà
+[00:03:46.380 --> 00:03:52.200]   sử dụng cái cái trường bắt buộc thì nó nó vẫn cho thì hơi hơi hơi hoãn thì hoãn thời khoản đấy
+[00:03:53.820 --> 00:03:58.140]   ừ ừ bây giờ trước khi tạo đi mình thử sửa sản phẩm này đi
+[00:03:59.520 --> 00:04:07.500]   Ừ mà sửa nó đâu ta ở đây hả sao sửa không có thông báo gì hết giờ sửa nó có thông báo chứ
+[00:04:08.060 --> 00:04:15.500]   Ừ kỳ vậy anh sửa phải có thông báo chứ nhà dù mình mình sửa này ra nhiều
+[00:04:15.500 --> 00:04:22.800]   bốn bốn triệu mà mình cho phòng 400 ok em dùng lưu sản phẩm
+[00:04:25.640 --> 00:04:42.760]   24 sao nó vẫn 4 triệu ta có thông báo mà anh sợ như con gì đâu 444 triệu sản phẩm rồi đợi tí kì vậy từ
+[00:04:42.760 --> 00:04:52.380]   đây là mình phải mình thử xóa nhẹ một sản phẩm à à xóa thì đã không có thông báo rồi mà sau này thì nó
+[00:04:52.380 --> 00:04:59.380]   mới mới mới mới mới mới mới sửa giá nhưng mà hồi nãy mình còn thấy cái gì đó lạ lắm từ từ mình thử
+[00:04:59.380 --> 00:05:09.400]   mình thử lại cái này mình thử cái này đó trời ơi tôi sửa có một sản phẩm mà mà tôi sửa giá thôi mà
+[00:05:09.400 --> 00:05:20.140]   sao sửa tên của tôi vậy ta kỳ vậy kỳ vậy kỳ vậy lạ ngang lạ ngang coi lại giùm tôi ngang lạ ngang ờ ờ
+[00:05:20.140 --> 00:05:27.540]   bây giờ tôi xóa ok cập nhật tải giá của tôi rồi cảm ơn ngang rồi thôi bây giờ thử cái cái cái cái
+[00:05:27.540 --> 00:05:38.500]   cái cái cái cái thử tôi coi còn không còn không ờ xóa rồi thử nghiệm rồi giờ im bọt hả im bọt thêm
+[00:05:38.500 --> 00:05:45.280]   sản phẩm để quy ok im bọt thì giờ tôi không biết tôi phải coi file mẫu vậy đó
+[00:06:20.140 --> 00:06:25.620]   Rồi giờ tôi phải chọn file
+[00:06:25.620 --> 00:06:28.960]   Đâu rồi ta
+[00:06:28.960 --> 00:06:30.620]   Ở đây
+[00:06:30.620 --> 00:06:33.400]   Đúng chứ
+[00:06:33.400 --> 00:06:33.760]   Xem
+[00:06:33.760 --> 00:06:37.280]   150
+[00:06:37.280 --> 00:06:38.880]   250
+[00:06:38.880 --> 00:06:43.600]   Ok
+[00:06:43.600 --> 00:06:46.880]   Thử import
+[00:06:46.880 --> 00:06:49.440]   Có thông báo
+[00:06:49.440 --> 00:06:50.800]   Ok cũng rõ ràng
+[00:06:50.800 --> 00:06:53.060]   Ta thay import
+[00:06:53.060 --> 00:06:54.440]   Ok nè
+[00:06:54.440 --> 00:06:57.040]   Điển thị nội dung ok nè
+[00:06:57.040 --> 00:06:59.580]   Có cái này là có thông báo là tôi ưng thôi nè
+[00:06:59.580 --> 00:07:01.240]   Còn cái kia thì nó chưa
+[00:07:01.240 --> 00:07:03.480]   Thử thêm ví dụ tôi muốn tạo
+[00:07:03.480 --> 00:07:04.760]   Cái gì
+[00:07:04.760 --> 00:07:07.220]   Logitech
+[00:07:07.220 --> 00:07:09.240]   G302
+[00:07:10.160 --> 00:07:11.360]   Rồi giá tiền
+[00:07:11.360 --> 00:07:12.580]   200 123
+[00:07:12.580 --> 00:07:14.420]   URL
+[00:07:14.420 --> 00:07:16.140]   Chắc không bắt buộc
+[00:07:16.140 --> 00:07:17.720]   Nãy tôi phải tạo chuột
+[00:07:17.720 --> 00:07:18.980]   Thử coi nó ra không
+[00:07:18.980 --> 00:07:19.360]   Rồi
+[00:07:19.440 --> 00:07:22.480]   Ok nó cũng có ra
+[00:07:22.480 --> 00:07:23.220]   Rồi
+[00:07:23.220 --> 00:07:24.880]   Nói chung cũng được
+[00:07:24.880 --> 00:07:26.540]   Nhưng mà bị cái là lưu sản phẩm xong
+[00:07:26.540 --> 00:07:27.680]   Thì nó không có thông báo
+[00:07:27.680 --> 00:07:28.920]   Thì nó cũng
+[00:07:28.920 --> 00:07:31.100]   Dù mà giả sử list dài quá
+[00:07:31.100 --> 00:07:32.560]   Là không có thì nó cũng không
+[00:07:32.560 --> 00:07:34.680]   Không đáp ứng đúng kỳ vọng của tôi lắm
+[00:07:34.680 --> 00:07:36.800]   Tôi thấy nó hơi khó chịu là dù dài quá
+[00:07:36.800 --> 00:07:38.200]   Là tôi phải lướt lướt lướt một hồi
+[00:07:38.200 --> 00:07:40.360]   Rồi
+[00:07:40.360 --> 00:07:42.740]   Import thì có thông báo thì tôi đồng ý
+[00:07:42.740 --> 00:07:44.180]   Rồi cũng ok
+[00:07:44.180 --> 00:07:47.280]   Rồi xong được cái này
+[00:07:47.280 --> 00:07:49.280]   Sau đó kiểm tra danh sách
+[00:07:49.280 --> 00:07:49.420]   Người có thông báo thì tôi đồng ý
+[00:07:49.440 --> 00:07:51.800]   Người dùng và xóa tài khoản thử
+[00:07:51.800 --> 00:07:53.540]   Nếu bạn cho rằng
+[00:07:53.540 --> 00:07:55.160]   Tài khoản đó không cần thiết
+[00:07:55.160 --> 00:07:57.240]   Giờ tôi là admin mà đúng không
+[00:07:57.240 --> 00:07:58.380]   Tôi mạnh mà
+[00:07:58.380 --> 00:08:01.020]   Bây giờ tôi xóa tôi
+[00:08:01.020 --> 00:08:02.500]   Tôi xóa tôi thì nó kỳ quá
+[00:08:02.500 --> 00:08:05.380]   Tôi xóa tôi
+[00:08:05.380 --> 00:08:06.540]   Tôi xóa tôi thì nó kỳ quá
+[00:08:06.540 --> 00:08:07.280]   Tôi xóa này đi
+[00:08:07.280 --> 00:08:10.540]   Vẫn không có thông báo
+[00:08:10.540 --> 00:08:13.180]   Nói chung là tổng quan là
+[00:08:13.180 --> 00:08:15.700]   Tôi thấy dashboard ok
+[00:08:15.700 --> 00:08:16.960]   Danh mục hiển thị
+[00:08:16.960 --> 00:08:18.060]   Cũng ok
+[00:08:18.060 --> 00:08:19.580]   Sản phẩm
+[00:08:19.580 --> 00:08:22.420]   Sản phẩm thì phải feedback lại nhẹ
+[00:08:22.420 --> 00:08:23.700]   Rồi người dùng
+[00:08:23.700 --> 00:08:25.900]   Vì dùng thì danh sách ok
+[00:08:25.900 --> 00:08:27.940]   Vậy cái thứ nhất là nó
+[00:08:27.940 --> 00:08:29.640]   Dù như xóa thì nó không
+[00:08:29.640 --> 00:08:32.320]   Không có thông báo để xác nhận lại
+[00:08:32.320 --> 00:08:33.860]   Ví dụ lỡ như tôi bấm lộn xóa
+[00:08:33.860 --> 00:08:35.720]   Rồi tôi mất luôn cái dữ liệu của tôi
+[00:08:35.720 --> 00:08:36.820]   Rồi tôi phải tạo lại từ đầu
+[00:08:36.820 --> 00:08:38.160]   Rồi nó rất là không ok
+[00:08:38.160 --> 00:08:40.760]   Cái thứ hai là bấm sủa
+[00:08:40.760 --> 00:08:41.800]   Đấy sủa thì
+[00:08:41.800 --> 00:08:44.460]   Ví dụ để chấp này cũng thể chấp nhận được
+[00:08:44.460 --> 00:08:46.480]   Nhưng mà nó phải tự động cuộn lên
+[00:08:46.480 --> 00:08:47.920]   Chẳng hạn hoặc là bây giờ hiện
+[00:08:47.920 --> 00:08:48.900]   Một cái pop-up lên
+[00:08:48.900 --> 00:08:51.340]   Đấy mà nó không hiện thì cũng hơi phiền
+[00:08:51.340 --> 00:08:54.200]   Vậy nữa là giả sử như tôi sửa nội dung đấy
+[00:08:54.200 --> 00:08:56.400]   Thì nó vô tình nó dẫn theo sửa hết
+[00:08:56.400 --> 00:08:57.680]   Mấy cái tên sản phẩm còn lại
+[00:08:57.680 --> 00:08:58.620]   Thì nó sẽ gây
+[00:08:58.620 --> 00:09:00.320]   Tôi hơi hoang mang đó
+[00:09:00.320 --> 00:09:02.120]   Đúng nghĩa là hoang mang đó
+[00:09:02.120 --> 00:09:03.680]   Sẽ phải cưng
+[00:09:03.680 --> 00:09:05.620]   Phải coi lại
+[00:09:05.620 --> 00:09:08.420]   Rồi còn cái phần ưng nhất
+[00:09:08.420 --> 00:09:09.760]   Cái phần tôi nghĩ là khó nhất
+[00:09:09.760 --> 00:09:11.380]   Nhưng mà tôi là ưng nhất đó là cái phần nhập
+[00:09:11.380 --> 00:09:12.900]   Nhập CSV
+[00:09:12.900 --> 00:09:15.520]   CSV nó có mẫu
+[00:09:15.520 --> 00:09:17.660]   GPT nó cũng dễ hiểu nhập đúng
+[00:09:17.780 --> 00:09:19.640]   Nói chung là ưng nhất sẽ là phần
+[00:09:19.640 --> 00:09:21.640]   NCSV là vì nó thể hiện đầy đủ
+[00:09:21.640 --> 00:09:23.640]   Nhập đúng, nhập sai, nó vấn đề thì đúng
+[00:09:23.640 --> 00:09:25.640]   Ok
+[00:09:25.640 --> 00:09:27.640]   Thì đó là những cái
+[00:09:27.640 --> 00:09:29.640]   Trải nghiệm của tôi
+[00:09:29.640 --> 00:09:31.640]   Nhưng mà thực hiện cái
+[00:09:31.640 --> 00:09:33.640]   Cái web
+[00:09:33.640 --> 00:09:34.640]   Mấy cái chức năng này
+[00:09:34.640 --> 00:09:36.640]   Còn mấy cái chức năng khác thì chắc là xử sau
+[00:09:36.640 --> 00:09:37.640]   Ok
+[00:09:37.640 --> 00:09:38.640]   Rồi xong ha
+[00:09:38.640 --> 00:09:40.020]   Uhm

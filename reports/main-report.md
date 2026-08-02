@@ -206,3 +206,94 @@ Usability scale được chọn là SUS. Sau mỗi session, participant trả l�
 ```bash
 python3 skills/run-usability-evaluation-eshop/scripts/score_usability.py sus reports/usability/sus-responses.csv
 ```
+
+### Current Task 2 Data Status
+
+Đã nhập SUS responses cho 7 participant từ `reports/usability/sus-questionnaire-admin-flow2.xlsx` vào `reports/usability/sus-responses.csv`. Điểm SUS trung bình hiện tại là 60.4, với min 42.5 và max 72.5. Summary theo SUS/open answers được lưu tại `reports/usability/sus-summary.md`. Session notes đã hoàn thiện cho P01-P07 tại `reports/usability/session-notes/session-notes-P01.md` đến `reports/usability/session-notes/session-notes-P07.md`; tất cả đều giữ Task completion là `Partial` theo ghi chú điều phối vì product update bị bug.
+
+## Task 2 - Usability Evaluation Final Report
+
+### Method Summary
+
+Task 2 sử dụng moderated usability evaluation cho flow Admin Login -> View Dashboard -> Create Category -> Create/Edit/Delete Product -> Import Products by CSV -> Inspect/Delete User. Có 7 participant thật, mỗi người một session riêng. P02 là participant đầu tiên và cũng là pilot test; sau P02, scenario/SUS/probe questions được giữ nguyên vì task wording đủ rõ và friction chính đến từ sản phẩm. Sau task, participant điền SUS và trả lời probe questions về clarity, error recovery, speed, trust, navigation và risk perception. Moderator không đưa hint thao tác; tất cả session notes ghi `Hints/assist count = 0`.
+
+Artifact chi tiết:
+
+- `reports/usability/usability-report.md`: report Task 2 đầy đủ.
+- `reports/usability/usability-findings.md`: severity-ranked findings và bug mapping.
+- `reports/usability/session-notes/session-notes-P01.md` đến `reports/usability/session-notes/session-notes-P07.md`: observation notes từng session.
+- `reports/usability/sus-summary.md`: SUS score và theme summary.
+- `bug-reports/BUG-USAB-001.md` đến `bug-reports/BUG-USAB-005.md`: genuine bugs phát hiện từ usability sessions.
+
+### Participant And Completion Summary
+
+| Participant | Device/browser | Task completion | Time on task | SUS |
+| --- | --- | --- | --- | ---: |
+| P01 | Macbook - Chrome | Partial | 2 phút 59 giây | 65.0 |
+| P02 | Window - Chrome | Partial | 1 phút 57 giây | 65.0 |
+| P03 | Window - Chrome | Partial | 1 phút 38 giây | 52.5 |
+| P04 | Macbook - Chrome | Partial | 4 phút 33 giây | 55.0 |
+| P05 | Laptop/Chrome | Partial | 9 phút 40 giây | 72.5 |
+| P06 | Desktop Windows 10 - Google chrome | Partial | 4 phút 5 giây | 70.0 |
+| P07 | Macbook - Chrome | Partial | 3 phút 48 giây | 42.5 |
+
+Tất cả 7 session là `Partial` vì product update bị bug, khiến bước create/edit/delete product không hoàn thành đúng kỳ vọng. Các phần khác của flow được participant hoàn thành hoặc tự phục hồi được.
+
+### Video Evidence
+| Participant | Video evidence |
+| --- | --- |
+| P01 | [https://youtu.be/iujw0Ou4ms8](https://youtu.be/iujw0Ou4ms8) |
+| P02 | [https://youtu.be/CbMxIYhXP_g](https://youtu.be/CbMxIYhXP_g) |
+| P03 | [https://youtu.be/ImvQCFItRic](https://youtu.be/ImvQCFItRic) |
+| P04 | [https://youtu.be/be5Ke93kz3o](https://youtu.be/be5Ke93kz3o) |
+| P05 | [https://youtu.be/z58SsUKV5Zg](https://youtu.be/z58SsUKV5Zg) |
+| P06 | [https://youtu.be/xFT_mmH-Z8Q](https://youtu.be/xFT_mmH-Z8Q) |
+| P07 | [https://youtu.be/grv-L0MSKrk](https://youtu.be/grv-L0MSKrk) |
+
+### SUS Results
+
+| Participant | SUS score | Rating |
+| --- | ---: | --- |
+| P01 | 65.0 | Marginal |
+| P02 | 65.0 | Marginal |
+| P03 | 52.5 | Marginal |
+| P04 | 55.0 | Marginal |
+| P05 | 72.5 | Good/acceptable |
+| P06 | 70.0 | Good/acceptable |
+| P07 | 42.5 | Poor |
+
+- Mean SUS: 60.4
+- Min SUS: 42.5
+- Max SUS: 72.5
+- Time on task trung bình: khoảng 4 phút 6 giây.
+
+Kết quả SUS cho thấy admin flow ở mức marginal. Navigation bằng sidebar tương đối dễ tìm, nhưng trust giảm mạnh ở các thao tác thay đổi dữ liệu như edit product, delete và validation/error recovery.
+
+### Severity-Ranked Findings
+
+| Finding ID | Theme | Type | Severity / Priority | Participants affected |
+| --- | --- | --- | --- | --- |
+| USAB-F-001 | Product update không đáng tin và làm sai product list | Bug | Critical / P0 | P01-P07 |
+| USAB-F-002 | Thao tác xóa thiếu confirmation dialog | Bug / risk issue | Major / P1 | P01-P07 |
+| USAB-F-003 | Validation và error recovery yếu khi tạo category/product/import CSV | Bug | Major / P1 | P01-P06 |
+| USAB-F-004 | Feedback sau create/update/delete không nhất quán | Design issue / bug | Major / P2 | P01, P02, P04, P05, P06, P07 |
+| USAB-F-005 | Edit mode trong Product Management khó nhận biết | Design issue | Major / P2 | P01, P04, P05, P06, P07 |
+| USAB-F-006 | Product form thiếu hướng dẫn về required fields, giá và image URL | Design issue | Minor / P2 | P02-P07 |
+| USAB-F-007 | Dashboard thiếu chiều sâu thông tin cho admin | Design issue | Minor / P3 | P01, P03, P05 |
+| USAB-F-008 | CSV import là điểm sáng về feedback | Positive pattern | N/A | P01, P04, P05, P06, P07 |
+
+Chi tiết evidence và recommendation nằm trong `reports/usability/usability-findings.md`.
+
+### Genuine Bugs From Task 2
+
+| Bug ID | Module | Severity / Priority | GitHub issue |
+| --- | --- | --- | --- |
+| `BUG-USAB-001` | Product Management | Critical / P0 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/198 |
+| `BUG-USAB-002` | Category Management | Major / P1 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/199 |
+| `BUG-USAB-003` | All Admin Screens | Major / P1 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/200 |
+| `BUG-USAB-004` | Product Management | Major / P1 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/201 |
+| `BUG-USAB-005` | Product Management | Major / P1 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/202 |
+
+### Task 2 Conclusion
+
+Admin flow có navigation dễ tìm và CSV import là phần tạo trust tốt nhất nhờ preview/result feedback. Tuy nhiên usability tổng thể chưa đạt mức acceptable ổn định vì bug product update làm toàn bộ session chỉ đạt Partial, thao tác xóa thiếu confirmation và nhiều create/update/delete action thiếu feedback hoặc validation rõ ràng. Ưu tiên sửa nên là: product update, confirmation dialog cho destructive actions, validation/error recovery, sau đó chuẩn hóa feedback theo pattern của CSV import.

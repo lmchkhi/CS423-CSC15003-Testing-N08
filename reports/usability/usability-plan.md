@@ -17,8 +17,8 @@ Người tham gia nên đại diện cho người dùng có thể vận hành tr
 
 ## Test Environment
 
-- Web Admin URL: `http://localhost:5174/`
-- Backend URL: `http://localhost:3000`
+- Web Admin URL: [https://frontend-admin-livid-two.vercel.app/](https://frontend-admin-livid-two.vercel.app/)
+- Web User URL: [https://frontend-web-eight-mu.vercel.app/](https://frontend-web-eight-mu.vercel.app/)
 - Browser/device: ghi lại theo từng session.
 - Test admin account: `admin@eshop.com` / `Admin123!`
 - Evidence: screen recording hoặc screenshot/session notes, lưu path vào từng session.
@@ -52,11 +52,11 @@ Trong khi thực hiện, hãy nói to suy nghĩ của bạn: điều gì dễ hi
 
 Scale dùng trong study: SUS, gồm 10 câu, trả lời sau mỗi session bằng thang 1-5.
 
-- 1 = Strongly disagree
-- 2 = Disagree
-- 3 = Neutral
-- 4 = Agree
-- 5 = Strongly agree
+- 1 = Hoàn toàn không đồng ý
+- 2 = Không đồng ý
+- 3 = Trung lập
+- 4 = Đồng ý
+- 5 = Hoàn toàn đồng ý
 
 Chi tiết form nằm ở `reports/usability/sus-questionnaire.md`. Raw responses nhập vào `reports/usability/sus-responses.csv`.
 
@@ -64,13 +64,14 @@ Chi tiết form nằm ở `reports/usability/sus-questionnaire.md`. Raw response
 
 1. Clarity: Ở bước nào bạn thấy rõ nhất mình cần làm gì tiếp theo? Ở bước nào bạn phân vân nhất?
 2. Error recovery: Khi thao tác sai, thiếu dữ liệu hoặc import/xóa không như mong đợi, giao diện có giúp bạn hiểu và sửa lỗi không?
-3. Speed: Bước nào làm bạn mất nhiều thời gian nhất hoặc phải dừng lại suy nghĩ lâu nhất?
-4. Trust: Sau khi tạo/sửa/xóa/import dữ liệu, điều gì khiến bạn tin hoặc không tin rằng thao tác đã hoàn tất đúng?
+3. Speed: Bước nào làm bạn mất nhiều thời gian nhất hoặc phải dừng lại suy nghĩ lâu nhất? Vì sao?
+4. Trust: Sau khi tạo/sửa/xóa/import dữ liệu, điều gì khiến bạn tin hoặc không tin rằng thao tác đã hoàn tất đúng? Có thông báo xác nhận hay feedback nào giúp bạn yên tâm không?
 5. Navigation: Bạn có dễ tìm các màn hình Dashboard, Category, Product và User Management không?
-6. Risk perception: Với các thao tác xóa sản phẩm/người dùng, bạn có cảm thấy đủ an toàn trước khi xác nhận hành động không?
+6. Risk perception: Với các thao tác xóa sản phẩm/người dùng, bạn có cảm thấy đủ an toàn trước khi xác nhận hành động không? Có confirmation dialog khi xóa không?
 
 ## Pilot Plan
 
-- Chạy 1 pilot session với một người không nằm trong 7 participant chính nếu có thể.
+- Pilot session được thực hiện với P02, là người đầu tiên chạy flow và cũng được giữ trong nhóm 7 participant thật.
 - Mục tiêu pilot: kiểm tra scenario có quá dài/khó hiểu không, file CSV có dùng được không, dữ liệu test có đủ an toàn không, và form SUS/session notes có dễ ghi nhận không.
-- Sau pilot, ghi lại refinement trong `reports/usability/session-notes.md` hoặc cập nhật lại plan này.
+- Kết quả pilot P02 cho thấy scenario đủ rõ để participant tự đi qua các màn hình chính, không cần hint từ moderator. Các vấn đề quan sát được là vấn đề của sản phẩm đang test, không phải do câu chữ scenario, nên scenario/SUS/probe questions được giữ nguyên cho các session còn lại.
+- Pilot evidence nằm trong `reports/usability/session-notes/session-notes-P02.md`, transcript `reports/usability/transcript/P02.txt`, và video evidence P02.
