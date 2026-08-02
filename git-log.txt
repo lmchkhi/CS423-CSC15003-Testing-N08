@@ -1,3 +1,4 @@
+18e91d8 2026-08-02 fix: reconcile every count and evidence link across the submission
 0dbab8c 2026-08-01 fix(usability): participant #7's SUS is the 2nd highest in session-07 too
 e04936a 2026-08-01 docs: sync README and main report to the Task 3 matrix
 69fd64c 2026-08-01 fix: correct the watermark email to 23127300@student.hcmus.edu.vn
