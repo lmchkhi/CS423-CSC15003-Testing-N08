@@ -137,6 +137,10 @@ Firefox chạm cả 4 khía cạnh IA, Chrome và Android mỗi bên chạm 3. C
 Task 3. Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm bằng
 chứng bổ sung từ người dùng thật.
 
+Ảnh chụp trang GitHub Issues của cả 26 issue nằm ở
+`bug-reports/github-issues/`, đặt tên theo số issue (`issue-094.png` đến
+`issue-197.png`).
+
 Bug thứ 26, `BUG-IA03-PRODUCTDETAIL-002` (mất vị trí cuộn khi bấm Back), đã tự
 rút lại: đo lại với cửa sổ dài hơn cho thấy vị trí cuộn được khôi phục đúng.
 GitHub issue [#99](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/99)

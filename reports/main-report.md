@@ -83,7 +83,8 @@ Nặng nhất:
   không icon, không thông điệp, không lối thoát, vi phạm FR-05 và FR-24.
 
 Toàn bộ 24 bug đã file cả ở `bug-reports/*.md` lẫn GitHub Issues (issue #94
-đến #112 trừ #99, #190 đến #194, và #196).
+đến #112 trừ #99, #190 đến #194, và #196). Ảnh chụp trang GitHub Issues của cả
+26 issue (gồm #99 đã đóng và #197 của Task 3) ở `bug-reports/github-issues/`.
 
 ---
 

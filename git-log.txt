@@ -1,87 +1,2839 @@
-18e91d8 2026-08-02 fix: reconcile every count and evidence link across the submission
-0dbab8c 2026-08-01 fix(usability): participant #7's SUS is the 2nd highest in session-07 too
-e04936a 2026-08-01 docs: sync README and main report to the Task 3 matrix
-69fd64c 2026-08-01 fix: correct the watermark email to 23127300@student.hcmus.edu.vn
-bbad794 2026-08-01 test(xplat): finish Task 3 - stamp all evidence, rewrite as item x platform matrix
-6d55b08 2026-08-01 test(xplat): confirm the deep-link 404 on Android 14 / Pixel 8
-26001eb 2026-08-01 test(xplat): define platform-sensitive subset; run it on Firefox 153 / Windows 11
-3746f1a 2026-08-01 docs(demo-script): fix awkward conversions and the Task 1 issue count
-1bdca44 2026-08-01 docs(demo-script): match the prose register of the rest of the submission
-752babc 2026-08-01 fix: repair text mangled by the em-dash pass; rebuild xlsx with a Summary sheet
-02537cd 2026-08-01 docs: rewrite README and main report, drop remaining em-dashes
-a69db89 2026-08-01 docs(gap-analysis): regroup 12 entries by cause, consolidate the repeated dark-mode gap
-62f9cad 2026-08-01 docs: remove template leftovers, fix sourcing, rewrite prose register
-f7530c7 2026-08-01 fix(checklist): clean header, repair GUI-097 row, close screenshot gaps
-6e54e1e 2026-07-31 docs: refresh git commit log after Task 3
-b497e55 2026-07-31 docs: roll up cross-platform results into main report + README; self-assessed full grade
-c2c1014 2026-07-31 test(xplat): run Task 1/2 flow on Chrome, Firefox, Android Chrome — file BUG-XPLAT-DEEPLINK-001
-1f4b10e 2026-07-31 docs(usability): participant #7 is also a student
-94c981e 2026-07-31 docs(usability): correct pilot session record — real pilot found the same add-to-cart issue
-17c886f 2026-07-31 docs(usability): simplify participant Profile column, drop colleague disclosure
-371e7a9 2026-07-31 docs(usability): fill participant Profile column from real data, disclose colleague overlap
-fa9e2d4 2026-07-31 docs(usability): confirm participant #6 identity (Nguyễn Quốc Huy)
-1b95eff 2026-07-31 docs: refresh git commit log after Task 2 synthesis + xlsx export
-97cf5bd 2026-07-31 chore(usability): commit raw session evidence, remove superseded survey template
-7f718af 2026-07-31 docs: export git commit log (§12)
-733d9a5 2026-07-31 docs(readme): roll up Task 2 + bug summary
-08d9b15 2026-07-31 docs: AI critique (§10)
-b80c170 2026-07-31 docs: write main report
-ea2341e 2026-07-31 docs(checklist): export to .xlsx per §14
-e928516 2026-07-31 docs(usability): score + synthesise + prioritise findings
-69ac4c6 2026-07-31 test(usability): session 07 — Lê Hữu Sang
-77fc937 2026-07-31 test(usability): session 06 — Nguyễn Quốc Huy
-8c07509 2026-07-31 test(usability): session 05 — Dương Quang Thắng
-fdf72f1 2026-07-31 test(usability): session 04 — Huỳnh Yến Nhi
-258e536 2026-07-31 test(usability): session 03 — Nguyễn Ngọc Trúc Mây
-0d13c71 2026-07-31 test(usability): session 02 — Nguyễn Thành Đạt
-96ccd6f 2026-07-31 test(usability): session 01 — Nguyễn Hà Chiêu Dương
-2ded108 2026-07-31 docs(usability): populate real participant table from survey responses
-b25feba 2026-07-31 docs(usability): fill plan — objectives, instrument, pilot
-918bdda 2026-07-31 docs(bug): cross-link Search Results & Empty Search State bugs to GitHub issues #190-194
-53041ae 2026-07-31 test(checklist): execute Search Results & Empty Search State against SUT
-862ca98 2026-07-30 docs(checklist): design + gap analysis for Search Results & Empty Search State
-65f4cf1 2026-07-26 fix(usability): force the search step, don't just imply it
-4462b44 2026-07-26 fix(usability): correct price bands in task-scenarios to match real catalog
-6db733e 2026-07-26 fix(screenshots): recapture Product Detail evidence as lossless PNG
-8d2d498 2026-07-26 fix(screenshots): recapture Home Page evidence as lossless PNG
-358f9ae 2026-07-26 docs(bug): cross-link BUG-IA01..IA04-HOMEPAGE to GitHub issues #101-#112
-1e6f9fd 2026-07-26 docs: reframe evidence as black-box observations, not repo source reads
-2b45c07 2026-07-26 docs(ai-audit): log entry #12 — Home Page execution pass, update §4 summary
-dbf7c8b 2026-07-26 docs(prompt-log): entry [12] — Claude, Home Page execution pass
-4918bf2 2026-07-26 docs(bug): file 12 bugs from Home Page execution pass
-23ca1fd 2026-07-26 test(checklist): execute Home Page items against SUT (40/40)
-effd617 2026-07-26 docs: fold Product Grid into Home Page scope (same component/state)
-bfa7ccf 2026-07-26 docs(checklist): design + gap analysis for Home Page (IA01-IA04)
-845c1ab 2026-07-26 docs(ai-audit): log entries #7-#10 — Home Page IA01-IA04 checklist batches
-9ee6b79 2026-07-26 docs(prompt-log): entries [7]-[10] — Claude, Home Page IA01-IA04 checklist generation
-d33b1ba 2026-07-26 docs(bug): cross-link BUG-IA01..IA04-PRODUCTDETAIL to GitHub issues #94-#100
-d8eed2c 2026-07-26 docs(ai-audit): log entry #6 — Product Detail execution pass, update §4 summary
-92d2c7f 2026-07-26 docs(prompt-log): entry [6] — Claude, Product Detail execution pass
-2450f73 2026-07-26 docs(bug): file 7 bugs from Product Detail execution pass
-8a7f9bb 2026-07-26 test(checklist): execute Product Detail items against SUT (46/46)
-743b6d6 2026-07-26 docs(ai-audit): log entry #5 — Product Detail gap-review pass, update §4 summary
-3a4254e 2026-07-26 docs(prompt-log): entry [5] — Claude, Product Detail gap-review pass
-98415dd 2026-07-26 docs(checklist): add gap GUI-046 — slow-network feedback missed by AI batch
-e420f59 2026-07-26 docs(ai-audit): log entries #1-#4 — Product Detail IA01-IA04 checklist batches
-81920ac 2026-07-26 docs(prompt-log): entries [1]-[4] — Claude, Product Detail IA01-IA04 checklist generation
-caa2e55 2026-07-26 docs(checklist): design + gap analysis for Product Detail (IA01-IA04)
-a30620d 2026-07-26 docs: correct HW03 individual-scope framing, ground checklist gen in SUT's FR spec
-fea11f8 2026-07-26 chore: remove leftover HW02 artifacts from shared N08 repo
-b0d1bc6 2026-07-26 Revert "docs(checklist): select scope — Home, product grid, search results, empty search state, product detail"
-ea46b0e 2026-07-26 docs(checklist): select scope — Home, product grid, search results, empty search state, product detail
-f9d93ab 2026-07-26 feat(skills): split AI logging into prompt-log + ai-audit-report, add VN-output guardrails
-ef91f95 2026-07-26 docs: fill in student name/ID in README header
-22965c9 2026-07-26 chore: scaffold deliverable structure for Task 1-3 (empty templates)
-9f7da82 2026-07-26 feat(skills): add Agent Skills for HW03 Tasks 1-3
-0401374 2026-07-26 docs: add project context for HW03 (scope, SUT, skill index)
-f449e41 2026-07-26 chore: track .claude/skills as a graded deliverable, ignore demo-scratch
-1cd3693 2026-07-26 chore: remove redundant files
-15ad550 2026-06-20 chore: initialize repo structure for testing docs
-969e156 2026-06-10 Remove commiting database to git
-807c1b7 2026-06-10 Merge pull request #5 from lmchkhi/issues_template
-371b104 2026-06-09 Fixing template comment
-538890a 2026-06-09 Adding default label to template
-5633354 2026-06-09 Update issue templates
-e59ee5a 2026-06-08 adding .gitignore
-85af3ba 2026-05-15 first upload
-2f9bf2b 2026-05-15 Initial commit
+* commit 5c315aa554c2a0669cd11633ff67f487ae172cb5
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 2 23:52:14 2026 +0700
+| 
+|     docs: refresh git commit log (§12)
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  git-log.txt | 3 ++-
+|  1 file changed, 2 insertions(+), 1 deletion(-)
+| 
+* commit 18e91d8ad82be453f00de0717da904262da1e9f1
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 2 23:52:07 2026 +0700
+| 
+|     fix: reconcile every count and evidence link across the submission
+|     
+|     Consistency audit of the whole repo against the HW03 spec, plus a re-test of
+|     the two Task 3 items that were previously marked untestable.
+|     
+|     Task 1
+|     - gui-checklist.md Summary was stale at 47/59; the 110 rows give 48/58 (IA03
+|       8/14 after GUI-027 was withdrawn). xlsx and README were already correct.
+|     
+|     Task 2
+|     - record the task variants actually assigned: 5 of 7 differ from the plan and
+|       #1/#3 share one, so the set covers 6 distinct variants, not 7
+|     - rebuild the observation timestamps in sessions 02/03/06/07 from the .tsv
+|       transcripts; the old ones (0:62, 0:76, 0:94) were raw seconds and ran
+|       backwards next to 1:06
+|     - session-06 task end 1:22 -> 1:14 to match its own table
+|     
+|     Task 3
+|     - item 9 (GUI-018) T -> Passed and item 13 (GUI-074) T -> Failed, verified
+|       from the deploy's DOM/CSS: the quantity field is type="number" with no
+|       inputmode override, and the action button is a fixed 36px (py-2 + 20px
+|       line-height) with no responsive variant, so it cannot reach 44px anywhere
+|     - correct the stated reason for those two: the old note claimed the Android
+|       session could not reach home/detail, which its own screenshots disprove
+|     - cell counts now match the matrix: 26 Passed/Failed (8/11/7) + 2 untested
+|     - drop the "all four IA aspects on every platform" claim; only Firefox does
+|     - subset-rationale IA split 5/4/4/3 -> 7/4/3/2, taken from the item labels
+|     - README Chrome 3 Fail -> 4 Fail
+|     
+|     Evidence and appendix
+|     - BUG-XPLAT-DEEPLINK-001 images pointed at bug-reports/screenshots/; repoint
+|       to cross-platform/screenshots/ and add the Android shot the bug claims
+|     - rename desktop-firefox-diacritics-tooling-limit.png to
+|       desktop-firefox-empty-search-and-input-limit.png to match what it shows
+|     - fill sections 5, 6 and the signature block of the AI audit report, which
+|       were still template placeholders
+|     - log this session as audit entry #29 and prompt-log [30]
+|     - note the withdrawn 26th bug and closed issue #99 in the README table
+|     - rebuild all five PDFs
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  README.md                                         |  47 ++-
+|  README.pdf                                        | Bin 0 -> 505954 bytes
+|  bug-reports/BUG-IA01-HOMEPAGE-001.md              |   2 +-
+|  bug-reports/BUG-IA01-HOMEPAGE-002.md              |   2 +-
+|  bug-reports/BUG-IA01-HOMEPAGE-003.md              |   2 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md         |   2 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md         |   2 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md         |   2 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-001.md              |   2 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-002.md              |   2 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-003.md              |   2 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-004.md              |   2 +-
+|  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md         |   2 +-
+|  bug-reports/BUG-IA02-SEARCHRESULTS-001.md         |   2 +-
+|  bug-reports/BUG-IA02-SEARCHRESULTS-002.md         |   2 +-
+|  bug-reports/BUG-IA03-HOMEPAGE-001.md              |   2 +-
+|  bug-reports/BUG-IA03-HOMEPAGE-002.md              |   2 +-
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-001.md         |   2 +-
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-002.md         |  53 ++-
+|  bug-reports/BUG-IA04-EMPTYSEARCH-001.md           |   2 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-001.md              |   2 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-002.md              |   2 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-003.md              |   2 +-
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md         |   2 +-
+|  bug-reports/BUG-IA04-SEARCHRESULTS-001.md         |   2 +-
+|  bug-reports/BUG-IA04-SEARCHRESULTS-002.md         |   2 +-
+|  bug-reports/BUG-XPLAT-DEEPLINK-001.md             |   7 +-
+|  checklist/gui-checklist.md                        |  22 +-
+|  checklist/gui-checklist.xlsx                      | Bin 27851 -> 27822 bytes
+|  cross-platform/report.md                          |  66 +++-
+|  ...ktop-firefox-empty-search-and-input-limit.png} | Bin
+|  cross-platform/subset-rationale.md                |  13 +-
+|  export_pdf.py                                     | 175 +++++++++
+|  git-log.txt                                       |  16 +-
+|  reports/ai-audit-report.md                        | 219 ++++++++++-
+|  reports/ai-audit-report.pdf                       | Bin 0 -> 1133328 bytes
+|  reports/ai-critique.md                            |  39 +-
+|  reports/ai-critique.pdf                           | Bin 0 -> 120896 bytes
+|  reports/main-report.md                            |  54 ++-
+|  reports/main-report.pdf                           | Bin 0 -> 493172 bytes
+|  reports/prompt-log.md                             |  63 ++++
+|  reports/prompt-log.pdf                            | Bin 0 -> 458046 bytes
+|  skills-demo-script.md                             | 390 ++++++--------------
+|  usability/participants.md                         |  21 ++
+|  usability/sessions/session-01.md                  |   1 +
+|  usability/sessions/session-02.md                  |   7 +-
+|  usability/sessions/session-03.md                  |   5 +-
+|  usability/sessions/session-04.md                  |   3 +
+|  usability/sessions/session-05.md                  |   1 +
+|  usability/sessions/session-06.md                  |   8 +-
+|  usability/sessions/session-07.md                  |  19 +-
+|  usability/task-scenarios.md                       |  29 +-
+|  52 files changed, 885 insertions(+), 419 deletions(-)
+| 
+* commit 0dbab8cdfa97d6dddba0dc5a3ebd0c5eb2a38072
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 23:20:11 2026 +0700
+| 
+|     fix(usability): participant #7's SUS is the 2nd highest in session-07 too
+|     
+|     Missed this one when correcting the other three documents.
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  usability/sessions/session-07.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+| 
+* commit e04936a309c27fd76af24ae229e118fc0bbdf52c
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 23:19:59 2026 +0700
+| 
+|     docs: sync README and main report to the Task 3 matrix
+|     
+|     Both still described Task 3 as a re-run of the Task 1/2 flow with per-platform
+|     bug counts. They now describe the 16-item subset, the 26 cells actually
+|     tested, the deep-link 404 confirmed on all three platforms, the Firefox
+|     spinner as the only real browser difference, and the three cells left
+|     untested because of the remote-keyboard limitation.
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  README.md              | 37 ++++++++++++++++++++++++-------------
+|  reports/main-report.md | 39 +++++++++++++++++++++++++++++----------
+|  2 files changed, 53 insertions(+), 23 deletions(-)
+| 
+* commit 69fd64c2a97c4bd42d58ed8995f31d885a7c223c
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 23:17:48 2026 +0700
+| 
+|     fix: correct the watermark email to 23127300@student.hcmus.edu.vn
+|     
+|     The overlay carried 23127300@hcmus.edu.vn, which is not a real address. The
+|     student email is 23127300@student.hcmus.edu.vn, and it is the right one for
+|     the overlay because §11 wants the student ID visible and that address carries
+|     it.
+|     
+|     - restamped 11 screenshots from their unstamped originals
+|     - the two legacy Android shots had the wrong address baked into the pixels
+|       with no original available, so the old watermark bar is painted over and
+|       restamped; only the annotation changed, never the captured page
+|     - dropped desktop-firefox-search-results and desktop-firefox-cart-added: same
+|       problem, no original, and both are superseded by the six Firefox captures
+|       from this run
+|     - stamp script now accepts the student. subdomain instead of warning on it
+|     - CLAUDE.md, main report, Task 3 report and demo script updated
+|     
+|     reports/prompt-log.md keeps the old address: it is a verbatim record of what
+|     was run at the time and must not be rewritten.
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  .../scripts/stamp_screenshot.py                   |   8 ++++----
+|  CLAUDE.md                                         |   2 +-
+|  cross-platform/report.md                          |   4 ++--
+|  .../screenshots/android-chrome-cart-added.png     | Bin 132108 -> 128754 bytes
+|  .../screenshots/android-chrome-deeplink-404.png   | Bin 81157 -> 81406 bytes
+|  .../screenshots/android-chrome-product-detail.png | Bin 250030 -> 208928 bytes
+|  .../screenshots/desktop-chrome-cart-added.png     | Bin 520031 -> 511582 bytes
+|  .../screenshots/desktop-chrome-deeplink-404.png   | Bin 478450 -> 470357 bytes
+|  .../screenshots/desktop-chrome-home-grid.png      | Bin 284869 -> 290678 bytes
+|  .../screenshots/desktop-chrome-search-results.png | Bin 531485 -> 523569 bytes
+|  .../desktop-firefox-back-loses-search.png         | Bin 224320 -> 226279 bytes
+|  .../screenshots/desktop-firefox-cart-added.png    | Bin 171493 -> 0 bytes
+|  .../desktop-firefox-cart-empty-one-click.png      | Bin 227802 -> 228321 bytes
+|  .../screenshots/desktop-firefox-deeplink-404.png  | Bin 141251 -> 141708 bytes
+|  .../desktop-firefox-diacritics-tooling-limit.png  | Bin 176550 -> 177006 bytes
+|  .../screenshots/desktop-firefox-home-grid.png     | Bin 211230 -> 212253 bytes
+|  .../desktop-firefox-product-detail-spinner.png    | Bin 260528 -> 261929 bytes
+|  .../desktop-firefox-search-results.png            | Bin 147277 -> 0 bytes
+|  reports/main-report.md                            |   2 +-
+|  skills-demo-script.md                             |   2 +-
+|  20 files changed, 9 insertions(+), 9 deletions(-)
+| 
+* commit bbad79419ac0d9c6005037abeb40e11d7fd0f2ac
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 23:13:26 2026 +0700
+| 
+|     test(xplat): finish Task 3 - stamp all evidence, rewrite as item x platform matrix
+|     
+|     - desktop Chrome retaken on the Vercel deploy: full window, macOS menu bar,
+|       URL bar and 404 body in frame, bookmarks hidden
+|     - every screenshot now carries email + full name + browser/OS/device, so both
+|       §6 (student email) and §11 (student ID and full name) are satisfied; the two
+|       legacy Android shots get the name in the opposite corner to avoid a double
+|       watermark
+|     - stamp script takes repeatable --label so the name and platform are separate
+|       lines
+|     - report is now a 16-item x 3-platform matrix with an explicit legend, instead
+|       of three prose rows about a flow
+|     - deep-link 404 confirmed on all three platforms, so it is definitively a
+|       hosting-config issue rather than a browser one
+|     - the three cells that could not be tested are marked as tooling limits with
+|       the evidence (sent vs received strings) and the five workarounds tried,
+|       rather than being guessed at
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  .../scripts/stamp_screenshot.py                   |  12 +-
+|  cross-platform/report.md                          | 200 +++++++++++++++-----
+|  .../screenshots/android-chrome-cart-added.png     | Bin 130710 -> 132108 bytes
+|  .../screenshots/android-chrome-deeplink-404.png   | Bin 0 -> 81157 bytes
+|  .../screenshots/android-chrome-product-detail.png | Bin 246340 -> 250030 bytes
+|  .../screenshots/desktop-chrome-cart-added.png     | Bin 47586 -> 520031 bytes
+|  .../screenshots/desktop-chrome-deeplink-404.png   | Bin 25248 -> 478450 bytes
+|  .../screenshots/desktop-chrome-home-grid.png      | Bin 0 -> 284869 bytes
+|  .../screenshots/desktop-chrome-search-results.png | Bin 817203 -> 531485 bytes
+|  .../desktop-firefox-back-loses-search.png         | Bin 0 -> 224320 bytes
+|  .../desktop-firefox-cart-empty-one-click.png      | Bin 0 -> 227802 bytes
+|  .../screenshots/desktop-firefox-deeplink-404.png  | Bin 125287 -> 141251 bytes
+|  .../desktop-firefox-diacritics-tooling-limit.png  | Bin 0 -> 176550 bytes
+|  .../screenshots/desktop-firefox-home-grid.png     | Bin 0 -> 211230 bytes
+|  .../desktop-firefox-product-detail-spinner.png    | Bin 0 -> 260528 bytes
+|  15 files changed, 161 insertions(+), 51 deletions(-)
+| 
+* commit 6d55b08bd709515a759e73c541ae5677deea4aeb
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 22:52:17 2026 +0700
+| 
+|     test(xplat): confirm the deep-link 404 on Android 14 / Pixel 8
+|     
+|     New coverage: the earlier run recorded the deep link as untested on Android.
+|     Launching the session directly at /product/2 on a real Pixel 8 returns the
+|     same Vercel 404 as Chrome and Firefox, so BUG-XPLAT-DEEPLINK-001 is now
+|     confirmed on all three platforms and is definitively a hosting-config issue,
+|     not a browser one.
+|     
+|     Three mobile-only items remain uncovered (responsive column count, numeric
+|     keypad on the quantity field, tap-target height). Reaching the home page
+|     needs a typed URL, and the remote-device keyboard corrupts typed input:
+|     "https://frontend-web-eight-mu.vercel.app/" arrived as
+|     "ahttps;//fronten-web-eight-mu.vercel.app/" and landed on a Google search.
+|     Same transport limitation already recorded for Vietnamese diacritics on
+|     Firefox. Recorded as not covered rather than guessed at.
+|     
+|     Also swaps in the retaken desktop Chrome screenshot: full window, macOS menu
+|     bar, Vercel URL visible, bookmarks hidden.
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  .../screenshots/desktop-chrome-search-results.png | Bin 821852 -> 817203 bytes
+|  .../raw-android/android-deeplink-404.png          | Bin 0 -> 106962 bytes
+|  2 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 26001eb704375833ade6c76fa37b9706788850d1
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 11:11:21 2026 +0700
+| 
+|     test(xplat): define platform-sensitive subset; run it on Firefox 153 / Windows 11
+|     
+|     Rather than repeating all 110 items three times, select 16 that actually
+|     depend on the render engine, OS or device type, with a written argument for
+|     why the other 94 are platform-invariant (backend behaviour, DOM structure,
+|     absent features, business logic).
+|     
+|     Firefox 153 / Windows 11 via BrowserStack Live, against the Vercel deploy:
+|     - deep link /product/2 returns Vercel 404, reproducing BUG-XPLAT-DEEPLINK-001
+|     - one click on the add-to-cart button leaves the cart empty, same swallowed
+|       first click as Chrome (BUG-IA04-PRODUCTDETAIL-001)
+|     - Back drops the keyword and returns all 5 products (BUG-IA03-HOMEPAGE-002)
+|     - empty search state renders blank (BUG-IA04-EMPTYSEARCH-001)
+|     - currency still VND on the grid vs d on detail (BUG-IA01-HOMEPAGE-002)
+|     - Vietnamese diacritics display correctly; grid, images and layout all fine
+|     - only genuine browser difference: Firefox draws its native spinner on the
+|       quantity input, which Chrome does not. Cosmetic, not a defect.
+|     
+|     Diacritic input could not be tested: the remote keyboard drops non-ASCII
+|     characters, so the Vietnamese phrase arrived stripped of its accents.
+|     Recorded as a tooling limit, not a SUT defect, matching the Android typing
+|     limitation already documented.
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  .../screenshots/desktop-chrome-search-results.png | Bin 54001 -> 821852 bytes
+|  .../raw-firefox/ff-back-loses-search.png          | Bin 0 -> 313721 bytes
+|  .../raw-firefox/ff-cart-empty-after-one-click.png | Bin 0 -> 328420 bytes
+|  .../screenshots/raw-firefox/ff-deeplink-404.png   | Bin 0 -> 123946 bytes
+|  .../raw-firefox/ff-diacritics-input-dropped.png   | Bin 0 -> 160614 bytes
+|  .../screenshots/raw-firefox/ff-home-grid.png      | Bin 0 -> 199164 bytes
+|  .../raw-firefox/ff-product-detail-spinner.png     | Bin 0 -> 385682 bytes
+|  cross-platform/subset-rationale.md                |  96 ++++++++++++++++++++
+|  8 files changed, 96 insertions(+)
+| 
+* commit 3746f1ad35a420dcbbf00092229ced6b93817ae6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:52:45 2026 +0700
+| 
+|     docs(demo-script): fix awkward conversions and the Task 1 issue count
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  skills-demo-script.md | 16 ++++++++--------
+|  1 file changed, 8 insertions(+), 8 deletions(-)
+| 
+* commit 1bdca444fd01f4d6d704b3c6bf4949354a1e7183
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:52:23 2026 +0700
+| 
+|     docs(demo-script): match the prose register of the rest of the submission
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  2026.HW03.GUI Usability_En (1).pdf | Bin 0 -> 231854 bytes
+|  skills-demo-script.md              | 326 +++++++++++++++++++++++++++++++++++
+|  2 files changed, 326 insertions(+)
+| 
+* commit 752babcbdac656d308fae4f69608a75de3efc3dc
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:51:58 2026 +0700
+| 
+|     fix: repair text mangled by the em-dash pass; rebuild xlsx with a Summary sheet
+|     
+|     The first em-dash conversion nested its placeholders and corrupted 15 lines
+|     where a quoted string sat inside a code span (aria-label, type="number",
+|     alt=""). Reverted those seven files and reran a corrected pass that only
+|     protects code spans and restores innermost-first. Scanned the whole corpus:
+|     no sentinels or control characters remain.
+|     
+|     xlsx regenerated from the current markdown so the two stay in sync, now with
+|     the test summary as a second sheet per §14.
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  bug-reports/BUG-IA01-HOMEPAGE-001.md      | Bin 1638 -> 1686 bytes
+|  bug-reports/BUG-IA02-HOMEPAGE-001.md      | Bin 1584 -> 1607 bytes
+|  bug-reports/BUG-IA02-HOMEPAGE-003.md      | Bin 4031 -> 4036 bytes
+|  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md | Bin 2201 -> 2206 bytes
+|  bug-reports/BUG-IA03-HOMEPAGE-001.md      | Bin 1564 -> 1597 bytes
+|  bug-reports/BUG-IA04-HOMEPAGE-002.md      | Bin 1469 -> 1463 bytes
+|  checklist/gui-checklist.md                | Bin 67429 -> 67491 bytes
+|  checklist/gui-checklist.xlsx              | Bin 26737 -> 27851 bytes
+|  8 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 02537cd40047846ca54b052cc77e1660a1a23e61
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:49:38 2026 +0700
+| 
+|     docs: rewrite README and main report, drop remaining em-dashes
+|     
+|     - bug totals now 26 (25 from Task 1, 1 from Task 3) after filing
+|       BUG-IA02-HOMEPAGE-004; BUG-XPLAT-DEEPLINK-001 has issue #197
+|     - participant #7's SUS is the 2nd highest, corrected in both documents
+|     - audit report entry count corrected to 27
+|     - AI critique reworded to 296 words, still inside the 200-300 window
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  README.md                             | 151 ++++++++--------
+|  bug-reports/BUG-IA02-HOMEPAGE-004.md  |   2 +-
+|  bug-reports/BUG-XPLAT-DEEPLINK-001.md |   2 +-
+|  reports/ai-critique.md                |  22 +--
+|  reports/main-report.md                | 298 ++++++++++++++++----------------
+|  5 files changed, 233 insertions(+), 242 deletions(-)
+| 
+* commit a69db89758d605115056e47b883cd38c318c4968
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:45:48 2026 +0700
+| 
+|     docs(gap-analysis): regroup 12 entries by cause, consolidate the repeated dark-mode gap
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  ai-gap-analysis/gui-checklist-gaps.md | 264 +++++++++++---------------------
+|  1 file changed, 89 insertions(+), 175 deletions(-)
+| 
+* commit 62f9caddd17980c52e337c3e9f2a233a904997d9
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:44:31 2026 +0700
+| 
+|     docs: remove template leftovers, fix sourcing, rewrite prose register
+|     
+|     - delete the "Do not fabricate this table" banner from participants.md and
+|       the skill to-do notes from the gap analysis; these were instructions to
+|       myself, not content
+|     - add the §9 declaration ("I use AI tools for the following tasks") which was
+|       missing entirely from the audit report, and drop the unfilled form guide
+|     - cite Brooke (1996), Bangor et al. (2008) and Nielsen (1994) instead of
+|       quoting my own skill reference files as if they were authorities
+|     - participant #7's SUS of 82.5 is the 2nd highest, not the 3rd
+|     - replace ~450 em-dashes with commas and colons across the checklist, bug
+|       reports, session notes and usability docs
+|     - fix two places where the text referred to me in the third person
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  ai-gap-analysis/gui-checklist-gaps.md     |  12 +-
+|  bug-reports/BUG-IA01-HOMEPAGE-001.md      | Bin 1698 -> 1638 bytes
+|  bug-reports/BUG-IA01-HOMEPAGE-002.md      |   8 +-
+|  bug-reports/BUG-IA01-HOMEPAGE-003.md      |   6 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md |   6 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md |   4 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md |   2 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-001.md      | Bin 1616 -> 1584 bytes
+|  bug-reports/BUG-IA02-HOMEPAGE-002.md      |  10 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-003.md      | Bin 4069 -> 4031 bytes
+|  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md | Bin 2224 -> 2201 bytes
+|  bug-reports/BUG-IA02-SEARCHRESULTS-001.md |   8 +-
+|  bug-reports/BUG-IA02-SEARCHRESULTS-002.md |   8 +-
+|  bug-reports/BUG-IA03-HOMEPAGE-001.md      | Bin 1606 -> 1564 bytes
+|  bug-reports/BUG-IA03-HOMEPAGE-002.md      |  16 +-
+|  bug-reports/BUG-IA03-HOMEPAGE-003.md      |   2 +-
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-001.md |   4 +-
+|  bug-reports/BUG-IA04-EMPTYSEARCH-001.md   |  12 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-001.md      |   6 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-002.md      | Bin 1469 -> 1469 bytes
+|  bug-reports/BUG-IA04-HOMEPAGE-003.md      |  12 +-
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md |  38 ++---
+|  bug-reports/BUG-IA04-SEARCHRESULTS-001.md |  10 +-
+|  bug-reports/BUG-IA04-SEARCHRESULTS-002.md |  14 +-
+|  bug-reports/BUG-XPLAT-DEEPLINK-001.md     |  26 ++--
+|  checklist/gui-checklist.md                | Bin 67989 -> 67429 bytes
+|  reports/ai-audit-report.md                |  26 +++-
+|  usability/analysis.md                     | 222 +++++++++++++++-------------
+|  usability/participants.md                 |  39 +++--
+|  usability/plan.md                         | 189 +++++++++++------------
+|  usability/session-script.md               |  20 +--
+|  usability/sessions/session-01.md          |  18 +--
+|  usability/sessions/session-02.md          |  28 ++--
+|  usability/sessions/session-03.md          |  24 +--
+|  usability/sessions/session-04.md          |  26 ++--
+|  usability/sessions/session-05.md          |  16 +-
+|  usability/sessions/session-06.md          |  22 +--
+|  usability/sessions/session-07.md          |  38 ++---
+|  usability/task-scenarios.md               |  26 ++--
+|  39 files changed, 454 insertions(+), 444 deletions(-)
+| 
+* commit f7530c7102d73375e8c8b1a29708bd77c50d6dc8
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 1 10:38:10 2026 +0700
+| 
+|     fix(checklist): clean header, repair GUI-097 row, close screenshot gaps
+|     
+|     - drop the leftover skill instruction block and the stale "Not Run" note;
+|       all 110 items are executed, the header said otherwise
+|     - GUI-097 notes contained a raw regex whose pipes broke the table render
+|     - rewrite 6 notes that cited implementation details as observable behaviour
+|       (GUI-013/063/071/079/080/086)
+|     - every Failed row now carries a screenshot, per §6: 8 rows point at the
+|       evidence that already proves the same absence, GUI-086 gets a new capture
+|     - GUI-027 re-verified: scroll restoration works on a fast local load and only
+|       fails when the product list returns slowly, so BUG-IA03-PRODUCTDETAIL-002
+|       is rewritten with the real precondition and measurements
+|     - GUI-086 was Failed with no bug attached; filed BUG-IA02-HOMEPAGE-004
+|     
+|     Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+| 
+|  bug-reports/BUG-IA02-HOMEPAGE-004.md              |  45 +++++++++++++
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-002.md         |  35 +++++++---
+|  checklist/gui-checklist.md                        |  70 +++++++++-----------
+|  .../screenshots/GUI-086-home-card-no-quantity.png | Bin 0 -> 39805 bytes
+|  4 files changed, 104 insertions(+), 46 deletions(-)
+| 
+* commit 6e54e1ef6a89e0d84b3da2d0b5bcdee2dc02ad47
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 13:37:44 2026 +0700
+| 
+|     docs: refresh git commit log after Task 3
+| 
+|  git-log.txt | 8 ++++++++
+|  1 file changed, 8 insertions(+)
+| 
+* commit b497e559775282c98b7d4b09e771cfd992532f0e
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 13:37:43 2026 +0700
+| 
+|     docs: roll up cross-platform results into main report + README; self-assessed full grade
+| 
+|  README.md              | 32 ++++++++++++++++++++------------
+|  reports/main-report.md | 38 +++++++++++++++++++++++++++++---------
+|  2 files changed, 49 insertions(+), 21 deletions(-)
+| 
+* commit c2c1014d9606b895545298a8a11aa5bc9278a6b8
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 13:34:55 2026 +0700
+| 
+|     test(xplat): run Task 1/2 flow on Chrome, Firefox, Android Chrome — file BUG-XPLAT-DEEPLINK-001
+| 
+|  bug-reports/BUG-XPLAT-DEEPLINK-001.md             |  46 +++++++++++
+|  cross-platform/report.md                          |  46 ++++++++++-
+|  .../screenshots/android-chrome-cart-added.png     | Bin 0 -> 130710 bytes
+|  .../screenshots/android-chrome-product-detail.png | Bin 0 -> 246340 bytes
+|  .../screenshots/desktop-chrome-cart-added.png     | Bin 0 -> 47586 bytes
+|  .../screenshots/desktop-chrome-deeplink-404.png   | Bin 0 -> 25248 bytes
+|  .../screenshots/desktop-chrome-search-results.png | Bin 0 -> 54001 bytes
+|  .../screenshots/desktop-firefox-cart-added.png    | Bin 0 -> 171493 bytes
+|  .../screenshots/desktop-firefox-deeplink-404.png  | Bin 0 -> 125287 bytes
+|  .../desktop-firefox-search-results.png            | Bin 0 -> 147277 bytes
+|  reports/ai-audit-report.md                        |  83 +++++++++++++++++++-
+|  reports/prompt-log.md                             |  45 +++++++++++
+|  12 files changed, 215 insertions(+), 5 deletions(-)
+| 
+* commit 1f4b10e161ee61f57c91a3a3b4ab1d3a47a7662c
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:55:53 2026 +0700
+| 
+|     docs(usability): participant #7 is also a student
+| 
+|  usability/participants.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+| 
+* commit 94c981ebb2f521e1b159334168d619c3d9a01c53
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:55:33 2026 +0700
+| 
+|     docs(usability): correct pilot session record — real pilot found the same add-to-cart issue
+| 
+|  reports/ai-audit-report.md | 59 +++++++++++++++++++++++++++++++++++++++++---
+|  reports/main-report.md     | 11 ++++++---
+|  reports/prompt-log.md      | 24 ++++++++++++++++++
+|  usability/analysis.md      |  4 +++
+|  usability/plan.md          | 37 +++++++++++++++++----------
+|  5 files changed, 116 insertions(+), 19 deletions(-)
+| 
+* commit 17c886f6b09c613b035a03c7fc2d81a5bdcd2ba0
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:52:08 2026 +0700
+| 
+|     docs(usability): simplify participant Profile column, drop colleague disclosure
+| 
+|  reports/ai-audit-report.md |  6 ++++++
+|  reports/prompt-log.md      | 21 +++++++++++++++++++++
+|  usability/participants.md  | 31 ++++++++-----------------------
+|  3 files changed, 35 insertions(+), 23 deletions(-)
+| 
+* commit 371e7a944b348caa1e88417e835a5cfce8ed3ae8
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:49:45 2026 +0700
+| 
+|     docs(usability): fill participant Profile column from real data, disclose colleague overlap
+| 
+|  reports/ai-audit-report.md | 68 ++++++++++++++++++++++++++++++++++++++++++--
+|  reports/prompt-log.md      | 33 +++++++++++++++++++++
+|  usability/participants.md  | 37 ++++++++++++++++--------
+|  3 files changed, 123 insertions(+), 15 deletions(-)
+| 
+* commit fa9e2d49c7c9a3f834bc7e8f40b5e49c55ae9d11
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:33:33 2026 +0700
+| 
+|     docs(usability): confirm participant #6 identity (Nguyễn Quốc Huy)
+| 
+|  reports/ai-audit-report.md       | 10 ++++++++++
+|  reports/prompt-log.md            | 20 ++++++++++++++++++++
+|  usability/participants.md        |  7 ++++---
+|  usability/sessions/session-06.md |  5 +++--
+|  4 files changed, 37 insertions(+), 5 deletions(-)
+| 
+* commit 1b95eff0e8f18879eb478c4a2e01f92c22533307
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:27:46 2026 +0700
+| 
+|     docs: refresh git commit log after Task 2 synthesis + xlsx export
+| 
+|  git-log.txt | 2 ++
+|  1 file changed, 2 insertions(+)
+| 
+* commit 97cf5bd3e77993cde91ccc39c93467d3225571b6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:27:40 2026 +0700
+| 
+|     chore(usability): commit raw session evidence, remove superseded survey template
+| 
+|  ...71ng (SUS) (Responses) - Form Responses 1.csv" |  8 ++
+|  usability/post-test-survey.md                     | 68 -----------------
+|  usability/transcript/participant_1.tsv            | 18 +++++
+|  usability/transcript/participant_2.tsv            | 24 ++++++
+|  usability/transcript/participant_3.tsv            | 25 +++++++
+|  usability/transcript/participant_4.tsv            | 83 +++++++++++++++++++++
+|  usability/transcript/participant_5.tsv            | 18 +++++
+|  usability/transcript/participant_6.tsv            | 32 ++++++++
+|  usability/transcript/participant_7.tsv            | 77 +++++++++++++++++++
+|  9 files changed, 285 insertions(+), 68 deletions(-)
+| 
+* commit 7f718af09b0e5c1a585dc5a692f836af65af2f10
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:27:17 2026 +0700
+| 
+|     docs: export git commit log (§12)
+| 
+|  git-log.txt | 16 ++++++++++++++++
+|  1 file changed, 16 insertions(+)
+| 
+* commit 733d9a56ae68cd1b64b0a7f530229479fb1336c8
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:27:04 2026 +0700
+| 
+|     docs(readme): roll up Task 2 + bug summary
+| 
+|  README.md | 55 ++++++++++++++++++++++++++++++++++++++++++-------------
+|  1 file changed, 42 insertions(+), 13 deletions(-)
+| 
+* commit 08d9b15f5c2237ba1e3b513f233de7782dc871ee
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:26:24 2026 +0700
+| 
+|     docs: AI critique (§10)
+| 
+|  reports/ai-critique.md | 24 +++++++++++++++++++++++-
+|  1 file changed, 23 insertions(+), 1 deletion(-)
+| 
+* commit b80c1703888e79910b82f6b8e94783332e8cb985
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:24:25 2026 +0700
+| 
+|     docs: write main report
+| 
+|  reports/main-report.md | 188 ++++++++++++++++++++++++++++++++++++++++++++++-
+|  1 file changed, 187 insertions(+), 1 deletion(-)
+| 
+* commit ea2341ea65e796f1a4b2050b8c2639c5d0211ab5
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:21:16 2026 +0700
+| 
+|     docs(checklist): export to .xlsx per §14
+| 
+|  checklist/gui-checklist.xlsx | Bin 0 -> 26737 bytes
+|  1 file changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit e9285168688b5c14a2b83f17e6721991ccaca020
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:19:39 2026 +0700
+| 
+|     docs(usability): score + synthesise + prioritise findings
+| 
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md |  14 ++++
+|  reports/ai-audit-report.md                |  83 +++++++++++++++++++++-
+|  reports/prompt-log.md                     |  46 ++++++++++++
+|  usability/analysis.md                     | 106 +++++++++++++++++++++++++---
+|  4 files changed, 235 insertions(+), 14 deletions(-)
+| 
+* commit 69ac4c62236d806d3a340c86a4fae680721bb391
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:15:25 2026 +0700
+| 
+|     test(usability): session 07 — Lê Hữu Sang
+| 
+|  usability/sessions/session-07.md | 84 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 84 insertions(+)
+| 
+* commit 77fc9370b6ef7f2836d4a68b70431443bcec5051
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:13:58 2026 +0700
+| 
+|     test(usability): session 06 — Nguyễn Quốc Huy
+| 
+|  usability/sessions/session-06.md | 68 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 68 insertions(+)
+| 
+* commit 8c075091147674785b5da119935ed4339ba75312
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:12:36 2026 +0700
+| 
+|     test(usability): session 05 — Dương Quang Thắng
+| 
+|  usability/sessions/session-05.md | 55 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 55 insertions(+)
+| 
+* commit fdf72f1965918fa3d7119e814b7a8ae2af3f53cd
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:11:49 2026 +0700
+| 
+|     test(usability): session 04 — Huỳnh Yến Nhi
+| 
+|  usability/sessions/session-04.md | 67 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 67 insertions(+)
+| 
+* commit 258e536085f37410fb1c956559d7d3d5f30c93d6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:10:42 2026 +0700
+| 
+|     test(usability): session 03 — Nguyễn Ngọc Trúc Mây
+| 
+|  usability/sessions/session-03.md | 65 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 65 insertions(+)
+| 
+* commit 0d13c71c57d4e82b2f28e72c2e0e2a9f592d6dc6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:09:55 2026 +0700
+| 
+|     test(usability): session 02 — Nguyễn Thành Đạt
+| 
+|  usability/sessions/session-02.md | 66 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 66 insertions(+)
+| 
+* commit 96ccd6f88476356d1d863ed71bcb72f0debb9d71
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:08:59 2026 +0700
+| 
+|     test(usability): session 01 — Nguyễn Hà Chiêu Dương
+| 
+|  usability/sessions/session-01.md | 63 ++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 63 insertions(+)
+| 
+* commit 2ded108c7e441c8db3d0e22b29cd78cdf61b0507
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:06:36 2026 +0700
+| 
+|     docs(usability): populate real participant table from survey responses
+| 
+|  usability/participants.md | 29 ++++++++++++++++++++++-------
+|  1 file changed, 22 insertions(+), 7 deletions(-)
+| 
+* commit b25febadf029043afda51c9b6c55bec9cab92256
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 12:02:51 2026 +0700
+| 
+|     docs(usability): fill plan — objectives, instrument, pilot
+| 
+|  usability/plan.md | 91 ++++++++++++++++++++++++++++++++++++++++++++---------
+|  1 file changed, 77 insertions(+), 14 deletions(-)
+| 
+* commit 918bdda4769ac0e5958ed5bfbd671328f5a44b81
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 00:55:19 2026 +0700
+| 
+|     docs(bug): cross-link Search Results & Empty Search State bugs to GitHub issues #190-194
+|     
+|     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| 
+|  bug-reports/BUG-IA02-SEARCHRESULTS-001.md | 1 +
+|  bug-reports/BUG-IA02-SEARCHRESULTS-002.md | 1 +
+|  bug-reports/BUG-IA04-EMPTYSEARCH-001.md   | 1 +
+|  bug-reports/BUG-IA04-SEARCHRESULTS-001.md | 1 +
+|  bug-reports/BUG-IA04-SEARCHRESULTS-002.md | 1 +
+|  5 files changed, 5 insertions(+)
+| 
+* commit 53041ae0a266ed68dfe7e07755e2613860ed8086
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jul 31 00:50:30 2026 +0700
+| 
+|     test(checklist): execute Search Results & Empty Search State against SUT
+|     
+|     Runs all 24 designed items (GUI-087-110) live via Claude for Chrome against
+|     the running SUT: 8 Passed / 15 Failed / 1 N/A. Files 4 new bugs and
+|     cross-links 2 existing ones to their new context:
+|     
+|     - BUG-IA02-SEARCHRESULTS-001: no reset/clear-filter control
+|     - BUG-IA02-SEARCHRESULTS-002: search keyword whitespace not trimmed server-side
+|     - BUG-IA04-SEARCHRESULTS-001: no aria-live/focus management for dynamic results
+|     - BUG-IA04-SEARCHRESULTS-002: results caption updates live on keystroke but the
+|       product grid updates inconsistently, leaving stale/mismatched data on screen
+|       for an unbounded time until explicit submit
+|     - BUG-IA04-EMPTYSEARCH-001: zero-result search renders completely blank, no
+|       icon/message/exit — violates FR-05/FR-24
+|     - cross-linked BUG-IA03-HOMEPAGE-002 (search state never in URL) and
+|       BUG-IA04-HOMEPAGE-003 (real errors silently swallowed) to their Search
+|       Results reproductions
+|     
+|     110/110 designed checklist items now executed. Logged in prompt-log.md [23]
+|     and ai-audit-report.md Entry #23.
+|     
+|     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| 
+|  README.md                                         |  34 ++++---
+|  bug-reports/BUG-IA02-SEARCHRESULTS-001.md         |  32 ++++++
+|  bug-reports/BUG-IA02-SEARCHRESULTS-002.md         |  33 ++++++
+|  bug-reports/BUG-IA03-HOMEPAGE-002.md              |  13 +++
+|  bug-reports/BUG-IA04-EMPTYSEARCH-001.md           |  33 ++++++
+|  bug-reports/BUG-IA04-HOMEPAGE-003.md              |  14 +++
+|  bug-reports/BUG-IA04-SEARCHRESULTS-001.md         |  32 ++++++
+|  bug-reports/BUG-IA04-SEARCHRESULTS-002.md         |  34 +++++++
+|  .../screenshots/BUG-IA02-SEARCHRESULTS-001.png    | Bin 0 -> 45331 bytes
+|  .../screenshots/BUG-IA02-SEARCHRESULTS-002.png    | Bin 0 -> 16892 bytes
+|  .../screenshots/BUG-IA04-EMPTYSEARCH-001.png      | Bin 0 -> 18253 bytes
+|  .../screenshots/BUG-IA04-SEARCHRESULTS-001.png    | Bin 0 -> 45331 bytes
+|  .../screenshots/BUG-IA04-SEARCHRESULTS-002-b.png  | Bin 0 -> 73832 bytes
+|  .../screenshots/BUG-IA04-SEARCHRESULTS-002.png    | Bin 0 -> 73265 bytes
+|  checklist/gui-checklist.md                        | 107 ++++++++++++--------
+|  .../GUI-090-091-092-095-search-results-pro.png    | Bin 0 -> 45331 bytes
+|  .../GUI-094-deeplink-search-param-ignored.png     | Bin 0 -> 49963 bytes
+|  .../screenshots/GUI-096-macbook-stale-catalog.png | Bin 0 -> 73832 bytes
+|  .../GUI-096-search-caption-grid-mismatch.png      | Bin 0 -> 73265 bytes
+|  .../GUI-097-search-error-swallowed.png            | Bin 0 -> 71547 bytes
+|  .../GUI-098-whitespace-not-trimmed.png            | Bin 0 -> 16892 bytes
+|  ...101-103-104-105-108-110-empty-search-blank.png | Bin 0 -> 18253 bytes
+|  git-log.txt                                       |  47 ++++++++-
+|  reports/ai-audit-report.md                        |  93 ++++++++++++++++-
+|  reports/prompt-log.md                             |  62 ++++++++++++
+|  25 files changed, 472 insertions(+), 62 deletions(-)
+| 
+* commit 862ca989018604aebeb63fc5a08c43c4569b8e7a
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Thu Jul 30 16:23:22 2026 +0700
+| 
+|     docs(checklist): design + gap analysis for Search Results & Empty Search State
+|     
+|     Complete Task 1 scope per README §2.1 (4th/5th declared screen states) —
+|     adds 24 checklist items (GUI-087-110, 11+2 Search Results, 9+2 Empty Search
+|     State) via one AI-generation prompt per IA aspect x screen, plus critical
+|     human review adding 4 gap items (dark mode contrast recurring 3rd/4th time,
+|     input whitespace normalization, VN diacritics in a zero-match context).
+|     Logged in reports/prompt-log.md [13]-[22] and reports/ai-audit-report.md
+|     Entry #13-#22 (16 VALID / 6 INCOMPLETE). Execution against the running SUT
+|     deferred to a later pass; all new rows are Result=Not Run.
+|     
+|     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| 
+|  README.md                             |  21 +-
+|  ai-gap-analysis/gui-checklist-gaps.md |  70 ++++
+|  checklist/gui-checklist.md            |  80 ++++-
+|  reports/ai-audit-report.md            | 611 +++++++++++++++++++++++++++++++-
+|  reports/prompt-log.md                 | 323 +++++++++++++++++
+|  5 files changed, 1074 insertions(+), 31 deletions(-)
+| 
+* commit 65f4cf19d7a084d65a583186373a4448940ae0f6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 21:56:19 2026 +0700
+| 
+|     fix(usability): force the search step, don't just imply it
+|     
+|     Previous wording ("find 1 product you like, under X price") let
+|     participants complete the whole task by clicking straight from the
+|     5-product grid, never touching the search box — the "search by
+|     keyword" step of the flow was never actually required to happen.
+|     
+|     Rewrote each task to assign a specific keyword the participant must
+|     type into the search box (verified live: each returns exactly 1
+|     match). Keywords vary in form across participants (full name, partial
+|     name, Vietnamese diacritics, uppercase) to exercise different search
+|     behaviors while keeping per-participant task difficulty identical.
+| 
+|  usability/task-scenarios.md | 50 +++++++++++++++++++++++++++----------------
+|  1 file changed, 31 insertions(+), 19 deletions(-)
+| 
+* commit 4462b448c7972f1279250249628ba94fe985af23
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 21:52:09 2026 +0700
+| 
+|     fix(usability): correct price bands in task-scenarios to match real catalog
+|     
+|     All 7 price thresholds (300,000₫-1,000,000₫) were far below the SUT's
+|     actual cheapest product (Keychron Q1, 4,000,000₫) — verified live at
+|     localhost:5173. No product could ever match, so the "search by
+|     keyword" step of the flow would always return 0 results and no
+|     participant could complete the task.
+|     
+|     Rewrote thresholds against the real catalog (4tr/6tr/28tr/30tr/45tr),
+|     each yielding a different valid product set (1 product up to all 5)
+|     to keep the per-participant variation the design already called for.
+| 
+|  usability/task-scenarios.md | 32 ++++++++++++++++++++++----------
+|  1 file changed, 22 insertions(+), 10 deletions(-)
+| 
+* commit 6db733edceb0201cfe7907f10c0618e9bbab567b
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:59:34 2026 +0700
+| 
+|     fix(screenshots): recapture Product Detail evidence as lossless PNG
+|     
+|     Same fix as the Home Page batch — these were also JPEG via the
+|     screenshot action. Reproduced all 5 Product Detail scenarios (detail
+|     page green button/no category/no breadcrumb/no skeleton, Home grid
+|     blue button for comparison, quantity=0 input, quantity=0 accepted in
+|     cart, cart empty after reload) and recaptured with zoom for genuine
+|     PNG. Same file paths — existing GitHub issues' raw image links (which
+|     point at the branch, not a pinned commit) now resolve to the sharper
+|     version automatically.
+| 
+|  .../BUG-IA01-PRODUCTDETAIL-001-grid-compare.png   | Bin 63435 -> 110254 bytes
+|  .../screenshots/BUG-IA01-PRODUCTDETAIL-001.png    | Bin 39917 -> 67495 bytes
+|  .../screenshots/BUG-IA01-PRODUCTDETAIL-002.png    | Bin 39917 -> 67495 bytes
+|  .../screenshots/BUG-IA01-PRODUCTDETAIL-003.png    | Bin 39917 -> 67495 bytes
+|  .../BUG-IA02-PRODUCTDETAIL-001-input.png          | Bin 42407 -> 73429 bytes
+|  .../screenshots/BUG-IA02-PRODUCTDETAIL-001.png    | Bin 40329 -> 38692 bytes
+|  .../screenshots/BUG-IA03-PRODUCTDETAIL-001.png    | Bin 39917 -> 67495 bytes
+|  .../screenshots/BUG-IA04-PRODUCTDETAIL-001.png    | Bin 30480 -> 26547 bytes
+|  .../GUI-004-005-012-023-026-detail-page.png       | Bin 39917 -> 67495 bytes
+|  .../screenshots/GUI-004-home-grid-blue-button.png | Bin 63435 -> 110254 bytes
+|  ...013-015-017-020-021-cart-qty-zero-accepted.png | Bin 40329 -> 38692 bytes
+|  .../screenshots/GUI-013-quantity-zero-input.png   | Bin 42407 -> 73429 bytes
+|  ...GUI-038-039-044-046-cart-lost-after-reload.png | Bin 30480 -> 26547 bytes
+|  13 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 8d2d498332888b219b75dc4bb2c14ab13ee49962
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:56:04 2026 +0700
+| 
+|     fix(screenshots): recapture Home Page evidence as lossless PNG
+|     
+|     The computer tool's screenshot action returns JPEG only, which looked
+|     visibly blurry/soft on UI text and edges. The zoom action, however,
+|     returns genuine lossless PNG at full resolution — reproduced all 7
+|     Home Page evidence scenarios (duplicate h1/price/nav context, XSS+SQL
+|     error, SQLi boolean bypass, mobile tap targets, cart duplicate rows,
+|     back-loses-search, silent network-failure) and recaptured each with
+|     zoom instead of screenshot. Same file paths/names, genuinely sharper
+|     content — no markdown references needed to change.
+| 
+|  bug-reports/screenshots/BUG-IA01-HOMEPAGE-001.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA01-HOMEPAGE-002.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA01-HOMEPAGE-003.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA02-HOMEPAGE-001.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA02-HOMEPAGE-002.png | Bin 28458 -> 34530 bytes
+|  bug-reports/screenshots/BUG-IA02-HOMEPAGE-003.png | Bin 51705 -> 70983 bytes
+|  bug-reports/screenshots/BUG-IA03-HOMEPAGE-001.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA03-HOMEPAGE-002.png | Bin 52559 -> 110780 bytes
+|  bug-reports/screenshots/BUG-IA03-HOMEPAGE-003.png | Bin 30792 -> 150970 bytes
+|  bug-reports/screenshots/BUG-IA04-HOMEPAGE-001.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA04-HOMEPAGE-002.png | Bin 49591 -> 110733 bytes
+|  bug-reports/screenshots/BUG-IA04-HOMEPAGE-003.png | Bin 56508 -> 120195 bytes
+|  ...-058-059-067-068-078-080-082-086-home-page.png | Bin 49591 -> 110733 bytes
+|  ...UI-060-064-search-sqli-bypass-all-products.png | Bin 51705 -> 70983 bytes
+|  .../GUI-060-064-search-xss-sql-error.png          | Bin 28458 -> 34530 bytes
+|  .../GUI-068-081-cart-no-badge-duplicate-rows.png  | Bin 36876 -> 87911 bytes
+|  .../screenshots/GUI-071-back-loses-search.png     | Bin 52559 -> 110780 bytes
+|  .../screenshots/GUI-074-mobile-tap-targets.png    | Bin 30792 -> 150970 bytes
+|  .../GUI-079-silent-failure-stale-data.png         | Bin 56508 -> 120195 bytes
+|  19 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 358f9aecfe137b2322ae49dd3d03246cbef96b08
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:37:25 2026 +0700
+| 
+|     docs(bug): cross-link BUG-IA01..IA04-HOMEPAGE to GitHub issues #101-#112
+| 
+|  bug-reports/BUG-IA01-HOMEPAGE-001.md | 3 +++
+|  bug-reports/BUG-IA01-HOMEPAGE-002.md | 3 +++
+|  bug-reports/BUG-IA01-HOMEPAGE-003.md | 3 +++
+|  bug-reports/BUG-IA02-HOMEPAGE-001.md | 3 +++
+|  bug-reports/BUG-IA02-HOMEPAGE-002.md | 3 +++
+|  bug-reports/BUG-IA02-HOMEPAGE-003.md | 3 +++
+|  bug-reports/BUG-IA03-HOMEPAGE-001.md | 3 +++
+|  bug-reports/BUG-IA03-HOMEPAGE-002.md | 3 +++
+|  bug-reports/BUG-IA03-HOMEPAGE-003.md | 3 +++
+|  bug-reports/BUG-IA04-HOMEPAGE-001.md | 3 +++
+|  bug-reports/BUG-IA04-HOMEPAGE-002.md | 3 +++
+|  bug-reports/BUG-IA04-HOMEPAGE-003.md | 3 +++
+|  12 files changed, 36 insertions(+)
+| 
+* commit 1e6f9fd608b8400be67f6725f1c64b892b1df4c0
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:34:28 2026 +0700
+| 
+|     docs: reframe evidence as black-box observations, not repo source reads
+|     
+|     HW03 Task 1 is checklist-based black-box GUI testing. Several bug
+|     reports and checklist Notes cited local repo file paths/line numbers
+|     (ProductDetail.jsx, Home.jsx, CartContext.jsx, backend/server.js) as
+|     proof, which misrepresents the testing methodology as white-box.
+|     
+|     Rewrites every such citation as a pure black-box observation instead
+|     — behavior reproduced across repeated trials, DevTools/Inspect
+|     Element, Network tab, console — while keeping the underlying defect
+|     claims intact and, in most cases, on stronger footing (e.g. the SQL
+|     injection finding now rests on two independent black-box techniques,
+|     error-based and boolean-based, exactly as a real pentester without
+|     source access would establish it).
+|     
+|     No defect conclusions changed — only how the evidence is presented.
+| 
+|  README.md                                 |  8 ++--
+|  bug-reports/BUG-IA01-HOMEPAGE-001.md      |  2 +-
+|  bug-reports/BUG-IA01-HOMEPAGE-002.md      |  2 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md |  2 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md |  2 +-
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md |  2 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-001.md      |  4 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-002.md      |  4 +-
+|  bug-reports/BUG-IA02-HOMEPAGE-003.md      | 21 +++------
+|  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md |  3 +-
+|  bug-reports/BUG-IA03-HOMEPAGE-002.md      |  2 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-001.md      |  4 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-002.md      |  2 +-
+|  bug-reports/BUG-IA04-HOMEPAGE-003.md      |  2 +-
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md | 20 +++++----
+|  checklist/gui-checklist.md                | 33 +++++++-------
+|  reports/ai-audit-report.md                | 67 ++++++++++++++++-------------
+|  reports/prompt-log.md                     | 43 +++++++++---------
+|  18 files changed, 111 insertions(+), 112 deletions(-)
+| 
+* commit 2b45c071d90021dc1274e0f758b7c1e90c013a54
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:18:09 2026 +0700
+| 
+|     docs(ai-audit): log entry #12 — Home Page execution pass, update §4 summary
+| 
+|  reports/ai-audit-report.md | 81 ++++++++++++++++++++++++++++++++++++++++++--
+|  1 file changed, 78 insertions(+), 3 deletions(-)
+| 
+* commit dbf7c8b36602fb6e2d853893f9002d6d7a0c926b
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:18:09 2026 +0700
+| 
+|     docs(prompt-log): entry [12] — Claude, Home Page execution pass
+| 
+|  reports/prompt-log.md | 58 +++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 58 insertions(+)
+| 
+* commit 4918bf2d3be3bdeb654f40e62bd7c930ed585450
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:18:02 2026 +0700
+| 
+|     docs(bug): file 12 bugs from Home Page execution pass
+|     
+|     BUG-IA01-HOMEPAGE-001..003 (duplicate <h1>, "VND" vs ₫, price contrast),
+|     BUG-IA02-HOMEPAGE-001..003 (search input missing label, reflected XSS,
+|     SQL injection in GET /api/products), BUG-IA03-HOMEPAGE-001..003 (no
+|     Navbar active-state, search lost on Back, mobile tap target height),
+|     BUG-IA04-HOMEPAGE-001..003 (no loading state anywhere, empty alt text,
+|     network failure silently rendered as false success). Most severe:
+|     BUG-IA02-HOMEPAGE-003, a confirmed SQL injection (SEC-05) verified via
+|     both an error-based leak and a boolean-based `OR '1'='1'` bypass.
+|     
+|     Also cross-links BUG-IA04-PRODUCTDETAIL-001 with the same CartContext
+|     defects (no badge/toast, no quantity accumulation) reproduced on Home
+|     Page, instead of filing duplicate bugs for the same root cause.
+|     
+|     GitHub issues not yet created — pending confirmation before creating
+|     12 new public issues.
+| 
+|  bug-reports/BUG-IA01-HOMEPAGE-001.md              |  30 +++++++++++++++
+|  bug-reports/BUG-IA01-HOMEPAGE-002.md              |  30 +++++++++++++++
+|  bug-reports/BUG-IA01-HOMEPAGE-003.md              |  30 +++++++++++++++
+|  bug-reports/BUG-IA02-HOMEPAGE-001.md              |  29 ++++++++++++++
+|  bug-reports/BUG-IA02-HOMEPAGE-002.md              |  32 ++++++++++++++++
+|  bug-reports/BUG-IA02-HOMEPAGE-003.md              |  40 ++++++++++++++++++++
+|  bug-reports/BUG-IA03-HOMEPAGE-001.md              |  29 ++++++++++++++
+|  bug-reports/BUG-IA03-HOMEPAGE-002.md              |  32 ++++++++++++++++
+|  bug-reports/BUG-IA03-HOMEPAGE-003.md              |  30 +++++++++++++++
+|  bug-reports/BUG-IA04-HOMEPAGE-001.md              |  29 ++++++++++++++
+|  bug-reports/BUG-IA04-HOMEPAGE-002.md              |  29 ++++++++++++++
+|  bug-reports/BUG-IA04-HOMEPAGE-003.md              |  32 ++++++++++++++++
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md         |  15 ++++++++
+|  bug-reports/screenshots/BUG-IA01-HOMEPAGE-001.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA01-HOMEPAGE-002.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA01-HOMEPAGE-003.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA02-HOMEPAGE-001.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA02-HOMEPAGE-002.png | Bin 0 -> 28458 bytes
+|  bug-reports/screenshots/BUG-IA02-HOMEPAGE-003.png | Bin 0 -> 51705 bytes
+|  bug-reports/screenshots/BUG-IA03-HOMEPAGE-001.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA03-HOMEPAGE-002.png | Bin 0 -> 52559 bytes
+|  bug-reports/screenshots/BUG-IA03-HOMEPAGE-003.png | Bin 0 -> 30792 bytes
+|  bug-reports/screenshots/BUG-IA04-HOMEPAGE-001.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA04-HOMEPAGE-002.png | Bin 0 -> 49591 bytes
+|  bug-reports/screenshots/BUG-IA04-HOMEPAGE-003.png | Bin 0 -> 56508 bytes
+|  25 files changed, 387 insertions(+)
+| 
+* commit 23ca1fd3ab64172cc4b0b4d0046e4754f14695e7
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 20:17:48 2026 +0700
+| 
+|     test(checklist): execute Home Page items against SUT (40/40)
+|     
+|     20 Passed / 20 Failed / 0 N/A. Most severe finding: a confirmed SQL
+|     injection in GET /api/products (search endpoint builds SQL via raw
+|     string interpolation, backend/server.js) — discovered while probing
+|     GUI-060/064 for reflected XSS, verified both error-based (broken
+|     query leaks raw SQLITE_ERROR) and boolean-based (`' OR '1'='1' --`
+|     bypasses the WHERE clause entirely, returns all products). Other
+|     findings: duplicate <h1>, "VND" instead of ₫ (inconsistent with
+|     Product Detail/Cart), price contrast below WCAG AA, no loading state
+|     anywhere, no Navbar active-state, search state lost on browser Back,
+|     empty alt text, and a real network failure silently rendered as a
+|     false-success stale result. Updates README §2.2 combined totals.
+| 
+|  README.md                                         |  20 ++--
+|  checklist/gui-checklist.md                        | 115 +++++++++++---------
+|  ...-058-059-067-068-078-080-082-086-home-page.png | Bin 0 -> 49591 bytes
+|  ...UI-060-064-search-sqli-bypass-all-products.png | Bin 0 -> 51705 bytes
+|  .../GUI-060-064-search-xss-sql-error.png          | Bin 0 -> 28458 bytes
+|  .../GUI-068-081-cart-no-badge-duplicate-rows.png  | Bin 0 -> 36876 bytes
+|  .../screenshots/GUI-071-back-loses-search.png     | Bin 0 -> 52559 bytes
+|  .../screenshots/GUI-074-mobile-tap-targets.png    | Bin 0 -> 30792 bytes
+|  .../GUI-079-silent-failure-stale-data.png         | Bin 0 -> 56508 bytes
+|  9 files changed, 78 insertions(+), 57 deletions(-)
+| 
+* commit effd61736283ecd8035e1bbe3f368e3f355a3dec
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:46:20 2026 +0700
+| 
+|     docs: fold Product Grid into Home Page scope (same component/state)
+|     
+|     Product Grid and Home Page are the same Home.jsx render (no separate
+|     route) — the Home Page IA01/IA04 batches already cover card layout,
+|     image ratio, price formatting, and grid responsiveness. Scope is now
+|     4 effective screens: Home Page (incl. grid), Search Results, Empty
+|     Search State, Product Detail.
+| 
+|  README.md | 10 ++++++++--
+|  1 file changed, 8 insertions(+), 2 deletions(-)
+| 
+* commit bfa7ccf74ab2dcc7700ffe6fe86b08f65d4afa65
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:38:54 2026 +0700
+| 
+|     docs(checklist): design + gap analysis for Home Page (IA01-IA04)
+|     
+|     Adds GUI-047..086 (40 items) for Home Page: 37 AI-generated across
+|     IA01 (general UI/grid), IA02 (search form — no quantity form on this
+|     screen, unlike Product Detail), IA03 (nav appropriate to a root page:
+|     no breadcrumb, card->detail link, navbar active-state), IA04
+|     (feedback/state for grid add-to-cart). Plus 3 human gap items
+|     (GUI-084 dark mode, GUI-085 Vietnamese-diacritic search, GUI-086
+|     missing quantity control on grid cards) — reasoning in
+|     ai-gap-analysis/gui-checklist-gaps.md. Fixes one AI-introduced
+|     duplicate (GUI-080 vs GUI-058) found during self-review, see
+|     ai-audit-report.md Entry #10. Design phase only — not yet executed
+|     against the running SUT.
+| 
+|  ai-gap-analysis/gui-checklist-gaps.md | 46 +++++++++++++++++++++++++++
+|  checklist/gui-checklist.md            | 55 ++++++++++++++++++++++++++++++---
+|  2 files changed, 96 insertions(+), 5 deletions(-)
+| 
+* commit 845c1ab19862f874e1e9e7e0c86fe867e5e7e5de
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:38:19 2026 +0700
+| 
+|     docs(ai-audit): log entries #7-#10 — Home Page IA01-IA04 checklist batches
+| 
+|  reports/ai-audit-report.md | 385 ++++++++++++++++++++++++++++++++++++++++++-
+|  1 file changed, 382 insertions(+), 3 deletions(-)
+| 
+* commit 9ee6b796c6b66b86691766ba2199fcce0c7e3209
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:38:14 2026 +0700
+| 
+|     docs(prompt-log): entries [7]-[10] — Claude, Home Page IA01-IA04 checklist generation
+| 
+|  reports/prompt-log.md | 224 ++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 224 insertions(+)
+| 
+* commit d33b1baad3ed1628bb2785d111dcc75472abe8b7
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:08:36 2026 +0700
+| 
+|     docs(bug): cross-link BUG-IA01..IA04-PRODUCTDETAIL to GitHub issues #94-#100
+| 
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md | 3 +++
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md | 3 +++
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md | 3 +++
+|  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md | 3 +++
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-001.md | 3 +++
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-002.md | 3 +++
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md | 3 +++
+|  7 files changed, 21 insertions(+)
+| 
+* commit d8eed2c35d00a3424e69e1d95dde046fe40e2ebf
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:05:35 2026 +0700
+| 
+|     docs(ai-audit): log entry #6 — Product Detail execution pass, update §4 summary
+| 
+|  reports/ai-audit-report.md | 76 ++++++++++++++++++++++++++++++++++++++++++--
+|  1 file changed, 73 insertions(+), 3 deletions(-)
+| 
+* commit 92d2c7f7d7d5fe551fa0771c9f615df32d9e4efa
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:05:35 2026 +0700
+| 
+|     docs(prompt-log): entry [6] — Claude, Product Detail execution pass
+| 
+|  reports/prompt-log.md | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 46 insertions(+)
+| 
+* commit 2450f7387add5c53395b8cd6feb48f38373c1666
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:05:27 2026 +0700
+| 
+|     docs(bug): file 7 bugs from Product Detail execution pass
+|     
+|     BUG-IA01-PRODUCTDETAIL-001..003 (wrong button color, missing Danh mục
+|     field, no image loading skeleton), BUG-IA02-PRODUCTDETAIL-001 (quantity
+|     input has no validation, accepts 0 straight into the cart),
+|     BUG-IA03-PRODUCTDETAIL-001..002 (breadcrumb entirely missing despite being
+|     mandatory per FR-23, scroll position lost on browser back),
+|     BUG-IA04-PRODUCTDETAIL-001 (Add to Cart needs two clicks — first click is
+|     silently swallowed; no toast/badge; cart is in-memory-only React state with
+|     no API/localStorage, wiped on reload).
+| 
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md         |  31 ++++++++++++++
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md         |  30 +++++++++++++
+|  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md         |  29 +++++++++++++
+|  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md         |  38 +++++++++++++++++
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-001.md         |  30 +++++++++++++
+|  bug-reports/BUG-IA03-PRODUCTDETAIL-002.md         |  30 +++++++++++++
+|  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md         |  45 ++++++++++++++++++++
+|  .../BUG-IA01-PRODUCTDETAIL-001-grid-compare.png   | Bin 0 -> 63435 bytes
+|  .../screenshots/BUG-IA01-PRODUCTDETAIL-001.png    | Bin 0 -> 39917 bytes
+|  .../screenshots/BUG-IA01-PRODUCTDETAIL-002.png    | Bin 0 -> 39917 bytes
+|  .../screenshots/BUG-IA01-PRODUCTDETAIL-003.png    | Bin 0 -> 39917 bytes
+|  .../BUG-IA02-PRODUCTDETAIL-001-input.png          | Bin 0 -> 42407 bytes
+|  .../screenshots/BUG-IA02-PRODUCTDETAIL-001.png    | Bin 0 -> 40329 bytes
+|  .../screenshots/BUG-IA03-PRODUCTDETAIL-001.png    | Bin 0 -> 39917 bytes
+|  .../screenshots/BUG-IA04-PRODUCTDETAIL-001.png    | Bin 0 -> 30480 bytes
+|  15 files changed, 233 insertions(+)
+| 
+* commit 8a7f9bbecb701d5b50a0664dd179c0e8edf43e4a
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 19:05:17 2026 +0700
+| 
+|     test(checklist): execute Product Detail items against SUT (46/46)
+|     
+|     Ran all 46 checklist items live against eshop-sut @85af3ba via Claude for
+|     Chrome (real clicks/typing/network+DOM/source inspection, not guesses):
+|     19 Passed, 24 Failed, 3 N/A. Fills in real commit/URL in README scope and
+|     updates the Task 1 summary table.
+| 
+|  README.md                                         |  18 ++-
+|  checklist/gui-checklist.md                        | 123 +++++++++++---------
+|  .../GUI-004-005-012-023-026-detail-page.png       | Bin 0 -> 39917 bytes
+|  .../screenshots/GUI-004-home-grid-blue-button.png | Bin 0 -> 63435 bytes
+|  ...013-015-017-020-021-cart-qty-zero-accepted.png | Bin 0 -> 40329 bytes
+|  .../screenshots/GUI-013-quantity-zero-input.png   | Bin 0 -> 42407 bytes
+|  ...GUI-038-039-044-046-cart-lost-after-reload.png | Bin 0 -> 30480 bytes
+|  7 files changed, 82 insertions(+), 59 deletions(-)
+| 
+* commit 743b6d66a164faab0534461618f8336ae3155fd9
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:27:25 2026 +0700
+| 
+|     docs(ai-audit): log entry #5 — Product Detail gap-review pass, update §4 summary
+| 
+|  reports/ai-audit-report.md | 75 ++++++++++++++++++++++++++++++++++++++++++--
+|  1 file changed, 72 insertions(+), 3 deletions(-)
+| 
+* commit 3a4254eebe37302d6a34abe45642e1b546b08ec7
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:27:22 2026 +0700
+| 
+|     docs(prompt-log): entry [5] — Claude, Product Detail gap-review pass
+| 
+|  reports/prompt-log.md | 37 +++++++++++++++++++++++++++++++++++++
+|  1 file changed, 37 insertions(+)
+| 
+* commit 98415dd9fd8fa5ba18ad4d917cb8f4937c7aa675
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:27:16 2026 +0700
+| 
+|     docs(checklist): add gap GUI-046 — slow-network feedback missed by AI batch
+|     
+|     Reviewed the 41 AI-generated Product Detail items against accessibility,
+|     dark mode, VND/VN-text formatting, and offline/slow-network. First three
+|     were already covered by earlier human items (GUI-042/043/045); the AI's
+|     IA04 batch conflated "network error" with "slow network" — added
+|     GUI-046 to close that gap (no-infinite-spinner / timeout requirement).
+| 
+|  ai-gap-analysis/gui-checklist-gaps.md | 19 +++++++++++++++++++
+|  checklist/gui-checklist.md            |  1 +
+|  2 files changed, 20 insertions(+)
+| 
+* commit e420f591ccba647550716365beaf46e20e1f6fe3
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:22:30 2026 +0700
+| 
+|     docs(ai-audit): log entries #1-#4 — Product Detail IA01-IA04 checklist batches
+| 
+|  reports/ai-audit-report.md | 313 +++++++++++++++++++++++++++++++++++++++++--
+|  1 file changed, 300 insertions(+), 13 deletions(-)
+| 
+* commit 81920aca8b4e8c478e86c30f2875a3ffd853a11d
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:22:28 2026 +0700
+| 
+|     docs(prompt-log): entries [1]-[4] — Claude, Product Detail IA01-IA04 checklist generation
+| 
+|  reports/prompt-log.md | 193 ++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 193 insertions(+)
+| 
+* commit caa2e553e64d4c1bd534bffad0b10820a361c3b6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:22:21 2026 +0700
+| 
+|     docs(checklist): design + gap analysis for Product Detail (IA01-IA04)
+|     
+|     45 items designed for Product Detail — IA01 (12, general UI per FR-21),
+|     IA02 (10, quantity field per FR-06/FR-22), IA03 (10, navigation per
+|     FR-23), IA04 (9, feedback/state per FR-24), plus 4 human-added items
+|     closing gaps the AI batches missed (dark mode, keyboard nav on form
+|     controls, session-expiry feedback, Vietnamese diacritics rendering).
+| 
+|  ai-gap-analysis/gui-checklist-gaps.md | 70 ++++++++++++++++++++++++++++++---
+|  checklist/gui-checklist.md            | 46 +++++++++++++++++++++-
+|  2 files changed, 109 insertions(+), 7 deletions(-)
+| 
+* commit a30620dd863b76b798b30f546d30bafc8a3ba4dd
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:09:58 2026 +0700
+| 
+|     docs: correct HW03 individual-scope framing, ground checklist gen in SUT's FR spec
+|     
+|     CLAUDE.md previously framed HW03 as a group submission split across N08
+|     members (1/5 screens each). HW03 is individual (spec §1) — §5 only bans
+|     picking the same primary screen/flow as a teammate, it doesn't shrink each
+|     member's own Task 1/2/3 scope. Reworded accordingly.
+|     
+|     Removed the "Scope" section from checklist/gui-checklist.md (Screens
+|     covered / Build-commit tested / URL / Why) — not part of the spec's
+|     required checklist structure (§6, §14 only call for the item table +
+|     per-IA summary); moved that info into README.md's scope section instead.
+|     
+|     Added sut-requirements.md (root) — a curated copy of eshop-sut/README.md's
+|     FR-05/FR-06 (product listing/detail) and FR-21-24 (GUI requirements),
+|     which map closely onto IA01-IA04. Wired the gui-checklist skill and
+|     CLAUDE.md to read it before generating checklist items, so item generation
+|     is grounded in the SUT's own spec instead of relying only on a live look
+|     at the rendered page. This stays within black-box testing scope (spec-based,
+|     not source-code-based) — GUI checklist and usability evaluation are both
+|     black-box techniques by nature.
+| 
+|  .claude/skills/gui-checklist/SKILL.md |  40 +++--
+|  CLAUDE.md                             |  32 +++-
+|  README.md                             | 106 +++++++-----
+|  checklist/gui-checklist.md            |   7 -
+|  sut-requirements.md                   | 288 ++++++++++++++++++++++++++++++++
+|  5 files changed, 406 insertions(+), 67 deletions(-)
+| 
+* commit fea11f8ae0c351432fc22b923278295dcadd1d2c
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 17:09:43 2026 +0700
+| 
+|     chore: remove leftover HW02 artifacts from shared N08 repo
+|     
+|     tests/ (domain testing + BVA for FR-01/FR-02), ai-gap-analysis/FR-01-register.md,
+|     and bug-reports/BUG-FR01-001.md + screenshot were already-submitted HW02
+|     deliverables bleeding into the HW03 working tree.
+| 
+|  ai-gap-analysis/FR-01-register.md                 |  1 -
+|  bug-reports/BUG-FR01-001.md                       | 30 ----------
+|  bug-reports/screenshots/dummy.jpg                 |  0
+|  .../FR-01-register/bva/TC-FR01-BVA-001.md         | 54 ------------------
+|  .../domain-testing/TC-FR01-DT-001.md              | 62 ---------------------
+|  tests/test-cases/FR-02-login/dummy.md             |  0
+|  tests/test-runs/FR-01-register-run.md             | 53 ------------------
+|  7 files changed, 200 deletions(-)
+| 
+* commit b0d1bc6d469dfaf0d7d400c9d64813155748d3f6
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 16:50:35 2026 +0700
+| 
+|     Revert "docs(checklist): select scope — Home, product grid, search results, empty search state, product detail"
+|     
+|     This reverts commit 7e436916313f2b13d28eda5078bc26c72318906e.
+| 
+|  checklist/gui-checklist.md | 22 ++++------------------
+|  1 file changed, 4 insertions(+), 18 deletions(-)
+| 
+* commit ea46b0e857da862135eedabd33ee840f6f10babb
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 16:46:47 2026 +0700
+| 
+|     docs(checklist): select scope — Home, product grid, search results, empty search state, product detail
+| 
+|  checklist/gui-checklist.md | 22 ++++++++++++++++++----
+|  1 file changed, 18 insertions(+), 4 deletions(-)
+| 
+* commit f9d93ab8272bb4c4dd29b5fe47858af21d7f9e99
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 16:35:01 2026 +0700
+| 
+|     feat(skills): split AI logging into prompt-log + ai-audit-report, add VN-output guardrails
+|     
+|     Per TA guidance, the raw prompt/output trail (reports/prompt-log.md, new
+|     prompt-log skill) is now separate from the reviewed HW03 §9 appendix
+|     (reports/ai-audit-report.md, ai-audit-log skill) — the audit report keeps
+|     its Verdict/Reasoning/Student Fix fields and now matches the official
+|     [AI-02] template (adds §4 Summary of AI Accuracy, §6 Mandatory Disclosure,
+|     VALID/INVALID/INCOMPLETE verdicts), while prompt-log captures every
+|     interaction unfiltered. Both fields stay hard-verbatim regardless of the
+|     new Vietnamese-output guardrails added to all five skills, which target
+|     student-authored prose (reasoning, notes, conclusions) not the AI's own
+|     prompt/output text. Fixes reports/ai-audit-report.md, which had a
+|     different student's (HW02) content left in the shared template.
+| 
+|  .claude/skills/ai-audit-log/SKILL.md           |  84 ++++++++++++---
+|  .claude/skills/bug-report/SKILL.md             |  10 ++
+|  .claude/skills/cross-platform-testing/SKILL.md |   8 ++
+|  .claude/skills/gui-checklist/SKILL.md          |   9 ++
+|  .claude/skills/prompt-log/SKILL.md             | 101 ++++++++++++++++++
+|  .claude/skills/usability-evaluation/SKILL.md   |  38 ++++---
+|  CLAUDE.md                                      |  11 +-
+|  reports/ai-audit-report.md                     | 128 +++++++++++------------
+|  reports/prompt-log.md                          |   4 +
+|  9 files changed, 292 insertions(+), 101 deletions(-)
+| 
+* commit ef91f95fdfdf793ed597ab8abdb0f5db6cb8a1ed
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 16:34:44 2026 +0700
+| 
+|     docs: fill in student name/ID in README header
+| 
+|  README.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+| 
+* commit 22965c90a5b6c1bae7120e218b136df903c812e1
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 15:59:42 2026 +0700
+| 
+|     chore: scaffold deliverable structure for Task 1-3 (empty templates)
+|     
+|     Placeholder tables/sections for the GUI checklist, gap analysis, usability
+|     plan/participants/analysis, and cross-platform report, matching each skill's
+|     expected schema. All TODO — no real content yet; the actual scope selection,
+|     checklist generation, and execution/analysis are each their own later commit
+|     per §12.
+| 
+|  ai-gap-analysis/gui-checklist-gaps.md | 15 ++++++++
+|  checklist/gui-checklist.md            | 31 +++++++++++++++
+|  checklist/screenshots/.gitkeep        |  0
+|  cross-platform/report.md              | 16 ++++++++
+|  cross-platform/screenshots/.gitkeep   |  0
+|  usability/analysis.md                 | 28 ++++++++++++++
+|  usability/participants.md             | 16 ++++++++
+|  usability/plan.md                     | 29 ++++++++++++++
+|  usability/post-test-survey.md         | 68 +++++++++++++++++++++++++++++++++
+|  usability/session-script.md           | 68 +++++++++++++++++++++++++++++++++
+|  usability/sessions/.gitkeep           |  0
+|  usability/task-scenarios.md           | 22 +++++++++++
+|  12 files changed, 293 insertions(+)
+| 
+* commit 9f7da827774eabdbed2d3c0a15f77b8857f9d985
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 15:59:31 2026 +0700
+| 
+|     feat(skills): add Agent Skills for HW03 Tasks 1-3
+|     
+|     gui-checklist, usability-evaluation, cross-platform-testing guide the AI
+|     step by step through each technique (scope -> AI-generate -> human gap
+|     review -> execute -> bug report), per §2's AI-First requirement (no single
+|     generic prompt). bug-report and ai-audit-log are shared utilities the other
+|     three invoke for GitHub issue filing and the mandatory AI Audit Report (§9).
+| 
+|  .claude/skills/ai-audit-log/SKILL.md              | 126 ++++++++++++++++
+|  .claude/skills/bug-report/SKILL.md                | 156 ++++++++++++++++++++
+|  .claude/skills/cross-platform-testing/SKILL.md    | 109 ++++++++++++++
+|  .../scripts/stamp_screenshot.py                   |  86 +++++++++++
+|  .claude/skills/gui-checklist/SKILL.md             | 149 +++++++++++++++++++
+|  .../references/ia-seed-categories.md              |  62 ++++++++
+|  .claude/skills/usability-evaluation/SKILL.md      | 153 +++++++++++++++++++
+|  .../references/probe-questions.md                 |  23 +++
+|  .../usability-evaluation/references/sus-scale.md  |  53 +++++++
+|  .../usability-evaluation/references/ueqs-scale.md |  39 +++++
+|  10 files changed, 956 insertions(+)
+| 
+* commit 04013744bc8e2ee5c3e4d3d8b3327bc7789c9212
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 15:59:24 2026 +0700
+| 
+|     docs: add project context for HW03 (scope, SUT, skill index)
+|     
+|     Records the individual scope split (screens for Task 1, flow for Task 2) and
+|     points to the Agent Skills so future sessions don't re-derive the HW03
+|     workflow from the PDF each time.
+| 
+|  CLAUDE.md | 17 +++++++++++++++++
+|  1 file changed, 17 insertions(+)
+| 
+* commit f449e417fdd043a1f80b5b3506ec826904ffc420
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Jul 26 15:59:18 2026 +0700
+| 
+|     chore: track .claude/skills as a graded deliverable, ignore demo-scratch
+|     
+|     .claude was previously fully gitignored; HW03 §7 requires Agent Skills to be
+|     submitted, so only local Claude Code state stays ignored now. demo-scratch/
+|     holds recording scripts, not a submission artifact.
+| 
+|  .gitignore | 11 +++++++++--
+|  1 file changed, 9 insertions(+), 2 deletions(-)
+|   
+| * commit 99bb019f243605231ff564caba82670c7d7e5f84
+| | Merge: 969e156 d49b0d9
+| | Author: git stash <hiembaonon@gmail.com>
+| | Date:   Thu Jul 30 15:30:37 2026 +0700
+| | 
+| |     On week08/23127300: !!GitHub_Desktop<week08/23127300>
+| | 
+| * commit d49b0d903807dac6c7f935a8d36ed4fbae648d2f
+|   Author: git stash <hiembaonon@gmail.com>
+|   Date:   Thu Jul 30 15:30:37 2026 +0700
+|   
+|       index on week08/23127300: 969e156 Remove commiting database to git
+|   
+|    23127300_MINILAB_POSTGRES/REPORT.md              |     44 +
+|    23127300_MINILAB_POSTGRES/app.js                 |     78 +
+|    23127300_MINILAB_POSTGRES/db-tests.test.js       |    153 +
+|    23127300_MINILAB_POSTGRES/docker-compose.yml     |     15 +
+|    23127300_MINILAB_POSTGRES/package-lock.json      |   5273 +
+|    23127300_MINILAB_POSTGRES/package.json           |     19 +
+|    23127300_MINILAB_POSTGRES/performance.sql        |     17 +
+|    23127300_MINILAB_POSTGRES/schema.sql             |    130 +
+|    ...ing \342\200\224 An Operational Overview.pdf" | 167496 ++++++++++++++++
+|    N09-mini_exercise.pdf                            |    Bin 0 -> 123478 bytes
+|    10 files changed, 173225 insertions(+)
+|   
+| * commit cae5332de5c9a4c56c2137e3f1e313a056426c40
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:38:54 2026 +0700
+| | 
+| |     docs(checklist): design + gap analysis for Home Page (IA01-IA04)
+| |     
+| |     Adds GUI-047..086 (40 items) for Home Page: 37 AI-generated across
+| |     IA01 (general UI/grid), IA02 (search form — no quantity form on this
+| |     screen, unlike Product Detail), IA03 (nav appropriate to a root page:
+| |     no breadcrumb, card->detail link, navbar active-state), IA04
+| |     (feedback/state for grid add-to-cart). Plus 3 human gap items
+| |     (GUI-084 dark mode, GUI-085 Vietnamese-diacritic search, GUI-086
+| |     missing quantity control on grid cards) — reasoning in
+| |     ai-gap-analysis/gui-checklist-gaps.md. Fixes one AI-introduced
+| |     duplicate (GUI-080 vs GUI-058) found during self-review, see
+| |     ai-audit-report.md Entry #10. Design phase only — not yet executed
+| |     against the running SUT.
+| | 
+| |  ai-gap-analysis/gui-checklist-gaps.md | 46 ++++++++++++++++++++++++++
+| |  checklist/gui-checklist.md            | 55 ++++++++++++++++++++++++++++---
+| |  2 files changed, 96 insertions(+), 5 deletions(-)
+| | 
+| * commit 6f5a68d37d39f99b5a9b5d140cd7d1638ccac7a2
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:38:19 2026 +0700
+| | 
+| |     docs(ai-audit): log entries #7-#10 — Home Page IA01-IA04 checklist batches
+| | 
+| |  reports/ai-audit-report.md | 385 ++++++++++++++++++++++++++++++++++++++++-
+| |  1 file changed, 382 insertions(+), 3 deletions(-)
+| | 
+| * commit 1803e421186d48aee68f54392e72938d06310292
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:38:14 2026 +0700
+| | 
+| |     docs(prompt-log): entries [7]-[10] — Claude, Home Page IA01-IA04 checklist generation
+| | 
+| |  reports/prompt-log.md | 224 ++++++++++++++++++++++++++++++++++++++++++++++
+| |  1 file changed, 224 insertions(+)
+| | 
+| * commit aa3d0e52f9dc58b9683af80841582558db11766a
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:08:36 2026 +0700
+| | 
+| |     docs(bug): cross-link BUG-IA01..IA04-PRODUCTDETAIL to GitHub issues #94-#100
+| | 
+| |  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md | 3 +++
+| |  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md | 3 +++
+| |  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md | 3 +++
+| |  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md | 3 +++
+| |  bug-reports/BUG-IA03-PRODUCTDETAIL-001.md | 3 +++
+| |  bug-reports/BUG-IA03-PRODUCTDETAIL-002.md | 3 +++
+| |  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md | 3 +++
+| |  7 files changed, 21 insertions(+)
+| | 
+| * commit 69da3120fbf3c8faf76e0c56c5c0c407f18c55cf
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:05:35 2026 +0700
+| | 
+| |     docs(ai-audit): log entry #6 — Product Detail execution pass, update §4 summary
+| | 
+| |  reports/ai-audit-report.md | 76 ++++++++++++++++++++++++++++++++++++++++--
+| |  1 file changed, 73 insertions(+), 3 deletions(-)
+| | 
+| * commit 2da3699a7b83d07a492e187cacc0a2b35c780cc2
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:05:35 2026 +0700
+| | 
+| |     docs(prompt-log): entry [6] — Claude, Product Detail execution pass
+| | 
+| |  reports/prompt-log.md | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+| |  1 file changed, 46 insertions(+)
+| | 
+| * commit 28d0dcf460e0b94d0045643d1d716d33ff3d71ef
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:05:27 2026 +0700
+| | 
+| |     docs(bug): file 7 bugs from Product Detail execution pass
+| |     
+| |     BUG-IA01-PRODUCTDETAIL-001..003 (wrong button color, missing Danh mục
+| |     field, no image loading skeleton), BUG-IA02-PRODUCTDETAIL-001 (quantity
+| |     input has no validation, accepts 0 straight into the cart),
+| |     BUG-IA03-PRODUCTDETAIL-001..002 (breadcrumb entirely missing despite being
+| |     mandatory per FR-23, scroll position lost on browser back),
+| |     BUG-IA04-PRODUCTDETAIL-001 (Add to Cart needs two clicks — first click is
+| |     silently swallowed; no toast/badge; cart is in-memory-only React state with
+| |     no API/localStorage, wiped on reload).
+| | 
+| |  bug-reports/BUG-IA01-PRODUCTDETAIL-001.md        |  31 +++++++++++++
+| |  bug-reports/BUG-IA01-PRODUCTDETAIL-002.md        |  30 +++++++++++++
+| |  bug-reports/BUG-IA01-PRODUCTDETAIL-003.md        |  29 ++++++++++++
+| |  bug-reports/BUG-IA02-PRODUCTDETAIL-001.md        |  38 ++++++++++++++++
+| |  bug-reports/BUG-IA03-PRODUCTDETAIL-001.md        |  30 +++++++++++++
+| |  bug-reports/BUG-IA03-PRODUCTDETAIL-002.md        |  30 +++++++++++++
+| |  bug-reports/BUG-IA04-PRODUCTDETAIL-001.md        |  45 +++++++++++++++++++
+| |  .../BUG-IA01-PRODUCTDETAIL-001-grid-compare.png  | Bin 0 -> 63435 bytes
+| |  .../screenshots/BUG-IA01-PRODUCTDETAIL-001.png   | Bin 0 -> 39917 bytes
+| |  .../screenshots/BUG-IA01-PRODUCTDETAIL-002.png   | Bin 0 -> 39917 bytes
+| |  .../screenshots/BUG-IA01-PRODUCTDETAIL-003.png   | Bin 0 -> 39917 bytes
+| |  .../BUG-IA02-PRODUCTDETAIL-001-input.png         | Bin 0 -> 42407 bytes
+| |  .../screenshots/BUG-IA02-PRODUCTDETAIL-001.png   | Bin 0 -> 40329 bytes
+| |  .../screenshots/BUG-IA03-PRODUCTDETAIL-001.png   | Bin 0 -> 39917 bytes
+| |  .../screenshots/BUG-IA04-PRODUCTDETAIL-001.png   | Bin 0 -> 30480 bytes
+| |  15 files changed, 233 insertions(+)
+| | 
+| * commit b74820b02a7b2acb3164e149e115d20af2a9a5c0
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 19:05:17 2026 +0700
+| | 
+| |     test(checklist): execute Product Detail items against SUT (46/46)
+| |     
+| |     Ran all 46 checklist items live against eshop-sut @85af3ba via Claude for
+| |     Chrome (real clicks/typing/network+DOM/source inspection, not guesses):
+| |     19 Passed, 24 Failed, 3 N/A. Fills in real commit/URL in README scope and
+| |     updates the Task 1 summary table.
+| | 
+| |  README.md                                        |  18 ++-
+| |  checklist/gui-checklist.md                       | 123 +++++++++++--------
+| |  .../GUI-004-005-012-023-026-detail-page.png      | Bin 0 -> 39917 bytes
+| |  .../GUI-004-home-grid-blue-button.png            | Bin 0 -> 63435 bytes
+| |  ...13-015-017-020-021-cart-qty-zero-accepted.png | Bin 0 -> 40329 bytes
+| |  .../screenshots/GUI-013-quantity-zero-input.png  | Bin 0 -> 42407 bytes
+| |  ...UI-038-039-044-046-cart-lost-after-reload.png | Bin 0 -> 30480 bytes
+| |  7 files changed, 82 insertions(+), 59 deletions(-)
+| | 
+| * commit eb7a4175b3a593e11b8a86e3dca865d9895df5f7
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:27:25 2026 +0700
+| | 
+| |     docs(ai-audit): log entry #5 — Product Detail gap-review pass, update §4 summary
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  reports/ai-audit-report.md | 75 ++++++++++++++++++++++++++++++++++++++++--
+| |  1 file changed, 72 insertions(+), 3 deletions(-)
+| | 
+| * commit e15d5044445649b760f9e7834d6b8cb3f3863cbd
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:27:22 2026 +0700
+| | 
+| |     docs(prompt-log): entry [5] — Claude, Product Detail gap-review pass
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  reports/prompt-log.md | 37 +++++++++++++++++++++++++++++++++++++
+| |  1 file changed, 37 insertions(+)
+| | 
+| * commit ccc2bba18d2e5dc34f3864863e4c5d6618952c43
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:27:16 2026 +0700
+| | 
+| |     docs(checklist): add gap GUI-046 — slow-network feedback missed by AI batch
+| |     
+| |     Reviewed the 41 AI-generated Product Detail items against accessibility,
+| |     dark mode, VND/VN-text formatting, and offline/slow-network. First three
+| |     were already covered by earlier human items (GUI-042/043/045); the AI's
+| |     IA04 batch conflated "network error" with "slow network" — added
+| |     GUI-046 to close that gap (no-infinite-spinner / timeout requirement).
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  ai-gap-analysis/gui-checklist-gaps.md | 19 +++++++++++++++++++
+| |  checklist/gui-checklist.md            |  1 +
+| |  2 files changed, 20 insertions(+)
+| | 
+| * commit cb20c5bcba5c88e62614215ef18bf2ff6ce9c079
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:22:30 2026 +0700
+| | 
+| |     docs(ai-audit): log entries #1-#4 — Product Detail IA01-IA04 checklist batches
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  reports/ai-audit-report.md | 313 +++++++++++++++++++++++++++++++++++++++--
+| |  1 file changed, 300 insertions(+), 13 deletions(-)
+| | 
+| * commit 9faf5f100a736b842b4892bce4acef18e9a21060
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:22:28 2026 +0700
+| | 
+| |     docs(prompt-log): entries [1]-[4] — Claude, Product Detail IA01-IA04 checklist generation
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  reports/prompt-log.md | 193 ++++++++++++++++++++++++++++++++++++++++++++++
+| |  1 file changed, 193 insertions(+)
+| | 
+| * commit eb09ba412fb159b6866406c30d58c8529e309e95
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:22:21 2026 +0700
+| | 
+| |     docs(checklist): design + gap analysis for Product Detail (IA01-IA04)
+| |     
+| |     45 items designed for Product Detail — IA01 (12, general UI per FR-21),
+| |     IA02 (10, quantity field per FR-06/FR-22), IA03 (10, navigation per
+| |     FR-23), IA04 (9, feedback/state per FR-24), plus 4 human-added items
+| |     closing gaps the AI batches missed (dark mode, keyboard nav on form
+| |     controls, session-expiry feedback, Vietnamese diacritics rendering).
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  ai-gap-analysis/gui-checklist-gaps.md | 70 ++++++++++++++++++++++++++++---
+| |  checklist/gui-checklist.md            | 46 +++++++++++++++++++-
+| |  2 files changed, 109 insertions(+), 7 deletions(-)
+| | 
+| * commit c7291ff4f7322f39741034c250194d4d564396a9
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:09:58 2026 +0700
+| | 
+| |     docs: correct HW03 individual-scope framing, ground checklist gen in SUT's FR spec
+| |     
+| |     CLAUDE.md previously framed HW03 as a group submission split across N08
+| |     members (1/5 screens each). HW03 is individual (spec §1) — §5 only bans
+| |     picking the same primary screen/flow as a teammate, it doesn't shrink each
+| |     member's own Task 1/2/3 scope. Reworded accordingly.
+| |     
+| |     Removed the "Scope" section from checklist/gui-checklist.md (Screens
+| |     covered / Build-commit tested / URL / Why) — not part of the spec's
+| |     required checklist structure (§6, §14 only call for the item table +
+| |     per-IA summary); moved that info into README.md's scope section instead.
+| |     
+| |     Added sut-requirements.md (root) — a curated copy of eshop-sut/README.md's
+| |     FR-05/FR-06 (product listing/detail) and FR-21-24 (GUI requirements),
+| |     which map closely onto IA01-IA04. Wired the gui-checklist skill and
+| |     CLAUDE.md to read it before generating checklist items, so item generation
+| |     is grounded in the SUT's own spec instead of relying only on a live look
+| |     at the rendered page. This stays within black-box testing scope (spec-based,
+| |     not source-code-based) — GUI checklist and usability evaluation are both
+| |     black-box techniques by nature.
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  .claude/skills/gui-checklist/SKILL.md |  40 +++--
+| |  CLAUDE.md                             |  32 +++-
+| |  README.md                             | 106 +++++++----
+| |  checklist/gui-checklist.md            |   7 -
+| |  sut-requirements.md                   | 288 ++++++++++++++++++++++++++++++
+| |  5 files changed, 406 insertions(+), 67 deletions(-)
+| | 
+| * commit beba4287dc6ffbac3d622a20eafb4893c1e3065e
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 17:09:43 2026 +0700
+| | 
+| |     chore: remove leftover HW02 artifacts from shared N08 repo
+| |     
+| |     tests/ (domain testing + BVA for FR-01/FR-02), ai-gap-analysis/FR-01-register.md,
+| |     and bug-reports/BUG-FR01-001.md + screenshot were already-submitted HW02
+| |     deliverables bleeding into the HW03 working tree.
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  ai-gap-analysis/FR-01-register.md                |  1 -
+| |  bug-reports/BUG-FR01-001.md                      | 30 ----------
+| |  bug-reports/screenshots/dummy.jpg                |  0
+| |  .../FR-01-register/bva/TC-FR01-BVA-001.md        | 54 -----------------
+| |  .../domain-testing/TC-FR01-DT-001.md             | 62 --------------------
+| |  tests/test-cases/FR-02-login/dummy.md            |  0
+| |  tests/test-runs/FR-01-register-run.md            | 53 -----------------
+| |  7 files changed, 200 deletions(-)
+| | 
+| * commit 7609ebbb84e0602cd0955e1a15f43aa00d51b831
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 16:50:35 2026 +0700
+| | 
+| |     Revert "docs(checklist): select scope — Home, product grid, search results, empty search state, product detail"
+| |     
+| |     This reverts commit 7e436916313f2b13d28eda5078bc26c72318906e.
+| | 
+| |  checklist/gui-checklist.md | 22 ++++------------------
+| |  1 file changed, 4 insertions(+), 18 deletions(-)
+| | 
+| * commit 7e436916313f2b13d28eda5078bc26c72318906e
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 16:46:47 2026 +0700
+| | 
+| |     docs(checklist): select scope — Home, product grid, search results, empty search state, product detail
+| | 
+| |  checklist/gui-checklist.md | 22 ++++++++++++++++++----
+| |  1 file changed, 18 insertions(+), 4 deletions(-)
+| | 
+| * commit 458d5c950864a45a2fcdc645c92f06821661ffc0
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 16:35:01 2026 +0700
+| | 
+| |     feat(skills): split AI logging into prompt-log + ai-audit-report, add VN-output guardrails
+| |     
+| |     Per TA guidance, the raw prompt/output trail (reports/prompt-log.md, new
+| |     prompt-log skill) is now separate from the reviewed HW03 §9 appendix
+| |     (reports/ai-audit-report.md, ai-audit-log skill) — the audit report keeps
+| |     its Verdict/Reasoning/Student Fix fields and now matches the official
+| |     [AI-02] template (adds §4 Summary of AI Accuracy, §6 Mandatory Disclosure,
+| |     VALID/INVALID/INCOMPLETE verdicts), while prompt-log captures every
+| |     interaction unfiltered. Both fields stay hard-verbatim regardless of the
+| |     new Vietnamese-output guardrails added to all five skills, which target
+| |     student-authored prose (reasoning, notes, conclusions) not the AI's own
+| |     prompt/output text. Fixes reports/ai-audit-report.md, which had a
+| |     different student's (HW02) content left in the shared template.
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  .claude/skills/ai-audit-log/SKILL.md           |  84 +++++++++++---
+| |  .claude/skills/bug-report/SKILL.md             |  10 ++
+| |  .claude/skills/cross-platform-testing/SKILL.md |   8 ++
+| |  .claude/skills/gui-checklist/SKILL.md          |   9 ++
+| |  .claude/skills/prompt-log/SKILL.md             | 101 ++++++++++++++++
+| |  .claude/skills/usability-evaluation/SKILL.md   |  38 +++---
+| |  CLAUDE.md                                      |  11 +-
+| |  reports/ai-audit-report.md                     | 128 ++++++++++-----------
+| |  reports/prompt-log.md                          |   4 +
+| |  9 files changed, 292 insertions(+), 101 deletions(-)
+| | 
+| * commit 71b1c41e19a61a8d302297eb1cbb8c258a67e9c9
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 16:34:44 2026 +0700
+| | 
+| |     docs: fill in student name/ID in README header
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  README.md | 2 +-
+| |  1 file changed, 1 insertion(+), 1 deletion(-)
+| | 
+| * commit bc891b14417ed2dc50df02ebe78350edcc9fa20b
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 15:59:42 2026 +0700
+| | 
+| |     chore: scaffold deliverable structure for Task 1-3 (empty templates)
+| |     
+| |     Placeholder tables/sections for the GUI checklist, gap analysis, usability
+| |     plan/participants/analysis, and cross-platform report, matching each skill's
+| |     expected schema. All TODO — no real content yet; the actual scope selection,
+| |     checklist generation, and execution/analysis are each their own later commit
+| |     per §12.
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  ai-gap-analysis/gui-checklist-gaps.md | 15 +++++++
+| |  checklist/gui-checklist.md            | 31 ++++++++++++++
+| |  checklist/screenshots/.gitkeep        |  0
+| |  cross-platform/report.md              | 16 ++++++++
+| |  cross-platform/screenshots/.gitkeep   |  0
+| |  usability/analysis.md                 | 28 +++++++++++++
+| |  usability/participants.md             | 16 ++++++++
+| |  usability/plan.md                     | 29 +++++++++++++
+| |  usability/post-test-survey.md         | 68 +++++++++++++++++++++++++++++++
+| |  usability/session-script.md           | 68 +++++++++++++++++++++++++++++++
+| |  usability/sessions/.gitkeep           |  0
+| |  usability/task-scenarios.md           | 22 ++++++++++
+| |  12 files changed, 293 insertions(+)
+| | 
+| * commit 0f23050ceb46a8e0862330973e86b00ed913a897
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 15:59:31 2026 +0700
+| | 
+| |     feat(skills): add Agent Skills for HW03 Tasks 1-3
+| |     
+| |     gui-checklist, usability-evaluation, cross-platform-testing guide the AI
+| |     step by step through each technique (scope -> AI-generate -> human gap
+| |     review -> execute -> bug report), per §2's AI-First requirement (no single
+| |     generic prompt). bug-report and ai-audit-log are shared utilities the other
+| |     three invoke for GitHub issue filing and the mandatory AI Audit Report (§9).
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  .claude/skills/ai-audit-log/SKILL.md             | 126 +++++++++++++++
+| |  .claude/skills/bug-report/SKILL.md               | 156 +++++++++++++++++++
+| |  .claude/skills/cross-platform-testing/SKILL.md   | 109 +++++++++++++
+| |  .../scripts/stamp_screenshot.py                  |  86 ++++++++++
+| |  .claude/skills/gui-checklist/SKILL.md            | 149 ++++++++++++++++++
+| |  .../references/ia-seed-categories.md             |  62 ++++++++
+| |  .claude/skills/usability-evaluation/SKILL.md     | 153 ++++++++++++++++++
+| |  .../references/probe-questions.md                |  23 +++
+| |  .../usability-evaluation/references/sus-scale.md |  53 +++++++
+| |  .../references/ueqs-scale.md                     |  39 +++++
+| |  10 files changed, 956 insertions(+)
+| | 
+| * commit 634aea4e76b2b9e9fa040276138ed7f8c7575adf
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Sun Jul 26 15:59:24 2026 +0700
+| | 
+| |     docs: add project context for HW03 (scope, SUT, skill index)
+| |     
+| |     Records the individual scope split (screens for Task 1, flow for Task 2) and
+| |     points to the Agent Skills so future sessions don't re-derive the HW03
+| |     workflow from the PDF each time.
+| |     
+| |     Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+| | 
+| |  CLAUDE.md | 17 +++++++++++++++++
+| |  1 file changed, 17 insertions(+)
+| | 
+| * commit 76e444496df00e6cc3698539c69338420ffe78a0
+|/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+|   Date:   Sun Jul 26 15:59:18 2026 +0700
+|   
+|       chore: track .claude/skills as a graded deliverable, ignore demo-scratch
+|       
+|       .claude was previously fully gitignored; HW03 §7 requires Agent Skills to be
+|       submitted, so only local Claude Code state stays ignored now. demo-scratch/
+|       holds recording scripts, not a submission artifact.
+|       
+|       Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+|   
+|    .gitignore | 11 +++++++++--
+|    1 file changed, 9 insertions(+), 2 deletions(-)
+| 
+* commit 1cd369371730a15a7b2a9c06099d6aacd6feb9c5
+  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+  Date:   Sun Jul 26 12:32:21 2026 +0700
+  
+      chore: remove redundant files
+  
+   skills/bva-skill.md            | 1 -
+   skills/domain-testing-skill.md | 1 -
+   2 files changed, 2 deletions(-)
+    
+*   commit b046b5a2eefc20379c34c48108bcd951985b7fbb
+|\  Merge: 04fe978 e51d3c5
+| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | Date:   Mon Jul 6 16:13:39 2026 +0700
+| | 
+| |     Merge branch 'summary/23127300' into test/fr-01
+| | 
+| * commit e51d3c58a4bb47a877a45dc02a63b0c7e5572d10
+| | Merge: 969e156 a0de3d9
+| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | Date:   Mon Jul 6 16:12:08 2026 +0700
+| | 
+| |     Merge pull request #91 from lmchkhi/week05/23127300
+| |     
+| |     Week05/23127300
+| |   
+| *   commit a0de3d9da778067eee6cc4f2aecd06cb839a870e
+| |\  Merge: e678dd3 e149f86
+| | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | | Date:   Mon Jul 6 16:10:19 2026 +0700
+| | | 
+| | |     Merge pull request #90 from lmchkhi/test/fr-10-stt
+| | |     
+| | |     Test/fr 10 stt
+| | | 
+| | * commit e149f86824c2eac1a012ee10b5c7a9499aa6f032
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Mon Jul 6 16:08:40 2026 +0700
+| | | 
+| | |     docs: add skills
+| | | 
+| | |  .codex/skills/state-transition-testing/SKILL.md |  67 +++++++
+| | |  .../state-transition-testing/agents/openai.yaml |   4 +
+| | |  .../references/templates.md                     | 179 ++++++++++++++++++
+| | |  3 files changed, 250 insertions(+)
+| | | 
+| | * commit bd03e1cc82855a351d20808b61c3e379c402ea23
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Mon Jul 6 15:46:05 2026 +0700
+| | | 
+| | |     docs: test and add bug report
+| | | 
+| | |  tests/bug-reports/BUG-ORDER-STT-001.md          | 49 +++++++++++++++++++
+| | |  tests/bug-reports/BUG-ORDER-STT-002.md          | 48 ++++++++++++++++++
+| | |  .../FR-10-order-state/TC-ORDER-STT-009.md       |  3 +-
+| | |  .../FR-10-order-state/TC-ORDER-STT-014.md       |  3 +-
+| | |  traceability-matrix.md                          |  5 +-
+| | |  5 files changed, 101 insertions(+), 7 deletions(-)
+| | | 
+| | * commit 84befe05f11072a2c22faf51db77a2081163f4a5
+| |   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| |   Date:   Mon Jul 6 15:29:06 2026 +0700
+| |   
+| |       docs: add stt TCs
+| |   
+| |    .../FR-10-order-state/TC-ORDER-STT-001.md       | 34 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-002.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-003.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-004.md       | 31 +++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-005.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-006.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-007.md       | 31 +++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-008.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-009.md       | 31 +++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-010.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-011.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-012.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-013.md       | 32 ++++++++
+| |    .../FR-10-order-state/TC-ORDER-STT-014.md       | 32 ++++++++
+| |    tests/test-runs/README.md                       |  6 ++
+| |    .../FR-10-state-transition-testing-analysis.md  | 81 +++++++++++++++++++
+| |    traceability-matrix.md                          | 19 +++++
+| |    17 files changed, 553 insertions(+)
+| | 
+| * commit e678dd38caf1eebc8e339337af3d2a15e85fa301
+| | Merge: 969e156 1f63694
+| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | Date:   Mon Jul 6 16:09:53 2026 +0700
+| | 
+| |     Merge pull request #89 from lmchkhi/test/fr-08-ust
+| |     
+| |     Test/fr 08 ust
+| | 
+| * commit 1f636942608d4b9c76d751184f38601ce2327a1a
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Mon Jul 6 16:04:36 2026 +0700
+| | 
+| |     docs: add skills
+| | 
+| |  .codex/skills/use-case-testing/SKILL.md          |  76 +++++++++++
+| |  .../skills/use-case-testing/agents/openai.yaml   |   7 +
+| |  .../use-case-testing/references/templates.md     | 132 +++++++++++++++++++
+| |  3 files changed, 215 insertions(+)
+| | 
+| * commit 2b9e886cbba4b289c6685d9aab2ca00a8538350e
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Mon Jul 6 16:00:14 2026 +0700
+| | 
+| |     docs: test and add bug report
+| | 
+| |  tests/bug-reports/checkout/BUG-CHECKOUT-001.md | 46 ++++++++++++++++++++
+| |  tests/bug-reports/checkout/BUG-CHECKOUT-002.md | 49 ++++++++++++++++++++++
+| |  tests/bug-reports/checkout/BUG-CHECKOUT-003.md | 47 +++++++++++++++++++++
+| |  3 files changed, 142 insertions(+)
+| | 
+| * commit eed3985e0e83e36f55856d51ac9f0ac9281df7b7
+|   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+|   Date:   Mon Jul 6 15:34:48 2026 +0700
+|   
+|       docs: add uct test cases for fr-08
+|   
+|    tests/test-cases/checkout/TC-CHECKOUT-UCT-001.md | 36 ++++++++
+|    tests/test-cases/checkout/TC-CHECKOUT-UCT-002.md | 35 ++++++++
+|    tests/test-cases/checkout/TC-CHECKOUT-UCT-003.md | 35 ++++++++
+|    tests/test-cases/checkout/TC-CHECKOUT-UCT-004.md | 36 ++++++++
+|    tests/test-cases/checkout/TC-CHECKOUT-UCT-005.md | 40 +++++++++
+|    tests/test-cases/checkout/TC-CHECKOUT-UCT-006.md | 40 +++++++++
+|    .../FR-08-checkout-use-case-testing-analysis.md  | 89 ++++++++++++++++++++
+|    tests/traceability-matrix.md                     | 16 ++++
+|    8 files changed, 327 insertions(+)
+| 
+* commit 04fe97805531d40bb7292efe6b1d0c1249b7edbe
+  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+  Date:   Mon Jul 6 15:13:15 2026 +0700
+  
+      docs: add pw and dtt for fr-01
+  
+   .agents/skills/decision-table-testing/SKILL.md    | 116 ++++++++++++
+   .../decision-table-testing/agents/openai.yaml     |   4 +
+   .../assets/templates/bug_report.md                |  44 +++++
+   .../assets/templates/test-case.md                 |  38 ++++
+   .../assets/templates/test-run.md                  |  27 +++
+   .../assets/templates/traceability-matrix.md       |  11 ++
+   .../decision-table-testing/references/examples.md |  67 +++++++
+   .../references/github-testcase-management.md      | 139 +++++++++++++++
+   .../references/modeling-guide.md                  |  76 ++++++++
+   .../references/review-checklist.md                |  75 ++++++++
+   .../scripts/analyze_table.py                      | 155 +++++++++++++++++
+   03 - github_testcase_management.pptx.pdf          | Bin 0 -> 415258 bytes
+   tests/bug-reports/register/BUG-REGISTER-001.md    |  41 +++++
+   tests/bug-reports/register/BUG-REGISTER-002.md    |  42 +++++
+   tests/bug-reports/register/BUG-REGISTER-003.md    |  42 +++++
+   tests/bug-reports/register/BUG-REGISTER-004.md    |  42 +++++
+   tests/bug-reports/register/BUG-REGISTER-005.md    |  43 +++++
+   tests/bug-reports/register/BUG-REGISTER-006.md    |  42 +++++
+   tests/test-cases/register/TC-REGISTER-001-DTT.md  |  42 +++++
+   tests/test-cases/register/TC-REGISTER-002-DTT.md  |  43 +++++
+   tests/test-cases/register/TC-REGISTER-003-DTT.md  |  42 +++++
+   tests/test-cases/register/TC-REGISTER-004-DTT.md  |  41 +++++
+   tests/test-cases/register/TC-REGISTER-005-DTT.md  |  42 +++++
+   tests/test-cases/register/TC-REGISTER-006-DTT.md  |  43 +++++
+   tests/test-cases/register/TC-REGISTER-007-DTT.md  |  42 +++++
+   tests/test-cases/register/TC-REGISTER-008-DTT.md  |  44 +++++
+   tests/test-cases/register/TC-REGISTER-009-DTT.md  |  43 +++++
+   tests/test-cases/register/TC-REGISTER-010-PW.md   |  41 +++++
+   tests/test-cases/register/TC-REGISTER-011-PW.md   |  42 +++++
+   tests/test-cases/register/TC-REGISTER-012-PW.md   |  43 +++++
+   tests/test-cases/register/TC-REGISTER-013-PW.md   |  42 +++++
+   tests/test-cases/register/TC-REGISTER-014-PW.md   |  42 +++++
+   tests/test-cases/register/TC-REGISTER-015-PW.md   |  43 +++++
+   .../register/FR-01-decision-table-analysis.md     | 184 ++++++++++++++++++++
+   tests/test-runs/sprint-1-test-run.md              |  42 +++++
+   traceability-matrix.md                            |  41 +++++
+   36 files changed, 1906 insertions(+)
+    
+*   commit 513aa2f8fa1c868376d975e6c33650294b3d91e0
+|\  Merge: d55a540 fd4d583
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Wed Jul 1 16:55:29 2026 +0700
+| | 
+| |     Merge remote-tracking branch 'origin/23127300' into test/FR-10
+| | 
+| * commit fd4d583e03cbd78ed0b79dee13a3eb748741e0a4
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Wed Jul 1 14:51:43 2026 +0700
+| | 
+| |     Update README.md
+| | 
+| |  README.md | 123 ++++++++++++++++++++++++++++++++++++++--------------------
+| |  1 file changed, 82 insertions(+), 41 deletions(-)
+| | 
+| * commit d55a081c5e64ad6dfe329c59bcd15693d8fd3fe7
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Wed Jul 1 14:47:24 2026 +0700
+| | 
+| |     fix: test case status
+| | 
+| |  reports/main-report.md                           | 70 ++++++++++----------
+| |  reviews/FR-02-login/bva-review.md                |  2 +-
+| |  reviews/FR-02-login/domain-testing-review.md     |  2 +-
+| |  reviews/FR-26-mobile-cart/bva-review.md          |  2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-001.md           |  2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-002.md           |  2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-003.md           |  2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-004.md           |  2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-005.md           |  2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-006.md           |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-001.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-002.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-003.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-004.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-005.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-006.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-007.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-008.md |  2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-009.md |  2 +-
+| |  .../domain-testing/TC-FR13-DT-001.md             |  2 +-
+| |  .../domain-testing/TC-FR13-DT-002.md             |  2 +-
+| |  .../domain-testing/TC-FR13-DT-003.md             |  2 +-
+| |  .../domain-testing/TC-FR13-DT-004.md             |  2 +-
+| |  .../domain-testing/TC-FR13-DT-005.md             |  2 +-
+| |  .../domain-testing/TC-FR13-DT-006.md             |  2 +-
+| |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md     |  2 +-
+| |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md     |  2 +-
+| |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md     |  2 +-
+| |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md     |  2 +-
+| |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md     |  2 +-
+| |  .../domain-testing/TC-FR26-DT-001.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-002.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-003.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-004.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-005.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-006.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-007.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-008.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-009.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-010.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-011.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-012.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-013.md             |  2 +-
+| |  .../domain-testing/TC-FR26-DT-014.md             |  2 +-
+| |  tests/test-runs/FR-02-login-run.md               | 32 ++++-----
+| |  tests/test-runs/FR-13-dashboard-run.md           | 14 ++--
+| |  tests/test-runs/FR-26-mobile-cart-run.md         | 40 +++++------
+| |  47 files changed, 121 insertions(+), 121 deletions(-)
+| | 
+| * commit 4bfb7d155872654e24bb49c4c0227d61dd09f90c
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Wed Jul 1 14:42:42 2026 +0700
+| | 
+| |     docs: add draft main report
+| | 
+| |  prompt_log.md          | 195 ++++++++++++++++++++++++++
+| |  reports/main-report.md | 334 ++++++++++++++++++++++++++++++++++++++++++++-
+| |  2 files changed, 528 insertions(+), 1 deletion(-)
+| | 
+| * commit 2cd28e6892dc5f07355a5f52d534b98f8f9cdb51
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Wed Jul 1 14:04:36 2026 +0700
+| | 
+| |     fix: unify screenshot filename
+| | 
+| |  bug-reports/BUG-FR02-001.md                      |   2 +-
+| |  bug-reports/BUG-FR02-002.md                      |   2 +-
+| |  bug-reports/BUG-FR02-003.md                      |   2 +-
+| |  bug-reports/BUG-FR02-004.md                      |   2 +-
+| |  bug-reports/BUG-FR02-005.md                      |   8 ++---
+| |  bug-reports/BUG-FR13-001.md                      |  34 +++++++++----------
+| |  bug-reports/BUG-FR26-001.md                      |   2 +-
+| |  bug-reports/BUG-FR26-002.md                      |   2 +-
+| |  bug-reports/BUG-FR26-004.md                      |   2 +-
+| |  bug-reports/BUG-FR26-005.md                      |   2 +-
+| |  ...response.png => BUG-FR02-001-evidence-01.png} | Bin
+| |  ...ype-text.png => BUG-FR02-002-evidence-01.png} | Bin
+| |  ...failures.png => BUG-FR02-003-evidence-01.png} | Bin
+| |  ...ot-shown.png => BUG-FR02-004-evidence-01.png} | Bin
+| |  ... => BUG-FR02-005-evidence-01-locktime-0s.png} | Bin
+| |  ...=> BUG-FR02-005-evidence-02-locktime-30s.png} | Bin
+| |  ...=> BUG-FR02-005-evidence-03-locktime-33s.png} | Bin
+| |  ...> BUG-FR02-005-evidence-04-locktime-180s.png} | Bin
+| |  ...BUG-FR13-001-evidence-01-tc002-dashboard.png} | Bin
+| |  ...=> BUG-FR13-001-evidence-02-tc002-orders.png} | Bin
+| |  ...BUG-FR13-001-evidence-03-tc003-dashboard.png} | Bin
+| |  ...=> BUG-FR13-001-evidence-04-tc003-orders.png} | Bin
+| |  ...BUG-FR13-001-evidence-05-tc004-dashboard.png} | Bin
+| |  ...=> BUG-FR13-001-evidence-06-tc004-orders.png} | Bin
+| |  ...BUG-FR26-shared-mobile-cart-ui-issues-01.png} | Bin
+| |  tests/test-runs/FR-02-login-run.md               |  18 +++++-----
+| |  tests/test-runs/FR-13-dashboard-run.md           |   6 ++--
+| |  27 files changed, 41 insertions(+), 41 deletions(-)
+| |   
+| *   commit f3c9491b3d846780602fda99122c53084d8b8040
+| |\  Merge: 07a0d6b 1b4068d
+| | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 13:44:56 2026 +0700
+| | | 
+| | |     Merge pull request #68 from lmchkhi/test/FR-26
+| | |     
+| | |     Test/fr 26
+| | |   
+| | *   commit 1b4068dd4ab8ee12c746b44ca59043ee77e1f11b
+| | |\  Merge: 6e3e8a7 07a0d6b
+| | |/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| |/|   Date:   Wed Jul 1 13:44:07 2026 +0700
+| | |   
+| | |       Merge remote-tracking branch 'origin/23127300' into test/FR-26
+| | |   
+| * |   commit 07a0d6b800981c51f3403729d3621dc7a1fd1c7d
+| |\ \  Merge: 0722f1a 8c2866f
+| | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | | | Date:   Wed Jul 1 13:39:44 2026 +0700
+| | | | 
+| | | |     Merge pull request #67 from lmchkhi/test/FR-13
+| | | |     
+| | | |     Test/fr 13
+| | | |   
+| | * |   commit 8c2866ff0bbff6037a049436a7df9d5eb7c15bb2
+| | |\ \  Merge: 5caa350 0722f1a
+| | |/ /  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| |/| |   Date:   Wed Jul 1 13:38:43 2026 +0700
+| | | |   
+| | | |       Merge remote-tracking branch 'origin/23127300' into test/FR-13
+| | | |   
+| * | |   commit 0722f1a6b3aa0b5c1b09ad57763226dafb22c509
+| |\ \ \  Merge: 0e35f56 ff6f4bd
+| | | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | | | | Date:   Wed Jul 1 13:35:12 2026 +0700
+| | | | | 
+| | | | |     Merge pull request #66 from lmchkhi/test/FR-02
+| | | | |     
+| | | | |     Test: FR-02
+| | | | | 
+| | * | | commit ff6f4bdc622c279f46430bf83b290321a2eda97d
+| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | | Date:   Wed Jul 1 13:28:39 2026 +0700
+| | | | | 
+| | | | |     docs: added but report
+| | | | | 
+| | | | |  bug-reports/BUG-FR02-001.md                  |  35 +++
+| | | | |  bug-reports/BUG-FR02-002.md                  |  36 +++
+| | | | |  bug-reports/BUG-FR02-003.md                  |  35 +++
+| | | | |  bug-reports/BUG-FR02-004.md                  |  35 +++
+| | | | |  bug-reports/BUG-FR02-005.md                  |  38 +++
+| | | | |  prompt_log.md                                | 275 +++++++++++++++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md       |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-001.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-002.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-004.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-006.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-007.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-009.md         |   2 +-
+| | | | |  tests/test-runs/FR-02-login-run.md           |  20 +-
+| | | | |  16 files changed, 473 insertions(+), 19 deletions(-)
+| | | | | 
+| | * | | commit c6156d30eed900ec2495096b4e7b0792b657a077
+| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | | Date:   Wed Jul 1 13:22:14 2026 +0700
+| | | | | 
+| | | | |     test: add test results
+| | | | | 
+| | | | |  ...-FR02-DT-001-password-in-api-response.png | Bin 0 -> 632965 bytes
+| | | | |  ...DT-002-TC-FR02-DT-009-input-type-text.png | Bin 0 -> 899561 bytes
+| | | | |  ...-FR02-BVA-001-lock-after-two-failures.png | Bin 0 -> 549581 bytes
+| | | | |  ...TC-FR02-DT-006-lock-message-not-shown.png | Bin 0 -> 488342 bytes
+| | | | |  ...7-TC-FR02-BVA-005-BVA-006-locktime-0s.png | Bin 0 -> 1185341 bytes
+| | | | |  ...TC-FR02-BVA-005-BVA-006-locktime-180s.png | Bin 0 -> 1348472 bytes
+| | | | |  ...-TC-FR02-BVA-005-BVA-006-locktime-30s.png | Bin 0 -> 1208001 bytes
+| | | | |  ...-TC-FR02-BVA-005-BVA-006-locktime-33s.png | Bin 0 -> 1211503 bytes
+| | | | |  bug-reports/screenshots/dummy.jpg            |   0
+| | | | |  prompt_log.md                                | 322 +++++++++++++++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-002.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-003.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-004.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md       |   2 +-
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md       |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-001.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-002.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-003.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-004.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-005.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-006.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-007.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-008.md         |   2 +-
+| | | | |  .../domain-testing/TC-FR02-DT-009.md         |   2 +-
+| | | | |  tests/test-runs/FR-02-login-run.md           |  54 +++
+| | | | |  26 files changed, 391 insertions(+), 15 deletions(-)
+| | | | | 
+| | * | | commit a172955f3a40570e25c3ce19a685144e11e1ce5c
+| | | | | Author: hbnnnnnnn <hiembaonon@gmail.com>
+| | | | | Date:   Fri Jun 26 23:56:57 2026 +0700
+| | | | | 
+| | | | |     docs: add bva testing
+| | | | | 
+| | | | |  analysis/FR-02-login/bva-analysis.md         | 128 ++++++++++++
+| | | | |  prompt_log.md                                | 185 +++++++++++++++++
+| | | | |  reviews/FR-02-login/bva-review.md            |  70 +++++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md       |  49 +++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-002.md       |  49 +++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-003.md       |  48 +++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-004.md       |  49 +++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md       |  49 +++++
+| | | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md       |  49 +++++
+| | | | |  9 files changed, 676 insertions(+)
+| | | | | 
+| | * | | commit 3973b80608e625375386a3e1d737c520fc598a56
+| | | | | Author: hbnnnnnnn <hiembaonon@gmail.com>
+| | | | | Date:   Fri Jun 26 23:48:32 2026 +0700
+| | | | | 
+| | | | |     docs: add domain testing
+| | | | | 
+| | | | |  .../FR-02-login/domain-testing-analysis.md   | 144 +++++++++++++++++
+| | | | |  prompt_log.md                                | 132 +++++++++++++++
+| | | | |  reviews/FR-02-login/domain-testing-review.md |  77 +++++++++
+| | | | |  .../domain-testing/TC-FR02-DT-001.md         |  49 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-002.md         |  47 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-003.md         |  48 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-004.md         |  51 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-005.md         |  49 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-006.md         |  49 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-007.md         |  52 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-008.md         |  47 ++++++
+| | | | |  .../domain-testing/TC-FR02-DT-009.md         |  47 ++++++
+| | | | |  12 files changed, 792 insertions(+)
+| | | | | 
+| | | * | commit 5caa3506d6b5253ecb842cf155f4529711f0ea29
+| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | | Date:   Tue Jun 30 21:28:03 2026 +0700
+| | | | | 
+| | | | |     Update README.md
+| | | | | 
+| | | | |  README.md | 2 +-
+| | | | |  1 file changed, 1 insertion(+), 1 deletion(-)
+| | | | | 
+| | | * | commit 576c5341afd8e9155d95dbb1295993d6543c7505
+| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | | Date:   Tue Jun 30 21:26:52 2026 +0700
+| | | | | 
+| | | | |     bug: added bug reports and updated prompt log
+| | | | | 
+| | | | |  bug-reports/BUG-FR13-001.md                  |   77 +
+| | | | |  .../TC-FR13-DT-002-evidence-01.png           |  Bin 0 -> 334091 bytes
+| | | | |  .../TC-FR13-DT-002-evidence-02.png           |  Bin 0 -> 375783 bytes
+| | | | |  .../TC-FR13-DT-003-evidence-01.png           |  Bin 0 -> 342861 bytes
+| | | | |  .../TC-FR13-DT-003-evidence-02.png           |  Bin 0 -> 399813 bytes
+| | | | |  .../TC-FR13-DT-004-evidence-01.png           |  Bin 0 -> 337063 bytes
+| | | | |  .../TC-FR13-DT-004-evidence-02.png           |  Bin 0 -> 466736 bytes
+| | | | |  bug-reports/screenshots/dummy.jpg            |    0
+| | | | |  prompt_log.md                                | 1399 ++++++++++++++++
+| | | | |  9 files changed, 1476 insertions(+)
+| | | | | 
+| | | * | commit 1dcea6f7858d6ae831cbab221fd866eea37e5693
+| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | | Date:   Tue Jun 30 21:26:17 2026 +0700
+| | | | | 
+| | | | |     test: run tests and update tc status and test run
+| | | | | 
+| | | | |  .../domain-testing-analysis.md               | 12 ++---
+| | | | |  .../domain-testing/TC-FR13-DT-001.md         |  2 +-
+| | | | |  .../domain-testing/TC-FR13-DT-002.md         |  2 +-
+| | | | |  .../domain-testing/TC-FR13-DT-003.md         |  2 +-
+| | | | |  .../domain-testing/TC-FR13-DT-004.md         |  2 +-
+| | | | |  .../domain-testing/TC-FR13-DT-005.md         |  2 +-
+| | | | |  .../domain-testing/TC-FR13-DT-006.md         |  2 +-
+| | | | |  tests/test-runs/FR-13-dashboard-run.md       | 45 ++++++++++++++++++
+| | | | |  8 files changed, 57 insertions(+), 12 deletions(-)
+| | | | | 
+| | | * | commit 0b0d2e98cabb0bac65d77e1b2a218a84ec1ee86b
+| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | | Date:   Tue Jun 30 20:08:21 2026 +0700
+| | | | | 
+| | | | |     docs: add bva analysis
+| | | | | 
+| | | | |  analysis/FR-13-dashboard/bva-analysis.md | 112 +++++++++++++++++++++
+| | | | |  prompt_log.md                            |  72 +++++++++++++
+| | | | |  reviews/FR-13-dashboard/bva-review.md    |  56 +++++++++++
+| | | | |  3 files changed, 240 insertions(+)
+| | | | | 
+| | | * | commit ba6f466be54cb816e890cb970632b8bdbcedc3e9
+| | |/ /  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | |   Date:   Tue Jun 30 20:04:12 2026 +0700
+| | | |   
+| | | |       docs: add domain testing
+| | | |   
+| | | |    .../domain-testing-analysis.md               | 117 +++++++++++++++++
+| | | |    prompt_log.md                                |  80 +++++++++++
+| | | |    .../FR-13-dashboard/domain-testing-review.md |  67 ++++++++++
+| | | |    .../domain-testing/TC-FR13-DT-001.md         |  48 +++++++
+| | | |    .../domain-testing/TC-FR13-DT-002.md         |  51 +++++++
+| | | |    .../domain-testing/TC-FR13-DT-003.md         |  53 ++++++++
+| | | |    .../domain-testing/TC-FR13-DT-004.md         |  54 ++++++++
+| | | |    .../domain-testing/TC-FR13-DT-005.md         |  53 ++++++++
+| | | |    .../domain-testing/TC-FR13-DT-006.md         |  47 +++++++
+| | | |    9 files changed, 570 insertions(+)
+| | | | 
+| | | * commit 6e3e8a7e967ab91804c13ccf080f8e5f257a5808
+| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | Date:   Wed Jul 1 13:41:48 2026 +0700
+| | | | 
+| | | |     fix: remove dummy files
+| | | | 
+| | | |  bug-reports/screenshots/dummy.jpg  | 0
+| | | |  tests/test-runs/FR-02-login-run.md | 0
+| | | |  2 files changed, 0 insertions(+), 0 deletions(-)
+| | | | 
+| | | * commit f599d7f1cdd40de6d2ab24a31cab535ef341d712
+| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | Date:   Wed Jul 1 09:54:11 2026 +0700
+| | | | 
+| | | |     docs: add bug report
+| | | | 
+| | | |  bug-reports/BUG-FR26-001.md                   |  36 +++
+| | | |  bug-reports/BUG-FR26-002.md                   |  37 +++
+| | | |  bug-reports/BUG-FR26-003.md                   |  37 +++
+| | | |  bug-reports/BUG-FR26-004.md                   |  37 +++
+| | | |  bug-reports/BUG-FR26-005.md                   |  37 +++
+| | | |  .../BUG-FR26-mobile-cart-ui-issues.PNG        | Bin 0 -> 131449 bytes
+| | | |  prompt_log.md                                 | 269 ++++++++++++++++++
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md  |   2 +-
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md  |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-002.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-003.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-004.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-005.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-007.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-008.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-009.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-010.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-011.md          |   2 +-
+| | | |  tests/test-runs/FR-26-mobile-cart-run.md      |  24 +-
+| | | |  19 files changed, 476 insertions(+), 23 deletions(-)
+| | | | 
+| | | * commit 13fdf31c19bd3d200583880a0c1828aaee31e300
+| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | Date:   Wed Jul 1 01:26:20 2026 +0700
+| | | | 
+| | | |     test: add test results
+| | | | 
+| | | |  prompt_log.md                                 | 309 ++++++++++++++++++
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md  |   2 +-
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md  |   2 +-
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md  |   2 +-
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md  |   2 +-
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md  |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-001.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-002.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-003.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-004.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-005.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-006.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-007.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-008.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-009.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-010.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-011.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-012.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-013.md          |   2 +-
+| | | |  .../domain-testing/TC-FR26-DT-014.md          |   2 +-
+| | | |  tests/test-runs/FR-26-mobile-cart-run.md      |  61 ++++
+| | | |  21 files changed, 389 insertions(+), 19 deletions(-)
+| | | | 
+| | | * commit 4d6dbcf3ebfa4bf52372c698aabca6112d77f90d
+| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | | Date:   Wed Jul 1 01:04:24 2026 +0700
+| | | | 
+| | | |     docs: add bva testing and fix the domain testing
+| | | | 
+| | | |  analysis/FR-26-mobile-cart/bva-analysis.md    | 132 ++++++++++++
+| | | |  .../domain-testing-analysis.md                | 199 ++++++++++--------
+| | | |  prompt_log.md                                 | 135 ++++++++++++
+| | | |  reviews/FR-26-mobile-cart/bva-review.md       |  73 +++++++
+| | | |  .../domain-testing-review.md                  |  77 ++++---
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md  |  51 +++++
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md  |  52 +++++
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md  |  52 +++++
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md  |  47 +++++
+| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md  |  52 +++++
+| | | |  .../domain-testing/TC-FR26-DT-001.md          |  36 ++--
+| | | |  .../domain-testing/TC-FR26-DT-002.md          |  30 ++-
+| | | |  .../domain-testing/TC-FR26-DT-003.md          |  28 ++-
+| | | |  .../domain-testing/TC-FR26-DT-004.md          |  27 ++-
+| | | |  .../domain-testing/TC-FR26-DT-005.md          |  33 ++-
+| | | |  .../domain-testing/TC-FR26-DT-006.md          |  38 ++--
+| | | |  .../domain-testing/TC-FR26-DT-007.md          |  23 +-
+| | | |  .../domain-testing/TC-FR26-DT-008.md          |  33 ++-
+| | | |  .../domain-testing/TC-FR26-DT-009.md          |  32 +--
+| | | |  .../domain-testing/TC-FR26-DT-010.md          |  48 +++++
+| | | |  .../domain-testing/TC-FR26-DT-011.md          |  48 +++++
+| | | |  .../domain-testing/TC-FR26-DT-012.md          |  44 ++++
+| | | |  .../domain-testing/TC-FR26-DT-013.md          |  49 +++++
+| | | |  .../domain-testing/TC-FR26-DT-014.md          |  52 +++++
+| | | |  24 files changed, 1126 insertions(+), 265 deletions(-)
+| | | | 
+| | | * commit 79be061095d37f34d1d02e9ed4d9c8c3b94e091f
+| | |/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| |/|   Date:   Wed Jul 1 00:40:29 2026 +0700
+| | |   
+| | |       chore: add domain testing
+| | |   
+| | |    .../domain-testing-analysis.md                | 154 ++++++++++++++++++
+| | |    prompt_log.md                                 | 118 ++++++++++++++
+| | |    requirements/system-requirements.md           |   3 +-
+| | |    .../domain-testing-review.md                  |  83 ++++++++++
+| | |    .../domain-testing/TC-FR26-DT-001.md          |  58 +++++++
+| | |    .../domain-testing/TC-FR26-DT-002.md          |  50 ++++++
+| | |    .../domain-testing/TC-FR26-DT-003.md          |  50 ++++++
+| | |    .../domain-testing/TC-FR26-DT-004.md          |  50 ++++++
+| | |    .../domain-testing/TC-FR26-DT-005.md          |  50 ++++++
+| | |    .../domain-testing/TC-FR26-DT-006.md          |  50 ++++++
+| | |    .../domain-testing/TC-FR26-DT-007.md          |  44 +++++
+| | |    .../domain-testing/TC-FR26-DT-008.md          |  50 ++++++
+| | |    .../domain-testing/TC-FR26-DT-009.md          |  49 ++++++
+| | |    13 files changed, 808 insertions(+), 1 deletion(-)
+| | | 
+| * | commit 0e35f56997292288579bae52863c41b462f8fff3
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 00:21:43 2026 +0700
+| | | 
+| | |     chore: update requirements file
+| | | 
+| | |  requirements/system-requirements.md | 16 +++++++---------
+| | |  1 file changed, 7 insertions(+), 9 deletions(-)
+| | | 
+| * | commit b5a81aa7c7e1668933ac5c522a531d00cdaceff3
+| |/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| |   Date:   Tue Jun 30 23:32:39 2026 +0700
+| |   
+| |       docs: update system-requirements.md
+| |   
+| |    requirements/system-requirements.md | 16 +++++++++-------
+| |    1 file changed, 9 insertions(+), 7 deletions(-)
+| | 
+* | commit d55a5401890e8cb4e99530adb794a737ac399c9b
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Wed Jul 1 16:33:56 2026 +0700
+| | 
+| |     docs: add bug report and test case status
+| | 
+| |  bug-reports/BUG-FR10-001.md                      |  38 +++
+| |  bug-reports/BUG-FR10-002.md                      |  36 +++
+| |  bug-reports/BUG-FR10-003.md                      |  49 ++++
+| |  .../TC-FR10-DT-009-canceled-state.png            | Bin 0 -> 404350 bytes
+| |  .../TC-FR10-DT-009-canceled-to-delivered.png     | Bin 0 -> 354742 bytes
+| |  .../TC-FR10-DT-010-cancel-success.png            | Bin 0 -> 542236 bytes
+| |  .../TC-FR10-DT-010-shipping-shows-cancel.png     | Bin 0 -> 333617 bytes
+| |  .../TC-FR10-DT-011-user-calls-admin-api.png      | Bin 0 -> 856955 bytes
+| |  bug-reports/screenshots/dummy.jpg                |   0
+| |  prompt_log.md                                    | 229 +++++++++++++++++++
+| |  .../domain-testing/TC-FR10-DT-001.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-002.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-003.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-004.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-005.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-006.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-007.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-008.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-009.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-010.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-011.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-012.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-013.md             |   2 +-
+| |  .../domain-testing/TC-FR10-DT-014.md             |   2 +-
+| |  tests/test-runs/FR-02-login-run.md               |   0
+| |  tests/test-runs/FR-10-order-state-machine-run.md |  53 +++++
+| |  26 files changed, 419 insertions(+), 14 deletions(-)
+| | 
+* | commit 31a305305330e8db5dad0d91d60b58fd218e5484
+| | Author: hbnnnnnnn <hiembaonon@gmail.com>
+| | Date:   Sat Jun 27 00:20:08 2026 +0700
+| | 
+| |     docs: add bva testing
+| | 
+| |  .../FR-10-order-state-machine/bva-analysis.md    |  98 +++++++++++++++
+| |  prompt_log.md                                    | 126 +++++++++++++++++++
+| |  reviews/FR-10-order-state-machine/bva-review.md  |  59 +++++++++
+| |  3 files changed, 283 insertions(+)
+| | 
+* | commit 3a4e9d09f83265150414a623c60a9c5f0af8f717
+|/  Author: hbnnnnnnn <hiembaonon@gmail.com>
+|   Date:   Sat Jun 27 00:07:50 2026 +0700
+|   
+|       docs: add domain testing
+|   
+|    .../domain-testing-analysis.md                   | 150 +++++
+|    prompt_log.md                                    | 634 +++++++++++++++++++
+|    .../domain-testing-review.md                     |  84 +++
+|    .../domain-testing/TC-FR10-DT-001.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-002.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-003.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-004.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-005.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-006.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-007.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-008.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-009.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-010.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-011.md             |  48 ++
+|    .../domain-testing/TC-FR10-DT-012.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-013.md             |  49 ++
+|    .../domain-testing/TC-FR10-DT-014.md             |  48 ++
+|    17 files changed, 1552 insertions(+)
+| 
+* commit 2ab133b7c0f9286e7e37e1988ab34eccd46f0ac4
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Jun 27 08:57:46 2026 +0700
+| 
+|     fix: requirements numbering
+| 
+|  requirements/system-requirements.md | 22 +++++++++++-----------
+|  1 file changed, 11 insertions(+), 11 deletions(-)
+| 
+* commit 0b4ddcbdb5d7126c2b1958a8db6531e50e3e6438
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Jun 27 08:54:44 2026 +0700
+| 
+|     fix: update requirements file
+| 
+|  requirements/system-requirements.md | 42 +++++++++++++++++------------------
+|  1 file changed, 21 insertions(+), 21 deletions(-)
+| 
+* commit 4ecb3433e0f3f58f63e469f06294b7024757cca5
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 23:57:25 2026 +0700
+| 
+|     chore: update requirements
+| 
+|  requirements/system-requirements.md | 77 ++++++++++++++++++++++++++++-------
+|  1 file changed, 63 insertions(+), 14 deletions(-)
+| 
+* commit 21223f3a57b19a1292611e139b53f5abd3a630f0
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 23:49:11 2026 +0700
+| 
+|     fix: agent skills
+| 
+|  .agents/skills/boundary-value-analysis/SKILL.md |  12 +-
+|  .agents/skills/bug-report/SKILL.md              |   2 +-
+|  .agents/skills/domain-testing/SKILL.md          |  13 +-
+|  .agents/skills/test-case-review/SKILL.md        |   4 +-
+|  .agents/skills/test-execution/SKILL.md          |   2 +-
+|  requirements/api-specification.md               | 214 ++++++++++++++++++++++
+|  6 files changed, 223 insertions(+), 24 deletions(-)
+| 
+* commit 2f144458e448df42492e194fb00460f2239449c1
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 23:26:11 2026 +0700
+| 
+|     fix: align skills with templates
+| 
+|  .agents/skills/boundary-value-analysis/SKILL.md | 26 ++++++++------
+|  .agents/skills/bug-report/SKILL.md              | 40 ++++++++++-----------
+|  .agents/skills/domain-testing/SKILL.md          | 19 +++++++---
+|  .agents/skills/test-execution/SKILL.md          | 42 ++++++++++++++++++-----
+|  templates/test-run-template.md                  |  8 ++---
+|  5 files changed, 87 insertions(+), 48 deletions(-)
+|   
+| * commit 9743f7a08d67f7f1fe1c2111af9b07875728fabf
+| | Merge: 15ad550 3124868
+| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
+| | Date:   Fri Jun 26 19:51:39 2026 +0700
+| | 
+| |     Merge pull request #16 from lmchkhi/test/FR-02
+| |     
+| |     Test: FR-02
+| | 
+| * commit 31248687655576ce941a731a94950f1c2974fe27
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Fri Jun 26 19:49:52 2026 +0700
+| | 
+| |     fix: add api specs to the docs
+| | 
+| |  analysis/FR-02-login/bva-analysis.md             |   2 +-
+| |  analysis/FR-02-login/domain-testing-analysis.md  |   6 +-
+| |  prompt_log.md                                    | 255 +++++++++++++++++++
+| |  .../FR-02-login/bva/TC-FR02-BVA-001.md           |   2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-005.md           |   2 +-
+| |  .../FR-02-login/bva/TC-FR02-BVA-006.md           |   2 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-001.md |   4 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-009.md |   4 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-010.md |   4 +-
+| |  9 files changed, 268 insertions(+), 13 deletions(-)
+| | 
+| * commit 5b76e3e4f217d18e53951b072a6a3a69e69a4bfa
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Fri Jun 26 19:43:07 2026 +0700
+| | 
+| |     chore: add api specification
+| | 
+| |  requirements/api-specification.md | 214 ++++++++++++++++++++++++++++++++++
+| |  1 file changed, 214 insertions(+)
+| | 
+| * commit 1318d9aff30c43bd1f545750a2ee695aa63ac753
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Fri Jun 26 19:15:03 2026 +0700
+| | 
+| |     fĩ: domain testing
+| | 
+| |  analysis/FR-02-login/domain-testing-analysis.md  | 66 ++++++++-------
+| |  prompt_log.md                                    | 86 ++++++++++++++++++++
+| |  reviews/FR-02-login/domain-testing-review.md     | 43 ++++++----
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-001.md |  9 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-002.md |  4 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-004.md |  4 +-
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-009.md | 11 +--
+| |  .../FR-02-login/domain-testing/TC-FR02-DT-010.md | 43 ++++++++++
+| |  8 files changed, 207 insertions(+), 59 deletions(-)
+| | 
+| * commit 1631d82a9975c8d477b986c5c725a0f4c383ee34
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Fri Jun 26 19:11:02 2026 +0700
+| | 
+| |     fix(FR-02): bva analysis
+| | 
+| |  analysis/FR-02-login/bva-analysis.md             | 101 ++++++++++---------
+| |  prompt_log.md                                    |  89 ++++++++++++++++
+| |  reviews/FR-02-login/bva-review.md                |  42 ++++----
+| |  .../FR-02-login/bva/TC-FR02-BVA-003.md           |  24 ++---
+| |  .../FR-02-login/bva/TC-FR02-BVA-005.md           |   6 +-
+| |  5 files changed, 181 insertions(+), 81 deletions(-)
+| | 
+| * commit c98fa3dc2378de052218ae3c5b5aff5d7283d725
+| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | Date:   Fri Jun 26 19:02:14 2026 +0700
+| | 
+| |     chore(FR-02): add bva testing
+| | 
+| |  analysis/FR-02-login/bva-analysis.md             | 121 ++++
+| |  prompt_log.md                                    | 633 +++++++++++++++++++
+| |  reviews/FR-02-login/bva-review.md                |  74 +++
+| |  .../FR-02-login/bva/TC-FR02-BVA-001.md           |  51 ++
+| |  .../FR-02-login/bva/TC-FR02-BVA-002.md           |  49 ++
+| |  .../FR-02-login/bva/TC-FR02-BVA-003.md           |  52 ++
+| |  .../FR-02-login/bva/TC-FR02-BVA-004.md           |  50 ++
+| |  .../FR-02-login/bva/TC-FR02-BVA-005.md           |  50 ++
+| |  .../FR-02-login/bva/TC-FR02-BVA-006.md           |  50 ++
+| |  9 files changed, 1130 insertions(+)
+| | 
+| * commit fe140eba311cd2e12af7734a2eb8d07ad1d33046
+|/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+|   Date:   Fri Jun 26 18:54:26 2026 +0700
+|   
+|       docs(FR-02): add domain testing docs
+|   
+|    analysis/FR-02-login/domain-testing-analysis.md  | 140 +++++
+|    prompt_log.md                                    | 584 +++++++++++++++++++
+|    reviews/FR-02-login/domain-testing-review.md     |  79 +++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-001.md |  42 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-002.md |  38 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-003.md |  38 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-004.md |  39 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-005.md |  40 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-006.md |  43 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-007.md |  43 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-008.md |  42 ++
+|    .../FR-02-login/domain-testing/TC-FR02-DT-009.md |  43 ++
+|    12 files changed, 1171 insertions(+)
+| 
+* commit 9987abb3efb89d2f33354d15e4a8be7eeba52312
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 18:45:29 2026 +0700
+| 
+|     chore: update agent skill
+| 
+|  .agents/skills/prompt-log/SKILL.md           | 33 ++++++++++++++------------
+|  .agents/skills/prompt-log/agents/openai.yaml |  4 ++--
+|  2 files changed, 20 insertions(+), 17 deletions(-)
+| 
+* commit b89cfc6acb7fff6f5620b360c9d0f69968213495
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 18:27:36 2026 +0700
+| 
+|     fix: template alignment
+| 
+|  bug-reports/BUG-FR01-001.md      | 30 ------------------------------
+|  templates/bug-report-template.md | 18 ++++--------------
+|  2 files changed, 4 insertions(+), 44 deletions(-)
+| 
+* commit c47dffc217e474cf6cad897e3838cb9d3bdf9568
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 18:25:35 2026 +0700
+| 
+|     chore: add system requirements file
+| 
+|  requirements/system-requirements.md | 288 ++++++++++++++++++++++++++++++++++
+|  1 file changed, 288 insertions(+)
+| 
+* commit 890d2e71a4ddc42648aef986530dca18c3441be1
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Fri Jun 26 18:25:09 2026 +0700
+| 
+|     chore: remove redundant file
+| 
+|  tests/test-cases/FR-02-login/dummy.md | 0
+|  1 file changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 08c7cbfd0a7a7e8a4b9328077b13e7576101aecb
+  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+  Date:   Fri Jun 26 18:24:49 2026 +0700
+  
+      chore: setup skills and re-design the project structure
+  
+   .agents/skills/boundary-value-analysis/SKILL.md   | 367 ++++++++++++++++++++
+   .../boundary-value-analysis/agents/openai.yaml    |   4 +
+   .agents/skills/bug-report/SKILL.md                | 140 ++++++++
+   .agents/skills/bug-report/agents/openai.yaml      |   4 +
+   .agents/skills/domain-testing/SKILL.md            | 322 +++++++++++++++++
+   .agents/skills/domain-testing/agents/openai.yaml  |   4 +
+   .agents/skills/prompt-log/SKILL.md                |  62 ++++
+   .agents/skills/prompt-log/agents/openai.yaml      |   4 +
+   .agents/skills/qa-workflow/SKILL.md               | 156 +++++++++
+   .agents/skills/qa-workflow/agents/openai.yaml     |   4 +
+   .agents/skills/test-case-review/SKILL.md          | 131 +++++++
+   .../skills/test-case-review/agents/openai.yaml    |   4 +
+   .agents/skills/test-execution/SKILL.md            | 121 +++++++
+   .agents/skills/test-execution/agents/openai.yaml  |   4 +
+   .github/ISSUE_TEMPLATE/bug-report-template.md     |  44 +--
+   README.md                                         |  16 +
+   requirements/system-requirements.md               |   0
+   skills/bva-skill.md                               |   1 -
+   skills/domain-testing-skill.md                    |   1 -
+   templates/bug-report-template.md                  |  38 ++
+   templates/bva-analysis-template.md                |  65 ++++
+   templates/bva-test-case-template.md               |  42 +++
+   templates/domain-testing-analysis-template.md     |  56 +++
+   templates/domain-testing-test-case-template.md    |  40 +++
+   templates/test-run-template.md                    |  40 +++
+   .../FR-01-register/bva/TC-FR01-BVA-001.md         |  54 ---
+   .../domain-testing/TC-FR01-DT-001.md              |  62 ----
+   tests/test-runs/FR-01-register-run.md             |  53 ---
+   tests/test-runs/FR-02-login-run.md                |   0
+   29 files changed, 1647 insertions(+), 192 deletions(-)
