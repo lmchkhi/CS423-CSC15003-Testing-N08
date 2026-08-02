@@ -4,6 +4,7 @@
   trước đó)
 - **Đồng ý ghi hình (Consent to record)**: Yes (bằng lời, off-record, theo
   `session-script.md` bước 1, không có trong bản ghi hình)
+- **Bản ghi hình buổi test**: https://youtu.be/A9ZBu9xlwpY
 - **Nhiệm vụ giao**: dùng ô tìm kiếm gõ "tai nghe", mở chi tiết, mua 2 cái,
   bỏ vào giỏ hàng (cùng biến thể từ khóa/số lượng với participant #1,
   `task-scenarios.md` chỉ định 7 biến thể cho 7 người nhưng thực tế điều
@@ -19,8 +20,8 @@
 | 0:15–0:29 | Search → chọn sản phẩm | *"Tôi thấy có 1 sản phẩm thôi mà"*, nhận xét kết quả tìm kiếm chỉ ra đúng 1 sản phẩm |
 | 0:29–0:42 | Xác nhận nhiệm vụ | Tự hỏi lại *"mua 2 cái hả?"* trước khi thao tác |
 | 0:42–0:56 | Thêm vào giỏ | *"Tôi bấm thêm vào giỏ hàng, sao mới biết nó thêm chưa vậy?"*, không có cách nào biết ngay |
-| 0:62–0:69 | Tự kiểm tra | Chủ động mở giỏ hàng kiểm tra vì trang không hiện số lượng sản phẩm đang có |
-| 0:69–0:76 | Hoàn thành | Tự xác nhận đã xong sau khi kiểm tra thủ công |
+| 1:02–1:09 | Tự kiểm tra | Chủ động mở giỏ hàng kiểm tra vì trang không hiện số lượng sản phẩm đang có |
+| 1:09–1:16 | Hoàn thành | Tự xác nhận đã xong sau khi kiểm tra thủ công |
 
 ## Kết quả SUS
 

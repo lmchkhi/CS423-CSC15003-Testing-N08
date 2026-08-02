@@ -1,23 +1,24 @@
 # AI Critique
 
-Sai sót rõ nhất của AI trong bài này không phải "không biết" điều gì. AI
-chỉ trả lời đúng phạm vi được hỏi, không tự khái quát một gap đã biết
-sang ngữ cảnh mới. Ví dụ: mục "dark mode contrast" bị bỏ sót ở **cả 4 màn
-hình** tôi kiểm thử (GUI-042, 084, 099, 110). Không phải vì AI không hiểu
-dark mode, mà vì mỗi lần tôi soạn prompt IA01 cho màn hình mới tôi lại quên
-liệt kê nó, và AI không tự "nhớ" gap đã phát hiện ở batch trước để bù cho
-batch sau. Tương tự với tiếng Việt: AI huấn luyện chủ yếu trên SUT tiếng
-Anh nên không tự nghĩ ra rủi ro vỡ dấu/encoding khi hiển thị hoặc tìm kiếm
-bằng tiếng Việt, dù đây là rủi ro hiển nhiên với EShop. Đó là thiên lệch do
-dữ liệu huấn luyện, không phải lỗi logic.
+Sai sót của AI ở bài này rơi vào hai loại khác hẳn nhau.
 
-Ở phần thực thi, AI làm tốt hơn khi được cấp công cụ thật (DevTools, gọi
-API trực tiếp) và biết tự sửa giả thuyết sai giữa chừng (GUI-096) thay vì
-giữ kết luận ban đầu. Ở Task 2, khi suy luận danh tính participant #6 bằng
-loại trừ thay vì bằng chứng trực tiếp, AI trình bày kết luận này mượt như
-sự thật đã xác nhận. Tôi phải tự đánh dấu là chưa hoàn chỉnh và cần xác nhận
-thủ công, nếu không sẽ dễ nhầm thành dữ liệu chắc chắn.
+Loại thứ nhất là bỏ sót do phạm vi. AI không tự khái quát một gap đã biết
+sang ngữ cảnh mới: mục "dark mode contrast" bị bỏ sót ở **cả 4 màn hình**
+(GUI-042, 084, 099, 110), vì mỗi lần soạn prompt IA01 cho màn mới tôi lại
+quên nó. Tương tự, AI huấn luyện chủ yếu trên SUT tiếng Anh nên không tự
+nghĩ ra rủi ro vỡ dấu tiếng Việt. Đó là thiên lệch do dữ liệu huấn luyện,
+không phải lỗi logic.
 
-Nguyên tắc tôi rút ra: AI là trợ lý kỷ luật tốt trong phạm vi được giao, nhưng
-việc nhớ và khái quát các gap đã phát hiện vẫn là trách nhiệm của người kiểm
-thử. Tôi cần một checklist cố định để tự soát prompt trước khi gửi.
+Loại thứ hai nặng hơn nhiều. GUI-027 được đánh Failed với câu "scrollY = 0
+ở mọi mốc thời gian", và tôi đã file bug, mở issue #99. Đo lại bằng bộ lấy
+mẫu 200ms qua 2 mức trễ mạng, vị trí cuộn được khôi phục đúng: 1339 so với
+1359 ban đầu, giữ nguyên suốt 26 giây. Phép đo gốc dừng ở 3.5 giây, trước
+lượt khôi phục thứ hai của trình duyệt. Ở đây AI không thiếu phạm vi mà
+**dừng đo sớm rồi phát biểu bằng ngôn ngữ tuyệt đối**, nghe như đã đo vét
+cạn. Dạng sai này không tự lộ khi đọc lại, chỉ lộ khi chạy lại phép đo.
+Tôi đã rút bug và đóng issue.
+
+Nguyên tắc rút ra: AI là trợ lý kỷ luật tốt trong phạm vi được giao, nhưng
+việc nhớ, khái quát và **đo lại** vẫn là trách nhiệm của người kiểm thử.
+Cụ thể: mọi kết luận Failed dựa trên một phép đo có giới hạn thời gian đều
+phải chạy lại với cửa sổ dài hơn trước khi được file thành bug.

@@ -39,8 +39,11 @@ Truy cập trực tiếp bằng URL sản phẩm (deep link) hoặc tải lại 
 - Vì lỗi xảy ra ở tầng edge/hosting (trước khi JS bundle của EShop được tải), đây là vấn đề **cấu hình triển khai**, không phải lỗi trong mã nguồn React của EShop, nhưng vẫn ảnh hưởng trực tiếp tới trải nghiệm người dùng thật trên bản họ thực sự dùng.
 
 ## Evidence
-![Desktop Chrome 404](screenshots/desktop-chrome-deeplink-404.png)
-![Desktop Firefox 404](screenshots/desktop-firefox-deeplink-404.png)
+Ảnh bằng chứng cho cả 3 platform đã nêu ở mục Environment:
+
+![Chrome / macOS 404](../cross-platform/screenshots/desktop-chrome-deeplink-404.png)
+![Firefox 153 / Windows 11 404](../cross-platform/screenshots/desktop-firefox-deeplink-404.png)
+![Chrome / Android 14 (Pixel 8) 404](../cross-platform/screenshots/android-chrome-deeplink-404.png)
 
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/197

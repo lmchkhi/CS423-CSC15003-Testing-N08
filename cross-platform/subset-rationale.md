@@ -43,9 +43,16 @@ cảm ứng, chứ không nằm ở logic nghiệp vụ.
 | 15 | GUI-081 | Thêm cùng sản phẩm 2 lần tạo dòng trùng | Trạng thái giỏ hàng nằm ở client, có thể khác theo cách lưu trữ của trình duyệt |
 | 16 | GUI-100 | Trạng thái tìm kiếm 0 kết quả | Bố cục trạng thái rỗng ở các viewport khác nhau |
 
-Phân bố theo khía cạnh IA: IA01 có 5 item (1, 2, 3, 4, 5), IA02 có 4 item (6,
-7, 8, 9), IA03 có 4 item (10, 11, 12, 13), IA04 có 3 item (14, 15, 16). Cả 4
-khía cạnh đều được chạm tới trên từng platform.
+Phân bố theo khía cạnh IA, lấy đúng nhãn IA của từng item trong
+`checklist/gui-checklist.md`: IA01 có 7 item (1, 2, 3, 4, 5, 6, 16), IA02 có 4
+item (7, 8, 9, 10), IA03 có 3 item (11, 12, 13), IA04 có 2 item (14, 15). Cả 4
+khía cạnh đều có mặt trong tập con.
+
+Tập con nghiêng về IA01 vì đó là nhóm chứa nhiều item render, màu sắc, font và
+bố cục, tức nhóm dễ khác nhau giữa các engine nhất. IA04 chỉ còn 2 item vì phần
+lớn item feedback/state của SUT hỏng do thiếu tính năng, giống nhau ở mọi trình
+duyệt. Độ phủ thực tế trên từng nền tảng thấp hơn tập con thiết kế, xem bảng
+trong `cross-platform/report.md`.
 
 ## Vì sao 94 item còn lại là platform-invariant
 

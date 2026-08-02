@@ -14,6 +14,27 @@ ghi chép buổi đó nằm ở cột cuối.
 | 6 | Nguyễn Quốc Huy | Email: ngu****123@gmail.com | 2003, FTE | Yes | Yes (bằng lời, off-record, theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-06.md` |
 | 7 | Lê Hữu Sang | SĐT: 032****546 | 2004, student + FTE | Yes | Yes (bằng lời, off-record, theo `session-script.md` bước 1, không có trong bản ghi hình) | `sessions/session-07.md` |
 
+## Bản ghi các buổi test
+
+Mỗi buổi test đều được ghi lại sau khi người tham gia đồng ý bằng lời
+(off-record, theo `session-script.md` bước 1). Link cũng được ghi lại ở đầu
+từng file `sessions/session-0N.md`.
+
+| # | Người tham gia | Bản ghi | Loại |
+|---|---|---|---|
+| 1 | Nguyễn Hà Chiêu Dương | https://youtu.be/tctKlOGofmc | Màn hình + tiếng |
+| 2 | Nguyễn Thành Đạt | https://youtu.be/czE9kNIG_y0 | Màn hình + tiếng |
+| 3 | Nguyễn Ngọc Trúc Mây | https://youtu.be/A9ZBu9xlwpY | Màn hình + tiếng |
+| 4 | Huỳnh Yến Nhi | https://youtube.com/shorts/Y4rrfpNAxiU?feature=share | **Chỉ có tiếng** (xem ghi chú dưới) |
+| 5 | Dương Quang Thắng | https://youtu.be/aSgQ0qqPo2E | Màn hình + tiếng |
+| 6 | Nguyễn Quốc Huy | https://youtu.be/bVbO8UFuEWE | Màn hình + tiếng |
+| 7 | Lê Hữu Sang | https://youtu.be/mXStbe4FDLI | Màn hình + tiếng |
+
+**Ghi chú người #4**: bản ghi màn hình của buổi này không còn, link ở trên là
+bản ghi âm. Các bằng chứng còn lại của buổi vẫn đầy đủ: transcript
+`transcript/participant_4.tsv`, bảng quan sát theo mốc thời gian trong
+`sessions/session-04.md`, và hàng phản hồi SUS trong file CSV.
+
 **Nguồn dữ liệu**: Tên, thông tin liên hệ, ngày tham gia lấy trực tiếp,
 không chỉnh sửa, từ `usability/EShop Usability Test - Khảo sát Trải nghiệm
 Người dùng (SUS) (Responses) - Form Responses 1.csv` (7 phản hồi thật, gửi

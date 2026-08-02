@@ -10,7 +10,7 @@ IA04 chuẩn (Error feedback phải cụ thể, không phải im lặng/màn tr�
 Critical / P1
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome), mô phỏng lỗi mạng bằng cách patch `XMLHttpRequest.prototype.open` để chuyển hướng request `/api/products` sang một cổng không tồn tại rồi tự bắn sự kiện `error`
+**Browser/Device**: Chrome (desktop), mô phỏng lỗi mạng bằng cách patch `XMLHttpRequest.prototype.open` để chuyển hướng request `/api/products` sang một cổng không tồn tại rồi tự bắn sự kiện `error`
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

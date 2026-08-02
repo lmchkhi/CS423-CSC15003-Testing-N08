@@ -3,10 +3,9 @@
 ## Checklist
 
 **Thực thi**: toàn bộ 110 item dưới đây đã được thực thi trực tiếp trên SUT
-đang chạy (`http://localhost:5173/`, eshop-sut @ `85af3ba`) qua Claude for
-Chrome, bằng thao tác thật: click, gõ, resize, đăng nhập, kiểm tra
-Network/DOM/console qua DevTools trên 5 sản phẩm thật của hệ thống. Không có
-item nào bị suy đoán kết quả.
+đang chạy (`http://localhost:5173/`, eshop-sut @ `85af3ba`) bằng thao tác
+thật: click, gõ, resize, đăng nhập, kiểm tra Network/DOM/console qua DevTools
+trên 5 sản phẩm thật của hệ thống. Không có item nào bị suy đoán kết quả.
 
 Phạm vi 4 màn hình: Product Detail (GUI-001–046), Home Page (GUI-047–086),
 Search Results (GUI-087–099), Empty Search State (GUI-100–110).
@@ -44,7 +43,7 @@ tồn tại trong SUT (quy ước ghi ở `reports/ai-audit-report.md`, Entry
 | GUI-024 | IA03 | Product Detail | Từng mắt breadcrumb (trừ mắt cuối) là link bấm được, dẫn đúng về trang tương ứng (Trang chủ, Danh mục) | AI | Failed | Không thể kiểm thử: breadcrumb không tồn tại (hệ quả trực tiếp của GUI-023) | checklist/screenshots/GUI-004-005-012-023-026-detail-page.png | BUG-IA03-PRODUCTDETAIL-001 |
 | GUI-025 | IA03 | Product Detail | Mắt breadcrumb cuối cùng (tên sản phẩm hiện tại) không phải là link, chỉ hiển thị dạng text vì đang ở trang đó | AI | Failed | Không thể kiểm thử: breadcrumb không tồn tại (hệ quả trực tiếp của GUI-023) | checklist/screenshots/GUI-004-005-012-023-026-detail-page.png | BUG-IA03-PRODUCTDETAIL-001 |
 | GUI-026 | IA03 | Product Detail | Có đường quay lại danh sách sản phẩm rõ ràng (nút "Quay lại" hoặc qua breadcrumb), không chỉ dựa vào nút back trình duyệt | AI | Failed | Không có nút/link "Quay lại" nào ngoài breadcrumb (vốn cũng không tồn tại) và logo "EShop" trên navbar, người dùng chỉ còn cách dùng nút Back trình duyệt | checklist/screenshots/GUI-004-005-012-023-026-detail-page.png | BUG-IA03-PRODUCTDETAIL-001 |
-| GUI-027 | IA03 | Product Detail | Bấm nút Back của trình duyệt từ trang chi tiết quay đúng về trang danh sách/kết quả tìm kiếm trước đó, không mất trạng thái (vị trí cuộn, bộ lọc đã chọn) | AI | Failed | Trên bản localhost tải nhanh, vị trí cuộn được khôi phục đúng sau khi Back. Nhưng khi danh sách sản phẩm về chậm (mô phỏng mạng chậm, cùng kỹ thuật đã dùng ở GUI-079), trình duyệt khôi phục cuộn lúc trang còn rỗng nên bị kẹp về 0, và khi dữ liệu về thì vị trí cuộn không được khôi phục lại nữa: đo được scrollY = 0 ở mọi mốc thời gian sau khi lưới đã render đủ 5 sản phẩm. Đây là kịch bản người dùng thật gặp trên mạng chậm hoặc trang dài | checklist/screenshots/GUI-027-scroll-lost-slow-load.png | BUG-IA03-PRODUCTDETAIL-002 |
+| GUI-027 | IA03 | Product Detail | Bấm nút Back của trình duyệt từ trang chi tiết quay đúng về trang danh sách/kết quả tìm kiếm trước đó, không mất trạng thái (vị trí cuộn, bộ lọc đã chọn) | AI (sửa bởi Human, xem Entry #28 ai-audit-report.md) | Passed | Đo lại bằng bộ lấy mẫu 200ms qua 2 lượt chạy độc lập (trễ mạng 2500ms và 6000ms trên `/api/products`): sau khi bấm Back, vị trí cuộn được khôi phục đúng, scrollY = 1339 so với 1359 trước khi rời trang, giữ nguyên tới hết 26 giây theo dõi. Kết luận Failed ban đầu không tái hiện được nên đã rút lại. Bộ lọc tìm kiếm bị mất khi Back là vấn đề khác, ghi riêng ở GUI-071 | | |
 | GUI-028 | IA03 | Product Detail | Truy cập trực tiếp bằng URL sản phẩm (deep link) hiển thị đúng trang chi tiết sản phẩm đó, không lỗi hoặc văng về trang chủ | AI | Passed | Điều hướng trực tiếp (`navigate`, tương đương gõ URL/F5) tới `/product/1`..`/product/5` đều hiển thị đúng sản phẩm tương ứng | | |
 | GUI-029 | IA03 | Product Detail | Thanh điều hướng chính (Navbar) không highlight sai mục khi đang ở trang chi tiết sản phẩm | AI | Passed | Navbar (Giỏ hàng/Đăng nhập/Đăng ký hoặc Giỏ hàng/Chào .../Thoát) không có bất kỳ cơ chế highlight active-link nào, do đó không có mục nào bị highlight sai (Passed theo đúng nghĩa đen của item; việc thiếu hoàn toàn active-state là một nhận xét khác, không thuộc phạm vi item này) | | |
 | GUI-030 | IA03 | Product Detail | Nếu có phần "Sản phẩm liên quan" ở cuối trang, bấm vào một sản phẩm liên quan điều hướng đúng sang trang chi tiết của sản phẩm đó (xác nhận tính năng tồn tại trước khi Pass/Fail, xem Entry #3) | AI | N/A | Xác nhận trên cả 5/5 sản phẩm: không có phần "Sản phẩm liên quan" nào tồn tại trong SUT, theo quyết định ở Entry #3 (`ai-audit-report.md`), đánh N/A thay vì Failed | | |
@@ -135,16 +134,16 @@ tồn tại trong SUT (quy ước ghi ở `reports/ai-audit-report.md`, Entry
 |---|---|---|---|---|---|---|
 | IA01: General UI | 34 | 34 | 24 | 10 | 0 | 0 |
 | IA02: Forms | 27 | 27 | 12 | 14 | 1 | 0 |
-| IA03: Navigation | 24 | 24 | 7 | 15 | 2 | 0 |
+| IA03: Navigation | 24 | 24 | 8 | 14 | 2 | 0 |
 | IA04: Feedback/state | 25 | 25 | 4 | 20 | 1 | 0 |
-| **Total** | **110** | **110** | **47** | **59** | **4** | **0** |
+| **Total** | **110** | **110** | **48** | **58** | **4** | **0** |
 
 > Cả 4 màn hình đã được thiết kế và thực thi đầy đủ trên SUT thật: Product
 > Detail (GUI-001–046), Home Page (GUI-047–086), Search Results
 > (GUI-087–099) và Empty Search State (GUI-100–110), xem ghi chú "Search
 > Results & Empty Search State" bên dưới cho các phát hiện của 2 màn thực
-> thi gần nhất. Home Page thực thi qua
-> Claude for Chrome ngày 26/07/2026, phát hiện quan trọng nhất: **SQL
+> thi gần nhất. Home Page thực thi ngày 26/07/2026, phát hiện quan
+> trọng nhất: **SQL
 > Injection** thật (không chỉ XSS) trong API tìm kiếm sản phẩm (`GET /api/products`),
 > xem `BUG-IA02-HOMEPAGE-003`. Bug tổng hợp cho Home Page:
 > - `BUG-IA01-HOMEPAGE-001`: trang chủ có 2 thẻ `<h1>` (GUI-047)
@@ -169,8 +168,8 @@ tồn tại trong SUT (quy ước ghi ở `reports/ai-audit-report.md`, Entry
 > first pass + critical human review, 4 item Human: GUI-098, 099, 109, 110,
 > xem lý do ở `ai-gap-analysis/gui-checklist-gaps.md` và
 > `reports/ai-audit-report.md` Entry #13–#22), sau đó thực thi trực tiếp trên
-> SUT thật (`http://localhost:5173/`, eshop-sut @ 85af3ba) qua Claude for
-> Chrome ngày 31/07/2026: 24/24 item, kết quả 8 Passed / 15 Failed / 1 N/A.
+> SUT thật (`http://localhost:5173/`, eshop-sut @ 85af3ba) ngày
+> 31/07/2026: 24/24 item, kết quả 8 Passed / 15 Failed / 1 N/A.
 >
 > Phát hiện quan trọng nhất, **BUG-IA04-SEARCHRESULTS-002**: dòng "Kết quả
 > tìm kiếm cho" cập nhật ngay theo từng ký tự gõ, nhưng lưới sản phẩm cập
@@ -198,7 +197,6 @@ Bug tổng hợp theo item, xem chi tiết từng bug tại `bug-reports/`:
 - `BUG-IA01-PRODUCTDETAIL-003`: không có skeleton khi tải ảnh (GUI-012)
 - `BUG-IA02-PRODUCTDETAIL-001`: ô Số lượng không validate, chấp nhận 0 (GUI-013, 015, 017, 020, 021, 037)
 - `BUG-IA03-PRODUCTDETAIL-001`: thiếu hoàn toàn breadcrumb (GUI-023, 024, 025, 026, 031, 032)
-- `BUG-IA03-PRODUCTDETAIL-002`: mất vị trí cuộn khi Back nếu danh sách sản phẩm về chậm (GUI-027)
 - `BUG-IA02-HOMEPAGE-004`: thẻ sản phẩm trang chủ không cho biết số lượng sẽ thêm vào giỏ (GUI-086)
 - `BUG-IA04-PRODUCTDETAIL-001`: nút thêm giỏ hàng cần bấm 2 lần, không toast/badge, không cộng dồn, mất giỏ hàng khi tải lại trang (GUI-033, 034, 038, 039, 040, 041, 044, 046)
 - `BUG-IA02-SEARCHRESULTS-001`: không có nút xóa bộ lọc tìm kiếm (GUI-090)

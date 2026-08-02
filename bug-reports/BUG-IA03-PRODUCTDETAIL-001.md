@@ -10,7 +10,7 @@ FR-23 (Navigation Requirements: "Breadcrumb bắt buộc có ở các trang con 
 Major / P2
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/product/1 .. /product/5
 **Build/commit**: eshop-sut @ 85af3ba

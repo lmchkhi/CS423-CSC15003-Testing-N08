@@ -10,7 +10,7 @@ IA01 chuẩn (Color contrast, WCAG AA: tối thiểu 4.5:1 cho chữ thường)
 Minor / P2
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

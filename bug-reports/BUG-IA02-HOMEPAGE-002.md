@@ -10,7 +10,7 @@ FR-05 (Từ khóa tìm kiếm phải được hiển thị an toàn, không rend
 Critical / P0
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

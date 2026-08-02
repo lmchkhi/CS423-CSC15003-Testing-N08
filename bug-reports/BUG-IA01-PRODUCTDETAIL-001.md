@@ -10,7 +10,7 @@ FR-21 (Tiêu chuẩn Giao diện Chung: "nút hành động tích cực dùng m�
 Minor / P3
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome), viewport 1539×784
+**Browser/Device**: Chrome (desktop), viewport 1539×784
 **OS**: macOS
 **URL**: http://localhost:5173/product/1 (và toàn bộ /product/:id khác)
 **Build/commit**: eshop-sut @ 85af3ba

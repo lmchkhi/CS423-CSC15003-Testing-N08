@@ -1133,3 +1133,66 @@ sinh viên, không phải điểm do AI quyết định.
 ```
 
 ---
+
+## [30] Claude (Opus 5, Claude Code + Claude for Chrome) — 02/08/2026
+
+**Prompt:**
+```
+scan the whole repo and compare with the requirements in 2026.HW03.GUI
+Usability_En (1).pdf, check if:
+- quantity: has all the materials required
+- quality: the docs quality are all great, align the reports with the images
+  link and content. also there are no AI hints for the wordings of the docs.
+  and i dont want no sentence that are off, it should all report style and
+  professtional
+- i want to achieve 100/100, scan thoroughly end to end
+
+(tiếp theo, sau khi báo cáo kết quả rà soát)
+can you check the 9 and 13 through claude for chrome?, for the responses just
+leave as is, the image can be renamed, and we should commit once more before
+submitting
+
+(tiếp theo)
+you're explaining too much, which makes it AI-like, dont do that
+```
+
+**Output:**
+```
+Rà soát đối chiếu từng mục §14 của đề với repo. Đếm lại 110 dòng checklist,
+tính lại 7 điểm SUS từ CSV gốc, gọi GitHub API kiểm tra trạng thái và ảnh của
+26 issue, kiểm mọi đường dẫn ảnh trong mọi file .md.
+
+Quantity: đủ toàn bộ mục §14. AI Critique 285 từ, nằm trong khoảng 200-300.
+Điểm SUS tính lại khớp: 35, 15, 87.5, 20, 57.5, 75, 82.5, trung bình 53.2, độ
+lệch chuẩn 27.8. 25 issue mở đều có ảnh, issue #99 đã đóng đúng.
+
+Quality: tìm ra 9 chỗ lệch. Bảng Summary trong gui-checklist.md còn 47/59
+trong khi bảng thật cho 48/58. Task 3 ghi "26 ô đã kiểm thử" nhưng ma trận
+chỉ có 24, và "3 ô T" trong khi thật ra 4. README ghi Chrome 3 Fail, thật ra
+4. Câu "phủ cả 4 khía cạnh IA trên mỗi nền tảng" sai, chỉ Firefox đủ 4. Phân
+bố IA trong subset-rationale ghi 5/4/4/3, thật ra 7/4/3/2. Ảnh trong
+BUG-XPLAT-DEEPLINK-001.md trỏ sai thư mục. Mốc thời gian 0:62, 0:76, 0:94
+trong 4 file session không hợp lệ và ngược chiều thời gian. Nhiệm vụ thực giao
+lệch task-scenarios.md ở 5 trên 7 người, trong đó #1 và #3 trùng biến thể.
+
+Kiểm lại item 9 và 13 của Task 3 qua Claude for Chrome trên bản deploy:
+- Ô Số lượng: <input class="border p-2 w-20 rounded" type="number" value="1">,
+  không có inputmode ghi đè, không có min/max/step.
+- Nút hành động: class "flex-1 bg-blue-600 text-white py-2 rounded
+  hover:bg-blue-700 text-sm", computed height 36px = 8px + 8px padding + 20px
+  line-height. Không có biến thể sm:/md: nào tác động tới padding dọc hay cỡ
+  chữ, nên 36px cố định ở mọi viewport.
+
+Phát hiện thêm: lý do cũ ghi cho item 9 và 13 ("không vào được trang chủ và
+trang chi tiết trên Android") bị chính 2 ảnh android-chrome-product-detail.png
+và android-chrome-cart-added.png phản bác.
+
+Cũng phát hiện §5, §6 và bảng chữ ký của ai-audit-report.md vẫn còn nguyên
+placeholder của template.
+```
+
+**Ghi chú của sinh viên**: tôi giữ nguyên file CSV gốc kèm số điện thoại đầy
+đủ làm bằng chứng cho TA đối chiếu, bản `participants.md` vẫn che 4 số giữa
+theo §6. Tôi cũng yêu cầu đổi tên file ảnh cho khớp nội dung thay vì chỉ sửa
+câu chú thích, và yêu cầu viết lại ngắn gọn hơn vì các đoạn giải thích dài
+đọc ra giọng AI.

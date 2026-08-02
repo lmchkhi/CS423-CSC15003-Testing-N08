@@ -10,7 +10,7 @@ FR-05 (Khi đang tải dữ liệu phải hiển thị trạng thái loading)
 Minor / P2
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

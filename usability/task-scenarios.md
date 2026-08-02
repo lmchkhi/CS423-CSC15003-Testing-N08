@@ -38,7 +38,34 @@ các participant.
 | 6 | "Dùng ô tìm kiếm trên web này, gõ 'bàn phím' để tìm sản phẩm. Mở trang chi tiết, chọn mua 2 cái, rồi bỏ vào giỏ hàng nha." | Bàn phím cơ Keychron Q1, 4,000,000₫ |
 | 7 | "Dùng ô tìm kiếm trên web này, gõ 'GALAXY' để tìm sản phẩm. Mở trang chi tiết, chọn mua 1 cái, rồi bỏ vào giỏ hàng nha." | Samsung Galaxy S24 Ultra, 28,000,000₫ |
 
-⚠️ Trước buổi test, mở EShop lên gõ thử từng từ khóa vào ô tìm kiếm, xác
+## Biến thể thực tế đã giao trong 7 buổi
+
+Bảng trên là bản kế hoạch. Khi chạy thật, thứ tự biến thể không được giao đúng
+như kế hoạch: điều phối viên đọc nhiệm vụ theo trí nhớ chứ không mở lại file
+này trước từng buổi. Ghi lại đúng thực tế, lấy từ đầu mỗi file
+`sessions/session-0N.md` và đối chiếu với transcript tương ứng:
+
+| # | Người tham gia | Từ khóa đã giao | Số lượng | Khớp kế hoạch |
+|---|---|---|---|---|
+| 1 | Nguyễn Hà Chiêu Dương | "tai nghe" | 2 | Không (kế hoạch: "keychron", 1) |
+| 2 | Nguyễn Thành Đạt | "GALAXY" | 1 | Không (kế hoạch: "tai nghe", 2) |
+| 3 | Nguyễn Ngọc Trúc Mây | "tai nghe" | 2 | Không (kế hoạch: "samsung", 1) |
+| 4 | Huỳnh Yến Nhi | "iphone" | 3 | Có |
+| 5 | Dương Quang Thắng | "Macbook" | 1 | Có |
+| 6 | Nguyễn Quốc Huy | "Galaxy" | 3 | Không (kế hoạch: "bàn phím", 2) |
+| 7 | Lê Hữu Sang | "keychron" | 1 | Không (kế hoạch: "GALAXY", 1) |
+
+Hệ quả:
+
+- Người #1 và #3 nhận cùng một biến thể, nên 7 buổi phủ 6 biến thể phân biệt.
+  Đã ghi rõ trong `sessions/session-03.md`.
+- Vẫn phủ đủ các dạng viết: hoa toàn bộ ("GALAXY"), hoa đầu từ ("Galaxy",
+  "Macbook"), thường ("tai nghe", "iphone", "keychron"). Biến thể "bàn phím"
+  không giao cho ai; nội dung này đã kiểm ở Task 1 qua GUI-085 và GUI-109.
+- Mọi từ khóa đã giao đều khớp đúng 1 sản phẩm, nên độ khó không đổi và kết quả
+  7 buổi vẫn so sánh được.
+
+Trước buổi test, mở EShop lên gõ thử từng từ khóa vào ô tìm kiếm, xác
 nhận vẫn ra đúng 1 sản phẩm như cột tham khảo (catalog có thể đổi tuỳ
 instance): nếu từ khóa nào không còn khớp đúng 1 sản phẩm thì đổi từ khóa ở
 dòng đó cho khớp catalog lúc test thật, đừng đổi cấu trúc câu. Cột "Sản phẩm

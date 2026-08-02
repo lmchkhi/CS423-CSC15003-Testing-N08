@@ -10,7 +10,7 @@ IA03/IA04 chuẩn (accessibility: dynamic content phải được công bố cho
 Minor / P3
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

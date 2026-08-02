@@ -10,7 +10,7 @@ SEC-05 (Truy vấn CSDL phải dùng Parameterized Query, không nối chuỗi t
 Critical / P0
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome), lỗ hổng nằm ở backend, không phụ thuộc trình duyệt
+**Browser/Device**: Chrome (desktop), lỗ hổng nằm ở backend, không phụ thuộc trình duyệt
 **OS**: macOS
 **URL**: http://localhost:5173/ (frontend) → http://localhost:3000/api/products?search=... (backend API bị khai thác)
 **Build/commit**: eshop-sut @ 85af3ba

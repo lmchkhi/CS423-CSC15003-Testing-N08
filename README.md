@@ -42,9 +42,9 @@
 |---|---|---|---|---|---|
 | IA01 — Giao diện chung | 34 | 34 | 24 | 10 | 0 |
 | IA02 — Form | 27 | 27 | 12 | 14 | 1 |
-| IA03 — Điều hướng | 24 | 24 | 7 | 15 | 2 |
+| IA03 — Điều hướng | 24 | 24 | 8 | 14 | 2 |
 | IA04 — Phản hồi và trạng thái | 25 | 25 | 4 | 20 | 1 |
-| **Tổng** | **110** | **110** | **47** | **59** | **4** |
+| **Tổng** | **110** | **110** | **48** | **58** | **4** |
 
 Cả 4 màn hình đều đã thiết kế và thực thi đầy đủ trên SUT thật: Chi tiết sản
 phẩm (GUI-001–046), Trang chủ (GUI-047–086), Kết quả tìm kiếm (GUI-087–099),
@@ -82,11 +82,11 @@ thuộc vào engine render, hệ điều hành hoặc loại thiết bị. Lý d
 lập luận vì sao 94 item còn lại là platform-invariant:
 `cross-platform/subset-rationale.md`.
 
-| Platform | Số ô đã test | Kết quả |
+| Platform | Số ô có kết quả | Kết quả |
 |---|---|---|
-| Chrome 150 / macOS 26.5.2 | 8 | 3 Fail (định dạng giá, tương phản, deep link 404) |
-| Firefox 153 / Windows 11 (BrowserStack Live) | 12 | 6 Fail (cùng các lỗi Task 1, tái hiện y hệt) |
-| Chrome / Android 14 (Pixel 8, BrowserStack real device) | 6 | 1 Fail (deep link 404) |
+| Chrome 150 / macOS 26.5.2 | 8 | 4 Fail (định dạng giá, tương phản, deep link 404, thiếu phản hồi khi thêm vào giỏ) |
+| Firefox 153 / Windows 11 (BrowserStack Live) | 11 | 6 Fail (cùng các lỗi Task 1, tái hiện y hệt) |
+| Chrome / Android 14 (Pixel 8, BrowserStack real device) | 7 | 2 Fail (deep link 404, vùng chạm 36px < 44px) |
 
 Không phát hiện lỗi hiển thị hay CSS riêng theo từng platform; layout responsive
 nhất quán (3 cột desktop, 1 cột điện thoại). Khác biệt trình duyệt duy nhất là
@@ -98,8 +98,9 @@ rewrite. **Xác nhận trên cả 3 platform**, nên đây là lỗi cấu hình
 không phải vấn đề trình duyệt. Lỗi này chỉ thấy được khi test trên bản deploy
 thật, không xuất hiện trên dev server dùng ở Task 1 và Task 2.
 
-3 ô không kiểm thử được do bàn phím điều khiển từ xa làm hỏng ký tự nhập vào,
-đã ghi rõ là không kiểm thử thay vì suy đoán. Chi tiết:
+2 ô còn lại (gõ từ khóa có dấu) không kiểm thử được do bàn phím điều khiển từ
+xa làm hỏng ký tự, ghi là không kiểm thử thay vì suy đoán. Trong lượt này chỉ
+Firefox chạm cả 4 khía cạnh IA, Chrome và Android mỗi bên chạm 3. Chi tiết:
 `cross-platform/report.md`.
 
 ### 2.5. Tổng hợp bug
@@ -128,23 +129,45 @@ thật, không xuất hiện trên dev server dùng ở Task 1 và Task 2.
 | BUG-IA02-SEARCHRESULTS-002 | Task 1 | Minor | Open | [#191](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/191) |
 | BUG-IA03-HOMEPAGE-001 | Task 1 | Minor | Open | [#107](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/107) |
 | BUG-IA03-HOMEPAGE-003 | Task 1 | Minor | Open | [#109](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/109) |
-| BUG-IA03-PRODUCTDETAIL-002 | Task 1 | Minor | Open | [#99](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/99) |
 | BUG-IA04-HOMEPAGE-001 | Task 1 | Minor | Open | [#110](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/110) |
 | BUG-IA04-HOMEPAGE-002 | Task 1 | Minor | Open | [#111](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/111) |
 | BUG-IA04-SEARCHRESULTS-001 | Task 1 | Minor | Open | [#192](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/192) |
 
-**Tổng: 26 bug** (5 Critical, 7 Major, 14 Minor). 25 bug từ Task 1 và 1 bug từ
+**Tổng: 25 bug** (5 Critical, 7 Major, 13 Minor). 24 bug từ Task 1 và 1 bug từ
 Task 3. Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có làm bằng
 chứng bổ sung từ người dùng thật.
+
+Bug thứ 26, `BUG-IA03-PRODUCTDETAIL-002` (mất vị trí cuộn khi bấm Back), đã tự
+rút lại: đo lại với cửa sổ dài hơn cho thấy vị trí cuộn được khôi phục đúng.
+GitHub issue [#99](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/99)
+đã đóng kèm lý do, GUI-027 chuyển sang Passed, file bug giữ nguyên để đối
+chiếu. Xem `reports/ai-critique.md`.
 
 ### 2.6. Demo Videos
 
 | Skill | Link |
 |---|---|
-| `gui-checklist` | _chờ cập nhật sau khi upload_ |
-| `usability-evaluation` | _chờ cập nhật sau khi upload_ |
+| `gui-checklist` | https://youtu.be/Vi-yk2z-LYQ |
+| `usability-evaluation` | https://youtu.be/l7MVHgso8qc |
 
 Kịch bản quay: `skills-demo-script.md`.
+
+### 2.7. Bản ghi 7 buổi usability test
+
+| # | Người tham gia | Bản ghi | Loại |
+|---|---|---|---|
+| 1 | Nguyễn Hà Chiêu Dương | https://youtu.be/tctKlOGofmc | Màn hình + tiếng |
+| 2 | Nguyễn Thành Đạt | https://youtu.be/czE9kNIG_y0 | Màn hình + tiếng |
+| 3 | Nguyễn Ngọc Trúc Mây | https://youtu.be/A9ZBu9xlwpY | Màn hình + tiếng |
+| 4 | Huỳnh Yến Nhi | https://youtube.com/shorts/Y4rrfpNAxiU?feature=share | Chỉ có tiếng |
+| 5 | Dương Quang Thắng | https://youtu.be/aSgQ0qqPo2E | Màn hình + tiếng |
+| 6 | Nguyễn Quốc Huy | https://youtu.be/bVbO8UFuEWE | Màn hình + tiếng |
+| 7 | Lê Hữu Sang | https://youtu.be/mXStbe4FDLI | Màn hình + tiếng |
+
+6/7 buổi có bản ghi màn hình, buổi #4 chỉ có bản ghi âm. Các bằng chứng khác
+của buổi #4 (transcript, bảng quan sát theo mốc thời gian, phản hồi SUS) vẫn
+đầy đủ như 6 buổi còn lại. Danh sách người tham gia đầy đủ:
+`usability/participants.md`.
 
 ---
 

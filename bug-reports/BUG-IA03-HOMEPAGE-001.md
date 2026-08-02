@@ -10,7 +10,7 @@ FR-23 (Thanh điều hướng (Navbar) phải highlight trang đang được ch�
 Minor / P2
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

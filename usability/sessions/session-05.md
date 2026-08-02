@@ -4,6 +4,7 @@
   trước đó)
 - **Đồng ý ghi hình (Consent to record)**: Yes (bằng lời, off-record, theo
   `session-script.md` bước 1, không có trong bản ghi hình)
+- **Bản ghi hình buổi test**: https://youtu.be/aSgQ0qqPo2E
 - **Nhiệm vụ giao**: dùng ô tìm kiếm gõ "Macbook", mở chi tiết, mua 1 cái, bỏ
   vào giỏ hàng
 - **Giờ bắt đầu/kết thúc task**: ~0:02 → ~0:20 (~18 giây, nhanh nhất trong

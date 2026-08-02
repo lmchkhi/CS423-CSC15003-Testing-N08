@@ -32,7 +32,7 @@ của đề bài. Chi tiết đầy đủ nằm ở các file được trỏ t�
    yêu cầu không có trong spec.
 2. Với mỗi màn hình, gửi AI 4 prompt riêng biệt theo IA01 đến IA04, đúng tinh
    thần "guide the AI through every step" của §2 thay vì một prompt chung. Toàn
-   bộ 27 lượt tương tác nằm trong `reports/ai-audit-report.md` và
+   bộ 29 lượt tương tác nằm trong `reports/ai-audit-report.md` và
    `reports/prompt-log.md`.
 3. Phản biện kết quả AI và bổ sung 12 item do tôi tự thêm
    (`ai-gap-analysis/gui-checklist-gaps.md`), mỗi item kèm lý do AI bỏ sót. Ba
@@ -47,8 +47,8 @@ của đề bài. Chi tiết đầy đủ nằm ở các file được trỏ t�
    - **Giới hạn mô hình** (2/12 item): không tự đối chiếu ngược giữa 2 màn hình
      để phát hiện thiếu sót ngầm (GUI-086), và không tự suy ra kịch bản hết
      phiên đăng nhập khi FR không mô tả rõ (GUI-044).
-4. Thực thi toàn bộ **110/110 item** trực tiếp trên SUT đang chạy qua Claude
-   for Chrome, bằng thao tác thật: click, gõ, resize, đọc DevTools
+4. Thực thi toàn bộ **110/110 item** trực tiếp trên SUT đang chạy bằng thao
+   tác thật: click, gõ, resize, đọc DevTools
    Network/DOM/console, gọi thẳng API để đối chiếu. Đánh dấu Passed, Failed
    hoặc N/A; cột Notes ghi rõ lý do cho mọi item Failed; screenshot chỉ đính
    kèm cho item Failed đúng theo §6.
@@ -59,14 +59,14 @@ của đề bài. Chi tiết đầy đủ nằm ở các file được trỏ t�
 |---|---|---|---|---|---|
 | IA01 — Giao diện chung | 34 | 34 | 24 | 10 | 0 |
 | IA02 — Form | 27 | 27 | 12 | 14 | 1 |
-| IA03 — Điều hướng | 24 | 24 | 7 | 15 | 2 |
+| IA03 — Điều hướng | 24 | 24 | 8 | 14 | 2 |
 | IA04 — Phản hồi và trạng thái | 25 | 25 | 4 | 20 | 1 |
-| **Tổng** | **110** | **110** | **47** | **59** | **4** |
+| **Tổng** | **110** | **110** | **48** | **58** | **4** |
 
 Chi tiết từng item: `checklist/gui-checklist.md` (bản đầy đủ có Notes,
 Screenshot, Bug ID) và `checklist/gui-checklist.xlsx` (bản Excel theo §14).
 
-### Bug phát hiện được (25 bug)
+### Bug phát hiện được (24 bug)
 
 Nặng nhất:
 
@@ -82,8 +82,8 @@ Nặng nhất:
 - **BUG-IA04-EMPTYSEARCH-001**: trạng thái 0 kết quả tìm kiếm hoàn toàn trống,
   không icon, không thông điệp, không lối thoát, vi phạm FR-05 và FR-24.
 
-Toàn bộ 25 bug đã file cả ở `bug-reports/*.md` lẫn GitHub Issues (issue #94
-đến #112, #190 đến #194, và #196).
+Toàn bộ 24 bug đã file cả ở `bug-reports/*.md` lẫn GitHub Issues (issue #94
+đến #112 trừ #99, #190 đến #194, và #196).
 
 ---
 
@@ -106,10 +106,15 @@ kịch bản còn qua 2 vòng tự rà soát và bắt được 2 lỗi thiết 
 chạy thật.
 
 **Phase 2, chạy các buổi test**: 7 buổi thật, mỗi người một kịch bản biến thể
-(khác từ khóa và số lượng, cùng cấu trúc), có ghi âm và ghi chú quan sát theo
+(khác từ khóa và số lượng, cùng cấu trúc). Khi chạy thật, thứ tự biến thể được
+giao lệch so với bản kế hoạch và người #1 với #3 nhận trùng một biến thể, nên
+7 buổi phủ 6 biến thể phân biệt; bảng đối chiếu kế hoạch với thực tế nằm ở
+`usability/task-scenarios.md`. Mỗi buổi có ghi âm và ghi chú quan sát theo
 mốc thời gian, đóng buổi bằng form SUS và 4 câu probe. 7 transcript thật nằm ở
 `usability/transcript/*.tsv`; 7 file tổng hợp từng buổi (quan sát, SUS từng
-câu, probe) ở `usability/sessions/session-01.md` đến `session-07.md`.
+câu, probe) ở `usability/sessions/session-01.md` đến `session-07.md`. Link bản
+ghi hình của cả 7 buổi nằm ở `usability/participants.md` và ở đầu từng file
+`session-0N.md`.
 
 **Phase 3, phân tích** (`usability/analysis.md`): tính SUS theo công thức chuẩn
 cho từng người, tách vấn đề hệ thống khỏi lỗi đơn lẻ, xếp severity, và
@@ -176,8 +181,12 @@ platform chỉ đo lại backend 3 lần chứ không đo được gì về plat
 tập con và lý do: `cross-platform/subset-rationale.md`; bảng kết quả từng item
 trên từng platform: `cross-platform/report.md`.
 
-**Kết quả**: 26 ô đã kiểm thử ở lượt này, phủ cả 4 khía cạnh IA trên mỗi
-platform. Không phát hiện lỗi hiển thị hay CSS riêng theo platform; layout
+**Kết quả**: 26 ô cho kết quả Passed/Failed ở lượt này (Chrome 8, Firefox 11,
+Android 7), cộng 2 ô đánh dấu không kiểm thử được vì giới hạn công cụ. Độ phủ
+IA không đều giữa 3 platform: chỉ Firefox chạm được cả 4 khía cạnh ở chính lượt
+chạy này, Chrome và Android mỗi bên chạm 3, bảng chi tiết ở
+`cross-platform/report.md`. Không phát hiện lỗi hiển thị hay CSS riêng theo
+platform; layout
 responsive nhất quán (3 cột desktop, 1 cột điện thoại). Mọi bug hành vi từ Task
 1 đều tái hiện y hệt, gồm `BUG-IA04-PRODUCTDETAIL-001` (bấm đúng 1 lần trên
 Firefox thì giỏ hàng vẫn trống), `BUG-IA03-HOMEPAGE-002` (Back làm mất từ khóa)
@@ -194,19 +203,24 @@ Khác biệt trình duyệt thật sự duy nhất tìm được: Firefox vẽ n
 định trên ô `type="number"` của trường Số lượng, Chrome thì không. Vô hại,
 không phải defect.
 
-**Giới hạn cần ghi nhận**: 3 ô trong bảng không kiểm thử được vì bàn phím điều
-khiển từ xa của BrowserStack làm hỏng ký tự nhập vào (`bàn phím` tới nơi thành
-`bn phm`; URL bị rớt ký tự và sai dấu). Việc gõ từ khóa có dấu, bàn phím số và
-kích thước vùng chạm trên Android vì vậy được ghi là không kiểm thử, không suy
-đoán kết quả. Chi tiết ở `cross-platform/report.md`.
+**Giới hạn cần ghi nhận**: 2 ô trong bảng, cùng thuộc một item, không kiểm thử
+được vì bàn phím điều khiển từ xa của BrowserStack làm hỏng ký tự nhập vào
+(`bàn phím` tới nơi thành
+`bn phm`; URL bị rớt ký tự và sai dấu). Chỉ việc gõ từ khóa có dấu ghi là không
+kiểm thử.
+
+Hai item di động (bàn phím số, kích thước vùng chạm) ban đầu cũng xếp vào nhóm
+này, sau đó kiểm lại được qua DOM và CSS của bản deploy: ô Số lượng đúng là
+`type="number"` (Pass); chiều cao nút 36px cố định, không đạt 44px trên mọi
+thiết bị (Fail). Chi tiết ở `cross-platform/report.md`.
 
 ---
 
 ## Tổng hợp bug (cả 3 task)
 
-**Tổng 26 bug**: 25 từ GUI checklist ở Task 1 và 1 từ Cross-Platform ở Task 3.
+**Tổng 25 bug**: 24 từ GUI checklist ở Task 1 và 1 từ Cross-Platform ở Task 3.
 Task 2 không phát sinh bug mới, chỉ cross-link 2 bug đã có. Phân bố mức độ: 5
-Critical, 7 Major, 14 Minor. Đầy đủ trong `bug-reports/*.md`, mỗi bug có một
+Critical, 7 Major, 13 Minor. Đầy đủ trong `bug-reports/*.md`, mỗi bug có một
 GitHub Issue tương ứng tại
 `github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues`.
 
@@ -214,7 +228,7 @@ GitHub Issue tương ứng tại
 
 ## AI Audit & Critique
 
-- AI Audit Report đầy đủ (27 entry, template §9): `reports/ai-audit-report.md`
+- AI Audit Report đầy đủ (29 entry, template §9): `reports/ai-audit-report.md`
 - Prompt log thô, không lọc: `reports/prompt-log.md`
 - AI Critique (200–300 từ, §10): `reports/ai-critique.md`
 

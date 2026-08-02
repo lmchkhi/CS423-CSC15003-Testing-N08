@@ -10,7 +10,7 @@ FR-06 (Có ô nhập Số lượng: chỉ nhận số nguyên dương, tối thi
 Critical / P1
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/product/2
 **Build/commit**: eshop-sut @ 85af3ba

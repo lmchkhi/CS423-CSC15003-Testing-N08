@@ -10,7 +10,7 @@ FR-05 (Trang chủ chỉ có đúng một thẻ `<h1>`); FR-21 (Tiêu đề tran
 Major / P1
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

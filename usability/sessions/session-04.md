@@ -4,6 +4,9 @@
   trước đó)
 - **Đồng ý ghi hình (Consent to record)**: Yes (bằng lời, off-record, theo
   `session-script.md` bước 1, không có trong bản ghi hình)
+- **Bản ghi buổi test**: https://youtube.com/shorts/Y4rrfpNAxiU?feature=share —
+  chỉ có tiếng, bản ghi màn hình của buổi này không còn. Quan sát theo mốc thời
+  gian bên dưới dựng từ bản ghi âm này và `transcript/participant_4.tsv`.
 - **Nhiệm vụ giao**: dùng ô tìm kiếm gõ "iphone", mở chi tiết, mua 3 cái, bỏ
   vào giỏ hàng
 - **Giờ bắt đầu/kết thúc task**: ~0:00 → ~1:15 (~75 giây, có nhiều khoảng im

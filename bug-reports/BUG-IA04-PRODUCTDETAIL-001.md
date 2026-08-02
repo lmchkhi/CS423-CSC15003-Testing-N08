@@ -10,7 +10,7 @@ FR-06 (nút Thêm vào giỏ hàng: sau khi bấm phải hiển thị phản h�
 Critical / P0
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/product/1
 **Build/commit**: eshop-sut @ 85af3ba

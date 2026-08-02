@@ -10,7 +10,7 @@ IA01 chuẩn (loading performance perception); liên quan gián tiếp FR-06 (�
 Minor / P3
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/product/1
 **Build/commit**: eshop-sut @ 85af3ba

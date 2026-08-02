@@ -10,7 +10,7 @@ IA03 chuẩn (Browser back/forward phải giữ đúng trạng thái, không m�
 Major / P1
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

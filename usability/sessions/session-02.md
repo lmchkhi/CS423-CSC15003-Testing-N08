@@ -4,6 +4,7 @@
   trước đó)
 - **Đồng ý ghi hình (Consent to record)**: Yes (bằng lời, off-record, theo
   `session-script.md` bước 1, không có trong bản ghi hình)
+- **Bản ghi hình buổi test**: https://youtu.be/czE9kNIG_y0
 - **Nhiệm vụ giao**: dùng ô tìm kiếm gõ "GALAXY" (viết hoa), mở chi tiết,
   mua 1 cái, bỏ vào giỏ hàng
 - **Giờ bắt đầu/kết thúc task**: ~0:16 → ~1:17 (~61 giây)
@@ -21,9 +22,9 @@
 | 0:26–0:33 | Chọn sản phẩm | Thấy 1 sản phẩm, mở chi tiết |
 | 0:33–0:46 | Thêm vào giỏ (lần 1) | *"Đã thêm chưa ta?"*, không chắc thao tác đã thành công |
 | 0:46–0:56 | Nghi ngờ có lỗi | *"Hình như là nó bị vấn đề gì rồi"*, nhờ điều phối viên xác nhận có phải nút bị lỗi |
-| 0:56–0:68 | Bấm lại nhiều lần | Bấm "Thêm vào giỏ hàng" lặp lại vì tưởng lần trước không ăn, **đúng hành vi của bug đã biết ở Task 1** (`BUG-IA04-PRODUCTDETAIL-001`, cần bấm nhiều lần, không có toast/badge xác nhận) |
-| 0:68–0:75 | Phát hiện over-add | *"Hình như là mình bấm thêm vô nhiều quá rồi"*, tự nhận ra giỏ hàng có nhiều hơn ý định |
-| 1:16 | Kết thúc | Điều phối viên dừng task |
+| 0:56–1:08 | Bấm lại nhiều lần | Bấm "Thêm vào giỏ hàng" lặp lại vì tưởng lần trước không ăn, **đúng hành vi của bug đã biết ở Task 1** (`BUG-IA04-PRODUCTDETAIL-001`, cần bấm nhiều lần, không có toast/badge xác nhận) |
+| 1:08–1:15 | Phát hiện over-add | *"Hình như là mình bấm thêm vô nhiều quá rồi"*, tự nhận ra giỏ hàng có nhiều hơn ý định |
+| 1:17 | Kết thúc | Điều phối viên dừng task |
 
 ## Kết quả SUS
 

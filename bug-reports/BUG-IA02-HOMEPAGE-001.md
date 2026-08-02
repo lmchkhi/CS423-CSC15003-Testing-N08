@@ -10,7 +10,7 @@ FR-22 (Form Requirements); IA02 chuẩn (placeholder không thay thế nhãn th�
 Minor / P3
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

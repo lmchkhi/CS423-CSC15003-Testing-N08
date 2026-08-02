@@ -10,7 +10,7 @@ FR-05 (Mỗi sản phẩm hiển thị Ảnh có alt text mô tả); FR-24 (Tấ
 Minor / P2
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

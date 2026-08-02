@@ -1,3 +1,17 @@
+0dbab8c 2026-08-01 fix(usability): participant #7's SUS is the 2nd highest in session-07 too
+e04936a 2026-08-01 docs: sync README and main report to the Task 3 matrix
+69fd64c 2026-08-01 fix: correct the watermark email to 23127300@student.hcmus.edu.vn
+bbad794 2026-08-01 test(xplat): finish Task 3 - stamp all evidence, rewrite as item x platform matrix
+6d55b08 2026-08-01 test(xplat): confirm the deep-link 404 on Android 14 / Pixel 8
+26001eb 2026-08-01 test(xplat): define platform-sensitive subset; run it on Firefox 153 / Windows 11
+3746f1a 2026-08-01 docs(demo-script): fix awkward conversions and the Task 1 issue count
+1bdca44 2026-08-01 docs(demo-script): match the prose register of the rest of the submission
+752babc 2026-08-01 fix: repair text mangled by the em-dash pass; rebuild xlsx with a Summary sheet
+02537cd 2026-08-01 docs: rewrite README and main report, drop remaining em-dashes
+a69db89 2026-08-01 docs(gap-analysis): regroup 12 entries by cause, consolidate the repeated dark-mode gap
+62f9cad 2026-08-01 docs: remove template leftovers, fix sourcing, rewrite prose register
+f7530c7 2026-08-01 fix(checklist): clean header, repair GUI-097 row, close screenshot gaps
+6e54e1e 2026-07-31 docs: refresh git commit log after Task 3
 b497e55 2026-07-31 docs: roll up cross-platform results into main report + README; self-assessed full grade
 c2c1014 2026-07-31 test(xplat): run Task 1/2 flow on Chrome, Firefox, Android Chrome — file BUG-XPLAT-DEEPLINK-001
 1f4b10e 2026-07-31 docs(usability): participant #7 is also a student

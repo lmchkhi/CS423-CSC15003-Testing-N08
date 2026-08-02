@@ -12,7 +12,7 @@ màn hình cùng làm một việc là vấn đề nhất quán giao diện theo
 Minor / P3
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

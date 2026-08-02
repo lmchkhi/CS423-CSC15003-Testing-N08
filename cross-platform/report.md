@@ -51,17 +51,47 @@ không kiểm thử được do giới hạn công cụ, xem mục Giới hạn 
 | 6 | GUI-045 | Hiển thị dấu tiếng Việt | P | **P** | **P** | **P** |
 | 7 | GUI-085 | Gõ từ khóa có dấu tiếng Việt | P | – | **T** | **T** |
 | 8 | GUI-016 | Ô số lượng từ chối ký tự chữ | P | – | **P** | – |
-| 9 | GUI-018 | Bàn phím số trên thiết bị di động | – | N/A | N/A | **T** |
+| 9 | GUI-018 | Bàn phím số trên thiết bị di động | – | N/A | N/A | **P** |
 | 10 | GUI-065 | Thứ tự Tab và focus ring | P | – | – | N/A |
 | 11 | GUI-071 | Back làm mất từ khóa tìm kiếm | F | – | **F** | – |
 | 12 | GUI-028 | Deep link `/product/:id` | P | **F** | **F** | **F** |
-| 13 | GUI-074 | Kích thước vùng chạm | F | N/A | N/A | **T** |
+| 13 | GUI-074 | Kích thước vùng chạm | F | N/A | N/A | **F** |
 | 14 | GUI-033 | Phản hồi sau khi thêm vào giỏ | F | **F** | **F** | – |
 | 15 | GUI-081 | Thêm 2 lần tạo dòng trùng | F | – | – | – |
 | 16 | GUI-100 | Trạng thái tìm kiếm 0 kết quả | F | – | **F** | – |
 
-Tổng số ô đã kiểm thử ở lượt này: **26** trên 3 nền tảng (Chrome 8, Firefox 12,
-Android 6), phủ cả 4 khía cạnh IA01 đến IA04 trên mỗi nền tảng.
+Tổng số ô có kết quả Passed hoặc Failed ở lượt này: **26** trên 3 nền tảng
+(Chrome 8, Firefox 11, Android 7). Ngoài ra còn 2 ô đánh **T**, tức đã thử
+nhưng không kiểm thử được vì giới hạn công cụ (item 7 trên Firefox và trên
+Android), nâng tổng số ô có đánh dấu lên 28.
+
+Độ phủ IA theo từng nền tảng không đồng đều. Số ô Passed/Failed chạy ở chính
+lượt này:
+
+| Nền tảng | IA01 | IA02 | IA03 | IA04 |
+|---|---|---|---|---|
+| Chrome / macOS | 6 | 0 | 1 | 1 |
+| Firefox / Win 11 | 7 | 1 | 2 | 1 |
+| Chrome / Android 14 | 4 | 1 | 2 | 0 |
+
+Trên Chrome/macOS, 3 item IA02 đánh **–** vì Task 1 đã chạy trên đúng nền tảng
+này. Trên Android, 3 item IA04 không chạy lại ở lượt này.
+
+### Item 9 và item 13: kiểm lại bằng DOM và CSS của bản deploy
+
+Android nhận đúng bundle giống desktop, nên hai item này kiểm được mà không cần
+điều khiển thiết bị từ xa.
+
+- **Item 9 (GUI-018), Passed.** Ô Số lượng là
+  `<input class="border p-2 w-20 rounded" type="number" value="1">`.
+  `type="number"` không bị `inputmode` ghi đè, đủ điều kiện phía ứng dụng để
+  Chrome/Android bật bàn phím số. Giới hạn: tôi xác minh thuộc tính, không chụp
+  được bàn phím đang bật. Ô này cũng không có `min`/`max`/`step`, khớp
+  `BUG-IA02-PRODUCTDETAIL-001`.
+- **Item 13 (GUI-074), Failed.** Nút dùng class `... py-2 ... text-sm`, chiều
+  cao tính toán 36px = 8px + 8px padding + 20px `line-height`. Không có biến
+  thể responsive nào tác động tới padding dọc hay cỡ chữ, nên 36px cố định ở
+  mọi viewport, không thể đạt 44px trên Android.
 
 ## Phát hiện
 
@@ -87,7 +117,7 @@ Không có bug nào chỉ xuất hiện trên một nền tảng:
 - Back làm mất từ khóa tìm kiếm và trả lại đủ 5 sản phẩm
   (`desktop-firefox-back-loses-search.png`).
 - Trạng thái tìm kiếm 0 kết quả hiển thị trống trơn
-  (`desktop-firefox-diacritics-tooling-limit.png`, phần dưới dòng chú thích).
+  (`desktop-firefox-empty-search-and-input-limit.png`, phần dưới dòng chú thích).
 - Giá vẫn hiển thị "VND" trên lưới nhưng "đ" ở trang chi tiết và giỏ hàng.
 
 ### 3. Khác biệt trình duyệt thật sự duy nhất: spinner của Firefox
@@ -104,8 +134,9 @@ CSS nào riêng theo nền tảng. Layout responsive nhất quán: 3 cột trên
 
 ## Giới hạn công cụ cần ghi nhận trung thực
 
-Ba ô đánh dấu **T** trong bảng trên không kiểm thử được, và lý do là công cụ
-chứ không phải SUT:
+Hai ô đánh dấu **T** còn lại trong bảng trên, cả hai đều thuộc item 7 (gõ từ
+khóa có dấu), một trên Firefox và một trên Android, không kiểm thử được, và lý
+do là công cụ chứ không phải SUT:
 
 **Bàn phím từ xa làm hỏng ký tự nhập vào.** Khi điều khiển phiên BrowserStack
 qua automation, chuỗi gửi đi không tới nơi nguyên vẹn:
@@ -118,19 +149,20 @@ qua automation, chuỗi gửi đi không tới nơi nguyên vẹn:
 Dấu tiếng Việt bị rớt hoàn toàn, dấu hai chấm thành dấu chấm phẩy, và ký tự bị
 mất giữa chuỗi. Vì vậy:
 
-- Item 7 (gõ từ khóa có dấu) không kiểm thử được trên cả Firefox lẫn Android.
-  Lưu ý phần **hiển thị** dấu tiếng Việt vẫn kiểm thử được bình thường và đều
-  Pass (item 6), vấn đề chỉ nằm ở khâu nhập liệu qua automation.
-- Item 9 và 13 (bàn phím số và kích thước vùng chạm trên di động) cần vào được
-  trang chủ và trang chi tiết trên Android. Vì deep link bị 404 và không gõ
-  được URL trang chủ, không có đường nào tới được 2 trang đó trong phiên. Đã
-  thử 5 cách: tham số `url` của BrowserStack (chỉ có tác dụng lúc khởi tạo
-  phiên), khởi động lại phiên, gợi ý lịch sử của Chrome, link sửa lỗi chính tả
-  của Google, và chọn-tất-cả-rồi-gõ-lại.
+Item 7 (gõ từ khóa có dấu) vì vậy không kiểm thử được trên cả Firefox lẫn
+Android. Lưu ý phần **hiển thị** dấu tiếng Việt vẫn kiểm thử được bình thường
+và đều Pass (item 6), vấn đề chỉ nằm ở khâu nhập liệu qua automation.
 
 Đây là hạn chế của việc điều khiển thiết bị từ xa qua automation, không phải
 defect của EShop, nên không file bug. Ghi nhận là không kiểm thử thay vì suy
 đoán kết quả.
+
+**Đính chính**: item 9 và 13 trước đây cũng ghi ở mục này, với lý do không vào
+được trang chủ và trang chi tiết trên Android. Lý do đó sai:
+`android-chrome-product-detail.png` và `android-chrome-cart-added.png` cho thấy
+cả hai trang đã vào được trên Pixel 8. Giới hạn thật là không đo được kích
+thước phần tử và không chụp được bàn phím ảo qua điều khiển từ xa. Cả hai item
+nay đã có kết quả, xem mục trên.
 
 ## Kết luận
 
@@ -153,7 +185,7 @@ trình duyệt/hệ điều hành/thiết bị theo §6 và §11.
 | Nền tảng | File |
 |---|---|
 | Chrome / macOS | `desktop-chrome-home-grid.png`, `desktop-chrome-search-results.png`, `desktop-chrome-cart-added.png`, `desktop-chrome-deeplink-404.png` |
-| Firefox / Win 11 | `desktop-firefox-home-grid.png`, `desktop-firefox-product-detail-spinner.png`, `desktop-firefox-cart-empty-one-click.png`, `desktop-firefox-back-loses-search.png`, `desktop-firefox-deeplink-404.png`, `desktop-firefox-diacritics-tooling-limit.png` |
+| Firefox / Win 11 | `desktop-firefox-home-grid.png`, `desktop-firefox-product-detail-spinner.png`, `desktop-firefox-cart-empty-one-click.png`, `desktop-firefox-back-loses-search.png`, `desktop-firefox-deeplink-404.png`, `desktop-firefox-empty-search-and-input-limit.png` |
 | Chrome / Android 14 | `android-chrome-deeplink-404.png`, `android-chrome-product-detail.png`, `android-chrome-cart-added.png` |
 
 Ảnh gốc chưa đóng watermark của lượt chạy này nằm trong `raw-firefox/` và

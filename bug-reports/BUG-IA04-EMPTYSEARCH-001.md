@@ -10,7 +10,7 @@ FR-05 ("Khi không có kết quả tìm kiếm phải hiển thị thông báo e
 Major / P1
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/
 **Build/commit**: eshop-sut @ 85af3ba

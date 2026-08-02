@@ -4,6 +4,7 @@
   trước đó)
 - **Đồng ý ghi hình (Consent to record)**: Yes (bằng lời, off-record, theo
   `session-script.md` bước 1, không có trong bản ghi hình)
+- **Bản ghi hình buổi test**: https://youtu.be/mXStbe4FDLI
 - **Nhiệm vụ giao**: dùng ô tìm kiếm gõ "keychron", mở chi tiết, mua 1 cái,
   bỏ vào giỏ hàng
 - **Giờ bắt đầu/kết thúc task**: ~0:30 → ~2:15 (~105 giây, gồm **3 lần thử
@@ -18,15 +19,15 @@
 
 | Thời điểm | Bước trong flow | Quan sát (khó khăn/lỗi/do dự/câu nói của người dùng) |
 |---|---|---|
-| 0:30–0:52 | Search → chi tiết (lần 1) | Search "keycrown" (keychron), mở chi tiết, trôi chảy |
-| 0:52–0:60 | Thêm vào giỏ (lần 1) | *"nó đã bị bấm"*, thấy có phản ứng khi bấm nút |
-| 0:62–0:72 | Kiểm tra, thất bại | *"ủa gì vậy... sao không có thêm được"*, hỏi điều phối viên, không thấy sản phẩm |
-| 0:76–0:90 | Thử lại (lần 2) | Lặp lại đầy đủ: search → chi tiết → thêm vào giỏ hàng |
-| 0:94–0:98 | Kiểm tra, vẫn thất bại | *"bấm vào giỏ hàng, nó không có cái gì hết"*, **giỏ hàng trống hoàn toàn** |
-| 0:98–1:06 | Nghi ngờ nguyên nhân | *"mình bấm chưa đăng nhập ta?"*, tự đặt giả thuyết sai (nghĩ do chưa đăng nhập); hỏi lại điều phối viên, không rõ câu trả lời |
-| 1:10–1:16 | *"mình nói lỗi rồi bạn à"* | Tự kết luận có lỗi hệ thống |
-| 1:16–2:14 | Thử lại (lần 3) | Lặp lại toàn bộ chu trình lần thứ 3, kết quả: *"nó vẫn không ra gì cả"* |
-| 2:16 | Kết thúc do hết thời gian | Điều phối viên chủ động dừng, không phải participant tự báo xong |
+| 0:29–0:51 | Search → chi tiết (lần 1) | Search "keycrown" (keychron), mở chi tiết, trôi chảy |
+| 0:51–0:59 | Thêm vào giỏ (lần 1) | *"nó đã bị bấm"*, thấy có phản ứng khi bấm nút |
+| 1:01–1:11 | Kiểm tra, thất bại | *"ủa gì vậy... sao không có thêm được"*, hỏi điều phối viên, không thấy sản phẩm |
+| 1:15–1:31 | Thử lại (lần 2) | Lặp lại đầy đủ: search → chi tiết → thêm vào giỏ hàng |
+| 1:33–1:37 | Kiểm tra, vẫn thất bại | *"bấm vào giỏ hàng, nó không có cái gì hết"*, **giỏ hàng trống hoàn toàn** |
+| 1:37–1:47 | Nghi ngờ nguyên nhân | *"mình bấm chưa đăng nhập ta?"*, tự đặt giả thuyết sai (nghĩ do chưa đăng nhập); hỏi lại điều phối viên, không rõ câu trả lời |
+| 1:49–1:51 | *"mình nói lỗi rồi bạn à"* | Tự kết luận có lỗi hệ thống |
+| 1:55–2:11 | Thử lại (lần 3) | Lặp lại toàn bộ chu trình lần thứ 3, kết quả: *"nó vẫn không ra gì cả"* |
+| 2:17 | Kết thúc do hết thời gian | Điều phối viên chủ động dừng, không phải participant tự báo xong |
 
 **Đây là bằng chứng người dùng thật mạnh nhất cho cùng root cause đã ghi
 nhận ở Task 1**: xem `bug-reports/BUG-IA04-PRODUCTDETAIL-001.md` (nút

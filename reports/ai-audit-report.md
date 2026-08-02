@@ -1934,38 +1934,219 @@ thay thế.
 
 ---
 
+## Entry #28
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code + Claude for Chrome) |
+| **Timestamp**     | 02/08/2026 |
+| **Artifact type** | Đo lại và **rút lại** kết luận Failed của GUI-027 + `bug-reports/BUG-IA03-PRODUCTDETAIL-002.md` + GitHub issue #99 |
+
+**Full prompt:**
+
+```
+can you use claude in chrome to capture that?
+(bối cảnh: GUI-027 là item Failed duy nhất trỏ tới một file screenshot
+không tồn tại, và issue #99 là issue duy nhất trong 26 issue không có ảnh)
+```
+
+### (2) AI Output
+
+```
+Cài patch làm chậm /api/products (cùng kỹ thuật patch XHR/fetch đã dùng ở
+GUI-079) + bộ lấy mẫu scrollY và số thẻ sản phẩm mỗi 200ms. Chạy đúng kịch
+bản của GUI-027: cuộn xuống cuối trang chủ → bấm "Xem chi tiết" → bấm Back
+của trình duyệt → theo dõi cho tới khi lưới render đủ 5 sản phẩm.
+
+Chạy 2 lượt độc lập, 2 mức trễ (2500ms và 6000ms):
+
+  scrollY trước khi rời trang = 1359
+   4915ms  cards=0  scrollY=523    <- kẹp cuộn khi trang còn rỗng
+  10514ms  cards=0  scrollY=523
+  11314ms  cards=5  scrollY=1339   <- lưới render xong, Chrome khôi phục lại
+  26515ms  cards=5  scrollY=1339   <- giữ nguyên tới hết 26 giây
+
+Tập giá trị scrollY sau khi render đủ chỉ có 1 phần tử: 1339. Không lần nào
+bằng 0. KHÔNG tái hiện được lỗi. Báo lại cho sinh viên là không chụp được
+ảnh bằng chứng vì không có trạng thái lỗi nào để chụp, và đề nghị rút lại
+phát hiện thay vì chụp một tấm ảnh không chứng minh được gì.
+```
+
+### (3) Verdict
+
+**`INVALID`**
+
+### (4) Reasoning
+
+Đây là artifact **duy nhất bị đánh INVALID** trong toàn bộ đợt audit, và nó
+làm lộ ra một kết luận sai đã lọt tới tận GitHub Issues công khai.
+
+Kết luận Failed gốc của GUI-027 (Entry #8) dựa trên phép đo dừng ở mốc
+3500ms. Chrome kẹp vị trí cuộn về mức tối đa của trang rỗng trong lúc chờ
+dữ liệu — nửa này của mô tả gốc đúng — nhưng sau đó chạy **thêm một lượt
+khôi phục nữa** khi chiều cao trang ổn định. Phép đo gốc kết thúc trước
+lượt thứ hai đó nên đọc ra `scrollY = 0` và kết luận "không bao giờ khôi
+phục lại".
+
+Cần ghi nhận trung thực một khác biệt giữa 2 lượt đo: lượt gốc chạy trên
+cửa sổ chỉ có 53px khoảng cuộn, lượt đo lại có 1359px. Không loại trừ được
+khả năng hành vi khác đi ở khoảng cuộn rất nhỏ. Nhưng kể cả trong trường
+hợp đó, mức ảnh hưởng thực tế là 53px, không khớp với mô tả "quay lại đầu
+trang thay vì hàng sản phẩm thứ 2" trong bug report gốc.
+
+Bài học rút ra khác hẳn các entry trước: các entry trước AI sai vì **thiếu
+phạm vi** (tôi soạn prompt hẹp). Ở đây AI sai vì **dừng đo quá sớm rồi phát
+biểu kết quả với độ chắc chắn cao hơn dữ liệu cho phép** ("ở mọi mốc thời
+gian"). Câu chữ nghe như đã đo vét cạn, trong khi thực tế chỉ đo tới 3.5
+giây. Đây là dạng sai nguy hiểm hơn vì nó không tự lộ ra khi đọc lại — chỉ
+lộ khi chạy lại phép đo.
+
+### (5) Student Fix
+
+Tôi tự quyết định rút lại phát hiện thay vì giữ và hạ severity, vì bằng
+chứng không đủ vững:
+
+1. GUI-027 chuyển Failed → **Passed**, ghi rõ trong cột Notes cả kết quả đo
+   lại lẫn lý do phép đo gốc sai (`checklist/gui-checklist.md` và bản
+   `.xlsx`).
+2. `bug-reports/BUG-IA03-PRODUCTDETAIL-002.md` đánh dấu **ĐÃ RÚT LẠI**, giữ
+   nguyên nội dung gốc bên dưới để đối chiếu thay vì xóa.
+3. Đóng GitHub issue #99 kèm lý do rút lại và số liệu đo lại.
+4. Cập nhật lại toàn bộ số liệu bị ảnh hưởng: checklist 47/59/4 → 48/58/4,
+   IA03 7/15/2 → 8/14/2, tổng bug 26 → 25 (Task 1: 25 → 24, Minor 14 → 13),
+   trong `README.md`, `reports/main-report.md` và cả 2 sheet của file Excel.
+5. Ghi lại nguyên tắc rút ra vào `reports/ai-critique.md`: một phép đo có
+   giới hạn thời gian không được phát biểu bằng ngôn ngữ tuyệt đối.
+
+Tôi giữ lại phát hiện này trong báo cáo thay vì âm thầm xóa dấu vết, vì bản
+thân việc bắt được nó là một phần kết quả kiểm thử.
+
+---
+
+## Entry #29
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code + Claude for Chrome) |
+| **Timestamp**     | 02/08/2026 |
+| **Artifact type** | Rà soát nhất quán toàn bộ bài nộp + kiểm lại item 9/13 của Task 3 |
+
+**Full prompt:**
+
+```
+scan the whole repo and compare with the requirements in 2026.HW03.GUI
+Usability_En (1).pdf, check if:
+- quantity: has all the materials required
+- quality: the docs quality are all great, align the reports with the images
+  link and content. also there are no AI hints for the wordings of the docs.
+  and i dont want no sentence that are off, it should all report style and
+  professtional
+- i want to achieve 100/100, scan thoroughly end to end
+
+(sau đó) can you check the 9 and 13 through claude for chrome?
+```
+
+### (2) AI Output
+
+```
+Đối chiếu từng mục §14 với repo, đếm lại bảng checklist bằng script, tính lại
+SUS từ CSV gốc, gọi GitHub API kiểm tra 26 issue. Tìm ra 9 chỗ lệch số liệu
+hoặc lệch bằng chứng, gồm: bảng Summary trong gui-checklist.md còn 47/59 trong
+khi 110 dòng thật cho 48/58; số ô Task 3 ghi 26 nhưng ma trận chỉ có 24; "3 ô
+T" trong khi thật ra 4; phân bố IA trong subset-rationale sai (5/4/4/3 thay vì
+7/4/3/2); ảnh trong BUG-XPLAT-DEEPLINK-001.md trỏ sai thư mục; mốc thời gian
+0:62/0:76/0:94 trong 4 file session không hợp lệ; nhiệm vụ thực giao lệch
+task-scenarios.md ở 5/7 người.
+
+Kiểm lại item 9 và 13 qua Claude for Chrome trên bản deploy: ô Số lượng là
+type="number" không bị inputmode ghi đè; nút hành động cao đúng 36px do py-2 +
+line-height 20px, không có biến thể responsive nào tác động.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Các con số đều kiểm chứng lại được bằng script chạy trên chính file nguồn, và
+7 điểm SUS tính lại từ CSV khớp đúng bảng đã có. Riêng phần kiểm lại item 9 và
+13 làm lộ ra một chỗ tôi đã ghi sai trong `cross-platform/report.md`: lý do
+"không vào được trang chủ và trang chi tiết trên Android" bị chính 2 ảnh
+`android-chrome-product-detail.png` và `android-chrome-cart-added.png` phản
+bác. Giới hạn thật hẹp hơn nhiều, chỉ là không đo được kích thước phần tử và
+không chụp được bàn phím ảo.
+
+Cần ghi rõ giới hạn của cách kiểm mới: item 9 và 13 được kết luận từ DOM và
+CSS của bản deploy chứ không từ thao tác trên Pixel 8. Với item 13 điều này
+còn chặt hơn một phép đo đơn lẻ vì 36px là giá trị cố định. Với item 9 thì
+không: tôi xác minh thuộc tính quyết định hành vi, không phải bàn phím đang
+hiện.
+
+### (5) Student Fix
+
+Sửa cả 9 chỗ lệch. Riêng 2 chỗ tôi tự quyết ngược lại đề xuất ban đầu: giữ
+file CSV gốc kèm số điện thoại đầy đủ làm bằng chứng cho TA đối chiếu (bản
+danh sách người tham gia vẫn che 4 số giữa theo §6), và đổi tên
+`desktop-firefox-diacritics-tooling-limit.png` thành
+`desktop-firefox-empty-search-and-input-limit.png` cho khớp nội dung ảnh thay
+vì chỉ sửa câu chú thích. Item 9 chuyển T sang Passed, item 13 chuyển T sang
+Failed, kèm ghi chú về cách kiểm.
+
 ## 4. Tổng hợp độ chính xác của AI
 
 Tổng hợp verdict từ Mục 3 và điền bảng dưới đây.
 
 | Metric                                        | Count | Percentage |
 | :--------------------------------------------- | :---- | :--------- |
-| **Tổng số artifact do AI tạo được audit**       | 27    | 100%       |
-| **VALID (đúng, chấp nhận nguyên trạng)**        | 19    | 70.4%      |
-| **INVALID (sai; bị loại bỏ)**                   | 0     | 0%         |
-| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 29.6%      |
+| **Tổng số artifact do AI tạo được audit**       | 29    | 100%       |
+| **VALID (đúng, chấp nhận nguyên trạng)**        | 20    | 69.0%      |
+| **INVALID (sai; bị loại bỏ)**                   | 1     | 3.4%       |
+| **INCOMPLETE (chấp nhận được sau khi chỉnh sửa)** | 8   | 27.6%      |
+
+Artifact bị đánh INVALID là Entry #28: kết luận Failed của GUI-027 không tái
+hiện được khi tôi đo lại, đã rút lại phát hiện và đóng GitHub issue #99.
 
 ## 5. Kết luận — Khi nào nên (hoặc không nên) dùng AI?
 
-*Viết 80–150 từ mô tả các pattern đã quan sát được. AI làm tốt ở đâu? AI thất bại ở đâu? Khuyến nghị của bạn cho việc dùng AI trong loại công việc này về sau là gì?*
+AI mạnh nhất ở phần có ground truth rõ và phạm vi hẹp: sinh item checklist bám
+FR-05/FR-06/FR-21–24, áp công thức SUS cho 7×10 câu, gom nhóm điểm vướng, thao
+tác lặp lại trên SUT (đọc DOM, đo contrast, gọi API đối chiếu). 19/28 artifact
+dùng được nguyên trạng.
 
-______________________________________________________________________
+AI yếu ở hai chỗ. Một, nó chỉ trả lời trong phạm vi prompt: dark mode bị bỏ sót
+ở cả 4 màn hình vì 4 lần tôi đều quên liệt kê, và rủi ro dấu tiếng Việt không
+bao giờ tự xuất hiện. Hai, nguy hiểm hơn, nó phát biểu kết quả đo bằng ngôn ngữ
+tuyệt đối trong khi phép đo có giới hạn thời gian — GUI-027 là ví dụ, và tôi đã
+phải rút bug cùng issue #99.
 
-______________________________________________________________________
+Khuyến nghị: giữ một danh sách khía cạnh cố định cho prompt thay vì viết lại từ
+đầu mỗi màn, và chạy lại mọi kết luận Failed dựa trên phép đo có mốc thời gian
+trước khi file bug.
 
-______________________________________________________________________
+## 6. Công bố bắt buộc
 
-## 6. Công bố bắt buộc (dán nguyên văn)
-
-*"\[Test case / script / dataset / report\] ban đầu được tạo bởi \[tên công cụ AI\]; tôi đã xem xét và chỉnh sửa \[phần X\], bổ sung \[edge case Y, Z\]; \[phần W\] do tôi tự viết hoàn toàn. Báo cáo AI Audit chi tiết được đính kèm tại Phụ lục A. Tôi xác nhận không sử dụng AI để tạo bất kỳ artifact nào thuộc danh mục bị cấm."*
+Checklist GUI, bản nháp phân tích usability và các bản mô tả bug ban đầu được
+tạo bởi Claude (Sonnet 5 và Opus 5, qua Claude Code và Claude for Chrome); tôi
+đã xem xét và chỉnh sửa 6 item (GUI-019, 027, 080, 093, 103, 107), bổ sung 12
+item AI bỏ sót về dark mode, dấu tiếng Việt, bàn phím, hết phiên và số lượng
+mặc định (GUI-042 đến 046, 084 đến 086, 098, 099, 109, 110); phần dữ liệu người
+tham gia, transcript, điểm SUS và toàn bộ kết luận severity do tôi tự làm hoàn
+toàn. Báo cáo AI Audit chi tiết được đính kèm tại Phụ lục A. Tôi xác nhận không
+sử dụng AI để tạo bất kỳ artifact nào thuộc danh mục bị cấm, cụ thể là danh
+sách 7 người tham gia và ảnh chụp cross-platform theo §11.
 
 ## Chữ ký
 
-| Họ tên sinh viên (in hoa): |                            |
+| Họ tên sinh viên (in hoa): | HÀ BẢO NGỌC                |
 | :--------------------------- | :------------------------- |
 | **MSSV:**                    | 23127300                   |
 | **Lớp / Khoá:**              | CS423 / CSC15003           |
 | **Môn học:**                 | CS423 / CSC15003 – Kiểm thử Phần mềm |
-| **Giảng viên:**              |                            |
-| **Ngày:**                    |                            |
-| **Chữ ký:**                  |                            |
+| **Giảng viên:**              | Dr. Lam Quang Vu / Dr. Tran Duy Hoang / MSc. Tran Thi Bich Hanh / MSc. Truong Phuoc Loc / MSc. Ho Tuan Thanh |
+| **Ngày:**                    | 02/08/2026                 |
+| **Chữ ký:**                  | Hà Bảo Ngọc                |

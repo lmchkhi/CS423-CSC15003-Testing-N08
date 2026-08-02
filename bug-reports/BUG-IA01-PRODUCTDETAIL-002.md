@@ -10,7 +10,7 @@ FR-06 (Xem chi tiết sản phẩm: "Hiển thị đầy đủ: Ảnh lớn, Tê
 Major / P2
 
 ## Environment
-**Browser/Device**: Chrome (desktop, qua Claude for Chrome)
+**Browser/Device**: Chrome (desktop)
 **OS**: macOS
 **URL**: http://localhost:5173/product/1 .. /product/5 (toàn bộ 5 sản phẩm)
 **Build/commit**: eshop-sut @ 85af3ba
