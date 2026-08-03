@@ -1267,3 +1267,297 @@ AI đã cập nhật Task 2 artifacts sau khi session notes được move vào `
 - Cập nhật lại `reports/usability/usability-report.md`, `reports/usability/usability-findings.md`, `reports/main-report.md` và từng `BUG-USAB-*` bug report để thay Pending bằng issue URL thật.
 - Chạy lại SUS scoring script, kết quả vẫn là mean SUS = 60.4, min = 42.5, max = 72.5.
 ```
+
+## Entry #31
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 06:10 GMT+7   |
+| **Artifact type** | Cross-platform checklist + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+bây giờ xem qua task 3, hiện tại với task 1 đã được tính là 1 browser chrome trên máy tôi rồi nên chỉ cần thêm Firefox, and Safari trên browserStack nữa là được. nhưng việc lặp lại y hệt toàn bộ 65 item trên 3 browser tôi nghĩ sẽ có phần lớn các item sẽ không có khác biệt gì. giúp tôi lọc ra những item thực sự cần thiết hoặc có nguy cơ lỗi cao để test đa nền tảng, rồi trình bày vào report cho phần cross-platform giúp tôi, chưa cần test cho Firefox và Safari nhưng chrome thì lấy kết quả từ gui-checklist từ task 1 không cần test lại. tôi có tạo sẵn folder reports/cross-platform rồi
+```
+
+### (2) AI Output
+
+```text
+AI đã chuẩn bị phần Task 3 Cross-Browser / Cross-Platform trước khi chạy BrowserStack.
+
+- Đọc phần Task 3 trong `HW03-GUI&Usability.md`.
+- Đọc `reports/gui-checklist.md` để lấy Chrome local baseline từ Task 1.
+- Tạo `reports/cross-platform/cross-platform-checklist.md`:
+  - lọc 40/65 item có rủi ro cross-browser/cross-platform cao;
+  - giữ Chrome baseline từ Task 1;
+  - đặt Firefox BrowserStack và Safari BrowserStack là `Not Run`;
+  - ghi rõ selection criteria, excluded groups và execution notes.
+- Tạo sẵn thư mục evidence bằng `.gitkeep`:
+  - `reports/cross-platform/screenshots/firefox/.gitkeep`
+  - `reports/cross-platform/screenshots/safari/.gitkeep`
+- Cập nhật `reports/main-report.md` thêm section `Task 3 - Cross-Browser / Cross-Platform Plan`, gồm platform matrix, focused checklist, Chrome baseline và evidence convention.
+- Kiểm tra lại checklist có 40 item bằng `rg -c`.
+```
+
+## Entry #32
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 06:24 GMT+7   |
+| **Artifact type** | Cross-platform checklist refinement + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tôi thấy vẫn còn quá nhiều item mà có thể kết quả sẽ không khác biệt, lọc kĩ hơn nữa, chỉ chọn những item thật sự ý nghĩa và có khả năng khác biệt lớn. reports/cross-platform/cross-platform-checklist.md ở bảng checklist cột Cross-platform focus đang để full tiếng anh và chưa chi tiết lắm, tôi muốn để tiếng việt nhưng giữ các thuật ngữ tiếng anh với chi tiết hơn 1 xíu. có thể bỏ bớt 2 cột IA và Category để tăng không gian, chưa có cột evidence cho Firefox và Safari BrowserStack. cũng cần có cần giải thích thêm vì sao chỉ chọn những item đó mà không cần thiết phải chọn toàn bộ để chạy đa nền tảng.
+```
+
+### (2) AI Output
+
+```text
+AI đã tinh gọn Task 3 cross-platform checklist theo yêu cầu.
+
+- Cập nhật `reports/cross-platform/cross-platform-checklist.md`:
+  - giảm từ 40 item xuống 19 item có khả năng khác biệt browser cao hơn;
+  - bỏ 2 cột `IA` và `Category`;
+  - đổi cột focus sang tiếng Việt, giữ thuật ngữ kỹ thuật như native validation, focus, file picker, select, number input, CSV;
+  - thêm cột `Firefox evidence` và `Safari evidence`;
+  - bổ sung giải thích vì sao không cần retest toàn bộ 65 item;
+  - bổ sung bảng nhóm item bị loại khỏi retest và lý do loại.
+- Cập nhật `reports/main-report.md` phần Task 3:
+  - đổi số lượng checklist rút gọn từ 40 xuống 19;
+  - ghi rõ chỉ chọn native validation, native form controls, keyboard/focus, responsive/layout, CSV/file handling và compatibility smoke tests;
+  - giải thích các nhóm static/app-logic/feedback state ít phụ thuộc browser chỉ dùng Chrome baseline.
+- Kiểm tra lại số item bằng `rg -c "^\\| CP-"`, kết quả là 19.
+```
+
+## Entry #33
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 06:36 GMT+7   |
+| **Artifact type** | Cross-platform checklist refinement + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tôi thấy những item sau nên bỏ vì chúng không phụ thuộc vào browser:
+CP-002
+Smoke test đăng nhập admin hợp lệ
+Đây không phải browser compatibility.
+Nó chỉ xác nhận
+backend
+authentication
+cookie
+Nếu Chrome login được thì Firefox gần như cũng login được.
+Chỉ cần
+Login page render + login thành công
+ở CP-017 là đủ.
+=> Loại.
+
+CP-012
+CSV preview validation:
+file thiếu name
+price không dương
+Đây là validation/parser.
+Browser không quyết định parser.
+Nếu parser sai thì browser nào cũng sai.
+=> Không phải cross-browser.
+
+CP-013
+Import CSV thành công
+Result report đúng
+Đây là backend/business logic.
+Không phải browser issue.
+
+CP-019
+RFC4180
+Đây là parser.
+Browser không parse CSV.
+Javascript parser parse.
+Nếu cùng source code thì Chrome Firefox Safari sẽ giống nhau.
+Không phải compatibility test.
+```
+
+### (2) AI Output
+
+```text
+AI đã tinh gọn tiếp Task 3 cross-platform checklist theo nhận xét của người dùng.
+
+- Cập nhật `reports/cross-platform/cross-platform-checklist.md`:
+  - loại các item cũ CP-002, CP-012, CP-013 và CP-019 khỏi bảng focused checklist;
+  - renumber checklist từ CP-001 đến CP-015;
+  - giữ lại login render + login thành công trong compatibility smoke `GUI-059`;
+  - chuyển `GUI-007`, `GUI-045`, `GUI-047`, `HR-GUI-004` sang nhóm excluded, với lý do backend/authentication hoặc CSV parser/business validation không phụ thuộc browser;
+  - cập nhật explanation từ 19 item xuống 15 item.
+- Cập nhật `reports/main-report.md`:
+  - đổi checklist rút gọn từ 19 item xuống 15 item;
+  - chỉnh phần ưu tiên CSV/file handling chỉ còn browser-native file picker, `accept=.csv`, file input keyboard/focus;
+  - thêm nhóm bị loại: backend/authentication smoke riêng và CSV parser/business validation.
+- Kiểm tra bằng `rg -c "^\\| CP-"`, kết quả là 15.
+```
+
+## Entry #34
+
+### (1) Prompt + Tool
+
+| Field             | Content                  |
+| ----------------- | ------------------------ |
+| **Tool**          | Codex                    |
+| **Timestamp**     | 03/08/2026 09:16 GMT+7   |
+| **Artifact type** | Cross-platform final report + main report + AI audit report |
+
+**Full prompt:**
+
+```text
+tôi đã test xong và có chụp screenshot lại đầy đủ, khi test trên browserStack tôi chọn thiết bị là mac và browser thì là safari 27 latest, firefox 153 latest. tôi có điền result, evidence và note vào checklist rồi. tôi thấy các item đều có kết qủa giống với chrome chỉ riêng CP-012 là khác và đặc biệt. bây giờ viết 1 file report cho phần cross platform này. trong đó nhớ trình bày chi tiết lý do chọn test những item này và tại sao không test những item còn lại nữa
+```
+
+### (2) AI Output
+
+```text
+AI đã tạo final report cho Task 3 Cross-Browser / Cross-Platform dựa trên checklist đã được người dùng điền kết quả và evidence.
+
+- Đọc `reports/cross-platform/cross-platform-checklist.md` và screenshot paths trong `reports/cross-platform/screenshots/`.
+- Tạo `reports/cross-platform/cross-platform-report.md`:
+  - scope/platform matrix cho Chrome local, Firefox 153 latest BrowserStack Mac và Safari 27 latest BrowserStack Mac;
+  - giải thích chi tiết vì sao chỉ chọn 15 item thay vì retest toàn bộ 65 item;
+  - result summary: Chrome 8 pass / 7 fail; Firefox 7 pass / 8 fail; Safari 7 pass / 8 fail;
+  - phân tích finding khác biệt duy nhất `CP-012` / `GUI-058`;
+  - ghi evidence screenshot Firefox/Safari cho CP-012;
+  - kết luận hầu hết kết quả giống Chrome, chỉ User Management responsive table khác trên Firefox/Safari BrowserStack.
+- Cập nhật `reports/cross-platform/cross-platform-checklist.md` Browser Matrix từ Not Run sang Completed cho Firefox/Safari.
+- Cập nhật `reports/main-report.md` phần Task 3 từ plan sang report summary, gồm platform matrix, result summary và cross-platform finding CP-012.
+- Kiểm tra lại checklist vẫn có 15 item bằng `rg -c`.
+```
+
+## Entry #35
+
+### (1) Prompt + Tool
+
+| Field             | Content                                 |
+| ----------------- | --------------------------------------- |
+| **Tool**          | Codex                                   |
+| **Timestamp**     | 03/08/2026 09:29 GMT+7                  |
+| **Artifact type** | AI critique + Task 1 Excel checklist + test summary |
+
+**Full prompt:**
+
+```text
+bây giờ dựa theo phần 
+10. AI Critique (200–300 words, Mandatory)
+ của đề.  viết cho tôi thêm file đó, và xem Submission Regulations thì thấy có yêu cầu liên quan đến task 1: The Excel checklist (more than 40 items) and the test summary. giúp tôi tạo file excel và test summary của task 1.
+```
+
+### (2) AI Output
+
+```text
+AI tạo thêm các artifact phục vụ Submission Regulations:
+
+- Tạo `reports/ai-critique.md` theo yêu cầu 200-300 words, critique các điểm AI sai/chưa đầy đủ và nguyên tắc cộng tác với AI.
+- Tạo `reports/task1-test-summary.md` để tổng kết Task 1 GUI checklist: scope, environment, method, execution summary, distribution, findings, evidence và conclusion.
+- Tạo Excel checklist `reports/gui-checklist-task1.xlsx` từ `reports/gui-checklist.md`, gồm 65 checklist item và các sheet summary/issue mapping.
+- Cập nhật `reports/main-report.md` để trỏ tới Excel checklist và Task 1 test summary.
+```
+
+## Entry #36
+
+### (1) Prompt + Tool
+
+| Field             | Content                                      |
+| ----------------- | -------------------------------------------- |
+| **Tool**          | Codex                                        |
+| **Timestamp**     | 03/08/2026 09:42 GMT+7                       |
+| **Artifact type** | Cross-platform bug report + GitHub issue + Excel checklist |
+
+**Full prompt:**
+
+```text
+item CP-012 có cần phải viết thành 1 bug report luôn không, nếu cần thì viết giúp tôi và tạo github issue luôn, nhớ cập nhật file excel nếu có thay đổi luôn
+```
+
+### (2) AI Output
+
+```text
+AI xác định CP-012 nên có bug report riêng vì đây là finding cross-platform thật: Chrome local pass nhưng Firefox/Safari BrowserStack fail ở responsive table của User Management.
+
+- Tạo bug report `bug-reports/BUG-CP-012.md`.
+- Tạo GitHub issue #203: https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/203
+- Gắn labels: `Type: Bug`, `Status: New`, `Module: User Management`, `Priority: P2`, `Severity: Major`.
+- Cập nhật `reports/cross-platform/cross-platform-checklist.md`, `reports/cross-platform/cross-platform-report.md` và `reports/main-report.md` để ghi bug id/issue.
+- Tạo Excel checklist cho Task 3 tại `reports/cross-platform/cross-platform-checklist.xlsx`, gồm 15 cross-platform items và tracking cho `BUG-CP-012`.
+- Không thay đổi `reports/gui-checklist-task1.xlsx` vì CP-012 thuộc Task 3; Chrome baseline Task 1 `GUI-058` vẫn là Pass.
+```
+
+## Entry #37
+
+### (1) Prompt + Tool
+
+| Field             | Content                                |
+| ----------------- | -------------------------------------- |
+| **Tool**          | Codex                                  |
+| **Timestamp**     | 03/08/2026 09:51 GMT+7                 |
+| **Artifact type** | README submission summary + participant list update |
+
+**Full prompt:**
+
+```text
+oke bây giờ tiếp theo là phần này:
+A README.md containing the self-assessment table (below) and a test summary report: number of screens / flows tested; number of checklist items designed, executed, passed, and failed; number of bugs; number of participants; and demo videos.
+dựa vào template ở mục 15. sau đó kiểm tra reports/usability/participants.md còn cần điền thêm gì không
+```
+
+### (2) AI Output
+
+```text
+AI tạo submission README theo Submission Regulations:
+
+- Tạo `reports/README.md` với student information.
+- Thêm self-assessment table theo template mục 15, để `TBD` ở cột Self-Assessed Grade cho người học tự điền.
+- Thêm test summary report gồm số screens/flows, checklist items designed/executed/pass/fail, số bug, số participant, SUS summary và GitHub issue ranges.
+- Thêm danh sách main artifacts và demo/evidence videos.
+
+AI cũng kiểm tra và cập nhật `reports/usability/participants.md`:
+
+- Điền `Target profile fit` và `Notes` thay cho `TBD`.
+- Thêm `Device/browser`.
+- Ghi rõ P02 là pilot test.
+- Chuẩn hóa contact P07 sang dạng mask middle four digits.
+- Kiểm tra lại không còn `TBD` trong participant list và các artifact paths trong README đều tồn tại.
+```
+
+## Entry #38
+
+### (1) Prompt + Tool
+
+| Field             | Content                              |
+| ----------------- | ------------------------------------ |
+| **Tool**          | Codex                                |
+| **Timestamp**     | 03/08/2026 10:02 GMT+7               |
+| **Artifact type** | README relocation + AI audit report update |
+
+**Full prompt:**
+
+```text
+file readme là tạo file mới chứ không phải sửa file có sẵn, để trong reports cũng được
+```
+
+### (2) AI Output
+
+```text
+AI điều chỉnh theo yêu cầu mới:
+
+- Tạo file README submission riêng tại `reports/README.md`.
+- Gỡ phần submission README đã chèn khỏi `README.md` gốc để file gốc quay lại bắt đầu bằng SRS.
+- Cập nhật lại AI Audit Report để phản ánh đúng vị trí artifact mới là `reports/README.md`.
+```

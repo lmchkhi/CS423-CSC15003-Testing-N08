@@ -169,6 +169,13 @@ Các lỗi rủi ro cao nhất trong batch đầu tập trung ở validation và
 
 Tính trên toàn checklist, Product Management là khu vực có nhiều failed item nhất và cần được ưu tiên trong các batch bug report tiếp theo.
 
+### Task 1 submission artifacts
+
+Các artifact riêng phục vụ Submission Regulations cho Task 1:
+
+- Excel checklist: `reports/gui-checklist-task1.xlsx`
+- Test summary: `reports/task1-test-summary.md`
+
 ### Video demo agent skill: [https://youtu.be/KGLVbTaVeB4](https://youtu.be/KGLVbTaVeB4)
 
 ## Task 2 - Usability Evaluation Plan
@@ -297,3 +304,62 @@ Chi tiết evidence và recommendation nằm trong `reports/usability/usability-
 ### Task 2 Conclusion
 
 Admin flow có navigation dễ tìm và CSV import là phần tạo trust tốt nhất nhờ preview/result feedback. Tuy nhiên usability tổng thể chưa đạt mức acceptable ổn định vì bug product update làm toàn bộ session chỉ đạt Partial, thao tác xóa thiếu confirmation và nhiều create/update/delete action thiếu feedback hoặc validation rõ ràng. Ưu tiên sửa nên là: product update, confirmation dialog cho destructive actions, validation/error recovery, sau đó chuẩn hóa feedback theo pattern của CSV import.
+
+## Task 3 - Cross-Browser / Cross-Platform Report
+
+### Scope And Platform Matrix
+
+Task 3 reuse kết quả Chrome local từ Task 1 làm baseline, sau đó chạy thêm Firefox và Safari trên BrowserStack. Không lặp lại toàn bộ 65 GUI checklist item vì phần lớn item kiểm tra static text, heading hoặc business rule không phụ thuộc browser engine. Cross-platform retest chỉ tập trung vào những vùng có khả năng khác biệt thật giữa Chrome/Firefox/Safari: native validation, focus/keyboard, responsive layout, native form controls, file picker/CSV upload và smoke flow của màn hình chính.
+
+| Platform | Source | Status |
+| --- | --- | --- |
+| Chrome local | Task 1 `reports/gui-checklist.md` | Completed baseline |
+| Firefox 153 latest on BrowserStack Mac | `reports/cross-platform/cross-platform-checklist.md` | Completed |
+| Safari 27 latest on BrowserStack Mac | `reports/cross-platform/cross-platform-checklist.md` | Completed |
+
+### Focused Cross-Platform Checklist
+
+Checklist rút gọn được lưu tại `reports/cross-platform/cross-platform-checklist.md`. Bộ này gồm 15 item được chọn từ 65 item Task 1, ưu tiên:
+
+- native validation: `type=email`, `required`, `type=number`, submit bằng Enter;
+- native form controls: `select`, file picker, file input keyboard access;
+- keyboard/focus/accessibility: tab order, focus visible trong form/bảng;
+- responsive/layout: Dashboard ở viewport hẹp và User table overflow;
+- CSV/file handling chỉ ở phần browser-native: file picker, `accept=.csv`, file input keyboard/focus;
+- compatibility smoke tests: Login và Product Management.
+
+Các nhóm bị loại khỏi retest gồm static text/heading semantics, bug logic thuần như thiếu confirmation/self-delete/product update, backend/authentication smoke riêng, CSV parser/business validation và các feedback state ít phụ thuộc browser. Những nhóm này chỉ cần dùng Chrome baseline, trừ khi Firefox/Safari smoke test bộc lộ hành vi khác.
+
+### Result Summary
+
+| Platform | Total selected items | Pass | Fail | Different from Chrome baseline |
+| --- | ---: | ---: | ---: | ---: |
+| Chrome local | 15 | 8 | 7 | Baseline |
+| Firefox 153 latest on BrowserStack Mac | 15 | 7 | 8 | 1 |
+| Safari 27 latest on BrowserStack Mac | 15 | 7 | 8 | 1 |
+
+Hầu hết item có kết quả giống Chrome. Khác biệt duy nhất là `CP-012` / `GUI-058`: Chrome local pass, nhưng Firefox và Safari trên BrowserStack fail ở User Management responsive table.
+
+### Cross-Platform Finding
+
+`CP-012` cho thấy bảng User Management ở viewport hẹp trên Firefox/Safari BrowserStack không cuộn ngang được như Chrome local và bị mất/cắt chữ. Evidence:
+
+- Firefox: `reports/cross-platform/screenshots/firefox/GUI-FF-058-1.png`, `reports/cross-platform/screenshots/firefox/GUI-FF-058-2.png`
+- Safari: `reports/cross-platform/screenshots/safari/GUI-SF-058-1.png`, `reports/cross-platform/screenshots/safari/GUI-SF-058-2.png`
+
+Đây là finding cross-platform chính vì kết quả khác Chrome baseline và thuộc nhóm responsive/layout, vốn phụ thuộc browser/viewport behavior. Report chi tiết nằm ở `reports/cross-platform/cross-platform-report.md`.
+
+Bug report cho finding này:
+
+| Bug ID | Module | Severity / Priority | GitHub issue |
+| --- | --- | --- | --- |
+| `BUG-CP-012` | User Management | Major / P2 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/203 |
+
+### Evidence Convention
+
+Khi chạy BrowserStack, screenshot nên lưu theo cấu trúc:
+
+- `reports/cross-platform/screenshots/firefox/`
+- `reports/cross-platform/screenshots/safari/`
+
+Mỗi screenshot cần thể hiện browser/OS/device name, SUT URL và overlay username theo yêu cầu đề. Chỉ cần chụp các fail hoặc một số pass đại diện cho nhóm rủi ro cao để tránh evidence bị quá nhiễu.
