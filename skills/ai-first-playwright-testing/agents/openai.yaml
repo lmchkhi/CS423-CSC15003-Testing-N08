@@ -1,4 +1,0 @@
-interface:
-  display_name: "Kiểm thử Playwright AI-first"
-  short_description: "Kiểm thử hộp đen theo từng checkpoint"
-  default_prompt: "Hãy dùng $ai-first-playwright-testing để kiểm thử một tính năng theo quy trình AI-first và chờ tôi duyệt từng giai đoạn."
