@@ -26,6 +26,7 @@ Mặc định dùng quy ước:
 - Dữ liệu tại `data/<feature>.json` hoặc `.csv`.
 - Test tại `tests/<feature>.spec.ts`.
 - Ghi chú tại `reports/<feature>/REVIEW_NOTES.md` và lỗi tại `bug-reports/<feature>/bugs/` (tham khảo cấu trúc bug report tại `.github/ISSUE_TEMPLATE/bug-report-template.md`).
+- Nội dung Human Review và gap analysis tổng hợp tại `ai-gap-analysis/ai-gap-analysis.md`.
 - Báo cáo HTML tại thư mục riêng, không ghi đè kết quả cần lưu.
 
 Đọc `references/conventions.md` trước khi thiết kế dữ liệu, viết code hoặc báo cáo.
@@ -84,16 +85,19 @@ Xử lý lần lượt từng tính năng. Hoàn tất A→E cho tính năng hi�
 5. Phân loại `passed`, `failed`, `skipped`, lỗi môi trường và test không chạy; giữ trace/screenshot/video theo cấu hình khi có.
 6. Trình bày lệnh chạy, ma trận kết quả và đường dẫn report; dừng để chờ duyệt.
 
-## Giai đoạn E — Review và phân tích khoảng trống
+## Giai đoạn E — Human Review và phân tích khoảng trống
 
 1. Ghi từng góp ý của người dùng vào `REVIEW_NOTES.md` bằng mẫu `assets/templates/review-notes.md`: lỗi gì, vì sao AI có thể bỏ sót, cách sửa và bằng chứng xác minh.
-2. Phân biệt lỗi test, lỗi môi trường và defect SUT trước khi viết bug report.
-3. Chỉ tạo bug report khi có bằng chứng tái hiện lỗi SUT. Dùng `assets/templates/bug-report.md`; không tự tạo screenshot, kết quả hoặc GitHub Issue giả.
-4. Liệt kê test case không tự động hóa được và lý do cụ thể.
-5. Cập nhật bảng tự đánh giá/tóm tắt bằng `assets/templates/readme-summary.md`; số liệu phải được tính từ artifact thực tế.
-6. Nhắc người dùng tự thực hiện nội dung bắt buộc mang tính cá nhân như video demo và AI Critique nếu quy định học phần yêu cầu.
-7. Nhắc chiến lược commit tăng dần, nhưng không bịa lịch sử hoặc backdate: mục tiêu ít nhất 8 commit chạm file test, trải trên ít nhất 4 ngày chỉ khi người dùng thật sự làm việc trong khoảng thời gian đó.
-8. Trình bày gap analysis cuối cùng và dừng để người dùng duyệt.
+2. Tổng hợp toàn bộ nội dung Human Review vào đúng file `ai-gap-analysis/ai-gap-analysis.md`, dùng mẫu `assets/templates/ai-gap-analysis.md`. Tạo folder/file nếu chưa tồn tại; nếu đã tồn tại, giữ nội dung hợp lệ trước đó và cập nhật theo từng tính năng thay vì ghi đè toàn bộ.
+3. Trong file tổng hợp, ghi rõ đầu ra ban đầu của AI, phản hồi/chỉnh sửa của con người, khoảng trống được phát hiện, nguyên nhân, thay đổi đã áp dụng, tác động đến test và bằng chứng xác minh. Phân biệt dữ kiện do người dùng cung cấp với kết luận của AI.
+4. Chỉ ghi một mục Human Review là `Đã xử lý` khi thay đổi tương ứng đã được áp dụng và kiểm chứng; nếu chưa, ghi `Đang mở` cùng hành động tiếp theo.
+5. Phân biệt lỗi test, lỗi môi trường và defect SUT trước khi viết bug report.
+6. Chỉ tạo bug report khi có bằng chứng tái hiện lỗi SUT. Dùng `assets/templates/bug-report.md`; không tự tạo screenshot, kết quả hoặc GitHub Issue giả.
+7. Liệt kê test case không tự động hóa được và lý do cụ thể trong cả ghi chú theo tính năng và bản gap analysis tổng hợp.
+8. Cập nhật bảng tự đánh giá/tóm tắt bằng `assets/templates/readme-summary.md`; số liệu phải được tính từ artifact thực tế.
+9. Nhắc người dùng tự thực hiện nội dung bắt buộc mang tính cá nhân như video demo và AI Critique nếu quy định học phần yêu cầu.
+10. Nhắc chiến lược commit tăng dần, nhưng không bịa lịch sử hoặc backdate: mục tiêu ít nhất 8 commit chạm file test, trải trên ít nhất 4 ngày chỉ khi người dùng thật sự làm việc trong khoảng thời gian đó.
+11. Trình bày gap analysis cuối cùng, dẫn đường dẫn `ai-gap-analysis/ai-gap-analysis.md` và dừng để người dùng duyệt.
 
 ## Quy tắc tính trung thực
 
@@ -105,4 +109,4 @@ Xử lý lần lượt từng tính năng. Hoàn tất A→E cho tính năng hi�
 
 ## Tiêu chí hoàn tất
 
-Chỉ đánh dấu hoàn tất khi có đủ artifact đã được người dùng duyệt, kết quả chạy thực tế, báo cáo có metadata, review/gap analysis, danh sách ca không tự động hóa và log AI liên tục. Nếu thiếu môi trường hoặc quyền truy cập, ghi trạng thái `bị chặn` cùng bằng chứng và bước người dùng cần thực hiện.
+Chỉ đánh dấu hoàn tất khi có đủ artifact đã được người dùng duyệt, kết quả chạy thực tế, báo cáo có metadata, Human Review/gap analysis tại `ai-gap-analysis/ai-gap-analysis.md`, danh sách ca không tự động hóa và log AI liên tục. Nếu thiếu môi trường hoặc quyền truy cập, ghi trạng thái `bị chặn` cùng bằng chứng và bước người dùng cần thực hiện.

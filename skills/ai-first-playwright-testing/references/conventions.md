@@ -35,3 +35,5 @@ Lưu command, exit code, report, trace và ảnh tự sinh từ lần chạy. V�
 Tạo timestamp tại runtime theo ISO 8601 có offset. Sau khi chạy, mở report và xác nhận `Run by` cùng timestamp xuất hiện; cấu hình metadata chưa được kiểm chứng không đủ để tuyên bố đạt yêu cầu.
 
 Tóm tắt theo tính năng và browser với số automated, executed, passed, failed, skipped và blocked. Không dùng số dự kiến trong cột kết quả thực tế.
+
+Giữ `REVIEW_NOTES.md` làm nhật ký chi tiết theo tính năng. Đồng thời tổng hợp các phát hiện Human Review đã có bằng chứng vào `ai-gap-analysis/ai-gap-analysis.md`. Mỗi mục tổng hợp phải truy ngược được về test ID, file thay đổi hoặc artifact kiểm chứng; không đánh dấu đã xử lý chỉ dựa trên mô tả dự kiến.
