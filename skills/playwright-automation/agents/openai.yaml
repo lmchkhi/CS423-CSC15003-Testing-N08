@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright Automation"
+  short_description: "Create data-driven multi-browser feature tests"
+  default_prompt: "Use $playwright-automation to analyze this feature, create at least 12 test cases, automate them in Playwright, and generate real browser reports for my StudentID."
