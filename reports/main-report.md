@@ -186,7 +186,7 @@ Phase 1 đã chuẩn bị các artifact sau:
 
 - `reports/usability/usability-plan.md`: objectives, target user profile, task scenario, moderator setup, success criteria, probe questions và pilot plan.
 - `reports/usability/sus-questionnaire.md`: SUS instrument gồm 10 câu và quy tắc scoring.
-- `reports/usability/participants.md`: bảng 7 participant thật cần điền sau, không có dữ liệu giả.
+- `reports/usability/participants.md`: bảng 7 participant thật.
 - `reports/usability/session-notes-template.md`: template ghi chú cho pilot và 7 session thật.
 - `reports/usability/sus-responses.csv`: template nhập raw SUS responses để tính điểm bằng script.
 - `reports/usability/admin-import-products-task.csv`: file CSV mẫu phục vụ bước import trong task scenario.
@@ -213,10 +213,6 @@ Usability scale được chọn là SUS. Sau mỗi session, participant trả l�
 ```bash
 python3 skills/run-usability-evaluation-eshop/scripts/score_usability.py sus reports/usability/sus-responses.csv
 ```
-
-### Current Task 2 Data Status
-
-Đã nhập SUS responses cho 7 participant từ `reports/usability/sus-questionnaire-admin-flow2.xlsx` vào `reports/usability/sus-responses.csv`. Điểm SUS trung bình hiện tại là 60.4, với min 42.5 và max 72.5. Summary theo SUS/open answers được lưu tại `reports/usability/sus-summary.md`. Session notes đã hoàn thiện cho P01-P07 tại `reports/usability/session-notes/session-notes-P01.md` đến `reports/usability/session-notes/session-notes-P07.md`; tất cả đều giữ Task completion là `Partial` theo ghi chú điều phối vì product update bị bug.
 
 ## Task 2 - Usability Evaluation Final Report
 
@@ -354,12 +350,3 @@ Bug report cho finding này:
 | Bug ID | Module | Severity / Priority | GitHub issue |
 | --- | --- | --- | --- |
 | `BUG-CP-012` | User Management | Major / P2 | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/203 |
-
-### Evidence Convention
-
-Khi chạy BrowserStack, screenshot nên lưu theo cấu trúc:
-
-- `reports/cross-platform/screenshots/firefox/`
-- `reports/cross-platform/screenshots/safari/`
-
-Mỗi screenshot cần thể hiện browser/OS/device name, SUT URL và overlay username theo yêu cầu đề. Chỉ cần chụp các fail hoặc một số pass đại diện cho nhóm rủi ro cao để tránh evidence bị quá nhiễu.
