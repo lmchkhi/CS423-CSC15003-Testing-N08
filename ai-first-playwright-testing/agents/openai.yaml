@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI-First Playwright Testing"
+  short_description: "Chuyển test HW02 sang Playwright có checkpoint"
+  default_prompt: "Dùng $ai-first-playwright-testing để chuyển bộ test case HW02 đã duyệt thành automation Playwright TypeScript theo từng checkpoint."
