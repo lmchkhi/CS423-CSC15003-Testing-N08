@@ -1,0 +1,41 @@
+[00:00:00.000 --> 00:00:10.000]   Mình là Tuấn Anh. Hôm nay mình sẽ giúp bạn Thanh test thử cái luồng login, quản lý category, product và user.
+[00:00:10.000 --> 00:00:17.000]   Thì đầu tiên mình sẽ đăng nhập vào một cái account của admin xem thử.
+[00:00:17.000 --> 00:00:24.000]   Mình có một cái tài khoản là admin@eshop.com
+[00:00:24.000 --> 00:00:32.000]   admin@eshop.com
+[00:00:32.000 --> 00:00:43.000]   Sau khi đăng nhập vào thì mình đã thấy có một giao diện dashboard đang toàn trống có 2 tổng số đơn hàng.
+[00:00:43.000 --> 00:00:50.000]   Thì mình muốn test giúp bạn Thanh là đầu tiên mình sẽ phải tạo một cái danh mục sản phẩm là category.
+[00:00:50.000 --> 00:00:53.000]   Bây giờ mình sẽ thử thêm mới một cái danh mục.
+[00:00:53.000 --> 00:00:54.000]   Ờ
+[00:00:54.000 --> 00:00:58.000]   Mình sẽ thử thêm một cái danh mục.
+[00:00:58.000 --> 00:01:05.000]   Ở đây mình phát hiện thấy một lỗi là nếu như mình chưa có tên danh mục thêm mới thì nó sẽ ra một cái rỗng.
+[00:01:05.000 --> 00:01:11.000]   Bây giờ mình sẽ thử thêm một cái danh mục khác đi.
+[00:01:11.000 --> 00:01:14.000]   Còn bây giờ mình sẽ thử thêm một cái danh mục là tai nghe đi.
+[00:01:14.000 --> 00:01:18.000]   Thêm mới thì mình đã có một cái danh mục thứ 5 là tai nghe.
+[00:01:18.000 --> 00:01:21.000]   Ok bây giờ mình sẽ thử thêm sản phẩm đi.
+[00:01:21.000 --> 00:01:22.000]   Ờ
+[00:01:22.000 --> 00:01:23.000]   Sẽ thêm sản phẩm là test 1.
+[00:01:23.000 --> 00:01:33.000]   Giá tiền là 500k chẳng hạn.
+[00:01:33.000 --> 00:01:40.000]   Ok mình đã có thấy có mô tả là test mô tả đi.
+[00:01:40.000 --> 00:01:44.000]   Mình sẽ chọn là tai nghe đi. Ở đây mình có một cái lỗi là rỗng này. Mình chọn là tai nghe.
+[00:01:44.000 --> 00:01:46.000]   Mình lưu sản phẩm.
+[00:01:46.000 --> 00:01:51.000]   Thì ok mình đã thấy có sản phẩm ở đây rồi. Mình thử xóa đi.
+[00:01:51.000 --> 00:01:52.000]   Mình sẽ thử sửa trước đi.
+[00:01:52.000 --> 00:01:59.000]   Sửa thì ồ nó sẽ nhảy lên đây lại. Mình sẽ sửa là 500k chẳng hạn.
+[00:01:59.000 --> 00:02:02.000]   Lưu lại sản phẩm cập nhật thành công.
+[00:02:02.000 --> 00:02:05.000]   Ok.
+[00:02:05.000 --> 00:02:11.000]   Ồ hình như là chưa cập nhật được nhỉ.
+[00:02:11.000 --> 00:02:14.000]   Thử lại nhé.
+[00:02:14.000 --> 00:02:18.000]   600k mình lưu lại.
+[00:02:18.000 --> 00:02:20.000]   Sửa lại ok.
+[00:02:20.000 --> 00:02:24.000]   Mình không có sửa được.
+[00:02:24.000 --> 00:02:26.000]   Bây giờ tự xóa đi.
+[00:02:26.000 --> 00:02:31.000]   Xóa thì ok đã xóa thành công.
+[00:02:31.000 --> 00:02:35.000]   Giờ mình thử post sản phẩm từ csv coi.
+[00:02:35.000 --> 00:02:38.000]   Có một file download csv.
+[00:02:38.000 --> 00:02:42.000]   Mình sẽ upload hai cái này.
+[00:02:42.000 --> 00:02:45.000]   Ok.
+[00:02:45.000 --> 00:02:48.000]   Ồ mình đã thấy là đã...
+[00:02:48.000 --> 00:02:51.000]   import được sản phẩm rồi.
+[00:02:51.000 --> 00:02:54.000]   Về tổng quan giao diện thì mình thấy là
+[00:02:54.000 --> 00:02:57.000]   sẽ hơi khó hiểu.
+[00:02:57.000 --> 00:02:59.000]   Mình xin kết thúc.

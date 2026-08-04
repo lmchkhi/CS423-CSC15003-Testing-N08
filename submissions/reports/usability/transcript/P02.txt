@@ -1,0 +1,19 @@
+[00:00:00.000 --> 00:00:04.200]   Ok, bây giờ mình sẽ gửi yêu cầu cho bạn Tiến đọc và làm theo nha
+[00:00:04.200 --> 00:00:12.860]   Ok bạn nha, mình đọc rồi nha, giờ mình sẽ đăng nhập tài khoản vô
+[00:00:12.860 --> 00:00:20.620]   Đây là nó không có cái UI, nó không có cái hiển thị mật khẩu, giờ mình không biết mình nhập sai hay nhập đúng nữa nè
+[00:00:20.620 --> 00:00:27.160]   Sau khi đăng nhập vô thì phần dashboard thì chỉ thấy mỗi tổng doanh thu với lại tổng số đơn hàng thôi
+[00:00:27.520 --> 00:00:30.560]   Tiếp theo là mình sẽ thử thêm danh mục
+[00:00:30.560 --> 00:00:41.960]   Ở đây mình lỡ nhấn nút enter nhưng mà nó không cảnh báo gì hết, là có nghĩa là danh mục có thể là không có cái tên được luôn nè, bị lỗi nè
+[00:00:41.960 --> 00:00:50.540]   Mình sẽ thêm danh mục là chuột đi, rồi thêm hành công
+[00:00:51.040 --> 00:00:57.500]   Sau đó là vô phần sản phẩm, thì ở đây nó có khoảng 5 trường
+[00:00:57.500 --> 00:01:01.420]   Nhưng mà mình không biết là cái nào là trường bắt buộc hoặc không
+[00:01:01.420 --> 00:01:04.840]   Đây là mình không thêm tên thử xem nó có được không nha
+[00:01:04.840 --> 00:01:11.980]   Ở đây nó có kêu không được nè, rồi sau khi điền tên thì thêm sản phẩm thành công
+[00:01:11.980 --> 00:01:16.960]   Sau đó là sẽ thử sửa, với giá là 600.000
+[00:01:16.960 --> 00:01:26.220]   Sau khi sửa thì tất cả những cái sản phẩm đã có sẵn nó cũng bị lỗi hiển thị tên của sản phẩm mình vừa sửa
+[00:01:27.480 --> 00:01:33.640]   Mình sẽ xoá sản phẩm vừa thêm vào, sau khi xoá thì mình thấy các sản phẩm khác quay trở lại đúng tên ban đầu
+[00:01:33.640 --> 00:01:41.740]   Mình sẽ thử import sản phẩm
+[00:01:41.740 --> 00:01:43.600]   Đây đã import thành công
+[00:01:43.600 --> 00:01:47.300]   Tiếp theo là tới phần người dùng
+[00:01:47.300 --> 00:01:53.200]   Mình sẽ xoá thử cái tài khoản Test này
+[00:01:53.200 --> 00:01:57.460]   Sau khi xoá thì nó không có cảnh báo gì hết

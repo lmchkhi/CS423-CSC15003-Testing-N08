@@ -1,0 +1,6 @@
+interface:
+  display_name: "Usability Evaluation EShop"
+  short_description: "Chuẩn bị, chạy và báo cáo usability Task 2"
+  default_prompt: "Dùng $run-usability-evaluation-eshop để chuẩn bị và phân tích usability evaluation Task 2 HW03 cho một end-to-end flow EShop, gồm scenario, 7 sessions, SUS/UEQ-S, findings, bugs và audit report."
+policy:
+  allow_implicit_invocation: true

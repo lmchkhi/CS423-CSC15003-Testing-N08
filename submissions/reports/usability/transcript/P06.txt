@@ -1,0 +1,50 @@
+[00:00:00.000 --> 00:00:04.380]   Ở đây lấy tài khoản nhận dự là cái này.
+[00:00:05.820 --> 00:00:10.920]   Vừa vô thì mình thấy được một số thông tin như là tổng doanh thu,
+[00:00:11.720 --> 00:00:15.320]   rồi tổng số đơn hàng, hiện tại chưa có đơn hàng gì.
+[00:00:15.920 --> 00:00:17.400]   Tiếp theo là gì đây?
+[00:00:18.120 --> 00:00:20.700]   Tạo 1 danh mục phù hợp cho sản phẩm mới.
+[00:00:21.400 --> 00:00:23.600]   Rồi tạo với tên ABC thôi.
+[00:00:25.760 --> 00:00:29.940]   Rồi mình thấy là nó đã cập nhập trên giao diện.
+[00:00:30.000 --> 00:00:31.760]   Và bây giờ là tạo sản phẩm.
+[00:00:32.540 --> 00:00:36.180]   Thêm một sản phẩm vào danh mục vừa tạo.
+[00:00:36.620 --> 00:00:38.980]   Tên sản phẩm chắc là cũng mình tự tạo.
+[00:00:39.640 --> 00:00:41.300]   Đúng rồi, tên gì cũng được.
+[00:00:41.420 --> 00:00:43.220]   Cho tên ABCD đi.
+[00:00:46.600 --> 00:00:49.220]   Rồi mình cho cỡ 10 ngàn thôi.
+[00:00:49.820 --> 00:00:51.780]   Ủa mà ở đây đơn vị là gì?
+[00:00:52.520 --> 00:00:54.900]   Ở đây mình chỉ thấy ghi giá tiền thôi.
+[00:00:55.840 --> 00:00:57.720]   Ở đây nó không hiện hệ đơn vị ha.
+[00:00:58.900 --> 00:00:59.540]   Ở đây.
+[00:00:59.980 --> 00:01:08.980]   URL ảnh mình lấy URL ảnh ở đâu vậy Ừ cái này là mình phải có url trước rồi mình mới thêm vô được đó
+[00:01:08.980 --> 00:01:28.780]   Ừ vậy mình ghi ở đây mô tả là mô tả sản phẩm ABC rồi danh mục ở đây thì cũng có
+[00:01:28.780 --> 00:01:38.460]   Khi lưu sản phẩm thì ở đây mình thấy nó biến mất, sản phẩm được thêm chưa? Ở đây nó không có cái
+[00:01:38.460 --> 00:01:38.980]   thông báo đã lưu thành công ở đây
+[00:01:38.980 --> 00:01:51.980]   Nhưng mà mình coi thử trong cái danh sách sản phẩm ở dưới nó có ghi
+[00:01:51.980 --> 00:02:08.460]   Tiếp theo là chỉnh sửa lại thông tin sản phẩm đó. sau khi cập nhật thì có thông báo cập nhập thành công.
+[00:02:08.460 --> 00:02:37.940]   cập nhập chưa đúng. Hồi nãy mình nhớ mình để thêm một số 0. Hình như hồi nãy mình cũng có URL mà nó hình như không chấp nhận hay sao. Mấy cái thay đổi sau khi mà sửa sản phẩm bấm lưu rồi nó không có cập nhập đúng không?
+[00:02:37.940 --> 00:02:41.940]   Nó bị cập nhật tên các sản phẩm khác theo.
+[00:02:41.940 --> 00:02:45.940]   Rồi tới
+[00:02:45.940 --> 00:02:49.940]   Xóa sản phẩm thử nghiệm.
+[00:02:57.940 --> 00:02:59.940]   Đúng rồi, đúng rồi.
+[00:02:59.940 --> 00:03:09.940]   Sau khi xoá mình thấy sản phẩm mất ngay lập tức, hình như mấy tên sản phẩm còn lại cũng cập nhật lại rồi.
+[00:03:09.940 --> 00:03:11.940]   Ờ.
+[00:03:11.940 --> 00:03:20.940]   Thì rồi còn cái thêm danh sách file cung cấp.
+[00:03:20.940 --> 00:03:22.940]   Chọn file.
+[00:03:22.940 --> 00:03:24.940]   Thì được import.
+[00:03:24.940 --> 00:03:27.940]   Thì ở đây có 2 sản phẩm.
+[00:03:27.940 --> 00:03:29.940]   Sản phẩm A là sản phẩm A.
+[00:03:29.940 --> 00:03:31.940]   Và sản phẩm D.
+[00:03:31.940 --> 00:03:34.940]   Giá ở đây là 1 triệu rưỡi và 2 triệu rưỡi đúng không?
+[00:03:34.940 --> 00:03:35.940]   Ờ.
+[00:03:35.940 --> 00:03:38.940]   Thì chắc mình nhấn import.
+[00:03:38.940 --> 00:03:40.940]   Import thành công.
+[00:03:43.940 --> 00:03:46.940]   Rồi còn cái gì nữa?
+[00:03:46.940 --> 00:03:50.940]   Kiểm tra danh sách người dùng và xoá.
+[00:03:50.940 --> 00:03:52.940]   Ờ.
+[00:03:52.940 --> 00:03:55.940]   Sao nó xóa lập tức vậy bạn?
+[00:03:55.940 --> 00:03:58.940]   Vậy là khi xóa nó không có
+[00:03:58.940 --> 00:03:59.940]   một cái
+[00:03:59.940 --> 00:04:00.940]   thông báo...
+[00:04:00.940 --> 00:04:03.940]   Thông báo xác nhận là mình muốn xóa.
+[00:04:03.940 --> 00:04:04.940]   Ờ.
+[00:04:04.940 --> 00:04:05.940]   Nó thiếu cái đó ha.

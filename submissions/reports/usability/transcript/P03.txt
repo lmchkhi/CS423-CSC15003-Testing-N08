@@ -1,0 +1,26 @@
+[00:00:00.000 --> 00:00:03.000]   Bây giờ mình sẽ đăng nhập nha
+[00:00:03.000 --> 00:00:05.000]   Phần dashboard khá là trống nha
+[00:00:05.000 --> 00:00:08.000]   Thì mình thấy nên cần có thêm biểu đồ doanh thu
+[00:00:08.000 --> 00:00:12.000]   Với lại đơn hàng theo ngày tháng tuần
+[00:00:12.000 --> 00:00:14.000]   Tiếp theo là tới phần danh mục nha
+[00:00:14.000 --> 00:00:18.000]   Bây giờ mình sẽ thử thêm phần danh mục mới, ok tai nghe, được rồi nè
+[00:00:22.000 --> 00:00:26.000]   Tiếp đến là tới phần sản phẩm
+[00:00:28.000 --> 00:00:33.000]   Mình sẽ nhập cái tên sản phẩm là Airpods đi
+[00:00:35.000 --> 00:00:38.000]   Giá tiền là 500
+[00:00:41.000 --> 00:00:43.000]   Đã có rồi
+[00:00:43.000 --> 00:00:46.000]   Mình sẽ thử sửa nha
+[00:00:48.000 --> 00:00:52.000]   Nãy mình chưa nhập vào mô tả mà nó vẫn lưu được mà
+[00:00:52.000 --> 00:00:55.000]   Nó thể hiện các trường bắt buộc gì
+[00:00:55.000 --> 00:00:56.000]   Nên thêm những cái đó
+[00:00:56.000 --> 00:00:57.000]   Mình sẽ thêm đại nha vào mô tả nha
+[00:00:58.000 --> 00:01:00.000]   Oke
+[00:01:00.000 --> 00:01:02.000]   Để mình cập nhật
+[00:01:02.000 --> 00:01:08.000]   Khi cập nhật thì nó bị lỗi là tất cả những sản phẩm còn lại đều thay đổi tên theo luôn
+[00:01:08.000 --> 00:01:11.000]   Bây giờ mình sẽ xóa
+[00:01:11.000 --> 00:01:14.000]   Xóa xong thì nó quay trở lại như cũ
+[00:01:14.000 --> 00:01:21.000]   Bây giờ thì mình sẽ import thử cái file sản phẩm từ CSV qua nha
+[00:01:26.000 --> 00:01:27.000]   Được nha
+[00:01:27.000 --> 00:01:29.000]   Tiếp đến là tới phần người dùng
+[00:01:29.000 --> 00:01:33.000]   Bây giờ thì mình sẽ xóa thử người dùng xem thế nào nha
+[00:01:34.000 --> 00:01:35.000]   Rồi
+[00:01:35.000 --> 00:01:38.000]   Vậy là người dùng bị xóa rồi ha
