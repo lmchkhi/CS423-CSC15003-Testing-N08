@@ -11,7 +11,12 @@ import { config } from '../utils/config';
  */
 
 const HTML_ROOT = path.resolve(__dirname, '..', '..', 'reports', 'html');
-const ISO_PATTERN = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z/;
+/**
+ * ISO 8601 in either zone form: UTC `Z`, or the `+07:00` offset the runner now
+ * stamps so a report's date matches the ICT date on its commit.
+ */
+const ISO_PATTERN =
+  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})/;
 const EXPECTED_CELLS = 9;
 
 interface Check {
