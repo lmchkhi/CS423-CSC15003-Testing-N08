@@ -80,3 +80,42 @@ export const baseCaseSchema = z.object({
 });
 
 export type BaseCase = z.infer<typeof baseCaseSchema>;
+
+/**
+ * FR-02 — login and account lockout.
+ *
+ * `account` decides how the test obtains its identity. Recon showed EShop
+ * rejects the third attempt outright (the lock lands after only two failures)
+ * and HW02 measured the lock lasting ~180s, so any case that submits a wrong
+ * password registers its own throwaway user: sharing `test@eshop.com` would
+ * lock the seeded account for the rest of the matrix.
+ *
+ * `assertion` is the small vocabulary the spec dispatches on — the alternative
+ * (branching on `caseId`) hardcodes case knowledge into the script, which §6
+ * forbids just as much as an inline case array.
+ */
+export const loginCaseSchema = baseCaseSchema.extend({
+  account: z.enum(['seeded-user', 'throwaway', 'unregistered']),
+  emailSource: z.enum(['account', 'literal', 'blank']),
+  emailLiteral: z.string().nullable(),
+  /** `@correct` resolves to the account's real password at runtime. */
+  password: z.string(),
+  /** Consecutive wrong-password submissions before the asserted attempt. */
+  priorFailures: z.number().int().min(0).max(4),
+  /** Wall-clock pause before the asserted attempt, for the 30s lock boundary. */
+  waitSeconds: z.number().int().min(0).max(60),
+  assertion: z.enum([
+    'login-succeeds',
+    'login-rejected',
+    'blocked-by-browser-validation',
+    'email-input-is-type-email',
+    'response-excludes-password',
+    'error-message-is-generic',
+  ]),
+  expected: z.object({
+    urlContains: z.string().nullable(),
+    tokenStored: z.boolean(),
+  }),
+});
+
+export type LoginCase = z.infer<typeof loginCaseSchema>;
