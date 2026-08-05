@@ -1,8 +1,23 @@
 **/node_modules
-**/.claude
+# Keep .claude/skills tracked — they are graded deliverables (HW04 §7 Agent Skill).
+# Only personal/local Claude Code state is ignored.
+**/.claude/settings.local.json
+**/.claude/.credentials.json
+**/.claude/shell-snapshots/
+**/.claude/history/
 **/.vscode
 **/.idea
 **/dist
 **/build
 **/database.sqlite
 **/logs/
+
+# Automation project: local secrets and raw run artifacts.
+# reports/html/ is NOT ignored — the 9 HTML reports are graded deliverables.
+automation/.env
+automation/test-results/
+automation/playwright-report/
+automation/blob-report/
+
+# Scratch materials for recording demo videos — not a submission deliverable.
+/demo-scratch/
