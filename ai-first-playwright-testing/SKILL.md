@@ -94,6 +94,7 @@ Không thực hiện khám phá tự do khi có HW02.
 4. Chỉ quan sát qua các bề mặt hộp đen đã cho phép.
 5. Lập bảng đối chiếu theo `assets/templates/review-notes.md`, gồm ID HW02, mô tả gốc, quan sát thực tế, trạng thái `Khớp`/`Lệch`/`Không xác định`, bằng chứng và đề xuất xử lý.
 6. Không tự sửa expected result khi chưa có bằng chứng và duyệt.
+7. Đối chiếu chéo giữa các case trong cùng tính năng: nếu từ hai case trở lên có cùng bộ input/precondition và cùng kết quả thực chất (không chỉ giống ý tưởng), đánh dấu trạng thái là `Trùng lặp` thay vì `Khớp`/`Lệch`/`Không xác định`. Chọn một case làm đại diện, ghi rõ ID các case còn lại và lý do trùng vào cột đề xuất xử lý. Không tính các case trùng là điểm kiểm tra độc lập khi đếm tổng số case ở Giai đoạn B; đưa chúng vào danh sách "không tự động hóa riêng — gộp vào case đại diện" ở Giai đoạn E.
 
 Trong nhánh ngoại lệ đã được khai báo và duyệt, khám phá như một tester thật và ghi 5-8 gạch đầu dòng về hành vi quan sát được. Đánh dấu rõ đây không phải case kế thừa HW02.
 
@@ -108,7 +109,8 @@ Không thiết kế lại bộ test khi đã có HW02.
 3. Chỉ bổ sung case khi tổng số dưới 12 hoặc Giai đoạn A tìm thấy khoảng trống rõ ràng.
 4. Gắn `Nguồn = HW02` cho case gốc. Gắn `Nguồn = Bổ sung (lý do: ...)` cho case mới.
 5. Không biến case bổ sung thành bằng chứng rằng HW02 đã bao phủ nội dung đó.
-6. Tạo bảng cuối theo `assets/templates/test-cases.md` và liệt kê giả định trong “Điểm chưa rõ”.
+6. Nếu expected result gốc của một case ở dạng nhiều nhánh (ví dụ "✅ ... hoặc ❌ ..." tùy hành vi SUT chưa xác định lúc thiết kế), phải dựa vào quan sát thực tế đã ghi nhận ở Giai đoạn A để chốt lại còn đúng một expected result duy nhất trước khi đưa case đó vào bảng test case cuối. Ghi rõ nhánh đã chọn, căn cứ chọn và người duyệt vào "Điểm chưa rõ". Không mang nguyên trạng expected nhiều nhánh sang Giai đoạn C.
+7. Tạo bảng cuối theo `assets/templates/test-cases.md` và liệt kê giả định trong “Điểm chưa rõ”.
 
 Đảm bảo mỗi tính năng có tối thiểu 12 case trước khi đề nghị viết code. Dừng chờ người dùng duyệt bảng test case cuối cùng; không viết code Playwright trước checkpoint này.
 
@@ -124,6 +126,7 @@ Sau khi Giai đoạn B được duyệt:
 6. Dùng ít nhất ba nhóm assertion thực sự được thực thi trong toàn suite, theo bảng tại `references/conventions.md`; chú thích nhóm assertion tại chỗ.
 7. Không hardcode input/expected của từng case trong spec.
 8. Chạy lint, type-check và test phù hợp nếu môi trường cho phép. Ghi đúng lệnh, exit code và kết quả thật; nếu không chạy được, nêu `Chưa chạy` và nguyên nhân.
+9. Với case chứa payload có khả năng phá hủy dữ liệu (SQL injection, lệnh xóa/ghi đè, v.v.), trước khi đưa vào suite chạy lặp lại nhiều lần hoặc nhiều trình duyệt, xác nhận với người dùng rằng môi trường chạy là môi trường test đã cô lập, không phải production, và ghi rõ xác nhận này vào review notes.
 
 Trình bày code, fixture, kết quả kiểm tra và điểm chưa chắc chắn. Dừng chờ duyệt.
 
@@ -149,12 +152,13 @@ Sau khi Giai đoạn D được duyệt:
 1. Điền `assets/templates/review-notes.md` bằng dữ liệu thật.
 2. Ghi riêng sai lệch HW02-vs-thực tế và lỗi trong code automation AI sinh; nêu nguyên nhân AI có thể bỏ sót, cách sửa và bằng chứng.
 3. Phân loại từng thất bại thành `test defect`, `environment issue` hoặc `SUT defect` theo `references/conventions.md` trước khi lập bug.
-4. Chỉ tạo bug report bằng `assets/templates/bug-report.md` khi có bằng chứng tái hiện thật cho SUT defect.
-5. Chỉ đề xuất tạo GitHub Issue. Không tuyên bố issue đã được tạo nếu chưa thực hiện hành động thật và có URL/ID xác nhận.
-6. Liệt kê mọi case chưa tự động hóa cùng lý do và tác động coverage.
-7. Điền `assets/templates/readme-summary.md` bằng số liệu đã đo; không suy diễn ô còn thiếu.
-8. Nhắc người dùng tự làm video demo và AI Critique cá nhân. Không soạn thay nội dung cá nhân bắt buộc.
-9. Đề xuất commit nhỏ, tăng dần theo artifact đã duyệt. Chỉ dẫn lại commit thật; không bịa hash, thời gian hoặc lịch sử.
+4. Trước khi lập bug report, nhóm các case bị phân loại `SUT defect` theo nguyên nhân gốc (root cause) thực sự, không theo từng TC-ID riêng lẻ. Nếu nhiều case khác nhau đều thất bại vì cùng một hành vi sai của SUT (ví dụ backend luôn tin giá trị client thay vì tự tính toán), coi đó là một root cause và chỉ lập một bug report cho root cause đó.
+5. Chỉ tạo bug report bằng `assets/templates/bug-report.md` khi có bằng chứng tái hiện thật cho SUT defect. Mỗi bug report tương ứng một root cause; liệt kê đầy đủ mọi TC-ID minh chứng cho root cause đó trong mục "Found by Test Case" thay vì tách thành nhiều report. Không gộp hai root cause khác nhau vào cùng một bug report chỉ vì cùng feature.
+6. Chỉ đề xuất tạo GitHub Issue. Không tuyên bố issue đã được tạo nếu chưa thực hiện hành động thật và có URL/ID xác nhận.
+7. Liệt kê mọi case chưa tự động hóa cùng lý do và tác động coverage. Với case bị đánh dấu `Trùng lặp` ở Giai đoạn A, ghi rõ đây là gộp vào case đại diện, không phải case bị bỏ sót.
+8. Điền `assets/templates/readme-summary.md` bằng số liệu đã đo; không suy diễn ô còn thiếu.
+9. Nhắc người dùng tự làm video demo và AI Critique cá nhân. Không soạn thay nội dung cá nhân bắt buộc.
+10. Đề xuất commit nhỏ, tăng dần theo artifact đã duyệt. Chỉ dẫn lại commit thật; không bịa hash, thời gian hoặc lịch sử.
 
 Trình bày gap analysis cuối cùng và dừng chờ duyệt.
 
@@ -173,15 +177,16 @@ Trình bày gap analysis cuối cùng và dừng chờ duyệt.
 
 Chỉ đánh dấu một tính năng hoàn tất khi có đủ:
 
-- bảng đối chiếu hoặc nhánh ngoại lệ đã được duyệt;
-- bộ test cuối tối thiểu 12 case đã duyệt, có nguồn rõ ràng;
+- bảng đối chiếu hoặc nhánh ngoại lệ đã được duyệt, đã đánh dấu và xử lý các case `Trùng lặp` nếu có;
+- bộ test cuối tối thiểu 12 case độc lập đã duyệt, có nguồn rõ ràng, không tính case trùng lặp là điểm kiểm tra riêng;
+- mọi case có expected result nhiều nhánh đã được chốt về một nhánh duy nhất kèm căn cứ và người duyệt;
 - fixture ngoài spec và Playwright TypeScript đã review;
 - kết quả lint/type-check/test thật hoặc trạng thái chưa chạy có lý do;
 - kết quả đa trình duyệt thật;
 - report chứa `Run by: 23127464` và timestamp runtime đã được mở kiểm chứng;
 - review/gap analysis và phân loại thất bại;
-- bug report chỉ cho SUT defect có bằng chứng;
-- danh sách case chưa tự động hóa;
+- bug report gộp theo root cause, chỉ cho SUT defect có bằng chứng, mỗi report liệt kê đủ các TC-ID minh chứng;
+- danh sách case chưa tự động hóa, có ghi rõ case nào là gộp trùng lặp;
 - audit HW04 liên tục cho mọi lượt;
 - checkpoint cuối đã được người dùng duyệt.
 

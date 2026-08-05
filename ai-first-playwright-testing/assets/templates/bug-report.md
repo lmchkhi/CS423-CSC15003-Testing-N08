@@ -8,11 +8,15 @@ assignees: "<Người phụ trách hoặc để trống>"
 
 ## Found by Test Case
 
-`<TC-ID>`
+`<TC-ID>` — hoặc danh sách nhiều TC-ID nếu bug report này gộp nhiều case cùng chứng minh một root cause: `<TC-ID-1>, <TC-ID-2>, ...`
 
 ## Requirement liên quan
 
 `<FR-ID>`
+
+## Root cause chung
+
+`<Mô tả ngắn gọn nguyên nhân gốc mà mọi TC-ID ở trên cùng chứng minh; nếu bug này không gộp nhiều case, ghi nguyên nhân của case đó>`
 
 ## Phân loại xác minh
 
