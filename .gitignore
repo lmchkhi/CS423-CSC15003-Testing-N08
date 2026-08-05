@@ -6,6 +6,8 @@
 **/build
 **/database.sqlite
 **/logs/
+test-results/
+playwright-report/
 api_specification.md
 description_project.md
 **/src
