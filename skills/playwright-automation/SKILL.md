@@ -78,12 +78,13 @@ Run type checks/linting when present. Review generated code for fragile selector
 
 ## Execute and generate genuine reports
 
-Run the feature once per project, not as an unlabelled synthetic result. Use the supplied `StudentID` and one actual ISO-8601 timestamp per invocation. Configure each report title or metadata so its visible HTML contains:
+Run the feature once per project, not as an unlabelled synthetic result. Use the supplied `StudentID` and one actual ISO-8601 timestamp per invocation. Put the identity in the HTML reporter title so it is visible immediately when the report opens:
 
 ```text
 Run by: <StudentID>
-<ISO-8601 timestamp>
 ```
+
+Store the ISO-8601 run timestamp in report metadata. Do not duplicate the timestamp in the title. Open the generated report and verify the title visibly shows the Student ID without expanding Metadata.
 
 Write reports to `reports/<feature-slug>/<browser>/`. Do not hand-edit an HTML report or manufacture a passing run. Preserve real failed reports. If the SUT, browser binaries, or dependencies prevent execution, report the blocker and do not claim a report exists.
 
@@ -95,7 +96,7 @@ For every failed assertion, distinguish:
 2. environment or infrastructure problem;
 3. confirmed product defect.
 
-Fix and rerun categories 1 and 2 where safe. Create a bug file only for category 3 after reproducing it. Copy [assets/bug-report-template.md](assets/bug-report-template.md), attach real screenshot/trace/log paths, link the discovering test case, and update that test case to `Fail / BUG-...`. Never infer a product bug solely from a timeout or unavailable service.
+Fix and rerun categories 1 and 2 where safe. Create a bug file only for category 3 after reproducing it. Copy [assets/bug-report-template.md](assets/bug-report-template.md), embed at least one real screenshot under **Evidence** with Markdown image syntax so it renders as a preview, and link traces/videos/logs with normal Markdown links. Prefer repository-relative paths for local evidence and hosted image URLs when the report must render remotely. Link the discovering test case and update it to `Fail / BUG-...`. Keep GitHub label selection out of the bug report: do not add `Suggested labels` or `Verified remote labels` sections or lines. Never infer a product bug solely from a timeout or unavailable service.
 
 ## Publish confirmed bugs to GitHub
 
@@ -107,7 +108,7 @@ After creating each local bug-report Markdown file, publish one corresponding Gi
    - run `gh label list --limit 200 --json name,description,color` to discover available labels and the visual convention for each label family;
    - run `gh issue list --state all --limit 100 --json number,title,labels,url` to learn the spelling, casing, prefixes, and combinations used by existing issues.
 
-3. Map the bug report's type, module, severity, priority, status, and discovery source to exact existing label names. Treat the labels suggested by the template as semantic hints only. For type, severity, priority, status, and discovery-source labels, never invent, rename, or create labels; when no established label represents a dimension, retain that metadata in the issue body and omit only that label.
+3. Derive type, module, severity, priority, status, and discovery source from the bug title, existing report metadata, and test context, then map them to exact existing label names. Use this mapping only for the GitHub operation; do not write suggested or verified label lists into the local bug report. For type, severity, priority, status, and discovery-source labels, never invent, rename, or create labels; when no established label represents a dimension, retain that metadata in the issue body and omit only that label.
 4. Handle the module label as the only creation exception. If the exact module label is missing but the remote has an established module-label family, derive the new name, casing, prefix, description style, and color from its peers, then create and verify it before creating the issue:
 
 ```bash
@@ -129,7 +130,7 @@ gh issue create \
   --label "<another-exact-existing-label>"
 ```
 
-7. Capture the returned issue URL, verify it with `gh issue view <issue-url> --json url,title,labels`, add it to the local bug report and discovering test case, and include it in the handoff. Keep one local bug report mapped to one GitHub Issue. Do not claim publication without a returned and verified issue URL.
+7. Capture the returned issue URL, verify it with `gh issue view <issue-url> --json url,title,labels`, add only the issue URL or duplicate-reuse URL to the local bug report and discovering test case, and include it in the handoff. Do not add a verified-label summary to the bug report. Keep one local bug report mapped to one GitHub Issue. Do not claim publication without a returned and verified issue URL.
 
 If `gh auth status` fails or GitHub returns an authentication/authorization response such as `401` or `403`, report the credential or repository-permission problem. If authentication succeeds but `gh repo view`, label/issue reads, `gh label create`, or `gh issue create` fails with DNS, connectivity, operation-not-permitted, or similar environment errors, treat sandbox/network isolation as a possible cause: rerun the same command with the required elevated sandbox/network permission before concluding GitHub is inaccessible. Preserve the local report and exact command error if publication remains blocked.
 

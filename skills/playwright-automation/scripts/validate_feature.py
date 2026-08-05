@@ -33,8 +33,13 @@ BUG_HEADINGS = (
     "## Actual result",
     "## Evidence",
 )
+FORBIDDEN_BUG_LABEL_METADATA = (
+    "## Suggested labels",
+    "Verified remote labels",
+)
 ISO_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})\b")
 ASSERTION_RE = re.compile(r"\bexpect(?:\.soft)?\s*\([^;]*?\)\s*\.\s*(to[A-Z]\w*)", re.DOTALL)
+MARKDOWN_IMAGE_RE = re.compile(r"!\[[^\]]*\]\((?:<[^>]+>|[^)\n]+)\)")
 
 
 def parse_args() -> argparse.Namespace:
@@ -60,10 +65,10 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
-def searchable_report_text(path: Path) -> str:
-    """Return HTML plus text embedded in Playwright's base64 ZIP payload."""
+def embedded_playwright_reports(path: Path) -> list[dict]:
+    """Return report.json objects embedded in Playwright HTML payloads."""
+    reports: list[dict] = []
     html = read_text(path)
-    chunks = [html]
     payloads = re.findall(
         r"data:application/(?:zip|octet-stream);base64,([A-Za-z0-9+/=\r\n]+)",
         html,
@@ -72,12 +77,12 @@ def searchable_report_text(path: Path) -> str:
         try:
             decoded = base64.b64decode(re.sub(r"\s+", "", payload), validate=True)
             with zipfile.ZipFile(io.BytesIO(decoded)) as archive:
-                for info in archive.infolist():
-                    if not info.is_dir() and info.file_size <= 10_000_000:
-                        chunks.append(archive.read(info).decode("utf-8", errors="replace"))
-        except (ValueError, zipfile.BadZipFile, OSError):
+                report = json.loads(archive.read("report.json"))
+                if isinstance(report, dict):
+                    reports.append(report)
+        except (KeyError, ValueError, json.JSONDecodeError, zipfile.BadZipFile, OSError):
             continue
-    return "\n".join(chunks)
+    return reports
 
 
 def main() -> int:
@@ -175,12 +180,24 @@ def main() -> int:
             if not html_files:
                 errors.append(f"Missing real HTML report for {browser}: {browser_dir}")
                 continue
-            report_text = "\n".join(searchable_report_text(path) for path in html_files)
             identity = f"Run by: {args.student_id}"
-            if identity not in report_text:
-                errors.append(f"Report for {browser} does not visibly contain '{identity}'")
-            if not ISO_RE.search(report_text):
-                errors.append(f"Report for {browser} does not contain an ISO-8601 timestamp")
+            embedded_reports = [
+                report
+                for path in html_files
+                for report in embedded_playwright_reports(path)
+            ]
+            if not embedded_reports:
+                errors.append(f"Report for {browser} has no readable embedded report.json")
+                continue
+            title = str(embedded_reports[0].get("options", {}).get("title", ""))
+            metadata = embedded_reports[0].get("metadata", {})
+            if identity not in title:
+                errors.append(f"Report title for {browser} does not visibly contain '{identity}'")
+            if ISO_RE.search(title):
+                errors.append(f"Report title for {browser} must not duplicate the ISO-8601 timestamp")
+            timestamp = str(metadata.get("Run timestamp", "")) if isinstance(metadata, dict) else ""
+            if not ISO_RE.fullmatch(timestamp):
+                errors.append(f"Report metadata for {browser} has no valid ISO-8601 Run timestamp")
 
     if bugs_dir.exists():
         for path in sorted(bugs_dir.glob("*.md")):
@@ -190,6 +207,12 @@ def main() -> int:
             missing = [heading for heading in BUG_HEADINGS if heading not in text]
             if missing:
                 errors.append(f"{path}: missing headings: {', '.join(missing)}")
+            forbidden = [item for item in FORBIDDEN_BUG_LABEL_METADATA if item.lower() in text.lower()]
+            if forbidden:
+                errors.append(f"{path}: forbidden label metadata: {', '.join(forbidden)}")
+            evidence_text = text.split("## Evidence", 1)[1] if "## Evidence" in text else ""
+            if not MARKDOWN_IMAGE_RE.search(evidence_text):
+                errors.append(f"{path}: Evidence must embed at least one screenshot as a Markdown image preview")
 
     warnings.append("Manual review still required: meaningful coverage, hard-coded domain values, assertion strength, and product-bug confirmation")
     for item in errors:
@@ -199,7 +222,7 @@ def main() -> int:
     if errors:
         print(f"FAILED: {len(errors)} error(s), {len(warnings)} warning(s)")
         return 1
-    print(f"PASSED: {len(case_files)} test cases, {len(warnings)} warning(s)")
+    print(f"VALIDATED ARTIFACT STRUCTURE: {len(case_files)} test-case files, {len(warnings)} warning(s)")
     return 0
 
 

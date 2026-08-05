@@ -78,3 +78,103 @@ Chưa tạo report giả ở bước này; report chỉ được sinh khi skill 
 ### (5) Student Fix
 
 - Chỉnh sửa lại skills bỏ các mặc định về HW04 để skills reusable hơn.
+
+## Entry #2
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                     |
+| ----------------- | ----------------------------------------------------------- |
+| **Tool**          | GPT-5.6 Sol                                                 |
+| **Timestamp**     | 05/08/2026 10:35:55                                         |
+| **Artifact type** | Kiểm thử Playwright FR-01 và liên kết bug với GitHub Issues |
+
+**Full prompt:**
+
+```
+Sử dụng skill [playwright-automation](skills/playwright-automation/) để thực hiện test cho FR-01 được đặc tả trong file readme ở root
+
+Token không hợp lệ có thể vì sandbox, gh auth status trong terminal vẫn trả về token còn hợp lệ
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `playwright-automation` theo yêu cầu, trước hết đọc đầy đủ hướng dẫn của skill và đặc tả FR-01 trong README, rồi chạy/hoàn thiện bài test và kiểm chứng kết quả.
+
+Skill yêu cầu bộ bằng chứng đầy đủ: tối thiểu 12 test case Markdown, dữ liệu ngoài, Playwright chạy riêng Chromium/Firefox/WebKit, report có StudentID và timestamp thật, rồi phân loại lỗi. Mình đang dò cấu trúc dự án, cách khởi động và StudentID có sẵn trong workspace để không tự bịa dữ liệu.
+
+Mình đã xác nhận StudentID `23127062` từ báo cáo học phần trong workspace và thấy SUT cố ý có các điểm lệch FR-01 ở form/API. Bộ test sẽ kiểm tra độc lập validation email, tính duy nhất, các lớp mật khẩu, xác nhận mật khẩu và điều hướng thành công; dữ liệu test được tách JSON và email được làm duy nhất theo lần chạy.
+
+Bộ suite đã qua kiểm tra cấu trúc: 15 test case, 15 dòng dữ liệu, 45 phép chạy (15 × 3 browser), đủ nhiều mẫu assertion. SUT đã sẵn sàng; mình sẽ chạy từng browser riêng với StudentID `23127062` và timestamp ISO thật để tạo ba HTML report độc lập.
+
+Chromium lần đầu: 11 pass, 4 fail. Khi review failure, mình phát hiện TC-REG-006/007 đang bị lỗi regex mật khẩu chặn trước nên chưa thật sự kiểm tra được email/uniqueness—đây là lỗi thiết kế test, không phải pass đáng tin. Theo skill, mình sẽ giữ report ban đầu, sửa dữ liệu hai case để đi xuyên qua regex hiện tại và chạy lại, nhờ đó cô lập đúng hai quy tắc email.
+
+Kết quả chính thức nhất quán trên cả 3 engine: mỗi browser 9 pass, 6 fail. Sáu failure quy về 4 lỗi sản phẩm có thể tái hiện và có bằng chứng thật: regex mật khẩu sai, không validation định dạng email, email không unique, và thiếu xác nhận mật khẩu. Mình đang ghi bug report, cập nhật traceability trong test case, rồi sẽ đối chiếu nhãn hiện có của GitHub trước khi tạo issue.
+
+GitHub publication is blocked at the credential gate: `gh auth status` reports the active token for `lvkhang16` is invalid. Theo skill, mình không được claim đã tạo issue hoặc chọn/đặt nhãn khi chưa đọc được remote; mình sẽ giữ đủ 4 bug report cục bộ, ghi rõ blocker, rồi chạy validator cuối cho toàn bộ artifacts/report.
+
+Đã hoàn tất kiểm thử FR-01 bằng skill `playwright-automation`.
+
+Kết quả:
+
+- 15 test case được tự động hóa, không có case bỏ sót.
+- Chạy thật trên Chromium, Firefox và WebKit.
+- Mỗi browser: 9 pass, 6 fail.
+- Xác nhận 4 lỗi sản phẩm:
+  - Regex từ chối mật khẩu hợp lệ.
+  - Chấp nhận email sai định dạng.
+  - Cho phép đăng ký trùng email.
+  - Thiếu trường Xác nhận mật khẩu.
+- Validator: `PASSED: 15 test cases`.
+- Report có StudentID `23127062` và timestamp ISO thật.
+- Các server tạm đã được dừng.
+
+Tài liệu chính:
+
+- [Tổng hợp kết quả](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/account-registration/README.md)
+- [Playwright suite](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/e2e/account-registration.spec.mjs)
+- [Test data](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/data/account-registration.json)
+- [Chromium report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/account-registration/chromium/index.html)
+- [Firefox report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/account-registration/firefox/index.html)
+- [WebKit report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/account-registration/webkit/index.html)
+- [BUG-REG-001](/Users/lvkhang/Documents/uni/software-testing/HW04/bugs/account-registration/BUG-REG-001.md)
+- [BUG-REG-002](/Users/lvkhang/Documents/uni/software-testing/HW04/bugs/account-registration/BUG-REG-002.md)
+- [BUG-REG-003](/Users/lvkhang/Documents/uni/software-testing/HW04/bugs/account-registration/BUG-REG-003.md)
+- [BUG-REG-004](/Users/lvkhang/Documents/uni/software-testing/HW04/bugs/account-registration/BUG-REG-004.md)
+
+Chưa thể tạo GitHub Issues vì `gh auth status` báo token của `lvkhang16` không hợp lệ. Các bug report đã ghi rõ blocker; sau khi chạy `gh auth login -h github.com`, có thể tiếp tục đối chiếu label và xuất bản Issues.
+
+Đúng, khả năng cao sandbox không truy cập được credential helper/keychain dù terminal thường vẫn dùng được. Mình sẽ tiếp tục theo `playwright-automation`, kiểm tra lại `gh` ngoài sandbox; nếu xác thực thành công, mình sẽ đọc convention label/issue hiện có rồi publish và verify từng bug.
+
+Xác nhận của bạn đúng: ngoài sandbox, `gh` đăng nhập thành công bằng keyring và có quyền `repo`. Remote đã có đúng module label `Module: Register` cùng các label `Type: Bug`, `Severity: Major`, `Priority: P1`, `Status: New`, `found-by: test-case`; mình đang tìm duplicate theo module, tiêu đề và nội dung trước khi tạo issue.
+
+Không cần tạo issue mới: remote đã có 4 issue trùng đúng theo từng lỗi của FR-01 (#2, #3, #7, #8). Theo skill mình sẽ tái sử dụng thay vì tạo duplicate, verify URL/title/labels của từng issue rồi cập nhật các bug report và test case cục bộ.
+
+Đúng, nguyên nhân là sandbox không truy cập được keyring. Chạy ngoài sandbox, `gh` xác thực thành công.
+
+Bốn lỗi đều đã có issue tương ứng nên mình tái sử dụng, tránh tạo duplicate:
+
+- [BUG-REG-001 → Issue #2](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/2)
+- [BUG-REG-002 → Issue #3](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/3)
+- [BUG-REG-003 → Issue #7](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/7)
+- [BUG-REG-004 → Issue #8](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/8)
+
+Các bug report, test case và [báo cáo tổng hợp](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/account-registration/README.md) đã được cập nhật URL cùng labels thực tế. Validator cuối vẫn đạt: `PASSED: 15 test cases`.
+'''
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- AI tự động thêm phần `Suggested labels` và `Verified remote labels` vào bug report thay vì đi theo format có sẵn.
+- Các phần hình ảnh trong evidence chỉ để path thay vì cho preview.
+- Student ID chưa được hiển thị khi mở html report.
+
+### (5) Student Fix
+
+- Bỏ 2 phần đó và cập nhật lại agent skill.
+- Chuyển các ảnh ở phần evidence sang dạng preview để dễ đọc hơn.
+- Sửa lại để Student ID được hiển thị trong phần title khi mở report.

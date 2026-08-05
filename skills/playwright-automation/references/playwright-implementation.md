@@ -18,6 +18,7 @@ Require `STUDENT_ID`, `RUN_TIMESTAMP`, `PW_REPORT_BROWSER`, and `FEATURE_SLUG` f
 const studentId = process.env.STUDENT_ID;
 const runTimestamp = process.env.RUN_TIMESTAMP;
 const reportBrowser = process.env.PW_REPORT_BROWSER ?? 'multi-browser';
+const reportTitle = `FR-01 Account registration — Run by: ${studentId}`;
 
 metadata: {
   'Run identity': `Run by: ${studentId}`,
@@ -29,11 +30,12 @@ reporter: [[
   {
     open: 'never',
     outputFolder: `reports/${process.env.FEATURE_SLUG}/${reportBrowser}`,
+    title: reportTitle,
   },
 ]],
 ```
 
-Fail configuration early if `STUDENT_ID` or `RUN_TIMESTAMP` is absent during an official run. Do not put the real ID into source code. Open the finished report and visually confirm both metadata values are displayed; do not assume successful file generation proves the requirement.
+Fail configuration early if `STUDENT_ID` or `RUN_TIMESTAMP` is absent during an official run. Do not put the real ID into source code. Keep the timestamp in metadata and out of the title. Open the finished report and visually confirm `Run by: <StudentID>` appears in the report title without expanding Metadata; then confirm the timestamp remains available in Metadata. Do not assume successful file generation proves either requirement.
 
 ## Per-browser execution
 

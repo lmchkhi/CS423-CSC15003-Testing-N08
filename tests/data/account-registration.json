@@ -1,0 +1,134 @@
+{
+  "cases": [
+    {
+      "id": "TC-REG-001",
+      "title": "Đăng ký thành công với dữ liệu hợp lệ ở biên 8 ký tự",
+      "scenario": "success",
+      "name": "Nguyễn An",
+      "email": "valid-{runId}@example.com",
+      "password": "Valid1!a",
+      "confirmPassword": "Valid1!a"
+    },
+    {
+      "id": "TC-REG-002",
+      "title": "Từ chối khi thiếu Họ Tên",
+      "scenario": "required",
+      "missingField": "name",
+      "name": "",
+      "email": "missing-name-{runId}@example.com",
+      "password": "Valid1!a",
+      "confirmPassword": "Valid1!a"
+    },
+    {
+      "id": "TC-REG-003",
+      "title": "Từ chối khi thiếu Email",
+      "scenario": "required",
+      "missingField": "email",
+      "name": "Nguyễn An",
+      "email": "",
+      "password": "Valid1!a",
+      "confirmPassword": "Valid1!a"
+    },
+    {
+      "id": "TC-REG-004",
+      "title": "Từ chối khi thiếu Mật khẩu",
+      "scenario": "required",
+      "missingField": "password",
+      "name": "Nguyễn An",
+      "email": "missing-password-{runId}@example.com",
+      "password": "",
+      "confirmPassword": ""
+    },
+    {
+      "id": "TC-REG-005",
+      "title": "Email dùng kiểu nhập email để hỗ trợ validation định dạng",
+      "scenario": "emailType"
+    },
+    {
+      "id": "TC-REG-006",
+      "title": "Từ chối email sai định dạng",
+      "scenario": "reject",
+      "name": "Nguyễn An",
+      "email": "email-khong-hop-le",
+      "password": "Valid1 a",
+      "confirmPassword": "Valid1 a"
+    },
+    {
+      "id": "TC-REG-007",
+      "title": "Từ chối email đã tồn tại",
+      "scenario": "duplicate",
+      "name": "Người dùng trùng",
+      "email": "test@eshop.com",
+      "password": "Valid1 a",
+      "confirmPassword": "Valid1 a"
+    },
+    {
+      "id": "TC-REG-008",
+      "title": "Từ chối mật khẩu ngắn hơn 8 ký tự",
+      "scenario": "weakPassword",
+      "name": "Nguyễn An",
+      "email": "short-{runId}@example.com",
+      "password": "Ab1!xyz",
+      "confirmPassword": "Ab1!xyz"
+    },
+    {
+      "id": "TC-REG-009",
+      "title": "Từ chối mật khẩu không có chữ hoa",
+      "scenario": "weakPassword",
+      "name": "Nguyễn An",
+      "email": "no-upper-{runId}@example.com",
+      "password": "valid1!a",
+      "confirmPassword": "valid1!a"
+    },
+    {
+      "id": "TC-REG-010",
+      "title": "Từ chối mật khẩu không có chữ thường",
+      "scenario": "weakPassword",
+      "name": "Nguyễn An",
+      "email": "no-lower-{runId}@example.com",
+      "password": "VALID1!A",
+      "confirmPassword": "VALID1!A"
+    },
+    {
+      "id": "TC-REG-011",
+      "title": "Từ chối mật khẩu không có chữ số",
+      "scenario": "weakPassword",
+      "name": "Nguyễn An",
+      "email": "no-digit-{runId}@example.com",
+      "password": "Valid!!a",
+      "confirmPassword": "Valid!!a"
+    },
+    {
+      "id": "TC-REG-012",
+      "title": "Từ chối mật khẩu không có ký tự đặc biệt",
+      "scenario": "weakPassword",
+      "name": "Nguyễn An",
+      "email": "no-special-{runId}@example.com",
+      "password": "Valid12a",
+      "confirmPassword": "Valid12a"
+    },
+    {
+      "id": "TC-REG-013",
+      "title": "Từ chối ký tự đặc biệt ngoài danh sách cho phép",
+      "scenario": "weakPassword",
+      "name": "Nguyễn An",
+      "email": "bad-special-{runId}@example.com",
+      "password": "Valid1#a",
+      "confirmPassword": "Valid1#a"
+    },
+    {
+      "id": "TC-REG-014",
+      "title": "Hiển thị trường Xác nhận mật khẩu bắt buộc",
+      "scenario": "confirmField"
+    },
+    {
+      "id": "TC-REG-015",
+      "title": "Từ chối khi xác nhận mật khẩu không khớp",
+      "scenario": "mismatch",
+      "name": "Nguyễn An",
+      "email": "mismatch-{runId}@example.com",
+      "password": "Valid1!a",
+      "confirmPassword": "Other1!a"
+    }
+  ]
+}

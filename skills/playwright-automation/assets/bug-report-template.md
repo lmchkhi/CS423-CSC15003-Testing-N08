@@ -36,14 +36,6 @@ TC-<MODULE>-<NNN>
 
 ## Evidence
 
-- Screenshot: `<real path or URL>`
-- Trace/video/log: `<real path or URL>`
+![Failure evidence](<repository-relative screenshot path or hosted image URL>)
 
-## Suggested labels
-
-- `type: bug`
-- `module: <module>`
-- `severity: <level>`
-- `priority: <level>`
-- `status: new`
-- `found-by: test-case`
+[Trace/video/log](<repository-relative evidence path or hosted URL>)
