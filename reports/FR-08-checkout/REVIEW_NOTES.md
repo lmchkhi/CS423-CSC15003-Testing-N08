@@ -8,7 +8,7 @@
 | Spec | `tests/FR-08-checkout.spec.ts` |
 | Fixture | `data/FR-08-checkout.json` |
 | Người review | Người dùng — checkpoint A/B đã duyệt; checkpoint C chờ duyệt |
-| Thời điểm | `05/08/2026 12:37` |
+| Thời điểm | `05/08/2026 21:14` |
 | Lệnh đã chạy | `npm run lint`; `npm run typecheck`; `npm run test:fr08 -- --workers=1 --reporter=list` |
 | Exit code | Lint `0`; type-check `0`; test `1` — 4 passed, 11 failed, 0 skipped |
 
@@ -50,6 +50,10 @@
 | ID / vị trí | Vấn đề | Vì sao AI có thể bỏ sót | Cách sửa | Kết quả chạy lại | Bằng chứng |
 | --- | --- | --- | --- | --- | --- |
 | `tests/FR-08-checkout.spec.ts` / cấu hình describe | Cấu hình serial ban đầu có thể skip toàn bộ case sau failure đầu tiên | AI ưu tiên tuần tự để tránh xung đột state nhưng chưa xét cơ chế fail-fast của serial mode | Loại `test.describe.configure({ mode: 'serial' })`; vẫn chạy 1 worker và user cô lập | Lần chạy thật thực thi đủ 15/15 case, 0 skipped | `evidence/phase-c-run.md` |
+| `tests/FR-08-checkout.spec.ts` / pre-cart aggregate | Hardcode `12_000_000` làm spec lệch nếu product fixture đổi | Giá trị đúng ở fixture hiện tại nên duplication khó nhận thấy | Tạo `expectedCartTotal = fixture.product.price * fixture.product.quantity` | Lint/type-check pass; rerun nghiệp vụ 4 passed/11 failed, khớp baseline | `evidence/phase-c-run.md` |
+| `tests/FR-08-checkout.spec.ts` / cart response type | Dùng `ProductFixture[]` cho DTO `/api/cart`, trộn dữ liệu gửi với dữ liệu nhận | Hai shape hiện giống nhau | Tách `CartItemDto` và dùng trong `getCart`/`cartTotal` | Lint/type-check pass | `evidence/phase-c-run.md` |
+| `tests/FR-08-checkout.spec.ts` / reject branch | Assertion dừng ngay ở `responseOk`, không ghi nhận thêm việc order ngoài ý muốn đã được tạo | Hard assertion phù hợp pass/fail nhưng thiếu chẩn đoán root cause | Dùng `expect.soft` cho response và order count; vẫn giữ `responseOk:false`, không đoán status | DT-010/DT-014 đều hiện rõ hai failure: response `200` và order count tăng `1` | `evidence/phase-c-run.md` |
+| Fixture tags + spec annotations | Root cause chính chưa hiện rõ trong metadata runner | Tag cũ chỉ mô tả loại test | Thêm `root-cause:*` data-driven và phát thành annotation `root-cause-review` | Lint/type-check pass; collection không đổi 15 case | `evidence/phase-c-run.md` |
 
 ## 3. Phân loại thất bại
 
@@ -60,6 +64,8 @@
 | `DT-010` | failed | Chờ phân loại chính thức ở Giai đoạn E | Checkout địa chỉ rỗng trả `ok=true` | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
 | `DT-011` | failed | Chờ phân loại chính thức ở Giai đoạn E | Địa chỉ mặc định đã set nhưng order lưu `null` | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
 | `DT-014` | failed | Chờ phân loại chính thức ở Giai đoạn E | Giỏ rỗng vẫn checkout thành công | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
+| Tất cả 15 case — rerun `05/08/2026 21:09` | failed trước assertion nghiệp vụ | environment issue | `ECONNREFUSED ::1:3000`; probe `localhost` và `127.0.0.1` đều `NO_RESPONSE` | Khởi động backend rồi chạy lại cùng lệnh; không đổi test | N/A |
+| Tất cả 15 case — rerun `05/08/2026 21:14` | 4 passed, 11 failed | Khớp baseline nghiệp vụ; không phát hiện test defect mới | Ba service trả `200`; các failure vẫn phản ánh SUT không đáp ứng expected đã duyệt | Giữ fixture/spec; dừng tại checkpoint C | N/A |
 
 ## 4. Ca chưa tự động hóa
 
@@ -97,5 +103,9 @@ Chưa thực hiện; thuộc Giai đoạn E sau khi các checkpoint A–D đư�
 - Lint: pass, exit `0`.
 - Type-check: pass, exit `0`.
 - Test: exit `1` — `4 passed`, `11 failed`, `0 skipped`.
+- Refinement rerun lúc backend dừng: lint/type-check exit `0`; test có 15 environment failures do `ECONNREFUSED`.
+- Rerun sau khi khởi động lại SUT: ba service trả `200`; lint/type-check exit `0`; test exit `1` — `4 passed`, `11 failed`, `0 skipped`, khớp baseline nghiệp vụ.
+- Review refinement: bỏ hardcode tổng trong spec, tách CartItem DTO, tăng chẩn đoán reject bằng soft assertions, thêm root-cause annotations; expected không đổi.
+- Không phát hiện test defect mới sau rerun; không chỉnh thêm fixture/spec.
 - Điểm chưa chắc chắn: trước khi chạy lại nhiều lần hoặc đa trình duyệt, cần xác nhận rõ SUT localhost là môi trường test cô lập, không phải production, do `DT-013` chứa SQL payload.
 - Trạng thái: `Chờ duyệt checkpoint C`.

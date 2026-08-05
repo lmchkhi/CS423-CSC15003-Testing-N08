@@ -273,3 +273,155 @@ approve, continue phase C
 ```
 
 ---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-05T21:05:41+07:00`
+
+**User Prompt:**
+
+```text
+Tiếp tục FR-08 sau commit Phase C hiện tại.
+
+Bối cảnh:
+- Tôi đã commit Phase A→C với commit: d2f3acd test: complete FR-08 checkout automation through phase C.
+- Hiện có:
+  - data/FR-08-checkout.json
+  - tests/FR-08-checkout.spec.ts
+  - reports/FR-08-checkout/evidence/phase-c-run.md
+  - reports/FR-08-checkout/REVIEW_NOTES.md
+- Kết quả Phase C đã được ghi nhận: lint pass, type-check pass, 15 tests collected, 4 passed, 11 failed, 0 skipped.
+- Chưa chuyển sang Phase D.
+- Đây là lượt chỉnh sửa sau review Phase C, vẫn trong phạm vi Phase C artifact refinement, chưa chạy đa trình duyệt.
+
+Yêu cầu:
+1. Ghi audit theo skill trước khi chỉnh sửa.
+2. Review riêng hai file:
+   - data/FR-08-checkout.json
+   - tests/FR-08-checkout.spec.ts
+3. Chỉ chỉnh các vấn đề thuộc automation/test quality, không đổi expected đã duyệt để làm test pass.
+4. Thực hiện các chỉnh sửa sau nếu phù hợp:
+   - Bỏ hardcode tổng tiền `12_000_000` trong spec; thay bằng giá trị tính từ `fixture.product.price * fixture.product.quantity`.
+   - Tách type cart item riêng, không dùng trực tiếp `ProductFixture[]` cho response của `/api/cart`.
+   - Làm assertion cho các case bị reject rõ hơn, nhưng nếu chưa có status cụ thể được duyệt cho DT-010/DT-014 thì giữ mức `responseOk: false`, không tự suy đoán status 400.
+   - Bổ sung annotation/comment rõ hơn cho các root cause chính: client total trusted, cart not cleared, empty cart checkout accepted, default address not used.
+   - Giữ DT-012 API-only trong FR-08; không tự mở rộng sang FR-18.
+5. Sau khi chỉnh, chạy:
+   - npm run lint
+   - npm run typecheck
+   - npm run test:fr08 -- --workers=1 --reporter=list
+6. Cập nhật REVIEW_NOTES.md và phase-c-run.md nếu kết quả chạy lại khác trước.
+7. Dừng ở checkpoint sau khi báo cáo:
+   - file đã chỉnh
+   - kết quả lint/type-check/test thật
+   - thay đổi nào là test defect fix hoặc review refinement
+   - xác nhận expected không bị hạ để làm SUT pass
+
+Không chuyển sang Phase D trong lượt này.
+```
+
+**AI Action:**
+
+```text
+Sẽ giữ phạm vi Phase C refinement và không chuyển Phase D. Sau audit này, review riêng data/FR-08-checkout.json và tests/FR-08-checkout.spec.ts; kiểm tra commit/worktree để bảo toàn thay đổi người dùng; chỉ sửa chất lượng automation: tính tổng từ fixture product, tách CartItem type, làm assertion reject rõ hơn nhưng giữ responseOk=false cho DT-010/DT-014, thêm annotation root cause, và giữ DT-012 API-only. Sau đó chạy đúng lint, type-check và suite FR-08 một worker/list reporter; cập nhật REVIEW_NOTES.md và phase-c-run.md khi kết quả thực tế thay đổi; ghi audit kết quả và dừng ở checkpoint Phase C. Không hạ expected để làm SUT pass.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-05T21:11:05+07:00`
+
+**User Prompt:**
+
+```text
+Tiếp tục FR-08 sau commit Phase C hiện tại.
+
+Bối cảnh:
+- Tôi đã commit Phase A→C với commit: d2f3acd test: complete FR-08 checkout automation through phase C.
+- Hiện có:
+  - data/FR-08-checkout.json
+  - tests/FR-08-checkout.spec.ts
+  - reports/FR-08-checkout/evidence/phase-c-run.md
+  - reports/FR-08-checkout/REVIEW_NOTES.md
+- Kết quả Phase C đã được ghi nhận: lint pass, type-check pass, 15 tests collected, 4 passed, 11 failed, 0 skipped.
+- Chưa chuyển sang Phase D.
+- Đây là lượt chỉnh sửa sau review Phase C, vẫn trong phạm vi Phase C artifact refinement, chưa chạy đa trình duyệt.
+
+Yêu cầu:
+1. Ghi audit theo skill trước khi chỉnh sửa.
+2. Review riêng hai file:
+   - data/FR-08-checkout.json
+   - tests/FR-08-checkout.spec.ts
+3. Chỉ chỉnh các vấn đề thuộc automation/test quality, không đổi expected đã duyệt để làm test pass.
+4. Thực hiện các chỉnh sửa sau nếu phù hợp:
+   - Bỏ hardcode tổng tiền `12_000_000` trong spec; thay bằng giá trị tính từ `fixture.product.price * fixture.product.quantity`.
+   - Tách type cart item riêng, không dùng trực tiếp `ProductFixture[]` cho response của `/api/cart`.
+   - Làm assertion cho các case bị reject rõ hơn, nhưng nếu chưa có status cụ thể được duyệt cho DT-010/DT-014 thì giữ mức `responseOk: false`, không tự suy đoán status 400.
+   - Bổ sung annotation/comment rõ hơn cho các root cause chính: client total trusted, cart not cleared, empty cart checkout accepted, default address not used.
+   - Giữ DT-012 API-only trong FR-08; không tự mở rộng sang FR-18.
+5. Sau khi chỉnh, chạy:
+   - npm run lint
+   - npm run typecheck
+   - npm run test:fr08 -- --workers=1 --reporter=list
+6. Cập nhật REVIEW_NOTES.md và phase-c-run.md nếu kết quả chạy lại khác trước.
+7. Dừng ở checkpoint sau khi báo cáo:
+   - file đã chỉnh
+   - kết quả lint/type-check/test thật
+   - thay đổi nào là test defect fix hoặc review refinement
+   - xác nhận expected không bị hạ để làm SUT pass
+
+Không chuyển sang Phase D trong lượt này.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành refinement Phase C trên commit d2f3acd và không chuyển Phase D. Chỉ review/chỉnh fixture và spec: thêm root-cause tags/annotations; tính expectedCartTotal từ fixture.product.price * fixture.product.quantity; tách CartItemDto; bỏ userId runtime không dùng; tăng fixture validation cho reject case; dùng soft assertions để DT-010/DT-014 ghi rõ cả response thành công ngoài ý muốn và order count thay đổi; giữ responseOk=false, không đoán status 400; giữ DT-012 API-only. Diff xác nhận mọi object expected trong fixture không đổi. Lint exit 0, type-check exit 0, Playwright collection 15 test. Suite rerun exit 1 với 15 failure kết nối ECONNREFUSED ::1:3000; probe localhost và 127.0.0.1 đều NO_RESPONSE, phân loại environment issue vì backend không chạy. Không case nào tới assertion nghiệp vụ và không tạo user/order; baseline nghiệp vụ 4 passed/11 failed vẫn là kết quả gần nhất. Đã cập nhật REVIEW_NOTES.md và phase-c-run.md để phân biệt baseline với rerun môi trường. Dừng tại checkpoint refinement Phase C.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-05T21:12:36+07:00`
+
+**User Prompt:**
+
+```text
+đã khởi chạy lại backend và UI frontend, tiến hành kiểm tra và cung cấp chỉnh sửa phù hợp
+```
+
+**AI Action:**
+
+```text
+Tiếp tục trong phạm vi refinement Phase C, không chuyển Phase D. Sẽ probe Backend :3000, Frontend Web :5173 và Frontend Admin :5174; chạy lại lint, type-check và suite FR-08 một worker/list reporter; kiểm tra riêng output DT-010/DT-014 sau soft assertions và root-cause annotations; chỉ sửa automation/test defect nếu bằng chứng cho thấy cần, không đổi expected đã duyệt. Sẽ cập nhật REVIEW_NOTES.md và phase-c-run.md theo kết quả thật, ghi audit kết quả và dừng tại checkpoint Phase C.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-05T21:14:26+07:00`
+
+**User Prompt:**
+
+```text
+đã khởi chạy lại backend và UI frontend, tiến hành kiểm tra và cung cấp chỉnh sửa phù hợp
+```
+
+**AI Action:**
+
+```text
+Đã probe SUT sau khi người dùng khởi động lại: API :3000, Frontend Web :5173 và Frontend Admin :5174 đều trả HTTP 200. Chạy đúng các lệnh Phase C: lint exit 0, type-check exit 0, suite FR-08 exit 1 với 15 test thực thi, 4 passed, 11 failed, 0 skipped. Kết quả khớp baseline nghiệp vụ. Soft assertions mới ở DT-010 và DT-014 ghi rõ đồng thời response thực tế 200 thay vì bị reject và order count tăng 1. Không phát hiện test defect mới nên không sửa thêm data/FR-08-checkout.json hoặc tests/FR-08-checkout.spec.ts. Đã cập nhật REVIEW_NOTES.md và phase-c-run.md bằng kết quả thật, side effect thêm 13 user runtime và 13 order test. Expected đã duyệt không đổi; không chuyển Phase D và dừng tại checkpoint Phase C.
+```
+
+---

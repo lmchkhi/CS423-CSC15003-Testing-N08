@@ -51,6 +51,13 @@ interface ProductFixture {
   quantity: number;
 }
 
+interface CartItemDto {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 interface Fr08Fixture {
   feature: 'FR-08';
   baseURL: string;
@@ -60,7 +67,6 @@ interface Fr08Fixture {
 }
 
 interface UserSession {
-  userId: number;
   headers: Record<string, string>;
 }
 
@@ -105,12 +111,19 @@ function validateFixture(value: unknown): asserts value is Fr08Fixture {
     if (!testCase.input || !testCase.expected) {
       throw new Error(`Missing input/expected for ${testCase.id}`);
     }
+    if (
+      testCase.expected.responseStatus === undefined &&
+      testCase.expected.responseOk !== false
+    ) {
+      throw new Error(`${testCase.id}: rejected cases must declare responseOk=false`);
+    }
   }
 }
 
 validateFixture(fixtureValue);
 const fixture = fixtureValue;
 const baseURL = process.env.SUT_API_URL ?? fixture.baseURL;
+const expectedCartTotal = fixture.product.price * fixture.product.quantity;
 
 function url(path: string): string {
   return `${baseURL}${path}`;
@@ -135,11 +148,10 @@ async function createIsolatedUser(request: APIRequestContext, caseId: string): P
     data: { email, password },
   });
   expect(loginResponse.status(), `${caseId}: runtime user login`).toBe(200);
-  const loginBody = await responseJson<{ token: string; user: { id: number } }>(loginResponse);
+  const loginBody = await responseJson<{ token: string }>(loginResponse);
   expect(loginBody.token, `${caseId}: login token exists`).toEqual(expect.any(String));
 
   return {
-    userId: loginBody.user.id,
     headers: { Authorization: `Bearer ${loginBody.token}` },
   };
 }
@@ -150,13 +162,13 @@ async function getOrders(request: APIRequestContext, headers: Record<string, str
   return responseJson<OrderDto[]>(response);
 }
 
-async function getCart(request: APIRequestContext, headers: Record<string, string>): Promise<ProductFixture[]> {
+async function getCart(request: APIRequestContext, headers: Record<string, string>): Promise<CartItemDto[]> {
   const response = await request.get(url('/api/cart'), { headers });
   expect(response.status(), 'cart API status').toBe(200);
-  return responseJson<ProductFixture[]>(response);
+  return responseJson<CartItemDto[]>(response);
 }
 
-function cartTotal(items: ProductFixture[]): number {
+function cartTotal(items: CartItemDto[]): number {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 }
 
@@ -173,7 +185,15 @@ test.describe('FR-08 Checkout API — data-driven HW02', () => {
       testInfo.annotations.push({ type: 'source', description: testCase.source });
       testInfo.annotations.push({ type: 'case-type', description: testCase.type });
       for (const tag of testCase.tags ?? []) {
-        testInfo.annotations.push({ type: 'tag', description: tag });
+        const rootCausePrefix = 'root-cause:';
+        if (tag.startsWith(rootCausePrefix)) {
+          testInfo.annotations.push({
+            type: 'root-cause-review',
+            description: tag.slice(rootCausePrefix.length),
+          });
+        } else {
+          testInfo.annotations.push({ type: 'tag', description: tag });
+        }
       }
 
       let headers: Record<string, string> = {};
@@ -208,7 +228,9 @@ test.describe('FR-08 Checkout API — data-driven HW02', () => {
         // Assertion group: Count / aggregate.
         if (testCase.input.cartState === 'filled') {
           expect(cartBefore.length, `${testCase.id}: pre-checkout cart count`).toBe(1);
-          expect(cartTotal(cartBefore), `${testCase.id}: pre-checkout cart total`).toBe(12_000_000);
+          expect(cartTotal(cartBefore), `${testCase.id}: pre-checkout cart total`).toBe(
+            expectedCartTotal,
+          );
         } else {
           expect(cartBefore.length, `${testCase.id}: empty-cart precondition`).toBe(0);
         }
@@ -229,6 +251,10 @@ test.describe('FR-08 Checkout API — data-driven HW02', () => {
         headers,
         data: checkoutData,
       });
+      testInfo.annotations.push({
+        type: 'observed-checkout-status',
+        description: String(checkoutResponse.status()),
+      });
 
       // Assertion group: Network / response.
       if (testCase.expected.responseStatus !== undefined) {
@@ -236,16 +262,20 @@ test.describe('FR-08 Checkout API — data-driven HW02', () => {
           testCase.expected.responseStatus,
         );
       } else {
-        expect(checkoutResponse.ok(), `${testCase.id}: checkout must be rejected`).toBe(
-          testCase.expected.responseOk,
-        );
+        expect.soft(
+          checkoutResponse.ok(),
+          `${testCase.id}: expected a non-2xx rejection; actual status=${checkoutResponse.status()}`,
+        ).toBe(testCase.expected.responseOk);
       }
 
       if (!testCase.expected.orderCreated) {
         if (session) {
           const ordersAfter = await getOrders(request, headers);
           // Assertion group: Count / aggregate.
-          expect(ordersAfter.length, `${testCase.id}: no new order`).toBe(ordersBefore.length);
+          expect.soft(
+            ordersAfter.length,
+            `${testCase.id}: rejected checkout must not create an order`,
+          ).toBe(ordersBefore.length);
         }
         return;
       }

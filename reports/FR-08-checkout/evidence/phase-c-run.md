@@ -50,7 +50,7 @@
 
 - Fixture runtime validation xác nhận đúng 15 ID độc lập, duy nhất, nguồn `HW02`.
 - Cấu hình serial fail-fast được loại trước lần chạy thật để lỗi đầu không làm skip case sau.
-- Runner artifact cục bộ: `test-results/.last-run.json` và 11 file `error-context.md` tương ứng 11 failure.
+- Baseline từng tạo `test-results/.last-run.json` và 11 file `error-context.md`; thư mục runner cục bộ có thể bị lần chạy sau ghi đè.
 - `test-results/` được thêm vào `.gitignore`; tóm tắt bền vững nằm trong file này.
 - Không sửa assertion để làm SUT pass; 11 failure được giữ nguyên.
 
@@ -58,3 +58,55 @@
 
 - Lần chạy tạo 13 user runtime role `user` và 13 order test; API công khai không có cleanup phù hợp.
 - `DT-013` chứa SQL payload. Trước khi chạy lặp lại hoặc chạy đa trình duyệt ở Giai đoạn D, cần người dùng xác nhận rõ SUT localhost là môi trường test cô lập, không phải production.
+
+## Rerun sau review Phase C — `05/08/2026 21:09`
+
+### Refinement đã áp dụng
+
+- Spec tính `expectedCartTotal` từ `fixture.product.price * fixture.product.quantity`; không còn hardcode `12_000_000` trong spec.
+- Tách `CartItemDto` khỏi `ProductFixture` cho response `/api/cart`.
+- Case reject vẫn giữ `responseOk: false`; dùng soft assertions để ghi đồng thời response không bị reject và order bị tạo, không suy đoán status `400`.
+- Root-cause review được đưa vào annotation data-driven: `client-total-trusted`, `cart-not-cleared`, `empty-cart-checkout-accepted`, `default-address-not-used`.
+- `DT-012` vẫn API-only trong FR-08.
+
+### Lệnh và kết quả rerun
+
+| Lệnh | Exit code | Kết quả thật |
+| --- | ---: | --- |
+| `npm run lint` | `0` | Pass |
+| `npm run typecheck` | `0` | Pass |
+| `npm run test:fr08 -- --workers=1 --reporter=list` | `1` | 15 failed do `ECONNREFUSED ::1:3000`; không case nào tới assertion nghiệp vụ |
+
+Probe sau run:
+
+- `GET http://localhost:3000/api/products` → `NO_RESPONSE`.
+- `GET http://127.0.0.1:3000/api/products` → `NO_RESPONSE`.
+- Phân loại: `environment issue` — backend không chạy; không phải test defect IPv6/baseURL.
+- Kết quả baseline `4 passed / 11 failed` phía trên vẫn là kết quả nghiệp vụ gần nhất và không bị thay thế bởi rerun môi trường này.
+- `test-results/` hiện phản ánh lần rerun gần nhất với 15 error context kết nối, không còn là artifact baseline 11 failure nghiệp vụ.
+- Rerun không tạo user hoặc order vì mọi kết nối đều bị từ chối trước request đầu tiên.
+
+## Rerun sau khi khởi động lại SUT — `05/08/2026 21:14`
+
+### Kiểm tra môi trường
+
+- `GET http://localhost:3000/api/products` → `200` JSON.
+- `GET http://localhost:5173` → `200` HTML.
+- `GET http://localhost:5174` → `200` HTML.
+
+### Lệnh và kết quả thật
+
+| Lệnh | Exit code | Kết quả |
+| --- | ---: | --- |
+| `npm run lint` | `0` | Pass |
+| `npm run typecheck` | `0` | Pass |
+| `npm run test:fr08 -- --workers=1 --reporter=list` | `1` | 15 test: 4 passed, 11 failed, 0 skipped |
+
+- Pass: `DT-002`, `DT-003`, `DT-012` API-only, `DT-013`.
+- Fail: `BVA-001`, `DT-001`, `DT-004`–`DT-011`, `DT-014`.
+- `DT-010` ghi nhận đồng thời response thực tế `200` thay vì bị reject và order count tăng `1`.
+- `DT-014` ghi nhận đồng thời response thực tế `200` thay vì bị reject và order count tăng `1`.
+- Kết quả khớp baseline nghiệp vụ trước refinement; không phát hiện test defect mới và không cần sửa thêm fixture/spec.
+- Lần chạy tạo thêm 13 user runtime role `user` và 13 order test; không có API cleanup phù hợp.
+- `test-results/` hiện phản ánh 11 failure nghiệp vụ của lần chạy gần nhất.
+- Expected đã duyệt được giữ nguyên; không hạ assertion để làm SUT pass.

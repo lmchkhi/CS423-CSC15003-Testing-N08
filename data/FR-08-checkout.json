@@ -22,7 +22,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": -1, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@bva", "@edge"]
+      "tags": ["@fr08", "@bva", "@edge", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-001",
@@ -32,7 +32,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": 12000000, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending", "cartCountAfter": 0 },
       "source": "HW02",
-      "tags": ["@fr08", "@positive", "related:TC-FR08-DT-015"]
+      "tags": ["@fr08", "@positive", "related:TC-FR08-DT-015", "root-cause:cart-not-cleared"]
     },
     {
       "id": "TC-FR08-DT-002",
@@ -62,7 +62,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": 1, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@edge", "related:TC-FR08-BVA-003"]
+      "tags": ["@fr08", "@edge", "related:TC-FR08-BVA-003", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-005",
@@ -72,7 +72,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": 0, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@edge", "related:TC-FR08-BVA-002"]
+      "tags": ["@fr08", "@edge", "related:TC-FR08-BVA-002", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-006",
@@ -82,7 +82,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": -50000, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@negative", "@security"]
+      "tags": ["@fr08", "@negative", "@security", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-007",
@@ -92,7 +92,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": 99999999, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@negative", "@security"]
+      "tags": ["@fr08", "@negative", "@security", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-008",
@@ -102,7 +102,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "omitTotalAmount": true, "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@edge"]
+      "tags": ["@fr08", "@edge", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-009",
@@ -112,7 +112,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": "NaN", "shippingAddressKey": "valid" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "valid", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@negative", "@type-validation"]
+      "tags": ["@fr08", "@negative", "@type-validation", "root-cause:client-total-trusted"]
     },
     {
       "id": "TC-FR08-DT-010",
@@ -132,7 +132,7 @@
       "input": { "authMode": "valid", "cartState": "filled", "totalAmount": 12000000, "omitShippingAddress": true, "profileDefaultAddressKey": "default" },
       "expected": { "responseStatus": 200, "orderCreated": true, "orderTotal": 12000000, "orderAddressKey": "default", "orderStatus": "pending" },
       "source": "HW02",
-      "tags": ["@fr08", "@edge", "@address"]
+      "tags": ["@fr08", "@edge", "@address", "root-cause:default-address-not-used"]
     },
     {
       "id": "TC-FR08-DT-012",
@@ -162,7 +162,7 @@
       "input": { "authMode": "valid", "cartState": "empty", "totalAmount": 12000000, "shippingAddressKey": "valid" },
       "expected": { "responseOk": false, "orderCreated": false },
       "source": "HW02",
-      "tags": ["@fr08", "@negative", "@empty-cart"]
+      "tags": ["@fr08", "@negative", "@empty-cart", "root-cause:empty-cart-checkout-accepted"]
     }
   ]
 }
