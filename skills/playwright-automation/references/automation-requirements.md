@@ -11,7 +11,7 @@ Use this as the non-negotiable rubric distilled from the supplied automation-tes
 - Produce genuine HTML execution evidence that visibly contains `Run by: <StudentID>` and an ISO timestamp.
 - Critically review AI-generated scripts and correct fragile selectors, weak/missing assertions, missing cases, flaky waits, and similar problems. Explain what was wrong and why AI missed it.
 - Document unautomated cases and the reason.
-- When a failing assertion reveals a genuine defect, create a bug report with real evidence. The assignment additionally expects bugs to be logged on GitHub Issues with screenshots, but external issue creation requires user authorization.
+- When a failing assertion reveals a genuine defect, create a local bug report with real evidence, then publish one corresponding GitHub Issue through `gh`. Apply exact existing remote labels according to the convention observed on the repository's current issues; do not invent labels from the template.
 
 ## Evidence integrity
 
@@ -47,4 +47,4 @@ Use a separate bug document with:
 8. actual result;
 9. real evidence.
 
-Recommended GitHub labels: `type: bug`, `module: <module>`, `severity: <level>`, `priority: <level>`, `status: new`, and `found-by: test-case`.
+Semantic label targets are `type: bug`, `module: <module>`, `severity: <level>`, `priority: <level>`, `status: new`, and `found-by: test-case`. Before publication, map them to the exact label names and combinations already used by the remote repository's issues. Only a missing module label may be created, and only by copying the naming, description, and color convention of existing remote module labels; all other label families are read-only.

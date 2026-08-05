@@ -1,6 +1,6 @@
 ---
 name: playwright-automation
-description: "Analyze one web-system feature and produce the complete automation-testing evidence set: at least 12 individually documented Markdown test cases, external CSV/JSON test data, data-driven Playwright scripts for Chromium/Firefox/WebKit with at least three assertion patterns, genuine per-browser HTML reports labeled with the supplied StudentID and an ISO timestamp, failure triage, and Markdown bug reports for confirmed product defects. Use for feature automation, converting manual feature tests to Playwright, or maintaining the same coursework artifacts after a feature changes."
+description: "Analyze one web-system feature and produce the complete automation-testing evidence set: at least 12 individually documented Markdown test cases, external CSV/JSON test data, data-driven Playwright scripts for Chromium/Firefox/WebKit with at least three assertion patterns, genuine per-browser HTML reports labeled with the supplied StudentID and an ISO timestamp, failure triage, Markdown bug reports for confirmed product defects, and corresponding GitHub Issues labeled by the remote repository's existing convention. Use for feature automation, converting manual feature tests to Playwright, or maintaining the same coursework artifacts after a feature changes."
 ---
 
 # Playwright Automation
@@ -97,7 +97,41 @@ For every failed assertion, distinguish:
 
 Fix and rerun categories 1 and 2 where safe. Create a bug file only for category 3 after reproducing it. Copy [assets/bug-report-template.md](assets/bug-report-template.md), attach real screenshot/trace/log paths, link the discovering test case, and update that test case to `Fail / BUG-...`. Never infer a product bug solely from a timeout or unavailable service.
 
-Create a GitHub Issue only when the user requests or authorizes external publication; otherwise produce the Markdown bug file ready to paste.
+## Publish confirmed bugs to GitHub
+
+After creating each local bug-report Markdown file, publish one corresponding GitHub Issue to the repository remote with GitHub CLI:
+
+1. Run `gh auth status` and `gh repo view --json nameWithOwner,url` from the repository root. Use `-R <owner/repo>` on later commands if the resolved repository is ambiguous.
+2. Inspect the remote before choosing labels:
+
+   - run `gh label list --limit 200 --json name,description,color` to discover available labels and the visual convention for each label family;
+   - run `gh issue list --state all --limit 100 --json number,title,labels,url` to learn the spelling, casing, prefixes, and combinations used by existing issues.
+
+3. Map the bug report's type, module, severity, priority, status, and discovery source to exact existing label names. Treat the labels suggested by the template as semantic hints only. For type, severity, priority, status, and discovery-source labels, never invent, rename, or create labels; when no established label represents a dimension, retain that metadata in the issue body and omit only that label.
+4. Handle the module label as the only creation exception. If the exact module label is missing but the remote has an established module-label family, derive the new name, casing, prefix, description style, and color from its peers, then create and verify it before creating the issue:
+
+```bash
+gh label create "<module-label-following-remote-convention>" \
+  --description "<description-following-peer-module-labels>" \
+  --color "<six-character-color-used-by-peer-module-labels>"
+gh label list --limit 200 --json name,description,color
+```
+
+Do not use `--force` and do not modify an existing label. If the remote has no module-label convention to derive from, keep the module in the issue body and report that a module label could not be created safely without inventing a convention.
+5. Search the listed issues for the same bug ID, title, discovering test case, or reproduction before publishing. Reuse and report the existing issue URL when it is a duplicate.
+6. For a new issue, use the local report as the body and pass every verified label explicitly:
+
+```bash
+gh issue create \
+  --title "[BUG][<Module>] <summary>" \
+  --body-file "bugs/<feature-slug>/BUG-<MODULE>-<NNN>.md" \
+  --label "<exact-existing-label>" \
+  --label "<another-exact-existing-label>"
+```
+
+7. Capture the returned issue URL, verify it with `gh issue view <issue-url> --json url,title,labels`, add it to the local bug report and discovering test case, and include it in the handoff. Keep one local bug report mapped to one GitHub Issue. Do not claim publication without a returned and verified issue URL.
+
+If `gh auth status` fails or GitHub returns an authentication/authorization response such as `401` or `403`, report the credential or repository-permission problem. If authentication succeeds but `gh repo view`, label/issue reads, `gh label create`, or `gh issue create` fails with DNS, connectivity, operation-not-permitted, or similar environment errors, treat sandbox/network isolation as a possible cause: rerun the same command with the required elevated sandbox/network permission before concluding GitHub is inaccessible. Preserve the local report and exact command error if publication remains blocked.
 
 ## Validate and hand off
 
