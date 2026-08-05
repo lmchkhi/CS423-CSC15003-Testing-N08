@@ -1,0 +1,22 @@
+{
+  "name": "hw04-eshop-automation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HW04 — data-driven Playwright automation for EShop FR-02 / FR-10 / FR-13 (student 23127300)",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "test:list": "playwright test --list",
+    "smoke": "playwright test tests/smoke.spec.ts --project=chromium",
+    "matrix": "tsx scripts/run-matrix.ts",
+    "report:verify": "tsx scripts/verify-reports.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^22.10.2",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "zod": "^3.24.1"
+  }
+}
