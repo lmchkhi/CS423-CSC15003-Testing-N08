@@ -18,6 +18,10 @@ automation/.env
 automation/test-results/
 automation/playwright-report/
 automation/blob-report/
+# Fallback folder for developer runs that bypass the matrix runner (e.g.
+# `npm run smoke`). The nine graded reports live in reports/html/<feature>/.
+reports/html/_ad-hoc/
+reports/json/
 
 # Scratch materials for recording demo videos — not a submission deliverable.
 /demo-scratch/

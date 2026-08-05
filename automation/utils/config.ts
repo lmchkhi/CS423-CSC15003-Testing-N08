@@ -41,8 +41,28 @@ export const jsonReportPath = optional(
   path.join('..', 'reports', 'json', 'ad-hoc.json'),
 );
 
+/**
+ * ISO 8601 carrying the machine's UTC offset (`2026-08-06T00:42:13+07:00`)
+ * instead of `toISOString()`'s UTC `Z`. Same instant either way, but the SUT,
+ * the commits and the demo video all happen on Vietnam time (UTC+7): a run
+ * before 07:00 ICT stamped in UTC reads as the *previous* day and would not
+ * match its own commit date. §11 asks for an ISO timestamp; this is one, and
+ * it tells the same story as the git log.
+ */
+export function localIsoTimestamp(date = new Date()): string {
+  const offsetMinutes = -date.getTimezoneOffset();
+  const sign = offsetMinutes >= 0 ? '+' : '-';
+  const pad = (value: number): string =>
+    String(Math.floor(Math.abs(value))).padStart(2, '0');
+  const shifted = new Date(date.getTime() + offsetMinutes * 60_000);
+  return (
+    shifted.toISOString().replace(/\.\d{3}Z$/, '') +
+    `${sign}${pad(offsetMinutes / 60)}:${pad(offsetMinutes % 60)}`
+  );
+}
+
 /** Stamped once per process so every artifact of one cell shares a timestamp. */
-export const runTimestamp = optional('RUN_TIMESTAMP', new Date().toISOString());
+export const runTimestamp = optional('RUN_TIMESTAMP', localIsoTimestamp());
 
 export const config = {
   studentId: required('STUDENT_ID'),
