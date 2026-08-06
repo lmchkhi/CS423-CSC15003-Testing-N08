@@ -1,0 +1,4 @@
+interface:
+  display_name: "EShop HW04 Task1 Automation"
+  short_description: "Tự động hóa Playwright cho HW04 Task 1"
+  default_prompt: "Dùng $eshop-hw04-task1-automation để chuyển test case manual HW02 thành automation Playwright data-driven, chạy đa trình duyệt cho EShop."
