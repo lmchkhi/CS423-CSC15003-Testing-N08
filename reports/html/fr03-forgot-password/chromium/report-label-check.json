@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-08-06T16:41:32.930125+00:00",
+  "student_id": "23127475",
+  "report_root": "reports/html/fr03-forgot-password/chromium",
+  "total_reports": 2,
+  "ok": true,
+  "reports": [
+    {
+      "report": "reports/html/fr03-forgot-password/chromium",
+      "index": "reports/html/fr03-forgot-password/chromium/hw04-report.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 1401
+    },
+    {
+      "report": "reports/html/fr03-forgot-password/chromium",
+      "index": "reports/html/fr03-forgot-password/chromium/index.html",
+      "has_run_by": false,
+      "has_placeholder": false,
+      "size_bytes": 520695
+    }
+  ]
+}

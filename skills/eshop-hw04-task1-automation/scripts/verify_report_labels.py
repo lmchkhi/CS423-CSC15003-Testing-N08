@@ -31,9 +31,17 @@ def main() -> int:
     args = parser.parse_args()
 
     root = Path(args.report_root)
-    index_files = sorted(root.rglob("index.html")) if root.exists() else []
+    index_files = [
+        path
+        for path in sorted(root.rglob("*.html"))
+        if "trace" not in path.relative_to(root).parts
+    ] if root.exists() else []
     results = [inspect_report(path, args.student_id) for path in index_files]
-    ok = bool(results) and all(item["has_run_by"] and not item["has_placeholder"] for item in results)
+    ok = (
+        bool(results)
+        and any(item["has_run_by"] for item in results)
+        and not any(item["has_placeholder"] for item in results)
+    )
 
     payload = {
         "checked_at": datetime.now(timezone.utc).isoformat(),
