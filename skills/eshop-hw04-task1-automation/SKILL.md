@@ -19,6 +19,10 @@ Tạo automation script Playwright cho ba feature web đã chọn ở HW02: FR-0
 
 ## Workflow
 
+0. Ghi AI audit:
+   - Khi làm bất kỳ lượt nào liên quan HW04, dùng `skills/write-ai-audit-report/SKILL.md` để append tương tác vào `reports/ai-audit-report.md`.
+   - Trước final, đảm bảo lượt hiện tại đã được ghi nếu có tạo/sửa artifact, chạy test/validate, hoặc đưa ra nội dung dùng trong bài nộp.
+
 1. Lập inventory test case:
    - Chạy `scripts/extract_manual_cases.py` để trích danh sách test case manual cho từng FR.
    - Chọn ít nhất 12 test case cho mỗi FR, ưu tiên phối hợp positive, negative, edge/BVA.
@@ -29,6 +33,7 @@ Tạo automation script Playwright cho ba feature web đã chọn ở HW02: FR-0
    - Tạo file `.json` hoặc `.csv` riêng cho từng feature.
    - Không hardcode inline array/object test data trong `.spec.*`.
    - Tách thông tin môi trường vào biến env hoặc config: `WEB_BASE_URL`, `ADMIN_BASE_URL`, `API_BASE_URL`, `STUDENT_ID`.
+   - Dùng mặc định từ hồ sơ sinh viên khi không có chỉ dẫn khác: `STUDENT_ID=23127475`, `STUDENT_NAME="Ngô Hồng Thanh"`, `COURSE_CLASS="CS423 / CSC13003"`, `AI_TOOL=Codex`.
 
 3. Sinh và chỉnh Playwright script:
    - Dùng locator theo vai trò/label/text trước; chỉ dùng selector CSS khi UI không có semantic hook.

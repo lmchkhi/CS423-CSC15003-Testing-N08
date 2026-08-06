@@ -4,6 +4,7 @@
 
 Ghi nhận theo từng feature:
 
+- Dùng `skills/write-ai-audit-report/SKILL.md` để append các lượt chat/tác vụ vào `reports/ai-audit-report.md`.
 - Prompt chính đã dùng để AI sinh script.
 - Output hoặc tóm tắt output của AI.
 - Lỗi AI mắc phải.

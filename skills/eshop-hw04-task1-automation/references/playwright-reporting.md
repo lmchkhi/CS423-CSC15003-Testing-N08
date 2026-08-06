@@ -6,7 +6,10 @@ Report phải chứng minh được ai chạy, chạy feature nào, chạy brows
 
 ## Biến môi trường khuyến nghị
 
-- `STUDENT_ID`: mã số sinh viên thật; không để `{StudentID}` trong artifact cuối.
+- `STUDENT_ID`: mã số sinh viên thật (mặc định `23127475`); không để `{StudentID}` trong artifact cuối.
+- `STUDENT_NAME`: họ tên sinh viên, mặc định `Ngô Hồng Thanh`.
+- `COURSE_CLASS`: lớp/khoá, mặc định `CS423 / CSC13003`.
+- `AI_TOOL`: công cụ AI khai báo trong audit, mặc định `Codex`.
 - `HW04_FEATURE`: slug feature, ví dụ `fr03-forgot-password`.
 - `HW04_BROWSER`: project Playwright đang chạy, ví dụ `chromium`.
 - `HW04_REPORT_DIR`: thư mục HTML report riêng cho cell hiện tại.
@@ -47,7 +50,10 @@ Giữ đúng cụm `Run by:` vì đề yêu cầu có thể nhìn thấy cụm n
 Chạy từng feature-browser riêng để mỗi cell có report độc lập. Mẫu command:
 
 ```bash
-STUDENT_ID=25127001 \
+STUDENT_ID=23127475 \
+STUDENT_NAME="Ngô Hồng Thanh" \
+COURSE_CLASS="CS423 / CSC13003" \
+AI_TOOL=Codex \
 HW04_FEATURE=fr03-forgot-password \
 HW04_BROWSER=chromium \
 HW04_RUN_AT=2026-08-06T10:30:00.000Z \
@@ -76,7 +82,7 @@ Có thể dùng script của skill:
 
 ```bash
 python3 skills/eshop-hw04-task1-automation/scripts/verify_report_labels.py \
-  reports/html --student-id 25127001 --manifest reports/html/report-label-check.json
+  reports/html --student-id 23127475 --manifest reports/html/report-label-check.json
 ```
 
 Nếu report dùng asset động hoặc Playwright nén dữ liệu, mở report bằng `npx playwright show-report <report-dir>` để xác nhận bằng mắt và ghi lại kết quả vào main report.

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Write AI Audit Report"
+  short_description: "Ghi log chat vào AI Audit Report"
+  default_prompt: "Dùng $write-ai-audit-report để append lượt chat hiện tại vào reports/ai-audit-report.md theo format bài nộp."
+policy:
+  allow_implicit_invocation: true
