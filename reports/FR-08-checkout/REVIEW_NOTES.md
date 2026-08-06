@@ -7,9 +7,9 @@
 | Feature | `FR-08` |
 | Spec | `tests/FR-08-checkout.spec.ts` |
 | Fixture | `data/FR-08-checkout.json` |
-| Người review | Người dùng — checkpoint A/B/C đã duyệt; checkpoint D chờ duyệt |
-| Thời điểm | `06/08/2026 10:23` |
-| Lệnh đã chạy | Browser launch probes; `npm run lint`; `npm run typecheck`; `npm run test:fr08 -- --workers=1` |
+| Người review | Người dùng — checkpoint A/B/C/D/E đã duyệt |
+| Thời điểm | `06/08/2026 11:12` |
+| Lệnh đã chạy | Phase E review; lint/type-check; rerun artifact-safe `npm run test:fr08 -- --workers=1`; mở/quét HTML report |
 | Exit code | Lint `0`; type-check `0`; multi-project test `1` — 12 passed, 33 failed, 0 skipped |
 
 ## 1. Đối chiếu HW02 vs thực tế
@@ -55,20 +55,24 @@
 | `tests/FR-08-checkout.spec.ts` / reject branch | Assertion dừng ngay ở `responseOk`, không ghi nhận thêm việc order ngoài ý muốn đã được tạo | Hard assertion phù hợp pass/fail nhưng thiếu chẩn đoán root cause | Dùng `expect.soft` cho response và order count; vẫn giữ `responseOk:false`, không đoán status | DT-010/DT-014 đều hiện rõ hai failure: response `200` và order count tăng `1` | `evidence/phase-c-run.md` |
 | Fixture tags + spec annotations | Root cause chính chưa hiện rõ trong metadata runner | Tag cũ chỉ mô tả loại test | Thêm `root-cause:*` data-driven và phát thành annotation `root-cause-review` | Lint/type-check pass; collection không đổi 15 case | `evidence/phase-c-run.md` |
 | `package.json`, `tsconfig.json`, `eslint.config.js` / phạm vi kiểm tra | Config Playwright mới ban đầu không nằm trong lint/type-check | Phase C chỉ có spec nên glob/include chỉ bao phủ `tests/**/*.ts` | Bổ sung `playwright.config.ts` vào lint, ESLint file matcher và TypeScript include | Lint/type-check exit `0` trên cả spec và config | `evidence/phase-d-run.md` |
-| `playwright.config.ts` / HTML reporter | Custom metadata có trong config nhưng report UI lần đầu không hiển thị `Run by` và timestamp | AI coi cấu hình metadata là đủ trước khi mở artifact thật | Thêm title HTML runtime chứa trực tiếp hai trường, chạy lại 45 lượt và mở report bằng Chromium | Report cuối hiển thị `Run by: 23127464` và timestamp ISO `2026-08-06T03:23:07.283Z` | `evidence/phase-d-run.md` |
+| `playwright.config.ts` / HTML reporter | Custom metadata có trong config nhưng report UI lần đầu không hiển thị `Run by` và timestamp | AI coi cấu hình metadata là đủ trước khi mở artifact thật | Thêm title HTML runtime chứa trực tiếp hai trường, chạy lại và mở report bằng Chromium | Report public-safe cuối hiển thị `Run by: 23127464` và timestamp ISO `2026-08-06T03:55:40.572Z` | `evidence/phase-d-run.md` |
+| `TEST_CASES.md` / DT-012 | Wording cũ còn hướng kiểm tra render sang FR-18, không thống nhất quyết định cuối | Artifact Phase B được tạo trước refinement DT-012 sau Phase D | Giữ DT-012 API-only trong FR-08; ghi rõ không kết luận Pass chống XSS UI và không tự mở rộng FR-18 | Review tài liệu; không cần chạy lại test vì expected/spec không đổi | `TEST_CASES.md`, `REVIEW_NOTES.md` |
+| `playwright.config.ts` / trace trong public HTML report | 33/33 trace ZIP cũ chứa request password field và Authorization header runtime | AI giữ trace failure theo mặc định nhưng chưa xét report sẽ được commit public | Tắt trace cho suite API-only, rerun để thay report và quét lại artifact; `test-results/` tiếp tục ignored | Lint/type-check pass; 45 lượt giữ 12/33/0; report cuối 0 ZIP trace và 0 giá trị runtime password/email/JWT | `evidence/phase-d-run.md` |
 
 ## 3. Phân loại thất bại
 
 | ID | Kết quả | Phân loại | Căn cứ | Hành động tiếp theo | Bug report |
 | --- | --- | --- | --- | --- | --- |
-| `BVA-001`, `DT-004`–`DT-009` | failed | Chờ phân loại chính thức ở Giai đoạn E | Backend lưu nguyên `total_amount` client thay vì `12000000` | Giữ assertion; xác minh đa trình duyệt/API run trước khi gom root cause | N/A |
-| `DT-001` | failed | Chờ phân loại chính thức ở Giai đoạn E | Giỏ còn 1 item sau checkout | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
-| `DT-010` | failed | Chờ phân loại chính thức ở Giai đoạn E | Checkout địa chỉ rỗng trả `ok=true` | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
-| `DT-011` | failed | Chờ phân loại chính thức ở Giai đoạn E | Địa chỉ mặc định đã set nhưng order lưu `null` | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
-| `DT-014` | failed | Chờ phân loại chính thức ở Giai đoạn E | Giỏ rỗng vẫn checkout thành công | Giữ assertion; chạy lại ở Giai đoạn D | N/A |
+| `BVA-001`, `DT-004`–`DT-009` | failed trên 3/3 project | SUT defect | Pre-cart tổng `12000000`; order lưu nguyên input client (`-1`, `1`, `0`, `-50000`, `99999999`, `null`, `"NaN"`) | Đề xuất tạo một GitHub Issue cho root cause chung | `bugs/BUG-FR08-001-client-total-trusted.md` |
+| `DT-001` (`DT-015` gộp) | failed trên 3/3 project | SUT defect | Cart count trước checkout `1`, sau checkout vẫn `1` | Đề xuất GitHub Issue | `bugs/BUG-FR08-002-cart-not-cleared.md` |
+| `DT-010` | failed trên 3/3 project | SUT defect | User không có default address; checkout trả `200` và order count tăng `1` | Đề xuất GitHub Issue | `bugs/BUG-FR08-003-empty-address-accepted.md` |
+| `DT-011` | failed trên 3/3 project | SUT defect | Profile setup `200`, nhưng order lưu `shipping_address=null` | Đề xuất GitHub Issue | `bugs/BUG-FR08-004-default-address-not-used.md` |
+| `DT-014` | failed trên 3/3 project | SUT defect | Precondition cart count `0`; checkout trả `200` và order count tăng `1` | Đề xuất GitHub Issue | `bugs/BUG-FR08-005-empty-cart-checkout.md` |
 | Tất cả 15 case — rerun `05/08/2026 21:09` | failed trước assertion nghiệp vụ | environment issue | `ECONNREFUSED ::1:3000`; probe `localhost` và `127.0.0.1` đều `NO_RESPONSE` | Khởi động backend rồi chạy lại cùng lệnh; không đổi test | N/A |
 | Tất cả 15 case — rerun `05/08/2026 21:14` | 4 passed, 11 failed | Khớp baseline nghiệp vụ; không phát hiện test defect mới | Ba service trả `200`; các failure vẫn phản ánh SUT không đáp ứng expected đã duyệt | Giữ fixture/spec; dừng tại checkpoint C | N/A |
-| 45 lượt Phase D — `06/08/2026 10:23` | 12 passed, 33 failed, 0 skipped | Khớp cùng pattern Phase C trên cả ba project; chờ phân loại chính thức ở Phase E | Mỗi project 4 pass/11 fail; không có browser/environment failure trong run cuối | Giữ assertion; chưa tạo bug report ở Phase D | N/A |
+| 45 lượt Phase D — `06/08/2026 10:23` | 12 passed, 33 failed, 0 skipped | Khớp cùng pattern Phase C; là đầu vào đã được phân loại thành 5 SUT root cause ở Phase E | Mỗi project 4 pass/11 fail; không có browser/environment failure trong run | Giữ assertion; dùng bug report Phase E | `bugs/BUG-FR08-001` đến `BUG-FR08-005` |
+| Chromium bundled trước Phase D | launch failed | environment issue — đã xử lý | Thiếu executable revision `1234`; Firefox/Edge không bị ảnh hưởng | `npx playwright install chromium`, launch lại thành công | `evidence/phase-d-run.md` |
+| HTML metadata lần chạy Phase D đầu | `Run by`/timestamp không hiện rõ | test defect — đã sửa | Config metadata có dữ liệu nhưng HTML UI không render trường tùy chỉnh ở trạng thái thông thường | Thêm HTML title runtime, chạy lại và mở kiểm chứng | `evidence/phase-d-run.md` |
 
 ## 4. Ca chưa tự động hóa
 
@@ -91,7 +95,20 @@
 
 ## 6. Gap analysis
 
-Chưa thực hiện; thuộc Giai đoạn E sau khi các checkpoint A–D được duyệt tuần tự.
+| Yêu cầu | Kết quả kiểm chứng | Khoảng trống | Mức ảnh hưởng | Hành động đề xuất |
+| --- | --- | --- | --- | --- |
+| Truy vết HW02 | 18 file vật lý; 15 điểm độc lập tự động hóa; 3 case trùng gộp có case đại diện | Không mất điểm độc lập | Low | Giữ mapping trong `TEST_CASES.md` và fixture tags |
+| Tối thiểu 12 case cho FR-08 | 15 case độc lập được collect và chạy | Không | Low | Không bổ sung case ngoài HW02 |
+| Data-driven | Input/expected của 15 case nằm trong fixture JSON; runtime validation kiểm tra ID/source/count | Không | Low | Giữ fixture/spec hiện tại |
+| Ít nhất 3 nhóm assertion | Network/response, Count/aggregate, State/attribute đã chạy | Không | Low | Dẫn evidence Phase C/D |
+| Chromium/Firefox/Edge + HTML report | 45 lượt cuối; mỗi project 4 pass/11 fail/0 skip; report có Run by/timestamp và đã loại trace chứa credential runtime | Không trong phạm vi FR-08 | Low | Commit report public-safe cùng repository công khai |
+| Tiêu chí toàn bài 3 feature / 9 feature–browser | FR-08 cung cấp 3 lượt feature–browser | Chưa đủ artifact để kết luận toàn bài | High | Tổng hợp thêm hai feature khác trước khi nộp |
+| DT-012 chống XSS UI | Checkout API lưu/trả payload như string; phạm vi API-only đã duyệt | Không có bằng chứng render UI và không tuyên bố Pass UI | Medium | Giữ giới hạn rõ trong review/summary; không mở rộng FR-08 |
+| Test data cleanup | Automation dùng user tạm; API công khai không có cleanup phù hợp | Nhiều user/order test tồn tại sau run | Medium | Dùng database/môi trường disposable hoặc reset được người quản trị phê duyệt cho lần chạy sau |
+| Repository nộp bài | HTML report hiện ở `reports/FR-08-checkout/playwright-report/` và không còn bị ignore | Chưa có bằng chứng commit/push/public URL trong Phase E | High | Stage, commit, push và kiểm tra link public trước khi nộp |
+| Secret hygiene toàn repository | Audit FR-08 đã redacted và report cuối không có credential/token runtime | HW02 gốc và một số tài liệu tính năng khác vẫn chứa mật khẩu test seed dạng rõ; Phase E không sửa nguồn người dùng | High | Redact hoặc rotate test credentials trước khi public toàn repository; quét lại sau khi xử lý |
+| Bug tracking | 5 bug report root-cause có evidence | Chưa tạo GitHub Issue | Medium | Chỉ tạo issue sau khi người dùng quyết định; không tuyên bố đã tạo |
+| Video demo và AI Critique | Chưa có bằng chứng trong artifact | Hai phần cá nhân chưa hoàn tất | High | Sinh viên tự quay video và tự viết AI Critique |
 
 ## Checkpoint A
 
@@ -119,9 +136,22 @@ Chưa thực hiện; thuộc Giai đoạn E sau khi các checkpoint A–D đư�
 - Chromium bundled ban đầu thiếu executable; đã cài revision đúng và launch lại thành công. Firefox và Edge cũng launch thật thành công.
 - Collection: 45 lượt, đúng 15 case × 3 project, không skip.
 - Lần chạy cuối: exit `1` — `12 passed`, `33 failed`, `0 skipped`; mỗi project `4/11/0`, khớp Phase C.
-- HTML report: `reports/FR-08-checkout/playwright-report/index.html`; đã mở bằng Chromium và xác nhận trực tiếp `Run by: 23127464`, `Runtime timestamp: 2026-08-06T03:23:07.283Z`.
+- HTML report Phase D ban đầu đã được mở và xác nhận; artifact public-safe cuối tại cùng đường dẫn có `Run by: 23127464`, `Runtime timestamp: 2026-08-06T03:55:40.572Z`.
 - Test-harness defect đã sửa: config chưa nằm trong lint/type-check; custom metadata không hiển thị rõ trong report lần đầu.
-- Expected/assertion không đổi; DT-012 vẫn API-only; chưa tạo bug report hoặc thực hiện gap analysis Phase E.
+- Tại thời điểm checkpoint D, expected/assertion không đổi, DT-012 vẫn API-only và chưa tạo bug report; phân loại/gap analysis đã được thực hiện sau khi Phase D được duyệt.
 - Điểm chưa chắc chắn: spec là API-only nên project được lặp độc lập và browser binaries được launch probe riêng, nhưng các assertion không thao tác DOM/rendering.
-- Đề xuất: `Có thể chuyển Phase E sau khi người dùng duyệt checkpoint D`.
-- Trạng thái: `Chờ duyệt checkpoint D`.
+- Bằng chứng duyệt: prompt `approved, continue phase E` ngày `06/08/2026`.
+- Trạng thái: `Đã duyệt checkpoint D`.
+
+## Checkpoint E
+
+- 11 failure độc lập được phân loại `SUT defect` và gộp thành 5 root cause; không tạo 11 bug report trùng nguyên nhân.
+- 5 bug report có evidence đã tạo trong `reports/FR-08-checkout/bugs/`; tất cả ở trạng thái `Chưa tạo — đề xuất` đối với GitHub Issue.
+- Environment issue Chromium và test defect HTML metadata đã được ghi riêng, không tính vào SUT defect.
+- README summary đã tạo tại `reports/FR-08-checkout/README_SUMMARY.md` bằng số liệu runner thật.
+- Phase E rerun artifact-safe: lint/type-check exit `0`; 45 lượt exit `1`, 12 passed/33 failed/0 skipped; report cuối 0 trace ZIP và không chứa giá trị credential/token runtime.
+- Không đổi fixture/spec/assertion/expected.
+- Điểm chưa chắc chắn: chưa biết build/commit SUT; chưa có public GitHub URL; chưa đủ artifact để kết luận tiêu chí toàn bài 3 feature/9 lượt; credential test seed vẫn xuất hiện trong nguồn HW02/tài liệu ngoài artifact FR-08 đã làm sạch; video và AI Critique thuộc phần sinh viên tự làm.
+- Bằng chứng duyệt: prompt `approved, complete FR-08 after Phase E` ngày `06/08/2026 11:12`.
+- Trạng thái gap analysis: `Đã duyệt`.
+- Trạng thái FR-08: `Hoàn tất quy trình automation A→E`.

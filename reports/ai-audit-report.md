@@ -14,7 +14,7 @@ Dùng skill ai-first-playwright-testing để xử lý tính năng FR-08 (Checko
 Thông tin trước:
 - Mã sinh viên: 23127464
 - SUT Frontend/API: http://localhost:3000
-- Tài khoản test: test@eshop.com / Test1234! (role user), admin@eshop.com / Admin123! (role admin)
+- Tài khoản test: test@eshop.com / [REDACTED] (role user), admin@eshop.com / [REDACTED] (role admin)
 - Tài liệu được phép đọc: README setup/run/seed nằm trong `src/eshop-sut/README.md` 
 - Thư mục output: theo quy ước mặc định của skill (data/, tests/, reports/)
 
@@ -70,7 +70,7 @@ Dùng skill ai-first-playwright-testing để xử lý tính năng FR-08 (Checko
 Thông tin trước:
 - Mã sinh viên: 23127464
 - SUT Frontend/API: http://localhost:3000
-- Tài khoản test: test@eshop.com / Test1234! (role user), admin@eshop.com / Admin123! (role admin)
+- Tài khoản test: test@eshop.com / [REDACTED] (role user), admin@eshop.com / [REDACTED] (role admin)
 - Tài liệu được phép đọc: README setup/run/seed nằm trong `src/eshop-sut/README.md` 
 - Thư mục output: theo quy ước mặc định của skill (data/, tests/, reports/)
 
@@ -573,6 +573,134 @@ Hãy chỉnh nhẹ REVIEW_NOTES.md của FR-08 để thống nhất cách ghi DT
 
 ```text
 Đã chỉnh duy nhất nội dung tài liệu REVIEW_NOTES.md liên quan DT-012: bảng đối chiếu ghi checkout API lưu/trả payload XSS nguyên dạng string và trạng thái Khớp (API-only); tổng hợp cập nhật thành 4 Khớp, 11 Lệch, 0 Không xác định trong phạm vi đã duyệt; phần render UI được ghi rõ ngoài phạm vi FR-08 và không tuyên bố Pass về chống XSS UI; bỏ hướng mở rộng sang FR-18. Không sửa spec, fixture, assertion, expected hoặc kết quả Phase D; không chạy lại test vì thay đổi chỉ là tài liệu.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T10:48:40+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue phase E
+```
+
+**AI Action:**
+
+```text
+Đã ghi nhận checkpoint D được duyệt. Sẽ thực hiện riêng Phase E cho FR-08 theo hướng hộp đen: đọc các template Phase E và artifact/evidence A–D đã duyệt; phân loại từng failure thành test defect, environment issue hoặc SUT defect; nhóm các SUT defect theo root cause trước khi tạo bug report; hoàn thiện gap analysis, danh sách case gộp/chưa tự động hóa và README summary bằng số liệu đo thật. Chỉ đề xuất GitHub Issue, không tạo issue; không sửa expected/assertion hoặc đọc source triển khai SUT. Sẽ cập nhật REVIEW_NOTES.md và audit, tạo bug reports/readme summary cần thiết, rồi dừng tại checkpoint E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T10:59:02+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue phase E
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Phase E và dừng checkpoint E. Phân loại 11 failed case là SUT defect sau khi loại trừ test defect/environment issue bằng evidence A/C/D và rerun; nhóm thành 5 root cause và tạo 5 bug report đề xuất, không tạo GitHub Issue. Tạo README_SUMMARY.md, hoàn thiện gap analysis và cập nhật REVIEW_NOTES.md/TEST_CASES.md để DT-012 nhất quán API-only, không kết luận Pass XSS UI hoặc mở rộng FR-18. Review submission-readiness phát hiện report cũ có 33/33 trace ZIP chứa request password field và Authorization header runtime; đã redacted hai test password khỏi audit cũ, đổi trace=off cho suite API-only, lint/type-check exit 0 và rerun 45 lượt exit 1 với 12 passed/33 failed/0 skipped. Report public-safe cuối tại reports/FR-08-checkout/playwright-report/index.html có Run by 23127464, timestamp 2026-08-06T03:55:40.572Z, 0 ZIP trace và 0 match runtime password/email/JWT; không đổi fixture/spec/assertion/expected. Rerun tạo thêm 39 user runtime và 39 order test trong môi trường cô lập đã được chấp nhận. Điểm còn mở: build/commit SUT không xác định, chưa có public GitHub URL, chưa đủ artifact để kết luận tiêu chí toàn bài 3 feature/9 lượt; nguồn HW02/tài liệu ngoài report vẫn có test credential seed dạng rõ cần redact hoặc rotate trước khi public; video demo và AI Critique phải do sinh viên tự làm.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T11:12:25+07:00`
+
+**User Prompt:**
+
+```text
+approved, complete FR-08 after Phase E
+```
+
+**AI Action:**
+
+```text
+Đã ghi nhận người dùng duyệt checkpoint E và yêu cầu kết thúc FR-08. Sẽ cập nhật REVIEW_NOTES.md và README_SUMMARY.md để đánh dấu checkpoint E/gap analysis đã duyệt và quy trình automation FR-08 A→E hoàn tất tại 06/08/2026 11:12. Không chạy lại test, không sửa fixture/spec/assertion/expected, không tạo GitHub Issue và không chuyển sang tính năng khác. Các gap nộp bài ngoài quy trình FR-08 vẫn được giữ nguyên để người dùng xử lý.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T11:13:02+07:00`
+
+**User Prompt:**
+
+```text
+approved, complete FR-08 after Phase E
+```
+
+**AI Action:**
+
+```text
+Đã cập nhật REVIEW_NOTES.md: checkpoint E và gap analysis chuyển sang Đã duyệt, ghi bằng chứng prompt và đánh dấu FR-08 Hoàn tất quy trình automation A→E. Đã cập nhật README_SUMMARY.md với trạng thái hoàn tất và tách rõ các công việc nộp bài còn lại. Không chạy lại test, không đổi artifact nghiệp vụ, không tạo GitHub Issue và không chuyển sang feature khác.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T11:28:29+07:00`
+
+**User Prompt:**
+
+```text
+FR-08 automation hiện chủ yếu kiểm thử checkout API bằng Playwright request context. Dù suite được chạy trên Chromium, Firefox và Edge projects, các assertion không tương tác DOM/rendering của web frontend. Đây là giới hạn do Checkout UI không có trường địa chỉ và test case FR-08 đã được chốt API-only cho shipping_address. Vì vậy kết quả đa trình duyệt chứng minh runner/report/project coverage, nhưng không chứng minh khác biệt rendering của checkout UI.
+
+sau khi hoàn thành phase E của cả quy trình, đây là điểm miss của AI đối với thực tế trình bày. Sau quá trình kiểm tra một phần lỗi ở người tạo test để chuyển đổi sang automation là do các kịch bản test chỉ tập trung ở API chứ chưa nêu rõ thao tác trên UI dẫn đến automation chỉ thực hiện API-only.
+
+Trình bày gap này vào folder ai-gap-analysis
+```
+
+**AI Action:**
+
+```text
+Sẽ rà soát tài liệu gap analysis hiện có của FR-08 và bổ sung một mục hậu Phase E về giới hạn coverage. Nội dung sẽ phân biệt rõ: (1) nguồn test design ban đầu tập trung API, không mô tả thao tác/điểm quan sát UI; và (2) điểm AI bỏ sót khi chưa cảnh báo đủ sớm rằng chạy request-context suite trên ba Playwright project chỉ chứng minh runner/report/project coverage, không chứng minh DOM/rendering cross-browser. Sẽ giữ nguyên phạm vi DT-012 API-only đã duyệt, không thay đổi test/expected hoặc mở lại Phase A–E, đồng thời nêu tác động, bằng chứng và hướng khắc phục nếu muốn có UI cross-browser coverage thật.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T11:30:57+07:00`
+
+**User Prompt:**
+
+```text
+FR-08 automation hiện chủ yếu kiểm thử checkout API bằng Playwright request context. Dù suite được chạy trên Chromium, Firefox và Edge projects, các assertion không tương tác DOM/rendering của web frontend. Đây là giới hạn do Checkout UI không có trường địa chỉ và test case FR-08 đã được chốt API-only cho shipping_address. Vì vậy kết quả đa trình duyệt chứng minh runner/report/project coverage, nhưng không chứng minh khác biệt rendering của checkout UI.
+
+sau khi hoàn thành phase E của cả quy trình, đây là điểm miss của AI đối với thực tế trình bày. Sau quá trình kiểm tra một phần lỗi ở người tạo test để chuyển đổi sang automation là do các kịch bản test chỉ tập trung ở API chứ chưa nêu rõ thao tác trên UI dẫn đến automation chỉ thực hiện API-only.
+
+Trình bày gap này vào folder ai-gap-analysis
+```
+
+**AI Action:**
+
+```text
+Đã tạo ai-gap-analysis/FR-08-api-only-multibrowser-gap.md. Tài liệu phân loại đây là test-design/coverage gap kết hợp AI review/reporting miss: test case đầu vào tập trung API và thiếu thao tác/điểm quan sát UI, còn AI chưa cảnh báo đủ sớm rằng ba request-context project chỉ chứng minh multi-project API execution và report coverage, không chứng minh cross-browser DOM/rendering. Đã nêu bằng chứng từ spec, Playwright config và artifact Phase D/E; tác động đến cách kết luận; wording báo cáo đúng/sai; cùng điều kiện cần bổ sung nếu muốn tạo suite UI thật. Giữ nguyên DT-012 API-only, kết quả 12 passed/33 failed/0 skipped và trạng thái hoàn tất A→E; không sửa test, expected hoặc SUT và không chạy lại test vì đây là thay đổi tài liệu.
 ```
 
 ---

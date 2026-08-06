@@ -29,7 +29,7 @@
 | `TC-FR08-DT-009` | Tổng sai kiểu | Order `33` lưu string `NaN` | Lệch | `evidence/phase-a-api-results.md` | Dùng input `NaN`; backend phải bỏ qua và tự tính |
 | `TC-FR08-DT-010` | Địa chỉ rỗng | Order `34` lưu chuỗi rỗng | Lệch | `evidence/phase-a-api-results.md` | Đã duyệt: reject nếu không có địa chỉ mặc định |
 | `TC-FR08-DT-011` | Thiếu địa chỉ | Order `35` lưu `null` dù hồ sơ có mặc định | Lệch | `evidence/phase-a-api-results.md` | Đã duyệt: dùng địa chỉ mặc định nếu có |
-| `TC-FR08-DT-012` | XSS trong địa chỉ phải hiển thị an toàn | API lưu payload; FR-08 UI không có trường/điểm hiển thị địa chỉ để kiểm chứng render | Không xác định | `evidence/phase-a-api-results.md`, `evidence/phase-a-ui-results.md` | Tự động hóa API trong FR-08; chuyển kiểm tra render sang FR-18 |
+| `TC-FR08-DT-012` | XSS trong địa chỉ phải hiển thị an toàn | API lưu/trả payload như string; FR-08 không kiểm chứng render UI | Khớp (API-only) | `evidence/phase-a-api-results.md`, `evidence/phase-c-run.md`, `evidence/phase-d-run.md` | Chỉ tự động hóa API trong FR-08; không kết luận Pass về chống XSS UI |
 | `TC-FR08-DT-013` | SQL payload phải là plain text | Payload lưu nguyên dạng; API orders vẫn hoạt động | Khớp | `evidence/phase-a-api-results.md` | Chốt expected plain text, không thực thi |
 | `TC-FR08-DT-014` | Giỏ trống phải bị từ chối | HTTP `200`, tạo order `25` | Lệch | `evidence/phase-a-api-results.md` | Giữ expected |
 | `TC-FR08-DT-015` | Xóa giỏ sau checkout | Assertion đã nằm trong `DT-001`; giỏ vẫn còn 1 dòng | Trùng lặp | `evidence/phase-a-api-results.md` | Gộp vào `DT-001` |
@@ -57,7 +57,7 @@
 | `TC-FR08-DT-009` | Backend bỏ qua string `NaN` | negative | User hợp lệ cô lập; giỏ có AirPods ×2 | `cases.nanTotal` | Checkout với `total_amount="NaN"`; đọc order | HTTP `200`; order tổng `12000000`; không lưu string `NaN` | HW02 | Input đổi từ `abc` sang `NaN` theo duyệt; chốt expected duy nhất |
 | `TC-FR08-DT-010` | Reject địa chỉ rỗng khi không có mặc định | negative | User hợp lệ cô lập; hồ sơ không có địa chỉ mặc định; giỏ có AirPods ×2 | `cases.emptyAddressNoDefault` | Checkout với `shipping_address=""`; kiểm tra order list | Checkout bị từ chối; không tạo order | HW02 | Nhánh expected đã được người dùng chốt |
 | `TC-FR08-DT-011` | Dùng địa chỉ mặc định khi thiếu trường địa chỉ | edge | User hợp lệ cô lập; hồ sơ có `addresses.default`; giỏ có AirPods ×2 | `cases.missingAddressWithDefault` | Cập nhật hồ sơ; checkout không gửi địa chỉ; đọc order | HTTP `200`; order lưu đúng `addresses.default` | HW02 | Nhánh expected đã được người dùng chốt |
-| `TC-FR08-DT-012` | Lưu payload XSS như dữ liệu, không thực thi tại checkout API | negative | User hợp lệ cô lập; giỏ có AirPods ×2 | `cases.xssAddress` | Checkout qua API với payload; đọc order detail | HTTP `200`; payload được trả/lưu như string dữ liệu; API không lỗi | HW02 | FR-08 chỉ tự động hóa API; không tuyên bố đã kiểm tra render XSS; UI chuyển FR-18 |
+| `TC-FR08-DT-012` | Lưu payload XSS như dữ liệu tại checkout API | negative | User hợp lệ cô lập; giỏ có AirPods ×2 | `cases.xssAddress` | Checkout qua API với payload; đọc order detail | HTTP `200`; payload được trả/lưu như string dữ liệu; API không lỗi | HW02 | FR-08 chỉ tự động hóa API; không tuyên bố đã kiểm tra hoặc Pass chống XSS UI |
 | `TC-FR08-DT-013` | SQL payload được lưu plain text | negative | User hợp lệ cô lập; giỏ có AirPods ×2; môi trường test cục bộ đã được xác nhận | `cases.sqlAddress` | Checkout với SQL payload; đọc order và gọi lại orders API | HTTP `200`; lưu đúng chuỗi plain text; orders API tiếp tục `200` | HW02 | Expected duy nhất đã được người dùng chốt |
 | `TC-FR08-DT-014` | Reject checkout khi giỏ trống | negative | User hợp lệ cô lập; giỏ xác nhận rỗng | `cases.emptyCart` | POST checkout; so sánh order list trước/sau | Checkout bị từ chối; không tạo order | HW02 | Không đổi expected |
 
@@ -84,7 +84,7 @@
 
 | STT | Giả định / điểm chưa rõ | Case ảnh hưởng | Câu hỏi cần xác nhận | Quyết định người duyệt |
 | ---: | --- | --- | --- | --- |
-| 1 | FR-08 UI không có trường/điểm hiển thị `shipping_address`; API persistence không chứng minh an toàn khi render | `DT-012` | Có duyệt tự động hóa API-only trong FR-08 và chuyển assertion render sang FR-18 không? | Đã duyệt — `05/08/2026 12:25` |
+| 1 | FR-08 chỉ kiểm tra checkout API; API persistence không chứng minh an toàn khi render UI | `DT-012` | Có duyệt tự động hóa API-only trong FR-08 và không kết luận Pass về chống XSS UI không? | Đã duyệt — `05/08/2026 12:25`; wording thống nhất lại sau Phase D |
 | 2 | API công khai không có thao tác dọn giỏ; stateful case cần user cô lập sinh runtime | Tất cả case có giỏ | Có duyệt precondition user tạm role `user` thay vì dùng chung `test@eshop.com` không? | Đã duyệt — `05/08/2026 12:25` |
 
 ## Checkpoint B

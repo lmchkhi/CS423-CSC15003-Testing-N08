@@ -75,3 +75,14 @@ Mỗi project lặp lại đúng 11 failure nghiệp vụ đã thấy ở Phase 
 - Phase D đã chạy đủ ba project thật và report cuối đã được mở kiểm chứng.
 - Đề xuất: có thể chuyển Phase E sau khi người dùng duyệt checkpoint D.
 - Chưa thực hiện Phase E trong lượt này.
+
+## Rerun artifact-safe tại Phase E — `06/08/2026 10:55`
+
+- Review trước khi public repository phát hiện 33/33 trace ZIP của report cũ chứa request password field và Authorization header runtime.
+- Test-artifact fix: đổi `trace` thành `off` cho suite FR-08 API-only; `test-results/` tiếp tục bị ignore.
+- Lint exit `0`; type-check exit `0`.
+- Rerun `npm run test:fr08 -- --workers=1` exit `1`: 12 passed, 33 failed, 0 skipped; mỗi project vẫn 4/11/0.
+- Report cuối được thay mới tại cùng đường dẫn với timestamp `2026-08-06T03:55:40.572Z`; đã mở bằng Chromium và thấy Run by/timestamp/tổng kết.
+- Quét report cuối: `0` ZIP trace; `0` giá trị khớp pattern runtime password, email tạm hoặc JWT. Tên field/source snippet không được coi là credential thực.
+- Lần rerun tạo thêm 39 user runtime role `user` và 39 order test trong môi trường cô lập đã được chấp nhận.
+- Số liệu nghiệp vụ và expected không đổi; report cuối này thay thế artifact report Phase D cũ để dùng trong repository public.
