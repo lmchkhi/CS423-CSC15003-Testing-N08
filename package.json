@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint tests/**/*.ts",
+    "lint": "eslint tests/**/*.ts playwright.config.ts",
     "typecheck": "tsc --noEmit",
     "test:fr08": "playwright test tests/FR-08-checkout.spec.ts"
   },

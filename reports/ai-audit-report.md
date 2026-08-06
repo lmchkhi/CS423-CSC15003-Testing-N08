@@ -425,3 +425,154 @@ Tiếp tục trong phạm vi refinement Phase C, không chuyển Phase D. Sẽ p
 ```
 
 ---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T10:17:07+07:00`
+
+**User Prompt:**
+
+```text
+confirmed localhost is an isolated non-production test environment; approved, continue phase D
+
+Tiếp tục FR-08 sau khi đã review Phase C.
+
+Bối cảnh hiện tại:
+- Feature: FR-08 Checkout.
+- Mã sinh viên / Run by: 23127464.
+- Đã hoàn tất và commit Phase A→C.
+- Spec chính: tests/FR-08-checkout.spec.ts
+- Fixture: data/FR-08-checkout.json
+- Kết quả Phase C gần nhất:
+  - lint pass
+  - type-check pass
+  - 15 tests collected
+  - 4 passed, 11 failed, 0 skipped
+- Các expected đã duyệt không được thay đổi để làm test pass.
+- DT-012 đã duyệt API-only trong FR-08.
+- Các case stateful đã duyệt dùng user tạm role `user` để cô lập giỏ.
+- Localhost là môi trường test cô lập, không phải production; chấp nhận side effect tạo user/order test khi chạy automation nhiều lần.
+
+Yêu cầu Phase D:
+1. Ghi audit theo skill trước khi thực hiện.
+2. Không đọc source triển khai SUT; chỉ dùng bề mặt hộp đen, spec/fixture/test artifact đã duyệt.
+3. Cấu hình Playwright để chạy FR-08 trên 3 browser/project:
+   - Chromium
+   - Firefox
+   - Microsoft Edge nếu khả dụng; nếu Edge không khả dụng thì ghi rõ lý do và dùng browser thứ ba hợp lệ theo môi trường.
+4. Bảo đảm HTML report hiển thị rõ:
+   - `Run by: 23127464`
+   - timestamp runtime thật
+5. Chạy FR-08 trên 3 browser/project.
+6. Mở hoặc kiểm chứng artifact HTML report thật sau khi chạy, không chỉ kiểm tra config.
+7. Ghi kết quả thật theo từng browser/project:
+   - số passed
+   - số failed
+   - số skipped
+   - exit code
+   - đường dẫn HTML report
+   - bằng chứng đã thấy `Run by: 23127464`
+8. Không sửa assertion để làm test pass.
+9. Nếu phát hiện lỗi automation hoặc test harness, ví dụ:
+   - browser config sai
+   - thiếu Edge channel
+   - reporter metadata không hiện
+   - race condition
+   - fixture validation sai
+   - test bị skip ngoài ý muốn
+   thì sửa phần automation/test config phù hợp, chạy lại, và ghi rõ vào REVIEW_NOTES.md mục lỗi trong code automation AI sinh.
+10. Nếu failure vẫn khớp expected đã duyệt và quan sát Phase A/C thì giữ nguyên, chưa tạo bug report ở Phase D.
+11. Cập nhật:
+    - reports/FR-08-checkout/REVIEW_NOTES.md
+    - reports/FR-08-checkout/evidence/phase-d-run.md hoặc file evidence tương đương
+    - reports/ai-audit-report.md
+12. Dừng tại checkpoint Phase D, liệt kê:
+    - file đã tạo/sửa
+    - lệnh đã chạy
+    - kết quả thật
+    - report path
+    - các điểm chưa chắc chắn
+    - đề xuất có được chuyển sang Phase E hay không
+
+Không thực hiện Phase E trong lượt này.
+```
+
+**AI Action:**
+
+```text
+Đã ghi nhận localhost là môi trường test cô lập, không phải production, và checkpoint C được duyệt để chuyển Phase D. Sẽ chỉ đọc spec/fixture/test config/report artifact đã duyệt, không đọc source triển khai SUT. Kiểm tra cấu hình và browser khả dụng; cấu hình Chromium, Firefox, Microsoft Edge channel nếu khởi chạy được hoặc ghi environment issue và dùng browser thứ ba hợp lệ. Cấu hình HTML report có Run by: 23127464 và timestamp ISO runtime; chạy thật FR-08 trên ba project, mở/kiểm chứng report đã sinh, ghi số pass/fail/skip và exit code theo project. Chỉ sửa test harness/config khi có bằng chứng test defect, không đổi expected/assertion để làm SUT pass; cập nhật REVIEW_NOTES.md, phase-d-run.md và audit rồi dừng checkpoint D, không thực hiện Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T10:26:19+07:00`
+
+**User Prompt:**
+
+```text
+confirmed localhost is an isolated non-production test environment; approved, continue phase D
+
+Tiếp tục FR-08 sau khi đã review Phase C. Thực hiện Phase D trên Chromium, Firefox và Microsoft Edge nếu khả dụng; report phải hiển thị Run by 23127464 và timestamp runtime; chạy thật, kiểm chứng report, cập nhật evidence/review/audit, không đổi expected, không làm Phase E.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Phase D hộp đen và dừng checkpoint D. Ba endpoint SUT trả 200. Edge channel msedge có sẵn; Firefox và Edge launch được ngay. Chromium Playwright ban đầu thiếu executable, phân loại environment issue, đã cài bằng npx playwright install chromium và launch lại thành công. Tạo playwright.config.ts với ba project chromium/firefox/msedge, trace retain-on-failure và HTML report. Phát hiện hai test-harness defect: config chưa nằm trong lint/type-check và custom metadata không hiển thị trong report lần đầu; đã mở rộng lint/type-check sang config, thêm HTML title runtime chứa Run by/timestamp, chạy lại và kiểm chứng artifact thật bằng Chromium. Lint exit 0, type-check exit 0. Lần chạy cuối 45 lượt exit 1: mỗi project 4 passed, 11 failed, 0 skipped; tổng 12 passed, 33 failed, 0 skipped, khớp Phase C. HTML report tại reports/FR-08-checkout/playwright-report/index.html hiển thị trực tiếp Run by: 23127464 và Runtime timestamp: 2026-08-06T03:23:07.283Z; có 33 trace và 33 error context. Không sửa fixture/spec/assertion/expected; DT-012 giữ API-only; chưa tạo bug report hoặc thực hiện Phase E. Đã cập nhật REVIEW_NOTES.md và tạo evidence/phase-d-run.md. Hai lần suite tạo thêm 78 user runtime và 78 order test trong môi trường cô lập đã được chấp nhận.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T10:44:02+07:00`
+
+**User Prompt:**
+
+```text
+Hãy chỉnh nhẹ REVIEW_NOTES.md của FR-08 để thống nhất cách ghi DT-012 sau Phase D.
+ Trong phần đối chiếu HW02 vs thực tế, cập nhật DT-012 theo quyết định đã duyệt:
+- FR-08 chỉ tự động hóa API-only cho DT-012.
+- API lưu/trả payload XSS như string trong phạm vi checkout API.
+- Không kết luận Pass về chống XSS UI.
+```
+
+**AI Action:**
+
+```text
+Sẽ chỉ chỉnh reports/FR-08-checkout/REVIEW_NOTES.md để thống nhất mọi mô tả liên quan DT-012 với quyết định đã duyệt: đánh giá phần checkout API-only dựa trên việc API lưu/trả payload XSS như string, đồng thời ghi rõ không kết luận Pass về chống XSS UI. Sẽ cập nhật số liệu tổng hợp trạng thái nếu cần để khớp dòng đối chiếu; không sửa spec, fixture, expected, kết quả Phase D hoặc mở rộng sang FR-18.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-06T10:45:03+07:00`
+
+**User Prompt:**
+
+```text
+Hãy chỉnh nhẹ REVIEW_NOTES.md của FR-08 để thống nhất cách ghi DT-012 sau Phase D.
+ Trong phần đối chiếu HW02 vs thực tế, cập nhật DT-012 theo quyết định đã duyệt:
+- FR-08 chỉ tự động hóa API-only cho DT-012.
+- API lưu/trả payload XSS như string trong phạm vi checkout API.
+- Không kết luận Pass về chống XSS UI.
+```
+
+**AI Action:**
+
+```text
+Đã chỉnh duy nhất nội dung tài liệu REVIEW_NOTES.md liên quan DT-012: bảng đối chiếu ghi checkout API lưu/trả payload XSS nguyên dạng string và trạng thái Khớp (API-only); tổng hợp cập nhật thành 4 Khớp, 11 Lệch, 0 Không xác định trong phạm vi đã duyệt; phần render UI được ghi rõ ngoài phạm vi FR-08 và không tuyên bố Pass về chống XSS UI; bỏ hướng mở rộng sang FR-18. Không sửa spec, fixture, assertion, expected hoặc kết quả Phase D; không chạy lại test vì thay đổi chỉ là tài liệu.
+```
+
+---
