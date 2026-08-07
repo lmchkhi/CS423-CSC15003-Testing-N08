@@ -1151,6 +1151,46 @@ Không giữ lại file GAP_ANALYSIS.md, chuyển đổi nó vào folder ai-gap-
 
 **Tool:** `Codex (GPT-5)`
 
+**Date:** `2026-08-07T16:52:47.9732840+07:00`
+
+**User Prompt:**
+
+```text
+Sửa liên kết gap analysis bị hỏng: README_SUMMARY.md và REVIEW_NOTES.md đang trỏ tới ai-gap-analysis/FR-12-access-gap-analysis.md, trong khi file thực tế là ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md.
+```
+
+**AI Action:**
+
+```text
+Sẽ cập nhật toàn bộ reference hiện hành trong reports/fr12-access/README_SUMMARY.md và REVIEW_NOTES.md sang ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md; giữ các audit entry lịch sử nguyên vẹn và kiểm tra không còn đường dẫn cũ ngoài audit.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:53:20.3643793+07:00`
+
+**User Prompt:**
+
+```text
+Sửa liên kết gap analysis bị hỏng sang file thực tế ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md.
+```
+
+**AI Action:**
+
+```text
+Đã sửa một reference trong reports/fr12-access/README_SUMMARY.md và hai reference trong REVIEW_NOTES.md sang ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md. Kiểm tra cuối xác nhận file đích tồn tại, không còn reference hiện hành tới ai-gap-analysis/FR-12-access-gap-analysis.md trong reports/fr12-access và git diff --check không phát hiện lỗi.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
 **Date:** `2026-08-07T16:25:31+07:00`
 
 **User Prompt:**

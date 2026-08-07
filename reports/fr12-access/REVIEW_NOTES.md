@@ -118,7 +118,7 @@ Toàn bộ 40 case đã được tự động hóa và pure API spec đã chạy
 
 ## 6. Gap analysis
 
-Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-analysis/FR-12-access-gap-analysis.md`.
+Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md`.
 
 - 40/40 HW02 case đã tự động hóa; không có case skipped hoặc chưa tự động hóa.
 - Coverage hiện là API-only; chưa kiểm tra route guard/visible access denial của frontend-admin.
@@ -170,7 +170,7 @@ Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-
 - GitHub Issues: chưa tạo; không có URL/ID để tuyên bố đã tạo.
 - Automated coverage: 40/40 case, 0 skipped/chưa tự động hóa.
 - Summary: `reports/fr12-access/README_SUMMARY.md` — 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs, bốn SUT root causes.
-- Gap analysis: `ai-gap-analysis/FR-12-access-gap-analysis.md`.
+- Gap analysis: `ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md`.
 - Rà soát lại Phase E ngày `07/08/2026 16:25`: đã đồng bộ AI gap analysis, bổ sung summary tổng hợp tại `reports/README_SUMMARY.md`, chạy lại lint/type-check đều exit `0`; không chạy lại suite vì không đổi fixture/spec/assertion/expected.
 - Phần sinh viên tự làm: video demo và AI Critique cá nhân chưa được agent thực hiện thay.
 - Trạng thái: `Chờ duyệt cuối FR-12`.

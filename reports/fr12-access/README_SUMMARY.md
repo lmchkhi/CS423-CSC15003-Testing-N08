@@ -48,5 +48,5 @@ FR-12 đóng góp 3 lượt feature–browser. Tiêu chí tổng tối thiểu 9
 
 - Review notes: `reports/fr12-access/REVIEW_NOTES.md`.
 - Bug reports có bằng chứng: `reports/fr12-access/bugs/BUG-FR12-001-product-no-auth-middleware.md` đến `BUG-FR12-004-wrong-status-invalid-token.md`.
-- Gap analysis: `ai-gap-analysis/FR-12-access-gap-analysis.md`.
+- Gap analysis: `ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md`.
 - Audit AI liên tục: `reports/ai-audit-report.md`.
