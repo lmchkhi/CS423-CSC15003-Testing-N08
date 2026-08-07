@@ -119,3 +119,52 @@ export const loginCaseSchema = baseCaseSchema.extend({
 });
 
 export type LoginCase = z.infer<typeof loginCaseSchema>;
+
+/** The five order states sut-requirements.md §3 specifies, and nothing else. */
+export const orderStatusSchema = z.enum([
+  'pending',
+  'confirmed',
+  'shipping',
+  'delivered',
+  'canceled',
+]);
+
+/**
+ * FR-10 — order state machine.
+ *
+ * `setupPath` walks a freshly created order to the state the case starts from,
+ * using the admin API. That is setup only: the transition under test is always
+ * driven through the UI.
+ *
+ * Recon showed the admin app exposes each legal transition as its own button
+ * rather than a status dropdown, so the set of buttons a row offers *is* the
+ * set of transitions the system permits from that state. `expectedControls`
+ * therefore encodes the oracle's outgoing edges for the starting state, and
+ * `controls-exactly` proves both directions at once: every legal transition is
+ * offered, and no illegal one is.
+ */
+export const orderStateCaseSchema = baseCaseSchema.extend({
+  setupPath: z.array(orderStatusSchema),
+  actor: z.enum(['admin', 'user', 'guest']),
+  /** Visible label of the control the case clicks, or asserts is not offered. */
+  control: z.string().nullable(),
+  /** Exact set of controls the row must offer. Used by `controls-exactly`. */
+  expectedControls: z.array(z.string()).nullable(),
+  /** Status the privilege probe attempts to force. Used by the FR-12 case. */
+  targetStatus: orderStatusSchema.nullable(),
+  assertion: z.enum([
+    'transition-succeeds',
+    'controls-exactly',
+    'control-not-offered',
+    'status-labels-in-domain',
+    'privileged-transition-refused',
+    'history-requires-login',
+    'orders-are-owner-scoped',
+  ]),
+  expected: z.object({
+    /** Vietnamese label the order must show once the case's action is done. */
+    statusLabel: z.string().nullable(),
+  }),
+});
+
+export type OrderStateCase = z.infer<typeof orderStateCaseSchema>;
