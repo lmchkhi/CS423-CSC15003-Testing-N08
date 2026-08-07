@@ -268,14 +268,85 @@ sửa cho tới khi hết đỏ, kết quả sẽ là một suite chạy đượ
 
 ---
 
+## Entry #4
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 8:44 AM 07/08/2026 |
+| **Artifact type** | FR-10 stage 7 (Verify & repair) — sửa lỗi chỉ xảy ra trên WebKit trong `automation/fixtures/auth.fixture.ts` |
+
+**Full prompt:**
+
+```
+execute the session 2 in superpowers plan
+```
+
+(Task 10 của kế hoạch: chạy ma trận 3 trình duyệt và sửa lỗi đặc thù từng
+engine. WebKit đỏ 4 case trong khi Chromium và Firefox chỉ đỏ 3.)
+
+### (2) AI Output
+
+```
+Chẩn đoán bằng probe so sánh chromium vs webkit (script tạm, đã xoá):
+
+  [chromium net] 200 GET http://localhost:3000/api/orders/my-orders
+  [chromium net] 200 GET http://localhost:3000/api/users/me
+  [chromium] token now: eyJhbGciOiJI
+  [chromium] rows for #82: 1
+  [webkit]  (không có request nào tới :3000)
+  [webkit] token now: null
+  [webkit] rows for #83: 0
+
+Trên WebKit, token ghi vào localStorage vẫn còn sau `reload()` nhưng biến mất
+sau lần điều hướng cross-document kế tiếp, nên app khởi động ở trạng thái chưa
+đăng nhập và không gọi API nào.
+
+Sửa: thay "ghi một lần rồi reload" bằng `page.addInitScript`, chạy trước script
+của trang trên *mọi* document.
+
+Sau khi sửa, WebKit: 11 passed / 3 failed — trùng khớp Chromium và Firefox.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là sửa đúng nguyên nhân, không phải sửa cho hết đỏ. Bằng chứng phân biệt hai
+khả năng rất rõ: nếu là lỗi thật của SUT thì trang phải gọi API rồi bị từ chối;
+thực tế WebKit **không phát request nào**, nghĩa là app chưa bao giờ thấy token —
+lỗi nằm ở cách script dựng phiên đăng nhập, không phải ở SUT.
+
+Cách sửa cũng không làm yếu phép kiểm chứng: `addInitScript` chỉ thay đổi cách
+đưa token vào trình duyệt, mọi assertion giữ nguyên. Bằng chứng cho điều đó là
+sau khi sửa, WebKit đỏ đúng ba case y hệt hai engine kia — nếu bản sửa nới lỏng
+điều gì thì số case đỏ đã giảm xuống dưới ba.
+
+Cần ghi nhận rằng cách seed token cũ (`goto` → `evaluate` → `reload`) là do bản
+nháp trong kế hoạch đề xuất và nó chạy đúng trên Chromium/Firefox. Đây là loại
+lỗi mà chạy một trình duyệt sẽ không bao giờ phát hiện — lý do §6 bắt buộc chạy
+đủ ba engine.
+
+### (5) Student Fix
+
+Viết lại `seedToken` trong `auth.fixture.ts` dùng `page.addInitScript`, bỏ bước
+`reload()`. Ghi chú lý do ngay tại chỗ trong file để lần sau không ai "đơn giản
+hoá" nó về `evaluate` + `reload`.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 2 | 66.7% |
+| `VALID` | 3 | 75.0% |
 | `INVALID` | 0 | 0.0% |
-| `INCOMPLETE` | 1 | 33.3% |
-| **Tổng số entry đã audit** | **3** | **100%** |
+| `INCOMPLETE` | 1 | 25.0% |
+| **Tổng số entry đã audit** | **4** | **100%** |
 
 ## 5. Kết luận
 
