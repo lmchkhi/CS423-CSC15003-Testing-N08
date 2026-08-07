@@ -1,0 +1,19 @@
+[
+    {
+        "testID": "U1",
+        "email": "test@eshop.com",
+        "password": "Test1234!",
+        "name": "Test User",
+        "new_name": "New username",
+        "address": "227 Nguyễn Văn Cừ Quận 5 TPHCM",
+        "valid_phone_number": [
+            "0912345678",
+            "09123456789"
+        ],
+        "invalid_phone_number": [
+            "091234567",
+            "091234567891",
+            "1234567892"
+        ]
+    }
+]
