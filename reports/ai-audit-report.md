@@ -704,3 +704,285 @@ Trình bày gap này vào folder ai-gap-analysis
 ```
 
 ---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T08:25:19.4037088+07:00`
+
+**User Prompt:**
+
+```text
+Dùng skill ai-first-playwright-testing để xử lý tính năng FR-12 (Access Control) của EShop.
+
+Thông tin:
+- Mã sinh viên: 23127464
+- SUT API: http://localhost:3000
+- Tài khoản: test@eshop.com / [REDACTED] (role user), admin@eshop.com / [REDACTED] (role admin)
+- Thư mục output riêng cho FR-12: data/fr12-access.json, tests/fr12-access.spec.ts, reports/fr12-access/
+
+Test case HW02 của FR-12: 40 file TC-FR12-DT-001.md đến TC-FR12-DT-040.md
+```
+
+**AI Action:**
+
+```text
+Đã định vị và đọc đầy đủ skill cục bộ ai-first-playwright-testing/SKILL.md. Đã ghi nhận feature FR-12 Access Control, mã sinh viên 23127464, SUT API http://localhost:3000, hai vai trò user/admin và các đường dẫn output riêng; không ghi mật khẩu vào audit, fixture, log hoặc report. Theo checkpoint đầu vào bắt buộc của skill, chưa đọc test case HW02, chưa đọc hay tương tác với SUT và chưa tạo fixture/spec. Đang chờ người dùng cung cấp đường dẫn thư mục chứa 40 file TC-FR12-DT-001.md đến TC-FR12-DT-040.md; sau khi nhận đường dẫn sẽ chỉ thực hiện Giai đoạn A, lập bảng đối chiếu và dừng chờ duyệt.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T08:28:17.2591697+07:00`
+
+**User Prompt:**
+
+```text
+Bắt đầu Giai đoạn A cho FR-12. Đọc toàn bộ 40 test case, tương tác trực tiếp với SUT thật để xác minh lại, và lập bảng đối chiếu theo assets/templates/review-notes.md.
+
+Các điểm cần xử lý cụ thể:
+1. DT-002 (invalid token → expected 401, actual 403): xác minh lại với SUT thật. Đối chiếu với cách FR-08 DT-003 đã chấp nhận cả 401/403 cho invalid token — quyết định có nới expected của DT-002 thành "401 hoặc 403" để nhất quán tiêu chuẩn giữa các feature hay giữ nguyên FAILED. Đề xuất và hỏi tôi xác nhận.
+2. DT-013: test data ghi order ID = 1, nhưng bước 3 lại thao tác trên order ID = 2. Xác minh cả 2 trường hợp với SUT thật, báo cáo kết quả, và hỏi tôi ID nào là đúng ý định ban đầu trước khi đưa vào bảng cuối.
+3. Xác nhận: 40 case này có case invalid-token nào khác ngoài DT-002 không (rà lại toàn bộ, đừng chỉ dựa trên nhận định của tôi).
+4. Xác nhận 2 nhóm root cause tôi đã nêu bằng cách quan sát thực tế: (a) endpoint admin-only (trừ /api/products) chỉ check token hợp lệ, không check role — 13 case; (b) /api/products (POST/PUT/DELETE) không có middleware xác thực nào — 3 case. So sánh hành vi thực tế với /api/categories (cùng dạng CRUD) để xác nhận đây đúng là 2 lỗi khác nhau, không phải cùng 1 lỗi.
+
+Trình bày bảng đối chiếu đầy đủ, không tự sửa expected khi chưa có xác nhận của tôi. Dừng chờ duyệt.
+```
+
+**AI Action:**
+
+```text
+Đã ghi nhận yêu cầu bắt đầu Giai đoạn A và bốn điểm xác minh bắt buộc, gồm đối chiếu invalid token DT-002 với FR-08, kiểm tra cả order ID 1 và 2 cho DT-013, rà toàn bộ 40 case để tìm mọi invalid-token case, và kiểm chứng/phân biệt hai nhóm root cause bằng quan sát hộp đen có so sánh /api/products với /api/categories. Chưa đọc test case hoặc tương tác SUT vì người dùng chưa cung cấp đường dẫn thư mục HW02 theo checkpoint đầu vào bắt buộc của skill. Đang dừng để yêu cầu đường dẫn rõ ràng; sau khi nhận sẽ thực hiện Giai đoạn A, không tự sửa expected và dừng chờ duyệt.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T08:30:26.4402311+07:00`
+
+**User Prompt:**
+
+```text
+truy cập vào folder test/test-cases/FR-12-access/domain-testing, tại đó là danh sách các test case đã được tạo từ HW02
+```
+
+**AI Action:**
+
+```text
+Đã nhận đường dẫn HW02 do người dùng chỉ định: test/test-cases/FR-12-access/domain-testing. Sẽ bắt đầu Giai đoạn A: xác nhận đường dẫn thực tế và đủ 40 file TC-FR12-DT-001.md đến TC-FR12-DT-040.md, đọc toàn bộ case cùng template review-notes, rà invalid-token case và mâu thuẫn DT-013, rồi tương tác hộp đen với SUT thật tại http://localhost:3000 để đối chiếu từng case và kiểm chứng hai nhóm root cause được nêu. Không đọc source triển khai, không tự sửa expected; sẽ tạo/cập nhật reports/fr12-access/REVIEW_NOTES.md và evidence thực tế rồi dừng chờ duyệt.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T08:41:38.6241267+07:00`
+
+**User Prompt:**
+
+```text
+truy cập vào folder test/test-cases/FR-12-access/domain-testing, tại đó là danh sách các test case đã được tạo từ HW02
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Giai đoạn A cho FR-12 và dừng checkpoint. Đường dẫn người dùng nêu dùng test/ nhưng đường dẫn thực tế là tests/test-cases/FR-12-access/domain-testing/, có đủ 40/40 file liên tục. Đã đọc toàn bộ case, template review-notes, README/API specification công khai và artifact FR-08 liên quan; không đọc source triển khai. Đã chạy harness HTTP hộp đen thật trên SUT, login user/admin đều 200, exit code harness 0; dùng resource tạm cho mutation nguy hiểm và không ghi password/JWT vào artifact. Kết quả giữ nguyên expected: 22 Khớp, 17 Lệch, 1 Không xác định (DT-013). DT-002 thực tế 403 so với expected 401 và là invalid-token case cụ thể duy nhất. DT-013: ID 1 trả 400 vì DT-012 đã đổi order sang confirmed, ID 2 ở pending trả 200; chờ người dùng chọn ID/ý định. Xác nhận 13 case valid-user bypass chỉ đúng khi tính cả 3 product case; loại products còn 10. Ba product mutation không-token đều 200, trong khi categories không-token đều 401 nhưng user-token đều 200, chứng minh hai mẫu enforcement bề mặt khác nhau. Đã tạo reports/fr12-access/REVIEW_NOTES.md đủ 40 dòng và evidence/phase-a-api-results.md đủ 40 dòng. Đã cleanup user/product/category/coupon tạm; hai order ID 1 và 2 được tạo để thỏa precondition và hiện confirmed, không thể xóa/đưa về pending qua API công khai. Chưa tạo data/fr12-access.json hoặc tests/fr12-access.spec.ts và chưa chuyển Giai đoạn B.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T08:56:45.3867471+07:00`
+
+**User Prompt:**
+
+```text
+Với DT-002, giữ nguyên expected 401 và nếu actual khác với expect, đánh là fail
+với DT-013, giữ nguyên là 1 nhưng khuyến khích thực thi theo khuynh hướng reset backend và chạy lại flow tạo ra order từ đó thuận tiện chỉnh sửa vì nếu các test case trước đã thực thi ảnh hưởng đến order 1
+```
+
+**AI Action:**
+
+```text
+Ghi nhận quyết định DT-002 giữ expected 401; actual 403 phải được đánh Fail, không nới sang 401/403. Ghi nhận DT-013 giữ order ID 1; precondition thực thi được chốt theo hướng reset backend rồi chạy lại flow tạo order ID 1 trước khi kiểm tra để tránh state do DT-012/case trước làm nhiễm. Sẽ cập nhật REVIEW_NOTES.md và evidence Phase A với các quyết định này. Không tự reset backend trong lượt hiện tại vì đây là thao tác xóa/khởi tạo lại dữ liệu diện rộng và chưa có lệnh reset cụ thể được cấp phép; không thay bằng kết quả giả và không chuyển Giai đoạn B khi checkpoint A chưa được duyệt rõ ràng.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:07:57.9159088+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue phase B
+```
+
+**AI Action:**
+
+```text
+Ghi nhận checkpoint A của FR-12 đã được duyệt và chuyển sang Giai đoạn B. Sẽ đọc đầy đủ assets/templates/test-cases.md, dùng nguyên 40 case HW02 làm nền, giữ ID/nguồn và expected đã duyệt; DT-002 giữ expected 401 và actual khác 401 là Fail; DT-013 giữ order ID 1 với precondition cô lập bằng reset/tạo lại order từ state sạch. Sẽ kiểm tra trùng lặp, lập bảng test case cuối tại reports/fr12-access/TEST_CASES.md, cập nhật REVIEW_NOTES.md/audit và dừng checkpoint B. Chưa tạo data/fr12-access.json hoặc tests/fr12-access.spec.ts và chưa chạy Playwright.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:11:15.5651778+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue phase B
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Giai đoạn B và dừng checkpoint. Đã đọc đầy đủ template test-cases.md, tạo reports/fr12-access/TEST_CASES.md với 40 dòng đối chiếu ban đầu và 40 dòng bộ test cuối, 40 ID duy nhất, 40 case nguồn HW02, 0 bổ sung, 0 trùng lặp. Giữ expected DT-002 là 401 và đánh Fail khi actual khác; DT-013 giữ order ID 1 với precondition state sạch. Đề xuất resource tạm runtime cho các thao tác xóa/sửa nguy hiểm, cleanup best-effort khi negative case thực tế mutate, và cô lập DT-011–013; ba điểm này chờ người dùng duyệt. Đã cập nhật REVIEW_NOTES.md để đánh dấu checkpoint A Đã duyệt và checkpoint B Chờ duyệt. Kiểm tra không có password/JWT trong artifact; data/fr12-access.json và tests/fr12-access.spec.ts chưa tồn tại, chưa chạy Playwright và chưa chuyển Giai đoạn C.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:13:22.3716335+07:00`
+
+**User Prompt:**
+
+```text
+duyệt chiến lược resource tạm để giữ độc lập và bảo vệ seed không
+duyệt cleanup best-effort trong teardown nhưng vẫn giữ assertion expected nguyên bản
+ duyệt reset/tạo lại order 1 cho từng case để tránh phụ thuộc thứ tự
+```
+
+**AI Action:**
+
+```text
+Ghi nhận người dùng duyệt cả ba quyết định mở của Giai đoạn B: dùng resource tạm runtime để giữ độc lập/bảo vệ seed; cleanup best-effort trong teardown nhưng giữ nguyên assertion expected; reset/tạo lại order ID 1 cho từng case để tránh phụ thuộc thứ tự. Sẽ cập nhật TEST_CASES.md và REVIEW_NOTES.md để đánh dấu các quyết định và checkpoint B Đã duyệt. Chưa bắt đầu Giai đoạn C hoặc tạo fixture/spec vì người dùng chưa yêu cầu tiếp tục Phase C; cơ chế reset backend callable từ automation vẫn chưa được cung cấp và sẽ được ghi là điều kiện triển khai.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:21:42.0017510+07:00`
+
+**User Prompt:**
+
+```text
+trước khi bắt đầu test, tại workspace, chạy các lệnh sau để khởi động phù hợp
+- backend: cd src/eshop-sut/backend; node database.js; node server.js
+- frontend-web: cd src/eshop-sut/frontend-web; npm run dev
+- frontend-admin: cd src/eshop-sut/frontend-admin; npm run dev
+```
+
+**AI Action:**
+
+```text
+Ghi nhận quy trình chuẩn bị môi trường trước suite: trong src/eshop-sut/backend chạy node database.js rồi node server.js; trong frontend-web và frontend-admin chạy npm run dev. Sẽ cập nhật TEST_CASES.md/REVIEW_NOTES.md để lưu quy trình này. Chưa thực thi lệnh hoặc bắt đầu Phase C trong lượt hiện tại vì người dùng chưa yêu cầu tiếp tục Phase C; khi thực thi sẽ chạy các server dài hạn ở chế độ nền và kiểm tra endpoint/port thật. node database.js được ghi nhận là bước chuẩn bị trước suite theo đúng lời người dùng, chưa suy diễn thành quyền chạy reset giữa từng test case.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:24:02.3986091+07:00`
+
+**User Prompt:**
+
+```text
+khuyến khích chạy lại trước từng DT
+```
+
+**AI Action:**
+
+```text
+Ghi nhận người dùng cho phép và khuyến nghị chạy lại node database.js trước từng case DT-011, DT-012 và DT-013 để tái tạo state/order ID 1 độc lập, tránh phụ thuộc thứ tự. Sẽ cập nhật TEST_CASES.md và REVIEW_NOTES.md để đóng điều kiện reset giữa case. Chưa khởi động tiến trình, tạo data/fr12-access.json, viết tests/fr12-access.spec.ts hoặc bắt đầu Phase C vì chưa có lệnh tiếp tục Phase C rõ ràng.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:34:20.3115814+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+
+Sang Giai đoạn C cho FR-12. Sinh:
+
+- data/fr12-access.json: fixture cho toàn bộ 40 case đã duyệt, theo cấu trúc
+  PlaywrightCase trong references/conventions.md, gắn tags phân biệt 2 nhóm
+  root cause chính.
+
+- tests/fr12-access.spec.ts: dùng ưu tiên locator getByRole → getByTestId →
+  getByLabel → getByText. Dùng ít nhất 3 nhóm assertion:
+    • State/attribute (status code qua response.status())
+    • DOM/visible text (thông báo lỗi qua toContainText hoặc toHaveText)
+    • Network/response (response body qua page.waitForResponse)
+  Không hardcode input/expected trong spec.
+
+Giữ liên kết truy vết ID HW02 (DT-001…DT-040) trong tên test/annotation.
+
+Chạy lint, type-check, test. Ghi đúng lệnh, exit code, kết quả thật.
+Trình bày code, fixture, điểm chưa chắc chắn. Dừng chờ duyệt.
+```
+
+**AI Action:**
+
+```text
+Ghi nhận checkpoint B đã được duyệt và chuyển Giai đoạn C. Sẽ đọc đầy đủ references/conventions.md và hạ tầng test hiện có; tạo data/fr12-access.json đủ 40 PlaywrightCase có tags cho hai nhóm root cause; tạo tests/fr12-access.spec.ts data-driven, không hardcode input/expected, giữ ID HW02 trong test title/annotation. Spec sẽ dùng locator theo ưu tiên được yêu cầu và thực thi ba nhóm assertion: response.status(), DOM visible text, page.waitForResponse/body. Sẽ chạy quy trình khởi động backend/frontend đã được cung cấp, bao gồm reset database trước DT-011/012/013 theo duyệt nếu khả thi và kiểm tra thật; chạy lint, type-check, test, ghi đúng lệnh/exit code/kết quả, cập nhật evidence/review/audit rồi dừng checkpoint C. Không đọc source triển khai SUT và không sửa expected để làm test pass.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T14:51:06.8523038+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+
+Sang Giai đoạn C cho FR-12. Sinh data/fr12-access.json cho 40 case theo PlaywrightCase và hai nhóm root cause; tests/fr12-access.spec.ts data-driven dùng locator ưu tiên, ba nhóm assertion status/DOM/network, không hardcode input/expected, giữ truy vết HW02; chạy lint, type-check, test và dừng chờ duyệt.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Giai đoạn C và dừng checkpoint. Tạo data/fr12-access.json gồm 40 case/40 ID duy nhất, 0 skip, 13 tag valid-user-role-bypass và 3 tag unauthenticated-product-mutation; tạo tests/fr12-access.spec.ts data-driven 529 dòng, credentials chỉ nhận qua environment, runtime validation bắt buộc, truy vết ID trong title/annotation. Spec dùng getByRole rồi getByTestId, page.waitForResponse và soft assertions thực thi status, method/URL/body và DOM visible text; không dùng CSS/XPath/waitForTimeout. Thêm npm script test:fr12 với Chromium/list reporter/output riêng. node database.js exit 0 và được kiểm chứng reset order khi backend đang chạy; backend :3000, frontend-web :5173, frontend-admin :5174 đều trả 200. Lint exit 0, type-check exit 0. Phát hiện và sửa ba test-harness defect: serial fail-fast (lần đầu 1 pass/1 fail/38 did not run), output kế thừa FR-08, DOM mismatch timeout làm lần hai exit 124 sau 35 case. Rerun cuối exit 1, đủ 40 case trong 46.6 giây: 23 passed, 17 failed, 0 skipped; danh sách fail khớp Phase A và expected không đổi. Artifact test-results/fr12-phase-c có 17 screenshot, 17 video, 17 error-context; scan text và artifact nguồn có 0 match password/JWT. Cleanup giữ user seed ID 1-2, không còn product/category runtime; order ID 1 confirmed còn lại sau DT-013. Tạo reports/fr12-access/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md checkpoint C Chờ duyệt. Chưa thực hiện Phase D.
+```
+
+---
