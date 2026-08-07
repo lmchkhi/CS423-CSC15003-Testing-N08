@@ -1006,3 +1006,183 @@ Cập nhật FR-12 từ hai root-cause tag thành bốn nhóm theo bug reports: 
 ```
 
 ---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T15:50:46.6261727+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue phase D
+```
+
+**AI Action:**
+
+```text
+Ghi nhận checkpoint C đã được duyệt và chuyển Phase D cho FR-12. Sẽ cấu hình/chạy thật ba project Chromium, Firefox và Microsoft Edge, giữ Run by: 23127464 cùng timestamp ISO runtime trong HTML report, giữ artifact failure và kiểm chứng trực tiếp metadata report. Theo quyết định vừa duyệt về reset DT-011/012/013 trên database dùng chung, sẽ chạy toàn bộ project với workers=1 để không có browser reset hoặc mutate order ID 1 đồng thời. Sẽ kiểm tra browser/môi trường, chạy lint, type-check và suite thật, ghi command/exit code/pass-fail-skip theo project vào evidence/review/audit, rồi dừng checkpoint D; không sửa expected để làm SUT pass và không thực hiện Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T15:49:55.9839244+07:00`
+
+**User Prompt:**
+
+```text
+Trước Phase D, thêm workers: 1 vào playwright.config.ts vì prepareOrderOne()/resetBackend() của DT-011/012/013 xóa database dùng chung; fullyParallel: false không ngăn Chromium/Firefox/msedge chạy song song trên các worker khác nhau.
+```
+
+**AI Action:**
+
+```text
+Đã thêm workers: 1 ở cấp defineConfig trong playwright.config.ts, buộc toàn bộ project Chromium/Firefox/msedge được lập lịch tuần tự và loại bỏ race condition reset database giữa DT-011/012/013. Giữ fullyParallel: false. Đã cập nhật phase-c-run.md và REVIEW_NOTES.md để ghi nhận nguyên nhân, phạm vi ảnh hưởng và quyết định cô lập xuyên project trước Phase D. npm run lint exit 0; npm run typecheck exit 0. Chưa chạy hoặc chuyển sang Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:08:40.1933630+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue phase D
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Phase D cho FR-12 và dừng checkpoint. Tạo playwright.fr12.config.ts với ba project chromium/firefox/msedge, workers=1, output test-results/fr12-phase-d và HTML report reports/fr12-access/playwright-report; thêm script test:fr12:phase-d, đưa config mới vào lint/type-check và mở rộng ESLint pattern. Backend API :3000, frontend :5173/:5174 đều hoạt động; cả ba browser launch headless thành công. Lint cuối exit 0 không warning; type-check exit 0. Lần multi-browser đầu exit 1 với 69 passed/51 failed/0 skipped nhưng scan phát hiện 51 trace API lưu login payload, Authorization và JWT; phân loại test-harness security defect, đổi trace: off và rerun thay thế artifact cũ. Lần cuối exit 1 trong 58.1 giây: mỗi project 23 passed/17 failed/0 skipped, tổng 69/51/0; không có failure mới, DT-011 và DT-013 pass trên cả ba project. Đã mở HTML report cuối và kiểm chứng DOM/title hiển thị Run by: 23127464, Runtime timestamp: 2026-08-07T08:59:03.516Z, All 120/Passed 69/Failed 51/Skipped 0. Artifact cuối có 51 error-context, 0 trace/screenshot/video; scan embedded report có 0 JWT shape và 0 serialized password value. Tạo evidence/phase-d-run.md và cập nhật REVIEW_NOTES.md. Chưa thực hiện Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:18:26.2496836+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+```
+
+**AI Action:**
+
+```text
+Ghi nhận checkpoint D của FR-12 đã được duyệt và chuyển Phase E. Sẽ hoàn thiện REVIEW_NOTES theo kết quả thật, phân loại 17 failed case thành test defect/environment issue/SUT defect, đối chiếu và chuẩn hóa bug report theo bốn root cause đã duyệt, bảo đảm mỗi report liệt kê đủ TC-ID và bằng chứng đa trình duyệt. Sẽ tạo/cập nhật summary theo template bằng số liệu report thật 40 designed/automated, 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs và bốn SUT root causes; liệt kê case chưa tự động hóa/gap, nhắc video demo và AI Critique là phần sinh viên tự làm, đề xuất commit nhỏ. Không tạo hoặc tuyên bố đã tạo GitHub Issue nếu không có URL/ID thật; không đọc source triển khai SUT và không chạy lại test trừ khi phát hiện test defect cần xác minh.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:23:32.4432812+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thành Phase E cho FR-12 và dừng chờ duyệt cuối. Cập nhật REVIEW_NOTES.md: header hiện hành, bảng phân loại bốn SUT root causes, loại trừ test defect/environment issue, 40/40 automated, gap và checkpoint E. Tạo bốn bug report public-safe trong reports/fr12-access/bugs/: BUG-FR12-001 gồm 6 Product TC-ID Critical/P0; BUG-FR12-002 gồm 7 Admin API TC-ID Critical/P0; BUG-FR12-003 gồm 3 Category TC-ID Critical/P0; BUG-FR12-004 gồm DT-002 Minor/P2. Mỗi report dùng browser/version thật, timestamp report, evidence Phase A/D và HTML report; không chứa credential/token; GitHub Issue đều Chưa tạo — đề xuất, URL N/A. Tạo README_SUMMARY.md bằng số liệu thật 40 designed/automated, 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs, bốn SUT root causes; không suy diễn tiêu chí 9 lượt toàn bài từ riêng FR-12. Tạo GAP_ANALYSIS.md với coverage API-only, token partitions còn thiếu, database/order concurrency, trace-security tradeoff, black-box limitation và cảnh báo credential plaintext trong bug report legacy ngoài output automation. Không có case chưa tự động hóa. Nhắc video demo và AI Critique cá nhân là phần sinh viên tự thực hiện. Không chạy lại suite vì Phase E chỉ cập nhật tài liệu từ artifact Phase D đã duyệt; lint/type-check gần nhất đều exit 0.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:37:32.2054699+07:00`
+
+**User Prompt:**
+
+```text
+Không giữ lại file GAP_ANALYSIS.md, chuyển đổi nó vào folder ai-gap-analysis có sẵn trong hệ thống.
+```
+
+**AI Action:**
+
+```text
+Sẽ chuyển nội dung Phase E gap analysis của FR-12 vào file chuẩn có sẵn ai-gap-analysis/FR-12-access-gap-analysis.md, thay thế nội dung cũ bằng bản đã cập nhật từ kết quả Playwright 120 lượt và bốn root causes; xóa reports/fr12-access/GAP_ANALYSIS.md để không giữ bản trùng. Sẽ cập nhật README_SUMMARY.md và REVIEW_NOTES.md chỉ còn tham chiếu đường dẫn ai-gap-analysis, kiểm tra không còn reference tới file cũ và giữ audit entry lịch sử nguyên vẹn.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:39:37.2692302+07:00`
+
+**User Prompt:**
+
+```text
+Không giữ lại file GAP_ANALYSIS.md, chuyển đổi nó vào folder ai-gap-analysis có sẵn trong hệ thống.
+```
+
+**AI Action:**
+
+```text
+Đã thay nội dung ai-gap-analysis/FR-12-access-gap-analysis.md bằng bản Phase E hiện hành: coverage 40/40 và 120 lượt, bảy gap thực tế, bảng phân loại bốn SUT root causes và các bài học human review về taxonomy, browser harness, workers=1, trace security và giới hạn black-box. Đã xóa reports/fr12-access/GAP_ANALYSIS.md, cập nhật README_SUMMARY.md và REVIEW_NOTES.md chỉ còn trỏ tới ai-gap-analysis/FR-12-access-gap-analysis.md. Kiểm tra cuối xác nhận file nguồn cũ không còn, file đích tồn tại và không còn reference hiện hành tới đường dẫn GAP_ANALYSIS.md cũ.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:25:31+07:00`
+
+**User Prompt:**
+
+```text
+thực thi lại phase E, kiểm tra các tài liệu còn thiếu và tiến hành bổ sung đầy đủ
+```
+
+**AI Action:**
+
+```text
+Sẽ thực hiện lại kiểm tra Phase E trên toàn bộ artifact automation hiện có trong repository, ưu tiên các feature đã có kết quả Phase D/E. Sẽ đối chiếu REVIEW_NOTES, phân loại failure, bug report theo root cause, danh sách case chưa tự động hóa, README summary, gap analysis, audit và báo cáo HTML với template/quy ước dự án; xác định tài liệu thiếu hoặc nội dung chưa nhất quán rồi bổ sung bằng số liệu và bằng chứng thật. Không đọc source triển khai SUT, không hạ expected hoặc sửa assertion để làm test pass, không tạo GitHub Issue và chỉ chạy lại lint/type-check/test khi việc kiểm tra phát hiện test defect hoặc cần xác minh artifact.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T16:31:44+07:00`
+
+**User Prompt:**
+
+```text
+thực thi lại phase E, kiểm tra các tài liệu còn thiếu và tiến hành bổ sung đầy đủ
+```
+
+**AI Action:**
+
+```text
+Đã rà soát lại Phase E trên artifact automation hiện có của FR-08 và FR-12. Phát hiện REVIEW_NOTES FR-08 tham chiếu README_SUMMARY.md nhưng file không tồn tại; đã bổ sung feature summary bằng số liệu thật 18 designed/15 automated/45 executed/12 passed/33 failed/0 skipped/3 projects/5 root causes, danh sách ba case gộp và giới hạn DT-012 UI. Đã thay bản AI gap FR-12 cũ bằng phân tích hậu automation gồm serial fail-fast, output isolation, DOM harness giả, trace chứa auth data, cross-project concurrency và giới hạn API-only/multi-project; đồng bộ link trong REVIEW_NOTES và feature summary FR-12. Đã tạo reports/README_SUMMARY.md tổng hợp đúng hai feature hiện có: 58 designed, 55 automated, 165 executed, 81 passed, 84 failed, 0 skipped, 6 feature-browser runs và 9 SUT root causes; ghi rõ chưa đủ tiêu chí toàn bài 3 feature/9 lượt vì chưa có artifact automation cho feature thứ ba. Kiểm tra 12 artifact bắt buộc đều tồn tại; fixture có 15 và 40 ID duy nhất; có 5 và 4 bug report tương ứng. git diff --check sạch; npm run lint exit 0; npm run typecheck exit 0. Không chạy lại test vì không đổi fixture/spec/assertion/expected; không đọc source triển khai SUT và không tạo GitHub Issue. Phase E FR-12 vẫn chờ người dùng duyệt cuối.
+```
+
+---

@@ -5,12 +5,12 @@
 | Mục | Giá trị |
 | --- | --- |
 | Feature | `FR-12` |
-| Spec | `tests/fr12-access.spec.ts` — chưa tạo (trước checkpoint B) |
-| Fixture | `data/fr12-access.json` — chưa tạo (trước checkpoint B) |
-| Người review | Người dùng — checkpoint A đã duyệt |
-| Thời điểm | `2026-08-07T09:03:02.0373462+07:00` |
-| Lệnh đã chạy | PowerShell HTTP client (`Invoke-WebRequest`) chạy ma trận 40 case trên `http://localhost:3000`; credentials/token không ghi vào artifact |
-| Exit code | `0` |
+| Spec | `tests/fr12-access.spec.ts` — pure API, data-driven |
+| Fixture | `data/fr12-access.json` — 40 case, bốn root-cause tags |
+| Người review | Người dùng — checkpoint A–D đã duyệt; checkpoint E chờ duyệt cuối |
+| Thời điểm report cuối | `2026-08-07T08:59:03.516Z` |
+| Lệnh đã chạy | `npm run lint`; `npm run typecheck`; `npm run test:fr12:phase-d` |
+| Exit code | Lint `0`; type-check `0`; multi-browser suite `1` do 51 SUT-failure instances đã biết |
 
 > Đường dẫn người dùng nêu là `test/test-cases/...`; đường dẫn thực tế đã dùng là `tests/test-cases/FR-12-access/domain-testing/`, chứa đủ 40 file liên tục `001`–`040`.
 
@@ -87,28 +87,45 @@
 | `package.json` script FR-12 | Output ban đầu kế thừa `test-results/fr08-phase-d` | Config dùng chung đang phục vụ FR-08 | Thêm output riêng `test-results/fr12-phase-c` | Artifact tách đúng feature | `evidence/phase-c-run.md` |
 | DOM visible-text assertion | Timeout mặc định 5 giây làm run vượt 120 giây | Soft mismatch vẫn dùng web-first retry mặc định | Timeout riêng 500 ms; expected không đổi | 40 case hoàn tất trong 46.6 giây | `evidence/phase-c-run.md` |
 | `tests/fr12-access.spec.ts` browser harness | Dùng browser/DOM giả cho feature pure API | Áp dụng assertion UI vào ngữ cảnh API | Xóa `Page`, harness, locator và DOM; dùng `request.fetch()`, `response.status()` và `response.json()` | Lint 0, type-check 0; chưa chạy test sau refactor | `evidence/phase-c-run.md` |
+| `playwright.fr12.config.ts` trace policy | API trace lưu login payload, Authorization và JWT | Chính sách `retain-on-failure` phù hợp UI nhưng không an toàn với API auth flow | Đổi `trace: off`, chạy lại và thay thế artifact cũ | Report cuối giữ 51 error context; 0 trace/JWT/password value | `evidence/phase-d-run.md` |
+| `playwright.config.ts` worker concurrency | Ba project có thể gọi `resetBackend()` đồng thời trên database chung | `fullyParallel: false` chỉ tuần tự trong file/project, không khóa worker xuyên project | Thêm `workers: 1` ở cấp `defineConfig` | Loại bỏ race condition DT-011/012/013 giữa Chromium/Firefox/msedge | `evidence/phase-c-run.md` |
 
 ## 3. Phân loại thất bại
 
-17 failed case được ánh xạ vào đúng bốn root cause: Product no-auth 6, Admin no-role 7, Category no-role 3 và invalid-token wrong-status 1. `validateFixture()` kiểm tra cả cardinality, danh sách ID cụ thể và cấm root-cause tag trên 23 passed case.
+| Root cause | TC-ID | Test defect đã loại trừ | Environment issue đã loại trừ | Phân loại cuối | Bug report |
+| --- | --- | --- | --- | --- | --- |
+| Product mutation API không enforce auth | `DT-023/024/026/027/029/030` | Fixture khóa mapping/expected; direct API assertions | Admin controls pass, actual lặp 3/3 project | `SUT defect` | `bugs/BUG-FR12-001-product-no-auth-middleware.md` |
+| Admin API không enforce admin role | `DT-003/006/009/012/015/018/021` | Token role/user và expected 403 từ fixture đã duyệt | No-token/admin controls pass, actual lặp 3/3 project | `SUT defect` | `bugs/BUG-FR12-002-admin-api-no-role-check.md` |
+| Category mutation API không enforce admin role | `DT-033/036/039` | Resource tạm và expected được cô lập | No-token controls trả 401, admin controls pass, actual lặp 3/3 project | `SUT defect` | `bugs/BUG-FR12-003-category-no-role-check.md` |
+| Invalid token trả sai status | `DT-002` | Người dùng duyệt giữ expected 401; fixture không cho 401/403 | DT-001/004 controls pass, actual 403 lặp 3/3 project | `SUT defect` | `bugs/BUG-FR12-004-wrong-status-invalid-token.md` |
+
+17 failed case được ánh xạ đúng bốn SUT root cause. Không có failure cuối là test defect hoặc environment issue; các harness defect đã được sửa và rerun trước artifact Phase D cuối.
 
 ## 4. Ca chưa tự động hóa
 
-Toàn bộ 40 case đã được tự động hóa. Lần thực thi 40 case gần nhất thuộc browser harness trước refactor; pure API spec hiện chưa được chạy lại theo phạm vi checkpoint này.
+Toàn bộ 40 case đã được tự động hóa và pure API spec đã chạy trên ba project ở Phase D; 0 skipped/chưa tự động hóa.
 
 ## 5. Coverage assertion và trình duyệt
 
 | Hạng mục | Kết quả thật | Bằng chứng |
 | --- | --- | --- |
 | Nhóm assertion hiện tại | State/status, Network/direct response body, Count/aggregate/object property | `tests/fr12-access.spec.ts`; lint và type-check exit 0 |
-| Chromium | **Lịch sử trước refactor:** 23 passed / 17 failed / 0 skipped; exit 1. Pure API spec chưa chạy lại. | `test-results/fr12-phase-c/`; `evidence/phase-c-run.md` |
-| Firefox | Chưa chạy — Phase D | N/A |
-| Edge | Chưa chạy — Phase D | N/A |
-| Metadata report | Chưa kiểm tra — Phase D | N/A |
+| Chromium | 23 passed / 17 failed / 0 skipped | `evidence/phase-d-run.md`; HTML report |
+| Firefox | 23 passed / 17 failed / 0 skipped | `evidence/phase-d-run.md`; HTML report |
+| Microsoft Edge | 23 passed / 17 failed / 0 skipped | `evidence/phase-d-run.md`; HTML report |
+| Tổng Phase D | 69 passed / 51 failed / 0 skipped; exit 1 | `test-results/fr12-phase-d/`; HTML report |
+| Metadata report | Đã mở và xác nhận `Run by: 23127464`, timestamp `2026-08-07T08:59:03.516Z` | `reports/fr12-access/playwright-report/index.html` |
 
 ## 6. Gap analysis
 
-Chưa thực hiện Giai đoạn E. Gap hiện biết: ID cố định và state dùng chung có thể làm `DT-013` phụ thuộc `DT-012`; rerun sạch đã chứng minh cần fixture runtime cô lập hoặc reset/tạo lại precondition.
+Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-analysis/FR-12-access-gap-analysis.md`.
+
+- 40/40 HW02 case đã tự động hóa; không có case skipped hoặc chưa tự động hóa.
+- Coverage hiện là API-only; chưa kiểm tra route guard/visible access denial của frontend-admin.
+- Invalid-token chỉ có DT-002; chưa có expired/tampered/missing-role token partitions.
+- `workers: 1` vẫn bắt buộc khi ba project dùng chung database và order ID 1.
+- Trace tắt để bảo vệ credential/token, nên artifact điều tra dùng HTML report và error context.
+- Bốn bug report public-safe đã tạo trong `reports/fr12-access/bugs/`; GitHub Issue đều ở trạng thái `Chưa tạo — đề xuất`.
 
 ## Checkpoint A
 
@@ -130,5 +147,30 @@ Chưa thực hiện Giai đoạn E. Gap hiện biết: ID cố định và state
 - Type-check: exit 0.
 - Pure API refactor: đã xóa browser harness, locator và `domText`; giữ nguyên tên test, annotation, tags, traceability và cleanup.
 - Root-cause taxonomy: đã thay hai nhóm cũ bằng bốn nhóm 6/7/3/1; validation khóa mapping 17 failed case và bảo đảm 23 passed case không mang root-cause tag.
+- Cross-project isolation: `playwright.config.ts` đặt `workers: 1`; Phase D phải chạy tuần tự cả ba project vì DT-011/012/013 reset database dùng chung.
 - Chưa chạy lại test theo yêu cầu checkpoint. Kết quả Chromium 23/17 là lịch sử trước refactor, không xác nhận spec hiện tại.
-- Trạng thái: `Chờ duyệt`.
+- Trạng thái: `Đã duyệt` bằng prompt `approved, continue phase D` tại `2026-08-07T15:50:46.6261727+07:00`.
+
+## Checkpoint D
+
+- Config: `playwright.fr12.config.ts` — Chromium, Firefox, Microsoft Edge; `workers: 1`; `trace: off` để không lưu credential/token của API auth flow; report/output riêng FR-12.
+- Lint: exit 0, không warning.
+- Type-check: exit 0.
+- Multi-browser run cuối: exit 1; 120 executed, 69 passed, 51 failed, 0 skipped trong 58.1 giây.
+- Mỗi project: 23 passed / 17 failed / 0 skipped; không có failure mới ngoài 17 case đã biết.
+- Report cuối đã mở kiểm chứng trực tiếp: `Run by: 23127464`, timestamp `2026-08-07T08:59:03.516Z`, tổng 120/69/51/0.
+- Artifact cuối: 51 error context; 0 trace/screenshot/video. Trace API lần đầu chứa dữ liệu xác thực nên đã bị thay thế bằng rerun `trace: off`; scan cuối có 0 JWT và 0 serialized password value.
+- Evidence: `reports/fr12-access/evidence/phase-d-run.md`, `reports/fr12-access/playwright-report/index.html`, `test-results/fr12-phase-d/`.
+- Trạng thái: `Đã duyệt` bằng prompt `approved, continue` tại `2026-08-07T16:18:26.2496836+07:00`.
+
+## Checkpoint E
+
+- Phân loại cuối: 17 failed case = 17 SUT-defect cases thuộc bốn root causes; 0 test-defect failure, 0 environment-issue failure trong artifact cuối.
+- Bug reports: bốn file trong `reports/fr12-access/bugs/`, mỗi file tương ứng một root cause và liệt kê đủ TC-ID; không chứa credential/token.
+- GitHub Issues: chưa tạo; không có URL/ID để tuyên bố đã tạo.
+- Automated coverage: 40/40 case, 0 skipped/chưa tự động hóa.
+- Summary: `reports/fr12-access/README_SUMMARY.md` — 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs, bốn SUT root causes.
+- Gap analysis: `ai-gap-analysis/FR-12-access-gap-analysis.md`.
+- Rà soát lại Phase E ngày `07/08/2026 16:25`: đã đồng bộ AI gap analysis, bổ sung summary tổng hợp tại `reports/README_SUMMARY.md`, chạy lại lint/type-check đều exit `0`; không chạy lại suite vì không đổi fixture/spec/assertion/expected.
+- Phần sinh viên tự làm: video demo và AI Critique cá nhân chưa được agent thực hiện thay.
+- Trạng thái: `Chờ duyệt cuối FR-12`.

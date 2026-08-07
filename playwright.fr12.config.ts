@@ -4,7 +4,7 @@ const runtimeTimestamp = new Date().toISOString();
 
 export default defineConfig({
   testDir: './tests',
-  outputDir: 'test-results/fr08-phase-d',
+  outputDir: 'test-results/fr12-phase-d',
   fullyParallel: false,
   workers: 1,
   forbidOnly: true,
@@ -18,9 +18,9 @@ export default defineConfig({
     [
       'html',
       {
-        outputFolder: 'reports/FR-08-checkout/playwright-report',
+        outputFolder: 'reports/fr12-access/playwright-report',
         open: 'never',
-        title: `FR-08 Checkout | Run by: 23127464 | Runtime timestamp: ${runtimeTimestamp}`,
+        title: `FR-12 Access Control | Run by: 23127464 | Runtime timestamp: ${runtimeTimestamp}`,
       },
     ],
   ],

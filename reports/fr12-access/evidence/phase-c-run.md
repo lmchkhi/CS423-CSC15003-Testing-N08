@@ -76,10 +76,11 @@ Spec hiện không có `Page`, locator, `page.setContent`, `page.evaluate`, `pag
 | Output dùng thư mục FR-08 từ config chung | Phát hiện ở artifact lần đầu | Thêm `--output=test-results/fr12-phase-c` vào script FR-12 | Artifact cuối tách riêng đúng feature. |
 | DOM mismatch chờ mặc định 5 giây làm command timeout | Exit 124 sau 120.2 giây: 35 case đã chạy (20 pass/15 fail), 5 chưa tới lượt | Giảm timeout riêng của `toContainText` xuống 500 ms; không đổi expected/assertion | Rerun đủ 40 trong 46.6 giây. |
 | Browser harness giả cho feature pure API | Browser `fetch` + DOM làm sai ngữ cảnh và tăng độ phức tạp | Xóa harness/locator/Page; chuyển sang `APIRequestContext` và assertion trực tiếp | Lint 0, type-check 0; chưa chạy test theo yêu cầu checkpoint. |
+| Ba browser project có thể reset chung database đồng thời | `fullyParallel: false` không ngăn các project chạy trên worker khác nhau | Thêm `workers: 1` ở cấp `defineConfig` | Chromium/Firefox/msedge sẽ được lập lịch tuần tự, bảo vệ precondition order ID 1 của DT-011/012/013. |
 
 ## Điểm chưa chắc chắn
 
 - Taxonomy fixture đã đồng bộ với bốn root cause được test-run và bug reports ghi nhận; kết quả pure API runtime vẫn cần chạy lại sau refactor.
-- Reset `node database.js` là stateful và làm suite không phù hợp chạy song song; Phase C dùng một worker. Chiến lược đa trình duyệt Phase D phải điều phối reset để tránh ba project tranh chấp database.
+- Reset `node database.js` là stateful; `workers: 1` đã được khóa ở cấp config trước Phase D để ba project không reset database đồng thời. `fullyParallel: false` vẫn được giữ nhưng không phải cơ chế cô lập chính.
 - Pure API spec hiện chưa được chạy lại; kết quả runtime gần nhất chỉ thuộc browser harness cũ và được giữ để truy vết lịch sử.
 
