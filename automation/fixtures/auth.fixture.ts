@@ -14,18 +14,26 @@ import { loginAdmin, type AuthUser } from '../utils/api';
 const SHOP_TOKEN_KEY = 'token';
 const ADMIN_TOKEN_KEY = 'adminToken';
 
+/**
+ * The token is installed with an init script rather than written once and
+ * reloaded. Writing it into a live document is not durable: in WebKit the
+ * value survives a reload but is gone after the next cross-document
+ * navigation, so the app boots signed-out and issues no API call at all. An
+ * init script runs before page scripts on *every* document, so the session
+ * holds across whatever navigation a page object performs, on all three
+ * engines.
+ */
 async function seedToken(
   page: Page,
   origin: string,
   key: string,
   token: string,
 ): Promise<void> {
-  await page.goto(origin);
-  await page.evaluate(
+  await page.addInitScript(
     ([k, t]) => window.localStorage.setItem(k, t),
     [key, token] as const,
   );
-  await page.reload();
+  await page.goto(origin);
 }
 
 export async function seedAdminToken(page: Page, token: string): Promise<void> {
