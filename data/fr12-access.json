@@ -60,8 +60,10 @@
     }
   },
   "rootCauseTags": {
-    "validUserRoleBypass": "root-cause:valid-user-role-bypass",
-    "unauthenticatedProductMutation": "root-cause:unauthenticated-product-mutation"
+    "productNoAuthMiddleware": "root-cause:product-no-auth-middleware",
+    "adminApiNoRoleCheck": "root-cause:admin-api-no-role-check",
+    "categoryNoRoleCheck": "root-cause:category-no-role-check",
+    "wrongStatusInvalidToken": "root-cause:wrong-status-invalid-token"
   },
   "cases": [
     {
@@ -116,7 +118,8 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "invalid-token"
+        "invalid-token",
+        "root-cause:wrong-status-invalid-token"
       ],
       "expectedResponse": {
         "status": 401,
@@ -149,7 +152,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -255,7 +258,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -359,7 +362,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -465,7 +468,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -593,7 +596,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -722,7 +725,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -840,7 +843,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:admin-api-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -919,7 +922,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:unauthenticated-product-mutation"
+        "root-cause:product-no-auth-middleware"
       ],
       "expectedResponse": {
         "status": 401,
@@ -960,7 +963,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:product-no-auth-middleware"
       ],
       "expectedResponse": {
         "status": 403,
@@ -1046,7 +1049,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:unauthenticated-product-mutation"
+        "root-cause:product-no-auth-middleware"
       ],
       "expectedResponse": {
         "status": 401,
@@ -1091,7 +1094,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:product-no-auth-middleware"
       ],
       "expectedResponse": {
         "status": 403,
@@ -1174,7 +1177,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:unauthenticated-product-mutation"
+        "root-cause:product-no-auth-middleware"
       ],
       "expectedResponse": {
         "status": 401,
@@ -1212,7 +1215,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:product-no-auth-middleware"
       ],
       "expectedResponse": {
         "status": 403,
@@ -1324,7 +1327,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:category-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -1443,7 +1446,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:category-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,
@@ -1560,7 +1563,7 @@
       "source": "HW02",
       "tags": [
         "access-control",
-        "root-cause:valid-user-role-bypass"
+        "root-cause:category-no-role-check"
       ],
       "expectedResponse": {
         "status": 403,

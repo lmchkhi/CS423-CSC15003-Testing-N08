@@ -104,8 +104,10 @@ interface Fr12Fixture {
     runtime: RuntimeSetup;
   };
   rootCauseTags: {
-    validUserRoleBypass: string;
-    unauthenticatedProductMutation: string;
+    productNoAuthMiddleware: string;
+    adminApiNoRoleCheck: string;
+    categoryNoRoleCheck: string;
+    wrongStatusInvalidToken: string;
   };
   cases: Array<PlaywrightCase<AccessInput, AccessExpected>>;
 }
@@ -142,8 +144,8 @@ function validateFixture(value: unknown): asserts value is Fr12Fixture {
   if (candidate.feature !== 'FR-12' || typeof candidate.baseURL !== 'string') {
     throw new Error('FR-12 fixture feature/baseURL is invalid');
   }
-  if (!candidate.endpoints || !candidate.setup) {
-    throw new Error('FR-12 fixture endpoints/setup is missing');
+  if (!candidate.endpoints || !candidate.setup || !candidate.rootCauseTags) {
+    throw new Error('FR-12 fixture endpoints/setup/rootCauseTags is missing');
   }
   if (!Array.isArray(candidate.cases) || candidate.cases.length !== 40) {
     throw new Error('FR-12 fixture must contain exactly 40 HW02 cases');
@@ -173,14 +175,57 @@ function validateFixture(value: unknown): asserts value is Fr12Fixture {
     if (testCase.skipReason) throw new Error(`Unexpected skipReason for ${testCase.id}`);
   }
 
-  const roleTagCount = candidate.cases.filter((testCase) =>
-    testCase.tags?.includes(candidate.rootCauseTags!.validUserRoleBypass),
-  ).length;
-  const productTagCount = candidate.cases.filter((testCase) =>
-    testCase.tags?.includes(candidate.rootCauseTags!.unauthenticatedProductMutation),
-  ).length;
-  if (roleTagCount !== 13 || productTagCount !== 3) {
-    throw new Error(`Root-cause tag counts must be 13/3, received ${roleTagCount}/${productTagCount}`);
+  const expectedRootCauseCases = new Map<string, string[]>([
+    [
+      candidate.rootCauseTags.productNoAuthMiddleware,
+      [
+        'TC-FR12-DT-023',
+        'TC-FR12-DT-024',
+        'TC-FR12-DT-026',
+        'TC-FR12-DT-027',
+        'TC-FR12-DT-029',
+        'TC-FR12-DT-030',
+      ],
+    ],
+    [
+      candidate.rootCauseTags.adminApiNoRoleCheck,
+      [
+        'TC-FR12-DT-003',
+        'TC-FR12-DT-006',
+        'TC-FR12-DT-009',
+        'TC-FR12-DT-012',
+        'TC-FR12-DT-015',
+        'TC-FR12-DT-018',
+        'TC-FR12-DT-021',
+      ],
+    ],
+    [
+      candidate.rootCauseTags.categoryNoRoleCheck,
+      ['TC-FR12-DT-033', 'TC-FR12-DT-036', 'TC-FR12-DT-039'],
+    ],
+    [candidate.rootCauseTags.wrongStatusInvalidToken, ['TC-FR12-DT-002']],
+  ]);
+  const expectedFailedIds = new Set([...expectedRootCauseCases.values()].flat());
+
+  for (const [tag, expectedIds] of expectedRootCauseCases) {
+    const actualIds = candidate.cases
+      .filter((testCase) => testCase.tags?.includes(tag))
+      .map((testCase) => testCase.id);
+    if (actualIds.length !== expectedIds.length || actualIds.some((id) => !expectedIds.includes(id))) {
+      throw new Error(
+        `Root-cause mapping for ${tag} must be ${expectedIds.join(', ')}, received ${actualIds.join(', ')}`,
+      );
+    }
+  }
+
+  for (const testCase of candidate.cases) {
+    const rootCauseTags = testCase.tags?.filter((tag) => tag.startsWith('root-cause:')) ?? [];
+    const expectedTagCount = expectedFailedIds.has(testCase.id) ? 1 : 0;
+    if (rootCauseTags.length !== expectedTagCount) {
+      throw new Error(
+        `${testCase.id} must have ${expectedTagCount} root-cause tag(s), received ${rootCauseTags.length}`,
+      );
+    }
   }
 }
 

@@ -71,12 +71,13 @@
 1. `DT-002`: người dùng duyệt **giữ expected 401**; actual 403 hoặc mọi giá trị khác 401 phải được đánh Fail. Không nới expected sang `401/403`.
 2. `DT-013`: người dùng duyệt **giữ order ID 1**. Sau khi người dùng reset backend, rerun đã tạo order 1 từ checkout trên state sạch và xác nhận actual 200 đúng expected. Automation phải tái tạo precondition cô lập tương đương, không dùng state bị DT-012/case trước tác động.
 
-### Phân tích hai nhóm hành vi
+### Phân loại bốn root cause đã đồng bộ
 
-- Có đúng 13 case valid-user bypass nếu **tính cả** 3 product cases: `DT-003/006/009/012/015/018/021/024/027/030/033/036/039`.
-- Nếu diễn đạt “admin-only trừ `/api/products`”, số đúng là 10 case, không phải 13.
-- Có thêm đúng 3 case product không-token: `DT-023/026/029`.
-- So sánh categories xác nhận khác biệt bề mặt: categories không-token bị 401 nhưng user-token được 200; products không-token cũng được 200. Do kiểm thử hộp đen, chỉ kết luận enforcement quan sát được; không khẳng định trực tiếp cấu trúc middleware nội bộ.
+- `root-cause:product-no-auth-middleware` — 6 case: `DT-023/024/026/027/029/030`.
+- `root-cause:admin-api-no-role-check` — 7 case: `DT-003/006/009/012/015/018/021`.
+- `root-cause:category-no-role-check` — 3 case: `DT-033/036/039`, tương ứng `BUG-FR12-003`.
+- `root-cause:wrong-status-invalid-token` — 1 case: `DT-002`, tương ứng `BUG-FR12-004`.
+- Tổng cộng đúng 17 case failed có một root-cause tag; 23 case passed không có root-cause tag. Product user-token được gom cùng no-token vì cả hai partition đều qua được endpoint thiếu xác thực; Category được tách khỏi Admin API theo bug report riêng.
 
 ## 2. Lỗi trong code automation AI sinh
 
@@ -89,7 +90,7 @@
 
 ## 3. Phân loại thất bại
 
-Chưa phân loại bug chính thức trước Giai đoạn E. Phase C tái hiện 17 failed case đúng nhóm Phase A: `DT-002`; 13 case valid-user bypass; 3 case product không-token. Không có failure ngoài danh sách đã duyệt.
+17 failed case được ánh xạ vào đúng bốn root cause: Product no-auth 6, Admin no-role 7, Category no-role 3 và invalid-token wrong-status 1. `validateFixture()` kiểm tra cả cardinality, danh sách ID cụ thể và cấm root-cause tag trên 23 passed case.
 
 ## 4. Ca chưa tự động hóa
 
@@ -128,5 +129,6 @@ Chưa thực hiện Giai đoạn E. Gap hiện biết: ID cố định và state
 - Lint: exit 0.
 - Type-check: exit 0.
 - Pure API refactor: đã xóa browser harness, locator và `domText`; giữ nguyên tên test, annotation, tags, traceability và cleanup.
+- Root-cause taxonomy: đã thay hai nhóm cũ bằng bốn nhóm 6/7/3/1; validation khóa mapping 17 failed case và bảo đảm 23 passed case không mang root-cause tag.
 - Chưa chạy lại test theo yêu cầu checkpoint. Kết quả Chromium 23/17 là lịch sử trước refactor, không xác nhận spec hiện tại.
 - Trạng thái: `Chờ duyệt`.

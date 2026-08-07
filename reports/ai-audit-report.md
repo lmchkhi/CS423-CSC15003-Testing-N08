@@ -986,3 +986,23 @@ Sang Giai đoạn C cho FR-12. Sinh data/fr12-access.json cho 40 case theo Playw
 ```
 
 ---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-07T15:33:18.7325101+07:00`
+
+**User Prompt:**
+
+```text
+Cập nhật FR-12 từ hai root-cause tag thành bốn nhóm theo bug reports: Product no-auth 6 case, Admin API no-role 7 case, Category no-role 3 case và invalid-token wrong-status 1 case. validateFixture() phải kiểm tra đúng 6/7/3/1 và bảo đảm 23 passed case không có root-cause tag. Chạy lint + type-check, dừng chờ duyệt; sau đó đồng bộ nội dung chỉnh sửa vào evidence/review và audit.
+```
+
+**AI Action:**
+
+```text
+Đã thay rootCauseTags trong data/fr12-access.json bằng productNoAuthMiddleware, adminApiNoRoleCheck, categoryNoRoleCheck và wrongStatusInvalidToken; remap chính xác DT-023/024/026/027/029/030, DT-003/006/009/012/015/018/021, DT-033/036/039 và DT-002. Tổng kiểm chứng: 17 failed case có đúng một root-cause tag, 23 passed case không có tag; không còn taxonomy cũ. Đã mở rộng validateFixture() để kiểm tra cardinality, danh sách ID cụ thể và cấm root-cause tag ngoài 17 failed ID. npm run lint exit 0; npm run typecheck exit 0; không chạy test suite. Đã cập nhật reports/fr12-access/evidence/phase-c-run.md và REVIEW_NOTES.md với taxonomy 6/7/3/1, liên kết BUG-FR12-003/004 và giữ kết quả 23/17 dưới nhãn lịch sử trước pure API refactor.
+```
+
+---

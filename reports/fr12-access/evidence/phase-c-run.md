@@ -19,13 +19,16 @@ Credential được truyền bằng bốn biến môi trường `ESHOP_USER_EMAI
 Lệnh kiểm tra JSON runtime trả:
 
 ```json
-{"cases":40,"ids":40,"roleTags":13,"productTags":3,"skips":0}
+{"cases":40,"ids":40,"productNoAuth":6,"adminNoRole":7,"categoryNoRole":3,"invalidTokenStatus":1,"rootCauseTagged":17,"passedWithoutRootCause":23,"skips":0}
 ```
 
 - 40 record theo `PlaywrightCase`.
 - 40 ID duy nhất, liên tục `TC-FR12-DT-001`–`040`.
-- 13 tag `root-cause:valid-user-role-bypass`.
-- 3 tag `root-cause:unauthenticated-product-mutation`.
+- 6 tag `root-cause:product-no-auth-middleware`: `DT-023/024/026/027/029/030`.
+- 7 tag `root-cause:admin-api-no-role-check`: `DT-003/006/009/012/015/018/021`.
+- 3 tag `root-cause:category-no-role-check`: `DT-033/036/039`.
+- 1 tag `root-cause:wrong-status-invalid-token`: `DT-002`.
+- Đúng 17 case failed có một root-cause tag; 23 case passed không có root-cause tag.
 - 0 `skipReason`.
 
 ## Kết quả lịch sử trước refactor
@@ -40,9 +43,10 @@ Lệnh kiểm tra JSON runtime trả:
 
 | Nhóm quan sát | TC-ID | Expected | Actual |
 | --- | --- | --- | --- |
-| Invalid token status/body | `DT-002` | 401 + `Unauthorized` | 403 + `Forbidden` |
-| Valid user vượt role | `DT-003`, `DT-006`, `DT-009`, `DT-012`, `DT-015`, `DT-018`, `DT-021`, `DT-024`, `DT-027`, `DT-030`, `DT-033`, `DT-036`, `DT-039` | 403 + `Forbidden` | 200 + tài nguyên bị đọc/mutate |
-| Product mutation không token | `DT-023`, `DT-026`, `DT-029` | 401 + `Unauthorized` | 200 + product bị tạo/sửa/xóa |
+| Wrong status for invalid token (`BUG-FR12-004`) | `DT-002` | 401 + `Unauthorized` | 403 + `Forbidden` |
+| Admin API không check role | `DT-003`, `DT-006`, `DT-009`, `DT-012`, `DT-015`, `DT-018`, `DT-021` | 403 + `Forbidden` | 200 + tài nguyên bị đọc/mutate |
+| Product API không có auth middleware | `DT-023`, `DT-024`, `DT-026`, `DT-027`, `DT-029`, `DT-030` | 401/403 theo partition | 200 + product bị tạo/sửa/xóa |
+| Category API không check role (`BUG-FR12-003`) | `DT-033`, `DT-036`, `DT-039` | 403 + `Forbidden` | 200 + category bị tạo/sửa/xóa |
 
 Kết quả khớp Phase A. Expected không bị sửa để làm test pass.
 
@@ -75,7 +79,7 @@ Spec hiện không có `Page`, locator, `page.setContent`, `page.evaluate`, `pag
 
 ## Điểm chưa chắc chắn
 
-- Phân loại chính thức 17 failure thành SUT defect và bug grouping chỉ thực hiện ở Phase E; Phase C mới xác nhận chúng tái hiện và khớp quan sát Phase A.
+- Taxonomy fixture đã đồng bộ với bốn root cause được test-run và bug reports ghi nhận; kết quả pure API runtime vẫn cần chạy lại sau refactor.
 - Reset `node database.js` là stateful và làm suite không phù hợp chạy song song; Phase C dùng một worker. Chiến lược đa trình duyệt Phase D phải điều phối reset để tránh ba project tranh chấp database.
 - Pure API spec hiện chưa được chạy lại; kết quả runtime gần nhất chỉ thuộc browser harness cũ và được giữ để truy vết lịch sử.
 
