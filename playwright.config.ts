@@ -5,6 +5,8 @@ const feature = process.env.HW04_FEATURE ?? 'fr03-forgot-password';
 const browser = process.env.HW04_BROWSER ?? 'chromium';
 const runAt = process.env.HW04_RUN_AT ?? new Date().toISOString();
 const reportDir = process.env.HW04_REPORT_DIR ?? `reports/html/${feature}/${browser}`;
+const jsonReport = process.env.HW04_JSON_REPORT ?? `reports/results/${feature}/${browser}/results.json`;
+const testResultsDir = process.env.HW04_TEST_RESULTS_DIR ?? `test-results/${feature}/${browser}`;
 
 export default defineConfig({
   testDir: './tests/automation/specs',
@@ -13,8 +15,10 @@ export default defineConfig({
     timeout: 5_000,
   },
   fullyParallel: false,
+  outputDir: testResultsDir,
   reporter: [
     ['list'],
+    ['json', { outputFile: jsonReport }],
     [
       'html',
       {
@@ -25,7 +29,7 @@ export default defineConfig({
     ],
   ],
   use: {
-    baseURL: process.env.WEB_BASE_URL ?? 'http://127.0.0.1:5173',
+    baseURL: process.env.WEB_BASE_URL ?? 'http://localhost:5173',
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
     video: 'retain-on-failure',

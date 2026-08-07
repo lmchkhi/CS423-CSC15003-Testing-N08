@@ -55,3 +55,25 @@ bây giờ tôi muốn chạy thử với 1 test case của FR-03 đầu tiên �
 ```text
 AI đã thực hiện black-box flow cho TC-FR03-DT-001. Đã cài @playwright/test bằng npm install sau khi xin quyền, tạo playwright.config.ts, data file tests/automation/data/fr03-forgot-password.json và spec tests/automation/specs/fr03-forgot-password.spec.ts. Đã chạy backend và frontend web ngoài sandbox sau khi xin quyền do cần bind localhost. Đã tải Chromium bằng npx playwright install chromium sau khi xin quyền vì browser binary thiếu. Chạy Playwright lần đầu gặp lỗi sandbox khi launch browser, sau đó chạy ngoài sandbox. Spec được sửa để dùng soft assertion cho full flow và fallback locator role textbox dựa trên Playwright error-context runtime. Lần chạy cuối đi hết UI + API: UI thiếu step indicator, UI hiển thị OTP 4 số, API cũng trả resetToken 4 số nên test fail đúng theo SRS. Đã sinh report tại reports/html/fr03-forgot-password/chromium, thêm wrapper hw04-report.html có Run by: 23127475 và verify bằng verify_report_labels.py với kết quả ok=true. Đã dừng backend/frontend sau khi hoàn tất.
 ```
+
+## Entry #3
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 07/08/2026 08:52 GMT+7             |
+| **Artifact type** | FR-03 automation suite and bug reports         |
+
+**Full prompt:**
+
+```text
+bây giờ làm toàn bộ các test cho fr-03 giúp tôi luôn. lưu ý chọn hết những test case phù hợp với fr-03 và ít nhất là 12 test case. tôi đã chạy backend và frontend-web sẵn trong terminal của tôi rồi. nhớ ghi log vào reports/ai-audit-report.md và ngoài report html của playwright cần tạo thêm bug report theo template .github/ISSUE_TEMPLATE/bug-report-template.md để sau này tạo github issue nữa, có thể đặt trong bug-reports/automation
+```
+
+### (2) AI Output
+
+```text
+Tạo suite Playwright data-driven cho FR-03 với 18 test case từ manual cases, chạy full flow trên frontend/backend localhost bằng Chromium, Firefox và WebKit, tạo HTML report, JSON result, report-label manifest, outputDir evidence tách theo browser và 6 bug report automation theo template GitHub. Kết quả mỗi browser: 18 tests, 7 passed, 11 failed.
+```
