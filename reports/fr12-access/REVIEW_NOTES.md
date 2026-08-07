@@ -85,6 +85,7 @@
 | `tests/fr12-access.spec.ts` describe config | Serial mode làm fail-fast sau failure đầu | Nhầm serial state isolation với yêu cầu chạy đủ case | Bỏ `mode: serial`, giữ `--workers=1` | 40/40 case executed | `evidence/phase-c-run.md` |
 | `package.json` script FR-12 | Output ban đầu kế thừa `test-results/fr08-phase-d` | Config dùng chung đang phục vụ FR-08 | Thêm output riêng `test-results/fr12-phase-c` | Artifact tách đúng feature | `evidence/phase-c-run.md` |
 | DOM visible-text assertion | Timeout mặc định 5 giây làm run vượt 120 giây | Soft mismatch vẫn dùng web-first retry mặc định | Timeout riêng 500 ms; expected không đổi | 40 case hoàn tất trong 46.6 giây | `evidence/phase-c-run.md` |
+| `tests/fr12-access.spec.ts` browser harness | Dùng browser/DOM giả cho feature pure API | Áp dụng assertion UI vào ngữ cảnh API | Xóa `Page`, harness, locator và DOM; dùng `request.fetch()`, `response.status()` và `response.json()` | Lint 0, type-check 0; chưa chạy test sau refactor | `evidence/phase-c-run.md` |
 
 ## 3. Phân loại thất bại
 
@@ -92,14 +93,14 @@ Chưa phân loại bug chính thức trước Giai đoạn E. Phase C tái hiệ
 
 ## 4. Ca chưa tự động hóa
 
-Toàn bộ 40 case đã được tự động hóa và thực thi trên Chromium ở Phase C; 0 skipped/chưa tự động hóa.
+Toàn bộ 40 case đã được tự động hóa. Lần thực thi 40 case gần nhất thuộc browser harness trước refactor; pure API spec hiện chưa được chạy lại theo phạm vi checkpoint này.
 
 ## 5. Coverage assertion và trình duyệt
 
 | Hạng mục | Kết quả thật | Bằng chứng |
 | --- | --- | --- |
-| Nhóm assertion đã chạy | State/status, Network/response body, DOM/visible text | `tests/fr12-access.spec.ts`; `evidence/phase-c-run.md` |
-| Chromium | 23 passed / 17 failed / 0 skipped; exit 1 | `test-results/fr12-phase-c/` |
+| Nhóm assertion hiện tại | State/status, Network/direct response body, Count/aggregate/object property | `tests/fr12-access.spec.ts`; lint và type-check exit 0 |
+| Chromium | **Lịch sử trước refactor:** 23 passed / 17 failed / 0 skipped; exit 1. Pure API spec chưa chạy lại. | `test-results/fr12-phase-c/`; `evidence/phase-c-run.md` |
 | Firefox | Chưa chạy — Phase D | N/A |
 | Edge | Chưa chạy — Phase D | N/A |
 | Metadata report | Chưa kiểm tra — Phase D | N/A |
@@ -126,6 +127,6 @@ Chưa thực hiện Giai đoạn E. Gap hiện biết: ID cố định và state
 - Artifact: `data/fr12-access.json`, `tests/fr12-access.spec.ts`, `reports/fr12-access/evidence/phase-c-run.md`.
 - Lint: exit 0.
 - Type-check: exit 0.
-- Chromium test: exit 1; 23 passed, 17 failed, 0 skipped.
-- Test-harness defects cuối: đã sửa và rerun; không phát hiện failure mới ngoài hành vi SUT đã biết.
+- Pure API refactor: đã xóa browser harness, locator và `domText`; giữ nguyên tên test, annotation, tags, traceability và cleanup.
+- Chưa chạy lại test theo yêu cầu checkpoint. Kết quả Chromium 23/17 là lịch sử trước refactor, không xác nhận spec hiện tại.
 - Trạng thái: `Chờ duyệt`.
