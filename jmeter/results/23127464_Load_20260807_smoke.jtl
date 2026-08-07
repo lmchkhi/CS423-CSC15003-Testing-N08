@@ -1,0 +1,4 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1786071660914,27,01 - Login,200,OK,FR-08 Checkout Load Test 1-1,text,true,,635,233,1,1,http://localhost:3000/api/login,23,0,17
+1786071662438,2,02 - Add to Cart,200,OK,FR-08 Checkout Load Test 1-1,text,true,,294,404,1,1,http://localhost:3000/api/cart,2,0,0
+1786071668090,77,03 - Checkout,200,OK,FR-08 Checkout Load Test 1-1,text,true,,312,402,1,1,http://localhost:3000/api/checkout,76,0,3
