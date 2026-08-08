@@ -991,6 +991,26 @@ Sang Giai đoạn C cho FR-12. Sinh data/fr12-access.json cho 40 case theo Playw
 
 **Tool:** `Codex (GPT-5)`
 
+**Date:** `2026-08-08T22:17:03.7233676+07:00`
+
+**User Prompt:**
+
+```text
+Hoàn thiện Phase C của FR-05 sau khi Fix 1 đã được review. Giữ nguyên 12 TC-ID, fixture JSON, DT-002=Iphone, canonical DT-011/DT-012, mapping UI/UI+network và expected; không nới assertion. Hoàn thiện DT-010 bằng route đăng ký trước navigation, xác nhận intercept, pending UI evidence, release an toàn trong finally, waitForResponse không race, post-response UI/list/loading assertions và không waitForTimeout. Thêm testInfo.attach screenshot fullPage có TC-ID/trạng thái cho các điểm quan sát của đủ 12 case, chụp trước assertion có thể fail. Giữ XSS/SQLi dùng UI/DOM làm oracle chính, network chỉ bổ trợ. Chỉ chạy Chromium baseline; cập nhật backlog, quét artifact nhạy cảm, chạy lint/typecheck/Playwright thật và ghi kết quả/thời lượng vào REVIEW_NOTES, phase-c-fix2-run.md và audit. Dừng Checkpoint C, không chuyển Phase D.
+```
+
+**AI Action:**
+
+```text
+Sẽ hoàn thiện đúng Phase C Fix 2 mà không thiết kế lại test hoặc thay expected. Trước tiên review fixture/spec Phase C hiện tại và conventions liên quan; sau đó bổ sung helper screenshot testInfo.attach dùng fullPage và attachment name chứa TC-ID/trạng thái, đặt evidence trước assertions có thể fail cho đủ 12 case. DT-010 sẽ đăng ký route trước navigation, xác nhận request intercepted, giữ response pending, assert UI pending, attach trước release, luôn release bằng finally, tạo waitForResponse trước release, rồi assert product list và loading indicator hidden sau response. XSS listeners sẽ được giữ/đặt trước submit; XSS/SQLi tiếp tục dùng UI/DOM oracle. Sẽ xóa trạng thái provisional/backlog đã hoàn thành, kiểm tra 0 waitForTimeout và coverage evidence đủ 12 ID, chạy lint/typecheck/Chromium đúng command, so sánh 4/8/0 Fix 1, quét artifact tránh dữ liệu nhạy cảm, cập nhật evidence/review/audit bằng kết quả thật và dừng Checkpoint C. Chưa chạy Firefox/Edge, chưa chuyển Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
 **Date:** `2026-08-08T22:07:59+07:00`
 
 **User Prompt:**
@@ -1600,6 +1620,226 @@ Dừng tại Checkpoint C, chưa chuyển sang Phase D.
 
 ```text
 Sẽ thực hiện Fix 1 trên Phase C hiện tại và dừng Checkpoint C. Giữ 12 TC-ID/expected Phase B, bao gồm quyết định đã ghi trong TEST_CASES.md: DT-002 dùng Iphone, DT-011=h1 và DT-012=format giá. Sẽ tạo data/fr05-search.json chứa toàn bộ input/expected thay đổi theo case, thêm TypeScript interfaces và runtime validation trong spec, đăng ký 12 test data-driven, và chuẩn hóa mapping UI primary cho cả 12 case; chỉ DT-001/004/006/007/009/010 có network supporting/diagnostic, không có API-only. Sẽ dùng Page/DOM locators thật, ưu tiên role/text và chỉ dùng CSS cho cấu trúc DOM có lý do; giữ assertion không chấp nhận 500/raw DB/XSS/SQLi và thực thi ít nhất DOM/text, state/attribute, count/aggregate. Sẽ ghi loading synchronization và screenshot attachment là backlog Fix 2, không hoàn thiện trong Fix 1. Sau sửa sẽ chạy lint, typecheck và Chromium baseline thật, cập nhật REVIEW_NOTES/evidence/audit với command/exit code/pass-fail-skip, rồi dừng; chưa chuyển Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T22:26:06.4029890+07:00`
+
+**User Prompt:**
+
+```text
+Hoàn thiện Phase C FR-05: giữ nguyên 12 TC-ID/fixture/mapping/expected, hoàn thiện DT-010 synchronization, thêm testInfo.attach full-page UI evidence cho đủ 12 case, củng cố XSS/SQLi UI oracle, bỏ provisional/backlog, chạy lint/typecheck/Chromium thật, quét artifact và cập nhật REVIEW_NOTES/evidence/audit; dừng Checkpoint C, không chuyển Phase D.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn thiện Phase C Fix 2 và dừng Checkpoint C. Giữ 12 TC-ID/expected/mapping và canonical decisions. Xóa fix2Backlog, đổi metadata DT-010 thành complete-phase-c. Thêm helper full-page screenshot + testInfo.attach với tên TC-ID/trạng thái và output riêng; 14 attachment logic phủ 12/12 case, DT-008/010 có hai state. DT-010 đăng ký route trước navigation, xác nhận intercept, giữ pending, tạo waitForResponse trước release, assert pending UI, release idempotent trong finally, assert list/loading sau response và không dùng waitForTimeout. XSS listeners chạy trước submit, DOM script được inspect không execute; SQLi dùng UI count/names/empty state, network bổ trợ. Lint/typecheck đầu exit 0/0. Chromium lượt đầu exit 1, 4 passed/8 failed/0 skipped, 43.4 giây; phát hiện body attachment không được list reporter lưu thành file. Đã sửa helper dùng testInfo.outputPath và attach path, không đổi business assertion; lint/typecheck lại exit 0/0. Chromium baseline cuối exit 1, 4 passed/8 failed/0 skipped, 40.4 giây, giữ nguyên Fix 1. Output có 28 custom PNG vật lý tương ứng 14 attachment, 8 failure screenshot, 8 video, 8 error-context. Quét 9 text artifact và tên file cho credential/token/secret/session/cookie: 0 match; mở kiểm tra cặp DT-010 xác nhận pending 0 product/no indicator và after-response 5 products. Chưa chạy Firefox/Edge, chưa chuyển Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T22:32:00.0764254+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+```
+
+**AI Action:**
+
+```text
+Ghi nhận Checkpoint C FR-05 đã được duyệt và chuyển đúng sang Phase D. Sẽ giữ nguyên fixture/spec/expected Phase C, kiểm tra conventions và hạ tầng Playwright hiện có, tạo cấu hình/report riêng cho FR-05 với Chromium, Firefox và Microsoft Edge, metadata hiển thị Run by: 23127464 cùng timestamp ISO 8601 tạo tại runtime. Sẽ chạy lint/typecheck và suite đa trình duyệt thật; nếu browser thiếu/không khởi chạy sẽ ghi environment issue, không giả kết quả. Sau run sẽ mở artifact HTML để kiểm chứng trực tiếp metadata/timestamp, kiểm kê trace/screenshot/video theo cấu hình, quét dữ liệu nhạy cảm, cập nhật REVIEW_NOTES/evidence/audit bằng command/exit code/pass-fail-skip theo project, rồi dừng Checkpoint D. Chưa phân loại failure hoặc tạo bug report Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T22:40:21.9329333+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+```
+
+**AI Action:**
+
+```text
+Đã hoàn tất Phase D FR-05 và dừng Checkpoint D. Tạo playwright.fr05.config.ts với Chromium, Firefox, msedge, metadata Run by 23127464/timestamp runtime, HTML report riêng, failure screenshot/video/trace; thêm npm script và lint scope. Lint/typecheck exit 0/0; --list exit 0, đúng 36 lượt. npm run test:fr05:phase-d exit 1 sau 4.0m: Chromium 4 pass/8 fail/0 skip, Firefox 0/12/0, Edge 4/8/0; tổng 8 pass/28 fail/0 skip. Chromium/Edge cùng mẫu Phase C. Cả 12 Firefox fail trước test body với browserContext.newPage TypeError; targeted DT-001 exit 1 trong 5.4s và direct firefox.launch/browser.newPage probe exit 1 trong 2.9s cùng lỗi, nên ghi environment/runtime issue, không đổi/skip expected. Mở reports/fr05-search/playwright-report/index.html bằng Chromium headless và xác nhận title/body render có Run by: 23127464, Runtime timestamp: 2026-08-08T15:33:27.295Z, All 36/Passed 8/Failed 28/Skipped 0/4.0m. Runtime có 36 result dirs, 56 custom PNG, 16 failure PNG, 28 video, 28 trace, 28 error-context. Quét 53 text artifact và tên file: 0 credential/token/secret/session match. Tạo phase-d-run.md, cập nhật REVIEW_NOTES/audit. Chưa chuyển Phase E hoặc tạo bug report.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T22:44:52.3375999+07:00`
+
+**User Prompt:**
+
+```text
+chạy lại riêng test đối với firefox, kiểm tra lại các file spec nếu có sai khoang sửa nêu ra điểm đề xuất thêm cho phù hợp với firefox
+```
+
+**AI Action:**
+
+```text
+Sẽ thực hiện remediation trong Phase D, chưa chuyển Phase E. Chạy riêng Firefox và probe tối thiểu để xác định lỗi trước test body hay lỗi spec; review tests/fr05-search.spec.ts, playwright.fr05.config.ts và dependency/runtime Playwright công khai, không đọc source SUT. Nếu tìm thấy test-harness defect có bằng chứng sẽ sửa tối thiểu, giữ nguyên 12 TC-ID/fixture/mapping/expected và chạy lại lint/typecheck/Firefox thật. Nếu lỗi thuộc browser/runtime, không sửa assertion hoặc skip; sẽ ghi rõ kết quả, cập nhật evidence/review/audit và nêu đề xuất tương thích Firefox. Dừng lại tại Checkpoint D để review.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T22:57:14.1269091+07:00`
+
+**User Prompt:**
+
+```text
+chạy lại riêng test đối với firefox, kiểm tra lại các file spec nếu có sai khoang sửa nêu ra điểm đề xuất thêm cho phù hợp với firefox
+```
+
+**AI Action:**
+
+```text
+Đã thực hiện remediation trong Phase D và dừng tại Checkpoint D. Firefox-only trong sandbox exit 1 sau 43.1 giây với 0 passed/12 failed/0 skipped; dependency Playwright đồng nhất 1.62.1, cài lại Firefox thành công nhưng direct browser.newPage vẫn lỗi. Debug log xác nhận sandbox Windows chặn Firefox tab subprocess với `Failed to launch tab subprocess @SB::LA::SpawnTarget`, nên đây là environment failure trước test body. Chạy full suite ngoài sandbox trước sửa exit 1, 3 passed/9 failed/0 skipped trong 1.8 phút; phát hiện DT-001 nhận HTTP 304 do cache revalidation trong khi UI đúng, nhưng spec bắt exact 200 dù network chỉ bổ trợ. Đã sửa tối thiểu tests/fr05-search.spec.ts: UI product count tiếp tục là oracle chính, network status phải <500, chỉ parse/compare fresh response body ở status 200, còn 304 được ghi diagnostic; không đổi 12 TC-ID, fixture, mapping hoặc expected. Lint/typecheck exit 0/0. Firefox final ngoài sandbox exit 1, 4 passed/8 failed/0 skipped trong 1.6 phút: pass DT-001/002/005/008, fail DT-003/004/006/007/009/010/011/012, khớp Chromium/Edge. Chromium và Edge smoke DT-001 đều exit 0, mỗi project 1 passed. Firefox output có 12 result dirs, 28 custom PNG, 8 failure screenshots/videos/traces/error contexts; quét 9 text artifact không thấy credential pattern. Đề xuất runner không sandbox, Firefox preflight launch/newPage, giữ 304/network ở vai trò diagnostic cho UI case, không thêm Firefox-only locator/timeout; report hợp nhất hiện tại vẫn là artifact lịch sử 8/28 và chỉ nên tái tạo bằng full matrix ngoài sandbox. Chưa chuyển Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T23:02:15.8842254+07:00`
+
+**User Prompt:**
+
+```text
+cập nhật nội dung của html report để hiển thị phf hợp
+```
+
+**AI Action:**
+
+```text
+Sẽ tiếp tục remediation trong Phase D: không sửa số liệu trực tiếp trong HTML. Sẽ kiểm tra cấu hình report hiện tại, chạy lại full matrix Chromium/Firefox/Microsoft Edge ngoài sandbox bằng spec và expected đã duyệt, để Playwright tự tái tạo reports/fr05-search/playwright-report/index.html từ kết quả thật. Sau đó sẽ mở artifact đã render để kiểm chứng Run by: 23127464, timestamp ISO runtime và tổng passed/failed/skipped; cập nhật REVIEW_NOTES, evidence Phase D Firefox/report và audit bằng command/exit code/thời lượng thật. Giữ nguyên fixture/expected và dừng tại Checkpoint D, chưa chuyển Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T23:11:37.4939604+07:00`
+
+**User Prompt:**
+
+```text
+cập nhật nội dung của html report để hiển thị phf hợp
+```
+
+**AI Action:**
+
+```text
+Đã cập nhật HTML report bằng dữ liệu chạy thật, không chỉnh tay số liệu. Frontend localhost:5173 trả 200; backend process phản hồi route root bằng 404 Cannot GET / nên service vẫn đang hoạt động. Full matrix đầu sau Firefox remediation chạy ngoài sandbox bằng npm run test:fr05:phase-d exit 1 trong 3.3m, cho 12 passed/24 failed/0 skipped. Khi mở report phát hiện suite label còn ghi Phase C; đã sửa duy nhất metadata hiển thị: test.describe dùng tên feature trung lập và HTML title dùng tên FR-05 đầy đủ, không đổi fixture/expected/assertion. Lint và typecheck exit 0/0. Full matrix cuối exit 1 trong 3.4m: Chromium 4/8/0, Firefox 4/8/0, msedge 4/8/0; tổng 12/24/0 với cùng tập pass DT-001/002/005/008 trên cả ba project. Mở reports/fr05-search/playwright-report/index.html bằng Chromium headless xác nhận title `FR-05 — Xem danh sách và tìm kiếm sản phẩm | Run by: 23127464 | Runtime timestamp: 2026-08-08T16:07:38.995Z`, summary All 36/Passed 12/Failed 24/Flaky 0/Skipped 0/3.4m, có Firefox và msedge, không còn Phase C. Runtime có 36 result dirs, 84 custom UI PNG, 24 failure PNG/video/trace/error-context; quét 25 text artifact có 0 sensitive credential pattern match. Lexical scan index.html chỉ gặp identifier password trong mã thư viện ZIP/form control nhúng của reporter, không thấy credential value người dùng/SUT. Đã cập nhật REVIEW_NOTES, phase-d-run.md và phase-d-firefox-rerun.md; dừng Checkpoint D, chưa chuyển Phase E.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T23:16:22.2510339+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+```
+
+**AI Action:**
+
+```text
+Ghi nhận Checkpoint D FR-05 đã được duyệt và chuyển sang đúng Phase E. Sẽ giữ nguyên 12 TC-ID, fixture, expected và test implementation đã duyệt; không sửa SUT. Sẽ đọc conventions cùng các template review/bug/readme, đối chiếu requirement công khai, REVIEW_NOTES và artifact chạy thật của consolidated matrix 12 passed/24 failed/0 skipped. Sẽ phân loại từng failure thành test defect/environment issue/SUT defect dựa trên evidence, ghi riêng sai lệch HW02-vs-actual và automation defect đã sửa, nhóm SUT defects theo root cause trước khi tạo bug report, liệt kê coverage/unautomated/duplicate status, điền summary bằng số liệu đo được, quét artifact nhạy cảm và cập nhật audit. Chỉ đề xuất GitHub Issue/commit, không tuyên bố đã tạo; nhắc người dùng tự làm video demo và AI Critique cá nhân. Dừng tại Checkpoint E chờ duyệt cuối.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T23:27:30.0957529+07:00`
+
+**User Prompt:**
+
+```text
+approved, continue
+```
+
+**AI Action:**
+
+```text
+Đã hoàn tất Phase E FR-05 và dừng Checkpoint E. Đọc đầy đủ conventions cùng template review-notes/bug-report/readme-summary, requirement FR-05, fixture, manual run, REVIEW_NOTES và artifact consolidated thật; không đọc source SUT. Phân loại 8 TC-ID failed hiện hành trên cả 3 projects là SUT defects, 0 test defect/environment issue/không xác định trong final run, rồi nhóm thành 6 root causes: missing empty state (DT-003/004), unsafe keyword handling gây HTTP 500/raw SQLite error và SQL result expansion (DT-006/007), alt ảnh rỗng (DT-009), currency VND thay ₫ (DT-009/012), missing loading indicator (DT-010), multiple h1 (DT-011). Tạo 6 report trong reports/fr05-search/bugs; mọi report ghi Chưa tạo — đề xuất cho GitHub, không bịa URL/ID. Ghi mapping từ 7 manual bug ID lịch sử sang 6 canonical Phase E root causes và giữ nguyên manual artifact. Cập nhật REVIEW_NOTES với HW02-vs-actual, automation defects đã sửa, classification, 0 unautomated/0 duplicate, coverage, gap, commit proposals và checkpoint. Tạo reports/fr05-search/README_SUMMARY.md cùng ai-gap-analysis/FR-05-search-multibrowser-gap.md. Cập nhật reports/README_SUMMARY.md: FR-05 + FR-08 + FR-12 = 70 designed, 67 automated, 201 executions, 93 passed, 108 failed, 0 skipped, 9 browser runs, 15 SUT root causes; tiêu chí 3 feature/9 runs có evidence. Browser version probe exit 0: Chromium 151.0.7922.34, Firefox 153.0, Edge 151.0.4129.72; OS Windows NT 10.0.26200.0. Mở kiểm tra trực tiếp screenshot DT-006/007/009/010; error contexts xác nhận actual. Validation cuối: 6 bug files, đủ 6/6 required UTF-8 headings, 15/15 referenced artifact paths tồn tại, 0 sensitive credential match trong tài liệu Phase E; lint/typecheck exit 0/0; git diff --check exit 0 với chỉ line-ending warnings. Một kiểm tra Contains qua Windows PowerShell mặc định từng báo sai 12 heading Unicode bị thiếu do decode; kiểm tra lại bằng ripgrep UTF-8 xác nhận đủ, không sửa template để che lỗi. Không chạy lại test trong Phase E; dùng consolidated Phase D report thật 12 passed/24 failed/0 skipped, timestamp 2026-08-08T16:07:38.995Z. Chưa tạo GitHub Issue hoặc commit. Nhắc sinh viên tự làm video demo và AI Critique cá nhân.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T23:30:56.7980421+07:00`
+
+**User Prompt:**
+
+```text
+approved
+```
+
+**AI Action:**
+
+```text
+Ghi nhận người dùng đã duyệt Checkpoint E cuối của FR-05. Sẽ cập nhật REVIEW_NOTES và gap analysis từ trạng thái Chờ duyệt sang Đã duyệt, lưu prompt/timestamp làm bằng chứng, đánh dấu workflow FR-05 hoàn tất A→E. Không mở phase mới, không chạy lại test, không thay expected/SUT, không tạo GitHub Issue hoặc commit. Sau cập nhật sẽ kiểm tra diff và audit continuity rồi bàn giao trạng thái hoàn tất; video demo và AI Critique cá nhân vẫn do sinh viên tự thực hiện.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T23:31:50.3688772+07:00`
+
+**User Prompt:**
+
+```text
+approved
+```
+
+**AI Action:**
+
+```text
+Đã đóng Checkpoint E theo duyệt cuối của người dùng. Cập nhật reports/fr05-search/REVIEW_NOTES.md, ai-gap-analysis/FR-05-search-multibrowser-gap.md và reports/fr05-search/README_SUMMARY.md với trạng thái Đã duyệt — FR-05 hoàn tất A→E, bằng chứng prompt approved và timestamp 2026-08-08T23:30:56.7980421+07:00. Kiểm tra ripgrep xác nhận ba artifact đều hiển thị trạng thái/bằng chứng duyệt; git diff --check exit 0 với chỉ line-ending warnings. Không chạy lại test vì không đổi code/expected/SUT; không tạo GitHub Issue, commit hoặc chuyển sang feature khác. Video demo và AI Critique cá nhân vẫn do sinh viên tự thực hiện.
 ```
 
 ---

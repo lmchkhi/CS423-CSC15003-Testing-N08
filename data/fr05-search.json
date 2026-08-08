@@ -13,10 +13,6 @@
     ],
     "settledUiAssertionTimeoutMs": 1000
   },
-  "fix2Backlog": {
-    "loadingSynchronization": "Hoàn thiện chiến lược synchronization loading sau review Fix 1",
-    "passScreenshotAttachment": "Bổ sung screenshot attachment cho case pass sau review Fix 1"
-  },
   "surfaceMap": {
     "TC-FR05-DT-001": "UI+network",
     "TC-FR05-DT-002": "UI",
@@ -303,7 +299,7 @@
       "preconditions": [
         "EShop hoạt động",
         "Harness có thể giữ request sản phẩm pending",
-        "Loading synchronization hoàn chỉnh được hoãn sang Fix 2"
+        "Route được đăng ký trước navigation và luôn được release sau quan sát"
       ],
       "input": {
         "path": "/",
@@ -323,7 +319,7 @@
         "productCountWhilePending": 0,
         "productsVisibleAfterResponse": true,
         "loadingHiddenAfterResponse": true,
-        "synchronizationStatus": "provisional-fix1"
+        "synchronizationStatus": "complete-phase-c"
       }
     },
     {

@@ -4,7 +4,7 @@
 
 | Mục | Giá trị |
 | --- | --- |
-| Phase | C — Fix 1 data-driven, locator, assertion và mapping bề mặt |
+| Phase | D — Đa trình duyệt và HTML report |
 | Feature | `FR-05` |
 | Mã sinh viên | `23127464` |
 | HW02 | `tests/test-cases/FR-05-search/domain-testing/` — 12 file |
@@ -16,7 +16,7 @@
 | Thời điểm ghi nhận quyết định | `2026-08-08T21:07:11+07:00` |
 | Trình duyệt probe | Chromium `151.0.7922.34`, headless, viewport chính `1440×900` |
 | Kết quả kết nối | Frontend `/` → HTTP 200; API `/api/products` → HTTP 200 |
-| Playwright spec / fixture / config | Phase C Fix 1: `tests/fr05-search.spec.ts` + `data/fr05-search.json`; interface và runtime validation trong spec; không đổi config |
+| Playwright spec / fixture / config | `tests/fr05-search.spec.ts` + `data/fr05-search.json`; Phase D thêm `playwright.fr05.config.ts` cho Chromium/Firefox/Edge và HTML report riêng |
 | Trạng thái checkpoint | Đã duyệt Checkpoint A lúc `2026-08-08T21:13:37+07:00` |
 
 ## Ranh giới hộp đen và cách dùng bằng chứng
@@ -286,10 +286,10 @@ Không có case API-only. DT-009 không fail vì ảnh `placehold.co` là ảnh 
 
 Passed: DT-001, DT-002, DT-005, DT-008. Failed: DT-003, DT-004, DT-006, DT-007, DT-009, DT-010, DT-011, DT-012. Chi tiết quan sát thật và artifact ở `reports/fr05-search/evidence/phase-c-fix1-run.md`.
 
-### Fix 2 backlog
+### Hạng mục Fix 2 đã hoàn tất
 
-1. Hoàn thiện loading synchronization cho DT-010; Fix 1 mới giữ request pending ở mức tối thiểu để quan sát UI.
-2. Hoàn thiện screenshot attachment cho case pass; hiện runner chỉ lưu artifact cho 8 case failed.
+1. DT-010 đã có route-before-navigation, xác nhận intercept, pending gate, `waitForResponse` trước release, release trong `finally`, post-response assertions và hai evidence state.
+2. Đủ 12/12 TC-ID đã có screenshot attachment full-page; DT-008 và DT-010 có hai trạng thái riêng.
 
 ### Checkpoint C sau Fix 1
 
@@ -297,3 +297,271 @@ Passed: DT-001, DT-002, DT-005, DT-008. Failed: DT-003, DT-004, DT-006, DT-007, 
 - Chromium: **4 passed, 8 failed, 0 skipped; exit 1**.
 - Lint/typecheck: **exit 0/0**.
 - Chưa chuyển Phase D.
+
+## 8. Phase C — Fix 2 hoàn tất
+
+### Thay đổi automation, không đổi expected
+
+- Giữ nguyên 12 TC-ID, fixture case data, `Iphone`, canonical DT-011/DT-012, mapping 6 UI + 6 UI+network và UI oracle chính cho cả 12 case.
+- Xóa `fix2Backlog` đã hoàn thành; DT-010 dùng `synchronizationStatus = complete-phase-c`, không còn provisional.
+- Helper evidence chụp full-page vào output riêng của test và gọi `testInfo.attach`; tên gồm TC-ID + trạng thái. Attachment được đặt trước assertion có khả năng fail cần chứng minh actual.
+- XSS listeners được đăng ký trước submit; DOM executable element được kiểm tra mà không chạy payload. SQLi có UI count, UI names và empty-state oracle; network vẫn chỉ bổ trợ.
+- DT-010 đăng ký route trước navigation, xác nhận intercept, giữ response pending, tạo `waitForResponse` trước release và luôn release/unroute trong `finally`. Sau response, test kiểm tra list xuất hiện và loading biến mất. Không có `waitForTimeout`.
+
+### Evidence coverage
+
+| TC-ID | UI evidence |
+| --- | --- |
+| DT-001 | Danh sách sau search rỗng |
+| DT-002 | Kết quả valid search `Iphone` |
+| DT-003 | Actual no-result UI |
+| DT-004 | Actual special-character result |
+| DT-005 | Actual whitespace result |
+| DT-006 | UI sau XSS payload |
+| DT-007 | UI sau SQL injection payload |
+| DT-008 | Grid desktop + narrow viewport |
+| DT-009 | Product cards |
+| DT-010 | Loading pending + products after response |
+| DT-011 | Actual h1 headings |
+| DT-012 | Giá trên product cards |
+
+Tổng 14 attachment logic phủ 12/12 TC-ID. Output cuối có 28 custom PNG vật lý (file nguồn + bản copy attachment), 8 failure screenshot mặc định, 8 video và 8 `error-context.md`.
+
+### Baseline cuối và so sánh Fix 1
+
+| Command | Exit code | Kết quả |
+| --- | ---: | --- |
+| `npm run lint` | 0 | Không lỗi |
+| `npm run typecheck` | 0 | Không lỗi |
+| `npx playwright test tests/fr05-search.spec.ts --project=chromium --reporter=list --output=test-results/fr05-phase-c-fix2 --workers=1` | 1 | 4 passed, 8 failed, 0 skipped; 40.4 giây |
+
+Kết quả không đổi so với Fix 1: passed DT-001/002/005/008; failed DT-003/004/006/007/009/010/011/012. Điều này cho thấy việc hoàn thiện synchronization/evidence không làm xanh case bằng cách nới assertion. DT-010 vẫn fail vì UI pending thực tế không có loading indicator, nhưng route được release và list 5 sản phẩm xuất hiện sau response.
+
+Lượt chạy trước baseline cuối cũng cho 4/8/0 trong 43.4 giây nhưng phát hiện attachment body chưa được giữ thành file bởi list reporter. Đã sửa đường lưu artifact và chạy lại; không thay business assertion.
+
+### Artifact safety
+
+- 9 artifact text được quét theo nhóm credential/token/secret/session/cookie: 0 match; tên file: 0 match.
+- Cặp ảnh DT-010 đã được mở kiểm tra: pending có 0 sản phẩm và không có indicator; sau response có 5 sản phẩm.
+- `waitForTimeout`: 0; `provisional`: 0; `fix2Backlog` trong fixture: không còn.
+- Chi tiết: `reports/fr05-search/evidence/phase-c-fix2-run.md`.
+
+### Checkpoint C hoàn chỉnh
+
+- Trạng thái: **Chờ người dùng review**.
+- Phase C FR-05 đã hoàn thiện theo phạm vi yêu cầu.
+- Chưa chạy Firefox/Edge; chưa chuyển hoặc kết luận Phase D.
+
+## 9. Phase D — Đa trình duyệt và report
+
+Checkpoint C được người dùng duyệt bằng prompt `approved, continue`. Phase D giữ nguyên fixture/spec/expected và thêm cấu hình riêng `playwright.fr05.config.ts`.
+
+### Kết quả theo project
+
+| Project | Passed | Failed | Skipped | Ghi nhận |
+| --- | ---: | ---: | ---: | --- |
+| Chromium | 4 | 8 | 0 | Giữ nguyên mẫu Phase C: pass DT-001/002/005/008. |
+| Firefox | 0 | 12 | 0 | Runtime environment issue trước test body: `browserContext.newPage` TypeError. |
+| Microsoft Edge | 4 | 8 | 0 | Cùng mẫu Chromium. |
+| **Tổng runner** | **8** | **28** | **0** | Exit 1, total time 4.0 phút. |
+
+Firefox process có thể launch nhưng không tạo được page. Targeted test và probe trực tiếp đều tái hiện `Cannot read properties of undefined (reading '_page')`; do đó 12 Firefox failures không được coi là business-result failures và expected không bị đổi/skip.
+
+### Lệnh và kiểm chứng
+
+| Command | Exit code | Kết quả |
+| --- | ---: | --- |
+| `npm run lint` | 0 | Không lỗi |
+| `npm run typecheck` | 0 | Không lỗi |
+| `npx playwright test tests/fr05-search.spec.ts --config=playwright.fr05.config.ts --list` | 0 | 36 tests, 12 × 3 project |
+| `npm run test:fr05:phase-d` | 1 | 8 passed, 28 failed, 0 skipped; 4.0m |
+| Firefox DT-001 diagnostic | 1 | 1 environment failure; 5.4 giây |
+| Direct Firefox `browser.newPage()` probe | 1 | Cùng TypeError; 2.9 giây |
+
+HTML report đã được mở bằng Chromium headless. Nội dung render xác nhận:
+
+- `Run by: 23127464`;
+- `Runtime timestamp: 2026-08-08T15:33:27.295Z`;
+- `All 36`, `Passed 8`, `Failed 28`, `Skipped 0`, total time `4.0m`.
+
+Artifact: `reports/fr05-search/playwright-report/index.html`. Runtime: `test-results/fr05-phase-d/`. Chi tiết: `reports/fr05-search/evidence/phase-d-run.md`.
+
+### Artifact và an toàn
+
+- 36 result directories; 56 custom UI PNG, 16 failure PNG, 28 video, 28 trace, 28 error context.
+- 53 text artifact và toàn bộ tên file được quét theo credential/token/secret/session patterns: 0 match.
+- FR-05 đóng góp 3 lượt feature–browser; không suy diễn kết quả feature khác.
+
+## Checkpoint D
+
+- Trạng thái: **Chờ người dùng review**.
+- Chromium và Edge đã chạy đủ 12 case; Firefox có environment issue được tái hiện độc lập.
+- Report metadata/timestamp đã kiểm chứng trực tiếp trên artifact render.
+- Chưa chuyển Phase E; chưa phân loại business failure hoặc tạo bug report.
+
+## 10. Phase D — Firefox rerun và remediation
+
+Theo yêu cầu review bổ sung, Firefox được chạy riêng và spec được kiểm tra lại. Lần chạy trong sandbox ban đầu exit 1 sau 43.1 giây với 0 passed / 12 failed / 0 skipped; cả 12 case đều dừng trước test body tại `browserContext.newPage`. Debug log xác nhận nguyên nhân môi trường: Firefox không spawn được tab subprocess (`Failed to launch tab subprocess @SB::LA::SpawnTarget`). Cài lại browser không thay đổi lỗi trong sandbox.
+
+Khi chạy ngoài sandbox, Firefox thực thi được toàn bộ test. Lượt trước sửa cho 3 passed / 9 failed / 0 skipped trong 1.8 phút và phát hiện DT-001 đang dùng exact HTTP `200` làm pass/fail dù network chỉ là bề mặt bổ trợ. Firefox nhận `304` do cache revalidation trong khi UI vẫn hiển thị đúng danh sách. Spec đã được sửa tối thiểu để giữ UI product count làm oracle chính, reject HTTP 500, chỉ parse response body khi có fresh `200`, và ghi `304` dưới dạng diagnostic. Fixture và expected không đổi.
+
+### Kết quả cuối sau remediation
+
+| Kiểm tra | Exit code | Kết quả thật |
+| --- | ---: | --- |
+| `npm run lint` | 0 | Không lỗi |
+| `npm run typecheck` | 0 | Không lỗi |
+| Firefox full suite ngoài sandbox | 1 | 4 passed, 8 failed, 0 skipped; 1.6 phút |
+| Chromium DT-001 smoke | 0 | 1 passed; 5.8 giây |
+| Microsoft Edge DT-001 smoke | 0 | 1 passed; 13.7 giây |
+
+Firefox cuối pass DT-001/002/005/008 và fail DT-003/004/006/007/009/010/011/012, khớp hoàn toàn mẫu nghiệp vụ của Chromium/Edge. Sau đó full matrix được chạy lại ngoài sandbox trong cùng một consolidated runner: mỗi project 4/8/0, tổng `12 passed / 24 failed / 0 skipped`, exit `1`, thời lượng `3.4m`. Kết quả này đã tái tạo và thay thế HTML report lịch sử 8/28/0.
+
+Đề xuất: chạy Firefox trên terminal/CI không bị Windows sandbox chặn tab subprocess; thêm Firefox preflight launch/newPage; giữ status/cache ở vai trò diagnostic cho UI cases; không thêm Firefox-only locator hoặc tăng timeout vì lượt cuối đã chứng minh test harness hiện tại chạy được trên Firefox.
+
+Chi tiết và artifact inventory: `reports/fr05-search/evidence/phase-d-firefox-rerun.md`.
+
+### HTML report hiện hành
+
+- Artifact: `reports/fr05-search/playwright-report/index.html`.
+- Page title đã mở kiểm chứng: `FR-05 — Xem danh sách và tìm kiếm sản phẩm | Run by: 23127464 | Runtime timestamp: 2026-08-08T16:07:38.995Z`.
+- Summary render: `All 36`, `Passed 12`, `Failed 24`, `Flaky 0`, `Skipped 0`, total time `3.4m`.
+- Có đủ project Chromium, Firefox và Microsoft Edge; không còn nhãn suite `Phase C` trong report.
+- Runtime cuối: 36 result dirs, 84 custom UI PNG, 24 failure PNG, 24 video, 24 trace, 24 error context.
+- Quét 25 text artifact theo credential/token/secret/session/cookie patterns: 0 match.
+- `index.html` có lexical identifier `password` từ thư viện ZIP/form control nhúng của Playwright reporter; context scan không thấy credential value của người dùng hoặc SUT.
+
+### Checkpoint D sau remediation
+
+- Trạng thái: **Chờ người dùng review**.
+- Firefox đã được xác minh riêng với kết quả nghiệp vụ 4/8/0.
+- Chưa chuyển Phase E; chưa phân loại 8 business failures hoặc tạo bug report.
+
+## 11. Phase E — Review và phân tích khoảng trống
+
+Checkpoint D được người dùng duyệt bằng prompt `approved, continue`. Phase E sử dụng consolidated report cuối đã mở kiểm chứng; không sửa fixture, expected, test assertion hoặc SUT.
+
+### Thông tin lần review
+
+| Mục | Giá trị |
+| --- | --- |
+| Feature | `FR-05` |
+| Spec / fixture | `tests/fr05-search.spec.ts`; `data/fr05-search.json` |
+| Người review cuối | Người dùng — checkpoint D được duyệt; checkpoint E đang chờ duyệt |
+| Thời điểm Phase E | `2026-08-08T23:19:36.0056526+07:00` |
+| Lệnh report làm căn cứ | `npm run test:fr05:phase-d` |
+| Exit code / kết quả | `1`; 12 passed, 24 failed, 0 skipped; 3.4m |
+| Report runtime | `2026-08-08T16:07:38.995Z` |
+| Report | `reports/fr05-search/playwright-report/index.html` |
+
+### 1. Đối chiếu HW02/requirement với kết quả cuối
+
+| TC-ID | Mô tả gốc/canonical | Kết quả cuối trên mỗi browser | Đối chiếu expected | Bằng chứng chính |
+| --- | --- | --- | --- | --- |
+| DT-001 | Search rỗng | Passed | Khớp | HTML report + UI evidence |
+| DT-002 | Search `Iphone` có kết quả | Passed | Khớp | HTML report + UI evidence |
+| DT-003 | Keyword không có kết quả | Failed: count 0 nhưng không có empty state | Lệch | `error-context.md`, screenshot DT-003 |
+| DT-004 | Keyword ký tự đặc biệt | Failed: safe summary/count 0 nhưng không có empty state | Lệch | `error-context.md`, screenshot DT-004 |
+| DT-005 | Search whitespace | Passed | Khớp | HTML report + UI evidence |
+| DT-006 | XSS payload | Failed: HTTP 500, raw `Database Error/SQLITE_ERROR`; script không chạy | Lệch | `error-context.md`, screenshot DT-006 |
+| DT-007 | SQL injection payload | Failed: response/UI trả 5 sản phẩm giống baseline | Lệch | `error-context.md`, screenshot DT-007 |
+| DT-008 | Grid desktop/narrow | Passed | Khớp | Hai UI attachments mỗi project |
+| DT-009 | Card ảnh + tên + giá | Failed: ảnh thật hiển thị nhưng alt rỗng; giá dùng `VND` | Lệch | DOM error context + screenshot DT-009 |
+| DT-010 | Loading state | Failed: pending count 0 nhưng không có indicator; sau response có 5 sản phẩm | Lệch | Pending/post-response screenshots + trace |
+| DT-011 | Đúng một h1 | Failed: actual 2 h1 | Lệch | DOM count + accessibility snapshot |
+| DT-012 | Format giá `₫` | Failed: giá dùng `VND` | Lệch | UI text + screenshot DT-012 |
+
+Mẫu kết quả giống nhau trên Chromium, Firefox và Edge. Manual run lịch sử 4 passed/8 failed được xác nhận lại bằng automation; expected không bị đổi theo actual.
+
+### 2. Lỗi trong code automation AI sinh đã xử lý
+
+| ID / vị trí | Vấn đề | Vì sao AI có thể bỏ sót | Cách sửa | Kết quả chạy lại | Bằng chứng |
+| --- | --- | --- | --- | --- | --- |
+| DT-009 / timeout assertion | Nhiều soft assertion thiếu UI dùng timeout mặc định nối tiếp, làm case chạm test timeout | Tập trung correctness locator nhưng chưa tính tổng thời gian nhiều soft failures | Dùng `settledUiAssertionTimeoutMs=1000` sau synchronization; không đổi expected | Case vẫn fail đúng nghiệp vụ, không còn test timeout | Phase C evidence + report cuối |
+| Evidence helper | Attachment dạng body không được list reporter giữ thành file như kỳ vọng | Giả định reporter persistence không được kiểm tra vật lý | Dùng `testInfo.outputPath`, screenshot path và attach path | 84 custom PNG trong full matrix cuối | `phase-c-fix2-run.md`, runtime inventory |
+| DT-010 synchronization | Phiên bản đầu mới giữ request provisional, chưa chứng minh pending/release an toàn | Race/release cleanup cần thiết kế rõ hơn sau review | Route trước navigation, intercept count, pending gate, waitForResponse trước release, `finally` release/unroute | Harness hoàn tất; failure còn lại chỉ là missing loading UI | DT-010 trace + hai screenshots |
+| DT-001 Firefox | Exact HTTP `200` làm UI case fail khi Firefox nhận cache revalidation `304` | Giả định status ổn định giữa browser/cache, trái mapping network bổ trợ | UI count làm oracle chính; reject `>=500`; chỉ parse fresh `200`, ghi `304` diagnostic | DT-001 pass trên cả ba projects | Firefox rerun evidence + report cuối |
+| Firefox sandbox | 12 case fail trước test body tại `browserContext.newPage` | Ban đầu chưa tách browser subprocess restriction khỏi spec behavior | Cài lại browser, debug probe, chạy matrix ngoài sandbox; không skip/nới assertion | Firefox cuối 4/8/0, khớp hai browser khác | `phase-d-firefox-rerun.md` |
+| Report suite label | HTML report sau remediation còn hiển thị `Phase C` | Test describe được tái sử dụng từ Phase C | Đổi label sang tên feature trung lập và tái tạo report bằng full matrix | Render không còn `Phase C` | HTML report timestamp `16:07:38.995Z` |
+
+Các lỗi automation và environment lịch sử ở trên đã được sửa/khắc phục rồi rerun; chúng không được đếm là SUT defects trong kết quả cuối.
+
+### 3. Phân loại 8 failure hiện hành
+
+| TC-ID | Kết quả | Phân loại | Căn cứ | Hành động tiếp theo | Bug report |
+| --- | --- | --- | --- | --- | --- |
+| DT-003 | Failed trên 3/3 projects | SUT defect | Count 0, search summary đúng, empty-state element không tồn tại | Sửa empty-state rendering | `bugs/BUG-FR05-001-missing-empty-state.md` |
+| DT-004 | Failed trên 3/3 projects | SUT defect | Safe summary/input/count đạt; chỉ thiếu empty state | Cùng root cause DT-003 | `bugs/BUG-FR05-001-missing-empty-state.md` |
+| DT-006 | Failed trên 3/3 projects | SUT defect | HTTP 500 và raw SQLite error; không dialog/script node | Sửa unsafe keyword handling và error disclosure | `bugs/BUG-FR05-002-unsafe-search-keyword.md` |
+| DT-007 | Failed trên 3/3 projects | SUT defect | Response/UI count và names bằng toàn bộ baseline | Cùng observable root cause DT-006 | `bugs/BUG-FR05-002-unsafe-search-keyword.md` |
+| DT-009 | Failed trên 3/3 projects | SUT defect | Ảnh render nhưng alt rỗng; currency dùng VND | Sửa hai root cause độc lập | `bugs/BUG-FR05-003-missing-image-alt.md`; `BUG-FR05-004-wrong-currency-format.md` |
+| DT-010 | Failed trên 3/3 projects | SUT defect | Request bị giữ thật; pending 0 product nhưng không indicator; post-response list hiện | Thêm loading state | `bugs/BUG-FR05-005-missing-loading-indicator.md` |
+| DT-011 | Failed trên 3/3 projects | SUT defect | `locator('h1')` expected 1, actual 2; snapshot ghi hai level-1 headings | Sửa heading hierarchy | `bugs/BUG-FR05-006-multiple-h1.md` |
+| DT-012 | Failed trên 3/3 projects | SUT defect | UI hiện `30,000,000 VND`, không khớp `₫` | Cùng root cause price của DT-009 | `bugs/BUG-FR05-004-wrong-currency-format.md` |
+
+Kết luận Phase E: **8 failed TC-ID đều là SUT defect, nhóm thành 6 root causes**. Không có test defect, environment issue hoặc `Không xác định` trong consolidated result cuối.
+
+#### Mapping với bug ID manual lịch sử
+
+| Manual run lịch sử | Phase E canonical | Lý do |
+| --- | --- | --- |
+| BUG-FR05-001 + BUG-FR05-002 | BUG-FR05-001 | DT-003/004 cùng root cause thiếu empty state |
+| BUG-FR05-003 + BUG-FR05-004 | BUG-FR05-002 | DT-006/007 cùng chứng minh keyword không được xử lý như dữ liệu trơ |
+| Không tách riêng | BUG-FR05-003 | Phase E phát hiện alt rỗng độc lập với ảnh tải/price |
+| BUG-FR05-005 | BUG-FR05-004 | Giữ root cause currency format, đổi số theo grouping canonical |
+| BUG-FR05-006 | BUG-FR05-005 | Loading indicator |
+| BUG-FR05-007 | BUG-FR05-006 | Multiple h1 |
+
+Bug reports Phase E là artifact canonical theo root cause; bảng manual ngày 2026-06-27 vẫn được giữ nguyên như lịch sử, không chỉnh ngược.
+
+### 4. Ca chưa tự động hóa / duplicate
+
+| ID | Lý do | Đã thử | Tác động coverage | Hướng xử lý |
+| --- | --- | --- | --- | --- |
+| Không có | 12/12 canonical case đã automated và executed trên 3 projects | Consolidated run 36 executions | Không thiếu coverage HW02 đã duyệt | N/A |
+
+Phase A có `0 Trùng lặp`; không có case bị gộp vào case đại diện.
+
+### 5. Coverage assertion và trình duyệt
+
+| Hạng mục | Kết quả thật | Bằng chứng |
+| --- | --- | --- |
+| Nhóm assertion đã chạy | DOM/visible text; state/attribute; count/aggregate; network diagnostic/synchronization; layout/computed DOM | Spec + HTML report/error contexts |
+| Chromium | 4 passed, 8 failed, 0 skipped | `test-results/fr05-phase-d/*-chromium`, HTML report |
+| Firefox | 4 passed, 8 failed, 0 skipped | `test-results/fr05-phase-d/*-firefox`, HTML report |
+| Edge | 4 passed, 8 failed, 0 skipped | `test-results/fr05-phase-d/*-msedge`, HTML report |
+| Metadata report | Đã thấy `Run by: 23127464`, timestamp ISO và summary 12/24/0 | HTML artifact đã mở bằng Chromium headless |
+| Evidence | 14 logical UI states/project; 84 physical custom PNG + 24 failure screenshot/video/trace/error context | Runtime inventory |
+
+### 6. Gap analysis
+
+| Yêu cầu | Kết quả kiểm chứng | Khoảng trống | Mức ảnh hưởng | Hành động đề xuất |
+| --- | --- | --- | --- | --- |
+| 12 case/feature | 12 designed, 12 automated | Không | Low | Giữ traceability |
+| Data-driven/runtime validation | Fixture ngoài spec, validation trước đăng ký test | Không | Low | Giữ schema validation |
+| UI oracle | UI chính cho 12/12; 6 UI+network bổ trợ | Không | Low | Không đổi sang API-only |
+| Empty/loading/safe display/card/alt/price/h1/grid | Đã kiểm tra đầy đủ; 8 TC-ID fail thật | Có 6 SUT root causes | High | Ưu tiên security, sau đó UI/accessibility |
+| Cross-browser | 3/3 projects chạy thật | Firefox cần runner ngoài sandbox hiện tại | Medium | Thêm preflight hoặc CI runner phù hợp |
+| SUT build identity | Không quan sát được qua public UI/API | Build/commit không xác định | Low | Expose build metadata nếu cần traceability |
+| Toàn bài 3 feature / 9 runs | FR-05 + FR-08 + FR-12 = 9 runs | Không | Low | Xem `reports/README_SUMMARY.md` |
+| GitHub Issue | 6 report local, 0 issue URL | Chưa publish | Medium | Chỉ tạo khi người dùng yêu cầu |
+| Video demo / AI Critique | Chưa được agent xác nhận | Phần cá nhân bắt buộc | High cho submission | Sinh viên tự thực hiện |
+
+Chi tiết: `ai-gap-analysis/FR-05-search-multibrowser-gap.md` và `reports/fr05-search/README_SUMMARY.md`.
+
+### Đề xuất commit nhỏ
+
+Chưa tạo commit. Có thể stage/commit theo ba nhóm, không bịa hash:
+
+1. `test(fr05): add data-driven UI search coverage and evidence`
+2. `test(fr05): add cross-browser report and Firefox remediation`
+3. `docs(fr05): add Phase E classification, root-cause bugs and gap analysis`
+
+### Checkpoint E
+
+- Trạng thái gap analysis: **Đã duyệt — workflow FR-05 hoàn tất A→E**.
+- Điểm chưa chắc chắn: build/commit SUT không quan sát được qua bề mặt công khai; mechanism nội bộ của security root cause không được đọc theo ranh giới hộp đen.
+- GitHub Issues: **Chưa tạo — chỉ đề xuất**.
+- Video demo và AI Critique cá nhân: người dùng/sinh viên phải tự thực hiện; agent không viết thay.
+- Bằng chứng duyệt cuối: prompt `approved` lúc `2026-08-08T23:30:56.7980421+07:00`.
+- FR-05 đã đáp ứng tiêu chí hoàn tất workflow trong phạm vi agent; không tự chuyển sang feature khác.

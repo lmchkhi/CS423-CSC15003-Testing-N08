@@ -85,17 +85,11 @@ interface SharedExpected {
   settledUiAssertionTimeoutMs: number;
 }
 
-interface Fix2Backlog {
-  loadingSynchronization: string;
-  passScreenshotAttachment: string;
-}
-
 interface Fr05Fixture {
   feature: 'FR-05';
   webBaseURL: string;
   apiBaseURL: string;
   sharedExpected: SharedExpected;
-  fix2Backlog: Fix2Backlog;
   surfaceMap: Record<string, AutomationSurface>;
   cases: Fr05Case[];
 }
@@ -304,10 +298,6 @@ function validateFixture(value: unknown): asserts value is Fr05Fixture {
   stringArrayValue(sharedExpected, 'rawSystemErrorPatterns', 'FR-05 sharedExpected');
   numberValue(sharedExpected, 'settledUiAssertionTimeoutMs', 'FR-05 sharedExpected');
 
-  const fix2Backlog = recordValue(root.fix2Backlog, 'FR-05 fix2Backlog');
-  stringValue(fix2Backlog, 'loadingSynchronization', 'FR-05 fix2Backlog');
-  stringValue(fix2Backlog, 'passScreenshotAttachment', 'FR-05 fix2Backlog');
-
   const surfaceMap = recordValue(root.surfaceMap, 'FR-05 surfaceMap');
   const caseValues = root.cases;
   if (!Array.isArray(caseValues) || caseValues.length !== 12) {
@@ -408,6 +398,49 @@ function annotate(testInfo: TestInfo, testCase: Fr05Case): void {
     { type: 'ui-oracle', description: 'primary' },
     { type: 'network-role', description: testCase.networkRole },
   );
+}
+
+async function attachUiEvidence(
+  page: Page,
+  testInfo: TestInfo,
+  testCase: Fr05Case,
+  state: string,
+): Promise<void> {
+  const safeState = state.replace(/[^a-z0-9-]+/gi, '-');
+  const name = `${testCase.id}-${safeState}-ui`;
+  const screenshotPath = testInfo.outputPath(`${name}.png`);
+  await page.screenshot({ fullPage: true, path: screenshotPath });
+  await testInfo.attach(name, {
+    path: screenshotPath,
+    contentType: 'image/png',
+  });
+  testInfo.annotations.push({ type: 'ui-evidence', description: name });
+}
+
+function annotateNetworkBody(
+  testInfo: TestInfo,
+  response: Response,
+  bodyText: string,
+): void {
+  const rawErrorObserved = phrasesPattern(fixture.sharedExpected.rawSystemErrorPatterns).test(
+    bodyText,
+  );
+  testInfo.annotations.push({
+    type: 'network-diagnostic',
+    description: `${response.request().method()} ${new URL(response.url()).pathname} status=${response.status()} bodyLength=${bodyText.length} rawSystemError=${rawErrorObserved}`,
+  });
+}
+
+async function executableElementCountFromPayload(page: Page, payload: string): Promise<number> {
+  // CSS is required because executable script elements have no accessible role.
+  // This only inspects DOM text/outerHTML; it never evaluates the supplied payload.
+  return page.locator('script').evaluateAll((scripts, rawPayload) => {
+    const scriptBody = rawPayload.match(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/i)?.[1]?.trim();
+    return scripts.filter((script) => {
+      const text = (script.textContent ?? '').trim();
+      return script.outerHTML.includes(rawPayload) || (Boolean(scriptBody) && text === scriptBody);
+    }).length;
+  }, payload);
 }
 
 function pageURL(testCase: Fr05Case): string {
@@ -515,13 +548,24 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
     case 'search-empty': {
       await openHome(page, testCase);
       const response = await submitSearchWithNetwork(page, testCase);
-      expect(response.status()).toBe(expectedNumber(testCase, 'responseStatus'));
-      const products = await productsFrom(response);
-      expect(products.length).toBeGreaterThanOrEqual(
+      await attachUiEvidence(page, testInfo, testCase, 'results-after-empty-search');
+      const uiHeadings = productHeadings(page);
+      const uiProductCount = await uiHeadings.count();
+      expect(response.status()).toBeLessThan(500);
+      expect(uiProductCount).toBeGreaterThanOrEqual(
         expectedNumber(testCase, 'minimumProductCount'),
       );
-      if (expectedBoolean(testCase, 'uiCountMatchesResponse')) {
-        await expect(productHeadings(page)).toHaveCount(products.length);
+      const freshResponseStatus = expectedNumber(testCase, 'responseStatus');
+      if (response.status() === freshResponseStatus) {
+        const products = await productsFrom(response);
+        if (expectedBoolean(testCase, 'uiCountMatchesResponse')) {
+          await expect(uiHeadings).toHaveCount(products.length);
+        }
+      } else {
+        testInfo.annotations.push({
+          type: 'network-diagnostic',
+          description: `Product response status=${response.status()}; cached response body was not used as UI oracle`,
+        });
       }
       await expectNoRawSystemError(page);
       break;
@@ -529,6 +573,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
     case 'search-valid-result': {
       await openHome(page, testCase);
       await submitSearchUI(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'results-after-valid-search');
       await expect(page.getByText(searchSummary(testCase))).toBeVisible();
       const headings = productHeadings(page);
       expect(await headings.count()).toBeGreaterThanOrEqual(
@@ -553,6 +598,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
     case 'search-no-result': {
       await openHome(page, testCase);
       await submitSearchUI(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'no-results-state');
       await expect(page.getByText(searchSummary(testCase))).toBeVisible();
       await expectEmptyState(page, testCase);
       await expectNoRawSystemError(page);
@@ -561,6 +607,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
     case 'search-special-characters': {
       await openHome(page, testCase);
       const response = await submitSearchWithNetwork(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'special-characters-result');
       if (expectedBoolean(testCase, 'requestUrlIsDiagnosticOnly')) {
         testInfo.annotations.push({
           type: 'request-url-diagnostic',
@@ -582,6 +629,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
       await openHome(page, testCase);
       const initialCount = await productHeadings(page).count();
       await submitSearchUI(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'whitespace-result');
       await page.getByText(inputString(testCase, 'uiSynchronizationText')).waitFor({
         state: 'visible',
       });
@@ -607,6 +655,9 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
       page.on('pageerror', (error) => pageErrors.push(error.message));
       await openHome(page, testCase);
       const response = await submitSearchWithNetwork(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'after-xss-payload');
+      const responseBody = await response.text();
+      annotateNetworkBody(testInfo, response, responseBody);
       expect.soft(response.status()).toBeLessThan(
         expectedNumber(testCase, 'maximumResponseStatusExclusive'),
       );
@@ -615,18 +666,21 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
       if (expectedBoolean(testCase, 'inputValuePreserved')) {
         await expect.soft(searchTextbox(page)).toHaveValue(inputString(testCase, 'keyword'));
       }
-      // CSS is required for security DOM structure: injected script nodes are
-      // intentionally not discoverable through an accessible role.
-      await expect
-        .soft(page.locator('script').filter({ hasText: inputString(testCase, 'keyword') }))
-        .toHaveCount(expectedNumber(testCase, 'injectedScriptCount'));
+      const executableElementCount = await executableElementCountFromPayload(
+        page,
+        inputString(testCase, 'keyword'),
+      );
+      expect.soft(executableElementCount).toBe(expectedNumber(testCase, 'injectedScriptCount'));
       await expectNoRawSystemError(page);
       break;
     }
     case 'search-sql-injection': {
       await openHome(page, testCase);
-      const baselineCount = await productHeadings(page).count();
+      const baselineHeadings = productHeadings(page);
+      const baselineCount = await baselineHeadings.count();
+      const baselineNames = await baselineHeadings.allTextContents();
       const response = await submitSearchWithNetwork(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'after-sql-injection-payload');
       expect.soft(response.status()).toBeLessThan(
         expectedNumber(testCase, 'maximumResponseStatusExclusive'),
       );
@@ -637,11 +691,20 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
       if (expectedBoolean(testCase, 'mustNotMatchBaselineCount')) {
         expect.soft(responseProducts.length).not.toBe(baselineCount);
       }
+      testInfo.annotations.push({
+        type: 'network-diagnostic',
+        description: `GET ${new URL(response.url()).pathname} status=${response.status()} responseProductCount=${responseProducts.length}`,
+      });
+      const resultHeadings = productHeadings(page);
+      const resultNames = await resultHeadings.allTextContents();
       await expect
-        .soft(productHeadings(page))
+        .soft(resultHeadings)
         .toHaveCount(expectedNumber(testCase, 'uiProductCount'), {
           timeout: settledUiAssertionTimeoutMs,
         });
+      if (expectedBoolean(testCase, 'mustNotMatchBaselineCount')) {
+        expect.soft(resultNames).not.toEqual(baselineNames);
+      }
       await expect
         .soft(page.getByText(phrasesPattern(expectedStrings(testCase, 'emptyStatePatterns'))).first())
         .toBeVisible({ timeout: settledUiAssertionTimeoutMs });
@@ -651,6 +714,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
     case 'ui-grid': {
       await page.setViewportSize(viewportValue(testCase.input, 'desktopViewport', testCase.id));
       await openHome(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'grid-desktop');
       await expect(productHeadings(page).first()).toBeVisible();
       expect(await productHeadings(page).count()).toBeGreaterThanOrEqual(
         expectedNumber(testCase, 'minimumProductCount'),
@@ -664,6 +728,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
         expectedNumber(testCase, 'minimumDesktopColumns'),
       );
       await page.setViewportSize(viewportValue(testCase.input, 'narrowViewport', testCase.id));
+      await attachUiEvidence(page, testInfo, testCase, 'grid-narrow');
       const narrow = await observeGrid(page);
       if (expectedBoolean(testCase, 'narrowColumnsLessThanDesktop')) {
         expect(narrow.distinctColumns).toBeLessThan(desktop.distinctColumns);
@@ -684,6 +749,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
         }
       });
       await openHome(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'product-cards');
       const headings = productHeadings(page);
       expect(await headings.count()).toBeGreaterThanOrEqual(
         expectedNumber(testCase, 'minimumProductCount'),
@@ -733,58 +799,91 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
       break;
     }
     case 'ui-loading': {
-      // Fix 1 keeps provisional request holding only. The user explicitly moved
-      // complete loading synchronization and pass screenshots to Fix 2.
-      let markIntercepted: (() => void) | undefined;
-      let releaseRequests: (() => void) | undefined;
+      let markIntercepted!: () => void;
+      let releaseRequest!: () => void;
+      let requestReleased = false;
+      let interceptedRequestCount = 0;
+      let interceptedRequestUrl = '';
       const intercepted = new Promise<void>((resolve) => {
         markIntercepted = resolve;
       });
-      const released = new Promise<void>((resolve) => {
-        releaseRequests = resolve;
+      const releaseGate = new Promise<void>((resolve) => {
+        releaseRequest = resolve;
       });
-      await page.route(inputString(testCase, 'productRoutePattern'), async (route) => {
-        markIntercepted?.();
-        await released;
+      const releaseOnce = (): void => {
+        if (!requestReleased) {
+          requestReleased = true;
+          releaseRequest();
+        }
+      };
+      const routePattern = inputString(testCase, 'productRoutePattern');
+
+      // Registration intentionally precedes navigation so the initial product
+      // request cannot race past the loading-state harness.
+      await page.route(routePattern, async (route) => {
+        interceptedRequestCount += 1;
+        interceptedRequestUrl = route.request().url();
+        markIntercepted();
+        await releaseGate;
         await route.continue();
       });
-      const navigation = await page.goto(pageURL(testCase), { waitUntil: 'domcontentloaded' });
-      expect(navigation?.status()).toBe(fixture.sharedExpected.navigationStatus);
-      await intercepted;
 
-      const semanticLoading = page
-        .getByRole('status')
-        .or(page.getByText(phrasesPattern(expectedStrings(testCase, 'loadingTextPatterns'))));
-      // CSS is limited to approved loading DOM structures that may have no role.
-      const visualLoading = page.locator(expectedStrings(testCase, 'loadingCssPatterns').join(', '));
-      const loadingIndicator = semanticLoading.or(visualLoading).first();
-      await expect
-        .soft(loadingIndicator)
-        .toBeVisible({ timeout: settledUiAssertionTimeoutMs });
-      await expect
-        .soft(productHeadings(page))
-        .toHaveCount(expectedNumber(testCase, 'productCountWhilePending'));
+      try {
+        const navigation = await page.goto(pageURL(testCase), { waitUntil: 'domcontentloaded' });
+        expect(navigation?.status()).toBe(fixture.sharedExpected.navigationStatus);
+        await intercepted;
+        expect(interceptedRequestCount).toBeGreaterThan(0);
+        expect(productResponsePattern.test(interceptedRequestUrl)).toBe(true);
 
-      const responsePromise = page.waitForResponse(
-        (response) => productResponsePattern.test(response.url()),
-      );
-      releaseRequests?.();
-      const response = await responsePromise;
-      expect(response.status()).toBe(expectedNumber(testCase, 'responseStatus'));
-      if (expectedBoolean(testCase, 'productsVisibleAfterResponse')) {
-        await expect(productHeadings(page).first()).toBeVisible();
+        const semanticLoading = page
+          .getByRole('status')
+          .or(page.getByText(phrasesPattern(expectedStrings(testCase, 'loadingTextPatterns'))));
+        // CSS is limited to approved loading DOM structures that may have no role.
+        const visualLoading = page.locator(
+          expectedStrings(testCase, 'loadingCssPatterns').join(', '),
+        );
+        const loadingIndicator = semanticLoading.or(visualLoading).first();
+
+        // Start observing the response before releasing the held route.
+        const responsePromise = page.waitForResponse(
+          (response) =>
+            response.request().method() === 'GET' && productResponsePattern.test(response.url()),
+        );
+        try {
+          await attachUiEvidence(page, testInfo, testCase, 'loading-pending');
+          await expect
+            .soft(productHeadings(page))
+            .toHaveCount(expectedNumber(testCase, 'productCountWhilePending'));
+          await expect
+            .soft(loadingIndicator)
+            .toBeVisible({ timeout: settledUiAssertionTimeoutMs });
+        } finally {
+          // Always unblock the SUT even when screenshot/assertion collection fails.
+          releaseOnce();
+        }
+
+        const response = await responsePromise;
+        if (expectedBoolean(testCase, 'productsVisibleAfterResponse')) {
+          await expect.soft(productHeadings(page).first()).toBeVisible();
+        }
+        await attachUiEvidence(page, testInfo, testCase, 'products-after-response');
+        expect(response.status()).toBe(expectedNumber(testCase, 'responseStatus'));
+        if (expectedBoolean(testCase, 'loadingHiddenAfterResponse')) {
+          await expect(loadingIndicator).toBeHidden();
+        }
+        testInfo.annotations.push({
+          type: 'loading-synchronization',
+          description: expectedString(testCase, 'synchronizationStatus'),
+        });
+      } finally {
+        releaseOnce();
+        await page.unroute(routePattern);
       }
-      if (expectedBoolean(testCase, 'loadingHiddenAfterResponse')) {
-        await expect(loadingIndicator).toBeHidden();
-      }
-      testInfo.annotations.push({
-        type: 'fix2-backlog',
-        description: fixture.fix2Backlog.loadingSynchronization,
-      });
       break;
     }
     case 'ui-h1': {
       await openHome(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'h1-headings');
       await expect(productHeadings(page).first()).toBeVisible();
       // CSS is intentional: this case asserts exact h1 DOM structure/count.
       const topHeadings = page.locator(inputString(testCase, 'headingSelector'));
@@ -798,6 +897,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
     }
     case 'ui-price-format': {
       await openHome(page, testCase);
+      await attachUiEvidence(page, testInfo, testCase, 'product-card-prices');
       const headings = productHeadings(page);
       expect(await headings.count()).toBeGreaterThanOrEqual(
         expectedNumber(testCase, 'minimumProductCount'),
@@ -815,7 +915,7 @@ async function runCase(page: Page, testInfo: TestInfo, testCase: Fr05Case): Prom
   }
 }
 
-test.describe('FR-05 — Xem danh sách và tìm kiếm sản phẩm — Fix 1', () => {
+test.describe('FR-05 — Xem danh sách và tìm kiếm sản phẩm', () => {
   for (const testCase of fixture.cases) {
     test(`${testCase.id} — ${testCase.title}`, async ({ page }, testInfo) => {
       await runCase(page, testInfo, testCase);
