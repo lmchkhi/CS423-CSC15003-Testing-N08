@@ -28,7 +28,17 @@ SESSIONS = [
     ("33676afb", "Lập kế hoạch HW04 (superpowers plan) và thực thi Session 1 — FR-02"),
     ("b45a13b7", "Thực thi Session 2 — FR-10"),
     ("78f17f22", "Điều chỉnh kế hoạch theo ràng buộc commit mới; rà soát log AI"),
+    ("f6295926", "Thực thi Session 3 — FR-13, triage, bug report, tài liệu hoá"),
 ]
+
+# Model display name per transcript's own `message.model` field — sessions
+# switched from Opus 5 to Sonnet 5 partway through HW04 (student's /model
+# command on 08/08/2026), so this must not be hardcoded to one value.
+MODEL_LABEL = {
+    "claude-opus-5": "Opus 5",
+    "claude-sonnet-5": "Sonnet 5",
+    "claude-haiku-4-5-20251001": "Haiku 4.5",
+}
 
 BASH_CAP = 700
 TEXT_CAP = 4000
@@ -170,6 +180,7 @@ def build():
                         "body": [],
                         "session": label if session_open else None,
                         "file": pre if session_open else None,
+                        "model": None,
                     }
                 )
                 session_open = False
@@ -177,6 +188,8 @@ def build():
                 continue
 
             if role == "assistant" and started:
+                if entries and not entries[-1]["model"]:
+                    entries[-1]["model"] = m.get("model")
                 for b in content:
                     if not isinstance(b, dict):
                         continue
@@ -258,7 +271,8 @@ def render(entries):
     for e in entries:
         if e["session"]:
             out.append(f"\n**Phiên `{e['file']}` — {e['session']}**\n")
-        out.append(f"\n## [{e['n']}] Claude (Opus 5, Claude Code) — {e['when']}\n")
+        model_label = MODEL_LABEL.get(e.get("model"), e.get("model") or "Opus 5")
+        out.append(f"\n## [{e['n']}] Claude ({model_label}, Claude Code) — {e['when']}\n")
         out.append("**Prompt:**\n")
         out.append("```text\n" + e["prompt"] + "\n```\n")
         out.append("**Output:**\n")

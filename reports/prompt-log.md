@@ -3510,6 +3510,635 @@ Fence-toggling is unreliable (prompts legitimately contain ``` fences). The clea
 ```
 → Bash: mkdir -p reports/tools && cp /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/78f17f22-12d4-4854-86c2-c47b8a039d2e/scratchpad/extract_prompt_log.py reports/tools/extract-prompt-log.py && python3 re
 … [cắt bớt 43 ký tự; xem transcript gốc]
+   25 entries, 189174 chars -> /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/prompt-log.md
+     [ 1] 10:38 PM 05/08/2026    1 blocks  'but like it requires at least 8 commits per day so whats the plan?'
+     [ 2] 11:07 PM 05/08/2026  156 blocks  'read HW04-AutomationTesting.md and plan to setup the project for me\nma'
+→ Edit(.claude/skills/prompt-log/SKILL.md)
+→ Read(.claude/skills/prompt-log/SKILL.md)
+→ Edit(.claude/skills/prompt-log/SKILL.md)
+→ Read(.claude/skills/prompt-log/SKILL.md)
+→ Edit(.claude/skills/prompt-log/SKILL.md)
+```text
+Now the audit report. Let me pull the real verbatim AI text for the four existing FR-10 entries:
+```
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json,glob from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) f=glob.glob('b45a13b7*.jsonl')[
+… [cắt bớt 395 ký tự; xem transcript gốc]
+   ===== 08:25 =====
+   I'll start by reading the plan to see what Session 2 covers.
+   
+   ===== 08:25 =====
+   I have Session 2's full scope (Tasks 7–10). The plan requires a sub-skill for execution.
+   
+   ===== 08:25 =====
+   I'm using the executing-plans skill to implement this plan. Session 2 = Tasks 7–10 (FR-10). Already on branch `HW04/23127300` (not main), and the plan hardcodes absolute paths into the primary working dir, so I'll execute in place rather than in a worktree.
+   
+   Starting with environment + reading the HW02 source cases.
+   
+   ===== 08:26 =====
+   Environment green (smoke 3/3). Now Task 7 Step 3 — reconnoitre both order UIs against a real order.
+   
+   ===== 08:27 =====
+   Key finding: admin uses `adminToken`,
+   … [cắt bớt 5557 ký tự; xem transcript gốc]
+```text
+Now the FR-02 and planning session, which have never been logged:
+```
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json,glob from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) f=glob.glob('33676afb*.jsonl')[
+… [cắt bớt 777 ký tự; xem transcript gốc]
+   ### USER 05/08 23:41: plan to finish this homework, i want full grades HW04-AutomationTesting.md, it should split into multiple execution to spread out the git commits between days. also i setup the project structrue, check.
+   
+   ### USER 05/08 23:41: plan to finish this homework, i want full grades HW04-AutomationTesting.md, it should split into multiple execution to spread out the git commits between days. also i setup the project structrue, check. use superpowers
+     [05/08 23:41] I'll start by reading the homework spec and checking your project structure, using the brainstorming skill as the process skill for planning work.
+     [05/08 23:43] Scaffold checked — it's in good shape. Before I plan t
+   … [cắt bớt 10377 ký tự; xem transcript gốc]
+```text
+Now let me read the audit skill's format and the existing verdicts I need to preserve.
+```
+→ Bash: sed -n '1,60p' .claude/skills/ai-audit-log/SKILL.md && echo "=========== EXISTING ENTRIES 2-4 verdict/reasoning/fix ===========" && sed -n '132,374p' reports/ai-audit-report.md
+   ---
+   name: ai-audit-log
+   description: Auto-append an entry to reports/ai-audit-report.md every time an AI tool (this agent included) produces an artifact used in the HW04 deliverables — a batch of designed test cases, a generated spec or data file, a selector/assertion repair, a gap-analysis note, a bug triage, etc. Use immediately after finishing any AI-assisted sub-task for HW04, not just at the end of the session. Required by HW04 §9 (AI Audit Report) and the course's "AI-First + mandatory audit log" policy. Runs alongside — not instead of — the prompt-log skill, which keeps the separate unfiltered reports/prompt-log.md the TA also requires.
+   ---
+   
+   # AI Audit Log
+   
+   **Language: every file this
+   … [cắt bớt 12535 ký tự; xem transcript gốc]
+```text
+I have everything needed. Writing the rebuilt audit report — 15 chronological entries, verbatim outputs, existing FR-10 verdicts preserved:
+```
+→ Write(reports/ai-audit-report.md, 1182 dòng)
+```text
+Verbatim claims must be verifiable. Let me check every quoted AI line actually exists in the transcripts:
+```
+→ Bash: python3 - <<'PY' import json,glob,os,re PROJ=os.path.expanduser("~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08") corpus=[] for f in glob.glob(PROJ+"/*.jsonl"): for line in open(f): try: d=json.loads(
+… [cắt bớt 1180 ký tự; xem transcript gốc]
+   checked 72 verbatim blocks
+   NOT FOUND IN TRANSCRIPTS:
+     ✗ Two things genuinely can't finish today, so I carved them into a new T
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json,glob f=glob.glob('78f17f22*.jsonl')[0] for line in open(f): try: d=json.loads(line) except: continue m=d.get('message'
+… [cắt bớt 199 ký tự; xem transcript gốc]
+   "Plan adjusted. Summary of what changed:\n\n**Constraint** — `≥8 commits across ≥4 days` → `≥8 commits`, updated in the plan's Global Constraints, Task 18 Step 6, the Verification Gate, and `CLAUDE.md` (uncommitted). The old §12 check command also now counts `pages/`, `fixtures/` and `utils/`, which it was silently missing.\n\n**Schedule** — collapsed from five sessions to three:\n\n| | Was | Now |\n|---|---|---|\n| Aug 8 | Tasks 11–13 | **Tasks 11 → 12 → 13 → 14 → 15 → 16 → 18** (everything) |\n| Aug 9 | Tasks 14–18 | **Task 17 (video) + Task 18b** |\n| Aug 10 | Task 19 | unchanged |\n\n**Two things genuinely can't finish today**, so I carved them into a new Task 18b (~10 min after filming)
+   … [cắt bớt 288 ký tự; xem transcript gốc]
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json,glob f=glob.glob('78f17f22*.jsonl')[0] for line in open(f): try: d=json.loads(line) except: continue m=d.get('message'
+… [cắt bớt 227 ký tự; xem transcript gốc]
+   **Two things genuinely can't finish today**, so I carved them into a new Task 18b (~10 min after filming) rather than pretending tomorrow is pure video:
+   
+   1. The two YouTube links. Task 18 now writes all prose final and drops `<!-- TODO: YouTube link, Aug 9 -->` placeholders, so tomorrow is a paste.
+   2. The final `reports/html/` commit. The HTML reporter wipes its output folder, so tomorrow's on-camera run overwrites today's reports — and §11's anti-cheat intent wants the video to show reports actually being produced. Today's 9-cell run (Task 13) is committed as a full rehearsal; tomorrow's replaces it. Task 18b re-verifies the 9 labeled reports and reconciles the ledger if any cell flipped.
+   S
+   … [cắt bớt 69 ký tự; xem transcript gốc]
+→ Edit(reports/ai-audit-report.md)
+→ Bash: python3 - <<'PY' import json,glob,os,re PROJ=os.path.expanduser("~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08") corpus=[] for f in glob.glob(PROJ+"/*.jsonl"): for line in open(f): try: d=json.loads(
+… [cắt bớt 1044 ký tự; xem transcript gốc]
+   checked 79 quoted lines against transcripts
+   ✓ all trace to transcripts
+```text
+All 79 quoted lines verified. Now the root-cause fix in the audit skill so this can't recur:
+```
+→ Edit(.claude/skills/ai-audit-log/SKILL.md)
+```text
+I referenced a verifier in the skill, so let me make it real rather than leave a dangling instruction:
+```
+→ Write(reports/tools/verify-audit-verbatim.py, 82 dòng)
+→ Bash: python3 reports/tools/verify-audit-verbatim.py
+   checked 89 quoted lines against 3623k chars of transcript
+   ✓ every quoted line traces to a transcript
+→ Bash: git add -A reports .claude/skills CLAUDE.md && git status --short && echo "--- diffstat ---" && git diff --cached --stat | tail -12
+   M  .claude/skills/ai-audit-log/SKILL.md
+   M  .claude/skills/prompt-log/SKILL.md
+   M  CLAUDE.md
+   M  reports/ai-audit-report.md
+   M  reports/prompt-log.md
+   A  reports/tools/extract-prompt-log.py
+   A  reports/tools/verify-audit-verbatim.py
+   --- diffstat ---
+    .claude/skills/ai-audit-log/SKILL.md   |   55 +
+    .claude/skills/prompt-log/SKILL.md     |   68 +-
+    CLAUDE.md                              |    9 +-
+    reports/ai-audit-report.md             |  994 ++++++++-
+    reports/prompt-log.md                  | 3546 +++++++++++++++++++++++++++++++-
+    reports/tools/extract-prompt-log.py    |  281 +++
+    reports/tools/verify-audit-verbatim.py |   82 +
+    7 files changed, 4852 insertions(+), 183 deletions(-)
+→ Bash: git commit -q -m "docs(logs): rebuild prompt log and AI audit verbatim from session transcripts Both files claimed byte-for-byte verbatim prompts and outputs but contained post-hoc Vietnamese summaries, and covered only
+… [cắt bớt 721 ký tự; xem transcript gốc]
+   f133772 docs(logs): rebuild prompt log and AI audit verbatim from session transcripts
+```text
+Both problems are fixed, and the fix is verifiable rather than just asserted.
+
+**Why it wasn't verbatim.** The "AI Output" fields weren't AI output — they were Vietnamese third-person summaries written after the fact (`Phiên agentic: trợ lý đọc...`). An agentic session has no single answer string to paste, so previous sessions summarized instead of extracting. That's exactly what both skills forbid.
+
+**Why it was missing so much.** Only Session 2 was logged, and both files carried a note claiming Session 1 "was not recorded and will not be reconstructed from memory." That note was false — Claude Code had every session on disk the whole time.
+
+**What I did:**
+
+`reports/prompt-log.md` — 25 entries, Aug 5 → Aug 8, generated by `reports/tools/extract-prompt-log.py` from the raw transcripts. Prompts are byte-exact including typos; AI text is unchanged English; every tool call appears as a trace line in order. Two reductions are stated openly at the top rather than hidden: file bodies are referenced by path (they ship in the repo as the actual deliverable), and Bash stdout is capped at 700 chars with the cut marked inline.
+
+`reports/ai-audit-report.md` — 15 chronological entries, up from 4. Added the scaffold session, the planning session, all five FR-02 stages, and the two Aug 8 sessions. Every AI Output block is now real transcript text. Your Verdict/Reasoning/Student Fix on the four FR-10 entries are unchanged, renumbered #10–13.
+
+The recovered sessions turned out to be the strongest audit material you have — they contain real AI failures with your corrections on record: the scaffold over-running its scope (`wait i told you to just setup the project structure`), the `docs/superpowers/` commit you reverted, the `Co-Authored-By` trailer, the FR-02 `getByLabel` locator that couldn't work, and a timestamp change that silently broke `report:verify`. Verdicts now run 10 VALID / 4 INCOMPLETE / 1 INVALID, which reads as a genuine audit rather than a rubber stamp, and feeds Task 16's gap analysis directly.
+
+**Two things worth knowing:**
+
+The model's internal reasoning is stored empty — signature only — so it's genuinely unrecoverable. I said so in both files instead of paraphrasing it.
+
+I made both skills extract-only going forward: hand-editing a "verbatim" log is the exact failure mode that caused this. `reports/tools/verify-audit-verbatim.py` checks every quoted English line against the transcripts and currently passes at 89/89 — I ran it after writing, and it caught one block where I'd dropped bold markers from a quote, which I corrected.
+
+One judgment call you may want to revisit: I renumbered the audit entries chronologically, which the skill's append-only guardrail would normally discourage. Chronological order made the FR-02 gap legible, but say the word and I'll restore #1–4 as the FR-10 entries and append the rest.
+
+Nothing in the plan changed — Session 3's task list (11 → 12 → 13 → 14 → 15 → 16 → 18) is still ahead of us, and the SUT servers aren't running yet.
+```
+
+
+---
+
+
+**Phiên `f6295926` — Thực thi Session 3 — FR-13, triage, bug report, tài liệu hoá**
+
+
+## [26] Claude (Sonnet 5, Claude Code) — 9:24 PM 08/08/2026
+
+**Prompt:**
+
+```text
+finish the superpowers plan for today's work, i prefer inline style because of the prompt log requirements
+```
+
+**Output:**
+
+→ Bash: find . -iname "*plan*" -not -path "*/node_modules/*" -not -path "*/.git/*" | head -50
+→ Bash: git log --oneline -20 && echo --- && git status && echo --- && ls -la
+   ./docs/superpowers/plans
+   f133772 docs(logs): rebuild prompt log and AI audit verbatim from session transcripts
+   8c7699a docs(ai-audit): log entry #4 — webkit token-seeding repair
+   513f195 test(fr-10): make token seeding survive webkit navigation and record the 3-browser run
+   2b17c82 docs(ai-audit): log entries #1-#3 — FR-10 design, data model, spec generation
+   175e14d test(fr-10): automate the order state machine transitions on chromium
+   b99fc10 test(fr-10): add validated case data for the order state machine
+   385e9ff docs(fr-10): map HW02 order-state cases to the HW04 automated set
+   1a5b17f test(fr-02): record the chromium/firefox/webkit matrix run
+   8088ab4 test(fr-02): automate the login and lockout suite — 14 cases on ch
+   … [cắt bớt 1621 ký tự; xem transcript gốc]
+→ Bash: ls -la docs/superpowers/plans/ && echo --- && find docs/superpowers -type f | head -50
+   total 152
+   drwxr-xr-x@ 3 hbn  staff     96 Aug  8 09:06 .
+   drwxr-xr-x@ 4 hbn  staff    128 Aug  5 23:59 ..
+   -rw-r--r--@ 1 hbn  staff  74714 Aug  8 09:06 2026-08-05-hw04-automation.md
+   ---
+   docs/superpowers/plans/2026-08-05-hw04-automation.md
+   docs/superpowers/specs/2026-08-05-hw04-automation-design.md
+→ Read(docs/superpowers/plans/2026-08-05-hw04-automation.md)
+→ Read(docs/superpowers/plans/2026-08-05-hw04-automation.md)
+→ Skill(superpowers:executing-plans)
+→ Bash: echo "=== servers ===" && lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | grep -E '3000|5173|5174' ; echo "=== env ===" && ls automation/.env 2>/dev/null && echo exists || echo missing; echo "=== test-data ===" && ls automatio
+… [cắt bớt 188 ký tự; xem transcript gốc]
+→ Read(CLAUDE.md)
+   === servers ===
+   === env ===
+   missing
+   === test-data ===
+   fr-02-login.cases.json
+   fr-10-order-state.cases.json
+   === test-design ===
+   test-design
+   test-design/FR-10-order-state-machine
+   test-design/FR-02-login
+   test-design/not-automated.md
+   test-design/FR-13-dashboard
+   test-design/FR-10-order-state-machine/case-map.md
+   test-design/FR-02-login/case-map.md
+   test-design/FR-13-dashboard/case-map.md
+   === reports ===
+   ai-audit-report.md
+   html
+   prompt-log.md
+   run-manifest.md
+   tools
+   === manifest tail ===
+   # Run manifest — HW04 browser matrix
+   
+   Last updated 2026-08-07T08:46:31+07:00 by `npm run matrix`.
+   Run by: 23127300 (Ha Bao Ngoc).
+   Cells refreshed by this invocation: fr-10-order-state×chromium, fr-10-order-state×firefox
+   … [cắt bớt 1390 ký tự; xem transcript gốc]
+→ Bash: echo "=== bug-reports ===" && find bug-reports -type f; echo "=== ai-gap-analysis ===" && find ai-gap-analysis -type f; echo "=== reports/main-report.md exists? ===" && ls reports/*.md; echo "=== ai-audit-report head ===
+… [cắt bớt 197 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && cat .env.example 2>/dev/null | head -30; echo "---"; ls
+   === bug-reports ===
+   bug-reports/screenshots/.gitkeep
+   bug-reports/github-issues/.gitkeep
+   === ai-gap-analysis ===
+   ai-gap-analysis/.gitkeep
+   === reports/main-report.md exists? ===
+   reports/ai-audit-report.md
+   reports/prompt-log.md
+   reports/run-manifest.md
+   === ai-audit-report head ===
+       1182 reports/ai-audit-report.md
+       3515 reports/prompt-log.md
+       4697 total
+   === check main-report ===
+   === README ===
+        111 README.md
+   # Copy to automation/.env and fill in. .env is gitignored — never commit it,
+   # and never hardcode any of these values inside a spec.
+   
+   # --- Identity (HW04 §11: every HTML report must show "Run by: <STUDENT_ID>") ---
+   STUDENT_ID=23127300
+   STUDENT_NAME=Ha Bao Ngoc
+   
+   # --- SUT endpoints (see sut-requirements.md §1) ---
+   WEB_URL=http://localhost:5173
+   ADMIN_URL=http://localhost:5174
+   API_URL=http://localhost:3000
+   
+   # --- Seeded accounts shipped with the SUT ---
+   ADMIN_EMAIL=admin@eshop.com
+   ADMIN_PASSWORD=Admin123!
+   USER_EMAIL=test@eshop.com
+   USER_PASSWORD=Test1234!
+   
+   # --- Run options ---
+   # HEADLESS=false is useful when recording the Task 2 demo video.
+   HEADLESS=true
+   # Leave RUN_TIMESTAMP empty so each run
+   … [cắt bớt 182 ký tự; xem transcript gốc]
+→ Bash: cp .env.example .env && git check-ignore -v .env
+→ Bash: ls ~/Documents/eshop-sut 2>/dev/null && echo OK || echo MISSING
+   .gitignore:17:automation/.env	.env
+   README.md
+   api_specification.md
+   backend
+   frontend-admin
+   frontend-mobile
+   frontend-web
+   run_servers.sh
+   setup_guide.md
+   OK
+→ Bash: pwd && ls -la .env
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation
+   -rw-r--r--@ 1 hbn  staff  749 Aug  8 21:25 .env
+```text
+Good, `.env` is in place. Now starting the three SUT servers.
+```
+→ Bash: cd ~/Documents/eshop-sut/backend && node server.js
+→ Bash: cd ~/Documents/eshop-sut/frontend-web && npm run dev
+→ Bash: cd ~/Documents/eshop-sut/frontend-admin && npm run dev
+   Command running in background with ID: bi5288a98. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f/tasks/bi5288a98.output. You will be notified when it completes. To check interim output, use Read on that file path.
+   Session cwd remains /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation; directory changes made by the backgrounded command do not apply to subsequent commands.
+   Command running in background with ID: bgextl6vm. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f/tasks/bgextl6vm.output. You will be notified when it completes. To check interim output, use Read on that file path.
+   Session cwd remains /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation; directory changes made by the backgrounded command do not apply to subsequent commands.
+   Command running in background with ID: b9b7z4rrx. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f/tasks/b9b7z4rrx.output. You will be notified when it completes. To check interim output, use Read on that file path.
+   Session cwd remains /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation; directory changes made by the backgrounded command do not apply to subsequent commands.
+→ Bash: sleep 5 && lsof -nP -iTCP -sTCP:LISTEN | grep -E '3000|5173|5174'
+   node      86652  hbn   16u  IPv6 0x1407591a12887053      0t0  TCP *:3000 (LISTEN)
+   node      86675  hbn   29u  IPv6 0x72c1cc71cbf18835      0t0  TCP [::1]:5173 (LISTEN)
+   node      86697  hbn   30u  IPv6 0x2865f13572c8118c      0t0  TCP [::1]:5174 (LISTEN)
+```text
+All three ports are up. Now typecheck and smoke test.
+```
+→ Bash: npm run typecheck 2>&1 | tail -30
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+→ Bash: npm run smoke 2>&1 | tail -40
+   > hw04-eshop-automation@1.0.0 smoke
+   > playwright test tests/smoke.spec.ts --project=chromium
+   
+   
+   Running 3 tests using 1 worker
+   
+     ✓  1 [chromium] › tests/smoke.spec.ts:12:7 › @smoke SUT reachability › shop frontend responds (511ms)
+     ✓  2 [chromium] › tests/smoke.spec.ts:20:7 › @smoke SUT reachability › admin frontend responds (261ms)
+     ✓  3 [chromium] › tests/smoke.spec.ts:25:7 › @smoke SUT reachability › backend API serves products and accepts the admin account (20ms)
+   
+     3 passed (1.3s)
+```text
+Environment is ready. Let me set up task tracking for today's remaining plan items.
+```
+→ ToolSearch({"query": "select:TaskCreate,TaskUpdate,TaskList", "max_results": 5})
+→ TaskCreate({"subject": "Task 11: Design and build FR-13 case set", "description": "Read 6 HW02 FR-13 cases, mark unautomatable one, design 7 fresh cases, add dashboardCaseSchema to utils/data
+… [cắt bớt 77 ký tự; xem transcript gốc])
+→ TaskCreate({"subject": "Task 12: FR-13 page object and spec", "description": "Reconnoitre dashboard DOM, write dashboard.page.ts, write fr-13-dashboard.spec.ts, typecheck/list/run on chromium
+… [cắt bớt 31 ký tự; xem transcript gốc])
+→ TaskCreate({"subject": "Task 13: Run FR-13 3-browser + full 9-cell matrix", "description": "Run fr-13-dashboard matrix, repair cross-browser issues, run full npm run matrix (9 cells), verify
+… [cắt bớt 28 ký tự; xem transcript gốc])
+→ TaskCreate({"subject": "Task 14: Triage every failure", "description": "Classify every failing test across FR-02/FR-10/FR-13: product defect / bad automation / bad data / environment. Fix non
+… [cắt bớt 77 ký tự; xem transcript gốc])
+→ TaskCreate({"subject": "Task 15: File bug reports + GitHub issues", "description": "For each genuine defect, use bug-report skill to write bug-reports/BUG-*.md with screenshot and file a GitH
+… [cắt bớt 19 ký tự; xem transcript gốc])
+→ TaskCreate({"subject": "Task 16: Write AI gap analysis", "description": "ai-gap-analysis/ai-generated-script-gaps.md — what AI produced wrong, why, what changed, why AI missed it, tied to ai-
+… [cắt bớt 34 ký tự; xem transcript gốc])
+→ TaskCreate({"subject": "Task 18: Complete every document (except video links)", "description": "Write reports/main-report.md requirement ledger + process narrative, complete ai-audit-report.m
+… [cắt bớt 129 ký tự; xem transcript gốc])
+→ TaskUpdate({"taskId": "1", "status": "in_progress"})
+→ Bash: find ~/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard -type f | sort
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-001.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-002.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-003.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-004.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-005.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/d
+   … [cắt bớt 31 ký tự; xem transcript gốc]
+→ Bash: for f in ~/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/*.md; do echo "=== $f ==="; cat "$f"; echo; done
+   === /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/domain-testing/TC-FR13-DT-001.md ===
+   # TC-FR13-DT-001: Hiển thị Dashboard khi chưa có đơn hàng
+   
+   ## Requirement ID
+   FR-13
+   
+   ## Module / Test type / Technique
+   Web Admin Dashboard / Functional / Domain Testing
+   
+   ## Domain Analysis
+   
+   ### Input Variables & Domain
+   
+   | Variable | Type | Domain / Constraints |
+   |---|---|---|
+   | `admin_session` | Trạng thái hệ thống | Admin đã đăng nhập hợp lệ; dependency từ FR-12. |
+   | `order_dataset` | Tập dữ liệu | Không có đơn hàng trong hệ thống. |
+   | `order_count` | Số lượng tính toán | Tổng số đơn hàng phải bằng số đơn hiện có. |
+   
+   ### Domain Matrix
+   
+   | TC | `admin_session` | `or
+   … [cắt bớt 11533 ký tự; xem transcript gốc]
+→ Bash: find ~/Downloads/23127300_HW02_AI_DomainTesting_100 -iname "*BUG-FR13*"
+→ Bash: sed -n '/§4/,/§5/p' /Users/hbn/Documents/CS423-CSC15003-Testing-N08/sut-requirements.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/BUG-FR13-001.md
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/screenshots/BUG-FR13-001-evidence-03-tc003-dashboard.png
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/screenshots/BUG-FR13-001-evidence-05-tc004-dashboard.png
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/screenshots/BUG-FR13-001-evidence-06-tc004-orders.png
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/screenshots/BUG-FR13-001-evidence-02-tc002-orders.png
+   /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/screenshots/BUG-FR13-001-evidence-04-tc003-orders.png
+   … [cắt bớt 124 ký tự; xem transcript gốc]
+   (Bash completed with no output)
+→ Bash: cat ~/Downloads/23127300_HW02_AI_DomainTesting_100/bug-reports/BUG-FR13-001.md
+→ Bash: grep -n "FR-13\|FR13\|Dashboard\|doanh thu\|revenue" /Users/hbn/Documents/CS423-CSC15003-Testing-N08/sut-requirements.md
+   1:# SUT Requirements — trích cho phạm vi HW04 (FR-02, FR-10, FR-13)
+   78:## 4. FR-13: Dashboard (Pool C — admin `:5174`)
+   80:- Hiển thị tổng doanh thu: **chỉ tính tổng `total_amount` của các đơn có
+   # BUG-FR13-001: Dashboard hiển thị sai tổng doanh thu cho các tập dữ liệu đơn hàng
+   
+   ## Found by Test Case
+   TC-FR13-DT-002, TC-FR13-DT-003, TC-FR13-DT-004
+   
+   ## Requirement liên quan
+   FR-13
+   
+   ## GitHub Issue
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/58
+   
+   ## Severity / Priority
+   High / P2
+   
+   Lý do: FR-13 yêu cầu Dashboard hiển thị tổng doanh thu bằng tổng `total_amount` của các đơn có `status = 'delivered'`. Chỉ số doanh thu là thông tin chính của Dashboard Admin; kết quả sai trong nhiều miền dữ liệu làm Admin không thể tin cậy số liệu. Nên sửa trong vòng hiện tại.
+   
+   ## Environment
+   **Browser**: Chrome Version 149.0.7827.103  
+   **OS**: macOS Tahoe 26.5.1  
+   **URL**: Backend `http://local
+   … [cắt bớt 2754 ký tự; xem transcript gốc]
+→ Bash: sed -n '75,95p' /Users/hbn/Documents/CS423-CSC15003-Testing-N08/sut-requirements.md
+   ---
+   
+   ## 4. FR-13: Dashboard (Pool C — admin `:5174`)
+   
+   - Hiển thị tổng doanh thu: **chỉ tính tổng `total_amount` của các đơn có
+     `status = 'delivered'`**.
+   - Hiển thị tổng số đơn hàng.
+   
+   Bối cảnh bắt buộc từ FR-12 (Access Control):
+   
+   - Phân hệ Admin chỉ dành cho tài khoản có `role = 'admin'`.
+   - **Tất cả** API Admin (`/api/admin/*`) và các API ảnh hưởng dữ liệu đều phải
+     yêu cầu: (1) Token JWT hợp lệ, (2) `role = 'admin'` trong Token.
+   
+   ---
+   
+   ## 5. API dùng cho setup / teardown / oracle phụ
+   
+   *Base URL `http://localhost:3000`. API có xác thực yêu cầu header
+   `Authorization: Bearer <token>`.*
+→ Bash: cat /Users/hbn/Documents/CS423-CSC15003-Testing-N08/test-design/FR-13-dashboard/case-map.md; echo "=== not-automated ==="; cat /Users/hbn/Documents/CS423-CSC15003-Testing-N08/test-design/not-automated.md
+   # FR-13 — Ánh xạ test case
+   
+   Nguồn: 6 case Domain Testing của HW02 — **thiếu 6 case so với mức tối thiểu 12
+   của HW04 §6**. Phần thiếu được thiết kế mới trong HW04 (ghi `—` ở cột HW02 Case
+   ID) và phải được nêu rõ là công việc thiết kế mới trong
+   [`../../reports/main-report.md`](../../reports/main-report.md).
+   
+   | HW04 Case ID | HW02 Case ID | Category | Requirement (sut-requirements.md §4) | Automated test title | Data row | Trạng thái |
+   |---|---|---|---|---|---|---|
+   | | | | | | | |
+   
+   > Trạng thái: `automated` / `not automated` (kèm lý do trong
+   > [`../not-automated.md`](../not-automated.md)).
+   === not-automated ===
+   # Case không tự động hoá được
+   
+   HW04 §6 yêu cầu ghi rõ những test case không automate
+   … [cắt bớt 1519 ký tự; xem transcript gốc]
+→ Read(automation/utils/api.ts)
+→ Read(automation/utils/data.ts)
+→ Bash: cat /Users/hbn/Documents/CS423-CSC15003-Testing-N08/test-design/FR-10-order-state-machine/case-map.md
+   # FR-10 — Ánh xạ test case
+   
+   Nguồn: 14 case Domain Testing của HW02.
+   Yêu cầu HW04 §6: tối thiểu 12 case tự động cho feature này.
+   Oracle: [`sut-requirements.md`](../../sut-requirements.md) §3.
+   
+   ## 1. Bảng ánh xạ
+   
+   | HW04 Case ID | HW02 Case ID | Category | Requirement (sut-requirements.md §3) | Automated test title | Data row | Trạng thái |
+   |---|---|---|---|---|---|---|
+   | F10-TC-001 | TC-FR10-DT-001 | state | `pending → confirmed` do Admin là chuyển đổi hợp lệ | `F10-TC-001 — Admin xác nhận đơn chờ xác nhận` | `[0]` | automated |
+   | F10-TC-002 | TC-FR10-DT-002 | state | `confirmed → shipping` do Admin là chuyển đổi hợp lệ | `F10-TC-002 — Admin chuyển đơn đã xác nhận sang đang giao` | `[1]` | aut
+   … [cắt bớt 5137 ký tự; xem transcript gốc]
+→ Read(automation/pages/admin-orders.page.ts)
+→ Read(automation/tests/fr-10-order-state.spec.ts)
+→ Read(automation/fixtures/auth.fixture.ts)
+→ Bash: npx tsx -e " import { chromium } from '@playwright/test'; import { loginAdmin } from './utils/api'; (async () => { const admin = await loginAdmin(); const b = await chromium.launch(); const p = await b.newPage(); await p
+… [cắt bớt 372 ký tự; xem transcript gốc]
+   --- innerText ---
+   EShop Admin
+   Dashboard
+   Danh mục
+   Sản phẩm
+   Mã Giảm Giá
+   Đơn hàng
+   Người dùng
+   Đăng xuất
+   Dashboard
+   Tổng doanh thu (Delivered)
+   
+   0 ₫
+   
+   Tổng số đơn hàng
+   
+   0
+   --- html snippet ---
+   
+       <div id="root"><div class="flex h-screen bg-gray-50"><div class="w-64 bg-gray-800 text-white p-4 overflow-y-auto"><h1 class="text-2xl font-bold mb-8">EShop Admin</h1><ul class="space-y-4"><li class="cursor-pointer hover:text-blue-300 text-blue-400">Dashboard</li><li class="cursor-pointer hover:text-blue-300 ">Danh mục</li><li class="cursor-pointer hover:text-blue-300 ">Sản phẩm</li><li class="cursor-pointer hover:text-blue-300 ">Mã Giảm Giá</li><li class="cursor-pointer hover:text-blue-300 ">Đơn hàng</li><
+   … [cắt bớt 632 ký tự; xem transcript gốc]
+→ Bash: npx tsx -e " import { loginAdmin, getAdminOrders } from './utils/api'; (async () => { const admin = await loginAdmin(); const orders = await getAdminOrders(admin.token); console.log('order count:', orders.length); consol
+… [cắt bớt 33 ký tự; xem transcript gốc]
+   order count: 0
+   []
+→ Bash: npx tsx -e " import { chromium } from '@playwright/test'; import { createUser } from './utils/api'; (async () => { const b = await chromium.launch(); // anonymous — no token at all const p1 = await b.newPage(); await p1.
+… [cắt bớt 543 ký tự; xem transcript gốc]
+   --- anonymous URL --- http://localhost:5174/
+   Admin Login
+   Login
+   --- non-admin URL --- http://localhost:5174/
+   EShop Admin
+   Dashboard
+   Danh mục
+   Sản phẩm
+   Mã Giảm Giá
+   Đơn hàng
+   Người dùng
+   Đăng xuất
+   Dashboard
+   Tổng doanh thu (Delivered)
+   
+   0 ₫
+   
+   Tổng số đơn hàng
+   
+   0
+→ Bash: npx tsx -e " import { createUser } from './utils/api'; import { config } from './utils/config'; (async () => { const user = await createUser('recon13b'); const res = await fetch(config.apiUrl + '/api/admin/orders', { hea
+… [cắt bớt 127 ký tự; xem transcript gốc]
+   status: 200
+   []
+→ Bash: npx tsx -e " import { chromium } from '@playwright/test'; (async () => { const b = await chromium.launch(); const p = await b.newPage(); await p.goto('http://localhost:5174'); await p.waitForTimeout(500); console.log(awa
+… [cắt bớt 59 ký tự; xem transcript gốc]
+   <div id="root"><div class="flex h-screen items-center justify-center bg-gray-100"><form class="bg-white p-8 rounded shadow-md w-96"><h2 class="text-2xl font-bold mb-4">Admin Login</h2><input class="w-full border p-2 mb-4" placeholder="Email" value=""><input class="w-full border p-2 mb-4" placeholder="Password" type="password" value=""><button class="w-full bg-blue-600 text-white p-2 rounded">Login</button></form></div></div>
+       <script type="module" src="/src/main.jsx"></script>
+→ Write(automation/pages/dashboard.page.ts, 49 dòng)
+→ Edit(automation/utils/data.ts)
+```text
+Now the FR-13 data file (12 cases):
+```
+→ Write(automation/test-data/fr-13-dashboard.cases.json, 146 dòng)
+```text
+Now verify the loader accepts it, and update `not-automated.md` + `case-map.md`.
+```
+→ Bash: npx tsx -e " import { loadCases, dashboardCaseSchema } from './utils/data'; const c = loadCases('fr-13-dashboard.cases.json', dashboardCaseSchema); console.log(c.length, c.map(x => x.caseId).join(', ')); "
+   12 F13-TC-001, F13-TC-002, F13-TC-003, F13-TC-004, F13-TC-005, F13-TC-006, F13-TC-007, F13-TC-008, F13-TC-009, F13-TC-010, F13-TC-011, F13-TC-012
+```text
+12 cases load cleanly. Now `not-automated.md` and the case-map.
+```
+→ Edit(test-design/not-automated.md)
+→ Write(test-design/FR-13-dashboard/case-map.md, 69 dòng)
+→ Bash: npm run typecheck 2>&1 | tail -30
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+```text
+Clean. Committing Task 11's deliverables.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && git add automation/utils/data.ts automation/test-data/fr-13-dashboard.cases.json test-design/FR-13-dashboard/case-map.md test-design/not-automated.md automation/pages
+… [cắt bớt 40 ký tự; xem transcript gốc]
+   A  automation/pages/dashboard.page.ts
+   A  automation/test-data/fr-13-dashboard.cases.json
+   M  automation/utils/data.ts
+   M  test-design/FR-13-dashboard/case-map.md
+   M  test-design/not-automated.md
+→ Bash: git restore --staged automation/pages/dashboard.page.ts && git commit -m "test(fr-13): add dashboard case data with 7 cases designed fresh in HW04"
+   [HW04/23127300 5660228] test(fr-13): add dashboard case data with 7 cases designed fresh in HW04
+    4 files changed, 242 insertions(+), 7 deletions(-)
+    create mode 100644 automation/test-data/fr-13-dashboard.cases.json
+→ Skill(prompt-log)
+→ Bash: sed -n '1,60p' reports/tools/extract-prompt-log.py
+   #!/usr/bin/env python3
+   """Rebuild reports/prompt-log.md verbatim from the Claude Code session transcripts.
+   
+   Nothing here paraphrases, translates or summarises. Prompts, assistant text and
+   assistant reasoning are copied byte for byte. The only reductions are stated
+   explicitly in the generated file's header:
+     - file bodies written by the AI are referenced by path + line count, because
+       the file itself is the deliverable and already ships in the repo;
+     - Bash stdout is capped, with the cut marked inline.
+   """
+   import json
+   import glob
+   import os
+   import re
+   from datetime import datetime, timedelta, timezone
+   
+   PROJ = os.path.expanduser(
+       "~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-T
+   … [cắt bớt 1462 ký tự; xem transcript gốc]
+→ Bash: ls -la ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/*.jsonl | sort -k6,7 | tail -10
+   -rw-------@ 1 hbn  staff    873701 Jul 26 17:33 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/2e4a1bc7-48a5-4977-b293-68127df17b45.jsonl
+   -rw-------@ 1 hbn  staff   1758983 Jul 26 16:03 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/cccce59b-cc37-4283-9d29-8dd10df6c810.jsonl
+   -rw-------@ 1 hbn  staff   1977430 Jul 26 16:40 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/c7607d45-d112-42c0-99c3-541e1b93cecc.jsonl
+   -rw-------@ 1 hbn  staff   2141616 Jul 26 17:11 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/eafecb4a-70e2-4f7b-baea-db4343b99c06.jsonl
+   -rw-------@ 1 hbn  staff   54142
+   … [cắt bớt 969 ký tự; xem transcript gốc]
+→ Bash: find ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ -name "*.jsonl" -newermt "2026-08-08" -exec ls -la {} \;
+   -rw-------@ 1 hbn  staff  1101349 Aug  8 20:47 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/78f17f22-12d4-4854-86c2-c47b8a039d2e.jsonl
+   -rw-------@ 1 hbn  staff  731077 Aug  8 21:33 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f.jsonl
+   -rw-------@ 1 hbn  staff  12860 Aug  8 09:01 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ecdaed2f-4792-436e-b99a-00c53193e796.jsonl
+   -rw-------@ 1 hbn  staff  423054 Aug  8 08:21 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/3aa6dd52-cef0-4c8e-a6c5-98b89b1cf702.jsonl
+→ Bash: python3 - <<'EOF' import json path = "/Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ecdaed2f-4792-436e-b99a-00c53193e796.jsonl" with open(path) as f: for line in f: d = json.loads(line) if d
+… [cắt bớt 276 ký tự; xem transcript gốc]
+   '<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>'
+→ Bash: python3 - <<'EOF' import json path = "/Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ecdaed2f-4792-436e-b99a-00c53193e796.jsonl" n=0 with open(path) as f: for line in f: d = json.loads(line)
+… [cắt bớt 379 ký tự; xem transcript gốc]
+   --- user ---
+   <local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+   --- user ---
+   <command-name>/model</command-name>
+               <command-message>model</command-message>
+               <command-args></command-args>
+   --- user ---
+   <local-command-stdout>Set model to [1mSonnet 5[22m and saved as your default for new sessions</local-command-stdout>
+   --- user ---
+   <local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise
+   … [cắt bớt 367 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'EOF' import json path = "/Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f.jsonl" n=0 with open(path) as f: for line in f: d = json.loads(line)
+… [cắt bớt 389 ký tự; xem transcript gốc]
+   --- user ts=2026-08-08T14:24:19.739Z ---
+   <local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your response unless the user explicitly asks you to.</local-command-caveat>
+   --- user ts=2026-08-08T14:24:19.736Z ---
+   <command-name>/model</command-name>
+               <command-message>model</command-message>
+               <command-args></command-args>
+   --- user ts=2026-08-08T14:24:19.736Z ---
+   <local-command-stdout>Set model to [1mSonnet 5[22m and saved as your default for new sessions</local-command-stdout>
+   --- user ts=2026-08-08T14:24:53.194Z ---
+   finish the superpowers plan for today's
+   … [cắt bớt 66 ký tự; xem transcript gốc]
+```text
+Confirmed — this is today's live session. Let me add it to the extractor's `SESSIONS` list and regenerate.
+```
+→ Read(reports/tools/extract-prompt-log.py)
+→ Bash: python3 - <<'EOF' import json path = "/Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f.jsonl" n=0 with open(path) as f: for line in f: d = json.loads(line)
+… [cắt bớt 106 ký tự; xem transcript gốc]
+   claude-sonnet-5
+   claude-sonnet-5
+   claude-sonnet-5
+   claude-sonnet-5
+→ Bash: for id in 4e93c378 5eb7aacf 33676afb b45a13b7 78f17f22; do f=$(ls ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/${id}*.jsonl 2>/dev/null | head -1) echo "=== $id ===" python3 - "$f" <<'EOF' import js
+… [cắt bớt 201 ký tự; xem transcript gốc]
+   === 4e93c378 ===
+   {'claude-opus-5'}
+   === 5eb7aacf ===
+   {'claude-opus-5'}
+   === 33676afb ===
+   {'claude-opus-5'}
+   === b45a13b7 ===
+   {'claude-opus-5'}
+   === 78f17f22 ===
+   {'claude-opus-5'}
+→ Edit(reports/tools/extract-prompt-log.py)
+→ Edit(reports/tools/extract-prompt-log.py)
+```text
+Now update the render function to use the per-entry model:
+```
+→ Edit(reports/tools/extract-prompt-log.py)
 
 
 ---
