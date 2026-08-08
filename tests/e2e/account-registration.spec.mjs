@@ -11,14 +11,31 @@ if (!Array.isArray(data.cases) || data.cases.length < 12) {
 }
 
 const runId = `${Date.now()}-${process.pid}`;
+const apiBaseURL = process.env.API_BASE_URL ?? 'http://127.0.0.1:3000';
 const resolveCase = (testCase) => JSON.parse(
   JSON.stringify(testCase).replaceAll('{runId}', runId),
 );
 
 test.describe('FR-01 - Đăng ký tài khoản', () => {
   for (const sourceCase of data.cases) {
-    test(`${sourceCase.id}: ${sourceCase.title}`, async ({ page }) => {
+    test(`${sourceCase.id}: ${sourceCase.title}`, async ({ page, request }) => {
       const testCase = resolveCase(sourceCase);
+
+      if (testCase.scenario === 'duplicate') {
+        const response = await request.post(`${apiBaseURL}/api/register`, {
+          data: {
+            name: testCase.name,
+            email: testCase.email,
+            password: testCase.password,
+          },
+        });
+
+        expect(response.status()).toBe(409);
+        const responseBody = await response.json();
+        expect(responseBody.error).toMatch(/email.*(tồn tại|đã được sử dụng|exist)/i);
+        return;
+      }
+
       const register = new RegisterPage(page);
       await register.goto();
 
@@ -34,12 +51,30 @@ test.describe('FR-01 - Đăng ký tài khoản', () => {
         return;
       }
 
-      const registrationResponse =
-        testCase.scenario === 'reject' || testCase.scenario === 'duplicate'
-          ? page.waitForResponse((response) =>
-              response.url().endsWith('/api/register') &&
-              response.request().method() === 'POST')
-          : null;
+      if (testCase.scenario === 'invalidEmail') {
+        let registrationRequestCount = 0;
+        page.on('request', (outgoingRequest) => {
+          const url = new URL(outgoingRequest.url());
+          if (
+            url.pathname === '/api/register' &&
+            outgoingRequest.method() === 'POST'
+          ) {
+            registrationRequestCount += 1;
+          }
+        });
+
+        await register.fill(testCase);
+        await expect(register.emailInput).toHaveAttribute('type', 'email');
+        await register.submit();
+
+        await expect(register.emailInput).toBeFocused();
+        expect(
+          await register.emailInput.evaluate((input) => input.validity.typeMismatch),
+        ).toBe(true);
+        await expect(page).toHaveURL(/\/register$/);
+        expect(registrationRequestCount).toBe(0);
+        return;
+      }
 
       await register.fill(testCase);
       await register.submit();
@@ -75,12 +110,6 @@ test.describe('FR-01 - Đăng ký tài khoản', () => {
         return;
       }
 
-      if (testCase.scenario === 'reject' || testCase.scenario === 'duplicate') {
-        const response = await registrationResponse;
-        expect(response.status()).toBeGreaterThanOrEqual(400);
-        await expect(page).toHaveURL(/\/register$/);
-        await expect(register.errorMessage).toBeVisible();
-      }
     });
   }
 });

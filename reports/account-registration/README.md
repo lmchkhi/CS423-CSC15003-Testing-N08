@@ -2,15 +2,15 @@
 
 - StudentID: `23127062`
 - SUT: `http://127.0.0.1:5173/register`
-- Build: `a934bf2d7871413aae4b6d46f820995e04170595`
+- Build: `fc8cc4d0eb3263440e9e5b3c4fc2d076aea08b5c`
 - Automated cases: 15 / 15
 - Unautomated cases: None
 
 | Browser | Timestamp | Passed | Failed | HTML report |
 |---|---|---:|---:|---|
-| Chromium 151.0.7922.34 | 2026-08-05T09:16:18Z | 9 | 6 | `reports/account-registration/chromium/index.html` |
-| Firefox 153.0 | 2026-08-05T09:18:49Z | 9 | 6 | `reports/account-registration/firefox/index.html` |
-| WebKit 26.5 | 2026-08-05T09:20:19Z | 9 | 6 | `reports/account-registration/webkit/index.html` |
+| Chromium 151.0.7922.34 | 2026-08-08T03:08:07Z | 9 | 6 | `reports/account-registration/chromium/index.html` |
+| Firefox 153.0 | 2026-08-08T02:59:44Z | 9 | 6 | `reports/account-registration/firefox/index.html` |
+| WebKit 26.5 | 2026-08-08T03:00:34Z | 9 | 6 | `reports/account-registration/webkit/index.html` |
 
 ## Failure triage
 
@@ -29,9 +29,3 @@ GitHub authentication succeeded outside the sandbox through the system keyring. 
 - BUG-REG-002 → https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/3
 - BUG-REG-003 → https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/7
 - BUG-REG-004 → https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/8
-
-## Human review corrections
-
-The first generated data used a compliant password in the malformed-email and duplicate-email cases. Because the product's broken password regex rejected that input before submission, those cases appeared to pass without exercising their target rule.
-
-The data was corrected only for these two isolation cases to pass through the current UI regex, then rerun. A second review found that checking the page URL immediately after clicking submit could pass before the asynchronous API call completed. The final script waits for `POST /api/register` and asserts its response status, making the email or uniqueness oracle deterministic.

@@ -16,9 +16,9 @@ Major / P1
 
 - Browser: Chromium 151.0.7922.34, Firefox 153.0, WebKit 26.5
 - OS: macOS 26.5.2 (25F84)
-- URL: `http://127.0.0.1:5175/register`
-- Build/commit: `a934bf2d7871413aae4b6d46f820995e04170595`
-- Run timestamp: `2026-08-05T09:16:18Z`
+- URL: `http://127.0.0.1:5173/register`
+- Build/commit: `fc8cc4d0eb3263440e9e5b3c4fc2d076aea08b5c`
+- Run timestamps: Chromium `2026-08-08T03:08:07Z`; Firefox `2026-08-08T02:59:44Z`; WebKit `2026-08-08T03:00:34Z`
 
 ## Steps to reproduce
 
@@ -37,6 +37,9 @@ Trang vẫn ở `/register` và báo mật khẩu yếu. Cùng kết quả trên
 ## Evidence
 
 ![TC-REG-001 failure on Chromium](../../evidence/account-registration/BUG-REG-001.png)
+
+- Current Chromium HTML report: [open report](../../reports/account-registration/chromium/index.html)
+- The current run reproduced the same failure on Chromium, Firefox, and WebKit.
 
 ## GitHub Issue
 

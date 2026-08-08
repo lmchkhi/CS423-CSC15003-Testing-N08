@@ -11,7 +11,7 @@ FR-01
 ## Preconditions
 
 - Tài khoản `test@eshop.com` đã tồn tại từ dữ liệu seed.
-- Backend và Frontend Web đang chạy ở URL mặc định.
+- Backend đang chạy ở URL mặc định.
 
 ## Test data
 
@@ -22,13 +22,12 @@ FR-01
 
 ## Test steps
 
-1. Mở trang Đăng ký.
-2. Nhập email `test@eshop.com` và các trường còn lại hợp lệ.
-3. Bấm Đăng Ký.
+1. Gửi `POST /api/register` với email `test@eshop.com` và các trường còn lại hợp lệ.
+2. Ghi nhận mã trạng thái và nội dung phản hồi.
 
 ## Expected result
 
-Hệ thống giữ nguyên trang Đăng ký, báo email đã tồn tại và không tạo bản ghi trùng.
+API trả về `409 Conflict`, thông báo email đã tồn tại và không tạo bản ghi trùng.
 
 ## Status / Related bugs
 

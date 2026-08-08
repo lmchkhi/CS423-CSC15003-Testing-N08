@@ -172,9 +172,13 @@ Các bug report, test case và [báo cáo tổng hợp](/Users/lvkhang/Documents
 - AI tự động thêm phần `Suggested labels` và `Verified remote labels` vào bug report thay vì đi theo format có sẵn.
 - Các phần hình ảnh trong evidence chỉ để path thay vì cho preview.
 - Student ID chưa được hiển thị khi mở html report.
+- TC-REG-006 và TC-REG-007 dùng dữ liệu mật khẩu sai đặc tả. Cụ thể: "Valid1 a".
+- Cơ chế chờ response sẽ bị treo khi validation phía client hoạt động đúng. Khi type="email" được sửa đúng, TC-REG-006 sẽ bị HTML5 validation chặn trước request.
 
 ### (5) Student Fix
 
 - Bỏ 2 phần đó và cập nhật lại agent skill.
 - Chuyển các ảnh ở phần evidence sang dạng preview để dễ đọc hơn.
 - Sửa lại để Student ID được hiển thị trong phần title khi mở report.
+- Sửa lại dữ liệu mật khẩu trong TC-REG-006 và TC-REG-007 để tuân thủ đúng đặc tả.
+- Sửa flaky wait: Không tạo chung waitForResponse cho cả malformed email và duplicate email.

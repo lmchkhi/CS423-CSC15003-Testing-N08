@@ -47,11 +47,11 @@
     {
       "id": "TC-REG-006",
       "title": "Từ chối email sai định dạng",
-      "scenario": "reject",
+      "scenario": "invalidEmail",
       "name": "Nguyễn An",
       "email": "email-khong-hop-le",
-      "password": "Valid1 a",
-      "confirmPassword": "Valid1 a"
+      "password": "Valid1!a",
+      "confirmPassword": "Valid1!a"
     },
     {
       "id": "TC-REG-007",
@@ -59,8 +59,8 @@
       "scenario": "duplicate",
       "name": "Người dùng trùng",
       "email": "test@eshop.com",
-      "password": "Valid1 a",
-      "confirmPassword": "Valid1 a"
+      "password": "Valid1!a",
+      "confirmPassword": "Valid1!a"
     },
     {
       "id": "TC-REG-008",
