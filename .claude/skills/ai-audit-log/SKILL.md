@@ -31,6 +31,61 @@ it; the same format was used in HW02/HW03). This is a
 **mandatory appendix** — missing it is a 0 for the whole homework — so append
 as you go, never reconstruct it from memory at the end.
 
+## Where "AI Output" actually comes from — do not write it from memory
+
+An agentic Claude Code session has **no single answer string** to paste into
+the AI Output field. That gap is what produced the failure this file was
+rebuilt to fix on 08/08/2026: four entries whose AI Output was a Vietnamese
+third-person summary written afterwards ("Phiên agentic: trợ lý đọc…"), under
+a heading promising verbatim text.
+
+The fix is not to write a better summary. It is to **read the transcript**.
+Claude Code stores every session as JSONL under
+`~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/`:
+
+```bash
+# which transcript covers which session
+python3 reports/tools/extract-prompt-log.py
+
+# the assistant's own words, with ICT timestamps, for one session
+python3 - <<'PY'
+import json,glob
+from datetime import datetime,timedelta,timezone
+ICT=timezone(timedelta(hours=7))
+f=glob.glob('<transcript-id-prefix>*.jsonl')[0]   # run from the projects dir
+for line in open(f):
+    d=json.loads(line); m=d.get('message') or {}
+    if m.get('role')!='assistant': continue
+    t=datetime.fromisoformat(d['timestamp'].replace('Z','+00:00')).astimezone(ICT)
+    for b in (m.get('content') or []):
+        if isinstance(b,dict) and b.get('type')=='text' and b.get('text','').strip():
+            print(f"\n===== {t:%H:%M} =====\n{b['text'].strip()}")
+PY
+```
+
+Take the assistant text blocks whose timestamps fall inside the entry's stage
+and paste them **unchanged**, in English. Several short blocks in sequence is
+the normal shape of an agentic stage — that sequence *is* the output, and it
+reads as a far better audit trail than any summary, because it shows the AI
+changing its mind mid-stage.
+
+Two things that are legitimately not the AI's output, and belong in the
+student's own fields instead: the content of files the AI wrote (reference
+them by path — they ship in the repo), and tool results such as Playwright
+tallies (quote them under an explicit lead-in like "trích nguyên văn từ output
+của Playwright", never blended into the AI's own words).
+
+**Before committing an edited audit report, verify the quotes are real:**
+
+```bash
+# every English quoted line must appear in some transcript
+python3 reports/tools/verify-audit-verbatim.py
+```
+
+Note that the model's internal reasoning (*thinking*) is stored with an empty
+body — only a signature — so it cannot be recovered. Say so rather than
+paraphrasing what the AI "was thinking".
+
 ## Relationship to `prompt-log`
 
 Two separate files, both required (per the TA's instruction, on top of what

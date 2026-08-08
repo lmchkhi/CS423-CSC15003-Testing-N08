@@ -44,10 +44,11 @@
   and `reports/ai-audit-report.md` (the §9 appendix with
   Verdict/Reasoning/Student Fix, via `ai-audit-log`). Run both skills for any
   interaction that produced a kept deliverable artifact.
-- **Commit discipline (§12)**: ≥8 commits over ≥4 different days, and **only
-  commits that change test-script files** (`.spec.ts`, and the data/config they
-  drive) count toward the 8. README/PDF-only commits do not. Do not squash
-  feature work into one commit at the end.
+- **Commit discipline (§12)**: ≥8 commits, and **only commits that change
+  test-script files** (`.spec.ts`, and the data/config they drive) count toward
+  the 8. README/PDF-only commits do not. The old "over ≥4 different days"
+  clause **no longer applies** (dropped 2026-08-08) — the count alone is the
+  requirement. Still do not squash feature work into one commit at the end.
 - **Black-box rule** (carried from HW02/HW03): bug reports and test-case notes
   cite observable behaviour only — never SUT source file paths or line numbers.
   Reading SUT code to understand a failure is fine; citing it as evidence is not.

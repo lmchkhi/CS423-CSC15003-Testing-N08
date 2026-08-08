@@ -7,7 +7,7 @@
 | **Họ tên** | Hà Bảo Ngọc |
 | **MSSV** | 23127300 |
 | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
-| **Ngày làm bài** | 06/08/2026 – 07/08/2026 |
+| **Ngày làm bài** | 05/08/2026 – 08/08/2026 |
 | **Công cụ AI đã dùng** | Claude (Opus 5, chạy trong Claude Code) |
 
 ## 2. Hướng dẫn / Phạm vi
@@ -17,13 +17,34 @@ case thủ công sang script tự động, kèm phán quyết của sinh viên v
 output. Bản ghi thô, không lọc, nằm ở [`prompt-log.md`](prompt-log.md).
 
 Nguyên tắc: **Full prompt** và **AI Output** giữ nguyên văn, không dịch, không
-rút gọn. Các phần còn lại là nhận định của sinh viên.
+rút gọn. Các phần còn lại (Verdict, Reasoning, Student Fix) là nhận định của
+sinh viên, viết bằng tiếng Việt.
 
-> Phạm vi hiện tại: các entry của Session 1 (FR-02, ngày 06/08/2026) chưa được
-> ghi tại thời điểm diễn ra và không được dựng lại từ trí nhớ. File này bắt đầu
-> từ Session 2 (FR-10).
+> **Ghi chú về lần rà soát ngày 08/08/2026.** Bản trước của file này chỉ có 4
+> entry, đều thuộc Session 2 (FR-10, 07/08), và phần **AI Output** của cả 4
+> entry không phải nguyên văn — chúng là bản tóm tắt tiếng Việt viết lại sau khi
+> làm xong, tức là vi phạm chính nguyên tắc nêu ở trên. Nguyên nhân: một phiên
+> agentic không có một "câu trả lời" duy nhất để dán vào, nên lần ghi đầu đã tóm
+> tắt thay vì trích.
+>
+> Cả hai vấn đề đã được sửa bằng cách trích thẳng từ transcript gốc của Claude
+> Code (`~/.claude/projects/`), nơi lưu đầy đủ mọi phiên làm việc:
+>
+> - Phần **AI Output** của mọi entry giờ là chữ AI thực sự đã trả lời, nguyên
+>   văn tiếng Anh, cắt từ transcript đúng khung giờ của entry đó.
+> - Bổ sung các entry còn thiếu: dựng khung dự án và lập kế hoạch (05/08),
+>   toàn bộ Session 1 — FR-02 (06/08), và hai phiên ngày 08/08.
+> - Đánh số lại theo thứ tự thời gian. Bốn entry FR-10 cũ trở thành #10–#13;
+>   phần Verdict / Reasoning / Student Fix của chúng **giữ nguyên không sửa**,
+>   vì đó là nhận định của sinh viên và vẫn đúng.
+>
+> Ghi chú cũ nói "các tương tác Session 1 không được ghi lại và không dựng lại
+> từ trí nhớ" đã bị xoá, vì nó không còn đúng: transcript vẫn còn, nên phần đó
+> là trích xuất chứ không phải dựng lại.
 
 ## 3. Audit Entries
+
+---
 
 ## Entry #1
 
@@ -32,7 +53,628 @@ rút gọn. Các phần còn lại là nhận định của sinh viên.
 | Field             | Content         |
 | ----------------- | --------------- |
 | **Tool**          | Claude (Opus 5, Claude Code) |
-| **Timestamp**     | 8:20 AM 07/08/2026 |
+| **Timestamp**     | 11:07 PM 05/08/2026 |
+| **Artifact type** | Khung dự án `automation/` — `playwright.config.ts`, `utils/config.ts`, `utils/data.ts`, `utils/api.ts`, `utils/stamp.ts`, `scripts/run-matrix.ts`, `tests/smoke.spec.ts` |
+
+**Full prompt:**
+
+```
+read HW04-AutomationTesting.md and plan to setup the project for me
+materials i added for your ref and will be deleted later (dont commit these, also no need gitignore i will delete manually):
+- Automation_Web_Seminar.pptx.pdf: presentation slide
+- HW04-AutomationTesting.md: requirements
+- playwright-skill.md, selenium-skill.md: the skillset the presentation group prepared for us, dont copy entirely blindly, check the quality of the skills entirely then decide what needs enhancing
+- added /Users/hbn/Downloads/23127300_HW02_AI_DomainTesting_100, but im not sure you can read so i leave its absolute path here. this is my hw02, you can take its docs and ref its skills here
+
+before you really make any changes to the repo, tell me how you want to setup the project structure
+```
+
+### (2) AI Output
+
+```
+I'll read the materials first before proposing anything.
+```
+
+Sau khi đọc xong đề và HW02, AI trình bày phương án cấu trúc thư mục, rồi
+**tự tiếp tục viết code** thay vì dừng lại chờ duyệt. Sinh viên cắt ngang:
+
+```
+[Request interrupted by user]
+```
+
+```
+wait i told you to just setup the project structure no real work yet what are you doing
+```
+
+```
+revert the overran
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần chuyên môn thì tốt: khung `automation/` mà AI dựng ra đúng những gì §6 đòi
+hỏi — loader dữ liệu tách khỏi spec, runner ma trận 3×3, và bộ đóng dấu
+`Run by:` + ISO timestamp vào report theo §11. Toàn bộ các session sau đều chạy
+trên khung này mà không phải dựng lại.
+
+Sai ở chỗ **không tôn trọng ranh giới phạm vi**. Prompt viết rõ "before you
+really make any changes to the repo, tell me how you want to setup the project
+structure" — tức là yêu cầu một đề xuất, không phải một lần thực thi. AI trình
+bày đề xuất rồi tự động làm tiếp luôn. Đây không phải lỗi kỹ thuật mà là lỗi
+đọc yêu cầu, và là loại lỗi nguy hiểm hơn: nếu không cắt ngang kịp, repo đã có
+một lượng code chưa ai duyệt.
+
+Bài học đã áp dụng cho toàn bộ phần còn lại của HW04: mọi giai đoạn sinh code
+đều đi sau một giai đoạn thiết kế được duyệt riêng, và kế hoạch chia thành 19
+task có checkpoint thay vì một lệnh "làm hết đi".
+
+### (5) Student Fix
+
+Bấm dừng giữa chừng, yêu cầu revert phần làm quá. Giữ lại khung thư mục và các
+file hạ tầng (`config`, `data`, `api`, `stamp`, `run-matrix`, `smoke.spec.ts`) vì
+đó đúng là phần được yêu cầu; bỏ phần code spec mà AI tự ý viết thêm.
+
+---
+
+## Entry #2
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 11:41 PM 05/08/2026 |
+| **Artifact type** | Tài liệu thiết kế HW04 — `docs/superpowers/specs/2026-08-05-hw04-automation-design.md` |
+
+**Full prompt:**
+
+```
+plan to finish this homework, i want full grades HW04-AutomationTesting.md, it should split into multiple execution to spread out the git commits between days. also i setup the project structrue, check. use superpowers
+```
+
+### (2) AI Output
+
+```
+I'll start by reading the homework spec and checking your project structure, using the brainstorming skill as the process skill for planning work.
+```
+
+```
+Scaffold checked — it's in good shape. Before I plan the day-by-day split, two things I can't derive:
+```
+
+```
+Everything's scaffolded and sound — config, data loader, API client, matrix runner, report stamping. Missing: `.env` (gitignored, I'll create it), the three specs, the three data files, page objects, and all reports.
+
+Two facts that shape the plan:
+
+- **Commit budget**: only 1 test-script commit exists (today's scaffold). §12 needs 8 across 4+ days. Aug 5→9 gives 5 working days — comfortable at 2 commits/day.
+- **HW02 carry-over confirmed**: FR-0
+```
+
+```
+Spec written and committed to `docs/superpowers/specs/2026-08-05-hw04-automation-design.md`.
+
+Two things I resolved during the write-up that differ slightly from what I said above:
+
+- **Case counts are targets, not commitments.** I'd written "FR-02 = 14 of 15" as if I already knew which case to drop — I don't, and won't until the design stage merges duplicates and checks each case has an observable UI oracle. The spec now states ≥12 with an expec
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Điểm đáng ghi nhận nhất là AI **tự sửa chính mình giữa chừng**: ban đầu nó viết
+"FR-02 = 14 of 15" như thể đã biết trước sẽ bỏ case nào, rồi tự nhận ra đó là con
+số bịa và đổi thành "≥12, con số cuối chốt ở giai đoạn thiết kế". Đây đúng là chỗ
+dễ sai nhất của tài liệu kế hoạch — cam kết một con số trước khi có dữ liệu để
+chốt nó — và AI nêu ra thay vì để trôi.
+
+Việc AI hỏi lại hai câu trước khi lập kế hoạch (thay vì đoán) cũng đúng quy trình:
+phạm vi feature và ngày bảo vệ là hai thứ không suy ra được từ repo.
+
+Phần đúng về mặt nội dung: bản thiết kế bám sát §6 (dữ liệu tách khỏi spec), §11
+(nhãn `Run by:` + timestamp) và §12 (ngân sách commit) — cả ba đều là tiêu chí
+chấm điểm, không phải chi tiết kỹ thuật tuỳ chọn.
+
+### (5) Student Fix
+
+Không sửa nội dung bản thiết kế. Có chỉnh một giả định về lịch: xem Entry #4.
+
+---
+
+## Entry #3
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 11:56 PM 05/08/2026 |
+| **Artifact type** | Thao tác git — commit tài liệu `docs/superpowers/` vào repo nộp bài |
+
+**Full prompt:**
+
+```
+i dont want the superpowers related to be commited
+```
+
+### (2) AI Output
+
+```
+Undone. The commit is gone (branch was unpushed, so nothing to force-push), and `docs/superpowers/` is now excluded via `.git/info/exclude` — local-only, so no `.gitignore` change enters the repo either. The design doc still exists on disk for me to work from; `git status` shows it as nothing at all.
+
+Going forward, only HW04 deliverables get committed: specs, test data, page objects, reports, bug reports, and the report/audit Markdown. Superpowe
+```
+
+### (3) Verdict
+
+**`INVALID`**
+
+### (4) Reasoning
+
+AI tự ý commit `docs/superpowers/` — tài liệu nội bộ của quy trình làm việc, không
+phải sản phẩm nộp — vào nhánh nộp bài mà không hỏi. Không có gì trong đề bài hay
+trong prompt yêu cầu điều đó.
+
+Lỗi này thuộc nhóm "AI mở rộng phạm vi thao tác ngoài yêu cầu", cùng nhóm với
+Entry #1, nhưng nghiêm trọng hơn vì nó tác động lên lịch sử git — thứ mà §12 dùng
+làm bằng chứng chấm điểm. Một repo nộp bài lẫn tài liệu quy trình nội bộ sẽ khiến
+người chấm phải đoán đâu là sản phẩm thật.
+
+Cùng phiên còn một lỗi cùng loại: AI gắn trailer `Co-Authored-By: Claude` vào
+commit. Bài này yêu cầu commit đứng tên sinh viên, còn việc dùng AI được khai báo
+ở chính file audit này chứ không phải trong lịch sử git.
+
+### (5) Student Fix
+
+Yêu cầu gỡ commit (nhánh chưa push nên không phải force-push). Chốt hai quy tắc và
+ghi thẳng vào `CLAUDE.md` để mọi phiên sau đều đọc được:
+
+- `docs/superpowers/` loại trừ qua `.git/info/exclude` — loại trừ cục bộ, không
+  làm bẩn `.gitignore` của repo nộp bài;
+- không bao giờ dùng trailer `Co-Authored-By`.
+
+---
+
+## Entry #4
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 11:58 PM 05/08/2026 |
+| **Artifact type** | Kế hoạch thực thi 19 task — `docs/superpowers/plans/2026-08-05-hw04-automation.md` |
+
+**Full prompt:**
+
+```
+okay, write the plan
+```
+
+### (2) AI Output
+
+```
+I'm using the writing-plans skill to create the implementation plan.
+```
+
+```
+Fixing three plan defects I found on self-review, plus a date shift.
+```
+
+```
+Plan complete and saved to `docs/superpowers/plans/2026-08-05-hw04-automation.md` — 19 tasks across 5 sessions, untracked by git like the spec.
+
+Two things changed from what I described earlier, both worth knowing:
+
+**The date rolled over — it's now Aug 6.** Work starts today rather than yesterday, so I compressed: Session 1 now also covers FR-02's three-browser run (Task 6), and Sessions 4–5 share Aug 9 (triage/bugs in the morning, video day in
+```
+
+Trước đó, khi sinh viên chỉ ra xung đột giữa ngày quay video và các report đã
+chạy:
+
+```
+Good catch — that's a real conflict, and the fix is to reorder rather than to run something throwaway.
+
+The problem isn't DB pollution. The suite is built to be re-runnable: FR-02 registers throwaway accounts, FR-10 creates a fresh order per case, FR-13 computes expected revenue live from `GET /api/admin/orders`. Running it again on Aug 9 doesn't corrupt anything.
+
+The problem is **report overwriting**. The HTML reporter wipes its output folder,
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Kế hoạch chi tiết tới mức chạy được: mỗi task có file đầu vào/đầu ra, đoạn code
+mẫu, lệnh kiểm chứng và tiêu chí "kỳ vọng thấy gì". Các session sau thực thi gần
+như đúng kế hoạch, đó là bằng chứng tốt nhất cho chất lượng của nó.
+
+Chỗ đáng giá nhất lại đến từ việc sinh viên phản biện chứ không phải từ bản nháp
+đầu: câu hỏi "video cần một script chạy end-to-end, nếu quay ngày 9 thì các report
+đã chạy rồi thì sao?" chỉ ra một xung đột thật mà kế hoạch ban đầu không thấy —
+reporter HTML **xoá sạch thư mục output trước khi ghi**, nên lượt chạy trên camera
+sẽ ghi đè report đã commit. AI xử lý đúng hướng: thay vì diễn một lượt chạy giả,
+nó đổi thứ tự để lượt chạy trên camera **chính là** lượt chạy chính thức, và thêm
+Task 2 (merge manifest) để điều đó khả thi. Task 2 sau này đúng là cần thật.
+
+AI cũng tự phát hiện ba lỗi trong bản nháp của chính nó khi tự rà lại, và xử lý
+đúng việc ngày đã sang 06/08 thay vì bám lịch cũ.
+
+### (5) Student Fix
+
+Không sửa nội dung kế hoạch. Sinh viên là người phát hiện xung đột report/video
+nêu trên; phần còn lại giữ nguyên. Chốt thêm: không dùng `subagent-driven-development`
+cho bài này, vì §9 yêu cầu log nguyên văn prompt và output — mà với subagent thì
+chỉ thấy báo cáo cuối, không thấy prompt bên trong, nên phần audit sẽ thành dựng
+lại từ hộp đen.
+
+---
+
+## Entry #5
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 00:11 AM 06/08/2026 |
+| **Artifact type** | Session 1 Task 1–2 — `.env`, sửa `utils/stamp.ts` (timestamp ICT) và `scripts/run-matrix.ts` (merge manifest) |
+
+**Full prompt:**
+
+```
+ok
+```
+
+(Prompt kích hoạt Session 1 của kế hoạch — Task 1 dựng môi trường, Task 2 làm
+`writeManifest` merge thay vì ghi đè.)
+
+### (2) AI Output
+
+```
+`.env` created and confirmed gitignored by `.gitignore:17`. All three SUT apps have dependencies installed. Starting the servers.
+```
+
+```
+Environment green — typecheck clean, 3/3 smoke passed. Task 2 now: the manifest merge plus the timezone fix. Let me check the stamper first, since it writes the timestamp into the HTML.
+```
+
+```
+`escapeHtml` leaves `+` and `:` untouched, so an offset timestamp survives verbatim into the HTML and `verifyLabel`'s `includes()` check still works. Making the changes.
+```
+
+```
+Timestamp helper is correct — `2026-08-06T00:12:48+07:00` where UTC would have said Aug 5. The runner threw though; let me see it.
+```
+
+```
+Merge works — one cell replaced with a real offset timestamp, eight rows survived verbatim. Cleaning up the fabricated seed data now, since fake PASS rows must never reach a commit.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Hai thay đổi đều đúng và cần thiết. Việc đổi timestamp sang giờ ICT có lý do thật:
+lúc đó là 00:12 ngày 06/08 giờ Việt Nam, mà timestamp UTC sẽ ghi là 05/08 — tức
+là report sẽ mang ngày lệch một ngày so với ngày commit, đúng thứ mà §11 dùng để
+đối chiếu. AI kiểm tra `escapeHtml` trước khi sửa để chắc rằng dấu `+` và `:` của
+offset không bị escape làm hỏng `verifyLabel`, đó là bước kiểm chứng đúng chỗ.
+
+Nhưng cách chứng minh merge thì có rủi ro: AI **tự sinh dữ liệu giả** (các dòng
+PASS bịa) đổ vào `run-manifest.md` để thử xem merge có giữ lại dòng cũ không. Về
+kỹ thuật đây là cách kiểm thử hợp lệ, và AI có tự dọn sau đó. Nhưng đây là file
+bằng chứng chấm điểm — chỉ cần quên một bước dọn là repo có dòng PASS bịa cho
+những cell chưa từng chạy, và đó là gian lận chứ không còn là lỗi kỹ thuật.
+
+Ngoài ra thay đổi timestamp còn để lại một lỗi mà mãi tới cuối Session 1 mới lộ:
+`npm run report:verify` vẫn dùng regex khớp dạng UTC kết thúc bằng `Z`, nên nó
+báo sai sau khi đổi sang dạng có offset. Xem Entry #9.
+
+### (5) Student Fix
+
+Kiểm tra `run-manifest.md` trước khi commit, xác nhận không còn dòng bịa nào —
+chỉ giữ các dòng ứng với cell thật sự đã chạy. Ghi thành quy tắc: không bao giờ
+dùng dữ liệu giả trên chính file bằng chứng; nếu cần thử logic merge thì thử trên
+file tạm ngoài `reports/`.
+
+---
+
+## Entry #6
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 00:14 AM 06/08/2026 |
+| **Artifact type** | FR-02 stage 1–3 (Analyze → Design → Review) — `test-design/FR-02-login/case-map.md`, 14 case F02-TC-001…014 |
+
+**Full prompt:**
+
+```
+ok
+```
+
+(Task 3 của kế hoạch: đọc 15 case HW02 của FR-02, đối chiếu `sut-requirements.md`
+§2, recon DOM trang đăng nhập, rồi viết bảng ánh xạ ≥12 case.)
+
+### (2) AI Output
+
+```
+Note DT-001 is marked **Failed** against `BUG-FR02-001` — a known HW02 defect on the happy path. Let me extract all 15 cases' essentials plus that bug.
+```
+
+```
+8 of 15 HW02 cases failed against 5 known defects. Reading those bug reports — they predict which automated tests will go red.
+```
+
+```
+This changes the FR-02 design materially. Let me confirm the defects still exist in the current build before designing around them.
+```
+
+```
+Confirmed and worse than expected. Critical recon findings — let me get the error rendering and storage key too.
+```
+
+```
+Two confirmed defects, one new. Let me nail down the counter semantics precisely — they define several cases.
+```
+
+```
+Alternating attempts never lock. Probing consecutive failures — that's the actual rule under test.
+```
+
+```
+Recon is decisive. **The lock triggers on the 3rd attempt — i.e. after only 2 failed logins** — while the oracle requires 3. And the login response leaks the password in plaintext. Writing the case map now.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là entry mà AI làm đúng phần khó nhất: **đo hành vi thật trước khi thiết kế**.
+Thay vì tin bản nháp trong kế hoạch (giả định khoá sau 3 lần sai đúng như oracle),
+AI dò thẳng vào API và phát hiện hai điều mà đọc tài liệu không thể ra được:
+
+1. Khoá kích hoạt ở **lần thử thứ 3**, tức là chỉ sau **2** lần sai — trong khi
+   `sut-requirements.md` §2 nói phải ≥3 lần sai. Lệch một đơn vị, và đúng loại
+   lỗi mà một case thiết kế cẩu thả sẽ bỏ qua vì "thấy có khoá là được rồi".
+2. Response đăng nhập trả về mật khẩu ở dạng plaintext.
+
+Bước dò "thử sai xen kẽ thì không bao giờ khoá" cũng là suy luận đúng: nó xác định
+được rằng quy tắc thật là **liên tiếp**, không phải cộng dồn — mà đây chính là
+điều phân biệt case F02 tính đúng bộ đếm với case tính sai.
+
+Việc đọc trước 5 bug report của HW02 để **dự đoán case nào sẽ đỏ** là cách làm
+đúng: nó biến "test đỏ" từ sự cố thành kết quả có kỳ vọng trước, nên khi chạy
+thật có thể phân biệt ngay đỏ-vì-lỗi-SUT với đỏ-vì-hỏng-script.
+
+### (5) Student Fix
+
+Không sửa nội dung bảng ánh xạ. Chốt lại một điểm nguyên tắc: assertion viết theo
+**oracle** (≥3 lần sai mới khoá), không viết theo hành vi quan sát được (2 lần đã
+khoá) — nên case tương ứng sẽ đỏ, và đó là kết quả đúng cần giữ, không phải thứ
+cần sửa cho xanh.
+
+---
+
+## Entry #7
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 00:19 AM 06/08/2026 |
+| **Artifact type** | FR-02 stage 4–5 (Model data) — `loginCaseSchema` trong `automation/utils/data.ts` + `automation/test-data/fr-02-login.cases.json` |
+
+**Full prompt:**
+
+```
+ok
+```
+
+(Task 4 của kế hoạch: thêm schema FR-02 và viết file dữ liệu ≥12 record.)
+
+### (2) AI Output
+
+```
+Task 4 — the schema and data file. Appending the FR-02 schema:
+```
+
+```
+14 cases validated — good category spread. Committing Tasks 3–4.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Schema tách đúng ba trục độc lập của FR-02: nguồn danh tính (`account`), cách lấy
+email (`emailSource`), và số lần sai trước khi assert (`priorFailures`). Nhờ tách
+như vậy mà case "sai 2 lần rồi nhập đúng mật khẩu" và case "sai 3 lần rồi nhập
+đúng mật khẩu" dùng chung một đường code, chỉ khác dữ liệu — đúng tinh thần §6.
+
+Trường `account: 'throwaway'` là chi tiết quan trọng và AI đưa vào đúng chỗ: mọi
+case chạm tới cơ chế khoá đều phải tự đăng ký tài khoản riêng qua API, nếu không
+sẽ khoá mất `test@eshop.com` và làm hỏng toàn bộ các cell chạy sau. Đây là ràng
+buộc đã ghi trong `CLAUDE.md` và AI tuân thủ mà không cần nhắc lại.
+
+Loader tự kiểm tra ngưỡng ≥12 và trùng `caseId` ngay khi nạp, nên một file dữ liệu
+thiếu case sẽ làm cả suite dừng chứ không âm thầm chạy thiếu.
+
+### (5) Student Fix
+
+Không sửa. Đối chiếu lại từng giá trị `messageContains` với chuỗi mà SUT thật sự
+render (lấy từ recon ở Entry #6) thay vì để AI đoán từ ngữ tiếng Việt.
+
+---
+
+## Entry #8
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 00:20 AM 06/08/2026 |
+| **Artifact type** | FR-02 stage 6 (Generate) — `automation/pages/login.page.ts` + `automation/tests/fr-02-login.spec.ts` |
+
+**Full prompt:**
+
+```
+ok
+```
+
+(Task 5 của kế hoạch, kèm bản nháp page object dùng `getByLabel(/email/i)` và
+`getByRole('alert')` cho khối thông báo lỗi.)
+
+### (2) AI Output
+
+```
+Task 5 — page object. The form has no `name`, `id`, or `placeholder` on inputs and its labels aren't associated, so I anchor fields to their visible label text.
+```
+
+```
+Fields and button resolve correctly, and `type = text` confirms the defect. The error banner sits outside `<form>`, so my locator scope was wrong — fixing it.
+```
+
+```
+14 tests listed, typecheck clean. Running on Chromium.
+```
+
+```
+10 passed, 4 failed — and the four failures are exactly the four I predicted in the case map. Let me confirm each failed for the predicted reason, not incidentally.
+```
+
+```
+Both confirmed genuine: `type="text"` not `"email"`, and the account already locked after only 2 failures. Committing Task 5.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Kết quả cuối đúng, nhưng bản nháp locator sai hai chỗ và cả hai chỉ lộ khi chạy
+thật chứ không lộ khi đọc code:
+
+1. `getByLabel(/email/i)` không dùng được, vì form không gắn `<label for>` với
+   input và input cũng không có `name`/`id`/`placeholder`. Trên một DOM như vậy
+   `getByLabel` không khớp gì cả — AI phải neo theo chữ hiển thị cạnh ô nhập.
+2. Locator khối lỗi bị giới hạn nhầm trong phạm vi `<form>`, trong khi banner lỗi
+   render **bên ngoài** form. Hệ quả nếu không sửa rất khó chịu: mọi assertion
+   "phải hiện thông báo lỗi" sẽ đỏ vì không tìm thấy phần tử, và người đọc dễ kết
+   luận nhầm là SUT không hiện lỗi — tức là một bug report sai.
+
+Điểm cộng: 4 case đỏ đúng bằng 4 case bảng ánh xạ đã dự đoán, và AI không dừng ở
+đó mà đi xác nhận **từng case đỏ vì đúng lý do đã dự đoán**, chứ không phải đỏ
+tình cờ. Đó là bước phân biệt giữa "suite chạy được" và "suite kiểm thử đúng chỗ".
+
+### (5) Student Fix
+
+Chấp nhận hai lần tự sửa locator của AI sau khi kiểm chứng lại trên DOM thật. Yêu
+cầu ghi chú ngay trong `login.page.ts` lý do phải neo theo chữ hiển thị thay vì
+`getByLabel` — nếu không, lần bảo trì sau rất dễ có người "dọn dẹp" ngược về
+`getByLabel` và làm hỏng toàn bộ suite.
+
+---
+
+## Entry #9
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 00:25 AM 06/08/2026 |
+| **Artifact type** | FR-02 stage 7 (Verify & repair) — ma trận 3 trình duyệt + sửa regex trong `npm run report:verify` |
+
+**Full prompt:**
+
+```
+ok
+```
+
+(Task 6 của kế hoạch: chạy `npm run matrix -- --feature fr-02-login` trên
+chromium/firefox/webkit và kiểm chứng nhãn §11 trong cả ba report.)
+
+### (2) AI Output
+
+```
+Now Task 6 — the three-browser matrix. This takes a few minutes.
+```
+
+```
+Identical results on all three engines — 10 pass / 4 fail, no browser-specific issues, so no repairs needed. Verifying the §11 labels.
+```
+
+```
+`report:verify` disagrees with the grep — its regex still expects the UTC `Z` form I changed away from. That's a real regression from my timestamp change; fixing it.
+```
+
+```
+All three reports verified. Checking report size before committing them.
+```
+
+```
+18 MB for one feature (failure videos and traces) — ~55 MB for all nine, which is fine for the repo and useful as bug evidence. Committing Task 6.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Điểm mạnh nhất của entry này là AI **không tin công cụ kiểm chứng của chính nó**.
+`npm run report:verify` báo không đạt, trong khi `grep` thủ công cho thấy nhãn
+`Run by: 23127300` có mặt đủ trong cả ba report. Hai kết quả mâu thuẫn nhau, và
+AI truy ra đúng nguyên nhân: regex của `report:verify` vẫn khớp dạng UTC kết thúc
+bằng `Z`, còn timestamp đã đổi sang dạng có offset `+07:00` ở Entry #5. Tức là
+đây là **hồi quy do chính thay đổi trước đó của AI gây ra**, và nó tự nhận như vậy
+("That's a real regression from my timestamp change").
+
+Nếu xử lý ngược lại — sửa timestamp quay về `Z` cho công cụ hết báo lỗi — thì
+report sẽ mang sai ngày, đúng thứ §11 dùng để đối chiếu. Chọn sửa công cụ thay vì
+sửa dữ liệu là lựa chọn đúng.
+
+Kết quả 10/4 giống hệt nhau trên cả ba engine cũng là một tín hiệu tốt: không có
+lỗi đặc thù trình duyệt nào ở FR-02, nên 4 case đỏ chắc chắn là lỗi SUT chứ không
+phải lỗi tương thích engine.
+
+### (5) Student Fix
+
+Không sửa thêm. Xác nhận lại bằng tay rằng cả ba `index.html` chứa `Run by:
+23127300` kèm ISO timestamp trước khi commit, thay vì chỉ tin `report:verify` vừa
+được sửa xong.
+
+---
+
+## Entry #10
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 8:25 AM 07/08/2026 |
 | **Artifact type** | FR-10 stage 1–3 (Analyze → Design → Review) — bảng ánh xạ 14 case trong `test-design/FR-10-order-state-machine/case-map.md` |
 
 **Full prompt:**
@@ -49,19 +691,27 @@ recon hai giao diện, rồi viết bảng ánh xạ ≥12 case.)
 ### (2) AI Output
 
 ```
-14 case: F10-TC-001..F10-TC-014, ánh xạ 13/14 case HW02.
-- 001–005: năm chuyển đổi hợp lệ (pending→confirmed, confirmed→shipping,
-  shipping→delivered, pending→canceled bởi User, confirmed→canceled bởi Admin)
-- 006–009: chuyển đổi không hợp lệ, assert bằng "tập nút của dòng phải khớp
-  chính xác tập cạnh hợp lệ" (nhảy pending→shipping, lùi confirmed→pending,
-  delivered final, canceled final)
-- 010: User không được tự hủy đơn Đang giao
-- 011: phiên User thường không được đổi trạng thái đơn (FR-10 + FR-12)
-- 012: mọi nhãn trạng thái hiển thị phải nằm trong miền 5 giá trị
-- 013: khách chưa đăng nhập không xem/không hủy được đơn
-- 014: (thiết kế mới HW04) User chỉ thấy đơn của chính mình
-TC-FR10-DT-013 (trạng thái hiện tại ngoài miền) → not-automated.md.
-Dự đoán FAIL vì lỗi thật: F10-TC-009, F10-TC-010, F10-TC-011.
+Environment green (smoke 3/3). Now Task 7 Step 3 — reconnoitre both order UIs against a real order.
+```
+
+```
+Key finding: admin uses `adminToken`, admin sections are sidebar clicks (not routes), and the shop has no `/orders` route. Digging into the real navigation.
+```
+
+```
+Recon is paying off — the admin panel uses action *buttons*, not a `<select>` (the plan assumed a select). Enumerating the controls per status.
+```
+
+```
+Two apparent oracle violations surfaced (a **canceled** order offers "Đánh dấu Đã giao"; a **shipping** order still offers the user "Hủy đơn"). Verifying whether those controls actually mutate state.
+```
+
+```
+Both HW02-known defects reproduce, plus the guest path. One last check: dialogs on the admin cancel, and cross-user visibility.
+```
+
+```
+Recon complete. Writing the FR-10 case map (Task 7 Step 4).
 ```
 
 ### (3) Verdict
@@ -91,14 +741,14 @@ kèm lý do — nếu không ghi, người chấm sẽ đọc nhầm thành vi p
 
 ---
 
-## Entry #2
+## Entry #11
 
 ### (1) Prompt + Tool
 
 | Field             | Content         |
 | ----------------- | --------------- |
 | **Tool**          | Claude (Opus 5, Claude Code) |
-| **Timestamp**     | 8:28 AM 07/08/2026 |
+| **Timestamp**     | 8:32 AM 07/08/2026 |
 | **Artifact type** | FR-10 stage 4–5 (Model data) — `orderStateCaseSchema` trong `automation/utils/data.ts` + `automation/test-data/fr-10-order-state.cases.json` |
 
 **Full prompt:**
@@ -107,43 +757,13 @@ kèm lý do — nếu không ghi, người chấm sẽ đọc nhầm thành vi p
 execute the session 2 in superpowers plan
 ```
 
-(Giai đoạn này do Task 8 của kế hoạch điều khiển. Kế hoạch có sẵn một bản nháp
-schema, trích nguyên văn:)
-
-```ts
-export const orderStateCaseSchema = baseCaseSchema.extend({
-  setupPath: z.array(
-    z.enum(['pending', 'confirmed', 'shipping', 'delivered', 'canceled']),
-  ),
-  actor: z.enum(['admin', 'user']),
-  action: z.enum(['set-status', 'cancel', 'view-only']),
-  targetStatus: z
-    .enum(['pending', 'confirmed', 'shipping', 'delivered', 'canceled'])
-    .nullable(),
-  expected: z.object({
-    allowed: z.boolean(),
-    statusLabel: z.string().nullable(),
-    controlAbsent: z.boolean(),
-    messageContains: z.string().nullable(),
-  }),
-});
-```
+(Task 8 của kế hoạch, kèm bản nháp schema dùng `action: 'set-status'`,
+`expected.allowed` và `expected.controlAbsent`.)
 
 ### (2) AI Output
 
 ```
-Schema thực tế đã viết:
-  setupPath: OrderStatus[]
-  actor: 'admin' | 'user' | 'guest'
-  control: string | null            // nhãn nút sẽ bấm, hoặc phải vắng mặt
-  expectedControls: string[] | null // tập nút mà dòng phải chào mời, khớp đúng
-  targetStatus: OrderStatus | null  // chỉ dùng cho case dò quyền
-  assertion: 'transition-succeeds' | 'controls-exactly' | 'control-not-offered'
-           | 'status-labels-in-domain' | 'privileged-transition-refused'
-           | 'history-requires-login' | 'orders-are-owner-scoped'
-  expected: { statusLabel: string | null }
-+ 14 record JSON tương ứng.
-Loader xác nhận: 14 case, không trùng caseId, đạt ngưỡng ≥12.
+Task 7 done. Now Task 8 — the FR-10 schema and data file.
 ```
 
 ### (3) Verdict
@@ -178,7 +798,7 @@ F10-TC-011.
 
 ---
 
-## Entry #3
+## Entry #12
 
 ### (1) Prompt + Tool
 
@@ -201,30 +821,39 @@ execute the session 2 in superpowers plan
 ### (2) AI Output
 
 ```
-Kết quả chạy `npx playwright test tests/fr-10-order-state.spec.ts --project=chromium`:
+Task 9 — fixture, page objects, spec.
+```
 
+```
+11 passed, 3 failed — and the three reds are exactly the cases the case map predicted. Confirming each failure is the genuine defect, not a script fault.
+```
+
+```
+All three failures are genuine oracle violations with clean evidence. Removing the throwaway recon script and committing.
+```
+
+Nội dung ba case đỏ, trích nguyên văn từ output của Playwright trong cùng lượt chạy:
+
+```
   3 failed
     F10-TC-009 — Đơn đã hủy là trạng thái kết thúc
     F10-TC-010 — User không được tự hủy đơn đang giao
     F10-TC-011 — Phiên User thường không được đổi trạng thái đơn hàng
   11 passed (26.7s)
 
-Thông báo lỗi của F10-TC-009 (nguyên văn):
-  Error: state `Đã hủy` must offer exactly the transitions §3 allows
+Error: state `Đã hủy` must offer exactly the transitions §3 allows
   Locator: getByRole('row').filter({ has: getByRole('cell', { name: '#30', exact: true }) }).getByRole('button')
   - Array []
   + Array [
   +   "Đánh dấu Đã giao",
   + ]
 
-Thông báo lỗi của F10-TC-010 (nguyên văn):
-  Error: the user must not be offered a control §3 forbids them
+Error: the user must not be offered a control §3 forbids them
   expect(locator).toHaveCount(expected) failed
   Expected: 0
   Received: 1
 
-Thông báo lỗi của F10-TC-011 (nguyên văn):
-  Error: a shopper session must not be able to drive an admin transition
+Error: a shopper session must not be able to drive an admin transition
   Expected: false
   Received: true
 ```
@@ -268,14 +897,14 @@ sửa cho tới khi hết đỏ, kết quả sẽ là một suite chạy đượ
 
 ---
 
-## Entry #4
+## Entry #13
 
 ### (1) Prompt + Tool
 
 | Field             | Content         |
 | ----------------- | --------------- |
 | **Tool**          | Claude (Opus 5, Claude Code) |
-| **Timestamp**     | 8:44 AM 07/08/2026 |
+| **Timestamp**     | 8:42 AM 07/08/2026 |
 | **Artifact type** | FR-10 stage 7 (Verify & repair) — sửa lỗi chỉ xảy ra trên WebKit trong `automation/fixtures/auth.fixture.ts` |
 
 **Full prompt:**
@@ -290,24 +919,34 @@ engine. WebKit đỏ 4 case trong khi Chromium và Firefox chỉ đỏ 3.)
 ### (2) AI Output
 
 ```
-Chẩn đoán bằng probe so sánh chromium vs webkit (script tạm, đã xoá):
+Chromium and Firefox reproduce the same three genuine defects. WebKit has a fourth failure that the other two don't — investigating before accepting it.
+```
 
+```
+The page shows "Vui lòng đăng nhập" — the token seeding didn't take effect in WebKit for this case. Probing directly.
+```
+
+```
+Token survives the reload but is **null** once `/profile` loads — the app is clearing it. Capturing the network to see why.
+```
+
+```
+WebKit loses the seeded `localStorage` across a cross-document navigation (no API calls fire at all — the app boots tokenless). The correct fix is an init script, which re-applies the token before app code on *every* document rather than relying on one write surviving a navigation.
+```
+
+```
+WebKit now matches the other engines exactly. Running the full three-browser matrix as the run of record.
+```
+
+Kết quả probe so sánh hai engine, trích nguyên văn:
+
+```
   [chromium net] 200 GET http://localhost:3000/api/orders/my-orders
   [chromium net] 200 GET http://localhost:3000/api/users/me
   [chromium] token now: eyJhbGciOiJI
   [chromium] rows for #82: 1
-  [webkit]  (không có request nào tới :3000)
   [webkit] token now: null
   [webkit] rows for #83: 0
-
-Trên WebKit, token ghi vào localStorage vẫn còn sau `reload()` nhưng biến mất
-sau lần điều hướng cross-document kế tiếp, nên app khởi động ở trạng thái chưa
-đăng nhập và không gọi API nào.
-
-Sửa: thay "ghi một lần rồi reload" bằng `page.addInitScript`, chạy trước script
-của trang trên *mọi* document.
-
-Sau khi sửa, WebKit: 11 passed / 3 failed — trùng khớp Chromium và Firefox.
 ```
 
 ### (3) Verdict
@@ -339,29 +978,194 @@ hoá" nó về `evaluate` + `reload`.
 
 ---
 
+## Entry #14
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 9:03 AM 08/08/2026 |
+| **Artifact type** | Cập nhật kế hoạch — `docs/superpowers/plans/2026-08-05-hw04-automation.md` + `CLAUDE.md` theo ràng buộc commit mới |
+
+**Full prompt:**
+
+```
+check the superpowers plan, now we no longer need the 4 days commit constraint, the requirement reduced to at least 8 commits only, so i need you to adjust the plan a bit, today we will finish all the remaining tasks, and tomorrow i only need to film the video
+```
+
+### (2) AI Output
+
+```
+Current state confirmed: Tasks 1–10 are done (FR-02 + FR-10 automated, 6 reports, 8 countable commits already). Remaining: FR-13, the 9-cell matrix, triage/bugs/gap analysis, all documents, video, packaging.
+```
+
+```
+**Two things genuinely can't finish today**, so I carved them into a new Task 18b (~10 min after filming) rather than pretending tomorrow is pure video:
+
+1. The two YouTube links. Task 18 now writes all prose final and drops `<!-- TODO: YouTube link, Aug 9 -->` placeholders, so tomorrow is a paste.
+2. The final `reports/html/` commit. The HTML reporter wipes its output folder, so tomorrow's on-camera run overwrites today's reports — and §11's anti-cheat intent wants the video to show reports actually being produced. Today's 9-cell run (Task 13) is committed as a full rehearsal; tomorrow's replaces it. Task 18b re-verifies the 9 labeled reports and reconciles the ledger if any cell flipped.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Việc gộp lịch là thao tác cơ học, nhưng AI không dừng ở đó mà chỉ ra hai việc
+**không thể** hoàn thành trong hôm nay, thay vì nhận bừa rằng ngày mai chỉ có
+quay video: link YouTube chưa tồn tại, và thư mục report sẽ bị lượt chạy trên
+camera ghi đè. Nói rõ ràng buộc thật còn hữu ích hơn là chiều theo mong muốn.
+
+AI cũng phát hiện một lỗi tồn đọng có thật: lệnh kiểm tra §12 trong kế hoạch chỉ
+đếm `tests/`, `test-data/` và `scripts/`, bỏ sót `pages/`, `fixtures/`, `utils/` —
+tức là đang đếm thiếu số commit hợp lệ của chính mình. Đồng thời cập nhật lại
+`CLAUDE.md` để các phiên sau không suy diễn lại ràng buộc 4 ngày đã bỏ.
+
+Có một chi tiết bị nêu sai và cần ghi nhận: AI mô tả checkbox của Task 1–6 là
+"stale" rồi đánh dấu hoàn thành hàng loạt bằng `sed`. Việc này đúng về kết quả
+(các task đó thực sự đã xong, có commit chứng minh) nhưng là sửa hàng loạt trên
+tài liệu kế hoạch mà không đọc lại từng dòng.
+
+### (5) Student Fix
+
+Không sửa nội dung kế hoạch mới. Xác nhận lại bằng `git log` rằng 8 commit hợp lệ
+đã có thật trước khi chấp nhận kết luận "ràng buộc §12 đã đạt".
+
+---
+
+## Entry #15
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 9:07 AM 08/08/2026 |
+| **Artifact type** | Dựng lại `reports/prompt-log.md` và `reports/ai-audit-report.md` nguyên văn từ transcript + `reports/tools/extract-prompt-log.py` |
+
+**Full prompt:**
+
+```
+also i dont get why the ai-audit and the prompt-log is not verbatim, it rephrases too much, and also not very sufficient as it only logs the session 2, not the plan and the session 1, so its missing a lot
+```
+
+### (2) AI Output
+
+```
+Diagnosis confirmed on both counts, and the fix is better than I expected — the full transcripts are on disk.
+
+**Why it's not verbatim:** the "AI Output" blocks aren't AI output. They're post-hoc Vietnamese third-person summaries — `Phiên agentic: trợ lý đọc...`, `14 case: F10-TC-001..014, ánh xạ 13/14 case HW02`. Only the embedded tool output (the recon dump, the Playwright tallies) is real. The cause: an agentic session has no single "output" string to paste, so the previous sessions summarized instead of extracting. The skill explicitly forbids that — "byte for byte, no summarizing."
+```
+
+```
+Thinking text is stored empty (signature only) — reasoning isn't recoverable, so that's settled.
+```
+
+```
+The collision is my own `AskUserQuestion` preview quoted verbatim inside entry [25] — correct to keep. But it breaks the skill's numbering grep, so let me make that fence-aware.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là entry ghi lại việc sửa chính hai file log này, nên phải nói thẳng: bản
+trước của cả `prompt-log.md` lẫn file này **đã vi phạm quy tắc verbatim mà chính
+chúng tuyên bố ở đầu file**, và chỉ ghi được 1 trong 4 phiên làm việc. Sinh viên
+là người phát hiện, không phải AI tự rà ra.
+
+Cách sửa thì đúng hướng và kiểm chứng được: thay vì viết lại cho hay hơn, AI đi
+tìm nguồn dữ liệu thật (transcript của Claude Code lưu tại `~/.claude/projects/`)
+rồi viết script trích xuất tự động. Nhờ đó phần khuyết Session 1 — vốn bị ghi chú
+cũ tuyên bố là "không thể dựng lại" — được phục hồi nguyên văn, vì hoá ra nó
+chưa bao giờ mất.
+
+AI cũng trung thực ở hai chỗ dễ giấu: (a) thừa nhận phần suy luận nội bộ của mô
+hình không nằm trong transcript nên không thể đưa vào, thay vì lờ đi; (b) khi
+phát hiện chính nội dung log chứa chuỗi trông giống tiêu đề entry làm hỏng cách
+đánh số bằng `grep`, nó chọn giữ nguyên văn và đổi cách đánh số, thay vì sửa nội
+dung cho khớp công cụ.
+
+Điều rút ra và đã ghi vào skill: một file "verbatim" mà con người gõ tay thì
+không thể verbatim được. Nó phải là sản phẩm sinh tự động từ nguồn gốc.
+
+### (5) Student Fix
+
+- Yêu cầu giữ nguyên phần Verdict / Reasoning / Student Fix của 4 entry FR-10 cũ
+  (nay là #10–#13) vì đó là nhận định của sinh viên, chỉ thay phần AI Output.
+- Chốt mức độ trích: giữ nguyên văn lời AI và danh sách lệnh đã gọi; **không**
+  chép lại toàn văn nội dung file do AI sinh (file đó đã nằm trong repo), và cắt
+  output Bash ở 700 ký tự có đánh dấu chỗ cắt. Hai điểm rút gọn này được nêu
+  công khai ngay đầu `prompt-log.md`.
+- Bổ sung guardrail vào skill `prompt-log`: cấm sửa tay `prompt-log.md`, vì bản
+  sửa tay sẽ bị lần sinh lại ghi đè và một file "verbatim" chỉnh tay thì vô giá
+  trị làm bằng chứng.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 3 | 75.0% |
-| `INVALID` | 0 | 0.0% |
-| `INCOMPLETE` | 1 | 25.0% |
-| **Tổng số entry đã audit** | **4** | **100%** |
+| `VALID` | 10 | 66.7% |
+| `INCOMPLETE` | 4 | 26.7% |
+| `INVALID` | 1 | 6.7% |
+| **Tổng số entry đã audit** | **15** | **100%** |
+
+Phân bố theo giai đoạn:
+
+| Giai đoạn | Entry | VALID | Cần sửa |
+| --- | --- | ---: | ---: |
+| Dựng khung + lập kế hoạch (05/08) | #1–#4 | 2 | 2 |
+| FR-02 — Session 1 (06/08) | #5–#9 | 3 | 2 |
+| FR-10 — Session 2 (07/08) | #10–#13 | 3 | 1 |
+| Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
 
 ## 5. Kết luận
 
-Trong ba giai đoạn của FR-10, phần AI làm tốt là thiết kế case và viết assertion
-một khi đã có dữ liệu quan sát thật: bộ 14 case bám oracle, và cách assert "tập
-nút phải khớp chính xác tập cạnh hợp lệ" là một ý đúng mà kịch bản thủ công
-không gợi ra.
+Nhìn trên toàn bộ 15 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
+lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
-Phần AI làm sai đều nằm ở cùng một chỗ: mọi giả định về giao diện đưa ra **trước
-khi** đọc DOM thật đều sai — ô select không tồn tại, route `/orders` không tồn
-tại ở cả hai app, khoá lưu token khác nhau giữa hai origin, và locator dòng đơn
-theo `hasText` sẽ khớp nhầm nhiều ô khác. Không lỗi nào trong số này làm test
-đỏ theo kiểu dễ thấy; chúng làm test **xanh sai chỗ** hoặc đỏ vì lý do vô can.
-Nguyên tắc rút ra và đã áp dụng: recon trước, sinh code sau — và khi test đỏ,
-đọc thông báo lỗi để phân biệt lỗi script với lỗi SUT trước khi sửa bất cứ thứ gì.
+**Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
+là nhóm đông nhất và nguy hiểm nhất. FR-02: `getByLabel` không dùng được vì form
+không gắn label với input, và banner lỗi nằm ngoài `<form>`. FR-10: ô `<select>`
+không tồn tại, route `/orders` không tồn tại ở cả hai app, hai origin dùng hai
+khoá token khác nhau, và locator theo `hasText` khớp nhầm cả tiền và ngày. Điểm
+chung: **không lỗi nào làm test đỏ theo kiểu dễ thấy** — chúng làm test xanh sai
+chỗ hoặc đỏ vì lý do vô can. Nguyên tắc đã áp dụng cho mọi feature sau: recon
+trước, sinh code sau.
+
+**Nhóm 2 — AI mở rộng phạm vi thao tác ngoài yêu cầu.** Entry #1 (viết code khi
+mới chỉ được yêu cầu đề xuất cấu trúc) và Entry #3 (tự commit tài liệu nội bộ,
+tự gắn trailer `Co-Authored-By`). Cả hai đều không phải lỗi kỹ thuật mà là lỗi
+đọc yêu cầu, và Entry #3 còn chạm vào lịch sử git — thứ §12 dùng làm bằng chứng.
+Cách phòng: chia kế hoạch thành task có checkpoint, và ghi các ranh giới tuyệt
+đối vào `CLAUDE.md` để mọi phiên sau đọc lại được.
+
+**Nhóm 3 — AI tin vào chính sản phẩm trước đó của nó.** Entry #5 đổi timestamp
+sang giờ ICT nhưng không rà lại công cụ `report:verify` vốn khớp dạng UTC, tạo ra
+hồi quy mãi cuối session mới lộ. Entry #15 là trường hợp nặng nhất của nhóm này:
+hai file log tự tuyên bố "verbatim" ở ngay dòng đầu nhưng bên trong là bản tóm
+tắt viết lại, và tình trạng đó tồn tại qua nhiều phiên mà không phiên nào tự phát
+hiện — người phát hiện là sinh viên.
+
+Phần AI làm tốt cũng nhất quán: một khi đã có dữ liệu quan sát thật, chất lượng
+thiết kế case và assertion rất cao — ý "assert tập nút phải khớp chính xác tập
+cạnh hợp lệ" của FR-10 là một góc nhìn đúng mà kịch bản thủ công không gợi ra, và
+việc dò ra "khoá kích hoạt sau 2 lần sai thay vì 3" của FR-02 là loại lỗi lệch một
+đơn vị mà đọc tài liệu không bao giờ thấy. AI cũng nhiều lần tự phân biệt đúng
+giữa lỗi script và lỗi SUT trước khi sửa (Entry #9, #12, #13), thay vì sửa cho
+hết đỏ.
+
+Bài học tổng quát rút ra khi làm việc với AI trong kiểm thử: **AI mạnh ở suy luận
+trên dữ liệu đã quan sát, và yếu ở việc thừa nhận rằng nó chưa quan sát gì cả.**
+Mọi output của nó phải được phân loại thành "đã kiểm chứng bằng quan sát" hay
+"mới là giả thuyết" trước khi dùng — và những gì tự nó tuyên bố về chất lượng của
+chính nó (kể cả dòng chữ "verbatim" ở đầu file log) phải được kiểm chứng độc lập.
 
 ## 6. Công bố bắt buộc (Mandatory Disclosure)
 
@@ -371,4 +1175,8 @@ của AI đều được sinh viên xem xét, đối chiếu với `sut-requirem
 hành vi quan sát được trên SUT đang chạy trước khi giữ lại; các phần bị sửa hoặc
 bác bỏ được ghi ở mục **Student Fix** của từng entry.
 
-**Ký tên:** Hà Bảo Ngọc — 23127300 — 07/08/2026
+Bản ghi thô, đầy đủ và không lọc của mọi tương tác nằm ở
+[`prompt-log.md`](prompt-log.md), được trích tự động từ transcript gốc bằng
+[`tools/extract-prompt-log.py`](tools/extract-prompt-log.py).
+
+**Ký tên:** Hà Bảo Ngọc — 23127300 — 08/08/2026
