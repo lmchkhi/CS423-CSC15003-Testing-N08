@@ -168,3 +168,35 @@ export const orderStateCaseSchema = baseCaseSchema.extend({
 });
 
 export type OrderStateCase = z.infer<typeof orderStateCaseSchema>;
+
+/**
+ * FR-13 — Dashboard.
+ *
+ * The suite never resets the SQLite file between cells, so no case may
+ * hardcode an expected number: `seedOrders` names the statuses this case
+ * creates before the assertion (each walked there from a fresh `pending`
+ * order through the legal §3 path), and the spec computes the expected delta
+ * from those records plus a live baseline read through the API
+ * (`utils/api.ts`'s `expectedDashboardTotals`) — never from a number written
+ * into this JSON.
+ */
+export const dashboardCaseSchema = baseCaseSchema.extend({
+  auth: z.enum(['admin', 'non-admin', 'anonymous']),
+  seedOrders: z.array(orderStatusSchema),
+  /** Only read by `revenue-tracks-promotion`: the status a freshly seeded
+   *  order is walked on to, after the baseline is captured. */
+  promoteTo: orderStatusSchema.nullable(),
+  assertion: z.enum([
+    'revenue-tracks-delivered-seed',
+    'revenue-tracks-promotion',
+    'count-includes-all-statuses',
+    'access-denied-anonymous',
+    'access-denied-non-admin',
+  ]),
+  expected: z.object({
+    /** Whether the Dashboard heading itself must appear at all (FR-12 guard cases only). */
+    dashboardVisible: z.boolean(),
+  }),
+});
+
+export type DashboardCase = z.infer<typeof dashboardCaseSchema>;
