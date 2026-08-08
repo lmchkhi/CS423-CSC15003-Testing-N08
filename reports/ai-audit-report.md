@@ -1253,14 +1253,133 @@ qua URL.
 
 ---
 
+## Entry #17
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 9:40 PM 08/08/2026 |
+| **Artifact type** | FR-13 stage 6–7 (Generate → Verify & repair) — `automation/pages/dashboard.page.ts`, `automation/tests/fr-13-dashboard.spec.ts` + lượt chạy Chromium |
+
+**Full prompt:**
+
+```
+finish the superpowers plan for today's work, i prefer inline style because of the prompt log requirements
+```
+
+(Task 12 của kế hoạch — cùng một prompt gốc như Entry #16, xem ghi chú ở đó.)
+
+### (2) AI Output
+
+```
+Clean. Now list and run on Chromium.
+```
+```
+12 cases. Now run on Chromium.
+```
+
+Trích nguyên văn từ output của Playwright, lượt chạy đầu tiên (bản spec còn
+lỗi tự gây ra, xem Reasoning):
+
+```
+✘   1 … F13-TC-001 — Doanh thu tăng đúng total_amount của một đơn delivered (250ms)
+✘   2 … F13-TC-002 — Doanh thu cộng dồn đúng khi có nhiều đơn delivered (279ms)
+✘   3 … F13-TC-003 — Doanh thu chỉ tính đơn delivered khi dữ liệu có nhiều trạng thái khác nhau (268ms)
+✘   4 … F13-TC-004 — Doanh thu không đổi khi không có đơn delivered nào (263ms)
+✓   5 … F13-TC-005 — Người dùng không có quyền Admin không xem được Dashboard (208ms)
+✘   6 … F13-TC-006 — Dashboard phản ánh đúng doanh thu và số đơn hiện có mà không cần tạo thêm dữ liệu (204ms)
+✘  10 … F13-TC-010 — Doanh thu tăng đúng total_amount ngay khi một đơn chuyển sang delivered (247ms)
+✘  11 … F13-TC-011 — Tổng số đơn hàng tính đủ mọi trạng thái, không chỉ delivered (271ms)
+✓  12 … F13-TC-012 — Phiên chưa đăng nhập không xem được Dashboard (172ms)
+10 failed
+2 passed (6.6s)
+```
+
+Sau khi sửa (xem Student Fix), trích nguyên văn lượt chạy lại:
+
+```
+✘   5 … F13-TC-005 — Người dùng không có quyền Admin không xem được Dashboard (10.4s)
+✓  12 … F13-TC-012 — Phiên chưa đăng nhập không xem được Dashboard (159ms)
+11 failed
+1 passed (…)
+```
+
+Trích nguyên văn từ script xác minh thủ công (không phải test Playwright, chạy
+để loại trừ khả năng chính script tạo trùng đơn hàng trước khi kết luận đây là
+lỗi thật của SUT):
+
+```
+orders before: 63
+created order 64 amount 30000000
+orders after: 64 (expected before+1 = 64 )
+computed from /api/admin/orders (delivered sum): { deliveredRevenue: 570000000, orderCount: 64 }
+```
+
+```
+Tổng doanh thu (Delivered)
+
+1,140,000,000 ₫
+
+Tổng số đơn hàng
+
+64
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+`INCOMPLETE` vì bản spec do AI viết ở stage 6 có một lỗi tự gây ra, và bản
+thân AI là bên phát hiện ra nó khi đọc lại kết quả thay vì tin ngay vào hàng
+xanh. F13-TC-005 (case dùng để kiểm chứng đúng phát hiện recon ở Entry #16)
+**pass** ở lượt chạy đầu — nhưng pass sai lý do: nhánh `access-denied-non-admin`
+gọi `seedUserToken(page, user.token)`, hàm này bơm token vào key `token` ở
+origin **shop** (`:5173`) rồi điều hướng **về chính origin đó**, không phải
+sang app admin (`:5174`). Vì vậy `dashboard.dashboardHeading` được kiểm tra
+trên trang chủ shop — nơi chắc chắn không có heading `Dashboard` — nên case
+pass mà không hề chạm vào app admin. Đây chính xác là dạng lỗi §9 cảnh báo:
+test xanh vì kiểm tra sai bề mặt, không phải vì hệ thống đúng.
+
+9 case doanh thu đỏ (F13-TC-001–004, 006–011) đúng theo dự đoán từ
+BUG-FR13-001 của HW02 (Entry #16), nhưng cần loại trừ khả năng chính script
+tạo đơn trùng trước khi gán cho SUT — script xác minh thủ công cho thấy
+`createPendingOrder` + `setOrderStatus` chỉ tạo đúng 1 đơn (`63 → 64`), và số
+đơn trên Dashboard khớp chính xác (`64`), chỉ riêng **doanh thu** hiển thị
+gấp đúng 2 lần tổng thật tính từ `/api/admin/orders`
+(`1,140,000,000 = 2 × 570,000,000`) — cùng hệ số 2 quan sát được ở cả ba case
+HW02 (`60,000,000/30,000,000`, `72,000,000/36,000,000`,
+`90,000,000/45,000,000`). Đây là bằng chứng đủ mạnh để kết luận lỗi thật của
+SUT, không phải lỗi setup, và giữ nguyên assertion cho Task 14–15.
+
+### (5) Student Fix
+
+- Sửa nhánh `access-denied-non-admin`: thay `seedUserToken(page, user.token)`
+  bằng `seedAdminToken(page, user.token)` — bơm đúng token của tài khoản
+  `role='user'` vào key/origin của **app admin**, đúng bề mặt mà oracle §4/FR-12
+  yêu cầu kiểm tra. Sau khi sửa, F13-TC-005 đỏ đúng như phát hiện recon ở
+  Entry #16 — không còn pass giả.
+- Không sửa 9 assertion doanh thu và không hạ chuẩn để lấy màu xanh: chạy thêm
+  script xác minh độc lập (ngoài Playwright) để loại trừ nguyên nhân từ phía
+  script trước khi khẳng định đây là lỗi SUT, thay vì kết luận vội từ một lần
+  đỏ.
+- Giữ lại ảnh chụp `test-results/*/test-failed-1.png` do Playwright tự sinh
+  cho 11 case đỏ — dùng làm evidence cho bug report ở Task 15, không cần chụp
+  lại thủ công.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 10 | 62.5% |
-| `INCOMPLETE` | 5 | 31.3% |
-| `INVALID` | 1 | 6.3% |
-| **Tổng số entry đã audit** | **16** | **100%** |
+| `VALID` | 10 | 58.8% |
+| `INCOMPLETE` | 6 | 35.3% |
+| `INVALID` | 1 | 5.9% |
+| **Tổng số entry đã audit** | **17** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -1270,7 +1389,7 @@ Phân bố theo giai đoạn:
 | FR-02 — Session 1 (06/08) | #5–#9 | 3 | 2 |
 | FR-10 — Session 2 (07/08) | #10–#13 | 3 | 1 |
 | Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
-| FR-13 — Session 3 (08/08) | #16 | 0 | 1 |
+| FR-13 — Session 3 (08/08) | #16–#17 | 0 | 2 |
 
 ## 5. Kết luận
 
