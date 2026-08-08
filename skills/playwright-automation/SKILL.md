@@ -103,6 +103,8 @@ Fix and rerun categories 1 and 2 where safe. Create a bug file only for category
 After creating each local bug-report Markdown file, publish one corresponding GitHub Issue to the repository remote with GitHub CLI:
 
 1. Run `gh auth status` and `gh repo view --json nameWithOwner,url` from the repository root. Use `-R <owner/repo>` on later commands if the resolved repository is ambiguous.
+
+   In Codex or another managed sandbox, a failed sandboxed `gh auth status` is inconclusive because the sandbox may be unable to access the operating system credential helper or macOS Keychain. Rerun the same authentication and repository check with the required elevated or unsandboxed permission before concluding that the token is invalid. Do not run `gh auth login` or advise the user to reauthenticate based only on the sandboxed result. If the elevated check succeeds, classify the original failure as sandbox/keyring isolation and continue the required `gh` operations with the appropriate elevated permission.
 2. Inspect the remote before choosing labels:
 
    - run `gh label list --limit 200 --json name,description,color` to discover available labels and the visual convention for each label family;
@@ -132,7 +134,14 @@ gh issue create \
 
 7. Capture the returned issue URL, verify it with `gh issue view <issue-url> --json url,title,labels`, add only the issue URL or duplicate-reuse URL to the local bug report and discovering test case, and include it in the handoff. Do not add a verified-label summary to the bug report. Keep one local bug report mapped to one GitHub Issue. Do not claim publication without a returned and verified issue URL.
 
-If `gh auth status` fails or GitHub returns an authentication/authorization response such as `401` or `403`, report the credential or repository-permission problem. If authentication succeeds but `gh repo view`, label/issue reads, `gh label create`, or `gh issue create` fails with DNS, connectivity, operation-not-permitted, or similar environment errors, treat sandbox/network isolation as a possible cause: rerun the same command with the required elevated sandbox/network permission before concluding GitHub is inaccessible. Preserve the local report and exact command error if publication remains blocked.
+Use this decision rule for GitHub CLI failures:
+
+- If sandboxed `gh auth status` fails, rerun the exact authentication/repository check with the required elevated or unsandboxed permission. Treat the initial result as a possible credential-helper or keyring isolation failure, not proof of an invalid token.
+- If the elevated check succeeds, state that the sandbox caused the original access failure and continue GitHub label/issue discovery or publication with the required permission.
+- If the elevated check also fails with an explicit authentication or authorization response such as `401` or `403`, report the credential or repository-permission problem.
+- If authentication succeeds but `gh repo view`, label/issue reads, `gh label create`, or `gh issue create` fails with DNS, connectivity, operation-not-permitted, or a similar environment error, rerun that exact operation with the required elevated sandbox/network permission before concluding GitHub is inaccessible.
+
+Preserve the local report and exact command error if publication remains blocked.
 
 ## Validate and hand off
 

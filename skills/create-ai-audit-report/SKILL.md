@@ -18,7 +18,8 @@ Produce Vietnamese audit entries based on the five-part structure already used i
 3. Resolve the conversation metadata before composing entries:
    - Capture the exact start timestamp for each chat represented in the source.
    - Capture the exact model identifier or display name that produced each response.
-   - Inspect available task/thread metadata or machine-readable transcript metadata when those facilities exist.
+   - For a Codex task, follow **Codex metadata resolution** below before using a missing-data placeholder.
+   - For other sources, inspect available task/thread metadata or machine-readable transcript metadata.
 4. Collect every complete user request and corresponding user-visible agent response in chronological order from the available conversation or supplied transcript.
 5. Exclude:
    - the request that invokes this skill and the response to that request;
@@ -91,6 +92,25 @@ The four-backtick prompt wrapper shown in the template is illustrative. Select t
 
 ## Metadata Rules
 
+### Codex metadata resolution
+
+For the current or another Codex task, exhaust these sources in order:
+
+1. Find the task through the Codex app's thread-listing capability. Match the active task using its ID when available; otherwise use the active status, workspace `cwd`, title, and prompt preview together. Do not select a task from title alone.
+2. Read the task with the thread-reading capability. Paginate through older turns until the first user-visible message is reached. Use that turn's `startedAt` as the chat-start instant; do not use the task's `createdAt` when an actual user-message turn timestamp exists.
+3. Resolve the task's local rollout file and exact model with the bundled script:
+
+   ```bash
+   python3 <skill-dir>/scripts/resolve_codex_metadata.py --thread-id <thread-id>
+   ```
+
+   The script reads only the matching Codex session JSONL and returns the first turn timestamp, timezone, stable model ID, human-readable model name, and per-turn model metadata. Use `model_display_name` for **Tool**. Use the thread reader's first user-message timestamp for **Timestamp**; use the script's `chat_started_at` only when thread turns are unavailable.
+4. Convert the selected instant using the task timezone returned by the session metadata. If the task timezone is absent, fall back to the explicit workspace/session timezone.
+
+If the entry combines multiple response turns, check `turns` from the resolver. Use one Tool value only when all represented response turns used the same model. If models differ, list the exact distinct display names separated by `; ` rather than silently choosing one.
+
+For a supplied Codex transcript without an accessible local task, prefer its exported `startedAt`, `model`, and `timezone` fields. Only use the missing-data placeholder after both task metadata and the matching rollout record are unavailable.
+
 - Keep `Tool`, `Timestamp`, and `Artifact type` outside the verbatim quotations.
 - Set `Timestamp` to the start time of the chat, not the request time, response time, report-generation time, or current system time.
 - Resolve chat start time in this order:
@@ -121,4 +141,5 @@ Before finishing:
 6. Confirm Verdict, Reasoning, and Student Fix contain only the Vietnamese placeholders.
 7. Confirm every `Tool` value names a specific model when model metadata exists.
 8. Confirm every `Timestamp` is the local start time of its source chat, matches `DD/MM/YYYY HH:mm:ss`, contains no timezone suffix, and is identical across entries from the same chat.
-9. Report the target path and the entry numbers added.
+9. For a Codex task, confirm that thread metadata and the matching rollout record were checked before accepting a missing Tool or Timestamp.
+10. Report the target path and the entry numbers added.
