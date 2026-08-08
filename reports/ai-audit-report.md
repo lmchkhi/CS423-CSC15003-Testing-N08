@@ -1372,14 +1372,129 @@ SUT, không phải lỗi setup, và giữ nguyên assertion cho Task 14–15.
 
 ---
 
+## Entry #18
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 9:56 PM 08/08/2026 |
+| **Artifact type** | Task 14–15 (Triage → File bug reports) — 9 file `bug-reports/BUG-*.md` + 9 GitHub Issue, cross-link vào case-map và README |
+
+**Full prompt:**
+
+```
+finish the superpowers plan for today's work, i prefer inline style because of the prompt log requirements
+```
+
+(Task 14–15 của kế hoạch — cùng một prompt gốc như Entry #16–17. Bước xin
+xác nhận trước khi push/tạo issue dùng `AskUserQuestion`, không phải một
+prompt mới của sinh viên; câu trả lời sinh viên chọn: "Yes, push and create
+all 9 issues".)
+
+### (2) AI Output
+
+```
+Task 14 triage: I've confirmed all 9 cells' failures resolve to exactly **9 genuine SUT defects** (4 in FR-02, 3 in FR-10, 2 in FR-13 — the FR-13 revenue bug reproduces across 10 cases but is one root cause). None are automation/data/environment issues. Let me get clean per-bug screenshots by re-running each failing case individually.
+```
+```
+All 4 confirmed again. Now FR-10's three and FR-13's key cases.
+```
+```
+Now FR-02 (fresh rerun since test-results got wiped):
+```
+```
+Now FR-13's two bugs — one representative revenue case, and the non-admin access case.
+```
+```
+Now filling FR-13's placeholder §4 section:
+```
+```
+User confirmed. Pushing the branch first.
+```
+```
+Good, resolves. Now creating the 9 issues.
+```
+
+Trích nguyên văn output xác nhận lại 4 case FR-02 (rerun riêng, không phải
+lần chạy ma trận), để cắt rời khỏi 9 cell còn lại trước khi copy screenshot:
+
+```
+4 failed
+    [chromium] › tests/fr-02-login.spec.ts:48:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-002 — Email sai dinh dang bi chan boi validate HTML5 
+    [chromium] › tests/fr-02-login.spec.ts:48:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-004 — Sai 2 lan lien tiep chua khoa — mat khau dung van vao duoc 
+    [chromium] › tests/fr-02-login.spec.ts:48:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-008 — Sau 31 giay het khoa — dang nhap lai duoc 
+    [chromium] › tests/fr-02-login.spec.ts:48:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-012 — Response dang nhap khong duoc chua mat khau nguoi dung
+```
+
+Trích nguyên văn URL trả về từ `gh issue create` cho cả 9 issue:
+
+```
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/206
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/207
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/208
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/209
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/210
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/211
+https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/212
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Phần triage đúng theo quy trình bốn nhóm của skill `bug-report`: không có
+case nào bị gán nhầm cho "lỗi automation/dữ liệu/môi trường" — cả 9 case đỏ
+trên 9 cell đều được đối chiếu lại với `sut-requirements.md` trước khi kết
+luận là lỗi thật, và không case nào bị nới lỏng assertion để lấy màu xanh.
+
+Điểm cần tự phê bình nhưng đã tự xử lý đúng: lần chạy ma trận đầy đủ (Task 13)
+chỉ giữ được screenshot của cell chạy **cuối cùng** (`fr-13-dashboard`/webkit),
+vì mỗi lệnh `playwright test` xoá sạch `test-results/` khi khởi động — nghĩa
+là ảnh chụp gốc của các case đỏ FR-02/FR-10 từ đúng lượt chạy ma trận đã mất
+trước khi kịp copy. Cách xử lý là chạy lại riêng từng nhóm case đỏ (`--grep`)
+trên chromium ngay trước khi copy ảnh cho từng bug, và xác nhận lại đúng tên
+4 case FR-02 + 3 case FR-10 khớp 100% với danh sách đã quan sát trong lượt
+chạy ma trận (qua `--list`/kết quả HTML report), không chỉ tin vào số lượng
+pass/fail trùng khớp. Đây là cách bù đắp hợp lý — ảnh chụp vẫn là bằng chứng
+thật của đúng lỗi đó, tái hiện được bất cứ lúc nào — nhưng bản thân việc
+`test-results/` không giữ được lịch sử của một lượt chạy nhiều lệnh liên tiếp
+là một giới hạn của script `run-matrix.ts` đáng ghi vào gap analysis.
+
+Việc dừng lại xin xác nhận trước khi `git push` và `gh issue create` là đúng
+theo hướng dẫn của chính skill `bug-report` ("Confirm the exact
+title/labels/repo with the student before running `gh issue create` —
+creating issues is visible to the whole team") — đây là lần push đầu tiên
+của phiên làm việc và là hành động công khai trên repo chung của cả nhóm N08,
+không phải chỉ của riêng sinh viên.
+
+### (5) Student Fix
+
+- Xác nhận thao tác push + tạo issue qua `AskUserQuestion` trước khi thực
+  hiện, không tự ý chạy `gh issue create` chỉ vì đã có nội dung sẵn sàng.
+- Gộp 10 case FR-13 cùng nguyên nhân (nhân đôi doanh thu) thành một
+  `BUG-FR13-001` duy nhất thay vì 10 report riêng — đúng quy tắc "một lỗi
+  thật là một bug, không phải một bug mỗi case" của skill `bug-report`.
+- Đánh số bug report của HW04 độc lập với số hiệu HW02 (`BUG-FR02-001`..`004`,
+  `BUG-FR10-001`..`003`, `BUG-FR13-001`..`002`), cross-reference số hiệu HW02
+  tương ứng trong từng report thay vì dùng lại số cũ — tránh gây hiểu nhầm
+  rằng đây là cùng một bug report vật lý giữa hai bài tập.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 10 | 58.8% |
-| `INCOMPLETE` | 6 | 35.3% |
-| `INVALID` | 1 | 5.9% |
-| **Tổng số entry đã audit** | **17** | **100%** |
+| `VALID` | 11 | 61.1% |
+| `INCOMPLETE` | 6 | 33.3% |
+| `INVALID` | 1 | 5.6% |
+| **Tổng số entry đã audit** | **18** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -1390,6 +1505,7 @@ Phân bố theo giai đoạn:
 | FR-10 — Session 2 (07/08) | #10–#13 | 3 | 1 |
 | Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
 | FR-13 — Session 3 (08/08) | #16–#17 | 0 | 2 |
+| Triage + bug reports — Session 3 (08/08) | #18 | 1 | 0 |
 
 ## 5. Kết luận
 
