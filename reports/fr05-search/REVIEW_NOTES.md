@@ -4,7 +4,7 @@
 
 | Mục | Giá trị |
 | --- | --- |
-| Phase | A — Xác minh và đối chiếu hộp đen |
+| Phase | C — Fix 1 data-driven, locator, assertion và mapping bề mặt |
 | Feature | `FR-05` |
 | Mã sinh viên | `23127464` |
 | HW02 | `tests/test-cases/FR-05-search/domain-testing/` — 12 file |
@@ -16,7 +16,7 @@
 | Thời điểm ghi nhận quyết định | `2026-08-08T21:07:11+07:00` |
 | Trình duyệt probe | Chromium `151.0.7922.34`, headless, viewport chính `1440×900` |
 | Kết quả kết nối | Frontend `/` → HTTP 200; API `/api/products` → HTTP 200 |
-| Playwright spec / fixture / config | Phase A: không tạo. Phase C: tạo `tests/fr05-search.spec.ts`; case data inline theo duyệt; không tạo fixture/config mới |
+| Playwright spec / fixture / config | Phase C Fix 1: `tests/fr05-search.spec.ts` + `data/fr05-search.json`; interface và runtime validation trong spec; không đổi config |
 | Trạng thái checkpoint | Đã duyệt Checkpoint A lúc `2026-08-08T21:13:37+07:00` |
 
 ## Ranh giới hộp đen và cách dùng bằng chứng
@@ -237,5 +237,63 @@ Không có cặp nào thỏa đồng thời “cùng input + cùng precondition 
 - Trạng thái: **Chờ duyệt**.
 - Kết quả Chromium cuối: **4 passed, 8 failed, 0 skipped; exit 1**.
 - Lint: **exit 0**; typecheck: **exit 0**.
-- Điểm chưa chắc chắn: case data vẫn inline theo ngoại lệ đã duyệt, chưa phải fixture ngoài hoàn chỉnh.
+- Fix 1 đã thay case data inline bằng `data/fr05-search.json`, có TypeScript interface và runtime validation.
+- Chưa chuyển Phase D.
+
+## 7. Phase C — Fix 1
+
+### Data-driven và validation
+
+- `data/fr05-search.json` chứa toàn bộ input/expected thay đổi theo case, metadata bề mặt và vai trò network; spec không còn khai báo các giá trị case-specific này.
+- Fixture có đúng 12 case/12 TC-ID duy nhất và 12 mapping. Runtime validation kiểm tra schema thực dụng, chuỗi/number/boolean/regex theo từng kind, ID/kind tuần tự, quyết định Phase B và mapping bề mặt trước khi Playwright đăng ký test.
+- Canonical giữ nguyên: DT-002 dùng `Iphone`; DT-011 = h1; DT-012 = format giá. Không sửa expected theo actual SUT.
+
+### Bảng mapping cuối
+
+UI là oracle chính cho cả 12 case; `UI+network` dưới đây chỉ có nghĩa network hỗ trợ setup, synchronization hoặc diagnostic.
+
+| TC-ID | `automationSurface` | Vai trò network | UI oracle chính |
+| --- | --- | --- | --- |
+| DT-001 | UI+network | Đồng bộ/đối chiếu aggregate công khai | Danh sách và trạng thái không lỗi |
+| DT-002 | UI | Không dùng | Từ khóa, tên và số card kết quả |
+| DT-003 | UI | Không dùng | Empty state và số card bằng 0 |
+| DT-004 | UI+network | Diagnostic request/encoding/status | Safe display, empty state, không lỗi |
+| DT-005 | UI | Không dùng | Giá trị input, danh sách sau trim và không lỗi |
+| DT-006 | UI+network | Diagnostic HTTP 500 | Không dialog/injection/raw error; payload render an toàn |
+| DT-007 | UI+network | Diagnostic baseline/count/status | Kết quả không bất thường, empty state, không raw error |
+| DT-008 | UI | Không dùng | Grid/computed layout và responsive aggregate |
+| DT-009 | UI+network | Request ảnh chỉ diagnostic | Card, ảnh sản phẩm, alt, tên, giá và layout ảnh |
+| DT-010 | UI+network | Tạo pending state/đồng bộ | Loading indicator và chuyển trạng thái sang danh sách |
+| DT-011 | UI | Không dùng | Cấu trúc DOM có đúng một `h1` |
+| DT-012 | UI | Không dùng | Text giá có `₫` và phân cách hàng nghìn |
+
+Không có case API-only. DT-009 không fail vì ảnh `placehold.co` là ảnh sản phẩm chủ đích hay vì network ngoài bị chặn; failure hiện tại đến từ alt rỗng và format giá UI.
+
+### Locator và assertion
+
+- Ưu tiên `getByRole`/`getByText` cho các phần tử có semantics công khai. SUT không có test id/label/card role phù hợp nên không tạo locator giả định.
+- CSS chỉ dùng cho cấu trúc DOM không thể xác minh chính xác bằng accessible role: `locator('h1')`, `img`, `script`, ancestor card và fallback spinner/skeleton. Mỗi chỗ có comment giải thích trong spec.
+- Đã thực thi đủ DOM/visible text, state/attribute và count/aggregate; thêm layout/computed DOM và network diagnostic. Network không thay assertion UI.
+- Expected xử lý an toàn vẫn không chấp nhận HTTP 500, crash, raw database error hoặc execution payload.
+
+### Lệnh và kết quả Fix 1
+
+| Command | Exit code | Kết quả |
+| --- | ---: | --- |
+| `npm run lint` | 0 | Không lỗi |
+| `npm run typecheck` | 0 | Không lỗi |
+| `npx playwright test tests/fr05-search.spec.ts --project=chromium --reporter=list --output=test-results/fr05-phase-c-fix1 --workers=1` | 1 | 4 passed, 8 failed, 0 skipped; 42.7 giây |
+
+Passed: DT-001, DT-002, DT-005, DT-008. Failed: DT-003, DT-004, DT-006, DT-007, DT-009, DT-010, DT-011, DT-012. Chi tiết quan sát thật và artifact ở `reports/fr05-search/evidence/phase-c-fix1-run.md`.
+
+### Fix 2 backlog
+
+1. Hoàn thiện loading synchronization cho DT-010; Fix 1 mới giữ request pending ở mức tối thiểu để quan sát UI.
+2. Hoàn thiện screenshot attachment cho case pass; hiện runner chỉ lưu artifact cho 8 case failed.
+
+### Checkpoint C sau Fix 1
+
+- Trạng thái: **Chờ duyệt**.
+- Chromium: **4 passed, 8 failed, 0 skipped; exit 1**.
+- Lint/typecheck: **exit 0/0**.
 - Chưa chuyển Phase D.

@@ -991,6 +991,26 @@ Sang Giai đoạn C cho FR-12. Sinh data/fr12-access.json cho 40 case theo Playw
 
 **Tool:** `Codex (GPT-5)`
 
+**Date:** `2026-08-08T22:07:59+07:00`
+
+**User Prompt:**
+
+```text
+Review phiên bản Phase C hiện tại và thực hiện Fix 1: chuẩn hóa fixture data-driven, interface/runtime validation, mapping UI/UI+network/API, locator/assertion và chạy lint/typecheck/Chromium baseline thật; cập nhật data/fr05-search.json, tests/fr05-search.spec.ts và REVIEW_NOTES.md; dừng Checkpoint C.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn tất Fix 1 và dừng Checkpoint C. Tạo data/fr05-search.json chứa case-varying input/expected của đủ 12 TC-ID; tests/fr05-search.spec.ts định nghĩa TypeScript interfaces, runtime validation và đăng ký 12 test data-driven. Giữ quyết định Phase B: DT-002=Iphone, DT-011=h1, DT-012=format giá. Mapping cuối: UI primary cho cả 12; UI+network chỉ DT-001/004/006/007/009/010, 6 case còn lại UI, 0 API-only. Network chỉ setup/synchronization/diagnostic; search/grid/card/image alt/price/empty/loading/safe rendering/h1 được assert qua Page/DOM. Lint exit 0, typecheck exit 0. Chromium command với project chromium, 1 worker và output test-results/fr05-phase-c-fix1 exit 1 sau 42.7 giây: 4 passed (DT-001/002/005/008), 8 failed (DT-003/004/006/007/009/010/011/012), 0 skipped. Tạo evidence phase-c-fix1-run.md; artifact có 8 failure screenshot, 8 video, 8 error-context. Không đổi expected theo actual. Loading synchronization hoàn chỉnh và pass screenshot attachment được giữ cho Fix 2. debug.log vẫn không tồn tại. Chưa chuyển Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
 **Date:** `2026-08-08T20:51:54+07:00`
 
 **User Prompt:**
@@ -1526,6 +1546,60 @@ Hãy chuyển các bước manual thành Playwright TypeScript theo bề mặt k
 
 ```text
 Đã hoàn tất Phase C FR-05 và dừng Checkpoint C. Tạo tests/fr05-search.spec.ts với 12 test/12 TC-ID duy nhất, case data inline theo ngoại lệ người dùng duyệt, 9 UI+network và 3 UI, role locator ưu tiên cùng fallback có giải thích, 0 waitForTimeout, thực thi các nhóm assertion DOM/text, state/attribute, network/response, count/aggregate và layout/computed DOM. Không tạo fixture/config mới. Lint ban đầu exit 0; typecheck ban đầu exit 0. Chromium lượt đầu exit 1, 4 passed/8 failed/0 skipped nhưng DT-009 chạm timeout 30 giây do nhiều soft assertion thiếu UI nối tiếp; đã sửa test-harness bằng timeout 1 giây sau synchronization, không đổi expected/assertion value. Lint sau sửa exit 0; typecheck sau sửa exit 0. Chromium lượt cuối exit 1, runner 39.2 giây: 4 passed (DT-001/002/005/008), 8 failed (DT-003/004/006/007/009/010/011/012), 0 skipped, không còn test timeout. DT-009 fail do alt rỗng và VND thay vì ₫, không do placehold.co. Tạo reports/fr05-search/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md/TEST_CASES.md. Artifact cuối test-results/fr05-phase-c có 8 screenshot, 8 video, 8 error-context; không có pass screenshot attachment. Kiểm tra 12 declarations/12 registered tests/12 unique IDs, debug.log không tồn tại và git diff --check sạch. Chưa phân loại failure hoặc tạo bug report; chưa chuyển Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:57:35+07:00`
+
+**User Prompt:**
+
+```text
+Review phiên bản Phase C hiện tại và thực hiện Fix 1.
+
+Phiên bản hiện tại đã có các thao tác UI cơ bản. Hãy thực hiện Fix 1 để
+chuẩn hóa data-driven, locator, assertion và việc chọn bề mặt theo case:
+
+1. Giữ nguyên 12 TC-ID và expected đã duyệt tại Phase B.
+2. Tạo data/fr05-search.json và chuyển toàn bộ input/expected thay đổi theo
+   test case ra khỏi spec.
+3. Thêm TypeScript interface và runtime validation cho fixture.
+4. Tạo bảng mapping 12 TC-ID sang UI, UI+network hoặc API. Với bộ case
+   hiện có, giữ UI làm oracle chính cho cả 12 case; network được dùng bổ
+   trợ ở DT-001, DT-004, DT-006, DT-007, DT-009 và DT-010 khi cần.
+5. Các requirement search result, grid, product card, image alt, price,
+   empty/loading state, safe rendering và h1 phải được kiểm tra bằng Page
+   và DOM locator thật tại http://localhost:5173.
+6. Network assertion chỉ dùng cho setup, synchronization hoặc chẩn đoán;
+   không thay thế UI oracle.
+7. Ưu tiên getByRole, getByTestId, getByLabel và getByText.
+8. Chỉ dùng CSS khi cần kiểm tra cấu trúc DOM như locator('h1') và ghi rõ
+   lý do.
+9. Không chấp nhận HTTP 500 nếu expected yêu cầu hệ thống xử lý an toàn.
+10. Thực thi ít nhất ba nhóm assertion:
+    - DOM/visible text;
+    - state/attribute;
+    - count/aggregate.
+11. Không thay expected theo actual behavior của SUT.
+12. Không tự chọn `Áo` hay `Iphone`, hoặc tự đổi ID hai case cuối, nếu
+    quyết định đó chưa được chốt trong artifact Phase B.
+13. Chưa hoàn thiện loading synchronization và screenshot attachment;
+    ghi hai nội dung đó là điểm cần xử lý ở Fix 2.
+14. Chạy lint, typecheck và Chromium baseline thật.
+
+Cập nhật data/fr05-search.json, tests/fr05-search.spec.ts và
+REVIEW_NOTES.md. Ghi command, exit code, passed, failed và skipped thật.
+Dừng tại Checkpoint C, chưa chuyển sang Phase D.
+```
+
+**AI Action:**
+
+```text
+Sẽ thực hiện Fix 1 trên Phase C hiện tại và dừng Checkpoint C. Giữ 12 TC-ID/expected Phase B, bao gồm quyết định đã ghi trong TEST_CASES.md: DT-002 dùng Iphone, DT-011=h1 và DT-012=format giá. Sẽ tạo data/fr05-search.json chứa toàn bộ input/expected thay đổi theo case, thêm TypeScript interfaces và runtime validation trong spec, đăng ký 12 test data-driven, và chuẩn hóa mapping UI primary cho cả 12 case; chỉ DT-001/004/006/007/009/010 có network supporting/diagnostic, không có API-only. Sẽ dùng Page/DOM locators thật, ưu tiên role/text và chỉ dùng CSS cho cấu trúc DOM có lý do; giữ assertion không chấp nhận 500/raw DB/XSS/SQLi và thực thi ít nhất DOM/text, state/attribute, count/aggregate. Sẽ ghi loading synchronization và screenshot attachment là backlog Fix 2, không hoàn thiện trong Fix 1. Sau sửa sẽ chạy lint, typecheck và Chromium baseline thật, cập nhật REVIEW_NOTES/evidence/audit với command/exit code/pass-fail-skip, rồi dừng; chưa chuyển Phase D.
 ```
 
 ---
