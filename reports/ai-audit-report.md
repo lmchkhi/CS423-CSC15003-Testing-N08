@@ -8,7 +8,7 @@
 | **MSSV** | 23127300 |
 | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
 | **Ngày làm bài** | 05/08/2026 – 08/08/2026 |
-| **Công cụ AI đã dùng** | Claude (Opus 5, chạy trong Claude Code) |
+| **Công cụ AI đã dùng** | Claude (Opus 5 và Sonnet 5, chạy trong Claude Code — chuyển sang Sonnet 5 từ Session 3, 08/08/2026) |
 
 ## 2. Hướng dẫn / Phạm vi
 
@@ -1107,14 +1107,160 @@ không thể verbatim được. Nó phải là sản phẩm sinh tự động t�
 
 ---
 
+## Entry #16
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 9:26 PM 08/08/2026 |
+| **Artifact type** | FR-13 stage 1–5 (Analyze → Design → Review → Model data) — `test-design/FR-13-dashboard/case-map.md`, `test-design/not-automated.md`, `dashboardCaseSchema` trong `automation/utils/data.ts`, `automation/test-data/fr-13-dashboard.cases.json`, `automation/pages/dashboard.page.ts` |
+
+**Full prompt:**
+
+```
+finish the superpowers plan for today's work, i prefer inline style because of the prompt log requirements
+```
+
+(Task 11 của kế hoạch — không có prompt riêng cho từng stage vì đây là một
+phiên agentic thực thi liên tục theo kế hoạch đã viết sẵn từ 05/08; ranh giới
+giữa các entry là ranh giới giữa các Task của kế hoạch, không phải giữa các
+lượt nhắn của sinh viên.)
+
+### (2) AI Output
+
+Lời AI xen giữa các lệnh, nguyên văn tiếng Anh, theo đúng thứ tự thời gian
+(mốc giờ ICT) — phần lệnh cụ thể mỗi câu dẫn tới được mô tả trong Reasoning
+thay vì lặp lại ở đây, vì transcript gốc của Claude Code không lưu tham số
+lệnh dưới dạng văn bản trích dẫn được (chỉ lưu lời thoại và kết quả trả về):
+
+```
+Good, `.env` is in place. Now starting the three SUT servers.
+```
+```
+All three ports are up. Now typecheck and smoke test.
+```
+```
+Environment is ready. Let me set up task tracking for today's remaining plan items.
+```
+```
+Now the FR-13 data file (12 cases):
+```
+```
+Now verify the loader accepts it, and update `not-automated.md` + `case-map.md`.
+```
+```
+12 cases load cleanly. Now `not-automated.md` and the case-map.
+```
+```
+Clean. Committing Task 11's deliverables.
+```
+
+Ba đoạn output công cụ được trích nguyên văn vì bản thân chúng là phát hiện
+định hình lại thiết kế case, không phải diễn giải lại. Trích nguyên văn từ
+output của lệnh recon (`npx tsx`) — mở app admin bằng token của một tài khoản
+`role='user'` bơm thẳng vào `localStorage`, so với mở không có token nào:
+
+```
+--- anonymous URL --- http://localhost:5174/
+Admin Login
+Login
+--- non-admin URL --- http://localhost:5174/
+EShop Admin
+Dashboard
+Danh mục
+Sản phẩm
+Mã Giảm Giá
+Đơn hàng
+Người dùng
+Đăng xuất
+Dashboard
+Tổng doanh thu (Delivered)
+
+0 ₫
+
+Tổng số đơn hàng
+
+0
+```
+
+Trích nguyên văn từ output của lệnh gọi thẳng `GET /api/admin/orders` bằng
+cùng token `role='user'` đó:
+
+```
+status: 200
+[]
+```
+
+Trích nguyên văn từ output xác nhận loader (`utils/data.ts`) chấp nhận bộ 12
+case vừa viết:
+
+```
+12 F13-TC-001, F13-TC-002, F13-TC-003, F13-TC-004, F13-TC-005, F13-TC-006, F13-TC-007, F13-TC-008, F13-TC-009, F13-TC-010, F13-TC-011, F13-TC-012
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Đưa ra `INCOMPLETE` chứ không `VALID` vì bản thiết kế ban đầu trong kế hoạch
+05/08 (Task 11 Step 2–4) có hai chỗ không dùng được nguyên trạng, cả hai chỉ lộ
+ra nhờ đọc lại 6 case HW02 và recon trên build đang chạy — đúng bài học đã ghi
+ở Entry #11/#12 lặp lại lần nữa cho feature thứ ba:
+
+**Chỗ thứ nhất — kế hoạch không biết BUG-FR13-001 đã tồn tại từ HW02.**
+TC-FR13-DT-002/003/004 đều có `Status: Failed / BUG-FR13-001` trong hồ sơ HW02:
+doanh thu hiển thị đúng gấp đôi giá trị kỳ vọng ở cả ba case. Kế hoạch coi ba
+case này là "positive" bình thường; thực ra chúng là case tái hiện một lỗi đã
+biết, cần giữ nguyên assertion đúng theo oracle và **để cho fail** nếu lỗi còn
+tồn tại trên build hiện tại (sẽ xác nhận lại ở Task 13).
+
+**Chỗ thứ hai — phát hiện mới, không có trong kế hoạch: chính bản thân
+guard FR-12 của trang Dashboard cũng có khả năng hở.** Kế hoạch giả định
+`seedUserToken` (bơm token của user thường) sẽ đủ để chứng minh F13-TC-005 vì
+tin rằng ứng dụng admin sẽ chặn. Recon cho thấy ngược lại: bơm thẳng token của
+một tài khoản `role='user'` vào `localStorage` rồi mở app admin, Dashboard vẫn
+hiển thị bình thường; gọi thẳng `GET /api/admin/orders` bằng cùng token đó
+cũng trả `200` với dữ liệu thật, không phải lỗi từ chối quyền. Đây là vi phạm
+quan sát được của §4 (dẫn theo FR-12: mọi API `/api/admin/*` phải yêu cầu
+`role = 'admin'`) mà kế hoạch không hề dự đoán — nó giả định tính năng chặn
+quyền đã đúng và chỉ cần kiểm chứng cho có.
+
+Sơ đồ giá trị `expected.urlContains` trong schema nháp ban đầu (theo văn bản kế
+hoạch) cũng sai giả định: kế hoạch nghĩ có điều hướng URL (`/login`), nhưng
+recon cho thấy app admin là một trang duy nhất ẩn/hiện theo việc có token, ẩn
+hoàn toàn qua heading nào đang render (`Dashboard` so với `Admin Login`), không
+qua URL.
+
+### (5) Student Fix
+
+- Thay `expected: { reachable, urlContains }` (giả định kế hoạch) bằng
+  `expected: { dashboardVisible }` — khớp với cơ chế ẩn/hiện thật của app admin.
+- Gộp 3 assertion tách rời trong kế hoạch (`revenue-equals-delivered-sum`,
+  `revenue-unchanged`, `revenue-increases-by-order-total`) thành một assertion
+  tổng quát `revenue-tracks-delivered-seed`: nó tính đúng cả ba trường hợp bằng
+  cách cộng `total_amount` của đúng những đơn `delivered` trong `seedOrders`,
+  nên 7/12 case dùng chung một nhánh xử lý thay vì phân biệt bằng `caseId`.
+  Tránh trùng lặp logic mà vẫn không vi phạm §6 (không nhánh theo case).
+- Giữ nguyên assertion đúng theo oracle cho F13-TC-005 dù biết trước nhiều khả
+  năng sẽ fail vì lỗi vừa recon được — không hạ assertion xuống để tránh một
+  test đỏ đã biết trước, để dành xác nhận và lập bug report ở Task 13–15.
+- Case-map ghi lại phát hiện recon này ở mục 3.3 làm căn cứ, thay vì chỉ ghi
+  kết quả pass/fail suông.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 10 | 66.7% |
-| `INCOMPLETE` | 4 | 26.7% |
-| `INVALID` | 1 | 6.7% |
-| **Tổng số entry đã audit** | **15** | **100%** |
+| `VALID` | 10 | 62.5% |
+| `INCOMPLETE` | 5 | 31.3% |
+| `INVALID` | 1 | 6.3% |
+| **Tổng số entry đã audit** | **16** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -1124,6 +1270,7 @@ Phân bố theo giai đoạn:
 | FR-02 — Session 1 (06/08) | #5–#9 | 3 | 2 |
 | FR-10 — Session 2 (07/08) | #10–#13 | 3 | 1 |
 | Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
+| FR-13 — Session 3 (08/08) | #16 | 0 | 1 |
 
 ## 5. Kết luận
 
@@ -1170,7 +1317,8 @@ chính nó (kể cả dòng chữ "verbatim" ở đầu file log) phải đượ
 ## 6. Công bố bắt buộc (Mandatory Disclosure)
 
 Toàn bộ test case, script Playwright, dữ liệu test và tài liệu của HW04 được
-tạo ra với sự hỗ trợ của Claude (Opus 5) chạy trong Claude Code. Mọi output
+tạo ra với sự hỗ trợ của Claude (Opus 5, và từ Session 3 ngày 08/08/2026 là
+Sonnet 5) chạy trong Claude Code. Mọi output
 của AI đều được sinh viên xem xét, đối chiếu với `sut-requirements.md` và với
 hành vi quan sát được trên SUT đang chạy trước khi giữ lại; các phần bị sửa hoặc
 bác bỏ được ghi ở mục **Student Fix** của từng entry.
