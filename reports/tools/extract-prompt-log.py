@@ -47,7 +47,7 @@ TEXT_CAP = 4000
 # not part of the prompt record.
 NOISE = re.compile(
     r"^\s*<(ide_opened_file|ide_selection|command-name|command-message|"
-    r"local-command-stdout|local-command-caveat)\b"
+    r"local-command-stdout|local-command-caveat|task-notification)\b"
 )
 
 
@@ -232,8 +232,11 @@ HW04 được ghi: từ lúc đọc đề (05/08/2026) đến phiên làm việc
 Nguyên tắc verbatim được áp dụng đúng nghĩa:
 
 - **Prompt** — nguyên văn từng ký tự những gì sinh viên đã gõ, giữ nguyên
-  ngôn ngữ, giữ cả lỗi chính tả. Chỉ loại bỏ các khối `<system-reminder>` do
-  chính công cụ chèn vào (sinh viên không gõ chúng).
+  ngôn ngữ, giữ cả lỗi chính tả. Chỉ loại bỏ các khối `<system-reminder>` và
+  `<task-notification>` do chính công cụ chèn vào — sinh viên không gõ
+  chúng; `<task-notification>` là sự kiện tự động khi một lệnh chạy nền kết
+  thúc (`origin.kind = "task-notification"` trong transcript gốc), không
+  phải phản hồi hay xác nhận của sinh viên.
 - **Output** — nguyên văn phần chữ AI trả lời. Không dịch, không tóm tắt,
   không làm gọn.
 - **`→ Tên_tool(...)`** — mỗi dòng là một lệnh AI thực sự đã gọi, tham số giữ

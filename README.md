@@ -37,10 +37,10 @@ Số case đếm theo case logic, không nhân theo browser.
 
 | Feature | Automated | Executed | Passed | Failed | Not automated |
 |---|---:|---:|---:|---:|---:|
-| FR-02 | | | | | |
-| FR-10 | | | | | |
-| FR-13 | | | | | |
-| **Total** | | | | | |
+| FR-02 | 14 | 14 | 10 | 4 | 1 |
+| FR-10 | 14 | 14 | 11 | 3 | 1 |
+| FR-13 | 12 | 12 | 1 | 11 | 1 |
+| **Total** | **40** | **40** | **22** | **18** | **3** |
 
 > Case không tự động hoá được và lý do: [`test-design/not-automated.md`](test-design/not-automated.md).
 > Ánh xạ case HW02 → case HW04 → automated test: `test-design/<feature>/case-map.md`.
@@ -49,9 +49,9 @@ Số case đếm theo case logic, không nhân theo browser.
 
 | Feature | Chromium | Firefox | WebKit |
 |---|---|---|---|
-| FR-02 | | | |
-| FR-10 | | | |
-| FR-13 | | | |
+| FR-02 | 10p / 4f | 10p / 4f | 10p / 4f |
+| FR-10 | 11p / 3f | 11p / 3f | 11p / 3f |
+| FR-13 | 1p / 11f | 1p / 11f | 1p / 11f |
 
 > **Tổng số browser run:** 9 (3 feature × 3 browser). Mỗi run sinh một HTML
 > report riêng tại `reports/html/<feature>/<browser>/index.html`, hiển thị
@@ -62,9 +62,18 @@ Số case đếm theo case logic, không nhân theo browser.
 
 | Pattern | Ví dụ | Dùng ở |
 |---|---|---|
-| | | |
+| Navigation (`toHaveURL`) | Đăng nhập thành công phải chuyển khỏi `/login` | FR-02 |
+| `localStorage` + `toBeTruthy` | JWT phải được lưu sau đăng nhập | FR-02 |
+| Visibility + text content | Thông báo lỗi hiển thị, không lộ nguyên nhân | FR-02 |
+| Thuộc tính DOM + validity state | Ô email `type="email"` chặn định dạng sai | FR-02 |
+| Đếm phần tử (`toHaveCount`) | Đơn hàng xuất hiện đúng 1 lần trước khi thao tác | FR-10 |
+| So khớp tập hợp chính xác | Tập nút hành động khớp đúng tập cạnh hợp lệ | FR-10 |
+| Vắng mặt (`toHaveCount(0)`) | Nút bị cấm không được chào mời | FR-10 |
+| Thành viên tập hợp | Mọi nhãn trạng thái nằm trong 5 giá trị đặc tả | FR-10 |
+| Số học với oracle tính động từ API | Doanh thu = baseline + phần vừa thêm, tính lại mỗi lần | FR-13 |
 
-> §6 yêu cầu tối thiểu 3 assertion pattern khác nhau trong suite.
+> §6 yêu cầu tối thiểu 3 assertion pattern khác nhau — suite dùng 9. Chi
+> tiết: [`reports/main-report.md`](reports/main-report.md#4-assertion-patterns).
 
 ### 2.5. Bug Summary
 
