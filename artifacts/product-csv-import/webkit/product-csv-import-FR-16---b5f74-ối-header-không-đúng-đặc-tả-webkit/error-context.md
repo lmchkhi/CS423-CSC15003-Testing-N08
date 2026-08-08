@@ -1,0 +1,200 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: product-csv-import.spec.mjs >> FR-16 - Import sản phẩm từ CSV >> TC-CSV-012: Từ chối header không đúng đặc tả
+- Location: tests/e2e/product-csv-import.spec.mjs:48:5
+
+# Error details
+
+```
+Error: expect(locator).toContainText(expected) failed
+
+Locator: locator('.bg-red-100, .bg-green-100').filter({ hasText: /Import|❌|✅/ })
+Expected pattern: /header|tiêu đề|cột/i
+Received string:  "✅ Import hoàn tất: 0/1 sản phẩm được thêmHàng 2: Thiếu tên sản phẩm"
+Timeout: 5000ms
+
+Call log:
+  - Expect "toContainText" with timeout 5000ms
+  - waiting for locator('.bg-red-100, .bg-green-100').filter({ hasText: /Import|❌|✅/ })
+    14 × locator resolved to <div class="mt-2 p-3 rounded text-sm bg-green-100 text-green-800">…</div>
+       - unexpected value "✅ Import hoàn tất: 0/1 sản phẩm được thêmHàng 2: Thiếu tên sản phẩm"
+
+```
+
+```yaml
+- paragraph: "✅ Import hoàn tất: 0/1 sản phẩm được thêm"
+- list:
+  - listitem: "Hàng 2: Thiếu tên sản phẩm"
+```
+
+# Test source
+
+```ts
+  6   |   readFileSync(new URL('../data/product-csv-import.json', import.meta.url), 'utf8'),
+  7   | );
+  8   | 
+  9   | if (!Array.isArray(data.cases) || data.cases.length < 12) {
+  10  |   throw new Error('FR-16 requires at least 12 external test-data rows.');
+  11  | }
+  12  | 
+  13  | const apiBaseURL = process.env.API_BASE_URL ?? 'http://127.0.0.1:3000';
+  14  | const runId = `${Date.now()}-${process.pid}`;
+  15  | const resolveCase = (source) => JSON.parse(
+  16  |   JSON.stringify(source).replaceAll('{runId}', runId),
+  17  | );
+  18  | 
+  19  | async function loginAsAdmin(request) {
+  20  |   const response = await request.post(`${apiBaseURL}/api/login`, {
+  21  |     data: {
+  22  |       email: process.env.ADMIN_EMAIL ?? 'admin@eshop.com',
+  23  |       password: process.env.ADMIN_PASSWORD ?? 'Admin123!',
+  24  |     },
+  25  |   });
+  26  |   expect(response.status()).toBe(200);
+  27  |   const body = await response.json();
+  28  |   expect(body.user.role).toBe('admin');
+  29  |   return body.token;
+  30  | }
+  31  | 
+  32  | async function productsByNames(request, names) {
+  33  |   const response = await request.get(`${apiBaseURL}/api/products`);
+  34  |   expect(response.ok()).toBe(true);
+  35  |   const products = await response.json();
+  36  |   return products.filter((product) => names.includes(product.name));
+  37  | }
+  38  | 
+  39  | async function productIds(request) {
+  40  |   const response = await request.get(`${apiBaseURL}/api/products`);
+  41  |   expect(response.ok()).toBe(true);
+  42  |   const products = await response.json();
+  43  |   return products.map((product) => product.id).sort((a, b) => a - b);
+  44  | }
+  45  | 
+  46  | test.describe('FR-16 - Import sản phẩm từ CSV', () => {
+  47  |   for (const sourceCase of data.cases) {
+  48  |     test(`${sourceCase.id}: ${sourceCase.title}`, async ({ page, request }) => {
+  49  |       const testCase = resolveCase(sourceCase);
+  50  |       const names = testCase.expectedNames ?? [];
+  51  |       const token = await loginAsAdmin(request);
+  52  |       const csvImport = new ProductCsvImportPage(page);
+  53  |       const checksWholeDatabase = ['invalidExtension', 'invalidHeader'].includes(testCase.scenario);
+  54  |       const productIdsBefore = checksWholeDatabase ? await productIds(request) : null;
+  55  | 
+  56  |       await test.step('Bảo đảm dữ liệu thử chưa tồn tại', async () => {
+  57  |         expect(await productsByNames(request, names)).toHaveLength(0);
+  58  |       });
+  59  | 
+  60  |       await csvImport.gotoWithAdminToken(token);
+  61  |       await csvImport.upload(testCase);
+  62  | 
+  63  |       if (testCase.scenario === 'invalidExtension') {
+  64  |         const extensionError = page.getByText(
+  65  |           /chỉ.*(?:\.csv|csv)|file.*(?:không hợp lệ|sai định dạng)|(?:đuôi|định dạng).*csv/i,
+  66  |         );
+  67  |         const rejectionState = async () => {
+  68  |           if (await csvImport.fileInput.inputValue() === '') return 'rejected';
+  69  |           if (await extensionError.first().isVisible().catch(() => false)) return 'rejected';
+  70  |           if (await csvImport.importButton.count() === 1 && await csvImport.importButton.isEnabled()) {
+  71  |             return 'accepted';
+  72  |           }
+  73  |           return 'pending';
+  74  |         };
+  75  | 
+  76  |         await expect.poll(rejectionState).not.toBe('pending');
+  77  |         expect(await rejectionState()).toBe('rejected');
+  78  |         expect(await productIds(request)).toEqual(productIdsBefore);
+  79  |         return;
+  80  |       }
+  81  | 
+  82  |       if (testCase.scenario === 'noRows') {
+  83  |         await expect(csvImport.previewLabel).toHaveCount(testCase.expectedPreviewRows);
+  84  |         await expect(csvImport.importButton).toBeDisabled();
+  85  |         await expect(csvImport.importButton).toHaveText('Import 0 sản phẩm');
+  86  |         return;
+  87  |       }
+  88  | 
+  89  |       if (testCase.scenario === 'invalidHeader') {
+  90  |         const errorPattern = new RegExp(testCase.expectedErrorPattern, 'i');
+  91  |         const headerError = page
+  92  |           .locator('[role="alert"], .bg-red-100, .text-red-600, .text-red-700')
+  93  |           .filter({ hasText: errorPattern });
+  94  |         const parsingState = async () => {
+  95  |           if (await headerError.first().isVisible().catch(() => false)) return 'rejected';
+  96  |           if (await csvImport.previewLabel.count() > 0) return 'parsed';
+  97  |           return 'pending';
+  98  |         };
+  99  | 
+  100 |         await expect.poll(parsingState).not.toBe('pending');
+  101 | 
+  102 |         if (await parsingState() === 'parsed') {
+  103 |           await expect(csvImport.importButton).toBeEnabled();
+  104 |           await csvImport.importButton.click();
+  105 |           await expect(csvImport.result).toBeVisible();
+> 106 |           await expect(csvImport.result).toContainText(errorPattern);
+      |                                          ^ Error: expect(locator).toContainText(expected) failed
+  107 |         }
+  108 | 
+  109 |         expect(await productIds(request)).toEqual(productIdsBefore);
+  110 |         return;
+  111 |       }
+  112 | 
+  113 |       await expect(csvImport.previewLabel).toBeVisible();
+  114 | 
+  115 |       if (testCase.scenario === 'quotedComma') {
+  116 |         const requestPromise = page.waitForRequest((outgoing) =>
+  117 |           outgoing.url().endsWith('/api/admin/import-products') && outgoing.method() === 'POST');
+  118 |         await csvImport.importButton.click();
+  119 |         const outgoing = await requestPromise;
+  120 |         expect(outgoing.postDataJSON().products[0].description).toBe(testCase.expectedDescription);
+  121 |         await expect(csvImport.result).toContainText(`${testCase.expectedInserted}/${testCase.expectedInserted}`);
+  122 |         await expect(csvImport.productName(names[0])).toBeVisible();
+  123 |         return;
+  124 |       }
+  125 | 
+  126 |       await csvImport.importButton.click();
+  127 |       await expect(csvImport.result).toBeVisible();
+  128 | 
+  129 |       if (testCase.scenario === 'success') {
+  130 |         await expect(csvImport.result).toContainText(`${testCase.expectedInserted}/${testCase.expectedInserted}`);
+  131 |         for (const name of names) {
+  132 |           await expect(csvImport.productName(name)).toBeVisible();
+  133 |         }
+  134 |         expect(await productsByNames(request, names)).toHaveLength(testCase.expectedInserted);
+  135 |         return;
+  136 |       }
+  137 | 
+  138 |       if (testCase.scenario === 'validationRollback') {
+  139 |         const resultText = await csvImport.result.innerText();
+  140 |         expect.soft(resultText).toMatch(new RegExp(testCase.expectedErrorPattern, 'i'));
+  141 |         expect.soft(resultText).toMatch(new RegExp(`0\\s*(?:/|dòng thành công).*${testCase.expectedErrorRows}`, 'i'));
+  142 |         expect.soft(await productsByNames(request, names)).toHaveLength(0);
+  143 |         return;
+  144 |       }
+  145 | 
+  146 |       if (testCase.scenario === 'errorReport') {
+  147 |         await expect(csvImport.result).toContainText(new RegExp(testCase.expectedErrorPattern, 'i'));
+  148 |         await expect(csvImport.result).toContainText(`${testCase.expectedInserted}/1`);
+  149 |         await expect(csvImport.result.locator('li')).toHaveCount(testCase.expectedErrorRows);
+  150 |         expect(await productsByNames(request, names)).toHaveLength(0);
+  151 |       }
+  152 |     });
+  153 | 
+  154 |   }
+  155 | 
+  156 |   test.afterEach(async ({ request }) => {
+  157 |     const response = await request.get(`${apiBaseURL}/api/products`);
+  158 |     if (!response.ok()) return;
+  159 |     const products = await response.json();
+  160 |     for (const product of products.filter((item) => item.name?.startsWith(`FR16-${runId}`))) {
+  161 |       await request.delete(`${apiBaseURL}/api/products/${product.id}`);
+  162 |     }
+  163 |   });
+  164 | });
+  165 | 
+```

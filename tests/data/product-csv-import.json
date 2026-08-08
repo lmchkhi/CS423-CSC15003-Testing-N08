@@ -1,0 +1,145 @@
+{
+  "cases": [
+    {
+      "id": "TC-CSV-001",
+      "title": "Import một sản phẩm hợp lệ",
+      "scenario": "success",
+      "fileName": "valid-single.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-Single,125000,Sản phẩm hợp lệ,https://example.com/single.png,1",
+      "expectedNames": ["FR16-{runId}-Single"],
+      "expectedInserted": 1
+    },
+    {
+      "id": "TC-CSV-002",
+      "title": "Import nhiều sản phẩm hợp lệ",
+      "scenario": "success",
+      "fileName": "valid-multiple.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-Multi-A,100000,Mẫu A,https://example.com/a.png,1\nFR16-{runId}-Multi-B,200000,Mẫu B,https://example.com/b.png,2",
+      "expectedNames": ["FR16-{runId}-Multi-A", "FR16-{runId}-Multi-B"],
+      "expectedInserted": 2
+    },
+    {
+      "id": "TC-CSV-003",
+      "title": "Giữ nguyên trường có dấu phẩy theo RFC 4180",
+      "scenario": "quotedComma",
+      "fileName": "quoted-comma.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-Quoted,350000,\"Mỏng, nhẹ và bền\",https://example.com/quoted.png,2",
+      "expectedNames": ["FR16-{runId}-Quoted"],
+      "expectedDescription": "Mỏng, nhẹ và bền",
+      "expectedInserted": 1
+    },
+    {
+      "id": "TC-CSV-004",
+      "title": "Từ chối file không có đuôi CSV",
+      "scenario": "invalidExtension",
+      "fileName": "products.txt",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-Txt,100000,Sai đuôi,https://example.com/txt.png,1",
+      "expectedNames": ["FR16-{runId}-Txt"]
+    },
+    {
+      "id": "TC-CSV-005",
+      "title": "Chấp nhận đúng header bắt buộc",
+      "scenario": "success",
+      "fileName": "exact-header.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-Header,99000,Đúng header,https://example.com/header.png,3",
+      "expectedNames": ["FR16-{runId}-Header"],
+      "expectedInserted": 1
+    },
+    {
+      "id": "TC-CSV-006",
+      "title": "Rollback khi một dòng thiếu name",
+      "scenario": "validationRollback",
+      "fileName": "missing-name.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-BeforeMissing,150000,Hợp lệ,https://example.com/ok.png,1\n,200000,Thiếu tên,https://example.com/bad.png,1",
+      "expectedNames": ["FR16-{runId}-BeforeMissing"],
+      "expectedErrorPattern": "tên|name",
+      "expectedErrorRows": 1
+    },
+    {
+      "id": "TC-CSV-007",
+      "title": "Rollback khi name chỉ chứa khoảng trắng",
+      "scenario": "validationRollback",
+      "fileName": "blank-name.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-BeforeBlank,150000,Hợp lệ,https://example.com/ok.png,1\n   ,200000,Tên trống,https://example.com/bad.png,1",
+      "expectedNames": ["FR16-{runId}-BeforeBlank"],
+      "expectedErrorPattern": "tên|name",
+      "expectedErrorRows": 1
+    },
+    {
+      "id": "TC-CSV-008",
+      "title": "Rollback khi price bằng 0",
+      "scenario": "validationRollback",
+      "fileName": "zero-price.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-BeforeZero,150000,Hợp lệ,https://example.com/ok.png,1\nFR16-{runId}-Zero,0,Giá bằng không,https://example.com/zero.png,1",
+      "expectedNames": ["FR16-{runId}-BeforeZero", "FR16-{runId}-Zero"],
+      "expectedErrorPattern": "giá|price|dương",
+      "expectedErrorRows": 1
+    },
+    {
+      "id": "TC-CSV-009",
+      "title": "Rollback khi price là số âm",
+      "scenario": "validationRollback",
+      "fileName": "negative-price.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-BeforeNegative,150000,Hợp lệ,https://example.com/ok.png,1\nFR16-{runId}-Negative,-1,Giá âm,https://example.com/negative.png,1",
+      "expectedNames": ["FR16-{runId}-BeforeNegative", "FR16-{runId}-Negative"],
+      "expectedErrorPattern": "giá|price|dương",
+      "expectedErrorRows": 1
+    },
+    {
+      "id": "TC-CSV-010",
+      "title": "Rollback khi price không phải số",
+      "scenario": "validationRollback",
+      "fileName": "nonnumeric-price.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-BeforeText,150000,Hợp lệ,https://example.com/ok.png,1\nFR16-{runId}-Text,abc,Giá chữ,https://example.com/text.png,1",
+      "expectedNames": ["FR16-{runId}-BeforeText", "FR16-{runId}-Text"],
+      "expectedErrorPattern": "giá|price|số",
+      "expectedErrorRows": 1
+    },
+    {
+      "id": "TC-CSV-011",
+      "title": "Rollback khi thiếu price",
+      "scenario": "validationRollback",
+      "fileName": "missing-price.csv",
+      "csv": "name,price,description,imageUrl,category_id\nFR16-{runId}-BeforeNoPrice,150000,Hợp lệ,https://example.com/ok.png,1\nFR16-{runId}-NoPrice,,Thiếu giá,https://example.com/no-price.png,1",
+      "expectedNames": ["FR16-{runId}-BeforeNoPrice", "FR16-{runId}-NoPrice"],
+      "expectedErrorPattern": "giá|price|số",
+      "expectedErrorRows": 1
+    },
+    {
+      "id": "TC-CSV-012",
+      "title": "Từ chối header không đúng đặc tả",
+      "scenario": "invalidHeader",
+      "fileName": "wrong-header.csv",
+      "csv": "product_name,cost,details,picture,category\nFR16-{runId}-WrongHeader,100000,Sai header,https://example.com/wrong.png,1",
+      "expectedNames": ["FR16-{runId}-WrongHeader"],
+      "expectedErrorPattern": "header|tiêu đề|cột"
+    },
+    {
+      "id": "TC-CSV-013",
+      "title": "Không import file CSV rỗng",
+      "scenario": "noRows",
+      "fileName": "empty.csv",
+      "csv": "",
+      "expectedPreviewRows": 0
+    },
+    {
+      "id": "TC-CSV-014",
+      "title": "Không import file chỉ có header",
+      "scenario": "noRows",
+      "fileName": "header-only.csv",
+      "csv": "name,price,description,imageUrl,category_id",
+      "expectedPreviewRows": 0
+    },
+    {
+      "id": "TC-CSV-015",
+      "title": "Báo cáo đủ số dòng thành công lỗi và lý do",
+      "scenario": "errorReport",
+      "fileName": "error-report.csv",
+      "csv": "name,price,description,imageUrl,category_id\n,100000,Thiếu tên,https://example.com/missing.png,1",
+      "expectedNames": [],
+      "expectedInserted": 0,
+      "expectedErrorRows": 1,
+      "expectedErrorPattern": "Hàng 2.*tên|dòng 2.*tên"
+    }
+  ]
+}

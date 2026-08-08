@@ -182,3 +182,124 @@ Các bug report, test case và [báo cáo tổng hợp](/Users/lvkhang/Documents
 - Sửa lại để Student ID được hiển thị trong phần title khi mở report.
 - Sửa lại dữ liệu mật khẩu trong TC-REG-006 và TC-REG-007 để tuân thủ đúng đặc tả.
 - Sửa flaky wait: Không tạo chung waitForResponse cho cả malformed email và duplicate email.
+
+## Entry #3
+
+### (1) Prompt + Tool
+
+| Field             | Content                                                     |
+| ----------------- | ----------------------------------------------------------- |
+| **Tool**          | GPT-5.6 Sol                                                 |
+| **Timestamp**     | 08/08/2026 11:30:25                                         |
+| **Artifact type** | Kiểm thử Playwright FR-16 và liên kết bug với GitHub Issues |
+
+**Full prompt:**
+
+```
+Sử dụng skill [playwright-automation](skills/playwright-automation/) để thực hiện test cho FR-16 được đặc tả trong file readme ở root
+
+gh cli có thể bị chặn bởi sandbox
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `playwright-automation` theo đúng yêu cầu, đọc đầy đủ hướng dẫn của skill và đặc tả FR-16 trong README trước khi chạy test.
+
+Mình đã xác định FR-16 là chức năng import sản phẩm CSV của Admin. Tiếp theo mình sẽ nạp hai tài liệu bắt buộc của skill, rồi kiểm tra cấu trúc dự án, cấu hình Playwright, mã nguồn import và StudentID có sẵn trong workspace.
+
+Mình đã xác nhận StudentID `23127062` từ hồ sơ bài nộp. Mã hiện tại cho thấy các rủi ro chính cần kiểm chứng thực tế: parser dùng `split(",")` nên có thể sai RFC 4180, backend không validate giá dương, và import không bọc transaction nên có nguy cơ không rollback. Mình sẽ thiết kế tối thiểu 12 case một-một với dữ liệu ngoài, đồng thời dùng dữ liệu tên duy nhất và dọn dẹp qua API/DB an toàn để các lần chạy độc lập.
+
+Bộ kiểm thử đã được dựng với 15 test case độc lập, dữ liệu JSON ngoài script, Page Object và các oracle kiểm tra cả UI lẫn trạng thái backend. Mình đang chạy kiểm tra tĩnh trước; sau đó sẽ khởi động SUT và chạy thử Chromium để hiệu chỉnh selector/đồng bộ trước khi tạo ba report chính thức.
+
+Lần chạy thử đầu tiên bị chặn bởi sandbox macOS (`MachPortRendezvous ... Permission denied` và `connect EPERM`), nên đây là lỗi hạ tầng chứ chưa phải kết quả FR-16. Theo hướng dẫn skill, mình sẽ chạy lại Playwright ngoài sandbox để trình duyệt và localhost hoạt động đúng; report thử vừa rồi không được dùng làm bằng chứng chính thức.
+
+Chromium đã khởi chạy được ngoài sandbox và đang thực thi các case thật. Thời gian kéo dài hơn dự kiến vì một số assertion âm chờ timeout để xác nhận hành vi sai; mình đang chờ kết quả đầy đủ rồi sẽ rút gọn các oracle nếu có chỗ gây chậm không cần thiết.
+
+Mình đã phân loại lần chạy thứ hai vẫn là lỗi môi trường: browser chạy được nhưng backend được khởi động trong namespace sandbox nên tiến trình Playwright ngoài sandbox nhận `ECONNREFUSED`. Mình sẽ sửa cấu hình để Playwright tự quản lý cả backend và Web Admin trong cùng lần chạy; cách này cũng làm quy trình tái lập gọn và tránh phụ thuộc server chạy tay.
+
+Sau review, mình đã sửa hai lỗi trong test chứ không quy thành lỗi sản phẩm: selector tên sản phẩm trước đó vô tình tính cả `alt` của ảnh, và case file không có dòng nên kiểm tra nút ở trạng thái disabled thay vì đòi nút biến mất. Nhóm kiểm tra đại diện hiện pass đúng ở các luồng hợp lệ. Mình bắt đầu ba lần chạy chính thức, mỗi browser một report riêng với StudentID và timestamp thật.
+
+Hai browser đầu cho kết quả nhất quán: 6 pass, 9 fail; các failure tái hiện đúng cùng nhóm hành vi ở Chromium và Firefox, không phải khác biệt trình duyệt. Mình đang chạy WebKit để hoàn tất ma trận, sau đó sẽ lập bug report theo nguyên nhân gốc (không tạo một bug trùng lặp cho từng test case).
+
+Bốn lỗi sản phẩm đã được xác nhận và lập báo cáo cục bộ với screenshot/trace thật: parser RFC 4180, kiểm tra đuôi file, validation + atomic rollback, và validation header. Theo skill, mình tiếp tục đối chiếu convention label/issue của remote GitHub, kiểm tra trùng lặp rồi mới tạo issue tương ứng.
+
+Validator đã đạt: 15 test case, dữ liệu ngoài, đủ assertion, ba report có metadata hợp lệ. Bước cuối của skill là mở report thật để kiểm tra trực quan dòng `Run by: 23127062` xuất hiện ngay ở tiêu đề và timestamp chỉ nằm trong Metadata; mình đang chụp chính trang report để xác nhận, không chỉnh sửa HTML.
+
+Đã hoàn tất kiểm thử tự động FR-16 bằng skill `playwright-automation`.
+
+Kết quả:
+
+- 15/15 test case đã tự động hóa.
+- Mỗi browser: 6 pass, 9 fail.
+- Tổng: 45 lượt thực thi, 18 pass, 27 fail.
+- Chromium, Firefox và WebKit cho kết quả nhất quán.
+- Không có test case chưa tự động hóa.
+- Validator của skill đã đạt.
+
+Bốn lỗi sản phẩm được xác nhận:
+
+- `BUG-CSV-001`: Parser không hỗ trợ trường có dấu phẩy theo RFC 4180.
+- `BUG-CSV-002`: Chấp nhận file không có đuôi `.csv`.
+- `BUG-CSV-003`: Không validate price và không rollback toàn bộ import.
+- `BUG-CSV-004`: Không phát hiện đúng header sai.
+
+Các tệp chính:
+
+- [Tóm tắt kết quả](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/product-csv-import/README.md)
+- [Playwright suite](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/e2e/product-csv-import.spec.mjs)
+- [Dữ liệu kiểm thử](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/data/product-csv-import.json)
+- [Chromium report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/product-csv-import/chromium/index.html)
+- [Firefox report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/product-csv-import/firefox/index.html)
+- [WebKit report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/product-csv-import/webkit/index.html)
+- [Bug reports](/Users/lvkhang/Documents/uni/software-testing/HW04/bugs/product-csv-import/BUG-CSV-001.md)
+
+Cả ba report đã được mở và xác nhận hiển thị `Run by: 23127062`; timestamp ISO nằm trong Metadata.
+
+Chưa thể đăng bug lên GitHub vì `gh auth status` báo token của tài khoản `lvkhang16` không hợp lệ. Không có issue URL nào được khai báo giả. Sau khi chạy `gh auth login -h github.com`, có thể tiếp tục bước xuất bản bốn issue.
+
+Đúng, có khả năng sandbox làm `gh` không đọc được credential/keychain. Mình sẽ kiểm tra lại ngoài sandbox trước khi kết luận token hỏng; nếu xác thực thành công, mình sẽ tiếp tục đối chiếu label và xuất bản bốn issue FR-16 theo quy trình đã chuẩn bị. Mình dùng skill GitHub để kiểm tra remote và trạng thái xác thực đúng convention.
+
+Bạn đoán đúng: ngoài sandbox, `gh` đăng nhập thành công bằng keyring và resolve được repository `lmchkhi/CS423-CSC15003-Testing-N08`. Mình tiếp tục đọc label và issue hiện có để tránh tạo label sai convention hoặc issue trùng.
+
+Remote đã có issue trùng cho cả bốn nguyên nhân gốc, nên mình sẽ không tạo issue mới:
+
+- RFC 4180 → #31
+- Đuôi file `.csv` → #24
+- Validation + rollback nhiều dòng lỗi → #32
+- Header sai → #25
+
+Mình đang xác minh lại URL/title/labels của bốn issue này rồi sẽ liên kết chúng vào bug report và test case cục bộ.
+
+Lệnh xác minh GitHub đang phản hồi chậm nhưng vẫn chạy; mình chưa ghi URL vào artifact cho đến khi `gh issue view` trả về đủ bốn kết quả đã xác nhận.
+
+Đúng, `gh` đã bị sandbox chặn truy cập macOS keyring.
+
+Chạy ngoài sandbox xác nhận:
+
+- Đăng nhập thành công với tài khoản `lvkhang16`.
+- Repository: `lmchkhi/CS423-CSC15003-Testing-N08`.
+- Cả bốn lỗi đã có issue tương ứng nên không tạo trùng:
+  - RFC 4180: [#31](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/31)
+  - File không có đuôi `.csv`: [#24](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/24)
+  - Validation và rollback: [#32](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/32)
+  - Header sai: [#25](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/25)
+
+Các URL đã được cập nhật vào bug report, test case liên quan và [báo cáo tổng hợp](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/product-csv-import/README.md). Validator vẫn đạt với 15 test case và đủ ba report browser.
+'''
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- baseURL trong playwright.config.mjs vẫn set là port 5173 trong khi FR-16 yêu cầu port 5174.
+- TC-CSV-004 và TC-CSV-012 ép implementation cụ thể, không chỉ kiểm tra requirement: Kiểm tra preview và button phải không tồn tại khi upload file .txt. Một implementation hợp lệ vẫn có thể giữ tên file trong input, hiển thị thông báo “chỉ chấp nhận .csv” và disable nút Import. Test hiện tại sẽ đánh fail implementation đó dù requirement đã được đáp ứng.
+
+### (5) Student Fix
+
+- Sửa lại dùng port 5174 cho FR-16 về CSV import vì đây là feature bên admin.
+- Sửa lại TC-CSV-004 và TC-CSV-012 để test chấp nhận hai cách từ chối hợp lệ:
+  - Hệ thống xóa file khỏi input.
+  - Hệ thống hiển thị lỗi định dạng CSV.
