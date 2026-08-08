@@ -991,6 +991,75 @@ Sang Giai đoạn C cho FR-12. Sinh data/fr12-access.json cho 40 case theo Playw
 
 **Tool:** `Codex (GPT-5)`
 
+**Date:** `2026-08-08T20:51:54+07:00`
+
+**User Prompt:**
+
+```text
+Áp dụng Phase A của workflow ai-first-playwright-testing cho FR-05 —
+Xem danh sách và tìm kiếm sản phẩm.
+
+Thông tin đầu vào:
+- Đường dẫn test case HW02:
+  tests/test-cases/FR-05-search/domain-testing/
+- File tổng hợp kết quả manual:
+  tests/test-runs/FR-05-search-run.md
+- Requirement công khai:
+  src/eshop-sut/README.md, mục FR-05
+- Frontend Web: http://localhost:5173
+- Backend API: http://localhost:3000
+- Mã sinh viên dùng cho report: 23127464
+- Output review:
+  reports/fr05-search/REVIEW_NOTES.md
+
+Chỉ thực hiện Phase A theo hướng kiểm thử hộp đen:
+1. Đọc toàn bộ test case HW02 của FR-05 và giữ nguyên TC-ID, mô tả,
+   precondition, input và expected ban đầu.
+2. Không đọc source code triển khai, middleware hoặc database schema để
+   suy ra expected result.
+3. Đối chiếu requirement FR-05 với từng test case và tương tác với SUT
+   thật qua UI, accessibility tree, URL và network công khai nếu môi
+   trường đang chạy.
+4. Với từng case, xác minh flow thao tác, dữ liệu mẫu, locator khả dụng,
+   precondition và điểm quan sát expected.
+5. Với từng case, đề xuất `automationSurface` là UI, UI+network hoặc API.
+   Nếu expected là nội dung, trạng thái, layout hoặc cấu trúc DOM mà người
+   dùng quan sát được, ưu tiên UI làm oracle chính. Không mặc định chuyển
+   case sang API-only chỉ vì endpoint có tồn tại.
+6. API/network chỉ dùng làm oracle chính khi test case thực sự yêu cầu
+   contract API; nếu dùng để setup, đồng bộ hoặc chẩn đoán cho case UI,
+   phải ghi rõ vai trò bổ trợ.
+7. Kiểm tra và nêu rõ hai bất nhất hiện có cần người dùng quyết định:
+   - DT-002 dùng `Áo` trong test data nhưng dùng `Iphone` trong steps và
+     expected;
+   - hai file cuối có filename DT-011/DT-012 nhưng heading bên trong là
+     DT-012/DT-014.
+8. Phân loại từng case thành Khớp, Lệch, Không xác định hoặc Trùng lặp.
+9. Nếu hai case có cùng input, precondition và kết quả thực chất, đánh
+   dấu Trùng lặp, chọn một case đại diện và ghi rõ lý do.
+10. Không tự sửa expected khi actual khác expected.
+11. Không tạo Playwright spec, fixture hoặc config trong Phase A.
+12. Ghi bằng chứng quan sát thật; nếu không thể chạy SUT, ghi Chưa chạy và
+    nguyên nhân, không suy đoán kết quả.
+13. Cập nhật bảng đối chiếu trong REVIEW_NOTES.md gồm TC-ID, mô tả gốc,
+    quan sát thực tế, trạng thái, `automationSurface`, bằng chứng và đề xuất.
+14. Liệt kê file đã đọc hoặc thay đổi, kết quả thật và mọi điểm chưa rõ.
+
+Dừng tại Checkpoint A để người dùng review. Không tự chuyển sang Phase B.
+```
+
+**AI Action:**
+
+```text
+Đã định vị và đọc đầy đủ ai-first-playwright-testing/SKILL.md cùng template audit/review; đã ghi entry này bằng timestamp ISO 8601 thật. Tiếp theo chỉ thực hiện Phase A cho FR-05: đọc toàn bộ 12 test case HW02, file tổng hợp manual và mục FR-05 trong README công khai; không đọc source triển khai, middleware hay database schema. Sẽ kiểm tra khả năng kết nối Frontend Web :5173 và Backend API :3000, tương tác hộp đen qua UI/accessibility/URL/network công khai nếu SUT chạy, ghi bằng chứng thật cho từng case, phân loại Khớp/Lệch/Không xác định/Trùng lặp, đề xuất automationSurface và nêu rõ hai bất nhất DT-002 cùng filename/heading DT-011/DT-012. Sẽ tạo/cập nhật reports/fr05-search/REVIEW_NOTES.md, không tạo Playwright spec/fixture/config, rồi dừng tại Checkpoint A chờ người dùng duyệt.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
 **Date:** `2026-08-07T15:33:18.7325101+07:00`
 
 **User Prompt:**
@@ -1223,6 +1292,240 @@ thực thi lại phase E, kiểm tra các tài liệu còn thiếu và tiến h�
 
 ```text
 Đã rà soát lại Phase E trên artifact automation hiện có của FR-08 và FR-12. Phát hiện REVIEW_NOTES FR-08 tham chiếu README_SUMMARY.md nhưng file không tồn tại; đã bổ sung feature summary bằng số liệu thật 18 designed/15 automated/45 executed/12 passed/33 failed/0 skipped/3 projects/5 root causes, danh sách ba case gộp và giới hạn DT-012 UI. Đã thay bản AI gap FR-12 cũ bằng phân tích hậu automation gồm serial fail-fast, output isolation, DOM harness giả, trace chứa auth data, cross-project concurrency và giới hạn API-only/multi-project; đồng bộ link trong REVIEW_NOTES và feature summary FR-12. Đã tạo reports/README_SUMMARY.md tổng hợp đúng hai feature hiện có: 58 designed, 55 automated, 165 executed, 81 passed, 84 failed, 0 skipped, 6 feature-browser runs và 9 SUT root causes; ghi rõ chưa đủ tiêu chí toàn bài 3 feature/9 lượt vì chưa có artifact automation cho feature thứ ba. Kiểm tra 12 artifact bắt buộc đều tồn tại; fixture có 15 và 40 ID duy nhất; có 5 và 4 bug report tương ứng. git diff --check sạch; npm run lint exit 0; npm run typecheck exit 0. Không chạy lại test vì không đổi fixture/spec/assertion/expected; không đọc source triển khai SUT và không tạo GitHub Issue. Phase E FR-12 vẫn chờ người dùng duyệt cuối.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:02:06+07:00`
+
+**User Prompt:**
+
+```text
+Áp dụng Phase A của workflow ai-first-playwright-testing cho FR-05 —
+Xem danh sách và tìm kiếm sản phẩm.
+
+Thông tin đầu vào:
+- Đường dẫn test case HW02:
+  tests/test-cases/FR-05-search/domain-testing/
+- File tổng hợp kết quả manual:
+  tests/test-runs/FR-05-search-run.md
+- Requirement công khai:
+  src/eshop-sut/README.md, mục FR-05
+- Frontend Web: http://localhost:5173
+- Backend API: http://localhost:3000
+- Mã sinh viên dùng cho report: 23127464
+- Output review:
+  reports/fr05-search/REVIEW_NOTES.md
+
+Chỉ thực hiện Phase A theo hướng kiểm thử hộp đen và dừng tại Checkpoint A; không tạo Playwright spec, fixture hoặc config và không tự chuyển Phase B.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn tất Phase A FR-05 bằng kiểm thử hộp đen và dừng tại Checkpoint A. Đã đọc đủ 12/12 test case HW02, manual run và mục FR-05 trong README; không đọc source triển khai, middleware hay database schema. Frontend :5173 và API :3000 đều trả HTTP 200. Đã dùng Chromium 151.0.7922.34 tương tác thật qua UI, accessibility tree, URL, DOM/computed style và network công khai. Kết quả: 3 Khớp (DT-001/005/008), 8 Lệch (DT-003/004/006/007/009/010/011/012), 1 Không xác định (DT-002), 0 Trùng lặp. Đã xác nhận DT-002 mâu thuẫn Áo/Iphone; hai file cuối mâu thuẫn filename DT-011/DT-012 với heading DT-012/DT-014; chưa sửa và đã đề xuất quyết định. Tất cả 12 case có automationSurface UI hoặc UI+network, không có API-only; UI giữ vai trò oracle chính cho nội dung/trạng thái/layout/DOM. Đã tạo reports/fr05-search/REVIEW_NOTES.md với bằng chứng thật, locator, precondition, dữ liệu mẫu, giới hạn ảnh ngoài bị network sandbox chặn và danh sách file. Không tạo spec/fixture/config/bug report. git diff --check sạch; kiểm tra bảng có đủ 12 dòng, đúng tổng 3/8/1/0 và 12 automationSurface. Ghi nhận side effect SUT tạo debug.log khi nhận XSS payload; agent không đọc/chỉnh sửa file này. Chờ người dùng duyệt Checkpoint A.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:07:11+07:00`
+
+**User Prompt:**
+
+```text
+DT-002, chọn iphone
+lấy filename/manual run làm canonical (DT-011 = h1, DT-012 = format giá)
+file debug.log tôi chưa hiểu giải thích chức năng cho FR-05 và tôi sẽ đưa ra quyết định sau
+```
+
+**AI Action:**
+
+```text
+Ghi nhận quyết định Phase A: DT-002 dùng Iphone; filename/manual run là canonical, trong đó DT-011 là case h1 và DT-012 là case format giá. Sẽ cập nhật REVIEW_NOTES.md để đánh dấu hai bất nhất đã được quyết định, đổi DT-002 từ Không xác định sang Khớp theo quan sát Iphone đã chạy thật, và cập nhật tổng thành 4 Khớp/8 Lệch/0 Không xác định/0 Trùng lặp. Sẽ giải thích debug.log chỉ bằng metadata và tương quan thời gian đã quan sát: đây không phải chức năng nghiệp vụ FR-05 hay oracle kiểm thử, chưa xác định chắc process/nội dung vì file không được đọc trong ranh giới hộp đen. Giữ file nguyên trạng để người dùng quyết định sau. Không sửa test case HW02, không chuyển Phase B và tiếp tục dừng tại Checkpoint A.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:09:08+07:00`
+
+**User Prompt:**
+
+```text
+DT-002, chọn iphone
+lấy filename/manual run làm canonical (DT-011 = h1, DT-012 = format giá)
+file debug.log tôi chưa hiểu giải thích chức năng cho FR-05 và tôi sẽ đưa ra quyết định sau
+```
+
+**AI Action:**
+
+```text
+Đã cập nhật reports/fr05-search/REVIEW_NOTES.md theo hai quyết định: DT-002 dùng Iphone và được phân loại Khớp theo lần chạy thật; filename/manual run là canonical với DT-011 = h1, DT-012 = format giá. Tổng mới đã kiểm tra là 4 Khớp, 8 Lệch, 0 Không xác định, 0 Trùng lặp trên đủ 12 dòng. Không sửa file HW02; mapping canonical chỉ được ghi nhận để áp dụng nếu Phase B được duyệt. Đã giải thích debug.log là file untracked 2.970 byte xuất hiện lúc 20:56:07, đồng thời với probe XSS, không phải chức năng nghiệp vụ/oracle/output FR-05; chưa khẳng định process tạo hay nội dung vì không đọc log ngoài ranh giới hộp đen. File giữ nguyên chờ quyết định. git diff --check sạch. Tiếp tục dừng tại Checkpoint A, chưa chuyển Phase B.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:13:37+07:00`
+
+**User Prompt:**
+
+```text
+xóa debug.log và tôi approved, continue phase B
+```
+
+**AI Action:**
+
+```text
+Ghi nhận người dùng đã yêu cầu xóa debug.log và duyệt Checkpoint A để chuyển Phase B cho FR-05. Sẽ xác minh chính xác đường dẫn file untracked nằm trong workspace rồi xóa file đó mà không đọc nội dung; cập nhật REVIEW_NOTES/audit về kết quả xóa. Sau đó sẽ đọc template test-cases.md, lấy nguyên 12 case HW02 làm nền và tạo bảng test case cuối Phase B: dùng Iphone cho DT-002; dùng filename/manual run làm canonical với DT-011 = h1 và DT-012 = format giá; giữ trace nội dung cũ/mới; chốt mọi expected nhiều nhánh từ bằng chứng Phase A và quyết định đã duyệt; gắn Nguồn = HW02; không bổ sung case khi đã đủ 12 và không có gap bắt buộc. Không tạo fixture, Playwright spec hoặc config; dừng tại Checkpoint B chờ duyệt.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:18:38+07:00`
+
+**User Prompt:**
+
+```text
+xóa debug.log và tôi approved, continue phase B
+```
+
+**AI Action:**
+
+```text
+Đã hoàn tất Phase B FR-05 và dừng Checkpoint B. Đã xác minh target E:\Testing\CS423-CSC15003-Testing-N08\debug.log nằm trong workspace, kích thước trước xóa 2.970 byte; xóa theo yêu cầu và kiểm tra EXISTS_AFTER=False, không đọc nội dung. Đã cập nhật REVIEW_NOTES.md để Checkpoint A = Đã duyệt và ghi bằng chứng xóa. Đã tạo reports/fr05-search/TEST_CASES.md theo template với 12 case/12 ID duy nhất DT-001..DT-012, 12 nguồn HW02, 0 bổ sung, 0 trùng, 9 UI+network và 3 UI; dùng Iphone cho DT-002; canonical DT-011=h1 và DT-012=format giá; chốt DT-004 về empty state và DT-005 về trim/hiển thị toàn bộ, giữ expected của các case actual lệch. Đã ghi nội dung cũ/mới/lý do, coverage và bốn điểm cần duyệt: mapping loại case; chiến lược network ảnh DT-009; xác nhận localhost là test isolated trước khi lặp security payload; vai trò diagnostic của URL DT-004. Không tạo fixture/spec/config/bug report. Kiểm tra cuối: đủ 12 dòng, 12 ID duy nhất, 12 nguồn HW02, debug.log không tồn tại, 0 FR-05 spec, 0 FR-05 fixture, git diff --check sạch. Chờ người dùng duyệt Checkpoint B; chưa chuyển Phase C.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:24:26+07:00`
+
+**User Prompt:**
+
+```text
+Duyệt mapping loại trong bảng cuối
+Với DT-009, hình ảnh không phải là không load mà bản chất đó chính là hình ảnh của sản phẩm chứ không phải sản phẩm chưa load được hình
+Xác nhận localhost:5173/:3000 là môi trường test cô lập, không phải production
+Duyệt giữ URL/request encoding ở vai trò diagnostic, còn pass/fail chính dựa UI safe display + empty state + không lỗi
+```
+
+**AI Action:**
+
+```text
+Ghi nhận người dùng duyệt mapping loại positive/negative/edge; xác nhận nguồn placehold.co trong DT-009 là ảnh sản phẩm được chủ đích sử dụng, không được diễn giải là sản phẩm thiếu ảnh; xác nhận localhost:5173/:3000 là môi trường test cô lập, không phải production; và duyệt URL/request encoding DT-004 chỉ ở vai trò diagnostic, còn pass/fail chính dựa trên UI safe display, empty state và không lỗi. Sẽ cập nhật TEST_CASES.md để đóng cả bốn điểm, điều chỉnh diễn giải DT-009: DOM/UI ảnh sản phẩm là oracle chính, lỗi truy cập host ngoài của probe không phải SUT failure hay bằng chứng thiếu ảnh. Không tạo code và chưa chuyển Phase C vì người dùng chưa yêu cầu tiếp tục Phase C; Checkpoint B sẽ ghi các quyết định đã đủ nhưng vẫn chờ lệnh chuyển phase rõ ràng.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:26:09+07:00`
+
+**User Prompt:**
+
+```text
+Duyệt mapping loại trong bảng cuối
+Với DT-009, hình ảnh không phải là không load mà bản chất đó chính là hình ảnh của sản phẩm chứ không phải sản phẩm chưa load được hình
+Xác nhận localhost:5173/:3000 là môi trường test cô lập, không phải production
+Duyệt giữ URL/request encoding ở vai trò diagnostic, còn pass/fail chính dựa UI safe display + empty state + không lỗi
+```
+
+**AI Action:**
+
+```text
+Đã cập nhật TEST_CASES.md và REVIEW_NOTES.md theo đủ bốn quyết định. Mapping loại được đánh dấu Đã duyệt. DT-009 được chuẩn hóa để coi placehold.co là ảnh sản phẩm chủ đích; UI/DOM img-src-alt-kích thước/object-fit là oracle chính, network ảnh chỉ diagnostic và sandbox block không phải SUT failure/bằng chứng thiếu ảnh. Đã ghi xác nhận localhost:5173/:3000 là môi trường test cô lập, không phải production, cho phép chạy lặp DT-006/007 sau khi Phase C/D được duyệt. DT-004 giữ URL/request encoding diagnostic và pass/fail chính dựa UI safe display + empty state + không lỗi. Checkpoint B ghi nội dung Đã duyệt với timestamp/bằng chứng; Phase C chưa bắt đầu và chưa tạo fixture/spec/config vì chưa có lệnh tiếp tục Phase C. Kiểm tra cuối: bảng vẫn đủ 12 case, debug.log không tồn tại và git diff --check sạch.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:27:23+07:00`
+
+**User Prompt:**
+
+```text
+approve, continue phase C
+
+Hãy chuyển các bước manual thành Playwright TypeScript theo bề mặt kiểm
+thử phù hợp với từng case.
+
+Yêu cầu:
+- Với case có expected là nội dung, trạng thái, layout hoặc cấu trúc DOM,
+  thao tác trên frontend http://localhost:5173 và dùng UI làm oracle chính.
+- Có thể dùng API/network để setup dữ liệu, chờ đúng response, so sánh số
+  lượng hoặc bổ sung bằng chứng; không thay UI assertion bằng API assertion
+  khi requirement yêu cầu người dùng nhìn thấy kết quả trên giao diện.
+- Bao phủ cả 12 case: search rỗng, có kết quả, không có kết quả, ký tự đặc
+  biệt, whitespace, XSS, SQL injection, grid, product card, loading, h1
+  và format giá.
+- Giữ TC-ID trong test title và giữ expected đã được duyệt tại Phase B.
+- Có thể khai báo case data trong spec cho phiên bản khởi tạo để dễ theo
+  dõi; chưa cần thiết kế fixture hoàn chỉnh ở bước này.
+- Dùng locator và assertion phù hợp với bước manual; tránh khẳng định UI
+  pass chỉ từ response API.
+- Không chấp nhận lỗi 500, crash, raw database error hoặc execution của
+  payload nếu expected yêu cầu xử lý an toàn.
+- Chưa cần hoàn thiện screenshot attachment cho case pass.
+- Tạo tests/fr05-search.spec.ts và chạy Chromium baseline.
+- Chạy lint, typecheck và test thật; ghi command, exit code, passed,
+  failed và skipped.
+
+Dừng tại Checkpoint C, chưa chuyển sang Phase D.
+```
+
+**AI Action:**
+
+```text
+Ghi nhận Checkpoint B đã được duyệt và chuyển Phase C FR-05. Sẽ đọc conventions và hạ tầng Playwright hiện có (không đọc source triển khai SUT), tạo tests/fr05-search.spec.ts bao phủ đủ 12 TC-ID với UI oracle chính và network chỉ setup/synchronization/diagnostic. Theo chỉ dẫn người dùng, phiên bản khởi tạo được phép khai báo case data trong spec thay vì fixture ngoài; sẽ ghi rõ ngoại lệ này và chưa tạo fixture hoàn chỉnh. Sẽ ưu tiên role locator, không dùng waitForTimeout, giữ expected Phase B, không che lỗi 500/raw DB/XSS/SQLi, chạy Chromium baseline cùng lint và typecheck thật, ghi command/exit code/pass-fail-skip vào evidence/review/audit, rồi dừng Checkpoint C. Chưa chuyển Phase D và chưa hoàn thiện screenshot attachment cho case pass.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-08T21:39:36+07:00`
+
+**User Prompt:**
+
+```text
+approve, continue phase C
+
+Hãy chuyển các bước manual thành Playwright TypeScript theo bề mặt kiểm thử phù hợp với từng case; bao phủ 12 case, UI oracle chính, giữ TC-ID/expected Phase B, cho phép data inline ở bản khởi tạo, chạy Chromium baseline cùng lint/typecheck/test thật, và dừng Checkpoint C.
+```
+
+**AI Action:**
+
+```text
+Đã hoàn tất Phase C FR-05 và dừng Checkpoint C. Tạo tests/fr05-search.spec.ts với 12 test/12 TC-ID duy nhất, case data inline theo ngoại lệ người dùng duyệt, 9 UI+network và 3 UI, role locator ưu tiên cùng fallback có giải thích, 0 waitForTimeout, thực thi các nhóm assertion DOM/text, state/attribute, network/response, count/aggregate và layout/computed DOM. Không tạo fixture/config mới. Lint ban đầu exit 0; typecheck ban đầu exit 0. Chromium lượt đầu exit 1, 4 passed/8 failed/0 skipped nhưng DT-009 chạm timeout 30 giây do nhiều soft assertion thiếu UI nối tiếp; đã sửa test-harness bằng timeout 1 giây sau synchronization, không đổi expected/assertion value. Lint sau sửa exit 0; typecheck sau sửa exit 0. Chromium lượt cuối exit 1, runner 39.2 giây: 4 passed (DT-001/002/005/008), 8 failed (DT-003/004/006/007/009/010/011/012), 0 skipped, không còn test timeout. DT-009 fail do alt rỗng và VND thay vì ₫, không do placehold.co. Tạo reports/fr05-search/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md/TEST_CASES.md. Artifact cuối test-results/fr05-phase-c có 8 screenshot, 8 video, 8 error-context; không có pass screenshot attachment. Kiểm tra 12 declarations/12 registered tests/12 unique IDs, debug.log không tồn tại và git diff --check sạch. Chưa phân loại failure hoặc tạo bug report; chưa chuyển Phase D.
 ```
 
 ---
