@@ -70,9 +70,19 @@ Số case đếm theo case logic, không nhân theo browser.
 
 | Bug ID | Feature | Severity / Priority | Status | Local Report | GitHub Issue |
 |---|---|---|---|---|---|
-| | | | | | |
+| BUG-FR02-001 | FR-02 | Major / P2 | New | [`bug-reports/BUG-FR02-001.md`](bug-reports/BUG-FR02-001.md) | [#204](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204) |
+| BUG-FR02-002 | FR-02 | Major / P1 | New | [`bug-reports/BUG-FR02-002.md`](bug-reports/BUG-FR02-002.md) | [#205](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205) |
+| BUG-FR02-003 | FR-02 | Major / P2 | New | [`bug-reports/BUG-FR02-003.md`](bug-reports/BUG-FR02-003.md) | [#206](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/206) |
+| BUG-FR02-004 | FR-02 | Critical / P0 | New | [`bug-reports/BUG-FR02-004.md`](bug-reports/BUG-FR02-004.md) | [#207](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/207) |
+| BUG-FR10-001 | FR-10 | Critical / P1 | New | [`bug-reports/BUG-FR10-001.md`](bug-reports/BUG-FR10-001.md) | [#208](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/208) |
+| BUG-FR10-002 | FR-10 | Major / P1 | New | [`bug-reports/BUG-FR10-002.md`](bug-reports/BUG-FR10-002.md) | [#209](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/209) |
+| BUG-FR10-003 | FR-10 | Critical / P0 | New | [`bug-reports/BUG-FR10-003.md`](bug-reports/BUG-FR10-003.md) | [#210](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/210) |
+| BUG-FR13-001 | FR-13 | Critical / P1 | New | [`bug-reports/BUG-FR13-001.md`](bug-reports/BUG-FR13-001.md) | [#211](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/211) |
+| BUG-FR13-002 | FR-13 | Critical / P0 | New | [`bug-reports/BUG-FR13-002.md`](bug-reports/BUG-FR13-002.md) | [#212](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/212) |
 
-> **Tổng số bugs:** _TBD_
+> **Tổng số bugs:** 9 (4 FR-02, 3 FR-10, 2 FR-13). `BUG-FR13-001` gộp 10 case
+> trùng nguyên nhân (doanh thu Dashboard nhân đôi) thành một bug report duy
+> nhất, theo đúng quy ước của skill `bug-report`.
 
 ### 2.6. Demo Video
 
