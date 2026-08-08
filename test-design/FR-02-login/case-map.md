@@ -56,11 +56,13 @@ còn lại tự đăng ký tài khoản riêng qua `POST /api/register`.
 ## 3. Case dự kiến FAIL vì lỗi thật của SUT
 
 Các case dưới đây assert đúng theo oracle nhưng bản build hiện tại vi phạm.
-Chúng **giữ nguyên trạng thái fail** và được lập bug report ở Session 4.
+Chúng **giữ nguyên trạng thái fail** — xác nhận lại trên bản build hiện tại
+ngày 08/08/2026, cả 3 trình duyệt — và có bug report HW04 riêng ở
+[`../../bug-reports/`](../../bug-reports/).
 
-| Case | Vi phạm quan sát được | Bug HW02 tương ứng |
-|---|---|---|
-| F02-TC-002 | Ô email dùng `type="text"`, trình duyệt không validate định dạng | BUG-FR02-002 |
-| F02-TC-004 | Tài khoản đã bị khóa khi mới sai 2 lần liên tiếp | BUG-FR02-003 |
-| F02-TC-008 | Sau 31 giây tài khoản vẫn còn khóa (HW02 đo ~180 giây) | BUG-FR02-005 |
-| F02-TC-012 | Response `/api/login` trả về trường `password` dạng plaintext | BUG-FR02-001 |
+| Case | Vi phạm quan sát được | Bug HW02 tương ứng | Bug report HW04 |
+|---|---|---|---|
+| F02-TC-002 | Ô email dùng `type="text"`, trình duyệt không validate định dạng | BUG-FR02-002 | [`BUG-FR02-001`](../../bug-reports/BUG-FR02-001.md) |
+| F02-TC-004 | Tài khoản đã bị khóa khi mới sai 2 lần liên tiếp | BUG-FR02-003 | [`BUG-FR02-002`](../../bug-reports/BUG-FR02-002.md) |
+| F02-TC-008 | Sau 31 giây tài khoản vẫn còn khóa (HW02 đo ~180 giây) | BUG-FR02-005 | [`BUG-FR02-003`](../../bug-reports/BUG-FR02-003.md) |
+| F02-TC-012 | Response `/api/login` trả về trường `password` dạng plaintext | BUG-FR02-001 | [`BUG-FR02-004`](../../bug-reports/BUG-FR02-004.md) |

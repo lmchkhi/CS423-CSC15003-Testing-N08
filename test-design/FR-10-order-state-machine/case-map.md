@@ -75,10 +75,12 @@ phân quyền là đối tượng kiểm thử, và nó chỉ quan sát được
 ## 4. Case dự kiến FAIL vì lỗi thật của SUT
 
 Các case dưới đây assert đúng theo oracle nhưng bản build hiện tại vi phạm.
-Chúng **giữ nguyên trạng thái fail** và được lập bug report ở Session 4.
+Chúng **giữ nguyên trạng thái fail** — xác nhận lại trên bản build hiện tại
+ngày 08/08/2026, cả 3 trình duyệt — và có bug report HW04 riêng ở
+[`../../bug-reports/`](../../bug-reports/).
 
-| Case | Vi phạm quan sát được | Bug HW02 tương ứng |
-|---|---|---|
-| F10-TC-009 | Đơn `Đã hủy` vẫn được chào mời nút `Đánh dấu Đã giao`, bấm vào thì đơn chuyển thành `Đã giao` | BUG-FR10-001 |
-| F10-TC-010 | Đơn `Đang giao` vẫn hiện nút `Hủy đơn` cho User, bấm vào thì hủy thành công | BUG-FR10-002 |
-| F10-TC-011 | Phiên User thường đổi được trạng thái đơn hàng qua endpoint quản trị | BUG-FR10-003 |
+| Case | Vi phạm quan sát được | Bug HW02 tương ứng | Bug report HW04 |
+|---|---|---|---|
+| F10-TC-009 | Đơn `Đã hủy` vẫn được chào mời nút `Đánh dấu Đã giao`, bấm vào thì đơn chuyển thành `Đã giao` | BUG-FR10-001 | [`BUG-FR10-001`](../../bug-reports/BUG-FR10-001.md) |
+| F10-TC-010 | Đơn `Đang giao` vẫn hiện nút `Hủy đơn` cho User, bấm vào thì hủy thành công | BUG-FR10-002 | [`BUG-FR10-002`](../../bug-reports/BUG-FR10-002.md) |
+| F10-TC-011 | Phiên User thường đổi được trạng thái đơn hàng qua endpoint quản trị | BUG-FR10-003 | [`BUG-FR10-003`](../../bug-reports/BUG-FR10-003.md) |

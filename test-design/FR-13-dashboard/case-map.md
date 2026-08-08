@@ -65,5 +65,15 @@ xem mục 4.
 
 ## 4. Case dự kiến FAIL vì lỗi thật của SUT
 
-Điền sau khi chạy Task 12/13 trên build hiện tại; xem
-[`../../bug-reports/`](../../bug-reports/) cho báo cáo lỗi tương ứng.
+Chạy trên build hiện tại ngày 08/08/2026, cả 3 trình duyệt: 11/12 case fail,
+quy về đúng 2 lỗi độc lập.
+
+| Case | Vi phạm quan sát được | Bug report HW04 |
+|---|---|---|
+| F13-TC-001, 002, 003, 004, 006, 007, 008, 009, 010, 011 | Doanh thu Dashboard tăng gấp đúng 2 lần `total_amount` thực của đơn `delivered` (đối chiếu độc lập với tổng tính từ `GET /api/admin/orders`); số đơn hàng thì đúng | [`BUG-FR13-001`](../../bug-reports/BUG-FR13-001.md) |
+| F13-TC-005 | Token của tài khoản `role='user'` vẫn xem được Dashboard và gọi thành công `GET /api/admin/orders` | [`BUG-FR13-002`](../../bug-reports/BUG-FR13-002.md) |
+
+Chỉ 1/12 case (F13-TC-012) pass — phiên hoàn toàn chưa đăng nhập bị chặn đúng
+như oracle. Điều đó cho thấy cơ chế chặn *có tồn tại* ở app admin, chỉ không
+được áp dụng lại khi token được đưa vào bằng đường khác ngoài form đăng nhập
+Admin (xem `BUG-FR13-002`).
