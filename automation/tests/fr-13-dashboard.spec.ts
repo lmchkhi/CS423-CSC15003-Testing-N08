@@ -52,11 +52,13 @@ test.describe('FR-13 — Dashboard', () => {
       // not render for this session. Recon found the admin app gates itself
       // entirely client-side (no `/login` route to assert on), so the only
       // observable oracle is which heading is on screen.
-      if (
-        testCase.assertion === 'access-denied-anonymous' ||
-        testCase.assertion === 'access-denied-non-admin'
-      ) {
-        if (testCase.assertion === 'access-denied-non-admin') {
+      //
+      // Which session the browser carries comes from the record's `auth`
+      // field, not from the assertion name: `auth` is what the case *is*, the
+      // assertion is only what it checks. Reading it here is what makes the
+      // JSON — rather than this switch — decide who is signed in.
+      if (testCase.auth !== 'admin') {
+        if (testCase.auth === 'non-admin') {
           // Inject a non-admin user's token under the admin app's own
           // storage key/origin (not the shop's) — the guard being tested is
           // "does the admin app itself reject a non-admin token", so the
@@ -72,6 +74,17 @@ test.describe('FR-13 — Dashboard', () => {
           dashboard.dashboardHeading,
           'FR-12: only an admin-role session may see the Dashboard heading',
         ).toHaveCount(testCase.expected.dashboardVisible ? 1 : 0);
+
+        // Absence alone is a weak oracle: a blank page or a bundle that never
+        // booted also has no Dashboard heading. Asserting the login form the
+        // admin app is *supposed* to fall back to proves the app rendered and
+        // then refused this session, which is the actual FR-12 claim.
+        if (!testCase.expected.dashboardVisible) {
+          await expect(
+            dashboard.loginHeading,
+            'a rejected session must land on the Admin Login form, not a blank page',
+          ).toBeVisible();
+        }
         return;
       }
 
