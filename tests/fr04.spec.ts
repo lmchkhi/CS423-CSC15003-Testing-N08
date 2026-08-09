@@ -55,20 +55,21 @@ try {
     testdata = JSON.parse(fs.readFileSync("data/fr04.json", 'utf-8'));
 }
 catch (err) {
+    console.log(err);
     console.log("Failed to load data file. Terminating setup and run");
 }
-//for (const test_point of testdata)
+for (const test_point of testdata)
 {
-    let test_point: TestPoint = {
-        testID : "1",
-        email : "test@eshop.com",
-        password : "Test1234!",
-        name : "Test User",
-        new_name: "New username",
-        address: "227 Nguyễn Văn Cừ",
-        valid_phone_numbers: ["0912345678"],
-        invalid_phone_numbers: ["091234"]
-    }
+    // let test_point: TestPoint = {
+    //     testID : "1",
+    //     email : "test@eshop.com",
+    //     password : "Test1234!",
+    //     name : "Test User",
+    //     new_name: "New username",
+    //     address: "227 Nguyễn Văn Cừ",
+    //     valid_phone_numbers: ["0912345678"],
+    //     invalid_phone_numbers: ["091234"]
+    // }
     test.describe(`FR-04 testing ${test_point.testID}`, ()=> {
         
         test.beforeEach(async ({page})=>{
@@ -80,12 +81,26 @@ catch (err) {
             await username.fill(test_point.email);
             await password.fill(test_point.password);
             await page.getByRole('button', { name: 'Sign In' }).click();
+            await page.waitForURL("http://localhost:5173");
             await page.goto("http://localhost:5173/profile");
         })
 
-        test('Field display properly exist', async ({profile}) => {
+        test("Title is set", async ({page})=>{
+            await expect(page).toHaveTitle(/Profile/);
+        })
 
+        test("Form is label properly", async ({page})=>{
+            let block = page.getByText('Hồ sơ của bạnEmail (Không đổi')
+            expect(block).not.toBeNull();
+            await expect(block).toBeVisible();
             
+            let heading = block.getByRole('heading', { name: 'Hồ sơ của bạn' });
+            expect(heading).not.toBeNull();
+            await expect(heading).toBeVisible();
+        })
+        
+        test('Field display properly and filled', async ({profile}) => {
+
             await expect(profile.emailField).toBeVisible();
             expect(await profile.emailField.getByRole('textbox').first().inputValue()).toStrictEqual(test_point.email);
 
@@ -139,7 +154,53 @@ catch (err) {
             }
         })
 
-    })
+        test("Invalid phone number", async ({profile})=>{
+            for (const phone_number in test_point.invalid_phone_numbers){
+                await profile.phoneNumberInputField.fill(phone_number);
+                await profile.updateButton.click();
+                // Reload page to verify that the server has not update
+                await profile.page.reload();
+                expect.soft(await profile.phoneNumberInputField.inputValue()).not.toStrictEqual(phone_number);
+            }
+        })
+
+        test("Invalid username", async ({profile})=>{
+            await profile.usernameInputField.fill("");
+            await profile.updateButton.click();
+            // Reload page to verify that the server has not update
+            await profile.page.reload();
+            expect.soft(await profile.usernameInputField.inputValue()).not.toStrictEqual("");
+        })
+
+        test("Have navigation to home page", async ({page})=>{
+            await page.getByRole('link', { name: 'Home' }).click({timeout: 1000});
+            await expect(page).toHaveURL("http://localhost:5173");
+        })
+
+        test("Address input have minimum element height", async ({page, profile})=>{
+            const addressInputDimention = await profile.addressInputField.boundingBox();
+            if (!addressInputDimention) {
+                throw new Error("Address input field is not visible");
+            }
+            await page.mouse.move(addressInputDimention.x + addressInputDimention.width - 15,
+                             addressInputDimention.y + addressInputDimention.height - 10);
+            await page.mouse.down();
+            await page.mouse.move(addressInputDimention.x + addressInputDimention.width - 15,
+                             addressInputDimention.y + addressInputDimention.height - 100);
+            await page.mouse.up();
+            const newAddressInputDimention = await profile.addressInputField.boundingBox();
+            if (!newAddressInputDimention) {
+                throw new Error("Address input field is not visible");
+            }
+            expect.soft(newAddressInputDimention.height).toBeLessThanOrEqual(addressInputDimention.height);
+            expect.soft(newAddressInputDimention.height).toBeGreaterThanOrEqual(48);
+        })
+        
+        test("Have brand logo and it is clickable", async ({page})=>{
+            const brandLogo = page.getByRole('link', { name: 'EShop' });
+            await expect(brandLogo).toBeVisible();
+            await brandLogo.click();
+            await expect(page).toHaveURL("http://localhost:5173");
+        })
+}) 
 }
-
-
