@@ -14,7 +14,8 @@ const cases = loadCases('fr-02-login.cases.json', loginCaseSchema);
 
 interface Identity {
   email: string;
-  correctPassword: string;
+  /** `null` when this identity has no account, so no password can be correct. */
+  correctPassword: string | null;
 }
 
 /**
@@ -29,7 +30,12 @@ async function resolveIdentity(testCase: LoginCase): Promise<Identity> {
     return { email: user.email, correctPassword: user.password };
   }
   if (testCase.account === 'unregistered') {
-    return { email: uniqueEmail('never-registered'), correctPassword: 'Test1234!' };
+    // No account exists, so there is no such thing as its correct password.
+    // The previous draft returned a plausible-looking literal here; a record
+    // that paired `unregistered` with `@correct` would then have submitted a
+    // password nobody registered and still been read as a "correct password"
+    // case — green or red for a reason the data never stated.
+    return { email: uniqueEmail('never-registered'), correctPassword: null };
   }
   return {
     email: config.accounts.user.email,
@@ -53,10 +59,16 @@ test.describe('FR-02 — Đăng nhập & khóa tài khoản', () => {
     test(`${testCase.caseId} — ${testCase.title}`, async ({ page }) => {
       const identity = await resolveIdentity(testCase);
       const email = resolveEmail(testCase, identity);
-      const password =
-        testCase.password === '@correct'
-          ? identity.correctPassword
-          : testCase.password;
+      let password = testCase.password;
+      if (password === '@correct') {
+        if (identity.correctPassword === null) {
+          throw new Error(
+            `${testCase.caseId}: account "${testCase.account}" has no registered ` +
+              'password, so `"password": "@correct"` cannot be resolved.',
+          );
+        }
+        password = identity.correctPassword;
+      }
 
       const loginPage = new LoginPage(page);
       await loginPage.goto();
