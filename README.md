@@ -114,6 +114,7 @@ Số case đếm theo case logic, không nhân theo browser.
 | `reports/main-report.md` | Báo cáo chính: quy trình từng bước, requirement ledger, review AI |
 | `ai-gap-analysis/` | Phân tích AI làm sai / thiếu gì và vì sao (§6) |
 | `reports/ai-audit-report.md`, `reports/prompt-log.md`, `reports/ai-critique.md` | Phụ lục AI bắt buộc (§9, §10) |
+| `reports/pdf/` | Bản PDF của báo cáo chính, AI Critique và AI Audit Report (§14 yêu cầu cả Markdown lẫn PDF). Sinh lại bằng `python3 reports/tools/build-pdfs.py` |
 | `bug-reports/` | Bug report + screenshot + link GitHub Issue |
 | `.claude/skills/` | Agent Skills (§7) — `playwright-automation`, `bug-report`, `ai-audit-log`, `prompt-log` |
 | `sut-requirements.md` | Trích đặc tả EShop cho FR-02/10/13 — oracle của toàn bộ assertion |

@@ -1,10 +1,10 @@
 # HW04 — Báo cáo chính: Automation Testing trên EShop
 
-**Sinh viên:** Hà Bảo Ngọc — MSSV 23127300 — Nhóm N08
-**Môn:** CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS
-**SUT:** EShop (`github.com/ttbhanh/eshop-sut`) — backend `:3000`, frontend web `:5173`, frontend admin `:5174`
-**Phạm vi:** FR-02 (Đăng nhập & khóa tài khoản), FR-10 (Trạng thái đơn hàng), FR-13 (Dashboard) — đúng bộ ba feature đã chọn ở HW02, theo yêu cầu §5 của HW04.
-**Công cụ:** Playwright (TypeScript) + `@playwright/test` HTML reporter, chạy trên Chromium/Firefox/WebKit.
+**Sinh viên:** Hà Bảo Ngọc — MSSV 23127300 — Nhóm N08  
+**Môn:** CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS  
+**SUT:** EShop (`github.com/ttbhanh/eshop-sut`) — backend `:3000`, frontend web `:5173`, frontend admin `:5174`  
+**Phạm vi:** FR-02 (Đăng nhập & khóa tài khoản), FR-10 (Trạng thái đơn hàng), FR-13 (Dashboard) — đúng bộ ba feature đã chọn ở HW02, theo yêu cầu §5 của HW04.  
+**Công cụ:** Playwright (TypeScript) + `@playwright/test` HTML reporter, chạy trên Chromium/Firefox/WebKit.  
 **Oracle:** [`sut-requirements.md`](../sut-requirements.md) — mọi assertion mã hoá đúng những gì tài liệu này nói hệ thống *phải* làm, không phải hành vi của bản build hiện tại.
 
 ---

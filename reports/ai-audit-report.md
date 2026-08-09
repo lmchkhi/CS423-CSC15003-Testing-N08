@@ -20,6 +20,11 @@ Nguyên tắc: **Full prompt** và **AI Output** giữ nguyên văn, không dị
 rút gọn. Các phần còn lại (Verdict, Reasoning, Student Fix) là nhận định của
 sinh viên, viết bằng tiếng Việt.
 
+Bốn khối **AI Output** dài bị cắt bớt phần đuôi khi ghi log lần đầu. Chỗ nào bị
+cắt đều được đánh dấu bằng một dòng `[… phần còn lại của output đã bị cắt…]`
+ngay tại điểm cắt, để không ai đọc nhầm rằng AI dừng lại ở đó. Ngoài bốn chỗ
+này, không khối nào bị rút gọn.
+
 > **Ghi chú về lần rà soát ngày 08/08/2026.** Bản trước của file này chỉ có 4
 > entry, đều thuộc Session 2 (FR-10, 07/08), và phần **AI Output** của cả 4
 > entry không phải nguyên văn — chúng là bản tóm tắt tiếng Việt viết lại sau khi
@@ -153,6 +158,7 @@ Two facts that shape the plan:
 
 - **Commit budget**: only 1 test-script commit exists (today's scaffold). §12 needs 8 across 4+ days. Aug 5→9 gives 5 working days — comfortable at 2 commits/day.
 - **HW02 carry-over confirmed**: FR-0
+[… phần còn lại của output đã bị cắt khi ghi log, không phải AI dừng ở đây]
 ```
 
 ```
@@ -161,6 +167,7 @@ Spec written and committed to `docs/superpowers/specs/2026-08-05-hw04-automation
 Two things I resolved during the write-up that differ slightly from what I said above:
 
 - **Case counts are targets, not commitments.** I'd written "FR-02 = 14 of 15" as if I already knew which case to drop — I don't, and won't until the design stage merges duplicates and checks each case has an observable UI oracle. The spec now states ≥12 with an expec
+[… phần còn lại của output đã bị cắt khi ghi log, không phải AI dừng ở đây]
 ```
 
 ### (3) Verdict
@@ -210,6 +217,7 @@ i dont want the superpowers related to be commited
 Undone. The commit is gone (branch was unpushed, so nothing to force-push), and `docs/superpowers/` is now excluded via `.git/info/exclude` — local-only, so no `.gitignore` change enters the repo either. The design doc still exists on disk for me to work from; `git status` shows it as nothing at all.
 
 Going forward, only HW04 deliverables get committed: specs, test data, page objects, reports, bug reports, and the report/audit Markdown. Superpowe
+[… phần còn lại của output đã bị cắt khi ghi log, không phải AI dừng ở đây]
 ```
 
 ### (3) Verdict
@@ -274,6 +282,7 @@ Plan complete and saved to `docs/superpowers/plans/2026-08-05-hw04-automation.md
 Two things changed from what I described earlier, both worth knowing:
 
 **The date rolled over — it's now Aug 6.** Work starts today rather than yesterday, so I compressed: Session 1 now also covers FR-02's three-browser run (Task 6), and Sessions 4–5 share Aug 9 (triage/bugs in the morning, video day in
+[… phần còn lại của output đã bị cắt khi ghi log, không phải AI dừng ở đây]
 ```
 
 Trước đó, khi sinh viên chỉ ra xung đột giữa ngày quay video và các report đã
