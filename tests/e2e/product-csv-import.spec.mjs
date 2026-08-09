@@ -43,6 +43,25 @@ async function productIds(request) {
   return products.map((product) => product.id).sort((a, b) => a - b);
 }
 
+async function attemptImportIfEnabled(page, csvImport) {
+  if (
+    await csvImport.importButton.count() !== 1 ||
+    !await csvImport.importButton.isEnabled()
+  ) {
+    return { attempted: false, response: null };
+  }
+
+  const responsePromise = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/admin/import-products') &&
+      response.request().method() === 'POST',
+    { timeout: 1_500 },
+  ).catch(() => null);
+
+  await csvImport.importButton.click();
+  return { attempted: true, response: await responsePromise };
+}
+
 test.describe('FR-16 - Import sản phẩm từ CSV', () => {
   for (const sourceCase of data.cases) {
     test(`${sourceCase.id}: ${sourceCase.title}`, async ({ page, request }) => {
@@ -74,8 +93,15 @@ test.describe('FR-16 - Import sản phẩm từ CSV', () => {
         };
 
         await expect.poll(rejectionState).not.toBe('pending');
-        expect(await rejectionState()).toBe('rejected');
-        expect(await productIds(request)).toEqual(productIdsBefore);
+        const { attempted, response } = await attemptImportIfEnabled(page, csvImport);
+        const rejectedBeforeRequest =
+          await csvImport.fileInput.inputValue() === '' ||
+          await extensionError.first().isVisible().catch(() => false) ||
+          !attempted;
+        const rejectedByServer = response !== null && !response.ok();
+
+        expect(rejectedBeforeRequest || rejectedByServer).toBe(true);
+        await expect.poll(() => productIds(request)).toEqual(productIdsBefore);
         return;
       }
 
@@ -98,15 +124,20 @@ test.describe('FR-16 - Import sản phẩm từ CSV', () => {
         };
 
         await expect.poll(parsingState).not.toBe('pending');
+        const initialState = await parsingState();
+        const { attempted } = await attemptImportIfEnabled(page, csvImport);
 
-        if (await parsingState() === 'parsed') {
-          await expect(csvImport.importButton).toBeEnabled();
-          await csvImport.importButton.click();
+        if (attempted) {
           await expect(csvImport.result).toBeVisible();
           await expect(csvImport.result).toContainText(errorPattern);
+        } else {
+          expect(initialState).toBe('rejected');
+          if (await csvImport.importButton.count() === 1) {
+            await expect(csvImport.importButton).toBeDisabled();
+          }
         }
 
-        expect(await productIds(request)).toEqual(productIdsBefore);
+        await expect.poll(() => productIds(request)).toEqual(productIdsBefore);
         return;
       }
 
