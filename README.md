@@ -1,154 +1,164 @@
-# HW02 – Domain Testing on EShop
+# HW04 – Automation Testing on EShop
 
-> **Sinh viên:** Trần Minh Quang - 23127464
+> **Sinh viên:** Trần Minh Quang — `23127464`
+>
 > **Nhóm:** N08
+>
 > **Môn:** CS423 / CSC15003 — Kiểm thử Phần mềm
 
----
+Repository này chứa bài HW04 Automation Testing cho ba tính năng web đã chọn từ Pool A, B và C. Bộ kiểm thử sử dụng Playwright, dữ liệu JSON tách khỏi test script, chạy trên Chromium, Firefox và Microsoft Edge, đồng thời lưu HTML report có `Run by: 23127464` và ISO timestamp.
 
 ## 1. Self-Assessment Table
 
-| No. | Criteria                                                      | Grade   | Self-Assessed Grade |
-| --- | ------------------------------------------------------------- | ------- | ------------------- |
-| 1   | Feature A — FR-05: Xem danh sách & Tìm kiếm sản phẩm (Domain) | 25      | 25                  |
-| 2   | Feature B — FR-08: Thanh toán Checkout (Domain + BVA)         | 25      | 25                  |
-| 3   | Feature C — FR-12: Kiểm soát truy cập Access Control (Domain) | 25      | 25                  |
-| 4   | Feature D — FR-09: Mã giảm giá Coupon — Mobile (Domain + BVA) | 15      | 15                  |
-| 5   | Agent Skills                                                  | 10      | 10                  |
-|     | **Total**                                                     | **100** | **100**             |
+| No. | Criteria                                             |   Grade | Self-Assessed Grade hiện tại |
+| --: | ---------------------------------------------------- | ------: | ---------------------------: |
+|   1 | Task 1 — Feature A: FR-05 Product Listing and Search |      25 |                           25 |
+|   2 | Task 1 — Feature B: FR-08 Checkout                   |      25 |                           25 |
+|   3 | Task 1 — Feature C: FR-12 Access Control             |      25 |                           25 |
+|   4 | Task 2 — Demo video                                  |      15 |                           15 |
+|   5 | Agent Skill                                          |      10 |                           10 |
+|     | **Total hiện tại**                                   | **100** |                       **85** |
 
----
+> Task 2 đang để `0` vì repository chưa có link video HW04 chứng minh đầy đủ lượt chạy automation đa trình duyệt, HTML report, một refinement và `whoami`/`hostname`. Cập nhật lại mục này sau khi hoàn thành video cá nhân.
 
-## 2. Test Summary Report
+## 2. Automation Test Summary
 
-### 2.1. Features Tested
+### 2.1. Feature selection
 
-| Pool | Feature ID | Feature Name                        | Platform  | Technique            |
-| ---- | ---------- | ----------------------------------- | --------- | -------------------- |
-| A    | FR-05      | Xem danh sách & Tìm kiếm sản phẩm   | Web       | Domain Testing       |
-| B    | FR-08      | Thanh toán (Checkout)               | Web       | Domain Testing + BVA |
-| C    | FR-12      | Kiểm soát truy cập (Access Control) | Web Admin | Domain Testing       |
-| D    | FR-09      | Mã giảm giá (Coupon)                | Mobile    | Domain Testing + BVA |
+| Pool | Feature                              | Phạm vi automation                                                            | Playwright implementation                                         |
+| ---- | ------------------------------------ | ----------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| A    | `FR-05` — Product Listing and Search | UI-first: search, result state, product card, loading, semantics và format    | `tests/fr05-search.spec.ts`                                       |
+| B    | `FR-08` — Checkout                   | 15 API cases và 6 UI cases cho route, summary, checkout và cart postcondition | `tests/FR-08-checkout.spec.ts`, `tests/FR-08-checkout-ui.spec.ts` |
+| C    | `FR-12` — Access Control             | Hybrid Web Admin UI + API enforcement cho các trạng thái token/role           | `tests/fr12-access.spec.ts`                                       |
 
-### 2.2. Test Case Summary
+### 2.2. Kết quả chạy thật
 
-| Feature   | Technique      | Designed | Executed | Passed | Failed | Not Run | Blocked |
-| --------- | -------------- | -------- | -------- | ------ | ------ | ------- | ------- |
-| FR-05     | Domain Testing | 12       | 12       | 4      | 8      | 0       | 0       |
-| FR-05     | BVA            | 0        | 0        | 0      | 0      | 0       | 0       |
-| FR-08     | Domain Testing | 15       | 15       | 3      | 12     | 0       | 0       |
-| FR-08     | BVA            | 3        | 3        | 0      | 3      | 0       | 0       |
-| FR-12     | Domain Testing | 40       | 40       | 23     | 17     | 0       | 0       |
-| FR-12     | BVA            | 0        | 0        | 0      | 0      | 0       | 0       |
-| FR-09     | Domain Testing | 10       | 10       | 7      | 3      | 0       | 0       |
-| FR-09     | BVA            | 11       | 11       | 7      | 4      | 0       | 0       |
-| **Total** |                | **91**   | **91**   | **44** | **47** | **0**   | **0**   |
+| Feature  | Designed | Automated | Executed | Passed |  Failed | Skipped | Browser runs | SUT defect root causes |
+| -------- | -------: | --------: | -------: | -----: | ------: | ------: | -----------: | ---------------------: |
+| `FR-05`  |       12 |        12 |       36 |     12 |      24 |       0 |            3 |                      6 |
+| `FR-08`  |       24 |        21 |       63 |     12 |      51 |       0 |            3 |                      8 |
+| `FR-12`  |       40 |        40 |      120 |     69 |      51 |       0 |            3 |                      4 |
+| **Tổng** |   **76** |    **73** |  **219** | **93** | **126** |   **0** |        **9** |                 **18** |
 
-> **Pass Rate:** 48.4% (44/91) — **Fail Rate:** 51.6% (47/91)
+`Executed`, `Passed`, `Failed` và `Skipped` là số lượt case–project trong ba Playwright HTML report. Các failure cuối đã được rà soát và phân loại là lỗi SUT; chúng không được làm xanh bằng cách hạ expected. FR-08 có ba case HW02 trùng được gộp vào case đại diện, vì vậy 24 case designed tương ứng 21 điểm automation độc lập.
 
-### 2.3. Bug Summary
+### 2.3. Kết quả theo trình duyệt
 
-| Bug ID       | Feature | Severity | Mô tả ngắn                                                   |
-| ------------ | ------- | -------- | ------------------------------------------------------------ |
-| BUG-FR05-001 | FR-05   | Minor    | Thiếu empty state khi không có kết quả tìm kiếm              |
-| BUG-FR05-002 | FR-05   | Minor    | Tìm kiếm ký tự đặc biệt không trả kết quả/empty state        |
-| BUG-FR05-003 | FR-05   | Critical | XSS payload gây lỗi 500, lộ raw DB error                     |
-| BUG-FR05-004 | FR-05   | Critical | SQL Injection thành công, trả về toàn bộ sản phẩm            |
-| BUG-FR05-005 | FR-05   | Minor    | Ký hiệu tiền tệ hiển thị 'VND' thay vì ₫                     |
-| BUG-FR05-006 | FR-05   | Minor    | Thiếu loading indicator khi đang tải dữ liệu                 |
-| BUG-FR05-007 | FR-05   | Trivial  | Trang chủ có 2 thẻ h1 thay vì 1                              |
-| BUG-FR08-001 | FR-08   | Critical | Backend tin tưởng total_amount từ client, không tự tính      |
-| BUG-FR08-002 | FR-08   | Major    | Stored XSS qua shipping_address trên Admin                   |
-| BUG-FR08-003 | FR-08   | Major    | Thiếu validation cho shipping_address (rỗng/missing)         |
-| BUG-FR08-004 | FR-08   | Major    | Checkout thành công khi giỏ hàng trống                       |
-| BUG-FR08-005 | FR-08   | Major    | Giỏ hàng không được xóa sau checkout thành công              |
-| BUG-FR09-001 | FR-09   | Critical | Lỗi tính giảm giá loại percent — sai gấp 100 lần             |
-| BUG-FR09-002 | FR-09   | Major    | Lỗi biên off-by-one — min_order_amount dùng `>` thay vì `>=` |
-| BUG-FR12-001 | FR-12   | Critical | Product API endpoints thiếu middleware xác thực              |
-| BUG-FR12-002 | FR-12   | Critical | Admin API endpoints thiếu kiểm tra role                      |
-| BUG-FR12-003 | FR-12   | Critical | Category API endpoints thiếu kiểm tra role                   |
-| BUG-FR12-004 | FR-12   | Minor    | Token không hợp lệ trả về 403 thay vì 401                    |
+| Feature | Chromium     | Firefox      | Microsoft Edge | HTML report                                                             |
+| ------- | ------------ | ------------ | -------------- | ----------------------------------------------------------------------- |
+| `FR-05` | `4P/8F/0S`   | `4P/8F/0S`   | `4P/8F/0S`     | [Mở report](playwrite-test/fr05-search/playwright-report/index.html)    |
+| `FR-08` | `4P/17F/0S`  | `4P/17F/0S`  | `4P/17F/0S`    | [Mở report](playwrite-test/FR-08-checkout/playwright-report/index.html) |
+| `FR-12` | `23P/17F/0S` | `23P/17F/0S` | `23P/17F/0S`   | [Mở report](playwrite-test/fr12-access/playwright-report/index.html)    |
 
-> **Tổng số bugs:** 18 (7 Critical, 5 Major, 4 Minor, 1 Trivial, 1 Minor/P2)
+Chú thích: `P = passed`, `F = failed`, `S = skipped`.
 
-### 2.4. Demo Videos
+### 2.4. Data-driven và assertion coverage
 
-Agent demo youtube: [Nội dung demo](https://youtu.be/z8VBOkv9DZ0)
+| Feature | Fixture ngoài spec                                                                 | Nhóm assertion chính                                                                                           |
+| ------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `FR-05` | `data/fr05-search.json` — 12 records                                               | DOM/visible text, state/attribute, count/aggregate, network synchronization, layout/computed DOM               |
+| `FR-08` | `data/FR-08-checkout.json` — 15 records; `data/FR-08-checkout-ui.json` — 6 records | API response, order/cart count, URL/DOM/attribute, UI-triggered network response, backend/client postcondition |
+| `FR-12` | `data/fr12-access.json` — 40 records                                               | UI access/visibility, direct response/body, count/aggregate, object property                                   |
 
-Agent demo drive: [Nội dung demo](https://drive.google.com/file/d/1_QK7JtG1i52mfrXZPxIjk8lnoDW6ir8y/view?usp=sharing)
+### 2.5. Bug summary
 
----
+| Feature  | Root causes | GitHub Issues                                                                                                                                                                                                               | Screenshot Issue                        |
+| -------- | ----------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `FR-05`  |           6 | [#220](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/220)–[#225](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/225)                                                                           | `bug-reports/screenshots_issues/FR-05/` |
+| `FR-08`  |           8 | [#226](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/226)–[#233](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/233)                                                                           | `bug-reports/screenshots_issues/FR-08/` |
+| `FR-12`  |           4 | [#234](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234)–[#236](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/236), [#238](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/238) | `bug-reports/screenshots_issues/FR-12/` |
+| **Tổng** |      **18** | **18 Issues**                                                                                                                                                                                                               | **18 screenshots**                      |
 
-## 3. Project Structure
+## 3. Chạy automation
 
+### 3.1. Chuẩn bị
+
+- Node.js và dependencies đã được cài bằng `npm install`.
+- Backend chạy tại `http://localhost:3000`.
+- Frontend Web chạy tại `http://localhost:5173`.
+- Frontend Admin chạy tại `http://localhost:5174`.
+- Microsoft Edge phải có trên máy để dùng Playwright channel `msedge`.
+
+### 3.2. Lệnh chạy
+
+```powershell
+npm run lint
+npm run typecheck
+npm run test:fr05:phase-d
+npm run test:fr08
+npm run redact:fr08:traces
+npm run test:fr12:phase-d
 ```
+
+FR-08 cần chạy bước redaction sau mỗi rerun vì trace UI có thể giữ JWT hoặc credential runtime. Exit code của suite có thể là `1` khi assertion phát hiện đúng lỗi SUT; phải đọc thống kê và failure classification thay vì coi mọi exit code khác `0` là lỗi harness.
+
+## 4. Human Review và AI Refinement
+
+Các test script được AI hỗ trợ sinh theo từng checkpoint và được human review trước khi dùng làm kết quả cuối. Những refinement chính gồm:
+
+- bỏ serial fail-fast để mọi case đều được thực thi;
+- tách dữ liệu/expected sang JSON và thêm runtime fixture validation;
+- sửa locator, timeout và synchronization để tránh flaky test;
+- dùng UI làm oracle chính khi HTTP cache có thể trả `304`;
+- bổ sung UI browser-page coverage cho FR-08 thay vì gọi API lặp lại trên ba project;
+- cô lập runtime user/cart và giữ SPA state để tránh pass giả;
+- bổ sung Web Admin page gate cho toàn bộ FR-12, giữ API assertion để kiểm tra enforcement sâu;
+- xử lý Firefox sandbox theo từng config sau probe tối thiểu;
+- kiểm tra trực tiếp HTML report để xác nhận Student ID, timestamp và attachment;
+- redaction trace FR-08 trước khi public artifact.
+
+Chi tiết nằm trong:
+
+- [FR-05 Review Notes](playwrite-test/fr05-search/REVIEW_NOTES.md)
+- [FR-08 Review Notes](playwrite-test/FR-08-checkout/REVIEW_NOTES.md)
+- [FR-12 Review Notes](playwrite-test/fr12-access/REVIEW_NOTES.md)
+- [Main Report](reports/main-report.md)
+
+## 5. Agent Skill và Demo
+
+Agent Skill tái sử dụng workflow automation nằm tại [ai-first-playwright-testing/SKILL.md](ai-first-playwright-testing/SKILL.md).
+
+- Agent Skill demo: [YouTube](https://youtu.be/qVDBxyQzNwg)
+
+## 6. Project Structure
+
+```text
 CS423-CSC15003-Testing-N08/
-├── README.md                           # File này
-├── CLAUDE.md                           # Cấu hình AI Agent (QA Test Designer)
-├── description_project.md              # Đặc tả yêu cầu hệ thống EShop
-├── api_specification.md                # Đặc tả API
-│
+├── README.md
+├── package.json
+├── playwright.config.ts
+├── playwright.fr05.config.ts
+├── playwright.fr12.config.ts
+├── data/
+│   ├── fr05-search.json
+│   ├── FR-08-checkout.json
+│   ├── FR-08-checkout-ui.json
+│   └── fr12-access.json
 ├── tests/
-│   ├── test-cases/
-│   │   ├── FR-05-search/
-│   │   │   └── domain-testing/         # 12 test cases (TC-FR05-DT-001 → 012)
-│   │   ├── FR-08-checkout/
-│   │   │   ├── domain-testing/         # 15 test cases (TC-FR08-DT-001 → 015)
-│   │   │   └── bva/                    # 3 test cases  (TC-FR08-BVA-001 → 003)
-│   │   ├── FR-09-coupon-mobile/
-│   │   │   ├── domain-testing/         # 10 test cases (TC-FR09-DT-001 → 010)
-│   │   │   └── bva/                    # 11 test cases (TC-FR09-BVA-001 → 011)
-│   │   └── FR-12-access/
-│   │       └── domain-testing/         # 40 test cases (TC-FR12-DT-001 → 040)
-│   └── test-runs/
-│       ├── FR-05-search-run.md         # Kết quả chạy FR-05
-│       ├── FR-08-checkout-run.md       # Kết quả chạy FR-08
-│       ├── FR-09-coupon-mobile-run.md  # Kết quả chạy FR-09
-│       └── FR-12-access-run.md         # Kết quả chạy FR-12
-│
+│   ├── fr05-search.spec.ts
+│   ├── FR-08-checkout.spec.ts
+│   ├── FR-08-checkout-ui.spec.ts
+│   └── fr12-access.spec.ts
+├── playwrite-test/
+│   ├── fr05-search/
+│   ├── FR-08-checkout/
+│   └── fr12-access/
 ├── bug-reports/
-│   ├── FR-05/                          # 7 bug reports  (BUG-FR05-001 → 007)
-│   ├── FR-08/                          # 5 bug reports  (BUG-FR08-001 → 005)
-│   ├── FR-09/                          # 2 bug reports  (BUG-FR09-001 → 002)
-│   ├── FR-12/                          # 4 bug reports  (BUG-FR12-001 → 004)
-│   ├── screenshots/                    # Ảnh chụp kết quả test
-│   └── screenshots_issues/             # Ảnh chụp các lỗi phát hiện
-│
+│   ├── FR-05/
+│   ├── FR-08/
+│   ├── FR-12/
+│   └── screenshots_issues/
 ├── ai-gap-analysis/
-│   ├── FR-05-search-gap-analysis.md
-│   ├── FR-08-checkout-gap-analysis.md
-│   ├── FR-09-coupon-mobile-gap-analysis.md
-│   └── FR-12-access-gap-analysis.md
-│
+├── ai-first-playwright-testing/
 ├── reports/
-│   ├── main-report.md                  # Báo cáo chính (chi tiết toàn bộ quá trình)
-│   ├── ai-audit-report.md              # Báo cáo AI Audit (AI-02)
-│   ├── ai-critique.md                  # Nhận xét đánh giá AI Agent
-│   └── implemation_plan/               # Kế hoạch triển khai cho từng feature
-│       ├── implementation_plan_FR05.md
-│       ├── implementation_plan_FR08.md
-│       ├── implementation_plan_FR09.md
-│       └── implementation_plan_FR12.md
-│
-└── git-log.txt                         # Lịch sử commit
+└── git-log.txt
 ```
 
----
+## 7. Submission Documents
 
-## 4. Công cụ & Kỹ thuật
-
-| Hạng mục              | Chi tiết                                                                      |
-| --------------------- | ----------------------------------------------------------------------------- |
-| **Kỹ thuật kiểm thử** | Domain Testing (Equivalence Partitioning), BVA                                |
-| **Công cụ AI**        | Antigravity (Claude Opus 4.6 Thinking), ChatGPT, Grok                         |
-| **Công cụ test**      | Postman (API), Manual Testing (UI, Mobile)                                    |
-| **Môi trường**        | Backend localhost:3000, Web localhost:5173, Admin localhost:5174, Mobile Expo |
-
----
-
-## 5. Ghi chú
-
-- FR-05 chỉ áp dụng Domain Testing, **không áp dụng BVA** do biến đầu vào `search_keyword` là kiểu String (theo STRICT BVA RULE trong `CLAUDE.md`).
-- FR-12 chỉ áp dụng Domain Testing, **không áp dụng BVA** do các biến đầu vào là Token và Role (kiểu categorical).
-- FR-08 và FR-09 áp dụng **cả Domain Testing và BVA** cho các biến số (numerical) như `total_amount`, `usage_count`, `min_order_amount`.
-- Tổng cộng phát hiện **18 bugs**, trong đó **7 lỗi Critical** liên quan đến bảo mật (SQL Injection, XSS) và logic nghiệp vụ (thiếu xác thực, tính sai giảm giá).
+- [Main report](reports/main-report.md)
+- [Automation summary](reports/README_SUMMARY.md)
+- [AI Critique](reports/ai-critique.md)
+- [AI Audit Report](reports/ai-audit-report.md)
+- [Git commit log](git-log.txt)
+- Public repository: [lmchkhi/CS423-CSC15003-Testing-N08](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/test/23127464-Automation-Testing)
