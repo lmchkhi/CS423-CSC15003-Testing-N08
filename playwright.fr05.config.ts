@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const runtimeTimestamp = new Date().toISOString();
+import { createReportTime } from './report-time.js';
+
+const reportTime = createReportTime();
 
 export default defineConfig({
   testDir: './tests',
@@ -12,16 +14,17 @@ export default defineConfig({
   retries: 0,
   metadata: {
     'Run by': '23127464',
-    'Runtime timestamp': runtimeTimestamp,
+    'Run time (dd/MM/yyyy HH:mm)': reportTime.display,
+    'Runtime timestamp (ISO)': reportTime.iso,
   },
   reporter: [
     ['list'],
     [
       'html',
       {
-        outputFolder: 'reports/fr05-search/playwright-report',
+        outputFolder: 'playwrite-test/fr05-search/playwright-report',
         open: 'never',
-        title: `FR-05 — Xem danh sách và tìm kiếm sản phẩm | Run by: 23127464 | Runtime timestamp: ${runtimeTimestamp}`,
+        title: `FR-05 — Xem danh sách và tìm kiếm sản phẩm | Run by: 23127464 | Run time: ${reportTime.display} | ISO timestamp: ${reportTime.iso}`,
       },
     ],
   ],

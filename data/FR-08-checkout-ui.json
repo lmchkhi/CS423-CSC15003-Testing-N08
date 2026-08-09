@@ -1,0 +1,51 @@
+{
+  "feature": "FR-08",
+  "frontendURL": "http://localhost:5173",
+  "apiURL": "http://localhost:3000",
+  "product": {
+    "id": 4,
+    "name": "Tai nghe AirPods Pro 2",
+    "price": 6000000,
+    "quantity": 2
+  },
+  "cases": [
+    {
+      "id": "FR08-UI-README-001",
+      "title": "Chặn truy cập Checkout UI khi chưa đăng nhập",
+      "scenario": "unauthenticated-route",
+      "source": "Bổ sung",
+      "requirement": "Chỉ người dùng đã đăng nhập mới tiến hành thanh toán được",
+      "expected": {
+        "redirectPath": "/login"
+      },
+      "tags": ["@fr08", "@ui", "@auth"]
+    },
+    {
+      "id": "FR08-UI-README-002",
+      "title": "Hiển thị sản phẩm và tổng tiền chỉ đọc từ giỏ hàng",
+      "scenario": "checkout-summary",
+      "source": "Bổ sung",
+      "requirement": "Checkout UI hiển thị đầy đủ sản phẩm; tổng tiền tự tính và không cho chỉnh trực tiếp",
+      "expected": {
+        "heading": "Xác Nhận Đơn Hàng",
+        "productName": "Tai nghe AirPods Pro 2",
+        "totalAmount": 12000000,
+        "totalEditable": false
+      },
+      "tags": ["@fr08", "@ui", "@summary", "@total"]
+    },
+    {
+      "id": "FR08-UI-README-003",
+      "title": "Checkout qua UI thành công và xóa giỏ backend",
+      "scenario": "successful-checkout",
+      "source": "Bổ sung",
+      "requirement": "Sau thanh toán thành công, giỏ hàng được xóa",
+      "expected": {
+        "checkoutStatus": 200,
+        "successText": "Thanh toán thành công!",
+        "cartCountAfter": 0
+      },
+      "tags": ["@fr08", "@ui", "@checkout", "@postcondition"]
+    }
+  ]
+}

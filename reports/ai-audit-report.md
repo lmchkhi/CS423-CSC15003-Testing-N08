@@ -24,7 +24,7 @@ Test case HW02 của FR-08 nằm ở các file: TC-FR08-BVA-001.md, TC-FR08-BVA-
 **AI Action:**
 
 ```text
-Đã định vị và đọc đầy đủ skill cục bộ ai-first-playwright-testing/SKILL.md; đã xác nhận có đủ 18 file test case HW02 tại tests/test-cases/FR-08-checkout/ và chưa đọc nội dung SUT hay test case. Khởi tạo lại audit HW04 theo quy định của skill, thay audit HW02 cũ. Tiếp theo chỉ thực hiện Giai đoạn A cho FR-08: đọc README được phép, đọc toàn bộ 18 test case, tương tác hộp đen với SUT tại http://localhost:3000, lập reports/FR-08-checkout/REVIEW_NOTES.md theo template, ghi bằng chứng/kết quả thực và dừng tại checkpoint chờ người dùng duyệt. Không ghi mật khẩu vào fixture, log hoặc báo cáo.
+Đã định vị và đọc đầy đủ skill cục bộ ai-first-playwright-testing/SKILL.md; đã xác nhận có đủ 18 file test case HW02 tại tests/test-cases/FR-08-checkout/ và chưa đọc nội dung SUT hay test case. Khởi tạo lại audit HW04 theo quy định của skill, thay audit HW02 cũ. Tiếp theo chỉ thực hiện Giai đoạn A cho FR-08: đọc README được phép, đọc toàn bộ 18 test case, tương tác hộp đen với SUT tại http://localhost:3000, lập playwrite-test/FR-08-checkout/REVIEW_NOTES.md theo template, ghi bằng chứng/kết quả thực và dừng tại checkpoint chờ người dùng duyệt. Không ghi mật khẩu vào fixture, log hoặc báo cáo.
 ```
 
 ---
@@ -80,7 +80,7 @@ Test case HW02 của FR-08 nằm ở các file: TC-FR08-BVA-001.md, TC-FR08-BVA-
 **AI Action:**
 
 ```text
-Đã thực hiện Giai đoạn A trong phạm vi có thể: đọc README được phép và đủ 18/18 test case HW02; không đọc source triển khai. Probe hộp đen thật tới http://localhost:3000/, /api/products và /api/cart đều trả NO_RESPONSE (Unable to connect to the remote server), nên không tái sử dụng Actual result lịch sử trong HW02 làm bằng chứng mới và đánh dấu các case chưa chạy là Không xác định. Đã tạo reports/FR-08-checkout/REVIEW_NOTES.md và evidence/phase-a-connectivity.txt; xác định bằng đối chiếu nội dung 3 case trùng lặp đề xuất gộp: BVA-002 vào DT-005, BVA-003 vào DT-004, DT-015 vào DT-001. Ghi nhận 5 case có expected đa nhánh cần chốt sau quan sát thật: DT-003, DT-009, DT-010, DT-011, DT-013. Phân loại việc SUT không kết nối là environment issue ENV-FR08-A-001. Dừng tại checkpoint A, chưa tạo fixture hoặc code Playwright.
+Đã thực hiện Giai đoạn A trong phạm vi có thể: đọc README được phép và đủ 18/18 test case HW02; không đọc source triển khai. Probe hộp đen thật tới http://localhost:3000/, /api/products và /api/cart đều trả NO_RESPONSE (Unable to connect to the remote server), nên không tái sử dụng Actual result lịch sử trong HW02 làm bằng chứng mới và đánh dấu các case chưa chạy là Không xác định. Đã tạo playwrite-test/FR-08-checkout/REVIEW_NOTES.md và evidence/phase-a-connectivity.txt; xác định bằng đối chiếu nội dung 3 case trùng lặp đề xuất gộp: BVA-002 vào DT-005, BVA-003 vào DT-004, DT-015 vào DT-001. Ghi nhận 5 case có expected đa nhánh cần chốt sau quan sát thật: DT-003, DT-009, DT-010, DT-011, DT-013. Phân loại việc SUT không kết nối là environment issue ENV-FR08-A-001. Dừng tại checkpoint A, chưa tạo fixture hoặc code Playwright.
 ```
 
 ---
@@ -168,7 +168,7 @@ chỉnh sửa lại các hiển thị timestamp ở tất cả tài liệu theo 
 **AI Action:**
 
 ```text
-Đã quét 22 tài liệu thuộc phạm vi FR-08 gồm 4 artifact trong reports/FR-08-checkout và 18 test case HW02. Không còn timestamp hiển thị dạng ISO 8601, yyyy-mm-dd hoặc dd-mm-yyyy trong các tài liệu FR-08; các timestamp hiện có đã ở dạng dd/mm/yyyy HH:mm nên không cần sửa thêm. reports/ai-audit-report.md giữ trường Date ISO 8601 theo yêu cầu bắt buộc của skill.
+Đã quét 22 tài liệu thuộc phạm vi FR-08 gồm 4 artifact trong playwrite-test/FR-08-checkout và 18 test case HW02. Không còn timestamp hiển thị dạng ISO 8601, yyyy-mm-dd hoặc dd-mm-yyyy trong các tài liệu FR-08; các timestamp hiện có đã ở dạng dd/mm/yyyy HH:mm nên không cần sửa thêm. reports/ai-audit-report.md giữ trường Date ISO 8601 theo yêu cầu bắt buộc của skill.
 ```
 
 ---
@@ -208,7 +208,7 @@ approved, continue phase B
 **AI Action:**
 
 ```text
-Đã hoàn thành Giai đoạn B và tạo reports/FR-08-checkout/TEST_CASES.md theo template. Bộ cuối có đúng 15 case HW02 độc lập, 15 ID duy nhất, 0 case bổ sung; BVA-002 gộp DT-005, BVA-003 gộp DT-004, DT-015 gộp DT-001. Đã chốt expected một nhánh cho mọi case, dùng fixture key ngoài spec dự kiến, dữ liệu AirPods thật và user role user cô lập sinh runtime. DT-012 giới hạn API-only trong FR-08 và chuyển assertion render sang FR-18; không tuyên bố Pass XSS UI. Cập nhật REVIEW_NOTES.md để checkpoint A ở trạng thái Đã duyệt. Kiểm tra không còn timestamp sai định dạng trong output FR-08. Dừng tại checkpoint B; chưa tạo data/FR-08-checkout.json hoặc tests/FR-08-checkout.spec.ts.
+Đã hoàn thành Giai đoạn B và tạo playwrite-test/FR-08-checkout/TEST_CASES.md theo template. Bộ cuối có đúng 15 case HW02 độc lập, 15 ID duy nhất, 0 case bổ sung; BVA-002 gộp DT-005, BVA-003 gộp DT-004, DT-015 gộp DT-001. Đã chốt expected một nhánh cho mọi case, dùng fixture key ngoài spec dự kiến, dữ liệu AirPods thật và user role user cô lập sinh runtime. DT-012 giới hạn API-only trong FR-08 và chuyển assertion render sang FR-18; không tuyên bố Pass XSS UI. Cập nhật REVIEW_NOTES.md để checkpoint A ở trạng thái Đã duyệt. Kiểm tra không còn timestamp sai định dạng trong output FR-08. Dừng tại checkpoint B; chưa tạo data/FR-08-checkout.json hoặc tests/FR-08-checkout.spec.ts.
 ```
 
 ---
@@ -269,7 +269,7 @@ approve, continue phase C
 **AI Action:**
 
 ```text
-Đã hoàn thành Giai đoạn C. Tạo package.json/package-lock.json, tsconfig.json, eslint.config.js, data/FR-08-checkout.json và tests/FR-08-checkout.spec.ts. Fixture runtime validation và Playwright collection xác nhận đúng 15 test, 15 ID duy nhất, nguồn HW02, 0 skip. Không có credential/token thật hoặc waitForTimeout. npm install thành công sau khi offline mode ENOTCACHED; 120 package, 0 vulnerability. Lint exit 0, type-check exit 0. Lần chạy thật `npm run test:fr08 -- --workers=1 --reporter=list` exit 1 với 4 passed, 11 failed, 0 skipped; giữ nguyên expected. Loại serial fail-fast trước lần chạy thật để bảo đảm đủ 15 case được thực thi. Ba nhóm assertion đã chạy: network/response, count/aggregate, state/attribute. Tạo reports/FR-08-checkout/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md. test-results được giữ cục bộ và ignore khỏi Git. Dừng tại checkpoint C; trước Giai đoạn D cần người dùng xác nhận rõ localhost là môi trường test cô lập, không phải production do DT-013 có SQL payload.
+Đã hoàn thành Giai đoạn C. Tạo package.json/package-lock.json, tsconfig.json, eslint.config.js, data/FR-08-checkout.json và tests/FR-08-checkout.spec.ts. Fixture runtime validation và Playwright collection xác nhận đúng 15 test, 15 ID duy nhất, nguồn HW02, 0 skip. Không có credential/token thật hoặc waitForTimeout. npm install thành công sau khi offline mode ENOTCACHED; 120 package, 0 vulnerability. Lint exit 0, type-check exit 0. Lần chạy thật `npm run test:fr08 -- --workers=1 --reporter=list` exit 1 với 4 passed, 11 failed, 0 skipped; giữ nguyên expected. Loại serial fail-fast trước lần chạy thật để bảo đảm đủ 15 case được thực thi. Ba nhóm assertion đã chạy: network/response, count/aggregate, state/attribute. Tạo playwrite-test/FR-08-checkout/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md. test-results được giữ cục bộ và ignore khỏi Git. Dừng tại checkpoint C; trước Giai đoạn D cần người dùng xác nhận rõ localhost là môi trường test cô lập, không phải production do DT-013 có SQL payload.
 ```
 
 ---
@@ -290,8 +290,8 @@ Bối cảnh:
 - Hiện có:
   - data/FR-08-checkout.json
   - tests/FR-08-checkout.spec.ts
-  - reports/FR-08-checkout/evidence/phase-c-run.md
-  - reports/FR-08-checkout/REVIEW_NOTES.md
+  - playwrite-test/FR-08-checkout/evidence/phase-c-run.md
+  - playwrite-test/FR-08-checkout/REVIEW_NOTES.md
 - Kết quả Phase C đã được ghi nhận: lint pass, type-check pass, 15 tests collected, 4 passed, 11 failed, 0 skipped.
 - Chưa chuyển sang Phase D.
 - Đây là lượt chỉnh sửa sau review Phase C, vẫn trong phạm vi Phase C artifact refinement, chưa chạy đa trình duyệt.
@@ -346,8 +346,8 @@ Bối cảnh:
 - Hiện có:
   - data/FR-08-checkout.json
   - tests/FR-08-checkout.spec.ts
-  - reports/FR-08-checkout/evidence/phase-c-run.md
-  - reports/FR-08-checkout/REVIEW_NOTES.md
+  - playwrite-test/FR-08-checkout/evidence/phase-c-run.md
+  - playwrite-test/FR-08-checkout/REVIEW_NOTES.md
 - Kết quả Phase C đã được ghi nhận: lint pass, type-check pass, 15 tests collected, 4 passed, 11 failed, 0 skipped.
 - Chưa chuyển sang Phase D.
 - Đây là lượt chỉnh sửa sau review Phase C, vẫn trong phạm vi Phase C artifact refinement, chưa chạy đa trình duyệt.
@@ -485,8 +485,8 @@ Yêu cầu Phase D:
    thì sửa phần automation/test config phù hợp, chạy lại, và ghi rõ vào REVIEW_NOTES.md mục lỗi trong code automation AI sinh.
 10. Nếu failure vẫn khớp expected đã duyệt và quan sát Phase A/C thì giữ nguyên, chưa tạo bug report ở Phase D.
 11. Cập nhật:
-    - reports/FR-08-checkout/REVIEW_NOTES.md
-    - reports/FR-08-checkout/evidence/phase-d-run.md hoặc file evidence tương đương
+    - playwrite-test/FR-08-checkout/REVIEW_NOTES.md
+    - playwrite-test/FR-08-checkout/evidence/phase-d-run.md hoặc file evidence tương đương
     - reports/ai-audit-report.md
 12. Dừng tại checkpoint Phase D, liệt kê:
     - file đã tạo/sửa
@@ -524,7 +524,7 @@ Tiếp tục FR-08 sau khi đã review Phase C. Thực hiện Phase D trên Chro
 **AI Action:**
 
 ```text
-Đã hoàn thành Phase D hộp đen và dừng checkpoint D. Ba endpoint SUT trả 200. Edge channel msedge có sẵn; Firefox và Edge launch được ngay. Chromium Playwright ban đầu thiếu executable, phân loại environment issue, đã cài bằng npx playwright install chromium và launch lại thành công. Tạo playwright.config.ts với ba project chromium/firefox/msedge, trace retain-on-failure và HTML report. Phát hiện hai test-harness defect: config chưa nằm trong lint/type-check và custom metadata không hiển thị trong report lần đầu; đã mở rộng lint/type-check sang config, thêm HTML title runtime chứa Run by/timestamp, chạy lại và kiểm chứng artifact thật bằng Chromium. Lint exit 0, type-check exit 0. Lần chạy cuối 45 lượt exit 1: mỗi project 4 passed, 11 failed, 0 skipped; tổng 12 passed, 33 failed, 0 skipped, khớp Phase C. HTML report tại reports/FR-08-checkout/playwright-report/index.html hiển thị trực tiếp Run by: 23127464 và Runtime timestamp: 2026-08-06T03:23:07.283Z; có 33 trace và 33 error context. Không sửa fixture/spec/assertion/expected; DT-012 giữ API-only; chưa tạo bug report hoặc thực hiện Phase E. Đã cập nhật REVIEW_NOTES.md và tạo evidence/phase-d-run.md. Hai lần suite tạo thêm 78 user runtime và 78 order test trong môi trường cô lập đã được chấp nhận.
+Đã hoàn thành Phase D hộp đen và dừng checkpoint D. Ba endpoint SUT trả 200. Edge channel msedge có sẵn; Firefox và Edge launch được ngay. Chromium Playwright ban đầu thiếu executable, phân loại environment issue, đã cài bằng npx playwright install chromium và launch lại thành công. Tạo playwright.config.ts với ba project chromium/firefox/msedge, trace retain-on-failure và HTML report. Phát hiện hai test-harness defect: config chưa nằm trong lint/type-check và custom metadata không hiển thị trong report lần đầu; đã mở rộng lint/type-check sang config, thêm HTML title runtime chứa Run by/timestamp, chạy lại và kiểm chứng artifact thật bằng Chromium. Lint exit 0, type-check exit 0. Lần chạy cuối 45 lượt exit 1: mỗi project 4 passed, 11 failed, 0 skipped; tổng 12 passed, 33 failed, 0 skipped, khớp Phase C. HTML report tại playwrite-test/FR-08-checkout/playwright-report/index.html hiển thị trực tiếp Run by: 23127464 và Runtime timestamp: 2026-08-06T03:23:07.283Z; có 33 trace và 33 error context. Không sửa fixture/spec/assertion/expected; DT-012 giữ API-only; chưa tạo bug report hoặc thực hiện Phase E. Đã cập nhật REVIEW_NOTES.md và tạo evidence/phase-d-run.md. Hai lần suite tạo thêm 78 user runtime và 78 order test trong môi trường cô lập đã được chấp nhận.
 ```
 
 ---
@@ -548,7 +548,7 @@ Hãy chỉnh nhẹ REVIEW_NOTES.md của FR-08 để thống nhất cách ghi DT
 **AI Action:**
 
 ```text
-Sẽ chỉ chỉnh reports/FR-08-checkout/REVIEW_NOTES.md để thống nhất mọi mô tả liên quan DT-012 với quyết định đã duyệt: đánh giá phần checkout API-only dựa trên việc API lưu/trả payload XSS như string, đồng thời ghi rõ không kết luận Pass về chống XSS UI. Sẽ cập nhật số liệu tổng hợp trạng thái nếu cần để khớp dòng đối chiếu; không sửa spec, fixture, expected, kết quả Phase D hoặc mở rộng sang FR-18.
+Sẽ chỉ chỉnh playwrite-test/FR-08-checkout/REVIEW_NOTES.md để thống nhất mọi mô tả liên quan DT-012 với quyết định đã duyệt: đánh giá phần checkout API-only dựa trên việc API lưu/trả payload XSS như string, đồng thời ghi rõ không kết luận Pass về chống XSS UI. Sẽ cập nhật số liệu tổng hợp trạng thái nếu cần để khớp dòng đối chiếu; không sửa spec, fixture, expected, kết quả Phase D hoặc mở rộng sang FR-18.
 ```
 
 ---
@@ -612,7 +612,7 @@ approved, continue phase E
 **AI Action:**
 
 ```text
-Đã hoàn thành Phase E và dừng checkpoint E. Phân loại 11 failed case là SUT defect sau khi loại trừ test defect/environment issue bằng evidence A/C/D và rerun; nhóm thành 5 root cause và tạo 5 bug report đề xuất, không tạo GitHub Issue. Tạo README_SUMMARY.md, hoàn thiện gap analysis và cập nhật REVIEW_NOTES.md/TEST_CASES.md để DT-012 nhất quán API-only, không kết luận Pass XSS UI hoặc mở rộng FR-18. Review submission-readiness phát hiện report cũ có 33/33 trace ZIP chứa request password field và Authorization header runtime; đã redacted hai test password khỏi audit cũ, đổi trace=off cho suite API-only, lint/type-check exit 0 và rerun 45 lượt exit 1 với 12 passed/33 failed/0 skipped. Report public-safe cuối tại reports/FR-08-checkout/playwright-report/index.html có Run by 23127464, timestamp 2026-08-06T03:55:40.572Z, 0 ZIP trace và 0 match runtime password/email/JWT; không đổi fixture/spec/assertion/expected. Rerun tạo thêm 39 user runtime và 39 order test trong môi trường cô lập đã được chấp nhận. Điểm còn mở: build/commit SUT không xác định, chưa có public GitHub URL, chưa đủ artifact để kết luận tiêu chí toàn bài 3 feature/9 lượt; nguồn HW02/tài liệu ngoài report vẫn có test credential seed dạng rõ cần redact hoặc rotate trước khi public; video demo và AI Critique phải do sinh viên tự làm.
+Đã hoàn thành Phase E và dừng checkpoint E. Phân loại 11 failed case là SUT defect sau khi loại trừ test defect/environment issue bằng evidence A/C/D và rerun; nhóm thành 5 root cause và tạo 5 bug report đề xuất, không tạo GitHub Issue. Tạo README_SUMMARY.md, hoàn thiện gap analysis và cập nhật REVIEW_NOTES.md/TEST_CASES.md để DT-012 nhất quán API-only, không kết luận Pass XSS UI hoặc mở rộng FR-18. Review submission-readiness phát hiện report cũ có 33/33 trace ZIP chứa request password field và Authorization header runtime; đã redacted hai test password khỏi audit cũ, đổi trace=off cho suite API-only, lint/type-check exit 0 và rerun 45 lượt exit 1 với 12 passed/33 failed/0 skipped. Report public-safe cuối tại playwrite-test/FR-08-checkout/playwright-report/index.html có Run by 23127464, timestamp 2026-08-06T03:55:40.572Z, 0 ZIP trace và 0 match runtime password/email/JWT; không đổi fixture/spec/assertion/expected. Rerun tạo thêm 39 user runtime và 39 order test trong môi trường cô lập đã được chấp nhận. Điểm còn mở: build/commit SUT không xác định, chưa có public GitHub URL, chưa đủ artifact để kết luận tiêu chí toàn bài 3 feature/9 lượt; nguồn HW02/tài liệu ngoài report vẫn có test credential seed dạng rõ cần redact hoặc rotate trước khi public; video demo và AI Critique phải do sinh viên tự làm.
 ```
 
 ---
@@ -720,7 +720,7 @@ Thông tin:
 - Mã sinh viên: 23127464
 - SUT API: http://localhost:3000
 - Tài khoản: test@eshop.com / [REDACTED] (role user), admin@eshop.com / [REDACTED] (role admin)
-- Thư mục output riêng cho FR-12: data/fr12-access.json, tests/fr12-access.spec.ts, reports/fr12-access/
+- Thư mục output riêng cho FR-12: data/fr12-access.json, tests/fr12-access.spec.ts, playwrite-test/fr12-access/
 
 Test case HW02 của FR-12: 40 file TC-FR12-DT-001.md đến TC-FR12-DT-040.md
 ```
@@ -776,7 +776,7 @@ truy cập vào folder test/test-cases/FR-12-access/domain-testing, tại đó l
 **AI Action:**
 
 ```text
-Đã nhận đường dẫn HW02 do người dùng chỉ định: test/test-cases/FR-12-access/domain-testing. Sẽ bắt đầu Giai đoạn A: xác nhận đường dẫn thực tế và đủ 40 file TC-FR12-DT-001.md đến TC-FR12-DT-040.md, đọc toàn bộ case cùng template review-notes, rà invalid-token case và mâu thuẫn DT-013, rồi tương tác hộp đen với SUT thật tại http://localhost:3000 để đối chiếu từng case và kiểm chứng hai nhóm root cause được nêu. Không đọc source triển khai, không tự sửa expected; sẽ tạo/cập nhật reports/fr12-access/REVIEW_NOTES.md và evidence thực tế rồi dừng chờ duyệt.
+Đã nhận đường dẫn HW02 do người dùng chỉ định: test/test-cases/FR-12-access/domain-testing. Sẽ bắt đầu Giai đoạn A: xác nhận đường dẫn thực tế và đủ 40 file TC-FR12-DT-001.md đến TC-FR12-DT-040.md, đọc toàn bộ case cùng template review-notes, rà invalid-token case và mâu thuẫn DT-013, rồi tương tác hộp đen với SUT thật tại http://localhost:3000 để đối chiếu từng case và kiểm chứng hai nhóm root cause được nêu. Không đọc source triển khai, không tự sửa expected; sẽ tạo/cập nhật playwrite-test/fr12-access/REVIEW_NOTES.md và evidence thực tế rồi dừng chờ duyệt.
 ```
 
 ---
@@ -796,7 +796,7 @@ truy cập vào folder test/test-cases/FR-12-access/domain-testing, tại đó l
 **AI Action:**
 
 ```text
-Đã hoàn thành Giai đoạn A cho FR-12 và dừng checkpoint. Đường dẫn người dùng nêu dùng test/ nhưng đường dẫn thực tế là tests/test-cases/FR-12-access/domain-testing/, có đủ 40/40 file liên tục. Đã đọc toàn bộ case, template review-notes, README/API specification công khai và artifact FR-08 liên quan; không đọc source triển khai. Đã chạy harness HTTP hộp đen thật trên SUT, login user/admin đều 200, exit code harness 0; dùng resource tạm cho mutation nguy hiểm và không ghi password/JWT vào artifact. Kết quả giữ nguyên expected: 22 Khớp, 17 Lệch, 1 Không xác định (DT-013). DT-002 thực tế 403 so với expected 401 và là invalid-token case cụ thể duy nhất. DT-013: ID 1 trả 400 vì DT-012 đã đổi order sang confirmed, ID 2 ở pending trả 200; chờ người dùng chọn ID/ý định. Xác nhận 13 case valid-user bypass chỉ đúng khi tính cả 3 product case; loại products còn 10. Ba product mutation không-token đều 200, trong khi categories không-token đều 401 nhưng user-token đều 200, chứng minh hai mẫu enforcement bề mặt khác nhau. Đã tạo reports/fr12-access/REVIEW_NOTES.md đủ 40 dòng và evidence/phase-a-api-results.md đủ 40 dòng. Đã cleanup user/product/category/coupon tạm; hai order ID 1 và 2 được tạo để thỏa precondition và hiện confirmed, không thể xóa/đưa về pending qua API công khai. Chưa tạo data/fr12-access.json hoặc tests/fr12-access.spec.ts và chưa chuyển Giai đoạn B.
+Đã hoàn thành Giai đoạn A cho FR-12 và dừng checkpoint. Đường dẫn người dùng nêu dùng test/ nhưng đường dẫn thực tế là tests/test-cases/FR-12-access/domain-testing/, có đủ 40/40 file liên tục. Đã đọc toàn bộ case, template review-notes, README/API specification công khai và artifact FR-08 liên quan; không đọc source triển khai. Đã chạy harness HTTP hộp đen thật trên SUT, login user/admin đều 200, exit code harness 0; dùng resource tạm cho mutation nguy hiểm và không ghi password/JWT vào artifact. Kết quả giữ nguyên expected: 22 Khớp, 17 Lệch, 1 Không xác định (DT-013). DT-002 thực tế 403 so với expected 401 và là invalid-token case cụ thể duy nhất. DT-013: ID 1 trả 400 vì DT-012 đã đổi order sang confirmed, ID 2 ở pending trả 200; chờ người dùng chọn ID/ý định. Xác nhận 13 case valid-user bypass chỉ đúng khi tính cả 3 product case; loại products còn 10. Ba product mutation không-token đều 200, trong khi categories không-token đều 401 nhưng user-token đều 200, chứng minh hai mẫu enforcement bề mặt khác nhau. Đã tạo playwrite-test/fr12-access/REVIEW_NOTES.md đủ 40 dòng và evidence/phase-a-api-results.md đủ 40 dòng. Đã cleanup user/product/category/coupon tạm; hai order ID 1 và 2 được tạo để thỏa precondition và hiện confirmed, không thể xóa/đưa về pending qua API công khai. Chưa tạo data/fr12-access.json hoặc tests/fr12-access.spec.ts và chưa chuyển Giai đoạn B.
 ```
 
 ---
@@ -837,7 +837,7 @@ approved, continue phase B
 **AI Action:**
 
 ```text
-Ghi nhận checkpoint A của FR-12 đã được duyệt và chuyển sang Giai đoạn B. Sẽ đọc đầy đủ assets/templates/test-cases.md, dùng nguyên 40 case HW02 làm nền, giữ ID/nguồn và expected đã duyệt; DT-002 giữ expected 401 và actual khác 401 là Fail; DT-013 giữ order ID 1 với precondition cô lập bằng reset/tạo lại order từ state sạch. Sẽ kiểm tra trùng lặp, lập bảng test case cuối tại reports/fr12-access/TEST_CASES.md, cập nhật REVIEW_NOTES.md/audit và dừng checkpoint B. Chưa tạo data/fr12-access.json hoặc tests/fr12-access.spec.ts và chưa chạy Playwright.
+Ghi nhận checkpoint A của FR-12 đã được duyệt và chuyển sang Giai đoạn B. Sẽ đọc đầy đủ assets/templates/test-cases.md, dùng nguyên 40 case HW02 làm nền, giữ ID/nguồn và expected đã duyệt; DT-002 giữ expected 401 và actual khác 401 là Fail; DT-013 giữ order ID 1 với precondition cô lập bằng reset/tạo lại order từ state sạch. Sẽ kiểm tra trùng lặp, lập bảng test case cuối tại playwrite-test/fr12-access/TEST_CASES.md, cập nhật REVIEW_NOTES.md/audit và dừng checkpoint B. Chưa tạo data/fr12-access.json hoặc tests/fr12-access.spec.ts và chưa chạy Playwright.
 ```
 
 ---
@@ -857,7 +857,7 @@ approved, continue phase B
 **AI Action:**
 
 ```text
-Đã hoàn thành Giai đoạn B và dừng checkpoint. Đã đọc đầy đủ template test-cases.md, tạo reports/fr12-access/TEST_CASES.md với 40 dòng đối chiếu ban đầu và 40 dòng bộ test cuối, 40 ID duy nhất, 40 case nguồn HW02, 0 bổ sung, 0 trùng lặp. Giữ expected DT-002 là 401 và đánh Fail khi actual khác; DT-013 giữ order ID 1 với precondition state sạch. Đề xuất resource tạm runtime cho các thao tác xóa/sửa nguy hiểm, cleanup best-effort khi negative case thực tế mutate, và cô lập DT-011–013; ba điểm này chờ người dùng duyệt. Đã cập nhật REVIEW_NOTES.md để đánh dấu checkpoint A Đã duyệt và checkpoint B Chờ duyệt. Kiểm tra không có password/JWT trong artifact; data/fr12-access.json và tests/fr12-access.spec.ts chưa tồn tại, chưa chạy Playwright và chưa chuyển Giai đoạn C.
+Đã hoàn thành Giai đoạn B và dừng checkpoint. Đã đọc đầy đủ template test-cases.md, tạo playwrite-test/fr12-access/TEST_CASES.md với 40 dòng đối chiếu ban đầu và 40 dòng bộ test cuối, 40 ID duy nhất, 40 case nguồn HW02, 0 bổ sung, 0 trùng lặp. Giữ expected DT-002 là 401 và đánh Fail khi actual khác; DT-013 giữ order ID 1 với precondition state sạch. Đề xuất resource tạm runtime cho các thao tác xóa/sửa nguy hiểm, cleanup best-effort khi negative case thực tế mutate, và cô lập DT-011–013; ba điểm này chờ người dùng duyệt. Đã cập nhật REVIEW_NOTES.md để đánh dấu checkpoint A Đã duyệt và checkpoint B Chờ duyệt. Kiểm tra không có password/JWT trong artifact; data/fr12-access.json và tests/fr12-access.spec.ts chưa tồn tại, chưa chạy Playwright và chưa chuyển Giai đoạn C.
 ```
 
 ---
@@ -982,10 +982,11 @@ Sang Giai đoạn C cho FR-12. Sinh data/fr12-access.json cho 40 case theo Playw
 **AI Action:**
 
 ```text
-Đã hoàn thành Giai đoạn C và dừng checkpoint. Tạo data/fr12-access.json gồm 40 case/40 ID duy nhất, 0 skip, 13 tag valid-user-role-bypass và 3 tag unauthenticated-product-mutation; tạo tests/fr12-access.spec.ts data-driven 529 dòng, credentials chỉ nhận qua environment, runtime validation bắt buộc, truy vết ID trong title/annotation. Spec dùng getByRole rồi getByTestId, page.waitForResponse và soft assertions thực thi status, method/URL/body và DOM visible text; không dùng CSS/XPath/waitForTimeout. Thêm npm script test:fr12 với Chromium/list reporter/output riêng. node database.js exit 0 và được kiểm chứng reset order khi backend đang chạy; backend :3000, frontend-web :5173, frontend-admin :5174 đều trả 200. Lint exit 0, type-check exit 0. Phát hiện và sửa ba test-harness defect: serial fail-fast (lần đầu 1 pass/1 fail/38 did not run), output kế thừa FR-08, DOM mismatch timeout làm lần hai exit 124 sau 35 case. Rerun cuối exit 1, đủ 40 case trong 46.6 giây: 23 passed, 17 failed, 0 skipped; danh sách fail khớp Phase A và expected không đổi. Artifact test-results/fr12-phase-c có 17 screenshot, 17 video, 17 error-context; scan text và artifact nguồn có 0 match password/JWT. Cleanup giữ user seed ID 1-2, không còn product/category runtime; order ID 1 confirmed còn lại sau DT-013. Tạo reports/fr12-access/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md checkpoint C Chờ duyệt. Chưa thực hiện Phase D.
+Đã hoàn thành Giai đoạn C và dừng checkpoint. Tạo data/fr12-access.json gồm 40 case/40 ID duy nhất, 0 skip, 13 tag valid-user-role-bypass và 3 tag unauthenticated-product-mutation; tạo tests/fr12-access.spec.ts data-driven 529 dòng, credentials chỉ nhận qua environment, runtime validation bắt buộc, truy vết ID trong title/annotation. Spec dùng getByRole rồi getByTestId, page.waitForResponse và soft assertions thực thi status, method/URL/body và DOM visible text; không dùng CSS/XPath/waitForTimeout. Thêm npm script test:fr12 với Chromium/list reporter/output riêng. node database.js exit 0 và được kiểm chứng reset order khi backend đang chạy; backend :3000, frontend-web :5173, frontend-admin :5174 đều trả 200. Lint exit 0, type-check exit 0. Phát hiện và sửa ba test-harness defect: serial fail-fast (lần đầu 1 pass/1 fail/38 did not run), output kế thừa FR-08, DOM mismatch timeout làm lần hai exit 124 sau 35 case. Rerun cuối exit 1, đủ 40 case trong 46.6 giây: 23 passed, 17 failed, 0 skipped; danh sách fail khớp Phase A và expected không đổi. Artifact test-results/fr12-phase-c có 17 screenshot, 17 video, 17 error-context; scan text và artifact nguồn có 0 match password/JWT. Cleanup giữ user seed ID 1-2, không còn product/category runtime; order ID 1 confirmed còn lại sau DT-013. Tạo playwrite-test/fr12-access/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md checkpoint C Chờ duyệt. Chưa thực hiện Phase D.
 ```
 
 ---
+
 
 ### AI Audit Entry
 
@@ -1003,6 +1004,26 @@ Hoàn thiện Phase C của FR-05 sau khi Fix 1 đã được review. Giữ nguy
 
 ```text
 Sẽ hoàn thiện đúng Phase C Fix 2 mà không thiết kế lại test hoặc thay expected. Trước tiên review fixture/spec Phase C hiện tại và conventions liên quan; sau đó bổ sung helper screenshot testInfo.attach dùng fullPage và attachment name chứa TC-ID/trạng thái, đặt evidence trước assertions có thể fail cho đủ 12 case. DT-010 sẽ đăng ký route trước navigation, xác nhận request intercepted, giữ response pending, assert UI pending, attach trước release, luôn release bằng finally, tạo waitForResponse trước release, rồi assert product list và loading indicator hidden sau response. XSS listeners sẽ được giữ/đặt trước submit; XSS/SQLi tiếp tục dùng UI/DOM oracle. Sẽ xóa trạng thái provisional/backlog đã hoàn thành, kiểm tra 0 waitForTimeout và coverage evidence đủ 12 ID, chạy lint/typecheck/Chromium đúng command, so sánh 4/8/0 Fix 1, quét artifact tránh dữ liệu nhạy cảm, cập nhật evidence/review/audit bằng kết quả thật và dừng Checkpoint C. Chưa chạy Firefox/Edge, chưa chuyển Phase D.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-09T14:29:30+07:00`
+
+**User Prompt:**
+
+```text
+Rà soát lại mô tả của FR-08 trong README của src, bổ sung automation test UI không đơn thuần chỉ test API
+```
+
+**AI Action:**
+
+```text
+Hoàn tất refinement UI hậu Phase E cho FR-08 theo bề mặt hộp đen và mô tả trong src/eshop-sut/README.md, không đọc source triển khai SUT và không đổi expected HW02. Giữ nguyên 15 case checkout API đã duyệt; thêm data/FR-08-checkout-ui.json và tests/FR-08-checkout-ui.spec.ts với 3 case UI README: bảo vệ route checkout khi chưa đăng nhập, hiển thị sản phẩm/tổng chỉ đọc từ giỏ, và checkout qua nút UI kèm hậu điều kiện xóa giỏ. API chỉ dùng setup user/cart và hậu kiểm, còn coverage UI dùng browser page, URL/DOM/attribute/network assertion thật. Cập nhật package scripts/config/report, tắt video/trace để report public-safe, bổ sung evidence/review/test-case/summary/gap analysis và cập nhật tổng hợp toàn bài. Lint exit 0, type-check exit 0, collect đúng 9 lượt UI. Final multi-project run exit 1 với 54 lượt: 12 passed, 42 failed, 0 skipped; API giữ 12/33/0, UI 0/9/0; mỗi Chromium/Firefox/Edge là 4P/14F/0S và đều đi đến assertion SUT thật. Mở HTML report thật xác nhận All 54, Passed 12, Failed 42, Skipped 0, Run by 23127464, runtime 2026-08-09T07:25:59.776Z và đủ ba project. Quét artifact: 9 screenshot, 15 error-context Markdown, 0 video, 0 trace ZIP, 0 runtime email/password/JWT match. Actual UI: route checkout chưa chặn anonymous; sản phẩm không hiện, total là 0 và editable; UI checkout trả 200/hiện thành công nhưng cart không được xóa. Không hạ assertion để làm SUT pass; DT-012 tiếp tục API-only và không kết luận chống XSS UI.
 ```
 
 ---
@@ -1050,7 +1071,7 @@ Thông tin đầu vào:
 - Backend API: http://localhost:3000
 - Mã sinh viên dùng cho report: 23127464
 - Output review:
-  reports/fr05-search/REVIEW_NOTES.md
+  playwrite-test/fr05-search/REVIEW_NOTES.md
 
 Chỉ thực hiện Phase A theo hướng kiểm thử hộp đen:
 1. Đọc toàn bộ test case HW02 của FR-05 và giữ nguyên TC-ID, mô tả,
@@ -1091,7 +1112,7 @@ Dừng tại Checkpoint A để người dùng review. Không tự chuyển sang
 **AI Action:**
 
 ```text
-Đã định vị và đọc đầy đủ ai-first-playwright-testing/SKILL.md cùng template audit/review; đã ghi entry này bằng timestamp ISO 8601 thật. Tiếp theo chỉ thực hiện Phase A cho FR-05: đọc toàn bộ 12 test case HW02, file tổng hợp manual và mục FR-05 trong README công khai; không đọc source triển khai, middleware hay database schema. Sẽ kiểm tra khả năng kết nối Frontend Web :5173 và Backend API :3000, tương tác hộp đen qua UI/accessibility/URL/network công khai nếu SUT chạy, ghi bằng chứng thật cho từng case, phân loại Khớp/Lệch/Không xác định/Trùng lặp, đề xuất automationSurface và nêu rõ hai bất nhất DT-002 cùng filename/heading DT-011/DT-012. Sẽ tạo/cập nhật reports/fr05-search/REVIEW_NOTES.md, không tạo Playwright spec/fixture/config, rồi dừng tại Checkpoint A chờ người dùng duyệt.
+Đã định vị và đọc đầy đủ ai-first-playwright-testing/SKILL.md cùng template audit/review; đã ghi entry này bằng timestamp ISO 8601 thật. Tiếp theo chỉ thực hiện Phase A cho FR-05: đọc toàn bộ 12 test case HW02, file tổng hợp manual và mục FR-05 trong README công khai; không đọc source triển khai, middleware hay database schema. Sẽ kiểm tra khả năng kết nối Frontend Web :5173 và Backend API :3000, tương tác hộp đen qua UI/accessibility/URL/network công khai nếu SUT chạy, ghi bằng chứng thật cho từng case, phân loại Khớp/Lệch/Không xác định/Trùng lặp, đề xuất automationSurface và nêu rõ hai bất nhất DT-002 cùng filename/heading DT-011/DT-012. Sẽ tạo/cập nhật playwrite-test/fr05-search/REVIEW_NOTES.md, không tạo Playwright spec/fixture/config, rồi dừng tại Checkpoint A chờ người dùng duyệt.
 ```
 
 ---
@@ -1111,7 +1132,7 @@ Cập nhật FR-12 từ hai root-cause tag thành bốn nhóm theo bug reports: 
 **AI Action:**
 
 ```text
-Đã thay rootCauseTags trong data/fr12-access.json bằng productNoAuthMiddleware, adminApiNoRoleCheck, categoryNoRoleCheck và wrongStatusInvalidToken; remap chính xác DT-023/024/026/027/029/030, DT-003/006/009/012/015/018/021, DT-033/036/039 và DT-002. Tổng kiểm chứng: 17 failed case có đúng một root-cause tag, 23 passed case không có tag; không còn taxonomy cũ. Đã mở rộng validateFixture() để kiểm tra cardinality, danh sách ID cụ thể và cấm root-cause tag ngoài 17 failed ID. npm run lint exit 0; npm run typecheck exit 0; không chạy test suite. Đã cập nhật reports/fr12-access/evidence/phase-c-run.md và REVIEW_NOTES.md với taxonomy 6/7/3/1, liên kết BUG-FR12-003/004 và giữ kết quả 23/17 dưới nhãn lịch sử trước pure API refactor.
+Đã thay rootCauseTags trong data/fr12-access.json bằng productNoAuthMiddleware, adminApiNoRoleCheck, categoryNoRoleCheck và wrongStatusInvalidToken; remap chính xác DT-023/024/026/027/029/030, DT-003/006/009/012/015/018/021, DT-033/036/039 và DT-002. Tổng kiểm chứng: 17 failed case có đúng một root-cause tag, 23 passed case không có tag; không còn taxonomy cũ. Đã mở rộng validateFixture() để kiểm tra cardinality, danh sách ID cụ thể và cấm root-cause tag ngoài 17 failed ID. npm run lint exit 0; npm run typecheck exit 0; không chạy test suite. Đã cập nhật playwrite-test/fr12-access/evidence/phase-c-run.md và REVIEW_NOTES.md với taxonomy 6/7/3/1, liên kết BUG-FR12-003/004 và giữ kết quả 23/17 dưới nhãn lịch sử trước pure API refactor.
 ```
 
 ---
@@ -1171,7 +1192,7 @@ approved, continue phase D
 **AI Action:**
 
 ```text
-Đã hoàn thành Phase D cho FR-12 và dừng checkpoint. Tạo playwright.fr12.config.ts với ba project chromium/firefox/msedge, workers=1, output test-results/fr12-phase-d và HTML report reports/fr12-access/playwright-report; thêm script test:fr12:phase-d, đưa config mới vào lint/type-check và mở rộng ESLint pattern. Backend API :3000, frontend :5173/:5174 đều hoạt động; cả ba browser launch headless thành công. Lint cuối exit 0 không warning; type-check exit 0. Lần multi-browser đầu exit 1 với 69 passed/51 failed/0 skipped nhưng scan phát hiện 51 trace API lưu login payload, Authorization và JWT; phân loại test-harness security defect, đổi trace: off và rerun thay thế artifact cũ. Lần cuối exit 1 trong 58.1 giây: mỗi project 23 passed/17 failed/0 skipped, tổng 69/51/0; không có failure mới, DT-011 và DT-013 pass trên cả ba project. Đã mở HTML report cuối và kiểm chứng DOM/title hiển thị Run by: 23127464, Runtime timestamp: 2026-08-07T08:59:03.516Z, All 120/Passed 69/Failed 51/Skipped 0. Artifact cuối có 51 error-context, 0 trace/screenshot/video; scan embedded report có 0 JWT shape và 0 serialized password value. Tạo evidence/phase-d-run.md và cập nhật REVIEW_NOTES.md. Chưa thực hiện Phase E.
+Đã hoàn thành Phase D cho FR-12 và dừng checkpoint. Tạo playwright.fr12.config.ts với ba project chromium/firefox/msedge, workers=1, output test-results/fr12-phase-d và HTML report playwrite-test/fr12-access/playwright-report; thêm script test:fr12:phase-d, đưa config mới vào lint/type-check và mở rộng ESLint pattern. Backend API :3000, frontend :5173/:5174 đều hoạt động; cả ba browser launch headless thành công. Lint cuối exit 0 không warning; type-check exit 0. Lần multi-browser đầu exit 1 với 69 passed/51 failed/0 skipped nhưng scan phát hiện 51 trace API lưu login payload, Authorization và JWT; phân loại test-harness security defect, đổi trace: off và rerun thay thế artifact cũ. Lần cuối exit 1 trong 58.1 giây: mỗi project 23 passed/17 failed/0 skipped, tổng 69/51/0; không có failure mới, DT-011 và DT-013 pass trên cả ba project. Đã mở HTML report cuối và kiểm chứng DOM/title hiển thị Run by: 23127464, Runtime timestamp: 2026-08-07T08:59:03.516Z, All 120/Passed 69/Failed 51/Skipped 0. Artifact cuối có 51 error-context, 0 trace/screenshot/video; scan embedded report có 0 JWT shape và 0 serialized password value. Tạo evidence/phase-d-run.md và cập nhật REVIEW_NOTES.md. Chưa thực hiện Phase E.
 ```
 
 ---
@@ -1211,7 +1232,7 @@ approved, continue
 **AI Action:**
 
 ```text
-Đã hoàn thành Phase E cho FR-12 và dừng chờ duyệt cuối. Cập nhật REVIEW_NOTES.md: header hiện hành, bảng phân loại bốn SUT root causes, loại trừ test defect/environment issue, 40/40 automated, gap và checkpoint E. Tạo bốn bug report public-safe trong reports/fr12-access/bugs/: BUG-FR12-001 gồm 6 Product TC-ID Critical/P0; BUG-FR12-002 gồm 7 Admin API TC-ID Critical/P0; BUG-FR12-003 gồm 3 Category TC-ID Critical/P0; BUG-FR12-004 gồm DT-002 Minor/P2. Mỗi report dùng browser/version thật, timestamp report, evidence Phase A/D và HTML report; không chứa credential/token; GitHub Issue đều Chưa tạo — đề xuất, URL N/A. Tạo README_SUMMARY.md bằng số liệu thật 40 designed/automated, 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs, bốn SUT root causes; không suy diễn tiêu chí 9 lượt toàn bài từ riêng FR-12. Tạo GAP_ANALYSIS.md với coverage API-only, token partitions còn thiếu, database/order concurrency, trace-security tradeoff, black-box limitation và cảnh báo credential plaintext trong bug report legacy ngoài output automation. Không có case chưa tự động hóa. Nhắc video demo và AI Critique cá nhân là phần sinh viên tự thực hiện. Không chạy lại suite vì Phase E chỉ cập nhật tài liệu từ artifact Phase D đã duyệt; lint/type-check gần nhất đều exit 0.
+Đã hoàn thành Phase E cho FR-12 và dừng chờ duyệt cuối. Cập nhật REVIEW_NOTES.md: header hiện hành, bảng phân loại bốn SUT root causes, loại trừ test defect/environment issue, 40/40 automated, gap và checkpoint E. Tạo bốn bug report public-safe trong bug-reports/FR-12/: BUG-FR12-001 gồm 6 Product TC-ID Critical/P0; BUG-FR12-002 gồm 7 Admin API TC-ID Critical/P0; BUG-FR12-003 gồm 3 Category TC-ID Critical/P0; BUG-FR12-004 gồm DT-002 Minor/P2. Mỗi report dùng browser/version thật, timestamp report, evidence Phase A/D và HTML report; không chứa credential/token; GitHub Issue đều Chưa tạo — đề xuất, URL N/A. Tạo README_SUMMARY.md bằng số liệu thật 40 designed/automated, 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs, bốn SUT root causes; không suy diễn tiêu chí 9 lượt toàn bài từ riêng FR-12. Tạo GAP_ANALYSIS.md với coverage API-only, token partitions còn thiếu, database/order concurrency, trace-security tradeoff, black-box limitation và cảnh báo credential plaintext trong bug report legacy ngoài output automation. Không có case chưa tự động hóa. Nhắc video demo và AI Critique cá nhân là phần sinh viên tự thực hiện. Không chạy lại suite vì Phase E chỉ cập nhật tài liệu từ artifact Phase D đã duyệt; lint/type-check gần nhất đều exit 0.
 ```
 
 ---
@@ -1231,7 +1252,7 @@ Không giữ lại file GAP_ANALYSIS.md, chuyển đổi nó vào folder ai-gap-
 **AI Action:**
 
 ```text
-Sẽ chuyển nội dung Phase E gap analysis của FR-12 vào file chuẩn có sẵn ai-gap-analysis/FR-12-access-gap-analysis.md, thay thế nội dung cũ bằng bản đã cập nhật từ kết quả Playwright 120 lượt và bốn root causes; xóa reports/fr12-access/GAP_ANALYSIS.md để không giữ bản trùng. Sẽ cập nhật README_SUMMARY.md và REVIEW_NOTES.md chỉ còn tham chiếu đường dẫn ai-gap-analysis, kiểm tra không còn reference tới file cũ và giữ audit entry lịch sử nguyên vẹn.
+Sẽ chuyển nội dung Phase E gap analysis của FR-12 vào file chuẩn có sẵn ai-gap-analysis/FR-12-access-gap-analysis.md, thay thế nội dung cũ bằng bản đã cập nhật từ kết quả Playwright 120 lượt và bốn root causes; xóa playwrite-test/fr12-access/GAP_ANALYSIS.md để không giữ bản trùng. Sẽ cập nhật README_SUMMARY.md và REVIEW_NOTES.md chỉ còn tham chiếu đường dẫn ai-gap-analysis, kiểm tra không còn reference tới file cũ và giữ audit entry lịch sử nguyên vẹn.
 ```
 
 ---
@@ -1251,7 +1272,7 @@ Không giữ lại file GAP_ANALYSIS.md, chuyển đổi nó vào folder ai-gap-
 **AI Action:**
 
 ```text
-Đã thay nội dung ai-gap-analysis/FR-12-access-gap-analysis.md bằng bản Phase E hiện hành: coverage 40/40 và 120 lượt, bảy gap thực tế, bảng phân loại bốn SUT root causes và các bài học human review về taxonomy, browser harness, workers=1, trace security và giới hạn black-box. Đã xóa reports/fr12-access/GAP_ANALYSIS.md, cập nhật README_SUMMARY.md và REVIEW_NOTES.md chỉ còn trỏ tới ai-gap-analysis/FR-12-access-gap-analysis.md. Kiểm tra cuối xác nhận file nguồn cũ không còn, file đích tồn tại và không còn reference hiện hành tới đường dẫn GAP_ANALYSIS.md cũ.
+Đã thay nội dung ai-gap-analysis/FR-12-access-gap-analysis.md bằng bản Phase E hiện hành: coverage 40/40 và 120 lượt, bảy gap thực tế, bảng phân loại bốn SUT root causes và các bài học human review về taxonomy, browser harness, workers=1, trace security và giới hạn black-box. Đã xóa playwrite-test/fr12-access/GAP_ANALYSIS.md, cập nhật README_SUMMARY.md và REVIEW_NOTES.md chỉ còn trỏ tới ai-gap-analysis/FR-12-access-gap-analysis.md. Kiểm tra cuối xác nhận file nguồn cũ không còn, file đích tồn tại và không còn reference hiện hành tới đường dẫn GAP_ANALYSIS.md cũ.
 ```
 
 ---
@@ -1271,7 +1292,7 @@ Sửa liên kết gap analysis bị hỏng: README_SUMMARY.md và REVIEW_NOTES.m
 **AI Action:**
 
 ```text
-Sẽ cập nhật toàn bộ reference hiện hành trong reports/fr12-access/README_SUMMARY.md và REVIEW_NOTES.md sang ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md; giữ các audit entry lịch sử nguyên vẹn và kiểm tra không còn đường dẫn cũ ngoài audit.
+Sẽ cập nhật toàn bộ reference hiện hành trong playwrite-test/fr12-access/README_SUMMARY.md và REVIEW_NOTES.md sang ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md; giữ các audit entry lịch sử nguyên vẹn và kiểm tra không còn đường dẫn cũ ngoài audit.
 ```
 
 ---
@@ -1291,7 +1312,7 @@ Sửa liên kết gap analysis bị hỏng sang file thực tế ai-gap-analysis
 **AI Action:**
 
 ```text
-Đã sửa một reference trong reports/fr12-access/README_SUMMARY.md và hai reference trong REVIEW_NOTES.md sang ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md. Kiểm tra cuối xác nhận file đích tồn tại, không còn reference hiện hành tới ai-gap-analysis/FR-12-access-gap-analysis.md trong reports/fr12-access và git diff --check không phát hiện lỗi.
+Đã sửa một reference trong playwrite-test/fr12-access/README_SUMMARY.md và hai reference trong REVIEW_NOTES.md sang ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md. Kiểm tra cuối xác nhận file đích tồn tại, không còn reference hiện hành tới ai-gap-analysis/FR-12-access-gap-analysis.md trong playwrite-test/fr12-access và git diff --check không phát hiện lỗi.
 ```
 
 ---
@@ -1359,7 +1380,7 @@ Thông tin đầu vào:
 - Backend API: http://localhost:3000
 - Mã sinh viên dùng cho report: 23127464
 - Output review:
-  reports/fr05-search/REVIEW_NOTES.md
+  playwrite-test/fr05-search/REVIEW_NOTES.md
 
 Chỉ thực hiện Phase A theo hướng kiểm thử hộp đen và dừng tại Checkpoint A; không tạo Playwright spec, fixture hoặc config và không tự chuyển Phase B.
 ```
@@ -1367,7 +1388,7 @@ Chỉ thực hiện Phase A theo hướng kiểm thử hộp đen và dừng t�
 **AI Action:**
 
 ```text
-Đã hoàn tất Phase A FR-05 bằng kiểm thử hộp đen và dừng tại Checkpoint A. Đã đọc đủ 12/12 test case HW02, manual run và mục FR-05 trong README; không đọc source triển khai, middleware hay database schema. Frontend :5173 và API :3000 đều trả HTTP 200. Đã dùng Chromium 151.0.7922.34 tương tác thật qua UI, accessibility tree, URL, DOM/computed style và network công khai. Kết quả: 3 Khớp (DT-001/005/008), 8 Lệch (DT-003/004/006/007/009/010/011/012), 1 Không xác định (DT-002), 0 Trùng lặp. Đã xác nhận DT-002 mâu thuẫn Áo/Iphone; hai file cuối mâu thuẫn filename DT-011/DT-012 với heading DT-012/DT-014; chưa sửa và đã đề xuất quyết định. Tất cả 12 case có automationSurface UI hoặc UI+network, không có API-only; UI giữ vai trò oracle chính cho nội dung/trạng thái/layout/DOM. Đã tạo reports/fr05-search/REVIEW_NOTES.md với bằng chứng thật, locator, precondition, dữ liệu mẫu, giới hạn ảnh ngoài bị network sandbox chặn và danh sách file. Không tạo spec/fixture/config/bug report. git diff --check sạch; kiểm tra bảng có đủ 12 dòng, đúng tổng 3/8/1/0 và 12 automationSurface. Ghi nhận side effect SUT tạo debug.log khi nhận XSS payload; agent không đọc/chỉnh sửa file này. Chờ người dùng duyệt Checkpoint A.
+Đã hoàn tất Phase A FR-05 bằng kiểm thử hộp đen và dừng tại Checkpoint A. Đã đọc đủ 12/12 test case HW02, manual run và mục FR-05 trong README; không đọc source triển khai, middleware hay database schema. Frontend :5173 và API :3000 đều trả HTTP 200. Đã dùng Chromium 151.0.7922.34 tương tác thật qua UI, accessibility tree, URL, DOM/computed style và network công khai. Kết quả: 3 Khớp (DT-001/005/008), 8 Lệch (DT-003/004/006/007/009/010/011/012), 1 Không xác định (DT-002), 0 Trùng lặp. Đã xác nhận DT-002 mâu thuẫn Áo/Iphone; hai file cuối mâu thuẫn filename DT-011/DT-012 với heading DT-012/DT-014; chưa sửa và đã đề xuất quyết định. Tất cả 12 case có automationSurface UI hoặc UI+network, không có API-only; UI giữ vai trò oracle chính cho nội dung/trạng thái/layout/DOM. Đã tạo playwrite-test/fr05-search/REVIEW_NOTES.md với bằng chứng thật, locator, precondition, dữ liệu mẫu, giới hạn ảnh ngoài bị network sandbox chặn và danh sách file. Không tạo spec/fixture/config/bug report. git diff --check sạch; kiểm tra bảng có đủ 12 dòng, đúng tổng 3/8/1/0 và 12 automationSurface. Ghi nhận side effect SUT tạo debug.log khi nhận XSS payload; agent không đọc/chỉnh sửa file này. Chờ người dùng duyệt Checkpoint A.
 ```
 
 ---
@@ -1411,7 +1432,7 @@ file debug.log tôi chưa hiểu giải thích chức năng cho FR-05 và tôi s
 **AI Action:**
 
 ```text
-Đã cập nhật reports/fr05-search/REVIEW_NOTES.md theo hai quyết định: DT-002 dùng Iphone và được phân loại Khớp theo lần chạy thật; filename/manual run là canonical với DT-011 = h1, DT-012 = format giá. Tổng mới đã kiểm tra là 4 Khớp, 8 Lệch, 0 Không xác định, 0 Trùng lặp trên đủ 12 dòng. Không sửa file HW02; mapping canonical chỉ được ghi nhận để áp dụng nếu Phase B được duyệt. Đã giải thích debug.log là file untracked 2.970 byte xuất hiện lúc 20:56:07, đồng thời với probe XSS, không phải chức năng nghiệp vụ/oracle/output FR-05; chưa khẳng định process tạo hay nội dung vì không đọc log ngoài ranh giới hộp đen. File giữ nguyên chờ quyết định. git diff --check sạch. Tiếp tục dừng tại Checkpoint A, chưa chuyển Phase B.
+Đã cập nhật playwrite-test/fr05-search/REVIEW_NOTES.md theo hai quyết định: DT-002 dùng Iphone và được phân loại Khớp theo lần chạy thật; filename/manual run là canonical với DT-011 = h1, DT-012 = format giá. Tổng mới đã kiểm tra là 4 Khớp, 8 Lệch, 0 Không xác định, 0 Trùng lặp trên đủ 12 dòng. Không sửa file HW02; mapping canonical chỉ được ghi nhận để áp dụng nếu Phase B được duyệt. Đã giải thích debug.log là file untracked 2.970 byte xuất hiện lúc 20:56:07, đồng thời với probe XSS, không phải chức năng nghiệp vụ/oracle/output FR-05; chưa khẳng định process tạo hay nội dung vì không đọc log ngoài ranh giới hộp đen. File giữ nguyên chờ quyết định. git diff --check sạch. Tiếp tục dừng tại Checkpoint A, chưa chuyển Phase B.
 ```
 
 ---
@@ -1451,7 +1472,7 @@ xóa debug.log và tôi approved, continue phase B
 **AI Action:**
 
 ```text
-Đã hoàn tất Phase B FR-05 và dừng Checkpoint B. Đã xác minh target E:\Testing\CS423-CSC15003-Testing-N08\debug.log nằm trong workspace, kích thước trước xóa 2.970 byte; xóa theo yêu cầu và kiểm tra EXISTS_AFTER=False, không đọc nội dung. Đã cập nhật REVIEW_NOTES.md để Checkpoint A = Đã duyệt và ghi bằng chứng xóa. Đã tạo reports/fr05-search/TEST_CASES.md theo template với 12 case/12 ID duy nhất DT-001..DT-012, 12 nguồn HW02, 0 bổ sung, 0 trùng, 9 UI+network và 3 UI; dùng Iphone cho DT-002; canonical DT-011=h1 và DT-012=format giá; chốt DT-004 về empty state và DT-005 về trim/hiển thị toàn bộ, giữ expected của các case actual lệch. Đã ghi nội dung cũ/mới/lý do, coverage và bốn điểm cần duyệt: mapping loại case; chiến lược network ảnh DT-009; xác nhận localhost là test isolated trước khi lặp security payload; vai trò diagnostic của URL DT-004. Không tạo fixture/spec/config/bug report. Kiểm tra cuối: đủ 12 dòng, 12 ID duy nhất, 12 nguồn HW02, debug.log không tồn tại, 0 FR-05 spec, 0 FR-05 fixture, git diff --check sạch. Chờ người dùng duyệt Checkpoint B; chưa chuyển Phase C.
+Đã hoàn tất Phase B FR-05 và dừng Checkpoint B. Đã xác minh target E:\Testing\CS423-CSC15003-Testing-N08\debug.log nằm trong workspace, kích thước trước xóa 2.970 byte; xóa theo yêu cầu và kiểm tra EXISTS_AFTER=False, không đọc nội dung. Đã cập nhật REVIEW_NOTES.md để Checkpoint A = Đã duyệt và ghi bằng chứng xóa. Đã tạo playwrite-test/fr05-search/TEST_CASES.md theo template với 12 case/12 ID duy nhất DT-001..DT-012, 12 nguồn HW02, 0 bổ sung, 0 trùng, 9 UI+network và 3 UI; dùng Iphone cho DT-002; canonical DT-011=h1 và DT-012=format giá; chốt DT-004 về empty state và DT-005 về trim/hiển thị toàn bộ, giữ expected của các case actual lệch. Đã ghi nội dung cũ/mới/lý do, coverage và bốn điểm cần duyệt: mapping loại case; chiến lược network ảnh DT-009; xác nhận localhost là test isolated trước khi lặp security payload; vai trò diagnostic của URL DT-004. Không tạo fixture/spec/config/bug report. Kiểm tra cuối: đủ 12 dòng, 12 ID duy nhất, 12 nguồn HW02, debug.log không tồn tại, 0 FR-05 spec, 0 FR-05 fixture, git diff --check sạch. Chờ người dùng duyệt Checkpoint B; chưa chuyển Phase C.
 ```
 
 ---
@@ -1565,7 +1586,7 @@ Hãy chuyển các bước manual thành Playwright TypeScript theo bề mặt k
 **AI Action:**
 
 ```text
-Đã hoàn tất Phase C FR-05 và dừng Checkpoint C. Tạo tests/fr05-search.spec.ts với 12 test/12 TC-ID duy nhất, case data inline theo ngoại lệ người dùng duyệt, 9 UI+network và 3 UI, role locator ưu tiên cùng fallback có giải thích, 0 waitForTimeout, thực thi các nhóm assertion DOM/text, state/attribute, network/response, count/aggregate và layout/computed DOM. Không tạo fixture/config mới. Lint ban đầu exit 0; typecheck ban đầu exit 0. Chromium lượt đầu exit 1, 4 passed/8 failed/0 skipped nhưng DT-009 chạm timeout 30 giây do nhiều soft assertion thiếu UI nối tiếp; đã sửa test-harness bằng timeout 1 giây sau synchronization, không đổi expected/assertion value. Lint sau sửa exit 0; typecheck sau sửa exit 0. Chromium lượt cuối exit 1, runner 39.2 giây: 4 passed (DT-001/002/005/008), 8 failed (DT-003/004/006/007/009/010/011/012), 0 skipped, không còn test timeout. DT-009 fail do alt rỗng và VND thay vì ₫, không do placehold.co. Tạo reports/fr05-search/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md/TEST_CASES.md. Artifact cuối test-results/fr05-phase-c có 8 screenshot, 8 video, 8 error-context; không có pass screenshot attachment. Kiểm tra 12 declarations/12 registered tests/12 unique IDs, debug.log không tồn tại và git diff --check sạch. Chưa phân loại failure hoặc tạo bug report; chưa chuyển Phase D.
+Đã hoàn tất Phase C FR-05 và dừng Checkpoint C. Tạo tests/fr05-search.spec.ts với 12 test/12 TC-ID duy nhất, case data inline theo ngoại lệ người dùng duyệt, 9 UI+network và 3 UI, role locator ưu tiên cùng fallback có giải thích, 0 waitForTimeout, thực thi các nhóm assertion DOM/text, state/attribute, network/response, count/aggregate và layout/computed DOM. Không tạo fixture/config mới. Lint ban đầu exit 0; typecheck ban đầu exit 0. Chromium lượt đầu exit 1, 4 passed/8 failed/0 skipped nhưng DT-009 chạm timeout 30 giây do nhiều soft assertion thiếu UI nối tiếp; đã sửa test-harness bằng timeout 1 giây sau synchronization, không đổi expected/assertion value. Lint sau sửa exit 0; typecheck sau sửa exit 0. Chromium lượt cuối exit 1, runner 39.2 giây: 4 passed (DT-001/002/005/008), 8 failed (DT-003/004/006/007/009/010/011/012), 0 skipped, không còn test timeout. DT-009 fail do alt rỗng và VND thay vì ₫, không do placehold.co. Tạo playwrite-test/fr05-search/evidence/phase-c-run.md và cập nhật REVIEW_NOTES.md/TEST_CASES.md. Artifact cuối test-results/fr05-phase-c có 8 screenshot, 8 video, 8 error-context; không có pass screenshot attachment. Kiểm tra 12 declarations/12 registered tests/12 unique IDs, debug.log không tồn tại và git diff --check sạch. Chưa phân loại failure hoặc tạo bug report; chưa chuyển Phase D.
 ```
 
 ---
@@ -1679,7 +1700,7 @@ approved, continue
 **AI Action:**
 
 ```text
-Đã hoàn tất Phase D FR-05 và dừng Checkpoint D. Tạo playwright.fr05.config.ts với Chromium, Firefox, msedge, metadata Run by 23127464/timestamp runtime, HTML report riêng, failure screenshot/video/trace; thêm npm script và lint scope. Lint/typecheck exit 0/0; --list exit 0, đúng 36 lượt. npm run test:fr05:phase-d exit 1 sau 4.0m: Chromium 4 pass/8 fail/0 skip, Firefox 0/12/0, Edge 4/8/0; tổng 8 pass/28 fail/0 skip. Chromium/Edge cùng mẫu Phase C. Cả 12 Firefox fail trước test body với browserContext.newPage TypeError; targeted DT-001 exit 1 trong 5.4s và direct firefox.launch/browser.newPage probe exit 1 trong 2.9s cùng lỗi, nên ghi environment/runtime issue, không đổi/skip expected. Mở reports/fr05-search/playwright-report/index.html bằng Chromium headless và xác nhận title/body render có Run by: 23127464, Runtime timestamp: 2026-08-08T15:33:27.295Z, All 36/Passed 8/Failed 28/Skipped 0/4.0m. Runtime có 36 result dirs, 56 custom PNG, 16 failure PNG, 28 video, 28 trace, 28 error-context. Quét 53 text artifact và tên file: 0 credential/token/secret/session match. Tạo phase-d-run.md, cập nhật REVIEW_NOTES/audit. Chưa chuyển Phase E hoặc tạo bug report.
+Đã hoàn tất Phase D FR-05 và dừng Checkpoint D. Tạo playwright.fr05.config.ts với Chromium, Firefox, msedge, metadata Run by 23127464/timestamp runtime, HTML report riêng, failure screenshot/video/trace; thêm npm script và lint scope. Lint/typecheck exit 0/0; --list exit 0, đúng 36 lượt. npm run test:fr05:phase-d exit 1 sau 4.0m: Chromium 4 pass/8 fail/0 skip, Firefox 0/12/0, Edge 4/8/0; tổng 8 pass/28 fail/0 skip. Chromium/Edge cùng mẫu Phase C. Cả 12 Firefox fail trước test body với browserContext.newPage TypeError; targeted DT-001 exit 1 trong 5.4s và direct firefox.launch/browser.newPage probe exit 1 trong 2.9s cùng lỗi, nên ghi environment/runtime issue, không đổi/skip expected. Mở playwrite-test/fr05-search/playwright-report/index.html bằng Chromium headless và xác nhận title/body render có Run by: 23127464, Runtime timestamp: 2026-08-08T15:33:27.295Z, All 36/Passed 8/Failed 28/Skipped 0/4.0m. Runtime có 36 result dirs, 56 custom PNG, 16 failure PNG, 28 video, 28 trace, 28 error-context. Quét 53 text artifact và tên file: 0 credential/token/secret/session match. Tạo phase-d-run.md, cập nhật REVIEW_NOTES/audit. Chưa chuyển Phase E hoặc tạo bug report.
 ```
 
 ---
@@ -1739,7 +1760,7 @@ cập nhật nội dung của html report để hiển thị phf hợp
 **AI Action:**
 
 ```text
-Sẽ tiếp tục remediation trong Phase D: không sửa số liệu trực tiếp trong HTML. Sẽ kiểm tra cấu hình report hiện tại, chạy lại full matrix Chromium/Firefox/Microsoft Edge ngoài sandbox bằng spec và expected đã duyệt, để Playwright tự tái tạo reports/fr05-search/playwright-report/index.html từ kết quả thật. Sau đó sẽ mở artifact đã render để kiểm chứng Run by: 23127464, timestamp ISO runtime và tổng passed/failed/skipped; cập nhật REVIEW_NOTES, evidence Phase D Firefox/report và audit bằng command/exit code/thời lượng thật. Giữ nguyên fixture/expected và dừng tại Checkpoint D, chưa chuyển Phase E.
+Sẽ tiếp tục remediation trong Phase D: không sửa số liệu trực tiếp trong HTML. Sẽ kiểm tra cấu hình report hiện tại, chạy lại full matrix Chromium/Firefox/Microsoft Edge ngoài sandbox bằng spec và expected đã duyệt, để Playwright tự tái tạo playwrite-test/fr05-search/playwright-report/index.html từ kết quả thật. Sau đó sẽ mở artifact đã render để kiểm chứng Run by: 23127464, timestamp ISO runtime và tổng passed/failed/skipped; cập nhật REVIEW_NOTES, evidence Phase D Firefox/report và audit bằng command/exit code/thời lượng thật. Giữ nguyên fixture/expected và dừng tại Checkpoint D, chưa chuyển Phase E.
 ```
 
 ---
@@ -1759,7 +1780,7 @@ cập nhật nội dung của html report để hiển thị phf hợp
 **AI Action:**
 
 ```text
-Đã cập nhật HTML report bằng dữ liệu chạy thật, không chỉnh tay số liệu. Frontend localhost:5173 trả 200; backend process phản hồi route root bằng 404 Cannot GET / nên service vẫn đang hoạt động. Full matrix đầu sau Firefox remediation chạy ngoài sandbox bằng npm run test:fr05:phase-d exit 1 trong 3.3m, cho 12 passed/24 failed/0 skipped. Khi mở report phát hiện suite label còn ghi Phase C; đã sửa duy nhất metadata hiển thị: test.describe dùng tên feature trung lập và HTML title dùng tên FR-05 đầy đủ, không đổi fixture/expected/assertion. Lint và typecheck exit 0/0. Full matrix cuối exit 1 trong 3.4m: Chromium 4/8/0, Firefox 4/8/0, msedge 4/8/0; tổng 12/24/0 với cùng tập pass DT-001/002/005/008 trên cả ba project. Mở reports/fr05-search/playwright-report/index.html bằng Chromium headless xác nhận title `FR-05 — Xem danh sách và tìm kiếm sản phẩm | Run by: 23127464 | Runtime timestamp: 2026-08-08T16:07:38.995Z`, summary All 36/Passed 12/Failed 24/Flaky 0/Skipped 0/3.4m, có Firefox và msedge, không còn Phase C. Runtime có 36 result dirs, 84 custom UI PNG, 24 failure PNG/video/trace/error-context; quét 25 text artifact có 0 sensitive credential pattern match. Lexical scan index.html chỉ gặp identifier password trong mã thư viện ZIP/form control nhúng của reporter, không thấy credential value người dùng/SUT. Đã cập nhật REVIEW_NOTES, phase-d-run.md và phase-d-firefox-rerun.md; dừng Checkpoint D, chưa chuyển Phase E.
+Đã cập nhật HTML report bằng dữ liệu chạy thật, không chỉnh tay số liệu. Frontend localhost:5173 trả 200; backend process phản hồi route root bằng 404 Cannot GET / nên service vẫn đang hoạt động. Full matrix đầu sau Firefox remediation chạy ngoài sandbox bằng npm run test:fr05:phase-d exit 1 trong 3.3m, cho 12 passed/24 failed/0 skipped. Khi mở report phát hiện suite label còn ghi Phase C; đã sửa duy nhất metadata hiển thị: test.describe dùng tên feature trung lập và HTML title dùng tên FR-05 đầy đủ, không đổi fixture/expected/assertion. Lint và typecheck exit 0/0. Full matrix cuối exit 1 trong 3.4m: Chromium 4/8/0, Firefox 4/8/0, msedge 4/8/0; tổng 12/24/0 với cùng tập pass DT-001/002/005/008 trên cả ba project. Mở playwrite-test/fr05-search/playwright-report/index.html bằng Chromium headless xác nhận title `FR-05 — Xem danh sách và tìm kiếm sản phẩm | Run by: 23127464 | Runtime timestamp: 2026-08-08T16:07:38.995Z`, summary All 36/Passed 12/Failed 24/Flaky 0/Skipped 0/3.4m, có Firefox và msedge, không còn Phase C. Runtime có 36 result dirs, 84 custom UI PNG, 24 failure PNG/video/trace/error-context; quét 25 text artifact có 0 sensitive credential pattern match. Lexical scan index.html chỉ gặp identifier password trong mã thư viện ZIP/form control nhúng của reporter, không thấy credential value người dùng/SUT. Đã cập nhật REVIEW_NOTES, phase-d-run.md và phase-d-firefox-rerun.md; dừng Checkpoint D, chưa chuyển Phase E.
 ```
 
 ---
@@ -1799,7 +1820,7 @@ approved, continue
 **AI Action:**
 
 ```text
-Đã hoàn tất Phase E FR-05 và dừng Checkpoint E. Đọc đầy đủ conventions cùng template review-notes/bug-report/readme-summary, requirement FR-05, fixture, manual run, REVIEW_NOTES và artifact consolidated thật; không đọc source SUT. Phân loại 8 TC-ID failed hiện hành trên cả 3 projects là SUT defects, 0 test defect/environment issue/không xác định trong final run, rồi nhóm thành 6 root causes: missing empty state (DT-003/004), unsafe keyword handling gây HTTP 500/raw SQLite error và SQL result expansion (DT-006/007), alt ảnh rỗng (DT-009), currency VND thay ₫ (DT-009/012), missing loading indicator (DT-010), multiple h1 (DT-011). Tạo 6 report trong reports/fr05-search/bugs; mọi report ghi Chưa tạo — đề xuất cho GitHub, không bịa URL/ID. Ghi mapping từ 7 manual bug ID lịch sử sang 6 canonical Phase E root causes và giữ nguyên manual artifact. Cập nhật REVIEW_NOTES với HW02-vs-actual, automation defects đã sửa, classification, 0 unautomated/0 duplicate, coverage, gap, commit proposals và checkpoint. Tạo reports/fr05-search/README_SUMMARY.md cùng ai-gap-analysis/FR-05-search-multibrowser-gap.md. Cập nhật reports/README_SUMMARY.md: FR-05 + FR-08 + FR-12 = 70 designed, 67 automated, 201 executions, 93 passed, 108 failed, 0 skipped, 9 browser runs, 15 SUT root causes; tiêu chí 3 feature/9 runs có evidence. Browser version probe exit 0: Chromium 151.0.7922.34, Firefox 153.0, Edge 151.0.4129.72; OS Windows NT 10.0.26200.0. Mở kiểm tra trực tiếp screenshot DT-006/007/009/010; error contexts xác nhận actual. Validation cuối: 6 bug files, đủ 6/6 required UTF-8 headings, 15/15 referenced artifact paths tồn tại, 0 sensitive credential match trong tài liệu Phase E; lint/typecheck exit 0/0; git diff --check exit 0 với chỉ line-ending warnings. Một kiểm tra Contains qua Windows PowerShell mặc định từng báo sai 12 heading Unicode bị thiếu do decode; kiểm tra lại bằng ripgrep UTF-8 xác nhận đủ, không sửa template để che lỗi. Không chạy lại test trong Phase E; dùng consolidated Phase D report thật 12 passed/24 failed/0 skipped, timestamp 2026-08-08T16:07:38.995Z. Chưa tạo GitHub Issue hoặc commit. Nhắc sinh viên tự làm video demo và AI Critique cá nhân.
+Đã hoàn tất Phase E FR-05 và dừng Checkpoint E. Đọc đầy đủ conventions cùng template review-notes/bug-report/readme-summary, requirement FR-05, fixture, manual run, REVIEW_NOTES và artifact consolidated thật; không đọc source SUT. Phân loại 8 TC-ID failed hiện hành trên cả 3 projects là SUT defects, 0 test defect/environment issue/không xác định trong final run, rồi nhóm thành 6 root causes: missing empty state (DT-003/004), unsafe keyword handling gây HTTP 500/raw SQLite error và SQL result expansion (DT-006/007), alt ảnh rỗng (DT-009), currency VND thay ₫ (DT-009/012), missing loading indicator (DT-010), multiple h1 (DT-011). Tạo 6 report trong bug-reports/FR-05; mọi report ghi Chưa tạo — đề xuất cho GitHub, không bịa URL/ID. Ghi mapping từ 7 manual bug ID lịch sử sang 6 canonical Phase E root causes và giữ nguyên manual artifact. Cập nhật REVIEW_NOTES với HW02-vs-actual, automation defects đã sửa, classification, 0 unautomated/0 duplicate, coverage, gap, commit proposals và checkpoint. Tạo playwrite-test/fr05-search/README_SUMMARY.md cùng ai-gap-analysis/FR-05-search-multibrowser-gap.md. Cập nhật reports/README_SUMMARY.md: FR-05 + FR-08 + FR-12 = 70 designed, 67 automated, 201 executions, 93 passed, 108 failed, 0 skipped, 9 browser runs, 15 SUT root causes; tiêu chí 3 feature/9 runs có evidence. Browser version probe exit 0: Chromium 151.0.7922.34, Firefox 153.0, Edge 151.0.4129.72; OS Windows NT 10.0.26200.0. Mở kiểm tra trực tiếp screenshot DT-006/007/009/010; error contexts xác nhận actual. Validation cuối: 6 bug files, đủ 6/6 required UTF-8 headings, 15/15 referenced artifact paths tồn tại, 0 sensitive credential match trong tài liệu Phase E; lint/typecheck exit 0/0; git diff --check exit 0 với chỉ line-ending warnings. Một kiểm tra Contains qua Windows PowerShell mặc định từng báo sai 12 heading Unicode bị thiếu do decode; kiểm tra lại bằng ripgrep UTF-8 xác nhận đủ, không sửa template để che lỗi. Không chạy lại test trong Phase E; dùng consolidated Phase D report thật 12 passed/24 failed/0 skipped, timestamp 2026-08-08T16:07:38.995Z. Chưa tạo GitHub Issue hoặc commit. Nhắc sinh viên tự làm video demo và AI Critique cá nhân.
 ```
 
 ---
@@ -1839,7 +1860,67 @@ approved
 **AI Action:**
 
 ```text
-Đã đóng Checkpoint E theo duyệt cuối của người dùng. Cập nhật reports/fr05-search/REVIEW_NOTES.md, ai-gap-analysis/FR-05-search-multibrowser-gap.md và reports/fr05-search/README_SUMMARY.md với trạng thái Đã duyệt — FR-05 hoàn tất A→E, bằng chứng prompt approved và timestamp 2026-08-08T23:30:56.7980421+07:00. Kiểm tra ripgrep xác nhận ba artifact đều hiển thị trạng thái/bằng chứng duyệt; git diff --check exit 0 với chỉ line-ending warnings. Không chạy lại test vì không đổi code/expected/SUT; không tạo GitHub Issue, commit hoặc chuyển sang feature khác. Video demo và AI Critique cá nhân vẫn do sinh viên tự thực hiện.
+Đã đóng Checkpoint E theo duyệt cuối của người dùng. Cập nhật playwrite-test/fr05-search/REVIEW_NOTES.md, ai-gap-analysis/FR-05-search-multibrowser-gap.md và playwrite-test/fr05-search/README_SUMMARY.md với trạng thái Đã duyệt — FR-05 hoàn tất A→E, bằng chứng prompt approved và timestamp 2026-08-08T23:30:56.7980421+07:00. Kiểm tra ripgrep xác nhận ba artifact đều hiển thị trạng thái/bằng chứng duyệt; git diff --check exit 0 với chỉ line-ending warnings. Không chạy lại test vì không đổi code/expected/SUT; không tạo GitHub Issue, commit hoặc chuyển sang feature khác. Video demo và AI Critique cá nhân vẫn do sinh viên tự thực hiện.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-09T14:04:16+07:00`
+
+**User Prompt:**
+
+```text
+Rà soát lại mô tả của FR-08 trong README của src, bổ sung automation test UI không đơn thuần chỉ test API
+```
+
+**AI Action:**
+
+```text
+Sẽ thực hiện refinement hậu Phase E cho FR-08: chỉ đọc tài liệu được chỉ định src/eshop-sut/README.md, đối chiếu mô tả FR-08 với spec/fixture/report đã duyệt và quan sát frontend theo hướng hộp đen. Sẽ xác định luồng Checkout UI thực sự khả dụng, bổ sung Playwright UI automation dùng page/DOM và assertion quan sát được, giữ API setup khi cần nhưng không coi đó là UI coverage. Không đọc source triển khai SUT, không tự suy diễn trường UI không tồn tại, không hạ expected để làm test pass. Sau chỉnh sửa sẽ chạy lint, type-check và test phù hợp trên ba project nếu môi trường cho phép, cập nhật evidence/review/gap/summary và dừng tại checkpoint refinement.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-09T15:07:21+07:00`
+
+**User Prompt:**
+
+```text
+sau khi đả bổ sung, xác định các vấn đề UI, tiến hành bổ sung bug từ lỗi đã gặp từ UI test
+```
+
+**AI Action:**
+
+```text
+Sẽ review 9 failure UI thật trong HTML report/evidence FR-08, nhóm theo root cause để tránh tạo bug trùng. Dự kiến tạo bug riêng cho checkout route không bảo vệ người chưa đăng nhập và checkout summary không phản ánh backend cart/tổng còn chỉnh được; cập nhật bug cart-not-cleared hiện có bằng case UI-triggered checkout thay vì tạo bản trùng. Mỗi bug sẽ ghi test case, requirement, environment, steps UI, expected/actual, severity/priority và dẫn screenshot/trace/video/HTML report thật. Không đọc source triển khai SUT, không đổi expected/assertion, không tạo GitHub Issue hoặc bịa URL/ID; sau chỉnh sửa sẽ kiểm tra đủ heading, đường dẫn evidence và diff.
+```
+
+---
+
+### AI Audit Entry
+
+**Tool:** `Codex (GPT-5)`
+
+**Date:** `2026-08-09T15:18:00+07:00`
+
+**User Prompt:**
+
+```text
+sau khi đả bổ sung, xác định các vấn đề UI, tiến hành bổ sung bug từ lỗi đã gặp từ UI test
+```
+
+**AI Action:**
+
+```text
+Đã review trực tiếp screenshot, error context, trace/video mapping và HTML report của 9 failure UI FR-08 trên Chromium/Firefox/Edge. Phân loại thành bốn vấn đề quan sát nhưng chỉ ba root cause mới: BUG-FR08-006 route /checkout không bảo vệ anonymous (Major/P2), BUG-FR08-007 checkout không render sản phẩm đã có trong backend cart (Major/P1), BUG-FR08-008 total UI bằng 0 và editable thay vì 12000000 chỉ đọc (Critical/P1). FR08-UI-README-003 tái hiện cùng root cause cart-not-cleared nên cập nhật BUG-FR08-002 bằng steps click UI, response 200, success message, screenshot, 3 trace và video thay vì tạo bug trùng. Cập nhật REVIEW_NOTES và feature/global summary: FR-08 hiện có 8 bug report/root cause; toàn bộ ba feature có 18 root cause đã report. Tất cả bug ở trạng thái Chưa tạo — đề xuất, không bịa GitHub URL/ID. Validation: 8 bug files, 0 thiếu heading bắt buộc, 0 evidence path thiếu/rỗng trong 15 artifact được dẫn, 0 runtime credential/token match, git diff --check exit 0 với chỉ cảnh báo line ending. Không đổi test code/fixture/expected, không chạy lại test vì chỉ bổ sung bug documentation dựa trên final run 54 lượt đã kiểm chứng.
 ```
 
 ---

@@ -18,7 +18,7 @@
 | Database/order ID 1 dùng chung | DT-011/012/013 gọi reset toàn cục | Không thể chạy ba project song song an toàn | Giữ `workers: 1` hoặc cấp backend/database riêng cho từng project |
 | Trace bị tắt để bảo vệ credential/token | Scan lần chạy đầu phát hiện auth data trong API trace | Điều tra failure không có timeline trace | Dùng HTML report + error context; chỉ bật trace khi có cơ chế redaction/credential test cô lập an toàn |
 | Root-cause wording dựa trên quan sát hộp đen | Không đọc source triển khai SUT | Không thể khẳng định tên middleware/hàm nội bộ gây lỗi | Giữ mô tả “enforcement quan sát được”; đội phát triển xác định code root cause |
-| Bug report legacy ngoài output automation chứa credential plaintext | `bug-reports/FR-12/BUG-FR12-002.md` và `003.md` có login body | Rủi ro lộ credential nếu publish repository | Redact credential trong artifact legacy hoặc thay bằng bản public-safe tại `reports/fr12-access/bugs/`; không tự xóa lịch sử |
+| Bug report legacy ngoài output automation chứa credential plaintext | `bug-reports/FR-12/BUG-FR12-002.md` và `003.md` có login body | Rủi ro lộ credential nếu publish repository | Redact credential trong artifact legacy hoặc thay bằng bản public-safe tại `bug-reports/FR-12/`; không tự xóa lịch sử |
 
 ## Phân loại failure cuối
 

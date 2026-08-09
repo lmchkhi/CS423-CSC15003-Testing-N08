@@ -8,7 +8,7 @@
 | Spec | `tests/<feature>.spec.ts` |
 | Fixture | `data/<feature>.json` |
 | Người review | `<người dùng>` |
-| Thời điểm | `<timestamp ISO 8601 thật>` |
+| Thời điểm | `<dd/MM/yyyy HH:mm — thời gian thật>` |
 | Lệnh đã chạy | `<lệnh thật hoặc Chưa chạy>` |
 | Exit code | `<số thật hoặc N/A>` |
 
@@ -44,7 +44,7 @@
 | Chromium | `<pass/fail/skip/not run>` | `<artifact>` |
 | Firefox | `<pass/fail/skip/not run>` | `<artifact>` |
 | Edge | `<pass/fail/skip/not run>` | `<artifact>` |
-| Metadata report | `<Đã/Chưa thấy Run by và timestamp>` | `<artifact đã mở>` |
+| Metadata report | `<Đã/Chưa thấy Run by, dd/MM/yyyy HH:mm và ISO timestamp>` | `<artifact đã mở>` |
 
 ## 6. Gap analysis
 

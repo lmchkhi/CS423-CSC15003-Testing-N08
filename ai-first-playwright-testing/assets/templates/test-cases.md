@@ -8,7 +8,7 @@
 | Trạng thái nguồn | `<Có HW02 / Không có HW02 — nhánh ngoại lệ đã duyệt>` |
 | Lý do ngoại lệ | `<N/A hoặc nguyên văn lý do do người dùng khai báo>` |
 | URL SUT | `<URL>` |
-| Ngày đối chiếu | `<timestamp ISO 8601 thật>` |
+| Ngày đối chiếu | `<dd/MM/yyyy HH:mm — thời gian thật>` |
 | Checkpoint A | `<Chưa duyệt / Đã duyệt + bằng chứng xác nhận>` |
 
 ## Bảng đối chiếu ban đầu

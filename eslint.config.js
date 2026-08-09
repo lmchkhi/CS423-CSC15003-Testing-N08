@@ -6,7 +6,7 @@ export default [
     ignores: ['node_modules/**', 'playwright-report/**', 'test-results/**'],
   },
   {
-    files: ['tests/**/*.ts', 'playwright*.config.ts'],
+    files: ['tests/**/*.ts', 'playwright*.config.ts', 'report-time.ts'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {

@@ -5,7 +5,7 @@
 - Requirement công khai: `src/eshop-sut/README.md`, mục FR-05.
 - HW02: `tests/test-cases/FR-05-search/domain-testing/`, 12 case canonical.
 - Fixture/spec: `data/fr05-search.json`, `tests/fr05-search.spec.ts`.
-- Consolidated report: `reports/fr05-search/playwright-report/index.html`.
+- Consolidated report: `playwrite-test/fr05-search/playwright-report/index.html`.
 - Runtime evidence: `test-results/fr05-phase-d/`.
 - Ranh giới: kiểm thử hộp đen; không đọc source implementation, middleware hoặc database schema.
 
@@ -72,4 +72,4 @@ DT-009 xuất hiện trong hai bug report vì cùng test bắt được hai root
 - Trạng thái: `Đã duyệt — FR-05 hoàn tất A→E`.
 - Điểm chưa chắc chắn: build/commit SUT đang chạy không quan sát được qua bề mặt công khai; chi tiết implementation của security root cause chưa được đọc theo ranh giới hộp đen.
 - Chưa tạo GitHub Issue và chưa tạo commit.
-- Bằng chứng duyệt: prompt `approved`, timestamp `2026-08-08T23:30:56.7980421+07:00`.
+- Bằng chứng duyệt: prompt `approved`, timestamp `08/08/2026 23:30`.

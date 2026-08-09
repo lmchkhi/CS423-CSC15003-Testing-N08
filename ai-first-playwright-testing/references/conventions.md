@@ -87,8 +87,8 @@ Nếu chưa đủ bằng chứng, dùng trạng thái `Không xác định`; kh�
 
 - Cấu hình Chromium, Firefox và Microsoft Edge; với Edge dùng project có `channel: 'msedge'` khi phù hợp.
 - Ghi riêng số lượt theo feature–browser. Với ba tính năng, tổng tối thiểu là chín lượt.
-- Tạo timestamp bằng `new Date().toISOString()` tại runtime chạy report, không ghi sẵn timestamp trong source hoặc template.
-- Hiển thị chính xác `Run by: 23127464` và timestamp ISO 8601 trên HTML report/Allure artifact.
+- Tạo một đối tượng thời gian duy nhất tại runtime chạy report; từ đó sinh cả chuỗi hiển thị `dd/MM/yyyy HH:mm` theo `Asia/Ho_Chi_Minh` và chuỗi ISO bằng `toISOString()`. Không ghi sẵn thời gian trong source hoặc template.
+- Hiển thị chính xác `Run by: 23127464`, thời gian thân thiện và timestamp ISO 8601 trên HTML report/Allure artifact. ISO vẫn bắt buộc theo đề HW04.
 - Sau khi chạy, mở artifact và kiểm tra trực tiếp metadata. Lưu đường dẫn artifact và bằng chứng kiểm tra.
 - Chỉ báo pass/fail/skip theo kết quả runner thật; giữ exit code và command.
 - Không tuyên bố đạt tiêu chí metadata nếu mới kiểm tra file config.

@@ -227,7 +227,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
 
 4. AI Agent nhận kết quả và triển khai Step 5:
    - Tạo [FR-05-search-run.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/tests/test-runs/FR-05-search-run.md): tổng hợp kết quả test run
-   - Tạo 7 bug reports ([BUG-FR05-001](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR05-001.md) đến [BUG-FR05-007](file:///e:/Testing/CS423-CSC15003-Testing-N08/bug-reports/BUG-FR05-007.md)): theo template GitHub Issue
+   - Tạo 6 bug reports ([BUG-FR05-001](../bug-reports/FR-05/BUG-FR05-001-missing-empty-state.md) đến [BUG-FR05-006](../bug-reports/FR-05/BUG-FR05-006-multiple-h1.md)): theo template GitHub Issue
    - Tạo [FR-05-search-gap-analysis.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/ai-gap-analysis/FR-05-search-gap-analysis.md): phân tích hạn chế của AI
 
 ##### 4.3. Sơ đồ quy trình tổng quát
@@ -595,7 +595,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
 
 4. AI Agent nhận kết quả và phản hồi của người dùng, triển khai Step 5:
    - Tạo [FR-08-checkout-run.md](../tests/test-runs/FR-08-checkout-run.md): tổng hợp kết quả test run
-   - Tạo 5 bug reports: [BUG-FR08-001.md](../bug-reports/BUG-FR08-001.md) đến [BUG-FR08-005.md](../bug-reports/BUG-FR08-005.md) -- nhóm theo root cause
+   - Tạo 5 bug reports: [BUG-FR08-001.md](../bug-reports/FR-08/BUG-FR08-001-client-total-trusted.md) đến [BUG-FR08-005.md](../bug-reports/FR-08/BUG-FR08-005-empty-cart-checkout.md) -- nhóm theo root cause
    - Tạo [FR-08-checkout-gap-analysis.md](../ai-gap-analysis/FR-08-checkout-gap-analysis.md): phân tích trùng lặp DT/BVA
 
 ##### 4.3. Sơ đồ quy trình tổng quát
@@ -1038,7 +1038,7 @@ Quy trình áp dụng CLAUDE.md được thực hiện qua **3 giai đoạn chí
 
 4. AI Agent nhận kết quả và triển khai Step 5:
    - Tạo [FR-12-access-run.md](../tests/test-runs/FR-12-access-run.md): tổng hợp kết quả test run
-   - Tạo 4 bug reports: [BUG-FR12-001](../bug-reports/FR-12/BUG-FR12-001.md) đến [BUG-FR12-004](../bug-reports/FR-12/BUG-FR12-004.md)
+   - Tạo 4 bug reports: [BUG-FR12-001](../bug-reports/FR-12/BUG-FR12-001-product-no-auth-middleware.md) đến [BUG-FR12-004](../bug-reports/FR-12/BUG-FR12-004-wrong-status-invalid-token.md)
    - Tạo [FR-12-access-gap-analysis.md](../ai-gap-analysis/FR-12-access-gap-analysis.md): phân tích hạn chế của AI
 
 ##### 4.3. Sơ đồ quy trình tổng quát

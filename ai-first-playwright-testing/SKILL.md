@@ -22,7 +22,7 @@ Coi người dùng là người duyệt cuối ở mọi vòng lặp. Không g�
 
 Trước hành động nghiệp vụ khác, ghi prompt vừa nhận và hành động dự kiến vào `reports/ai-audit-report.md`:
 
-1. Lấy thời gian hiện tại từ môi trường tại lúc ghi và định dạng theo ISO 8601 có múi giờ. Không suy đoán timestamp.
+1. Lấy thời gian hiện tại từ môi trường tại lúc ghi và hiển thị theo `dd/MM/yyyy HH:mm` trong múi giờ `Asia/Ho_Chi_Minh`. Không suy đoán thời gian; nếu cần truy vết máy đọc thì giữ giá trị ISO ở trường kỹ thuật riêng.
 2. Dùng đúng khung `assets/templates/ai-audit-entry.md` với bốn trường `Tool`, `Date`, `User Prompt`, `AI Action`.
 3. Khi khởi tạo audit HW04 lần đầu, thay nội dung audit cũ bằng tiêu đề báo cáo và entry đầu tiên. Sau đó nối thêm từng entry HW04 để giữ log liên tục; không xóa các entry HW04 đã ghi.
 4. Ghi nguyên ý prompt, mô tả trung thực hành động đã làm hoặc sắp làm, và cập nhật bằng entry mới khi kết quả thực tế khác dự kiến.
@@ -137,9 +137,9 @@ Sau khi Giai đoạn C được duyệt:
 1. Cấu hình ba project trong `playwright.config.ts`: Chromium, Firefox và Microsoft Edge (`channel: msedge` khi dùng Edge cài trên máy).
 2. Nếu trình duyệt chưa cài hoặc không khởi chạy được, phân loại là environment issue; không thay bằng kết quả giả.
 3. Bảo đảm ba tính năng tạo tối thiểu chín lượt tính năng–trình duyệt.
-4. Cấu hình Playwright HTML reporter hoặc Allure để artifact hiển thị `Run by: 23127464` và timestamp ISO 8601 được tạo tại runtime.
+4. Cấu hình Playwright HTML reporter hoặc Allure để artifact hiển thị `Run by: 23127464`, thời gian thân thiện `dd/MM/yyyy HH:mm` và timestamp ISO 8601 được tạo từ cùng một thời điểm runtime. ISO là trường bắt buộc theo đề; không thay ISO bằng chuỗi hiển thị.
 5. Chạy suite thật và phân loại `passed`, `failed`, `skipped` theo case, project và feature.
-6. Mở artifact báo cáo đã sinh, kiểm tra trực tiếp chuỗi `Run by: 23127464` và timestamp. Không coi cấu hình là bằng chứng hiển thị thành công.
+6. Mở artifact báo cáo đã sinh, kiểm tra trực tiếp chuỗi `Run by: 23127464`, thời gian `dd/MM/yyyy HH:mm` và timestamp ISO. Không coi cấu hình là bằng chứng hiển thị thành công.
 7. Giữ trace, screenshot hoặc video do lần chạy thật tạo ra theo chính sách cấu hình.
 8. Ghi đường dẫn artifact, thời điểm chạy, lệnh và kết quả vào audit/review.
 
@@ -183,7 +183,7 @@ Chỉ đánh dấu một tính năng hoàn tất khi có đủ:
 - fixture ngoài spec và Playwright TypeScript đã review;
 - kết quả lint/type-check/test thật hoặc trạng thái chưa chạy có lý do;
 - kết quả đa trình duyệt thật;
-- report chứa `Run by: 23127464` và timestamp runtime đã được mở kiểm chứng;
+- report chứa `Run by: 23127464`, thời gian hiển thị `dd/MM/yyyy HH:mm` và timestamp ISO runtime đã được mở kiểm chứng;
 - review/gap analysis và phân loại thất bại;
 - bug report gộp theo root cause, chỉ cho SUT defect có bằng chứng, mỗi report liệt kê đủ các TC-ID minh chứng;
 - danh sách case chưa tự động hóa, có ghi rõ case nào là gộp trùng lặp;

@@ -6,7 +6,7 @@
 | --- | --- |
 | SUT | `EShop` |
 | Run by | `23127464` |
-| Thời điểm report | `<timestamp ISO 8601 runtime thật>` |
+| Thời điểm report | `<dd/MM/yyyy HH:mm>`; ISO giữ trong HTML report |
 | Report artifact | `<đường dẫn đã mở kiểm chứng>` |
 | Metadata đã kiểm chứng | `<Có / Không>` |
 
@@ -40,7 +40,7 @@ Chú thích: `P = passed`, `F = có failed`, `S = skipped`, `NR = not run`.
 | Số lượng test | Tối thiểu 12 case cho mỗi tính năng | `<số theo từng feature>` | `<test-cases/review>` | `<Có / Không>` |
 | Data-driven | Input/expected nằm ngoài spec ở JSON/CSV | `<kết quả kiểm tra>` | `<fixture + spec>` | `<Có / Không>` |
 | Assertion | Ít nhất 3 nhóm assertion thực sự chạy | `<các nhóm>` | `<report/test>` | `<Có / Không>` |
-| Đa trình duyệt và report | Chromium/Firefox/Edge; tối thiểu 9 lượt cho 3 feature; có Run by + timestamp đã kiểm chứng | `<số lượt + metadata>` | `<artifact đã mở>` | `<Có / Không>` |
+| Đa trình duyệt và report | Chromium/Firefox/Edge; tối thiểu 9 lượt cho 3 feature; có Run by + thời gian hiển thị + ISO timestamp đã kiểm chứng | `<số lượt + metadata>` | `<artifact đã mở>` | `<Có / Không>` |
 
 ## Review và khoảng trống
 

@@ -2,7 +2,7 @@
 
 **Tool:** `<Tên công cụ và model nếu biết>`
 
-**Date:** `<YYYY-MM-DDTHH:mm:ss.sss±HH:mm | timestamp ISO 8601 thật tại thời điểm ghi>`
+**Date:** `<dd/MM/yyyy HH:mm | thời gian thật tại thời điểm ghi>`
 
 **User Prompt:**
 

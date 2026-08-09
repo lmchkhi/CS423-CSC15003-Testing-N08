@@ -33,7 +33,7 @@ assignees: "<Người phụ trách hoặc để trống>"
 | OS | `<OS + version>` |
 | Frontend/Admin/API URL | `<URL>` |
 | Build/commit SUT | `<giá trị quan sát được hoặc Không xác định>` |
-| Thời điểm | `<timestamp ISO 8601 thật>` |
+| Thời điểm | `<dd/MM/yyyy HH:mm — thời gian thật>` |
 
 ## Tiền điều kiện
 

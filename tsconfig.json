@@ -10,5 +10,11 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node", "@playwright/test"]
   },
-  "include": ["tests/**/*.ts", "playwright.config.ts", "playwright.fr12.config.ts"]
+  "include": [
+    "tests/**/*.ts",
+    "playwright.config.ts",
+    "playwright.fr05.config.ts",
+    "playwright.fr12.config.ts",
+    "report-time.ts"
+  ]
 }
