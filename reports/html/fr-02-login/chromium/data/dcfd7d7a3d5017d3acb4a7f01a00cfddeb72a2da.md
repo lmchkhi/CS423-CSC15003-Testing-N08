@@ -1,0 +1,179 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: fr-02-login.spec.ts >> FR-02 — Đăng nhập & khóa tài khoản >> F02-TC-004 — Sai 2 lần liên tiếp chưa khóa — mật khẩu đúng vẫn vào được
+- Location: tests/fr-02-login.spec.ts:59:9
+
+# Error details
+
+```
+Error: F02-TC-004 must finish on /
+
+expect(page).toHaveURL(expected) failed
+
+Expected pattern: /^http:\/\/localhost:5173\/(?:[?#].*)?$/
+Received string:  "http://localhost:5173/login"
+Timeout: 10000ms
+
+Call log:
+  - F02-TC-004 must finish on / with timeout 10000ms
+    24 × locator resolved to <html lang="en">…</html>
+       - unexpected value "http://localhost:5173/login"
+
+```
+
+```yaml
+- banner:
+  - link "EShop":
+    - /url: /
+  - navigation:
+    - link "Giỏ hàng":
+      - /url: /cart
+    - link "Đăng nhập":
+      - /url: /login
+    - link "Đăng ký":
+      - /url: /register
+- main:
+  - heading "Đăng Ký" [level=2]
+  - text: Username
+  - textbox: fr02-1786265330054-235@eshop.test
+  - text: Mật khẩu
+  - textbox: Hw04Test!23
+  - link "Quên mật khẩu?":
+    - /url: /forgot-password
+  - button "Sign In"
+  - text: Chưa có tài khoản?
+  - link "Đăng ký ngay":
+    - /url: /register
+  - text: Đăng nhập thất bại. Vui lòng kiểm tra lại.
+- contentinfo: © 2026 EShop SUT. Dành cho mục đích kiểm thử.
+```
+
+# Test source
+
+```ts
+  73  |       const loginPage = new LoginPage(page);
+  74  |       await loginPage.goto();
+  75  | 
+  76  |       // Drive the consecutive-failure counter to this case's starting point.
+  77  |       for (let attempt = 0; attempt < testCase.priorFailures; attempt += 1) {
+  78  |         await loginPage.attemptLogin(identity.email, 'DefinitelyWrong!9');
+  79  |         await expect(loginPage.errorMessage).toBeVisible();
+  80  |       }
+  81  | 
+  82  |       if (testCase.waitSeconds > 0) {
+  83  |         // A real wall-clock wait. FR-02's window is defined in seconds and
+  84  |         // cannot be shortened without testing a different rule.
+  85  |         await page.waitForTimeout(testCase.waitSeconds * 1000);
+  86  |       }
+  87  | 
+  88  |       // The response-inspecting case must be listening before it submits.
+  89  |       const loginResponse =
+  90  |         testCase.assertion === 'response-excludes-password'
+  91  |           ? page.waitForResponse((r) => r.url().includes('/api/login'))
+  92  |           : null;
+  93  | 
+  94  |       await loginPage.fillCredentials(email, password);
+  95  |       await loginPage.submit();
+  96  | 
+  97  |       switch (testCase.assertion) {
+  98  |         case 'login-succeeds': {
+  99  |           // No branch-specific oracle: this case is fully described by the
+  100 |           // record's `expected` block, asserted for every case below.
+  101 |           break;
+  102 |         }
+  103 | 
+  104 |         case 'login-rejected': {
+  105 |           // Pattern 3 — visibility.
+  106 |           await expect(loginPage.errorMessage).toBeVisible();
+  107 |           break;
+  108 |         }
+  109 | 
+  110 |         case 'blocked-by-browser-validation': {
+  111 |           // Both fields are `required`, so the browser must refuse to submit.
+  112 |           const emailValid = await loginPage.emailInput.evaluate(
+  113 |             (el) => (el as HTMLInputElement).validity.valid,
+  114 |           );
+  115 |           const passwordValid = await loginPage.passwordInput.evaluate(
+  116 |             (el) => (el as HTMLInputElement).validity.valid,
+  117 |           );
+  118 |           expect(
+  119 |             emailValid && passwordValid,
+  120 |             'a required field left blank must fail browser validation',
+  121 |           ).toBe(false);
+  122 |           break;
+  123 |         }
+  124 | 
+  125 |         case 'email-input-is-type-email': {
+  126 |           // Pattern 4 — attribute. The oracle names type="email" explicitly, so
+  127 |           // the browser itself must reject a malformed address.
+  128 |           await expect(loginPage.emailInput).toHaveAttribute('type', 'email');
+  129 |           const valid = await loginPage.emailInput.evaluate(
+  130 |             (el) => (el as HTMLInputElement).validity.valid,
+  131 |           );
+  132 |           expect(valid, 'a malformed email must fail HTML5 validation').toBe(false);
+  133 |           break;
+  134 |         }
+  135 | 
+  136 |         case 'response-excludes-password': {
+  137 |           const response = await loginResponse;
+  138 |           const body = await response!.text();
+  139 |           expect(
+  140 |             body,
+  141 |             'the login response must return a JWT, not the stored account record',
+  142 |           ).not.toContain('"password"');
+  143 |           break;
+  144 |         }
+  145 | 
+  146 |         case 'error-message-is-generic': {
+  147 |           // Non-disclosure: a wrong password and an unknown address must be
+  148 |           // indistinguishable to the user.
+  149 |           const wrongPasswordMessage = await loginPage.errorMessage.innerText();
+  150 | 
+  151 |           await loginPage.goto();
+  152 |           await loginPage.attemptLogin(uniqueEmail('unknown'), 'Whatever!9');
+  153 |           const unknownEmailMessage = await loginPage.errorMessage.innerText();
+  154 | 
+  155 |           // Pattern 5 — equality between two observed strings.
+  156 |           expect(
+  157 |             wrongPasswordMessage.trim(),
+  158 |             'the error must not reveal whether the account exists',
+  159 |           ).toBe(unknownEmailMessage.trim());
+  160 |           break;
+  161 |         }
+  162 |       }
+  163 | 
+  164 |       // Every record carries these two expectations, so they are asserted for
+  165 |       // every case here rather than restated in each branch — which also means
+  166 |       // the JSON, not the script, decides where a case must land. Anchoring on
+  167 |       // the whole origin + path matters: a substring test for `/` would match
+  168 |       // every URL the app could possibly be on.
+  169 |       // Pattern 1 — navigation.
+  170 |       await expect(
+  171 |         page,
+  172 |         `${testCase.caseId} must finish on ${testCase.expected.urlContains}`,
+> 173 |       ).toHaveURL(
+      |         ^ Error: F02-TC-004 must finish on /
+  174 |         new RegExp(
+  175 |           `^${escapeRegExp(config.webUrl + testCase.expected.urlContains)}(?:[?#].*)?$`,
+  176 |         ),
+  177 |       );
+  178 | 
+  179 |       // Pattern 2 — value equality on the client state the oracle mandates: a
+  180 |       // JWT is stored if and only if the login actually succeeded. Polled so a
+  181 |       // successful login gets the same auto-wait the URL assertion has.
+  182 |       await expect
+  183 |         .poll(async () => Boolean(await loginPage.storedToken()), {
+  184 |           message: 'FR-02 stores a JWT only for a login that succeeded',
+  185 |         })
+  186 |         .toBe(testCase.expected.tokenStored);
+  187 |     });
+  188 |   }
+  189 | });
+  190 | 
+```
