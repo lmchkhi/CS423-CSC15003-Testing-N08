@@ -375,9 +375,11 @@ Lint frontend vẫn có 23 lỗi và 1 cảnh báo tồn tại sẵn trong SUT; 
 ### (4) Reasoning
 
 - TC-CART-011 chưa kiểm thử hành vi giảm số lượng, chỉ kiểm tra có tồn tại nút `-`.
-- Assertion quantity trong rowDetails có thể false-positive.
-- Test dialog chấp nhận mọi loại JavaScript dialog, không chỉ alert confirm xóa sản phẩm.
+- TC-CART-005: Assertion quantity trong rowDetails có thể false-positive.
+- TC-CART-012/013: Test dialog chấp nhận mọi loại JavaScript dialog, không chỉ alert confirm xóa sản phẩm.
 
 ### (5) Student Fix
 
-- _[Người dùng tự điền]_
+- TC-CART-011 giờ bấm + để tăng số lượng lên 2, sau đó bấm - và kiểm tra quantity, thành tiền dòng và tổng cộng trở về giá trị ban đầu.
+- TC-CART-005 giờ kiểm tra riêng từng cell gồm tên, đơn giá, số lượng, thành tiền và nút Xóa; tránh quantity "1" bị khớp nhầm từ giá 123,456.
+- TC-CART-012/013 giờ chờ đúng dialog loại confirm, kiểm tra nội dung liên quan đến “xóa”, rồi xác nhận sản phẩm còn lại khi Cancel hoặc biến mất khi Confirm.
