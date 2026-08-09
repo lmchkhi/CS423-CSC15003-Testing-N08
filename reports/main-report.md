@@ -22,7 +22,7 @@ Theo HW02, ba web feature được chọn cho HW04 là:
 | --- | --- | --- | --- |
 | Pool A | FR-03 - Forgot password and password reset | Đã chạy xong | Có script, data-driven JSON, report 3 browser, bug report |
 | Pool B | FR-11 - Order history view | Đã chạy xong | Có script, data-driven JSON, report 3 browser, bug report và GitHub Issues |
-| Pool C | FR-14 - Category management CRUD | In progress - Commit 7 create/update validation đã chạy Chromium | Có script/data/report Chromium, bug reports và GitHub Issues |
+| Pool C | FR-14 - Category management CRUD | Đã chạy xong | Có script, data-driven JSON, report 3 browser, bug reports và GitHub Issues |
 
 Feature mobile từ HW02 không được dùng trong HW04 vì đề yêu cầu automation web frontend.
 
@@ -62,16 +62,16 @@ Playwright HTML report gốc vẫn được giữ ở `index.html`. File wrapper
 | --- | ---: | ---: | ---: | ---: | ---: |
 | FR-03 | 18 | 3 | 7 | 11 | 6 |
 | FR-11 | 15 | 3 | 13 | 2 | 2 |
-| FR-14 | 16 / 22 planned | 1 | 10 | 6 | 3 |
+| FR-14 | 22 | 3 | 13 | 9 | 3 |
 
 Tổng hiện tại:
 
-- Features hoàn tất: 2/3
-- Test cases automated: 49
-- Browser runs hoàn tất: 7
-- Tổng lượt test đã thực thi: 115
-- Tổng pass: 70
-- Tổng fail: 45
+- Features hoàn tất: 3/3
+- Test cases automated: 55
+- Browser runs hoàn tất: 9
+- Tổng lượt test đã thực thi: 165
+- Tổng pass: 99
+- Tổng fail: 66
 - Automation bug reports: 11
 
 ## 6. FR-03 - Forgot Password And Password Reset
@@ -413,54 +413,63 @@ Phân tích defect màu trạng thái: `Đã xác nhận` và `Đang giao` có m
 
 ## 8. FR-14 - Category Management CRUD
 
-Trạng thái: in progress - Commit 7 / create-update validation và BVA đã chạy Chromium.
+Trạng thái: Done - Commit 8 / full suite đã chạy Chromium, Firefox và WebKit.
 
 Kế hoạch chi tiết nằm trong [`reports/automation-commit-plan.md`](automation-commit-plan.md).
 
 ### 8.1 Mục tiêu kiểm thử
 
-FR-14 kiểm tra quản lý danh mục trong Web Admin và API category CRUD. Theo SRS, admin có thể thêm/xem/xóa danh mục, còn tên danh mục là bắt buộc và các thao tác quản trị phải bị chặn với guest/user thường.
+FR-14 kiểm tra quản lý danh mục trong Web Admin và API category CRUD. Theo SRS, admin có thể thêm/xem/xóa danh mục, tên danh mục là bắt buộc, và các thao tác ảnh hưởng dữ liệu `POST/PUT/DELETE /api/categories` phải yêu cầu token admin theo FR-12.
 
-Commit 6 đã dựng baseline quyền truy cập. Commit 7 mở rộng vào create/update validation:
+Coverage cuối cùng gồm:
 
-- Admin tạo danh mục hợp lệ qua API và đối chiếu danh mục xuất hiện trên UI Web Admin.
-- API từ chối tên danh mục rỗng hoặc chỉ gồm khoảng trắng.
-- API chấp nhận tên tiếng Việt Unicode.
-- Admin cập nhật danh mục hợp lệ và UI hiển thị tên mới.
-- API từ chối cập nhật tên rỗng và giữ nguyên tên cũ.
-- API từ chối cập nhật category id không tồn tại.
-- BVA min length: `0` ký tự rejected, `1` và `2` ký tự accepted.
+- Admin/guest/user access control cho màn hình quản lý danh mục.
+- Create hợp lệ, create invalid, tên Unicode tiếng Việt.
+- Update hợp lệ, update tên rỗng, update category id không tồn tại.
+- Delete hợp lệ, delete category id không tồn tại.
+- User thường không được create/update/delete qua API.
+- BVA tên danh mục 0/1/2 ký tự.
+- BVA danh sách 0/1/nhiều danh mục.
 
 ### 8.2 Automation artifact
 
 - Data file: [`tests/automation/data/fr14-category-management.json`](../tests/automation/data/fr14-category-management.json)
 - Spec file: [`tests/automation/specs/fr14-category-management.spec.ts`](../tests/automation/specs/fr14-category-management.spec.ts)
-- Playwright report wrapper Chromium: [`reports/html/fr14-category-management/chromium/hw04-report.html`](html/fr14-category-management/chromium/hw04-report.html)
-- Playwright report gốc Chromium: [`reports/html/fr14-category-management/chromium/index.html`](html/fr14-category-management/chromium/index.html)
+- Playwright report Chromium: [`reports/html/fr14-category-management/chromium/hw04-report.html`](html/fr14-category-management/chromium/hw04-report.html)
+- Playwright report Firefox: [`reports/html/fr14-category-management/firefox/hw04-report.html`](html/fr14-category-management/firefox/hw04-report.html)
+- Playwright report WebKit: [`reports/html/fr14-category-management/webkit/hw04-report.html`](html/fr14-category-management/webkit/hw04-report.html)
 - JSON result Chromium: [`reports/results/fr14-category-management/chromium/results.json`](results/fr14-category-management/chromium/results.json)
+- JSON result Firefox: [`reports/results/fr14-category-management/firefox/results.json`](results/fr14-category-management/firefox/results.json)
+- JSON result WebKit: [`reports/results/fr14-category-management/webkit/results.json`](results/fr14-category-management/webkit/results.json)
 - Label verification manifest: [`reports/html/fr14-category-management/report-label-check.json`](html/fr14-category-management/report-label-check.json)
 - Bug reports: [`bug-reports/automation/BUG-FR14-AUTO-001.md`](../bug-reports/automation/BUG-FR14-AUTO-001.md), [`bug-reports/automation/BUG-FR14-AUTO-002.md`](../bug-reports/automation/BUG-FR14-AUTO-002.md), [`bug-reports/automation/BUG-FR14-AUTO-003.md`](../bug-reports/automation/BUG-FR14-AUTO-003.md)
 
-### 8.3 Test case được automate tới Commit 7
+### 8.3 Test case được automate
 
-| Test case | Mục tiêu | Kết quả Chromium |
-| --- | --- | --- |
-| TC-FR14-DT-001 | Admin xem danh sách danh mục | Passed |
-| TC-FR14-DT-002 | Guest bị chặn khỏi màn hình quản lý danh mục | Passed |
-| TC-FR14-DT-003 | User thường bị chặn khỏi màn hình quản lý danh mục | Passed |
-| TC-FR14-DT-004 | Guest không được thêm danh mục qua API | Passed |
-| TC-FR14-DT-005 | User thường không được thêm danh mục qua API | Failed |
-| TC-FR14-DT-006 | Admin thêm danh mục hợp lệ qua API | Passed |
-| TC-FR14-DT-007 | Admin không được thêm danh mục với tên rỗng | Failed |
-| TC-FR14-DT-008 | Admin không được thêm danh mục với tên chỉ gồm khoảng trắng | Failed |
-| TC-FR14-DT-009 | Admin thêm danh mục Unicode tiếng Việt | Passed |
-| TC-FR14-DT-010 | Admin cập nhật danh mục hợp lệ | Passed |
-| TC-FR14-DT-011 | Admin không được cập nhật danh mục với tên rỗng | Failed |
-| TC-FR14-DT-012 | Admin không được cập nhật danh mục không tồn tại | Failed |
-| TC-FR14-BVA-001 | Tên danh mục 0 ký tự bị từ chối | Failed |
-| TC-FR14-BVA-002 | Tên danh mục 1 ký tự được chấp nhận | Passed |
-| TC-FR14-BVA-003 | Tên danh mục 2 ký tự được chấp nhận | Passed |
-| TC-FR14-BVA-006 | Danh sách có nhiều danh mục | Passed |
+| Test case | Mục tiêu | Chromium | Firefox | WebKit |
+| --- | --- | --- | --- | --- |
+| TC-FR14-DT-001 | Admin xem danh sách danh mục | Passed | Passed | Passed |
+| TC-FR14-DT-002 | Guest bị chặn khỏi màn hình quản lý danh mục | Passed | Passed | Passed |
+| TC-FR14-DT-003 | User thường bị chặn khỏi màn hình quản lý danh mục | Passed | Passed | Passed |
+| TC-FR14-DT-004 | Guest không được thêm danh mục qua API | Passed | Passed | Passed |
+| TC-FR14-DT-005 | User thường không được thêm danh mục qua API | Failed | Failed | Failed |
+| TC-FR14-DT-006 | Admin thêm danh mục hợp lệ qua API | Passed | Passed | Passed |
+| TC-FR14-DT-007 | Admin không được thêm danh mục với tên rỗng | Failed | Failed | Failed |
+| TC-FR14-DT-008 | Admin không được thêm danh mục với tên chỉ gồm khoảng trắng | Failed | Failed | Failed |
+| TC-FR14-DT-009 | Admin thêm danh mục Unicode tiếng Việt | Passed | Passed | Passed |
+| TC-FR14-DT-010 | Admin cập nhật danh mục hợp lệ | Passed | Passed | Passed |
+| TC-FR14-DT-011 | Admin không được cập nhật danh mục với tên rỗng | Failed | Failed | Failed |
+| TC-FR14-DT-012 | Admin không được cập nhật danh mục không tồn tại | Failed | Failed | Failed |
+| TC-FR14-DT-013 | User thường không được cập nhật danh mục qua API | Failed | Failed | Failed |
+| TC-FR14-DT-014 | Admin xóa danh mục tồn tại | Passed | Passed | Passed |
+| TC-FR14-DT-015 | Admin xóa danh mục không tồn tại hoặc đã bị xóa | Failed | Failed | Failed |
+| TC-FR14-DT-016 | User thường không được xóa danh mục qua API | Failed | Failed | Failed |
+| TC-FR14-BVA-001 | Tên danh mục 0 ký tự bị từ chối | Failed | Failed | Failed |
+| TC-FR14-BVA-002 | Tên danh mục 1 ký tự được chấp nhận | Passed | Passed | Passed |
+| TC-FR14-BVA-003 | Tên danh mục 2 ký tự được chấp nhận | Passed | Passed | Passed |
+| TC-FR14-BVA-004 | Danh sách có 0 danh mục | Passed | Passed | Passed |
+| TC-FR14-BVA-005 | Danh sách có đúng 1 danh mục | Passed | Passed | Passed |
+| TC-FR14-BVA-006 | Danh sách có nhiều danh mục | Passed | Passed | Passed |
 
 ### 8.4 Cách setup và oracle
 
@@ -470,36 +479,50 @@ Script dùng API black-box theo `api_specification.md` để setup/verify:
 - `POST /api/login` lấy token admin/user.
 - `GET /api/categories` lấy danh sách category để đối chiếu UI.
 - `POST /api/categories` dùng cho create hợp lệ, invalid input và authorization.
-- `PUT /api/categories/<id>` dùng cho update hợp lệ, update invalid và update missing id.
-- `DELETE /api/categories/<id>` bằng admin token để cleanup category test nếu defect làm dữ liệu bị tạo sai.
+- `PUT /api/categories/<id>` dùng cho update hợp lệ, update invalid, update missing id và user authorization.
+- `DELETE /api/categories/<id>` dùng cho delete hợp lệ, delete missing id, user authorization và cleanup.
 
-UI admin được kiểm thử qua `ADMIN_BASE_URL='http://[::1]:5174'`. Script đăng nhập bằng form Web Admin, mở menu `Danh mục`, rồi đối chiếu tên category từ API với nội dung danh sách trên UI. Với menu custom không expose role `link/button`, script đã thêm fallback `getByText(/^Danh mục$/)` sau khi review evidence runtime.
+UI admin được kiểm thử qua `ADMIN_BASE_URL='http://[::1]:5174'`. Script đăng nhập bằng form Web Admin, mở menu `Danh mục`, rồi đối chiếu tên category từ API với nội dung danh sách trên UI. BVA 0/1 danh mục dùng snapshot/restore qua API admin trong `finally`; sau mỗi browser run, `GET /api/categories` được kiểm tra lại và danh sách trở về 3 tên mặc định `Điện thoại`, `Laptop`, `Phụ kiện`.
 
-### 8.5 Kết quả chạy Commit 7
+### 8.5 Kết quả chạy Commit 8
 
-Command đã chạy:
+Các command đã chạy:
 
 ```bash
 STUDENT_ID=23127475 HW04_FEATURE=fr14-category-management HW04_BROWSER=chromium HW04_REPORT_DIR=reports/html/fr14-category-management/chromium HW04_JSON_REPORT=reports/results/fr14-category-management/chromium/results.json HW04_TEST_RESULTS_DIR=test-results/fr14-category-management/chromium ADMIN_BASE_URL='http://[::1]:5174' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr14-category-management.spec.ts --project=chromium
 ```
 
-Kết quả: 16 executed, 10 passed, 6 failed. Label verification cho report Chromium: `ok=true`, report có `Run by: 23127475`.
+```bash
+STUDENT_ID=23127475 HW04_FEATURE=fr14-category-management HW04_BROWSER=firefox HW04_REPORT_DIR=reports/html/fr14-category-management/firefox HW04_JSON_REPORT=reports/results/fr14-category-management/firefox/results.json HW04_TEST_RESULTS_DIR=test-results/fr14-category-management/firefox ADMIN_BASE_URL='http://[::1]:5174' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr14-category-management.spec.ts --project=firefox
+```
 
-Sau khi automation cleanup, `GET /api/categories` trả về 3 danh mục mặc định: `Điện thoại`, `Laptop`, `Phụ kiện`.
+```bash
+STUDENT_ID=23127475 HW04_FEATURE=fr14-category-management HW04_BROWSER=webkit HW04_REPORT_DIR=reports/html/fr14-category-management/webkit HW04_JSON_REPORT=reports/results/fr14-category-management/webkit/results.json HW04_TEST_RESULTS_DIR=test-results/fr14-category-management/webkit ADMIN_BASE_URL='http://[::1]:5174' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr14-category-management.spec.ts --project=webkit
+```
+
+Kết quả full suite FR-14:
+
+| Browser | Total | Passed | Failed | Failed test cases |
+| --- | ---: | ---: | ---: | --- |
+| Chromium | 22 | 13 | 9 | TC-FR14-DT-005, TC-FR14-DT-007, TC-FR14-DT-008, TC-FR14-DT-011, TC-FR14-DT-012, TC-FR14-DT-013, TC-FR14-DT-015, TC-FR14-DT-016, TC-FR14-BVA-001 |
+| Firefox | 22 | 13 | 9 | TC-FR14-DT-005, TC-FR14-DT-007, TC-FR14-DT-008, TC-FR14-DT-011, TC-FR14-DT-012, TC-FR14-DT-013, TC-FR14-DT-015, TC-FR14-DT-016, TC-FR14-BVA-001 |
+| WebKit | 22 | 13 | 9 | TC-FR14-DT-005, TC-FR14-DT-007, TC-FR14-DT-008, TC-FR14-DT-011, TC-FR14-DT-012, TC-FR14-DT-013, TC-FR14-DT-015, TC-FR14-DT-016, TC-FR14-BVA-001 |
+
+Label verification cho thư mục report FR-14: `ok=true`. Cả `index.html` và `hw04-report.html` của từng browser đều có `Run by: 23127475`.
 
 ### 8.6 Bug reports FR-14
 
 | Bug report | Tóm tắt | Test case liên quan | Severity / Priority | GitHub Issue |
 | --- | --- | --- | --- | --- |
-| [`bug-reports/automation/BUG-FR14-AUTO-001.md`](../bug-reports/automation/BUG-FR14-AUTO-001.md) | User thường thêm được danh mục qua API | TC-FR14-DT-005 | Critical / P1 | [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241) |
+| [`bug-reports/automation/BUG-FR14-AUTO-001.md`](../bug-reports/automation/BUG-FR14-AUTO-001.md) | User thường thêm, sửa và xóa được danh mục qua API | TC-FR14-DT-005, TC-FR14-DT-013, TC-FR14-DT-016 | Critical / P1 | [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241) |
 | [`bug-reports/automation/BUG-FR14-AUTO-002.md`](../bug-reports/automation/BUG-FR14-AUTO-002.md) | API không validate tên danh mục bắt buộc khi thêm/cập nhật | TC-FR14-DT-007, TC-FR14-DT-008, TC-FR14-DT-011, TC-FR14-BVA-001 | Major / P1 | [#242](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/242) |
-| [`bug-reports/automation/BUG-FR14-AUTO-003.md`](../bug-reports/automation/BUG-FR14-AUTO-003.md) | API cập nhật category id không tồn tại vẫn trả success | TC-FR14-DT-012 | Major / P2 | [#243](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/243) |
+| [`bug-reports/automation/BUG-FR14-AUTO-003.md`](../bug-reports/automation/BUG-FR14-AUTO-003.md) | API cập nhật/xóa category id không tồn tại vẫn trả success | TC-FR14-DT-012, TC-FR14-DT-015 | Major / P2 | [#243](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/243) |
 
-Phân tích defect authorization: `POST /api/categories` dùng token của user thường trả `200 OK`, body `{"message":"Category created","id":17}` và danh mục mới xuất hiện trong `GET /api/categories`. Điều này vi phạm phân quyền của FR-14/FR-12 vì user thường không được thao tác dữ liệu quản trị.
+Phân tích defect authorization: `POST`, `PUT`, `DELETE /api/categories` dùng token của user thường đều trả `200 OK` và thực sự tạo/sửa/xóa dữ liệu. Điều này vi phạm FR-12/FR-14 vì user thường không được thao tác dữ liệu quản trị.
 
 Phân tích defect validation: `POST /api/categories` chấp nhận `{"name":""}` và `{"name":"   "}`; `PUT /api/categories/<id>` cũng chấp nhận đổi tên danh mục thành rỗng. Behavior này vi phạm yêu cầu tên danh mục bắt buộc và có thể tạo dữ liệu không hiển thị rõ trên UI.
 
-Phân tích defect update missing id: `PUT /api/categories/999999` trả `200 OK` với body `{"message":"Category updated"}` dù không có category tương ứng. Response success gây hiểu sai kết quả thao tác và làm API contract thiếu tin cậy.
+Phân tích defect missing id: `PUT /api/categories/999999` trả `{"message":"Category updated"}` và `DELETE /api/categories/999999` trả `{"message":"Category deleted"}` dù không có category tương ứng. Response success gây hiểu sai kết quả thao tác và làm API contract thiếu tin cậy.
 
 ### 8.7 Human review và chỉnh sửa script AI-generated
 
@@ -508,9 +531,11 @@ Phân tích defect update missing id: `PUT /api/categories/999999` trả `200 OK
 | Lần chạy đầu nhận nhầm dashboard là trang danh mục vì nav có text `Danh mục` | Chỉ coi là trang danh mục khi body có nội dung quản lý/list thật như tên category hoặc control thêm danh mục |
 | Menu `Danh mục` trên Web Admin không expose role `link`/`button` ổn định | Thêm fallback `getByText(/^Danh mục$/)` theo text hiển thị black-box |
 | `forbiddenPattern` optional bị chuyển thành regex `/./` làm fail sai BVA list nhiều danh mục | Chỉ assert negative forbidden khi data case có pattern |
-| API authorization/validation test có thể tạo dữ liệu sai nếu SUT lỗi | Dùng `finally` cleanup bằng admin token và cleanup theo tên/id để đưa danh sách về 3 category mặc định |
+| API authorization/validation test có thể tạo dữ liệu sai nếu SUT lỗi | Dùng `finally` cleanup bằng admin token và cleanup theo tên/id để đưa danh sách về category mặc định |
 | User-admin-screen case từng bị flake vì dialog alert và `page.goto` guard gây `net::ERR_ABORTED` | Tự accept dialog trong test và cho guard navigation xử lý abort có kiểm soát |
 | BVA `1`/`2` ký tự ban đầu có nguy cơ bị sai vì tên test được gắn thêm `runId` | Tách `categoryName` exact cho BVA và cleanup trước/sau khi tạo |
+| BVA 0/1 danh mục cần state destructive, dễ làm bẩn dữ liệu category mặc định | Thêm helper snapshot/restore trong `finally`, attach `category-boundary-setup.json` và `category-boundary-restore.json`, kiểm tra lại API categories sau run |
+| WebKit từng fail giả ở BVA-005 vì regex `/404/` match trúng timestamp trong tên category | Đổi oracle chống lỗi thành pattern cụ thể `404 not found|not found|typeerror|exception` rồi rerun WebKit |
 
 ## 9. Git commit log
 
@@ -546,9 +571,9 @@ Trạng thái hiện tại:
   - [#239](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/239) - User thường truy cập được chi tiết đơn hàng của user khác qua API.
   - [#240](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/240) - Màu trạng thái Đã xác nhận và Đang giao quá giống nhau.
 - FR-14: đã tạo 3 GitHub Issues từ bug reports automation:
-  - [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241) - User thường thêm được danh mục qua API.
+  - [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241) - User thường thêm, sửa và xóa được danh mục qua API.
   - [#242](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/242) - API danh mục không validate tên bắt buộc khi thêm hoặc cập nhật.
-  - [#243](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/243) - API cập nhật danh mục không tồn tại vẫn trả thành công.
+  - [#243](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/243) - API cập nhật/xóa danh mục không tồn tại vẫn trả thành công.
 
 Quy tắc cập nhật:
 
@@ -581,7 +606,7 @@ AI audit report:
 
 AI critique 200-300 words:
 
-- TODO sau khi hoàn tất cả FR-11 và FR-14, vì lúc đó sẽ có đủ dữ liệu để đánh giá AI toàn diện hơn.
+- TODO viết bản cuối 200-300 words dựa trên dữ liệu đã có của FR-03, FR-11 và FR-14.
 
 Các ý chính dự kiến cho critique:
 
@@ -596,14 +621,12 @@ Các ý chính dự kiến cho critique:
 | --- | --- | --- |
 | Task 1 - Feature A / FR-03 | Done | Script, JSON data, 3 browser reports, 6 bug reports, 6 GitHub Issues |
 | Task 1 - Feature B / FR-11 | Done | 15 test cases, 3 browser reports, 2 bug reports, 2 GitHub Issues |
-| Task 1 - Feature C / FR-14 | In progress | Commit 7: 16 Chromium tests executed, 10 passed, 6 failed, 3 bug reports, 3 GitHub Issues |
+| Task 1 - Feature C / FR-14 | Done | 22 test cases, 3 browser reports, 3 bug reports, 3 GitHub Issues |
 | Task 2 - Demo video | TODO | Not recorded yet |
 | Agent Skill | In progress / available | [`skills/eshop-hw04-task1-automation`](../skills/eshop-hw04-task1-automation/), [`skills/write-ai-audit-report`](../skills/write-ai-audit-report/) |
 
 ## 14. Submission TODO checklist
 
-- Hoàn tất FR-14 automation và cập nhật report.
-- Mở rộng FR-14 Commit 8 và tạo thêm GitHub Issues nếu phát hiện lỗi thật.
 - Sinh Git commit log text file.
 - Viết AI critique 200-300 words.
 - Quay demo video và thêm YouTube link.

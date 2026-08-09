@@ -5,6 +5,7 @@ type AccountKind = 'admin' | 'guest' | 'generatedUser';
 
 type CategorySetup = {
   minCount?: number;
+  targetCount?: number;
   namePrefix?: string;
 };
 
@@ -23,7 +24,12 @@ type Fr14Case = {
     | 'apiAdminCreateRejected'
     | 'apiAdminUpdateAccepted'
     | 'apiAdminUpdateRejected'
-    | 'apiAdminUpdateMissingRejected';
+    | 'apiAdminUpdateMissingRejected'
+    | 'apiUserUpdateRejected'
+    | 'apiAdminDeleteAccepted'
+    | 'apiAdminDeleteMissingRejected'
+    | 'apiUserDeleteRejected'
+    | 'adminCategoryListExactCount';
   account: AccountKind;
   categoryName?: string;
   categoryNamePrefix?: string;
@@ -33,6 +39,7 @@ type Fr14Case = {
   categorySetup?: CategorySetup;
   expected: {
     acceptedStatuses?: number[];
+    exactCategoryCount?: number;
     minCategoryCount?: number;
     pagePattern?: string;
     guardPattern?: string;
@@ -211,14 +218,24 @@ async function updateCategoryByApi(
   return { response, body, text };
 }
 
+async function deleteCategoryRawByApi(
+  request: import('@playwright/test').APIRequestContext,
+  categoryId: number,
+  token?: string,
+) {
+  const response = await request.delete(apiUrl(`/api/categories/${categoryId}`), {
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+  });
+  const { body, text } = await responseBody(response);
+  return { response, body, text };
+}
+
 async function deleteCategoryByApi(
   request: import('@playwright/test').APIRequestContext,
   categoryId: number,
   token: string,
 ) {
-  const response = await request.delete(apiUrl(`/api/categories/${categoryId}`), {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const { response } = await deleteCategoryRawByApi(request, categoryId, token);
   expect.soft([200, 204, 404]).toContain(response.status());
 }
 
@@ -270,6 +287,60 @@ async function ensureMinCategories(
     }
   }
   return { categories, created };
+}
+
+async function withTemporaryCategorySet<T>(
+  request: import('@playwright/test').APIRequestContext,
+  adminToken: string,
+  targetNames: string[],
+  run: (activeCategories: Category[], originalCategories: Category[]) => Promise<T>,
+): Promise<T> {
+  const originalCategories = await fetchCategories(request);
+  const setupDeletes: unknown[] = [];
+  const setupCreates: unknown[] = [];
+
+  try {
+    for (const category of originalCategories) {
+      const deleted = await deleteCategoryRawByApi(request, category.id, adminToken);
+      setupDeletes.push({ id: category.id, name: category.name, status: deleted.response.status(), body: deleted.body });
+    }
+
+    for (const name of targetNames) {
+      const created = await createCategoryByApi(request, name, adminToken);
+      setupCreates.push({ name, status: created.response.status(), body: created.body });
+    }
+
+    const activeCategories = await fetchCategories(request);
+    await test.info().attach('category-boundary-setup.json', {
+      body: JSON.stringify({ originalCategories, setupDeletes, setupCreates, activeCategories }, null, 2),
+      contentType: 'application/json',
+    });
+
+    return await run(activeCategories, originalCategories);
+  } finally {
+    const beforeRestore = await fetchCategories(request).catch(() => [] as Category[]);
+    const restoreDeletes: unknown[] = [];
+    const restoreCreates: unknown[] = [];
+
+    for (const category of beforeRestore) {
+      const deleted = await deleteCategoryRawByApi(request, category.id, adminToken);
+      restoreDeletes.push({ id: category.id, name: category.name, status: deleted.response.status(), body: deleted.body });
+    }
+
+    for (const category of originalCategories) {
+      const existing = await fetchCategories(request).then((items) => items.find((item) => item.name === category.name));
+      if (!existing) {
+        const created = await createCategoryByApi(request, category.name, adminToken);
+        restoreCreates.push({ name: category.name, status: created.response.status(), body: created.body });
+      }
+    }
+
+    const afterRestore = await fetchCategories(request).catch(() => [] as Category[]);
+    await test.info().attach('category-boundary-restore.json', {
+      body: JSON.stringify({ beforeRestore, restoreDeletes, restoreCreates, afterRestore }, null, 2),
+      contentType: 'application/json',
+    });
+  }
 }
 
 async function attemptLoginUi(page: import('@playwright/test').Page, email: string, password: string) {
@@ -584,9 +655,168 @@ async function assertAdminUpdateMissingRejected(
   }
 }
 
+async function assertUserUpdateRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const user = await prepareGeneratedUser(request, testCase.id);
+  const originalName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 User Update Source');
+  const updatedName = testCase.updatedName ?? uniqueCategoryName(testCase.updatedNamePrefix ?? 'FR14 User Updated');
+  const create = await createCategoryByApi(request, originalName, adminLogin.token);
+  const createdId = categoryIdFromBody(create.body);
+  expect(createdId).toBeTruthy();
+
+  const { response, body, text } = await updateCategoryByApi(request, createdId!, updatedName, user.token);
+  const after = await fetchCategories(request);
+  const originalPreserved = after.some((category) => category.id === createdId && category.name === originalName);
+  const unauthorizedApplied = after.find((category) => category.id === createdId && category.name === updatedName);
+
+  await test.info().attach('user-category-update-response.json', {
+    body: JSON.stringify({ status: response.status(), body, originalName, updatedName, originalPreserved, unauthorizedApplied }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());
+    expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+    if (testCase.expected.preserveOriginal) {
+      expect.soft(originalPreserved, `User token must not rename category ${createdId}`).toBeTruthy();
+      expect.soft(unauthorizedApplied, `Unauthorized update ${JSON.stringify(updatedName)} must not be applied`).toBeFalsy();
+    }
+  } finally {
+    await deleteCategoryByApi(request, createdId!, adminLogin.token);
+    await cleanupCategoriesByNames(request, adminLogin.token, [originalName, updatedName]);
+  }
+}
+
+async function assertAdminDeleteAccepted(
+  page: import('@playwright/test').Page,
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const categoryName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Delete Target');
+  const create = await createCategoryByApi(request, categoryName, adminLogin.token);
+  const createdId = categoryIdFromBody(create.body);
+  expect(createdId).toBeTruthy();
+
+  const { response, body, text } = await deleteCategoryRawByApi(request, createdId!, adminLogin.token);
+  const after = await fetchCategories(request);
+  const stillPresent = after.find((category) => category.id === createdId || category.name === categoryName);
+
+  await test.info().attach('admin-category-delete-response.json', {
+    body: JSON.stringify({ status: response.status(), body, categoryName, createdId, stillPresent }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.acceptedStatuses ?? [200, 204]).toContain(response.status());
+    expect.soft(text).toMatch(textPattern(testCase.expected.successPattern));
+    expect.soft(stillPresent, `Deleted category ${categoryName} must not remain in list`).toBeFalsy();
+
+    if (testCase.expected.verifyUi) {
+      await loginAdminUi(page);
+      await openCategoryManagement(page);
+      await expect.soft(page.locator('body')).not.toContainText(categoryNamePattern(categoryName));
+    }
+  } finally {
+    if (stillPresent) {
+      await deleteCategoryByApi(request, stillPresent.id, adminLogin.token);
+    }
+    await cleanupCategoryByName(request, adminLogin.token, categoryName);
+  }
+}
+
+async function assertAdminDeleteMissingRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const missingId = testCase.missingCategoryId ?? 999999;
+  const before = await fetchCategories(request);
+  const { response, body, text } = await deleteCategoryRawByApi(request, missingId, adminLogin.token);
+  const after = await fetchCategories(request);
+  const targetExists = after.find((category) => category.id === missingId);
+
+  await test.info().attach('admin-category-delete-missing-response.json', {
+    body: JSON.stringify({ status: response.status(), body, missingId, beforeCount: before.length, afterCount: after.length, targetExists }, null, 2),
+    contentType: 'application/json',
+  });
+
+  expect.soft(testCase.expected.rejectedStatuses ?? [400, 404, 422]).toContain(response.status());
+  expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+  expect.soft(after.length, 'Deleting a missing category must not change category count').toBe(before.length);
+  expect.soft(targetExists, `Missing category id ${missingId} must not exist after delete`).toBeFalsy();
+}
+
+async function assertUserDeleteRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const user = await prepareGeneratedUser(request, testCase.id);
+  const categoryName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 User Delete Target');
+  const create = await createCategoryByApi(request, categoryName, adminLogin.token);
+  const createdId = categoryIdFromBody(create.body);
+  expect(createdId).toBeTruthy();
+
+  const { response, body, text } = await deleteCategoryRawByApi(request, createdId!, user.token);
+  const after = await fetchCategories(request);
+  const stillPresent = after.find((category) => category.id === createdId && category.name === categoryName);
+
+  await test.info().attach('user-category-delete-response.json', {
+    body: JSON.stringify({ status: response.status(), body, categoryName, createdId, stillPresent }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());
+    expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+    expect.soft(stillPresent, `User token must not delete category ${categoryName}`).toBeTruthy();
+  } finally {
+    if (stillPresent) {
+      await deleteCategoryByApi(request, stillPresent.id, adminLogin.token);
+    }
+    await cleanupCategoryByName(request, adminLogin.token, categoryName);
+  }
+}
+
+async function assertAdminCategoryExactCount(
+  page: import('@playwright/test').Page,
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const targetCount = testCase.categorySetup?.targetCount ?? testCase.expected.exactCategoryCount ?? 0;
+  const targetNames = Array.from({ length: targetCount }, () =>
+    uniqueCategoryName(testCase.categorySetup?.namePrefix ?? 'FR14 Boundary Category'),
+  );
+
+  await withTemporaryCategorySet(request, adminLogin.token, targetNames, async (activeCategories) => {
+    expect.soft(activeCategories.length).toBe(testCase.expected.exactCategoryCount ?? targetCount);
+
+    await loginAdminUi(page);
+    await openCategoryManagement(page);
+    const body = page.locator('body');
+    await expect.soft(body).toContainText(textPattern(testCase.expected.pagePattern));
+    await expect.soft(body).not.toContainText(/404\s+not\s+found|not found|typeerror|exception/i);
+
+    if (targetNames.length === 0) {
+      for (const category of activeCategories) {
+        await expect.soft(body).not.toContainText(categoryNamePattern(category.name));
+      }
+    } else {
+      for (const name of targetNames) {
+        await expect.soft(body).toContainText(categoryNamePattern(name));
+      }
+    }
+  });
+}
+
 test.describe(`Run by: ${studentId} | FR-14 - Quản lý danh mục`, () => {
   test.beforeAll(() => {
-    expect(cases.length).toBeGreaterThanOrEqual(16);
+    expect(cases.length).toBeGreaterThanOrEqual(22);
   });
 
   for (const testCase of cases) {
@@ -644,6 +874,31 @@ test.describe(`Run by: ${studentId} | FR-14 - Quản lý danh mục`, () => {
 
       if (testCase.kind === 'apiAdminUpdateMissingRejected') {
         await assertAdminUpdateMissingRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiUserUpdateRejected') {
+        await assertUserUpdateRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminDeleteAccepted') {
+        await assertAdminDeleteAccepted(page, request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminDeleteMissingRejected') {
+        await assertAdminDeleteMissingRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiUserDeleteRejected') {
+        await assertUserDeleteRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'adminCategoryListExactCount') {
+        await assertAdminCategoryExactCount(page, request, testCase);
         return;
       }
 

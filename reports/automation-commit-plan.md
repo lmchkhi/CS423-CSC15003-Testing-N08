@@ -307,6 +307,8 @@ Kết quả thực hiện:
 
 ### Commit 8 - FR-14 đợt 3: delete, list boundaries, full cross-browser
 
+Trạng thái: Done.
+
 Mục tiêu:
 
 - Hoàn thiện full FR-14 với delete, authorization còn lại và list boundary.
@@ -346,6 +348,25 @@ Commit message gợi ý:
 ```text
 test(fr14): complete category CRUD cross-browser suite
 ```
+
+Kết quả thực hiện:
+
+- Đã bổ sung TC-FR14-DT-013 đến TC-FR14-DT-016 và TC-FR14-BVA-004 đến TC-FR14-BVA-005 vào [`tests/automation/data/fr14-category-management.json`](../tests/automation/data/fr14-category-management.json), nâng tổng FR-14 lên 22 test case.
+- Đã mở rộng [`tests/automation/specs/fr14-category-management.spec.ts`](../tests/automation/specs/fr14-category-management.spec.ts) với helper raw delete response, user update/delete authorization, admin delete/delete-missing và BVA exact list count 0/1 bằng snapshot/restore.
+- Đã chạy full suite FR-14 trên Chromium, Firefox và WebKit: mỗi browser 22 test case, 13 passed, 9 failed.
+- Report HTML:
+  - Chromium: [`reports/html/fr14-category-management/chromium/hw04-report.html`](html/fr14-category-management/chromium/hw04-report.html)
+  - Firefox: [`reports/html/fr14-category-management/firefox/hw04-report.html`](html/fr14-category-management/firefox/hw04-report.html)
+  - WebKit: [`reports/html/fr14-category-management/webkit/hw04-report.html`](html/fr14-category-management/webkit/hw04-report.html)
+- JSON result:
+  - Chromium: [`reports/results/fr14-category-management/chromium/results.json`](results/fr14-category-management/chromium/results.json)
+  - Firefox: [`reports/results/fr14-category-management/firefox/results.json`](results/fr14-category-management/firefox/results.json)
+  - WebKit: [`reports/results/fr14-category-management/webkit/results.json`](results/fr14-category-management/webkit/results.json)
+- Label verification manifest: [`reports/html/fr14-category-management/report-label-check.json`](html/fr14-category-management/report-label-check.json), `ok=true`.
+- Đã cập nhật bug report [`bug-reports/automation/BUG-FR14-AUTO-001.md`](../bug-reports/automation/BUG-FR14-AUTO-001.md) và GitHub Issue [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241) để bao phủ user thường thêm/sửa/xóa category qua API.
+- Đã cập nhật bug report [`bug-reports/automation/BUG-FR14-AUTO-002.md`](../bug-reports/automation/BUG-FR14-AUTO-002.md) và GitHub Issue [#242](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/242) với evidence full 3 browser.
+- Đã cập nhật bug report [`bug-reports/automation/BUG-FR14-AUTO-003.md`](../bug-reports/automation/BUG-FR14-AUTO-003.md) và GitHub Issue [#243](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/243) để bao phủ update/delete category id không tồn tại trả success.
+- Đã cập nhật [`reports/main-report.md`](main-report.md) với tổng kết hoàn tất FR-14, số liệu Task 1, issue links và human review.
 
 ## 6. Quy tắc tạo bug report và GitHub Issue
 

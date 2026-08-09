@@ -297,3 +297,25 @@ tiếp tục với commit 7
 ```text
 Mở rộng tests/automation/data/fr14-category-management.json và tests/automation/specs/fr14-category-management.spec.ts cho TC-FR14-DT-006 đến TC-FR14-DT-012, TC-FR14-BVA-001 đến TC-FR14-BVA-003; chạy Chromium 16 test case với kết quả 10 passed, 6 failed; sinh Playwright HTML/JSON report và verify Run by 23127475 ok=true; cập nhật BUG-FR14-AUTO-001, tạo BUG-FR14-AUTO-002/#242 và BUG-FR14-AUTO-003/#243; cập nhật reports/main-report.md và reports/automation-commit-plan.md.
 ```
+
+## Entry #14
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 10/08/2026 00:50 GMT+7             |
+| **Artifact type** | FR-14 automation Commit 8 full suite, reports, bug reports, GitHub issues         |
+
+**Full prompt:**
+
+```text
+rồi bây giờ tiếp tục với commit 8
+```
+
+### (2) AI Output
+
+```text
+Hoàn tất Commit 8 cho FR-14: bổ sung 6 test case TC-FR14-DT-013 đến DT-016 và BVA-004/BVA-005 vào data/spec; thêm helper raw delete, user update/delete authorization, admin delete/delete-missing và BVA exact list count với snapshot/restore. Chạy Playwright FR-14 trên Chromium, Firefox, WebKit với ADMIN_BASE_URL=http://[::1]:5174 và API_BASE_URL=http://[::1]:3000; mỗi browser 22 test, 13 passed, 9 failed. Rerun WebKit sau khi sửa fail giả regex /404/ match timestamp. Sinh hw04-report.html cho 3 browser, verify report label ok=true cho 6 HTML files. Cập nhật BUG-FR14-AUTO-001/#241, BUG-FR14-AUTO-002/#242, BUG-FR14-AUTO-003/#243; cập nhật reports/main-report.md và reports/automation-commit-plan.md. Kiểm tra API categories sau BVA restore còn 3 tên mặc định.
+```

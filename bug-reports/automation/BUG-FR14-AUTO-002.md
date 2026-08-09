@@ -17,12 +17,12 @@ FR-14: Quản lý Danh mục (Category CRUD)
 Major / P1
 
 ## Environment
-Browser: Chromium
+Browser: Chromium, Firefox, WebKit
 OS: macOS Darwin 25.5.0 arm64
 Admin URL: http://[::1]:5174
 API URL: http://[::1]:3000
 Playwright: 1.62.1
-Build / Commit: `1b7c5eb` + Commit 7 working tree
+Build / Commit: `9eedea6` + Commit 8 working tree
 
 ## Steps to reproduce
 1. Đăng nhập bằng admin `admin@eshop.com` để lấy admin token.
@@ -43,10 +43,12 @@ API trả `200 OK` và báo thành công cho các input invalid:
 - `PUT /api/categories/<category_id>` với `{"name":""}` trả `{"message":"Category updated"}`, tên cũ không còn được giữ và category bị đổi thành tên rỗng.
 - BVA `TC-FR14-BVA-001` xác nhận điểm min length 0 cũng bị chấp nhận sai với id `24`.
 
-Automation đã cleanup dữ liệu test sau khi ghi nhận evidence, nên danh sách quay lại 3 danh mục mặc định.
+Lỗi reproduce ổn định trên Chromium, Firefox và WebKit. Automation đã cleanup dữ liệu test sau khi ghi nhận evidence, nên danh sách quay lại các danh mục mặc định.
 
 ## Evidence
 - Playwright HTML report: [`reports/html/fr14-category-management/chromium/hw04-report.html`](../../reports/html/fr14-category-management/chromium/hw04-report.html)
+- Playwright HTML report Firefox: [`reports/html/fr14-category-management/firefox/hw04-report.html`](../../reports/html/fr14-category-management/firefox/hw04-report.html)
+- Playwright HTML report WebKit: [`reports/html/fr14-category-management/webkit/hw04-report.html`](../../reports/html/fr14-category-management/webkit/hw04-report.html)
 - Playwright original report: [`reports/html/fr14-category-management/chromium/index.html`](../../reports/html/fr14-category-management/chromium/index.html)
 - JSON result: [`reports/results/fr14-category-management/chromium/results.json`](../../reports/results/fr14-category-management/chromium/results.json)
 - TC-FR14-DT-007 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/test-failed-1.png)

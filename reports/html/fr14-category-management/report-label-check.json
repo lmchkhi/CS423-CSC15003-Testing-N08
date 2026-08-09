@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-08-09T17:11:16.614994+00:00",
+  "checked_at": "2026-08-09T17:43:41.010127+00:00",
   "student_id": "23127475",
   "report_root": "reports/html/fr14-category-management",
-  "total_reports": 2,
+  "total_reports": 6,
   "ok": true,
   "reports": [
     {
@@ -10,14 +10,42 @@
       "index": "reports/html/fr14-category-management/chromium/hw04-report.html",
       "has_run_by": true,
       "has_placeholder": false,
-      "size_bytes": 4028
+      "size_bytes": 4861
     },
     {
       "report": "reports/html/fr14-category-management/chromium",
       "index": "reports/html/fr14-category-management/chromium/index.html",
       "has_run_by": true,
       "has_placeholder": false,
-      "size_bytes": 560941
+      "size_bytes": 587297
+    },
+    {
+      "report": "reports/html/fr14-category-management/firefox",
+      "index": "reports/html/fr14-category-management/firefox/hw04-report.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 4859
+    },
+    {
+      "report": "reports/html/fr14-category-management/firefox",
+      "index": "reports/html/fr14-category-management/firefox/index.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 587968
+    },
+    {
+      "report": "reports/html/fr14-category-management/webkit",
+      "index": "reports/html/fr14-category-management/webkit/hw04-report.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 4855
+    },
+    {
+      "report": "reports/html/fr14-category-management/webkit",
+      "index": "reports/html/fr14-category-management/webkit/index.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 587899
     }
   ]
 }

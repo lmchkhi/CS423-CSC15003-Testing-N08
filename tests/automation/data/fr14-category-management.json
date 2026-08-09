@@ -198,5 +198,86 @@
       "acceptedStatuses": [200, 201],
       "successPattern": "Category created|success|created"
     }
+  },
+  {
+    "id": "TC-FR14-DT-013",
+    "title": "User thường không được cập nhật danh mục qua API",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-013.md",
+    "kind": "apiUserUpdateRejected",
+    "account": "generatedUser",
+    "categoryNamePrefix": "FR14 User Update Source",
+    "updatedNamePrefix": "FR14 User Updated",
+    "expected": {
+      "rejectedStatuses": [401, 403],
+      "bodyMustNotContainPattern": "Category updated|success|updated",
+      "preserveOriginal": true
+    }
+  },
+  {
+    "id": "TC-FR14-DT-014",
+    "title": "Admin xóa danh mục tồn tại",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-014.md",
+    "kind": "apiAdminDeleteAccepted",
+    "account": "admin",
+    "categoryNamePrefix": "FR14 Delete Target",
+    "expected": {
+      "acceptedStatuses": [200, 204],
+      "successPattern": "Category deleted|success|deleted",
+      "verifyUi": true
+    }
+  },
+  {
+    "id": "TC-FR14-DT-015",
+    "title": "Admin xóa danh mục không tồn tại hoặc đã bị xóa",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-015.md",
+    "kind": "apiAdminDeleteMissingRejected",
+    "account": "admin",
+    "missingCategoryId": 999999,
+    "expected": {
+      "rejectedStatuses": [400, 404, 422],
+      "bodyMustNotContainPattern": "Category deleted|success|deleted"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-016",
+    "title": "User thường không được xóa danh mục qua API",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-016.md",
+    "kind": "apiUserDeleteRejected",
+    "account": "generatedUser",
+    "categoryNamePrefix": "FR14 User Delete Target",
+    "expected": {
+      "rejectedStatuses": [401, 403],
+      "bodyMustNotContainPattern": "Category deleted|success|deleted"
+    }
+  },
+  {
+    "id": "TC-FR14-BVA-004",
+    "title": "Danh sách có 0 danh mục (ON - min count)",
+    "source": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-004.md",
+    "kind": "adminCategoryListExactCount",
+    "account": "admin",
+    "categorySetup": {
+      "targetCount": 0,
+      "namePrefix": "FR14 Boundary Empty"
+    },
+    "expected": {
+      "exactCategoryCount": 0,
+      "pagePattern": "danh mục|category|categories"
+    }
+  },
+  {
+    "id": "TC-FR14-BVA-005",
+    "title": "Danh sách có đúng 1 danh mục (ON+ - min count)",
+    "source": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-005.md",
+    "kind": "adminCategoryListExactCount",
+    "account": "admin",
+    "categorySetup": {
+      "targetCount": 1,
+      "namePrefix": "FR14 Single Category"
+    },
+    "expected": {
+      "exactCategoryCount": 1,
+      "pagePattern": "danh mục|category|categories"
+    }
   }
 ]
