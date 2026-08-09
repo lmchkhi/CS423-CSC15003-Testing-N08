@@ -38,8 +38,14 @@ Hệ thống sinh OTP đúng 6 chữ số và UI/API đều thể hiện đúng 
 UI hiển thị OTP 4 chữ số, ví dụ `6620`, `7009`. API cũng trả `resetToken` 4 chữ số, ví dụ `3930`, `1598`.
 
 ## Evidence
-- Playwright HTML report: `reports/html/fr03-forgot-password/chromium/hw04-report.html`
-- Cross-browser HTML reports: `reports/html/fr03-forgot-password/{chromium,firefox,webkit}/hw04-report.html`
-- JSON result: `reports/results/fr03-forgot-password/chromium/results.json`
-- Screenshot: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/test-failed-1.png`
-- Error context: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-add0a-g-6-chữ-số-ON---độ-dài-OTP--chromium/error-context.md`
+- Playwright HTML report: [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+- Cross-browser HTML reports:
+  - [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/firefox/hw04-report.html`](../../reports/html/fr03-forgot-password/firefox/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/webkit/hw04-report.html`](../../reports/html/fr03-forgot-password/webkit/hw04-report.html)
+- JSON result: [`reports/results/fr03-forgot-password/chromium/results.json`](../../reports/results/fr03-forgot-password/chromium/results.json)
+- Screenshot Evidence: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/test-failed-1.png)
+
+![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/test-failed-1.png)
+
+- Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-add0a-g-6-chữ-số-ON---độ-dài-OTP--chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-add0a-g-6-chữ-số-ON---độ-dài-OTP--chromium/error-context.md)

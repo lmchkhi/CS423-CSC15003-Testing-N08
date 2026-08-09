@@ -35,8 +35,14 @@ Form đặt lại mật khẩu có 3 trường nhập liệu: OTP, mật khẩu 
 Form chỉ có 2 textbox: OTP và mật khẩu mới. Không có ô xác nhận mật khẩu mới, nên không thể kiểm tra lỗi mật khẩu xác nhận không khớp.
 
 ## Evidence
-- Playwright HTML report: `reports/html/fr03-forgot-password/chromium/hw04-report.html`
-- Cross-browser HTML reports: `reports/html/fr03-forgot-password/{chromium,firefox,webkit}/hw04-report.html`
-- JSON result: `reports/results/fr03-forgot-password/chromium/results.json`
-- Screenshot: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/test-failed-1.png`
-- Error context: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/error-context.md`
+- Playwright HTML report: [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+- Cross-browser HTML reports:
+  - [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/firefox/hw04-report.html`](../../reports/html/fr03-forgot-password/firefox/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/webkit/hw04-report.html`](../../reports/html/fr03-forgot-password/webkit/hw04-report.html)
+- JSON result: [`reports/results/fr03-forgot-password/chromium/results.json`](../../reports/results/fr03-forgot-password/chromium/results.json)
+- Screenshot Evidence: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/test-failed-1.png)
+
+![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/test-failed-1.png)
+
+- Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/error-context.md)

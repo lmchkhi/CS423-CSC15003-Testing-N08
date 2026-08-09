@@ -77,3 +77,91 @@ bây giờ làm toàn bộ các test cho fr-03 giúp tôi luôn. lưu ý chọn 
 ```text
 Tạo suite Playwright data-driven cho FR-03 với 18 test case từ manual cases, chạy full flow trên frontend/backend localhost bằng Chromium, Firefox và WebKit, tạo HTML report, JSON result, report-label manifest, outputDir evidence tách theo browser và 6 bug report automation theo template GitHub. Kết quả mỗi browser: 18 tests, 7 passed, 11 failed.
 ```
+
+## Entry #4
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 15:40 GMT+7             |
+| **Artifact type** | Automation commit plan         |
+
+**Full prompt:**
+
+```text
+vậy tạo giúp tôi file plan đó đi; continue, 2 fr còn lại là fr-11 và fr-14
+```
+
+### (2) AI Output
+
+```text
+Tạo reports/automation-commit-plan.md bằng tiếng Việt, chia 6 commit còn thiếu cho FR-11 và FR-14 theo 3 đợt mỗi feature. Plan liệt kê test case manual được chọn, artifact cần tạo, thời điểm chạy Playwright report, bug report, GitHub Issue, main-report và checklist trước/sau commit.
+```
+
+## Entry #5
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 16:02 GMT+7             |
+| **Artifact type** | Main report update for FR-03         |
+
+**Full prompt:**
+
+```text
+hiện tại fr-03 đã chạy xong và có report, bug report rồi, bây giờ cập nhật dần vào main report giúp tôi, trình bày chi tiết những thông tin cần thiết giúp tôi, nhớ tổng quát để còn trình bày những phần yêu cầu khác vào main report nữa
+```
+
+### (2) AI Output
+
+```text
+Cập nhật reports/main-report.md từ file trống thành main report tổng quát cho HW04. Đã điền chi tiết FR-03 gồm phạm vi, artifact, data-driven script, 18 test case, assertion patterns, setup data, lệnh chạy 3 browser, report paths, kết quả 18 total/7 passed/11 failed mỗi browser, phân tích 6 nhóm lỗi, bug report paths, human review/fixes, gap còn lại và các section placeholder cho FR-11, FR-14, Git commit log, GitHub Issues, demo video, AI critique, self-assessment và checklist nộp bài.
+```
+
+## Entry #6
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 16:31 GMT+7             |
+| **Artifact type** | Clickable evidence links update         |
+
+**Full prompt:**
+
+```text
+các bug report trong bug-reports/automation tôi muốn phần Screenshot Evidence để thông tin đường dẫn giống hiện tại và thêm dạng có thể hiển thị được, còn các phần còn lại trong Evidence đang để dạng đường dẫn nhưng không thể bấm vào và nhảy tới được, tôi muốn thể hiện đường dẫn giống hiện tại nhưng bấm vào có thể di chuyển tới được. trong main report cũng có vài chỗ để dạng đường dẫn, tôi cũng muốn nó có thể bấm được
+```
+
+### (2) AI Output
+
+```text
+Cập nhật 6 bug report FR-03 automation để các Evidence path giữ nguyên label dạng đường dẫn nhưng chuyển thành Markdown links có thể bấm. Thêm Screenshot Evidence bằng cả link text và ảnh Markdown hiển thị trực tiếp. Cập nhật reports/main-report.md để các đường dẫn artifact/report/data/bug report/skill chính có thể bấm được. Đã kiểm tra 100 Markdown relative links, missing=0.
+```
+
+## Entry #7
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 16:50 GMT+7             |
+| **Artifact type** | Agent skill tạo mới - GitHub issue workflow         |
+
+**Full prompt:**
+
+```text
+[-creator] tạo thêm cho tôi skill để tại github issue với các yêu cầu cơ bản...
+```
+
+### (2) AI Output
+
+```text
+Tạo skill mới skills/gh-create-bug-issues gồm SKILL.md và agents/openai.yaml. Skill hướng dẫn kiểm tra gh auth status, gh repo view, lấy label bằng gh label list --limit 100, đảm bảo mỗi issue có 5 label Type/Status/Module/Priority/Severity, tái sử dụng label exact match, tạo label còn thiếu bằng gh label create, suy luận module/priority/severity từ bug report, tạo issue bằng gh issue create, cập nhật bug report/main report bằng issue URL thật, và ghi chú cách xử lý screenshot. Đã sửa default_prompt trong agents/openai.yaml để giữ đúng -create-bug-issues. quick_validate.py không chạy được do thiếu PyYAML; đã validate thay thế bằng Ruby YAML parse frontmatter thành công và rà không còn TODO template.
+```

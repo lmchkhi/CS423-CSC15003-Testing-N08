@@ -34,8 +34,14 @@ Bước nhập email có nút/liên kết quay lại trang đăng nhập và khi
 Không tìm thấy nút/liên kết `Quay lại đăng nhập` ở bước nhập email.
 
 ## Evidence
-- Playwright HTML report: `reports/html/fr03-forgot-password/chromium/hw04-report.html`
-- Cross-browser HTML reports: `reports/html/fr03-forgot-password/{chromium,firefox,webkit}/hw04-report.html`
-- JSON result: `reports/results/fr03-forgot-password/chromium/results.json`
-- Screenshot: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/test-failed-1.png`
-- Error context: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/error-context.md`
+- Playwright HTML report: [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+- Cross-browser HTML reports:
+  - [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/firefox/hw04-report.html`](../../reports/html/fr03-forgot-password/firefox/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/webkit/hw04-report.html`](../../reports/html/fr03-forgot-password/webkit/hw04-report.html)
+- JSON result: [`reports/results/fr03-forgot-password/chromium/results.json`](../../reports/results/fr03-forgot-password/chromium/results.json)
+- Screenshot Evidence: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/test-failed-1.png)
+
+![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/test-failed-1.png)
+
+- Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/error-context.md)

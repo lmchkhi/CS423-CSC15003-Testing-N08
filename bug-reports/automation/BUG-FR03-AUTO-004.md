@@ -36,9 +36,23 @@ Hệ thống hiển thị thông báo lỗi phù hợp cho từng input: email b
 Sau khi submit các input trên, UI vẫn chỉ hiển thị form ban đầu và không có thông báo lỗi rõ ràng trong nội dung trang.
 
 ## Evidence
-- Playwright HTML report: `reports/html/fr03-forgot-password/chromium/hw04-report.html`
-- Cross-browser HTML reports: `reports/html/fr03-forgot-password/{chromium,firefox,webkit}/hw04-report.html`
-- JSON result: `reports/results/fr03-forgot-password/chromium/results.json`
-- Error context email rỗng: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/error-context.md`
-- Error context email sai định dạng: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/error-context.md`
-- Error context email chưa đăng ký: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/error-context.md`
+- Playwright HTML report: [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+- Cross-browser HTML reports:
+  - [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/firefox/hw04-report.html`](../../reports/html/fr03-forgot-password/firefox/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/webkit/hw04-report.html`](../../reports/html/fr03-forgot-password/webkit/hw04-report.html)
+- JSON result: [`reports/results/fr03-forgot-password/chromium/results.json`](../../reports/results/fr03-forgot-password/chromium/results.json)
+- Screenshot Evidence:
+  - [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/test-failed-1.png)
+  - [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/test-failed-1.png)
+  - [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/test-failed-1.png)
+
+![Screenshot Evidence - email rỗng](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/test-failed-1.png)
+
+![Screenshot Evidence - email sai định dạng](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/test-failed-1.png)
+
+![Screenshot Evidence - email chưa đăng ký](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/test-failed-1.png)
+
+- Error context email rỗng: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/error-context.md)
+- Error context email sai định dạng: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/error-context.md)
+- Error context email chưa đăng ký: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/error-context.md)

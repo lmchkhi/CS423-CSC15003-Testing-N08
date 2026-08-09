@@ -37,9 +37,23 @@ API từ chối mật khẩu mới không đạt rule bằng status `400` và tr
 API trả `200` cho các mật khẩu không hợp lệ như `password`, chuỗi rỗng và `Ab1!abc`.
 
 ## Evidence
-- Playwright HTML report: `reports/html/fr03-forgot-password/chromium/hw04-report.html`
-- Cross-browser HTML reports: `reports/html/fr03-forgot-password/{chromium,firefox,webkit}/hw04-report.html`
-- JSON result: `reports/results/fr03-forgot-password/chromium/results.json`
-- Error context mật khẩu yếu: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/error-context.md`
-- Error context mật khẩu rỗng: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/error-context.md`
-- Error context mật khẩu 7 ký tự: `test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/error-context.md`
+- Playwright HTML report: [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+- Cross-browser HTML reports:
+  - [`reports/html/fr03-forgot-password/chromium/hw04-report.html`](../../reports/html/fr03-forgot-password/chromium/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/firefox/hw04-report.html`](../../reports/html/fr03-forgot-password/firefox/hw04-report.html)
+  - [`reports/html/fr03-forgot-password/webkit/hw04-report.html`](../../reports/html/fr03-forgot-password/webkit/hw04-report.html)
+- JSON result: [`reports/results/fr03-forgot-password/chromium/results.json`](../../reports/results/fr03-forgot-password/chromium/results.json)
+- Screenshot Evidence:
+  - [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/test-failed-1.png)
+  - [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/test-failed-1.png)
+  - [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/test-failed-1.png`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/test-failed-1.png)
+
+![Screenshot Evidence - mật khẩu yếu](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/test-failed-1.png)
+
+![Screenshot Evidence - mật khẩu rỗng](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/test-failed-1.png)
+
+![Screenshot Evidence - mật khẩu 7 ký tự](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/test-failed-1.png)
+
+- Error context mật khẩu yếu: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/error-context.md)
+- Error context mật khẩu rỗng: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/error-context.md)
+- Error context mật khẩu 7 ký tự: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/error-context.md)

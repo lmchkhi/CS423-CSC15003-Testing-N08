@@ -1,0 +1,4 @@
+interface:
+  display_name: "GH Bug Issues"
+  short_description: "Create GitHub bug issues from reports"
+  default_prompt: "Use $gh-create-bug-issues to create GitHub issues from my Markdown bug reports and update linked files."
