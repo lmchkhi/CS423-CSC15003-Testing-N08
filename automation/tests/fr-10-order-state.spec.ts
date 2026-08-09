@@ -24,15 +24,6 @@ import { loadCases, orderStateCaseSchema } from '../utils/data';
  */
 const cases = loadCases('fr-10-order-state.cases.json', orderStateCaseSchema);
 
-/** The only status labels §3's five states may render as. */
-const STATUS_LABEL_DOMAIN = [
-  'Chờ xác nhận',
-  'Đã xác nhận',
-  'Đang giao',
-  'Đã giao',
-  'Đã hủy',
-];
-
 /** Both order surfaces expose the same vocabulary, so cases can share code. */
 type OrderSurface = AdminOrdersPage | MyOrdersPage;
 
@@ -140,9 +131,18 @@ test.describe('FR-10 — Trạng thái đơn hàng', () => {
           const adminOrders = await openAdminOrders(page, admin.token);
           await expect(adminOrders.rowFor(orderId)).toHaveCount(1);
 
+          // The five labels §3 permits are this case's expected value, so they
+          // belong in its data record — not in a constant here. Keeping them
+          // in the spec would put the oracle back in the script, which is the
+          // same defect the FR-02 review found in `expected.urlContains`.
+          const statusDomain = required(
+            testCase.expected.statusDomain,
+            'expected.statusDomain',
+            testCase.caseId,
+          );
           const rendered = await adminOrders.allStatusBadges.allTextContents();
           const outsideDomain = [...new Set(rendered.map((t) => t.trim()))].filter(
-            (label) => !STATUS_LABEL_DOMAIN.includes(label),
+            (label) => !statusDomain.includes(label),
           );
 
           // Pattern 5 — set membership. §3 specifies five states; a label

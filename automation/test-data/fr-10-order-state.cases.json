@@ -11,7 +11,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "transition-succeeds",
-    "expected": { "statusLabel": "Đã xác nhận" }
+    "expected": {
+      "statusLabel": "Đã xác nhận",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-002",
@@ -25,7 +28,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "transition-succeeds",
-    "expected": { "statusLabel": "Đang giao" }
+    "expected": {
+      "statusLabel": "Đang giao",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-003",
@@ -39,7 +45,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "transition-succeeds",
-    "expected": { "statusLabel": "Đã giao" }
+    "expected": {
+      "statusLabel": "Đã giao",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-004",
@@ -53,7 +62,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "transition-succeeds",
-    "expected": { "statusLabel": "Đã hủy" }
+    "expected": {
+      "statusLabel": "Đã hủy",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-005",
@@ -67,7 +79,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "transition-succeeds",
-    "expected": { "statusLabel": "Đã hủy" }
+    "expected": {
+      "statusLabel": "Đã hủy",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-006",
@@ -81,7 +96,10 @@
     "expectedControls": ["Xác nhận", "Hủy"],
     "targetStatus": null,
     "assertion": "controls-exactly",
-    "expected": { "statusLabel": "Chờ xác nhận" }
+    "expected": {
+      "statusLabel": "Chờ xác nhận",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-007",
@@ -95,7 +113,10 @@
     "expectedControls": ["Giao hàng", "Hủy"],
     "targetStatus": null,
     "assertion": "controls-exactly",
-    "expected": { "statusLabel": "Đã xác nhận" }
+    "expected": {
+      "statusLabel": "Đã xác nhận",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-008",
@@ -109,7 +130,10 @@
     "expectedControls": [],
     "targetStatus": null,
     "assertion": "controls-exactly",
-    "expected": { "statusLabel": "Đã giao" }
+    "expected": {
+      "statusLabel": "Đã giao",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-009",
@@ -123,7 +147,10 @@
     "expectedControls": [],
     "targetStatus": null,
     "assertion": "controls-exactly",
-    "expected": { "statusLabel": "Đã hủy" }
+    "expected": {
+      "statusLabel": "Đã hủy",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-010",
@@ -137,7 +164,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "control-not-offered",
-    "expected": { "statusLabel": "Đang giao" }
+    "expected": {
+      "statusLabel": "Đang giao",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-011",
@@ -151,7 +181,10 @@
     "expectedControls": null,
     "targetStatus": "confirmed",
     "assertion": "privileged-transition-refused",
-    "expected": { "statusLabel": "Chờ xác nhận" }
+    "expected": {
+      "statusLabel": "Chờ xác nhận",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-012",
@@ -165,7 +198,16 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "status-labels-in-domain",
-    "expected": { "statusLabel": "Chờ xác nhận" }
+    "expected": {
+      "statusLabel": "Chờ xác nhận",
+      "statusDomain": [
+        "Chờ xác nhận",
+        "Đã xác nhận",
+        "Đang giao",
+        "Đã giao",
+        "Đã hủy"
+      ]
+    }
   },
   {
     "caseId": "F10-TC-013",
@@ -179,7 +221,10 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "history-requires-login",
-    "expected": { "statusLabel": "Chờ xác nhận" }
+    "expected": {
+      "statusLabel": "Chờ xác nhận",
+      "statusDomain": null
+    }
   },
   {
     "caseId": "F10-TC-014",
@@ -193,6 +238,9 @@
     "expectedControls": null,
     "targetStatus": null,
     "assertion": "orders-are-owner-scoped",
-    "expected": { "statusLabel": "Chờ xác nhận" }
+    "expected": {
+      "statusLabel": "Chờ xác nhận",
+      "statusDomain": null
+    }
   }
 ]

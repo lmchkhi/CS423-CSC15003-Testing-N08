@@ -164,6 +164,12 @@ export const orderStateCaseSchema = baseCaseSchema.extend({
   expected: z.object({
     /** Vietnamese label the order must show once the case's action is done. */
     statusLabel: z.string().nullable(),
+    /**
+     * The complete set of labels §3's five states may render as. Only
+     * `status-labels-in-domain` reads it; it lives here rather than as a
+     * constant in the spec because it *is* that case's expected value.
+     */
+    statusDomain: z.array(z.string()).nullable(),
   }),
 });
 
