@@ -62,19 +62,10 @@ Heading `Sản phẩm:` xuất hiện nhưng list rỗng; không tìm thấy tex
 - Priority: `P1`.
 - Lý do: người dùng không thể kiểm tra nội dung đơn hàng trước khi xác nhận thanh toán.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/99acd75392e56e291eb58a4f36d5693a4251da6d.png` | User đã login; phần sản phẩm trống |
-| Trace Chromium / Firefox / Edge | `playwrite-test/FR-08-checkout/playwright-report/data/51ac5526fa0f8d28e2b71f580b7b5aa08ae2ffb8.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/86743aa05ae82797f7aa7560803284a636b39147.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/4d0903c72e638cf754520ce9ad7e287b91958afc.zip` | DOM snapshot và failed locator trên ba project |
-| Video Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/ba3549a5fa7f95c4106b3f49a35f446ff8561dc5.webm` | Login và mở Checkout UI thật |
-| Error context / HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | Accessible snapshot ghi `list` rỗng và product locator fail trên 3/3 project |
-
-Các đường dẫn `data/...` trong dòng trace được tính tương đối từ thư mục `playwright-report/`.
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`.
-- URL/Issue ID: `N/A`.
-- Ảnh đính kèm đề xuất: screenshot Chromium nêu trên.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#232` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/232
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout UI] Danh sách sản phẩm trong giỏ không hiển thị tại checkout.png>)
+
+![GitHub Issue #232](<../screenshots_issues/FR-08/[BUG][Checkout UI] Danh sách sản phẩm trong giỏ không hiển thị tại checkout.png>)

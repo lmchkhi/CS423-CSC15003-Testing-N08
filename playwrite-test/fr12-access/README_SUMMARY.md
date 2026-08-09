@@ -52,9 +52,15 @@ Chú thích: `P = passed`, `F = failed`, `S = skipped`.
 
 FR-12 đóng góp 3 lượt feature–browser thật. Mỗi case mở Web Admin bằng `page` để kiểm tra cổng truy cập theo trạng thái không token, token sai, user và admin; assertion API giữ vai trò kiểm chứng sâu enforcement backend.
 
+## Trạng thái artifact hiện hành
+
+- Số liệu report chạy thật: 120 executed, 69 passed, 51 failed, 0 skipped; 23P/17F trên mỗi trình duyệt.
+- Report có 0 trace, 0 video và không chứa JWT; 51 failure giữ screenshot và error context.
+- Password user mặc định còn xuất hiện trong 15 `error-context.md` do snapshot giữ giá trị input. Trước bản nộp cuối cần xóa input sau login, chạy lại đủ ba trình duyệt và quét lại report.
+
 ## Review và khoảng trống
 
 - Review notes: `playwrite-test/fr12-access/REVIEW_NOTES.md`.
-- Bug reports có bằng chứng: `bug-reports/FR-12/BUG-FR12-001-product-no-auth-middleware.md` đến `BUG-FR12-004-wrong-status-invalid-token.md`.
+- Bug reports: `bug-reports/FR-12/BUG-FR12-001-product-no-auth-middleware.md` đến `BUG-FR12-004-wrong-status-invalid-token.md`.
 - Gap analysis: `ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md`.
-- Audit AI liên tục: `reports/ai-audit-report.md`.
+- GitHub Issues: đã tạo `#234`–`#236` và `#238`; bốn screenshot Issue đã được chèn vào bốn bug report.

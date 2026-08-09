@@ -61,19 +61,10 @@ Input number hiển thị `0`, dòng `Tổng thanh toán: 0 ₫`, và input vẫ
 - Priority: `P1`.
 - Lý do: UI cho phép client kiểm soát giá trị tài chính; backend hiện cũng không tự tính lại theo `BUG-FR08-001`.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/99acd75392e56e291eb58a4f36d5693a4251da6d.png` | Total input và tổng thanh toán đều bằng `0` |
-| Trace Chromium / Firefox / Edge | `playwrite-test/FR-08-checkout/playwright-report/data/51ac5526fa0f8d28e2b71f580b7b5aa08ae2ffb8.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/86743aa05ae82797f7aa7560803284a636b39147.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/4d0903c72e638cf754520ce9ad7e287b91958afc.zip` | DOM/attribute assertion cho value và editability trên ba project |
-| Video Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/ba3549a5fa7f95c4106b3f49a35f446ff8561dc5.webm` | Checkout UI thật sau login |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | Expected `12000000`, received `0`; not-editable assertion fail trên ba project |
-
-Các đường dẫn `data/...` trong dòng trace được tính tương đối từ thư mục `playwright-report/`.
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`.
-- URL/Issue ID: `N/A`.
-- Ảnh đính kèm đề xuất: screenshot Chromium nêu trên.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#233` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/233
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout UI] Tổng tiền bằng 0 và có thể chỉnh trực tiếp.png>)
+
+![GitHub Issue #233](<../screenshots_issues/FR-08/[BUG][Checkout UI] Tổng tiền bằng 0 và có thể chỉnh trực tiếp.png>)

@@ -60,16 +60,10 @@ API trả `200` và số order tăng `1`; Phase A quan sát order được tạo
 - Priority: `P1`
 - Lý do: Cho phép tạo order không có sản phẩm, làm sai dữ liệu giao dịch và quy trình fulfillment.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Trace | `N/A` | Trace tắt trong report public vì request trace chứa credential/token runtime |
-| Network / result summary | `playwrite-test/FR-08-checkout/evidence/phase-a-api-results.md`, `phase-c-run.md`, `phase-d-run.md` | Empty-cart precondition/response/order count thật |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | `DT-014` fail trên ba project |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`; suite API-only.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#230` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/230
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout] Giỏ trống vẫn checkout và tạo order.png>)
+
+![GitHub Issue #230](<../screenshots_issues/FR-08/[BUG][Checkout] Giỏ trống vẫn checkout và tạo order.png>)

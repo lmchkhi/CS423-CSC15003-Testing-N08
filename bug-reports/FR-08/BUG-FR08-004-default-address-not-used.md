@@ -61,16 +61,10 @@ Order lưu `shipping_address=null`.
 - Priority: `P2`
 - Lý do: Đơn được tạo nhưng thiếu dữ liệu giao hàng dù hồ sơ có dữ liệu hợp lệ.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Trace | `N/A` | Trace tắt trong report public vì request trace chứa credential/token runtime |
-| Network / result summary | `playwrite-test/FR-08-checkout/evidence/phase-a-api-results.md`, `phase-c-run.md`, `phase-d-run.md` | Profile `PUT 200`, order address `null` |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | `DT-011` fail trên ba project |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`; suite API-only.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#229` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/229
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout] Không dùng địa chỉ mặc định khi thiếu shipping_address.png>)
+
+![GitHub Issue #229](<../screenshots_issues/FR-08/[BUG][Checkout] Không dùng địa chỉ mặc định khi thiếu shipping_address.png>)

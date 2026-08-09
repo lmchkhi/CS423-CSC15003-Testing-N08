@@ -59,19 +59,10 @@ URL vẫn ở `/checkout`. Trang hiển thị heading `Xác Nhận Đơn Hàng`,
 - Priority: `P2`.
 - Lý do: vi phạm access-flow đã mô tả và làm lộ chức năng checkout cho anonymous user; bug này chưa tự kết luận backend cho phép tạo order không token.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/9a0fc5789042e0f9d65b4d413c065ae4a82e22ea.png` | Anonymous header vẫn có `Đăng nhập/Đăng ký`, Checkout UI vẫn render |
-| Trace Chromium / Firefox / Edge | `playwrite-test/FR-08-checkout/playwright-report/data/98f704fa66773040421b4c5778519e8679055328.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/d950ad94f9c18d3581d1987f5e4b6b2a4f7468f6.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/523b8378fe62ed14a231dc39d855035788b3ccc2.zip` | Timeline điều hướng và URL assertion trên ba project |
-| Video Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/d263e9e98c03c87b8594eacb63d3fab0d2db9958.webm` | Luồng UI thật |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | Case fail trên 3/3 project |
-
-Các đường dẫn `data/...` trong dòng trace được tính tương đối từ thư mục `playwright-report/`.
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`.
-- URL/Issue ID: `N/A`.
-- Ảnh đính kèm đề xuất: screenshot Chromium nêu trên.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#231` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/231
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout UI] Người chưa đăng nhập vẫn truy cập được trang checkout.png>)
+
+![GitHub Issue #231](<../screenshots_issues/FR-08/[BUG][Checkout UI] Người chưa đăng nhập vẫn truy cập được trang checkout.png>)

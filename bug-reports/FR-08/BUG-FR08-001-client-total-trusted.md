@@ -61,16 +61,10 @@ Order lưu nguyên input client: `-1`, `1`, `0`, `-50000`, `99999999`, `null` ho
 - Priority: `P1`
 - Lý do: Cho phép làm sai lệch trực tiếp giá trị tài chính của đơn hàng bằng dữ liệu client kiểm soát.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Trace | `N/A` | Trace tắt trong report public vì request trace chứa credential/token runtime |
-| Network / result summary | `playwrite-test/FR-08-checkout/evidence/phase-a-api-results.md`, `phase-c-run.md`, `phase-d-run.md` | Không ghi credential/token |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | Bảy TC-ID fail trên cả ba project |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`; FR-08 suite API-only và report public không giữ request trace.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#226` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/226
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout] Backend tin cậy total_amount do client gửi.png>)
+
+![GitHub Issue #226](<../screenshots_issues/FR-08/[BUG][Checkout] Backend tin cậy total_amount do client gửi.png>)

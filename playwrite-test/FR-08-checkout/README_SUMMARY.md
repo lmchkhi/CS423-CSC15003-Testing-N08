@@ -55,4 +55,4 @@ FR-08 đóng góp ba lượt feature–browser. Tiêu chí toàn bài tối thi�
 - Bug reports có bằng chứng: `bug-reports/FR-08/BUG-FR08-001-client-total-trusted.md` đến `BUG-FR08-008-checkout-total-zero-editable.md`.
 - Gap analysis: `ai-gap-analysis/FR-08-checkout-coverage-gap-analysis.md`.
 - Audit AI liên tục: `reports/ai-audit-report.md`.
-- GitHub Issues: chưa tạo; các bug report chỉ ở trạng thái đề xuất.
+- GitHub Issues: đã tạo `#226`–`#233`; tám screenshot Issue đã được chèn vào tám bug report.

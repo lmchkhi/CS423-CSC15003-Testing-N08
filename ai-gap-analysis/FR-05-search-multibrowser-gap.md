@@ -64,12 +64,12 @@ DT-009 xuất hiện trong hai bug report vì cùng test bắt được hai root
 1. Ưu tiên xử lý `BUG-FR05-002` vì có HTTP 500/raw database error và SQL-like payload làm thay đổi kết quả.
 2. Sửa các root cause UI còn lại rồi rerun đúng 12 case trên ba projects; không đổi expected để làm xanh.
 3. Giữ Firefox preflight hoặc chạy matrix trên runner không bị sandbox chặn tab subprocess.
-4. Chỉ tạo GitHub Issues sau khi người dùng quyết định; sáu report hiện chỉ là đề xuất local.
+4. Giữ sáu GitHub Issues `#220`–`#225` và screenshot Issue tương ứng đồng bộ với bug report.
 5. Sinh viên tự hoàn thành video demo và AI Critique cá nhân.
 
 ## Checkpoint E
 
 - Trạng thái: `Đã duyệt — FR-05 hoàn tất A→E`.
 - Điểm chưa chắc chắn: build/commit SUT đang chạy không quan sát được qua bề mặt công khai; chi tiết implementation của security root cause chưa được đọc theo ranh giới hộp đen.
-- Chưa tạo GitHub Issue và chưa tạo commit.
+- Đã tạo GitHub Issues `#220`–`#225`, chèn đủ sáu screenshot Issue; chưa tạo commit cho cập nhật này.
 - Bằng chứng duyệt: prompt `approved`, timestamp `08/08/2026 23:30`.

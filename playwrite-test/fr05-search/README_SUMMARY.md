@@ -52,5 +52,5 @@ FR-05 đóng góp ba lượt feature–browser. Khi cộng với artifact FR-08 
 - Bug reports có bằng chứng: `bug-reports/FR-05/BUG-FR05-001-missing-empty-state.md` đến `BUG-FR05-006-multiple-h1.md`.
 - Gap analysis: `ai-gap-analysis/FR-05-search-multibrowser-gap.md`.
 - Audit AI liên tục: `reports/ai-audit-report.md`.
-- GitHub Issues: chưa tạo; sáu bug report đang ở trạng thái đề xuất.
+- GitHub Issues: đã tạo `#220`–`#225`; sáu screenshot Issue đã được chèn vào sáu bug report.
 - Checkpoint E: đã được người dùng duyệt bằng prompt `approved` lúc `08/08/2026 23:30`; FR-05 hoàn tất workflow A→E.

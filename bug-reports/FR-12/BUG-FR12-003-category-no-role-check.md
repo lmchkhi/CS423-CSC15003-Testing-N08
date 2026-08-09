@@ -61,17 +61,10 @@ Ba request trả `200`; category được tạo, sửa hoặc xóa.
 - Priority: `P0`
 - Lý do: user thường có thể thay đổi taxonomy catalog; lỗi áp dụng cho toàn bộ ba mutation method.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `playwrite-test/fr12-access/playwright-report/data/28f15bdcdc8f8a0691ad37bcaf231d6a29bf2278.png` | Web Admin từ chối user ở UI; response mutation category nằm trong HTML report/error context. |
-| Trace / video | `N/A` | Trace và video per-test tắt; screenshot + error context được giữ. |
-| Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Control no-token phân biệt root cause với Product API. |
-| HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | Ba TC-ID fail trên ba project. |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#236` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/236
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-12/[BUG][Access Control] Category mutation API không từ chối token role user.png>)
+
+![GitHub Issue #236](<../screenshots_issues/FR-12/[BUG][Access Control] Category mutation API không từ chối token role user.png>)

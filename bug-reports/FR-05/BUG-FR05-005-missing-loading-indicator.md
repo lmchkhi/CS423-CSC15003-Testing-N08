@@ -60,17 +60,10 @@ Trong pending state không có role `status`, text `Loading/Đang tải`, `aria-
 - Priority: `P2`
 - Lý do: Người dùng không nhận được phản hồi trạng thái trong lúc chờ; luồng cuối vẫn hoàn tất sau response.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `test-results/fr05-phase-d/fr05-search-FR-05-—-Xem-da-297f4-oading-khi-đang-tải-dữ-liệu-chromium/TC-FR05-DT-010-loading-pending-ui.png`; cùng directory `TC-FR05-DT-010-products-after-response-ui.png` | Pending và post-response từ consolidated run |
-| Trace / video | Cùng result directory, `trace.zip` và `video.webm` | Chromium; cùng failure trên Firefox/msedge |
-| Network / console log | Route/waitForResponse evidence trong trace và test annotation | Network chỉ dùng synchronization |
-| HTML report | `playwrite-test/fr05-search/playwright-report/index.html` | DT-010 trên ba projects |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A — dùng artifact local ở trên`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#224` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/224
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-05/[BUG][FR-05 Loading] Không có loading indicator khi request sản phẩm pending.png>)
+
+![GitHub Issue #224](<../screenshots_issues/FR-05/[BUG][FR-05 Loading] Không có loading indicator khi request sản phẩm pending.png>)

@@ -61,18 +61,10 @@ Giỏ vẫn còn item; cart count bằng `1`.
 - Priority: `P1`
 - Lý do: State giỏ sai sau giao dịch có thể khiến người dùng đặt trùng ở lần checkout tiếp theo.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Trace UI Chromium / Firefox / Edge | `playwrite-test/FR-08-checkout/playwright-report/data/84951e6bd3e51b74f2a1d74045ab35c852bf0db2.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/dff5ed66b8eba7bdda54aa9d468b404f907242af.zip`; `playwrite-test/FR-08-checkout/playwright-report/data/1a9a2ecb81b4a17a9fcdc6d3fe1cf50d7e2b14b1.zip` | Click, checkout response và postcondition; trace đã redact credential/token runtime |
-| Screenshot UI Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/c3d174caadfb9b1f9182d691cfc8e55eab3ab3b5.png` | UI hiển thị thanh toán thành công trước khi postcondition cart fail |
-| Video UI Chromium | `playwrite-test/FR-08-checkout/playwright-report/data/bb7d56fc334eb3160adde2f30c5eb367f5ffcec0.webm` | Luồng click Checkout thật |
-| Network / result summary | `playwrite-test/FR-08-checkout/evidence/phase-a-api-results.md`, `phase-c-run.md`, `phase-d-run.md` | Pre/post cart count thật |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | `DT-001` và `FR08-UI-README-003` fail trên ba project |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm đề xuất: screenshot UI Chromium nêu trên.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#227` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/227
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout] Giỏ hàng không được xóa sau checkout thành công.png>)
+
+![GitHub Issue #227](<../screenshots_issues/FR-08/[BUG][Checkout] Giỏ hàng không được xóa sau checkout thành công.png>)

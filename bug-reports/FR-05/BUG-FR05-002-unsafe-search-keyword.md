@@ -61,17 +61,10 @@ Payload được hiển thị an toàn như text, không tạo dialog/script, kh
 - Priority: `P0`
 - Lý do: Có bằng chứng SQL-like input làm thay đổi semantics truy vấn và raw database error bị lộ; đây là lỗi an toàn đầu vào có khả năng ảnh hưởng bảo mật, không chỉ là lỗi trình bày.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `test-results/fr05-phase-d/fr05-search-FR-05-—-Xem-da-7ae2f--—-Tìm-kiếm-với-XSS-Payload-chromium/TC-FR05-DT-006-after-xss-payload-ui.png`; `test-results/fr05-phase-d/fr05-search-FR-05-—-Xem-da-fe8ac-m-với-SQL-Injection-Payload-chromium/TC-FR05-DT-007-after-sql-injection-payload-ui.png` | Consolidated Phase D run, Chromium |
-| Trace / video | Cùng hai result directory, `trace.zip` và `video.webm` | Chromium; tương ứng còn có artifact Firefox/msedge |
-| Network / console log | `error-context.md` của DT-006 ghi HTTP assertion actual `500` và raw SQLite text; DT-007 ghi response/UI count `5` bằng baseline | Không chứa credential |
-| HTML report | `playwrite-test/fr05-search/playwright-report/index.html` | DT-006/007 trên ba projects |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A — dùng artifact local ở trên`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#221` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/221
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-05/[BUG][FR-05 Search] Keyword không được xử lý như dữ liệu trơ, gây lỗi DB và mở rộng kết quả.png>)
+
+![GitHub Issue #221](<../screenshots_issues/FR-05/[BUG][FR-05 Search] Keyword không được xử lý như dữ liệu trơ, gây lỗi DB và mở rộng kết quả.png>)

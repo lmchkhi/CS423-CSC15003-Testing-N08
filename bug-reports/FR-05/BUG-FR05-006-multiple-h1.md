@@ -60,17 +60,10 @@ DOM có hai `<h1>`: `Danh sách sản phẩm` và `Hiển thị 5 sản phẩm`.
 - Priority: `P3`
 - Lý do: Vi phạm semantics/accessibility và requirement công khai nhưng không chặn chức năng tìm kiếm hoặc xem sản phẩm.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `test-results/fr05-phase-d/fr05-search-FR-05-—-Xem-da-ed5c4--Trang-chủ-có-đúng-1-thẻ-h1-chromium/TC-FR05-DT-011-h1-headings-ui.png` | Consolidated Phase D run, Chromium |
-| Trace / video | Cùng result directory, `trace.zip` và `video.webm` | Chromium; cùng failure trên Firefox/msedge |
-| Network / console log | `error-context.md` ghi expected `1`, received `2` và hai heading level 1 | DOM/UI oracle |
-| HTML report | `playwrite-test/fr05-search/playwright-report/index.html` | DT-011 trên ba projects |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A — dùng artifact local ở trên`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#225` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/225
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-05/[BUG][FR-05 Semantics] Trang chủ render hai thẻ h1.png>)
+
+![GitHub Issue #225](<../screenshots_issues/FR-05/[BUG][FR-05 Semantics] Trang chủ render hai thẻ h1.png>)

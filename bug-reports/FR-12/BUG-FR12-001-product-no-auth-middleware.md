@@ -62,17 +62,10 @@ Cả sáu request trả `200`; product được tạo, sửa hoặc xóa tương
 - Priority: `P0`
 - Lý do: client chưa đăng nhập hoặc user thường có thể thay đổi catalog sản phẩm.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `playwrite-test/fr12-access/playwright-report/data/0c608f181ee7b99cc1a3bb7df5fd98febad1e891.png` | Web Admin login surface tại failure no-token; chi tiết response nằm trong HTML report/error context. |
-| Trace / video | `N/A` | Trace và video per-test tắt; screenshot + error context được giữ. |
-| Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Response thật; bí mật không ghi vào evidence. |
-| HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | Sáu TC-ID fail trên Chromium, Firefox và Edge. |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#234` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-12/[BUG][Access Control] Product mutation API không thực thi xác thực_phân quyền.png>)
+
+![GitHub Issue #234](<../screenshots_issues/FR-12/[BUG][Access Control] Product mutation API không thực thi xác thực_phân quyền.png>)

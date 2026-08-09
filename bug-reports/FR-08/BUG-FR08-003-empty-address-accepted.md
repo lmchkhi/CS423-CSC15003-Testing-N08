@@ -61,16 +61,10 @@ API trả `200` và số order tăng `1`; Phase A quan sát order lưu địa ch
 - Priority: `P1`
 - Lý do: Tạo đơn không có địa chỉ giao hàng hợp lệ, ảnh hưởng trực tiếp fulfillment.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Trace | `N/A` | Trace tắt trong report public vì request trace chứa credential/token runtime |
-| Network / result summary | `playwrite-test/FR-08-checkout/evidence/phase-a-api-results.md`, `phase-c-run.md`, `phase-d-run.md` | Response/order count thật |
-| HTML report | `playwrite-test/FR-08-checkout/playwright-report/index.html` | `DT-010` fail trên ba project |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`; suite API-only.
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#228` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/228
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-08/[BUG][Checkout] Chấp nhận địa chỉ rỗng khi hồ sơ không có địa chỉ mặc định.png>)
+
+![GitHub Issue #228](<../screenshots_issues/FR-08/[BUG][Checkout] Chấp nhận địa chỉ rỗng khi hồ sơ không có địa chỉ mặc định.png>)

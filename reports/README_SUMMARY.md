@@ -19,7 +19,7 @@
 | `FR-12` | 40 | 40 | 120 | 69 | 51 | 0 | 3 | 4 |
 | **Tổng artifact hiện có** | **73** | **70** | **210** | **93** | **117** | **0** | **9** | **18** |
 
-Số liệu trên chỉ cộng từ các HTML report/evidence đã có. FR-08 có 18 case HW02 vật lý, trong đó ba case trùng được gộp thành 15 điểm API độc lập, cộng thêm 3 case UI bổ sung từ README. Ba root cause UI mới đã có bug report; UI cart-not-cleared được gộp vào root cause/report hiện có. Chưa bug report nào được tạo thành GitHub Issue.
+Số liệu trên chỉ cộng từ các HTML report/evidence đã có. FR-08 có 18 case HW02 vật lý, trong đó ba case trùng được gộp thành 15 điểm API độc lập, cộng thêm 3 case UI bổ sung từ README. Ba root cause UI mới đã có bug report; UI cart-not-cleared được gộp vào root cause/report hiện có. Cả 18 bug report hiện hành đã được tạo thành GitHub Issue: FR-05 `#220`–`#225`, FR-08 `#226`–`#233`, FR-12 `#234`–`#236` và `#238`; screenshot Issue đã được lưu trong `bug-reports/screenshots_issues/` và chèn vào từng report.
 
 ## Ma trận đầy đủ Phase E
 
@@ -29,7 +29,7 @@ Số liệu trên chỉ cộng từ các HTML report/evidence đã có. FR-08 c�
 | Test cases cuối | Có | Có | Có | Đủ |
 | Review notes theo template | Có | Có | Có | Đủ |
 | Failure classification | 8 case / 6 SUT root causes | 14 case / 8 SUT root causes | 17 case / 4 SUT root causes | Đủ; test/environment issue được tách riêng |
-| Bug report theo root cause | 6 | 8 | 4 | Đủ; chưa tạo GitHub Issue |
+| Bug report theo root cause | 6 | 8 | 4 | Đủ; đã ánh xạ 18 GitHub Issues và 18 screenshot Issue |
 | Case chưa tự động hóa/gộp | 0 case | Có danh sách | 0 case | Đủ |
 | Feature summary | Có | Có | Có | Đủ |
 | Gap analysis | Có | Có | Có | Đủ trong `ai-gap-analysis/` hoặc feature report |
@@ -50,7 +50,7 @@ FR-08 hiện gồm 15 case API và 3 case UI thật; 9 lượt UI dùng browser 
 
 - Artifact hiện có cho ba feature `FR-05`, `FR-08`, `FR-12`, tương ứng đúng chín lượt feature–browser; tiêu chí `3 feature / 9 runs` đã có bằng chứng thật.
 - `FR-09` vẫn chưa có fixture/spec/HTML report automation, nhưng không còn chặn tiêu chí tối thiểu ba feature.
-- Chưa có public GitHub URL được kiểm chứng trong artifact.
+- Public GitHub Issues và screenshot Issue đã có đủ cho 18 bug report.
 - Video demo và AI Critique cá nhân vẫn do sinh viên tự thực hiện.
 
 ## Tài liệu chi tiết

@@ -88,7 +88,7 @@
 | DOM visible-text assertion | Timeout mặc định 5 giây làm run vượt 120 giây | Soft mismatch vẫn dùng web-first retry mặc định | Timeout riêng 500 ms; expected không đổi | 40 case hoàn tất trong 46.6 giây | `evidence/phase-c-run.md` |
 | `tests/fr12-access.spec.ts` phạm vi browser | API-only không đáp ứng đầy đủ yêu cầu web frontend/multi-browser của HW04 | Tối ưu cho contract backend nhưng bỏ sót bằng chứng browser page thật | Bổ sung `Page` và kiểm tra cổng Web Admin cho bốn trạng thái auth; giữ API assertions để kiểm chứng sâu | Full run 3 browser đúng taxonomy 23/17 mỗi project | `evidence/phase-d-run.md` |
 | `playwright.fr12.config.ts` Firefox runtime | Firefox launch được nhưng `newPage()` lỗi do content sandbox | Smoke API trước đó không tạo page nên không phát hiện | Vô hiệu hóa content sandbox riêng project Firefox và chạy lại | Firefox 40 executed, 23 passed/17 SUT failures | `evidence/phase-d-run.md` |
-| `playwright.fr12.config.ts` trace policy | API trace lưu login payload, Authorization và JWT | Chính sách `retain-on-failure` phù hợp UI nhưng không an toàn với API auth flow | Đổi `trace: off`, chạy lại và thay thế artifact cũ | Report cuối giữ 51 error context; 0 trace/JWT/password value | `evidence/phase-d-run.md` |
+| `playwright.fr12.config.ts` trace policy | API trace lưu login payload, Authorization và JWT | Chính sách `retain-on-failure` phù hợp UI nhưng không an toàn với API auth flow | Đổi `trace: off`, chạy lại và thay thế artifact cũ | Report cuối có 0 trace/JWT; vẫn còn password user mặc định trong 15 error context | `evidence/phase-d-run.md` |
 | `playwright.config.ts` worker concurrency | Ba project có thể gọi `resetBackend()` đồng thời trên database chung | `fullyParallel: false` chỉ tuần tự trong file/project, không khóa worker xuyên project | Thêm `workers: 1` ở cấp `defineConfig` | Loại bỏ race condition DT-011/012/013 giữa Chromium/Firefox/msedge | `evidence/phase-c-run.md` |
 
 ## 3. Phân loại thất bại
@@ -125,8 +125,8 @@ Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-
 - Mọi case đã kiểm tra visible access gate của frontend-admin; các mutation chi tiết vẫn được gọi bằng `APIRequestContext`, không click toàn bộ CRUD UI.
 - Invalid-token chỉ có DT-002; chưa có expired/tampered/missing-role token partitions.
 - `workers: 1` vẫn bắt buộc khi ba project dùng chung database và order ID 1.
-- Trace tắt để bảo vệ credential/token, nên artifact điều tra dùng HTML report và error context.
-- Bốn bug report public-safe đã tạo trong `bug-reports/FR-12/`; GitHub Issue đều ở trạng thái `Chưa tạo — đề xuất`.
+- Trace tắt đã loại JWT/network payload khỏi artifact; tuy nhiên 15 error context vẫn giữ password user từ accessibility snapshot và cần được xử lý ở lần rerun kế tiếp.
+- Bốn bug report public-safe trong `bug-reports/FR-12/` đã ánh xạ GitHub Issues `#234`–`#236` và `#238`, đồng thời chèn screenshot Issue tương ứng.
 
 ## Checkpoint A
 
@@ -160,8 +160,9 @@ Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-
 - Multi-browser run cuối: exit 1; 120 executed, 69 passed, 51 failed, 0 skipped trong 248.3 giây.
 - Mỗi project: 23 passed / 17 failed / 0 skipped; không có failure mới ngoài 17 case đã biết.
 - Report cuối xác nhận: `Run by: 23127464`, thời gian `09/08/2026 16:40`, ISO runtime, tổng 120/69/51/0.
-- Artifact runtime cuối: 51 error context và 51 screenshot; report deduplicate còn 6 PNG; 0 trace/video. Scan cuối không có JWT hoặc password được serialize.
+- Artifact runtime cuối: 51 error context và 51 screenshot; report deduplicate còn 6 PNG; 0 trace/video. Scan hiện hành có 0 JWT và 0 password admin, nhưng password user mặc định còn trong 15 error context.
 - Firefox content sandbox được vô hiệu hóa riêng trong launch config sau khi probe tối giản tái hiện lỗi `newPage()`; full rerun xác nhận 23/17 như Chromium và Edge.
+- Hạn chế artifact còn lại: xóa giá trị password khỏi DOM sau login, chạy lại đủ ba project và quét lại report trước khi dùng làm bản nộp cuối.
 - Evidence: `playwrite-test/fr12-access/evidence/phase-d-run.md`, `playwrite-test/fr12-access/playwright-report/index.html`, `test-results/fr12-phase-d/`.
 - Trạng thái: `Đã duyệt` bằng prompt `approved, continue` tại `07/08/2026 16:18`.
 
@@ -169,7 +170,7 @@ Gap analysis chi tiết và các điểm AI bỏ sót sau human review: `ai-gap-
 
 - Phân loại cuối: 17 failed case = 17 SUT-defect cases thuộc bốn root causes; 0 test-defect failure, 0 environment-issue failure trong artifact cuối.
 - Bug reports: bốn file trong `bug-reports/FR-12/`, mỗi file tương ứng một root cause và liệt kê đủ TC-ID; không chứa credential/token.
-- GitHub Issues: chưa tạo; không có URL/ID để tuyên bố đã tạo.
+- GitHub Issues: đã tạo `#234`–`#236` và `#238`; bốn screenshot Issue đã được chèn vào bug report tương ứng.
 - Automated coverage: 40/40 case, 0 skipped/chưa tự động hóa.
 - Summary: `playwrite-test/fr12-access/README_SUMMARY.md` — 120 executed, 69 passed, 51 failed, 0 skipped, ba browser runs, bốn SUT root causes.
 - Gap analysis: `ai-gap-analysis/FR-12-access-multibrowser-gap-analysis.md`.

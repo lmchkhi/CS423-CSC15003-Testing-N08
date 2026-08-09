@@ -61,17 +61,10 @@ Mọi request trả `200`; dữ liệu được đọc hoặc mutation được 
 - Priority: `P0`
 - Lý do: user thường có thể đọc users/orders và thực hiện các thao tác quản trị trên toàn bộ nhóm Admin API.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `playwrite-test/fr12-access/playwright-report/data/28f15bdcdc8f8a0691ad37bcaf231d6a29bf2278.png` | Web Admin từ chối user ở UI; assertion API đồng thời chứng minh backend vẫn cho phép truy cập. |
-| Trace / video | `N/A` | Trace và video per-test tắt; screenshot + error context được giữ. |
-| Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Bảy failure được tái hiện, expected không đổi. |
-| HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | Bảy TC-ID fail trên ba project. |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#235` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/235
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-12/[BUG][Access Control] Admin API không từ chối token role user.png>)
+
+![GitHub Issue #235](<../screenshots_issues/FR-12/[BUG][Access Control] Admin API không từ chối token role user.png>)

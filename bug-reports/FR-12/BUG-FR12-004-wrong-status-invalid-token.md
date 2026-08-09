@@ -59,17 +59,10 @@ HTTP `403 Forbidden` với body lỗi `Forbidden`.
 - Priority: `P2`
 - Lý do: request vẫn bị chặn nhưng status phân biệt authentication/authorization sai, ảnh hưởng client handling và tính nhất quán API.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `playwrite-test/fr12-access/playwright-report/data/0c608f181ee7b99cc1a3bb7df5fd98febad1e891.png` | Web Admin trả về login surface; mismatch 401/403 nằm trong HTML report/error context. |
-| Trace / video | `N/A` | Trace tắt để bảo vệ artifact. |
-| Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Expected 401/actual 403 được ghi từ run thật. |
-| HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | DT-002 fail trên ba project. |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#238` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/238
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-12/[BUG][Access Control] Invalid token trả 403 thay vì 401.png>)
+
+![GitHub Issue #238](<../screenshots_issues/FR-12/[BUG][Access Control] Invalid token trả 403 thay vì 401.png>)

@@ -544,7 +544,7 @@ Phase A có `0 Trùng lặp`; không có case bị gộp vào case đại diện
 | Cross-browser | 3/3 projects chạy thật | Firefox cần runner ngoài sandbox hiện tại | Medium | Thêm preflight hoặc CI runner phù hợp |
 | SUT build identity | Không quan sát được qua public UI/API | Build/commit không xác định | Low | Expose build metadata nếu cần traceability |
 | Toàn bài 3 feature / 9 runs | FR-05 + FR-08 + FR-12 = 9 runs | Không | Low | Xem `reports/README_SUMMARY.md` |
-| GitHub Issue | 6 report local, 0 issue URL | Chưa publish | Medium | Chỉ tạo khi người dùng yêu cầu |
+| GitHub Issue | 6 report local, 6 issue URL (`#220`–`#225`) | Đã publish; có 6 screenshot Issue | Không | Giữ liên kết ảnh tương đối trong từng report |
 | Video demo / AI Critique | Chưa được agent xác nhận | Phần cá nhân bắt buộc | High cho submission | Sinh viên tự thực hiện |
 
 Chi tiết: `ai-gap-analysis/FR-05-search-multibrowser-gap.md` và `playwrite-test/fr05-search/README_SUMMARY.md`.
@@ -561,7 +561,7 @@ Chưa tạo commit. Có thể stage/commit theo ba nhóm, không bịa hash:
 
 - Trạng thái gap analysis: **Đã duyệt — workflow FR-05 hoàn tất A→E**.
 - Điểm chưa chắc chắn: build/commit SUT không quan sát được qua bề mặt công khai; mechanism nội bộ của security root cause không được đọc theo ranh giới hộp đen.
-- GitHub Issues: **Chưa tạo — chỉ đề xuất**.
+- GitHub Issues: **Đã tạo `#220`–`#225`; sáu screenshot Issue đã được chèn vào bug report tương ứng**.
 - Video demo và AI Critique cá nhân: người dùng/sinh viên phải tự thực hiện; agent không viết thay.
 - Bằng chứng duyệt cuối: prompt `approved` lúc `08/08/2026 23:30`.
 - FR-05 đã đáp ứng tiêu chí hoàn tất workflow trong phạm vi agent; không tự chuyển sang feature khác.

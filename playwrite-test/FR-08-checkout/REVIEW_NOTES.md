@@ -171,12 +171,12 @@
 ## Checkpoint E
 
 - 11 failure độc lập được phân loại `SUT defect` và gộp thành 5 root cause; không tạo 11 bug report trùng nguyên nhân.
-- 5 bug report có evidence đã tạo trong `bug-reports/FR-08/`; tất cả ở trạng thái `Chưa tạo — đề xuất` đối với GitHub Issue.
+- Sau UI refinement, tám bug report hiện hành trong `bug-reports/FR-08/` đã ánh xạ GitHub Issues `#226`–`#233` và chèn screenshot Issue tương ứng.
 - Environment issue Chromium và test defect HTML metadata đã được ghi riêng, không tính vào SUT defect.
 - README summary đã tạo tại `playwrite-test/FR-08-checkout/README_SUMMARY.md` bằng số liệu runner thật.
 - Phase E rerun artifact-safe: lint/type-check exit `0`; 45 lượt exit `1`, 12 passed/33 failed/0 skipped; report cuối 0 trace ZIP và không chứa giá trị credential/token runtime.
 - Không đổi fixture/spec/assertion/expected.
-- Điểm chưa chắc chắn: chưa biết build/commit SUT; chưa có public GitHub URL; chưa đủ artifact để kết luận tiêu chí toàn bài 3 feature/9 lượt; credential test seed vẫn xuất hiện trong nguồn HW02/tài liệu ngoài artifact FR-08 đã làm sạch; video và AI Critique thuộc phần sinh viên tự làm.
+- Điểm chưa chắc chắn: chưa biết build/commit SUT; credential test seed vẫn xuất hiện trong nguồn HW02/tài liệu ngoài artifact FR-08 đã làm sạch; video và AI Critique thuộc phần sinh viên tự làm.
 - Bằng chứng duyệt: prompt `approved, complete FR-08 after Phase E` ngày `06/08/2026 11:12`.
 - Trạng thái gap analysis: `Đã duyệt`.
 - Trạng thái FR-08: `Hoàn tất quy trình automation A→E`.

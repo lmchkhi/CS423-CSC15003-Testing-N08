@@ -60,17 +60,10 @@ Giá có phân cách hàng nghìn nhưng dùng `VND`, ví dụ `30,000,000 VND`.
 - Priority: `P2`
 - Lý do: Sai format hiển thị được quy định công khai trên toàn bộ product card, nhưng giá trị số vẫn đọc được.
 
-## Evidence
-
-| Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
-| --- | --- | --- |
-| Screenshot | `test-results/fr05-phase-d/fr05-search-FR-05-—-Xem-da-a7add-hiển-thị-đầy-đủ-Ảnh-Tên-Giá-chromium/TC-FR05-DT-009-product-cards-ui.png`; `test-results/fr05-phase-d/fr05-search-FR-05-—-Xem-da-d3e61-rmat-₫-phân-cách-hàng-nghìn-chromium/TC-FR05-DT-012-product-card-prices-ui.png` | Consolidated Phase D run, Chromium |
-| Trace / video | Cùng result directories, `trace.zip` và `video.webm` | Chromium; cùng failure trên Firefox/msedge |
-| Network / console log | N/A — expected và actual đều là UI text | Không dùng API thay UI oracle |
-| HTML report | `playwrite-test/fr05-search/playwright-report/index.html` | DT-009/012 trên ba projects |
-
 ## GitHub Issue
 
-- Trạng thái: `Chưa tạo — đề xuất`
-- URL/Issue ID: `N/A`
-- Ảnh đính kèm: `N/A — dùng artifact local ở trên`
+- Trạng thái: `Đã tạo — Open`
+- URL/Issue ID: `#223` — https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/223
+- Screenshot Issue: [Mở ảnh](<../screenshots_issues/FR-05/[BUG][FR-05 Product Card] Giá dùng VND thay vì ký hiệu ₫.png>)
+
+![GitHub Issue #223](<../screenshots_issues/FR-05/[BUG][FR-05 Product Card] Giá dùng VND thay vì ký hiệu ₫.png>)
