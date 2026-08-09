@@ -50,17 +50,24 @@ Automation đã cleanup dữ liệu test sau khi ghi nhận evidence, nên danh 
 - Playwright HTML report WebKit: [`reports/html/fr14-category-management/webkit/hw04-report.html`](../../reports/html/fr14-category-management/webkit/hw04-report.html)
 - Playwright original report: [`reports/html/fr14-category-management/chromium/index.html`](../../reports/html/fr14-category-management/chromium/index.html)
 - JSON result: [`reports/results/fr14-category-management/chromium/results.json`](../../reports/results/fr14-category-management/chromium/results.json)
-- TC-FR14-DT-005 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/test-failed-1.png)
 
-![TC-FR14-DT-005 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/test-failed-1.png)
+- Tester observation: dùng token user thường vẫn thêm, cập nhật và xóa category được.
 
-- TC-FR14-DT-013 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-65aca-c-cập-nhật-danh-mục-qua-API-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-65aca-c-cập-nhật-danh-mục-qua-API-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-001-1.png`](../screenshots/BUG-FR14-001-1.png)
+![screenshot](../screenshots/BUG-FR14-001-1.png)
+- API verification: `POST /api/categories` với token `role = user` trả `200 OK`, `Category created`, id tạm `7`.
 
-![TC-FR14-DT-013 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-65aca-c-cập-nhật-danh-mục-qua-API-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-001-2.png`](../screenshots/BUG-FR14-001-2.png)
+![screenshot](../screenshots/BUG-FR14-001-2.png)
+- API verification: `PUT /api/categories/7` với token `role = user` trả `200 OK`, `Category updated`.
 
-- TC-FR14-DT-016 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-474bf-g-được-xóa-danh-mục-qua-API-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-474bf-g-được-xóa-danh-mục-qua-API-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-001-3.png`](../screenshots/BUG-FR14-001-3.png)
+![screenshot](../screenshots/BUG-FR14-001-3.png)
+- API verification: `DELETE /api/categories/8` với token `role = user` trả `200 OK`, `Category deleted`.
 
-![TC-FR14-DT-016 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-474bf-g-được-xóa-danh-mục-qua-API-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-001-4.png`](../screenshots/BUG-FR14-001-4.png)
+![screenshot](../screenshots/BUG-FR14-001-4.png)
+- Dữ liệu tạm tạo trong lúc kiểm tra đã được dọn; danh sách category quay về 3 category mặc định.
 
 - Error context: [`test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/error-context.md`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/error-context.md)
 - Error context TC-FR14-DT-013: [`test-results/fr14-category-management/chromium/fr14-category-management-R-65aca-c-cập-nhật-danh-mục-qua-API-chromium/error-context.md`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-65aca-c-cập-nhật-danh-mục-qua-API-chromium/error-context.md)

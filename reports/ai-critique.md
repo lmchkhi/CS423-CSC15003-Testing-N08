@@ -1,0 +1,7 @@
+# AI Critique
+
+Trong HW04, AI hữu ích nhất ở vai trò cộng tác kỹ thuật: chuyển các test case manual của FR-03, FR-11 và FR-14 thành cấu trúc Playwright data-driven, gợi ý helper dùng lại cho login, API setup, assertion và cách tách dữ liệu sang JSON. Nhờ đó em có thể phát triển suite theo từng commit nhỏ, chạy trên Chromium, Firefox, WebKit và tạo report/evidence nhất quán hơn so với viết thủ công từ đầu.
+
+Tuy vậy, kết quả AI sinh ra không thể dùng nguyên trạng. Một số locator ban đầu khá giòn vì AI không nhìn thấy runtime DOM thật; cần chạy Playwright, đọc `error-context.md`, rồi chỉnh selector theo hành vi thực tế của giao diện. AI cũng dễ bỏ sót yêu cầu nộp bài nếu prompt không nhắc rõ, ví dụ report phải hiện `Run by: 23127475`, JSON result không được bị HTML reporter ghi đè, bug report cần link evidence bấm được và GitHub issue cần đúng 5 label. Ở FR-14, một regex kiểm lỗi `/404/` còn tạo fail giả vì match nhầm số trong timestamp, cho thấy script automation cũng cần được kiểm thử như code sản phẩm.
+
+Phần quan trọng nhất của human review là phân biệt lỗi sản phẩm thật với lỗi do script hoặc môi trường. Em chỉ tạo bug report khi lỗi reproduce ổn định, có oracle từ SRS/API spec và có evidence từ report, screenshot hoặc trace. AI giúp tăng tốc viết script và tổng hợp report, nhưng trách nhiệm cuối cùng vẫn là của người kiểm thử: chọn test case phù hợp, kiểm tra oracle, chạy lại trên nhiều browser, dọn dữ liệu sau test và ghi nhận giới hạn của automation.

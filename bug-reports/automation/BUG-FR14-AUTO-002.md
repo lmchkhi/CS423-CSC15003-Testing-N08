@@ -51,21 +51,20 @@ Lỗi reproduce ổn định trên Chromium, Firefox và WebKit. Automation đã
 - Playwright HTML report WebKit: [`reports/html/fr14-category-management/webkit/hw04-report.html`](../../reports/html/fr14-category-management/webkit/hw04-report.html)
 - Playwright original report: [`reports/html/fr14-category-management/chromium/index.html`](../../reports/html/fr14-category-management/chromium/index.html)
 - JSON result: [`reports/results/fr14-category-management/chromium/results.json`](../../reports/results/fr14-category-management/chromium/results.json)
-- TC-FR14-DT-007 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/test-failed-1.png)
 
-![TC-FR14-DT-007 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/test-failed-1.png)
+- Tester observation: admin vẫn tạo được category với tên rỗng và tên chỉ gồm khoảng trắng; admin cũng cập nhật được category thành tên rỗng.
+- API verification: `POST /api/categories` với `{"name":""}` trả `200 OK`, `Category created`, id `8`.
 
-- TC-FR14-DT-008 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-002-1.png`](../screenshots/BUG-FR14-002-1.png)
+![screenshot](../screenshots/BUG-FR14-002-1.png)
+- API verification: `POST /api/categories` với `{"name":"   "}` trả `200 OK`, `Category created`, id tạm `9`.
 
-![TC-FR14-DT-008 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-002-2.png`](../screenshots/BUG-FR14-002-2.png)
+![screenshot](../screenshots/BUG-FR14-002-2.png)
+- API verification: `PUT /api/categories/7` với `{"name":""}` trả `200 OK`, `Category updated`.
 
-- TC-FR14-DT-011 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/test-failed-1.png)
-
-![TC-FR14-DT-011 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/test-failed-1.png)
-
-- TC-FR14-BVA-001 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/test-failed-1.png)
-
-![TC-FR14-BVA-001 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-002-3.png`](../screenshots/BUG-FR14-002-3.png)
+![screenshot](../screenshots/BUG-FR14-002-3.png)
 
 - Error context TC-FR14-DT-007: [`test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/error-context.md`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/error-context.md)
 - Error context TC-FR14-DT-008: [`test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/error-context.md`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/error-context.md)

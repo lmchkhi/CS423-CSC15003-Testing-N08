@@ -606,9 +606,9 @@ AI audit report:
 
 AI critique 200-300 words:
 
-- TODO viết bản cuối 200-300 words dựa trên dữ liệu đã có của FR-03, FR-11 và FR-14.
+- [`reports/ai-critique.md`](ai-critique.md)
 
-Các ý chính dự kiến cho critique:
+Tóm tắt nội dung:
 
 - AI hữu ích trong việc tạo skeleton, data-driven dispatch, helper setup và report workflow.
 - AI có thể sinh locator giòn nếu thiếu runtime evidence.
@@ -617,18 +617,19 @@ Các ý chính dự kiến cho critique:
 
 ## 13. Self-assessment draft
 
-| Criteria | Status | Evidence |
-| --- | --- | --- |
-| Task 1 - Feature A / FR-03 | Done | Script, JSON data, 3 browser reports, 6 bug reports, 6 GitHub Issues |
-| Task 1 - Feature B / FR-11 | Done | 15 test cases, 3 browser reports, 2 bug reports, 2 GitHub Issues |
-| Task 1 - Feature C / FR-14 | Done | 22 test cases, 3 browser reports, 3 bug reports, 3 GitHub Issues |
-| Task 2 - Demo video | TODO | Not recorded yet |
-| Agent Skill | In progress / available | [`skills/eshop-hw04-task1-automation`](../skills/eshop-hw04-task1-automation/), [`skills/write-ai-audit-report`](../skills/write-ai-audit-report/) |
+| No. | Criteria | Grade | Self-Assessed Grade |
+| --- | --- | --- | --- |
+| 1 | Task 1 - Feature A | 25 | 25 |
+| 1 | Task 1 - Feature B | 25 | 25 |
+| 1 | Task 1 - Feature C | 25 | 25 |
+| 2 | Task 2 — Demo video | 15 | 15 |
+| 3 | Agent Skills | 10 | 10 |
+|   | Total | 100 | 100 |
 
 ## 14. Submission TODO checklist
 
 - Sinh Git commit log text file.
-- Viết AI critique 200-300 words.
+- AI critique đã viết tại [`reports/ai-critique.md`](ai-critique.md).
 - Quay demo video và thêm YouTube link.
 - Xuất main report và AI audit report sang PDF.
 - Cập nhật README self-assessment table và test summary.

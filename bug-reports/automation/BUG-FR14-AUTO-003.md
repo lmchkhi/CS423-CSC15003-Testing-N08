@@ -57,14 +57,16 @@ Không có category mới được tạo/xóa, nhưng response success gây hi�
 - Playwright HTML report WebKit: [`reports/html/fr14-category-management/webkit/hw04-report.html`](../../reports/html/fr14-category-management/webkit/hw04-report.html)
 - Playwright original report: [`reports/html/fr14-category-management/chromium/index.html`](../../reports/html/fr14-category-management/chromium/index.html)
 - JSON result: [`reports/results/fr14-category-management/chromium/results.json`](../../reports/results/fr14-category-management/chromium/results.json)
-- TC-FR14-DT-012 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/test-failed-1.png)
 
-![TC-FR14-DT-012 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/test-failed-1.png)
+- Tester observation: update/delete id không tồn tại vẫn báo `200 OK`.
+- API verification: `PUT /api/categories/999999` trả `200 OK`, `Category updated`, nhưng không có category nào được tạo/cập nhật.
 
-- TC-FR14-DT-015 Screenshot Evidence: [`test-results/fr14-category-management/chromium/fr14-category-management-R-377bb-hông-tồn-tại-hoặc-đã-bị-xóa-chromium/test-failed-1.png`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-377bb-hông-tồn-tại-hoặc-đã-bị-xóa-chromium/test-failed-1.png)
+[`../screenshots/BUG-FR14-003-1.png`](../screenshots/BUG-FR14-003-1.png)
+![screenshot](../screenshots/BUG-FR14-003-1.png)
+- API verification: `DELETE /api/categories/999999` trả `200 OK`, `Category deleted`, dù id không tồn tại.
 
-![TC-FR14-DT-015 Screenshot Evidence](../../test-results/fr14-category-management/chromium/fr14-category-management-R-377bb-hông-tồn-tại-hoặc-đã-bị-xóa-chromium/test-failed-1.png)
-
+[`../screenshots/BUG-FR14-003-2.png`](../screenshots/BUG-FR14-003-2.png)
+![screenshot](../screenshots/BUG-FR14-003-2.png)
 - Error context: [`test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/error-context.md`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/error-context.md)
 - Error context TC-FR14-DT-015: [`test-results/fr14-category-management/chromium/fr14-category-management-R-377bb-hông-tồn-tại-hoặc-đã-bị-xóa-chromium/error-context.md`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-377bb-hông-tồn-tại-hoặc-đã-bị-xóa-chromium/error-context.md)
 - Trace: [`test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/trace.zip`](../../test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/trace.zip)
