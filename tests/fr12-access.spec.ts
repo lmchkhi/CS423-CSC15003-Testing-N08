@@ -8,6 +8,7 @@ import {
   test,
   type APIRequestContext,
   type APIResponse,
+  type Page,
   type TestInfo,
 } from '@playwright/test';
 
@@ -76,7 +77,9 @@ interface RuntimeSetup {
 interface Fr12Fixture {
   feature: 'FR-12';
   baseURL: string;
+  webAdminURL: string;
   invalidToken: string;
+  accounts: Record<CredentialRole, Credentials>;
   endpoints: {
     login: string;
     register: string;
@@ -143,11 +146,21 @@ function validateFixture(value: unknown): asserts value is Fr12Fixture {
   }
 
   const candidate = value as Partial<Fr12Fixture>;
-  if (candidate.feature !== 'FR-12' || typeof candidate.baseURL !== 'string') {
-    throw new Error('FR-12 fixture feature/baseURL is invalid');
+  if (
+    candidate.feature !== 'FR-12' ||
+    typeof candidate.baseURL !== 'string' ||
+    typeof candidate.webAdminURL !== 'string'
+  ) {
+    throw new Error('FR-12 fixture feature/baseURL/webAdminURL is invalid');
   }
-  if (!candidate.endpoints || !candidate.setup || !candidate.rootCauseTags) {
-    throw new Error('FR-12 fixture endpoints/setup/rootCauseTags is missing');
+  if (!candidate.endpoints || !candidate.setup || !candidate.rootCauseTags || !candidate.accounts) {
+    throw new Error('FR-12 fixture endpoints/setup/rootCauseTags/accounts is missing');
+  }
+  for (const role of ['user', 'admin'] as const) {
+    const account = candidate.accounts[role];
+    if (!account || typeof account.email !== 'string' || typeof account.password !== 'string') {
+      throw new Error(`FR-12 fixture ${role} account is invalid`);
+    }
   }
   if (!Array.isArray(candidate.cases) || candidate.cases.length !== 40) {
     throw new Error('FR-12 fixture must contain exactly 40 HW02 cases');
@@ -239,13 +252,56 @@ function apiUrl(path: string): string {
   return `${baseURL}${path}`;
 }
 
-const defaultCredentials: Record<CredentialRole, Credentials> = {
-  admin: { email: 'admin@eshop.com', password: 'Admin123!' },
-  user: { email: 'test@eshop.com', password: 'Test1234!' },
-};
-
 function credentials(role: CredentialRole): Credentials {
-  return defaultCredentials[role];
+  return fixture.accounts[role];
+}
+
+async function verifyWebAdminAccess(page: Page, mode: AuthMode): Promise<void> {
+  if (mode === 'invalid') {
+    await page.addInitScript(
+      ({ token }) => localStorage.setItem('adminToken', token),
+      { token: fixture.invalidToken },
+    );
+  }
+
+  await page.goto(fixture.webAdminURL);
+  const loginHeading = page.getByRole('heading', { name: 'Admin Login' });
+
+  if (mode === 'none' || mode === 'invalid') {
+    await expect(loginHeading, `${mode} token must remain outside Web Admin`).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'EShop Admin' })).toBeHidden();
+    return;
+  }
+
+  const account = credentials(mode);
+  await expect(loginHeading).toBeVisible();
+  await page.getByPlaceholder('Email').fill(account.email);
+  await page.getByPlaceholder('Password').evaluate((element, password) => {
+    const input = element as HTMLInputElement;
+    const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
+    valueSetter?.call(input, password);
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }, account.password);
+
+  if (mode === 'user') {
+    let dialogMessage = '';
+    page.once('dialog', async (dialog) => {
+      dialogMessage = dialog.message();
+      await dialog.dismiss();
+    });
+    await page.getByRole('button', { name: 'Login' }).click();
+    await expect.poll(() => dialogMessage).toBe('Bạn không phải là admin!');
+    await expect(loginHeading, 'regular user must remain on the Admin login surface').toBeVisible();
+    await expect(page.getByRole('heading', { name: 'EShop Admin' })).toBeHidden();
+    return;
+  }
+
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByRole('heading', { name: 'EShop Admin' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem('adminToken')))
+    .not.toBeNull();
 }
 
 async function responseJson(response: APIResponse): Promise<unknown> {
@@ -419,6 +475,7 @@ async function productIdByName(
 
 function annotate(testInfo: TestInfo, testCase: PlaywrightCase<AccessInput, AccessExpected>): void {
   testInfo.annotations.push({ type: 'feature', description: fixture.feature });
+  testInfo.annotations.push({ type: 'surface', description: 'Web Admin UI + API' });
   testInfo.annotations.push({ type: 'hw02-id', description: testCase.id });
   testInfo.annotations.push({ type: 'source', description: testCase.source });
   testInfo.annotations.push({ type: 'case-type', description: testCase.type });
@@ -429,12 +486,14 @@ function annotate(testInfo: TestInfo, testCase: PlaywrightCase<AccessInput, Acce
 
 test.describe('FR-12 Access Control — data-driven HW02', () => {
   for (const testCase of fixture.cases) {
-    test(`${testCase.id}: ${testCase.title}`, async ({ request }, testInfo) => {
+    test(`${testCase.id}: ${testCase.title}`, async ({ page, request }, testInfo) => {
       annotate(testInfo, testCase);
       const cleanup: CleanupTarget[] = [];
       const runtime = runtimeValues(testCase);
 
       try {
+        await verifyWebAdminAccess(page, testCase.input.authMode);
+
         if (testCase.input.resetOrder) await prepareOrderOne(request);
 
         let path = testCase.input.path;

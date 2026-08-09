@@ -6,13 +6,13 @@
 | ---------------------- | --------------------------------------------------------- |
 | SUT                    | `EShop`                                                   |
 | Run by                 | `23127464`                                                |
-| Thời điểm report       | `09/08/2026 15:37`                                        |
+| Thời điểm report       | `09/08/2026 16:40`                                        |
 | Report artifact        | `playwrite-test/fr12-access/playwright-report/index.html` |
 | Metadata đã kiểm chứng | Có — đã mở report và xác nhận trực tiếp                   |
 
-## Thiết lập credential khi chạy FR-12
+## Thiết lập chạy FR-12
 
-Hai tài khoản kiểm thử mặc định được khai báo trực tiếp trong `tests/fr12-access.spec.ts`.
+Hai tài khoản kiểm thử mặc định được khai báo trực tiếp trong `data/fr12-access.json`. Backend API và Web Admin tại `http://localhost:5174` phải hoạt động trước khi chạy.
 
 ```powershell
 npm run test:fr12:phase-d
@@ -47,10 +47,10 @@ Chú thích: `P = passed`, `F = failed`, `S = skipped`.
 | ------------------------ | --------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------- | ------------ |
 | Số lượng test            | Tối thiểu 12 case cho mỗi tính năng           | 40 case FR-12                                                          | `TEST_CASES.md`, fixture               | Có           |
 | Data-driven              | Input/expected nằm ngoài spec ở JSON/CSV      | 40 record trong `data/fr12-access.json`; spec đọc fixture              | Fixture + spec                         | Có           |
-| Assertion                | Ít nhất 3 nhóm assertion thực sự chạy         | State/status; Network/direct response; Count/aggregate/object property | Spec + HTML report/error context       | Có           |
+| Assertion                | Ít nhất 3 nhóm assertion thực sự chạy         | UI access/visibility; Network/direct response; Count/aggregate/object property | Spec + HTML report/error context       | Có           |
 | Đa trình duyệt và report | Chromium/Firefox/Edge; metadata đã kiểm chứng | 3/3 project FR-12, `Run by` + timestamp hiển thị                       | `evidence/phase-d-run.md`, HTML report | Có cho FR-12 |
 
-FR-12 đóng góp 3 lượt feature–browser. Tiêu chí tổng tối thiểu 9 lượt cho ba feature phải được cộng từ artifact của các feature khác trong summary toàn bài; tài liệu này không tự suy diễn số ngoài FR-12.
+FR-12 đóng góp 3 lượt feature–browser thật. Mỗi case mở Web Admin bằng `page` để kiểm tra cổng truy cập theo trạng thái không token, token sai, user và admin; assertion API giữ vai trò kiểm chứng sâu enforcement backend.
 
 ## Review và khoảng trống
 

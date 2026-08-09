@@ -33,7 +33,7 @@ Invalid token được từ chối bằng mã phân quyền `403 Forbidden` thay
 | OS | Microsoft Windows 10.0.26200 |
 | Frontend/Admin/API URL | `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:37` |
+| Thời điểm | `09/08/2026 16:40` |
 
 ## Tiền điều kiện
 
@@ -63,7 +63,7 @@ HTTP `403 Forbidden` với body lỗi `Forbidden`.
 
 | Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
 | --- | --- | --- |
-| Screenshot | `N/A` | Pure API suite không tạo page. |
+| Screenshot | `playwrite-test/fr12-access/playwright-report/data/0c608f181ee7b99cc1a3bb7df5fd98febad1e891.png` | Web Admin trả về login surface; mismatch 401/403 nằm trong HTML report/error context. |
 | Trace / video | `N/A` | Trace tắt để bảo vệ artifact. |
 | Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Expected 401/actual 403 được ghi từ run thật. |
 | HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | DT-002 fail trên ba project. |
@@ -73,4 +73,3 @@ HTTP `403 Forbidden` với body lỗi `Forbidden`.
 - Trạng thái: `Chưa tạo — đề xuất`
 - URL/Issue ID: `N/A`
 - Ảnh đính kèm: `N/A`
-

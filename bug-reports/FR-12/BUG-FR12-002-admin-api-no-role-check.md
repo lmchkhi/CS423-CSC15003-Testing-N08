@@ -33,16 +33,16 @@ Các endpoint `/api/admin/*` chấp nhận token hợp lệ của account role `
 | OS | Microsoft Windows 10.0.26200 |
 | Frontend/Admin/API URL | `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:37` |
+| Thời điểm | `09/08/2026 16:40` |
 
 ## Tiền điều kiện
 
-- Account test có role `user`; credential được cấp qua environment.
+- Account test mặc định có role `user` và được khai báo trực tiếp trong fixture JSON.
 - Resource mutation dùng user/coupon/order tạm hoặc order ID 1 được reset/tạo lại theo precondition đã duyệt.
 
 ## Steps to reproduce
 
-1. Login bằng account được cấu hình có role `user`; không ghi credential/token vào artifact.
+1. Login bằng account kiểm thử mặc định có role `user`; token không được ghi vào artifact.
 2. Gửi request với `Authorization: Bearer <user_token>` tới các endpoint được liệt kê trong bảy TC-ID.
 3. Với mutation, dùng resource tạm hoặc order 1 đã được tái tạo.
 4. Quan sát status, response body và side effect.
@@ -65,8 +65,8 @@ Mọi request trả `200`; dữ liệu được đọc hoặc mutation được 
 
 | Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
 | --- | --- | --- |
-| Screenshot | `N/A` | Pure API suite không tạo page. |
-| Trace / video | `N/A` | Trace tắt để bảo vệ credential/token. |
+| Screenshot | `playwrite-test/fr12-access/playwright-report/data/28f15bdcdc8f8a0691ad37bcaf231d6a29bf2278.png` | Web Admin từ chối user ở UI; assertion API đồng thời chứng minh backend vẫn cho phép truy cập. |
+| Trace / video | `N/A` | Trace và video per-test tắt; screenshot + error context được giữ. |
 | Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Bảy failure được tái hiện, expected không đổi. |
 | HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | Bảy TC-ID fail trên ba project. |
 
@@ -75,4 +75,3 @@ Mọi request trả `200`; dữ liệu được đọc hoặc mutation được 
 - Trạng thái: `Chưa tạo — đề xuất`
 - URL/Issue ID: `N/A`
 - Ảnh đính kèm: `N/A`
-

@@ -7,7 +7,7 @@
 - Isolation: `workers: 1`; 120 lượt chạy tuần tự để DT-011/012/013 không reset database đồng thời.
 - Output: `test-results/fr12-phase-d/`.
 - HTML report: `playwrite-test/fr12-access/playwright-report/index.html`.
-- Credentials được cấp qua `ESHOP_USER_EMAIL`, `ESHOP_USER_PASSWORD`, `ESHOP_ADMIN_EMAIL`, `ESHOP_ADMIN_PASSWORD`; giá trị không ghi vào fixture, log evidence hoặc report.
+- Hai tài khoản kiểm thử mặc định được khai báo trực tiếp trong fixture JSON; spec không chứa password literal để tránh lặp giá trị trong source snapshot của report.
 - SUT probe trước run: `GET http://localhost:3000/api/products` trả 200; frontend-web `:5173` và frontend-admin `:5174` trả 200.
 
 ## Lệnh và exit code
@@ -19,8 +19,9 @@
 | Workspace | Launch headless `chromium`, `firefox`, `chromium` với `channel: msedge` | 0 | Cả ba trả `launch-ok`. |
 | Workspace | `npm run lint` | 0 | ESLint sạch sau khi mở rộng pattern cho `playwright.fr12.config.ts`. |
 | Workspace | `npm run typecheck` | 0 | `tsc --noEmit` pass. |
-| Workspace | `npm run test:fr12:phase-d` (lần đầu) | 1 | 120 executed; 69 passed, 51 failed, 0 flaky, 0 skipped; phát hiện trace API chứa dữ liệu xác thực nên artifact này bị thay thế. |
-| Workspace | `npm run test:fr12:phase-d` (lần cuối, `trace: off`) | 1 | 120 executed; 69 passed, 51 failed, 0 flaky, 0 skipped; 58.1 giây. |
+| Workspace | `npm run test:fr12:phase-d` (run chẩn đoán hybrid) | 1 | Chromium/Edge đúng taxonomy nhưng Firefox không tạo được page do content sandbox; artifact chẩn đoán 46 passed/74 failed đã bị thay thế. |
+| Workspace | Probe Firefox với content sandbox được vô hiệu hóa | 0 | Firefox 153.0 tạo page và mở Web Admin thành công. |
+| Workspace | `npm run test:fr12:phase-d` (lần cuối) | 1 | 120 executed; 69 passed, 51 failed, 0 flaky, 0 skipped; 248.3 giây. |
 | Workspace | Mở report bằng `npx playwright show-report playwrite-test/fr12-access/playwright-report --host 127.0.0.1 --port 9324` và kiểm tra DOM bằng Chromium | 0 | Metadata và tổng kết hiển thị thật được xác nhận. |
 
 ## Kết quả theo project
@@ -45,15 +46,15 @@ Không phát sinh failure khác taxonomy đã duyệt. DT-011 và DT-013 pass tr
 
 - Report được mở thật qua HTTP; DOM hiển thị `All 120`, `Passed 69`, `Failed 51`, `Flaky 0`, `Skipped 0`.
 - DOM/title hiển thị `Run by: 23127464`.
-- DOM/title hiện hành hiển thị thời gian `09/08/2026 15:37` và trường ISO runtime bắt buộc.
+- DOM/title hiện hành hiển thị thời gian `09/08/2026 16:40` và ISO runtime `2026-08-09T09:40:47.960Z`.
 - Embedded `report.json` xác nhận ba project và số liệu 23/17/0 cho mỗi project.
-- Artifact cuối: 51 `error-context.md`, 0 trace, 0 screenshot, 0 video.
-- Lần chạy đầu tạo 51 trace; scan phát hiện trace API ghi login payload, Authorization và JWT. Config được sửa thành `trace: off` và suite được chạy lại, thay thế hoàn toàn output/report cũ.
-- Scan report cuối: 0 JWT shape và 0 serialized password value. Email SUT có thể xuất hiện trong response failure của danh sách users; không có token/password value.
-- Không có screenshot/video vì pure API spec chỉ dùng `APIRequestContext`, không tạo browser page. Error context được giữ cho mọi failure.
+- Artifact runtime cuối: 51 `error-context.md`, 51 screenshot, 0 trace, 0 video; HTML report deduplicate còn 6 file PNG duy nhất.
+- Mỗi case tạo browser page thật, kiểm tra cổng truy cập Web Admin, sau đó dùng assertion API để kiểm chứng enforcement backend.
+- Scan report cuối: không có JWT shape hoặc password được serialize. Email test có thể xuất hiện ở ảnh form và response danh sách users; trường password trên UI được che.
 
 ## Điểm chưa chắc chắn
 
-- Exit code 1 là do 51 lượt failure nghiệp vụ đã biết (17 case × 3 project), không phải browser launch hoặc race reset mới.
-- Trace bị tắt có chủ đích để không lưu credential/API token; đây là biện pháp bảo vệ artifact cho pure API suite, không làm thay đổi assertion hoặc expected.
+- Exit code 1 là do 51 lượt failure nghiệp vụ đã biết (17 case × 3 project), không phải browser launch, Firefox sandbox hoặc race reset mới.
+- Firefox project vô hiệu hóa content sandbox trong launch configuration vì runtime mặc định launch được browser nhưng lỗi khi tạo page; smoke test và full run đã xác nhận workaround.
+- Trace và video per-test được tắt để artifact gọn và không lưu token; screenshot lỗi và error context vẫn được giữ.
 - Phân loại cuối và bug-report/gap analysis thuộc Phase E; Phase D chỉ ghi kết quả đa trình duyệt thật.

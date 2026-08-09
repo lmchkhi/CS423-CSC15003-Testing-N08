@@ -33,11 +33,11 @@ assignees: ""
 | OS | Microsoft Windows 10.0.26200 |
 | Frontend/Admin/API URL | `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:37` |
+| Thời điểm | `09/08/2026 16:40` |
 
 ## Tiền điều kiện
 
-- Account role `user` được cấu hình qua environment.
+- Suite dùng tài khoản kiểm thử mặc định có role `user` được khai báo trực tiếp trong fixture JSON.
 - PUT/DELETE dùng category runtime tạm, không tác động category seed.
 
 ## Steps to reproduce
@@ -65,8 +65,8 @@ Ba request trả `200`; category được tạo, sửa hoặc xóa.
 
 | Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
 | --- | --- | --- |
-| Screenshot | `N/A` | Pure API suite không tạo page. |
-| Trace / video | `N/A` | Trace tắt để bảo vệ credential/token. |
+| Screenshot | `playwrite-test/fr12-access/playwright-report/data/28f15bdcdc8f8a0691ad37bcaf231d6a29bf2278.png` | Web Admin từ chối user ở UI; response mutation category nằm trong HTML report/error context. |
+| Trace / video | `N/A` | Trace và video per-test tắt; screenshot + error context được giữ. |
 | Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Control no-token phân biệt root cause với Product API. |
 | HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | Ba TC-ID fail trên ba project. |
 
@@ -75,4 +75,3 @@ Ba request trả `200`; category được tạo, sửa hoặc xóa.
 - Trạng thái: `Chưa tạo — đề xuất`
 - URL/Issue ID: `N/A`
 - Ảnh đính kèm: `N/A`
-

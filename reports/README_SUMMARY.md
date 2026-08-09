@@ -44,7 +44,7 @@ Số liệu trên chỉ cộng từ các HTML report/evidence đã có. FR-08 c�
 | `FR-08` | `4P/14F/0S` | `4P/14F/0S` | `4P/14F/0S` | `playwrite-test/FR-08-checkout/playwright-report/index.html` |
 | `FR-12` | `23P/17F/0S` | `23P/17F/0S` | `23P/17F/0S` | `playwrite-test/fr12-access/playwright-report/index.html` |
 
-FR-08 hiện gồm 15 case API và 3 case UI thật; 9 lượt UI dùng browser page/DOM trên ba project, còn DT-012 vẫn API-only. FR-12 là API-only. FR-05 dùng UI làm oracle chính cho cả 12 case, nên FR-05 và phần UI bổ sung của FR-08 có cross-browser DOM/rendering coverage thực tế trong đúng phạm vi case tương ứng.
+FR-08 hiện gồm 15 case API và 3 case UI thật; 9 lượt UI dùng browser page/DOM trên ba project, còn DT-012 vẫn API-only. FR-12 dùng hybrid Web Admin UI + API: cả 40 case đều mở page thật để kiểm tra cổng truy cập, sau đó kiểm chứng sâu enforcement backend. FR-05 dùng UI làm oracle chính cho cả 12 case.
 
 ## Khoảng trống còn lại
 

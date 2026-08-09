@@ -14,7 +14,8 @@
 | --- | --- | --- | --- |
 | Chỉ có một invalid-token case trên `/api/admin/users` | Rà 40 HW02 xác nhận chỉ DT-002 dùng invalid token | Chưa chứng minh consistency của malformed/expired/tampered token trên endpoint khác | Bổ sung ở vòng thiết kế tiếp theo nếu requirement yêu cầu; không tự thêm vào HW02 đã duyệt |
 | Không có partition token hết hạn, token sai chữ ký hoặc token thiếu claim role | Fixture chỉ có `invalid_token_xyz123` | Một số nhánh authentication/claim validation chưa được đo | Tạo case riêng khi có cách sinh token test hợp lệ và expected được duyệt |
-| Phạm vi automation là API-only | Spec dùng `APIRequestContext`, không tạo page | Không xác minh route guard/navigation/visible access-denied của frontend-admin | Tạo feature UI access-control riêng nếu FR-12 yêu cầu cả UI enforcement |
+| UI mới phủ cổng truy cập chung, chưa click mọi CRUD flow | Mỗi case mở Web Admin và xác nhận trạng thái none/invalid/user/admin; request nghiệp vụ sâu vẫn dùng `APIRequestContext` | Chưa chứng minh từng nút CRUD xử lý denial trực quan thế nào | Giữ hybrid cho FR-12 contract; dùng FR-14–FR-19 nếu cần coverage UI CRUD chi tiết |
+| Firefox cần workaround content sandbox trên máy chạy | Probe mặc định launch được nhưng `newPage()` lỗi; probe sandbox-disabled và full run đều pass hạ tầng | Máy khác có thể không cần hoặc không cho phép workaround | Ghi rõ trong config/evidence; xác nhận bằng smoke test trước full run |
 | Database/order ID 1 dùng chung | DT-011/012/013 gọi reset toàn cục | Không thể chạy ba project song song an toàn | Giữ `workers: 1` hoặc cấp backend/database riêng cho từng project |
 | Trace bị tắt để bảo vệ credential/token | Scan lần chạy đầu phát hiện auth data trong API trace | Điều tra failure không có timeline trace | Dùng HTML report + error context; chỉ bật trace khi có cơ chế redaction/credential test cô lập an toàn |
 | Root-cause wording dựa trên quan sát hộp đen | Không đọc source triển khai SUT | Không thể khẳng định tên middleware/hàm nội bộ gây lỗi | Giữ mô tả “enforcement quan sát được”; đội phát triển xác định code root cause |
@@ -34,7 +35,7 @@ Không có failure cuối được phân loại là test defect hoặc environme
 ## Hạn chế của AI và bài học human review
 
 - AI ban đầu gộp 17 failure vào hai tag quá rộng; human review tách thành bốn root causes 6/7/3/1 phù hợp hành vi và bug reports.
-- Browser harness giả ban đầu áp assertion DOM cho feature pure API; human review yêu cầu chuyển sang `APIRequestContext` và response assertions trực tiếp.
+- API-only refactor từng làm mất bằng chứng browser thật; human review bổ sung lại Web Admin `Page`/locator có oracle rõ ràng và giữ response assertions trực tiếp cho contract backend.
 - `fullyParallel: false` không đủ bảo vệ database dùng chung giữa project; human review yêu cầu `workers: 1` để cô lập reset order ID 1.
 - Chính sách trace UI-style ban đầu lưu auth data trong API trace; scan artifact và rerun `trace: off` là bắt buộc trước khi công bố report.
 - Black-box automation xác nhận enforcement quan sát được nhưng không thể kết luận chính xác middleware/hàm nội bộ; đội phát triển phải xác định code root cause.

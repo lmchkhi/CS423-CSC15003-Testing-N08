@@ -1,5 +1,7 @@
 # FR-12 Phase C — Automation Run Evidence
 
+> Đây là bằng chứng checkpoint C lịch sử. Cấu hình cuối tại Phase D đã nâng spec thành hybrid Web Admin UI + API và chạy lại đầy đủ trên ba trình duyệt.
+
 ## Môi trường và lệnh đã chạy
 
 | STT | Working directory | Lệnh | Exit code | Kết quả thật |
@@ -12,7 +14,7 @@
 | 6 | Workspace | `npm run typecheck` | 0 | `tsc --noEmit` pass sau khi refactor thành pure API test. |
 | 7 | Workspace | `npm run test:fr12 -- --workers=1` | 1 | **Lịch sử trước refactor:** Chromium: 40 executed, 23 passed, 17 failed, 0 skipped; 46.6 giây. Pure API spec chưa được chạy lại. |
 
-Credential được truyền bằng bốn biến môi trường `ESHOP_USER_EMAIL`, `ESHOP_USER_PASSWORD`, `ESHOP_ADMIN_EMAIL`, `ESHOP_ADMIN_PASSWORD`; giá trị đã redacted và không ghi vào fixture/spec/evidence.
+Tại cấu hình cuối, hai tài khoản kiểm thử mặc định được khai báo trực tiếp trong fixture JSON.
 
 ## Fixture validation
 
@@ -50,7 +52,7 @@ Lệnh kiểm tra JSON runtime trả:
 
 Kết quả khớp Phase A. Expected không bị sửa để làm test pass.
 
-## Assertion của pure API spec hiện tại
+## Assertion tại checkpoint C
 
 | Nhóm | Cách thực thi | Bằng chứng |
 | --- | --- | --- |
@@ -58,7 +60,7 @@ Kết quả khớp Phase A. Expected không bị sửa để làm test pass.
 | Network / response | `request.fetch()`, `response.status()`, `response.json()` và `bodySubset` | Kiểm tra trực tiếp status, method contract, URL và response body. |
 | Count / aggregate | Array: `Array.isArray` và `length >= 0`; object: `toHaveProperty` và `toMatchObject` | Phủ positive array/object mà không dùng DOM text. |
 
-Spec hiện không có `Page`, locator, `page.setContent`, `page.evaluate`, `page.waitForResponse` hay browser harness. Fixture không còn `harness` và `expected.domText`.
+Checkpoint C từng dùng API-only. Phase D hiện đã bổ sung `Page`, locator và UI access checks trên Web Admin thật; fixture vẫn không dùng DOM text giả.
 
 ## Reset, cleanup và side effects
 
@@ -80,7 +82,7 @@ Spec hiện không có `Page`, locator, `page.setContent`, `page.evaluate`, `pag
 
 ## Điểm chưa chắc chắn
 
-- Taxonomy fixture đã đồng bộ với bốn root cause được test-run và bug reports ghi nhận; kết quả pure API runtime vẫn cần chạy lại sau refactor.
+- Taxonomy fixture đã đồng bộ với bốn root cause và đã được xác nhận lại bằng hybrid full run ở Phase D.
 - Reset `node database.js` là stateful; `workers: 1` đã được khóa ở cấp config trước Phase D để ba project không reset database đồng thời. `fullyParallel: false` vẫn được giữ nhưng không phải cơ chế cô lập chính.
-- Pure API spec hiện chưa được chạy lại; kết quả runtime gần nhất chỉ thuộc browser harness cũ và được giữ để truy vết lịch sử.
+- Kết quả checkpoint C được giữ để truy vết; artifact nộp cuối phải dùng full run hybrid ở Phase D.
 

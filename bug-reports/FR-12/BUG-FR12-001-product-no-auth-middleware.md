@@ -33,13 +33,13 @@ Quan sát hộp đen cho thấy `POST/PUT/DELETE /api/products` chấp nhận c�
 | OS | Microsoft Windows 10.0.26200 |
 | Frontend/Admin/API URL | `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:37` |
+| Thời điểm | `09/08/2026 16:40` |
 
 ## Tiền điều kiện
 
 - Backend EShop test đang chạy và database đã được seed.
 - Với PUT/DELETE, tạo product tạm qua API công khai; không tác động product seed.
-- Với partition role `user`, credential được nhận qua environment và không ghi vào artifact.
+- Với partition role `user`, suite dùng tài khoản kiểm thử mặc định khai báo trực tiếp trong fixture JSON.
 
 ## Steps to reproduce
 
@@ -66,8 +66,8 @@ Cả sáu request trả `200`; product được tạo, sửa hoặc xóa tương
 
 | Loại | Đường dẫn / tham chiếu | Xác nhận nguồn thật |
 | --- | --- | --- |
-| Screenshot | `N/A` | Pure API suite không tạo page. |
-| Trace / video | `N/A` | Trace tắt để không lưu credential/token; video không áp dụng cho API-only. |
+| Screenshot | `playwrite-test/fr12-access/playwright-report/data/0c608f181ee7b99cc1a3bb7df5fd98febad1e891.png` | Web Admin login surface tại failure no-token; chi tiết response nằm trong HTML report/error context. |
+| Trace / video | `N/A` | Trace và video per-test tắt; screenshot + error context được giữ. |
 | Network / result summary | `playwrite-test/fr12-access/evidence/phase-a-api-results.md`, `phase-d-run.md` | Response thật; bí mật không ghi vào evidence. |
 | HTML report | `playwrite-test/fr12-access/playwright-report/index.html` | Sáu TC-ID fail trên Chromium, Firefox và Edge. |
 
@@ -76,4 +76,3 @@ Cả sáu request trả `200`; product được tạo, sửa hoặc xóa tương
 - Trạng thái: `Chưa tạo — đề xuất`
 - URL/Issue ID: `N/A`
 - Ảnh đính kèm: `N/A`
-

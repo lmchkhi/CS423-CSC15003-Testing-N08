@@ -30,7 +30,7 @@ export default defineConfig({
   use: {
     trace: 'off',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'off',
   },
   projects: [
     {
@@ -39,7 +39,12 @@ export default defineConfig({
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        launchOptions: {
+          env: { ...process.env, MOZ_DISABLE_CONTENT_SANDBOX: '1' },
+        },
+      },
     },
     {
       name: 'msedge',
