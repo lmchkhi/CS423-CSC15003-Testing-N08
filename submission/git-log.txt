@@ -1,0 +1,1088 @@
+* commit 28a17c37d3b91c215425b065f80cc41e78494628
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 21:04:18 2026 +0700
+| 
+|     feat: add main report and README.md
+| 
+|  submission/README.md                   |  38 +++++++++++
+|  submission/reports/ai-audit-report.md  |   4 +-
+|  submission/reports/ai-audit-report.pdf | Bin 0 -> 433559 bytes
+|  submission/reports/ai-critique.pdf     | Bin 0 -> 109673 bytes
+|  submission/reports/main-report.md      | 113 +++++++++++++++++++++++++++++++
+|  submission/reports/main-report.pdf     | Bin 0 -> 332203 bytes
+|  6 files changed, 153 insertions(+), 2 deletions(-)
+| 
+* commit 5e505cd1319fda497288d6cfc2ec57098c677259
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 20:16:49 2026 +0700
+| 
+|     feat: add ai critique and update ai audit entry
+| 
+|  submission/reports/ai-audit-report.md | 8 +++++---
+|  submission/reports/ai-critique.md     | 6 ++++++
+|  2 files changed, 11 insertions(+), 3 deletions(-)
+| 
+* commit dfae6748f06ea5241601790289ab92468dad377d
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 18:28:15 2026 +0700
+| 
+|     test(fr-07): validate product deletion confirmation dialogs
+| 
+|  tests/e2e/shopping-cart.spec.mjs | 43 +++++++++++++++++++++++++-------------
+|  1 file changed, 29 insertions(+), 14 deletions(-)
+| 
+* commit e95e2c70ae3cc88e87d201e6072b03b84c41e32a
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 18:23:21 2026 +0700
+| 
+|     test(fr-07): assert cart row details by individual cells
+| 
+|  submission/reports/ai-audit-report.md |  6 ++++--
+|  tests/e2e/shopping-cart.spec.mjs      | 14 ++++++++++----
+|  2 files changed, 14 insertions(+), 6 deletions(-)
+| 
+* commit 8a454380063b96effe61d2f483c0658c9b6fe96b
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 18:20:21 2026 +0700
+| 
+|     test(fr-07): verify decrement updates quantity and totals
+| 
+|  tests/data/shopping-cart.json                 |  2 +-
+|  tests/e2e/shopping-cart.spec.mjs              | 19 ++++++++++++++++++-
+|  tests/test-cases/shopping-cart/TC-CART-011.md | 13 ++++++++-----
+|  3 files changed, 27 insertions(+), 7 deletions(-)
+| 
+* commit 5d6a663b82b6fec5c8d16f32542977d375693a51
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 18:04:21 2026 +0700
+| 
+|     feat: add ai audit entry
+| 
+|  submission/reports/ai-audit-report.md        | 76 ++++++++++++++++++++++++++
+|  submission/reports/fr07-automation-review.md | 38 -------------
+|  2 files changed, 76 insertions(+), 38 deletions(-)
+| 
+* commit 02aa3dddcae1eacc4dceff08a5c59d932ed1fc20
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 13:17:42 2026 +0700
+| 
+|     test(fr-07): add shopping cart automation evidence
+| 
+|  artifacts/shopping-cart/chromium/.last-run.json   |  14 ++
+|  .../error-context.md"                             | 175 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 25132 bytes
+|  .../trace.zip"                                    | Bin 0 -> 166295 bytes
+|  .../error-context.md"                             | 187 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 25151 bytes
+|  .../trace.zip"                                    | Bin 0 -> 107494 bytes
+|  .../error-context.md"                             | 167 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 39474 bytes
+|  .../trace.zip"                                    | Bin 0 -> 150805 bytes
+|  .../error-context.md"                             | 216 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 45024 bytes
+|  .../trace.zip"                                    | Bin 0 -> 159509 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 39474 bytes
+|  .../trace.zip"                                    | Bin 0 -> 150739 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 39474 bytes
+|  .../trace.zip"                                    | Bin 0 -> 150442 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 39474 bytes
+|  .../trace.zip"                                    | Bin 0 -> 170651 bytes
+|  .../error-context.md"                             | 163 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 25132 bytes
+|  .../trace.zip"                                    | Bin 0 -> 145832 bytes
+|  .../error-context.md"                             | 179 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 39474 bytes
+|  .../trace.zip"                                    | Bin 0 -> 150063 bytes
+|  artifacts/shopping-cart/firefox/.last-run.json    |  14 ++
+|  .../error-context.md"                             | 175 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 27783 bytes
+|  .../trace.zip"                                    | Bin 0 -> 129251 bytes
+|  .../error-context.md"                             | 185 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 27799 bytes
+|  .../trace.zip"                                    | Bin 0 -> 407592 bytes
+|  .../error-context.md"                             | 167 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 44590 bytes
+|  .../trace.zip"                                    | Bin 0 -> 712540 bytes
+|  .../error-context.md"                             | 214 +++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 51260 bytes
+|  .../trace.zip"                                    | Bin 0 -> 813421 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 44590 bytes
+|  .../trace.zip"                                    | Bin 0 -> 720258 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 44590 bytes
+|  .../trace.zip"                                    | Bin 0 -> 734443 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 44590 bytes
+|  .../trace.zip"                                    | Bin 0 -> 715924 bytes
+|  .../error-context.md"                             | 163 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 27783 bytes
+|  .../trace.zip"                                    | Bin 0 -> 115985 bytes
+|  .../error-context.md"                             | 179 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 44590 bytes
+|  .../trace.zip"                                    | Bin 0 -> 733880 bytes
+|  artifacts/shopping-cart/webkit/.last-run.json     |  14 ++
+|  .../error-context.md"                             | 175 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 117074 bytes
+|  .../trace.zip"                                    | Bin 0 -> 144431 bytes
+|  .../error-context.md"                             | 185 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 117168 bytes
+|  .../trace.zip"                                    | Bin 0 -> 110960 bytes
+|  .../error-context.md"                             | 167 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 153002 bytes
+|  .../trace.zip"                                    | Bin 0 -> 195233 bytes
+|  .../error-context.md"                             | 214 +++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 167979 bytes
+|  .../trace.zip"                                    | Bin 0 -> 213110 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 153002 bytes
+|  .../trace.zip"                                    | Bin 0 -> 195292 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 153002 bytes
+|  .../trace.zip"                                    | Bin 0 -> 184185 bytes
+|  .../error-context.md"                             | 197 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 153002 bytes
+|  .../trace.zip"                                    | Bin 0 -> 184181 bytes
+|  .../error-context.md"                             | 163 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 117074 bytes
+|  .../trace.zip"                                    | Bin 0 -> 144216 bytes
+|  .../error-context.md"                             | 179 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 153002 bytes
+|  .../trace.zip"                                    | Bin 0 -> 183786 bytes
+|  bugs/shopping-cart/BUG-CART-001.md                |  43 ++++
+|  bugs/shopping-cart/BUG-CART-002.md                |  43 ++++
+|  bugs/shopping-cart/BUG-CART-003.md                |  43 ++++
+|  bugs/shopping-cart/BUG-CART-004.md                |  43 ++++
+|  bugs/shopping-cart/BUG-CART-005.md                |  43 ++++
+|  bugs/shopping-cart/BUG-CART-006.md                |  43 ++++
+|  bugs/shopping-cart/BUG-CART-007.md                |  43 ++++
+|  playwright.config.mjs                             |  13 +-
+|  .../1e851d7478393689c4c255c6ab40e2f852f6ebf6.zip  | Bin 0 -> 159509 bytes
+|  .../32e1ddc3e64e963a147c36982f40aaeea2b1ddab.md   | 179 ++++++++++++++++
+|  .../3a97d8cd392a7695fe124d3b5ada6281084213e1.zip  | Bin 0 -> 150739 bytes
+|  .../3d6d50f6f4f637f39145899e0bdd1b1c41642f2b.zip  | Bin 0 -> 145832 bytes
+|  .../40be90669721d4baec784af0d8a3d81c13db5d0d.md   | 175 ++++++++++++++++
+|  .../427710db90a6ce05588b2a0bfaaac36ea29434f8.png  | Bin 0 -> 25132 bytes
+|  .../497d7192964d94b9909c7884698ca5f7a16190f0.md   | 167 +++++++++++++++
+|  .../4bb2e84d69d0b0cc8936b55d864dab2e49d61b63.png  | Bin 0 -> 39474 bytes
+|  .../5c9e4d3b31bfe4d02cd612e51df9bc0c7caa3e5b.zip  | Bin 0 -> 166295 bytes
+|  .../5cbaac76dd66347b9a25b0629f797124c6435113.png  | Bin 0 -> 45024 bytes
+|  .../5fa4249f2121bc5efee4a753b55941c4e57e5463.md   | 187 +++++++++++++++++
+|  .../62c366255f546d39bb416406a02a3c4417ab8f8b.md   | 197 ++++++++++++++++++
+|  .../66c9a7998ffb3df3212529108c4861644c6956e1.zip  | Bin 0 -> 107494 bytes
+|  .../95098168df5af26cebe2ba706dd4fdac75cc216a.zip  | Bin 0 -> 150063 bytes
+|  .../99c5b65cc584ee05cd5b8c472361c395cefaef3c.md   | 197 ++++++++++++++++++
+|  .../9c8dc96d0ff4fd9b14b8569b3a905767d9f0b8a1.md   | 216 ++++++++++++++++++++
+|  .../a8f96c8eaf3f5a9ffbbcc33b028b42b295180600.md   | 163 +++++++++++++++
+|  .../b56e79720b1666d8f295cf0e47c422a852226a48.zip  | Bin 0 -> 150442 bytes
+|  .../b97a562081c08119e3815f6a6fcc59e8132e449e.png  | Bin 0 -> 25151 bytes
+|  .../c00d90f4c7ab117c6e144b5e68f3bb7680cfa673.zip  | Bin 0 -> 170651 bytes
+|  .../c7d01b983a3cb9feab61c3159e238ba0c8e9c5ac.zip  | Bin 0 -> 150805 bytes
+|  .../cc8836d3969b3d48c698fab5eb87634fe4343dfd.md   | 197 ++++++++++++++++++
+|  reports/shopping-cart/chromium/index.html         |  49 +++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 +++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++++++
+|  .../chromium/trace/assets/urlMatch-L3liM589.js    |   1 +
+|  .../chromium/trace/codeMirrorModule.-QdMvsKi.css  |   1 +
+|  .../chromium/trace/codicon.DCmgc-ay.ttf           | Bin 0 -> 80340 bytes
+|  .../trace/defaultSettingsView.BLFoOugd.css        |   1 +
+|  .../chromium/trace/index.B_TqY17P.css             |   1 +
+|  .../chromium/trace/index.KZ4wOW1K.js              |   1 +
+|  reports/shopping-cart/chromium/trace/index.html   |  44 ++++
+|  .../chromium/trace/manifest.webmanifest           |  16 ++
+|  .../chromium/trace/playwright-logo.svg            |   9 +
+|  .../chromium/trace/snapshot.B_Jk1wbt.js           |   1 +
+|  .../shopping-cart/chromium/trace/snapshot.html    |  10 +
+|  reports/shopping-cart/chromium/trace/sw.bundle.js |   4 +
+|  .../chromium/trace/uiMode.C7UW1sC9.css            |   1 +
+|  .../chromium/trace/uiMode.Dzuouizj.js             |   5 +
+|  reports/shopping-cart/chromium/trace/uiMode.html  |  18 ++
+|  .../chromium/trace/xtermModule.kHJ-D0s7.css       |   1 +
+|  .../04a2c0c38235077e317ffd6a75279b82007e072c.zip  | Bin 0 -> 715924 bytes
+|  .../32e1ddc3e64e963a147c36982f40aaeea2b1ddab.md   | 179 ++++++++++++++++
+|  .../38f752a1cca31e6a1ad68377f58905583b5f5fd5.png  | Bin 0 -> 27799 bytes
+|  .../3e4d50d52019d47aa1b1d9399701a2fe459b5334.zip  | Bin 0 -> 734443 bytes
+|  .../40be90669721d4baec784af0d8a3d81c13db5d0d.md   | 175 ++++++++++++++++
+|  .../56e2624bd37ff43bfee1cdc49e78275fcad1012e.png  | Bin 0 -> 51260 bytes
+|  .../62c366255f546d39bb416406a02a3c4417ab8f8b.md   | 197 ++++++++++++++++++
+|  .../7d0c1ee81431de0c7f3858682c5cb93c959786a3.zip  | Bin 0 -> 813421 bytes
+|  .../87bd98c279c1eac55e31ba0c8a9dd3abc13526bf.zip  | Bin 0 -> 129251 bytes
+|  .../99c5b65cc584ee05cd5b8c472361c395cefaef3c.md   | 197 ++++++++++++++++++
+|  .../a046bb24240f87548bc3f55362fe0b244f228f50.png  | Bin 0 -> 27783 bytes
+|  .../a1293e79e7f7443b46b419ee81f2951a8d8ee556.png  | Bin 0 -> 44590 bytes
+|  .../a8f96c8eaf3f5a9ffbbcc33b028b42b295180600.md   | 163 +++++++++++++++
+|  .../a922578d6122a6c02a6cf405f1d985b99f79e85e.md   | 167 +++++++++++++++
+|  .../b3aa3aad156df786ef515c64d63a7b4f3101a0dd.zip  | Bin 0 -> 720258 bytes
+|  .../c3102e2582aca8234727f45ad5c28897555f17ce.zip  | Bin 0 -> 407592 bytes
+|  .../c3ddf85a24fd9f1c769596fe62b8b930d46f8b63.zip  | Bin 0 -> 115985 bytes
+|  .../ca30c10a095c47266422544ab12ed2712ab6c753.md   | 185 +++++++++++++++++
+|  .../cc8836d3969b3d48c698fab5eb87634fe4343dfd.md   | 197 ++++++++++++++++++
+|  .../d0cfae6b098e02c46909d21076b70d10d07ef7ca.md   | 214 +++++++++++++++++++
+|  .../fa9a11d7638f2b262e3949ec5e9f5f00ee6a579d.zip  | Bin 0 -> 733880 bytes
+|  .../fd980ea800732c710843c4a94ec0f2761992e0a8.zip  | Bin 0 -> 712540 bytes
+|  reports/shopping-cart/firefox/index.html          |  49 +++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 +++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++++++
+|  .../firefox/trace/assets/urlMatch-L3liM589.js     |   1 +
+|  .../firefox/trace/codeMirrorModule.-QdMvsKi.css   |   1 +
+|  .../firefox/trace/codicon.DCmgc-ay.ttf            | Bin 0 -> 80340 bytes
+|  .../trace/defaultSettingsView.BLFoOugd.css        |   1 +
+|  .../firefox/trace/index.B_TqY17P.css              |   1 +
+|  .../shopping-cart/firefox/trace/index.KZ4wOW1K.js |   1 +
+|  reports/shopping-cart/firefox/trace/index.html    |  44 ++++
+|  .../firefox/trace/manifest.webmanifest            |  16 ++
+|  .../firefox/trace/playwright-logo.svg             |   9 +
+|  .../firefox/trace/snapshot.B_Jk1wbt.js            |   1 +
+|  reports/shopping-cart/firefox/trace/snapshot.html |  10 +
+|  reports/shopping-cart/firefox/trace/sw.bundle.js  |   4 +
+|  .../firefox/trace/uiMode.C7UW1sC9.css             |   1 +
+|  .../firefox/trace/uiMode.Dzuouizj.js              |   5 +
+|  reports/shopping-cart/firefox/trace/uiMode.html   |  18 ++
+|  .../firefox/trace/xtermModule.kHJ-D0s7.css        |   1 +
+|  .../03d4ebad02babcb2df55d755f42f7fd8882d1aa2.png  | Bin 0 -> 117168 bytes
+|  .../298366507967bdbd12575e3ecd3513a80fe109fd.zip  | Bin 0 -> 213110 bytes
+|  .../32e1ddc3e64e963a147c36982f40aaeea2b1ddab.md   | 179 ++++++++++++++++
+|  .../42d80f8a3ce2a06d0df75f81e4b313f4ea2eb3c3.zip  | Bin 0 -> 144216 bytes
+|  .../43b26174cafca5160f298ef995ccf56a0d1b64cc.zip  | Bin 0 -> 195292 bytes
+|  .../51160343772a55edb605ad82868da021105897fe.md   | 185 +++++++++++++++++
+|  .../62c366255f546d39bb416406a02a3c4417ab8f8b.md   | 197 ++++++++++++++++++
+|  .../63d36d40b7584c78cd6e9d9cdaccd547d4dba1d7.zip  | Bin 0 -> 184181 bytes
+|  .../71b1c3649b76ed17998ebc6d1ebb63ec33fbf59f.md   | 163 +++++++++++++++
+|  .../8015fb4257a1fca71100b99504d48ac091761163.zip  | Bin 0 -> 184185 bytes
+|  .../84cd5d3a7599157748bd850da54a09928550d0e1.png  | Bin 0 -> 153002 bytes
+|  .../8c92291b587c613ddf3706caebf6d1b0a271aeb7.md   | 175 ++++++++++++++++
+|  .../8c943fd72ed0a4b7ee2ee0dc1549ed0afaa48218.png  | Bin 0 -> 167979 bytes
+|  .../99c5b65cc584ee05cd5b8c472361c395cefaef3c.md   | 197 ++++++++++++++++++
+|  .../a3b5f4f3cb5d36e6517ec5e87199cefb28c15cf3.zip  | Bin 0 -> 195233 bytes
+|  .../a450cd18fad19cd7e7328d976e009c63079aba03.zip  | Bin 0 -> 110960 bytes
+|  .../a922578d6122a6c02a6cf405f1d985b99f79e85e.md   | 167 +++++++++++++++
+|  .../af00f6a1b015d9d245e10cbf3f022fca6c8a34d9.md   | 214 +++++++++++++++++++
+|  .../c0c8a4171fa1bc3ee86b9addae1e474b9e5ff15f.png  | Bin 0 -> 117074 bytes
+|  .../ca1aafeac663b8315e3a6ea2a495af26848ede5e.zip  | Bin 0 -> 183786 bytes
+|  .../cc8836d3969b3d48c698fab5eb87634fe4343dfd.md   | 197 ++++++++++++++++++
+|  .../e9c303d317efba4dc66beb66c1cb9d0abd864bcd.zip  | Bin 0 -> 144431 bytes
+|  reports/shopping-cart/webkit/index.html           |  49 +++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 +++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++++++
+|  .../webkit/trace/assets/urlMatch-L3liM589.js      |   1 +
+|  .../webkit/trace/codeMirrorModule.-QdMvsKi.css    |   1 +
+|  .../webkit/trace/codicon.DCmgc-ay.ttf             | Bin 0 -> 80340 bytes
+|  .../webkit/trace/defaultSettingsView.BLFoOugd.css |   1 +
+|  .../shopping-cart/webkit/trace/index.B_TqY17P.css |   1 +
+|  .../shopping-cart/webkit/trace/index.KZ4wOW1K.js  |   1 +
+|  reports/shopping-cart/webkit/trace/index.html     |  44 ++++
+|  .../webkit/trace/manifest.webmanifest             |  16 ++
+|  .../webkit/trace/playwright-logo.svg              |   9 +
+|  .../webkit/trace/snapshot.B_Jk1wbt.js             |   1 +
+|  reports/shopping-cart/webkit/trace/snapshot.html  |  10 +
+|  reports/shopping-cart/webkit/trace/sw.bundle.js   |   4 +
+|  .../webkit/trace/uiMode.C7UW1sC9.css              |   1 +
+|  .../shopping-cart/webkit/trace/uiMode.Dzuouizj.js |   5 +
+|  reports/shopping-cart/webkit/trace/uiMode.html    |  18 ++
+|  .../webkit/trace/xtermModule.kHJ-D0s7.css         |   1 +
+|  submission/reports/fr07-automation-review.md      |  38 ++++
+|  tests/data/shopping-cart.json                     |  36 ++++
+|  tests/e2e/shopping-cart.spec.mjs                  | 128 ++++++++++++
+|  tests/pages/ShoppingCartPage.mjs                  |  45 ++++
+|  tests/test-cases/shopping-cart/TC-CART-001.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-002.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-003.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-004.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-005.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-006.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-007.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-008.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-009.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-010.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-011.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-012.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-013.md     |  35 ++++
+|  tests/test-cases/shopping-cart/TC-CART-014.md     |  35 ++++
+|  233 files changed, 12271 insertions(+), 2 deletions(-)
+| 
+* commit d76d95fd3a09c51ca7a64abbfaf2419a482a58d6
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 12:20:49 2026 +0700
+| 
+|     refactor: update agent skills to keep reports folder tidy
+| 
+|  skills/playwright-automation/SKILL.md             |  2 ++
+|  .../scripts/validate_feature.py                   | 27 +++++++++++++++++++--
+|  2 files changed, 27 insertions(+), 2 deletions(-)
+| 
+* commit ccd09895ba7bcf3bbe18c6e378e6bb100f31d40e
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sat Aug 8 20:09:38 2026 +0700
+| 
+|     test(fr-16): add cross-browser CSV import coverage and evidence
+| 
+|  .../product-csv-import/chromium/.last-run.json    |  14 +
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 59189 bytes
+|  .../trace.zip"                                    | Bin 0 -> 285454 bytes
+|  .../error-context.md"                             | 293 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 62288 bytes
+|  .../trace.zip"                                    | Bin 0 -> 206716 bytes
+|  .../error-context.md"                             | 256 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 60075 bytes
+|  .../trace.zip"                                    | Bin 0 -> 286424 bytes
+|  .../error-context.md"                             | 256 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 60410 bytes
+|  .../trace.zip"                                    | Bin 0 -> 287185 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 58662 bytes
+|  .../trace.zip"                                    | Bin 0 -> 285177 bytes
+|  .../error-context.md"                             | 200 +++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 60595 bytes
+|  .../trace.zip"                                    | Bin 0 -> 274455 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 59025 bytes
+|  .../trace.zip"                                    | Bin 0 -> 284685 bytes
+|  .../error-context.md"                             | 266 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 58246 bytes
+|  .../trace.zip"                                    | Bin 0 -> 254400 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 58490 bytes
+|  .../trace.zip"                                    | Bin 0 -> 283331 bytes
+|  .../product-csv-import/firefox/.last-run.json     |  14 +
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 70736 bytes
+|  .../trace.zip"                                    | Bin 0 -> 390415 bytes
+|  .../error-context.md"                             | 293 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 75362 bytes
+|  .../trace.zip"                                    | Bin 0 -> 216926 bytes
+|  .../error-context.md"                             | 256 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 72557 bytes
+|  .../trace.zip"                                    | Bin 0 -> 242336 bytes
+|  .../error-context.md"                             | 256 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 72995 bytes
+|  .../trace.zip"                                    | Bin 0 -> 188962 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 70464 bytes
+|  .../trace.zip"                                    | Bin 0 -> 213469 bytes
+|  .../error-context.md"                             | 200 +++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 72372 bytes
+|  .../trace.zip"                                    | Bin 0 -> 1095843 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 70631 bytes
+|  .../trace.zip"                                    | Bin 0 -> 214290 bytes
+|  .../error-context.md"                             | 266 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 70057 bytes
+|  .../trace.zip"                                    | Bin 0 -> 196486 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 70185 bytes
+|  .../trace.zip"                                    | Bin 0 -> 245481 bytes
+|  .../product-csv-import/webkit/.last-run.json      |  14 +
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 208196 bytes
+|  .../trace.zip"                                    | Bin 0 -> 291371 bytes
+|  .../error-context.md"                             | 293 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 222222 bytes
+|  .../trace.zip"                                    | Bin 0 -> 245986 bytes
+|  .../error-context.md"                             | 256 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 214089 bytes
+|  .../trace.zip"                                    | Bin 0 -> 302462 bytes
+|  .../error-context.md"                             | 256 +++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 214629 bytes
+|  .../trace.zip"                                    | Bin 0 -> 311214 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 208354 bytes
+|  .../trace.zip"                                    | Bin 0 -> 263937 bytes
+|  .../error-context.md"                             | 200 +++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 214325 bytes
+|  .../trace.zip"                                    | Bin 0 -> 284037 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 208398 bytes
+|  .../trace.zip"                                    | Bin 0 -> 264574 bytes
+|  .../error-context.md"                             | 266 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 206779 bytes
+|  .../trace.zip"                                    | Bin 0 -> 260813 bytes
+|  .../error-context.md"                             | 267 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 207207 bytes
+|  .../trace.zip"                                    | Bin 0 -> 289649 bytes
+|  bugs/product-csv-import/BUG-CSV-001.md            |  45 +++
+|  bugs/product-csv-import/BUG-CSV-002.md            |  45 +++
+|  bugs/product-csv-import/BUG-CSV-003.md            |  45 +++
+|  bugs/product-csv-import/BUG-CSV-004.md            |  45 +++
+|  playwright.config.mjs                             |  95 +++++--
+|  reports/product-csv-import/README.md              |  39 +++
+|  .../1445d2e4abd18ae643dc01caee41992f64f7ce26.zip  | Bin 0 -> 254400 bytes
+|  .../18197267ec8f874a0fc85c385249b242a4b5639e.zip  | Bin 0 -> 286424 bytes
+|  .../3f2c1240c944eba8b9d6ef8ca615f8b7ad33e5ea.png  | Bin 0 -> 58662 bytes
+|  .../58410dbfbf036d477bc808c5874cece971cc869a.zip  | Bin 0 -> 285454 bytes
+|  .../58c3e374a899f4fd19ee804997cd15f9160291bb.zip  | Bin 0 -> 284685 bytes
+|  .../5d13e859606e20e9435070db2d47e06983831d83.png  | Bin 0 -> 60410 bytes
+|  .../63237cd29ea785fede5ce02e19273e8e1e62f12d.png  | Bin 0 -> 60075 bytes
+|  .../684122af13ea4811b9a1d4b36b93d9e7ba6a3fb0.png  | Bin 0 -> 59189 bytes
+|  .../69154fbc2f52f8bd39833cb15848403f76e59440.md   | 267 ++++++++++++++++++
+|  .../737729684206905a7e1eb3dcb3b80c55b062c108.md   | 267 ++++++++++++++++++
+|  .../8640629885d545c72fc1948674fe79ba507332dd.png  | Bin 0 -> 60595 bytes
+|  .../8edae855b162cbf02661d2ff1d0a79ca374ea2ab.md   | 266 ++++++++++++++++++
+|  .../afce068d41ba29ec9dfff82149ce210d50dd6967.png  | Bin 0 -> 59025 bytes
+|  .../b1998cbef0d884a1527c1dd657f26ff769819b8f.png  | Bin 0 -> 62288 bytes
+|  .../baaa2e6aa55190df44e857ef23bfd74dd084e0f4.zip  | Bin 0 -> 285177 bytes
+|  .../bbe7aed24a82fab5c3be802d9ad75187b3eefb2b.md   | 267 ++++++++++++++++++
+|  .../c3faf126a0b8a6e57275e75e34b2de1522b9807c.md   | 293 ++++++++++++++++++++
+|  .../cacb515db8913f5bdb5c142d23d0eaebda328d22.md   | 267 ++++++++++++++++++
+|  .../ce27044125598833d292fff529b41fb29e72fe3c.zip  | Bin 0 -> 283331 bytes
+|  .../d2b4f0d04d9d5fcb8a6bbdb8e6a24028a5c3b24b.md   | 256 +++++++++++++++++
+|  .../d4490054762ab3a1af4fa4c7d9f662046817805e.zip  | Bin 0 -> 274455 bytes
+|  .../d98c1f8a370a6bb1e2ecb02fd86bf10c03dbd350.png  | Bin 0 -> 58490 bytes
+|  .../e0a3f5dd431fac2ec1a9b23eecef1e6cb8c622ff.zip  | Bin 0 -> 287185 bytes
+|  .../f7abeae831dad1290e53430225232cea746f03cd.zip  | Bin 0 -> 206716 bytes
+|  .../f7fa5acad6683ecc248af76f72de07432c68ec5c.md   | 200 +++++++++++++
+|  .../ff8c04c8fe9e431abc61f96be2763085b806dede.md   | 256 +++++++++++++++++
+|  .../fffae29e3b791256441a41fa6f6130f040460df2.png  | Bin 0 -> 58246 bytes
+|  reports/product-csv-import/chromium/index.html    |  49 ++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 +++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++
+|  .../chromium/trace/assets/urlMatch-L3liM589.js    |   1 +
+|  .../chromium/trace/codeMirrorModule.-QdMvsKi.css  |   1 +
+|  .../chromium/trace/codicon.DCmgc-ay.ttf           | Bin 0 -> 80340 bytes
+|  .../trace/defaultSettingsView.BLFoOugd.css        |   1 +
+|  .../chromium/trace/index.B_TqY17P.css             |   1 +
+|  .../chromium/trace/index.KZ4wOW1K.js              |   1 +
+|  .../product-csv-import/chromium/trace/index.html  |  44 +++
+|  .../chromium/trace/manifest.webmanifest           |  16 ++
+|  .../chromium/trace/playwright-logo.svg            |   9 +
+|  .../chromium/trace/snapshot.B_Jk1wbt.js           |   1 +
+|  .../chromium/trace/snapshot.html                  |  10 +
+|  .../chromium/trace/sw.bundle.js                   |   4 +
+|  .../chromium/trace/uiMode.C7UW1sC9.css            |   1 +
+|  .../chromium/trace/uiMode.Dzuouizj.js             |   5 +
+|  .../product-csv-import/chromium/trace/uiMode.html |  18 ++
+|  .../chromium/trace/xtermModule.kHJ-D0s7.css       |   1 +
+|  .../08982b0aa4bf9813a536359d5ed1d3215a42b4b8.zip  | Bin 0 -> 1095843 bytes
+|  .../1bd7952fcc1b51a336935b002390456d49283911.md   | 256 +++++++++++++++++
+|  .../225554b407582f149a0eef83ebd53484f1564d0b.png  | Bin 0 -> 70631 bytes
+|  .../2930fd0f31703f03954ae41269059cc35dfa2da1.md   | 293 ++++++++++++++++++++
+|  .../2aa245d6526f37b9b52d86f608375bf382947b8b.png  | Bin 0 -> 72372 bytes
+|  .../2c3c6210f5ecd8add3ef85a8e9ab91498f34c7ef.png  | Bin 0 -> 75362 bytes
+|  .../32ec932cd81daee3b6b43fa213551079b680c27c.zip  | Bin 0 -> 390415 bytes
+|  .../32ecfbd369bf14910de211cd5068724f335ef87f.md   | 267 ++++++++++++++++++
+|  .../39f7f87a90cff6f586c7521fa6e9914b63535493.md   | 267 ++++++++++++++++++
+|  .../46841e82ce04c1c3808965713ffde6b64ef19380.zip  | Bin 0 -> 216926 bytes
+|  .../46a747ff226f1b4407bcf3250bcdf083530f7fb8.md   | 256 +++++++++++++++++
+|  .../4e023bda215aaf5e2c23edaee54a12d7d3841ab8.zip  | Bin 0 -> 213469 bytes
+|  .../799bca862935df8c2c4a142d67bffd04ced526ad.png  | Bin 0 -> 72995 bytes
+|  .../7e599d95572fbc95d4504fcc1403c8c441a64a85.zip  | Bin 0 -> 245481 bytes
+|  .../83b54a89a436376e849d97f0dbf6942fdba251a0.zip  | Bin 0 -> 214290 bytes
+|  .../8e9c2ab83d2e395f699b1447fc051032f645fc5f.md   | 267 ++++++++++++++++++
+|  .../95f1abe65908ec1ab951ddd8b0c6da3aaadf724c.png  | Bin 0 -> 72557 bytes
+|  .../b419f7eb0e3dec5c3ca86818252a412a67ca9020.zip  | Bin 0 -> 188962 bytes
+|  .../b4ae74a035b6ea61a3ae0923bb463abafd6d87f3.png  | Bin 0 -> 70057 bytes
+|  .../b99f78564c64641957acbe35a850c04a6fdf7ccb.zip  | Bin 0 -> 196486 bytes
+|  .../c2f0eec35f6b103a72c504b562d57a1b0351ade3.zip  | Bin 0 -> 242336 bytes
+|  .../c860c58887cea49703d7fd7d534b351d0b421536.png  | Bin 0 -> 70736 bytes
+|  .../cec44a4d6fb37a7ad9fc928cc3a3cc296ead8432.png  | Bin 0 -> 70464 bytes
+|  .../d4bcccdbd3685c9bf7e7a40c7e5f6e52e2a31467.md   | 266 ++++++++++++++++++
+|  .../e4567e6241d56bc06a934ef896333551caf8e039.png  | Bin 0 -> 70185 bytes
+|  .../e70f9422cd535700f31d83c49a0d2cc63fe0984e.md   | 267 ++++++++++++++++++
+|  .../f7fa5acad6683ecc248af76f72de07432c68ec5c.md   | 200 +++++++++++++
+|  reports/product-csv-import/firefox/index.html     |  49 ++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 +++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++
+|  .../firefox/trace/assets/urlMatch-L3liM589.js     |   1 +
+|  .../firefox/trace/codeMirrorModule.-QdMvsKi.css   |   1 +
+|  .../firefox/trace/codicon.DCmgc-ay.ttf            | Bin 0 -> 80340 bytes
+|  .../trace/defaultSettingsView.BLFoOugd.css        |   1 +
+|  .../firefox/trace/index.B_TqY17P.css              |   1 +
+|  .../firefox/trace/index.KZ4wOW1K.js               |   1 +
+|  .../product-csv-import/firefox/trace/index.html   |  44 +++
+|  .../firefox/trace/manifest.webmanifest            |  16 ++
+|  .../firefox/trace/playwright-logo.svg             |   9 +
+|  .../firefox/trace/snapshot.B_Jk1wbt.js            |   1 +
+|  .../firefox/trace/snapshot.html                   |  10 +
+|  .../product-csv-import/firefox/trace/sw.bundle.js |   4 +
+|  .../firefox/trace/uiMode.C7UW1sC9.css             |   1 +
+|  .../firefox/trace/uiMode.Dzuouizj.js              |   5 +
+|  .../product-csv-import/firefox/trace/uiMode.html  |  18 ++
+|  .../firefox/trace/xtermModule.kHJ-D0s7.css        |   1 +
+|  .../02ee17230d5b4bfc9b85eedb10360eef4203842e.zip  | Bin 0 -> 302462 bytes
+|  .../10ba81d0f7d8e5c050c4a9c5b6d038a4c3b9c661.zip  | Bin 0 -> 264574 bytes
+|  .../12d7b4658fdc55657a0670e06750f0359b991f19.png  | Bin 0 -> 208196 bytes
+|  .../18ee179c706e582702de01240f59bc8dfa5775b8.png  | Bin 0 -> 206779 bytes
+|  .../29344100808a0150c7f86d25ff2e475abf36b1b3.png  | Bin 0 -> 222222 bytes
+|  .../3384d418c6ce3527b39cbde94c8da426fc9d9b3d.png  | Bin 0 -> 214089 bytes
+|  .../3c30649206c3243e0d2a64f9d66538c1e744dfb7.md   | 293 ++++++++++++++++++++
+|  .../5bcb4c720031b2bf3fed6d4b936c7758ecf208bc.zip  | Bin 0 -> 291371 bytes
+|  .../5bd04cdbffd14b9db925c6adfcd23d7b47f76660.md   | 266 ++++++++++++++++++
+|  .../5df9e8bd7f3ae570af19832327da27889bb9c93e.zip  | Bin 0 -> 284037 bytes
+|  .../719409cf5fae5735979dd820712584a281a54f9a.md   | 267 ++++++++++++++++++
+|  .../75c737f1a2735f50c96eace003aa0fdba6937c88.zip  | Bin 0 -> 263937 bytes
+|  .../81656f67a8cda20a1c896292f6e65a312ba2ae90.zip  | Bin 0 -> 311214 bytes
+|  .../833b0b3529376e0b6db5784ac48620c6186c7b9b.png  | Bin 0 -> 214325 bytes
+|  .../940895d808e8b197d2c989d2df88bba0b741c339.md   | 256 +++++++++++++++++
+|  .../9acdad7322d55f4648d828adbbab05b6944c6603.md   | 267 ++++++++++++++++++
+|  .../9ddd61aa461c650fbf60fad874540df1daf68158.png  | Bin 0 -> 208398 bytes
+|  .../bb2c03fcf2a0ba56cc87c170d3b34579a602fac9.md   | 256 +++++++++++++++++
+|  .../c5d1901e864328ac3ef8293aad5ef612260e3682.md   | 267 ++++++++++++++++++
+|  .../dc6e27a09a7f7228c969c65675be4e160c2d39f1.md   | 267 ++++++++++++++++++
+|  .../de77968667ce5e1f7526b34db59084fcef13f3b3.png  | Bin 0 -> 214629 bytes
+|  .../e0baed4f5fcf33c218c55ab03ee967614c9aec4f.zip  | Bin 0 -> 289649 bytes
+|  .../e8094d0edd0a04a88841072c9820536cf3a96d48.png  | Bin 0 -> 208354 bytes
+|  .../f64fd71e1f8db14e324421c9bc6f298276721b31.zip  | Bin 0 -> 245986 bytes
+|  .../f7f27d061b1e1391124c069c330ccc971f33a91b.png  | Bin 0 -> 207207 bytes
+|  .../f7fa5acad6683ecc248af76f72de07432c68ec5c.md   | 200 +++++++++++++
+|  .../ff0a35984b305e3e3216385b08b208ba47db5361.zip  | Bin 0 -> 260813 bytes
+|  reports/product-csv-import/webkit/index.html      |  49 ++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 +++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++
+|  .../webkit/trace/assets/urlMatch-L3liM589.js      |   1 +
+|  .../webkit/trace/codeMirrorModule.-QdMvsKi.css    |   1 +
+|  .../webkit/trace/codicon.DCmgc-ay.ttf             | Bin 0 -> 80340 bytes
+|  .../webkit/trace/defaultSettingsView.BLFoOugd.css |   1 +
+|  .../webkit/trace/index.B_TqY17P.css               |   1 +
+|  .../webkit/trace/index.KZ4wOW1K.js                |   1 +
+|  .../product-csv-import/webkit/trace/index.html    |  44 +++
+|  .../webkit/trace/manifest.webmanifest             |  16 ++
+|  .../webkit/trace/playwright-logo.svg              |   9 +
+|  .../webkit/trace/snapshot.B_Jk1wbt.js             |   1 +
+|  .../product-csv-import/webkit/trace/snapshot.html |  10 +
+|  .../product-csv-import/webkit/trace/sw.bundle.js  |   4 +
+|  .../webkit/trace/uiMode.C7UW1sC9.css              |   1 +
+|  .../webkit/trace/uiMode.Dzuouizj.js               |   5 +
+|  .../product-csv-import/webkit/trace/uiMode.html   |  18 ++
+|  .../webkit/trace/xtermModule.kHJ-D0s7.css         |   1 +
+|  submission/reports/ai-audit-report.md             | 121 ++++++++
+|  tests/data/product-csv-import.json                | 145 ++++++++++
+|  tests/e2e/product-csv-import.spec.mjs             | 164 +++++++++++
+|  tests/pages/ProductCsvImportPage.mjs              |  38 +++
+|  tests/test-cases/product-csv-import/TC-CSV-001.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-002.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-003.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-004.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-005.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-006.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-007.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-008.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-009.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-010.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-011.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-012.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-013.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-014.md |  35 +++
+|  tests/test-cases/product-csv-import/TC-CSV-015.md |  35 +++
+|  247 files changed, 16487 insertions(+), 24 deletions(-)
+| 
+* commit 098fa71819e26e3bb807e7faef756f117db380b2
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sat Aug 8 20:00:14 2026 +0700
+| 
+|     refactor: update agent skills
+| 
+|  skills/create-ai-audit-report/SKILL.md            |  25 ++++-
+|  .../scripts/resolve_codex_metadata.py             | 104 ++++++++++++++++++++
+|  skills/playwright-automation/SKILL.md             |  11 ++-
+|  3 files changed, 137 insertions(+), 3 deletions(-)
+| 
+* commit 0a9af99e240cad01ade855346c5b89086dd4c588
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sat Aug 8 10:20:53 2026 +0700
+| 
+|     test(FR-01): harden email checks and refresh evidence
+|     
+|     - use valid password data for email validation cases
+|     - verify duplicate email directly through the registration API
+|     - remove flaky response waits for client-side validation
+|     - regenerate cross-browser reports and failure artifacts
+|     - synchronize bug reports, test summary, and AI audit
+| 
+|  .../account-registration/chromium/.last-run.json  |  11 ++
+|  .../error-context.md"                             | 181 +++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 47826 bytes
+|  .../trace.zip"                                    | Bin 0 -> 203935 bytes
+|  .../error-context.md"                             | 186 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 35130 bytes
+|  .../trace.zip"                                    | Bin 0 -> 96833 bytes
+|  .../error-context.md"                             | 154 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 35130 bytes
+|  .../trace.zip"                                    | Bin 80618 -> 96574 bytes
+|  .../error-context.md"                             | 175 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 47073 bytes
+|  .../trace.zip"                                    | Bin 0 -> 218836 bytes
+|  .../error-context.md"                             | 154 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 39042 bytes
+|  .../trace.zip"                                    | Bin 0 -> 336682 bytes
+|  .../error-context.md"                             | 141 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 4254 bytes
+|  .../trace.zip"                                    | Bin 0 -> 11379 bytes
+|  .../account-registration/firefox/.last-run.json   |  11 ++
+|  .../error-context.md"                             | 181 +++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 56226 bytes
+|  .../trace.zip"                                    | Bin 0 -> 821824 bytes
+|  .../error-context.md"                             | 186 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 42041 bytes
+|  .../trace.zip"                                    | Bin 541834 -> 543707 bytes
+|  .../error-context.md"                             | 154 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 42041 bytes
+|  .../trace.zip"                                    | Bin 0 -> 558018 bytes
+|  .../error-context.md"                             | 175 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 56030 bytes
+|  .../trace.zip"                                    | Bin 0 -> 797849 bytes
+|  .../error-context.md"                             | 154 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 47006 bytes
+|  .../trace.zip"                                    | Bin 0 -> 671953 bytes
+|  .../error-context.md"                             | 141 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 5212 bytes
+|  .../trace.zip"                                    | Bin 0 -> 11572 bytes
+|  .../account-registration/webkit/.last-run.json    |  11 ++
+|  .../error-context.md"                             | 181 +++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 176190 -> 176076 bytes
+|  .../trace.zip"                                    | Bin 0 -> 224666 bytes
+|  .../error-context.md"                             | 186 ++++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 145810 bytes
+|  .../trace.zip"                                    | Bin 0 -> 157623 bytes
+|  .../error-context.md"                             | 154 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 145810 bytes
+|  .../trace.zip"                                    | Bin 155737 -> 157386 bytes
+|  .../error-context.md"                             | 175 ++++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 175071 bytes
+|  .../trace.zip"                                    | Bin 0 -> 222866 bytes
+|  .../error-context.md"                             | 154 ++++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 157651 bytes
+|  .../trace.zip"                                    | Bin 0 -> 361151 bytes
+|  .../error-context.md"                             | 141 +++++++++++++++
+|  .../test-failed-1.png"                            | Bin 0 -> 67988 bytes
+|  .../trace.zip"                                    | Bin 0 -> 11540 bytes
+|  bugs/account-registration/BUG-REG-001.md          |   9 +-
+|  bugs/account-registration/BUG-REG-002.md          |  18 +-
+|  bugs/account-registration/BUG-REG-003.md          |  17 +-
+|  bugs/account-registration/BUG-REG-004.md          |   9 +-
+|  reports/account-registration/README.md            |  14 +-
+|  .../14edd6f3500f3f1f4cd4db958a91f76b7f4fd4ed.zip  | Bin 181764 -> 0 bytes
+|  .../1829be30fbd376410439efd36cc72fbf2a6cfd28.md   | 150 ----------------
+|  ... 1ffe21e379b466e252188df37c740c61bcb945c8.zip} | Bin 80491 -> 96574 bytes
+|  .../29c72c1b2dc127facd0ca0028c0dad625d532621.zip  | Bin 162060 -> 0 bytes
+|  .../2b9e146dbdb785904b06151dcde3f19c47d0f5e8.png  | Bin 0 -> 47073 bytes
+|  .../2fa498559d7e0875d7a9819adc0feb17055654e3.md   | 175 ++++++++++++++++++
+|  .../4f67f47581412b8d28c4b6067debd774b94466e0.md   | 154 ++++++++++++++++
+|  .../519d8ecca36756548f841c313c6fa8c1eb7ae8c0.png  | Bin 36155 -> 0 bytes
+|  .../63925cd0a24e1399a99d4dbec2e47fa3ed47e1a1.md   | 158 -----------------
+|  .../6c9983b8bae5367e54b95cb53ce979a494482ad0.png  | Bin 35364 -> 0 bytes
+|  .../74dae071c4e79d8d27fec593c3ec3e52016a803b.zip  | Bin 197578 -> 0 bytes
+|  .../78485ad26ab49de2007fe98b0854715a58aaf5b6.png  | Bin 0 -> 4254 bytes
+|  .../7fb7f4150c8d6d980b41d57ff2979864d1043535.png  | Bin 0 -> 39042 bytes
+|  .../83f7e2acf5609ae776821ece92a45490d5466667.png  | Bin 0 -> 47826 bytes
+|  .../8a6c307b2f0bdaf668bdd763fc547d6c18c71180.md   | 125 -------------
+|  .../8b214fdefe65cfe85d803495fd1528f6e0a5104f.md   | 141 +++++++++++++++
+|  .../99aac863e2fac6ee22387e33f53d1a477ff6d6f9.zip  | Bin 0 -> 336682 bytes
+|  .../9de8e1c7814c3d60b3681dc7e90d90dd5c02d5d7.md   | 150 ----------------
+|  .../ab71e2dadafb2e46617b48caa8012f817aa4e050.zip  | Bin 0 -> 203935 bytes
+|  .../af89089dc9aefe5a283cac575d597438c21465da.md   | 181 +++++++++++++++++++
+|  .../b4947ba8f0b8923a1f1392a5e5359d65c2b043ac.zip  | Bin 0 -> 96833 bytes
+|  .../b566fd2c9640cc4de56b497e44762085f323eb7a.md   | 154 ++++++++++++++++
+|  .../c56f3ca92acda780c0bbf2f9bcf4fa157920e091.zip  | Bin 179422 -> 0 bytes
+|  .../c66a9e97645a0e5c4f275869cfec9a78aca33057.png  | Bin 47438 -> 0 bytes
+|  .../cb7b0fc28dfdb6fc369c4f1b77717d81d9a0bca4.md   | 186 ++++++++++++++++++++
+|  .../d490255d8aed30d6a09fcbeaa77d5629413e6bcd.zip  | Bin 0 -> 11379 bytes
+|  .../d500b6fd38c11c8c35db8e3f6d0f4903d48ec288.md   | 146 ---------------
+|  .../d5ec03a8c9e7dafd11a33a898feb26d72b90af4a.md   | 157 -----------------
+|  .../dd0218b5c7ec68e67db5a72020483c1e255fa6ef.png  | Bin 47523 -> 0 bytes
+|  .../ffaccf17941b47e5cfa77bc1a2aaf0c9477db17e.zip  | Bin 0 -> 218836 bytes
+|  reports/account-registration/chromium/index.html  |   2 +-
+|  .../082794e93cf9fe77f481de794df4944cacabd3f6.png  | Bin 56556 -> 0 bytes
+|  .../12d48ffe413a39c2b4d806d2908d45bc0890fb83.zip  | Bin 1540943 -> 0 bytes
+|  .../138ca4ca01324a91b90755f732dd016862c5fa85.zip  | Bin 821277 -> 0 bytes
+|  .../1829be30fbd376410439efd36cc72fbf2a6cfd28.md   | 150 ----------------
+|  .../32f107bfe0e24a22529c248fa657980ecac840d7.png  | Bin 0 -> 56226 bytes
+|  .../33de87fb891cd497e39b069bc7335157102eab8f.md   | 146 ---------------
+|  .../44ebd7a295535a8c7f0eda0352823797211a039c.png  | Bin 43946 -> 0 bytes
+|  .../4f67f47581412b8d28c4b6067debd774b94466e0.md   | 154 ++++++++++++++++
+|  .../5123e41744341995ed6a199fd83e68e06c2e3159.zip  | Bin 0 -> 821824 bytes
+|  .../6286e9e50d1cf93b9fae65a04da9950d471bbf2f.zip  | Bin 0 -> 797849 bytes
+|  .../66fb9abfa35932d9ccb21e0462e0ba59199d55d8.zip  | Bin 0 -> 11572 bytes
+|  ... 671fef1cd4a65cf91a900a59642c10ae4ff60b75.zip} | Bin 542148 -> 543707 bytes
+|  .../6b846343fbb3cffedf976f31d633f7cfdf84635f.png  | Bin 0 -> 56030 bytes
+|  .../772aa2dea6ee89f8abb45daed8fb8275ed01de7a.png  | Bin 56293 -> 0 bytes
+|  .../85b864f66bba7383c0250c0b9f5c470563401995.md   | 158 -----------------
+|  .../8a6c307b2f0bdaf668bdd763fc547d6c18c71180.md   | 125 -------------
+|  .../8b214fdefe65cfe85d803495fd1528f6e0a5104f.md   | 141 +++++++++++++++
+|  .../944c1964cea8b9d581c6c3b93ab5842fcb4d4063.zip  | Bin 0 -> 671953 bytes
+|  .../9de8e1c7814c3d60b3681dc7e90d90dd5c02d5d7.md   | 150 ----------------
+|  .../9f0c14e1c24a5fd5d53d9684bb0ac891e378cc91.md   | 175 ++++++++++++++++++
+|  .../a8fc2102f6aa7ceb1dae125bd873652c1f2ae33c.png  | Bin 44890 -> 0 bytes
+|  .../b566fd2c9640cc4de56b497e44762085f323eb7a.md   | 154 ++++++++++++++++
+|  .../bc3d9537e15f57a8e8e44a0dfc11fd7b9f3ad4af.png  | Bin 0 -> 47006 bytes
+|  .../c4608beaf58bb26c90a6eb2e05a744e9ffb8aff3.zip  | Bin 0 -> 558018 bytes
+|  .../cb7b0fc28dfdb6fc369c4f1b77717d81d9a0bca4.md   | 186 ++++++++++++++++++++
+|  .../d5ec03a8c9e7dafd11a33a898feb26d72b90af4a.md   | 157 -----------------
+|  .../d7a5eed98f52b3a8ab83bfb6cda4263aac918b89.png  | Bin 0 -> 5212 bytes
+|  .../e7e3388758d8ed240ad108d2842dc34d10e052b3.zip  | Bin 1521787 -> 0 bytes
+|  .../eefa4cab8ca49406a7e8227f50ee24dac3771c04.zip  | Bin 817084 -> 0 bytes
+|  .../f4b1f9583e550e1fc42e08d89e1dcfbe3fa73a23.md   | 181 +++++++++++++++++++
+|  reports/account-registration/firefox/index.html   |   2 +-
+|  .../00d4b6b611b29b0010a2e4cdd730dd68bdcb5778.png  | Bin 150657 -> 0 bytes
+|  .../04327f6e934c8c274900c000db4d34a8e97ba2d0.md   | 157 -----------------
+|  .../14359992efb956c0b582e57af94e9a06db4f32d0.md   | 150 ----------------
+|  .../17e345039d9cc96387371bbdbe6ea6ba73ffd19a.md   | 158 -----------------
+|  .../282cf34e4c50a958812e27a90d03306833858762.zip  | Bin 0 -> 11540 bytes
+|  .../293ddaefe99d039938a32df13a5efa718292b5d2.zip  | Bin 0 -> 222866 bytes
+|  .../443c7931d26614df90b16b4ef8bd54a3243685ac.png  | Bin 0 -> 175071 bytes
+|  .../4f67f47581412b8d28c4b6067debd774b94466e0.md   | 154 ++++++++++++++++
+|  .../519874c90b026e864332369e27b133b93b2bbada.png  | Bin 0 -> 67988 bytes
+|  .../56aa3dac85abdad19f57976f71685a40d073cf8d.md   | 150 ----------------
+|  .../57388b7fa90db50434e0b1d6faa6f56881d79711.zip  | Bin 181469 -> 0 bytes
+|  .../81aba65ce3a27708714cb085e577bab67996ab53.zip  | Bin 182847 -> 0 bytes
+|  ... 8772594c64146b591507c9028dea3220aa49a82c.zip} | Bin 156024 -> 157386 bytes
+|  .../8a6c307b2f0bdaf668bdd763fc547d6c18c71180.md   | 125 -------------
+|  .../8b214fdefe65cfe85d803495fd1528f6e0a5104f.md   | 141 +++++++++++++++
+|  .../9bf27039eb9760525bebd2a8bbe6eb4c9e875e4a.zip  | Bin 0 -> 224666 bytes
+|  .../a4f1558549772d3f2215df6a52242234eb42f654.png  | Bin 148608 -> 0 bytes
+|  .../a68ce0b418c0c864f56ad0b24c2729b91b5e0250.md   | 186 ++++++++++++++++++++
+|  ... ad6b966874088f7fbc3bb38469463fc5454eae9b.png} | Bin 176282 -> 176076 bytes
+|  .../b566fd2c9640cc4de56b497e44762085f323eb7a.md   | 154 ++++++++++++++++
+|  .../b61fa1a58cfa9d7257bebb704db98499e409e3f4.md   | 181 +++++++++++++++++++
+|  .../c2eaa69078c2bd2ec83b13a2f7c71ce2b27be3fd.zip  | Bin 0 -> 157623 bytes
+|  .../cc529211ab7a5a2bf5a3629c67be413f99f3f3a1.md   | 146 ---------------
+|  .../cc9b05261d4b84a7f77032827c6d73d5be015459.zip  | Bin 221024 -> 0 bytes
+|  .../e2b5515f2001efa42db4930acf69b0015ff67911.zip  | Bin 0 -> 361151 bytes
+|  .../e7ef5367a6e49bb8918613a16b6e347379c78e52.md   | 175 ++++++++++++++++++
+|  .../e92b85e6628a1181b3ac152e13e8a1f077c89ce2.zip  | Bin 201157 -> 0 bytes
+|  .../f09c10bc416c274b9718a8292bd2cf2d20372f50.png  | Bin 0 -> 157651 bytes
+|  reports/account-registration/webkit/index.html    |   2 +-
+|  submission/reports/ai-audit-report.md             |   4 +
+|  tests/data/account-registration.json              |  10 +-
+|  tests/e2e/account-registration.spec.mjs           |  55 ++++--
+|  .../test-cases/account-registration/TC-REG-007.md |   9 +-
+|  157 files changed, 6074 insertions(+), 2714 deletions(-)
+| 
+* commit fc8cc4d0eb3263440e9e5b3c4fc2d076aea08b5c
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Wed Aug 5 18:16:16 2026 +0700
+| 
+|     test(fr-01): add playwright automation scripts and reports
+| 
+|  bugs/account-registration/BUG-REG-001.md          |  43 +++++
+|  bugs/account-registration/BUG-REG-002.md          |  43 +++++
+|  bugs/account-registration/BUG-REG-003.md          |  43 +++++
+|  bugs/account-registration/BUG-REG-004.md          |  43 +++++
+|  evidence/account-registration/BUG-REG-001.png     | Bin 0 -> 47438 bytes
+|  evidence/account-registration/BUG-REG-002.png     | Bin 0 -> 35364 bytes
+|  evidence/account-registration/BUG-REG-003.png     | Bin 0 -> 36155 bytes
+|  evidence/account-registration/BUG-REG-004.png     | Bin 0 -> 35130 bytes
+|  playwright.config.mjs                             |  46 +++++
+|  reports/account-registration/README.md            |  37 ++++
+|  .../0eefa3fee34e91a31838f14f2a6e4a53012e5b05.zip  | Bin 0 -> 80491 bytes
+|  .../14edd6f3500f3f1f4cd4db958a91f76b7f4fd4ed.zip  | Bin 0 -> 181764 bytes
+|  .../1829be30fbd376410439efd36cc72fbf2a6cfd28.md   | 150 ++++++++++++++++
+|  .../29c72c1b2dc127facd0ca0028c0dad625d532621.zip  | Bin 0 -> 162060 bytes
+|  .../519d8ecca36756548f841c313c6fa8c1eb7ae8c0.png  | Bin 0 -> 36155 bytes
+|  .../63925cd0a24e1399a99d4dbec2e47fa3ed47e1a1.md   | 158 +++++++++++++++++
+|  .../6c9983b8bae5367e54b95cb53ce979a494482ad0.png  | Bin 0 -> 35364 bytes
+|  .../74dae071c4e79d8d27fec593c3ec3e52016a803b.zip  | Bin 0 -> 197578 bytes
+|  .../7e7a083915ae1a4ae8f226d910eafb411882e465.png  | Bin 0 -> 35130 bytes
+|  .../8a6c307b2f0bdaf668bdd763fc547d6c18c71180.md   | 125 ++++++++++++++
+|  .../9de8e1c7814c3d60b3681dc7e90d90dd5c02d5d7.md   | 150 ++++++++++++++++
+|  .../b8bd3600f36cea73d645a750314a2c6eca471f05.zip  | Bin 0 -> 80618 bytes
+|  .../c56f3ca92acda780c0bbf2f9bcf4fa157920e091.zip  | Bin 0 -> 179422 bytes
+|  .../c66a9e97645a0e5c4f275869cfec9a78aca33057.png  | Bin 0 -> 47438 bytes
+|  .../d500b6fd38c11c8c35db8e3f6d0f4903d48ec288.md   | 146 ++++++++++++++++
+|  .../d5ec03a8c9e7dafd11a33a898feb26d72b90af4a.md   | 157 +++++++++++++++++
+|  .../dd0218b5c7ec68e67db5a72020483c1e255fa6ef.png  | Bin 0 -> 47523 bytes
+|  reports/account-registration/chromium/index.html  |  49 ++++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 ++++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++++++++++
+|  .../chromium/trace/assets/urlMatch-L3liM589.js    |   1 +
+|  .../chromium/trace/codeMirrorModule.-QdMvsKi.css  |   1 +
+|  .../chromium/trace/codicon.DCmgc-ay.ttf           | Bin 0 -> 80340 bytes
+|  .../trace/defaultSettingsView.BLFoOugd.css        |   1 +
+|  .../chromium/trace/index.B_TqY17P.css             |   1 +
+|  .../chromium/trace/index.KZ4wOW1K.js              |   1 +
+|  .../chromium/trace/index.html                     |  44 +++++
+|  .../chromium/trace/manifest.webmanifest           |  16 ++
+|  .../chromium/trace/playwright-logo.svg            |   9 +
+|  .../chromium/trace/snapshot.B_Jk1wbt.js           |   1 +
+|  .../chromium/trace/snapshot.html                  |  10 ++
+|  .../chromium/trace/sw.bundle.js                   |   4 +
+|  .../chromium/trace/uiMode.C7UW1sC9.css            |   1 +
+|  .../chromium/trace/uiMode.Dzuouizj.js             |   5 +
+|  .../chromium/trace/uiMode.html                    |  18 ++
+|  .../chromium/trace/xtermModule.kHJ-D0s7.css       |   1 +
+|  .../00ac59d87c91350f608d1df2846099628b99bacf.zip  | Bin 0 -> 542148 bytes
+|  .../082794e93cf9fe77f481de794df4944cacabd3f6.png  | Bin 0 -> 56556 bytes
+|  .../12d48ffe413a39c2b4d806d2908d45bc0890fb83.zip  | Bin 0 -> 1540943 bytes
+|  .../138ca4ca01324a91b90755f732dd016862c5fa85.zip  | Bin 0 -> 821277 bytes
+|  .../1829be30fbd376410439efd36cc72fbf2a6cfd28.md   | 150 ++++++++++++++++
+|  .../33de87fb891cd497e39b069bc7335157102eab8f.md   | 146 ++++++++++++++++
+|  .../44ebd7a295535a8c7f0eda0352823797211a039c.png  | Bin 0 -> 43946 bytes
+|  .../772aa2dea6ee89f8abb45daed8fb8275ed01de7a.png  | Bin 0 -> 56293 bytes
+|  .../7790d82a1fc7977763225b31bbe3d19f4ff7e4ef.zip  | Bin 0 -> 541834 bytes
+|  .../85b864f66bba7383c0250c0b9f5c470563401995.md   | 158 +++++++++++++++++
+|  .../8a6c307b2f0bdaf668bdd763fc547d6c18c71180.md   | 125 ++++++++++++++
+|  .../9de8e1c7814c3d60b3681dc7e90d90dd5c02d5d7.md   | 150 ++++++++++++++++
+|  .../a8fc2102f6aa7ceb1dae125bd873652c1f2ae33c.png  | Bin 0 -> 44890 bytes
+|  .../acb99cf32abebb17ae363f06247cac3b5c89274a.png  | Bin 0 -> 42041 bytes
+|  .../d5ec03a8c9e7dafd11a33a898feb26d72b90af4a.md   | 157 +++++++++++++++++
+|  .../e7e3388758d8ed240ad108d2842dc34d10e052b3.zip  | Bin 0 -> 1521787 bytes
+|  .../eefa4cab8ca49406a7e8227f50ee24dac3771c04.zip  | Bin 0 -> 817084 bytes
+|  reports/account-registration/firefox/index.html   |  49 ++++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 ++++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++++++++++
+|  .../firefox/trace/assets/urlMatch-L3liM589.js     |   1 +
+|  .../firefox/trace/codeMirrorModule.-QdMvsKi.css   |   1 +
+|  .../firefox/trace/codicon.DCmgc-ay.ttf            | Bin 0 -> 80340 bytes
+|  .../trace/defaultSettingsView.BLFoOugd.css        |   1 +
+|  .../firefox/trace/index.B_TqY17P.css              |   1 +
+|  .../firefox/trace/index.KZ4wOW1K.js               |   1 +
+|  .../account-registration/firefox/trace/index.html |  44 +++++
+|  .../firefox/trace/manifest.webmanifest            |  16 ++
+|  .../firefox/trace/playwright-logo.svg             |   9 +
+|  .../firefox/trace/snapshot.B_Jk1wbt.js            |   1 +
+|  .../firefox/trace/snapshot.html                   |  10 ++
+|  .../firefox/trace/sw.bundle.js                    |   4 +
+|  .../firefox/trace/uiMode.C7UW1sC9.css             |   1 +
+|  .../firefox/trace/uiMode.Dzuouizj.js              |   5 +
+|  .../firefox/trace/uiMode.html                     |  18 ++
+|  .../firefox/trace/xtermModule.kHJ-D0s7.css        |   1 +
+|  .../00d4b6b611b29b0010a2e4cdd730dd68bdcb5778.png  | Bin 0 -> 150657 bytes
+|  .../04327f6e934c8c274900c000db4d34a8e97ba2d0.md   | 157 +++++++++++++++++
+|  .../14359992efb956c0b582e57af94e9a06db4f32d0.md   | 150 ++++++++++++++++
+|  .../17e345039d9cc96387371bbdbe6ea6ba73ffd19a.md   | 158 +++++++++++++++++
+|  .../2aa5230e5bf3213496478b8b9e26640972c53857.png  | Bin 0 -> 176282 bytes
+|  .../498e11ecff520d5dfb52fe4f92c4a8cc84d9c765.png  | Bin 0 -> 145810 bytes
+|  .../56aa3dac85abdad19f57976f71685a40d073cf8d.md   | 150 ++++++++++++++++
+|  .../57388b7fa90db50434e0b1d6faa6f56881d79711.zip  | Bin 0 -> 181469 bytes
+|  .../81aba65ce3a27708714cb085e577bab67996ab53.zip  | Bin 0 -> 182847 bytes
+|  .../8a6c307b2f0bdaf668bdd763fc547d6c18c71180.md   | 125 ++++++++++++++
+|  .../92eb51ec910dc084805871cd9d00ac248e0f0c71.zip  | Bin 0 -> 155737 bytes
+|  .../a4f1558549772d3f2215df6a52242234eb42f654.png  | Bin 0 -> 148608 bytes
+|  .../af481eb64c5bba6fbe7e2d85659257d79fe7c8c0.png  | Bin 0 -> 176190 bytes
+|  .../bd7c5201322d3ae20655b8d313ee5a595f7f1957.zip  | Bin 0 -> 156024 bytes
+|  .../cc529211ab7a5a2bf5a3629c67be413f99f3f3a1.md   | 146 ++++++++++++++++
+|  .../cc9b05261d4b84a7f77032827c6d73d5be015459.zip  | Bin 0 -> 221024 bytes
+|  .../e92b85e6628a1181b3ac152e13e8a1f077c89ce2.zip  | Bin 0 -> 201157 bytes
+|  reports/account-registration/webkit/index.html    |  49 ++++++
+|  .../trace/assets/codeMirrorModule-rXmQmLUY.js     |  32 ++++
+|  .../trace/assets/defaultSettingsView-B-dXF5JN.js  | 181 ++++++++++++++++++++
+|  .../webkit/trace/assets/urlMatch-L3liM589.js      |   1 +
+|  .../webkit/trace/codeMirrorModule.-QdMvsKi.css    |   1 +
+|  .../webkit/trace/codicon.DCmgc-ay.ttf             | Bin 0 -> 80340 bytes
+|  .../webkit/trace/defaultSettingsView.BLFoOugd.css |   1 +
+|  .../webkit/trace/index.B_TqY17P.css               |   1 +
+|  .../webkit/trace/index.KZ4wOW1K.js                |   1 +
+|  .../account-registration/webkit/trace/index.html  |  44 +++++
+|  .../webkit/trace/manifest.webmanifest             |  16 ++
+|  .../webkit/trace/playwright-logo.svg              |   9 +
+|  .../webkit/trace/snapshot.B_Jk1wbt.js             |   1 +
+|  .../webkit/trace/snapshot.html                    |  10 ++
+|  .../webkit/trace/sw.bundle.js                     |   4 +
+|  .../webkit/trace/uiMode.C7UW1sC9.css              |   1 +
+|  .../webkit/trace/uiMode.Dzuouizj.js               |   5 +
+|  .../account-registration/webkit/trace/uiMode.html |  18 ++
+|  .../webkit/trace/xtermModule.kHJ-D0s7.css         |   1 +
+|  skills/playwright-automation/SKILL.md             |  11 +-
+|  .../assets/bug-report-template.md                 |  12 +-
+|  .../references/automation-requirements.md         |   6 +-
+|  .../references/playwright-implementation.md       |   4 +-
+|  .../scripts/validate_feature.py                   |  51 ++++--
+|  submission/reports/ai-audit-report.md             | 100 +++++++++++
+|  submission/reports/ai-critique.md                 |   0
+|  submission/reports/main-report.md                 |   0
+|  tests/data/account-registration.json              | 134 +++++++++++++++
+|  tests/e2e/account-registration.spec.mjs           |  86 ++++++++++
+|  tests/pages/RegisterPage.mjs                      |  40 +++++
+|  .../test-cases/account-registration/TC-REG-001.md |  35 ++++
+|  .../test-cases/account-registration/TC-REG-002.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-003.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-004.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-005.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-006.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-007.md |  35 ++++
+|  .../test-cases/account-registration/TC-REG-008.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-009.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-010.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-011.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-012.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-013.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-014.md |  34 ++++
+|  .../test-cases/account-registration/TC-REG-015.md |  35 ++++
+|  144 files changed, 4965 insertions(+), 33 deletions(-)
+| 
+* commit a934bf2d7871413aae4b6d46f820995e04170595
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Wed Aug 5 10:14:48 2026 +0700
+| 
+|     feat: add github issue creation step in the agent skills
+| 
+|  skills/playwright-automation/SKILL.md             | 38 +++++++++++++++++++--
+|  skills/playwright-automation/agents/openai.yaml   |  4 +--
+|  .../references/automation-requirements.md         |  4 +--
+|  3 files changed, 40 insertions(+), 6 deletions(-)
+| 
+* commit 835094d45664c36562511b84c835a019f1e2d4ae
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Mon Aug 3 19:12:37 2026 +0700
+| 
+|     feat: add web automation testing agent skills
+| 
+|  skills/playwright-automation/SKILL.md             | 116 +++++++++++
+|  skills/playwright-automation/agents/openai.yaml   |   4 +
+|  .../assets/bug-report-template.md                 |  49 +++++
+|  .../assets/test-case-template.md                  |  35 ++++
+|  .../references/automation-requirements.md         |  50 +++++
+|  .../references/playwright-implementation.md       |  80 ++++++++
+|  .../scripts/validate_feature.py                   | 207 ++++++++++++++++++++
+|  submission/reports/ai-audit-report.md             |  80 ++++++++
+|  8 files changed, 621 insertions(+)
+| 
+* commit 3c15cdea56067a63680c81e5f1f15d6b4bae72d4
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Mon Aug 3 18:56:05 2026 +0700
+| 
+|     refactor: update ai audit skills
+| 
+|  skills/create-ai-audit-report/SKILL.md | 38 +++++++++++++++++++++++---------
+|  1 file changed, 28 insertions(+), 10 deletions(-)
+| 
+* commit 45c2fcf50c7cc500a79c8c06eb3193fb835d6288
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Mon Aug 3 12:24:29 2026 +0700
+| 
+|     feat: ai audit skills
+| 
+|  skills/create-ai-audit-report/SKILL.md           | 106 +++++++++++++++++++++
+|  skills/create-ai-audit-report/agents/openai.yaml |   4 +
+|  2 files changed, 110 insertions(+)
+| 
+* commit 969e1566f2c1195effaf95fbb322052292cec08a
+| Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+| Date:   Wed Jun 10 17:06:05 2026 +0700
+| 
+|     Remove commiting database to git
+| 
+|  backend/database.sqlite | Bin 36864 -> 0 bytes
+|  1 file changed, 0 insertions(+), 0 deletions(-)
+|   
+*   commit 807c1b7bb341bf46e297ca13f0f055fb1ec17029
+|\  Merge: e59ee5a 371b104
+| | Author: lchkhai <146848152+lmchkhi@users.noreply.github.com>
+| | Date:   Wed Jun 10 16:39:00 2026 +0700
+| | 
+| |     Merge pull request #5 from lmchkhi/issues_template
+| |     
+| |     Update issue templates
+| | 
+| * commit 371b104543ac51815007136e15c1ec0325aafec1
+| | Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+| | Date:   Tue Jun 9 11:24:22 2026 +0700
+| | 
+| |     Fixing template comment
+| | 
+| |  .github/ISSUE_TEMPLATE/bug-report-template.md | 2 +-
+| |  1 file changed, 1 insertion(+), 1 deletion(-)
+| | 
+| * commit 538890ac17bd41fdc9fa6bdceaeec2a748e82d07
+| | Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+| | Date:   Tue Jun 9 11:18:46 2026 +0700
+| | 
+| |     Adding default label to template
+| | 
+| |  .github/ISSUE_TEMPLATE/bug-report-template.md | 2 +-
+| |  1 file changed, 1 insertion(+), 1 deletion(-)
+| | 
+| * commit 563335450fc9d033acc0f86a05e6d907c3e9f5fd
+|/  Author: lchkhai <146848152+lmchkhi@users.noreply.github.com>
+|   Date:   Tue Jun 9 09:59:12 2026 +0700
+|   
+|       Update issue templates
+|       
+|       Adding bug issues template from CS423/CSC15003 Software testing
+|   
+|    .github/ISSUE_TEMPLATE/bug-report-template.md | 36 +++++++++++++++++++++++
+|    1 file changed, 36 insertions(+)
+| 
+* commit e59ee5a6251c33f30933eb4f8ba5352274f003cc
+| Author: lmchkhi <146848152+lmchkhi@users.noreply.github.com>
+| Date:   Mon Jun 8 16:38:13 2026 +0700
+| 
+|     adding .gitignore
+| 
+|  .gitignore | 8 ++++++++
+|  1 file changed, 8 insertions(+)
+| 
+* commit 85af3ba875c88283615e22cb108f13e2fccaf0e9
+| Author: ttbhanh-hcmus <ttbhanh@hcmus.edu.vn>
+| Date:   Fri May 15 08:30:35 2026 +0700
+| 
+|     first upload
+| 
+|  README.md                                 |  290 +-
+|  api_specification.md                      |  214 +
+|  backend/database.js                       |  119 +
+|  backend/database.sqlite                   |  Bin 0 -> 36864 bytes
+|  backend/package-lock.json                 | 1663 +++++
+|  backend/package.json                      |   20 +
+|  backend/server.js                         |  572 ++
+|  backend/test_profile.js                   |    8 +
+|  frontend-admin/.gitignore                 |   24 +
+|  frontend-admin/README.md                  |   16 +
+|  frontend-admin/eslint.config.js           |   21 +
+|  frontend-admin/index.html                 |   13 +
+|  frontend-admin/package-lock.json          | 3681 +++++++++++
+|  frontend-admin/package.json               |   32 +
+|  frontend-admin/postcss.config.js          |    6 +
+|  frontend-admin/public/favicon.svg         |    1 +
+|  frontend-admin/public/icons.svg           |   24 +
+|  frontend-admin/src/App.css                |  184 +
+|  frontend-admin/src/App.jsx                |  922 +++
+|  frontend-admin/src/assets/hero.png        |  Bin 0 -> 13057 bytes
+|  frontend-admin/src/assets/react.svg       |    1 +
+|  frontend-admin/src/assets/vite.svg        |    1 +
+|  frontend-admin/src/index.css              |    8 +
+|  frontend-admin/src/main.jsx               |   10 +
+|  frontend-admin/tailwind.config.js         |   11 +
+|  frontend-admin/vite.config.js             |   11 +
+|  frontend-mobile/.gitignore                |   41 +
+|  frontend-mobile/App.js                    | 1300 ++++
+|  frontend-mobile/app.json                  |   29 +
+|  frontend-mobile/assets/adaptive-icon.png  |  Bin 0 -> 17547 bytes
+|  frontend-mobile/assets/favicon.png        |  Bin 0 -> 1466 bytes
+|  frontend-mobile/assets/icon.png           |  Bin 0 -> 22380 bytes
+|  frontend-mobile/assets/splash-icon.png    |  Bin 0 -> 17547 bytes
+|  frontend-mobile/index.js                  |    8 +
+|  frontend-mobile/package-lock.json         | 8773 +++++++++++++++++++++++++++
+|  frontend-mobile/package.json              |   18 +
+|  frontend-web/.gitignore                   |   24 +
+|  frontend-web/README.md                    |   16 +
+|  frontend-web/eslint.config.js             |   21 +
+|  frontend-web/index.html                   |   13 +
+|  frontend-web/package-lock.json            | 3681 +++++++++++
+|  frontend-web/package.json                 |   32 +
+|  frontend-web/postcss.config.js            |    6 +
+|  frontend-web/public/favicon.svg           |    1 +
+|  frontend-web/public/icons.svg             |   24 +
+|  frontend-web/src/App.css                  |  184 +
+|  frontend-web/src/App.jsx                  |   71 +
+|  frontend-web/src/assets/hero.png          |  Bin 0 -> 13057 bytes
+|  frontend-web/src/assets/react.svg         |    1 +
+|  frontend-web/src/assets/vite.svg          |    1 +
+|  frontend-web/src/context/AuthContext.jsx  |   50 +
+|  frontend-web/src/context/CartContext.jsx  |   36 +
+|  frontend-web/src/index.css                |   14 +
+|  frontend-web/src/main.jsx                 |   10 +
+|  frontend-web/src/pages/Cart.jsx           |   79 +
+|  frontend-web/src/pages/Checkout.jsx       |  151 +
+|  frontend-web/src/pages/ForgotPassword.jsx |  100 +
+|  frontend-web/src/pages/Home.jsx           |  116 +
+|  frontend-web/src/pages/Login.jsx          |   69 +
+|  frontend-web/src/pages/ProductDetail.jsx  |   73 +
+|  frontend-web/src/pages/Profile.jsx        |  217 +
+|  frontend-web/src/pages/Register.jsx       |   83 +
+|  frontend-web/tailwind.config.js           |   11 +
+|  frontend-web/vite.config.js               |    7 +
+|  run_servers.sh                            |    5 +
+|  setup_guide.md                            |  117 +
+|  66 files changed, 23232 insertions(+), 2 deletions(-)
+| 
+* commit 2f9bf2bab45855abf211377a5d5eba10031649e3
+  Author: Hanh Tran <ttbhanh@fit.hcmus.edu.vn>
+  Date:   Fri May 15 08:27:44 2026 +0700
+  
+      Initial commit
+  
+   README.md | 2 ++
+   1 file changed, 2 insertions(+)
