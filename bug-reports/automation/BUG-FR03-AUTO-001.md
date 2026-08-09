@@ -49,3 +49,6 @@ UI hiển thị OTP 4 chữ số, ví dụ `6620`, `7009`. API cũng trả `rese
 ![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/test-failed-1.png)
 
 - Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-add0a-g-6-chữ-số-ON---độ-dài-OTP--chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-add0a-g-6-chữ-số-ON---độ-dài-OTP--chromium/error-context.md)
+
+## GitHub Issue
+[#214](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/214)

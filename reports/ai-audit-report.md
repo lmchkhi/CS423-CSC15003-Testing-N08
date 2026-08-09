@@ -165,3 +165,25 @@ Cập nhật 6 bug report FR-03 automation để các Evidence path giữ nguyê
 ```text
 Tạo skill mới skills/gh-create-bug-issues gồm SKILL.md và agents/openai.yaml. Skill hướng dẫn kiểm tra gh auth status, gh repo view, lấy label bằng gh label list --limit 100, đảm bảo mỗi issue có 5 label Type/Status/Module/Priority/Severity, tái sử dụng label exact match, tạo label còn thiếu bằng gh label create, suy luận module/priority/severity từ bug report, tạo issue bằng gh issue create, cập nhật bug report/main report bằng issue URL thật, và ghi chú cách xử lý screenshot. Đã sửa default_prompt trong agents/openai.yaml để giữ đúng -create-bug-issues. quick_validate.py không chạy được do thiếu PyYAML; đã validate thay thế bằng Ruby YAML parse frontmatter thành công và rà không còn TODO template.
 ```
+
+## Entry #8
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex + GitHub CLI (`gh`) |
+| **Timestamp**     | 09/08/2026 17:21 GMT+7 |
+| **Artifact type** | GitHub Issues creation for FR-03 automation bug reports |
+
+**Full prompt:**
+
+```text
+bây giờ tạo github issue cho fr-03 giúp tôi và cập nhật các file liên quan
+```
+
+### (2) AI Output
+
+```text
+Áp dụng workflow từ skill gh-create-bug-issues. Đã kiểm tra gh auth status, xác định repo target lmchkhi/CS423-CSC15003-Testing-N08 bằng gh repo view --json nameWithOwner,url, chạy gh label list --limit 100 để lấy đủ label hiện có và dùng lại label chính xác: Type: Bug, Status: New, Module: Forgot password, Priority: P1/P2/P3, Severity: Major/Minor/Critical. Tạo 6 GitHub Issues cho FR-03 từ các bug report BUG-FR03-AUTO-001..006: #214, #216, #215, #217, #218, #219. Đã kiểm tra lại title/label bằng gh issue view, cập nhật section GitHub Issue vào từng bug report Markdown, cập nhật bảng bug reports và trạng thái GitHub Issues trong reports/main-report.md. Issue body dùng bản tạm trong /tmp với evidence link dạng GitHub blob URL theo branch hw04/23127475 và note về việc upload screenshot thủ công nếu cần ảnh inline.
+```

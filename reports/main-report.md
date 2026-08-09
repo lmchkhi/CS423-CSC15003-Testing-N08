@@ -244,14 +244,14 @@ Các lỗi fail không được xem là lỗi script đơn thuần vì đều ma
 
 | Bug report | Tóm tắt | Test case liên quan | Severity / Priority | GitHub Issue |
 | --- | --- | --- | --- | --- |
-| [`bug-reports/automation/BUG-FR03-AUTO-001.md`](../bug-reports/automation/BUG-FR03-AUTO-001.md) | OTP quên mật khẩu được sinh 4 chữ số thay vì 6 chữ số | TC-FR03-DT-001, TC-FR03-DT-006, TC-FR03-BVA-001 | Major / P1 | TODO |
-| [`bug-reports/automation/BUG-FR03-AUTO-002.md`](../bug-reports/automation/BUG-FR03-AUTO-002.md) | Bước 1 không hiển thị chỉ báo bước | TC-FR03-DT-001 | Minor / P3 | TODO |
-| [`bug-reports/automation/BUG-FR03-AUTO-003.md`](../bug-reports/automation/BUG-FR03-AUTO-003.md) | Thiếu nút Quay lại đăng nhập ở bước nhập email | TC-FR03-DT-002 | Major / P2 | TODO |
-| [`bug-reports/automation/BUG-FR03-AUTO-004.md`](../bug-reports/automation/BUG-FR03-AUTO-004.md) | Form lấy OTP không hiển thị thông báo lỗi cho email không hợp lệ | TC-FR03-DT-003, TC-FR03-DT-004, TC-FR03-DT-005 | Major / P2 | TODO |
-| [`bug-reports/automation/BUG-FR03-AUTO-005.md`](../bug-reports/automation/BUG-FR03-AUTO-005.md) | Bước đặt lại mật khẩu thiếu ô Xác nhận mật khẩu mới | TC-FR03-DT-011 | Major / P1 | TODO |
-| [`bug-reports/automation/BUG-FR03-AUTO-006.md`](../bug-reports/automation/BUG-FR03-AUTO-006.md) | API reset password chấp nhận mật khẩu mới không đạt rule | TC-FR03-DT-010, TC-FR03-DT-012, TC-FR03-BVA-004 | Critical / P1 | TODO |
+| [`bug-reports/automation/BUG-FR03-AUTO-001.md`](../bug-reports/automation/BUG-FR03-AUTO-001.md) | OTP quên mật khẩu được sinh 4 chữ số thay vì 6 chữ số | TC-FR03-DT-001, TC-FR03-DT-006, TC-FR03-BVA-001 | Major / P1 | [#214](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/214) |
+| [`bug-reports/automation/BUG-FR03-AUTO-002.md`](../bug-reports/automation/BUG-FR03-AUTO-002.md) | Bước 1 không hiển thị chỉ báo bước | TC-FR03-DT-001 | Minor / P3 | [#216](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/216) |
+| [`bug-reports/automation/BUG-FR03-AUTO-003.md`](../bug-reports/automation/BUG-FR03-AUTO-003.md) | Thiếu nút Quay lại đăng nhập ở bước nhập email | TC-FR03-DT-002 | Major / P2 | [#215](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/215) |
+| [`bug-reports/automation/BUG-FR03-AUTO-004.md`](../bug-reports/automation/BUG-FR03-AUTO-004.md) | Form lấy OTP không hiển thị thông báo lỗi cho email không hợp lệ | TC-FR03-DT-003, TC-FR03-DT-004, TC-FR03-DT-005 | Major / P2 | [#217](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/217) |
+| [`bug-reports/automation/BUG-FR03-AUTO-005.md`](../bug-reports/automation/BUG-FR03-AUTO-005.md) | Bước đặt lại mật khẩu thiếu ô Xác nhận mật khẩu mới | TC-FR03-DT-011 | Major / P1 | [#218](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/218) |
+| [`bug-reports/automation/BUG-FR03-AUTO-006.md`](../bug-reports/automation/BUG-FR03-AUTO-006.md) | API reset password chấp nhận mật khẩu mới không đạt rule | TC-FR03-DT-010, TC-FR03-DT-012, TC-FR03-BVA-004 | Critical / P1 | [#219](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/219) |
 
-Ghi chú: Markdown bug reports đã sẵn sàng để tạo GitHub Issues. Sau khi issue được tạo, cần cập nhật cột `GitHub Issue` bằng URL issue tương ứng và thêm screenshot evidence vào issue.
+Ghi chú: 6 GitHub Issues của FR-03 đã được tạo trên repo [`lmchkhi/CS423-CSC15003-Testing-N08`](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08). Mỗi issue có đủ 5 label: `Type: Bug`, `Status: New`, `Module: Forgot password`, `Priority: Px`, `Severity: ...`. Issue body dùng link evidence dạng GitHub blob URL theo branch `hw04/23127475`; nếu cần ảnh hiển thị inline trong GitHub issue, có thể upload screenshot thủ công qua GitHub UI.
 
 ### 6.11 Human review và các chỉnh sửa đối với AI-generated script
 
@@ -268,8 +268,8 @@ Trong quá trình tạo FR-03 automation, script ban đầu cần được revie
 
 ### 6.12 Gap và giới hạn còn lại của FR-03
 
-- Chưa tạo GitHub Issues từ 6 bug report Markdown; cần tạo issue và cập nhật link.
-- Chưa đưa screenshot trực tiếp vào GitHub Issues, dù Playwright evidence đã có trong [`test-results/`](../test-results/).
+- Đã tạo 6 GitHub Issues từ 6 bug report Markdown và cập nhật link vào bug report/main report.
+- Issue body đã có link evidence tới repo path/blob URL. Screenshot inline trên GitHub Issue có thể cần upload thủ công qua GitHub UI nếu GitHub không render trực tiếp từ blob URL.
 - Chưa quay demo video end-to-end; phần này sẽ làm ở Task 2.
 - Một số test dùng API setup để tăng độ ổn định. Đây là lựa chọn black-box hợp lý vì API đã được cung cấp trong specification, nhưng report cần nêu rõ đây không phải đọc source code.
 
@@ -326,7 +326,13 @@ Sau khi tạo commit thật, cần cập nhật phần này bằng hash commit v
 
 Trạng thái hiện tại:
 
-- FR-03: đã có 6 Markdown bug reports, chưa tạo GitHub Issues.
+- FR-03: đã tạo 6 GitHub Issues từ bug reports automation:
+  - [#214](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/214) - OTP quên mật khẩu được sinh 4 chữ số thay vì 6 chữ số.
+  - [#216](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/216) - Bước 1 của luồng quên mật khẩu không hiển thị chỉ báo bước.
+  - [#215](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/215) - Trang quên mật khẩu thiếu nút Quay lại đăng nhập ở bước nhập email.
+  - [#217](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/217) - Form lấy OTP không hiển thị thông báo lỗi cho email không hợp lệ.
+  - [#218](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/218) - Bước đặt lại mật khẩu thiếu ô Xác nhận mật khẩu mới.
+  - [#219](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/219) - API reset password chấp nhận mật khẩu mới không đạt rule.
 - FR-11: TODO.
 - FR-14: TODO.
 
@@ -374,7 +380,7 @@ Các ý chính dự kiến cho critique:
 
 | Criteria | Status | Evidence |
 | --- | --- | --- |
-| Task 1 - Feature A / FR-03 | Done | Script, JSON data, 3 browser reports, 6 bug reports |
+| Task 1 - Feature A / FR-03 | Done | Script, JSON data, 3 browser reports, 6 bug reports, 6 GitHub Issues |
 | Task 1 - Feature B / FR-11 | TODO | Planned |
 | Task 1 - Feature C / FR-14 | TODO | Planned |
 | Task 2 - Demo video | TODO | Not recorded yet |
@@ -384,8 +390,8 @@ Các ý chính dự kiến cho critique:
 
 - Hoàn tất FR-11 automation và cập nhật report.
 - Hoàn tất FR-14 automation và cập nhật report.
-- Tạo GitHub Issues từ các bug report đã xác nhận.
-- Cập nhật link GitHub Issues vào bug reports và main report.
+- Tạo GitHub Issues từ bug reports của FR-11/FR-14 nếu các feature này phát hiện lỗi thật.
+- Cập nhật link GitHub Issues vào bug reports và main report cho FR-11/FR-14.
 - Sinh Git commit log text file.
 - Viết AI critique 200-300 words.
 - Quay demo video và thêm YouTube link.

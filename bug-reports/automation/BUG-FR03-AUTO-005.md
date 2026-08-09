@@ -46,3 +46,6 @@ Form chỉ có 2 textbox: OTP và mật khẩu mới. Không có ô xác nhận 
 ![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/test-failed-1.png)
 
 - Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-79e66-ác-nhận-mật-khẩu-không-khớp-chromium/error-context.md)
+
+## GitHub Issue
+[#218](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/218)

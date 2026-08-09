@@ -57,3 +57,6 @@ API trả `200` cho các mật khẩu không hợp lệ như `password`, chuỗi
 - Error context mật khẩu yếu: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-0287f-t-khẩu-với-mật-khẩu-mới-yếu-chromium/error-context.md)
 - Error context mật khẩu rỗng: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-34fb7--khẩu-với-mật-khẩu-mới-rỗng-chromium/error-context.md)
 - Error context mật khẩu 7 ký tự: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-d75e8--7-ký-tự-OFF----min-length--chromium/error-context.md)
+
+## GitHub Issue
+[#219](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/219)

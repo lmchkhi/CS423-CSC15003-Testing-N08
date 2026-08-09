@@ -45,3 +45,6 @@ Không tìm thấy nút/liên kết `Quay lại đăng nhập` ở bước nhậ
 ![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/test-failed-1.png)
 
 - Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-f3ec7-ại-đăng-nhập-ở-bước-lấy-OTP-chromium/error-context.md)
+
+## GitHub Issue
+[#215](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/215)

@@ -45,3 +45,6 @@ Giao diện chỉ hiển thị tiêu đề `Quên Mật Khẩu`, ô email và n�
 ![Screenshot Evidence](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/test-failed-1.png)
 
 - Error context: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-51943-h-công-với-email-đã-đăng-ký-chromium/error-context.md)
+
+## GitHub Issue
+[#216](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/216)

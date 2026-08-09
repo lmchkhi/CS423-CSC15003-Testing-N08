@@ -56,3 +56,6 @@ Sau khi submit các input trên, UI vẫn chỉ hiển thị form ban đầu và
 - Error context email rỗng: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-00c62-03---Lấy-OTP-với-email-rỗng-chromium/error-context.md)
 - Error context email sai định dạng: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-b4eea-OTP-với-email-sai-định-dạng-chromium/error-context.md)
 - Error context email chưa đăng ký: [`test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/error-context.md`](../../test-results/fr03-forgot-password/chromium/fr03-forgot-password-Run-b-35bdc--OTP-với-email-chưa-đăng-ký-chromium/error-context.md)
+
+## GitHub Issue
+[#217](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/217)
