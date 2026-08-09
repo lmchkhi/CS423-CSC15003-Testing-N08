@@ -1,3 +1,21 @@
+* commit 8df77528894b28ff1ec1eaa7a8c3cff71b53c6e6
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 21:43:52 2026 +0700
+| 
+|     test(fr-16): verify invalid CSV files cannot be imported
+| 
+|  tests/e2e/product-csv-import.spec.mjs | 43 ++++++++++++++++++++++++++++-----
+|  1 file changed, 37 insertions(+), 6 deletions(-)
+| 
+* commit 13b0dd70348f2ce91cbac4ba613ab2b27725e642
+| Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
+| Date:   Sun Aug 9 21:05:44 2026 +0700
+| 
+|     feat: add git log
+| 
+|  submission/git-log.txt | 1088 ++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 1088 insertions(+)
+| 
 * commit 28a17c37d3b91c215425b065f80cc41e78494628
 | Author: Lam Vi Khang <147903090+lvkhang16@users.noreply.github.com>
 | Date:   Sun Aug 9 21:04:18 2026 +0700
