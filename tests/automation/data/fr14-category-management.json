@@ -1,0 +1,75 @@
+[
+  {
+    "id": "TC-FR14-DT-001",
+    "title": "Admin xem danh sách danh mục",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-001.md",
+    "kind": "adminCategoryListVisible",
+    "account": "admin",
+    "expected": {
+      "minCategoryCount": 1,
+      "pagePattern": "danh mục|category|categories",
+      "forbiddenPattern": "không có quyền|forbidden|unauthorized|access denied"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-002",
+    "title": "Guest bị chặn khỏi màn hình quản lý danh mục",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-002.md",
+    "kind": "guestAdminScreenBlocked",
+    "account": "guest",
+    "expected": {
+      "guardPattern": "đăng nhập|login|không có quyền|forbidden|unauthorized|access denied",
+      "bodyMustNotContainPattern": "thêm danh mục|add category|xóa|delete"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-003",
+    "title": "User thường bị chặn khỏi màn hình quản lý danh mục",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-003.md",
+    "kind": "userAdminScreenBlocked",
+    "account": "generatedUser",
+    "expected": {
+      "guardPattern": "đăng nhập|login|không có quyền|forbidden|unauthorized|access denied|admin",
+      "bodyMustNotContainPattern": "thêm danh mục|add category|xóa|delete"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-004",
+    "title": "Guest không được thêm danh mục qua API",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-004.md",
+    "kind": "apiGuestCreateRejected",
+    "account": "guest",
+    "categoryNamePrefix": "FR14 Guest Create",
+    "expected": {
+      "rejectedStatuses": [401, 403],
+      "bodyMustNotContainPattern": "Category created|success|created"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-005",
+    "title": "User thường không được thêm danh mục qua API",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-005.md",
+    "kind": "apiUserCreateRejected",
+    "account": "generatedUser",
+    "categoryNamePrefix": "FR14 User Create",
+    "expected": {
+      "rejectedStatuses": [401, 403],
+      "bodyMustNotContainPattern": "Category created|success|created"
+    }
+  },
+  {
+    "id": "TC-FR14-BVA-006",
+    "title": "Danh sách có nhiều danh mục (representative above min count)",
+    "source": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-006.md",
+    "kind": "adminCategoryListMany",
+    "account": "admin",
+    "categorySetup": {
+      "minCount": 3,
+      "namePrefix": "FR14 Cat"
+    },
+    "expected": {
+      "minCategoryCount": 3,
+      "pagePattern": "danh mục|category|categories"
+    }
+  }
+]

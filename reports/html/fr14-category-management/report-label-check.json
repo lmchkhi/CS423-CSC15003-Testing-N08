@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-08-09T16:53:39.784698+00:00",
+  "student_id": "23127475",
+  "report_root": "reports/html/fr14-category-management",
+  "total_reports": 2,
+  "ok": true,
+  "reports": [
+    {
+      "report": "reports/html/fr14-category-management/chromium",
+      "index": "reports/html/fr14-category-management/chromium/hw04-report.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 2658
+    },
+    {
+      "report": "reports/html/fr14-category-management/chromium",
+      "index": "reports/html/fr14-category-management/chromium/index.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 529697
+    }
+  ]
+}

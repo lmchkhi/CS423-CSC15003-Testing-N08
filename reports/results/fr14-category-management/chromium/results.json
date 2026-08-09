@@ -1,0 +1,472 @@
+{
+  "config": {
+    "argv": [
+      "/Users/thanhngo/.nvm/versions/node/v24.18.0/bin/node",
+      "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/node_modules/.bin/playwright",
+      "test",
+      "tests/automation/specs/fr14-category-management.spec.ts",
+      "--project=chromium"
+    ],
+    "configFile": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/playwright.config.ts",
+    "rootDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/results/fr14-category-management/chromium/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr14-category-management/chromium",
+          "title": "Run by: 23127475 | fr14-category-management | chromium | 2026-08-09T16:52:32.671Z"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 5,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr14-category-management.spec.ts",
+      "file": "fr14-category-management.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Run by: 23127475 | FR-14 - Quản lý danh mục",
+          "file": "fr14-category-management.spec.ts",
+          "line": 340,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-FR14-DT-001 - Admin xem danh sách danh mục",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-001.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5407,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:52:32.930Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-001.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-95f11455669c74d27302",
+              "file": "fr14-category-management.spec.ts",
+              "line": 346,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-002 - Guest bị chặn khỏi màn hình quản lý danh mục",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-002.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 686,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:52:38.432Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-002.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-e618687722f8f5fd39f1",
+              "file": "fr14-category-management.spec.ts",
+              "line": 346,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-003 - User thường bị chặn khỏi màn hình quản lý danh mục",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-003.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1323,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:52:39.124Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-003.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-4a06b73bcc071c2ad111",
+              "file": "fr14-category-management.spec.ts",
+              "line": 346,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-004 - Guest không được thêm danh mục qua API",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-004.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 128,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:52:40.454Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-004.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "category-create-api-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiA0MDEsCiAgImJvZHkiOiB7CiAgICAiZXJyb3IiOiAiVW5hdXRob3JpemVkIgogIH0sCiAgImJlZm9yZUNvdW50IjogMywKICAiYWZ0ZXJDb3VudCI6IDMKfQ=="
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-c51967669c7cbbdfe200",
+              "file": "fr14-category-management.spec.ts",
+              "line": 346,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-005 - User thường không được thêm danh mục qua API",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-005.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 115,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:330:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                          "column": 67,
+                          "line": 330
+                        },
+                        "snippet": "  328 |\n  329 |   try {\n> 330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n      |                                                                   ^\n  331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  333 |   } finally {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 67,
+                            "line": 330
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n  328 |\n  329 |   try {\n> 330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n      |                                                                   ^\n  331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  333 |   } finally {\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:330:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 27,
+                            "line": 331
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category created|success|created/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory created\u001b[27m\\\",\\\"id\\\":6}\"\u001b[39m\n\n  329 |   try {\n  330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n> 331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  333 |   } finally {\n  334 |     if (created) {\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:331:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 74,
+                            "line": 332
+                          },
+                          "message": "Error: Category FR14 User Create 20260809T16523 2 must not be created\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 6, \"name\": \"FR14 User Create 20260809T16523 2\"}\u001b[39m\n\n  330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n  331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n> 332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n      |                                                                          ^\n  333 |   } finally {\n  334 |     if (created) {\n  335 |       await deleteCategoryByApi(request, created.id, adminLogin.token);\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:332:74)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:52:40.587Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-005.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "category-create-api-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDYKICB9LAogICJiZWZvcmVDb3VudCI6IDMsCiAgImFmdGVyQ291bnQiOiA0LAogICJjcmVhdGVkIjogewogICAgImlkIjogNiwKICAgICJuYW1lIjogIkZSMTQgVXNlciBDcmVhdGUgMjAyNjA4MDlUMTY1MjMgMiIKICB9Cn0="
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-c1020--được-thêm-danh-mục-qua-API-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                        "column": 67,
+                        "line": 330
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-76f501cac2d88d49cb64",
+              "file": "fr14-category-management.spec.ts",
+              "line": 346,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-BVA-006 - Danh sách có nhiều danh mục (representative above min count)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-006.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5466,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:52:40.940Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-006.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-2e98d29f407afa98b2d1",
+              "file": "fr14-category-management.spec.ts",
+              "line": 346,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-09T16:52:32.672Z",
+    "duration": 13875.499000000002,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

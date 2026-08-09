@@ -209,6 +209,8 @@ Kết quả thực hiện:
 
 ### Commit 6 - FR-14 đợt 1: baseline admin access và authorization
 
+Trạng thái: Done.
+
 Mục tiêu:
 
 - Tạo skeleton FR-14 và kiểm tra các luồng quyền truy cập cốt lõi.
@@ -239,6 +241,17 @@ Commit message gợi ý:
 ```text
 test(fr14): add category management access baseline
 ```
+
+Kết quả thực hiện:
+
+- Đã tạo [`tests/automation/data/fr14-category-management.json`](../tests/automation/data/fr14-category-management.json) với 6 case baseline.
+- Đã tạo [`tests/automation/specs/fr14-category-management.spec.ts`](../tests/automation/specs/fr14-category-management.spec.ts) theo data-driven pattern, có helper admin/user login, API category và UI navigation cho Web Admin.
+- Đã chạy Chromium subset: 6 executed, 5 passed, 1 failed.
+- Report: [`reports/html/fr14-category-management/chromium/hw04-report.html`](html/fr14-category-management/chromium/hw04-report.html).
+- JSON result: [`reports/results/fr14-category-management/chromium/results.json`](results/fr14-category-management/chromium/results.json).
+- Label verification manifest: [`reports/html/fr14-category-management/report-label-check.json`](html/fr14-category-management/report-label-check.json), `ok=true`.
+- Đã tạo bug report [`bug-reports/automation/BUG-FR14-AUTO-001.md`](../bug-reports/automation/BUG-FR14-AUTO-001.md) cho lỗi user thường thêm được danh mục qua API, GitHub Issue [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241).
+- Đã cập nhật [`reports/main-report.md`](main-report.md) với coverage, command chạy, review script và issue link của FR-14 Commit 6.
 
 ### Commit 7 - FR-14 đợt 2: create/update validation và BVA tên danh mục
 

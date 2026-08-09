@@ -1,0 +1,380 @@
+import { expect, test } from '@playwright/test';
+import fr14Cases from '../data/fr14-category-management.json';
+
+type AccountKind = 'admin' | 'guest' | 'generatedUser';
+
+type CategorySetup = {
+  minCount?: number;
+  namePrefix?: string;
+};
+
+type Fr14Case = {
+  id: string;
+  title: string;
+  source: string;
+  kind:
+    | 'adminCategoryListVisible'
+    | 'guestAdminScreenBlocked'
+    | 'userAdminScreenBlocked'
+    | 'apiGuestCreateRejected'
+    | 'apiUserCreateRejected'
+    | 'adminCategoryListMany';
+  account: AccountKind;
+  categoryNamePrefix?: string;
+  categorySetup?: CategorySetup;
+  expected: {
+    minCategoryCount?: number;
+    pagePattern?: string;
+    guardPattern?: string;
+    forbiddenPattern?: string;
+    bodyMustNotContainPattern?: string;
+    rejectedStatuses?: number[];
+  };
+};
+
+type LoginResult = {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+    role?: string;
+  };
+};
+
+type Category = {
+  id: number;
+  name: string;
+};
+
+const cases = fr14Cases as Fr14Case[];
+const apiBaseUrl = process.env.API_BASE_URL ?? 'http://localhost:3000';
+const adminBaseUrl = process.env.ADMIN_BASE_URL ?? process.env.WEB_BASE_URL ?? 'http://localhost:5174';
+const studentId = process.env.STUDENT_ID ?? '23127475';
+const runId = (process.env.HW04_RUN_AT ?? new Date().toISOString()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 14);
+const adminEmail = process.env.ADMIN_EMAIL ?? 'admin@eshop.com';
+const adminPassword = process.env.ADMIN_PASSWORD ?? 'Admin123!';
+const defaultPassword = 'Test1234!';
+let userCounter = 0;
+let categoryCounter = 0;
+
+function apiUrl(path: string): string {
+  return `${apiBaseUrl}${path}`;
+}
+
+function adminUrl(path: string): string {
+  return new URL(path, adminBaseUrl).toString();
+}
+
+function textPattern(pattern?: string): RegExp {
+  return new RegExp(pattern ?? '.', 'i');
+}
+
+function categoryNamePattern(name: string): RegExp {
+  return new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+}
+
+function hasCategoryManagementContent(bodyText: string): boolean {
+  return /tên danh mục|thêm danh mục|danh sách danh mục|category name|add category|điện thoại|laptop|phụ kiện/i.test(bodyText);
+}
+
+function hasAccessGuard(bodyText: string): boolean {
+  return /đăng nhập|login|không có quyền|forbidden|unauthorized|access denied|admin/i.test(bodyText);
+}
+
+function uniqueEmail(testId: string): string {
+  userCounter += 1;
+  const slug = testId.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return `fr14.${runId}.${userCounter}.${slug}@example.com`;
+}
+
+function uniqueCategoryName(prefix: string): string {
+  categoryCounter += 1;
+  return `${prefix} ${runId} ${categoryCounter}`;
+}
+
+function emailInput(page: import('@playwright/test').Page) {
+  return page
+    .getByLabel(/email/i)
+    .or(page.getByPlaceholder(/email/i))
+    .or(page.locator('input[type="email"]'))
+    .or(page.getByRole('textbox'))
+    .first();
+}
+
+function passwordInput(page: import('@playwright/test').Page) {
+  return page
+    .getByLabel(/mật khẩu|password/i)
+    .or(page.getByPlaceholder(/mật khẩu|password/i))
+    .or(page.locator('input[type="password"]'))
+    .or(page.getByRole('textbox').nth(1))
+    .first();
+}
+
+async function responseBody(response: import('@playwright/test').APIResponse) {
+  const text = await response.text();
+  try {
+    return { text, body: JSON.parse(text) as unknown };
+  } catch {
+    return { text, body: text as unknown };
+  }
+}
+
+async function registerUser(
+  request: import('@playwright/test').APIRequestContext,
+  email: string,
+  password = defaultPassword,
+) {
+  const response = await request.post(apiUrl('/api/register'), {
+    data: {
+      name: `FR14 ${email}`,
+      email,
+      password,
+    },
+  });
+  expect.soft([200, 201, 409]).toContain(response.status());
+}
+
+async function loginByApi(
+  request: import('@playwright/test').APIRequestContext,
+  email: string,
+  password: string,
+): Promise<LoginResult> {
+  const response = await request.post(apiUrl('/api/login'), {
+    data: { email, password },
+  });
+  expect(response.status()).toBe(200);
+  const body = await response.json();
+  expect(body).toHaveProperty('token');
+  expect(body).toHaveProperty('user');
+  return body as LoginResult;
+}
+
+async function loginAdminByApi(request: import('@playwright/test').APIRequestContext): Promise<LoginResult> {
+  return loginByApi(request, adminEmail, adminPassword);
+}
+
+async function prepareGeneratedUser(request: import('@playwright/test').APIRequestContext, testId: string) {
+  const email = uniqueEmail(testId);
+  await registerUser(request, email);
+  const login = await loginByApi(request, email, defaultPassword);
+  return { email, password: defaultPassword, token: login.token, user: login.user };
+}
+
+async function fetchCategories(request: import('@playwright/test').APIRequestContext): Promise<Category[]> {
+  const response = await request.get(apiUrl('/api/categories'));
+  expect(response.status()).toBe(200);
+  const body = await response.json();
+  expect(Array.isArray(body)).toBe(true);
+  return body as Category[];
+}
+
+async function createCategoryByApi(
+  request: import('@playwright/test').APIRequestContext,
+  name: string,
+  token?: string,
+) {
+  const response = await request.post(apiUrl('/api/categories'), {
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    data: { name },
+  });
+  const { body, text } = await responseBody(response);
+  return { response, body, text };
+}
+
+async function deleteCategoryByApi(
+  request: import('@playwright/test').APIRequestContext,
+  categoryId: number,
+  token: string,
+) {
+  const response = await request.delete(apiUrl(`/api/categories/${categoryId}`), {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  expect.soft([200, 204, 404]).toContain(response.status());
+}
+
+async function cleanupCategoryByName(
+  request: import('@playwright/test').APIRequestContext,
+  adminToken: string,
+  name: string,
+) {
+  const categories = await fetchCategories(request);
+  for (const category of categories.filter((item) => item.name === name)) {
+    await deleteCategoryByApi(request, category.id, adminToken);
+  }
+}
+
+async function ensureMinCategories(
+  request: import('@playwright/test').APIRequestContext,
+  adminToken: string,
+  setup: CategorySetup = {},
+) {
+  const created: Category[] = [];
+  let categories = await fetchCategories(request);
+  const minCount = setup.minCount ?? 1;
+  while (categories.length < minCount) {
+    const name = uniqueCategoryName(setup.namePrefix ?? 'FR14 Category');
+    await createCategoryByApi(request, name, adminToken);
+    categories = await fetchCategories(request);
+    const createdCategory = categories.find((category) => category.name === name);
+    if (createdCategory) {
+      created.push(createdCategory);
+    }
+  }
+  return { categories, created };
+}
+
+async function attemptLoginUi(page: import('@playwright/test').Page, email: string, password: string) {
+  for (const route of ['/login', '/']) {
+    await page.goto(adminUrl(route));
+    await page.waitForLoadState('networkidle').catch(() => undefined);
+    if (!(await emailInput(page).isVisible().catch(() => false))) {
+      continue;
+    }
+    await emailInput(page).fill(email);
+    await passwordInput(page).fill(password);
+    await page.getByRole('button', { name: /đăng nhập|login|sign in|submit/i }).first().click();
+    await page.waitForLoadState('networkidle').catch(() => undefined);
+    return;
+  }
+
+  await expect(emailInput(page)).toBeVisible();
+}
+
+async function loginAdminUi(page: import('@playwright/test').Page) {
+  await attemptLoginUi(page, adminEmail, adminPassword);
+  await expect(page.locator('body')).toContainText(/dashboard|admin|danh mục|category|sản phẩm|product|đăng xuất|logout/i);
+}
+
+async function openCategoryManagement(page: import('@playwright/test').Page, allowGuard = false) {
+  const candidateRoutes = ['/categories', '/category', '/category-management', '/admin/categories', '/dashboard/categories', '/dashboard', '/'];
+
+  for (const route of candidateRoutes) {
+    await page.goto(adminUrl(route));
+    await page.waitForLoadState('networkidle').catch(() => undefined);
+    const bodyText = await page.locator('body').innerText();
+    if (hasCategoryManagementContent(bodyText) && !/404|not found/i.test(bodyText)) {
+      return;
+    }
+    if (allowGuard && hasAccessGuard(bodyText) && !(await page.getByRole('link', { name: /^danh mục$/i }).isVisible().catch(() => false))) {
+      return;
+    }
+  }
+
+  await page.goto(adminUrl('/'));
+  await page.waitForLoadState('networkidle').catch(() => undefined);
+  const categoryLink = page
+    .getByRole('link', { name: /^danh mục$|^category$|^categories$/i })
+    .or(page.getByRole('button', { name: /^danh mục$|^category$|^categories$/i }))
+    .or(page.getByText(/^danh mục$|^category$|^categories$/i))
+    .first();
+  if (allowGuard && !(await categoryLink.isVisible().catch(() => false))) {
+    return;
+  }
+  await expect(categoryLink).toBeVisible();
+  await categoryLink.click();
+  await page.waitForLoadState('networkidle').catch(() => undefined);
+  await expect(page.locator('body')).toContainText(/danh mục|category|categories|điện thoại|laptop|phụ kiện/i);
+}
+
+async function assertAdminCategoryList(
+  page: import('@playwright/test').Page,
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const { categories, created } = await ensureMinCategories(request, adminLogin.token, testCase.categorySetup);
+  try {
+    await loginAdminUi(page);
+    await openCategoryManagement(page);
+    const body = page.locator('body');
+    await expect.soft(body).toContainText(textPattern(testCase.expected.pagePattern));
+    if (testCase.expected.forbiddenPattern) {
+      await expect.soft(body).not.toContainText(textPattern(testCase.expected.forbiddenPattern));
+    }
+    expect.soft(categories.length).toBeGreaterThanOrEqual(testCase.expected.minCategoryCount ?? 1);
+    for (const category of categories.slice(0, Math.min(categories.length, testCase.expected.minCategoryCount ?? 3))) {
+      await expect.soft(body).toContainText(categoryNamePattern(category.name));
+    }
+  } finally {
+    for (const category of created) {
+      await deleteCategoryByApi(request, category.id, adminLogin.token);
+    }
+  }
+}
+
+async function assertAdminScreenBlocked(page: import('@playwright/test').Page, testCase: Fr14Case) {
+  await openCategoryManagement(page, true);
+  const body = page.locator('body');
+  await expect.soft(body).toContainText(textPattern(testCase.expected.guardPattern));
+  await expect.soft(body).not.toContainText(textPattern(testCase.expected.bodyMustNotContainPattern));
+}
+
+async function assertApiCreateRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+  token?: string,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const categoryName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Unauthorized Create');
+  const before = await fetchCategories(request);
+  const { response, body, text } = await createCategoryByApi(request, categoryName, token);
+  const after = await fetchCategories(request);
+  const created = after.find((category) => category.name === categoryName);
+
+  await test.info().attach('category-create-api-response.json', {
+    body: JSON.stringify({ status: response.status(), body, beforeCount: before.length, afterCount: after.length, created }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());
+    expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+    expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();
+  } finally {
+    if (created) {
+      await deleteCategoryByApi(request, created.id, adminLogin.token);
+    }
+  }
+}
+
+test.describe(`Run by: ${studentId} | FR-14 - Quản lý danh mục`, () => {
+  test.beforeAll(() => {
+    expect(cases.length).toBeGreaterThanOrEqual(6);
+  });
+
+  for (const testCase of cases) {
+    test(`${testCase.id} - ${testCase.title}`, async ({ page, request }) => {
+      test.info().annotations.push({ type: 'manual-source', description: testCase.source });
+
+      if (testCase.kind === 'adminCategoryListVisible' || testCase.kind === 'adminCategoryListMany') {
+        await assertAdminCategoryList(page, request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'guestAdminScreenBlocked') {
+        await assertAdminScreenBlocked(page, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'userAdminScreenBlocked') {
+        const user = await prepareGeneratedUser(request, testCase.id);
+        await attemptLoginUi(page, user.email, user.password);
+        await assertAdminScreenBlocked(page, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiGuestCreateRejected') {
+        await assertApiCreateRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiUserCreateRejected') {
+        const user = await prepareGeneratedUser(request, testCase.id);
+        await assertApiCreateRejected(request, testCase, user.token);
+        return;
+      }
+
+      throw new Error(`Unsupported FR-14 test kind: ${testCase.kind}`);
+    });
+  }
+});

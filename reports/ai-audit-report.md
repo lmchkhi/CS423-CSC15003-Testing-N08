@@ -253,3 +253,25 @@ bây giờ làm tiếp tục tới commit 5
 ```text
 Đã hoàn tất Commit 5 cho FR-11: bổ sung 3 test case TC-FR11-DT-011, TC-FR11-DT-012 và TC-FR11-BVA-003 vào data/spec Playwright; thêm helper setup trạng thái bằng admin API black-box, assertion dịch trạng thái và đo khoảng cách màu; chạy lại WebKit để loại bỏ flake login và xác nhận full suite 15 test case. Kết quả Chromium/Firefox/WebKit đều 15 total, 13 passed, 2 failed với hai lỗi thật TC-FR11-DT-007 và TC-FR11-DT-012. Đã sinh lại wrapper report hw04-report.html cho 3 browser, thêm metadata Run by: 23127475 vào report gốc, chạy verify_report_labels.py với ok=true. Đã cập nhật BUG-FR11-AUTO-001, tạo BUG-FR11-AUTO-002, tạo GitHub issues #239 và #240 với đủ 5 label bắt buộc, cập nhật issue link vào bug reports, reports/main-report.md và reports/automation-commit-plan.md.
 ```
+
+## Entry #12
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 23:56 GMT+7             |
+| **Artifact type** | Playwright automation script + report/evidence + GitHub issue         |
+
+**Full prompt:**
+
+```text
+làm tiếp với commit 6
+```
+
+### (2) AI Output
+
+```text
+Đã hoàn tất Commit 6 cho FR-14: đọc plan, SRS, API spec và manual test case TC-FR14-DT-001/002/003/004/005/BVA-006; tạo tests/automation/data/fr14-category-management.json và tests/automation/specs/fr14-category-management.spec.ts theo data-driven Playwright. Chạy Chromium với ADMIN_BASE_URL=http://[::1]:5174 và API_BASE_URL=http://[::1]:3000; sau khi review evidence đã chỉnh helper mở menu Danh mục và optional forbidden assertion. Kết quả cuối: 6 test executed, 5 passed, 1 failed ở TC-FR14-DT-005 do user thường thêm được category qua API. Đã sinh hw04-report.html, verify report label ok=true, tạo BUG-FR14-AUTO-001, tạo GitHub Issue #241 với đủ 5 label, cập nhật reports/main-report.md và reports/automation-commit-plan.md.
+```
