@@ -1664,8 +1664,8 @@ nhưng công việc vẫn còn dở. Hai, ở chỗ bàn về chỉ tiêu commit
 - Sửa `ai-gap-analysis/ai-generated-script-gaps.md`: "41 case thủ công (HW02)"
   → "33 case thủ công mang sang từ HW02 + 7 case thiết kế mới trong HW04",
   khớp với requirement ledger (14 + 14 + 5 mang sang).
-- Sửa `ai-audit-report.md` §5: "toàn bộ 15 entry" → "toàn bộ 18 entry", khớp
-  bảng §4 ngay phía trên.
+- Sửa `ai-audit-report.md` §5: "toàn bộ 15 entry" → con số thật, khớp bảng §4
+  ngay phía trên (thành 20 sau khi thêm chính Entry #19 và #20 của phiên này).
 - Rút `ai-critique.md` từ 300 xuống 281 từ, lùi khỏi ngưỡng trần 300 của §10.
 - Giảm mật độ dấu gạch ngang giữa câu và chữ in đậm giữa câu ở
   `main-report.md`, `ai-generated-script-gaps.md` và hai case-map — đây là
