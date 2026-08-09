@@ -7,8 +7,8 @@
 | **Họ tên** | Hà Bảo Ngọc |
 | **MSSV** | 23127300 |
 | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
-| **Ngày làm bài** | 05/08/2026 – 08/08/2026 |
-| **Công cụ AI đã dùng** | Claude (Opus 5 và Sonnet 5, chạy trong Claude Code — chuyển sang Sonnet 5 từ Session 3, 08/08/2026) |
+| **Ngày làm bài** | 05/08/2026 – 09/08/2026 |
+| **Công cụ AI đã dùng** | Claude (Opus 5 và Sonnet 5, chạy trong Claude Code — chuyển sang Sonnet 5 từ Session 3, 08/08/2026; quay lại Opus 5 cho phiên rà soát cuối, 09/08/2026) |
 
 ## 2. Hướng dẫn / Phạm vi
 
@@ -1487,14 +1487,209 @@ không phải chỉ của riêng sinh viên.
 
 ---
 
+## Entry #19
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Sonnet 5, Claude Code) |
+| **Timestamp**     | 1:49 PM 09/08/2026 |
+| **Artifact type** | Tiêu đề hai video YouTube, và thay link thật vào `README.md` + `reports/main-report.md` §8 |
+
+**Full prompt:**
+
+```
+i mean give me the utube name for them
+```
+
+```
+i tell you to give me their names base on the content!!
+```
+
+```
+i just finished uploading the utube videos, replace the placeholders:
+- skills: https://youtu.be/cRN4PV6iYfE
+- task 2: https://youtu.be/0ESx-AIHPK4
+```
+
+### (2) AI Output
+
+```
+This script doesn't name the two YouTube videos anywhere — it only refers to them generically as **"Video 1 — Task 2 Demo"** and **"Video 2 — Agent Skill Demo"**, with placeholders (`<!-- TODO: YouTube link, Aug 9 -->`) still pending in README.md and reports/main-report.md for the actual uploaded links/titles.
+```
+
+```
+There's no title in the repo — only unfilled placeholders (`<!-- TODO: YouTube link, Aug 9 -->`) since the videos haven't been recorded/uploaded yet. Nothing to give you; the actual YouTube video names don't exist until you record, upload, and title them yourself.
+```
+
+```
+Based on the script content, here are suggested YouTube titles:
+
+**Video 1:**
+`HW04 Task 2 Demo — FR-02 Login & Account Lockout Automation (Playwright, 3 Browsers) | 23127300`
+
+**Video 2:**
+`HW04 Agent Skill Demo — playwright-automation on FR-13 Dashboard | 23127300`
+```
+
+```
+Good — those two remaining hits are historical log entries (past AI conversation records), not live placeholders, so they should stay as-is. All actual placeholders are replaced.
+
+Per the script doc's own note, remember to set `HEADLESS` back to `true` in `automation/.env` if you had it off for recording — that file is gitignored so I can't check it, just flagging it.
+
+**Changed:**
+- `README.md` — Task 2 demo, Agent Skill demo, and §4 Demo video links → filled in
+- `reports/main-report.md` §8 — restructured into two bullet links (Task 2 + Skill)
+
+Note: these are README/report-only edits, so per §12 they won't count toward your ≥8 test-script commits — commit separately from spec work if you're tracking that.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Hai lượt trả lời đầu sai trọng tâm: câu hỏi là "đặt tên video dựa trên nội
+dung", nhưng AI đọc thành "tìm tên video đã có trong repo" rồi hai lần trả về
+"chưa có tên nào" — phải đến lần nhắc thứ ba, gay gắt hơn, nó mới làm đúng
+việc được yêu cầu. Đây là lỗi đọc yêu cầu chứ không phải thiếu dữ liệu: kịch
+bản quay đã nằm sẵn trong ngữ cảnh và đủ để đặt tên ngay từ đầu.
+
+Phần còn lại thì chính xác và có hai điểm đáng ghi nhận. Thứ nhất, khi rà
+placeholder còn sót, AI phân biệt đúng giữa placeholder *sống* (cần thay) và
+chuỗi `<!-- TODO -->` nằm trong `ai-audit-report.md` / `prompt-log.md` — vốn
+là trích dẫn nguyên văn của hội thoại cũ và bắt buộc phải giữ nguyên theo
+quy tắc verbatim. Sửa nhầm hai chỗ đó sẽ phá chính bằng chứng của §9. Thứ
+hai, nó chủ động cảnh báo hai điều không được hỏi: biến `HEADLESS` có thể còn
+sót giá trị dùng khi quay, và các sửa đổi này không tính vào chỉ tiêu commit
+§12.
+
+Tiêu đề video do AI đề xuất được dùng gần như nguyên văn khi upload, chỉ đổi
+dấu `—` thành `-` cho hợp với tiêu đề YouTube.
+
+### (5) Student Fix
+
+- Phải nhắc lại hai lần mới nhận được câu trả lời đúng yêu cầu; giữ nguyên cả
+  ba lượt trong log thay vì chỉ giữ lượt cuối, vì chuỗi này chính là bằng
+  chứng cho dạng lỗi "AI đọc chệch yêu cầu" đã nêu trong gap analysis.
+- Tự kiểm tra lại bằng `grep` rằng hai chuỗi `TODO` còn lại đúng là trích dẫn
+  lịch sử trong file log, không phải placeholder sống, trước khi chấp nhận
+  kết luận của AI.
+
+---
+
+## Entry #20
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 1:58 PM 09/08/2026 |
+| **Artifact type** | Rà soát toàn bài theo rubric HW04; sửa số liệu sai trong `ai-gap-analysis` + `ai-audit-report`, rút gọn `ai-critique.md`, và chỉnh văn phong tiếng Việt của các tài liệu chấm điểm |
+
+**Full prompt:**
+
+```
+i need you to scan this homework end-to-end and compare with the requirements in HW04-AutomationTesting.md, check the quality and quantity if those met the requirements, i want to achieve full 100
+also check the wordings of the docs, if it shows too clearly that it is ai-generated, or the wordings is just not naturally vietnamese, i want it to be perfect
+```
+
+### (2) AI Output
+
+```
+Scanned everything. The substance is strong — this is well above a typical submission. Six things stand between it and a clean 100.
+```
+
+```
+Confirmed a real gap: `expected.urlContains` and `expected.tokenStored` are populated in all 14 FR-02 records and validated at load, but **never read** — the spec hardcodes those expectations. Let me check whether the SUT is up so I can verify a fix.
+```
+
+```
+SUT is down, so I can't verify a spec change or regenerate the FR-02 reports. Let me log the completed doc work first, per the project's AI-logging rule.
+```
+
+```
+Several 09/08 transcripts — including the matrix re-run — aren't in the extractor's `SESSIONS`. That's the log gap I flagged. Let me identify them.
+```
+
+Trích nguyên văn từ output của các lệnh kiểm tra chạy trong phiên này:
+
+```
+=== ai-critique word count (body only) ===
+     300
+=== Run by label check ===
+       9
+=== commits touching spec/test-data ===
+       7
+=== is expected.urlContains / expected.tokenStored ever read? ===
+utils/data.ts:116:    urlContains: z.string().nullable(),
+utils/data.ts:117:    tokenStored: z.boolean(),
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần đối chiếu rubric là phần đáng tin nhất, vì mỗi kết luận đều kèm lệnh
+kiểm tra chứ không phải khẳng định suông: đếm case bằng `--list`, xác minh
+nhãn `Run by:` bằng `grep` trên đúng 9 file HTML, kiểm tra 9 GitHub issue còn
+sống bằng `gh`, và xác nhận repo ở chế độ PUBLIC. Cách làm này đúng nguyên
+tắc đã rút ra từ Entry #9 và #17 (tin quan sát trực tiếp, không tin tuyên bố
+của chính công cụ).
+
+Hai phát hiện có giá trị thật mà các phiên trước đều bỏ lọt. Thứ nhất, thiếu
+toàn bộ bản PDF mà §14 bắt buộc — kết hợp với §17 ("thiếu bất kỳ tài liệu bắt
+buộc nào thì bị 0 điểm"), đây là rủi ro lớn nhất của cả bài và không phiên nào
+trước đó nhận ra. Thứ hai, hai trường `expected.urlContains` và
+`expected.tokenStored` có mặt đủ trong 14 record FR-02, được schema validate
+đầy đủ, nhưng **không dòng spec nào đọc tới**: kỳ vọng thật vẫn nằm cứng
+trong script. Đây đúng là dạng lỗi mà §6 nhắm tới, và nó tồn tại từ Session 1
+qua ba lần review mà không ai thấy.
+
+Chưa `VALID` vì hai lý do. Một, phát hiện về `expected.*` mới dừng ở mức chỉ
+ra vấn đề: sửa nó đòi hỏi chạy lại 3 cell FR-02 để report khớp với spec, mà
+SUT đang tắt nên không kiểm chứng được — AI dừng đúng chỗ thay vì sửa liều,
+nhưng công việc vẫn còn dở. Hai, ở chỗ bàn về chỉ tiêu commit §12, AI có gợi
+ý "tạo thêm commit chạm vào spec" trước khi tìm được lý do kỹ thuật chính
+đáng; nếu làm theo ngay lúc đó thì đã thành commit rỗng để chạy theo con số,
+đúng kiểu hành vi mà §12 muốn ngăn.
+
+### (5) Student Fix
+
+- Sửa `ai-gap-analysis/ai-generated-script-gaps.md`: "41 case thủ công (HW02)"
+  → "33 case thủ công mang sang từ HW02 + 7 case thiết kế mới trong HW04",
+  khớp với requirement ledger (14 + 14 + 5 mang sang).
+- Sửa `ai-audit-report.md` §5: "toàn bộ 15 entry" → "toàn bộ 18 entry", khớp
+  bảng §4 ngay phía trên.
+- Rút `ai-critique.md` từ 300 xuống 281 từ, lùi khỏi ngưỡng trần 300 của §10.
+- Giảm mật độ dấu gạch ngang giữa câu và chữ in đậm giữa câu ở
+  `main-report.md`, `ai-generated-script-gaps.md` và hai case-map — đây là
+  thói quen dấu câu tiếng Anh, không tự nhiên trong văn viết kỹ thuật tiếng
+  Việt.
+- Bổ sung 4 transcript ngày 09/08 vào `SESSIONS` của
+  `reports/tools/extract-prompt-log.py` rồi sinh lại `prompt-log.md`: bản
+  trước dừng ở 08/08 trong khi report FR-02 trên đĩa mang timestamp
+  `2026-08-09T13:24:26+07:00`, tức là có ngày làm việc sinh ra artifact được
+  giữ lại mà không có dòng log nào.
+- **Không** tạo commit chỉ để đạt chỉ tiêu §12; giữ nguyên hiện trạng và báo
+  lại con số thật (4 commit chạm `.spec.ts`, 7 chạm spec + test-data, 10 chạm
+  `automation/`) để tự quyết định.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 11 | 61.1% |
-| `INCOMPLETE` | 6 | 33.3% |
-| `INVALID` | 1 | 5.6% |
-| **Tổng số entry đã audit** | **18** | **100%** |
+| `VALID` | 11 | 55.0% |
+| `INCOMPLETE` | 8 | 40.0% |
+| `INVALID` | 1 | 5.0% |
+| **Tổng số entry đã audit** | **20** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -1506,10 +1701,11 @@ Phân bố theo giai đoạn:
 | Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
 | FR-13 — Session 3 (08/08) | #16–#17 | 0 | 2 |
 | Triage + bug reports — Session 3 (08/08) | #18 | 1 | 0 |
+| Video + rà soát toàn bài — Session 4 (09/08) | #19–#20 | 0 | 2 |
 
 ## 5. Kết luận
 
-Nhìn trên toàn bộ 15 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
+Nhìn trên toàn bộ 20 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
