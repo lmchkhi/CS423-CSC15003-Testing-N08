@@ -52,8 +52,16 @@ mục dưới đây tóm tắt những gì thực sự xảy ra, không lặp l�
    (regex cũ khớp dạng UTC) sau khi đổi timestamp sang giờ ICT; sửa công cụ
    thay vì sửa lại dữ liệu để không làm sai lệch ngày trên report.
 
-**Kết quả cuối (xác nhận lại 08/08/2026):** 10 pass / 4 fail trên cả 3
-trình duyệt. 4 case fail là lỗi thật của SUT, có bug report riêng (§5).
+5. **Rà soát lại** (Entry #20, #21, 09/08): phát hiện `expected.urlContains`
+   và `expected.tokenStored` được khai báo đủ trong cả 14 record nhưng không
+   dòng spec nào đọc tới — kỳ vọng thật vẫn nằm cứng trong code. Đưa hai
+   assertion đó ra khỏi `switch` để chạy cho mọi case, lấy giá trị từ chính
+   record, và neo phép so URL theo trọn vẹn origin + path thay vì chuỗi con.
+   Chi tiết: [`ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md) mục 3.
+
+**Kết quả cuối (chạy lại 09/08/2026 sau bước 5):** 10 pass / 4 fail trên cả 3
+trình duyệt, và 4 case đỏ vẫn đúng tập cũ (F02-TC-002/004/008/012) — đều là
+lỗi thật của SUT, có bug report riêng (§5).
 
 ### 2.2. FR-10 — Trạng thái đơn hàng (Session 2, 07/08/2026)
 
@@ -178,7 +186,7 @@ Tóm tắt: hai nhóm lỗi lặp lại xuyên suốt cả ba feature. Một là
 về giao diện đưa ra *trước khi* recon trên build thật đều sai ở ít nhất một
 chỗ, và không lỗi nào lộ ra bằng cách đọc code. Hai là, AI có xu hướng tin
 vào chính sản phẩm hoặc kết luận trước đó của nó thay vì đối chiếu chéo với
-quan sát độc lập. 20 entry đã audit: 11 `VALID`, 8 `INCOMPLETE`, 1 `INVALID`.
+quan sát độc lập. 21 entry đã audit: 12 `VALID`, 8 `INCOMPLETE`, 1 `INVALID`.
 
 ---
 
@@ -186,7 +194,7 @@ quan sát độc lập. 20 entry đã audit: 11 `VALID`, 8 `INCOMPLETE`, 1 `INVA
 
 | Tài liệu | Đường dẫn |
 |---|---|
-| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 20 entry |
+| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 21 entry |
 | Prompt Log (bản ghi thô, không lọc) | [`prompt-log.md`](prompt-log.md) |
 | AI Critique (§10, 200–300 từ) | [`ai-critique.md`](ai-critique.md) |
 | AI Gap Analysis (§6) | [`../ai-gap-analysis/ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md) |

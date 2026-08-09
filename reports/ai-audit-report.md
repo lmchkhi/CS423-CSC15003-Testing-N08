@@ -1691,14 +1691,102 @@ nhưng công việc vẫn còn dở. Hai, ở chỗ bàn về chỉ tiêu commit
 
 ---
 
+## Entry #21
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 3:18 PM 09/08/2026 |
+| **Artifact type** | FR-02 stage 7 (Verify & repair) — `fr-02-login.spec.ts` đọc `expected.urlContains` / `expected.tokenStored` từ data file, chạy lại đủ 3 trình duyệt |
+
+**Full prompt:**
+
+```
+ok sut are up, and i pushed all commits, continue
+```
+
+### (2) AI Output
+
+```
+SUT's up and the branch is in sync. Let me check the config and page object before rewiring the spec.
+```
+
+```
+Now rewiring the spec to consume those fields. This strengthens two cases that currently assert neither URL nor token.
+```
+
+```
+Typecheck clean, 14 tests. Running the chromium cell to confirm the result is unchanged before committing to the full matrix.
+```
+
+```
+10 pass / 4 fail — same tally. Let me confirm it's the *same four* cases as documented, not a coincidental count.
+```
+
+```
+Exactly the documented four. The refactor preserved behaviour. Running the remaining two browsers.
+```
+
+Trích nguyên văn từ output của `npm run matrix` (cell chromium):
+
+```
+FAIL  fr-02-login        chromium  10p/4f  reports/html/fr-02-login/chromium/index.html  label=ok
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Đây là lần sửa đúng trọng tâm của lỗ hổng phát hiện ở Entry #20: hai trường
+`expected.urlContains` và `expected.tokenStored` được khai báo, được validate,
+nhưng không dòng spec nào đọc tới. Sau khi sửa, giá trị kỳ vọng đến từ record
+chứ không từ hằng số trong code, tức là suite mới thật sự data-driven theo
+đúng nghĩa §6 chứ không chỉ có hình thức tách file.
+
+Ba điểm khiến tôi chấm `VALID` chứ không `INCOMPLETE`. Thứ nhất, phép so URL
+được siết chặt chứ không nới lỏng: bản cũ khớp chuỗi con `/login`, bản mới neo
+trọn vẹn origin + path — quan trọng vì `expected.urlContains` của case đăng
+nhập thành công là `/`, mà so chuỗi con với `/` thì URL nào cũng khớp, tức là
+một assertion vô nghĩa. Thứ hai, hai case F02-TC-012 và F02-TC-014 trước đây
+không kiểm tra URL lẫn token nay được kiểm tra đầy đủ, nên đây là mở rộng phạm
+vi kiểm chứng chứ không phải dọn dẹp thẩm mỹ. Thứ ba — và đây mới là căn cứ
+thật sự — kết quả sau khi sửa không chỉ trùng *số lượng* 10 pass / 4 fail mà
+trùng đúng *tập* case đỏ (F02-TC-002/004/008/012), khớp với bảng "case dự kiến
+FAIL" trong case-map và với 4 bug report đã nộp. Nếu chỉ đối chiếu con số 10/4
+thì một hoán vị bất kỳ cũng qua được.
+
+Điểm tự phê bình: AI đã định dùng `new URL(page.url()).pathname` để so sánh
+tuyệt đối, cách này bỏ mất cơ chế tự chờ của `toHaveURL` và sẽ đọc URL quá sớm
+ở đúng những case có điều hướng. Nhận ra trước khi viết nên không thành lỗi
+thật, nhưng nó cho thấy phản xạ mặc định vẫn là "so sánh giá trị một lần" thay
+vì "assertion biết chờ" — đúng loại lỗi mà tài liệu Playwright cảnh báo đầu tiên.
+
+### (5) Student Fix
+
+- Yêu cầu chạy lại đủ 3 trình duyệt trước khi commit, không suy ra kết quả
+  firefox/webkit từ mỗi lượt chromium.
+- Đối chiếu tập case đỏ với `case-map.md` và với 4 bug report, thay vì chỉ so
+  tổng số pass/fail.
+- Tách thành hai commit (sửa spec, rồi bằng chứng chạy lại) để lịch sử git thể
+  hiện đúng thứ tự: thay đổi trước, bằng chứng sau.
+- Ghi lỗ hổng này thành mục 3 của `ai-gap-analysis/ai-generated-script-gaps.md`
+  — nhóm lỗi mới, không trùng hai nhóm đã có, vì nguyên nhân không phải thiếu
+  quan sát mà là sinh code theo từng mảnh rời rạc.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 11 | 55.0% |
-| `INCOMPLETE` | 8 | 40.0% |
-| `INVALID` | 1 | 5.0% |
-| **Tổng số entry đã audit** | **20** | **100%** |
+| `VALID` | 12 | 57.1% |
+| `INCOMPLETE` | 8 | 38.1% |
+| `INVALID` | 1 | 4.8% |
+| **Tổng số entry đã audit** | **21** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -1711,10 +1799,11 @@ Phân bố theo giai đoạn:
 | FR-13 — Session 3 (08/08) | #16–#17 | 0 | 2 |
 | Triage + bug reports — Session 3 (08/08) | #18 | 1 | 0 |
 | Video + rà soát toàn bài — Session 4 (09/08) | #19–#20 | 0 | 2 |
+| Sửa lỗ hổng data-driven FR-02 — Session 4 (09/08) | #21 | 1 | 0 |
 
 ## 5. Kết luận
 
-Nhìn trên toàn bộ 20 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
+Nhìn trên toàn bộ 21 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
@@ -1767,4 +1856,4 @@ Bản ghi thô, đầy đủ và không lọc của mọi tương tác nằm ở
 [`prompt-log.md`](prompt-log.md), được trích tự động từ transcript gốc bằng
 [`tools/extract-prompt-log.py`](tools/extract-prompt-log.py).
 
-**Ký tên:** Hà Bảo Ngọc — 23127300 — 08/08/2026
+**Ký tên:** Hà Bảo Ngọc — 23127300 — 09/08/2026

@@ -1,13 +1,12 @@
 # Phân tích lỗ hổng của script do AI sinh ra
 
 HW04 §6 yêu cầu: báo cáo những gì AI làm sai hoặc bỏ sót trong quá trình
-chuyển 33 case thủ công mang sang từ HW02 + 7 case thiết kế mới trong HW04
-thành script Playwright,
-và giải thích **vì sao** AI bỏ sót: chất lượng prompt, giới hạn của mô hình,
-hay đặc điểm riêng của tính năng mà AI không quan sát được. Mỗi mục dưới đây
-gắn với một entry có số thứ tự trong
+chuyển 33 case thủ công mang sang từ HW02 cộng 7 case thiết kế mới trong HW04
+thành script Playwright, và giải thích **vì sao** AI bỏ sót: chất lượng prompt,
+giới hạn của mô hình, hay đặc điểm riêng của tính năng mà AI không quan sát
+được. Mỗi mục dưới đây gắn với một entry có số thứ tự trong
 [`../reports/ai-audit-report.md`](../reports/ai-audit-report.md), lấy đúng từ
-những gì đã xảy ra trong Session 1–3, không phải danh sách lỗi AI thường gặp
+những gì đã xảy ra trong Session 1–4, không phải danh sách lỗi AI thường gặp
 nói chung.
 
 ---
@@ -149,7 +148,40 @@ cho mọi entry từ Session 3 trở đi.
 
 ---
 
-## 3. Nhóm lỗi mở rộng phạm vi ngoài yêu cầu (giai đoạn lập kế hoạch, 05/08)
+## 3. Khai báo dữ liệu rồi không đọc tới — Entry #20
+
+**AI sinh ra:** `loginCaseSchema` có khối `expected` gồm `urlContains` và
+`tokenStored`. Cả 14 record trong `fr-02-login.cases.json` đều điền đủ hai
+trường này, và `loadCases()` validate chúng ngay khi nạp.
+
+**Vì sao sai:** Không dòng nào trong `fr-02-login.spec.ts` đọc tới hai trường
+đó. Mỗi nhánh `assertion` tự viết lại đúng kỳ vọng ấy bằng hằng số trong code
+(`toHaveURL(/\/login/)`, `toBeFalsy()`). Nhìn từ bên ngoài, suite có vẻ
+data-driven đúng chuẩn §6: file dữ liệu tách rời, schema chặt chẽ, không có
+mảng case inline. Nhưng thứ thực sự quyết định oracle vẫn nằm trong script.
+Sửa một giá trị trong JSON sẽ không làm test đổi kết quả, mà đó đúng là phép
+thử để biết một suite có data-driven thật hay không. Hệ quả cụ thể: hai case
+không hề kiểm tra URL đích lẫn trạng thái token (F02-TC-012 và F02-TC-014), dù
+record của chúng khai báo đầy đủ cả hai.
+
+**Đã sửa:** Đưa hai assertion đó ra khỏi `switch`, chạy một lần cho mọi case và
+lấy giá trị kỳ vọng từ chính record. Siết luôn phép so URL: bản cũ khớp chuỗi
+con `/login`, bản mới neo theo trọn vẹn origin + path, vì so chuỗi con với `/`
+thì URL nào cũng khớp. Chạy lại đủ 3 trình duyệt cho kết quả không đổi — 10
+pass / 4 fail, 4 case đỏ vẫn đúng là F02-TC-002/004/008/012.
+
+**Vì sao AI bỏ sót:** Không phải lỗi quan sát như nhóm 1 — dữ liệu cần thiết
+nằm sẵn trong hai file cạnh nhau. Đây là lỗi của việc sinh code theo từng
+mảnh: stage "Model data" thiết kế schema đầy đủ, stage "Generate" viết spec và
+tự nghĩ ra assertion từ đầu thay vì tra lại xem schema đã hứa những gì. Không
+bước nào kiểm tra ngược rằng mọi trường trong schema đều có ít nhất một chỗ
+đọc tới, và vì test vẫn xanh/đỏ đúng như dự đoán nên không có tín hiệu nào báo
+động. Lỗ hổng sống qua ba lượt review (Entry #9, #14, #15) trước khi lộ ra ở
+Entry #20 bằng một câu `grep`.
+
+---
+
+## 4. Nhóm lỗi mở rộng phạm vi ngoài yêu cầu (giai đoạn lập kế hoạch, 05/08)
 
 Ghi lại ngắn gọn vì đã xảy ra trước Session 1, nhưng vẫn là gap thật của AI
 trong toàn bộ vòng đời HW04: viết code khi mới chỉ được yêu cầu đề xuất cấu
@@ -163,7 +195,7 @@ thành task có checkpoint rõ ràng, và ghi các ranh giới tuyệt đối
 
 ---
 
-## 4. Giới hạn của hạ tầng test tự phát hiện trong Session 3 (không phải lỗi AI sinh code)
+## 5. Giới hạn của hạ tầng test tự phát hiện trong Session 3 (không phải lỗi AI sinh code)
 
 `run-matrix.ts` gọi `playwright test` tuần tự cho từng cell, và mỗi lệnh
 `playwright test` **xoá sạch** `test-results/` khi khởi động. Hệ quả: sau
@@ -180,7 +212,7 @@ bài này.
 
 ---
 
-## 5. Tổng kết — điều học được về cộng tác với AI trong kiểm thử
+## 6. Tổng kết — điều học được về cộng tác với AI trong kiểm thử
 
 Ba nhóm lỗi trên không phân tán ngẫu nhiên: nhóm 1 (giả định giao diện) và
 nhóm 2 (tin vào sản phẩm trước đó của chính mình) đều là biến thể của cùng
@@ -188,6 +220,6 @@ một nguyên nhân gốc: AI mạnh ở suy luận trên dữ liệu đã quan 
 yếu ở việc tự nhận ra khi nó **chưa** quan sát gì cả. Quy trình chống lại
 điều đó xuyên suốt cả ba feature: recon trên build thật trước khi sinh
 locator, đối chiếu hai nguồn độc lập khi chúng mâu thuẫn (Entry #9, #17),
-và không bao giờ tự tin verdict `VALID` chỉ vì output "chạy được": 8/20
+và không bao giờ tự tin verdict `VALID` chỉ vì output "chạy được": 8/21
 entry trong audit report ở mức `INCOMPLETE` chứ không `VALID`, và tỷ lệ đó
 tự nó là bằng chứng cho thấy review không phải hình thức.

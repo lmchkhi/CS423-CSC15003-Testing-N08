@@ -18,5 +18,5 @@ AI thực chất là tóm tắt viết lại. Cả hai lần đều chỉ sửa 
 
 Nguyên tắc rút ra: đừng đánh giá output AI bằng việc nó chạy được hay không,
 mà bằng việc nó *kiểm chứng chéo* được không, với DOM thật, API thật, hoặc
-một quan sát độc lập đã ghi lại trước đó. 8/20 entry trong audit report dừng
+một quan sát độc lập đã ghi lại trước đó. 8/21 entry trong audit report dừng
 ở `INCOMPLETE` thay vì `VALID` chính vì áp dụng nguyên tắc đó nhất quán.

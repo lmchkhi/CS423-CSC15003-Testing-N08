@@ -6347,6 +6347,805 @@ Several 09/08 transcripts — including the matrix re-run — aren't in the extr
      2026-08-09T06:58:02 | i need you to scan this homework end-to-end and compare with the requirements in HW04-AutomationTesting.md, check the quality
    … [cắt bớt 297 ký tự; xem transcript gốc]
 → Edit(reports/tools/extract-prompt-log.py)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/extract-prompt-log.py 2>&1 | tail -25 echo "=== entry count / size delta ===" git diff --stat -- reports/prompt-log.md | cat echo "=== date coverag
+… [cắt bớt 75 ký tự; xem transcript gốc]
+   [ 9] 11:36 PM 05/08/2026    0 blocks  '[Request interrupted by user]'
+     [10] 11:36 PM 05/08/2026   11 blocks  'but i dont want the commit to have the co-authored by claude....'
+     [11] 11:41 PM 05/08/2026    0 blocks  'plan to finish this homework, i want full grades HW04-AutomationTestin'
+     [12] 11:41 PM 05/08/2026   32 blocks  'plan to finish this homework, i want full grades HW04-AutomationTestin'
+     [13] 11:49 PM 05/08/2026    1 blocks  'hmm but video needs one automated script running end-to-end, if aug 9 '
+     [14] 11:51 PM 05/08/2026    8 blocks  'ok'
+     [15] 11:56 PM 05/08/2026    5 blocks  'i dont want the superpowers related to be commited'
+     [16] 11:57 PM 05/08/2026    3 blocks  'it st
+   … [cắt bớt 1809 ký tự; xem transcript gốc]
+→ Skill(ai-audit-log)
+```text
+Now I need verbatim material from the transcripts for the new entries.
+```
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 python3 - <<'PY' import json,glob from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) for pre in ['7595b1b0','b078efda']
+… [cắt bớt 451 ký tự; xem transcript gốc]
+   ########## 7595b1b0 ##########
+   
+   ===== 13:49 =====
+   This script doesn't name the two YouTube videos anywhere — it only refers to them generically as **"Video 1 — Task 2 Demo"** and **"Video 2 — Agent Skill Demo"**, with placeholders (`<!-- TODO: YouTube link, Aug 9 -->`) still pending in README.md and reports/main-report.md for the actual uploaded links/titles.
+   
+   If you mean *what should the two videos be titled/named*, based on their content:
+   
+   1. **Video 1 — Task 2 Demo**: FR-02 login/lockout automation run (multi-browser matrix + bug report), ≥5 min.
+   2. **Video 2 — Agent Skill Demo**: `playwright-automation` skill walkthrough on FR-13 dashboard, ~5 min.
+   
+   No YouTube titles/URLs have been fille
+   … [cắt bớt 1931 ký tự; xem transcript gốc]
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 python3 - <<'PY' import json,glob from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) f=glob.glob('a641cf9c*.jsonl')[0]
+… [cắt bớt 390 ký tự; xem transcript gốc]
+   ===== 13:58 =====
+   I'll start by loading the skill that covers HW04 rubric auditing.
+   
+   ===== 13:58 =====
+   Using the playwright-automation skill's verification gate as the audit checklist. Let me read the requirements and the main deliverables.
+   
+   ===== 14:03 =====
+   Scanned everything. The substance is strong — this is well above a typical submission. Six things stand between it and a clean 100.
+   
+   ## Verdict on the rubric
+   
+   **Meets requirement, verified:**
+   
+   | §  | Requirement | Evidence |
+   |---|---|---|
+   | 5 | 3 web features, one per Pool A/B/C, same as HW02 | FR-02 / FR-10 / FR-13 |
+   | 6 | ≥12 cases per feature | 14 / 14 / 12 — `--list` gives 129 tests (43 × 3 projects) |
+   | 6 | Data-driven, no inline c
+   … [cắt bớt 1599 ký tự; xem transcript gốc]
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 python3 - <<'PY' import json,glob,collections for pre in ['ff131a90','7595b1b0','b078efda','a641cf9c']: f=glob.glob(pre+'*.jsonl')[0] c=collections.Co
+… [cắt bớt 184 ký tự; xem transcript gốc]
+   ff131a90 {'claude-sonnet-5': 15}
+   7595b1b0 {'claude-sonnet-5': 5}
+   b078efda {'claude-sonnet-5': 17}
+   a641cf9c {'claude-opus-5': 134}
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+```text
+Now appending the two new audit entries.
+```
+→ Read(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== entries ==="; grep -c "^## Entry #" reports/ai-audit-report.md echo "=== verdict markers ==="; grep -oE '^\*\*`(VALID|INCOMPLETE|INVALID)`\*\*' reports/ai-audi
+… [cắt bớt 28 ký tự; xem transcript gốc]
+   === entries ===
+   20
+   === verdict markers ===
+      8 **`INCOMPLETE`**
+      1 **`INVALID`**
+     11 **`VALID`**
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 grep -rn "18 entry\|6/18\|11 \`VALID\`" reports/main-report.md reports/ai-critique.md ai-gap-analysis/ README.md
+   reports/ai-critique.md:21:một quan sát độc lập đã ghi lại trước đó. 6/18 entry trong audit report dừng
+   reports/main-report.md:181:quan sát độc lập. 18 entry đã audit: 11 `VALID`, 6 `INCOMPLETE`, 1 `INVALID`.
+   reports/main-report.md:189:| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 18 entry |
+   ai-gap-analysis/ai-generated-script-gaps.md:191:và không bao giờ tự tin verdict `VALID` chỉ vì output "chạy được" — 6/18
+→ Edit(reports/ai-critique.md)
+→ Edit(reports/main-report.md)
+→ Edit(reports/main-report.md)
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+```text
+Now let me run the repo's own verifiers to confirm nothing I wrote breaks the verbatim rule or the counts.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== verify-audit-verbatim ===" python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -25 echo echo "=== ai-critique words ==="; tail -n +2 reports/ai-critique
+… [cắt bớt 202 ký tự; xem transcript gốc]
+   === verify-audit-verbatim ===
+   checked 150 quoted lines against 4226k chars of transcript
+   ✓ every quoted line traces to a transcript
+   
+   === ai-critique words ===
+        281
+   === consistency: entry count vs table ===
+   20
+      8 **`INCOMPLETE`**
+      1 **`INVALID`**
+     11 **`VALID`**
+```text
+All verifiers pass. Let me commit the work.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== untracked under reports/html ==="; git status --porcelain reports/html | awk '{print $1}' | sort | uniq -c echo "=== other untracked ==="; git status --porcela
+… [cắt bớt 40 ký tự; xem transcript gốc]
+   === untracked under reports/html ===
+     44 ??
+     44 D
+      3 M
+   === other untracked ===
+   ?? HW04-AutomationTesting.md
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.17.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.28.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.33.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.38.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.44.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.51.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.55.png"
+   ?? "bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.59.png"
+   ?? "bug-reports/github-issues/Screen
+   … [cắt bớt 32 ký tự; xem transcript gốc]
+→ Read(bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.17.png)
+→ Read(bug-reports/github-issues/Screenshot 2026-08-09 at 13.56.02.png)
+```text
+Order confirmed at both ends (13.55.17 → #204, 13.56.02 → #212). Let me verify one midpoint before renaming evidence files.
+```
+→ Read(bug-reports/github-issues/Screenshot 2026-08-09 at 13.55.44.png)
+```text
+Mapping confirmed exactly chronological. Renaming the evidence files and linking them into the bug reports.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/bug-reports/github-issues set -e mv "Screenshot 2026-08-09 at 13.55.17.png" issue-204-BUG-FR02-001.png mv "Screenshot 2026-08-09 at 13.55.28.png" issue-205-BUG-FR02-002.
+… [cắt bớt 496 ký tự; xem transcript gốc]
+   issue-204-BUG-FR02-001.png
+   issue-205-BUG-FR02-002.png
+   issue-206-BUG-FR02-003.png
+   issue-207-BUG-FR02-004.png
+   issue-208-BUG-FR10-001.png
+   issue-209-BUG-FR10-002.png
+   issue-210-BUG-FR10-003.png
+   issue-211-BUG-FR13-001.png
+   issue-212-BUG-FR13-002.png
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import re, pathlib m = { 'BUG-FR02-001':204,'BUG-FR02-002':205,'BUG-FR02-003':206,'BUG-FR02-004':207, 'BUG-FR10-001':208,'BUG-FR10-002':209,'BUG-FR10-00
+… [cắt bớt 541 ký tự; xem transcript gốc]
+   linked: BUG-FR02-001
+   linked: BUG-FR02-002
+   linked: BUG-FR02-003
+   linked: BUG-FR02-004
+   linked: BUG-FR10-001
+   linked: BUG-FR10-002
+   linked: BUG-FR10-003
+   linked: BUG-FR13-001
+   linked: BUG-FR13-002
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== sanity: one report ==="; sed -n '1,16p' bug-reports/BUG-FR10-001.md echo echo "=== all referenced images exist? ===" grep -rhoE '\]\((screenshots|github-issues
+… [cắt bớt 143 ký tự; xem transcript gốc]
+   === sanity: one report ===
+   # BUG-FR10-001: Đơn đã hủy (canceled) vẫn chuyển được sang "Đã giao"
+   
+   ## Found by Test Case
+   F10-TC-009 — "F10-TC-009 — Đơn đã hủy là trạng thái kết thúc"
+   
+   ## Requirement liên quan
+   FR-10 — `sut-requirements.md` §3: `canceled` là trạng thái kết thúc, không có chuyển đổi nào đi ra từ đó.
+   
+   ## GitHub Issue
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/208
+   
+   ![Issue #208 trên GitHub](github-issues/issue-208-BUG-FR10-001.png)
+   
+   ## Severity / Priority
+   Critical / P1
+   
+   
+   === all referenced images exist? ===
+   checked
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git add -A reports/html reports/run-manifest.md git commit -q -m "test(fr-02): re-run the chromium/firefox/webkit matrix for the demo recording Refreshes the three FR-02
+… [cắt bớt 512 ký tự; xem transcript gốc]
+   85ca057 docs(bug): name the GitHub Issue screenshots after their bug and link them
+   33359ef test(fr-02): re-run the chromium/firefox/webkit matrix for the demo recording
+   0f9587c docs(hw04): use TODO placeholder for video links, regenerate git log
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git add reports/tools/extract-prompt-log.py reports/prompt-log.md git commit -q -m "docs(prompt-log): regenerate through session 4 (09/08) Adds the four 09/08 transcript
+… [cắt bớt 1126 ký tự; xem transcript gốc]
+   f2410fc docs: fix two wrong counts and de-anglicise the Vietnamese prose
+   03abe41 docs(ai-audit): log entries #19-20 and resync the accuracy tables
+   332a50d docs(prompt-log): regenerate through session 4 (09/08)
+   85ca057 docs(bug): name the GitHub Issue screenshots after their bug and link them
+   33359ef test(fr-02): re-run the chromium/firefox/webkit matrix for the demo recording
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git log --pretty=fuller > git-log.txt git add git-log.txt HW04-AutomationTesting.md git commit -q -m "docs: regenerate git-log.txt and check in the HW04 assignment spec"
+… [cắt bớt 696 ký tự; xem transcript gốc]
+   === status ===
+   === commits in log ===
+   39
+   === HEAD count ===
+   40
+   
+   === SS12 recount ===
+   touching .spec.ts:        4
+   touching spec+test-data:        7
+   touching automation/:       10
+   test(...) prefixed: 12
+   === distinct days for test( commits ===
+   2026-08-05
+   2026-08-06
+   2026-08-07
+   2026-08-08
+   2026-08-09
+```text
+Final verification sweep across everything I touched.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== audit verbatim ==="; python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -3 echo "=== typecheck ==="; (cd automation && npm run typecheck 2>&1 | tail -3
+… [cắt bớt 744 ký tự; xem transcript gốc]
+   Exit code 1
+   === audit verbatim ===
+   checked 150 quoted lines against 4230k chars of transcript
+   ✓ every quoted line traces to a transcript
+   === typecheck ===
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+   
+   === 9 reports still labeled ===
+          9
+   === ai-critique words ===
+        281
+   === cross-doc number consistency (should all say 20) ===
+     reports/ai-critique.md:21:một quan sát độc lập đã ghi lại trước đó. 8/20 entry trong audit report dừng
+     reports/main-report.md:36:### 2.1. FR-02 — Đăng nhập & khóa tài khoản (Session 1, 06/08/2026)
+     reports/main-report.md:55:**Kết quả cuối (xác nhận lại 08/08/2026):** 10 pass / 4 fail trên cả 3
+     reports/main-report.md:58:### 2.2. FR-10 — Trạng thái
+   … [cắt bớt 956 ký tự; xem transcript gốc]
+```text
+One line in Entry #20 describes the fix inaccurately — I wrote 18 before adding entries #19–20 pushed it to 20.
+```
+→ Edit(reports/ai-audit-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git add reports/ai-audit-report.md git commit -q -m "docs(ai-audit): correct the entry-count figure quoted in entry #20" python3 reports/tools/verify-audit-verbatim.py 2
+… [cắt bớt 210 ký tự; xem transcript gốc]
+   checked 150 quoted lines against 4232k chars of transcript
+   ✓ every quoted line traces to a transcript
+   clean:        0 changes
+```text
+Done. Working tree is clean, all verifiers pass.
+
+## What I changed
+
+**Accuracy fixes**
+- `ai-gap-analysis` said "41 case thủ công (HW02)" — no such number exists. Now "33 case mang sang từ HW02 + 7 case thiết kế mới", matching the ledger (14 + 14 + 5).
+- `ai-audit-report.md` §5 said "toàn bộ 15 entry" while its own table two paragraphs up said 18.
+
+**The 09/08 logging gap** — this turned out bigger than I flagged. Four transcripts from 09/08 were missing from the extractor's `SESSIONS`, not just one: the video-script review, the YouTube naming exchange, the link replacement, and this audit. `prompt-log.md` now runs through 09/08 (entries 28–33, pure append — existing numbering untouched), and `ai-audit-report.md` gained entries **#19** and **#20**. Totals resynced to 20 entries (11 VALID / 8 INCOMPLETE / 1 INVALID), date range extended, and the four downstream references to "18 entry" / "6/18" updated. `verify-audit-verbatim.py` confirms all 150 quoted lines trace to real transcripts, including the new ones.
+
+**Prose pass** — mid-sentence em-dashes: main report 29 → 17, gap analysis 27 → 10, critique 4 → 0 (remaining ones are headings and field labels, which are natural). Thinned mid-sentence bold to load-bearing terms only, and broke up the repeated claim→dash→sharpening-clause rhythm. `ai-critique.md` is 281 words, off the 300 ceiling.
+
+**Bonus find** — the nine GitHub-issue screenshots were named `Screenshot 2026-08-09 at 13.55.17.png`. I verified the chronological mapping against the live issues at three points (#204, #208, #212 all matched), renamed them `issue-<num>-<BUG-ID>.png`, and embedded each in its bug report so §14's issue-page evidence is reachable from the report.
+
+Eight commits, working tree clean, `git-log.txt` regenerated.
+
+## Still open
+
+**1. PDFs — still the one that can zero you.** §14 wants main report, AI Critique, and AI Audit Report as Markdown **and** PDF. Nothing generated yet; I didn't pick a toolchain for you. Tell me which and I'll do it: Pandoc + LaTeX, `md-to-pdf`, or VS Code's Markdown PDF. Vietnamese diacritics need a font that handles them, so the toolchain choice actually matters here.
+
+**2. Nothing is pushed.** Eight local commits ahead. The repo link is a graded deliverable — say the word and I'll push `HW04/23127300`.
+
+**3. §12, honestly.** After my commits: **4** touch a literal `.spec.ts`, **7** touch spec + test-data, **10** touch `automation/`, **12** are `test(`-prefixed, across **5** distinct days. I did *not* invent commits to inflate this — that's exactly the behaviour §12 exists to prevent, and I logged the temptation in Entry #20. Under any reasonable reading of "test-script files, or equivalent" you clear 8 comfortably; only the narrowest ".spec.ts only" reading fails, and that can't be fixed now without falsifying history.
+
+**4. The FR-02 dead-data finding is unfixed.** `expected.urlContains` and `expected.tokenStored` are in all 14 records and schema-validated, but no spec line reads them — the real expectations are hardcoded in the switch. It's a genuine §6 weakness that survived three reviews. I left it alone because the SUT is down: changing the spec without re-running would put the repo's spec out of sync with the nine reports on disk, which is worse than the flaw. Start the SUT (backend `:3000`, web `:5173`, admin `:5174`) and I'll wire the data through, re-run the three FR-02 cells, and commit — which also adds a fifth genuine `.spec.ts` commit.
+```
+
+
+---
+
+
+## [34] Claude (Opus 5, Claude Code) — 3:05 PM 09/08/2026
+
+**Prompt:**
+
+```text
+wait is it perfect now or still needs fixing?
+```
+
+**Output:**
+
+```text
+Not perfect. The **documentation** is done — that part I finished and verified. But three things still stand between you and a safe 100, and one of them can still zero the whole submission.
+
+**Must fix:**
+
+1. **PDFs still don't exist.** §14 requires main report, AI Critique, and AI Audit Report as Markdown *and* PDF; §17 says a missing required document is 0 points. This is unchanged from my first scan — I flagged the toolchain as your call and you haven't picked one, so nothing was generated.
+
+2. **Nothing is pushed.** 8 commits sit local. The GitHub repo link is itself a graded deliverable, and right now the pushed branch still has the old numbers and the un-renamed screenshots.
+
+**Should fix, not fatal:**
+
+3. **FR-02's `expected.urlContains` / `expected.tokenStored`** are still dead — validated but never read. Genuine §6 weakness. Needs the SUT up so I can re-run the three FR-02 cells after changing the spec.
+
+**Can't be fixed now:** §12's narrowest reading (4 commits touch `.spec.ts`). Fixing it retroactively would mean falsifying git history, which I won't do.
+
+**One gap in my own audit you should know about:** I verified both YouTube links resolve, are titled correctly, and are on your channel. I did **not** verify the video *content* — that it's ≥5 minutes, narrated in Vietnamese, shows face-cam or `whoami`/`hostname`, and is set to Unlisted rather than Private. §7 and §11 all hinge on that, and a TA does check. Only you can confirm it.
+
+Want me to do the PDFs and push? For the PDFs I just need to know which toolchain — Vietnamese diacritics make the font choice matter, so I'd rather not guess.
+```
+
+
+---
+
+
+## [35] Claude (Opus 5, Claude Code) — 3:06 PM 09/08/2026
+
+**Prompt:**
+
+```text
+about the commit just fix some minor thing like add a blank line then commit
+```
+
+**Output:**
+
+```text
+I'd rather not do that one. A commit whose diff is a blank line is visibly padding — and §12's whole point is showing incremental work, so a grader who opens those diffs sees the count was gamed and it reads worse than four honest commits. It's also the one thing in this submission that would be genuinely fabricated evidence, in an assignment with an explicit anti-cheat section.
+
+The good news is there's real work sitting right there that produces legitimate spec commits:
+
+1. **Wire `expected.urlContains` / `expected.tokenStored` through** — currently dead in all 14 FR-02 records. Touches `utils/data.ts` + `fr-02-login.spec.ts`.
+2. **Re-run the three FR-02 cells** so the reports match the changed spec — touches the spec's reports and manifest.
+
+That's genuine §6 quality improvement, and it's the exact gap I found in the audit. It needs the SUT up:
+
+```
+cd ~/Documents/eshop-sut/backend        && node server.js      # :3000
+cd ~/Documents/eshop-sut/frontend-web   && npm run dev         # :5173
+cd ~/Documents/eshop-sut/frontend-admin && npm run dev         # :5174
+```
+
+Start those and I'll do it properly. It won't get the literal `.spec.ts` count to 8 — nothing can now without rewriting history — but it moves you from 4 to 6 real ones, and more importantly it closes an actual weakness a TA could point at during the oral defense.
+
+Worth being straight about the risk you're weighing: under the narrow reading you're short on §12, worth a few points on one criterion. The missing PDFs are a §17 zero. If you want me spending effort somewhere, it should be the PDFs — just tell me Pandoc or `md-to-pdf` and I'll generate all three.
+```
+
+
+---
+
+
+## [36] Claude (Opus 5, Claude Code) — 3:07 PM 09/08/2026
+
+**Prompt:**
+
+```text
+ok then do it
+```
+
+**Output:**
+
+→ Bash: for p in 3000 5173 5174; do echo -n "port $p: "; curl -s -o /dev/null -w "%{http_code}\n" --max-time 3 http://localhost:$p/ 2>/dev/null || echo DOWN; done echo "=== pdf toolchains available ===" for c in pandoc wkhtmltop
+… [cắt bớt 381 ký tự; xem transcript gốc]
+   port 3000: 000
+   DOWN
+   port 5173: 000
+   DOWN
+   port 5174: 000
+   DOWN
+   === pdf toolchains available ===
+   pandoc         no
+   wkhtmltopdf    no
+   md-to-pdf      no
+   weasyprint     no
+   xelatex        yes
+   tectonic       no
+   npx md-to-pdf: available
+   chrome headless: yes
+```text
+SUT's still down, so I'll take this as the PDFs. Let me check what markdown→HTML path I have locally.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 -c "import markdown; print('python-markdown', markdown.__version__)" 2>&1 | head -2 echo "---" ls automation/node_modules | grep -iE "^(marked|markdown-it|showdo
+… [cắt bớt 140 ký tự; xem transcript gốc]
+   python-markdown 3.10.2
+   ---
+   no md lib in automation/node_modules
+   --- playwright browsers ---
+   chromium-1234
+   chromium_headless_shell-1234
+   ffmpeg-1011
+   firefox-1538
+   webkit-2336
+```text
+Good — python-markdown plus Playwright's chromium. Fully local, no downloads, and I control the CSS for Vietnamese. Let me build it as a repeatable tool.
+```
+→ Write(reports/tools/build-pdfs.py, 149 dòng)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 -c "import playwright; print('playwright bindings ok')" 2>&1 | tail -1 python3 reports/tools/build-pdfs.py 2>&1 | tail -12
+   ModuleNotFoundError: No module named 'playwright'
+   playwright python package not found. This script drives the Chromium that `npx playwright install` already placed on disk;
+   install the bindings with:  pip3 install playwright
+```text
+Python bindings aren't installed. The Node Playwright in `automation/` is already there — let me use that instead of adding a dependency.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation node -e "const {chromium}=require('playwright'); console.log('node playwright ok')" 2>&1 | tail -2 node -e "const {chromium}=require('@playwright/test'); cons
+… [cắt bớt 50 ký tự; xem transcript gốc]
+   node playwright ok
+   via @playwright/test ok
+→ Write(reports/tools/html-to-pdf.mjs, 44 dòng)
+→ Edit(reports/tools/build-pdfs.py)
+→ Edit(reports/tools/build-pdfs.py)
+→ Edit(reports/tools/build-pdfs.py)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/build-pdfs.py 2>&1 | tail -12 echo "=== files ==="; ls -lh reports/pdf/ 2>/dev/null
+   at packageResolve (node:internal/modules/esm/resolve:873:9)
+       at moduleResolve (node:internal/modules/esm/resolve:946:18)
+       at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+       at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:642:12)
+       at #cachedDefaultResolve (node:internal/modules/esm/loader:591:25)
+       at ModuleLoader.resolve (node:internal/modules/esm/loader:574:38)
+       at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:236:38)
+       at ModuleJob._link (node:internal/modules/esm/module_job:130:49) {
+     code: 'ERR_MODULE_NOT_FOUND'
+   }
+   
+   Node.js v20.19.4
+   === files ===
+   total 0
+```text
+ESM resolves bare imports from the script's own directory, not cwd. Let me anchor the resolution explicitly.
+```
+→ Edit(reports/tools/html-to-pdf.mjs)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/build-pdfs.py 2>&1 | tail -12 echo "=== files ==="; ls -lh reports/pdf/ 2>/dev/null
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/main-report.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-critique.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-audit-report.pdf
+     reports/pdf/main-report.pdf  (193 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (477 KB)
+   === files ===
+   total 1456
+   -rw-r--r--@ 1 hbn  staff   477K Aug  9 15:09 ai-audit-report.pdf
+   -rw-r--r--@ 1 hbn  staff    48K Aug  9 15:09 ai-critique.pdf
+   -rw-r--r--@ 1 hbn  staff   193K Aug  9 15:09 main-report.pdf
+```text
+PDFs built. Now I must actually look at them — Vietnamese diacritics and table/code overflow are exactly what silently breaks.
+```
+→ Read(reports/pdf/ai-critique.pdf)
+```text
+Vietnamese renders cleanly. Now the two hard cases — wide tables and long transcript lines.
+```
+→ Read(reports/pdf/main-report.pdf)
+```text
+Two real defects: the metadata header lines got joined into one paragraph, and `table-layout: fixed` is strangling the wide ledger table. Let me fix both.
+```
+→ Edit(reports/tools/build-pdfs.py)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import pathlib p = pathlib.Path('reports/main-report.md') lines = p.read_text(encoding='utf-8').split('\n') # Lines 3-8 (1-indexed) are the metadata blo
+… [cắt bớt 599 ký tự; xem transcript gốc]
+   hard-broke 5 metadata lines
+   '**Sinh viên:** Hà Bảo Ngọc — MSSV 23127300 — Nhóm N08  '
+   '**Môn:** CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS  '
+   '**SUT:** EShop (`github.com/ttbhanh/eshop-sut`) — backend `:'
+   '**Phạm vi:** FR-02 (Đăng nhập & khóa tài khoản), FR-10 (Trạn'
+   '**Công cụ:** Playwright (TypeScript) + `@playwright/test` HT'
+   '**Oracle:** [`sut-requirements.md`](../sut-requirements.md) '
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/build-pdfs.py 2>&1 | tail -4
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-audit-report.pdf
+     reports/pdf/main-report.pdf  (202 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (486 KB)
+→ Read(reports/pdf/main-report.pdf)
+```text
+Nearly there — `overflow-wrap: anywhere` is breaking even short headers ("Fe atu re", "Tổ ng"). Let me restrict that to code spans only.
+```
+→ Edit(reports/tools/build-pdfs.py)
+→ Bash: python3 reports/tools/build-pdfs.py 2>&1 | tail -4
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-audit-report.pdf
+     reports/pdf/main-report.pdf  (203 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (486 KB)
+→ Read(reports/pdf/main-report.pdf)
+```text
+Clean. Now the hardest document — the audit report's verbatim transcript blocks.
+```
+→ Read(reports/pdf/ai-audit-report.pdf)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 grep -n "with an expec\|HW02 carry-over confirmed" reports/ai-audit-report.md | head echo "--- context ---" grep -n "with an expec" -A3 -B1 reports/ai-audit-report.md |
+… [cắt bớt 207 ký tự; xem transcript gốc]
+   155:- **HW02 carry-over confirmed**: FR-0
+   163:- **Case counts are targets, not commitments.** I'd written "FR-02 = 14 of 15" as if I already knew which case to drop — I don't, and won't until the design stage merges duplicates and checks each case has an observable UI oracle. The spec now states ≥12 with an expec
+   --- context ---
+   162-
+   163:- **Case counts are targets, not commitments.** I'd written "FR-02 = 14 of 15" as if I already knew which case to drop — I don't, and won't until the design stage merges duplicates and checks each case has an observable UI oracle. The spec now states ≥12 with an expec
+   164-```
+   165-
+   166-### (3) Verdict
+   === how many mid-word truncations like this? ===
+   401:| **A
+   … [cắt bớt 494 ký tự; xem transcript gốc]
+```text
+The truncation is in the source markdown, not the PDF — quotes ending mid-word with no cut marker. Let me measure how widespread that is.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import re, pathlib lines = pathlib.Path('reports/ai-audit-report.md').read_text().split('\n') infence=False; prev=None; hits=[] for i,l in enumerate(lin
+… [cắt bớt 441 ký tự; xem transcript gốc]
+   34 fence(s) ending mid-sentence without a cut marker:
+   
+     line 69: ...anges to the repo, tell me how you want to setup the project structure
+     line 86: ...o just setup the project structure no real work yet what are you doing
+     line 90: ...revert the overran
+     line 136: ...tween days. also i setup the project structrue, check. use superpowers
+     line 155: ...- **HW02 carry-over confirmed**: FR-0
+     line 163: ...ase has an observable UI oracle. The spec now states ≥12 with an expec
+     line 204: ...i dont want the superpowers related to be commited
+     line 212: ...bjects, reports, bug reports, and the report/audit Markdown. Superpowe
+     line 258: ...okay, write the plan
+     line 276: ...and Sessions 4
+   … [cắt bớt 1367 ký tự; xem transcript gốc]
+```text
+Most are false positives — prompts that legitimately end without punctuation ("ok", a URL, a number). Let me isolate the genuine mid-word cuts.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 for n in 155 163 212 276 90; do echo "===== line $n ====="; sed -n "$((n-2)),$((n+1))p" reports/ai-audit-report.md | cut -c1-160; done
+   ===== line 155 =====
+   
+   - **Commit budget**: only 1 test-script commit exists (today's scaffold). §12 needs 8 across 4+ days. Aug 5→9 gives 5 working days — comfortable at 2 commits/da
+   - **HW02 carry-over confirmed**: FR-0
+   ```
+   ===== line 163 =====
+   Two things I resolved during the write-up that differ slightly from what I said above:
+   
+   - **Case counts are targets, not commitments.** I'd written "FR-02 = 14 of 15" as if I already knew which case to drop — I don't, and won't until the design sta
+   ```
+   ===== line 212 =====
+   Undone. The commit is gone (branch was unpushed, so nothing to force-push), and `docs/superpowers/` is now excluded via `.git/info/exclude` — local-only, so no 
+   
+   Going forward, onl
+   … [cắt bớt 438 ký tự; xem transcript gốc]
+```text
+4 genuine unmarked truncations. Since the file's own header promises verbatim, an unmarked cut is the actual defect. Let me check how the verifier treats added lines before marking them.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 sed -n '1,70p' reports/tools/verify-audit-verbatim.py
+   #!/usr/bin/env python3
+   """Check that every quoted English line in ai-audit-report.md is really verbatim.
+   
+   The audit report promises that Full prompt and AI Output are byte-for-byte what
+   happened. This proves it: each quoted line is searched for in the raw Claude Code
+   transcripts. A line that cannot be found is either paraphrased or invented, and
+   either way it must not ship.
+   
+   Vietnamese lines are skipped — those are the student's own Reasoning / Student
+   Fix, which are meant to be original prose, not quotations.
+   
+   Exit status 0 = every quote traces to a transcript.
+   """
+   import glob
+   import json
+   import os
+   import re
+   import sys
+   
+   PROJ = os.path.expanduser(
+       "~/.claude/projects/-Users-hbn-Documents
+   … [cắt bớt 1887 ký tự; xem transcript gốc]
+```text
+The verifier skips lines with Vietnamese diacritics, so a Vietnamese cut-marker is safe. Applying it.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import pathlib p = pathlib.Path('reports/ai-audit-report.md') lines = p.read_text(encoding='utf-8').split('\n') MARK = '[… phần còn lại của output đã bị
+… [cắt bớt 387 ký tự; xem transcript gốc]
+   marked 4 truncated output blocks
+   === declare the trim in §2 ===
+   19:Nguyên tắc: **Full prompt** và **AI Output** giữ nguyên văn, không dịch, không
+→ Read(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -3 python3 reports/tools/build-pdfs.py 2>&1 | tail -3 echo "=== ai-critique unchanged at 281? ==="; tail -n +2
+… [cắt bớt 31 ký tự; xem transcript gốc]
+   checked 150 quoted lines against 4252k chars of transcript
+   ✓ every quoted line traces to a transcript
+     reports/pdf/main-report.pdf  (203 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (487 KB)
+   === ai-critique unchanged at 281? ===
+        281
+→ Edit(README.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git add reports/pdf reports/tools/build-pdfs.py reports/tools/html-to-pdf.mjs reports/ai-audit-report.md reports/main-report.md README.md git commit -q -m "docs: build t
+… [cắt bớt 780 ký tự; xem transcript gốc]
+   clean:        0
+   8f49617 docs: regenerate git-log.txt
+   de1c2f6 docs: build the PDF deliverables SS14 requires
+   aff7402 docs: regenerate git-log.txt
+   1635f5a docs(ai-audit): correct the entry-count figure quoted in entry #20
+```text
+PDFs are done and proofread. §14's document requirement is now satisfied.
+
+**What I built:** `reports/tools/build-pdfs.py` (Markdown→HTML via python-markdown) + `html-to-pdf.mjs` (HTML→PDF via the Chromium Playwright already installed for your matrix). No new toolchain, no network fetch, and it's re-runnable — so the PDFs can never drift from the Markdown by hand.
+
+| File | Pages | Size |
+|---|---:|---:|
+| `reports/pdf/main-report.pdf` | 5 | 203 KB |
+| `reports/pdf/ai-critique.pdf` | 1 | 48 KB |
+| `reports/pdf/ai-audit-report.pdf` | 34 | 487 KB |
+
+I inspected the rendered pages rather than trusting the exit code, which caught four real defects:
+
+1. **Vietnamese diacritics** — verified correct in body text, tables, and inside code fences.
+2. **The metadata header collapsed into one wall of text.** Your `**Sinh viên:** / **Môn:** / **SUT:**` lines rely on GitHub's GFM auto-hard-breaks; standard Markdown joins them. Fixed at the source with proper Markdown hard breaks, so it now renders right *both* on GitHub and in the PDF.
+3. **`table-layout: fixed` shredded the requirement ledger** — eight equal-width columns turned file paths into vertical strips. Switched to auto layout.
+4. **`overflow-wrap: anywhere` split short headers** into "Fe/atu/re" and "Tổ/ng". Restricted to code spans.
+
+**One thing I found while proofreading that you should know about:** four `AI Output` blocks in the audit report were cut off **mid-word** — `"...The spec now states ≥12 with an expec"`, `"...FR-0"`. That happened when those entries were first written, and there was no marker, so a grader reads it as the AI having stopped there. Given the file's own header promises byte-for-byte verbatim, an *unmarked* cut is the actual problem. I added an explicit cut marker at each of the four points and declared it in §2. `verify-audit-verbatim.py` still passes on all 150 quoted lines.
+
+Ten commits, working tree clean, `git-log.txt` regenerated.
+
+## Where you stand now
+
+**Closed:** PDFs, the two wrong counts, the 09/08 logging gap, issue-screenshot naming, the prose tells.
+
+**Still open — both need you:**
+
+1. **Nothing is pushed.** Ten local commits. Say the word and I'll push `HW04/23127300`.
+2. **FR-02's dead `expected.*` fields** — needs the SUT running so I can re-run the three cells after changing the spec.
+
+**Unverifiable by me:** the video content — ≥5 min, Vietnamese narration, face-cam or `whoami`/`hostname` on screen, and **Unlisted rather than Private**. §7 and §11 both hinge on it. Worth opening both links in a private window to confirm they're not Private; that's a silent zero on Task 2 if wrong.
+```
+
+
+---
+
+
+## [37] Claude (Opus 5, Claude Code) — 3:18 PM 09/08/2026
+
+**Prompt:**
+
+```text
+ok sut are up, and i pushed all commits, continue
+```
+
+**Output:**
+
+→ Bash: for p in 3000 5173 5174; do echo -n "port $p: "; curl -s -o /dev/null -w "%{http_code}\n" --max-time 5 http://localhost:$p/ 2>/dev/null || echo DOWN; done git status -sb | head -2
+   port 3000: 404
+   port 5173: 200
+   port 5174: 200
+   ## HW04/23127300...origin/HW04/23127300
+```text
+SUT's up and the branch is in sync. Let me check the config and page object before rewiring the spec.
+```
+→ Read(automation/utils/config.ts)
+→ Read(automation/pages/login.page.ts)
+```text
+Now rewiring the spec to consume those fields. This strengthens two cases that currently assert neither URL nor token.
+```
+→ Edit(automation/tests/fr-02-login.spec.ts)
+→ Edit(automation/tests/fr-02-login.spec.ts)
+→ Edit(automation/tests/fr-02-login.spec.ts)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation npm run typecheck 2>&1 | tail -5 echo "=== list FR-02 ==="; npx playwright test tests/fr-02-login.spec.ts --project=chromium --list 2>&1 | tail -4
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+   
+   === list FR-02 ===
+     [chromium] › fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-012 — Response dang nhap khong duoc chua mat khau nguoi dung
+     [chromium] › fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-013 — Chuoi SQL injection o email khong vuot qua xac thuc
+     [chromium] › fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-014 — Thong bao loi giong nhau cho email khong ton tai va mat khau sai
+   Total: 14 tests in 1 file
+```text
+Typecheck clean, 14 tests. Running the chromium cell to confirm the result is unchanged before committing to the full matrix.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation npm run matrix -- --feature fr-02-login --browser chromium 2>&1 | tail -30
+   attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+       test-results/fr-02-login-FR-02-—-Đăng-n-fd509-oc-chua-mat-khau-nguoi-dung-chromium/test-failed-1.png
+       ────────────────────────────────────────────────────────────────────────────────────────────────
+   
+       attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+       test-results/fr-02-login-FR-02-—-Đăng-n-fd509-oc-chua-mat-khau-nguoi-dung-chromium/video.webm
+       ────────────────────────────────────────────────────────────────────────────────────────────────
+   
+       Error Context: test-results/fr-02-login-FR-02-—-Đăng-n-fd509-oc-chua-mat-khau-nguoi-dung-ch
+   … [cắt bớt 1268 ký tự; xem transcript gốc]
+```text
+10 pass / 4 fail — same tally. Let me confirm it's the *same four* cases as documented, not a coincidental count.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 sed -n '55,70p' test-design/FR-02-login/case-map.md echo "=== bug reports' found-by cases ===" grep -A1 "^## Found by Test Case" bug-reports/BUG-FR02-00*.md | grep "F02-
+… [cắt bớt 49 ký tự; xem transcript gốc]
+   ## 3. Case dự kiến FAIL vì lỗi thật của SUT
+   
+   Các case dưới đây assert đúng theo oracle nhưng bản build hiện tại vi phạm.
+   Chúng **giữ nguyên trạng thái fail**, đã xác nhận lại trên bản build hiện tại
+   ngày 08/08/2026 ở cả 3 trình duyệt, và có bug report HW04 riêng ở
+   [`../../bug-reports/`](../../bug-reports/).
+   
+   | Case | Vi phạm quan sát được | Bug HW02 tương ứng | Bug report HW04 |
+   |---|---|---|---|
+   | F02-TC-002 | Ô email dùng `type="text"`, trình duyệt không validate định dạng | BUG-FR02-002 | [`BUG-FR02-001`](../../bug-reports/BUG-FR02-001.md) |
+   | F02-TC-004 | Tài khoản đã bị khóa khi mới sai 2 lần liên tiếp | BUG-FR02-003 | [`BUG-FR02-002`](../../bug-reports/BUG-FR02-002.md) |
+   | F02-TC-008 |
+   … [cắt bớt 354 ký tự; xem transcript gốc]
+```text
+Exactly the documented four. The refactor preserved behaviour. Running the remaining two browsers.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation npm run matrix -- --feature fr-02-login --browser firefox 2>&1 | tail -8
+   [firefox] › tests/fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-008 — Sau 31 giay het khoa — dang nhap lai duoc 
+       [firefox] › tests/fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-012 — Response dang nhap khong duoc chua mat khau nguoi dung 
+     10 passed (1.7m)
+   
+   --- Matrix summary ---
+   FAIL  fr-02-login        firefox   10p/4f  reports/html/fr-02-login/firefox/index.html  label=ok
+   
+   Manifest written to reports/run-manifest.md
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation npm run matrix -- --feature fr-02-login --browser webkit 2>&1 | tail -8
+   [webkit] › tests/fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-008 — Sau 31 giay het khoa — dang nhap lai duoc 
+       [webkit] › tests/fr-02-login.spec.ts:53:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-012 — Response dang nhap khong duoc chua mat khau nguoi dung 
+     10 passed (1.7m)
+   
+   --- Matrix summary ---
+   FAIL  fr-02-login        webkit    10p/4f  reports/html/fr-02-login/webkit/index.html  label=ok
+   
+   Manifest written to reports/run-manifest.md
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 cd automation && npm run report:verify 2>&1 | tail -5 cd .. echo "=== 9 reports labeled ==="; grep -l "Run by: 23127300" reports/html/*/*/index.html | wc -l echo "=== ma
+… [cắt bớt 54 ký tự; xem transcript gốc]
+   ok   reports/html/fr-13-dashboard/chromium/index.html
+   ok   reports/html/fr-13-dashboard/firefox/index.html
+   ok   reports/html/fr-13-dashboard/webkit/index.html
+   
+   9/9 expected reports found, 0 unlabeled.
+   === 9 reports labeled ===
+          9
+   === manifest ===
+   | fr-02-login | chromium | FAIL (exit 1) | 10 | 4 | 0 | 2026-08-09T15:20:19+07:00 | `reports/html/fr-02-login/chromium/index.html` | yes |
+   | fr-02-login | firefox | FAIL (exit 1) | 10 | 4 | 0 | 2026-08-09T15:22:18+07:00 | `reports/html/fr-02-login/firefox/index.html` | yes |
+   | fr-02-login | webkit | FAIL (exit 1) | 10 | 4 | 0 | 2026-08-09T15:24:09+07:00 | `reports/html/fr-02-login/webkit/index.html` | yes |
+   | fr-10-order-state | chromium | FAI
+   … [cắt bớt 845 ký tự; xem transcript gốc]
+```text
+All nine reports verified, same 10p/4f on every browser. Committing the code change and its evidence separately.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git add automation/tests/fr-02-login.spec.ts git commit -q -m "test(fr-02): assert the expected URL and token from the data file expected.urlContains and expected.tokenS
+… [cắt bớt 1015 ký tự; xem transcript gốc]
+   e7a2629 test(fr-02): re-run the three browser cells against the reworked spec
+   a09d2b2 test(fr-02): assert the expected URL and token from the data file
+   8f49617 docs: regenerate git-log.txt
+```text
+Now documenting the finding. This is a genuine AI gap of a category the analysis doesn't yet cover.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 grep -n "^## \|^### " ai-gap-analysis/ai-generated-script-gaps.md echo "=== any internal section-number refs? ===" grep -rn "gap-analysis.*#\|mục 3\|mục 4\|mục 5" --incl
+… [cắt bớt 75 ký tự; xem transcript gốc]
+   15:## 1. Nhóm lỗi lặp lại nhiều nhất: giả định giao diện trước khi đọc DOM thật
+   22:### 1.1. FR-02 — Entry #8
+   42:### 1.2. FR-10 — Entry #11, #12
+   76:### 1.3. FR-13 — Entry #17
+   104:## 2. Nhóm lỗi tin vào chính sản phẩm trước đó của AI
+   106:### 2.1. Hồi quy tự gây ra ở `report:verify` — Entry #5, #9
+   127:### 2.2. Log "verbatim" nhưng thực chất là tóm tắt — Entry #15
+   152:## 3. Nhóm lỗi mở rộng phạm vi ngoài yêu cầu (giai đoạn lập kế hoạch, 05/08)
+   166:## 4. Giới hạn của hạ tầng test tự phát hiện trong Session 3 (không phải lỗi AI sinh code)
+   183:## 5. Tổng kết — điều học được về cộng tác với AI trong kiểm thử
+   === any internal section-number refs? ===
+   docs/superpowers/video-scripts.md:160:Mở `test-des
+   … [cắt bớt 224 ký tự; xem transcript gốc]
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import pathlib p = pathlib.Path('ai-gap-analysis/ai-generated-script-gaps.md') t = p.read_text(encoding='utf-8') t = t.replace('## 4. Giới hạn của hạ tầ
+… [cắt bớt 348 ký tự; xem transcript gốc]
+   15:## 1. Nhóm lỗi lặp lại nhiều nhất: giả định giao diện trước khi đọc DOM thật
+   104:## 2. Nhóm lỗi tin vào chính sản phẩm trước đó của AI
+   152:## 3. Khai báo dữ liệu rồi không đọc tới — Entry #20
+   185:## 4. Nhóm lỗi mở rộng phạm vi ngoài yêu cầu (giai đoạn lập kế hoạch, 05/08)
+   199:## 5. Giới hạn của hạ tầng test tự phát hiện trong Session 3 (không phải lỗi AI sinh code)
+   216:## 6. Tổng kết — điều học được về cộng tác với AI trong kiểm thử
+```text
+Two knock-on fixes in the gap analysis header — awkward rewrap and a now-stale session range.
+```
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+```text
+Now the audit entry for the repair itself.
+```
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 python3 - <<'PY' import json,glob from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) f=glob.glob('a641cf9c*.jsonl')[0]
+… [cắt bớt 453 ký tự; xem transcript gốc]
+   ===== 15:18 =====
+   SUT's up and the branch is in sync. Let me check the config and page object before rewiring the spec.
+   
+   ===== 15:19 =====
+   Now rewiring the spec to consume those fields. This strengthens two cases that currently assert neither URL nor token.
+   
+   ===== 15:20 =====
+   Typecheck clean, 14 tests. Running the chromium cell to confirm the result is unchanged before committing to the full matrix.
+   
+   ===== 15:22 =====
+   10 pass / 4 fail — same tally. Let me confirm it's the *same four* cases as documented, not a coincidental count.
+   
+   ===== 15:22 =====
+   Exactly the documented four. The refactor preserved behaviour. Running the remaining two browsers.
+   
+   ===== 15:26 =====
+   All nine reports verified,
+   … [cắt bớt 388 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 tail -5 reports/ai-audit-report.md
+   Bản ghi thô, đầy đủ và không lọc của mọi tương tác nằm ở
+   [`prompt-log.md`](prompt-log.md), được trích tự động từ transcript gốc bằng
+   [`tools/extract-prompt-log.py`](tools/extract-prompt-log.py).
+   
+   **Ký tên:** Hà Bảo Ngọc — 23127300 — 08/08/2026
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import pathlib, re p = pathlib.Path('reports/ai-audit-report.md') t = p.read_text(encoding='utf-8') entry = ''' ## Entry #21 ### (1) Prompt + Tool | Fie
+… [cắt bớt 4499 ký tự; xem transcript gốc]
+   appended Entry #21 and resynced tables
+   === verdict recount ===
+   21
+      8 **`INCOMPLETE`**
+      1 **`INVALID`**
+     12 **`VALID`**
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import pathlib edits = { 'reports/ai-critique.md': [('8/20 entry', '8/21 entry')], 'ai-gap-analysis/ai-generated-script-gaps.md': [('8/20\nentry', '8/21
+… [cắt bớt 649 ký tự; xem transcript gốc]
+   ok   reports/ai-critique.md '8/20 entry'
+   ok   ai-gap-analysis/ai-generated-script-gaps.md '8/20\nentry'
+   ok   reports/main-report.md '20 entry đã audit: 11 `VALID`, 8 `INCOMP'
+   ok   reports/main-report.md '[`ai-audit-report.md`](ai-audit-report.m'
+   === FR-02 confirmation date in main-report ===
+   55:**Kết quả cuối (xác nhận lại 08/08/2026):** 10 pass / 4 fail trên cả 3
+   76:**Kết quả cuối (xác nhận lại 08/08/2026):** 11 pass / 3 fail trên cả 3
+→ Edit(reports/main-report.md)
 
 
 ---
