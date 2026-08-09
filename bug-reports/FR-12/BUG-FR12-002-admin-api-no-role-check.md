@@ -33,7 +33,7 @@ Các endpoint `/api/admin/*` chấp nhận token hợp lệ của account role `
 | OS | Microsoft Windows 10.0.26200 |
 | Frontend/Admin/API URL | `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 16:40` |
+| Thời điểm | `09/08/2026 20:11` |
 
 ## Tiền điều kiện
 

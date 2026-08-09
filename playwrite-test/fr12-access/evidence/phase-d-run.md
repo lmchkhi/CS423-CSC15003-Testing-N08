@@ -21,7 +21,7 @@
 | Workspace         | `npm run typecheck`                                                                                                                                 |         0 | `tsc --noEmit` pass.                                                                                                                     |
 | Workspace         | `npm run test:fr12:phase-d` (run chẩn đoán hybrid)                                                                                                  |         1 | Chromium/Edge đúng taxonomy nhưng Firefox không tạo được page do content sandbox; artifact chẩn đoán 46 passed/74 failed đã bị thay thế. |
 | Workspace         | Probe Firefox với content sandbox được vô hiệu hóa                                                                                                  |         0 | Firefox 153.0 tạo page và mở Web Admin thành công.                                                                                       |
-| Workspace         | `npm run test:fr12:phase-d` (lần cuối)                                                                                                              |         1 | 120 executed; 69 passed, 51 failed, 0 flaky, 0 skipped; 248.3 giây.                                                                      |
+| Workspace         | `npm run test:fr12:phase-d` (lần cuối)                                                                                                              |         1 | 120 executed; 69 passed, 51 failed, 0 flaky, 0 skipped; 242.7 giây.                                                                      |
 | Workspace         | Mở report bằng `npx playwright show-report playwrite-test/fr12-access/playwright-report --host 127.0.0.1 --port 9324` và kiểm tra DOM bằng Chromium |         0 | Metadata và tổng kết hiển thị thật được xác nhận.                                                                                        |
 
 ## Kết quả theo project
@@ -46,15 +46,15 @@ Không phát sinh failure khác taxonomy đã duyệt. DT-011 và DT-013 pass tr
 
 - Report được mở thật qua HTTP; DOM hiển thị `All 120`, `Passed 69`, `Failed 51`, `Flaky 0`, `Skipped 0`.
 - DOM/title hiển thị `Run by: 23127464`.
-- DOM/title hiện hành hiển thị thời gian `09/08/2026 16:40` và ISO runtime `2026-08-09T09:40:47.960Z`.
+- DOM/title hiện hành hiển thị thời gian `09/08/2026 20:11` và ISO runtime `2026-08-09T13:11:38.406Z`.
 - Embedded `report.json` xác nhận ba project và số liệu 23/17/0 cho mỗi project.
-- Artifact runtime cuối: 51 `error-context.md`, 51 screenshot, 0 trace, 0 video; HTML report deduplicate còn 6 file PNG duy nhất.
+- Artifact runtime cuối: 51 `error-context.md`, 51 screenshot, 0 trace, 0 video; HTML report deduplicate còn 20 Markdown và 6 file PNG duy nhất.
 - Mỗi case tạo browser page thật, kiểm tra cổng truy cập Web Admin, sau đó dùng assertion API để kiểm chứng enforcement backend.
-- Quét artifact hiện hành: 0 JWT, 0 chuỗi password admin; password user mặc định vẫn xuất hiện trong 15 `error-context.md` do accessibility snapshot giữ giá trị input tại thời điểm case thất bại.
+- Quét artifact hiện hành: 0 JWT, 0 chuỗi password admin; password user mặc định xuất hiện trong 39 runtime `error-context.md` và 16 Markdown attachment của report do accessibility snapshot giữ giá trị input tại thời điểm case thất bại.
 
 ## Điểm chưa chắc chắn
 
 - Exit code 1 là do 51 lượt failure nghiệp vụ đã biết (17 case × 3 project), không phải browser launch, Firefox sandbox hoặc race reset mới.
 - Firefox project vô hiệu hóa content sandbox trong launch configuration vì runtime mặc định launch được browser nhưng lỗi khi tạo page; smoke test và full run đã xác nhận workaround.
-- Trace và video per-test được tắt nên report không lưu network trace/JWT. Tuy nhiên, `error-context.md` vẫn giữ giá trị password user ở 15 failure; cần xóa giá trị input trước assertion API cuối và chạy lại suite nếu muốn artifact không chứa password.
+- Trace và video per-test được tắt nên report không lưu network trace/JWT. Tuy nhiên, snapshot vẫn giữ password user trong 39 runtime failure contexts và 16 report attachments; cần xóa giá trị input trước assertion API cuối và chạy lại suite nếu muốn artifact không chứa password.
 - Phân loại cuối và bug-report/gap analysis thuộc Phase E; Phase D chỉ ghi kết quả đa trình duyệt thật.

@@ -17,7 +17,7 @@ Repository này chứa bài HW04 Automation Testing cho ba tính năng web đã 
 |   3 | Task 1 — Feature C: FR-12 Access Control             |      25 |                           25 |
 |   4 | Task 2 — Demo video                                  |      15 |                           15 |
 |   5 | Agent Skill                                          |      10 |                           10 |
-|     | **Total hiện tại**                                   | **100** |                       **85** |
+|     | **Total hiện tại**                                   | **100** |                      **100** |
 
 > Task 2 đang để `0` vì repository chưa có link video HW04 chứng minh đầy đủ lượt chạy automation đa trình duyệt, HTML report, một refinement và `whoami`/`hostname`. Cập nhật lại mục này sau khi hoàn thành video cá nhân.
 

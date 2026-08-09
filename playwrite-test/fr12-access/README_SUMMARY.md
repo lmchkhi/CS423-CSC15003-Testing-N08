@@ -6,7 +6,7 @@
 | ---------------------- | --------------------------------------------------------- |
 | SUT                    | `EShop`                                                   |
 | Run by                 | `23127464`                                                |
-| Thời điểm report       | `09/08/2026 16:40`                                        |
+| Thời điểm report       | `09/08/2026 20:11`                                        |
 | Report artifact        | `playwrite-test/fr12-access/playwright-report/index.html` |
 | Metadata đã kiểm chứng | Có — đã mở report và xác nhận trực tiếp                   |
 
@@ -56,7 +56,7 @@ FR-12 đóng góp 3 lượt feature–browser thật. Mỗi case mở Web Admin 
 
 - Số liệu report chạy thật: 120 executed, 69 passed, 51 failed, 0 skipped; 23P/17F trên mỗi trình duyệt.
 - Report có 0 trace, 0 video và không chứa JWT; 51 failure giữ screenshot và error context.
-- Password user mặc định còn xuất hiện trong 15 `error-context.md` do snapshot giữ giá trị input. Trước bản nộp cuối cần xóa input sau login, chạy lại đủ ba trình duyệt và quét lại report.
+- Password user mặc định còn xuất hiện trong 39 runtime `error-context.md` và 16 Markdown attachment của report do snapshot giữ giá trị input. Trước bản nộp cuối cần xóa input sau login, chạy lại đủ ba trình duyệt và quét lại report.
 
 ## Review và khoảng trống
 

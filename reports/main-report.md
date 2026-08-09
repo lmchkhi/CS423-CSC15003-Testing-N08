@@ -300,7 +300,7 @@ UI assertion chứng minh hành vi ở browser entry point; API assertion xác n
 | Microsoft Edge |     23 |     17 |       0 |
 | **Tổng**       | **69** | **51** |   **0** |
 
-Report hiện hành được tạo lúc `09/08/2026 16:40`. Cả ba project tái hiện cùng taxonomy `23P/17F/0S`; không còn environment/test failure trong kết quả cuối. Report có 51 failure error contexts và screenshot; trace/video tắt vì flow auth/API có thể giữ token và credential.
+Report hiện hành được tạo lúc `09/08/2026 20:11`. Cả ba project tái hiện cùng taxonomy `23P/17F/0S`; không còn environment/test failure trong kết quả cuối. Report có 51 failure error contexts và screenshot; trace/video tắt vì flow auth/API có thể giữ token và credential.
 
 #### 3. Human Review và refinement
 
@@ -334,7 +334,7 @@ Report hiện hành được tạo lúc `09/08/2026 16:40`. Cả ba project tái
 - Run evidence: [`playwrite-test/fr12-access/evidence/phase-d-run.md`](../playwrite-test/fr12-access/evidence/phase-d-run.md)
 - Bug reports: [`bug-reports/FR-12/`](../bug-reports/FR-12/)
 
-Khoảng trống cần xử lý trước bản nộp public cuối: password user mặc định còn xuất hiện trong 15 `error-context.md` do snapshot giữ input value. Cần xóa giá trị input sau login, rerun đủ ba browsers và quét lại report. Build/commit SUT cũng chưa được endpoint/UI công khai để ghi nhận tự động.
+Khoảng trống cần xử lý trước bản nộp public cuối: password user mặc định còn xuất hiện trong 39 runtime `error-context.md` và 16 Markdown attachment của report do snapshot giữ input value. Cần xóa giá trị input sau login, rerun đủ ba browsers và quét lại report. Build/commit SUT cũng chưa được endpoint/UI công khai để ghi nhận tự động.
 
 ---
 
