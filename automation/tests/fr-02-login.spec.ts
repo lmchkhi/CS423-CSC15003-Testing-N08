@@ -43,6 +43,11 @@ function resolveEmail(testCase: LoginCase, identity: Identity): string {
   return identity.email;
 }
 
+/** Escapes a URL so it can be embedded in an anchored RegExp. */
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 test.describe('FR-02 — Đăng nhập & khóa tài khoản', () => {
   for (const testCase of cases) {
     test(`${testCase.caseId} — ${testCase.title}`, async ({ page }) => {
@@ -79,24 +84,14 @@ test.describe('FR-02 — Đăng nhập & khóa tài khoản', () => {
 
       switch (testCase.assertion) {
         case 'login-succeeds': {
-          // Pattern 1 — navigation.
-          await expect(page).toHaveURL(`${config.webUrl}/`);
-          // Pattern 2 — value equality on client state the oracle mandates.
-          expect(
-            await loginPage.storedToken(),
-            'FR-02 requires a successful login to store a JWT client-side',
-          ).toBeTruthy();
+          // No branch-specific oracle: this case is fully described by the
+          // record's `expected` block, asserted for every case below.
           break;
         }
 
         case 'login-rejected': {
           // Pattern 3 — visibility.
           await expect(loginPage.errorMessage).toBeVisible();
-          await expect(page).toHaveURL(/\/login/);
-          expect(
-            await loginPage.storedToken(),
-            'a rejected login must not store a token',
-          ).toBeFalsy();
           break;
         }
 
@@ -112,8 +107,6 @@ test.describe('FR-02 — Đăng nhập & khóa tài khoản', () => {
             emailValid && passwordValid,
             'a required field left blank must fail browser validation',
           ).toBe(false);
-          await expect(page).toHaveURL(/\/login/);
-          expect(await loginPage.storedToken()).toBeFalsy();
           break;
         }
 
@@ -125,7 +118,6 @@ test.describe('FR-02 — Đăng nhập & khóa tài khoản', () => {
             (el) => (el as HTMLInputElement).validity.valid,
           );
           expect(valid, 'a malformed email must fail HTML5 validation').toBe(false);
-          await expect(page).toHaveURL(/\/login/);
           break;
         }
 
@@ -156,6 +148,30 @@ test.describe('FR-02 — Đăng nhập & khóa tài khoản', () => {
           break;
         }
       }
+
+      // Every record carries these two expectations, so they are asserted for
+      // every case here rather than restated in each branch — which also means
+      // the JSON, not the script, decides where a case must land. Anchoring on
+      // the whole origin + path matters: a substring test for `/` would match
+      // every URL the app could possibly be on.
+      // Pattern 1 — navigation.
+      await expect(
+        page,
+        `${testCase.caseId} must finish on ${testCase.expected.urlContains}`,
+      ).toHaveURL(
+        new RegExp(
+          `^${escapeRegExp(config.webUrl + testCase.expected.urlContains)}(?:[?#].*)?$`,
+        ),
+      );
+
+      // Pattern 2 — value equality on the client state the oracle mandates: a
+      // JWT is stored if and only if the login actually succeeded. Polled so a
+      // successful login gets the same auto-wait the URL assertion has.
+      await expect
+        .poll(async () => Boolean(await loginPage.storedToken()), {
+          message: 'FR-02 stores a JWT only for a login that succeeded',
+        })
+        .toBe(testCase.expected.tokenStored);
     });
   }
 });
