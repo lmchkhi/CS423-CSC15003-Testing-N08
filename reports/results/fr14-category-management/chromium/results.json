@@ -89,7 +89,7 @@
         {
           "open": "never",
           "outputFolder": "reports/html/fr14-category-management/chromium",
-          "title": "Run by: 23127475 | fr14-category-management | chromium | 2026-08-09T16:52:32.671Z"
+          "title": "Run by: 23127475 | fr14-category-management | chromium | 2026-08-09T17:09:42.505Z"
         }
       ]
     ],
@@ -116,7 +116,7 @@
         {
           "title": "Run by: 23127475 | FR-14 - Quản lý danh mục",
           "file": "fr14-category-management.spec.ts",
-          "line": 340,
+          "line": 587,
           "column": 6,
           "specs": [
             {
@@ -140,12 +140,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5407,
+                      "duration": 5339,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T16:52:32.930Z",
+                      "startTime": "2026-08-09T17:09:42.770Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -160,7 +160,7 @@
               ],
               "id": "f60953704efab57d70ce-95f11455669c74d27302",
               "file": "fr14-category-management.spec.ts",
-              "line": 346,
+              "line": 593,
               "column": 9
             },
             {
@@ -184,12 +184,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 686,
+                      "duration": 669,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T16:52:38.432Z",
+                      "startTime": "2026-08-09T17:09:48.219Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -204,7 +204,7 @@
               ],
               "id": "f60953704efab57d70ce-e618687722f8f5fd39f1",
               "file": "fr14-category-management.spec.ts",
-              "line": 346,
+              "line": 593,
               "column": 9
             },
             {
@@ -228,12 +228,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1323,
+                      "duration": 1283,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T16:52:39.124Z",
+                      "startTime": "2026-08-09T17:09:48.892Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -248,7 +248,7 @@
               ],
               "id": "f60953704efab57d70ce-4a06b73bcc071c2ad111",
               "file": "fr14-category-management.spec.ts",
-              "line": 346,
+              "line": 593,
               "column": 9
             },
             {
@@ -272,12 +272,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 128,
+                      "duration": 98,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T16:52:40.454Z",
+                      "startTime": "2026-08-09T17:09:50.180Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -298,7 +298,7 @@
               ],
               "id": "f60953704efab57d70ce-c51967669c7cbbdfe200",
               "file": "fr14-category-management.spec.ts",
-              "line": 346,
+              "line": 593,
               "column": 9
             },
             {
@@ -322,47 +322,47 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 115,
+                      "duration": 101,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:330:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:383:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:621:9",
                         "location": {
                           "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
                           "column": 67,
-                          "line": 330
+                          "line": 383
                         },
-                        "snippet": "  328 |\n  329 |   try {\n> 330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n      |                                                                   ^\n  331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  333 |   } finally {"
+                        "snippet": "  381 |\n  382 |   try {\n> 383 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n      |                                                                   ^\n  384 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  385 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  386 |   } finally {"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
                             "column": 67,
-                            "line": 330
+                            "line": 383
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n  328 |\n  329 |   try {\n> 330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n      |                                                                   ^\n  331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  333 |   } finally {\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:330:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403]\u001b[39m\n\n  381 |\n  382 |   try {\n> 383 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n      |                                                                   ^\n  384 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  385 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  386 |   } finally {\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:383:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:621:9"
                         },
                         {
                           "location": {
                             "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
                             "column": 27,
-                            "line": 331
+                            "line": 384
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category created|success|created/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory created\u001b[27m\\\",\\\"id\\\":6}\"\u001b[39m\n\n  329 |   try {\n  330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n> 331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  333 |   } finally {\n  334 |     if (created) {\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:331:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category created|success|created/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory created\u001b[27m\\\",\\\"id\\\":17}\"\u001b[39m\n\n  382 |   try {\n  383 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n> 384 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  385 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n  386 |   } finally {\n  387 |     if (created) {\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:384:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:621:9"
                         },
                         {
                           "location": {
                             "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
                             "column": 74,
-                            "line": 332
+                            "line": 385
                           },
-                          "message": "Error: Category FR14 User Create 20260809T16523 2 must not be created\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 6, \"name\": \"FR14 User Create 20260809T16523 2\"}\u001b[39m\n\n  330 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n  331 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n> 332 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n      |                                                                          ^\n  333 |   } finally {\n  334 |     if (created) {\n  335 |       await deleteCategoryByApi(request, created.id, adminLogin.token);\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:332:74)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:373:9"
+                          "message": "Error: Category FR14 User Create 20260809T17094 2 must not be created\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 17, \"name\": \"FR14 User Create 20260809T17094 2\"}\u001b[39m\n\n  383 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());\n  384 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n> 385 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();\n      |                                                                          ^\n  386 |   } finally {\n  387 |     if (created) {\n  388 |       await deleteCategoryByApi(request, created.id, adminLogin.token);\n    at assertApiCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:385:74)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:621:9"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T16:52:40.587Z",
+                      "startTime": "2026-08-09T17:09:50.282Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -373,7 +373,7 @@
                         {
                           "name": "category-create-api-response.json",
                           "contentType": "application/json",
-                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDYKICB9LAogICJiZWZvcmVDb3VudCI6IDMsCiAgImFmdGVyQ291bnQiOiA0LAogICJjcmVhdGVkIjogewogICAgImlkIjogNiwKICAgICJuYW1lIjogIkZSMTQgVXNlciBDcmVhdGUgMjAyNjA4MDlUMTY1MjMgMiIKICB9Cn0="
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDE3CiAgfSwKICAiYmVmb3JlQ291bnQiOiAzLAogICJhZnRlckNvdW50IjogNCwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDE3LAogICAgIm5hbWUiOiAiRlIxNCBVc2VyIENyZWF0ZSAyMDI2MDgwOVQxNzA5NCAyIgogIH0KfQ=="
                         },
                         {
                           "name": "screenshot",
@@ -399,7 +399,7 @@
                       "errorLocation": {
                         "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
                         "column": 67,
-                        "line": 330
+                        "line": 383
                       }
                     }
                   ],
@@ -408,7 +408,7 @@
               ],
               "id": "f60953704efab57d70ce-76f501cac2d88d49cb64",
               "file": "fr14-category-management.spec.ts",
-              "line": 346,
+              "line": 593,
               "column": 9
             },
             {
@@ -432,12 +432,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5466,
+                      "duration": 5438,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T16:52:40.940Z",
+                      "startTime": "2026-08-09T17:09:50.597Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -452,7 +452,807 @@
               ],
               "id": "f60953704efab57d70ce-2e98d29f407afa98b2d1",
               "file": "fr14-category-management.spec.ts",
-              "line": 346,
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-006 - Admin thêm danh mục với tên hợp lệ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-006.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5511,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:09:56.135Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-006.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDE4CiAgfSwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDE4LAogICAgIm5hbWUiOiAiRlIxNCBUZXN0IEFjY2Vzc29yaWVzIDIwMjYwODA5VDE3MDk1IDEiCiAgfQp9"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-133a662c7642e499b6d6",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-007 - Admin thêm danh mục với tên rỗng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-007.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 119,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:462:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                          "column": 67,
+                          "line": 462
+                        },
+                        "snippet": "  460 |\n  461 |   try {\n> 462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 67,
+                            "line": 462
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  460 |\n  461 |   try {\n> 462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:462:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 27,
+                            "line": 463
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category created|success|created/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory created\u001b[27m\\\",\\\"id\\\":19}\"\u001b[39m\n\n  461 |   try {\n  462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n> 463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {\n  466 |     if (created) {\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:463:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 103,
+                            "line": 464
+                          },
+                          "message": "Error: Invalid category name \"\" must not be created\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 19, \"name\": \"\"}\u001b[39m\n\n  462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n> 464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n      |                                                                                                       ^\n  465 |   } finally {\n  466 |     if (created) {\n  467 |       await deleteCategoryByApi(request, created.id, adminLogin.token);\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:464:103)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:01.652Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-007.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-invalid-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDE5CiAgfSwKICAiYmVmb3JlQ291bnQiOiAzLAogICJhZnRlckNvdW50IjogNCwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDE5LAogICAgIm5hbWUiOiAiIgogIH0sCiAgInN1Ym1pdHRlZE5hbWUiOiAiIgp9"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47759--thêm-danh-mục-với-tên-rỗng-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                        "column": 67,
+                        "line": 462
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-db3962ef83f5ad8ba86a",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-008 - Admin thêm danh mục với tên chỉ gồm khoảng trắng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-008.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 164,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:462:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                          "column": 67,
+                          "line": 462
+                        },
+                        "snippet": "  460 |\n  461 |   try {\n> 462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 67,
+                            "line": 462
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  460 |\n  461 |   try {\n> 462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:462:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 27,
+                            "line": 463
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category created|success|created/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory created\u001b[27m\\\",\\\"id\\\":20}\"\u001b[39m\n\n  461 |   try {\n  462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n> 463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {\n  466 |     if (created) {\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:463:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 103,
+                            "line": 464
+                          },
+                          "message": "Error: Invalid category name \"   \" must not be created\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 20, \"name\": \"   \"}\u001b[39m\n\n  462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n> 464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n      |                                                                                                       ^\n  465 |   } finally {\n  466 |     if (created) {\n  467 |       await deleteCategoryByApi(request, created.id, adminLogin.token);\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:464:103)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:02.061Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-008.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-invalid-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDIwCiAgfSwKICAiYmVmb3JlQ291bnQiOiAzLAogICJhZnRlckNvdW50IjogNCwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDIwLAogICAgIm5hbWUiOiAiICAgIgogIH0sCiAgInN1Ym1pdHRlZE5hbWUiOiAiICAgIgp9"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-00b76-ới-tên-chỉ-gồm-khoảng-trắng-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                        "column": 67,
+                        "line": 462
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-7f49626f7a24c047154e",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-009 - Admin thêm danh mục với tên Unicode tiếng Việt",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-009.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5513,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:02.561Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-009.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDIxCiAgfSwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDIxLAogICAgIm5hbWUiOiAixJDhu5MgZ2lhIGThu6VuZyBGUjE0IDIwMjYwODA5VDE3MTAwIDEiCiAgfQp9"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-67ef32ca1645ade8c605",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-010 - Admin cập nhật tên danh mục tồn tại",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-010.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5359,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:08.179Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-010.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-update-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSB1cGRhdGVkIgogIH0sCiAgIm9yaWdpbmFsTmFtZSI6ICJGUjE0IFVwZGF0ZSBTb3VyY2UgMjAyNjA4MDlUMTcxMDAgMiIsCiAgInVwZGF0ZWROYW1lIjogIkZSMTQgVXBkYXRlZCBDYXRlZ29yeSAyMDI2MDgwOVQxNzEwMCAzIiwKICAidXBkYXRlZCI6IHsKICAgICJpZCI6IDIyLAogICAgIm5hbWUiOiAiRlIxNCBVcGRhdGVkIENhdGVnb3J5IDIwMjYwODA5VDE3MTAwIDMiCiAgfSwKICAib2xkTmFtZVN0aWxsUHJlc2VudCI6IGZhbHNlCn0="
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-49c2e87680ada941e0b5",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-011 - Admin cập nhật danh mục với tên rỗng",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-011.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 103,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at assertAdminUpdateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:534:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:641:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                          "column": 67,
+                          "line": 534
+                        },
+                        "snippet": "  532 |\n  533 |   try {\n> 534 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  535 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  536 |     if (testCase.expected.preserveOriginal) {\n  537 |       expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 67,
+                            "line": 534
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  532 |\n  533 |   try {\n> 534 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  535 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  536 |     if (testCase.expected.preserveOriginal) {\n  537 |       expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();\n    at assertAdminUpdateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:534:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:641:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 27,
+                            "line": 535
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category updated|success|updated/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory updated\u001b[27m\\\"}\"\u001b[39m\n\n  533 |   try {\n  534 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n> 535 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  536 |     if (testCase.expected.preserveOriginal) {\n  537 |       expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();\n  538 |       expect.soft(invalidApplied, `Invalid update ${JSON.stringify(updatedName)} must not be applied`).toBeFalsy();\n    at assertAdminUpdateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:535:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:641:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 95,
+                            "line": 537
+                          },
+                          "message": "Error: Original category FR14 Cannot Empty 20260809T17100 4 should be preserved\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n  535 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  536 |     if (testCase.expected.preserveOriginal) {\n> 537 |       expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();\n      |                                                                                               ^\n  538 |       expect.soft(invalidApplied, `Invalid update ${JSON.stringify(updatedName)} must not be applied`).toBeFalsy();\n  539 |     }\n  540 |   } finally {\n    at assertAdminUpdateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:537:95)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:641:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 104,
+                            "line": 538
+                          },
+                          "message": "Error: Invalid update \"\" must not be applied\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 23, \"name\": \"\"}\u001b[39m\n\n  536 |     if (testCase.expected.preserveOriginal) {\n  537 |       expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();\n> 538 |       expect.soft(invalidApplied, `Invalid update ${JSON.stringify(updatedName)} must not be applied`).toBeFalsy();\n      |                                                                                                        ^\n  539 |     }\n  540 |   } finally {\n  541 |     await deleteCategoryByApi(request, createdId!, adminLogin.token);\n    at assertAdminUpdateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:538:104)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:641:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:13.542Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-011.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-update-invalid-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSB1cGRhdGVkIgogIH0sCiAgIm9yaWdpbmFsTmFtZSI6ICJGUjE0IENhbm5vdCBFbXB0eSAyMDI2MDgwOVQxNzEwMCA0IiwKICAidXBkYXRlZE5hbWUiOiAiIiwKICAib3JpZ2luYWxQcmVzZXJ2ZWQiOiBmYWxzZSwKICAiaW52YWxpZEFwcGxpZWQiOiB7CiAgICAiaWQiOiAyMywKICAgICJuYW1lIjogIiIKICB9Cn0="
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-a9fd0--nhật-danh-mục-với-tên-rỗng-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                        "column": 67,
+                        "line": 534
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-a12a9c2d2efd9fb9328a",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-DT-012 - Admin cập nhật danh mục không tồn tại",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-012.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 134,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 404, 422]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 404, 422]\u001b[39m\n    at assertAdminUpdateMissingRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:576:72)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:646:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                          "column": 72,
+                          "line": 576
+                        },
+                        "snippet": "  574 |\n  575 |   try {\n> 576 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 404, 422]).toContain(response.status());\n      |                                                                        ^\n  577 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  578 |     expect.soft(created, `Missing category id ${missingId} must not create/update data`).toBeFalsy();\n  579 |   } finally {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 72,
+                            "line": 576
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 404, 422]\u001b[39m\n\n  574 |\n  575 |   try {\n> 576 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 404, 422]).toContain(response.status());\n      |                                                                        ^\n  577 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  578 |     expect.soft(created, `Missing category id ${missingId} must not create/update data`).toBeFalsy();\n  579 |   } finally {\n    at assertAdminUpdateMissingRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:576:72)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:646:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 27,
+                            "line": 577
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category updated|success|updated/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory updated\u001b[27m\\\"}\"\u001b[39m\n\n  575 |   try {\n  576 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 404, 422]).toContain(response.status());\n> 577 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  578 |     expect.soft(created, `Missing category id ${missingId} must not create/update data`).toBeFalsy();\n  579 |   } finally {\n  580 |     if (created) {\n    at assertAdminUpdateMissingRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:577:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:646:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:13.881Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-012.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-update-missing-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSB1cGRhdGVkIgogIH0sCiAgIm1pc3NpbmdJZCI6IDk5OTk5OSwKICAidXBkYXRlZE5hbWUiOiAiRlIxNCBNaXNzaW5nIENhdGVnb3J5IDIwMjYwODA5VDE3MTAxIDEiLAogICJiZWZvcmVDb3VudCI6IDMsCiAgImFmdGVyQ291bnQiOiAzCn0="
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-6fc1b-nhật-danh-mục-không-tồn-tại-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                        "column": 72,
+                        "line": 576
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-cdb678bd085eb1ab3362",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-BVA-001 - Tên danh mục dài 0 ký tự (OFF- - min length)",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-001.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 142,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:462:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                          "column": 67,
+                          "line": 462
+                        },
+                        "snippet": "  460 |\n  461 |   try {\n> 462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 67,
+                            "line": 462
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m\n\n  460 |\n  461 |   try {\n> 462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n      |                                                                   ^\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:462:67)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 27,
+                            "line": 463
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/Category created|success|created/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"message\\\":\\\"\u001b[7mCategory created\u001b[27m\\\",\\\"id\\\":24}\"\u001b[39m\n\n  461 |   try {\n  462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n> 463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                           ^\n  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n  465 |   } finally {\n  466 |     if (created) {\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:463:27)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                            "column": 103,
+                            "line": 464
+                          },
+                          "message": "Error: Invalid category name \"\" must not be created\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeFalsy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"id\": 24, \"name\": \"\"}\u001b[39m\n\n  462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());\n  463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n> 464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();\n      |                                                                                                       ^\n  465 |   } finally {\n  466 |     if (created) {\n  467 |       await deleteCategoryByApi(request, created.id, adminLogin.token);\n    at assertAdminCreateRejected (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:464:103)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts:631:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:14.325Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-001.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-invalid-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDI0CiAgfSwKICAiYmVmb3JlQ291bnQiOiAzLAogICJhZnRlckNvdW50IjogNCwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDI0LAogICAgIm5hbWUiOiAiIgogIH0sCiAgInN1Ym1pdHRlZE5hbWUiOiAiIgp9"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr14-category-management/chromium/fr14-category-management-R-47b0e--0-ký-tự-OFF----min-length--chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr14-category-management.spec.ts",
+                        "column": 67,
+                        "line": 462
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-449d9a32b47378aa5d9f",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-BVA-002 - Tên danh mục dài 1 ký tự (ON - min length)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-002.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 127,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:14.782Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-002.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDI1CiAgfSwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDI1LAogICAgIm5hbWUiOiAiQSIKICB9Cn0="
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-34d2cbacc8ecfa560321",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
+              "column": 9
+            },
+            {
+              "title": "TC-FR14-BVA-003 - Tên danh mục dài 2 ký tự (ON+ - min length)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-003.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 100,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T17:10:15.006Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-003.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "admin-category-create-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJzdGF0dXMiOiAyMDAsCiAgImJvZHkiOiB7CiAgICAibWVzc2FnZSI6ICJDYXRlZ29yeSBjcmVhdGVkIiwKICAgICJpZCI6IDI2CiAgfSwKICAiY3JlYXRlZCI6IHsKICAgICJpZCI6IDI2LAogICAgIm5hbWUiOiAiQUIiCiAgfQp9"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f60953704efab57d70ce-4b11c00d44e4c203271a",
+              "file": "fr14-category-management.spec.ts",
+              "line": 593,
               "column": 9
             }
           ]
@@ -462,11 +1262,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-09T16:52:32.672Z",
-    "duration": 13875.499000000002,
-    "expected": 5,
+    "startTime": "2026-08-09T17:09:42.507Z",
+    "duration": 32628.876000000004,
+    "expected": 10,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 6,
     "flaky": 0
   }
 }

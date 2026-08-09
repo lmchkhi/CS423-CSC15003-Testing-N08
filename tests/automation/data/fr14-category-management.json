@@ -71,5 +71,132 @@
       "minCategoryCount": 3,
       "pagePattern": "danh mục|category|categories"
     }
+  },
+  {
+    "id": "TC-FR14-DT-006",
+    "title": "Admin thêm danh mục với tên hợp lệ",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-006.md",
+    "kind": "apiAdminCreateAccepted",
+    "account": "admin",
+    "categoryNamePrefix": "FR14 Test Accessories",
+    "expected": {
+      "acceptedStatuses": [200, 201],
+      "successPattern": "Category created|success|created",
+      "verifyUi": true
+    }
+  },
+  {
+    "id": "TC-FR14-DT-007",
+    "title": "Admin thêm danh mục với tên rỗng",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-007.md",
+    "kind": "apiAdminCreateRejected",
+    "account": "admin",
+    "categoryName": "",
+    "expected": {
+      "rejectedStatuses": [400, 422],
+      "bodyMustNotContainPattern": "Category created|success|created"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-008",
+    "title": "Admin thêm danh mục với tên chỉ gồm khoảng trắng",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-008.md",
+    "kind": "apiAdminCreateRejected",
+    "account": "admin",
+    "categoryName": "   ",
+    "expected": {
+      "rejectedStatuses": [400, 422],
+      "bodyMustNotContainPattern": "Category created|success|created"
+    }
+  },
+  {
+    "id": "TC-FR14-DT-009",
+    "title": "Admin thêm danh mục với tên Unicode tiếng Việt",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-009.md",
+    "kind": "apiAdminCreateAccepted",
+    "account": "admin",
+    "categoryNamePrefix": "Đồ gia dụng FR14",
+    "expected": {
+      "acceptedStatuses": [200, 201],
+      "successPattern": "Category created|success|created",
+      "verifyUi": true
+    }
+  },
+  {
+    "id": "TC-FR14-DT-010",
+    "title": "Admin cập nhật tên danh mục tồn tại",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-010.md",
+    "kind": "apiAdminUpdateAccepted",
+    "account": "admin",
+    "categoryNamePrefix": "FR14 Update Source",
+    "updatedNamePrefix": "FR14 Updated Category",
+    "expected": {
+      "acceptedStatuses": [200, 204],
+      "successPattern": "Category updated|success|updated",
+      "verifyUi": true
+    }
+  },
+  {
+    "id": "TC-FR14-DT-011",
+    "title": "Admin cập nhật danh mục với tên rỗng",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-011.md",
+    "kind": "apiAdminUpdateRejected",
+    "account": "admin",
+    "categoryNamePrefix": "FR14 Cannot Empty",
+    "updatedName": "",
+    "expected": {
+      "rejectedStatuses": [400, 422],
+      "bodyMustNotContainPattern": "Category updated|success|updated",
+      "preserveOriginal": true
+    }
+  },
+  {
+    "id": "TC-FR14-DT-012",
+    "title": "Admin cập nhật danh mục không tồn tại",
+    "source": "tests/test-cases/FR-14-category-management/domain-testing/TC-FR14-DT-012.md",
+    "kind": "apiAdminUpdateMissingRejected",
+    "account": "admin",
+    "missingCategoryId": 999999,
+    "updatedNamePrefix": "FR14 Missing Category",
+    "expected": {
+      "rejectedStatuses": [400, 404, 422],
+      "bodyMustNotContainPattern": "Category updated|success|updated"
+    }
+  },
+  {
+    "id": "TC-FR14-BVA-001",
+    "title": "Tên danh mục dài 0 ký tự (OFF- - min length)",
+    "source": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-001.md",
+    "kind": "apiAdminCreateRejected",
+    "account": "admin",
+    "categoryName": "",
+    "expected": {
+      "rejectedStatuses": [400, 422],
+      "bodyMustNotContainPattern": "Category created|success|created"
+    }
+  },
+  {
+    "id": "TC-FR14-BVA-002",
+    "title": "Tên danh mục dài 1 ký tự (ON - min length)",
+    "source": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-002.md",
+    "kind": "apiAdminCreateAccepted",
+    "account": "admin",
+    "categoryName": "A",
+    "expected": {
+      "acceptedStatuses": [200, 201],
+      "successPattern": "Category created|success|created"
+    }
+  },
+  {
+    "id": "TC-FR14-BVA-003",
+    "title": "Tên danh mục dài 2 ký tự (ON+ - min length)",
+    "source": "tests/test-cases/FR-14-category-management/bva/TC-FR14-BVA-003.md",
+    "kind": "apiAdminCreateAccepted",
+    "account": "admin",
+    "categoryName": "AB",
+    "expected": {
+      "acceptedStatuses": [200, 201],
+      "successPattern": "Category created|success|created"
+    }
   }
 ]

@@ -255,6 +255,8 @@ Kết quả thực hiện:
 
 ### Commit 7 - FR-14 đợt 2: create/update validation và BVA tên danh mục
 
+Trạng thái: Done.
+
 Mục tiêu:
 
 - Mở rộng CRUD phần create/update.
@@ -289,6 +291,19 @@ Commit message gợi ý:
 ```text
 test(fr14): cover category create update validation
 ```
+
+Kết quả thực hiện:
+
+- Đã bổ sung 10 case TC-FR14-DT-006 đến TC-FR14-DT-012 và TC-FR14-BVA-001 đến TC-FR14-BVA-003 vào [`tests/automation/data/fr14-category-management.json`](../tests/automation/data/fr14-category-management.json).
+- Đã mở rộng [`tests/automation/specs/fr14-category-management.spec.ts`](../tests/automation/specs/fr14-category-management.spec.ts) với helper create/update category bằng API black-box, kiểm tra UI Web Admin cho create/update hợp lệ, cleanup dữ liệu lỗi và assertion BVA tên danh mục.
+- Đã chạy Chromium với 16 test case: 10 passed, 6 failed.
+- Report: [`reports/html/fr14-category-management/chromium/hw04-report.html`](html/fr14-category-management/chromium/hw04-report.html).
+- JSON result: [`reports/results/fr14-category-management/chromium/results.json`](results/fr14-category-management/chromium/results.json).
+- Label verification manifest: [`reports/html/fr14-category-management/report-label-check.json`](html/fr14-category-management/report-label-check.json), `ok=true`.
+- Đã cập nhật bug report [`bug-reports/automation/BUG-FR14-AUTO-001.md`](../bug-reports/automation/BUG-FR14-AUTO-001.md) với evidence mới cho lỗi user thường thêm danh mục qua API, GitHub Issue [#241](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/241).
+- Đã tạo bug report [`bug-reports/automation/BUG-FR14-AUTO-002.md`](../bug-reports/automation/BUG-FR14-AUTO-002.md) cho lỗi API không validate tên danh mục bắt buộc khi thêm/cập nhật, GitHub Issue [#242](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/242).
+- Đã tạo bug report [`bug-reports/automation/BUG-FR14-AUTO-003.md`](../bug-reports/automation/BUG-FR14-AUTO-003.md) cho lỗi API cập nhật category id không tồn tại vẫn trả success, GitHub Issue [#243](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/243).
+- Đã cập nhật [`reports/main-report.md`](main-report.md) với số liệu Commit 7, phân tích defect, GitHub issue links và human review script.
 
 ### Commit 8 - FR-14 đợt 3: delete, list boundaries, full cross-browser
 

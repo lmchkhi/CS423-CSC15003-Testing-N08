@@ -22,13 +22,13 @@ OS: macOS Darwin 25.5.0 arm64
 Admin URL: http://[::1]:5174
 API URL: http://[::1]:3000
 Playwright: 1.62.1
-Build / Commit: `b7b7149` + Commit 6 working tree
+Build / Commit: `1b7c5eb` + Commit 7 working tree
 
 ## Steps to reproduce
 1. Tạo user thường bằng `POST /api/register`.
 2. Đăng nhập user thường bằng `POST /api/login` để lấy JWT có role `user`.
 3. Gọi `POST /api/categories` với Bearer token của user thường.
-4. Gửi body có tên danh mục hợp lệ, ví dụ `FR14 User Create 20260809T16523 2`.
+4. Gửi body có tên danh mục hợp lệ, ví dụ `FR14 User Create 20260809T17094 2`.
 5. Gọi `GET /api/categories` để kiểm tra danh mục có được tạo không.
 
 ## Expected result
@@ -40,11 +40,11 @@ API trả `200 OK` với body báo tạo thành công:
 ```json
 {
   "message": "Category created",
-  "id": 6
+  "id": 17
 }
 ```
 
-Danh mục `FR14 User Create 20260809T16523 2` xuất hiện trong danh sách ngay sau request. Automation đã cleanup dữ liệu test sau khi ghi nhận evidence, nên danh sách quay lại 3 danh mục mặc định.
+Danh mục `FR14 User Create 20260809T17094 2` xuất hiện trong danh sách ngay sau request. Automation đã cleanup dữ liệu test sau khi ghi nhận evidence, nên danh sách quay lại 3 danh mục mặc định.
 
 ## Evidence
 - Playwright HTML report: [`reports/html/fr14-category-management/chromium/hw04-report.html`](../../reports/html/fr14-category-management/chromium/hw04-report.html)

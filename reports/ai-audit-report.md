@@ -275,3 +275,25 @@ làm tiếp với commit 6
 ```text
 Đã hoàn tất Commit 6 cho FR-14: đọc plan, SRS, API spec và manual test case TC-FR14-DT-001/002/003/004/005/BVA-006; tạo tests/automation/data/fr14-category-management.json và tests/automation/specs/fr14-category-management.spec.ts theo data-driven Playwright. Chạy Chromium với ADMIN_BASE_URL=http://[::1]:5174 và API_BASE_URL=http://[::1]:3000; sau khi review evidence đã chỉnh helper mở menu Danh mục và optional forbidden assertion. Kết quả cuối: 6 test executed, 5 passed, 1 failed ở TC-FR14-DT-005 do user thường thêm được category qua API. Đã sinh hw04-report.html, verify report label ok=true, tạo BUG-FR14-AUTO-001, tạo GitHub Issue #241 với đủ 5 label, cập nhật reports/main-report.md và reports/automation-commit-plan.md.
 ```
+
+## Entry #13
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 10/08/2026 00:18 GMT+7             |
+| **Artifact type** | FR-14 automation Commit 7, bug reports, GitHub issues, main report         |
+
+**Full prompt:**
+
+```text
+tiếp tục với commit 7
+```
+
+### (2) AI Output
+
+```text
+Mở rộng tests/automation/data/fr14-category-management.json và tests/automation/specs/fr14-category-management.spec.ts cho TC-FR14-DT-006 đến TC-FR14-DT-012, TC-FR14-BVA-001 đến TC-FR14-BVA-003; chạy Chromium 16 test case với kết quả 10 passed, 6 failed; sinh Playwright HTML/JSON report và verify Run by 23127475 ok=true; cập nhật BUG-FR14-AUTO-001, tạo BUG-FR14-AUTO-002/#242 và BUG-FR14-AUTO-003/#243; cập nhật reports/main-report.md và reports/automation-commit-plan.md.
+```

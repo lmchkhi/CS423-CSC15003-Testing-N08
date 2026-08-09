@@ -18,17 +18,30 @@ type Fr14Case = {
     | 'userAdminScreenBlocked'
     | 'apiGuestCreateRejected'
     | 'apiUserCreateRejected'
-    | 'adminCategoryListMany';
+    | 'adminCategoryListMany'
+    | 'apiAdminCreateAccepted'
+    | 'apiAdminCreateRejected'
+    | 'apiAdminUpdateAccepted'
+    | 'apiAdminUpdateRejected'
+    | 'apiAdminUpdateMissingRejected';
   account: AccountKind;
+  categoryName?: string;
   categoryNamePrefix?: string;
+  updatedName?: string;
+  updatedNamePrefix?: string;
+  missingCategoryId?: number;
   categorySetup?: CategorySetup;
   expected: {
+    acceptedStatuses?: number[];
     minCategoryCount?: number;
     pagePattern?: string;
     guardPattern?: string;
     forbiddenPattern?: string;
     bodyMustNotContainPattern?: string;
     rejectedStatuses?: number[];
+    successPattern?: string;
+    preserveOriginal?: boolean;
+    verifyUi?: boolean;
   };
 };
 
@@ -89,6 +102,9 @@ function uniqueEmail(testId: string): string {
 
 function uniqueCategoryName(prefix: string): string {
   categoryCounter += 1;
+  if (/^[A-Z]{1,2}$/.test(prefix)) {
+    return `${prefix}${categoryCounter}`;
+  }
   return `${prefix} ${runId} ${categoryCounter}`;
 }
 
@@ -181,6 +197,20 @@ async function createCategoryByApi(
   return { response, body, text };
 }
 
+async function updateCategoryByApi(
+  request: import('@playwright/test').APIRequestContext,
+  categoryId: number,
+  name: string,
+  token: string,
+) {
+  const response = await request.put(apiUrl(`/api/categories/${categoryId}`), {
+    headers: { Authorization: `Bearer ${token}` },
+    data: { name },
+  });
+  const { body, text } = await responseBody(response);
+  return { response, body, text };
+}
+
 async function deleteCategoryByApi(
   request: import('@playwright/test').APIRequestContext,
   categoryId: number,
@@ -201,6 +231,25 @@ async function cleanupCategoryByName(
   for (const category of categories.filter((item) => item.name === name)) {
     await deleteCategoryByApi(request, category.id, adminToken);
   }
+}
+
+async function cleanupCategoriesByNames(
+  request: import('@playwright/test').APIRequestContext,
+  adminToken: string,
+  names: string[],
+) {
+  const categories = await fetchCategories(request);
+  for (const category of categories.filter((item) => names.includes(item.name))) {
+    await deleteCategoryByApi(request, category.id, adminToken);
+  }
+}
+
+function categoryIdFromBody(body: unknown): number | undefined {
+  if (body && typeof body === 'object' && 'id' in body) {
+    const id = Number((body as { id: unknown }).id);
+    return Number.isFinite(id) ? id : undefined;
+  }
+  return undefined;
 }
 
 async function ensureMinCategories(
@@ -249,7 +298,11 @@ async function openCategoryManagement(page: import('@playwright/test').Page, all
   const candidateRoutes = ['/categories', '/category', '/category-management', '/admin/categories', '/dashboard/categories', '/dashboard', '/'];
 
   for (const route of candidateRoutes) {
-    await page.goto(adminUrl(route));
+    await page.goto(adminUrl(route)).catch((error) => {
+      if (!allowGuard) {
+        throw error;
+      }
+    });
     await page.waitForLoadState('networkidle').catch(() => undefined);
     const bodyText = await page.locator('body').innerText();
     if (hasCategoryManagementContent(bodyText) && !/404|not found/i.test(bodyText)) {
@@ -337,13 +390,208 @@ async function assertApiCreateRejected(
   }
 }
 
+async function assertAdminCreateAccepted(
+  page: import('@playwright/test').Page,
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const categoryName = testCase.categoryName ?? uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Valid Category');
+  await cleanupCategoryByName(request, adminLogin.token, categoryName);
+  const { response, body, text } = await createCategoryByApi(request, categoryName, adminLogin.token);
+  const after = await fetchCategories(request);
+  const created = after.find((category) => category.name === categoryName);
+
+  await test.info().attach('admin-category-create-response.json', {
+    body: JSON.stringify({ status: response.status(), body, created }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.acceptedStatuses ?? [200, 201]).toContain(response.status());
+    expect.soft(text).toMatch(textPattern(testCase.expected.successPattern));
+    expect.soft(created, `Category ${categoryName} should be created`).toBeTruthy();
+
+    if (testCase.expected.verifyUi) {
+      await loginAdminUi(page);
+      await openCategoryManagement(page);
+      await expect.soft(page.locator('body')).toContainText(categoryNamePattern(categoryName));
+    }
+  } finally {
+    if (created) {
+      await deleteCategoryByApi(request, created.id, adminLogin.token);
+    } else {
+      const id = categoryIdFromBody(body);
+      if (id) {
+        await deleteCategoryByApi(request, id, adminLogin.token);
+      }
+    }
+  }
+}
+
+async function assertAdminCreateRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const categoryName = testCase.categoryName ?? uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Invalid Category');
+  const before = await fetchCategories(request);
+  const { response, body, text } = await createCategoryByApi(request, categoryName, adminLogin.token);
+  const after = await fetchCategories(request);
+  const createdByName = after.filter((category) => category.name === categoryName);
+  const createdById = categoryIdFromBody(body);
+  const created = createdById ? after.find((category) => category.id === createdById) : createdByName[0];
+
+  await test.info().attach('admin-category-create-invalid-response.json', {
+    body: JSON.stringify(
+      {
+        status: response.status(),
+        body,
+        beforeCount: before.length,
+        afterCount: after.length,
+        created,
+        submittedName: categoryName,
+      },
+      null,
+      2,
+    ),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());
+    expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+    expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();
+  } finally {
+    if (created) {
+      await deleteCategoryByApi(request, created.id, adminLogin.token);
+    }
+    await cleanupCategoryByName(request, adminLogin.token, categoryName);
+  }
+}
+
+async function assertAdminUpdateAccepted(
+  page: import('@playwright/test').Page,
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const originalName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Update Source');
+  const updatedName = testCase.updatedName ?? uniqueCategoryName(testCase.updatedNamePrefix ?? 'FR14 Updated Category');
+  const create = await createCategoryByApi(request, originalName, adminLogin.token);
+  const createdId = categoryIdFromBody(create.body);
+  expect(createdId).toBeTruthy();
+
+  const { response, body, text } = await updateCategoryByApi(request, createdId!, updatedName, adminLogin.token);
+  const after = await fetchCategories(request);
+  const updated = after.find((category) => category.id === createdId && category.name === updatedName);
+  const oldNameStillPresent = after.some((category) => category.id === createdId && category.name === originalName);
+
+  await test.info().attach('admin-category-update-response.json', {
+    body: JSON.stringify({ status: response.status(), body, originalName, updatedName, updated, oldNameStillPresent }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.acceptedStatuses ?? [200, 204]).toContain(response.status());
+    expect.soft(text).toMatch(textPattern(testCase.expected.successPattern));
+    expect.soft(updated, `Category ${createdId} should be renamed to ${updatedName}`).toBeTruthy();
+    expect.soft(oldNameStillPresent).toBeFalsy();
+
+    if (testCase.expected.verifyUi) {
+      await loginAdminUi(page);
+      await openCategoryManagement(page);
+      await expect.soft(page.locator('body')).toContainText(categoryNamePattern(updatedName));
+    }
+  } finally {
+    await deleteCategoryByApi(request, createdId!, adminLogin.token);
+    await cleanupCategoriesByNames(request, adminLogin.token, [originalName, updatedName]);
+  }
+}
+
+async function assertAdminUpdateRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const originalName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Cannot Empty');
+  const updatedName = testCase.updatedName ?? uniqueCategoryName(testCase.updatedNamePrefix ?? 'FR14 Invalid Update');
+  const create = await createCategoryByApi(request, originalName, adminLogin.token);
+  const createdId = categoryIdFromBody(create.body);
+  expect(createdId).toBeTruthy();
+
+  const { response, body, text } = await updateCategoryByApi(request, createdId!, updatedName, adminLogin.token);
+  const after = await fetchCategories(request);
+  const originalPreserved = after.some((category) => category.id === createdId && category.name === originalName);
+  const invalidApplied = after.find((category) => category.id === createdId && category.name === updatedName);
+
+  await test.info().attach('admin-category-update-invalid-response.json', {
+    body: JSON.stringify({ status: response.status(), body, originalName, updatedName, originalPreserved, invalidApplied }, null, 2),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());
+    expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+    if (testCase.expected.preserveOriginal) {
+      expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();
+      expect.soft(invalidApplied, `Invalid update ${JSON.stringify(updatedName)} must not be applied`).toBeFalsy();
+    }
+  } finally {
+    await deleteCategoryByApi(request, createdId!, adminLogin.token);
+    await cleanupCategoriesByNames(request, adminLogin.token, [originalName, updatedName]);
+  }
+}
+
+async function assertAdminUpdateMissingRejected(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr14Case,
+) {
+  const adminLogin = await loginAdminByApi(request);
+  const missingId = testCase.missingCategoryId ?? 999999;
+  const updatedName = testCase.updatedName ?? uniqueCategoryName(testCase.updatedNamePrefix ?? 'FR14 Missing Category');
+  const before = await fetchCategories(request);
+  const { response, body, text } = await updateCategoryByApi(request, missingId, updatedName, adminLogin.token);
+  const after = await fetchCategories(request);
+  const created = after.find((category) => category.name === updatedName || category.id === missingId);
+
+  await test.info().attach('admin-category-update-missing-response.json', {
+    body: JSON.stringify(
+      {
+        status: response.status(),
+        body,
+        missingId,
+        updatedName,
+        beforeCount: before.length,
+        afterCount: after.length,
+        created,
+      },
+      null,
+      2,
+    ),
+    contentType: 'application/json',
+  });
+
+  try {
+    expect.soft(testCase.expected.rejectedStatuses ?? [400, 404, 422]).toContain(response.status());
+    expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+    expect.soft(created, `Missing category id ${missingId} must not create/update data`).toBeFalsy();
+  } finally {
+    if (created) {
+      await deleteCategoryByApi(request, created.id, adminLogin.token);
+    }
+    await cleanupCategoryByName(request, adminLogin.token, updatedName);
+  }
+}
+
 test.describe(`Run by: ${studentId} | FR-14 - Quản lý danh mục`, () => {
   test.beforeAll(() => {
-    expect(cases.length).toBeGreaterThanOrEqual(6);
+    expect(cases.length).toBeGreaterThanOrEqual(16);
   });
 
   for (const testCase of cases) {
     test(`${testCase.id} - ${testCase.title}`, async ({ page, request }) => {
+      page.on('dialog', (dialog) => dialog.accept().catch(() => undefined));
       test.info().annotations.push({ type: 'manual-source', description: testCase.source });
 
       if (testCase.kind === 'adminCategoryListVisible' || testCase.kind === 'adminCategoryListMany') {
@@ -371,6 +619,31 @@ test.describe(`Run by: ${studentId} | FR-14 - Quản lý danh mục`, () => {
       if (testCase.kind === 'apiUserCreateRejected') {
         const user = await prepareGeneratedUser(request, testCase.id);
         await assertApiCreateRejected(request, testCase, user.token);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminCreateAccepted') {
+        await assertAdminCreateAccepted(page, request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminCreateRejected') {
+        await assertAdminCreateRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminUpdateAccepted') {
+        await assertAdminUpdateAccepted(page, request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminUpdateRejected') {
+        await assertAdminUpdateRejected(request, testCase);
+        return;
+      }
+
+      if (testCase.kind === 'apiAdminUpdateMissingRejected') {
+        await assertAdminUpdateMissingRejected(request, testCase);
         return;
       }
 

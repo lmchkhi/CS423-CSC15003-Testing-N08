@@ -6,7 +6,7 @@
 
 # Test info
 
-- Name: fr14-category-management.spec.ts >> Run by: 23127475 | FR-14 - Quản lý danh mục >> TC-FR14-DT-005 - User thường không được thêm danh mục qua API
+- Name: fr14-category-management.spec.ts >> Run by: 23127475 | FR-14 - Quản lý danh mục >> TC-FR14-DT-008 - Admin thêm danh mục với tên chỉ gồm khoảng trắng
 - Location: tests/automation/specs/fr14-category-management.spec.ts:593:9
 
 # Error details
@@ -15,106 +15,27 @@
 Error: expect(received).toContain(expected) // indexOf
 
 Expected value: 200
-Received array: [401, 403]
+Received array: [400, 422]
 ```
 
 ```
 Error: expect(received).not.toMatch(expected)
 
 Expected pattern: not /Category created|success|created/i
-Received string:      "{\"message\":\"Category created\",\"id\":17}"
+Received string:      "{\"message\":\"Category created\",\"id\":20}"
 ```
 
 ```
-Error: Category FR14 User Create 20260809T17094 2 must not be created
+Error: Invalid category name "   " must not be created
 
 expect(received).toBeFalsy()
 
-Received: {"id": 17, "name": "FR14 User Create 20260809T17094 2"}
+Received: {"id": 20, "name": "   "}
 ```
 
 # Test source
 
 ```ts
-  285 |     await page.waitForLoadState('networkidle').catch(() => undefined);
-  286 |     return;
-  287 |   }
-  288 |
-  289 |   await expect(emailInput(page)).toBeVisible();
-  290 | }
-  291 |
-  292 | async function loginAdminUi(page: import('@playwright/test').Page) {
-  293 |   await attemptLoginUi(page, adminEmail, adminPassword);
-  294 |   await expect(page.locator('body')).toContainText(/dashboard|admin|danh mục|category|sản phẩm|product|đăng xuất|logout/i);
-  295 | }
-  296 |
-  297 | async function openCategoryManagement(page: import('@playwright/test').Page, allowGuard = false) {
-  298 |   const candidateRoutes = ['/categories', '/category', '/category-management', '/admin/categories', '/dashboard/categories', '/dashboard', '/'];
-  299 |
-  300 |   for (const route of candidateRoutes) {
-  301 |     await page.goto(adminUrl(route)).catch((error) => {
-  302 |       if (!allowGuard) {
-  303 |         throw error;
-  304 |       }
-  305 |     });
-  306 |     await page.waitForLoadState('networkidle').catch(() => undefined);
-  307 |     const bodyText = await page.locator('body').innerText();
-  308 |     if (hasCategoryManagementContent(bodyText) && !/404|not found/i.test(bodyText)) {
-  309 |       return;
-  310 |     }
-  311 |     if (allowGuard && hasAccessGuard(bodyText) && !(await page.getByRole('link', { name: /^danh mục$/i }).isVisible().catch(() => false))) {
-  312 |       return;
-  313 |     }
-  314 |   }
-  315 |
-  316 |   await page.goto(adminUrl('/'));
-  317 |   await page.waitForLoadState('networkidle').catch(() => undefined);
-  318 |   const categoryLink = page
-  319 |     .getByRole('link', { name: /^danh mục$|^category$|^categories$/i })
-  320 |     .or(page.getByRole('button', { name: /^danh mục$|^category$|^categories$/i }))
-  321 |     .or(page.getByText(/^danh mục$|^category$|^categories$/i))
-  322 |     .first();
-  323 |   if (allowGuard && !(await categoryLink.isVisible().catch(() => false))) {
-  324 |     return;
-  325 |   }
-  326 |   await expect(categoryLink).toBeVisible();
-  327 |   await categoryLink.click();
-  328 |   await page.waitForLoadState('networkidle').catch(() => undefined);
-  329 |   await expect(page.locator('body')).toContainText(/danh mục|category|categories|điện thoại|laptop|phụ kiện/i);
-  330 | }
-  331 |
-  332 | async function assertAdminCategoryList(
-  333 |   page: import('@playwright/test').Page,
-  334 |   request: import('@playwright/test').APIRequestContext,
-  335 |   testCase: Fr14Case,
-  336 | ) {
-  337 |   const adminLogin = await loginAdminByApi(request);
-  338 |   const { categories, created } = await ensureMinCategories(request, adminLogin.token, testCase.categorySetup);
-  339 |   try {
-  340 |     await loginAdminUi(page);
-  341 |     await openCategoryManagement(page);
-  342 |     const body = page.locator('body');
-  343 |     await expect.soft(body).toContainText(textPattern(testCase.expected.pagePattern));
-  344 |     if (testCase.expected.forbiddenPattern) {
-  345 |       await expect.soft(body).not.toContainText(textPattern(testCase.expected.forbiddenPattern));
-  346 |     }
-  347 |     expect.soft(categories.length).toBeGreaterThanOrEqual(testCase.expected.minCategoryCount ?? 1);
-  348 |     for (const category of categories.slice(0, Math.min(categories.length, testCase.expected.minCategoryCount ?? 3))) {
-  349 |       await expect.soft(body).toContainText(categoryNamePattern(category.name));
-  350 |     }
-  351 |   } finally {
-  352 |     for (const category of created) {
-  353 |       await deleteCategoryByApi(request, category.id, adminLogin.token);
-  354 |     }
-  355 |   }
-  356 | }
-  357 |
-  358 | async function assertAdminScreenBlocked(page: import('@playwright/test').Page, testCase: Fr14Case) {
-  359 |   await openCategoryManagement(page, true);
-  360 |   const body = page.locator('body');
-  361 |   await expect.soft(body).toContainText(textPattern(testCase.expected.guardPattern));
-  362 |   await expect.soft(body).not.toContainText(textPattern(testCase.expected.bodyMustNotContainPattern));
-  363 | }
   364 |
   365 | async function assertApiCreateRejected(
   366 |   request: import('@playwright/test').APIRequestContext,
@@ -136,8 +57,7 @@ Received: {"id": 17, "name": "FR14 User Create 20260809T17094 2"}
   382 |   try {
   383 |     expect.soft(testCase.expected.rejectedStatuses ?? [401, 403]).toContain(response.status());
   384 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
-> 385 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();
-      |                                                                          ^ Error: Category FR14 User Create 20260809T17094 2 must not be created
+  385 |     expect.soft(created, `Category ${categoryName} must not be created`).toBeFalsy();
   386 |   } finally {
   387 |     if (created) {
   388 |       await deleteCategoryByApi(request, created.id, adminLogin.token);
@@ -216,7 +136,8 @@ Received: {"id": 17, "name": "FR14 User Create 20260809T17094 2"}
   461 |   try {
   462 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());
   463 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
-  464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();
+> 464 |     expect.soft(created, `Invalid category name ${JSON.stringify(categoryName)} must not be created`).toBeFalsy();
+      |                                                                                                       ^ Error: Invalid category name "   " must not be created
   465 |   } finally {
   466 |     if (created) {
   467 |       await deleteCategoryByApi(request, created.id, adminLogin.token);
@@ -238,4 +159,83 @@ Received: {"id": 17, "name": "FR14 User Create 20260809T17094 2"}
   483 |   expect(createdId).toBeTruthy();
   484 |
   485 |   const { response, body, text } = await updateCategoryByApi(request, createdId!, updatedName, adminLogin.token);
+  486 |   const after = await fetchCategories(request);
+  487 |   const updated = after.find((category) => category.id === createdId && category.name === updatedName);
+  488 |   const oldNameStillPresent = after.some((category) => category.id === createdId && category.name === originalName);
+  489 |
+  490 |   await test.info().attach('admin-category-update-response.json', {
+  491 |     body: JSON.stringify({ status: response.status(), body, originalName, updatedName, updated, oldNameStillPresent }, null, 2),
+  492 |     contentType: 'application/json',
+  493 |   });
+  494 |
+  495 |   try {
+  496 |     expect.soft(testCase.expected.acceptedStatuses ?? [200, 204]).toContain(response.status());
+  497 |     expect.soft(text).toMatch(textPattern(testCase.expected.successPattern));
+  498 |     expect.soft(updated, `Category ${createdId} should be renamed to ${updatedName}`).toBeTruthy();
+  499 |     expect.soft(oldNameStillPresent).toBeFalsy();
+  500 |
+  501 |     if (testCase.expected.verifyUi) {
+  502 |       await loginAdminUi(page);
+  503 |       await openCategoryManagement(page);
+  504 |       await expect.soft(page.locator('body')).toContainText(categoryNamePattern(updatedName));
+  505 |     }
+  506 |   } finally {
+  507 |     await deleteCategoryByApi(request, createdId!, adminLogin.token);
+  508 |     await cleanupCategoriesByNames(request, adminLogin.token, [originalName, updatedName]);
+  509 |   }
+  510 | }
+  511 |
+  512 | async function assertAdminUpdateRejected(
+  513 |   request: import('@playwright/test').APIRequestContext,
+  514 |   testCase: Fr14Case,
+  515 | ) {
+  516 |   const adminLogin = await loginAdminByApi(request);
+  517 |   const originalName = uniqueCategoryName(testCase.categoryNamePrefix ?? 'FR14 Cannot Empty');
+  518 |   const updatedName = testCase.updatedName ?? uniqueCategoryName(testCase.updatedNamePrefix ?? 'FR14 Invalid Update');
+  519 |   const create = await createCategoryByApi(request, originalName, adminLogin.token);
+  520 |   const createdId = categoryIdFromBody(create.body);
+  521 |   expect(createdId).toBeTruthy();
+  522 |
+  523 |   const { response, body, text } = await updateCategoryByApi(request, createdId!, updatedName, adminLogin.token);
+  524 |   const after = await fetchCategories(request);
+  525 |   const originalPreserved = after.some((category) => category.id === createdId && category.name === originalName);
+  526 |   const invalidApplied = after.find((category) => category.id === createdId && category.name === updatedName);
+  527 |
+  528 |   await test.info().attach('admin-category-update-invalid-response.json', {
+  529 |     body: JSON.stringify({ status: response.status(), body, originalName, updatedName, originalPreserved, invalidApplied }, null, 2),
+  530 |     contentType: 'application/json',
+  531 |   });
+  532 |
+  533 |   try {
+  534 |     expect.soft(testCase.expected.rejectedStatuses ?? [400, 422]).toContain(response.status());
+  535 |     expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+  536 |     if (testCase.expected.preserveOriginal) {
+  537 |       expect.soft(originalPreserved, `Original category ${originalName} should be preserved`).toBeTruthy();
+  538 |       expect.soft(invalidApplied, `Invalid update ${JSON.stringify(updatedName)} must not be applied`).toBeFalsy();
+  539 |     }
+  540 |   } finally {
+  541 |     await deleteCategoryByApi(request, createdId!, adminLogin.token);
+  542 |     await cleanupCategoriesByNames(request, adminLogin.token, [originalName, updatedName]);
+  543 |   }
+  544 | }
+  545 |
+  546 | async function assertAdminUpdateMissingRejected(
+  547 |   request: import('@playwright/test').APIRequestContext,
+  548 |   testCase: Fr14Case,
+  549 | ) {
+  550 |   const adminLogin = await loginAdminByApi(request);
+  551 |   const missingId = testCase.missingCategoryId ?? 999999;
+  552 |   const updatedName = testCase.updatedName ?? uniqueCategoryName(testCase.updatedNamePrefix ?? 'FR14 Missing Category');
+  553 |   const before = await fetchCategories(request);
+  554 |   const { response, body, text } = await updateCategoryByApi(request, missingId, updatedName, adminLogin.token);
+  555 |   const after = await fetchCategories(request);
+  556 |   const created = after.find((category) => category.name === updatedName || category.id === missingId);
+  557 |
+  558 |   await test.info().attach('admin-category-update-missing-response.json', {
+  559 |     body: JSON.stringify(
+  560 |       {
+  561 |         status: response.status(),
+  562 |         body,
+  563 |         missingId,
+  564 |         updatedName,
 ```
