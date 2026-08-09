@@ -1,7 +1,7 @@
 # Phân tích lỗ hổng của script do AI sinh ra
 
 HW04 §6 yêu cầu: báo cáo những gì AI làm sai hoặc bỏ sót trong quá trình
-chuyển 33 case thủ công mang sang từ HW02 cộng 7 case thiết kế mới trong HW04
+chuyển 30 case thủ công mang sang từ HW02 cộng 10 case thiết kế mới trong HW04
 thành script Playwright, và giải thích **vì sao** AI bỏ sót: chất lượng prompt,
 giới hạn của mô hình, hay đặc điểm riêng của tính năng mà AI không quan sát
 được. Mỗi mục dưới đây gắn với một entry có số thứ tự trong
@@ -148,7 +148,14 @@ cho mọi entry từ Session 3 trở đi.
 
 ---
 
-## 3. Khai báo dữ liệu rồi không đọc tới — Entry #20
+## 3. Nhóm lỗi oracle nằm trong script chứ không nằm trong dữ liệu
+
+Nhóm này chỉ lộ ra ở lượt rà soát cuối. Nó không làm test đỏ, không làm test
+xanh sai, và không lộ khi chạy — dấu hiệu duy nhất là trả lời được câu hỏi:
+*sửa một giá trị trong file JSON thì kết quả test có đổi không?* Chỗ nào trả
+lời "không" thì chỗ đó dữ liệu chỉ là trang trí.
+
+### 3.1. Khai báo dữ liệu rồi không đọc tới — Entry #20
 
 **AI sinh ra:** `loginCaseSchema` có khối `expected` gồm `urlContains` và
 `tokenStored`. Cả 14 record trong `fr-02-login.cases.json` đều điền đủ hai
@@ -178,6 +185,68 @@ bước nào kiểm tra ngược rằng mọi trường trong schema đều có 
 đọc tới, và vì test vẫn xanh/đỏ đúng như dự đoán nên không có tín hiệu nào báo
 động. Lỗ hổng sống qua ba lượt review (Entry #9, #14, #15) trước khi lộ ra ở
 Entry #20 bằng một câu `grep`.
+
+### 3.2. Cùng lỗi ấy vẫn còn ở FR-13 — Entry #22
+
+**AI sinh ra:** `dashboardCaseSchema` có trường `auth`
+(`admin` / `non-admin` / `anonymous`), cả 12 record đều điền, `loadCases()` đều
+validate. Nhưng `fr-13-dashboard.spec.ts` rẽ nhánh theo tên `assertion`
+(`access-denied-anonymous` / `access-denied-non-admin`), không đọc `auth` lần
+nào.
+
+**Vì sao sai:** Đúng cùng một khuôn với 3.1, chỉ khác feature. Đổi `auth` của
+một record từ `admin` sang `anonymous` sẽ không làm test chạy khác đi một chút
+nào — phiên đăng nhập mà trình duyệt mang theo do script quyết định, không phải
+do dữ liệu. Đáng chú ý là lỗi này **sống sót qua chính lượt sửa Entry #20**:
+lượt đó sửa đúng file được chỉ ra (`fr-02-login.spec.ts`) và dừng ở đó, không
+hỏi tiếp "hai feature còn lại có cùng bệnh không".
+
+**Đã sửa:** Nhánh FR-12 rẽ theo `testCase.auth`. `assertion` giữ nguyên vai trò
+"kiểm cái gì", `auth` nhận đúng vai trò "case này là ai" — hai trục độc lập, mỗi
+trục do dữ liệu quyết định.
+
+**Vì sao AI bỏ sót:** Giới hạn phạm vi sửa lỗi, giống Entry #5 ở nhóm 2: AI sửa
+đúng chỗ được chỉ mà không tự tổng quát hoá phát hiện thành một phép kiểm cho
+toàn suite. Bài học rút ra ở 3.1 đã đúng nhưng chưa được áp dụng đủ rộng, và
+điều đó chỉ được phát hiện khi rà lại có hệ thống cả ba spec cùng lúc.
+
+### 3.3. Miền giá trị kỳ vọng viết cứng trong spec — Entry #22
+
+**AI sinh ra:** `fr-10-order-state.spec.ts` giữ hằng `STATUS_LABEL_DOMAIN` gồm
+5 nhãn trạng thái ngay trong spec.
+
+**Vì sao sai:** Năm nhãn ấy không phải hạ tầng dùng chung — chúng là **kỳ vọng
+của đúng một case** (F10-TC-012), tức là dữ liệu test viết cứng trong script,
+đúng thứ §6 cấm. Không nghiêm trọng như 3.1 vì assertion vẫn kiểm đúng thứ cần
+kiểm, nhưng nó khiến case duy nhất ấy không sửa được từ file dữ liệu.
+
+**Đã sửa:** Chuyển thành `expected.statusDomain` trong record của F10-TC-012;
+13 record còn lại khai `null`, và spec dùng `required()` để báo lỗi rõ ràng nếu
+một case đọc trường này mà record không có.
+
+**Vì sao AI bỏ sót:** Nhầm lẫn giữa *hằng số của miền nghiệp vụ* và *giá trị kỳ
+vọng của một case*. Cả hai trông giống nhau trong code; chỉ có câu hỏi "trường
+này phục vụ mấy case?" mới tách được. Một mảng dùng đúng một lần thì thuộc về
+record của case đó.
+
+### 3.4. Bịa một giá trị hợp lý thay vì thừa nhận nó không tồn tại — Entry #22
+
+**AI sinh ra:** Trong `resolveIdentity()` của FR-02, nhánh `unregistered` trả về
+`correctPassword: 'Test1234!'`.
+
+**Vì sao sai:** Tài khoản `unregistered` theo định nghĩa là chưa từng đăng ký,
+nên nó **không có** mật khẩu đúng. Hiện tại chưa record nào ghép
+`unregistered` với `@correct` nên chưa gây hậu quả, nhưng nếu có, test sẽ gửi đi
+một mật khẩu không ai đăng ký mà vẫn được đọc là "case mật khẩu đúng" — xanh
+hay đỏ đều vì một lý do dữ liệu không hề nói.
+
+**Đã sửa:** Trả `null` và ném lỗi kèm tên case nếu một record đòi `@correct` cho
+một danh tính không có mật khẩu.
+
+**Vì sao AI bỏ sót:** Xu hướng điền một giá trị *trông hợp lý* để kiểu dữ liệu
+không bị `null`, thay vì để kiểu phản ánh đúng thực tế là giá trị ấy không tồn
+tại. Đây là biến thể của cùng thói quen ở nhóm 1 (giả định giao diện hợp lý thay
+vì giao diện thật), lần này áp lên dữ liệu chứ không phải lên DOM.
 
 ---
 
@@ -230,6 +299,13 @@ các bước, và không lượt chạy nào phát hiện được vì test vẫ
 như dự đoán. Bài học bổ sung: một suite "data-driven" phải được kiểm tra bằng
 câu hỏi *mọi trường dữ liệu có thật sự được đọc không*, chứ không chỉ bằng
 việc dữ liệu có nằm ở file riêng hay không.
+
+Điều đáng nói nhất của nhóm 3 là 3 trong 4 trường hợp chỉ lộ ra ở lượt rà soát
+cuối, **sau khi** trường hợp đầu tiên (3.1) đã được phát hiện và sửa. Lượt sửa
+đó dừng đúng ở file được chỉ ra. Nói cách khác, ngay cả một phát hiện đúng cũng
+không tự lan sang phần còn lại của suite nếu không có ai đặt câu hỏi "chỗ khác
+có cùng bệnh không" — và câu hỏi đó, xuyên suốt cả bài, chưa lần nào do AI tự
+đặt ra.
 
 Cả bốn nhóm đều dẫn về cùng một kết luận thực hành: không bao giờ tự tin
 verdict `VALID` chỉ vì output "chạy được". 8/21 entry trong audit report ở mức

@@ -76,6 +76,15 @@ A record holds case ID, category, inputs, and the primitive expected values the
 test asserts on. It never holds selectors, functions or secrets — secrets come
 from `.env`.
 
+**The test for whether a suite is actually data-driven:** for every field the
+schema declares, `grep` the spec for a read of it, and ask whether editing that
+field in the JSON would change the result. A field that fails either check is
+decoration — the real oracle is still in the script. Applies equally to a
+constant in the spec that serves exactly one case (a status-label domain, a
+list of expected URLs): if it is one case's expected value, it belongs in that
+case's record. Run this check across **all** features when it finds a hit in
+one; the same generator wrote the others.
+
 `automation/utils/data.ts` loads and validates at runtime and fails early with
 an actionable message for: unreadable/malformed file, duplicate or missing case
 IDs, missing required fields, unknown action/expectation keys, and **fewer than
@@ -88,10 +97,19 @@ their own `describe` blocks that still read external records.
 
 TypeScript + `@playwright/test`. Locator priority: `getByRole` with accessible
 name → `getByLabel` / `getByPlaceholder` / `getByText` → test IDs → CSS only
-when nothing semantic exists (and say why in a comment). No XPath, no
-positional selectors, no `waitForTimeout` as a substitute for a web-first
-assertion, no order-dependent tests, no conditional assertions that silently
-skip verification.
+when nothing semantic exists (and say why in a comment). No XPath **for
+identifying an element**, no positional selectors, no `waitForTimeout` as a
+substitute for a web-first assertion, no order-dependent tests, no conditional
+assertions that silently skip verification.
+
+Two exceptions, both of which must carry a comment saying why:
+
+- `locator('xpath=..')` to hop from a semantic anchor to its container is
+  allowed — Playwright has no CSS parent combinator, and the anchor is still
+  the accessible name. FR-13's metric cards need this: the value `<p>` has no
+  role or test id, only the `<h3>` beside it does.
+- `waitForTimeout` is allowed when the wall-clock interval *is* the rule under
+  test, as with FR-02's 30-second lockout window. Nowhere else.
 
 Use ≥3 distinct meaningful assertion patterns across the suite and record which
 test demonstrates each in the ledger. Useful families here: visibility

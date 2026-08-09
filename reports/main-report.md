@@ -13,10 +13,15 @@
 
 | Feature | HW02 source cases | Case IDs (HW04) | Count | Data file | Spec file | Browsers | Reports |
 |---|---|---|---:|---|---|---|---|
-| FR-02 | 15 (9 DT + 6 BVA) | F02-TC-001…014 | 14 | [`fr-02-login.cases.json`](../automation/test-data/fr-02-login.cases.json) | [`fr-02-login.spec.ts`](../automation/tests/fr-02-login.spec.ts) | Chromium, Firefox, WebKit | `reports/html/fr-02-login/{chromium,firefox,webkit}/` |
-| FR-10 | 14 DT | F10-TC-001…014 | 14 | [`fr-10-order-state.cases.json`](../automation/test-data/fr-10-order-state.cases.json) | [`fr-10-order-state.spec.ts`](../automation/tests/fr-10-order-state.spec.ts) | Chromium, Firefox, WebKit | `reports/html/fr-10-order-state/{chromium,firefox,webkit}/` |
+| FR-02 | 15 (9 DT + 6 BVA) | F02-TC-001…014 | 14 (12 mang sang + **2 thiết kế mới trong HW04**) | [`fr-02-login.cases.json`](../automation/test-data/fr-02-login.cases.json) | [`fr-02-login.spec.ts`](../automation/tests/fr-02-login.spec.ts) | Chromium, Firefox, WebKit | `reports/html/fr-02-login/{chromium,firefox,webkit}/` |
+| FR-10 | 14 DT | F10-TC-001…014 | 14 (13 mang sang + **1 thiết kế mới trong HW04**) | [`fr-10-order-state.cases.json`](../automation/test-data/fr-10-order-state.cases.json) | [`fr-10-order-state.spec.ts`](../automation/tests/fr-10-order-state.spec.ts) | Chromium, Firefox, WebKit | `reports/html/fr-10-order-state/{chromium,firefox,webkit}/` |
 | FR-13 | 6 DT (5 mang sang + 1 không automate được) | F13-TC-001…012 | 12 (5 mang sang + **7 thiết kế mới trong HW04**) | [`fr-13-dashboard.cases.json`](../automation/test-data/fr-13-dashboard.cases.json) | [`fr-13-dashboard.spec.ts`](../automation/tests/fr-13-dashboard.spec.ts) | Chromium, Firefox, WebKit | `reports/html/fr-13-dashboard/{chromium,firefox,webkit}/` |
-| **Tổng** | 35 case HW02 đọc lại | | **40** | | | **9 browser run** | |
+| **Tổng** | 35 case HW02 đọc lại | | **40** (30 mang sang + **10 thiết kế mới**) | | | **9 browser run** | |
+
+FR-02 gộp 3 cặp case HW02 trùng ngữ nghĩa (cùng điều kiện biên, cùng oracle) nên
+15 case nguồn cho ra 12 case mang sang; FR-10 có 1 case HW02 không dựng được
+tiền điều kiện. Chi tiết ở từng case-map. Tổng cộng **10 case là thiết kế mới
+của HW04**, không tồn tại ở HW02: F02-TC-013/014, F10-TC-014, và F13-TC-006…012.
 
 Mọi case tự động đạt tối thiểu 12/feature theo §6. Case-map chi tiết từng
 feature (HW02 ID → HW04 ID → tiêu đề test → data row → trạng thái) nằm ở
@@ -186,7 +191,7 @@ Tóm tắt: hai nhóm lỗi lặp lại xuyên suốt cả ba feature. Một là
 về giao diện đưa ra *trước khi* recon trên build thật đều sai ở ít nhất một
 chỗ, và không lỗi nào lộ ra bằng cách đọc code. Hai là, AI có xu hướng tin
 vào chính sản phẩm hoặc kết luận trước đó của nó thay vì đối chiếu chéo với
-quan sát độc lập. 21 entry đã audit: 12 `VALID`, 8 `INCOMPLETE`, 1 `INVALID`.
+quan sát độc lập. 22 entry đã audit: 12 `VALID`, 9 `INCOMPLETE`, 1 `INVALID`.
 
 ---
 
@@ -194,7 +199,7 @@ quan sát độc lập. 21 entry đã audit: 12 `VALID`, 8 `INCOMPLETE`, 1 `INVA
 
 | Tài liệu | Đường dẫn |
 |---|---|
-| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 21 entry |
+| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 22 entry |
 | Prompt Log (bản ghi thô, không lọc) | [`prompt-log.md`](prompt-log.md) |
 | AI Critique (§10, 200–300 từ) | [`ai-critique.md`](ai-critique.md) |
 | AI Gap Analysis (§6) | [`../ai-gap-analysis/ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md) |
