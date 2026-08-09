@@ -8,9 +8,9 @@
 | Spec | `tests/FR-08-checkout.spec.ts`; `tests/FR-08-checkout-ui.spec.ts` |
 | Fixture | `data/FR-08-checkout.json`; `data/FR-08-checkout-ui.json` |
 | Người review | Người dùng — checkpoint A/B/C/D/E đã duyệt |
-| Thời điểm | `09/08/2026 14:55` |
-| Lệnh đã chạy | Post-Phase-E README/UI refinement; lint/type-check; UI collection/Firefox rerun; final `npm run test:fr08 -- --workers=1`; mở/quét HTML report và trace/video |
-| Exit code | Lint `0`; type-check `0`; multi-project test `1` — 12 passed, 42 failed, 0 skipped |
+| Thời điểm | `09/08/2026 19:23` |
+| Lệnh đã chạy | Lint/type-check; UI collection; Chromium UI/API smoke; final `npm run test:fr08 -- --workers=1`; đọc embedded report và quét artifact |
+| Exit code | Lint `0`; type-check `0`; multi-project test `1` — 12 passed, 51 failed, 0 skipped |
 
 ## 1. Đối chiếu HW02 vs thực tế
 
@@ -58,10 +58,12 @@
 | `playwright.config.ts` / HTML reporter | Custom metadata có trong config nhưng report UI lần đầu không hiển thị `Run by` và timestamp | AI coi cấu hình metadata là đủ trước khi mở artifact thật | Thêm title HTML runtime chứa trực tiếp hai trường, chạy lại và mở report bằng Chromium | Report public-safe lịch sử hiển thị `Run by: 23127464`; thời gian quy đổi `06/08/2026 10:55` | `evidence/phase-d-run.md` |
 | `TEST_CASES.md` / DT-012 | Wording cũ còn hướng kiểm tra render sang FR-18, không thống nhất quyết định cuối | Artifact Phase B được tạo trước refinement DT-012 sau Phase D | Giữ DT-012 API-only trong FR-08; ghi rõ không kết luận Pass chống XSS UI và không tự mở rộng FR-18 | Review tài liệu; không cần chạy lại test vì expected/spec không đổi | `TEST_CASES.md`, `REVIEW_NOTES.md` |
 | `playwright.config.ts` / trace trong public HTML report | 33/33 trace ZIP cũ chứa request password field và Authorization header runtime | AI giữ trace failure theo mặc định nhưng chưa xét report sẽ được commit public | Tắt trace cho suite API-only, rerun để thay report và quét lại artifact; `test-results/` tiếp tục ignored | Lint/type-check pass; 45 lượt giữ 12/33/0; report cuối 0 ZIP trace và 0 giá trị runtime password/email/JWT | `evidence/phase-d-run.md` |
-| Phạm vi automation ban đầu | AI chuyển toàn bộ FR-08 thành request-context tests nên “multi-browser” chỉ lặp API, không kiểm tra DOM/rendering | HW02 tập trung API và không mô tả thao tác UI; AI chưa đối chiếu đủ các requirement FR-08 trong README | Giữ nguyên 15 case HW02 API; bổ sung riêng 3 case README dùng `page`, URL/DOM/attribute/network/postcondition assertion | Collect 9 lượt UI; 3/3 browser đều chạy đến assertion SUT thật | `evidence/ui-refinement-run.md` |
+| Phạm vi automation ban đầu | AI chuyển toàn bộ FR-08 thành request-context tests nên “multi-browser” chỉ lặp API, không kiểm tra DOM/rendering | HW02 tập trung API và không mô tả thao tác UI; AI chưa đối chiếu đủ các requirement FR-08 trong README | Giữ nguyên 15 case HW02 API; bổ sung 6 case dùng `page`, URL/DOM/attribute/network/order/cart-postcondition assertion | Collect 18 lượt UI; 3/3 browser đều chạy đến assertion SUT thật | `evidence/ui-refinement-run.md` |
 | `tests/FR-08-checkout-ui.spec.ts` / login locator | Login input không có label/name/id/test-id nên selector theo vị trí dễ vỡ nếu form đổi thứ tự | Đây là đặc tính black-box của SUT; không có locator semantic ổn định để dùng | Scope `form input`, assert đúng 2 input rồi dùng `nth(0/1)`; ghi rõ fragility để human reviewer chịu trách nhiệm | 3/3 browser login được và tiếp tục đến Checkout UI | `evidence/ui-refinement-run.md` |
-| UI spec/config / trace và video | SUT khai báo cả input login là `type=text`; trace/video ban đầu có nguy cơ lộ runtime credential/token | Cấu hình artifact API-only trước đó chưa xử lý evidence UI công khai | Mask hai input khi ghi video; video `retain-on-failure`; trace bắt đầu sau auth, attach vào report và redact giá trị runtime trong ZIP | 9 PNG, 9 WEBM, 9 trace ZIP; sau redaction có 0 runtime email/password/JWT match | `evidence/ui-refinement-run.md` |
-| `playwright.config.ts` / Firefox page | Firefox bundled launch được nhưng `browserContext.newPage()` lỗi dưới sandbox mặc định của máy test | Lỗi phụ thuộc host/browser, không xuất hiện ở API-only suite | Tắt sandbox content/GPU/media trong riêng project Firefox sau probe tối thiểu; không đổi assertion | Firefox chạy đủ 3 UI case tới assertion thật, 0 skip/environment failure trong final run | `evidence/ui-refinement-run.md` |
+| UI spec/config / trace và video | Manual trace của UI action có thể chứa Authorization/JWT và credential runtime | Yêu cầu mới cần trace/video cho các case UI | Bật manual trace và `video: retain-on-failure`; thêm script che dữ liệu trong ZIP sau run | Report có 18 trace + 18 video; 18 ZIP hợp lệ và scan có 0 runtime email/password/JWT | `evidence/ui-refinement-run.md` |
+| `playwright.config.ts` / Firefox page | Firefox bundled launch được nhưng `browserContext.newPage()` lỗi dưới sandbox mặc định của máy test | Lỗi phụ thuộc host/browser, không xuất hiện ở API-only suite | Tắt sandbox content/GPU/media trong riêng project Firefox sau probe tối thiểu; không đổi assertion | Firefox chạy đủ 6 UI case tới assertion thật, 0 skip/environment failure trong final run | `evidence/ui-refinement-run.md` |
+| Hai spec / runtime user isolation | Database reset có thể tái sử dụng user ID trong khi cart cũ còn ở server memory | UUID email không bảo đảm user ID mới chưa từng có cart trong process hiện hành | Chỉ dùng runtime user sau khi API xác nhận cart rỗng; không thay expected | API smoke trở lại `4P/11F`; full run không còn stale-cart precondition failure | `evidence/ui-refinement-run.md` |
+| `FR08-UI-README-006` / client cart setup | `page.goto('/checkout')` reload ứng dụng và remount CartProvider, tạo pass giả | Điều hướng URL trông tương đương nhưng không giữ SPA state | Điều hướng bằng link/button Product Detail → Cart → Checkout và kiểm tra product trước action | Case tái hiện đúng cart UI không được xóa trên 3/3 browser | `evidence/ui-refinement-run.md` |
 
 ## 3. Phân loại thất bại
 
@@ -82,6 +84,9 @@
 | `FR08-UI-README-002` — product list | failed trên 3/3 project | SUT defect | Backend cart có AirPods Pro 2 nhưng UI list rỗng | Đề xuất GitHub Issue | `../../bug-reports/FR-08/BUG-FR08-007-checkout-products-not-rendered.md` |
 | `FR08-UI-README-002` — total control | failed trên 3/3 project | SUT defect | Expected `12000000` chỉ đọc; UI hiển thị `0` và editable | Đề xuất GitHub Issue | `../../bug-reports/FR-08/BUG-FR08-008-checkout-total-zero-editable.md` |
 | `FR08-UI-README-003` | failed trên 3/3 project | SUT defect, trùng root cause hiện có | UI checkout nhận `200`/hiện thành công nhưng backend cart vẫn còn 1 item | Bổ sung evidence vào bug hiện có | `../../bug-reports/FR-08/BUG-FR08-002-cart-not-cleared.md` |
+| `FR08-UI-README-004` | failed trên 3/3 project | SUT defect, trùng root cause hiện có | Với cart rỗng, action vẫn enabled, gửi 1 request và tạo thêm 1 order | Bổ sung coverage UI vào bug hiện có | `../../bug-reports/FR-08/BUG-FR08-005-empty-cart-checkout.md` |
+| `FR08-UI-README-005` | failed trên 3/3 project | SUT defect, trùng root cause hiện có | Profile có địa chỉ mặc định nhưng order tạo từ UI lưu `null` | Bổ sung coverage UI vào bug hiện có | `../../bug-reports/FR-08/BUG-FR08-004-default-address-not-used.md` |
+| `FR08-UI-README-006` | failed trên 3/3 project | SUT defect, trùng root cause hiện có | Sau checkout và navigation SPA, product vẫn còn trong Cart DOM | Bổ sung coverage UI vào bug hiện có | `../../bug-reports/FR-08/BUG-FR08-002-cart-not-cleared.md` |
 
 ## 4. Ca chưa tự động hóa
 
@@ -97,43 +102,43 @@
 | Hạng mục | Kết quả thật | Bằng chứng |
 | --- | --- | --- |
 | Nhóm assertion đã chạy | API network/count/state; UI URL/DOM/attribute/network/postcondition | Hai spec và `evidence/ui-refinement-run.md` |
-| Chromium | 4 passed, 14 failed, 0 skipped; gồm `4P/11F` API và `0P/3F` UI | `evidence/ui-refinement-run.md` |
-| Firefox | 4 passed, 14 failed, 0 skipped; gồm `4P/11F` API và `0P/3F` UI | `evidence/ui-refinement-run.md` |
-| Microsoft Edge | 4 passed, 14 failed, 0 skipped; gồm `4P/11F` API và `0P/3F` UI | `evidence/ui-refinement-run.md` |
-| Metadata report | Đã mở report thật; thấy `Run by: 23127464`, runtime `09/08/2026 15:32`, ISO runtime, `All 54 / 12 / 42 / 0`, Trace và Video ở case UI | `playwright-report/index.html`, `evidence/ui-refinement-run.md` |
+| Chromium | 4 passed, 17 failed, 0 skipped; gồm `4P/11F` API và `0P/6F` UI | `evidence/ui-refinement-run.md` |
+| Firefox | 4 passed, 17 failed, 0 skipped; gồm `4P/11F` API và `0P/6F` UI | `evidence/ui-refinement-run.md` |
+| Microsoft Edge | 4 passed, 17 failed, 0 skipped; gồm `4P/11F` API và `0P/6F` UI | `evidence/ui-refinement-run.md` |
+| Metadata report | Embedded report xác nhận `Run by: 23127464`, runtime `09/08/2026 19:23`, ISO runtime, `All 63 / 12 / 51 / 0`; có 18 trace và 18 video UI | `playwright-report/index.html`, `evidence/ui-refinement-run.md` |
 
 ## 6. Gap analysis
 
 | Yêu cầu | Kết quả kiểm chứng | Khoảng trống | Mức ảnh hưởng | Hành động đề xuất |
 | --- | --- | --- | --- | --- |
 | Truy vết HW02 | 18 file vật lý; 15 điểm độc lập tự động hóa; 3 case trùng gộp có case đại diện | Không mất điểm độc lập | Low | Giữ mapping trong `TEST_CASES.md` và fixture tags |
-| Tối thiểu 12 case cho FR-08 | 15 case độc lập được collect và chạy | Không | Low | Không bổ sung case ngoài HW02 |
-| Data-driven | Input/expected của 15 case nằm trong fixture JSON; runtime validation kiểm tra ID/source/count | Không | Low | Giữ fixture/spec hiện tại |
+| Tối thiểu 12 case cho FR-08 | 21 case độc lập được collect và chạy | Không | Low | Giữ 15 API + 6 UI |
+| Data-driven | Input/expected của 15 API + 6 UI case nằm trong hai fixture JSON; runtime validation kiểm tra ID/source/count | Không | Low | Giữ fixture/spec hiện tại |
 | Ít nhất 3 nhóm assertion | Network/response, Count/aggregate, State/attribute đã chạy | Không | Low | Dẫn evidence Phase C/D |
-| Chromium/Firefox/Edge + HTML report | 54 lượt cuối; mỗi project 4 pass/14 fail/0 skip; trong đó có 3 UI case dùng browser page thật | DT-012 vẫn không có UI-render assertion | Medium | Trình bày tách 45 API executions và 9 UI executions; không tuyên bố chống XSS UI |
-| Tiêu chí toàn bài 3 feature / 9 feature–browser | FR-08 cung cấp 3 lượt feature–browser | Chưa đủ artifact để kết luận toàn bài | High | Tổng hợp thêm hai feature khác trước khi nộp |
+| Chromium/Firefox/Edge + HTML report | 63 lượt cuối; mỗi project 4 pass/17 fail/0 skip; có 6 UI case dùng browser page thật | DT-012 vẫn không có UI-render assertion | Medium | Trình bày tách 45 API executions và 18 UI executions; không tuyên bố chống XSS UI |
+| Tiêu chí toàn bài 3 feature / 9 feature–browser | FR-08 cung cấp 3 lượt; FR-05/08/12 hiện đủ tổng 9 lượt | Không thiếu lượt feature–browser | Low | Giữ ba report hiện hành |
 | DT-012 chống XSS UI | Checkout API lưu/trả payload như string; phạm vi API-only đã duyệt | Không có bằng chứng render UI và không tuyên bố Pass UI | Medium | Giữ giới hạn rõ trong review/summary; không mở rộng FR-08 |
 | Test data cleanup | Automation dùng user tạm; API công khai không có cleanup phù hợp | Nhiều user/order test tồn tại sau run | Medium | Dùng database/môi trường disposable hoặc reset được người quản trị phê duyệt cho lần chạy sau |
 | Repository nộp bài | HTML report hiện ở `playwrite-test/FR-08-checkout/playwright-report/` và không còn bị ignore | Chưa có bằng chứng commit/push/public URL trong Phase E | High | Stage, commit, push và kiểm tra link public trước khi nộp |
-| Secret hygiene toàn repository | Audit FR-08 đã redacted và report cuối không có credential/token runtime | HW02 gốc và một số tài liệu tính năng khác vẫn chứa mật khẩu test seed dạng rõ; Phase E không sửa nguồn người dùng | High | Redact hoặc rotate test credentials trước khi public toàn repository; quét lại sau khi xử lý |
-| Bug tracking | 5 bug report root-cause có evidence | Chưa tạo GitHub Issue | Medium | Chỉ tạo issue sau khi người dùng quyết định; không tuyên bố đã tạo |
+| Secret hygiene toàn repository | 18 trace FR-08 đã qua redaction; scan có 0 runtime email/password/JWT và 0 credential mặc định | Các feature khác phải được đánh giá theo artifact riêng | Medium | Chạy redaction và quét lại sau mỗi full rerun |
+| Bug tracking | 8 bug report đã ánh xạ Issues `#226`–`#233` và có screenshot Issue | Không thiếu mapping hiện hành | Low | Cập nhật issue nếu SUT được sửa/rerun |
 | Video demo và AI Critique | Chưa có bằng chứng trong artifact | Hai phần cá nhân chưa hoàn tất | High | Sinh viên tự quay video và tự viết AI Critique |
 
 ## 7. Refinement UI sau Phase E
 
-- Đọc lại README FR-08 và bổ sung 3 case UI độc lập; đây là coverage bổ sung, không sửa lại bộ expected HW02 đã duyệt.
-- Final run có 54 lượt: API giữ nguyên `12 passed / 33 failed / 0 skipped`; UI `0 passed / 9 failed / 0 skipped`; tổng `12 / 42 / 0`.
+- Đọc lại README/human review FR-08 và mở rộng từ 3 lên 6 case UI độc lập; không sửa bộ expected HW02 đã duyệt.
+- Final run có 63 lượt: API giữ nguyên `12 passed / 33 failed / 0 skipped`; UI `0 passed / 18 failed / 0 skipped`; tổng `12 / 51 / 0`.
 - Cả Chromium, Firefox và Edge đều tạo page, thao tác DOM và đi đến oracle thật. Các failure UI không phải lỗi harness trong final run.
 - DT-012 tiếp tục API-only; việc có suite UI bổ sung không được dùng để tuyên bố payload XSS đã render an toàn.
-- HTML report được mở thật, thấy Trace/Video và đã quét public-safety; chi tiết tại `evidence/ui-refinement-run.md`.
+- HTML report đã được tạo từ full run và embedded report được đọc/quét; 18 failure UI có screenshot, trace, video và error context.
 
 ## Checkpoint refinement UI
 
 - Trạng thái: hoàn tất triển khai và kiểm chứng kỹ thuật; chờ human review kết quả SUT UI.
 - Expected HW02: không đổi.
 - Expected UI: dẫn xuất trực tiếp từ README FR-08, không hạ theo actual.
-- Ba root cause UI mới đã có bug report `BUG-FR08-006`–`008`; cart-not-cleared UI được gộp vào `BUG-FR08-002` để tránh tạo trùng.
-- Tất cả vẫn ở trạng thái `Chưa tạo — đề xuất`; chưa tạo GitHub Issue/URL/ID.
+- Ba root cause UI ban đầu đã có bug report `BUG-FR08-006`–`008`; ba case mở rộng ánh xạ `BUG-FR08-002/004/005` để tránh tạo trùng.
+- Tám bug report đã ánh xạ GitHub Issues `#226`–`#233` và chèn screenshot Issue tương ứng.
 
 ## Checkpoint A
 
@@ -161,7 +166,7 @@
 - Chromium bundled ban đầu thiếu executable; đã cài revision đúng và launch lại thành công. Firefox và Edge cũng launch thật thành công.
 - Collection: 45 lượt, đúng 15 case × 3 project, không skip.
 - Lần chạy cuối: exit `1` — `12 passed`, `33 failed`, `0 skipped`; mỗi project `4/11/0`, khớp Phase C.
-- HTML report Phase D ban đầu đã được mở và xác nhận; thời gian lịch sử quy đổi là `06/08/2026 10:55`. Artifact hiện hành tại cùng đường dẫn có `Run by: 23127464`, thời gian `09/08/2026 15:32` và ISO runtime.
+- HTML report Phase D ban đầu đã được mở và xác nhận; thời gian lịch sử quy đổi là `06/08/2026 10:55`. Artifact hiện hành tại cùng đường dẫn có `Run by: 23127464`, thời gian `09/08/2026 19:23` và ISO runtime `2026-08-09T12:23:00.611Z`.
 - Test-harness defect đã sửa: config chưa nằm trong lint/type-check; custom metadata không hiển thị rõ trong report lần đầu.
 - Tại thời điểm checkpoint D, expected/assertion không đổi, DT-012 vẫn API-only và chưa tạo bug report; phân loại/gap analysis đã được thực hiện sau khi Phase D được duyệt.
 - Điểm chưa chắc chắn: spec là API-only nên project được lặp độc lập và browser binaries được launch probe riêng, nhưng các assertion không thao tác DOM/rendering.
@@ -174,8 +179,8 @@
 - Sau UI refinement, tám bug report hiện hành trong `bug-reports/FR-08/` đã ánh xạ GitHub Issues `#226`–`#233` và chèn screenshot Issue tương ứng.
 - Environment issue Chromium và test defect HTML metadata đã được ghi riêng, không tính vào SUT defect.
 - README summary đã tạo tại `playwrite-test/FR-08-checkout/README_SUMMARY.md` bằng số liệu runner thật.
-- Phase E rerun artifact-safe: lint/type-check exit `0`; 45 lượt exit `1`, 12 passed/33 failed/0 skipped; report cuối 0 trace ZIP và không chứa giá trị credential/token runtime.
-- Không đổi fixture/spec/assertion/expected.
+- UI refinement hiện hành: lint/type-check exit `0`; 63 lượt exit `1`, 12 passed/51 failed/0 skipped; report cuối có 18 trace + 18 video UI và không chứa runtime email/password/JWT sau redaction.
+- Không đổi expected của 15 API case; bổ sung 3 UI case mới và hai sửa lỗi isolation/navigation trong harness.
 - Điểm chưa chắc chắn: chưa biết build/commit SUT; credential test seed vẫn xuất hiện trong nguồn HW02/tài liệu ngoài artifact FR-08 đã làm sạch; video và AI Critique thuộc phần sinh viên tự làm.
 - Bằng chứng duyệt: prompt `approved, complete FR-08 after Phase E` ngày `06/08/2026 11:12`.
 - Trạng thái gap analysis: `Đã duyệt`.

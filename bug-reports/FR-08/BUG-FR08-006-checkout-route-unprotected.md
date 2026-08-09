@@ -33,7 +33,7 @@ Frontend không bảo vệ route `/checkout`: anonymous context vẫn render đ�
 | OS | `Microsoft Windows NT 10.0.26200.0` |
 | Frontend/API URL | `http://localhost:5173`; `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:32` |
+| Thời điểm | `09/08/2026 19:23` |
 
 ## Tiền điều kiện
 

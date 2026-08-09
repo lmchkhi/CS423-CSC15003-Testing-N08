@@ -46,6 +46,45 @@
         "cartCountAfter": 0
       },
       "tags": ["@fr08", "@ui", "@checkout", "@postcondition"]
+    },
+    {
+      "id": "FR08-UI-README-004",
+      "title": "Không gửi checkout từ UI khi giỏ hàng trống",
+      "scenario": "empty-cart-guard",
+      "source": "Bổ sung",
+      "requirement": "Người dùng không thể tạo đơn hàng từ Checkout UI khi giỏ hàng trống",
+      "expected": {
+        "checkoutActionAvailable": false,
+        "checkoutRequestCount": 0,
+        "orderCountDelta": 0
+      },
+      "tags": ["@fr08", "@ui", "@empty-cart", "root-cause:empty-cart-checkout-accepted"]
+    },
+    {
+      "id": "FR08-UI-README-005",
+      "title": "Checkout UI sử dụng địa chỉ giao hàng mặc định",
+      "scenario": "default-address-checkout",
+      "source": "Bổ sung",
+      "requirement": "Checkout không nhập địa chỉ riêng phải lưu địa chỉ giao hàng mặc định của hồ sơ",
+      "expected": {
+        "checkoutStatus": 200,
+        "defaultAddress": "456 Nguyen Hue, Q1, TP.HCM"
+      },
+      "tags": ["@fr08", "@ui", "@address", "root-cause:default-address-not-used"]
+    },
+    {
+      "id": "FR08-UI-README-006",
+      "title": "Xóa trạng thái giỏ hàng trên giao diện sau checkout",
+      "scenario": "client-cart-cleared",
+      "source": "Bổ sung",
+      "requirement": "Sau thanh toán thành công, giỏ hàng hiển thị cho người dùng phải được xóa",
+      "expected": {
+        "checkoutStatus": 200,
+        "successText": "Thanh toán thành công!",
+        "emptyCartText": "Giỏ hàng của bạn đang trống",
+        "productName": "Tai nghe AirPods Pro 2"
+      },
+      "tags": ["@fr08", "@ui", "@cart-state", "root-cause:cart-not-cleared"]
     }
   ]
 }

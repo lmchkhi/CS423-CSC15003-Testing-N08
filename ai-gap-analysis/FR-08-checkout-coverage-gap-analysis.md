@@ -8,7 +8,7 @@
 | --- | --- |
 | Feature | `FR-08 — Checkout` |
 | Run by | `23127464` |
-| Thời điểm cập nhật | `09/08/2026 15:20` |
+| Thời điểm cập nhật | `09/08/2026 19:23` |
 | Giai đoạn phát hiện | Human review sau Phase E và sau UI refinement |
 | Phân loại | Test-design/coverage gap kết hợp AI review/reporting miss |
 | Không phải | Lý do hạ expected để làm test pass hoặc thay đổi SUT |
@@ -32,16 +32,19 @@ Human review đã đọc lại requirement FR-08 trong README và bổ sung suit
 | Lớp kiểm thử | Case độc lập | Project | Lượt chạy | Kết quả thật | Oracle chính |
 | --- | ---: | ---: | ---: | --- | --- |
 | HW02 checkout API | 15 | 3 | 45 | `12 passed / 33 failed / 0 skipped` | Response, order/cart state, aggregate |
-| README Checkout UI | 3 | 3 | 9 | `0 passed / 9 failed / 0 skipped` | URL, DOM, input attribute, UI-triggered network, cart postcondition |
-| **Tổng FR-08** | **18** | **3** | **54** | **12 passed / 42 failed / 0 skipped** | API + browser page thật |
+| README/human-review Checkout UI | 6 | 3 | 18 | `0 passed / 18 failed / 0 skipped` | URL, DOM, input attribute, UI-triggered network, order/cart postcondition |
+| **Tổng FR-08** | **21** | **3** | **63** | **12 passed / 51 failed / 0 skipped** | API + browser page thật |
 
-Ba case UI hiện kiểm tra:
+Sáu case UI hiện kiểm tra:
 
 1. anonymous user phải được chuyển khỏi `/checkout` tới `/login`;
 2. Checkout UI phải hiển thị sản phẩm, tổng tính từ giỏ và total không editable;
 3. click Checkout thật phải nhận response thành công, hiển thị kết quả và xóa giỏ.
+4. giỏ trống không được cung cấp checkout action, gửi request hoặc tạo order;
+5. checkout phải dùng địa chỉ giao hàng mặc định của profile;
+6. trạng thái giỏ trong CartContext/DOM phải được xóa sau checkout và navigation SPA.
 
-Vì các case này dùng `page` và chạy trên Chromium, Firefox, Edge, FR-08 hiện có cross-browser UI evidence thật trong đúng ba luồng trên. Không còn đúng khi mô tả toàn bộ FR-08 là “API-only”.
+Vì các case này dùng `page` và chạy trên Chromium, Firefox, Edge, FR-08 hiện có cross-browser UI evidence thật trong sáu luồng trên. Không còn đúng khi mô tả toàn bộ FR-08 là “API-only”.
 
 ## 3. Gap còn tồn tại
 
@@ -53,9 +56,9 @@ Kết luận hợp lệ: `DT-012 pass trong phạm vi checkout API persistence`.
 
 Kết luận không hợp lệ: `FR-08 đã pass kiểm thử chống XSS UI`.
 
-### 3.2. Ba case UI không đại diện cho toàn bộ Checkout UI
+### 3.2. Sáu case UI không đại diện cho toàn bộ Checkout UI
 
-UI refinement bao phủ route protection, order summary/total và successful-checkout postcondition. Nó chưa tự động chứng minh:
+UI refinement bao phủ route protection, order summary/total, empty-cart guard, default address và hai lớp postcondition giỏ. Nó chưa tự động chứng minh:
 
 - coupon behavior thuộc requirement khác;
 - responsive/layout/accessibility ở mọi viewport;
@@ -66,9 +69,9 @@ UI refinement bao phủ route protection, order summary/total và successful-che
 
 Login form không cung cấp label/name/id/test-id ổn định. Automation phải scope `form input`, assert đúng hai input rồi dùng vị trí `nth(0/1)`. Cách này có kiểm soát nhưng vẫn có thể vỡ nếu form đổi thứ tự.
 
-### 3.4. Trace cần bước public-safety sau mỗi lần chạy
+### 3.4. Artifact public-safe sau mỗi lần chạy
 
-Trace UI có thể chứa runtime identity/token trong DOM snapshot hoặc network data. Report hiện tại đã được redaction và quét lại thành `0` runtime email/password/JWT, nhưng một lần rerun mới có thể tạo lại dữ liệu chưa redact. Đây là giới hạn vận hành artifact, không phải SUT defect.
+Sáu case UI hiện giữ trace và video khi failure. Vì trace có thể chứa Authorization/JWT hoặc credential runtime, quy trình sau run dùng `scripts/redact-fr08-traces.ps1` để che dữ liệu trong ZIP rồi quét lại. Report hiện tại có 18 trace + 18 video; scan hậu xử lý có `0` runtime email/password/JWT và mọi ZIP đều mở được.
 
 ### 3.5. Build/commit SUT chưa xác định
 
@@ -76,7 +79,7 @@ Artifact ghi URL và runtime nhưng không xác định build/commit của SUT. 
 
 ## 4. UI failure đã được phân loại thành SUT defect
 
-Các failure dưới đây không còn là “gap chưa kiểm tra”; chúng đã có assertion, tái hiện trên `3/3` browser và có screenshot/trace/video:
+Các failure dưới đây không còn là “gap chưa kiểm tra”; chúng đã có assertion, tái hiện trên `3/3` browser và có screenshot/error context:
 
 | Test/UI observation | Root cause | Bug report |
 | --- | --- | --- |
@@ -84,6 +87,9 @@ Các failure dưới đây không còn là “gap chưa kiểm tra”; chúng đ
 | Backend cart có item nhưng product list UI rỗng | Checkout summary không render sản phẩm | `bug-reports/FR-08/BUG-FR08-007-checkout-products-not-rendered.md` |
 | Tổng kỳ vọng `12000000`, UI hiện `0` và editable | Total control không lấy state từ cart và cho chỉnh trực tiếp | `bug-reports/FR-08/BUG-FR08-008-checkout-total-zero-editable.md` |
 | UI báo checkout thành công nhưng cart vẫn còn item | Cùng root cause cart-not-cleared đã có | `bug-reports/FR-08/BUG-FR08-002-cart-not-cleared.md` |
+| Cart rỗng vẫn có action, gửi request và tạo order | Cùng root cause empty-cart checkout đã có | `bug-reports/FR-08/BUG-FR08-005-empty-cart-checkout.md` |
+| Order tạo từ UI không dùng địa chỉ mặc định | Cùng root cause default-address đã có | `bug-reports/FR-08/BUG-FR08-004-default-address-not-used.md` |
+| CartContext/DOM vẫn giữ sản phẩm sau checkout | Cùng root cause cart-not-cleared đã có | `bug-reports/FR-08/BUG-FR08-002-cart-not-cleared.md` |
 
 FR-08 hiện có 8 bug report theo root cause. Case UI cart-not-cleared được gộp vào bug hiện có để tránh đếm trùng.
 
@@ -106,18 +112,18 @@ Human reviewer yêu cầu đọc lại README, bổ sung browser-page automation
 | Artifact | Nội dung chứng minh |
 | --- | --- |
 | [`FR-08-checkout.spec.ts`](../tests/FR-08-checkout.spec.ts) | 15 case API dùng request context |
-| [`FR-08-checkout-ui.spec.ts`](../tests/FR-08-checkout-ui.spec.ts) | 3 case dùng browser page, DOM/URL/network/postcondition assertion |
+| [`FR-08-checkout-ui.spec.ts`](../tests/FR-08-checkout-ui.spec.ts) | 6 case dùng browser page, DOM/URL/network/order/cart-postcondition assertion |
 | [`FR-08-checkout-ui.json`](../data/FR-08-checkout-ui.json) | Requirement/expected UI data-driven |
-| [`ui-refinement-run.md`](../playwrite-test/FR-08-checkout/evidence/ui-refinement-run.md) | Kết quả 54 lượt, số liệu theo project và kiểm chứng report |
+| [`ui-refinement-run.md`](../playwrite-test/FR-08-checkout/evidence/ui-refinement-run.md) | Kết quả 63 lượt, số liệu theo project và kiểm chứng report |
 | [`REVIEW_NOTES.md`](../playwrite-test/FR-08-checkout/REVIEW_NOTES.md) | Human review, test defect refinement và failure classification |
-| [`HTML report`](../playwrite-test/FR-08-checkout/playwright-report/index.html) | 45 API + 9 UI executions; screenshot, trace và video UI |
+| [`HTML report`](../playwrite-test/FR-08-checkout/playwright-report/index.html) | 45 API + 18 UI executions; screenshot, trace, video và error context UI |
 | [`bug-reports/FR-08`](../bug-reports/FR-08/) | 8 bug report theo root cause, gồm ba root cause UI mới |
 
 ## 7. Cách trình bày đúng
 
 Nên ghi:
 
-> FR-08 gồm 15 case HW02 API và 3 case UI bổ sung từ README. Ba case UI dùng browser page thật trên Chromium, Firefox và Edge. Kết quả cuối là 54 lượt với 12 passed, 42 failed, 0 skipped. DT-012 vẫn chỉ được kết luận trong phạm vi API và không chứng minh chống XSS UI.
+> FR-08 gồm 15 case HW02 API và 6 case UI bổ sung. Sáu case UI dùng browser page thật trên Chromium, Firefox và Edge. Kết quả cuối là 63 lượt với 12 passed, 51 failed, 0 skipped. DT-012 vẫn chỉ được kết luận trong phạm vi API và không chứng minh chống XSS UI.
 
 Không nên ghi:
 
@@ -129,14 +135,13 @@ Hoặc:
 
 ## 8. Hướng xử lý tiếp theo
 
-- Giữ 15 case API và 3 case UI thành hai lớp coverage rõ ràng trong cùng report.
+- Giữ 15 case API và 6 case UI thành hai lớp coverage rõ ràng trong cùng report.
 - Giữ DT-012 API-only cho tới khi có UI render/control và expected được duyệt.
 - Ưu tiên locator semantic nếu SUT bổ sung label/name/test-id cho login form.
-- Sau mỗi rerun có trace, thực hiện redaction và quét credential trước khi commit public.
+- Sau mỗi rerun, chạy redaction rồi quét credential/token và tính hợp lệ của trace trước khi commit public.
 - Ghi build/commit SUT trong lần chạy tiếp theo nếu môi trường cung cấp.
 - Chỉ mở rộng thêm UI case khi có requirement và oracle quan sát được; không tự suy diễn control không tồn tại.
 
 ## 9. Trách nhiệm human review
 
 Human reviewer chịu trách nhiệm xác nhận script cuối phản ánh đúng mục tiêu test và không diễn giải quá phạm vi evidence. Với FR-08, review đã sửa miss quan trọng của AI: tách rõ multi-project API execution khỏi cross-browser UI testing, bổ sung UI automation thật, phân loại failure thành bug, và công khai các gap vẫn còn.
-

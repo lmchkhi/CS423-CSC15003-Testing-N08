@@ -37,7 +37,7 @@
 ## Quy ước dữ liệu chung
 
 - Sản phẩm thật: AirPods Pro 2, `productId=4`, `unitPrice=6,000,000`, `quantity=2`, tổng giỏ kỳ vọng `12,000,000`.
-- Case stateful dùng user role `user` cô lập với giỏ mới để tránh phụ thuộc dữ liệu giữa các case; bí mật đăng nhập lấy từ biến môi trường hoặc được sinh tại runtime, không lưu trong fixture/report.
+- Case stateful dùng user role `user` sinh tại runtime và xác minh giỏ rỗng trước setup để tránh phụ thuộc dữ liệu giữa các case; credential runtime không lưu trong fixture/report.
 - Địa chỉ hợp lệ: fixture key `addresses.valid`; địa chỉ mặc định: `addresses.default`.
 - Mỗi expected bên dưới là một kết quả duy nhất. Hành vi SUT đã quan sát không được dùng để hạ assertion chỉ nhằm làm test pass.
 
@@ -68,9 +68,9 @@
 | Tổng file/case HW02 | 18 |
 | Case trùng gộp, không tự động hóa riêng | 3 |
 | Tổng điểm kiểm tra HW02 độc lập cuối | 15 |
-| Tổng case bổ sung từ README FR-08 | 3 |
-| Tổng cuối | 18 |
-| Case có input/expected/precondition được chuẩn hóa | 18 |
+| Tổng case bổ sung từ README FR-08 | 6 |
+| Tổng cuối | 21 |
+| Case có input/expected/precondition được chuẩn hóa | 21 |
 
 ## Bộ test UI bổ sung sau README review
 
@@ -81,6 +81,9 @@ Các case này bổ sung coverage UI hộp đen sau Phase E; không thay thế, 
 | `FR08-UI-README-001` | Chỉ user đã đăng nhập mới checkout | Mở trực tiếp `/checkout` ở context chưa đăng nhập | Điều hướng tới `/login` | `data/FR-08-checkout-ui.json`, `tests/FR-08-checkout-ui.spec.ts` |
 | `FR08-UI-README-002` | UI hiện đủ sản phẩm; tổng tự tính và không chỉnh trực tiếp | Login qua form, mở `/checkout`, đọc DOM/thuộc tính input | Thấy AirPods Pro 2; tổng `12000000`; total không editable | `data/FR-08-checkout-ui.json`, `tests/FR-08-checkout-ui.spec.ts` |
 | `FR08-UI-README-003` | Checkout thành công xóa giỏ | Click `Xác Nhận Thanh Toán`, quan sát response/thông báo và đọc lại cart | HTTP `200`; thấy thông báo thành công; cart count `0` | `data/FR-08-checkout-ui.json`, `tests/FR-08-checkout-ui.spec.ts` |
+| `FR08-UI-README-004` | Không tạo order khi giỏ trống | Login với backend cart đã xác minh rỗng; mở checkout; thử thao tác nếu nút khả dụng; theo dõi request/order | Checkout action không khả dụng; 0 request; order count không tăng | `data/FR-08-checkout-ui.json`, `tests/FR-08-checkout-ui.spec.ts` |
+| `FR08-UI-README-005` | Dùng địa chỉ giao hàng mặc định | Setup địa chỉ profile; login; click checkout; đọc order vừa tạo | HTTP `200`; order lưu đúng địa chỉ mặc định | `data/FR-08-checkout-ui.json`, `tests/FR-08-checkout-ui.spec.ts` |
+| `FR08-UI-README-006` | Xóa trạng thái giỏ trên giao diện sau checkout | Thêm sản phẩm vào CartContext qua UI; điều hướng SPA tới checkout; thanh toán; quay lại giỏ | Hiện empty state; sản phẩm đã mua không còn trong DOM | `data/FR-08-checkout-ui.json`, `tests/FR-08-checkout-ui.spec.ts` |
 
 ## Case không tự động hóa riêng — gộp vào case đại diện
 

@@ -134,26 +134,36 @@ async function responseJson<T>(response: { json(): Promise<unknown> }): Promise<
 }
 
 async function createIsolatedUser(request: APIRequestContext, caseId: string): Promise<UserSession> {
-  const nonce = randomUUID();
-  const email = `fr08.${caseId.toLowerCase()}.${nonce}@eshop.test`;
-  const password = `Tmp-${nonce}-Aa1!`;
+  // The SUT stores carts in process memory while database resets may reuse user IDs.
+  // Verify the black-box cart precondition and skip identities that inherit stale state.
+  for (let attempt = 1; attempt <= 50; attempt += 1) {
+    const nonce = randomUUID();
+    const email = `fr08.${caseId.toLowerCase()}.${nonce}@eshop.test`;
+    const password = `Tmp-${nonce}-Aa1!`;
 
-  const registerResponse = await request.post(url('/api/register'), {
-    data: { name: 'FR08 Runtime User', email, password },
-  });
-  // Assertion group: Network / response.
-  expect(registerResponse.status(), `${caseId}: runtime user registration`).toBe(200);
+    const registerResponse = await request.post(url('/api/register'), {
+      data: { name: 'FR08 Runtime User', email, password },
+    });
+    // Assertion group: Network / response.
+    expect(registerResponse.status(), `${caseId}: runtime user registration`).toBe(200);
 
-  const loginResponse = await request.post(url('/api/login'), {
-    data: { email, password },
-  });
-  expect(loginResponse.status(), `${caseId}: runtime user login`).toBe(200);
-  const loginBody = await responseJson<{ token: string }>(loginResponse);
-  expect(loginBody.token, `${caseId}: login token exists`).toEqual(expect.any(String));
+    const loginResponse = await request.post(url('/api/login'), {
+      data: { email, password },
+    });
+    expect(loginResponse.status(), `${caseId}: runtime user login`).toBe(200);
+    const loginBody = await responseJson<{ token: string }>(loginResponse);
+    expect(loginBody.token, `${caseId}: login token exists`).toEqual(expect.any(String));
 
-  return {
-    headers: { Authorization: `Bearer ${loginBody.token}` },
-  };
+    const session = {
+      headers: { Authorization: `Bearer ${loginBody.token}` },
+    };
+    const cart = await getCart(request, session.headers);
+    if (cart.length === 0) {
+      return session;
+    }
+  }
+
+  throw new Error(`${caseId}: could not allocate a runtime user with an empty backend cart`);
 }
 
 async function getOrders(request: APIRequestContext, headers: Record<string, string>): Promise<OrderDto[]> {

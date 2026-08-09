@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "test:fr08": "playwright test tests/FR-08-checkout.spec.ts tests/FR-08-checkout-ui.spec.ts",
     "test:fr08:ui": "playwright test tests/FR-08-checkout-ui.spec.ts",
+    "redact:fr08:traces": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/redact-fr08-traces.ps1",
     "test:fr12": "playwright test tests/fr12-access.spec.ts --project=chromium --reporter=list --output=test-results/fr12-phase-c",
     "test:fr12:phase-d": "playwright test tests/fr12-access.spec.ts --config=playwright.fr12.config.ts",
     "test:fr05:phase-d": "playwright test tests/fr05-search.spec.ts --config=playwright.fr05.config.ts"

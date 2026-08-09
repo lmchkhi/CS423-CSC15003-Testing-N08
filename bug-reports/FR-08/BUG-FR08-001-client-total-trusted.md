@@ -33,7 +33,7 @@ Checkout API lưu `total_amount` do client cung cấp, kể cả giá trị âm,
 | OS | `Microsoft Windows NT 10.0.26200.0` |
 | Frontend/Admin/API URL | API `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:32` |
+| Thời điểm | `09/08/2026 19:23` |
 
 ## Tiền điều kiện
 

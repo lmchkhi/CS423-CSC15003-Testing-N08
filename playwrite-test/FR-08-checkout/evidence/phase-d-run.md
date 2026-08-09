@@ -82,7 +82,15 @@ Mỗi project lặp lại đúng 11 failure nghiệp vụ đã thấy ở Phase 
 - Test-artifact fix: đổi `trace` thành `off` cho suite FR-08 API-only; `test-results/` tiếp tục bị ignore.
 - Lint exit `0`; type-check exit `0`.
 - Rerun `npm run test:fr08 -- --workers=1` exit `1`: 12 passed, 33 failed, 0 skipped; mỗi project vẫn 4/11/0.
-- Report hiện hành được thay mới tại cùng đường dẫn lúc `09/08/2026 15:32`; đã mở bằng Chromium và thấy Run by, thời gian hiển thị, ISO runtime và tổng kết.
+- Report artifact-safe API-only tại thời điểm đó được tạo lúc `09/08/2026 15:32`; artifact này sau đó đã được thay bởi full run có UI mở rộng.
 - Quét report cuối: `0` ZIP trace; `0` giá trị khớp pattern runtime password, email tạm hoặc JWT. Tên field/source snippet không được coi là credential thực.
 - Lần rerun tạo thêm 39 user runtime role `user` và 39 order test trong môi trường cô lập đã được chấp nhận.
-- Số liệu nghiệp vụ và expected không đổi; report cuối này thay thế artifact report Phase D cũ để dùng trong repository public.
+- Số liệu nghiệp vụ và expected không đổi; đây là mốc lịch sử trước UI refinement.
+
+## Artifact hiện hành sau mở rộng UI — `09/08/2026 19:23`
+
+- Report hiện hành tại cùng đường dẫn được tạo bởi full run 15 API + 6 UI case trên ba project.
+- Embedded report xác nhận 63 executed, 12 passed, 51 failed, 0 skipped; mỗi project `4P/17F/0S`.
+- Runtime artifact có 51 error context, 18 screenshot, 18 video và 36 ZIP trace (18 nguồn + 18 attachment). HTML report có 18 trace + 18 video UI.
+- Script redaction đã chỉnh 9/54 ZIP và thay 30 giá trị nhạy cảm; scan cuối có 0 runtime email/password/JWT, 0 credential mặc định và 0 ZIP lỗi/thiếu `trace.trace`.
+- Chi tiết harness refinement, ba UI case mới và kết quả theo project nằm trong `evidence/ui-refinement-run.md`.

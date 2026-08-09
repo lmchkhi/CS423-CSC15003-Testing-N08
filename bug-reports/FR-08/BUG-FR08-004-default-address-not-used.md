@@ -8,7 +8,7 @@ assignees: ""
 
 ## Found by Test Case
 
-`TC-FR08-DT-011`
+`TC-FR08-DT-011` và `FR08-UI-README-005` — cùng xác minh order phải dùng địa chỉ mặc định, lần lượt qua API và thao tác Checkout UI thật.
 
 ## Requirement liên quan
 
@@ -33,7 +33,7 @@ Checkout API không lấy địa chỉ mặc định đã lưu trong hồ sơ kh
 | OS | `Microsoft Windows NT 10.0.26200.0` |
 | Frontend/Admin/API URL | API `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm | `09/08/2026 15:32` |
+| Thời điểm | `09/08/2026 19:23` |
 
 ## Tiền điều kiện
 

@@ -8,7 +8,7 @@ assignees: ""
 
 ## Found by Test Case
 
-`TC-FR08-DT-001`, `TC-FR08-DT-015` và `FR08-UI-README-003`. `DT-015` là case trùng được gộp vào assertion hậu điều kiện của `DT-001`; case UI tái hiện cùng root cause sau click thật trên frontend.
+`TC-FR08-DT-001`, `TC-FR08-DT-015`, `FR08-UI-README-003` và `FR08-UI-README-006`. `DT-015` là case trùng được gộp vào assertion hậu điều kiện của `DT-001`; hai case UI kiểm tra riêng backend cart và CartContext/DOM sau click thật trên frontend.
 
 ## Requirement liên quan
 
@@ -33,7 +33,7 @@ Checkout tạo order thành công nhưng không xóa item khỏi giỏ của use
 | OS | `Microsoft Windows NT 10.0.26200.0` |
 | Frontend/Admin/API URL | Frontend `http://localhost:5173`; API `http://localhost:3000` |
 | Build/commit SUT | Không xác định |
-| Thời điểm gần nhất | `09/08/2026 15:32` |
+| Thời điểm gần nhất | `09/08/2026 19:23` |
 
 ## Tiền điều kiện
 
