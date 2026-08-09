@@ -97,8 +97,8 @@ Số case đếm theo case logic, không nhân theo browser.
 
 | Nội dung | Link |
 |---|---|
-| Task 2 — chạy automation end-to-end, multi-browser, HTML report (≥5 phút, tiếng Việt) | <!-- TODO: YouTube link, Aug 9 --> |
-| Agent Skill demo (§7) | <!-- TODO: YouTube link, Aug 9 --> |
+| Task 2 — chạy automation end-to-end, multi-browser, HTML report (≥5 phút, tiếng Việt) | https://youtu.be/0ESx-AIHPK4 |
+| Agent Skill demo (§7) | https://youtu.be/cRN4PV6iYfE |
 
 ---
 
@@ -127,4 +127,4 @@ Số case đếm theo case logic, không nhân theo browser.
 |---|---|
 | GitHub repository | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08 (branch `HW04/23127300`) |
 | SUT | https://github.com/ttbhanh/eshop-sut |
-| Demo video (Task 2) | <!-- TODO: YouTube link, Aug 9 --> |
+| Demo video (Task 2) | https://youtu.be/0ESx-AIHPK4 |

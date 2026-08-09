@@ -42,13 +42,13 @@ mục dưới đây tóm tắt những gì thực sự xảy ra, không lặp l�
    đăng nhập trả về mật khẩu dạng plaintext. Cả hai được giữ làm case sẽ FAIL
    theo đúng oracle, không phải điều chỉnh assertion cho khớp hành vi lỗi.
 2. **Model data** (Entry #7): `loginCaseSchema` tách 3 trục độc lập —
-   `account` (nguồn danh tính), `emailSource`, `priorFailures` — để một
+   `account` (nguồn danh tính), `emailSource`, `priorFailures`, để một
    record data phục vụ được nhiều biến thể mà không nhánh theo `caseId`.
 3. **Map automation / Generate** (Entry #8): page object `LoginPage` viết
    lại locator hai lần sau khi đọc DOM thật (bản nháp `getByLabel` không
    khớp gì vì form không gắn label; banner lỗi nằm ngoài `<form>`).
 4. **Verify & repair** (Entry #9): 10 pass / 4 fail, giống hệt trên cả 3
-   trình duyệt — không có lỗi đặc thù engine. `report:verify` từng báo sai
+   trình duyệt, không có lỗi đặc thù engine. `report:verify` từng báo sai
    (regex cũ khớp dạng UTC) sau khi đổi timestamp sang giờ ICT; sửa công cụ
    thay vì sửa lại dữ liệu để không làm sai lệch ngày trên report.
 
@@ -60,14 +60,13 @@ trình duyệt. 4 case fail là lỗi thật của SUT, có bug report riêng (�
 1. **Analyze/Design/Review** (Entry #10): phát biểu lại state machine 5
    trạng thái từ §3, recon cả hai giao diện (admin `:5174`, user `:5173`).
    Phát hiện quan trọng nhất: admin không dùng `<select>` mà dùng một nút
-   riêng cho mỗi chuyển đổi hợp lệ — tập nút một dòng đơn chào mời **chính
-   là** tuyên bố của hệ thống về các cạnh đi ra hợp lệ từ trạng thái đó, nên
+   riêng cho mỗi chuyển đổi hợp lệ. Tập nút mà một dòng đơn chào mời chính
+   là tuyên bố của hệ thống về các cạnh đi ra hợp lệ từ trạng thái đó, nên
    assert "tập nút khớp chính xác" chứng minh được cả hai chiều (không thiếu
    cạnh hợp lệ, không thừa cạnh ngoài sơ đồ) mà không cần gọi API.
 2. **Model data** (Entry #11): schema viết lại quanh `expectedControls` +
    `assertion` thay vì cờ boolean chồng lấn (`allowed`/`controlAbsent`) của
-   bản nháp kế hoạch — bản nháp đó giả định một giao diện dropdown không hề
-   tồn tại.
+   bản nháp kế hoạch, vốn giả định một giao diện dropdown không hề tồn tại.
 3. **Map automation / Generate** (Entry #12): fixture, `AdminOrdersPage`,
    `MyOrdersPage`, spec. 11 pass / 3 fail ngay từ chromium, đúng bằng 3 case
    bảng ánh xạ đã dự đoán sẽ fail (BUG-FR10-001/002/003 tái hiện từ HW02).
@@ -89,7 +88,7 @@ trình duyệt.
    `expectedDashboardTotals()` (API) ngay trước khi assert, vì suite chạy
    chung một SQLite không reset giữa các cell.
 3. **Generate** (Entry #17): `DashboardPage` + spec. Lượt chạy đầu tiên có
-   1 case pass sai lý do — nhánh kiểm tra non-admin gọi nhầm
+   1 case pass sai lý do: nhánh kiểm tra non-admin gọi nhầm
    `seedUserToken` (seed origin shop) thay vì `seedAdminToken` (seed đúng
    origin admin đang được test), khiến case không hề chạm tới bề mặt cần
    kiểm tra. Tự phát hiện và sửa trước khi chạy ma trận.
@@ -99,7 +98,7 @@ trình duyệt.
    đây là lỗi SUT: đúng 1 đơn được tạo, số đơn trên Dashboard khớp chính
    xác, chỉ riêng doanh thu gấp đúng 2 lần tổng thật.
 
-**Kết quả cuối:** 1 pass / 11 fail trên cả 3 trình duyệt — quy về đúng 2 lỗi
+**Kết quả cuối:** 1 pass / 11 fail trên cả 3 trình duyệt, quy về đúng 2 lỗi
 độc lập (`BUG-FR13-001`, `BUG-FR13-002`, §5).
 
 ### 2.4. FR-13 — 7 case thiết kế mới trong HW04
@@ -112,11 +111,11 @@ lại 5 case mang sang, cần **7 case mới** để đạt tối thiểu 12 c�
 case này (F13-TC-006…012) được thiết kế trong Session 3 dựa trên đúng hai
 mệnh đề của oracle §4 (doanh thu chỉ tính đơn `delivered`; số đơn hàng tính
 mọi trạng thái) cộng bối cảnh FR-12: cô lập từng nguyên nhân loại trừ doanh
-thu (đơn `pending`/`canceled`/`shipping` riêng lẻ — F13-TC-007…009), một case
+thu (đơn `pending`/`canceled`/`shipping` riêng lẻ: F13-TC-007…009), một case
 kiểm tra cập nhật động khi đơn chuyển sang `delivered` (F13-TC-010), một case
 đối chiếu tổng quát không cần seed thêm dữ liệu (F13-TC-006), một case cô
 lập riêng phép đếm khỏi phép lọc doanh thu (F13-TC-011), và một case FR-12
-mới — phiên hoàn toàn chưa đăng nhập (F13-TC-012), bổ sung cho case
+mới cho phiên hoàn toàn chưa đăng nhập (F13-TC-012), bổ sung cho case
 non-admin-token đã mang từ HW02 (F13-TC-005). Chi tiết thiết kế và recon:
 [`../test-design/FR-13-dashboard/case-map.md`](../test-design/FR-13-dashboard/case-map.md).
 
@@ -131,7 +130,7 @@ non-admin-token đã mang từ HW02 (F13-TC-005). Chi tiết thiết kế và re
 | FR-13 | 1 pass / 11 fail | 1 pass / 11 fail | 1 pass / 11 fail |
 | **Tổng** | **22 pass / 18 fail** | **22 pass / 18 fail** | **22 pass / 18 fail** |
 
-Kết quả giống hệt nhau trên cả ba trình duyệt ở mọi feature — không có lỗi
+Kết quả giống hệt nhau trên cả ba trình duyệt ở mọi feature. Không có lỗi
 đặc thù engine nào còn tồn tại sau bước Verify & repair; toàn bộ 18 case
 fail/browser là lỗi thật của SUT, không phải lỗi tương thích trình duyệt.
 Chi tiết từng cell (timestamp ISO, đường dẫn report, xác nhận nhãn
@@ -160,7 +159,7 @@ Chi tiết từng cell (timestamp ISO, đường dẫn report, xác nhận nhãn
 ## 5. Bug tổng hợp
 
 9 bug được phát hiện bởi assertion thất bại đúng theo oracle (không phải
-selector hỏng hay dữ liệu sai) — 4 ở FR-02, 3 ở FR-10, 2 ở FR-13. Danh sách
+selector hỏng hay dữ liệu sai): 4 ở FR-02, 3 ở FR-10, 2 ở FR-13. Danh sách
 đầy đủ kèm severity, local report và link GitHub Issue:
 [`../README.md`](../README.md#25-bug-summary). Toàn bộ 9 report nằm ở
 [`../bug-reports/`](../bug-reports/), mỗi report kèm ảnh chụp thất bại do
@@ -175,11 +174,11 @@ chính Playwright sinh ra. `BUG-FR13-001` gộp 10 case cùng một nguyên nhâ
 Phân tích chi tiết những gì AI sinh sai/thiếu và vì sao, gắn với từng entry
 trong `ai-audit-report.md`, nằm ở
 [`../ai-gap-analysis/ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md).
-Tóm tắt: hai nhóm lỗi lặp lại xuyên suốt cả ba feature — (1) mọi giả định về
-giao diện đưa ra *trước khi* recon trên build thật đều sai ở ít nhất một
-chỗ, không lỗi nào lộ ra bằng cách đọc code; (2) AI có xu hướng tin vào
-chính sản phẩm/kết luận trước đó của nó thay vì đối chiếu chéo với quan sát
-độc lập. 18 entry đã audit: 11 `VALID`, 6 `INCOMPLETE`, 1 `INVALID`.
+Tóm tắt: hai nhóm lỗi lặp lại xuyên suốt cả ba feature. Một là, mọi giả định
+về giao diện đưa ra *trước khi* recon trên build thật đều sai ở ít nhất một
+chỗ, và không lỗi nào lộ ra bằng cách đọc code. Hai là, AI có xu hướng tin
+vào chính sản phẩm hoặc kết luận trước đó của nó thay vì đối chiếu chéo với
+quan sát độc lập. 20 entry đã audit: 11 `VALID`, 8 `INCOMPLETE`, 1 `INVALID`.
 
 ---
 
@@ -187,7 +186,7 @@ chính sản phẩm/kết luận trước đó của nó thay vì đối chiếu
 
 | Tài liệu | Đường dẫn |
 |---|---|
-| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 18 entry |
+| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 20 entry |
 | Prompt Log (bản ghi thô, không lọc) | [`prompt-log.md`](prompt-log.md) |
 | AI Critique (§10, 200–300 từ) | [`ai-critique.md`](ai-critique.md) |
 | AI Gap Analysis (§6) | [`../ai-gap-analysis/ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md) |
@@ -196,6 +195,7 @@ chính sản phẩm/kết luận trước đó của nó thay vì đối chiếu
 
 ## 8. Demo video (Task 2 + Agent Skill)
 
-<!-- TODO: YouTube link, Aug 9 --> — video chạy end-to-end suite trên 3 trình
-duyệt kèm report HTML, và video demo skill `playwright-automation`, sẽ được
-dán vào đây và vào `README.md` §2.6 ngay sau khi quay ngày 09/08/2026.
+- Task 2 — chạy end-to-end suite trên 3 trình duyệt kèm report HTML:
+  https://youtu.be/0ESx-AIHPK4
+- Agent Skill demo (§7) — skill `playwright-automation`:
+  https://youtu.be/cRN4PV6iYfE

@@ -75,8 +75,8 @@ phân quyền là đối tượng kiểm thử, và nó chỉ quan sát được
 ## 4. Case dự kiến FAIL vì lỗi thật của SUT
 
 Các case dưới đây assert đúng theo oracle nhưng bản build hiện tại vi phạm.
-Chúng **giữ nguyên trạng thái fail** — xác nhận lại trên bản build hiện tại
-ngày 08/08/2026, cả 3 trình duyệt — và có bug report HW04 riêng ở
+Chúng **giữ nguyên trạng thái fail**, đã xác nhận lại trên bản build hiện tại
+ngày 08/08/2026 ở cả 3 trình duyệt, và có bug report HW04 riêng ở
 [`../../bug-reports/`](../../bug-reports/).
 
 | Case | Vi phạm quan sát được | Bug HW02 tương ứng | Bug report HW04 |
