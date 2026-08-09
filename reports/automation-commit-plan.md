@@ -104,6 +104,8 @@ Kết quả thực hiện:
 
 ### Commit 4 - FR-11 đợt 2: ownership, detail, display fields
 
+Trạng thái: Done.
+
 Mục tiêu:
 
 - Mở rộng suite để kiểm tra quyền sở hữu đơn hàng và thông tin hiển thị.
@@ -134,6 +136,15 @@ Commit message gợi ý:
 ```text
 test(fr11): expand order ownership and display assertions
 ```
+
+Kết quả thực hiện:
+
+- Đã bổ sung 7 test case TC-FR11-DT-004 đến TC-FR11-DT-010 vào [`tests/automation/data/fr11-order-history.json`](../tests/automation/data/fr11-order-history.json).
+- Đã mở rộng [`tests/automation/specs/fr11-order-history.spec.ts`](../tests/automation/specs/fr11-order-history.spec.ts) với helper setup user A/user B, detail API assertion và UI display field assertion.
+- Đã chạy Chromium với 12 test case: 11 passed, 1 failed.
+- Report: [`reports/html/fr11-order-history/chromium/hw04-report.html`](html/fr11-order-history/chromium/hw04-report.html).
+- JSON result: [`reports/results/fr11-order-history/chromium/results.json`](results/fr11-order-history/chromium/results.json).
+- Đã tạo bug report [`bug-reports/automation/BUG-FR11-AUTO-001.md`](../bug-reports/automation/BUG-FR11-AUTO-001.md) cho TC-FR11-DT-007. GitHub Issue sẽ chốt ở Commit 5 theo kế hoạch full suite.
 
 ### Commit 5 - FR-11 đợt 3: full suite, 3 browser, bug reports
 

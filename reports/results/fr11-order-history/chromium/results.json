@@ -89,7 +89,7 @@
         {
           "open": "never",
           "outputFolder": "reports/html/fr11-order-history/chromium",
-          "title": "Run by: 23127475 | fr11-order-history | chromium | 2026-08-09T15:10:57.127Z"
+          "title": "Run by: 23127475 | fr11-order-history | chromium | 2026-08-09T15:40:36.655Z"
         }
       ]
     ],
@@ -116,7 +116,7 @@
         {
           "title": "Run by: 23127475 | FR-11 - Xem lịch sử đơn hàng",
           "file": "fr11-order-history.spec.ts",
-          "line": 249,
+          "line": 356,
           "column": 6,
           "specs": [
             {
@@ -140,12 +140,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3208,
+                      "duration": 3161,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:10:57.413Z",
+                      "startTime": "2026-08-09T15:40:36.905Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -160,7 +160,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-9f49dda9f7b483f74877",
               "file": "fr11-order-history.spec.ts",
-              "line": 255,
+              "line": 362,
               "column": 9
             },
             {
@@ -184,12 +184,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 691,
+                      "duration": 690,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:11:00.719Z",
+                      "startTime": "2026-08-09T15:40:40.167Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -204,7 +204,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-60b9fb066068b5e9ba99",
               "file": "fr11-order-history.spec.ts",
-              "line": 255,
+              "line": 362,
               "column": 9
             },
             {
@@ -228,12 +228,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3099,
+                      "duration": 3119,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:11:01.415Z",
+                      "startTime": "2026-08-09T15:40:40.862Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -248,7 +248,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-e3d3bb98844c6f3f762b",
               "file": "fr11-order-history.spec.ts",
-              "line": 255,
+              "line": 362,
               "column": 9
             },
             {
@@ -272,12 +272,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3099,
+                      "duration": 3105,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:11:04.519Z",
+                      "startTime": "2026-08-09T15:40:43.986Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -292,7 +292,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-f7a9ee92685b54f1af60",
               "file": "fr11-order-history.spec.ts",
-              "line": 255,
+              "line": 362,
               "column": 9
             },
             {
@@ -316,12 +316,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3116,
+                      "duration": 3145,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:11:07.623Z",
+                      "startTime": "2026-08-09T15:40:47.095Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -336,7 +336,379 @@
               ],
               "id": "5657df7d5c98eb3c5950-ad13e68fda12b572d131",
               "file": "fr11-order-history.spec.ts",
-              "line": 255,
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-004 - Hiển thị nhiều đơn hàng của cùng user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-004.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3213,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:40:50.245Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-004.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-b6fee9b04c28ad0add47",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-005 - Danh sách không hiển thị đơn hàng của user khác",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-005.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3173,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:40:53.463Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-005.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-64f409aa11da500e3059",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-006 - Xem chi tiết đơn hàng của chính user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-006.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3208,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:40:56.641Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-006.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "own-order-api-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJpZCI6IDI2LAogICJ1c2VyX2lkIjogMzIsCiAgInRvdGFsX2Ftb3VudCI6IDIzMTEwNiwKICAic3RhdHVzIjogInBlbmRpbmciLAogICJzaGlwcGluZ19hZGRyZXNzIjogIkZSMTEgRFQwMDYgb3duIG9yZGVyIGRldGFpbCBhZGRyZXNzICMxIiwKICAiY3JlYXRlZF9hdCI6ICIyMDI2LTA4LTA5IDE1OjQwOjU2Igp9"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-224ecb20571c715deae3",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-007 - Từ chối truy cập chi tiết đơn hàng của user khác",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-007.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 3303,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:415:76",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                          "column": 76,
+                          "line": 415
+                        },
+                        "snippet": "  413 |           contentType: 'application/json',\n  414 |         });\n> 415 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  416 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  417 |         return;\n  418 |       }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                            "column": 76,
+                            "line": 415
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n\n  413 |           contentType: 'application/json',\n  414 |         });\n> 415 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  416 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  417 |         return;\n  418 |       }\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:415:76"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                            "column": 31,
+                            "line": 416
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/\"user_id\"|total_amount|shipping_address|created_at/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"id\\\":28,\u001b[7m\\\"user_id\\\"\u001b[27m:34,\\\"total_amount\\\":991107,\\\"status\\\":\\\"pending\\\",\\\"shipping_address\\\":\\\"FR11 DT007 other user protected order #1\\\",\\\"created_at\\\":\\\"2026-08-09 15:40:59\\\"}\"\u001b[39m\n\n  414 |         });\n  415 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n> 416 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                               ^\n  417 |         return;\n  418 |       }\n  419 |\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:416:31"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:40:59.854Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-007.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "other-order-api-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJpZCI6IDI4LAogICJ1c2VyX2lkIjogMzQsCiAgInRvdGFsX2Ftb3VudCI6IDk5MTEwNywKICAic3RhdHVzIjogInBlbmRpbmciLAogICJzaGlwcGluZ19hZGRyZXNzIjogIkZSMTEgRFQwMDcgb3RoZXIgdXNlciBwcm90ZWN0ZWQgb3JkZXIgIzEiLAogICJjcmVhdGVkX2F0IjogIjIwMjYtMDgtMDkgMTU6NDA6NTkiCn0="
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                        "column": 76,
+                        "line": 415
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-917a162dead4750633e2",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-008 - Hiển thị mã đơn hàng trong lịch sử đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-008.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3258,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:41:03.443Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-008.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-6d7e58828b8ee00bd877",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-009 - Hiển thị ngày đặt trong lịch sử đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-009.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3126,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:41:06.800Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-009.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-9ba89b2f2bfcc1e9735a",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-010 - Hiển thị tổng tiền trong lịch sử đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-010.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3179,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:41:09.931Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-010.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-5b09f376737b0f315506",
+              "file": "fr11-order-history.spec.ts",
+              "line": 362,
               "column": 9
             }
           ]
@@ -346,11 +718,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-09T15:10:57.129Z",
-    "duration": 13641.073999999999,
-    "expected": 5,
+    "startTime": "2026-08-09T15:40:36.656Z",
+    "duration": 36482.406,
+    "expected": 11,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }

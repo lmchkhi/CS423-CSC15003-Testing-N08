@@ -209,3 +209,25 @@ bây giờ bắt đầu thực hiện commit 3 theo plan reports/automation-comm
 ```text
 Đã đọc plan reports/automation-commit-plan.md và các skill local eshop-hw04-task1-automation, write-ai-audit-report, gh-create-bug-issues. Đọc SRS/API/manual cases FR-11 theo phạm vi black-box, không đọc source backend/frontend. Tạo tests/automation/data/fr11-order-history.json với 5 case Commit 3 và tests/automation/specs/fr11-order-history.spec.ts theo data-driven Playwright. Probe API public qua http://[::1]:3000 để xác nhận register/login/checkout/my-orders. Chạy npm install vì node_modules thiếu Playwright binary. Khởi động frontend web black-box bằng npm run dev, Vite chọn http://[::1]:5174 do 5173 đang bận. Lần chạy đầu phát hiện browser launch bị sandbox macOS và locator password/sign-in chưa phù hợp; đã rerun ngoài sandbox và chỉnh locator fallback theo screenshot runtime. Chạy Chromium report thành công: 5 executed, 5 passed, 0 failed. Tạo reports/html/fr11-order-history/chromium/hw04-report.html, reports/html/fr11-order-history/chromium/index.html, reports/results/fr11-order-history/chromium/results.json và report-label-check.json; verify Run by: 23127475 thành công. Cập nhật reports/main-report.md và reports/automation-commit-plan.md. Không tạo bug report/GitHub Issue vì subset Commit 3 chưa có defect reproduce ổn định.
 ```
+
+## Entry #10
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 22:45 GMT+7             |
+| **Artifact type** | Playwright automation script + bug report FR-11 Commit 4         |
+
+**Full prompt:**
+
+```text
+bây giờ tiếp tục với commit 4, tôi đã chạy sẵn backend và frontend-web giúp rồi
+```
+
+### (2) AI Output
+
+```text
+Đã tiếp tục Commit 4 theo reports/automation-commit-plan.md cho FR-11. Đọc skill eshop-hw04-task1-automation và write-ai-audit-report, đọc reference FR-11/manual cases TC-FR11-DT-004 đến TC-FR11-DT-010 và bug report HW02 BUG-FR11-007; không đọc source backend/frontend. Bổ sung 7 test case vào tests/automation/data/fr11-order-history.json, mở rộng tests/automation/specs/fr11-order-history.spec.ts với helper user A/user B, nhiều đơn hàng, detail API, ownership và field display assertions. Chạy Playwright Chromium với WEB_BASE_URL=http://[::1]:5173 và API_BASE_URL=http://[::1]:3000: 12 executed, 11 passed, 1 failed. Đã review và sửa lỗi script ở order id regex, date format non-zero-padded và login success text. Fail còn lại là defect thật TC-FR11-DT-007: GET /api/orders/<other_user_order_id> bằng token user A trả 200 và body chứa dữ liệu order user B. Đã tạo bug-reports/automation/BUG-FR11-AUTO-001.md theo template, kèm screenshot/error context/trace/video/report links. Cập nhật reports/main-report.md, reports/automation-commit-plan.md, reports/html/fr11-order-history/chromium/*, reports/results/fr11-order-history/chromium/results.json và report-label-check.json. Verify report label ok=true, bug report links missing=0. Chưa tạo GitHub Issue ở Commit 4 vì plan chốt issue sau Commit 5 full suite.
+```

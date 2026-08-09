@@ -71,5 +71,130 @@
       "pagePattern": "lịch sử|đơn hàng|orders|order history",
       "nonEmptyPattern": "mã đơn|đơn hàng|order|tổng|total|trạng thái|status"
     }
+  },
+  {
+    "id": "TC-FR11-DT-004",
+    "title": "Hiển thị nhiều đơn hàng của cùng user",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-004.md",
+    "kind": "uiHistoryWithOrders",
+    "account": "generated",
+    "orderSetup": {
+      "count": 3,
+      "baseAmount": 231104,
+      "shippingAddress": "FR11 DT004 multiple orders address"
+    },
+    "expected": {
+      "minOrderCount": 3,
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "nonEmptyPattern": "mã đơn|đơn hàng|order|tổng|total|trạng thái|status"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-005",
+    "title": "Danh sách không hiển thị đơn hàng của user khác",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-005.md",
+    "kind": "uiDoesNotExposeOtherUserOrder",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231105,
+      "shippingAddress": "FR11 DT005 owner order address"
+    },
+    "otherOrderSetup": {
+      "count": 1,
+      "baseAmount": 991105,
+      "shippingAddress": "FR11 DT005 other user private order"
+    },
+    "expected": {
+      "exactOrderCount": 1,
+      "pagePattern": "lịch sử|đơn hàng|orders|order history"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-006",
+    "title": "Xem chi tiết đơn hàng của chính user",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-006.md",
+    "kind": "apiOwnOrderDetail",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231106,
+      "shippingAddress": "FR11 DT006 own order detail address"
+    },
+    "expected": {
+      "apiStatus": 200
+    }
+  },
+  {
+    "id": "TC-FR11-DT-007",
+    "title": "Từ chối truy cập chi tiết đơn hàng của user khác",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-007.md",
+    "kind": "apiOtherOrderDetailRejected",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231107,
+      "shippingAddress": "FR11 DT007 actor order address"
+    },
+    "otherOrderSetup": {
+      "count": 1,
+      "baseAmount": 991107,
+      "shippingAddress": "FR11 DT007 other user protected order"
+    },
+    "expected": {
+      "rejectedStatuses": [401, 403, 404],
+      "bodyMustNotContainPattern": "\"user_id\"|total_amount|shipping_address|created_at"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-008",
+    "title": "Hiển thị mã đơn hàng trong lịch sử đơn hàng",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-008.md",
+    "kind": "uiDisplaysOrderField",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231108,
+      "shippingAddress": "FR11 DT008 order id display address"
+    },
+    "expected": {
+      "field": "id",
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "fieldLabelPattern": "mã đơn|order|#"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-009",
+    "title": "Hiển thị ngày đặt trong lịch sử đơn hàng",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-009.md",
+    "kind": "uiDisplaysOrderField",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231109,
+      "shippingAddress": "FR11 DT009 created date display address"
+    },
+    "expected": {
+      "field": "createdAt",
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "fieldLabelPattern": "ngày|date|created|đặt"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-010",
+    "title": "Hiển thị tổng tiền trong lịch sử đơn hàng",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-010.md",
+    "kind": "uiDisplaysOrderField",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231110,
+      "shippingAddress": "FR11 DT010 total amount display address"
+    },
+    "expected": {
+      "field": "totalAmount",
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "fieldLabelPattern": "tổng|total|tiền|₫"
+    }
   }
 ]

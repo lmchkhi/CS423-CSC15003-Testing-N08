@@ -11,17 +11,29 @@ type Fr11Case = {
   id: string;
   title: string;
   source: string;
-  kind: 'uiHistoryWithOrders' | 'uiEmptyHistory' | 'guestBlocked';
+  kind:
+    | 'uiHistoryWithOrders'
+    | 'uiEmptyHistory'
+    | 'guestBlocked'
+    | 'uiDoesNotExposeOtherUserOrder'
+    | 'apiOwnOrderDetail'
+    | 'apiOtherOrderDetailRejected'
+    | 'uiDisplaysOrderField';
   account: 'generated' | 'guest';
   orderSetup?: OrderSetup;
+  otherOrderSetup?: OrderSetup;
   expected: {
     apiStatus?: number;
+    rejectedStatuses?: number[];
     minOrderCount?: number;
     exactOrderCount?: number;
     pagePattern?: string;
     nonEmptyPattern?: string;
     emptyPattern?: string;
     guardPattern?: string;
+    bodyMustNotContainPattern?: string;
+    field?: 'id' | 'createdAt' | 'totalAmount';
+    fieldLabelPattern?: string;
   };
 };
 
@@ -40,6 +52,14 @@ type Order = {
   status: string;
   shipping_address?: string;
   created_at?: string;
+};
+
+type PreparedUser = {
+  email: string;
+  password: string;
+  token: string;
+  userId: number;
+  orders: Order[];
 };
 
 const cases = fr11Cases as Fr11Case[];
@@ -68,6 +88,21 @@ function amountPattern(amount: number): RegExp {
   const dot = raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   const comma = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return new RegExp(`${raw}|${dot}|${comma}`, 'i');
+}
+
+function orderIdPattern(orderId: number): RegExp {
+  return new RegExp(`(#\\s*${orderId}|mã\\s*đơn\\s*:?\\s*#?\\s*${orderId}\\b|order\\s*#?\\s*${orderId}\\b|\\b${orderId}\\b)`, 'i');
+}
+
+function datePattern(value?: string): RegExp {
+  const datePart = String(value ?? '').split(/[ T]/)[0];
+  const [year, month, day] = datePart.split('-');
+  if (!year || !month || !day) {
+    return /ngày|date|created|đặt/i;
+  }
+  const d = String(Number(day));
+  const m = String(Number(month));
+  return new RegExp(`${year}-${month}-${day}|${day}/${month}/${year}|${d}/${m}/${year}|${m}/${d}/${year}|${day}-${month}-${year}`, 'i');
 }
 
 function emailInput(page: import('@playwright/test').Page) {
@@ -134,7 +169,10 @@ async function createOrderByApi(
     },
   });
   expect.soft(response.status()).toBe(200);
-  expect.soft(await response.text()).toMatch(/checkout|order|thành công|success/i);
+  const bodyText = await response.text();
+  expect.soft(bodyText).toMatch(/checkout|order|thành công|success/i);
+  const body = JSON.parse(bodyText);
+  return Number(body.orderId);
 }
 
 async function fetchMyOrders(request: import('@playwright/test').APIRequestContext, token: string): Promise<Order[]> {
@@ -149,14 +187,34 @@ async function fetchMyOrders(request: import('@playwright/test').APIRequestConte
   return body as Order[];
 }
 
-async function prepareUserForCase(
+async function fetchOrderDetail(
   request: import('@playwright/test').APIRequestContext,
-  testCase: Fr11Case,
+  token: string,
+  orderId: number,
 ) {
-  const email = uniqueEmail(testCase.id);
+  const response = await request.get(apiUrl(`/api/orders/${orderId}`), {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const text = await response.text();
+  let body: unknown = text;
+  try {
+    body = JSON.parse(text);
+  } catch {
+    // Body can be plain text for rejected API responses.
+  }
+  return { response, body, text };
+}
+
+async function prepareUserWithOrders(
+  request: import('@playwright/test').APIRequestContext,
+  testId: string,
+  setup: OrderSetup = { count: 0 },
+): Promise<PreparedUser> {
+  const email = uniqueEmail(testId);
   await registerUser(request, email);
   const login = await loginByApi(request, email);
-  const setup = testCase.orderSetup ?? { count: 0 };
 
   for (let index = 0; index < setup.count; index += 1) {
     await createOrderByApi(
@@ -171,13 +229,20 @@ async function prepareUserForCase(
   return { email, password: defaultPassword, token: login.token, userId: login.user.id, orders };
 }
 
+async function prepareUserForCase(
+  request: import('@playwright/test').APIRequestContext,
+  testCase: Fr11Case,
+) {
+  return prepareUserWithOrders(request, testCase.id, testCase.orderSetup ?? { count: 0 });
+}
+
 async function loginByUi(page: import('@playwright/test').Page, email: string, password: string) {
   await page.goto('/login');
   await expect(emailInput(page)).toBeVisible();
   await emailInput(page).fill(email);
   await passwordInput(page).fill(password);
   await page.getByRole('button', { name: /đăng nhập|login|sign in|submit/i }).first().click();
-  await expect.soft(page.locator('body')).toContainText(/đăng xuất|logout|tài khoản|profile|hồ sơ|lịch sử|đơn hàng/i);
+  await expect.soft(page.locator('body')).toContainText(/đăng xuất|logout|thoát|chào|tài khoản|profile|hồ sơ|lịch sử|đơn hàng/i);
 }
 
 async function openOrderHistory(page: import('@playwright/test').Page) {
@@ -246,9 +311,51 @@ async function assertOrderHistoryUi(page: import('@playwright/test').Page, testC
   }
 }
 
+async function assertOtherUserOrderHidden(
+  page: import('@playwright/test').Page,
+  actorOrders: Order[],
+  otherOrders: Order[],
+) {
+  const body = page.locator('body');
+  for (const order of actorOrders) {
+    await expect.soft(body).toContainText(amountPattern(order.total_amount));
+  }
+  for (const order of otherOrders) {
+    await expect.soft(body).not.toContainText(amountPattern(order.total_amount));
+    await expect.soft(body).not.toContainText(orderIdPattern(order.id));
+  }
+}
+
+async function assertOrderFieldVisible(
+  page: import('@playwright/test').Page,
+  testCase: Fr11Case,
+  order: Order,
+) {
+  const body = page.locator('body');
+  await expect.soft(body).toContainText(textPattern(testCase.expected.fieldLabelPattern));
+
+  if (testCase.expected.field === 'id') {
+    await expect.soft(body).toContainText(orderIdPattern(order.id));
+    return;
+  }
+
+  if (testCase.expected.field === 'createdAt') {
+    await expect.soft(body).toContainText(datePattern(order.created_at));
+    return;
+  }
+
+  if (testCase.expected.field === 'totalAmount') {
+    await expect.soft(body).toContainText(amountPattern(order.total_amount));
+    await expect.soft(body).toContainText(/₫|đ|vnd|vnđ/i);
+    return;
+  }
+
+  throw new Error(`Unsupported FR-11 field assertion: ${testCase.expected.field}`);
+}
+
 test.describe(`Run by: ${studentId} | FR-11 - Xem lịch sử đơn hàng`, () => {
   test.beforeAll(() => {
-    expect(cases.length).toBeGreaterThanOrEqual(5);
+    expect(cases.length).toBeGreaterThanOrEqual(12);
   });
 
   for (const testCase of cases) {
@@ -265,8 +372,57 @@ test.describe(`Run by: ${studentId} | FR-11 - Xem lịch sử đơn hàng`, () =
       }
 
       const prepared = await prepareUserForCase(request, testCase);
+      const otherUser = testCase.otherOrderSetup
+        ? await prepareUserWithOrders(request, `${testCase.id}-other`, testCase.otherOrderSetup)
+        : undefined;
       await loginByUi(page, prepared.email, prepared.password);
       await openOrderHistory(page);
+
+      if (testCase.kind === 'uiDoesNotExposeOtherUserOrder') {
+        expect(otherUser).toBeTruthy();
+        await assertOrderHistoryUi(page, testCase, prepared.orders);
+        await assertOtherUserOrderHidden(page, prepared.orders, otherUser!.orders);
+        expect.soft(prepared.orders.map((order) => order.user_id)).not.toContain(otherUser!.userId);
+        return;
+      }
+
+      if (testCase.kind === 'apiOwnOrderDetail') {
+        const ownOrder = prepared.orders[0];
+        expect(ownOrder).toBeTruthy();
+        const { response, body, text } = await fetchOrderDetail(request, prepared.token, ownOrder.id);
+        await test.info().attach('own-order-api-response.json', {
+          body: JSON.stringify(body, null, 2),
+          contentType: 'application/json',
+        });
+        expect.soft(response.status()).toBe(testCase.expected.apiStatus);
+        expect.soft(text).toMatch(orderIdPattern(ownOrder.id));
+        expect.soft(body).toMatchObject({
+          id: ownOrder.id,
+          user_id: prepared.userId,
+        });
+        return;
+      }
+
+      if (testCase.kind === 'apiOtherOrderDetailRejected') {
+        expect(otherUser).toBeTruthy();
+        const otherOrder = otherUser!.orders[0];
+        expect(otherOrder).toBeTruthy();
+        const { response, body, text } = await fetchOrderDetail(request, prepared.token, otherOrder.id);
+        await test.info().attach('other-order-api-response.json', {
+          body: JSON.stringify(body, null, 2),
+          contentType: 'application/json',
+        });
+        expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());
+        expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));
+        return;
+      }
+
+      if (testCase.kind === 'uiDisplaysOrderField') {
+        await assertOrderHistoryUi(page, testCase, prepared.orders);
+        await assertOrderFieldVisible(page, testCase, prepared.orders[0]);
+        return;
+      }
+
       await assertOrderHistoryUi(page, testCase, prepared.orders);
     });
   }
