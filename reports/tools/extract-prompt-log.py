@@ -29,6 +29,10 @@ SESSIONS = [
     ("b45a13b7", "Thực thi Session 2 — FR-10"),
     ("78f17f22", "Điều chỉnh kế hoạch theo ràng buộc commit mới; rà soát log AI"),
     ("f6295926", "Thực thi Session 3 — FR-13, triage, bug report, tài liệu hoá"),
+    ("ff131a90", "Đối chiếu kịch bản quay video với yêu cầu HW04"),
+    ("7595b1b0", "Đặt tên hai video YouTube theo nội dung"),
+    ("b078efda", "Thay hai link YouTube vào README và main-report"),
+    ("a641cf9c", "Session 4 — rà soát toàn bài theo rubric, sửa số liệu sai và văn phong tài liệu"),
 ]
 
 # Model display name per transcript's own `message.model` field — sessions
