@@ -1,0 +1,75 @@
+[
+  {
+    "id": "TC-FR11-DT-001",
+    "title": "Xem lịch sử đơn hàng khi user đã đăng nhập và có đơn hàng",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md",
+    "kind": "uiHistoryWithOrders",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231101,
+      "shippingAddress": "FR11 DT001 baseline address"
+    },
+    "expected": {
+      "minOrderCount": 1,
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "nonEmptyPattern": "mã đơn|đơn hàng|order|tổng|total|trạng thái|status"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-002",
+    "title": "Từ chối xem lịch sử đơn hàng khi chưa đăng nhập",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-002.md",
+    "kind": "guestBlocked",
+    "account": "guest",
+    "expected": {
+      "apiStatus": 401,
+      "guardPattern": "đăng nhập|login|unauthorized|vui lòng đăng nhập|yêu cầu đăng nhập"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-003",
+    "title": "Hiển thị trạng thái rỗng khi user chưa có đơn hàng",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-003.md",
+    "kind": "uiEmptyHistory",
+    "account": "generated",
+    "orderSetup": {
+      "count": 0
+    },
+    "expected": {
+      "exactOrderCount": 0,
+      "emptyPattern": "chưa có đơn|không có đơn|trống|empty|no orders|no order"
+    }
+  },
+  {
+    "id": "TC-FR11-BVA-001",
+    "title": "User có 0 đơn hàng (ON - min count)",
+    "source": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md",
+    "kind": "uiEmptyHistory",
+    "account": "generated",
+    "orderSetup": {
+      "count": 0
+    },
+    "expected": {
+      "exactOrderCount": 0,
+      "emptyPattern": "chưa có đơn|không có đơn|trống|empty|no orders|no order"
+    }
+  },
+  {
+    "id": "TC-FR11-BVA-002",
+    "title": "User có đúng 1 đơn hàng (ON+ - min count + 1)",
+    "source": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-002.md",
+    "kind": "uiHistoryWithOrders",
+    "account": "generated",
+    "orderSetup": {
+      "count": 1,
+      "baseAmount": 231102,
+      "shippingAddress": "FR11 BVA002 one order address"
+    },
+    "expected": {
+      "exactOrderCount": 1,
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "nonEmptyPattern": "mã đơn|đơn hàng|order|tổng|total|trạng thái|status"
+    }
+  }
+]

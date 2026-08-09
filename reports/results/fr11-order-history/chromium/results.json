@@ -1,0 +1,356 @@
+{
+  "config": {
+    "argv": [
+      "/Users/thanhngo/.nvm/versions/node/v24.18.0/bin/node",
+      "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/node_modules/.bin/playwright",
+      "test",
+      "tests/automation/specs/fr11-order-history.spec.ts",
+      "--project=chromium"
+    ],
+    "configFile": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/playwright.config.ts",
+    "rootDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/results/fr11-order-history/chromium/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr11-order-history/chromium",
+          "title": "Run by: 23127475 | fr11-order-history | chromium | 2026-08-09T15:10:57.127Z"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 5,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr11-order-history.spec.ts",
+      "file": "fr11-order-history.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Run by: 23127475 | FR-11 - Xem lịch sử đơn hàng",
+          "file": "fr11-order-history.spec.ts",
+          "line": 249,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-FR11-DT-001 - Xem lịch sử đơn hàng khi user đã đăng nhập và có đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3208,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:10:57.413Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-9f49dda9f7b483f74877",
+              "file": "fr11-order-history.spec.ts",
+              "line": 255,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-002 - Từ chối xem lịch sử đơn hàng khi chưa đăng nhập",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-002.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 691,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:11:00.719Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-002.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-60b9fb066068b5e9ba99",
+              "file": "fr11-order-history.spec.ts",
+              "line": 255,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-003 - Hiển thị trạng thái rỗng khi user chưa có đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-003.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3099,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:11:01.415Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-003.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-e3d3bb98844c6f3f762b",
+              "file": "fr11-order-history.spec.ts",
+              "line": 255,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-BVA-001 - User có 0 đơn hàng (ON - min count)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3099,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:11:04.519Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-f7a9ee92685b54f1af60",
+              "file": "fr11-order-history.spec.ts",
+              "line": 255,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-BVA-002 - User có đúng 1 đơn hàng (ON+ - min count + 1)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-002.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3116,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T15:11:07.623Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-002.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-ad13e68fda12b572d131",
+              "file": "fr11-order-history.spec.ts",
+              "line": 255,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-09T15:10:57.129Z",
+    "duration": 13641.073999999999,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

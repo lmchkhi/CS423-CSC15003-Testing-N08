@@ -61,16 +61,16 @@ Playwright HTML report gốc vẫn được giữ ở `index.html`. File wrapper
 | Feature | Test case automated | Browser runs | Passed per browser | Failed per browser | Bug reports |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | FR-03 | 18 | 3 | 7 | 11 | 6 |
-| FR-11 | TODO | TODO | TODO | TODO | TODO |
+| FR-11 | 5 / 15 planned | 1 | 5 | 0 | 0 |
 | FR-14 | TODO | TODO | TODO | TODO | TODO |
 
 Tổng hiện tại:
 
 - Features hoàn tất: 1/3
-- Test cases automated: 18
-- Browser runs hoàn tất: 3
-- Tổng lượt test đã thực thi: 54
-- Tổng pass: 21
+- Test cases automated: 23
+- Browser runs hoàn tất: 4
+- Tổng lượt test đã thực thi: 59
+- Tổng pass: 26
 - Tổng fail: 33
 - Automation bug reports: 6
 
@@ -275,18 +275,65 @@ Trong quá trình tạo FR-03 automation, script ban đầu cần được revie
 
 ## 7. FR-11 - Order History View
 
-Trạng thái: planned.
+Trạng thái: in progress - Commit 3 / đợt 1 đã hoàn tất.
 
 Kế hoạch chi tiết nằm trong [`reports/automation-commit-plan.md`](automation-commit-plan.md).
 
-Tóm tắt dự kiến:
+### 7.1 Phạm vi Commit 3
 
-- Automate 15 test case: TC-FR11-DT-001 đến TC-FR11-DT-012 và TC-FR11-BVA-001 đến TC-FR11-BVA-003.
-- Chia 3 commit: baseline/access control, ownership/detail/display fields, full cross-browser.
-- Chạy Chromium, Firefox, WebKit.
-- Tạo report HTML, JSON result, bug report và GitHub Issues nếu có lỗi thật.
+Commit 3 tạo baseline automation cho FR-11 với 5 test case đầu:
 
-Kết quả sẽ cập nhật sau khi chạy.
+| Test case | Mục tiêu | Kết quả Chromium |
+| --- | --- | --- |
+| TC-FR11-DT-001 | User đăng nhập và có ít nhất 1 đơn hàng xem được lịch sử | Passed |
+| TC-FR11-DT-002 | Guest bị chặn khỏi lịch sử đơn hàng và API `my-orders` | Passed |
+| TC-FR11-DT-003 | User chưa có đơn hàng thấy empty state | Passed |
+| TC-FR11-BVA-001 | Boundary 0 đơn hàng | Passed |
+| TC-FR11-BVA-002 | Boundary đúng 1 đơn hàng | Passed |
+
+### 7.2 Automation artifact
+
+- Data file: [`tests/automation/data/fr11-order-history.json`](../tests/automation/data/fr11-order-history.json)
+- Spec file: [`tests/automation/specs/fr11-order-history.spec.ts`](../tests/automation/specs/fr11-order-history.spec.ts)
+- Playwright report wrapper: [`reports/html/fr11-order-history/chromium/hw04-report.html`](html/fr11-order-history/chromium/hw04-report.html)
+- Playwright report gốc: [`reports/html/fr11-order-history/chromium/index.html`](html/fr11-order-history/chromium/index.html)
+- JSON result: [`reports/results/fr11-order-history/chromium/results.json`](results/fr11-order-history/chromium/results.json)
+- Label verification manifest: [`reports/html/fr11-order-history/report-label-check.json`](html/fr11-order-history/report-label-check.json)
+
+### 7.3 Cách setup và oracle
+
+Script dùng API black-box theo `api_specification.md` để tạo dữ liệu trước test:
+
+- `POST /api/register` tạo user riêng theo `runId`.
+- `POST /api/login` lấy token.
+- `POST /api/checkout` tạo 0 hoặc 1 order theo data case.
+- `GET /api/orders/my-orders` đối chiếu số lượng đơn hàng và quyền guest.
+
+UI vẫn là mục tiêu kiểm thử chính cho các case hiển thị: script login qua form web, mở lịch sử đơn hàng bằng danh sách route ứng viên và fallback link navigation, sau đó kiểm tra text/order amount/empty state. Assertion pattern đã dùng trong đợt 1 gồm API status/body, navigation/UI content, list count/data consistency.
+
+### 7.4 Kết quả chạy Commit 3
+
+Command đã chạy:
+
+```bash
+STUDENT_ID=23127475 HW04_FEATURE=fr11-order-history HW04_BROWSER=chromium HW04_REPORT_DIR=reports/html/fr11-order-history/chromium HW04_JSON_REPORT=reports/results/fr11-order-history/chromium/results.json HW04_TEST_RESULTS_DIR=test-results/fr11-order-history/chromium WEB_BASE_URL='http://[::1]:5174' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr11-order-history.spec.ts --project=chromium
+```
+
+Kết quả: 5 executed, 5 passed, 0 failed. Không tạo bug report hoặc GitHub Issue ở đợt này vì chưa có defect reproduce ổn định trong subset Commit 3.
+
+### 7.5 Human review và chỉnh sửa script AI-generated
+
+| Vấn đề phát hiện | Cách chỉnh |
+| --- | --- |
+| Lần chạy đầu fail do locator mật khẩu dựa vào label/type chưa phù hợp với DOM black-box của form login | Thêm fallback `getByRole('textbox').nth(1)` cho password field |
+| Button login hiển thị `Sign In`, không khớp regex ban đầu chỉ có `đăng nhập/login/submit` | Bổ sung `sign in` vào locator button |
+| Browser launch trong sandbox macOS fail `MachPortRendezvousServer Permission denied` | Rerun Playwright với quyền ngoài sandbox để tạo report thật |
+| Frontend web không listen ở `5173`; khi khởi động SUT black-box, Vite chọn `5174` | Chạy report với `WEB_BASE_URL='http://[::1]:5174'` và ghi rõ command |
+
+### 7.6 Phần còn lại của FR-11
+
+- Commit 4 sẽ mở rộng TC-FR11-DT-004 đến TC-FR11-DT-010: nhiều đơn, ownership, detail/API, mã đơn, ngày đặt, tổng tiền.
+- Commit 5 sẽ hoàn thiện TC-FR11-DT-011, TC-FR11-DT-012 và TC-FR11-BVA-003, chạy đủ Chromium/Firefox/WebKit, rồi tạo bug report/GitHub Issue nếu defect được reproduce.
 
 ## 8. FR-14 - Category Management CRUD
 
@@ -381,7 +428,7 @@ Các ý chính dự kiến cho critique:
 | Criteria | Status | Evidence |
 | --- | --- | --- |
 | Task 1 - Feature A / FR-03 | Done | Script, JSON data, 3 browser reports, 6 bug reports, 6 GitHub Issues |
-| Task 1 - Feature B / FR-11 | TODO | Planned |
+| Task 1 - Feature B / FR-11 | In progress | Commit 3 baseline: 5 Chromium tests passed, report generated |
 | Task 1 - Feature C / FR-14 | TODO | Planned |
 | Task 2 - Demo video | TODO | Not recorded yet |
 | Agent Skill | In progress / available | [`skills/eshop-hw04-task1-automation`](../skills/eshop-hw04-task1-automation/), [`skills/write-ai-audit-report`](../skills/write-ai-audit-report/) |

@@ -60,6 +60,8 @@ Main report:
 
 ### Commit 3 - FR-11 đợt 1: baseline, smoke, access control
 
+Trạng thái: Done.
+
 Mục tiêu:
 
 - Tạo file data và spec đầu tiên cho FR-11.
@@ -90,6 +92,15 @@ Commit message gợi ý:
 ```text
 test(fr11): add order history baseline automation cases
 ```
+
+Kết quả thực hiện:
+
+- Đã tạo [`tests/automation/data/fr11-order-history.json`](../tests/automation/data/fr11-order-history.json).
+- Đã tạo [`tests/automation/specs/fr11-order-history.spec.ts`](../tests/automation/specs/fr11-order-history.spec.ts).
+- Đã chạy Chromium smoke với 5 test case: 5 passed, 0 failed.
+- Report: [`reports/html/fr11-order-history/chromium/hw04-report.html`](html/fr11-order-history/chromium/hw04-report.html).
+- JSON result: [`reports/results/fr11-order-history/chromium/results.json`](results/fr11-order-history/chromium/results.json).
+- Không tạo bug report/GitHub Issue ở đợt 1 vì chưa có defect reproduce ổn định.
 
 ### Commit 4 - FR-11 đợt 2: ownership, detail, display fields
 

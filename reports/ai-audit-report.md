@@ -187,3 +187,25 @@ bây giờ tạo github issue cho fr-03 giúp tôi và cập nhật các file li
 ```text
 Áp dụng workflow từ skill gh-create-bug-issues. Đã kiểm tra gh auth status, xác định repo target lmchkhi/CS423-CSC15003-Testing-N08 bằng gh repo view --json nameWithOwner,url, chạy gh label list --limit 100 để lấy đủ label hiện có và dùng lại label chính xác: Type: Bug, Status: New, Module: Forgot password, Priority: P1/P2/P3, Severity: Major/Minor/Critical. Tạo 6 GitHub Issues cho FR-03 từ các bug report BUG-FR03-AUTO-001..006: #214, #216, #215, #217, #218, #219. Đã kiểm tra lại title/label bằng gh issue view, cập nhật section GitHub Issue vào từng bug report Markdown, cập nhật bảng bug reports và trạng thái GitHub Issues trong reports/main-report.md. Issue body dùng bản tạm trong /tmp với evidence link dạng GitHub blob URL theo branch hw04/23127475 và note về việc upload screenshot thủ công nếu cần ảnh inline.
 ```
+
+## Entry #9
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 22:21 GMT+7             |
+| **Artifact type** | Playwright automation script + report FR-11 Commit 3         |
+
+**Full prompt:**
+
+```text
+bây giờ bắt đầu thực hiện commit 3 theo plan reports/automation-commit-plan.md giúp tôi. nhớ dùng các skill eshop-hw04-task1-automation, write-ai-audit-report, gh-create-bug-issues khi cần
+```
+
+### (2) AI Output
+
+```text
+Đã đọc plan reports/automation-commit-plan.md và các skill local eshop-hw04-task1-automation, write-ai-audit-report, gh-create-bug-issues. Đọc SRS/API/manual cases FR-11 theo phạm vi black-box, không đọc source backend/frontend. Tạo tests/automation/data/fr11-order-history.json với 5 case Commit 3 và tests/automation/specs/fr11-order-history.spec.ts theo data-driven Playwright. Probe API public qua http://[::1]:3000 để xác nhận register/login/checkout/my-orders. Chạy npm install vì node_modules thiếu Playwright binary. Khởi động frontend web black-box bằng npm run dev, Vite chọn http://[::1]:5174 do 5173 đang bận. Lần chạy đầu phát hiện browser launch bị sandbox macOS và locator password/sign-in chưa phù hợp; đã rerun ngoài sandbox và chỉnh locator fallback theo screenshot runtime. Chạy Chromium report thành công: 5 executed, 5 passed, 0 failed. Tạo reports/html/fr11-order-history/chromium/hw04-report.html, reports/html/fr11-order-history/chromium/index.html, reports/results/fr11-order-history/chromium/results.json và report-label-check.json; verify Run by: 23127475 thành công. Cập nhật reports/main-report.md và reports/automation-commit-plan.md. Không tạo bug report/GitHub Issue vì subset Commit 3 chưa có defect reproduce ổn định.
+```
