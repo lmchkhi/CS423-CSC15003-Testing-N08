@@ -28,7 +28,7 @@
     { "id": "TC-CART-008", "title": "Tính tổng tiền của nhiều sản phẩm", "scenario": "multiProductTotal", "productIds": [7001, 7002], "expectedAmount": 373456 },
     { "id": "TC-CART-009", "title": "Gộp sản phẩm trùng và tăng số lượng", "scenario": "duplicateProduct", "productIds": [7001, 7001], "expectedQuantity": "2" },
     { "id": "TC-CART-010", "title": "Tăng số lượng bằng nút cộng", "scenario": "increment", "productIds": [7001], "expectedQuantity": "2" },
-    { "id": "TC-CART-011", "title": "Hiển thị nút trừ để giảm số lượng", "scenario": "decrement", "productIds": [7001] },
+    { "id": "TC-CART-011", "title": "Giảm số lượng bằng nút trừ", "scenario": "decrement", "productIds": [7001], "quantityBeforeDecrement": "2", "expectedQuantity": "1", "amountBeforeDecrement": 246912, "expectedAmount": 123456 },
     { "id": "TC-CART-012", "title": "Hủy dialog xóa giữ nguyên sản phẩm", "scenario": "deleteCancel", "productIds": [7001] },
     { "id": "TC-CART-013", "title": "Xác nhận dialog xóa loại bỏ sản phẩm", "scenario": "deleteConfirm", "productIds": [7001] },
     { "id": "TC-CART-014", "title": "Tiếp tục mua sắm từ giỏ có sản phẩm", "scenario": "populatedContinue", "productIds": [7001], "expectedLabel": "Tiếp tục mua sắm" }

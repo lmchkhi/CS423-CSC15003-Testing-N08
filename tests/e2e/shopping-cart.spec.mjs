@@ -88,7 +88,24 @@ test.describe('FR-07 - Giỏ hàng', () => {
         case 'decrement': {
           const product = data.products.find((item) => item.id === testCase.productIds[0]);
           const row = cart.rowFor(product.name);
-          await expect(row.getByRole('button', { name: '-', exact: true })).toBeVisible();
+          const cells = row.getByRole('cell');
+          const quantityCell = cells.nth(2);
+          const lineTotalCell = cells.nth(3);
+          const incrementButton = row.getByRole('button', { name: '+', exact: true });
+          const decrementButton = row.getByRole('button', { name: '-', exact: true });
+
+          await expect(incrementButton).toBeVisible();
+          await expect(decrementButton).toBeVisible();
+
+          await incrementButton.click();
+          await expect(quantityCell).toHaveText(testCase.quantityBeforeDecrement);
+          await expect.poll(() => currencyValue(lineTotalCell)).toBe(testCase.amountBeforeDecrement);
+          await expect.poll(() => currencyValue(cart.totalBlock())).toBe(testCase.amountBeforeDecrement);
+
+          await decrementButton.click();
+          await expect(quantityCell).toHaveText(testCase.expectedQuantity);
+          await expect.poll(() => currencyValue(lineTotalCell)).toBe(testCase.expectedAmount);
+          await expect.poll(() => currencyValue(cart.totalBlock())).toBe(testCase.expectedAmount);
           break;
         }
         case 'deleteCancel': {

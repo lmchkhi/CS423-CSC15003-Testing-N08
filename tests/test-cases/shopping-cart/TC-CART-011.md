@@ -1,4 +1,4 @@
-# TC-CART-011: Hiển thị nút trừ để giảm số lượng
+# TC-CART-011: Giảm số lượng bằng nút trừ
 
 ## Requirement ID
 
@@ -22,13 +22,16 @@ Shopping Cart / Functional / State Transition
 
 ## Test steps
 
-1. Mở giỏ có sản phẩm 7001.
-2. Quan sát vùng điều chỉnh số lượng.
-3. Tìm nút `-` trên dòng sản phẩm.
+1. Mở giỏ có sản phẩm 7001 với số lượng 1.
+2. Chọn nút `+` và xác nhận số lượng tăng thành 2.
+3. Chọn nút `-`.
+4. Đọc lại số lượng, thành tiền và tổng cộng.
 
 ## Expected result
 
-Nút `-` được hiển thị để người dùng có thể giảm số lượng.
+- Nút `+` và `-` đều hiển thị.
+- Sau khi chọn `+`, số lượng là 2, thành tiền và tổng cộng là `246912 ₫`.
+- Sau khi chọn `-`, số lượng trở về 1, thành tiền và tổng cộng trở về `123456 ₫`.
 
 ## Status / Related bugs
 
