@@ -116,25 +116,40 @@ test.describe('FR-07 - Giỏ hàng', () => {
         }
         case 'deleteCancel': {
           const product = data.products.find((item) => item.id === testCase.productIds[0]);
-          let dialogSeen = false;
-          page.once('dialog', async (dialog) => {
-            dialogSeen = true;
-            await dialog.dismiss();
-          });
-          await cart.rowFor(product.name).getByRole('button', { name: 'Xóa', exact: true }).click();
-          expect(dialogSeen).toBe(true);
+          const deleteButton = cart.rowFor(product.name)
+            .getByRole('button', { name: 'Xóa', exact: true });
+
+          await Promise.all([
+            page.waitForEvent('dialog', { timeout: 5_000 }).then(async (dialog) => {
+              const dialogType = dialog.type();
+              const dialogMessage = dialog.message();
+              await dialog.dismiss();
+              expect(dialogType).toBe('confirm');
+              expect(dialogMessage).toMatch(/xóa/i);
+            }),
+            deleteButton.click(),
+          ]);
+
           await expect(cart.rowFor(product.name)).toHaveCount(1);
           break;
         }
         case 'deleteConfirm': {
           const product = data.products.find((item) => item.id === testCase.productIds[0]);
-          let dialogSeen = false;
-          page.once('dialog', async (dialog) => {
-            dialogSeen = true;
-            await dialog.accept();
-          });
-          await cart.rowFor(product.name).getByRole('button', { name: 'Xóa', exact: true }).click();
-          expect(dialogSeen).toBe(true);
+          const deleteButton = cart.rowFor(product.name)
+            .getByRole('button', { name: 'Xóa', exact: true });
+
+          await Promise.all([
+            page.waitForEvent('dialog', { timeout: 5_000 }).then(async (dialog) => {
+              const dialogType = dialog.type();
+              const dialogMessage = dialog.message();
+              await dialog.accept();
+              expect(dialogType).toBe('confirm');
+              expect(dialogMessage).toMatch(/xóa/i);
+            }),
+            deleteButton.click(),
+          ]);
+
+          await expect(cart.rowFor(product.name)).toHaveCount(0);
           await expect(cart.emptyMessage).toBeVisible();
           break;
         }
