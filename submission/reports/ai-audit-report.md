@@ -303,3 +303,79 @@ Các URL đã được cập nhật vào bug report, test case liên quan và [b
 - Sửa lại TC-CSV-004 và TC-CSV-012 để test chấp nhận hai cách từ chối hợp lệ:
   - Hệ thống xóa file khỏi input.
   - Hệ thống hiển thị lỗi định dạng CSV.
+
+## Entry #4
+
+### (1) Prompt + Tool
+
+| Field             | Content                                              |
+| ----------------- | ---------------------------------------------------- |
+| **Tool**          | GPT-5.6 Sol                                          |
+| **Timestamp**     | 09/08/2026 12:47:08                                  |
+| **Artifact type** | Kiểm thử Playwright FR-07 và quản lý bug trên GitHub |
+
+**Full prompt:**
+
+```
+Sử dụng skill [playwright-automation](skills/playwright-automation/) để thực hiện quy trình web automation testing cho FR-07 được đặc tả trong file README ở root
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `playwright-automation` theo đúng yêu cầu, đọc toàn bộ hướng dẫn của skill và đặc tả FR-07 trong README trước khi chạy quy trình kiểm thử. Sau đó mình sẽ thực thi, lưu bằng chứng và đối chiếu kết quả với tiêu chí của FR-07.
+
+Skill yêu cầu tối thiểu 12 test case riêng biệt, dữ liệu ngoài, chạy thật trên Chromium/Firefox/WebKit, báo cáo HTML có MSSV và timestamp, rồi phân loại mọi lỗi trước khi lập bug. Mình đang kiểm tra cấu trúc dự án, quy trình khởi động và xem MSSV có thể được suy ra an toàn từ các artifact hiện có hay không.
+
+Mình đã xác nhận MSSV `23127062` từ báo cáo học phần hiện có. Phân tích mã cho thấy FR-07 có nhiều rủi ro độc lập (gộp sản phẩm trùng, nút +/−, xác nhận xóa, nhãn tổng tiền, empty state), nên mình sẽ dùng 14 case có ý nghĩa thay vì tách biến thể hình thức; mỗi case vẫn ánh xạ một-một với dữ liệu JSON và script.
+
+Kiểm tra cấu trúc đã nhận đủ 14 case. Lint của frontend hiện thất bại bởi 23 lỗi có sẵn trong SUT (không phải code test), nên mình giữ nguyên sản phẩm và ghi nhận đây là quality-check nền. Giờ mình chạy Chromium thử để bắt lỗi selector/đồng bộ trước; các failure do test sẽ được sửa trước khi tạo ba report chính thức.
+
+Lần chạy thử đã giúp tách được lỗi test khỏi lỗi sản phẩm. Cụ thể: một case thiếu dữ liệu thêm sản phẩm, và ba assertion tiền tệ đã giả định dấu chấm trong khi browser dùng dấu phẩy—đây là lỗi oracle, không phải defect FR-07. Mình đang sửa các điểm này, đồng thời làm case nút `-` độc lập với lỗi “không gộp sản phẩm trùng” để tránh failure dây chuyền.
+
+Sau review, bộ test ổn định ở mức 5 pass và 9 fail trên Chromium; các failure còn lại đều khớp hành vi quan sát được và mã nguồn, không còn failure dây chuyền do oracle. Mình bắt đầu ba lần chạy chính thức riêng biệt với MSSV `23127062`; mỗi browser sẽ có HTML report thật, screenshot và trace riêng.
+
+Ba browser cho kết quả nhất quán: mỗi browser 5 pass, 9 fail (42 lượt chạy: 15 pass, 27 fail). Mình đã xác nhận 7 defect sản phẩm độc lập; hai cặp case cùng chỉ ra một nguyên nhân chung (thiếu cả cụm +/−, và xóa không có dialog), nên sẽ lập 7 bug report thay vì tạo issue trùng lặp.
+
+Theo skill, mỗi bug đã xác nhận phải được đối chiếu với issue/label hiện có trước khi publish. Mình đã tạo 7 bug report cục bộ kèm screenshot và trace thật; tiếp theo sẽ kiểm tra xác thực repository, quy ước label và chống trùng lặp rồi mới tạo GitHub Issues.
+
+GitHub đã có 6 issue trùng khớp chính xác (#18–#23), nên skill yêu cầu tái sử dụng thay vì tạo bản sao. Chỉ bug nhãn “Mua tiếp” trên Web chưa có issue (issue tương tự hiện có chỉ dành cho Mobile); mình sẽ tạo duy nhất issue này với các label đã được xác minh: type, module, severity, priority, status và found-by.
+
+GitHub mapping đã hoàn tất: 6 bug report tái sử dụng issue hiện có và bug thứ 7 được tạo, xác minh tại issue #213. Bước cuối của skill là validate artifact và mở report thật để kiểm tra trực quan MSSV ở tiêu đề cùng timestamp trong Metadata; mình đang thực hiện đúng trên file report đã sinh, không chỉnh sửa HTML.
+
+Đã hoàn tất quy trình automation testing FR-07 bằng skill `playwright-automation`.
+
+- 14/14 test case được tự động hóa, không có case bỏ sót.
+- Chạy thật trên Chromium, Firefox và WebKit.
+- Kết quả mỗi browser: **5 pass, 9 fail**.
+- Tổng cộng: **42 lượt kiểm thử — 15 pass, 27 fail**.
+- Validator đạt yêu cầu: `VALIDATED ARTIFACT STRUCTURE`.
+- Tiêu đề ba report đã được kiểm tra hiển thị `Run by: 23127062`; timestamp ISO được lưu trong metadata.
+
+Artifact chính:
+
+- [Test cases](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/test-cases/shopping-cart)
+- [Playwright suite](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/e2e/shopping-cart.spec.mjs)
+- [External test data](/Users/lvkhang/Documents/uni/software-testing/HW04/tests/data/shopping-cart.json)
+- [Automation review](/Users/lvkhang/Documents/uni/software-testing/HW04/submission/reports/fr07-automation-review.md)
+- [Chromium report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/shopping-cart/chromium/index.html)
+- [Firefox report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/shopping-cart/firefox/index.html)
+- [WebKit report](/Users/lvkhang/Documents/uni/software-testing/HW04/reports/shopping-cart/webkit/index.html)
+- [Bug reports và evidence](/Users/lvkhang/Documents/uni/software-testing/HW04/bugs/shopping-cart)
+
+Đã xác nhận 7 defect độc lập. Sáu defect tái sử dụng GitHub Issues hiện có: [#18](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/18), [#19](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/19), [#20](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/20), [#21](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/21), [#22](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/22), [#23](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/23). Bug mới về nhãn “Mua tiếp” được tạo tại [#213](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/213).
+
+Lint frontend vẫn có 23 lỗi và 1 cảnh báo tồn tại sẵn trong SUT; không phát sinh từ suite FR-07. HTML evidence và video demo cuối cùng vẫn cần được sinh/trình bày từ lần thực thi thật có thể quy trách nhiệm.
+'''
+
+### (3) Verdict
+
+**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+
+### (4) Reasoning
+
+- _[Người dùng tự điền]_
+
+### (5) Student Fix
+
+- _[Người dùng tự điền]_
