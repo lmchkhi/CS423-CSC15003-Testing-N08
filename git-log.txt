@@ -1,3 +1,25 @@
+commit 4e15f91c684f78ebffe5c7ef879c9d1318ca5e7d
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:32:12 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:32:12 2026 +0700
+
+    docs: fold the new error group into both conclusions and ship the gap analysis as PDF
+    
+    The gap analysis and the audit report each summarised 'three groups' of AI
+    error; the FR-02 declare-then-ignore finding is a fourth, and it is the odd one
+    out - nothing was unobservable, the two stages just never checked each other.
+    Also renders ai-gap-analysis.pdf, since SS14 asks the main report to include
+    the review of the AI-generated scripts and that review lives in its own file.
+
+commit e68d05221b5b48a248033cac322bccbd4e058fbb
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:30:11 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:30:11 2026 +0700
+
+    docs: regenerate git-log.txt
+
 commit 89673d69a15e5a1eb381f59be1968c7e6a94b23c
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Sun Aug 9 15:30:11 2026 +0700
