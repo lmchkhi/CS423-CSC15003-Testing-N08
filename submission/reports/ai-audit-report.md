@@ -370,11 +370,13 @@ Lint frontend vẫn có 23 lỗi và 1 cảnh báo tồn tại sẵn trong SUT; 
 
 ### (3) Verdict
 
-**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+**`INCOMPLETE`**
 
 ### (4) Reasoning
 
-- _[Người dùng tự điền]_
+- TC-CART-011 chưa kiểm thử hành vi giảm số lượng, chỉ kiểm tra có tồn tại nút `-`.
+- Assertion quantity trong rowDetails có thể false-positive.
+- Test dialog chấp nhận mọi loại JavaScript dialog, không chỉ alert confirm xóa sản phẩm.
 
 ### (5) Student Fix
 

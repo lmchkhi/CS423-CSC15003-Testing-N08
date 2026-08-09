@@ -49,11 +49,17 @@ test.describe('FR-07 - Giỏ hàng', () => {
         case 'rowDetails': {
           const product = data.products.find((item) => item.id === testCase.productIds[0]);
           const row = cart.rowFor(product.name);
+          const cells = row.getByRole('cell');
+          const pricePattern = new RegExp(
+            `^${String(product.price).replace(/\B(?=(\d{3})+(?!\d))/g, '[.,]')} ₫$`,
+          );
           await expect(row).toHaveCount(1);
-          await expect(row).toContainText(product.name);
-          await expect(row).toContainText(/123[.,]456 ₫/);
-          await expect(row).toContainText('1');
-          await expect(row.getByRole('button', { name: 'Xóa', exact: true })).toBeVisible();
+          await expect(cells).toHaveCount(5);
+          await expect(cells.nth(0)).toHaveText(product.name);
+          await expect(cells.nth(1)).toHaveText(pricePattern);
+          await expect(cells.nth(2)).toHaveText('1');
+          await expect(cells.nth(3)).toHaveText(pricePattern);
+          await expect(cells.nth(4).getByRole('button', { name: 'Xóa', exact: true })).toBeVisible();
           break;
         }
         case 'lineTotal': {
