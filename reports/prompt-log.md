@@ -7146,6 +7146,1199 @@ Now the audit entry for the repair itself.
    55:**Kết quả cuối (xác nhận lại 08/08/2026):** 10 pass / 4 fail trên cả 3
    76:**Kết quả cuối (xác nhận lại 08/08/2026):** 11 pass / 3 fail trên cả 3
 → Edit(reports/main-report.md)
+```text
+Now regenerating the derived artifacts and running the full verification gate.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/extract-prompt-log.py 2>&1 | tail -3 echo "=== verbatim ==="; python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -2 echo "=== pdfs ==="; py
+… [cắt bớt 448 ký tự; xem transcript gốc]
+   [35] 3:06 PM 09/08/2026    1 blocks  'about the commit just fix some minor thing like add a blank line then '
+     [36] 3:07 PM 09/08/2026   62 blocks  'ok then do it'
+     [37] 3:18 PM 09/08/2026   45 blocks  'ok sut are up, and i pushed all commits, continue'
+   === verbatim ===
+   checked 157 quoted lines against 4273k chars of transcript
+   ✓ every quoted line traces to a transcript
+   === pdfs ===
+     reports/pdf/main-report.pdf  (206 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (506 KB)
+   === critique words ===
+        281
+   === typecheck ===
+   > tsc --noEmit
+   
+   === reports labeled ===
+          9
+   === stale refs? ===
+   reports/main-report.md:36:### 2.1. FR-02 — Đăng nhập & khóa tài khoản
+   … [cắt bớt 388 ký tự; xem transcript gốc]
+```text
+Those matches are just dates ("08/2026" contains "8/20"). Let me check precisely.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== precise stale checks ===" grep -rnE "(^|[^0-9/])20 entry|[^0-9]8/20 entry|11 \`VALID\`" reports/main-report.md reports/ai-critique.md ai-gap-analysis/ README.m
+… [cắt bớt 256 ký tự; xem transcript gốc]
+   === precise stale checks ===
+     none
+   === current cross-refs ===
+     reports/ai-critique.md:21:một quan sát độc lập đã ghi lại trước đó. 8/21 entry trong audit report dừng
+     reports/main-report.md:189:quan sát độc lập. 21 entry đã audit: 12 `VALID`, 8 `INCOMPLETE`, 1 `INVALID`.
+     reports/main-report.md:197:| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 21 entry |
+     ai-gap-analysis/ai-generated-script-gaps.md:223:và không bao giờ tự tin verdict `VALID` chỉ vì output "chạy được": 8/21
+   === audit tables ===
+   | Verdict | Số entry | Tỷ lệ |
+   | --- | ---: | ---: |
+   | `VALID` | 12 | 57.1% |
+   | `INCOMPLETE` | 8 | 38.1% |
+   | `INVALID` | 1 | 4.8% |
+   | **Tổng số entry đã audit** | **21** |
+   … [cắt bớt 10 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 git add -A reports ai-gap-analysis README.md git commit -q -m "docs: record the FR-02 data-driven repair in the gap analysis and audit log Adds gap-analysis section 3 fo
+… [cắt bớt 993 ký tự; xem transcript gốc]
+   clean:        0
+   
+   === SS12 recount ===
+   touching .spec.ts:        5
+   touching spec+test-data:        8
+   touching automation/:       11
+   distinct days (automation/): 2026-08-05 2026-08-06 2026-08-07 2026-08-08 2026-08-09 
+   e68d052 docs: regenerate git-log.txt
+   89673d6 docs: record the FR-02 data-driven repair in the gap analysis and audit log
+   e7a2629 test(fr-02): re-run the three browser cells against the reworked spec
+   a09d2b2 test(fr-02): assert the expected URL and token from the data file
+```text
+§12 now reads 8 commits touching spec + test data (was 7), 11 touching `automation/`, across 5 days. One more gap worth closing:
+```
+→ Edit(reports/tools/build-pdfs.py)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/build-pdfs.py 2>&1 | tail -5
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-gap-analysis.pdf
+     reports/pdf/main-report.pdf  (206 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (506 KB)
+     reports/pdf/ai-gap-analysis.pdf  (146 KB)
+→ Read(reports/pdf/ai-gap-analysis.pdf)
+```text
+The summary section still says "three groups" — I added a fourth. Let me fix that in both files.
+```
+→ Read(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 grep -n "rơi vào đúng ba nhóm\|Nhóm 3 —\|## 5. Kết luận" reports/ai-audit-report.md | head
+   1804:## 5. Kết luận
+   1806:Nhìn trên toàn bộ 21 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
+   1825:**Nhóm 3 — AI tin vào chính sản phẩm trước đó của nó.** Entry #5 đổi timestamp
+→ Read(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -2 python3 reports/tools/build-pdfs.py 2>&1 | tail -4 echo "=== critique words ==="; tail -n +2 reports/ai-cri
+… [cắt bớt 752 ký tự; xem transcript gốc]
+   checked 157 quoted lines against 4280k chars of transcript
+   ✓ every quoted line traces to a transcript
+     reports/pdf/main-report.pdf  (206 KB)
+     reports/pdf/ai-critique.pdf  (48 KB)
+     reports/pdf/ai-audit-report.pdf  (508 KB)
+     reports/pdf/ai-gap-analysis.pdf  (150 KB)
+   === critique words ===
+        281
+   === README mentions pdf dir ===
+   1
+   clean:        0
+```text
+Final verification gate.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== typecheck ==="; (cd automation && npm run typecheck 2>&1 | tail -1) echo "=== case counts per feature ==="; (cd automation && npx playwright test --list --proj
+… [cắt bớt 699 ký tự; xem transcript gốc]
+   === typecheck ===
+   
+   === case counts per feature ===
+     14 F02-TC
+     14 F10-TC
+     12 F13-TC
+   === report labels ===
+   9/9 expected reports found, 0 unlabeled.
+   === PDFs ===
+   ai-audit-report.pdf
+   ai-critique.pdf
+   ai-gap-analysis.pdf
+   main-report.pdf
+   === SS12 ===
+     .spec.ts:        5
+     spec+data:        8
+     automation/:       11
+     days:        5
+   === unpushed ===
+          6
+   === working tree ===
+          0
+```text
+Done. Everything I flagged is now closed except the two things only you can do.
+
+## The FR-02 repair
+
+`expected.urlContains` and `expected.tokenStored` are now actually read. Both assertions moved out of the `switch` and run for every case off the record, so the JSON decides the oracle instead of merely describing it.
+
+Two things came out better than a straight rewire:
+- **The URL check got stricter, not looser.** The old rejected-case check was a `/login` *substring* match. For the success cases `expected.urlContains` is `/` — and a substring test for `/` matches literally every URL the app can be on, so that assertion would have been vacuous. It's now anchored to the whole origin + path.
+- **F02-TC-012 and F02-TC-014 gained coverage they never had** — neither previously asserted landing URL or token state at all, despite their records declaring both.
+
+**Verified, not assumed:** 10 pass / 4 fail on all three browsers, and the four reds are exactly `F02-TC-002/004/008/012` — the same set as the case-map's expected-fail table and the four bug reports. Matching only the 10/4 count would have let any permutation through.
+
+## What else changed
+
+Documenting the finding turned up two stale summaries: both the gap analysis and the audit report's conclusion said AI errors fell into "three groups." This one is a genuine fourth, and it's the interesting one — nothing was unobservable, the two files sat side by side in the repo. The `Model data` stage declared the schema, the `Generate` stage wrote assertions from scratch, and no step checked one against the other. The very 7-stage process that satisfies §6 created a seam at its own boundary, and no test run could reveal it because results looked exactly as predicted. Both conclusions now carry it as group 4.
+
+I also added **`ai-gap-analysis.pdf`** — §14 asks the main report to *include* your review of the AI-generated scripts, and that review lives in a separate file. Shipping it as its own PDF closes that reading either way.
+
+## Current state
+
+| Check | Result |
+|---|---|
+| Cases per feature | 14 / 14 / 12 |
+| Typecheck | clean |
+| Reports labeled | 9/9, 0 unlabeled |
+| Audit verbatim | 157/157 quotes trace to transcripts |
+| AI Critique | 281 words |
+| PDFs | 4 |
+| Audit entries | 21 (12 VALID / 8 INCOMPLETE / 1 INVALID) |
+
+**§12 improved:** commits touching spec + test data went 7 → **8**, which now clears the bar under a middle-strictness reading rather than only the loosest. `automation/` is at 11 across 5 days. The literal `.spec.ts`-only count is 5 — still short of 8, and still unfixable without falsifying history.
+
+## Two things left, both yours
+
+1. **6 commits unpushed.** Working tree is clean; just needs `git push`.
+2. **The video content is still unverified by me** — ≥5 min, Vietnamese narration, face-cam or `whoami`/`hostname` visible, and **Unlisted not Private**. §7 and §11 both depend on it, and Private is a silent zero on Task 2. Open both links in a private window to confirm.
+```
+
+
+---
+
+
+**Phiên `9f7afb69` — Session 5 — rà soát toàn bài lần cuối theo rubric; sửa 3 spec, 2 file dữ liệu và 6 tài liệu**
+
+
+## [38] Claude (Opus 5, Claude Code) — 3:35 PM 09/08/2026
+
+**Prompt:**
+
+```text
+i need you to scan this homework end-to-end and compare with the requirements in HW04-AutomationTesting.md, check the quality and quantity if those met the requirements, i want to achieve full 100
+also check the wordings of the docs, if it shows too clearly that it is ai-generated, or the wordings is just not naturally vietnamese, i want it to be perfect
+```
+
+**Output:**
+
+```text
+I'll start by reading the requirements document and surveying the repo structure.
+```
+→ Bash: ls -la && echo "---TREE---" && find . -type d -name node_modules -prune -o -type d -name .git -prune -o -type f -print | head -200
+   total 128
+   drwxr-xr-x@ 18 hbn  staff    576 Aug  9 15:13 .
+   drwx------@ 43 hbn  staff   1376 Aug  3 00:37 ..
+   drwxr-xr-x@  3 hbn  staff     96 Aug  8 09:00 .claude
+   drwxr-xr-x@ 16 hbn  staff    512 Aug  9 15:32 .git
+   drwxr-xr-x@  4 hbn  staff    128 Jul 27 14:07 .github
+   -rw-r--r--@  1 hbn  staff    844 Aug  8 09:00 .gitignore
+   -rw-r--r--@  1 hbn  staff   4484 Aug  8 09:06 CLAUDE.md
+   -rw-r--r--@  1 hbn  staff  11747 Aug  9 13:39 HW04-AutomationTesting.md
+   -rw-r--r--@  1 hbn  staff   7625 Aug  9 15:13 README.md
+   drwxr-xr-x@  3 hbn  staff     96 Aug  9 15:31 ai-gap-analysis
+   drwxr-xr-x@ 17 hbn  staff    544 Aug  9 15:24 automation
+   drwxr-xr-x@  4 hbn  staff    128 Aug  8 09:00 backend
+   drwxr-xr-x@ 13 hbn
+   … [cắt bớt 12166 ký tự; xem transcript gốc]
+→ Bash: find . -iname "HW04*" -not -path "./node_modules/*" 2>/dev/null; ls ~/Downloads | head -50
+   ./HW04-AutomationTesting.md
+   ./.git/refs/heads/HW04
+   ./.git/logs/refs/heads/HW04
+   ./.git/refs/remotes/origin/HW04
+   ./.git/logs/refs/remotes/origin/HW04
+   0.1 DevOps Overview.txt
+   0.2 Architecture Pattern.txt
+   0.3 GIT.txt
+   0.4 Jenkins.txt
+   0.5 Docker.txt
+   000045.JPEG
+   01. Linux excercise (1) 15.12.46.docx
+   01. Linux excercise.docx
+   01. Registration Form.docx
+   01. Registration Form.pdf
+   03 - github_testcase_management.pptx.pdf
+   03_23127026_23127062_23127300_FINAL.pdf
+   0621.mp4
+   09-Observability MCQs.txt
+   0a12b0e1-ddf8-495e-8ce1-ee142045d003.jpeg
+   1-1.png
+   1-2.png
+   1-4-fsds-quiz.pdf
+   1. Introduction to SL.pdf
+   1. Thong tin nhan vien.docx.pdf
+   1.-Đại-hội-Đại-biểu-Đảng-bộ-các-cơ-quan-Đảng-Thành.pdf
+   1.jpg
+   11_23127056_23127
+   … [cắt bớt 779 ký tự; xem transcript gốc]
+→ Read(HW04-AutomationTesting.md)
+→ Read(README.md)
+→ Read(reports/main-report.md)
+→ Bash: git log --pretty=format:'%h|%ad|%s' --date=short --name-only | head -300
+   e518deb|2026-08-09|docs: regenerate git-log.txt
+   git-log.txt
+   
+   4e15f91|2026-08-09|docs: fold the new error group into both conclusions and ship the gap analysis as PDF
+   ai-gap-analysis/ai-generated-script-gaps.md
+   reports/ai-audit-report.md
+   reports/pdf/ai-audit-report.pdf
+   reports/pdf/ai-critique.pdf
+   reports/pdf/ai-gap-analysis.pdf
+   reports/pdf/main-report.pdf
+   reports/tools/build-pdfs.py
+   
+   e68d052|2026-08-09|docs: regenerate git-log.txt
+   git-log.txt
+   
+   89673d6|2026-08-09|docs: record the FR-02 data-driven repair in the gap analysis and audit log
+   ai-gap-analysis/ai-generated-script-gaps.md
+   reports/ai-audit-report.md
+   reports/ai-critique.md
+   reports/main-report.md
+   reports/pdf/ai-audit-report.pdf
+   reports/p
+   … [cắt bớt 17839 ký tự; xem transcript gốc]
+→ Bash: echo "=== commits touching .spec.ts / test-data / playwright config ==="; git log --pretty=format:'%h|%ad|%s' --date=short -- 'automation/tests/*.spec.ts' 'automation/test-data/*' 'automation/playwright.config.ts' 'autom
+… [cắt bớt 349 ký tự; xem transcript gốc]
+   === commits touching .spec.ts / test-data / playwright config ===
+   a09d2b2|2026-08-09|test(fr-02): assert the expected URL and token from the data file
+   58d1d13|2026-08-08|test(fr-13): automate dashboard revenue, order count and access control
+   5660228|2026-08-08|test(fr-13): add dashboard case data with 7 cases designed fresh in HW04
+   513f195|2026-08-07|test(fr-10): make token seeding survive webkit navigation and record the 3-browser run
+   175e14d|2026-08-07|test(fr-10): automate the order state machine transitions on chromium
+   b99fc10|2026-08-07|test(fr-10): add validated case data for the order state machine
+   8088ab4|2026-08-06|test(fr-02): automate the login and lockout suite — 14 cases on chro
+   … [cắt bớt 930 ký tự; xem transcript gốc]
+→ Read(automation/tests/fr-02-login.spec.ts)
+→ Read(automation/tests/fr-13-dashboard.spec.ts)
+→ Read(automation/tests/fr-10-order-state.spec.ts)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && for f in test-data/*.json; do echo "=== $f ==="; python3 -c " import json,sys d=json.load(open('$f')) print('records:', len(d) if isinstance(d,list) else l
+… [cắt bớt 109 ký tự; xem transcript gốc]
+   === test-data/fr-02-login.cases.json ===
+   records: 14
+   [
+    {
+     "caseId": "F02-TC-001",
+     "title": "Dang nhap thanh cong voi tai khoan hop le",
+     "category": "positive",
+     "hw02CaseId": "TC-FR02-DT-001",
+     "requirement": "sut-requirements.md §2 — dang nhap thanh cong tra ve JWT, token luu phia client",
+     "account": "seeded-user",
+     "emailSource": "account",
+     "emailLiteral": null,
+     "password": "@correct",
+     "priorFailures": 0,
+     "waitSeconds": 0,
+     "assertion": "login-succeeds",
+     "expected": {
+      "urlContains": "/",
+      "tokenStored": true
+     }
+    },
+    {
+     "caseId": "F02-TC-002",
+     "title": "Email sai dinh dang bi chan boi validate HTML5",
+     "category": "negative",
+     "hw02CaseId": "TC-FR02-DT-002",
+   … [cắt bớt 6971 ký tự; xem transcript gốc]
+→ Read(reports/ai-critique.md)
+→ Read(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && python3 -c " import re t=open('reports/ai-critique.md').read() body='\n'.join(t.splitlines()[1:]) w=[x for x in re.split(r'\s+',body) if x.strip()] print('whitespace
+… [cắt bớt 18 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && echo "=== run-manifest ===" && cat reports/run-manifest.md && echo && echo "=== not-automated ===" && cat test-design/not-automated.md
+   whitespace tokens: 277
+   === run-manifest ===
+   # Run manifest — HW04 browser matrix
+   
+   Last updated 2026-08-09T15:25:50+07:00 by `npm run matrix`.
+   Run by: 23127300 (Ha Bao Ngoc).
+   Cells refreshed by this invocation: fr-02-login×webkit. Rows for cells not
+   run this time are carried over unchanged from the previous invocation.
+   
+   Statuses are recorded as they happened. A FAIL cell keeps its report — a
+   failing assertion that reflects a genuine EShop defect is evidence, not
+   something to hide.
+   
+   | Feature | Browser | Result | Passed | Failed | Skipped | ISO timestamp | Report | Label verified |
+   |---|---|---|---:|---:|---:|---|---|---|
+   | fr-02-login | chromium | FAIL (exit 1) | 10 | 4 | 0 | 2026-08-09T15:20:19+07:00 | `reports/ht
+   … [cắt bớt 3280 ký tự; xem transcript gốc]
+→ Bash: for d in reports/html/*/*/; do printf "%-45s " "$d"; grep -o 'Run by: [0-9]*' "$d/index.html" 2>/dev/null | head -1 | tr -d '\n'; printf " | "; grep -o '20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9:]*[+Z][0-9:]*' "$d/index.ht
+… [cắt bớt 37 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && cat playwright.config.ts && echo "=== package.json ===" && cat package.json && echo "=== stamp.ts ===" && cat utils/stamp.ts
+   reports/html/fr-02-login/chromium/            Run by: 23127300 | 2026-08-09T15:20:19+07:00
+   
+   reports/html/fr-02-login/firefox/             Run by: 23127300 | 2026-08-09T15:22:18+07:00
+   
+   reports/html/fr-02-login/webkit/              Run by: 23127300 | 2026-08-09T15:24:09+07:00
+   
+   reports/html/fr-10-order-state/chromium/      Run by: 23127300 | 2026-08-08T21:51:08+07:00
+   
+   reports/html/fr-10-order-state/firefox/       Run by: 23127300 | 2026-08-08T21:51:37+07:00
+   
+   reports/html/fr-10-order-state/webkit/        Run by: 23127300 | 2026-08-08T21:52:13+07:00
+   
+   reports/html/fr-13-dashboard/chromium/        Run by: 23127300 | 2026-08-08T21:52:44+07:00
+   
+   reports/html/fr-13-dashboard/firefox/         Run by: 23
+   … [cắt bớt 126 ký tự; xem transcript gốc]
+   import { defineConfig, devices } from '@playwright/test';
+   import {
+     config as env,
+     jsonReportPath,
+     reportDir,
+     runLabel,
+     runMetadata,
+   } from './utils/config';
+   
+   /**
+    * One invocation of Playwright = one matrix cell (one feature on one browser),
+    * driven by scripts/run-matrix.ts. Report folder, feature name and browser
+    * label all come from env so the nine cells never overwrite each other.
+    */
+   export default defineConfig({
+     testDir: './tests',
+   
+     // EShop keeps everything in a single SQLite file: parallel workers corrupt
+     // each other's state (FR-02 lockout counters, FR-10 order transitions).
+     fullyParallel: false,
+     workers: 1,
+   
+     // Retries hide real defects; HW04 wants genuine
+   … [cắt bớt 3963 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && python3 -c " import json for f in ['fr-02-login','fr-10-order-state','fr-13-dashboard']: d=json.load(open('automation/test-data/%s.cases.json'%f)) print('===',f,len(d
+… [cắt bớt 76 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && wc -l reports/ai-audit-report.md reports/prompt-log.md test-design/*/case-map.md automation/README.md .claude/skills/playwright-automation/SKILL.md bug-reports/*.md
+   === fr-02-login 14
+     F02-TC-001 | positive | Dang nhap thanh cong voi tai khoan hop le
+     F02-TC-002 | negative | Email sai dinh dang bi chan boi validate HTML5
+     F02-TC-003 | negative | Tu choi email dung dinh dang nhung khong ton tai
+     F02-TC-004 | boundary | Sai 2 lan lien tiep chua khoa — mat khau dung van vao duoc
+     F02-TC-005 | state | Khoa tai khoan sau 3 lan sai lien tiep
+     F02-TC-006 | state | Tu choi mat khau dung khi tai khoan dang bi khoa
+     F02-TC-007 | boundary | Sau 29 giay tai khoan van con bi khoa
+     F02-TC-008 | boundary | Sau 31 giay het khoa — dang nhap lai duoc
+     F02-TC-009 | negative | Tu choi dang nhap khi bo trong email
+     F02-TC-010 | negative | Tu choi dang nhap khi bo
+   … [cắt bớt 2298 ký tự; xem transcript gốc]
+   1868 reports/ai-audit-report.md
+       7151 reports/prompt-log.md
+         68 test-design/FR-02-login/case-map.md
+         86 test-design/FR-10-order-state-machine/case-map.md
+         79 test-design/FR-13-dashboard/case-map.md
+         79 automation/README.md
+        229 .claude/skills/playwright-automation/SKILL.md
+         39 bug-reports/BUG-FR02-001.md
+         38 bug-reports/BUG-FR02-002.md
+         39 bug-reports/BUG-FR02-003.md
+         38 bug-reports/BUG-FR02-004.md
+         39 bug-reports/BUG-FR10-001.md
+         39 bug-reports/BUG-FR10-002.md
+         39 bug-reports/BUG-FR10-003.md
+         39 bug-reports/BUG-FR13-001.md
+         40 bug-reports/BUG-FR13-002.md
+       9910 total
+→ Read(test-design/FR-02-login/case-map.md)
+→ Read(bug-reports/BUG-FR02-004.md)
+→ Bash: echo "### FR-10 case-map titles vs data ###" && python3 -c " import json,re for feat,fn in [('FR-10-order-state-machine','fr-10-order-state'),('FR-13-dashboard','fr-13-dashboard'),('FR-02-login','fr-02-login')]: d={c['ca
+… [cắt bớt 331 ký tự; xem transcript gốc]
+→ Bash: sed -n '1,60p' reports/ai-audit-report.md && echo "....." && grep -c '^### Entry' reports/ai-audit-report.md; grep -o 'Verdict:.*' reports/ai-audit-report.md | sort | uniq -c
+   ### FR-10 case-map titles vs data ###
+   === FR-10-order-state-machine
+   === FR-13-dashboard
+   === FR-02-login
+     MISMATCH F02-TC-001 
+       data    : Dang nhap thanh cong voi tai khoan hop le 
+       case-map: Đăng nhập thành công với tài khoản hợp lệ
+     MISMATCH F02-TC-002 
+       data    : Email sai dinh dang bi chan boi validate HTML5 
+       case-map: Email sai định dạng bị chặn bởi validate HTML5
+     MISMATCH F02-TC-003 
+       data    : Tu choi email dung dinh dang nhung khong ton tai 
+       case-map: Từ chối email đúng định dạng nhưng không tồn tại
+     MISMATCH F02-TC-004 
+       data    : Sai 2 lan lien tiep chua khoa — mat khau dung van vao duoc 
+       case-map: Sai 2 lần liên tiếp chưa khóa, mật khẩu đúng vẫn vào
+   … [cắt bớt 1364 ký tự; xem transcript gốc]
+   # [AI-02] AI Audit Report — HW04 Automation Testing
+   
+   ## 1. Thông tin Sinh viên
+   
+   | Field | Content |
+   | --- | --- |
+   | **Họ tên** | Hà Bảo Ngọc |
+   | **MSSV** | 23127300 |
+   | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
+   | **Ngày làm bài** | 05/08/2026 – 09/08/2026 |
+   | **Công cụ AI đã dùng** | Claude (Opus 5 và Sonnet 5, chạy trong Claude Code — chuyển sang Sonnet 5 từ Session 3, 08/08/2026; quay lại Opus 5 cho phiên rà soát cuối, 09/08/2026) |
+   
+   ## 2. Hướng dẫn / Phạm vi
+   
+   Phụ lục bắt buộc theo HW04 §9. Mỗi entry ghi lại một giai đoạn chuyển đổi test
+   case thủ công sang script tự động, kèm phán quyết của sinh viên về chất lượng
+   output. Bản ghi thô, không lọc, nằm ở [`pr
+   … [cắt bớt 1947 ký tự; xem transcript gốc]
+→ Bash: echo "entries:" && grep -c '^## Entry #' reports/ai-audit-report.md && grep -A2 '\*\*Verdict\*\*' reports/ai-audit-report.md | grep -oE 'VALID|INVALID|INCOMPLETE' | sort | uniq -c; echo "=== automation/README ==="; cat a
+… [cắt bớt 19 ký tự; xem transcript gốc]
+   entries:
+   21
+   === automation/README ===
+   # EShop automation suite — HW04
+   
+   TypeScript + `@playwright/test`. Three features, ≥12 data-driven cases each,
+   run across Chromium / Firefox / WebKit into nine separately-labeled HTML
+   reports.
+   
+   ## 1. Install
+   
+   ```bash
+   cd automation
+   npm install
+   npx playwright install          # Chromium, Firefox, WebKit browser builds
+   cp .env.example .env            # then edit .env
+   ```
+   
+   `.env` holds identity and URLs — `STUDENT_ID`, `STUDENT_NAME`, `WEB_URL`,
+   `ADMIN_URL`, `API_URL`, the seeded accounts, `HEADLESS`. Never put any of these
+   in a spec; `.env` is gitignored.
+   
+   ## 2. Start the SUT
+   
+   Three terminals (details in
+   `../.claude/skills/playwright-automation/references/es
+   … [cắt bớt 2359 ký tự; xem transcript gốc]
+→ Read(.claude/skills/playwright-automation/SKILL.md)
+→ Bash: grep -oE '\*\*(VALID|INVALID|INCOMPLETE)\*\*' reports/ai-audit-report.md | sort | uniq -c; echo "--- verdict lines sample ---"; grep -n -i 'verdict' reports/ai-audit-report.md | head -8
+   --- verdict lines sample ---
+   20:rút gọn. Các phần còn lại (Verdict, Reasoning, Student Fix) là nhận định của
+   43:>   phần Verdict / Reasoning / Student Fix của chúng **giữ nguyên không sửa**,
+   98:### (3) Verdict
+   173:### (3) Verdict
+   223:### (3) Verdict
+   299:### (3) Verdict
+   371:### (3) Verdict
+   451:### (3) Verdict
+→ Bash: for p in 3000 5173 5174; do printf "%s: " $p; curl -s -o /dev/null -w "%{http_code}" -m 3 http://localhost:$p/ || echo "down"; echo; done; echo "--- .env ---"; sed -e 's/=.*/=<set>/' /Users/hbn/Documents/CS423-CSC15003-T
+… [cắt bớt 26 ký tự; xem transcript gốc]
+   3000: 404
+   5173: 200
+   5174: 200
+   --- .env ---
+   # Copy to automation/.env and fill in. .env is gitignored — never commit it,
+   # and never hardcode any of these values inside a spec.
+   
+   # --- Identity (HW04 §11: every HTML report must show "Run by: <STUDENT_ID>") ---
+   STUDENT_ID=<set>
+   STUDENT_NAME=<set>
+   
+   # --- SUT endpoints (see sut-requirements.md §1) ---
+   WEB_URL=<set>
+   ADMIN_URL=<set>
+   API_URL=<set>
+   
+   # --- Seeded accounts shipped with the SUT ---
+   ADMIN_EMAIL=<set>
+   ADMIN_PASSWORD=<set>
+   USER_EMAIL=<set>
+   USER_PASSWORD=<set>
+   
+   # --- Run options ---
+   # HEADLESS=<set>
+   HEADLESS=<set>
+   # Leave RUN_TIMESTAMP empty so each run stamps its own ISO timestamp.
+   RUN_TIMESTAMP=<set>
+→ Bash: sed -n '96,110p' reports/ai-audit-report.md; echo "=== counts ==="; awk '/^### \(3\) Verdict/{f=1;next} f&&NF{print;f=0}' reports/ai-audit-report.md | sort | uniq -c
+   ```
+   
+   ### (3) Verdict
+   
+   **`INCOMPLETE`**
+   
+   ### (4) Reasoning
+   
+   Phần chuyên môn thì tốt: khung `automation/` mà AI dựng ra đúng những gì §6 đòi
+   hỏi — loader dữ liệu tách khỏi spec, runner ma trận 3×3, và bộ đóng dấu
+   `Run by:` + ISO timestamp vào report theo §11. Toàn bộ các session sau đều chạy
+   trên khung này mà không phải dựng lại.
+   
+   Sai ở chỗ **không tôn trọng ranh giới phạm vi**. Prompt viết rõ "before you
+   really make any changes to the repo, tell me how you want to setup the project
+   === counts ===
+      7 **`INCOMPLETE`**
+      1 **`INCOMPLETE`** (đối với bản nháp schema mà kế hoạch đưa ra)
+      1 **`INVALID`**
+     12 **`VALID`**
+→ Read(test-design/FR-13-dashboard/case-map.md)
+→ Read(test-design/FR-10-order-state-machine/case-map.md)
+→ Bash: echo "--- §9 declaration ---"; grep -rn -i "I use AI tools\|không sử dụng AI\|Tuyên bố\|Declaration\|declare" reports/*.md README.md | head -20; echo "--- Bloom / tool declaration ---"; grep -rn -i "G9\.\|Bloom" reports/
+… [cắt bớt 21 ký tự; xem transcript gốc]
+   --- §9 declaration ---
+   reports/main-report.md:72:   là tuyên bố của hệ thống về các cạnh đi ra hợp lệ từ trạng thái đó, nên
+   reports/ai-audit-report.md:736:chào mời **chính là** tuyên bố của hệ thống về các cạnh đi ra của trạng thái đó,
+   reports/ai-audit-report.md:1087:chúng tuyên bố ở đầu file**, và chỉ ghi được 1 trong 4 phiên làm việc. Sinh viên
+   reports/ai-audit-report.md:1093:cũ tuyên bố là "không thể dựng lại" — được phục hồi nguyên văn, vì hoá ra nó
+   reports/ai-audit-report.md:1651:tắc đã rút ra từ Entry #9 và #17 (tin quan sát trực tiếp, không tin tuyên bố
+   reports/ai-audit-report.md:1828:hai file log tự tuyên bố "verbatim" ở ngay dòng đầu nhưng bên trong là bản tóm
+   reports/ai-audit-repor
+   … [cắt bớt 1894 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && npx playwright test --list --project=chromium 2>&1 | tail -5; echo "--- per feature ---"; for f in fr-02-login fr-10-order-state fr-13-dashboard; do printf
+… [cắt bớt 100 ký tự; xem transcript gốc]
+   [chromium] › fr-13-dashboard.spec.ts:50:9 › FR-13 — Dashboard › F13-TC-012 — Phiên chưa đăng nhập không xem được Dashboard
+     [chromium] › smoke.spec.ts:12:7 › @smoke SUT reachability › shop frontend responds
+     [chromium] › smoke.spec.ts:20:7 › @smoke SUT reachability › admin frontend responds
+     [chromium] › smoke.spec.ts:25:7 › @smoke SUT reachability › backend API serves products and accepts the admin account
+   Total: 43 tests in 4 files
+   --- per feature ---
+   fr-02-login: 14
+   fr-10-order-state: 14
+   fr-13-dashboard: 12
+→ Read(automation/utils/data.ts)
+→ Read(automation/pages/dashboard.page.ts)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && sed -n '1,30p' reports/prompt-log.md; echo "=== search declaration variants ==="; grep -n -iE "sử dụng (các )?công cụ AI|có sử dụng AI|AI tools for the following" rep
+… [cắt bớt 63 ký tự; xem transcript gốc]
+   # Prompt Log
+   
+   *Complete, unfiltered record of every AI interaction during HW04. See
+   `reports/ai-audit-report.md` for the reviewed subset with verdicts.*
+   
+   ## Phạm vi và cách dựng file
+   
+   File này được trích **tự động** từ transcript gốc của Claude Code
+   (`~/.claude/projects/`), không gõ lại và không viết lại từ trí nhớ. Toàn bộ
+   HW04 được ghi: từ lúc đọc đề (05/08/2026) đến phiên làm việc cuối.
+   
+   Nguyên tắc verbatim được áp dụng đúng nghĩa:
+   
+   - **Prompt** — nguyên văn từng ký tự những gì sinh viên đã gõ, giữ nguyên
+     ngôn ngữ, giữ cả lỗi chính tả. Chỉ loại bỏ các khối `<system-reminder>` và
+     `<task-notification>` do chính công cụ chèn vào — sinh viên không gõ
+     chúng; `<task-notification>` là sự k
+   … [cắt bớt 715 ký tự; xem transcript gốc]
+```text
+I've read the requirements, all deliverables, the specs/data, the reports, and the git history. Here's the audit.
+
+## Quantity — all §6/§11/§14 minimums are met
+
+| Requirement | Required | Actual | ✓ |
+|---|---|---|---|
+| Features, one per Pool A/B/C, same as HW02 | 3 | FR-02 / FR-10 / FR-13 | ✓ |
+| Automated cases per feature | ≥12 | 14 / 14 / 12 (verified via `--list`) | ✓ |
+| Data-driven, external file | no inline arrays | 3 × `test-data/*.cases.json`, zod-validated, loader rejects <12 records | ✓ |
+| Distinct assertion patterns | ≥3 | 9 | ✓ |
+| Browser runs | ≥9 | 9 cells, 9 report folders | ✓ |
+| `Run by: {StudentID}` + ISO timestamp | all reports | verified by grep in all 9 `index.html` (banner + `<title>`) | ✓ |
+| Bug reports + GitHub issues + screenshots | if any | 9 reports, issues #204–212, both screenshot sets present | ✓ |
+| Non-automated cases documented | yes | 3, with reason + unblock condition | ✓ |
+| AI Critique | 200–300 words | 277 | ✓ |
+| AI Audit Report | per-interaction | 21 entries, 12 VALID / 8 INCOMPLETE / 1 INVALID | ✓ |
+| README self-assessment + summary | yes | present | ✓ |
+| MD + PDF | main report, critique, audit | all present (+ gap analysis) | ✓ |
+
+## Quality — 6 real gaps, in priority order
+
+**1. §9's mandatory declaration sentence is missing (highest risk).** §9 requires the literal `"I use AI tools for the following tasks,"` in the audit report. It's nowhere in `reports/ai-audit-report.md`, `README.md`, or `main-report.md`. §17 says missing a required document element is a 0-risk item. One-line fix.
+
+**2. §12 commit count is 5, not 8, if the TA counts literally.** Commits touching `automation/tests/*.spec.ts`: **5** (`6c49ae8`, `8088ab4`, `175e14d`, `58d1d13`, `a09d2b2`). Counting the data/page-object/fixture/config commits as "or equivalent" gets you to 10. Days are fine (08-05 → 08-09 = 5). This is the one place where a strict reading loses points. Fix: land the remaining work as ≥3 more commits that genuinely touch `.spec.ts`.
+
+**3. FR-02's 14 test titles are unaccented Vietnamese — and all 14 contradict the case-map.** The data file says `"Dang nhap thanh cong voi tai khoan hop le"`; FR-10 and FR-13 use full diacritics. These titles are what the TA sees in the three FR-02 HTML reports and in the `## Found by Test Case` line of four bug reports. Meanwhile `test-design/FR-02-login/case-map.md` claims `Đăng nhập thành công với tài khoản hợp lệ` for every one of the 14 — so the traceability document doesn't match the artifact it traces. This is both your "unnatural Vietnamese" concern and a defensible-looking inconsistency.
+
+**4. `dashboardCaseSchema.auth` is declared, validated, filled in all 12 records — and never read by the spec.** This is exactly the defect class your own gap analysis §3 documents as found-and-fixed for FR-02 (`expected.urlContains` / `tokenStored`). A TA who reads §3 and then greps will find the same hole still open in FR-13. Either wire it or drop it from the schema.
+
+**5. FR-13's two FR-12 guard cases assert only absence.** `expect(dashboardHeading).toHaveCount(0)` passes on a blank page or a crashed bundle. `DashboardPage.loginHeading` already exists and is never used — asserting `Admin Login` is visible turns it into a real oracle.
+
+**6. Minor:** the main-report requirement ledger doesn't mention that FR-02 contributes 2 fresh HW04 designs (F02-TC-013/014) and FR-10 one (F10-TC-014) — only FR-13's 7 are called out, so the ledger undercounts your new design work. And §8's Bloom-AI level (G9.2/G9.3/G9.4) isn't declared anywhere.
+
+## On the Vietnamese prose
+
+I read `main-report.md`, `ai-critique.md`, the gap analysis, all three case-maps, `not-automated.md`, and the bug reports. **The prose does not read as AI-generated.** It's terse, concrete, and argues from specific observed evidence ("mở `:5174/orders` vẫn render Dashboard", "gấp đúng 2 lần tổng thật") rather than the generic hedge-and-enumerate register that gives AI text away. No "Điều quan trọng cần lưu ý là",
+… [cắt bớt 327 ký tự; xem transcript gốc]
+```
+→ AskUserQuestion: Fix #3 means rewriting the 14 FR-02 titles with proper diacritics, then re-running the three FR-02 browser cells so the HTML reports show the new titles, and updating the 4 bug reports' "Found by Test Case" lines. The SUT is up, so I can do it now. Proceed? | Fixes #1, #4, #5, #6 are low-risk edits I can apply directly. Which should I do?
+   [sinh viên chọn] Your questions have been answered: "Fix #3 means rewriting the 14 FR-02 titles with proper diacritics, then re-running the three FR-02 browser cells so the HTML reports show the new titles, and updating the 4 bug reports' "Found by Test Case" lines. The SUT is up, so I can do it now. Proceed?"="Yes — rewrite and re-run (Recommended)", "Fixes #1, #4, #5, #6 are low-risk edits I can apply directly. Which should I do?"="All four (Recommended)". You can now continue with these answers in mind.
+```text
+Proceeding. Starting with the FR-02 titles.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && head -20 test-data/fr-02-login.cases.json && echo "..." && python3 -c " import re s=open('test-data/fr-02-login.cases.json').read() print('indent sample:',
+… [cắt bớt 57 ký tự; xem transcript gốc]
+   [
+     {
+       "caseId": "F02-TC-001",
+       "title": "Dang nhap thanh cong voi tai khoan hop le",
+       "category": "positive",
+       "hw02CaseId": "TC-FR02-DT-001",
+       "requirement": "sut-requirements.md §2 — dang nhap thanh cong tra ve JWT, token luu phia client",
+       "account": "seeded-user",
+       "emailSource": "account",
+       "emailLiteral": null,
+       "password": "@correct",
+       "priorFailures": 0,
+       "waitSeconds": 0,
+       "assertion": "login-succeeds",
+       "expected": { "urlContains": "/", "tokenStored": true }
+     },
+     {
+       "caseId": "F02-TC-002",
+       "title": "Email sai dinh dang bi chan boi validate HTML5",
+       "category": "negative",
+   ...
+   indent sample: '[\n  {\n    "caseId": "F02-TC-001",\n
+   … [cắt bớt 71 ký tự; xem transcript gốc]
+→ Bash: python3 -c " import json for c in json.load(open('test-data/fr-02-login.cases.json')): print(c['caseId'],'|',c['requirement']) "
+   F02-TC-001 | sut-requirements.md §2 — dang nhap thanh cong tra ve JWT, token luu phia client
+   F02-TC-002 | sut-requirements.md §2 — truong email phai dung type="email"
+   F02-TC-003 | sut-requirements.md §2 — thong bao loi khong de lo chi tiet nguyen nhan
+   F02-TC-004 | sut-requirements.md §2 — chi khoa khi sai tu 3 lan tro len lien tiep
+   F02-TC-005 | sut-requirements.md §2 — sai >=3 lan lien tiep bi tam khoa 30 giay
+   F02-TC-006 | sut-requirements.md §2 — trong thoi gian khoa moi dang nhap deu bi tu choi
+   F02-TC-007 | sut-requirements.md §2 — thoi gian khoa keo dai 30 giay
+   F02-TC-008 | sut-requirements.md §2 — het 30 giay thi mo khoa
+   F02-TC-009 | sut-requirements.md §2 — form khong chap nhan thieu du
+   … [cắt bớt 420 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'PY' import re, io path = 'test-data/fr-02-login.cases.json' s = open(path, encoding='utf-8').read() titles = { 'F02-TC-001': 'Đăng nhập thành công với tài khoản hợp lệ', 'F02-TC-002': 'Email sai định dạng bị
+… [cắt bớt 2646 ký tự; xem transcript gốc]
+   F02-TC-001 | Đăng nhập thành công với tài khoản hợp lệ
+   F02-TC-002 | Email sai định dạng bị chặn bởi validate HTML5
+   F02-TC-003 | Từ chối email đúng định dạng nhưng không tồn tại
+   F02-TC-004 | Sai 2 lần liên tiếp chưa khóa — mật khẩu đúng vẫn vào được
+   F02-TC-005 | Khóa tài khoản sau 3 lần sai liên tiếp
+   F02-TC-006 | Từ chối mật khẩu đúng khi tài khoản đang bị khóa
+   F02-TC-007 | Sau 29 giây tài khoản vẫn còn bị khóa
+   F02-TC-008 | Sau 31 giây hết khóa — đăng nhập lại được
+   F02-TC-009 | Từ chối đăng nhập khi bỏ trống email
+   F02-TC-010 | Từ chối đăng nhập khi bỏ trống mật khẩu
+   F02-TC-011 | Vượt ngưỡng 3 lần sai — lần thử thứ 4 vẫn bị từ chối
+   F02-TC-012 | Response đăng nhập không được chứa mật khẩu người
+   … [cắt bớt 148 ký tự; xem transcript gốc]
+```text
+Now sync the case-map to match exactly, and fix FR-13's spec (`auth` wiring + positive guard assertion).
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json, re d = {c['caseId']: c['title'] for c in json.load(open('automation/test-data/fr-02-login.cases.json', encoding='utf-8'))} p = 'test-des
+… [cắt bớt 581 ký tự; xem transcript gốc]
+   case-map synced
+   mismatches now: []
+→ Edit(automation/tests/fr-13-dashboard.spec.ts)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && npm run typecheck 2>&1 | tail -5
+→ Read(reports/ai-audit-report.md)
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+```text
+Now the §9 declaration and §8 tool/Bloom declaration:
+```
+→ Edit(reports/ai-audit-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && grep -n '^## [0-9]\.' reports/ai-audit-report.md
+   3:## 1. Thông tin Sinh viên
+   13:## 2. Tuyên bố sử dụng AI (HW04 §9)
+   34:## 3. Hướng dẫn / Phạm vi
+   71:## 3. Audit Entries
+   1803:## 4. Tổng hợp độ chính xác của AI
+   1825:## 5. Kết luận
+   1876:## 6. Công bố bắt buộc (Mandatory Disclosure)
+→ Bash: python3 - <<'PY' p='reports/ai-audit-report.md' s=open(p,encoding='utf-8').read() for a,b in [('## 3. Audit Entries','## 4. Audit Entries'), ('## 4. Tổng hợp độ chính xác của AI','## 5. Tổng hợp độ chính xác của AI'), ('
+… [cắt bớt 402 ký tự; xem transcript gốc]
+   3:## 1. Thông tin Sinh viên
+   13:## 2. Tuyên bố sử dụng AI (HW04 §9)
+   34:## 3. Hướng dẫn / Phạm vi
+   71:## 4. Audit Entries
+   1803:## 5. Tổng hợp độ chính xác của AI
+   1825:## 6. Kết luận
+   1876:## 7. Công bố bắt buộc (Mandatory Disclosure)
+   --- refs to old section numbers ---
+   reports/main-report.md:197:| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 21 entry |
+→ Bash: sed -n '1876,1910p' reports/ai-audit-report.md
+   ## 7. Công bố bắt buộc (Mandatory Disclosure)
+   
+   Toàn bộ test case, script Playwright, dữ liệu test và tài liệu của HW04 được
+   tạo ra với sự hỗ trợ của Claude (Opus 5, và từ Session 3 ngày 08/08/2026 là
+   Sonnet 5) chạy trong Claude Code. Mọi output
+   của AI đều được sinh viên xem xét, đối chiếu với `sut-requirements.md` và với
+   hành vi quan sát được trên SUT đang chạy trước khi giữ lại; các phần bị sửa hoặc
+   bác bỏ được ghi ở mục **Student Fix** của từng entry.
+   
+   Bản ghi thô, đầy đủ và không lọc của mọi tương tác nằm ở
+   [`prompt-log.md`](prompt-log.md), được trích tự động từ transcript gốc bằng
+   [`tools/extract-prompt-log.py`](tools/extract-prompt-log.py).
+   
+   **Ký tên:** Hà Bảo Ngọc — 23127300 — 09/08/20
+   … [cắt bớt 2 ký tự; xem transcript gốc]
+```text
+Good — that complements the new §2 without contradicting it. Now the main-report ledger correction:
+```
+→ Edit(reports/main-report.md)
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && npx playwright test tests/fr-13-dashboard.spec.ts --project=chromium --grep "F13-TC-005|F13-TC-012" 2>&1 | tail -25
+   78 |         // Absence alone is a weak oracle: a blank page or a bundle that never
+         79 |         // booted also has no Dashboard heading. Asserting the login form the
+           at /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation/tests/fr-13-dashboard.spec.ts:76:11
+   
+       attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+       test-results/fr-13-dashboard-FR-13-—-Da-da7ca-in-không-xem-được-Dashboard-chromium/test-failed-1.png
+       ────────────────────────────────────────────────────────────────────────────────────────────────
+   
+       attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+       test-re
+   … [cắt bớt 923 ký tự; xem transcript gốc]
+→ Bash: npx playwright test tests/fr-13-dashboard.spec.ts --project=chromium --grep "F13-TC-005" 2>&1 | sed -n '1,40p'
+   Running 1 test using 1 worker
+   
+     ✘  1 [chromium] › tests/fr-13-dashboard.spec.ts:50:9 › FR-13 — Dashboard › F13-TC-005 — Người dùng không có quyền Admin không xem được Dashboard (10.4s)
+   
+   
+     1) [chromium] › tests/fr-13-dashboard.spec.ts:50:9 › FR-13 — Dashboard › F13-TC-005 — Người dùng không có quyền Admin không xem được Dashboard 
+   
+       Error: FR-12: only an admin-role session may see the Dashboard heading
+   
+       expect(locator).toHaveCount(expected) failed
+   
+       Locator:  getByRole('heading', { name: 'Dashboard', level: 2 })
+       Expected: 0
+       Received: 1
+       Timeout:  10000ms
+   
+       Call log:
+         - FR-12: only an admin-role session may see the Dashboard heading with timeout 10000ms
+         - w
+   … [cắt bớt 1286 ký tự; xem transcript gốc]
+```text
+Both changes hold and pass/fail counts are unchanged. Now two more genuine spec repairs I found while reading — FR-10 keeps its status-label oracle inline in the spec, and FR-02 silently invents a password for unregistered identities:
+```
+→ Edit(automation/tests/fr-10-order-state.spec.ts)
+→ Edit(automation/tests/fr-10-order-state.spec.ts)
+→ Edit(automation/utils/data.ts)
+→ Bash: python3 - <<'PY' import re, json p='test-data/fr-10-order-state.cases.json' s=open(p,encoding='utf-8').read() print(re.search(r'\{[^{}]*"caseId": "F10-TC-012".*?\n \}', s, re.S).group(0)) PY
+   {
+       "caseId": "F10-TC-012",
+       "title": "Danh sách đơn chỉ hiển thị trạng thái trong miền hợp lệ",
+       "category": "negative",
+       "hw02CaseId": "TC-FR10-DT-012",
+       "requirement": "sut-requirements.md §3 — đơn hàng chỉ có 5 trạng thái được đặc tả",
+       "setupPath": [],
+       "actor": "admin",
+       "control": null,
+       "expectedControls": null,
+       "targetStatus": null,
+       "assertion": "status-labels-in-domain",
+       "expected": { "statusLabel": "Chờ xác nhận" }
+     }
+→ Bash: python3 - <<'PY' import re, json p='test-data/fr-10-order-state.cases.json' s=open(p,encoding='utf-8').read() domain = '[\n "Chờ xác nhận",\n "Đã xác nhận",\n "Đang giao",\n "Đã giao",\n "Đã hủy"\n ]' # F10-TC-012 gets t
+… [cắt bớt 910 ký tự; xem transcript gốc]
+   F10-TC-012 ['Chờ xác nhận', 'Đã xác nhận', 'Đang giao', 'Đã giao', 'Đã hủy']
+   records with null statusDomain: 13
+       "caseId": "F10-TC-012",
+       "title": "Danh sách đơn chỉ hiển thị trạng thái trong miền hợp lệ",
+       "category": "negative",
+       "hw02CaseId": "TC-FR10-DT-012",
+       "requirement": "sut-requirements.md §3 — đơn hàng chỉ có 5 trạng thái được đặc tả",
+       "setupPath": [],
+       "actor": "admin",
+       "control": null,
+       "expectedControls": null,
+       "targetStatus": null,
+       "assertion": "status-labels-in-domain",
+       "expected": {
+         "statusLabel": "Chờ xác nhận",
+         "statusDomain": [
+         "Chờ xác nhận",
+         "Đã xác nhận",
+         "Đang giao",
+         "Đã giao",
+         "Đã hủy"
+   … [cắt bớt 19 ký tự; xem transcript gốc]
+→ Edit(automation/test-data/fr-10-order-state.cases.json)
+```text
+Now the FR-02 guard:
+```
+→ Edit(automation/tests/fr-02-login.spec.ts)
+→ Edit(automation/tests/fr-02-login.spec.ts)
+→ Edit(automation/tests/fr-02-login.spec.ts)
+→ Bash: npm run typecheck 2>&1 | tail -10 && echo "--- list ---" && for f in fr-02-login fr-10-order-state fr-13-dashboard; do printf "%s: " $f; npx playwright test tests/$f.spec.ts --list --project=chromium 2>&1 | grep -c '^ ';
+… [cắt bớt 5 ký tự; xem transcript gốc]
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+   
+   --- list ---
+   fr-02-login: 14
+   fr-10-order-state: 14
+   fr-13-dashboard: 12
+→ Bash: npx playwright test tests/fr-10-order-state.spec.ts --project=chromium --grep "F10-TC-012" 2>&1 | tail -6; echo "=== fr-02 quick sanity (TC-001, TC-003, TC-013) ==="; npx playwright test tests/fr-02-login.spec.ts --proje
+… [cắt bớt 68 ký tự; xem transcript gốc]
+   Running 1 test using 1 worker
+   
+     ✓  1 [chromium] › tests/fr-10-order-state.spec.ts:53:9 › FR-10 — Trạng thái đơn hàng › F10-TC-012 — Danh sách đơn chỉ hiển thị trạng thái trong miền hợp lệ (512ms)
+   
+     1 passed (965ms)
+   === fr-02 quick sanity (TC-001, TC-003, TC-013) ===
+   
+     ✓  1 [chromium] › tests/fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-001 — Đăng nhập thành công với tài khoản hợp lệ (267ms)
+     ✓  2 [chromium] › tests/fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-003 — Từ chối email đúng định dạng nhưng không tồn tại (215ms)
+     ✓  3 [chromium] › tests/fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-013 — Chuỗi SQL inje
+   … [cắt bớt 64 ký tự; xem transcript gốc]
+```text
+Titles now render with proper diacritics. Committing the three spec repairs separately, then re-running the full matrix.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && git add automation/tests/fr-13-dashboard.spec.ts && git commit -q -m "test(fr-13): drive the FR-12 guard from the record's auth field and assert the login fallback Th
+… [cắt bớt 433 ký tự; xem transcript gốc]
+   55b4cae test(fr-13): drive the FR-12 guard from the record's auth field and assert the login fallback
+→ Bash: git add automation/tests/fr-10-order-state.spec.ts automation/test-data/fr-10-order-state.cases.json automation/utils/data.ts && git commit -q -m "test(fr-10): move the status-label domain out of the spec into F10-TC-012
+… [cắt bớt 1170 ký tự; xem transcript gốc]
+   e341854 test(fr-02): restore Vietnamese diacritics in the 14 case titles and requirement notes
+   9e9b342 test(fr-02): fail loudly when a record asks for @correct on an unregistered account
+   f72bb20 test(fr-10): move the status-label domain out of the spec into F10-TC-012's record
+   55b4cae test(fr-13): drive the FR-12 guard from the record's auth field and assert the login fallback
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && npm run matrix 2>&1 | tail -40
+   Command running in background with ID: bzd380a3n. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output. You will be notified when it completes. To check interim output, use Read on that file path.
+   Session cwd remains /Users/hbn/Documents/CS423-CSC15003-Testing-N08; directory changes made by the backgrounded command do not apply to subsequent commands.
+→ Bash: grep -n "Found by Test Case" -A2 bug-reports/BUG-FR02-*.md bug-reports/BUG-FR10-*.md bug-reports/BUG-FR13-*.md
+   bug-reports/BUG-FR02-002.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-002.md-4-F02-TC-004 — "F02-TC-004 — Sai 2 lan lien tiep chua khoa — mat khau dung van vao duoc"
+   bug-reports/BUG-FR02-002.md-5-
+   bug-reports/BUG-FR02-001.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-001.md-4-F02-TC-002 — "F02-TC-002 — Email sai dinh dang bi chan boi validate HTML5"
+   bug-reports/BUG-FR02-001.md-5-
+   bug-reports/BUG-FR02-003.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-003.md-4-F02-TC-008 — "F02-TC-008 — Sau 31 giay het khoa — dang nhap lai duoc"
+   bug-reports/BUG-FR02-003.md-5-
+   bug-reports/BUG-FR02-004.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-004.md-4-F02-TC-012 — "F02-TC-012 — Response dang nhap k
+   … [cắt bớt 1236 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'PY' import json, re, glob titles = {c['caseId']: c['title'] for c in json.load(open('automation/test-data/fr-02-login.cases.json', encoding='utf-8'))} for p in sorted(glob.glob('bug-reports/BUG-FR02-*.md')):
+… [cắt bớt 278 ký tự; xem transcript gốc]
+   bug-reports/BUG-FR02-001.md -> F02-TC-002 — "F02-TC-002 — Email sai định dạng bị chặn bởi validate HTML5"
+   bug-reports/BUG-FR02-002.md -> F02-TC-004 — "F02-TC-004 — Sai 2 lần liên tiếp chưa khóa — mật khẩu đúng vẫn vào được"
+   bug-reports/BUG-FR02-003.md -> F02-TC-008 — "F02-TC-008 — Sau 31 giây hết khóa — đăng nhập lại được"
+   bug-reports/BUG-FR02-004.md -> F02-TC-012 — "F02-TC-012 — Response đăng nhập không được chứa mật khẩu người dùng"
+→ Bash: cat /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output 2>/dev/null | tail -25
+   (Bash completed with no output)
+→ Read(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output)
+```text
+While the matrix runs, folding the new findings into the gap analysis:
+```
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Bash: tail -c 400 /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output 2>/dev/null; echo "[---]"; ls -la /private/tmp/claude-501/-Users-hbn-Documen
+… [cắt bớt 89 ký tự; xem transcript gốc]
+   [---]
+   -rw-r--r--@ 1 hbn  wheel  0 Aug  9 15:48 /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Edit(ai-gap-analysis/ai-generated-script-gaps.md)
+→ Bash: wc -c /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output; ls -1 /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/json/ | head; grep
+… [cắt bớt 76 ký tự; xem transcript gốc]
+   0 /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output
+   ad-hoc.json
+   fr-02-login-chromium.json
+   fr-02-login-firefox.json
+   fr-02-login-webkit.json
+   fr-10-order-state-chromium.json
+   fr-10-order-state-firefox.json
+   fr-10-order-state-webkit.json
+   fr-13-dashboard-chromium.json
+   fr-13-dashboard-firefox.json
+   fr-13-dashboard-webkit.json
+   20
+→ Bash: sleep 180; wc -c /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output; tail -30 /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/run-m
+… [cắt bớt 10 ký tự; xem transcript gốc]
+   <tool_use_error>Blocked: sleep 180 followed by: wc -c /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output tail -30 /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/run-manifest.md. To wait for a condition, use Monitor with an until-loop (e.g. `until <check>; do sleep 2; done`). To wait for a command you started, use run_in_background: true. Do not chain shorter sleeps to work around this block.</tool_use_error>
+→ ToolSearch({"query": "select:Monitor", "max_results": 1})
+→ Bash: until [ -s /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output ]; do sleep 5; done; echo done
+   Command running in background with ID: bvfxlzw6d. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bvfxlzw6d.output. You will be notified when it completes. To check interim output, use Read on that file path.
+→ Bash: sed -n '200,240p' docs/superpowers/video-scripts.md; echo "=== is docs/ tracked/shipped? ==="; git ls-files docs/ | head; grep -rn "docs/superpowers" README.md reports/main-report.md .gitignore 2>/dev/null | head
+   npx playwright test tests/fr-13-dashboard.spec.ts --project=chromium --reporter=list
+   ```
+   
+   **Lời thoại:**
+   > "Em chạy lại spec này trên Chromium để minh hoạ kết quả cuối: 1 case pass,
+   > 11 case fail — quy về đúng 2 lỗi thật của hệ thống, mỗi lỗi đã có bug
+   > report và GitHub Issue riêng."
+   
+   ### Cảnh 6 — Kết (5:00–5:20)
+   
+   **Lời thoại:**
+   > "Đó là cách skill `playwright-automation` áp dụng end-to-end trên một
+   > feature — từ đọc oracle đến bug report, mỗi bước đều được AI log lại và
+   > sinh viên review trước khi giữ. Cảm ơn thầy/cô đã xem."
+   
+   ---
+   
+   ## Ghi chú kỹ thuật khi dựng video
+   
+   - Không cắt bỏ khoảng chờ 30 giây ở Video 1 Cảnh 5 — có thể tua nhanh
+     (time-lapse) nhưng phải giữ liên tục, không cắt r
+   … [cắt bớt 626 ký tự; xem transcript gốc]
+→ Bash: grep -rn "TODO" README.md reports/*.md ai-gap-analysis/*.md test-design/ bug-reports/*.md automation/ --include=*.md --include=*.ts --include=*.json 2>/dev/null | grep -v node_modules | head; echo "[none above = clean]";
+… [cắt bớt 30 ký tự; xem transcript gốc]
+   (eval):1: no matches found: --include=*.md
+   [none above = clean]
+    M ai-gap-analysis/ai-generated-script-gaps.md
+    M bug-reports/BUG-FR02-001.md
+    M bug-reports/BUG-FR02-002.md
+    M bug-reports/BUG-FR02-003.md
+    M bug-reports/BUG-FR02-004.md
+    M reports/ai-audit-report.md
+    D reports/html/fr-02-login/chromium/data/06a6411c95325280f02f4f30bf7d563bcd033426.zip
+    D reports/html/fr-02-login/chromium/data/0eadb88324e459b34f6418f3914fcb58de654bc9.webm
+    D reports/html/fr-02-login/chromium/data/1b6e7e7af37fa5ba91330f942a0813fac7ce08d9.zip
+    D reports/html/fr-02-login/chromium/data/2c1d5e59f51871896595a0da5c896a0a24b929a9.webm
+    D reports/html/fr-02-login/chromium/data/2f991c9e7e244f6f040a2061be0282ac3efa9a6a.pn
+   … [cắt bớt 782 ký tự; xem transcript gốc]
+```text
+The matrix is regenerating reports. Waiting for it to finish.
+```
+→ Bash: tail -c 2000 /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output; echo "[EXIT-CHECK]"; ls /Users/hbn/Documents/CS423-CSC15003-Testing-N08/re
+… [cắt bớt 33 ký tự; xem transcript gốc]
+   [EXIT-CHECK]
+          9
+→ Bash: tail -25 /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/run-manifest.md
+   # Run manifest — HW04 browser matrix
+   
+   Last updated 2026-08-09T15:25:50+07:00 by `npm run matrix`.
+   Run by: 23127300 (Ha Bao Ngoc).
+   Cells refreshed by this invocation: fr-02-login×webkit. Rows for cells not
+   run this time are carried over unchanged from the previous invocation.
+   
+   Statuses are recorded as they happened. A FAIL cell keeps its report — a
+   failing assertion that reflects a genuine EShop defect is evidence, not
+   something to hide.
+   
+   | Feature | Browser | Result | Passed | Failed | Skipped | ISO timestamp | Report | Label verified |
+   |---|---|---|---:|---:|---:|---|---|---|
+   | fr-02-login | chromium | FAIL (exit 1) | 10 | 4 | 0 | 2026-08-09T15:20:19+07:00 | `reports/html/fr-02-login/chromi
+   … [cắt bớt 1283 ký tự; xem transcript gốc]
+→ Bash: until grep -q "Cells recorded" /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/run-manifest.md && [ -s /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/
+… [cắt bớt 125 ký tự; xem transcript gốc]
+   Command running in background with ID: bf135ls08. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bf135ls08.output. You will be notified when it completes. To check interim output, use Read on that file path.
+→ Read(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bf135ls08.output)
+→ Edit(.claude/skills/playwright-automation/SKILL.md)
+→ Read(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bf135ls08.output)
+→ Edit(.claude/skills/playwright-automation/SKILL.md)
+→ Bash: tail -22 /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/run-manifest.md; echo "[bg out:]"; wc -c /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks
+… [cắt bớt 17 ký tự; xem transcript gốc]
+   Last updated 2026-08-09T15:25:50+07:00 by `npm run matrix`.
+   Run by: 23127300 (Ha Bao Ngoc).
+   Cells refreshed by this invocation: fr-02-login×webkit. Rows for cells not
+   run this time are carried over unchanged from the previous invocation.
+   
+   Statuses are recorded as they happened. A FAIL cell keeps its report — a
+   failing assertion that reflects a genuine EShop defect is evidence, not
+   something to hide.
+   
+   | Feature | Browser | Result | Passed | Failed | Skipped | ISO timestamp | Report | Label verified |
+   |---|---|---|---:|---:|---:|---|---|---|
+   | fr-02-login | chromium | FAIL (exit 1) | 10 | 4 | 0 | 2026-08-09T15:20:19+07:00 | `reports/html/fr-02-login/chromium/index.html` | yes |
+   | fr-02-login |
+   … [cắt bớt 1396 ký tự; xem transcript gốc]
+```text
+The matrix is still running (FR-02's wall-clock lockout waits dominate). Waiting.
+```
+→ Bash: until ! pgrep -f "run-matrix.ts" >/dev/null 2>&1; do sleep 10; done; echo "matrix finished"
+   Command running in background with ID: bxup842nu. Output is being written to: /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bxup842nu.output. You will be notified when it completes. To check interim output, use Read on that file path.
+→ Read(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bxup842nu.output)
+```text
+I'll wait for the completion notification rather than polling. Meanwhile, here's where things stand.
+
+**Applied so far (4 commits, all touching `.spec.ts` or the data they drive):**
+
+- `55b4cae` FR-13 spec now branches on the record's `auth` field, and the FR-12 guard cases additionally assert the `Admin Login` fallback heading — absence alone passed on a blank page.
+- `f72bb20` FR-10's five-label status domain moved out of the spec into F10-TC-012's record (schema field `expected.statusDomain`).
+- `9e9b342` FR-02 throws instead of inventing a password for an `unregistered` identity.
+- `e341854` all 14 FR-02 titles and requirement notes rewritten with proper diacritics; `case-map.md` synced so the 14 mismatches are gone.
+
+**Also edited, not yet committed:** the §9 declaration block + §8 tool/Bloom table in the audit report; the ledger's carried-vs-new counts in `main-report.md`; the four `BUG-FR02-*` "Found by Test Case" lines; a new gap-analysis group §3 covering the three data-driven defects found this pass; two accuracy fixes in the skill (the `xpath=..` and `waitForTimeout` exceptions it was violating in its own shipped code, and the "is this actually data-driven" check).
+
+That brings §12 to **9 commits touching `.spec.ts`** — clear of the 8 minimum on the strictest reading.
+
+**Verified along the way:** typecheck clean; `--list` still 14/14/12; F13-TC-012 passes with the new positive assertion and F13-TC-005 still fails on the original `toHaveCount` (the real BUG-FR13-002), so no pass/fail count moved; F10-TC-012 passes reading its domain from JSON; FR-02 titles render with diacritics in the runner output.
+
+**Still to do once the matrix lands:** confirm all 9 cells hold at 10/4, 11/3, 1/11 and that `report:verify` still reports 9/9 labeled; log this session through the `ai-audit-log` and `prompt-log` skills (entry #22, which changes the "21 entry" figures quoted in `main-report.md` §6 and `ai-critique.md`); regenerate the PDFs and `git-log.txt`; commit the docs.
+
+One thing I want to flag now rather than at the end: `HW04-AutomationTesting.md` §12 in this repo still reads "at least 8 commits **over at least 4 days**", while `CLAUDE.md` records that clause as dropped on 2026-08-08. Your history spans 08-05 → 08-09, so you satisfy both readings and nothing needs doing — but if the 4-day clause really was dropped, the checked-in spec is stale and worth correcting so a future session doesn't work from the wrong rule.
+```
+→ Bash: cat /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output
+   attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+       test-results/fr-13-dashboard-FR-13-—-Da-c4b2c-ng-thái-không-chỉ-delivered-webkit/video.webm
+       ────────────────────────────────────────────────────────────────────────────────────────────────
+   
+       Error Context: test-results/fr-13-dashboard-FR-13-—-Da-c4b2c-ng-thái-không-chỉ-delivered-webkit/error-context.md
+   
+       attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+       test-results/fr-13-dashboard-FR-13-—-Da-c4b2c-ng-thái-không-chỉ-delivered-webkit/trace.zip
+       Usage:
+   
+           npx playwright show-trace test-results/fr-13-dashboard-FR-13-—-Da-c4b2c
+   … [cắt bớt 2738 ký tự; xem transcript gốc]
+```text
+All 9 cells reran with identical counts and diacritics now visible in the report titles. Verifying labels:
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation && npm run report:verify 2>&1 | tail -15
+→ Bash: for d in reports/html/*/*/; do printf "%-42s " "$d"; grep -o 'Run by: [0-9]*' "$d/index.html" | head -1 | tr -d '\n'; printf " | "; grep -o '20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-9:]*+[0-9:]*' "$d/index.html" | head -1;
+… [cắt bớt 148 ký tự; xem transcript gốc]
+   > hw04-eshop-automation@1.0.0 report:verify
+   > tsx scripts/verify-reports.ts
+   
+   ok   reports/html/fr-02-login/chromium/index.html
+   ok   reports/html/fr-02-login/firefox/index.html
+   ok   reports/html/fr-02-login/webkit/index.html
+   ok   reports/html/fr-10-order-state/chromium/index.html
+   ok   reports/html/fr-10-order-state/firefox/index.html
+   ok   reports/html/fr-10-order-state/webkit/index.html
+   ok   reports/html/fr-13-dashboard/chromium/index.html
+   ok   reports/html/fr-13-dashboard/firefox/index.html
+   ok   reports/html/fr-13-dashboard/webkit/index.html
+   
+   9/9 expected reports found, 0 unlabeled.
+   (eval):1: no matches found: reports/html/*/*/
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && for d in reports/html/*/*/; do printf "%-42s " "$d"; grep -o 'Run by: [0-9]*' "$d/index.html" | head -1 | tr -d '\n'; printf " | "; grep -o '20[0-9][0-9]-[0-9][0-9]-[
+… [cắt bớt 426 ký tự; xem transcript gốc]
+   reports/html/fr-02-login/chromium/         Run by: 23127300 | 2026-08-09T15:48:37+07:00
+   reports/html/fr-02-login/firefox/          Run by: 23127300 | 2026-08-09T15:50:15+07:00
+   reports/html/fr-02-login/webkit/           Run by: 23127300 | 2026-08-09T15:51:57+07:00
+   reports/html/fr-10-order-state/chromium/   Run by: 23127300 | 2026-08-09T15:53:37+07:00
+   reports/html/fr-10-order-state/firefox/    Run by: 23127300 | 2026-08-09T15:54:04+07:00
+   reports/html/fr-10-order-state/webkit/     Run by: 23127300 | 2026-08-09T15:54:35+07:00
+   reports/html/fr-13-dashboard/chromium/     Run by: 23127300 | 2026-08-09T15:55:05+07:00
+   reports/html/fr-13-dashboard/firefox/      Run by: 23127300 | 2026-08-09T15:55:22+07
+   … [cắt bớt 454 ký tự; xem transcript gốc]
+→ Bash: python3 -c " import json for b in ['chromium','firefox','webkit']: d=json.load(open('reports/json/fr-02-login-%s.json'%b)) titles=[t['title'] for s in d['suites'] for ss in s.get('suites',[]) for t in ss['specs']] print(
+… [cắt bớt 610 ký tự; xem transcript gốc]
+   Exit code 1
+   chromium 14 | F02-TC-001 — Đăng nhập thành công với tài khoản hợp lệ
+   firefox 14 | F02-TC-001 — Đăng nhập thành công với tài khoản hợp lệ
+   webkit 14 | F02-TC-001 — Đăng nhập thành công với tài khoản hợp lệ
+   --- embedded report payload check (chromium) ---
+   Traceback (most recent call last):
+     File "<stdin>", line 4, in <module>
+   AttributeError: 'NoneType' object has no attribute 'group'
+→ Bash: python3 - <<'PY' import json, glob, os # Playwright writes the report data as a zip alongside index.html for b in ['chromium','firefox','webkit']: d = 'reports/html/fr-02-login/%s' % b cands = [f for f in os.listdir(d) i
+… [cắt bớt 224 ký tự; xem transcript gốc]
+   chromium top-level zips: [] | index.html size: 539319
+   firefox top-level zips: [] | index.html size: 539477
+   webkit top-level zips: [] | index.html size: 539491
+   playwrightReportBase64
+→ Bash: python3 - <<'PY' import re, base64, zipfile, io s = open('reports/html/fr-02-login/chromium/index.html', encoding='utf-8').read() i = s.find('playwrightReportBase64') m = re.search(r'base64,([A-Za-z0-9+/=]+)', s[i:i+8000
+… [cắt bớt 388 ký tự; xem transcript gốc]
+   accented FR-02 title in embedded report data: True
+   old ASCII title still present: False
+   Run by banner in plain HTML: True
+```text
+Reports verified. Now logging this session per the mandatory AI logging policy.
+```
+→ Skill(ai-audit-log)
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ && ls -lt *.jsonl | head -5
+   -rw-------@ 1 hbn  staff   1066345 Aug  9 15:57 9f7afb69-8389-4c3f-8302-322e8652712d.jsonl
+   -rw-------@ 1 hbn  staff   5316990 Aug  9 15:33 a641cf9c-004b-4a48-81bc-174c83132eb0.jsonl
+   -rw-------@ 1 hbn  staff     10721 Aug  9 13:53 cfb95990-5cd3-4ba8-9cf6-eeb8f7bc1b26.jsonl
+   -rw-------@ 1 hbn  staff    101412 Aug  9 13:53 b078efda-f552-456c-9ac3-c7dc38435bb4.jsonl
+   -rw-------@ 1 hbn  staff     65163 Aug  9 13:51 7595b1b0-725d-4bcc-85a5-88e64ba23f5e.jsonl
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ && python3 - <<'PY' import json from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) f='9f7afb69-8389-4c3f-8302-322e8652
+… [cắt bớt 487 ký tự; xem transcript gốc]
+   ===== USER 15:35 =====
+   'i need you to scan this homework end-to-end and compare with the requirements in HW04-AutomationTesting.md, check the quality and quantity if those met the requirements, i want to achieve full 100\nalso check the wordings of the docs, if it shows too clearly that it is ai-generated, or the wordings is just not naturally vietnamese, i want it to be perfect'
+   ===== USER 15:56 =====
+   '<task-notification>\n<task-id>bzd380a3n</task-id>\n<tool-use-id>toolu_01HnyanSUS52RvUzYffn1UGb</tool-use-id>\n<output-file>/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/tasks/bzd380a3n.output</output-file>\n<status>completed</stat
+   … [cắt bớt 2335 ký tự; xem transcript gốc]
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ && python3 - <<'PY' > /tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/scratchpad/s5-assistant.tx
+… [cắt bớt 780 ký tự; xem transcript gốc]
+   101 /tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/scratchpad/s5-assistant.txt
+   15
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Read(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/scratchpad/s5-assistant.txt)
+→ Bash: grep -n "^## Entry #21" reports/ai-audit-report.md; sed -n '1795,1830p' reports/ai-audit-report.md
+   1715:## Entry #21
+   - Tách thành hai commit (sửa spec, rồi bằng chứng chạy lại) để lịch sử git thể
+     hiện đúng thứ tự: thay đổi trước, bằng chứng sau.
+   - Ghi lỗ hổng này thành mục 3 của `ai-gap-analysis/ai-generated-script-gaps.md`
+     — nhóm lỗi mới, không trùng hai nhóm đã có, vì nguyên nhân không phải thiếu
+     quan sát mà là sinh code theo từng mảnh rời rạc.
+   
+   ---
+   
+   ## 5. Tổng hợp độ chính xác của AI
+   
+   | Verdict | Số entry | Tỷ lệ |
+   | --- | ---: | ---: |
+   | `VALID` | 12 | 57.1% |
+   | `INCOMPLETE` | 8 | 38.1% |
+   | `INVALID` | 1 | 4.8% |
+   | **Tổng số entry đã audit** | **21** | **100%** |
+   
+   Phân bố theo giai đoạn:
+   
+   | Giai đoạn | Entry | VALID | Cần sửa |
+   | --- | --- | ---: | ---: |
+   | Dựng khung + lập kế h
+   … [cắt bớt 646 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'PY' import io out_blocks = open('/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d/scratchpad/s5-assistant.txt', encoding='utf-8').read().strip() pr
+… [cắt bớt 6500 ký tự; xem transcript gốc]
+   appended Entry #22
+   22
+```text
+Now syncing §5's accuracy table and §6's conclusion to 22 entries:
+```
+→ Bash: awk '/^### \(3\) Verdict/{f=1;next} f&&NF{print;f=0}' reports/ai-audit-report.md | sort | uniq -c; sed -n '/^## 6. Kết luận/,/^$/p' reports/ai-audit-report.md | head -6
+   8 **`INCOMPLETE`**
+      1 **`INCOMPLETE`** (đối với bản nháp schema mà kế hoạch đưa ra)
+      1 **`INVALID`**
+     12 **`VALID`**
+   ## 6. Kết luận
+→ Bash: python3 - <<'PY' p='reports/ai-audit-report.md' s=open(p,encoding='utf-8').read() old_tbl = """| Verdict | Số entry | Tỷ lệ | | --- | ---: | ---: | | `VALID` | 12 | 57.1% | | `INCOMPLETE` | 8 | 38.1% | | `INVALID` | 1 |
+… [cắt bớt 1032 ký tự; xem transcript gốc]
+   ok
+   reports/ai-audit-report.md:1470:https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/210
+   reports/ai-audit-report.md:1471:https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/211
+   reports/ai-audit-report.md:1472:https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/212
+   reports/ai-audit-report.md:1918:**Still to do once the matrix lands:** confirm all 9 cells hold at 10/4, 11/3, 1/11 and that `report:verify` still reports 9/9 labeled; log this session through the `ai-audit-log` and `prompt-log` skills (entry #22, which changes the "21 entry" figures quoted in `main-report.md` §6 and `ai-critique.md`); regenerate the PDFs and `git-log.txt`; commit the docs.
+   reports/ai-a
+   … [cắt bớt 997 ký tự; xem transcript gốc]
+→ Edit(reports/ai-critique.md)
+→ Bash: python3 -c " import re t=open('reports/ai-critique.md',encoding='utf-8').read() body='\n'.join(t.splitlines()[1:]) print('words:',len([x for x in re.split(r'\s+',body) if x.strip()])) "
+   words: 359
+→ Read(reports/ai-critique.md)
+→ Write(reports/ai-critique.md, 26 dòng)
+→ Bash: python3 -c " import re t=open('reports/ai-critique.md',encoding='utf-8').read() body='\n'.join(t.splitlines()[1:]) print('words:',len([x for x in re.split(r'\s+',body) if x.strip()])) "; echo "--- main-report sync ---";
+… [cắt bớt 478 ký tự; xem transcript gốc]
+   words: 315
+   --- main-report sync ---
+   194:quan sát độc lập. 22 entry đã audit: 12 `VALID`, 9 `INCOMPLETE`, 1 `INVALID`.
+   202:| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 22 entry |
+→ Write(reports/ai-critique.md, 26 dòng)
+→ Bash: python3 -c " import re t=open('reports/ai-critique.md',encoding='utf-8').read() body='\n'.join(t.splitlines()[1:]) print('words:',len([x for x in re.split(r'\s+',body) if x.strip()])) "
+   words: 309
+→ Edit(reports/ai-critique.md)
+→ Bash: python3 -c " import re t=open('reports/ai-critique.md',encoding='utf-8').read() body='\n'.join(t.splitlines()[1:]) print('words:',len([x for x in re.split(r'\s+',body) if x.strip()])) "; echo "--- verbatim check ---"; py
+… [cắt bớt 60 ký tự; xem transcript gốc]
+   words: 305
+   --- verbatim check ---
+   checked 216 quoted lines against 4531k chars of transcript
+   ✓ every quoted line traces to a transcript
+→ Bash: python3 - <<'PY' p='reports/ai-critique.md' s=open(p,encoding='utf-8').read() pairs=[ ("Cả hai đều sai theo cách nguy hiểm\nnhất: không crash, chỉ âm thầm thao tác nhầm màn hình (Entry #11–12). AI suy\nluận tốt trên dữ l
+… [cắt bớt 1228 ký tự; xem transcript gốc]
+   words: 299
+```text
+299 words, inside the 200–300 band. Now the prompt log:
+```
+→ Skill(prompt-log)
+→ Bash: grep -n "SESSIONS" -A 25 reports/tools/extract-prompt-log.py | head -40
+   25:SESSIONS = [
+   26-    ("4e93c378", "Khởi tạo phiên làm việc trên repo HW04"),
+   27-    ("5eb7aacf", "Đọc đề HW04 và dựng khung dự án automation"),
+   28-    ("33676afb", "Lập kế hoạch HW04 (superpowers plan) và thực thi Session 1 — FR-02"),
+   29-    ("b45a13b7", "Thực thi Session 2 — FR-10"),
+   30-    ("78f17f22", "Điều chỉnh kế hoạch theo ràng buộc commit mới; rà soát log AI"),
+   31-    ("f6295926", "Thực thi Session 3 — FR-13, triage, bug report, tài liệu hoá"),
+   32-    ("ff131a90", "Đối chiếu kịch bản quay video với yêu cầu HW04"),
+   33-    ("7595b1b0", "Đặt tên hai video YouTube theo nội dung"),
+   34-    ("b078efda", "Thay hai link YouTube vào README và main-report"),
+   35-    ("a641cf9c", "Session 4 — r
+   … [cắt bớt 1066 ký tự; xem transcript gốc]
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ && for f in cfb95990 9f7afb69; do echo "=== $f ==="; python3 -c " import json,glob fn=glob.glob('$f*.jsonl')[0] for line in open(fn): d=json.loads(li
+… [cắt bớt 281 ký tự; xem transcript gốc]
+   === cfb95990 ===
+   '<local-command-caveat>Caveat: The messages below were generated by the user while running local commands. DO NOT respond to these messages or otherwise consider them in your respon'
+   === 9f7afb69 ===
+   'i need you to scan this homework end-to-end and compare with the requirements in HW04-AutomationTesting.md, check the quality and quantity if those met the requirements, i want to '
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Edit(reports/tools/extract-prompt-log.py)
+→ Bash: python3 reports/tools/extract-prompt-log.py 2>&1 | tail -20; echo "--- size ---"; wc -l reports/prompt-log.md; git diff --stat reports/prompt-log.md
 
 
 ---

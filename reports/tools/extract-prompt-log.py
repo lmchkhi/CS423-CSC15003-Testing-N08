@@ -33,6 +33,7 @@ SESSIONS = [
     ("7595b1b0", "Đặt tên hai video YouTube theo nội dung"),
     ("b078efda", "Thay hai link YouTube vào README và main-report"),
     ("a641cf9c", "Session 4 — rà soát toàn bài theo rubric, sửa số liệu sai và văn phong tài liệu"),
+    ("9f7afb69", "Session 5 — rà soát toàn bài lần cuối theo rubric; sửa 3 spec, 2 file dữ liệu và 6 tài liệu"),
 ]
 
 # Model display name per transcript's own `message.model` field — sessions

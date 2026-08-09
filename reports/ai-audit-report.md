@@ -10,7 +10,28 @@
 | **Ngày làm bài** | 05/08/2026 – 09/08/2026 |
 | **Công cụ AI đã dùng** | Claude (Opus 5 và Sonnet 5, chạy trong Claude Code — chuyển sang Sonnet 5 từ Session 3, 08/08/2026; quay lại Opus 5 cho phiên rà soát cuối, 09/08/2026) |
 
-## 2. Hướng dẫn / Phạm vi
+## 2. Tuyên bố sử dụng AI (HW04 §9)
+
+> **I use AI tools for the following tasks.**
+
+Tôi có sử dụng AI trong bài này. Công cụ, thời điểm, prompt nguyên văn và output
+nguyên văn của từng lần tương tác được ghi ở mục 4 dưới đây; bản ghi thô không
+lọc nằm ở [`prompt-log.md`](prompt-log.md).
+
+| Nhóm công việc | Công cụ | Được dùng để làm gì |
+|---|---|---|
+| Sinh script tự động (§8) | Claude (Opus 5 / Sonnet 5, trong Claude Code) | Phân tích đặc tả, thiết kế case, mô hình hoá dữ liệu, sinh page object + spec, chẩn đoán và sửa lỗi script |
+| Framework automation | Playwright (TypeScript, `@playwright/test`) | Thực thi ma trận 3 trình duyệt |
+| Báo cáo | Playwright HTML reporter | Sinh 9 HTML report kèm nhãn `Run by: 23127300` + ISO timestamp |
+
+Mức Bloom-AI mà HW04 §8 yêu cầu — **G9.2 (Apply), G9.3 (Analyse), G9.4
+(Collaborate with AI)** — được thể hiện lần lượt ở: quy trình 7 bước áp dụng cho
+từng feature (Apply), phân tích lỗi AI ở
+[`ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md)
+và cột Verdict/Reasoning của từng entry (Analyse), và các vòng sửa qua lại giữa
+sinh viên và AI được ghi lại ở mục Student Fix (Collaborate).
+
+## 3. Hướng dẫn / Phạm vi
 
 Phụ lục bắt buộc theo HW04 §9. Mỗi entry ghi lại một giai đoạn chuyển đổi test
 case thủ công sang script tự động, kèm phán quyết của sinh viên về chất lượng
@@ -47,7 +68,7 @@ này, không khối nào bị rút gọn.
 > từ trí nhớ" đã bị xoá, vì nó không còn đúng: transcript vẫn còn, nên phần đó
 > là trích xuất chứ không phải dựng lại.
 
-## 3. Audit Entries
+## 4. Audit Entries
 
 ---
 
@@ -1779,14 +1800,240 @@ vì "assertion biết chờ" — đúng loại lỗi mà tài liệu Playwright 
 
 ---
 
-## 4. Tổng hợp độ chính xác của AI
+## Entry #22
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 3:35 PM 09/08/2026 |
+| **Artifact type** | Rà soát toàn bài theo rubric HW04 + các bản sửa sinh ra từ đó (3 spec, 2 file dữ liệu, 6 tài liệu) |
+
+**Full prompt:**
+
+```
+i need you to scan this homework end-to-end and compare with the requirements in HW04-AutomationTesting.md, check the quality and quantity if those met the requirements, i want to achieve full 100
+also check the wordings of the docs, if it shows too clearly that it is ai-generated, or the wordings is just not naturally vietnamese, i want it to be perfect
+```
+
+### (2) AI Output
+
+Một stage agentic không có một chuỗi trả lời duy nhất. Dưới đây là toàn bộ các
+khối chữ AI đã nói trong phiên, nguyên văn tiếng Anh, kèm mốc giờ ICT cắt từ
+transcript gốc — trình tự này chính là output của stage.
+
+```
+===== 15:35 =====
+I'll start by reading the requirements document and surveying the repo structure.
+
+===== 15:40 =====
+I've read the requirements, all deliverables, the specs/data, the reports, and the git history. Here's the audit.
+
+## Quantity — all §6/§11/§14 minimums are met
+
+| Requirement | Required | Actual | ✓ |
+|---|---|---|---|
+| Features, one per Pool A/B/C, same as HW02 | 3 | FR-02 / FR-10 / FR-13 | ✓ |
+| Automated cases per feature | ≥12 | 14 / 14 / 12 (verified via `--list`) | ✓ |
+| Data-driven, external file | no inline arrays | 3 × `test-data/*.cases.json`, zod-validated, loader rejects <12 records | ✓ |
+| Distinct assertion patterns | ≥3 | 9 | ✓ |
+| Browser runs | ≥9 | 9 cells, 9 report folders | ✓ |
+| `Run by: {StudentID}` + ISO timestamp | all reports | verified by grep in all 9 `index.html` (banner + `<title>`) | ✓ |
+| Bug reports + GitHub issues + screenshots | if any | 9 reports, issues #204–212, both screenshot sets present | ✓ |
+| Non-automated cases documented | yes | 3, with reason + unblock condition | ✓ |
+| AI Critique | 200–300 words | 277 | ✓ |
+| AI Audit Report | per-interaction | 21 entries, 12 VALID / 8 INCOMPLETE / 1 INVALID | ✓ |
+| README self-assessment + summary | yes | present | ✓ |
+| MD + PDF | main report, critique, audit | all present (+ gap analysis) | ✓ |
+
+## Quality — 6 real gaps, in priority order
+
+**1. §9's mandatory declaration sentence is missing (highest risk).** §9 requires the literal `"I use AI tools for the following tasks,"` in the audit report. It's nowhere in `reports/ai-audit-report.md`, `README.md`, or `main-report.md`. §17 says missing a required document element is a 0-risk item. One-line fix.
+
+**2. §12 commit count is 5, not 8, if the TA counts literally.** Commits touching `automation/tests/*.spec.ts`: **5** (`6c49ae8`, `8088ab4`, `175e14d`, `58d1d13`, `a09d2b2`). Counting the data/page-object/fixture/config commits as "or equivalent" gets you to 10. Days are fine (08-05 → 08-09 = 5). This is the one place where a strict reading loses points. Fix: land the remaining work as ≥3 more commits that genuinely touch `.spec.ts`.
+
+**3. FR-02's 14 test titles are unaccented Vietnamese — and all 14 contradict the case-map.** The data file says `"Dang nhap thanh cong voi tai khoan hop le"`; FR-10 and FR-13 use full diacritics. These titles are what the TA sees in the three FR-02 HTML reports and in the `## Found by Test Case` line of four bug reports. Meanwhile `test-design/FR-02-login/case-map.md` claims `Đăng nhập thành công với tài khoản hợp lệ` for every one of the 14 — so the traceability document doesn't match the artifact it traces. This is both your "unnatural Vietnamese" concern and a defensible-looking inconsistency.
+
+**4. `dashboardCaseSchema.auth` is declared, validated, filled in all 12 records — and never read by the spec.** This is exactly the defect class your own gap analysis §3 documents as found-and-fixed for FR-02 (`expected.urlContains` / `tokenStored`). A TA who reads §3 and then greps will find the same hole still open in FR-13. Either wire it or drop it from the schema.
+
+**5. FR-13's two FR-12 guard cases assert only absence.** `expect(dashboardHeading).toHaveCount(0)` passes on a blank page or a crashed bundle. `DashboardPage.loginHeading` already exists and is never used — asserting `Admin Login` is visible turns it into a real oracle.
+
+**6. Minor:** the main-report requirement ledger doesn't mention that FR-02 contributes 2 fresh HW04 designs (F02-TC-013/014) and FR-10 one (F10-TC-014) — only FR-13's 7 are called out, so the ledger undercounts your new design work. And §8's Bloom-AI level (G9.2/G9.3/G9.4) isn't declared anywhere.
+
+## On the Vietnamese prose
+
+I read `main-report.md`, `ai-critique.md`, the gap analysis, all three case-maps, `not-automated.md`, and the bug reports. **The prose does not read as AI-generated.** It's terse, concrete, and argues from specific observed evidence ("mở `:5174/orders` vẫn render Dashboard", "gấp đúng 2 lần tổng thật") rather than the generic hedge-and-enumerate register that gives AI text away. No "Điều quan trọng cần lưu ý là", no tricolon padding, no restating the heading as the first sentence. Technical terms stay English where a Vietnamese engineer would keep them English. I'd leave it alone.
+
+The one exception is finding #3 — the FR-02 titles, which aren't natural Vietnamese at all.
+
+Two things I need from you before touching evidence artifacts:
+
+===== 15:43 =====
+Proceeding. Starting with the FR-02 titles.
+
+===== 15:44 =====
+Now sync the case-map to match exactly, and fix FR-13's spec (`auth` wiring + positive guard assertion).
+
+===== 15:45 =====
+Now the §9 declaration and §8 tool/Bloom declaration:
+
+===== 15:45 =====
+Good — that complements the new §2 without contradicting it. Now the main-report ledger correction:
+
+===== 15:46 =====
+Both changes hold and pass/fail counts are unchanged. Now two more genuine spec repairs I found while reading — FR-10 keeps its status-label oracle inline in the spec, and FR-02 silently invents a password for unregistered identities:
+
+===== 15:47 =====
+Now the FR-02 guard:
+
+===== 15:48 =====
+Titles now render with proper diacritics. Committing the three spec repairs separately, then re-running the full matrix.
+
+===== 15:49 =====
+While the matrix runs, folding the new findings into the gap analysis:
+
+===== 15:51 =====
+The matrix is regenerating reports. Waiting for it to finish.
+
+===== 15:52 =====
+The matrix is still running (FR-02's wall-clock lockout waits dominate). Waiting.
+
+===== 15:52 =====
+I'll wait for the completion notification rather than polling. Meanwhile, here's where things stand.
+
+**Applied so far (4 commits, all touching `.spec.ts` or the data they drive):**
+
+- `55b4cae` FR-13 spec now branches on the record's `auth` field, and the FR-12 guard cases additionally assert the `Admin Login` fallback heading — absence alone passed on a blank page.
+- `f72bb20` FR-10's five-label status domain moved out of the spec into F10-TC-012's record (schema field `expected.statusDomain`).
+- `9e9b342` FR-02 throws instead of inventing a password for an `unregistered` identity.
+- `e341854` all 14 FR-02 titles and requirement notes rewritten with proper diacritics; `case-map.md` synced so the 14 mismatches are gone.
+
+**Also edited, not yet committed:** the §9 declaration block + §8 tool/Bloom table in the audit report; the ledger's carried-vs-new counts in `main-report.md`; the four `BUG-FR02-*` "Found by Test Case" lines; a new gap-analysis group §3 covering the three data-driven defects found this pass; two accuracy fixes in the skill (the `xpath=..` and `waitForTimeout` exceptions it was violating in its own shipped code, and the "is this actually data-driven" check).
+
+That brings §12 to **9 commits touching `.spec.ts`** — clear of the 8 minimum on the strictest reading.
+
+**Verified along the way:** typecheck clean; `--list` still 14/14/12; F13-TC-012 passes with the new positive assertion and F13-TC-005 still fails on the original `toHaveCount` (the real BUG-FR13-002), so no pass/fail count moved; F10-TC-012 passes reading its domain from JSON; FR-02 titles render with diacritics in the runner output.
+
+**Still to do once the matrix lands:** confirm all 9 cells hold at 10/4, 11/3, 1/11 and that `report:verify` still reports 9/9 labeled; log this session through the `ai-audit-log` and `prompt-log` skills (entry #22, which changes the "21 entry" figures quoted in `main-report.md` §6 and `ai-critique.md`); regenerate the PDFs and `git-log.txt`; commit the docs.
+
+One thing I want to flag now rather than at the end: `HW04-AutomationTesting.md` §12 in this repo still reads "at least 8 commits **over at least 4 days**", while `CLAUDE.md` records that clause as dropped on 2026-08-08. Your history spans 08-05 → 08-09, so you satisfy both readings and nothing needs doing — but if the 4-day clause really was dropped, the checked-in spec is stale and worth correcting so a future session doesn't work from the wrong rule.
+
+===== 15:56 =====
+All 9 cells reran with identical counts and diacritics now visible in the report titles. Verifying labels:
+
+===== 15:57 =====
+Reports verified. Now logging this session per the mandatory AI logging policy.
+```
+
+Ngoài các khối trên, output của stage còn gồm các lần gọi tool (đọc file, chạy
+`playwright test`, `git commit`) và nội dung các file AI đã ghi; những file đó
+là sản phẩm nộp, đã nằm trong repo, nên không chép lại vào đây.
+
+Trích nguyên văn từ output của `npm run matrix` sau khi sửa xong:
+
+```
+FAIL  fr-02-login        chromium  10p/4f  reports/html/fr-02-login/chromium/index.html  label=ok
+FAIL  fr-02-login        firefox   10p/4f  reports/html/fr-02-login/firefox/index.html  label=ok
+FAIL  fr-02-login        webkit    10p/4f  reports/html/fr-02-login/webkit/index.html  label=ok
+FAIL  fr-10-order-state  chromium  11p/3f  reports/html/fr-10-order-state/chromium/index.html  label=ok
+FAIL  fr-10-order-state  firefox   11p/3f  reports/html/fr-10-order-state/firefox/index.html  label=ok
+FAIL  fr-10-order-state  webkit    11p/3f  reports/html/fr-10-order-state/webkit/index.html  label=ok
+FAIL  fr-13-dashboard    chromium  1p/11f  reports/html/fr-13-dashboard/chromium/index.html  label=ok
+FAIL  fr-13-dashboard    firefox   1p/11f  reports/html/fr-13-dashboard/firefox/index.html  label=ok
+FAIL  fr-13-dashboard    webkit    1p/11f  reports/html/fr-13-dashboard/webkit/index.html  label=ok
+```
+
+và từ `npm run report:verify`:
+
+```
+9/9 expected reports found, 0 unlabeled.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần rà soát có giá trị thật. Ba phát hiện quan trọng nhất đều kiểm chứng được
+ngay: câu tuyên bố bắt buộc của §9 thật sự không có trong bất kỳ file nào; số
+commit chạm vào `.spec.ts` đúng là 5 chứ không phải 8 nếu người chấm đếm theo
+nghĩa hẹp; và cả 14 tiêu đề case FR-02 vừa mất dấu tiếng Việt vừa lệch với
+`case-map.md` — tức là tài liệu truy vết mô tả sai chính thứ nó truy vết. Không
+phát hiện nào trong ba cái đó là suy đoán.
+
+Nhưng chính bản rà soát ấy lại lộ ra đúng cái bệnh mà nó đi tìm, ở hai chỗ.
+
+Thứ nhất, lượt rà soát đầu tuyên bố "6 lỗ hổng thật" và trình bày như một danh
+sách đã đầy đủ. Hai lỗ hổng nữa — miền nhãn trạng thái viết cứng trong
+`fr-10-order-state.spec.ts`, và mật khẩu bịa ra cho danh tính `unregistered`
+trong `fr-02-login.spec.ts` — chỉ lộ ra **sau đó**, khi đã bắt tay vào sửa và
+phải đọc lại từng dòng spec. Nói cách khác, đọc để *tổng kết* và đọc để *sửa*
+cho ra hai kết quả khác nhau, và AI đã trình bày kết quả của lượt đọc nông hơn
+như thể nó là kết luận cuối.
+
+Thứ hai, nghiêm trọng hơn: trường `auth` của FR-13 được khai báo, được validate,
+điền đủ trong cả 12 record, và không dòng spec nào đọc tới — đúng bằng lỗi mà
+Entry #20 và #21 đã phát hiện rồi sửa cho FR-02 ngay hôm trước. Lượt sửa đó
+dừng lại đúng ở file được chỉ ra và không một lần hỏi "hai feature còn lại có
+cùng bệnh không". Một phát hiện đúng, sửa đúng, nhưng không tự lan sang phần
+còn lại của suite.
+
+Còn một điểm phải nói rõ vì nó liên quan đến chính câu hỏi của prompt: AI kết
+luận rằng văn phong tiếng Việt trong các tài liệu "không đọc ra là do AI viết".
+Đó là nhận định AI tự đưa ra về sản phẩm do chính nó tham gia viết, nên không
+thể coi là bằng chứng độc lập. Sinh viên phải tự đọc lại và tự chịu trách nhiệm
+về kết luận đó — phần rà soát này chỉ có giá trị như một gợi ý, không phải một
+phép kiểm.
+
+### (5) Student Fix
+
+Giữ lại toàn bộ các bản sửa, sau khi tự kiểm chứng từng cái:
+
+- **`fr-13-dashboard.spec.ts`** — rẽ nhánh FR-12 theo `testCase.auth` thay vì
+  theo tên `assertion`, và thêm assertion dương: một phiên bị từ chối phải rơi
+  về heading `Admin Login`, vì `toHaveCount(0)` một mình vẫn xanh trên trang
+  trắng. Kiểm chứng: F13-TC-012 vẫn pass với assertion mới, F13-TC-005 vẫn fail
+  đúng ở assertion cũ (`BUG-FR13-002`), không case nào đổi màu.
+- **`fr-10-order-state.spec.ts` + `fr-10-order-state.cases.json`** — chuyển
+  `STATUS_LABEL_DOMAIN` thành `expected.statusDomain` trong record của
+  F10-TC-012; 13 record còn lại khai `null`. F10-TC-012 vẫn pass.
+- **`fr-02-login.spec.ts`** — `resolveIdentity()` trả `null` cho danh tính chưa
+  đăng ký và ném lỗi kèm tên case nếu record đòi `@correct`.
+- **`fr-02-login.cases.json` + `case-map.md`** — khôi phục dấu tiếng Việt cho
+  14 tiêu đề và 14 dòng `requirement`, đồng bộ lại case-map, và sửa dòng
+  *Found by Test Case* của 4 bug report FR-02.
+- **`ai-audit-report.md`** — thêm mục 2 (tuyên bố §9 + bảng công cụ §8 + mức
+  Bloom-AI), đánh số lại các mục sau đó.
+- **`main-report.md`** — sửa bảng ledger: 30 case mang sang + 10 case thiết kế
+  mới, thay vì chỉ nêu 7 case mới của FR-13.
+- **`ai-generated-script-gaps.md`** — gộp mục 3 thành một nhóm lỗi "oracle nằm
+  trong script chứ không nằm trong dữ liệu" với 4 trường hợp, và ghi thẳng vào
+  phần kết luận rằng 3/4 chỉ lộ ra *sau khi* trường hợp đầu đã được sửa.
+- **`.claude/skills/playwright-automation/SKILL.md`** — sửa hai chỗ skill tự
+  mâu thuẫn với code nó sinh ra (`xpath=..` cho bước nhảy lên phần tử cha,
+  `waitForTimeout` khi khoảng chờ chính là quy tắc cần kiểm), và thêm phép kiểm
+  "sửa một giá trị trong JSON thì kết quả có đổi không", kèm yêu cầu áp phép
+  kiểm đó cho **cả ba** feature khi nó bắt được lỗi ở một feature.
+
+Chạy lại toàn bộ ma trận 3×3 sau khi sửa: kết quả không đổi (10p/4f, 11p/3f,
+1p/11f), 9/9 report vẫn mang nhãn `Run by: 23127300` kèm ISO timestamp. Không
+bug report nào phải thêm hay bớt.
+
+Không giữ nhận định "văn phong không đọc ra là do AI viết" như một kết luận đã
+kiểm chứng; nó chỉ là gợi ý để sinh viên tự đọc lại.
+
+---
+
+## 5. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 12 | 57.1% |
-| `INCOMPLETE` | 8 | 38.1% |
-| `INVALID` | 1 | 4.8% |
-| **Tổng số entry đã audit** | **21** | **100%** |
+| `VALID` | 12 | 54.5% |
+| `INCOMPLETE` | 9 | 40.9% |
+| `INVALID` | 1 | 4.5% |
+| **Tổng số entry đã audit** | **22** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -1800,10 +2047,11 @@ Phân bố theo giai đoạn:
 | Triage + bug reports — Session 3 (08/08) | #18 | 1 | 0 |
 | Video + rà soát toàn bài — Session 4 (09/08) | #19–#20 | 0 | 2 |
 | Sửa lỗ hổng data-driven FR-02 — Session 4 (09/08) | #21 | 1 | 0 |
+| Rà soát toàn bài theo rubric — Session 5 (09/08) | #22 | 0 | 1 |
 
-## 5. Kết luận
+## 6. Kết luận
 
-Nhìn trên toàn bộ 21 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
+Nhìn trên toàn bộ 22 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
@@ -1852,7 +2100,7 @@ Mọi output của nó phải được phân loại thành "đã kiểm chứng 
 "mới là giả thuyết" trước khi dùng — và những gì tự nó tuyên bố về chất lượng của
 chính nó (kể cả dòng chữ "verbatim" ở đầu file log) phải được kiểm chứng độc lập.
 
-## 6. Công bố bắt buộc (Mandatory Disclosure)
+## 7. Công bố bắt buộc (Mandatory Disclosure)
 
 Toàn bộ test case, script Playwright, dữ liệu test và tài liệu của HW04 được
 tạo ra với sự hỗ trợ của Claude (Opus 5, và từ Session 3 ngày 08/08/2026 là
