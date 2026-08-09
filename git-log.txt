@@ -1,3 +1,19 @@
+commit 1635f5aaa6208a8182da0bc39dec0bc0e769a9cd
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:19:52 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:19:52 2026 +0700
+
+    docs(ai-audit): correct the entry-count figure quoted in entry #20
+
+commit 3a515aaf3d1afdeadbae6ced7a0a61d7eadfcd64
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:19:06 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:19:06 2026 +0700
+
+    docs: regenerate git-log.txt and check in the HW04 assignment spec
+
 commit f2410fc8d2b511bc200bcba5dbaf0153604e8d19
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Sun Aug 9 14:18:36 2026 +0700
