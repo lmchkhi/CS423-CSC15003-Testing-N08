@@ -1,3 +1,74 @@
+commit f2410fc8d2b511bc200bcba5dbaf0153604e8d19
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:18:36 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:18:36 2026 +0700
+
+    docs: fix two wrong counts and de-anglicise the Vietnamese prose
+    
+    The gap analysis claimed 41 carried-over HW02 cases; the ledger says 33 (14
+    FR-02 + 14 FR-10 + 5 FR-13) plus 7 designed fresh in HW04. Also thins the
+    mid-sentence em-dashes and bold runs across the graded documents - English
+    punctuation habits that read as machine-written in Vietnamese technical prose.
+
+commit 03abe4182d5d97457a06dcf6eb7e096cfbd95d33
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:18:36 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:18:36 2026 +0700
+
+    docs(ai-audit): log entries #19-20 and resync the accuracy tables
+    
+    #19 covers the YouTube naming/link work, #20 the end-to-end rubric audit.
+    Totals move to 20 entries (11 VALID / 8 INCOMPLETE / 1 INVALID), the date
+    range extends to 09/08, and the stale 'toan bo 15 entry' in SS5 becomes 20.
+    Trims ai-critique.md from 300 to 281 words, off the SS10 ceiling.
+
+commit 332a50d935d7c13283ea6fd505c095206c002cfb
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:18:36 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:18:36 2026 +0700
+
+    docs(prompt-log): regenerate through session 4 (09/08)
+    
+    Adds the four 09/08 transcripts to SESSIONS: the video-script review, the
+    YouTube naming exchange, the link replacement, and the rubric audit. The log
+    previously stopped at 08/08 while the FR-02 reports on disk carried
+    2026-08-09 timestamps.
+
+commit 85ca0579568ea0eb2c162f6139004021c8094771
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:18:21 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:18:21 2026 +0700
+
+    docs(bug): name the GitHub Issue screenshots after their bug and link them
+    
+    Renames the nine capture files from their Finder timestamps to
+    issue-<num>-<BUG-ID>.png and embeds each one in its bug report, so the
+    issue-page evidence HW04 SS14 asks for is reachable from the report itself.
+
+commit 33359efd01c2aa4d460b36f3175d2f34e3b75ced
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:18:21 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:18:21 2026 +0700
+
+    test(fr-02): re-run the chromium/firefox/webkit matrix for the demo recording
+    
+    Refreshes the three FR-02 report cells (10 pass / 4 fail unchanged) and the
+    manifest rows with 2026-08-09 ISO timestamps. The other six cells are carried
+    over untouched from the 08/08 run.
+
+commit 0f9587c26cc1a0dbe846a7f2963daa377b9a7969
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sat Aug 8 22:24:51 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sat Aug 8 22:24:51 2026 +0700
+
+    docs(hw04): use TODO placeholder for video links, regenerate git log
+
 commit 6c56c2ddf1a45c1ffcfa177ad97b334be4399632
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Sat Aug 8 22:23:57 2026 +0700
