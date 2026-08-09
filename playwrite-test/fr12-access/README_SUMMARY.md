@@ -2,13 +2,21 @@
 
 ## Thông tin chung
 
-| Mục                    | Giá trị                                            |
-| ---------------------- | -------------------------------------------------- |
-| SUT                    | `EShop`                                            |
-| Run by                 | `23127464`                                         |
-| Thời điểm report       | `09/08/2026 15:37`                         |
+| Mục                    | Giá trị                                                   |
+| ---------------------- | --------------------------------------------------------- |
+| SUT                    | `EShop`                                                   |
+| Run by                 | `23127464`                                                |
+| Thời điểm report       | `09/08/2026 15:37`                                        |
 | Report artifact        | `playwrite-test/fr12-access/playwright-report/index.html` |
-| Metadata đã kiểm chứng | Có — đã mở report và xác nhận trực tiếp            |
+| Metadata đã kiểm chứng | Có — đã mở report và xác nhận trực tiếp                   |
+
+## Thiết lập credential khi chạy FR-12
+
+Hai tài khoản kiểm thử mặc định được khai báo trực tiếp trong `tests/fr12-access.spec.ts`.
+
+```powershell
+npm run test:fr12:phase-d
+```
 
 ## Test summary theo tính năng
 
@@ -21,8 +29,8 @@
 
 ## Kết quả theo trình duyệt
 
-| Feature | Chromium     | Firefox      | Edge         | Tổng lượt feature–browser | Artifact                                           |
-| ------- | ------------ | ------------ | ------------ | ------------------------: | -------------------------------------------------- |
+| Feature | Chromium     | Firefox      | Edge         | Tổng lượt feature–browser | Artifact                                                  |
+| ------- | ------------ | ------------ | ------------ | ------------------------: | --------------------------------------------------------- |
 | `FR-12` | `23P/17F/0S` | `23P/17F/0S` | `23P/17F/0S` |                         3 | `playwrite-test/fr12-access/playwright-report/index.html` |
 
 Chú thích: `P = passed`, `F = failed`, `S = skipped`.

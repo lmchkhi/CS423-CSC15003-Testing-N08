@@ -117,6 +117,8 @@ interface Credentials {
   password: string;
 }
 
+type CredentialRole = 'user' | 'admin';
+
 interface RuntimeValues {
   uniqueName: string;
   uniqueCode: string;
@@ -231,24 +233,19 @@ function validateFixture(value: unknown): asserts value is Fr12Fixture {
 
 validateFixture(fixtureValue);
 const fixture = fixtureValue;
-const baseURL = process.env.SUT_API_URL ?? fixture.baseURL;
+const baseURL = fixture.baseURL;
 
 function apiUrl(path: string): string {
   return `${baseURL}${path}`;
 }
 
-function requiredEnvironment(name: string): string {
-  const value = process.env[name];
-  if (!value) throw new Error(`Required environment variable is missing: ${name}`);
-  return value;
-}
+const defaultCredentials: Record<CredentialRole, Credentials> = {
+  admin: { email: 'admin@eshop.com', password: 'Admin123!' },
+  user: { email: 'test@eshop.com', password: 'Test1234!' },
+};
 
-function credentials(role: 'user' | 'admin'): Credentials {
-  const prefix = role === 'user' ? 'ESHOP_USER' : 'ESHOP_ADMIN';
-  return {
-    email: requiredEnvironment(`${prefix}_EMAIL`),
-    password: requiredEnvironment(`${prefix}_PASSWORD`),
-  };
+function credentials(role: CredentialRole): Credentials {
+  return defaultCredentials[role];
 }
 
 async function responseJson(response: APIResponse): Promise<unknown> {
