@@ -1,3 +1,58 @@
+commit 89673d69a15e5a1eb381f59be1968c7e6a94b23c
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:30:11 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:30:11 2026 +0700
+
+    docs: record the FR-02 data-driven repair in the gap analysis and audit log
+    
+    Adds gap-analysis section 3 for a category the file did not yet cover: the AI
+    declared schema fields and populated all 14 records, then wrote assertions from
+    scratch instead of reading them back, so the suite looked data-driven while the
+    script still decided the oracle. Entry #21 logs the repair; totals resync to 21
+    entries (12 VALID / 8 INCOMPLETE / 1 INVALID). PDFs and prompt-log regenerated.
+
+commit e7a26298aa2205fec045e9313643debd5cb81b52
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:26:29 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:26:29 2026 +0700
+
+    test(fr-02): re-run the three browser cells against the reworked spec
+    
+    10p/4f unchanged on chromium, firefox and webkit; same four cases red on all
+    three. Reports carry 2026-08-09T15:20-15:24 ISO stamps, 9/9 still labeled.
+
+commit a09d2b2cabc59894c84a7003441e5f824f0e64b9
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:26:29 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:26:29 2026 +0700
+
+    test(fr-02): assert the expected URL and token from the data file
+    
+    expected.urlContains and expected.tokenStored were populated in all 14 records
+    and validated by the loader, but no line of the spec ever read them - each
+    branch restated the same expectations in code, so the JSON described the
+    oracle while the script actually decided it.
+    
+    Both are now asserted once for every case from the record. Two cases gain
+    coverage they never had: F02-TC-012 and F02-TC-014 previously asserted neither
+    landing URL nor token state. The URL check is also anchored to the whole
+    origin + path instead of a /login substring, since a substring test for '/'
+    matches every URL the app can be on.
+    
+    Same 10 pass / 4 fail on chromium, and the four reds are still exactly
+    F02-TC-002/004/008/012 - the defects behind BUG-FR02-001..004.
+
+commit 8f496178cc504f127c8177f729b9fe56165c8148
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:13:47 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:13:47 2026 +0700
+
+    docs: regenerate git-log.txt
+
 commit de1c2f65bcd21914d7ca4a8f2e6fc47e3533fa90
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Sun Aug 9 15:13:47 2026 +0700
