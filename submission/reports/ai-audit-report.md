@@ -10,8 +10,8 @@
 | **MSSV:**               | 23127062                |
 | **Lớp / Khoá:**         | CS423 / CSC13003        |
 | **Mã bài tập :**        | HW04                    |
-| **Ngày làm bài:**       | 03/08/2026 - ../08/2026 |
-| **Công cụ AI đã dùng:** | Claude; Codex           |
+| **Ngày làm bài:**       | 03/08/2026 - 09/08/2026 |
+| **Công cụ AI đã dùng:** | Codex                   |
 
 ## Entry #1
 
