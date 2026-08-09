@@ -1,0 +1,36 @@
+{
+  "products": [
+    {
+      "id": 7001,
+      "name": "Bàn phím cơ FR07",
+      "price": 123456,
+      "description": "Dữ liệu kiểm thử giỏ hàng",
+      "imageUrl": "https://example.test/keyboard.png",
+      "category_id": 1
+    },
+    {
+      "id": 7002,
+      "name": "Chuột không dây FR07",
+      "price": 250000,
+      "description": "Dữ liệu kiểm thử tổng tiền",
+      "imageUrl": "https://example.test/mouse.png",
+      "category_id": 1
+    }
+  ],
+  "cases": [
+    { "id": "TC-CART-001", "title": "Hiển thị thông báo khi giỏ hàng trống", "scenario": "emptyMessage" },
+    { "id": "TC-CART-002", "title": "Hiển thị hình minh họa khi giỏ hàng trống", "scenario": "emptyIllustration" },
+    { "id": "TC-CART-003", "title": "Tiếp tục mua sắm từ giỏ hàng trống", "scenario": "emptyContinue" },
+    { "id": "TC-CART-004", "title": "Hiển thị đúng năm tiêu đề cột", "scenario": "columnHeaders", "productIds": [7001], "expectedHeaders": ["Sản phẩm", "Đơn giá", "Số lượng", "Thành tiền", "Thao tác"] },
+    { "id": "TC-CART-005", "title": "Hiển thị đầy đủ thông tin một dòng sản phẩm", "scenario": "rowDetails", "productIds": [7001] },
+    { "id": "TC-CART-006", "title": "Tính đúng thành tiền của một sản phẩm", "scenario": "lineTotal", "productIds": [7001], "expectedAmount": 123456 },
+    { "id": "TC-CART-007", "title": "Dùng chính xác nhãn Tổng cộng", "scenario": "totalLabel", "productIds": [7001], "expectedLabel": "Tổng cộng" },
+    { "id": "TC-CART-008", "title": "Tính tổng tiền của nhiều sản phẩm", "scenario": "multiProductTotal", "productIds": [7001, 7002], "expectedAmount": 373456 },
+    { "id": "TC-CART-009", "title": "Gộp sản phẩm trùng và tăng số lượng", "scenario": "duplicateProduct", "productIds": [7001, 7001], "expectedQuantity": "2" },
+    { "id": "TC-CART-010", "title": "Tăng số lượng bằng nút cộng", "scenario": "increment", "productIds": [7001], "expectedQuantity": "2" },
+    { "id": "TC-CART-011", "title": "Hiển thị nút trừ để giảm số lượng", "scenario": "decrement", "productIds": [7001] },
+    { "id": "TC-CART-012", "title": "Hủy dialog xóa giữ nguyên sản phẩm", "scenario": "deleteCancel", "productIds": [7001] },
+    { "id": "TC-CART-013", "title": "Xác nhận dialog xóa loại bỏ sản phẩm", "scenario": "deleteConfirm", "productIds": [7001] },
+    { "id": "TC-CART-014", "title": "Tiếp tục mua sắm từ giỏ có sản phẩm", "scenario": "populatedContinue", "productIds": [7001], "expectedLabel": "Tiếp tục mua sắm" }
+  ]
+}

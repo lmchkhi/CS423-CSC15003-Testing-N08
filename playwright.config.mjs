@@ -9,7 +9,8 @@ const featureSlug = process.env.FEATURE_SLUG ?? "account-registration";
 const listOnly = process.argv.includes("--list");
 const featureTitles = {
   "account-registration": "FR-01 Account registration",
-  "product-csv-import": "FR-16 Product CSV import"
+  "product-csv-import": "FR-16 Product CSV import",
+  "shopping-cart": "FR-07 Shopping cart"
 };
 const featureTitle = featureTitles[featureSlug] ?? featureSlug;
 const defaultWebBaseURL =
@@ -34,7 +35,15 @@ const webServer =
           timeout: 30_000
         }
       ]
-    : undefined;
+    : featureSlug === "shopping-cart"
+      ? {
+          command: "npm run dev -- --host 127.0.0.1 --port 5173",
+          cwd: "./frontend-web",
+          url: "http://127.0.0.1:5173",
+          reuseExistingServer: true,
+          timeout: 30_000
+        }
+      : undefined;
 const reportTitle = studentId
   ? `${featureTitle} — Run by: ${studentId}`
   : `${featureTitle} — Local non-evidence run`;
