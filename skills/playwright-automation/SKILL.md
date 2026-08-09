@@ -88,6 +88,8 @@ Store the ISO-8601 run timestamp in report metadata. Do not duplicate the timest
 
 Write reports to `reports/<feature-slug>/<browser>/`. Do not hand-edit an HTML report or manufacture a passing run. Preserve real failed reports. If the SUT, browser binaries, or dependencies prevent execution, report the blocker and do not claim a report exists.
 
+After all official browser runs finish, inspect the immediate contents of `reports/<feature-slug>/`. The final directory must contain exactly `chromium/`, `firefox/`, and `webkit/`, with no other files or directories. Treat transient outputs such as `local/` and `re-run/` as invalid final report layout; keep temporary runs outside `reports/<feature-slug>/` or remove those transient outputs before validation. Run the validator only after this cleanup, and do not hand off while it reports an unexpected entry.
+
 ## Triage failures and report bugs
 
 For every failed assertion, distinguish:

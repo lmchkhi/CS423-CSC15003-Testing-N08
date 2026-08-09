@@ -40,6 +40,7 @@ FORBIDDEN_BUG_LABEL_METADATA = (
 ISO_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})\b")
 ASSERTION_RE = re.compile(r"\bexpect(?:\.soft)?\s*\([^;]*?\)\s*\.\s*(to[A-Z]\w*)", re.DOTALL)
 MARKDOWN_IMAGE_RE = re.compile(r"!\[[^\]]*\]\((?:<[^>]+>|[^)\n]+)\)")
+REPORT_BROWSERS = ("chromium", "firefox", "webkit")
 
 
 def parse_args() -> argparse.Namespace:
@@ -167,14 +168,36 @@ def main() -> int:
     config_text = "\n".join(read_text(path) for path in configs)
     if not configs:
         errors.append("Missing playwright.config.ts/js/mjs")
-    for browser in ("chromium", "firefox", "webkit"):
+    for browser in REPORT_BROWSERS:
         if browser not in config_text.lower():
             errors.append(f"Playwright config does not mention project/browser: {browser}")
     if "STUDENT_ID" not in config_text or "RUN_TIMESTAMP" not in config_text:
         warnings.append("Could not prove report identity comes from STUDENT_ID and RUN_TIMESTAMP")
 
     if args.require_reports:
-        for browser in ("chromium", "firefox", "webkit"):
+        if not reports_dir.exists():
+            errors.append(f"Missing feature report directory: {reports_dir}")
+        else:
+            actual_entries = {path.name for path in reports_dir.iterdir()}
+            expected_entries = set(REPORT_BROWSERS)
+            unexpected_entries = sorted(actual_entries - expected_entries)
+            missing_entries = sorted(expected_entries - actual_entries)
+            if unexpected_entries:
+                errors.append(
+                    f"Unexpected entries in {reports_dir}; final report layout allows only "
+                    f"{', '.join(REPORT_BROWSERS)}: {', '.join(unexpected_entries)}"
+                )
+            if missing_entries:
+                errors.append(
+                    f"Missing required browser directories in {reports_dir}: "
+                    f"{', '.join(missing_entries)}"
+                )
+            for browser in REPORT_BROWSERS:
+                browser_dir = reports_dir / browser
+                if browser_dir.exists() and not browser_dir.is_dir():
+                    errors.append(f"Browser report entry must be a directory: {browser_dir}")
+
+        for browser in REPORT_BROWSERS:
             browser_dir = reports_dir / browser
             html_files = sorted(browser_dir.rglob("*.html")) if browser_dir.exists() else []
             if not html_files:
