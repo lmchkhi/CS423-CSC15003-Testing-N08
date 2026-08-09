@@ -214,12 +214,24 @@ bài này.
 
 ## 6. Tổng kết — điều học được về cộng tác với AI trong kiểm thử
 
-Ba nhóm lỗi trên không phân tán ngẫu nhiên: nhóm 1 (giả định giao diện) và
+Bốn nhóm lỗi trên không phân tán ngẫu nhiên. Nhóm 1 (giả định giao diện) và
 nhóm 2 (tin vào sản phẩm trước đó của chính mình) đều là biến thể của cùng
-một nguyên nhân gốc: AI mạnh ở suy luận trên dữ liệu đã quan sát, và
-yếu ở việc tự nhận ra khi nó **chưa** quan sát gì cả. Quy trình chống lại
-điều đó xuyên suốt cả ba feature: recon trên build thật trước khi sinh
-locator, đối chiếu hai nguồn độc lập khi chúng mâu thuẫn (Entry #9, #17),
-và không bao giờ tự tin verdict `VALID` chỉ vì output "chạy được": 8/21
-entry trong audit report ở mức `INCOMPLETE` chứ không `VALID`, và tỷ lệ đó
-tự nó là bằng chứng cho thấy review không phải hình thức.
+một nguyên nhân gốc: AI mạnh ở suy luận trên dữ liệu đã quan sát, và yếu ở
+việc tự nhận ra khi nó **chưa** quan sát gì cả. Quy trình chống lại điều đó
+xuyên suốt cả ba feature: recon trên build thật trước khi sinh locator, và
+đối chiếu hai nguồn độc lập khi chúng mâu thuẫn (Entry #9, #17).
+
+Nhóm 3 thì khác hẳn, và đáng ngại hơn theo một cách riêng: dữ liệu cần thiết
+nằm sẵn ngay trong repo, không thiếu gì để quan sát, nhưng lỗi vẫn xảy ra vì
+mỗi stage chỉ nhìn phần việc của mình — stage này khai báo schema, stage kia
+viết assertion, không stage nào đối chiếu hai bên với nhau. Chính quy trình
+7 bước giúp §6 được tuân thủ lại tạo ra đúng loại khe hở này ở ranh giới giữa
+các bước, và không lượt chạy nào phát hiện được vì test vẫn cho kết quả đúng
+như dự đoán. Bài học bổ sung: một suite "data-driven" phải được kiểm tra bằng
+câu hỏi *mọi trường dữ liệu có thật sự được đọc không*, chứ không chỉ bằng
+việc dữ liệu có nằm ở file riêng hay không.
+
+Cả bốn nhóm đều dẫn về cùng một kết luận thực hành: không bao giờ tự tin
+verdict `VALID` chỉ vì output "chạy được". 8/21 entry trong audit report ở mức
+`INCOMPLETE` chứ không `VALID`, và tỷ lệ đó tự nó là bằng chứng cho thấy
+review không phải hình thức.

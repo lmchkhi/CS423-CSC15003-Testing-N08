@@ -30,6 +30,12 @@ DOCS = [
      "HW04 — AI Critique"),
     ("reports/ai-audit-report.md", "reports/pdf/ai-audit-report.pdf",
      "HW04 — AI Audit Report"),
+    # §14 wants the main report to include the review / gap analysis of the
+    # AI-generated scripts. It lives in its own file and is linked from §6 of
+    # the main report, so it ships as its own PDF rather than being inlined.
+    ("ai-gap-analysis/ai-generated-script-gaps.md",
+     "reports/pdf/ai-gap-analysis.pdf",
+     "HW04 — Phân tích lỗ hổng script AI"),
 ]
 
 # Helvetica Neue / Menlo both carry the full Vietnamese diacritic set on macOS.

@@ -1803,7 +1803,7 @@ Phân bố theo giai đoạn:
 
 ## 5. Kết luận
 
-Nhìn trên toàn bộ 21 entry, sai sót của AI rơi vào đúng ba nhóm, và ba nhóm này
+Nhìn trên toàn bộ 21 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
@@ -1828,6 +1828,15 @@ hồi quy mãi cuối session mới lộ. Entry #15 là trường hợp nặng n
 hai file log tự tuyên bố "verbatim" ở ngay dòng đầu nhưng bên trong là bản tóm
 tắt viết lại, và tình trạng đó tồn tại qua nhiều phiên mà không phiên nào tự phát
 hiện — người phát hiện là sinh viên.
+
+**Nhóm 4 — khe hở giữa hai stage của chính quy trình 7 bước.** Entry #20: stage
+"Model data" khai báo `expected.urlContains` và `expected.tokenStored` rồi điền
+đủ vào cả 14 record, nhưng stage "Generate" viết assertion từ đầu thay vì đọc
+lại schema, nên hai trường đó không bao giờ được dùng. Khác hẳn ba nhóm trên ở
+chỗ không thiếu dữ liệu nào để quan sát cả — hai file nằm cạnh nhau trong repo.
+Lỗi tồn tại được vì mỗi stage chỉ chịu trách nhiệm phần việc của mình và không
+có bước nào đối chiếu chéo, lại càng khó thấy vì test vẫn xanh/đỏ đúng như dự
+đoán. Sửa ở Entry #21.
 
 Phần AI làm tốt cũng nhất quán: một khi đã có dữ liệu quan sát thật, chất lượng
 thiết kế case và assertion rất cao — ý "assert tập nút phải khớp chính xác tập
