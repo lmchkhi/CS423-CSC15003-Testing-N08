@@ -1,3 +1,29 @@
+commit de1c2f65bcd21914d7ca4a8f2e6fc47e3533fa90
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:13:47 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:13:47 2026 +0700
+
+    docs: build the PDF deliverables SS14 requires
+    
+    Renders main-report, ai-critique and ai-audit-report to PDF through the
+    Chromium that Playwright already installed, so no new toolchain and no network
+    fetch. Chromium is also what keeps Vietnamese diacritics intact in body text,
+    tables and code fences alike.
+    
+    Two source fixes fell out of proofreading the output: the main report's
+    metadata lines needed Markdown hard breaks (they collapsed into one paragraph
+    outside GitHub's GFM), and four AI Output blocks were cut mid-word when first
+    logged, now marked at the cut so nobody reads them as the AI stopping there.
+
+commit aff7402a89f6438391092414711354d1a35a7f1b
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 14:19:52 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 14:19:52 2026 +0700
+
+    docs: regenerate git-log.txt
+
 commit 1635f5aaa6208a8182da0bc39dec0bc0e769a9cd
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Sun Aug 9 14:19:52 2026 +0700
