@@ -1,3 +1,116 @@
+commit 7d6c9bbd6c2a8355907ff6bfc9f3c761d18fb63e
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 16:02:23 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 16:02:23 2026 +0700
+
+    docs: rebuild the PDF deliverables from the updated Markdown
+
+commit a0d39fb3e301a19b0c769801be57d1634f5a0429
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 16:02:23 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 16:02:23 2026 +0700
+
+    test: re-run the full 3x3 matrix against the repaired specs
+    
+    Nine cells, unchanged results — 10p/4f, 11p/3f, 1p/11f — so none of the four
+    repairs moved a verdict. The FR-02 reports now carry the accented case titles.
+    report:verify: 9/9 reports found, 0 unlabeled.
+
+commit 1ff4c41632023154cebbf98b9f7d45b42253b44b
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 16:02:04 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 16:02:04 2026 +0700
+
+    docs: record the four data-driven gaps, correct the ledger, and fix the skill's own rules
+    
+    Gap analysis §3 becomes a four-case group ('the oracle is in the script, not
+    the data') — three of the four only surfaced after the first was fixed, which
+    is the finding worth keeping. The main-report ledger now separates the 30
+    carried-over cases from the 10 designed fresh in HW04 instead of naming only
+    FR-13's seven. Bug reports FR02-001..004 pick up the re-accented case titles.
+    The skill stated flat bans on XPath and waitForTimeout that its own shipped
+    page objects and FR-02 spec violate; both now carry their one sanctioned
+    exception, plus the check that would have caught this whole group.
+
+commit 004e78995bd38e1e83a27bd216a1ce2e2ad0d548
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 16:01:55 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 16:01:55 2026 +0700
+
+    docs(ai-audit): add the §9 declaration block and log entry #22
+    
+    §9 requires the literal 'I use AI tools for the following tasks' declaration
+    and it was absent from every file. Adds it with the §8 tool table and the
+    Bloom-AI levels, renumbers the sections after it, and logs the rubric-audit
+    session as entry #22 (INCOMPLETE — its first pass reported six gaps and two
+    more only surfaced once the repairs started). Accuracy table and critique
+    resynced to 22 entries.
+
+commit e34185407e59416a06ce9a1a3f19e3662a397d4c
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:48:31 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:48:31 2026 +0700
+
+    test(fr-02): restore Vietnamese diacritics in the 14 case titles and requirement notes
+    
+    The titles were ASCII-only while FR-10 and FR-13 carried full diacritics, so all
+    14 disagreed with the titles case-map.md claims for them — and these are the
+    strings the HTML reports and the bug reports show.
+
+commit 9e9b34261139d2cb5ecb0456b1535245e6332b59
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:48:31 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:48:31 2026 +0700
+
+    test(fr-02): fail loudly when a record asks for @correct on an unregistered account
+    
+    resolveIdentity() handed the unregistered branch a plausible literal password.
+    A record pairing account=unregistered with password=@correct would have
+    submitted a password nobody registered and still read as a correct-password
+    case — passing or failing for a reason the data never stated.
+
+commit f72bb20d173d5309c21969aadd059debd194e1b7
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:48:31 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:48:31 2026 +0700
+
+    test(fr-10): move the status-label domain out of the spec into F10-TC-012's record
+    
+    The five labels §3 permits were a const in the spec, but they are the expected
+    value of exactly one case. Keeping them in code put that case's oracle back in
+    the script — editing the JSON could not change the result, which is the test for
+    whether a suite is data-driven at all.
+
+commit 55b4caedf362a042ff82867b1063a670da506564
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:48:20 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:48:20 2026 +0700
+
+    test(fr-13): drive the FR-12 guard from the record's auth field and assert the login fallback
+    
+    The spec branched on the assertion name while `auth` sat validated but unread
+    in all 12 records — the same defect the FR-02 review found in
+    `expected.urlContains`. It now reads `auth`, so the data decides which session
+    the browser carries. The guard cases also asserted absence only, which a blank
+    page satisfies; they now additionally require the Admin Login heading the app is
+    supposed to fall back to.
+
+commit e518debbfd3e65dbc50a1e6ce2527b2ba68af689
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Sun Aug 9 15:32:12 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Sun Aug 9 15:32:12 2026 +0700
+
+    docs: regenerate git-log.txt
+
 commit 4e15f91c684f78ebffe5c7ef879c9d1318ca5e7d
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Sun Aug 9 15:32:12 2026 +0700
