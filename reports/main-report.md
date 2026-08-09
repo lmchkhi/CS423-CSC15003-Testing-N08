@@ -191,7 +191,7 @@ Tóm tắt: hai nhóm lỗi lặp lại xuyên suốt cả ba feature. Một là
 về giao diện đưa ra *trước khi* recon trên build thật đều sai ở ít nhất một
 chỗ, và không lỗi nào lộ ra bằng cách đọc code. Hai là, AI có xu hướng tin
 vào chính sản phẩm hoặc kết luận trước đó của nó thay vì đối chiếu chéo với
-quan sát độc lập. 22 entry đã audit: 12 `VALID`, 9 `INCOMPLETE`, 1 `INVALID`.
+quan sát độc lập. 23 entry đã audit: 12 `VALID`, 10 `INCOMPLETE`, 1 `INVALID`.
 
 ---
 
@@ -199,7 +199,7 @@ quan sát độc lập. 22 entry đã audit: 12 `VALID`, 9 `INCOMPLETE`, 1 `INVA
 
 | Tài liệu | Đường dẫn |
 |---|---|
-| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 22 entry |
+| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 23 entry |
 | Prompt Log (bản ghi thô, không lọc) | [`prompt-log.md`](prompt-log.md) |
 | AI Critique (§10, 200–300 từ) | [`ai-critique.md`](ai-critique.md) |
 | AI Gap Analysis (§6) | [`../ai-gap-analysis/ai-generated-script-gaps.md`](../ai-gap-analysis/ai-generated-script-gaps.md) |

@@ -8339,6 +8339,894 @@ Now syncing §5's accuracy table and §6's conclusion to 22 entries:
    Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
 → Edit(reports/tools/extract-prompt-log.py)
 → Bash: python3 reports/tools/extract-prompt-log.py 2>&1 | tail -20; echo "--- size ---"; wc -l reports/prompt-log.md; git diff --stat reports/prompt-log.md
+   [19] 12:10 AM 06/08/2026    1 blocks  'why you dont recommend the sub-agent driven'
+     [20] 12:11 AM 06/08/2026  117 blocks  'ok'
+     [21] 12:32 AM 06/08/2026    3 blocks  'stop them'
+     [22] 9:20 PM 06/08/2026    1 blocks  'so we will start the session 2 when? on aug 7?'
+     [23] 8:25 AM 07/08/2026  141 blocks  'execute the session 2 in superpowers plan'
+     [24] 9:03 AM 08/08/2026   38 blocks  'check the superpowers plan, now we no longer need the 4 days commit co'
+     [25] 9:07 AM 08/08/2026  100 blocks  'also i dont get why the ai-audit and the prompt-log is not verbatim, i'
+     [26] 9:24 PM 08/08/2026  509 blocks  "finish the superpowers plan for today's work, i prefer inline style be"
+     [27] 10:27
+   … [cắt bớt 1261 ký tự; xem transcript gốc]
+→ Bash: git add reports/ai-audit-report.md reports/ai-critique.md reports/prompt-log.md reports/tools/extract-prompt-log.py && git commit -q -m "docs(ai-audit): add the §9 declaration block and log entry #22 §9 requires the lite
+… [cắt bớt 405 ký tự; xem transcript gốc]
+→ Bash: cat reports/tools/build-pdfs.py | head -40
+   004e789 docs(ai-audit): add the §9 declaration block and log entry #22
+   #!/usr/bin/env python3
+   """Render the Markdown deliverables HW04 §14 wants as PDF too.
+   
+   §14 asks for the main report, the AI Critique and the AI Audit Report as
+   "Markdown + PDF". The Markdown files are the source of truth; this script is
+   the only way the PDFs are produced, so the two can never drift by hand.
+   
+   Rendering goes Markdown -> HTML -> PDF through the Chromium that Playwright
+   already installed for the browser matrix, so there is no extra toolchain and
+   no network fetch. Chromium is also what keeps Vietnamese diacritics correct in
+   body text, tables and code blocks alike.
+   
+       python3 reports/tools/build-pdfs.py
+   """
+   import json
+   import pathlib
+   import subprocess
+   import sys
+   import tempfile
+   … [cắt bớt 794 ký tự; xem transcript gốc]
+→ Bash: git add reports/main-report.md ai-gap-analysis/ai-generated-script-gaps.md bug-reports/BUG-FR02-001.md bug-reports/BUG-FR02-002.md bug-reports/BUG-FR02-003.md bug-reports/BUG-FR02-004.md .claude/skills/playwright-automat
+… [cắt bớt 748 ký tự; xem transcript gốc]
+   1ff4c41 docs: record the four data-driven gaps, correct the ledger, and fix the skill's own rules
+→ Bash: python3 reports/tools/build-pdfs.py 2>&1 | tail -12
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/main-report.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-critique.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-audit-report.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-gap-analysis.pdf
+     reports/pdf/main-report.pdf  (208 KB)
+     reports/pdf/ai-critique.pdf  (49 KB)
+     reports/pdf/ai-audit-report.pdf  (570 KB)
+     reports/pdf/ai-gap-analysis.pdf  (175 KB)
+→ Bash: git add -A reports/html reports/json reports/run-manifest.md && git commit -q -m "test: re-run the full 3x3 matrix against the repaired specs Nine cells, unchanged results — 10p/4f, 11p/3f, 1p/11f — so none of the four r
+… [cắt bớt 255 ký tự; xem transcript gốc]
+   Exit code 1
+   The following paths are ignored by one of your .gitignore files:
+   reports/json
+   hint: Use -f if you really want to add them.
+   hint: Disable this message with "git config set advice.addIgnoredFile false"
+→ Bash: git add -A reports/html reports/run-manifest.md && git commit -q -m "test: re-run the full 3x3 matrix against the repaired specs Nine cells, unchanged results — 10p/4f, 11p/3f, 1p/11f — so none of the four repairs moved
+… [cắt bớt 242 ký tự; xem transcript gốc]
+   7d6c9bb docs: rebuild the PDF deliverables from the updated Markdown
+   a0d39fb test: re-run the full 3x3 matrix against the repaired specs
+   1ff4c41 docs: record the four data-driven gaps, correct the ledger, and fix the skill's own rules
+   004e789 docs(ai-audit): add the §9 declaration block and log entry #22
+   e341854 test(fr-02): restore Vietnamese diacritics in the 14 case titles and requirement notes
+   9e9b342 test(fr-02): fail loudly when a record asks for @correct on an unregistered account
+   f72bb20 test(fr-10): move the status-label domain out of the spec into F10-TC-012's record
+→ Bash: git log --pretty=fuller > git-log.txt && git add git-log.txt && git commit -q -m "docs: regenerate git-log.txt" && echo "--- FINAL §12 CHECK ---" && echo "commits touching automation/tests/*.spec.ts:" && git log --pretty
+… [cắt bớt 295 ký tự; xem transcript gốc]
+   --- FINAL §12 CHECK ---
+   commits touching automation/tests/*.spec.ts:
+   9e9b342|2026-08-09|test(fr-02): fail loudly when a record asks for @correct on an unregistered account
+   f72bb20|2026-08-09|test(fr-10): move the status-label domain out of the spec into F10-TC-012's record
+   55b4cae|2026-08-09|test(fr-13): drive the FR-12 guard from the record's auth field and assert the login fallback
+   a09d2b2|2026-08-09|test(fr-02): assert the expected URL and token from the data file
+   58d1d13|2026-08-08|test(fr-13): automate dashboard revenue, order count and access control
+   175e14d|2026-08-07|test(fr-10): automate the order state machine transitions on chromium
+   8088ab4|2026-08-06|test(fr-02): automate the log
+   … [cắt bớt 218 ký tự; xem transcript gốc]
+→ Bash: echo "=== working tree ==="; git status --short; echo "=== typecheck ==="; cd automation && npm run typecheck 2>&1 | tail -3; cd ..; echo "=== case counts ==="; python3 -c " import json for f in ['fr-02-login','fr-10-ord
+… [cắt bớt 371 ký tự; xem transcript gốc]
+   === working tree ===
+   === typecheck ===
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+   
+   === case counts ===
+   fr-02-login 14 cases
+   fr-10-order-state 14 cases
+   fr-13-dashboard 12 cases
+   === unaccented Vietnamese left in data/docs? ===
+   none
+→ Bash: echo "=== §9 declaration present ==="; grep -n "I use AI tools for the following tasks" reports/ai-audit-report.md; echo "=== §10 word count ==="; python3 -c " import re;t=open('reports/ai-critique.md',encoding='utf-8').
+… [cắt bớt 829 ký tự; xem transcript gốc]
+   === §9 declaration present ===
+   15:> **I use AI tools for the following tasks.**
+   1852:**1. §9's mandatory declaration sentence is missing (highest risk).** §9 requires the literal `"I use AI tools for the following tasks,"` in the audit report. It's nowhere in `reports/ai-audit-report.md`, `README.md`, or `main-report.md`. §17 says missing a required document element is a 0-risk item. One-line fix.
+   === §10 word count ===
+   299 words
+   === §11 labels ===
+   
+   9/9 expected reports found, 0 unlabeled.
+   === §14 deliverables ===
+   reports/main-report.md                               ok
+   reports/pdf/main-report.pdf                          ok
+   reports/ai-critique.md                               ok
+   reports/pdf/
+   … [cắt bớt 538 ký tự; xem transcript gốc]
+```text
+Everything checks out. Final state:
+
+## What the audit found and what's now fixed
+
+**The two things that genuinely threatened the grade, both closed:**
+
+**§9's mandatory declaration was missing entirely.** The literal `"I use AI tools for the following tasks"` was in no file. It's now §2 of the audit report, alongside the §8 tool table and the G9.2/G9.3/G9.4 Bloom levels — neither of which was declared either.
+
+**§12 counted 5, not 8.** Commits touching `automation/tests/*.spec.ts` now number **8, across all 5 working days** (08-05 → 08-09). Counting the data and page-object commits as "or equivalent" gets 12. Both readings pass now; before, only the loose one did.
+
+**Four defects in the scripts themselves, each found by reading rather than running:**
+
+- `dashboardCaseSchema.auth` was declared, validated, filled in all 12 records — and read by nothing. This is the exact defect your Entry #20 found and fixed in FR-02 the day before; the fix stopped at the file it was pointed at. The FR-13 spec now branches on `auth`.
+- The two FR-12 guard cases asserted only `toHaveCount(0)` on the Dashboard heading — which a blank page satisfies. They now also require the `Admin Login` fallback, so the assertion proves the app rendered *and then refused*.
+- FR-10's five status labels lived as a `const` in the spec, but they're one case's expected value. Now `expected.statusDomain` in F10-TC-012's record.
+- FR-02's `resolveIdentity()` handed unregistered identities a plausible literal password. Now returns `null` and throws with the case ID.
+
+**On the Vietnamese.** The prose is genuinely good — terse, evidence-first, no AI register. I changed nothing in it. The one real problem was FR-02's data: all 14 titles and 14 `requirement` notes were ASCII-only (`"Dang nhap thanh cong voi tai khoan hop le"`) while FR-10 and FR-13 carried full diacritics — and all 14 contradicted what `case-map.md` claimed for them. Rewritten, case-map synced, four bug reports updated, and the three FR-02 HTML reports regenerated so the grader sees the accented titles.
+
+**Re-ran the full 3×3 matrix afterwards: 10p/4f, 11p/3f, 1p/11f — identical.** No repair moved a verdict, no bug report gained or lost a case, `report:verify` still 9/9 labeled. PDFs rebuilt, `git-log.txt` regenerated, working tree clean, typecheck clean, 14/14/12 cases still discovered.
+
+Session #22 is logged in the audit report as **INCOMPLETE**, not VALID — because the audit's first pass reported "6 gaps" as if complete, and two more only surfaced once I started editing. Reading to summarize and reading to repair produced different results, which is worth having on the record. The critique now carries that finding and sits at 299 words.
+
+**Two things I did not do, both yours to decide:**
+
+The demo videos — I can't verify the ≥5 minutes, the Vietnamese narration, or the `whoami`/`hostname` evidence from here. §11 says TAs check these directly, so confirm both links play as unlisted before you submit.
+
+`HW04-AutomationTesting.md` §12 in the repo still says "8 commits **over at least 4 days**" while `CLAUDE.md` records that clause as dropped on 2026-08-08. You satisfy both, so nothing is at risk — but one of the two documents is wrong, and if it's the checked-in spec, a future session will work from a stale rule.
+```
+
+
+---
+
+
+**Phiên `e98fa1cc` — Session 6 — rà soát toàn repo trước khi nộp; chốt danh sách file nộp, sửa AI Critique và dựng lại PDF**
+
+
+## [39] Claude (Opus 5, Claude Code) — 7:18 PM 09/08/2026
+
+**Prompt:**
+
+```text
+check the repo entirely before i submit, and list out what files and folders to submit, i will do the submission myself no need your help deleting the unnecessary files
+requirements is in HW04-AutomationTesting.md
+```
+
+**Output:**
+
+→ Skill(playwright-automation)
+→ Read(HW04-AutomationTesting.md)
+→ Bash: ls -la && echo "--- TREE (depth 3, no node_modules/.git) ---" && find . -path ./node_modules -prune -o -path ./.git -prune -o -path '*/node_modules' -prune -o -print | grep -v '^\./\.git/' | sort | head -300
+   total 720
+   drwxr-xr-x@ 18 hbn  staff     576 Aug  9 15:13 .
+   drwx------@ 43 hbn  staff    1376 Aug  3 00:37 ..
+   drwxr-xr-x@  3 hbn  staff      96 Aug  8 09:00 .claude
+   drwxr-xr-x@ 16 hbn  staff     512 Aug  9 18:41 .git
+   drwxr-xr-x@  4 hbn  staff     128 Jul 27 14:07 .github
+   -rw-r--r--@  1 hbn  staff     844 Aug  8 09:00 .gitignore
+   -rw-r--r--@  1 hbn  staff    4484 Aug  8 09:06 CLAUDE.md
+   -rw-r--r--@  1 hbn  staff   11747 Aug  9 13:39 HW04-AutomationTesting.md
+   -rw-r--r--@  1 hbn  staff    7625 Aug  9 15:13 README.md
+   drwxr-xr-x@  3 hbn  staff      96 Aug  9 15:50 ai-gap-analysis
+   drwxr-xr-x@ 17 hbn  staff     544 Aug  9 15:55 automation
+   drwxr-xr-x@  4 hbn  staff     128 Aug  8 09:00 backend
+   drwxr-xr
+   … [cắt bớt 19308 ký tự; xem transcript gốc]
+→ Bash: echo "=== git status ===" && git status --short && echo "=== commit count ===" && git log --oneline | wc -l && echo "=== commits by day ===" && git log --pretty=format:'%ad' --date=short | sort | uniq -c && echo && echo
+… [cắt bớt 137 ký tự; xem transcript gốc]
+   === git status ===
+    M git-log.txt
+   === commit count ===
+         59
+   === commits by day ===
+      2 2026-05-15
+      1 2026-06-08
+      3 2026-06-09
+      2 2026-06-10
+      1 2026-06-20
+      2 2026-08-05
+      4 2026-08-06
+      6 2026-08-07
+     13 2026-08-08
+     25 2026-08-09
+   
+   === spec-touching commits ===
+   e341854 test(fr-02): restore Vietnamese diacritics in the 14 case titles and requirement notes
+   automation/test-data/fr-02-login.cases.json
+   9e9b342 test(fr-02): fail loudly when a record asks for @correct on an unregistered account
+   automation/tests/fr-02-login.spec.ts
+   f72bb20 test(fr-10): move the status-label domain out of the spec into F10-TC-012's record
+   automation/test-data/fr-10-order-state.cases.json
+   automation/te
+   … [cắt bớt 1132 ký tự; xem transcript gốc]
+→ Bash: echo "=== reports dir ===" && ls -la reports/ && echo "=== html cells ===" && ls -d reports/html/*/*/ 2>/dev/null && echo "=== label grep ===" && grep -l "Run by: 23127300" reports/html/*/*/index.html | tee /dev/stderr |
+… [cắt bớt 324 ký tự; xem transcript gốc]
+→ Bash: echo "=== test-design ===" && find test-design -type f && echo "=== ai-gap-analysis ===" && find ai-gap-analysis -type f && echo "=== bug-reports md ===" && ls bug-reports && echo "=== case counts ===" && for f in automa
+… [cắt bớt 335 ký tự; xem transcript gốc]
+   === reports dir ===
+   total 1256
+   drwxr-xr-x@ 11 hbn  staff     352 Aug  9 16:00 .
+   drwxr-xr-x@ 18 hbn  staff     576 Aug  9 15:13 ..
+   -rw-r--r--@  1 hbn  staff  102730 Aug  9 15:59 ai-audit-report.md
+   -rw-r--r--@  1 hbn  staff    1863 Aug  9 16:01 ai-critique.md
+   drwxr-xr-x@  7 hbn  staff     224 Aug  9 15:48 html
+   drwxr-xr-x@ 12 hbn  staff     384 Aug  8 21:52 json
+   -rw-r--r--@  1 hbn  staff   15254 Aug  9 16:00 main-report.md
+   drwxr-xr-x@  6 hbn  staff     192 Aug  9 15:30 pdf
+   -rw-r--r--@  1 hbn  staff  509307 Aug  9 16:01 prompt-log.md
+   -rw-r--r--@  1 hbn  staff    2198 Aug  9 15:56 run-manifest.md
+   drwxr-xr-x@  6 hbn  staff     192 Aug  9 16:01 tools
+   === html cells ===
+   reports/html/fr-02-login/chro
+   … [cắt bớt 1727 ký tự; xem transcript gốc]
+   === test-design ===
+   test-design/not-automated.md
+   test-design/FR-10-order-state-machine/case-map.md
+   test-design/FR-02-login/case-map.md
+   test-design/FR-13-dashboard/case-map.md
+   === ai-gap-analysis ===
+   ai-gap-analysis/ai-generated-script-gaps.md
+   === bug-reports md ===
+   BUG-FR02-001.md
+   BUG-FR02-002.md
+   BUG-FR02-003.md
+   BUG-FR02-004.md
+   BUG-FR10-001.md
+   BUG-FR10-002.md
+   BUG-FR10-003.md
+   BUG-FR13-001.md
+   BUG-FR13-002.md
+   github-issues
+   screenshots
+   === case counts ===
+   automation/test-data/fr-02-login.cases.json: 14
+   automation/test-data/fr-10-order-state.cases.json: 14
+   automation/test-data/fr-13-dashboard.cases.json: 12
+   === .env ===
+   # Copy to automation/.env and fill in. .env is gitignored — never commit it,
+   … [cắt bớt 1651 ký tự; xem transcript gốc]
+→ Bash: echo "=== pdf ===" && ls -la reports/pdf/ && echo "=== tools ===" && ls -R reports/tools | head -40 && echo "=== run-manifest ===" && cat reports/run-manifest.md
+   === pdf ===
+   total 2032
+   drwxr-xr-x@  6 hbn  staff     192 Aug  9 15:30 .
+   drwxr-xr-x@ 11 hbn  staff     352 Aug  9 16:00 ..
+   -rw-r--r--@  1 hbn  staff  583511 Aug  9 16:02 ai-audit-report.pdf
+   -rw-r--r--@  1 hbn  staff   50387 Aug  9 16:02 ai-critique.pdf
+   -rw-r--r--@  1 hbn  staff  179262 Aug  9 16:02 ai-gap-analysis.pdf
+   -rw-r--r--@  1 hbn  staff  213203 Aug  9 16:02 main-report.pdf
+   === tools ===
+   build-pdfs.py
+   extract-prompt-log.py
+   html-to-pdf.mjs
+   verify-audit-verbatim.py
+   === run-manifest ===
+   # Run manifest — HW04 browser matrix
+   
+   Last updated 2026-08-09T15:56:12+07:00 by `npm run matrix`.
+   Run by: 23127300 (Ha Bao Ngoc).
+   Cells refreshed by this invocation: fr-02-login×chromium, fr-02-login×firefo
+   … [cắt bớt 1976 ký tự; xem transcript gốc]
+→ Read(README.md)
+→ Bash: cd automation && (npx tsx scripts/verify-reports.ts 2>&1 | tail -30 || true); echo "=== timestamp grep per report ==="; cd .. ; for f in reports/html/*/*/index.html; do echo -n "$f -> "; grep -o 'Run by: 23127300[^"<]*'
+… [cắt bớt 20 ký tự; xem transcript gốc]
+→ Bash: echo "=== spec-commit dates ===" && git log --pretty=format:'%ad %h %s' --date=short -- 'automation/tests/*.spec.ts' 'automation/test-data/*.json' && echo && echo "=== backend/ tracked files ===" && git ls-files backend
+… [cắt bớt 204 ký tự; xem transcript gốc]
+   ok   reports/html/fr-02-login/chromium/index.html
+   ok   reports/html/fr-02-login/firefox/index.html
+   ok   reports/html/fr-02-login/webkit/index.html
+   ok   reports/html/fr-10-order-state/chromium/index.html
+   ok   reports/html/fr-10-order-state/firefox/index.html
+   ok   reports/html/fr-10-order-state/webkit/index.html
+   ok   reports/html/fr-13-dashboard/chromium/index.html
+   ok   reports/html/fr-13-dashboard/firefox/index.html
+   ok   reports/html/fr-13-dashboard/webkit/index.html
+   
+   9/9 expected reports found, 0 unlabeled.
+   === timestamp grep per report ===
+   reports/html/fr-02-login/chromium/index.html -> Run by: 23127300 | Ha Bao Ngoc | FR-02 Dang nhap &amp; khoa tai khoan | chromium | 2026-08-09T15:48:37+07
+   … [cắt bớt 1175 ký tự; xem transcript gốc]
+   === spec-commit dates ===
+   2026-08-09 e341854 test(fr-02): restore Vietnamese diacritics in the 14 case titles and requirement notes
+   2026-08-09 9e9b342 test(fr-02): fail loudly when a record asks for @correct on an unregistered account
+   2026-08-09 f72bb20 test(fr-10): move the status-label domain out of the spec into F10-TC-012's record
+   2026-08-09 55b4cae test(fr-13): drive the FR-12 guard from the record's auth field and assert the login fallback
+   2026-08-09 a09d2b2 test(fr-02): assert the expected URL and token from the data file
+   2026-08-08 58d1d13 test(fr-13): automate dashboard revenue, order count and access control
+   2026-08-08 5660228 test(fr-13): add dashboard case data with 7 cases desig
+   … [cắt bớt 813 ký tự; xem transcript gốc]
+→ Bash: echo "=== ai-critique word count ===" && wc -w reports/ai-critique.md && sed -n '1,60p' reports/ai-critique.md
+   === ai-critique word count ===
+        307 reports/ai-critique.md
+   # AI Critique (200–300 từ)
+   
+   Lỗi lặp lại nhiều nhất của AI trong HW04 không nằm ở cú pháp Playwright mà ở
+   việc nó tin vào một giao diện *hợp lý* thay vì giao diện *thật*. Bản nháp
+   FR-10, viết trước khi truy cập được build thật, giả định admin đổi trạng thái
+   bằng dropdown và app điều hướng theo URL. Cả hai sai theo cách nguy hiểm nhất:
+   không crash, chỉ âm thầm thao tác nhầm màn hình (Entry #11–12). AI suy luận
+   tốt trên dữ liệu đã quan sát nhưng không nhận ra khi nó chưa quan sát gì.
+   
+   Nặng nhất là Entry #17: nhánh FR-12 của FR-13 gọi nhầm `seedUserToken` thay
+   vì `seedAdminToken`, khiến case pass sai lý do, không chạm tới bề mặt cần
+   … [cắt bớt 828 ký tự; xem transcript gốc]
+→ Bash: echo "=== remote / branch ===" && git remote -v && git rev-parse --abbrev-ref HEAD && git log origin/HW04/23127300..HEAD --oneline 2>/dev/null | wc -l && echo "=== git-log.txt diff size ===" && git diff --stat git-log.tx
+… [cắt bớt 102 ký tự; xem transcript gốc]
+   === remote / branch ===
+   origin	https://github.com/lmchkhi/CS423-CSC15003-Testing-N08.git (fetch)
+   origin	https://github.com/lmchkhi/CS423-CSC15003-Testing-N08.git (push)
+   HW04/23127300
+          0
+   === git-log.txt diff size ===
+    git-log.txt | 5514 ++++++++++++++++++++++++++++++++++++++++++++++++++++-------
+    1 file changed, 4852 insertions(+), 662 deletions(-)
+   === git-log.txt head ===
+   * commit db73e4191d18465c00c827bb191ae9302467f2cf
+   | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+   | Date:   Sun Aug 9 16:02:29 2026 +0700
+   | 
+   |     docs: regenerate git-log.txt
+   ... tail:
+      .../FR-01-register/bva/TC-FR01-BVA-001.md         |  54 ---
+      .../domain-testing/TC-FR01-DT-001.md              |  62 ----
+      tests/
+   … [cắt bớt 170 ký tự; xem transcript gốc]
+→ Bash: gh repo view lmchkhi/CS423-CSC15003-Testing-N08 --json isPrivate,visibility,url 2>&1 | head -5; echo "=== issues 204-212 ==="; for n in 204 205 206 207 208 209 210 211 212; do gh issue view $n --repo lmchkhi/CS423-CSC150
+… [cắt bớt 61 ký tự; xem transcript gốc]
+→ Bash: echo "=== not-automated ===" && cat test-design/not-automated.md | head -60
+   {"isPrivate":false,"url":"https://github.com/lmchkhi/CS423-CSC15003-Testing-N08","visibility":"PUBLIC"}
+   === issues 204-212 ===
+   {"number":204,"state":"OPEN","title":"[BUG][FR02] Ô email dùng type=\"text\", không validate HTML5"}
+   {"number":205,"state":"OPEN","title":"[BUG][FR02] Tài khoản bị khóa sau 2 lần sai liên tiếp thay vì 3"}
+   {"number":206,"state":"OPEN","title":"[BUG][FR02] Thời gian khóa tài khoản vượt quá 30 giây quy định"}
+   {"number":207,"state":"OPEN","title":"[BUG][FR02] Response đăng nhập trả về mật khẩu người dùng dạng plaintext"}
+   {"number":208,"state":"OPEN","title":"[BUG][FR10] Đơn đã hủy (canceled) vẫn chuyển được sang Đã giao"}
+   {"number":209,"state":"OPEN","title":"[BUG][FR10]
+   … [cắt bớt 402 ký tự; xem transcript gốc]
+   === not-automated ===
+   # Case không tự động hoá được
+   
+   HW04 §6 yêu cầu ghi rõ những test case không automate được và lý do.
+   
+   | Case ID | Feature | Nội dung case | Lý do không automate | Điều kiện để automate được |
+   |---|---|---|---|---|
+   | — (nửa sau của BUG-FR02-002) | FR-02 | Ô nhập mật khẩu phải dùng `type="password"` để không hiển thị rõ ký tự | Không phải "không automate được về kỹ thuật" mà là **không có oracle**: `sut-requirements.md` §2 chỉ quy định kiểu của trường email, hoàn toàn im lặng về trường mật khẩu. Assert một quy tắc mà đặc tả không nêu sẽ biến quan sát chủ quan thành tiêu chí đánh giá | Đặc tả bổ sung ràng buộc kiểu cho trường mật khẩu (hoặc một yêu cầu chung về che giấu thô
+   … [cắt bớt 1274 ký tự; xem transcript gốc]
+→ Read(reports/main-report.md)
+→ Bash: sed -n '1,45p' reports/ai-audit-report.md && echo "..." && grep -c '^## Entry' reports/ai-audit-report.md && echo "=== prompt-log entries ===" && grep -c '^## ' reports/prompt-log.md
+   # [AI-02] AI Audit Report — HW04 Automation Testing
+   
+   ## 1. Thông tin Sinh viên
+   
+   | Field | Content |
+   | --- | --- |
+   | **Họ tên** | Hà Bảo Ngọc |
+   | **MSSV** | 23127300 |
+   | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
+   | **Ngày làm bài** | 05/08/2026 – 09/08/2026 |
+   | **Công cụ AI đã dùng** | Claude (Opus 5 và Sonnet 5, chạy trong Claude Code — chuyển sang Sonnet 5 từ Session 3, 08/08/2026; quay lại Opus 5 cho phiên rà soát cuối, 09/08/2026) |
+   
+   ## 2. Tuyên bố sử dụng AI (HW04 §9)
+   
+   > **I use AI tools for the following tasks.**
+   
+   Tôi có sử dụng AI trong bài này. Công cụ, thời điểm, prompt nguyên văn và output
+   nguyên văn của từng lần tương tác được ghi ở mục 4 dưới đây;
+   … [cắt bớt 1579 ký tự; xem transcript gốc]
+→ Bash: cd automation && echo "=== inline array scan in specs ===" && grep -nE '^\s*(const|let)\s+\w+\s*(:\s*[^=]+)?=\s*\[' tests/*.ts pages/*.ts fixtures/*.ts utils/*.ts | head -30 && echo "=== caseId branching ===" && grep -n
+… [cắt bớt 317 ký tự; xem transcript gốc]
+   === inline array scan in specs ===
+   tests/fr-10-order-state.spec.ts:144:          const outsideDomain = [...new Set(rendered.map((t) => t.trim()))].filter(
+   === caseId branching ===
+   === waitForTimeout ===
+   tests/fr-02-login.spec.ts:85:        await page.waitForTimeout(testCase.waitSeconds * 1000);
+   === xpath ===
+   pages/dashboard.page.ts:34:      .locator('xpath=..')
+   === package.json ===
+   {
+     "name": "hw04-eshop-automation",
+     "version": "1.0.0",
+     "private": true,
+     "description": "HW04 — data-driven Playwright automation for EShop FR-02 / FR-10 / FR-13 (student 23127300)",
+     "scripts": {
+       "typecheck": "tsc --noEmit",
+       "test": "playwright test",
+       "test:list": "playwright test --list",
+   … [cắt bớt 585 ký tự; xem transcript gốc]
+→ Bash: cd automation && npm run typecheck 2>&1 | tail -5; echo "=== list counts per project ==="; npx playwright test --list 2>&1 | tail -3; for p in chromium firefox webkit; do echo -n "$p: "; npx playwright test --list --proj
+… [cắt bớt 32 ký tự; xem transcript gốc]
+   (eval):cd:1: no such file or directory: automation
+   === list counts per project ===
+     [webkit] › smoke.spec.ts:20:7 › @smoke SUT reachability › admin frontend responds
+     [webkit] › smoke.spec.ts:25:7 › @smoke SUT reachability › backend API serves products and accepts the admin account
+   Total: 129 tests in 4 files
+   chromium: 43
+   firefox: 43
+   webkit: 43
+→ Bash: pwd && npm run typecheck 2>&1 | tail -5
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation
+   
+   > hw04-eshop-automation@1.0.0 typecheck
+   > tsc --noEmit
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && echo "=== dir sizes ===" && du -sh .claude ai-gap-analysis automation backend bug-reports docs reports test-design git-log.txt README.md 2>/dev/null && echo "=== repo
+… [cắt bớt 337 ký tự; xem transcript gốc]
+   === dir sizes ===
+    48K	.claude
+    20K	ai-gap-analysis
+    63M	automation
+    19M	backend
+   5.8M	bug-reports
+   100K	docs
+    51M	reports
+    28K	test-design
+   320K	git-log.txt
+   8.0K	README.md
+   === reports subdirs ===
+   104K	reports/ai-audit-report.md
+   4.0K	reports/ai-critique.md
+    49M	reports/html
+   492K	reports/json
+    16K	reports/main-report.md
+   1.0M	reports/pdf
+   500K	reports/prompt-log.md
+   4.0K	reports/run-manifest.md
+    32K	reports/tools
+   === automation subdirs ===
+   4.0K	automation/README.md
+   4.0K	automation/fixtures
+   4.0K	automation/package.json
+   4.0K	automation/playwright.config.ts
+   4.0K	automation/tsconfig.json
+    16K	automation/pages
+    16K	automation/scripts
+    20K	automation/package-lock.json
+    24K	automation/test-data
+    24K	autom
+   … [cắt bớt 305 ký tự; xem transcript gốc]
+→ Bash: du -sh reports/html/* && echo "--- _ad-hoc ---" && du -sh reports/html/_ad-hoc && echo "--- data vs rest across the 9 cells ---" && du -ch reports/html/*/*/data 2>/dev/null | tail -1 && echo "--- git-tracked reports/html
+… [cắt bớt 200 ký tự; xem transcript gốc]
+   512K	reports/html/_ad-hoc
+    18M	reports/html/fr-02-login
+    17M	reports/html/fr-10-order-state
+    14M	reports/html/fr-13-dashboard
+   --- _ad-hoc ---
+   512K	reports/html/_ad-hoc
+   --- data vs rest across the 9 cells ---
+    32M	total
+   --- git-tracked reports/html size ---
+        382
+   --- dry-run zip size (tracked files only) ---
+   32.5 MB
+→ Bash: echo "=== commits recorded in git-log.txt ===" && grep -c '^\* commit\|^| commit\|commit [0-9a-f]\{40\}' git-log.txt && echo "=== actual ===" && git log --oneline | wc -l && echo "=== critique body words (excl. heading)
+… [cắt bớt 163 ký tự; xem transcript gốc]
+   === commits recorded in git-log.txt ===
+   218
+   === actual ===
+         59
+   === critique body words (excl. heading) ===
+        302
+   === .env.example diff vs .env ===
+   (identical)
+→ Bash: grep -oE 'commit [0-9a-f]{40}' git-log.txt | sort -u | wc -l && echo "--- authors in git-log.txt ---" && grep -oE '^\|? *Author: .*' git-log.txt | sed 's/.*Author: //' | sort | uniq -c | sort -rn | head && echo "--- do a
+… [cắt bớt 181 ký tự; xem transcript gốc]
+   216
+   --- authors in git-log.txt ---
+    145 Bảo Ngọc Hà <hiembaonon@gmail.com>
+      2 git stash <hiembaonon@gmail.com>
+   --- do all 59 branch commits appear? ---
+   MISSING 15ad5507e293da1a752be8539fc34f3eaeeb27e2
+   MISSING 969e1566f2c1195effaf95fbb322052292cec08a
+   MISSING 807c1b7bb341bf46e297ca13f0f055fb1ec17029
+   MISSING 371b104543ac51815007136e15c1ec0325aafec1
+   MISSING 538890ac17bd41fdc9fa6bdceaeec2a748e82d07
+   MISSING 563335450fc9d033acc0f86a05e6d907c3e9f5fd
+   MISSING e59ee5a6251c33f30933eb4f8ba5352274f003cc
+   MISSING 85af3ba875c88283615e22cb108f13e2fccaf0e9
+   MISSING 2f9bf2bab45855abf211377a5d5eba10031649e3
+   missing_flag=1
+→ Bash: for h in 15ad5507e293da1a752be8539fc34f3eaeeb27e2 969e1566f2c1195effaf95fbb322052292cec08a 807c1b7bb341bf46e297ca13f0f055fb1ec17029 371b104543ac51815007136e15c1ec0325aafec1 538890ac17bd41fdc9fa6bdceaeec2a748e82d07 563335
+… [cắt bớt 429 ký tự; xem transcript gốc]
+   15ad550 2026-06-20 Lam Vi Khang chore: initialize repo structure for testing docs
+   969e156 2026-06-10 lmchkhi Remove commiting database to git
+   807c1b7 2026-06-10 lchkhai Merge pull request #5 from lmchkhi/issues_template
+   371b104 2026-06-09 lmchkhi Fixing template comment
+   538890a 2026-06-09 lmchkhi Adding default label to template
+   5633354 2026-06-09 lchkhai Update issue templates
+   e59ee5a 2026-06-08 lmchkhi adding .gitignore
+   85af3ba 2026-05-15 ttbhanh-hcmus first upload
+   2f9bf2b 2026-05-15 Hanh Tran Initial commit
+   === how was it generated? grep scripts ===
+   (eval):1: no matches found: --include=*.md
+→ Bash: echo "=== black-box violations in bug reports / test-design ===" && grep -rnE '(src/|\.tsx?:[0-9]+|routes/|controllers/|server\.js|line [0-9]+ of)' bug-reports/*.md test-design/ ai-gap-analysis/ reports/main-report.md 2>
+… [cắt bớt 147 ký tự; xem transcript gốc]
+   === black-box violations in bug reports / test-design ===
+   (end)
+   === bug report template fields present ===
+   # BUG-FR13-001: Dashboard hiển thị tổng doanh thu gấp đôi giá trị thực tế
+   
+   ## Found by Test Case
+   F13-TC-001 — "F13-TC-001 — Doanh thu tăng đúng total_amount của một đơn delivered" (cùng nguyên nhân tái hiện ở F13-TC-002, F13-TC-003, F13-TC-004, F13-TC-006, F13-TC-007, F13-TC-008, F13-TC-009, F13-TC-010, F13-TC-011 — 10 case trên cùng một lỗi, gộp thành một bug report theo hướng dẫn của skill `bug-report`)
+   
+   ## Requirement liên quan
+   FR-13 — `sut-requirements.md` §4: tổng doanh thu chỉ tính tổng `total_amount` của các đơn có `status = 'delivered'`.
+   
+   ## GitHub Issue
+   https://github.com/lmchk
+   … [cắt bớt 325 ký tự; xem transcript gốc]
+→ Bash: git ls-files | awk -F/ '{print $1}' | sort | uniq -c | sort -rn && echo "--- reports tracked subdirs ---" && git ls-files reports | awk -F/ '{print $2}' | sort | uniq -c && echo "--- automation tracked ---" && git ls-fil
+… [cắt bớt 53 ký tự; xem transcript gốc]
+   395 reports
+     28 bug-reports
+     27 automation
+      5 .claude
+      4 test-design
+      1 sut-requirements.md
+      1 git-log.txt
+      1 ai-gap-analysis
+      1 README.md
+      1 HW04-AutomationTesting.md
+      1 CLAUDE.md
+      1 .gitignore
+      1 .github
+   --- reports tracked subdirs ---
+      1 ai-audit-report.md
+      1 ai-critique.md
+    382 html
+      1 main-report.md
+      4 pdf
+      1 prompt-log.md
+      1 run-manifest.md
+      4 tools
+   --- automation tracked ---
+      1 .env.example
+      1 README.md
+      2 fixtures
+      1 package-lock.json
+      1 package.json
+      5 pages
+      1 playwright.config.ts
+      2 scripts
+      4 test-data
+      4 tests
+      1 tsconfig.json
+      4 utils
+→ Bash: git check-ignore -v docs/superpowers/plans/2026-08-05-hw04-automation.md; echo "---"; ls -la backend/; echo "--- global excludes ---"; cat .git/info/exclude 2>/dev/null | grep -v '^#' | grep -v '^$'
+   .git/info/exclude:9:docs/superpowers/	docs/superpowers/plans/2026-08-05-hw04-automation.md
+   ---
+   total 72
+   drwxr-xr-x@   4 hbn  staff    128 Aug  8 09:00 .
+   drwxr-xr-x@  18 hbn  staff    576 Aug  9 15:13 ..
+   -rw-r--r--@   1 hbn  staff  36864 Aug  7 09:20 database.sqlite
+   drwxr-xr-x@ 137 hbn  staff   4384 Aug  7 09:19 node_modules
+   --- global excludes ---
+   docs/superpowers/
+```text
+Full audit done. Repo is in good shape — **2 small things to fix**, everything else passes.
+
+## Rubric check
+
+| § | Requirement | Status |
+|---|---|---|
+| 5 | 3 web features, one per pool, same as HW02 | ✅ FR-02 / FR-10 / FR-13 |
+| 6 | ≥12 cases per feature | ✅ 14 / 14 / 12 = 40 |
+| 6 | Data-driven, no inline arrays | ✅ 3 `*.cases.json`, zod-validated loader; grep found no case array or `caseId ===` branching in any spec |
+| 6 | ≥3 assertion patterns | ✅ 9 documented |
+| 6 | 3 browsers, ≥9 runs | ✅ real `chromium`/`firefox`/`webkit` projects, 9 report folders |
+| 11 | `Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Run by: 23127300 \| … \| <browser> \| 2026-08-09T15:xx:xx+07:00` |
+| 6 | Bugs → Markdown + GitHub issue + screenshot | ✅ 9 reports, issues #204–212 all live and OPEN on a **PUBLIC** repo, each with failure screenshot + issue-page screenshot |
+| 6 | Non-automated cases documented | ✅ `test-design/not-automated.md`, 3 cases with reasons |
+| 6 | AI review / gap analysis | ✅ `ai-gap-analysis/ai-generated-script-gaps.md` |
+| 9 | Audit report with declaration | ✅ verbatim "I use AI tools for the following tasks", 22 entries; `prompt-log.md` 68 entries |
+| 10 | AI critique 200–300 words | ⚠️ **302 words** |
+| 12 | ≥8 spec-touching commits | ✅ 12, spanning Aug 5/6/7/8/9 (5 days — clears the PDF's ≥4-day version too) |
+| 14 | README self-assessment + test summary | ✅ complete, incl. both video links |
+| 14 | MD + PDF | ✅ 4 valid PDFs (main-report 5p, audit 42p, critique 1p, gap-analysis 6p) |
+
+Also clean: `npm run typecheck` passes, `--list` gives 43 tests/project (40 cases + 3 smoke), no black-box violations (no source paths/line numbers in any bug report or design doc).
+
+## Fix before submitting
+
+1. **`git-log.txt` is modified but uncommitted** — the copy on GitHub is stale (branch is otherwise fully pushed, 0 ahead). The working copy is correct and current through HEAD; it just needs a commit + push. Want me to do that?
+2. **`reports/ai-critique.md` is 302 words**, 2 over the §10 cap. Trivial trim — say the word and I'll cut it to ~295.
+
+Can't verify from here: that both YouTube links resolve, are unlisted, ≥5 min, Vietnamese narration, and show face-cam or `whoami`/`hostname`.
+
+## What to put in `23127300_HW04_AI_Automation_100.zip`
+
+The clean rule: **everything git tracks, nothing else** — that's exactly 32.5 MB zipped, verified with `git archive`.
+
+**Include:**
+```
+README.md                  ← self-assessment + test summary (§14)
+git-log.txt                ← §12 (commit the update first)
+sut-requirements.md        ← the oracle
+CLAUDE.md
+HW04-AutomationTesting.md
+.gitignore
+.github/ISSUE_TEMPLATE/
+
+.claude/skills/            ← §7 Agent Skill deliverable (all 4 skills)
+
+automation/
+  .env.example  README.md  package.json  package-lock.json
+  playwright.config.ts  tsconfig.json
+  tests/  test-data/  pages/  fixtures/  utils/  scripts/
+
+reports/
+  main-report.md  ai-audit-report.md  ai-critique.md
+  prompt-log.md   run-manifest.md
+  html/fr-02-login/{chromium,firefox,webkit}/     ← the 9 reports
+  html/fr-10-order-state/{chromium,firefox,webkit}/
+  html/fr-13-dashboard/{chromium,firefox,webkit}/
+  pdf/            ← 4 PDFs
+  tools/
+
+ai-gap-analysis/
+test-design/               ← 3 case-maps + not-automated.md
+bug-reports/               ← 9 .md + screenshots/ + github-issues/
+```
+
+**Leave out** (all already untracked/gitignored, so they won't appear if you zip the tracked set):
+
+| Path | Why |
+|---|---|
+| `automation/node_modules/` | 60 MB, rebuildable |
+| `automation/test-results/` | raw run scratch; the graded evidence is `reports/html/` |
+| `automation/.env` | local secrets file (identical to `.env.example`, which ships) |
+| `backend/` | 19 MB stray local SQLite + node_modules, not part of the deliverable |
+| `reports/json/` | JSON reporter side-output |
+| `reports/html/_ad-hoc/` | dev-run fallback folder, not one of the 9 cells |
+| `docs/superpowers/`
+… [cắt bớt 261 ký tự; xem transcript gốc]
+```
+
+
+---
+
+
+## [40] Claude (Opus 5, Claude Code) — 7:26 PM 09/08/2026
+
+**Prompt:**
+
+```text
+ok fix all for me, then re-export everything using the export_pdf.py
+```
+
+**Output:**
+
+→ Bash: ls -la reports/tools/ && echo "=== find export_pdf.py anywhere ===" && find . -name 'export_pdf*' -not -path '*/node_modules/*' 2>/dev/null; find ~/Documents ~/Downloads -maxdepth 4 -name 'export_pdf*' 2>/dev/null | head
+   total 64
+   drwxr-xr-x@  6 hbn  staff    192 Aug  9 16:01 .
+   drwxr-xr-x@ 11 hbn  staff    352 Aug  9 16:00 ..
+   -rw-r--r--@  1 hbn  staff   5923 Aug  9 15:30 build-pdfs.py
+   -rw-r--r--@  1 hbn  staff  12494 Aug  9 16:01 extract-prompt-log.py
+   -rw-r--r--@  1 hbn  staff   2064 Aug  9 15:09 html-to-pdf.mjs
+   -rw-r--r--@  1 hbn  staff   3086 Aug  8 09:23 verify-audit-verbatim.py
+   === find export_pdf.py anywhere ===
+   ./export_pdf.py
+   /Users/hbn/Downloads/export_pdf.py
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/export_pdf.py
+   /Users/hbn/Documents/CSC15003-HW01-SoftwareTesting/export_pdf.py
+→ Read(export_pdf.py)
+→ Bash: git check-ignore -v export_pdf.py; echo "---exclude file---"; cat .git/info/exclude
+   ---exclude file---
+   # git ls-files --others --exclude-from=.git/info/exclude
+   # Lines that start with '#' are comments.
+   # For a project mostly in C, the following would be a good set of
+   # exclude patterns (uncomment them if you want to use them):
+   # *.[oa]
+   # *~
+   
+   # Local-only: superpowers working docs, never part of the submission
+   docs/superpowers/
+→ Read(reports/tools/build-pdfs.py)
+→ Bash: git status --porcelain -uall --ignored=no; echo "--- ls-files export ---"; git ls-files | grep -i export; echo "(none)"; echo "--- is it ignored? ---"; git check-ignore -v export_pdf.py || echo "NOT ignored"
+   M git-log.txt
+   ?? export_pdf.py
+   --- ls-files export ---
+   (none)
+   --- is it ignored? ---
+   NOT ignored
+```text
+`export_pdf.py` is a new untracked file in the repo root — and it's the **HW02-era** exporter, not this repo's HW04 builder. Before I run it, one thing needs deciding, because the two produce materially different output:
+
+| | `reports/tools/build-pdfs.py` (current) | `export_pdf.py` (the one you named) |
+|---|---|---|
+| Output paths | `reports/pdf/*.pdf` (what README §14 documents) | `reports/main-report.pdf`, `README.pdf` — repo root/`reports/` |
+| Docs covered | main-report, critique, audit, **+ gap-analysis** | main-report, critique, audit, README; **no gap-analysis**; skips `prompt_log.md`/`git_log.md` (don't exist) |
+| Markdown mode | no `nl2br` | **`nl2br` on** |
+
+That last row is the real problem: every Markdown deliverable in this repo is hard-wrapped at ~76 columns, so `nl2br` turns each source line into a `<br>` and shreds every paragraph into ragged one-line-per-sentence-fragment text. `build-pdfs.py` carries an explicit comment about exactly this.
+```
+→ AskUserQuestion: Which PDF exporter should I use for the re-export?
+   [sinh viên chọn] Your questions have been answered: "Which PDF exporter should I use for the re-export?"="Keep build-pdfs.py (Recommended)" selected preview:
+python3 reports/tools/build-pdfs.py
+
+  reports/pdf/main-report.pdf
+  reports/pdf/ai-critique.pdf
+  reports/pdf/ai-audit-report.pdf
+  reports/pdf/ai-gap-analysis.pdf. You can now continue with these answers in mind.
+→ Read(.claude/skills/ai-audit-log/SKILL.md)
+→ Read(reports/ai-critique.md)
+→ Bash: grep -n "^## 4\|^## 5\|^## 6\|^## Entry #22\|^## Entry #21" reports/ai-audit-report.md && echo "=== §4 table ===" && sed -n "$(grep -n '^## 4' reports/ai-audit-report.md | cut -d: -f1),+30p" reports/ai-audit-report.md
+→ Bash: echo "=== prompt-log head ===" && sed -n '1,40p' reports/prompt-log.md && echo "=== prompt-log last entry heading ===" && grep -n '^## ' reports/prompt-log.md | tail -3
+   71:## 4. Audit Entries
+   1715:## Entry #21
+   1803:## Entry #22
+   2029:## 5. Tổng hợp độ chính xác của AI
+   2052:## 6. Kết luận
+   === §4 table ===
+   ## 4. Audit Entries
+   
+   ---
+   
+   ## Entry #1
+   
+   ### (1) Prompt + Tool
+   
+   | Field             | Content         |
+   | ----------------- | --------------- |
+   | **Tool**          | Claude (Opus 5, Claude Code) |
+   | **Timestamp**     | 11:07 PM 05/08/2026 |
+   | **Artifact type** | Khung dự án `automation/` — `playwright.config.ts`, `utils/config.ts`, `utils/data.ts`, `utils/api.ts`, `utils/stamp.ts`, `scripts/run-matrix.ts`, `tests/smoke.spec.ts` |
+   
+   **Full prompt:**
+   
+   ```
+   read HW04-AutomationTesting.md and plan to setup the project for me
+   materials i added for your ref and will b
+   … [cắt bớt 754 ký tự; xem transcript gốc]
+   === prompt-log head ===
+   # Prompt Log
+   
+   *Complete, unfiltered record of every AI interaction during HW04. See
+   `reports/ai-audit-report.md` for the reviewed subset with verdicts.*
+   
+   ## Phạm vi và cách dựng file
+   
+   File này được trích **tự động** từ transcript gốc của Claude Code
+   (`~/.claude/projects/`), không gõ lại và không viết lại từ trí nhớ. Toàn bộ
+   HW04 được ghi: từ lúc đọc đề (05/08/2026) đến phiên làm việc cuối.
+   
+   Nguyên tắc verbatim được áp dụng đúng nghĩa:
+   
+   - **Prompt** — nguyên văn từng ký tự những gì sinh viên đã gõ, giữ nguyên
+     ngôn ngữ, giữ cả lỗi chính tả. Chỉ loại bỏ các khối `<system-reminder>` và
+     `<task-notification>` do chính công cụ chèn vào — sinh viên không gõ
+     chúng; `<tas
+   … [cắt bớt 1338 ký tự; xem transcript gốc]
+→ Read(reports/tools/extract-prompt-log.py)
+→ Edit(reports/ai-critique.md)
+→ Bash: sed -n '2029,2110p' reports/ai-audit-report.md
+   ## 5. Tổng hợp độ chính xác của AI
+   
+   | Verdict | Số entry | Tỷ lệ |
+   | --- | ---: | ---: |
+   | `VALID` | 12 | 54.5% |
+   | `INCOMPLETE` | 9 | 40.9% |
+   | `INVALID` | 1 | 4.5% |
+   | **Tổng số entry đã audit** | **22** | **100%** |
+   
+   Phân bố theo giai đoạn:
+   
+   | Giai đoạn | Entry | VALID | Cần sửa |
+   | --- | --- | ---: | ---: |
+   | Dựng khung + lập kế hoạch (05/08) | #1–#4 | 2 | 2 |
+   | FR-02 — Session 1 (06/08) | #5–#9 | 3 | 2 |
+   | FR-10 — Session 2 (07/08) | #10–#13 | 3 | 1 |
+   | Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
+   | FR-13 — Session 3 (08/08) | #16–#17 | 0 | 2 |
+   | Triage + bug reports — Session 3 (08/08) | #18 | 1 | 0 |
+   | Video + rà soát toàn bài — Session 4 (09/08) | #19–#20 | 0 | 2 |
+   | Sửa lỗ hổ
+   … [cắt bớt 3676 ký tự; xem transcript gốc]
+→ Edit(reports/ai-critique.md)
+→ Bash: tail -n +2 reports/ai-critique.md | wc -w && echo "--- last entry #22 tail for template ---" && sed -n '1990,2028p' reports/ai-audit-report.md
+   295
+   --- last entry #22 tail for template ---
+   ### (5) Student Fix
+   
+   Giữ lại toàn bộ các bản sửa, sau khi tự kiểm chứng từng cái:
+   
+   - **`fr-13-dashboard.spec.ts`** — rẽ nhánh FR-12 theo `testCase.auth` thay vì
+     theo tên `assertion`, và thêm assertion dương: một phiên bị từ chối phải rơi
+     về heading `Admin Login`, vì `toHaveCount(0)` một mình vẫn xanh trên trang
+     trắng. Kiểm chứng: F13-TC-012 vẫn pass với assertion mới, F13-TC-005 vẫn fail
+     đúng ở assertion cũ (`BUG-FR13-002`), không case nào đổi màu.
+   - **`fr-10-order-state.spec.ts` + `fr-10-order-state.cases.json`** — chuyển
+     `STATUS_LABEL_DOMAIN` thành `expected.statusDomain` trong record của
+     F10-TC-012; 13 record còn lại khai `null`. F1
+   … [cắt bớt 1534 ký tự; xem transcript gốc]
+→ Bash: date "+%-I:%M %p %d/%m/%Y" && date -Iseconds
+   7:30 PM 09/08/2026
+   2026-08-09T19:30:45+07:00
+→ Read(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: echo "=== ALL untracked (incl. ignored) at top 2 levels, excluding node_modules ===" && git status --porcelain -uall --ignored 2>/dev/null | grep '^!!\|^??' | grep -v 'node_modules' | head -40 && echo "=== full working t
+… [cắt bớt 105 ký tự; xem transcript gốc]
+   === ALL untracked (incl. ignored) at top 2 levels, excluding node_modules ===
+   !! automation/.env
+   !! automation/test-results/.last-run.json
+   !! "automation/test-results/fr-13-dashboard-FR-13-\342\200\224-Da-26d82--khi-c\303\263-nhi\341\273\201u-\304\221\306\241n-delivered-webkit/error-context.md"
+   !! "automation/test-results/fr-13-dashboard-FR-13-\342\200\224-Da-26d82--khi-c\303\263-nhi\341\273\201u-\304\221\306\241n-delivered-webkit/test-failed-1.png"
+   !! "automation/test-results/fr-13-dashboard-FR-13-\342\200\224-Da-26d82--khi-c\303\263-nhi\341\273\201u-\304\221\306\241n-delivered-webkit/trace.zip"
+   !! "automation/test-results/fr-13-dashboard-FR-13-\342\200\224-Da-26d82--khi-c\303\263-nhi\341\2
+   … [cắt bớt 6701 ký tự; xem transcript gốc]
+→ Bash: ls -la . && echo "=== git status now ===" && git status --porcelain -uall
+   total 720
+   drwxr-xr-x@ 17 hbn  staff     544 Aug  9 19:29 .
+   drwx------@ 43 hbn  staff    1376 Aug  3 00:37 ..
+   drwxr-xr-x@  3 hbn  staff      96 Aug  8 09:00 .claude
+   drwxr-xr-x@ 16 hbn  staff     512 Aug  9 19:31 .git
+   drwxr-xr-x@  4 hbn  staff     128 Jul 27 14:07 .github
+   -rw-r--r--@  1 hbn  staff     844 Aug  8 09:00 .gitignore
+   -rw-r--r--@  1 hbn  staff    4484 Aug  8 09:06 CLAUDE.md
+   -rw-r--r--@  1 hbn  staff   11747 Aug  9 13:39 HW04-AutomationTesting.md
+   -rw-r--r--@  1 hbn  staff    7625 Aug  9 15:13 README.md
+   drwxr-xr-x@  3 hbn  staff      96 Aug  9 15:50 ai-gap-analysis
+   drwxr-xr-x@ 17 hbn  staff     544 Aug  9 15:55 automation
+   drwxr-xr-x@ 13 hbn  staff     416 Aug  8 22:04 bug-reports
+   drwx
+   … [cắt bớt 381 ký tự; xem transcript gốc]
+```text
+The student removed `export_pdf.py` and the stray `backend/` folder mid-session — root is clean now. Updating the audit entry to match reality.
+```
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/main-report.md)
+→ Edit(reports/main-report.md)
+→ Bash: echo "=== any remaining '22 entry' refs ===" && grep -rn "22 entry\|9/22\|/22 entry" reports/*.md README.md ai-gap-analysis/*.md test-design/ 2>/dev/null; echo "(none above = clean)"; echo "=== verdict recount ==="; grep
+… [cắt bớt 241 ký tự; xem transcript gốc]
+   === any remaining '22 entry' refs ===
+   reports/ai-audit-report.md:2144:  Số liệu tự tham chiếu trong đoạn kết cập nhật theo entry này: 9/22 → 10/23.
+   reports/prompt-log.md:8301:   194:quan sát độc lập. 22 entry đã audit: 12 `VALID`, 9 `INCOMPLETE`, 1 `INVALID`.
+   reports/prompt-log.md:8302:   202:| AI Audit Report (§9) | [`ai-audit-report.md`](ai-audit-report.md) — 22 entry |
+   (none above = clean)
+   === verdict recount ===
+   12
+   VALID above
+     10 **`INCOMPLETE`**
+      1 **`INVALID`**
+     12 **`VALID`**
+   === entry count ===
+   23
+→ Bash: ls -la ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/*.jsonl | tail -5
+   -rw-------@ 1 hbn  staff   2141616 Jul 26 17:11 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/eafecb4a-70e2-4f7b-baea-db4343b99c06.jsonl
+   -rw-------@ 1 hbn  staff     12860 Aug  8 09:01 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/ecdaed2f-4792-436e-b99a-00c53193e796.jsonl
+   -rw-------@ 1 hbn  staff     49064 Aug  1 09:56 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/efcb2dc7-3be6-455a-8ef4-edbf5999d78e.jsonl
+   -rw-------@ 1 hbn  staff   2683178 Aug  9 13:07 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/f6295926-5758-4b40-88da-a8c24a7b2b3f.jsonl
+   -rw-------@ 1 hbn  staff    1805
+   … [cắt bớt 134 ký tự; xem transcript gốc]
+→ Bash: ls -la ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc*.jsonl 2>&1; echo "--- most recently modified transcripts ---"; ls -t ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/
+… [cắt bớt 32 ký tự; xem transcript gốc]
+   -rw-------@ 1 hbn  staff  671556 Aug  9 19:33 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047.jsonl
+   --- most recently modified transcripts ---
+   -rw-------@ 1 hbn  staff  1316309 Aug  9 17:07 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/9f7afb69-8389-4c3f-8302-322e8652712d.jsonl
+   -rw-------@ 1 hbn  staff  5316990 Aug  9 15:33 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/a641cf9c-004b-4a48-81bc-174c83132eb0.jsonl
+   -rw-------@ 1 hbn  staff    10721 Aug  9 13:53 /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/cfb95990-5cd3-4ba8-9cf6-eeb8f7bc1b26.
+   … [cắt bớt 171 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'PY' import json,glob for pre in ['cfb95990']: f=glob.glob(f'/Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/{pre}*.jsonl')[0] n=0 for line in open(f): try: d=json.loads(line) exce
+… [cắt bớt 512 ký tự; xem transcript gốc]
+   [2026-08-09T06:53:33.595Z] '<command-name>/model</command-name>\n            <command-message>model</command-message>\n            <command-args></command-args>'
+   [2026-08-09T06:53:33.595Z] '<local-command-stdout>Set model to \x1b[1mOpus 5\x1b[22m and saved as your default for new sessions</local-command-stdout>'
+→ Edit(reports/tools/extract-prompt-log.py)
+→ Bash: python3 reports/tools/build-pdfs.py 2>&1 | tail -20
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/main-report.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-critique.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-audit-report.pdf
+     /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/pdf/ai-gap-analysis.pdf
+     reports/pdf/main-report.pdf  (208 KB)
+     reports/pdf/ai-critique.pdf  (49 KB)
+     reports/pdf/ai-audit-report.pdf  (617 KB)
+     reports/pdf/ai-gap-analysis.pdf  (175 KB)
+→ Bash: for f in reports/pdf/*.pdf; do echo -n "$f: "; python3 -c " import re d=open('$f','rb').read() print(d[:8].decode('latin1').strip(), len(re.findall(rb'/Type\s*/Page[^s]', d)), 'pages') "; done; echo "=== verbatim check =
+… [cắt bớt 67 ký tự; xem transcript gốc]
+   reports/pdf/ai-audit-report.pdf: %PDF-1.4 45 pages
+   reports/pdf/ai-critique.pdf: %PDF-1.4 1 pages
+   reports/pdf/ai-gap-analysis.pdf: %PDF-1.4 6 pages
+   reports/pdf/main-report.pdf: %PDF-1.4 5 pages
+   === verbatim check ===
+   checked 219 quoted lines against 4708k chars of transcript
+   ✓ every quoted line traces to a transcript
+→ Bash: python3 reports/tools/extract-prompt-log.py 2>&1 | head -3 && echo "..." && python3 reports/tools/extract-prompt-log.py 2>&1 | tail -6
 
 
 ---

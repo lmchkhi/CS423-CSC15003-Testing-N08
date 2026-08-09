@@ -2026,14 +2026,161 @@ kiểm chứng; nó chỉ là gợi ý để sinh viên tự đọc lại.
 
 ---
 
+## Entry #23
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 7:30 PM 09/08/2026 |
+| **Artifact type** | Session 6 — rà soát toàn repo trước khi nộp: đối chiếu từng mục rubric, liệt kê danh sách file/thư mục cần đóng gói, rồi sửa 2 điểm không đạt và dựng lại 4 PDF |
+
+**Full prompt:**
+
+```
+check the repo entirely before i submit, and list out what files and folders to submit, i will do the submission myself no need your help deleting the unnecessary files
+requirements is in HW04-AutomationTesting.md
+```
+
+Prompt thứ hai trong cùng phiên, sau khi đọc kết quả rà soát:
+
+```
+ok fix all for me, then re-export everything using the export_pdf.py
+```
+
+### (2) AI Output
+
+````text
+Full audit done. Repo is in good shape — **2 small things to fix**, everything else passes.
+
+## Rubric check
+
+| § | Requirement | Status |
+|---|---|---|
+| 5 | 3 web features, one per pool, same as HW02 | ✅ FR-02 / FR-10 / FR-13 |
+| 6 | ≥12 cases per feature | ✅ 14 / 14 / 12 = 40 |
+| 6 | Data-driven, no inline arrays | ✅ 3 `*.cases.json`, zod-validated loader; grep found no case array or `caseId ===` branching in any spec |
+| 6 | ≥3 assertion patterns | ✅ 9 documented |
+| 6 | 3 browsers, ≥9 runs | ✅ real `chromium`/`firefox`/`webkit` projects, 9 report folders |
+| 11 | `Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Run by: 23127300 | … | <browser> | 2026-08-09T15:xx:xx+07:00` |
+| 6 | Bugs → Markdown + GitHub issue + screenshot | ✅ 9 reports, issues #204–212 all live and OPEN on a **PUBLIC** repo, each with failure screenshot + issue-page screenshot |
+| 6 | Non-automated cases documented | ✅ `test-design/not-automated.md`, 3 cases with reasons |
+| 6 | AI review / gap analysis | ✅ `ai-gap-analysis/ai-generated-script-gaps.md` |
+| 9 | Audit report with declaration | ✅ verbatim "I use AI tools for the following tasks", 22 entries; `prompt-log.md` 68 entries |
+| 10 | AI critique 200–300 words | ⚠️ **302 words** |
+| 12 | ≥8 spec-touching commits | ✅ 12, spanning Aug 5/6/7/8/9 (5 days — clears the PDF's ≥4-day version too) |
+| 14 | README self-assessment + test summary | ✅ complete, incl. both video links |
+| 14 | MD + PDF | ✅ 4 valid PDFs (main-report 5p, audit 42p, critique 1p, gap-analysis 6p) |
+
+Also clean: `npm run typecheck` passes, `--list` gives 43 tests/project (40 cases + 3 smoke), no black-box violations (no source paths/line numbers in any bug report or design doc).
+
+## Fix before submitting
+
+1. **`git-log.txt` is modified but uncommitted** — the copy on GitHub is stale (branch is otherwise fully pushed, 0 ahead). The working copy is correct and current through HEAD; it just needs a commit + push. Want me to do that?
+2. **`reports/ai-critique.md` is 302 words**, 2 over the §10 cap. Trivial trim — say the word and I'll cut it to ~295.
+
+Can't verify from here: that both YouTube links resolve, are unlisted, ≥5 min, Vietnamese narration, and show face-cam or `whoami`/`hostname`.
+
+## What to put in `23127300_HW04_AI_Automation_100.zip`
+
+The clean rule: **everything git tracks, nothing else** — that's exactly 32.5 MB zipped, verified with `git archive`.
+````
+
+Sau prompt thứ hai, phần output đáng kể tiếp theo là cảnh báo về công cụ được
+chỉ định:
+
+````text
+`export_pdf.py` is a new untracked file in the repo root — and it's the **HW02-era** exporter, not this repo's HW04 builder. Before I run it, one thing needs deciding, because the two produce materially different output:
+
+| | `reports/tools/build-pdfs.py` (current) | `export_pdf.py` (the one you named) |
+|---|---|---|
+| Output paths | `reports/pdf/*.pdf` (what README §14 documents) | `reports/main-report.pdf`, `README.pdf` — repo root/`reports/` |
+| Docs covered | main-report, critique, audit, **+ gap-analysis** | main-report, critique, audit, README; **no gap-analysis**; skips `prompt_log.md`/`git_log.md` (don't exist) |
+| Markdown mode | no `nl2br` | **`nl2br` on** |
+
+That last row is the real problem: every Markdown deliverable in this repo is hard-wrapped at ~76 columns, so `nl2br` turns each source line into a `<br>` and shreds every paragraph into ragged one-line-per-sentence-fragment text. `build-pdfs.py` carries an explicit comment about exactly this.
+````
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần đối chiếu rubric đúng và kiểm chứng được: mọi ô ✅ đều dựa trên một lệnh
+thật chạy trong phiên (`report:verify`, `playwright test --list`, `npm run
+typecheck`, `gh issue view`, `git archive`), không có ô nào suy ra từ việc đọc
+tài liệu. Hai điểm không đạt nêu ra cũng đúng và đều nhỏ.
+
+Nhưng lệnh này được giao là "check the repo **entirely**", và bản rà soát đã
+không làm đúng chữ "entirely" ở hai chỗ:
+
+1. **Lệnh liệt kê file bị cắt ở 300 dòng** (`find … | head -300`) và không có
+   lượt nào quay lại phần bị cắt. Hệ quả cụ thể: `export_pdf.py` nằm ngay thư
+   mục gốc repo mà bản rà soát không hề nhắc tới — đến khi sinh viên tự gọi tên
+   file đó ở prompt sau thì mới lộ ra. Một bản kiểm kê file mà tự cắt bớt đầu ra
+   thì không còn là kiểm kê nữa, và tệ hơn là nó không tự báo rằng mình đã cắt.
+2. **Kết luận vội về `git-log.txt`.** Bản rà soát đối chiếu 59 commit của
+   nhánh với nội dung file, thấy thiếu 9 và suýt báo đây là lỗi; chỉ sau khi
+   tra tác giả của 9 commit đó mới thấy cả 9 đều của người khác (scaffolding
+   của nhóm và commit gốc của giảng viên), tức file được sinh có lọc theo tác
+   giả — hoàn toàn hợp lệ. Thứ tự đúng phải là xác định cách file được sinh
+   *trước*, rồi mới so số lượng.
+3. **Một con số sai lọt vào bảng rubric.** Dòng §9 của bảng ghi
+   "`prompt-log.md` 68 entries". Con số đó lấy từ `grep -c '^## '`, mà file
+   prompt log chứa chính văn bản AI đã trả lời — trong đó có những dòng tiêu
+   đề Markdown `## …` nằm bên trong khối trích dẫn. Lệnh đếm không phân biệt
+   được tiêu đề thật của entry với tiêu đề nằm trong nội dung được trích, nên
+   đếm thừa. Số entry thật là **40**, do chính `extract-prompt-log.py` in ra
+   khi dựng lại file. Đây là lỗi cùng họ với hai lỗi trên: tin vào một lệnh
+   đếm nhanh mà không hỏi lệnh đó đang đếm cái gì.
+
+Về đề xuất công cụ PDF: cảnh báo `nl2br` là đúng và kiểm chứng được (các file
+Markdown trong repo đều hard-wrap ~76 cột, và `build-pdfs.py` có sẵn comment
+giải thích chính điều đó), nên việc dừng lại hỏi thay vì chạy thẳng
+`export_pdf.py` theo đúng chữ của yêu cầu là xử lý đúng.
+
+### (5) Student Fix
+
+Giữ kết quả rà soát, sửa hai điểm không đạt, và tự bổ sung phần kiểm kê còn
+thiếu:
+
+- **`reports/ai-critique.md`** — cắt 6 từ (302 → 295) để nằm trong khung
+  200–300 từ của §10, không đổi luận điểm: bỏ "ghi trước đó" ở đoạn 2 và rút
+  "chính vì áp dụng nguyên tắc đó nhất quán" thành "chính vì nguyên tắc đó".
+  Số liệu tự tham chiếu trong đoạn kết cập nhật theo entry này: 9/22 → 10/23.
+- **`git-log.txt`** — dựng lại và commit, để bản trên GitHub khớp với bản
+  trong file nộp.
+- **`reports/prompt-log.md` + `reports/tools/extract-prompt-log.py`** — thêm
+  transcript của phiên này (`e98fa1cc`) vào danh sách `SESSIONS` rồi dựng lại
+  file: 40 entry, phiên 05/08 → 09/08. Giữ nguyên văn con số sai "68 entries"
+  trong khối AI Output ở trên vì đó là bằng chứng, và ghi đính chính ở mục
+  Reasoning thay vì sửa lại lời AI đã nói.
+- **`reports/pdf/*.pdf`** — dựng lại cả 4 file bằng
+  `reports/tools/build-pdfs.py` chứ không phải `export_pdf.py`: script HW02 ghi
+  ra sai đường dẫn (`reports/*.pdf` thay vì `reports/pdf/*.pdf`, tức README §14
+  sẽ trỏ vào file cũ), bỏ sót PDF gap-analysis, và bật `nl2br` làm vỡ mọi đoạn
+  văn hard-wrap.
+- **Kiểm kê lại phần bị `head -300` cắt** — đối chiếu `git ls-files` với
+  `git status -uall --ignored` trên toàn bộ cây thư mục. Ngoài `export_pdf.py`
+  còn một thư mục `backend/` (19 MB, chỉ chứa `database.sqlite` và
+  `node_modules` của SUT) cũng nằm ở gốc repo mà bản rà soát ban đầu không
+  liệt kê. Cả hai đều không được track nên `git archive` vốn đã không đưa vào
+  file nộp; sinh viên đã tự xoá cả hai ngay trong phiên. Sau khi xoá, thư mục
+  gốc chỉ còn đúng những mục được track cộng `docs/superpowers/` (loại trừ cục
+  bộ qua `.git/info/exclude`).
+
+---
+
 ## 5. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 12 | 54.5% |
-| `INCOMPLETE` | 9 | 40.9% |
-| `INVALID` | 1 | 4.5% |
-| **Tổng số entry đã audit** | **22** | **100%** |
+| `VALID` | 12 | 52.2% |
+| `INCOMPLETE` | 10 | 43.5% |
+| `INVALID` | 1 | 4.3% |
+| **Tổng số entry đã audit** | **23** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -2048,10 +2195,11 @@ Phân bố theo giai đoạn:
 | Video + rà soát toàn bài — Session 4 (09/08) | #19–#20 | 0 | 2 |
 | Sửa lỗ hổng data-driven FR-02 — Session 4 (09/08) | #21 | 1 | 0 |
 | Rà soát toàn bài theo rubric — Session 5 (09/08) | #22 | 0 | 1 |
+| Rà soát trước khi nộp — Session 6 (09/08) | #23 | 0 | 1 |
 
 ## 6. Kết luận
 
-Nhìn trên toàn bộ 22 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
+Nhìn trên toàn bộ 23 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
@@ -2075,7 +2223,11 @@ sang giờ ICT nhưng không rà lại công cụ `report:verify` vốn khớp d
 hồi quy mãi cuối session mới lộ. Entry #15 là trường hợp nặng nhất của nhóm này:
 hai file log tự tuyên bố "verbatim" ở ngay dòng đầu nhưng bên trong là bản tóm
 tắt viết lại, và tình trạng đó tồn tại qua nhiều phiên mà không phiên nào tự phát
-hiện — người phát hiện là sinh viên.
+hiện — người phát hiện là sinh viên. Entry #23 là biến thể cuối của nhóm này:
+lệnh kiểm kê file tự cắt đầu ra ở 300 dòng, rồi bản rà soát coi phần đọc được
+là toàn bộ repo và bỏ sót hai mục nằm ngay thư mục gốc. Đầu ra bị cắt trông
+giống hệt đầu ra đầy đủ, nên không có gì để AI nghi ngờ trừ phi nó tự kiểm tra
+chính giới hạn nó đặt ra.
 
 **Nhóm 4 — khe hở giữa hai stage của chính quy trình 7 bước.** Entry #20: stage
 "Model data" khai báo `expected.urlContains` và `expected.tokenStored` rồi điền

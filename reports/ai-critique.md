@@ -9,9 +9,9 @@ tốt trên dữ liệu đã quan sát nhưng không nhận ra khi nó chưa qua
 
 Nặng nhất là Entry #17: nhánh FR-12 của FR-13 gọi nhầm `seedUserToken` thay
 vì `seedAdminToken`, khiến case pass sai lý do, không chạm tới bề mặt cần
-kiểm. Lỗi chỉ lộ khi đối chiếu kết quả pass với một phát hiện recon độc lập
-ghi trước đó, không phải nhờ đọc lại code — giống Entry #15, nơi log
-"verbatim" của chính AI hoá ra là tóm tắt viết lại.
+kiểm. Lỗi chỉ lộ khi đối chiếu kết quả pass với một phát hiện recon độc lập,
+không phải nhờ đọc lại code — giống Entry #15, nơi log "verbatim" của chính
+AI hoá ra là tóm tắt viết lại.
 
 Entry #22 bổ sung một vế: một phát hiện đúng cũng không tự lan sang phần còn
 lại. Lỗi "khai báo trường dữ liệu rồi không đọc tới" đã được sửa ở FR-02
@@ -21,5 +21,5 @@ không lượt nào hỏi "hai feature còn lại có cùng bệnh không".
 Nguyên tắc rút ra: đừng đánh giá output AI bằng việc nó chạy được, mà bằng
 việc nó *kiểm chứng chéo* được không — với DOM thật, API thật, hoặc một quan
 sát độc lập ghi trước đó — và mỗi khi bắt được một lỗi, phải hỏi lỗi ấy còn ở
-đâu. 9/22 entry trong audit report dừng ở `INCOMPLETE` thay vì
-`VALID` chính vì áp dụng nguyên tắc đó nhất quán.
+đâu. 10/23 entry trong audit report dừng ở `INCOMPLETE` thay vì `VALID` chính
+vì nguyên tắc đó.
