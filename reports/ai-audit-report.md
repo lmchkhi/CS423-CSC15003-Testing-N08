@@ -231,3 +231,25 @@ bây giờ tiếp tục với commit 4, tôi đã chạy sẵn backend và front
 ```text
 Đã tiếp tục Commit 4 theo reports/automation-commit-plan.md cho FR-11. Đọc skill eshop-hw04-task1-automation và write-ai-audit-report, đọc reference FR-11/manual cases TC-FR11-DT-004 đến TC-FR11-DT-010 và bug report HW02 BUG-FR11-007; không đọc source backend/frontend. Bổ sung 7 test case vào tests/automation/data/fr11-order-history.json, mở rộng tests/automation/specs/fr11-order-history.spec.ts với helper user A/user B, nhiều đơn hàng, detail API, ownership và field display assertions. Chạy Playwright Chromium với WEB_BASE_URL=http://[::1]:5173 và API_BASE_URL=http://[::1]:3000: 12 executed, 11 passed, 1 failed. Đã review và sửa lỗi script ở order id regex, date format non-zero-padded và login success text. Fail còn lại là defect thật TC-FR11-DT-007: GET /api/orders/<other_user_order_id> bằng token user A trả 200 và body chứa dữ liệu order user B. Đã tạo bug-reports/automation/BUG-FR11-AUTO-001.md theo template, kèm screenshot/error context/trace/video/report links. Cập nhật reports/main-report.md, reports/automation-commit-plan.md, reports/html/fr11-order-history/chromium/*, reports/results/fr11-order-history/chromium/results.json và report-label-check.json. Verify report label ok=true, bug report links missing=0. Chưa tạo GitHub Issue ở Commit 4 vì plan chốt issue sau Commit 5 full suite.
 ```
+
+## Entry #11
+
+### (1) Prompt + Tool
+
+| Field             | Content                 |
+| ----------------- | ----------------------- |
+| **Tool**          | Codex                  |
+| **Timestamp**     | 09/08/2026 23:27 GMT+7             |
+| **Artifact type** | Playwright automation script + report/evidence + GitHub issues         |
+
+**Full prompt:**
+
+```text
+bây giờ làm tiếp tục tới commit 5
+```
+
+### (2) AI Output
+
+```text
+Đã hoàn tất Commit 5 cho FR-11: bổ sung 3 test case TC-FR11-DT-011, TC-FR11-DT-012 và TC-FR11-BVA-003 vào data/spec Playwright; thêm helper setup trạng thái bằng admin API black-box, assertion dịch trạng thái và đo khoảng cách màu; chạy lại WebKit để loại bỏ flake login và xác nhận full suite 15 test case. Kết quả Chromium/Firefox/WebKit đều 15 total, 13 passed, 2 failed với hai lỗi thật TC-FR11-DT-007 và TC-FR11-DT-012. Đã sinh lại wrapper report hw04-report.html cho 3 browser, thêm metadata Run by: 23127475 vào report gốc, chạy verify_report_labels.py với ok=true. Đã cập nhật BUG-FR11-AUTO-001, tạo BUG-FR11-AUTO-002, tạo GitHub issues #239 và #240 với đủ 5 label bắt buộc, cập nhật issue link vào bug reports, reports/main-report.md và reports/automation-commit-plan.md.
+```

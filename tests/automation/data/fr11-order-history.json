@@ -196,5 +196,71 @@
       "pagePattern": "lịch sử|đơn hàng|orders|order history",
       "fieldLabelPattern": "tổng|total|tiền|₫"
     }
+  },
+  {
+    "id": "TC-FR11-DT-011",
+    "title": "Dịch trạng thái đơn hàng sang tiếng Việt rõ ràng",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-011.md",
+    "kind": "uiStatusTranslated",
+    "account": "generated",
+    "orderSetup": {
+      "count": 5,
+      "baseAmount": 231111,
+      "shippingAddress": "FR11 DT011 status translation address",
+      "statuses": ["pending", "confirmed", "shipping", "delivered", "canceled"]
+    },
+    "expected": {
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "statusLabels": {
+        "pending": "chờ xác nhận|đang chờ|chờ xử lý",
+        "confirmed": "đã xác nhận",
+        "shipping": "đang giao",
+        "delivered": "đã giao|hoàn tất",
+        "canceled": "đã hủy|đã huỷ|hủy|huỷ"
+      },
+      "rawStatusPattern": "\\bpending\\b|\\bconfirmed\\b|\\bshipping\\b|\\bdelivered\\b|\\bcanceled\\b"
+    }
+  },
+  {
+    "id": "TC-FR11-DT-012",
+    "title": "Phân biệt trạng thái đơn hàng bằng màu sắc",
+    "source": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-012.md",
+    "kind": "uiStatusColorsDistinct",
+    "account": "generated",
+    "orderSetup": {
+      "count": 5,
+      "baseAmount": 231112,
+      "shippingAddress": "FR11 DT012 status color address",
+      "statuses": ["pending", "confirmed", "shipping", "delivered", "canceled"]
+    },
+    "expected": {
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "statusLabels": {
+        "pending": "chờ xác nhận|đang chờ|chờ xử lý",
+        "confirmed": "đã xác nhận",
+        "shipping": "đang giao",
+        "delivered": "đã giao|hoàn tất",
+        "canceled": "đã hủy|đã huỷ|hủy|huỷ"
+      },
+      "colorPairs": [["confirmed", "shipping"]],
+      "minColorDistance": 80
+    }
+  },
+  {
+    "id": "TC-FR11-BVA-003",
+    "title": "User có nhiều đơn hàng (representative above min)",
+    "source": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-003.md",
+    "kind": "uiHistoryWithOrders",
+    "account": "generated",
+    "orderSetup": {
+      "count": 4,
+      "baseAmount": 231113,
+      "shippingAddress": "FR11 BVA003 representative multiple orders address"
+    },
+    "expected": {
+      "minOrderCount": 3,
+      "pagePattern": "lịch sử|đơn hàng|orders|order history",
+      "nonEmptyPattern": "mã đơn|đơn hàng|order|tổng|total|trạng thái|status"
+    }
   }
 ]

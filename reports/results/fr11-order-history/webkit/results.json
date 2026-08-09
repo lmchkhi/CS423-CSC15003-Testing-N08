@@ -1,0 +1,910 @@
+{
+  "config": {
+    "argv": [
+      "/Users/thanhngo/.nvm/versions/node/v24.18.0/bin/node",
+      "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/node_modules/.bin/playwright",
+      "test",
+      "tests/automation/specs/fr11-order-history.spec.ts",
+      "--project=webkit"
+    ],
+    "configFile": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/playwright.config.ts",
+    "rootDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "reports/results/fr11-order-history/webkit/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "reports/html/fr11-order-history/webkit",
+          "title": "Run by: 23127475 | fr11-order-history | webkit | 2026-08-09T16:20:08.314Z"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 5,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fr11-order-history.spec.ts",
+      "file": "fr11-order-history.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Run by: 23127475 | FR-11 - Xem lịch sử đơn hàng",
+          "file": "fr11-order-history.spec.ts",
+          "line": 494,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-FR11-DT-001 - Xem lịch sử đơn hàng khi user đã đăng nhập và có đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4099,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:08.573Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-001.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-0de9ba6c7c2a3419844b",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-002 - Từ chối xem lịch sử đơn hàng khi chưa đăng nhập",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-002.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 778,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:12.846Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-002.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-41265b06e6945a721227",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-003 - Hiển thị trạng thái rỗng khi user chưa có đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-003.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3865,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:13.629Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-003.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-ee8e62e802a404ce4b5b",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-BVA-001 - User có 0 đơn hàng (ON - min count)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4002,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:17.499Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-001.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-a566ef2b7b38c535abea",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-BVA-002 - User có đúng 1 đơn hàng (ON+ - min count + 1)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-002.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4222,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:21.506Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-002.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-c88d7a236797886438f6",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-004 - Hiển thị nhiều đơn hàng của cùng user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-004.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3933,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:25.733Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-004.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-a332897d5913a1ad7637",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-005 - Danh sách không hiển thị đơn hàng của user khác",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-005.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3946,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:29.670Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-005.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-9a00703797059e9041a4",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-006 - Xem chi tiết đơn hàng của chính user",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-006.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3933,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:33.621Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-006.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "own-order-api-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJpZCI6IDEyMCwKICAidXNlcl9pZCI6IDkzLAogICJ0b3RhbF9hbW91bnQiOiAyMzExMDYsCiAgInN0YXR1cyI6ICJwZW5kaW5nIiwKICAic2hpcHBpbmdfYWRkcmVzcyI6ICJGUjExIERUMDA2IG93biBvcmRlciBkZXRhaWwgYWRkcmVzcyAjMSIsCiAgImNyZWF0ZWRfYXQiOiAiMjAyNi0wOC0wOSAxNjoyMDozMyIKfQ=="
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-dd4e9102a6e9df90559c",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-007 - Từ chối truy cập chi tiết đơn hàng của user khác",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-007.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 3976,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:553:76",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                          "column": 76,
+                          "line": 553
+                        },
+                        "snippet": "  551 |           contentType: 'application/json',\n  552 |         });\n> 553 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  554 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  555 |         return;\n  556 |       }"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                            "column": 76,
+                            "line": 553
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n\n  551 |           contentType: 'application/json',\n  552 |         });\n> 553 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  554 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  555 |         return;\n  556 |       }\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:553:76"
+                        },
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                            "column": 31,
+                            "line": 554
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/\"user_id\"|total_amount|shipping_address|created_at/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"id\\\":122,\u001b[7m\\\"user_id\\\"\u001b[27m:95,\\\"total_amount\\\":991107,\\\"status\\\":\\\"pending\\\",\\\"shipping_address\\\":\\\"FR11 DT007 other user protected order #1\\\",\\\"created_at\\\":\\\"2026-08-09 16:20:37\\\"}\"\u001b[39m\n\n  552 |         });\n  553 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n> 554 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                               ^\n  555 |         return;\n  556 |       }\n  557 |\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:554:31"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:37.559Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-007.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "other-order-api-response.json",
+                          "contentType": "application/json",
+                          "body": "ewogICJpZCI6IDEyMiwKICAidXNlcl9pZCI6IDk1LAogICJ0b3RhbF9hbW91bnQiOiA5OTExMDcsCiAgInN0YXR1cyI6ICJwZW5kaW5nIiwKICAic2hpcHBpbmdfYWRkcmVzcyI6ICJGUjExIERUMDA3IG90aGVyIHVzZXIgcHJvdGVjdGVkIG9yZGVyICMxIiwKICAiY3JlYXRlZF9hdCI6ICIyMDI2LTA4LTA5IDE2OjIwOjM3Igp9"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-webkit/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-webkit/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-webkit/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--f84db-tiết-đơn-hàng-của-user-khác-webkit/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                        "column": 76,
+                        "line": 553
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-e6f37aa8d8adb669aaf4",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-008 - Hiển thị mã đơn hàng trong lịch sử đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-008.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4174,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:41.799Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-008.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-269044502fc6dfbf0c3d",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-009 - Hiển thị ngày đặt trong lịch sử đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-009.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3879,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:46.148Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-009.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-3bd42a43c83ecb9373a9",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-010 - Hiển thị tổng tiền trong lịch sử đơn hàng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-010.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3959,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:50.032Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-010.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-a20f188dcbd8fd28c3e6",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-011 - Dịch trạng thái đơn hàng sang tiếng Việt rõ ràng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-011.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3939,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:53.996Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-011.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-fde3c25e7376ea18ecfc",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-012 - Phân biệt trạng thái đơn hàng bằng màu sắc",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-012.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 4072,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m80\u001b[39m\nReceived:    \u001b[31m5.916079783099616\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m80\u001b[39m\nReceived:    \u001b[31m5.916079783099616\u001b[39m\n    at assertStatusColorsDistinct (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:490:32)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:572:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                          "column": 32,
+                          "line": 490
+                        },
+                        "snippet": "  488 |\n  489 |   for (const pair of distances) {\n> 490 |     expect.soft(pair.distance).toBeGreaterThanOrEqual(testCase.expected.minColorDistance ?? 80);\n      |                                ^\n  491 |   }\n  492 | }\n  493 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                            "column": 32,
+                            "line": 490
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m80\u001b[39m\nReceived:    \u001b[31m5.916079783099616\u001b[39m\n\n  488 |\n  489 |   for (const pair of distances) {\n> 490 |     expect.soft(pair.distance).toBeGreaterThanOrEqual(testCase.expected.minColorDistance ?? 80);\n      |                                ^\n  491 |   }\n  492 | }\n  493 |\n    at assertStatusColorsDistinct (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:490:32)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:572:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:20:57.940Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-012.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "status-color-distances.json",
+                          "contentType": "application/json",
+                          "body": "WwogIHsKICAgICJsZWZ0IjogImNvbmZpcm1lZCIsCiAgICAicmlnaHQiOiAic2hpcHBpbmciLAogICAgImxlZnRDb2xvciI6ICJyZ2IoMjI0LCAyMzEsIDI1NSkiLAogICAgInJpZ2h0Q29sb3IiOiAicmdiKDIxOSwgMjM0LCAyNTQpIiwKICAgICJkaXN0YW5jZSI6IDUuOTE2MDc5NzgzMDk5NjE2CiAgfQpd"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-webkit/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-webkit/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-webkit/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/webkit/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-webkit/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                        "column": 32,
+                        "line": 490
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-c15c7e69b34b2252a7b8",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-BVA-003 - User có nhiều đơn hàng (representative above min)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-003.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4116,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:21:02.258Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-003.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-4ec8a8f2acdc96c26967",
+              "file": "fr11-order-history.spec.ts",
+              "line": 500,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-09T16:20:08.315Z",
+    "duration": 58251.76,
+    "expected": 13,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

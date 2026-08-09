@@ -5,7 +5,10 @@ type OrderSetup = {
   count: number;
   baseAmount?: number;
   shippingAddress?: string;
+  statuses?: OrderStatus[];
 };
+
+type OrderStatus = 'pending' | 'confirmed' | 'shipping' | 'delivered' | 'canceled';
 
 type Fr11Case = {
   id: string;
@@ -18,7 +21,9 @@ type Fr11Case = {
     | 'uiDoesNotExposeOtherUserOrder'
     | 'apiOwnOrderDetail'
     | 'apiOtherOrderDetailRejected'
-    | 'uiDisplaysOrderField';
+    | 'uiDisplaysOrderField'
+    | 'uiStatusTranslated'
+    | 'uiStatusColorsDistinct';
   account: 'generated' | 'guest';
   orderSetup?: OrderSetup;
   otherOrderSetup?: OrderSetup;
@@ -34,6 +39,10 @@ type Fr11Case = {
     bodyMustNotContainPattern?: string;
     field?: 'id' | 'createdAt' | 'totalAmount';
     fieldLabelPattern?: string;
+    statusLabels?: Partial<Record<OrderStatus, string>>;
+    rawStatusPattern?: string;
+    colorPairs?: [OrderStatus, OrderStatus][];
+    minColorDistance?: number;
   };
 };
 
@@ -67,6 +76,8 @@ const apiBaseUrl = process.env.API_BASE_URL ?? 'http://localhost:3000';
 const studentId = process.env.STUDENT_ID ?? '23127475';
 const runId = (process.env.HW04_RUN_AT ?? new Date().toISOString()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 14);
 const defaultPassword = 'Test1234!';
+const adminEmail = process.env.ADMIN_EMAIL ?? 'admin@eshop.com';
+const adminPassword = process.env.ADMIN_PASSWORD ?? 'Admin123!';
 let userCounter = 0;
 
 function apiUrl(path: string): string {
@@ -103,6 +114,28 @@ function datePattern(value?: string): RegExp {
   const d = String(Number(day));
   const m = String(Number(month));
   return new RegExp(`${year}-${month}-${day}|${day}/${month}/${year}|${d}/${m}/${year}|${m}/${d}/${year}|${day}-${month}-${year}`, 'i');
+}
+
+function normalizeStatus(value: string): OrderStatus {
+  if (['pending', 'confirmed', 'shipping', 'delivered', 'canceled'].includes(value)) {
+    return value as OrderStatus;
+  }
+  throw new Error(`Unsupported FR-11 order status: ${value}`);
+}
+
+function statusTransitionPath(status: OrderStatus): OrderStatus[] {
+  if (status === 'pending') return [];
+  if (status === 'confirmed') return ['confirmed'];
+  if (status === 'shipping') return ['confirmed', 'shipping'];
+  if (status === 'delivered') return ['confirmed', 'shipping', 'delivered'];
+  return ['canceled'];
+}
+
+function rgbDistance(a: string, b: string): number {
+  const rgb = (value: string) => (value.match(/\d+(\.\d+)?/g) ?? []).slice(0, 3).map(Number);
+  const [ar, ag, ab] = rgb(a);
+  const [br, bg, bb] = rgb(b);
+  return Math.sqrt((ar - br) ** 2 + (ag - bg) ** 2 + (ab - bb) ** 2);
 }
 
 function emailInput(page: import('@playwright/test').Page) {
@@ -153,6 +186,10 @@ async function loginByApi(
   return body as LoginResult;
 }
 
+async function loginAdminByApi(request: import('@playwright/test').APIRequestContext): Promise<LoginResult> {
+  return loginByApi(request, adminEmail, adminPassword);
+}
+
 async function createOrderByApi(
   request: import('@playwright/test').APIRequestContext,
   token: string,
@@ -173,6 +210,23 @@ async function createOrderByApi(
   expect.soft(bodyText).toMatch(/checkout|order|thành công|success/i);
   const body = JSON.parse(bodyText);
   return Number(body.orderId);
+}
+
+async function updateOrderStatusByApi(
+  request: import('@playwright/test').APIRequestContext,
+  adminToken: string,
+  orderId: number,
+  status: OrderStatus,
+) {
+  const response = await request.put(apiUrl(`/api/admin/orders/${orderId}/status`), {
+    headers: {
+      Authorization: `Bearer ${adminToken}`,
+    },
+    data: {
+      status,
+    },
+  });
+  expect.soft(response.status()).toBe(200);
 }
 
 async function fetchMyOrders(request: import('@playwright/test').APIRequestContext, token: string): Promise<Order[]> {
@@ -215,14 +269,23 @@ async function prepareUserWithOrders(
   const email = uniqueEmail(testId);
   await registerUser(request, email);
   const login = await loginByApi(request, email);
+  const desiredStatuses = setup.statuses?.map(normalizeStatus) ?? [];
+  const needsAdmin = desiredStatuses.some((status) => status !== 'pending');
+  const adminLogin = needsAdmin ? await loginAdminByApi(request) : undefined;
 
   for (let index = 0; index < setup.count; index += 1) {
-    await createOrderByApi(
+    const orderId = await createOrderByApi(
       request,
       login.token,
       (setup.baseAmount ?? 231100) + index,
       `${setup.shippingAddress ?? 'FR11 order history address'} #${index + 1}`,
     );
+    const desiredStatus = desiredStatuses[index];
+    if (desiredStatus && desiredStatus !== 'pending') {
+      for (const nextStatus of statusTransitionPath(desiredStatus)) {
+        await updateOrderStatusByApi(request, adminLogin!.token, orderId, nextStatus);
+      }
+    }
   }
 
   const orders = await fetchMyOrders(request, login.token);
@@ -237,12 +300,21 @@ async function prepareUserForCase(
 }
 
 async function loginByUi(page: import('@playwright/test').Page, email: string, password: string) {
-  await page.goto('/login');
-  await expect(emailInput(page)).toBeVisible();
-  await emailInput(page).fill(email);
-  await passwordInput(page).fill(password);
-  await page.getByRole('button', { name: /đăng nhập|login|sign in|submit/i }).first().click();
-  await expect.soft(page.locator('body')).toContainText(/đăng xuất|logout|thoát|chào|tài khoản|profile|hồ sơ|lịch sử|đơn hàng/i);
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    await page.goto('/login');
+    await expect(emailInput(page)).toBeVisible();
+    await emailInput(page).fill(email);
+    await passwordInput(page).fill(password);
+    await page.getByRole('button', { name: /đăng nhập|login|sign in|submit/i }).first().click();
+    await page.waitForLoadState('networkidle').catch(() => undefined);
+
+    const bodyText = await page.locator('body').innerText();
+    if (/đăng xuất|logout|thoát|chào|tài khoản|profile|hồ sơ|lịch sử|đơn hàng/i.test(bodyText)) {
+      return;
+    }
+  }
+
+  await expect(page.locator('body')).toContainText(/đăng xuất|logout|thoát|chào|tài khoản|profile|hồ sơ|lịch sử|đơn hàng/i);
 }
 
 async function openOrderHistory(page: import('@playwright/test').Page) {
@@ -353,9 +425,75 @@ async function assertOrderFieldVisible(
   throw new Error(`Unsupported FR-11 field assertion: ${testCase.expected.field}`);
 }
 
+function firstOrderForStatus(orders: Order[], status: OrderStatus): Order {
+  const order = orders.find((candidate) => candidate.status === status);
+  if (!order) {
+    throw new Error(`Missing order with status ${status}`);
+  }
+  return order;
+}
+
+function statusCell(page: import('@playwright/test').Page, order: Order) {
+  return page
+    .getByRole('row')
+    .filter({ hasText: amountPattern(order.total_amount) })
+    .first()
+    .getByRole('cell')
+    .nth(3);
+}
+
+async function assertStatusLabelsTranslated(
+  page: import('@playwright/test').Page,
+  testCase: Fr11Case,
+  orders: Order[],
+) {
+  const body = page.locator('body');
+  await expect.soft(body).not.toContainText(textPattern(testCase.expected.rawStatusPattern));
+  for (const [rawStatus, labelPattern] of Object.entries(testCase.expected.statusLabels ?? {})) {
+    const status = normalizeStatus(rawStatus);
+    const order = firstOrderForStatus(orders, status);
+    await expect.soft(statusCell(page, order)).toContainText(textPattern(labelPattern));
+  }
+}
+
+async function assertStatusColorsDistinct(
+  page: import('@playwright/test').Page,
+  testCase: Fr11Case,
+  orders: Order[],
+) {
+  const colors: Record<string, string> = {};
+  for (const [rawStatus, labelPattern] of Object.entries(testCase.expected.statusLabels ?? {})) {
+    const status = normalizeStatus(rawStatus);
+    const order = firstOrderForStatus(orders, status);
+    const cell = statusCell(page, order);
+    await expect.soft(cell).toContainText(textPattern(labelPattern));
+    colors[status] = await cell.locator('*').first().evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return style.backgroundColor || style.color;
+    });
+  }
+
+  const distances = (testCase.expected.colorPairs ?? []).map(([left, right]) => ({
+    left,
+    right,
+    leftColor: colors[left],
+    rightColor: colors[right],
+    distance: rgbDistance(colors[left], colors[right]),
+  }));
+
+  await test.info().attach('status-color-distances.json', {
+    body: JSON.stringify(distances, null, 2),
+    contentType: 'application/json',
+  });
+
+  for (const pair of distances) {
+    expect.soft(pair.distance).toBeGreaterThanOrEqual(testCase.expected.minColorDistance ?? 80);
+  }
+}
+
 test.describe(`Run by: ${studentId} | FR-11 - Xem lịch sử đơn hàng`, () => {
   test.beforeAll(() => {
-    expect(cases.length).toBeGreaterThanOrEqual(12);
+    expect(cases.length).toBeGreaterThanOrEqual(15);
   });
 
   for (const testCase of cases) {
@@ -420,6 +558,18 @@ test.describe(`Run by: ${studentId} | FR-11 - Xem lịch sử đơn hàng`, () =
       if (testCase.kind === 'uiDisplaysOrderField') {
         await assertOrderHistoryUi(page, testCase, prepared.orders);
         await assertOrderFieldVisible(page, testCase, prepared.orders[0]);
+        return;
+      }
+
+      if (testCase.kind === 'uiStatusTranslated') {
+        await assertOrderHistoryUi(page, testCase, prepared.orders);
+        await assertStatusLabelsTranslated(page, testCase, prepared.orders);
+        return;
+      }
+
+      if (testCase.kind === 'uiStatusColorsDistinct') {
+        await assertOrderHistoryUi(page, testCase, prepared.orders);
+        await assertStatusColorsDistinct(page, testCase, prepared.orders);
         return;
       }
 

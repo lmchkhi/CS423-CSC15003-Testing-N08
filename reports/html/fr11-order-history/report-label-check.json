@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-08-09T15:44:54.686367+00:00",
+  "checked_at": "2026-08-09T16:22:09.486170+00:00",
   "student_id": "23127475",
   "report_root": "reports/html/fr11-order-history",
-  "total_reports": 2,
+  "total_reports": 6,
   "ok": true,
   "reports": [
     {
@@ -10,14 +10,42 @@
       "index": "reports/html/fr11-order-history/chromium/hw04-report.html",
       "has_run_by": true,
       "has_placeholder": false,
-      "size_bytes": 873
+      "size_bytes": 3983
     },
     {
       "report": "reports/html/fr11-order-history/chromium",
       "index": "reports/html/fr11-order-history/chromium/index.html",
       "has_run_by": true,
       "has_placeholder": false,
-      "size_bytes": 536381
+      "size_bytes": 548863
+    },
+    {
+      "report": "reports/html/fr11-order-history/firefox",
+      "index": "reports/html/fr11-order-history/firefox/hw04-report.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 3979
+    },
+    {
+      "report": "reports/html/fr11-order-history/firefox",
+      "index": "reports/html/fr11-order-history/firefox/index.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 549258
+    },
+    {
+      "report": "reports/html/fr11-order-history/webkit",
+      "index": "reports/html/fr11-order-history/webkit/hw04-report.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 3975
+    },
+    {
+      "report": "reports/html/fr11-order-history/webkit",
+      "index": "reports/html/fr11-order-history/webkit/index.html",
+      "has_run_by": true,
+      "has_placeholder": false,
+      "size_bytes": 548753
     }
   ]
 }

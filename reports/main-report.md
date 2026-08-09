@@ -21,7 +21,7 @@ Theo HW02, ba web feature được chọn cho HW04 là:
 | Pool | Feature | Trạng thái automation | Ghi chú |
 | --- | --- | --- | --- |
 | Pool A | FR-03 - Forgot password and password reset | Đã chạy xong | Có script, data-driven JSON, report 3 browser, bug report |
-| Pool B | FR-11 - Order history view | In progress - 12/15 case đã chạy Chromium | Đã có script/data/report và bug report Commit 4 |
+| Pool B | FR-11 - Order history view | Đã chạy xong | Có script, data-driven JSON, report 3 browser, bug report và GitHub Issues |
 | Pool C | FR-14 - Category management CRUD | Chưa thực hiện trong report này | Đã có kế hoạch commit/test case trong [`reports/automation-commit-plan.md`](automation-commit-plan.md) |
 
 Feature mobile từ HW02 không được dùng trong HW04 vì đề yêu cầu automation web frontend.
@@ -61,18 +61,18 @@ Playwright HTML report gốc vẫn được giữ ở `index.html`. File wrapper
 | Feature | Test case automated | Browser runs | Passed per browser | Failed per browser | Bug reports |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | FR-03 | 18 | 3 | 7 | 11 | 6 |
-| FR-11 | 12 / 15 planned | 1 | 11 | 1 | 1 |
+| FR-11 | 15 | 3 | 13 | 2 | 2 |
 | FR-14 | TODO | TODO | TODO | TODO | TODO |
 
 Tổng hiện tại:
 
-- Features hoàn tất: 1/3
-- Test cases automated: 30
-- Browser runs hoàn tất: 4
-- Tổng lượt test đã thực thi: 66
-- Tổng pass: 32
-- Tổng fail: 34
-- Automation bug reports: 7
+- Features hoàn tất: 2/3
+- Test cases automated: 33
+- Browser runs hoàn tất: 6
+- Tổng lượt test đã thực thi: 99
+- Tổng pass: 60
+- Tổng fail: 39
+- Automation bug reports: 8
 
 ## 6. FR-03 - Forgot Password And Password Reset
 
@@ -275,7 +275,7 @@ Trong quá trình tạo FR-03 automation, script ban đầu cần được revie
 
 ## 7. FR-11 - Order History View
 
-Trạng thái: in progress - Commit 4 / đợt 2 đã hoàn tất.
+Trạng thái: done - Commit 5 đã hoàn tất full suite trên Chromium, Firefox và WebKit.
 
 Kế hoạch chi tiết nằm trong [`reports/automation-commit-plan.md`](automation-commit-plan.md).
 
@@ -295,11 +295,17 @@ Commit 3 tạo baseline automation cho FR-11 với 5 test case đầu:
 
 - Data file: [`tests/automation/data/fr11-order-history.json`](../tests/automation/data/fr11-order-history.json)
 - Spec file: [`tests/automation/specs/fr11-order-history.spec.ts`](../tests/automation/specs/fr11-order-history.spec.ts)
-- Playwright report wrapper: [`reports/html/fr11-order-history/chromium/hw04-report.html`](html/fr11-order-history/chromium/hw04-report.html)
-- Playwright report gốc: [`reports/html/fr11-order-history/chromium/index.html`](html/fr11-order-history/chromium/index.html)
-- JSON result: [`reports/results/fr11-order-history/chromium/results.json`](results/fr11-order-history/chromium/results.json)
+- Playwright report wrapper Chromium: [`reports/html/fr11-order-history/chromium/hw04-report.html`](html/fr11-order-history/chromium/hw04-report.html)
+- Playwright report wrapper Firefox: [`reports/html/fr11-order-history/firefox/hw04-report.html`](html/fr11-order-history/firefox/hw04-report.html)
+- Playwright report wrapper WebKit: [`reports/html/fr11-order-history/webkit/hw04-report.html`](html/fr11-order-history/webkit/hw04-report.html)
+- Playwright report gốc Chromium: [`reports/html/fr11-order-history/chromium/index.html`](html/fr11-order-history/chromium/index.html)
+- Playwright report gốc Firefox: [`reports/html/fr11-order-history/firefox/index.html`](html/fr11-order-history/firefox/index.html)
+- Playwright report gốc WebKit: [`reports/html/fr11-order-history/webkit/index.html`](html/fr11-order-history/webkit/index.html)
+- JSON result Chromium: [`reports/results/fr11-order-history/chromium/results.json`](results/fr11-order-history/chromium/results.json)
+- JSON result Firefox: [`reports/results/fr11-order-history/firefox/results.json`](results/fr11-order-history/firefox/results.json)
+- JSON result WebKit: [`reports/results/fr11-order-history/webkit/results.json`](results/fr11-order-history/webkit/results.json)
 - Label verification manifest: [`reports/html/fr11-order-history/report-label-check.json`](html/fr11-order-history/report-label-check.json)
-- Bug report Commit 4: [`bug-reports/automation/BUG-FR11-AUTO-001.md`](../bug-reports/automation/BUG-FR11-AUTO-001.md)
+- Bug reports: [`bug-reports/automation/BUG-FR11-AUTO-001.md`](../bug-reports/automation/BUG-FR11-AUTO-001.md), [`bug-reports/automation/BUG-FR11-AUTO-002.md`](../bug-reports/automation/BUG-FR11-AUTO-002.md)
 
 ### 7.3 Cách setup và oracle
 
@@ -307,10 +313,11 @@ Script dùng API black-box theo `api_specification.md` để tạo dữ liệu t
 
 - `POST /api/register` tạo user riêng theo `runId`.
 - `POST /api/login` lấy token.
-- `POST /api/checkout` tạo 0 hoặc 1 order theo data case.
+- `POST /api/checkout` tạo 0, 1 hoặc nhiều order theo data case.
 - `GET /api/orders/my-orders` đối chiếu số lượng đơn hàng và quyền guest.
+- `PUT /api/admin/orders/<id>/status` với admin token để setup các trạng thái đơn hàng cần kiểm tra.
 
-UI vẫn là mục tiêu kiểm thử chính cho các case hiển thị: script login qua form web, mở lịch sử đơn hàng bằng danh sách route ứng viên và fallback link navigation, sau đó kiểm tra text/order amount/empty state. Assertion pattern đã dùng trong đợt 1 gồm API status/body, navigation/UI content, list count/data consistency.
+UI vẫn là mục tiêu kiểm thử chính cho các case hiển thị: script login qua form web, mở lịch sử đơn hàng bằng danh sách route ứng viên và fallback link navigation, sau đó kiểm tra text/order amount/empty state/trạng thái. Assertion pattern đã dùng gồm API status/body, navigation/UI content, list count/data consistency, field display, negative ownership assertion, status translation và CSS color distance.
 
 ### 7.4 Kết quả chạy Commit 3
 
@@ -344,15 +351,52 @@ STUDENT_ID=23127475 HW04_FEATURE=fr11-order-history HW04_BROWSER=chromium HW04_R
 
 Kết quả Commit 4: 12 executed, 11 passed, 1 failed. Label verification cho report Chromium: `ok=true`, report có `Run by: 23127475`.
 
-### 7.6 Bug report Commit 4
+### 7.6 Phạm vi Commit 5
+
+Commit 5 hoàn thiện 3 case còn lại của FR-11, nâng tổng số automation test case lên 15:
+
+| Test case | Mục tiêu | Kết quả Chromium | Kết quả Firefox | Kết quả WebKit |
+| --- | --- | --- | --- | --- |
+| TC-FR11-DT-011 | Dịch trạng thái đơn hàng sang tiếng Việt rõ ràng | Passed | Passed | Passed |
+| TC-FR11-DT-012 | Phân biệt trạng thái đơn hàng bằng màu sắc | Failed | Failed | Failed |
+| TC-FR11-BVA-003 | User có nhiều đơn hàng ở mức representative above min | Passed | Passed | Passed |
+
+Các command đã chạy:
+
+```bash
+STUDENT_ID=23127475 HW04_FEATURE=fr11-order-history HW04_BROWSER=chromium HW04_REPORT_DIR=reports/html/fr11-order-history/chromium HW04_JSON_REPORT=reports/results/fr11-order-history/chromium/results.json HW04_TEST_RESULTS_DIR=test-results/fr11-order-history/chromium WEB_BASE_URL='http://[::1]:5173' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr11-order-history.spec.ts --project=chromium
+```
+
+```bash
+STUDENT_ID=23127475 HW04_FEATURE=fr11-order-history HW04_BROWSER=firefox HW04_REPORT_DIR=reports/html/fr11-order-history/firefox HW04_JSON_REPORT=reports/results/fr11-order-history/firefox/results.json HW04_TEST_RESULTS_DIR=test-results/fr11-order-history/firefox WEB_BASE_URL='http://[::1]:5173' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr11-order-history.spec.ts --project=firefox
+```
+
+```bash
+STUDENT_ID=23127475 HW04_FEATURE=fr11-order-history HW04_BROWSER=webkit HW04_REPORT_DIR=reports/html/fr11-order-history/webkit HW04_JSON_REPORT=reports/results/fr11-order-history/webkit/results.json HW04_TEST_RESULTS_DIR=test-results/fr11-order-history/webkit WEB_BASE_URL='http://[::1]:5173' API_BASE_URL='http://[::1]:3000' ./node_modules/.bin/playwright test tests/automation/specs/fr11-order-history.spec.ts --project=webkit
+```
+
+Kết quả full suite FR-11:
+
+| Browser | Total | Passed | Failed | Failed test cases |
+| --- | ---: | ---: | ---: | --- |
+| Chromium | 15 | 13 | 2 | TC-FR11-DT-007, TC-FR11-DT-012 |
+| Firefox | 15 | 13 | 2 | TC-FR11-DT-007, TC-FR11-DT-012 |
+| WebKit | 15 | 13 | 2 | TC-FR11-DT-007, TC-FR11-DT-012 |
+
+Label verification cho thư mục report FR-11: `ok=true`. Cả `index.html` và `hw04-report.html` của từng browser đều có `Run by: 23127475`.
+
+### 7.7 Bug reports FR-11
 
 | Bug report | Tóm tắt | Test case liên quan | Severity / Priority | GitHub Issue |
 | --- | --- | --- | --- | --- |
-| [`bug-reports/automation/BUG-FR11-AUTO-001.md`](../bug-reports/automation/BUG-FR11-AUTO-001.md) | User thường truy cập được chi tiết đơn hàng của user khác qua API | TC-FR11-DT-007 | Critical / P1 | TODO sau Commit 5 |
+| [`bug-reports/automation/BUG-FR11-AUTO-001.md`](../bug-reports/automation/BUG-FR11-AUTO-001.md) | User thường truy cập được chi tiết đơn hàng của user khác qua API | TC-FR11-DT-007 | Critical / P1 | [#239](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/239) |
+| [`bug-reports/automation/BUG-FR11-AUTO-002.md`](../bug-reports/automation/BUG-FR11-AUTO-002.md) | Màu trạng thái Đã xác nhận và Đang giao quá giống nhau | TC-FR11-DT-012 | Minor / P3 | [#240](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/240) |
 
 Phân tích defect: API `GET /api/orders/<other_user_order_id>` dùng token của user A trả `200 OK` và body chứa chi tiết order của user B (`id`, `user_id`, `total_amount`, `shipping_address`, `created_at`). Điều này vi phạm FR-11 vì người dùng chỉ được xem đơn hàng của chính mình.
 
-### 7.7 Human review và chỉnh sửa script AI-generated
+Phân tích defect màu trạng thái: `Đã xác nhận` và `Đang giao` có màu gần như trùng nhau; automation đo khoảng cách màu `5.916079783099616`, thấp hơn ngưỡng tối thiểu `80`, làm giảm khả năng phân biệt trạng thái khi user quét danh sách đơn hàng.
+
+### 7.8 Human review và chỉnh sửa script AI-generated
 
 | Vấn đề phát hiện | Cách chỉnh |
 | --- | --- |
@@ -363,10 +407,9 @@ Phân tích defect: API `GET /api/orders/<other_user_order_id>` dùng token củ
 | Commit 4 lần đầu làm fail sai TC-FR11-DT-008 vì regex mã đơn yêu cầu word boundary sau id, trong khi UI render `#16` dính sát ngày `8/9/2026` | Nới `orderIdPattern` để match `#<id>` theo text thực tế |
 | Commit 4 lần đầu làm fail sai TC-FR11-DT-009 vì chỉ chấp nhận ngày zero-padded `09/08/2026`/ISO, trong khi UI render `8/9/2026` | Bổ sung pattern ngày không zero-pad và dạng month/day/year |
 | Login success assertion chưa nhận text `Thoát`/`Chào` dù user đã đăng nhập thành công | Bổ sung `thoát|chào` vào success pattern |
-
-### 7.8 Phần còn lại của FR-11
-
-- Commit 5 sẽ hoàn thiện TC-FR11-DT-011, TC-FR11-DT-012 và TC-FR11-BVA-003, chạy đủ Chromium/Firefox/WebKit, rồi tạo bug report/GitHub Issue nếu defect được reproduce.
+| Commit 5 cần setup nhiều trạng thái đơn hàng nhưng user flow không tự tạo được mọi trạng thái | Dùng admin API black-box với credential env/default để chuyển trạng thái theo transition hợp lệ trước khi assert UI |
+| WebKit từng fail sai TC-FR11-DT-008 do login UI chưa hoàn tất nhưng helper cũ dùng soft assertion | Chuyển `loginByUi` sang retry cứng và chỉ tiếp tục khi body thể hiện đã login |
+| Kiểm tra màu nếu chỉ đọc text sẽ bỏ sót lỗi visual | Thêm helper đo RGB distance và attach `status-color-distances.json` vào Playwright report |
 
 ## 8. FR-14 - Category Management CRUD
 
@@ -413,7 +456,9 @@ Trạng thái hiện tại:
   - [#217](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/217) - Form lấy OTP không hiển thị thông báo lỗi cho email không hợp lệ.
   - [#218](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/218) - Bước đặt lại mật khẩu thiếu ô Xác nhận mật khẩu mới.
   - [#219](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/219) - API reset password chấp nhận mật khẩu mới không đạt rule.
-- FR-11: đã có 1 Markdown bug report automation, GitHub Issue sẽ chốt sau Commit 5 full suite.
+- FR-11: đã tạo 2 GitHub Issues từ bug reports automation:
+  - [#239](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/239) - User thường truy cập được chi tiết đơn hàng của user khác qua API.
+  - [#240](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/240) - Màu trạng thái Đã xác nhận và Đang giao quá giống nhau.
 - FR-14: TODO.
 
 Quy tắc cập nhật:
@@ -461,17 +506,16 @@ Các ý chính dự kiến cho critique:
 | Criteria | Status | Evidence |
 | --- | --- | --- |
 | Task 1 - Feature A / FR-03 | Done | Script, JSON data, 3 browser reports, 6 bug reports, 6 GitHub Issues |
-| Task 1 - Feature B / FR-11 | In progress | Commit 4: 12 Chromium tests executed, 11 passed, 1 failed, 1 bug report |
+| Task 1 - Feature B / FR-11 | Done | 15 test cases, 3 browser reports, 2 bug reports, 2 GitHub Issues |
 | Task 1 - Feature C / FR-14 | TODO | Planned |
 | Task 2 - Demo video | TODO | Not recorded yet |
 | Agent Skill | In progress / available | [`skills/eshop-hw04-task1-automation`](../skills/eshop-hw04-task1-automation/), [`skills/write-ai-audit-report`](../skills/write-ai-audit-report/) |
 
 ## 14. Submission TODO checklist
 
-- Hoàn tất FR-11 automation và cập nhật report.
 - Hoàn tất FR-14 automation và cập nhật report.
-- Tạo GitHub Issues từ bug reports của FR-11/FR-14 nếu các feature này phát hiện lỗi thật.
-- Cập nhật link GitHub Issues vào bug reports và main report cho FR-11/FR-14.
+- Tạo GitHub Issues từ bug reports của FR-14 nếu feature này phát hiện lỗi thật.
+- Cập nhật link GitHub Issues vào bug reports và main report cho FR-14.
 - Sinh Git commit log text file.
 - Viết AI critique 200-300 words.
 - Quay demo video và thêm YouTube link.

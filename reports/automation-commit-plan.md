@@ -148,6 +148,8 @@ Kết quả thực hiện:
 
 ### Commit 5 - FR-11 đợt 3: full suite, 3 browser, bug reports
 
+Trạng thái: Done.
+
 Mục tiêu:
 
 - Hoàn thiện FR-11 đạt tối thiểu 12 test case.
@@ -184,6 +186,24 @@ Commit message gợi ý:
 ```text
 test(fr11): complete cross-browser order history suite
 ```
+
+Kết quả thực hiện:
+
+- Đã bổ sung TC-FR11-DT-011, TC-FR11-DT-012 và TC-FR11-BVA-003 vào [`tests/automation/data/fr11-order-history.json`](../tests/automation/data/fr11-order-history.json).
+- Đã mở rộng [`tests/automation/specs/fr11-order-history.spec.ts`](../tests/automation/specs/fr11-order-history.spec.ts) với status setup bằng admin API black-box, assertion dịch trạng thái và assertion khoảng cách màu.
+- Đã chạy full suite FR-11 trên Chromium, Firefox và WebKit: mỗi browser 15 test case, 13 passed, 2 failed.
+- Report HTML:
+  - Chromium: [`reports/html/fr11-order-history/chromium/hw04-report.html`](html/fr11-order-history/chromium/hw04-report.html)
+  - Firefox: [`reports/html/fr11-order-history/firefox/hw04-report.html`](html/fr11-order-history/firefox/hw04-report.html)
+  - WebKit: [`reports/html/fr11-order-history/webkit/hw04-report.html`](html/fr11-order-history/webkit/hw04-report.html)
+- JSON result:
+  - Chromium: [`reports/results/fr11-order-history/chromium/results.json`](results/fr11-order-history/chromium/results.json)
+  - Firefox: [`reports/results/fr11-order-history/firefox/results.json`](results/fr11-order-history/firefox/results.json)
+  - WebKit: [`reports/results/fr11-order-history/webkit/results.json`](results/fr11-order-history/webkit/results.json)
+- Label verification manifest: [`reports/html/fr11-order-history/report-label-check.json`](html/fr11-order-history/report-label-check.json), `ok=true`.
+- Đã cập nhật bug report [`bug-reports/automation/BUG-FR11-AUTO-001.md`](../bug-reports/automation/BUG-FR11-AUTO-001.md) cho lỗi user thường truy cập được order detail của user khác qua API, GitHub Issue [#239](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/239).
+- Đã tạo bug report [`bug-reports/automation/BUG-FR11-AUTO-002.md`](../bug-reports/automation/BUG-FR11-AUTO-002.md) cho lỗi màu trạng thái `Đã xác nhận` và `Đang giao` quá giống nhau, GitHub Issue [#240](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/240).
+- Đã cập nhật [`reports/main-report.md`](main-report.md) với kết quả full suite, bug reports và issue links của FR-11.
 
 ## 5. FR-14 - Category Management
 

@@ -89,7 +89,7 @@
         {
           "open": "never",
           "outputFolder": "reports/html/fr11-order-history/chromium",
-          "title": "Run by: 23127475 | fr11-order-history | chromium | 2026-08-09T15:40:36.655Z"
+          "title": "Run by: 23127475 | fr11-order-history | chromium | 2026-08-09T16:13:53.995Z"
         }
       ]
     ],
@@ -116,7 +116,7 @@
         {
           "title": "Run by: 23127475 | FR-11 - Xem lịch sử đơn hàng",
           "file": "fr11-order-history.spec.ts",
-          "line": 356,
+          "line": 485,
           "column": 6,
           "specs": [
             {
@@ -140,12 +140,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3161,
+                      "duration": 3180,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:36.905Z",
+                      "startTime": "2026-08-09T16:13:54.192Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -160,7 +160,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-9f49dda9f7b483f74877",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -184,12 +184,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 690,
+                      "duration": 682,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:40.167Z",
+                      "startTime": "2026-08-09T16:13:57.477Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -204,7 +204,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-60b9fb066068b5e9ba99",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -228,12 +228,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3119,
+                      "duration": 3115,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:40.862Z",
+                      "startTime": "2026-08-09T16:13:58.163Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -248,7 +248,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-e3d3bb98844c6f3f762b",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -272,12 +272,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3105,
+                      "duration": 3116,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:43.986Z",
+                      "startTime": "2026-08-09T16:14:01.284Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -292,7 +292,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-f7a9ee92685b54f1af60",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -316,12 +316,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3145,
+                      "duration": 3135,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:47.095Z",
+                      "startTime": "2026-08-09T16:14:04.405Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -336,7 +336,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-ad13e68fda12b572d131",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -360,12 +360,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3213,
+                      "duration": 3136,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:50.245Z",
+                      "startTime": "2026-08-09T16:14:07.544Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -380,7 +380,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-b6fee9b04c28ad0add47",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -404,12 +404,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3173,
+                      "duration": 3114,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:53.463Z",
+                      "startTime": "2026-08-09T16:14:10.685Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -424,7 +424,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-64f409aa11da500e3059",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -448,12 +448,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3208,
+                      "duration": 3103,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:56.641Z",
+                      "startTime": "2026-08-09T16:14:13.802Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -464,7 +464,7 @@
                         {
                           "name": "own-order-api-response.json",
                           "contentType": "application/json",
-                          "body": "ewogICJpZCI6IDI2LAogICJ1c2VyX2lkIjogMzIsCiAgInRvdGFsX2Ftb3VudCI6IDIzMTEwNiwKICAic3RhdHVzIjogInBlbmRpbmciLAogICJzaGlwcGluZ19hZGRyZXNzIjogIkZSMTEgRFQwMDYgb3duIG9yZGVyIGRldGFpbCBhZGRyZXNzICMxIiwKICAiY3JlYXRlZF9hdCI6ICIyMDI2LTA4LTA5IDE1OjQwOjU2Igp9"
+                          "body": "ewogICJpZCI6IDM5LAogICJ1c2VyX2lkIjogNDUsCiAgInRvdGFsX2Ftb3VudCI6IDIzMTEwNiwKICAic3RhdHVzIjogInBlbmRpbmciLAogICJzaGlwcGluZ19hZGRyZXNzIjogIkZSMTEgRFQwMDYgb3duIG9yZGVyIGRldGFpbCBhZGRyZXNzICMxIiwKICAiY3JlYXRlZF9hdCI6ICIyMDI2LTA4LTA5IDE2OjE0OjEzIgp9"
                         }
                       ]
                     }
@@ -474,7 +474,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-224ecb20571c715deae3",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -498,39 +498,39 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 3303,
+                      "duration": 3161,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:415:76",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:544:76",
                         "location": {
                           "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
                           "column": 76,
-                          "line": 415
+                          "line": 544
                         },
-                        "snippet": "  413 |           contentType: 'application/json',\n  414 |         });\n> 415 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  416 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  417 |         return;\n  418 |       }"
+                        "snippet": "  542 |           contentType: 'application/json',\n  543 |         });\n> 544 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  545 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  546 |         return;\n  547 |       }"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
                             "column": 76,
-                            "line": 415
+                            "line": 544
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n\n  413 |           contentType: 'application/json',\n  414 |         });\n> 415 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  416 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  417 |         return;\n  418 |       }\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:415:76"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[401, 403, 404]\u001b[39m\n\n  542 |           contentType: 'application/json',\n  543 |         });\n> 544 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n      |                                                                            ^\n  545 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n  546 |         return;\n  547 |       }\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:544:76"
                         },
                         {
                           "location": {
                             "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
                             "column": 31,
-                            "line": 416
+                            "line": 545
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/\"user_id\"|total_amount|shipping_address|created_at/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"id\\\":28,\u001b[7m\\\"user_id\\\"\u001b[27m:34,\\\"total_amount\\\":991107,\\\"status\\\":\\\"pending\\\",\\\"shipping_address\\\":\\\"FR11 DT007 other user protected order #1\\\",\\\"created_at\\\":\\\"2026-08-09 15:40:59\\\"}\"\u001b[39m\n\n  414 |         });\n  415 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n> 416 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                               ^\n  417 |         return;\n  418 |       }\n  419 |\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:416:31"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: not \u001b[32m/\"user_id\"|total_amount|shipping_address|created_at/i\u001b[39m\nReceived string:      \u001b[31m\"{\\\"id\\\":41,\u001b[7m\\\"user_id\\\"\u001b[27m:47,\\\"total_amount\\\":991107,\\\"status\\\":\\\"pending\\\",\\\"shipping_address\\\":\\\"FR11 DT007 other user protected order #1\\\",\\\"created_at\\\":\\\"2026-08-09 16:14:16\\\"}\"\u001b[39m\n\n  543 |         });\n  544 |         expect.soft(testCase.expected.rejectedStatuses ?? [401, 403, 404]).toContain(response.status());\n> 545 |         expect.soft(text).not.toMatch(textPattern(testCase.expected.bodyMustNotContainPattern));\n      |                               ^\n  546 |         return;\n  547 |       }\n  548 |\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:545:31"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:40:59.854Z",
+                      "startTime": "2026-08-09T16:14:16.909Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -541,7 +541,7 @@
                         {
                           "name": "other-order-api-response.json",
                           "contentType": "application/json",
-                          "body": "ewogICJpZCI6IDI4LAogICJ1c2VyX2lkIjogMzQsCiAgInRvdGFsX2Ftb3VudCI6IDk5MTEwNywKICAic3RhdHVzIjogInBlbmRpbmciLAogICJzaGlwcGluZ19hZGRyZXNzIjogIkZSMTEgRFQwMDcgb3RoZXIgdXNlciBwcm90ZWN0ZWQgb3JkZXIgIzEiLAogICJjcmVhdGVkX2F0IjogIjIwMjYtMDgtMDkgMTU6NDA6NTkiCn0="
+                          "body": "ewogICJpZCI6IDQxLAogICJ1c2VyX2lkIjogNDcsCiAgInRvdGFsX2Ftb3VudCI6IDk5MTEwNywKICAic3RhdHVzIjogInBlbmRpbmciLAogICJzaGlwcGluZ19hZGRyZXNzIjogIkZSMTEgRFQwMDcgb3RoZXIgdXNlciBwcm90ZWN0ZWQgb3JkZXIgIzEiLAogICJjcmVhdGVkX2F0IjogIjIwMjYtMDgtMDkgMTY6MTQ6MTYiCn0="
                         },
                         {
                           "name": "screenshot",
@@ -567,7 +567,7 @@
                       "errorLocation": {
                         "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
                         "column": 76,
-                        "line": 415
+                        "line": 544
                       }
                     }
                   ],
@@ -576,7 +576,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-917a162dead4750633e2",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -600,12 +600,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3258,
+                      "duration": 3172,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:41:03.443Z",
+                      "startTime": "2026-08-09T16:14:20.308Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -620,7 +620,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-6d7e58828b8ee00bd877",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -644,12 +644,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3126,
+                      "duration": 3143,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:41:06.800Z",
+                      "startTime": "2026-08-09T16:14:23.586Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -664,7 +664,7 @@
               ],
               "id": "5657df7d5c98eb3c5950-9ba89b2f2bfcc1e9735a",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
               "column": 9
             },
             {
@@ -688,12 +688,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3179,
+                      "duration": 3098,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-08-09T15:41:09.931Z",
+                      "startTime": "2026-08-09T16:14:26.733Z",
                       "annotations": [
                         {
                           "type": "manual-source",
@@ -708,7 +708,189 @@
               ],
               "id": "5657df7d5c98eb3c5950-5b09f376737b0f315506",
               "file": "fr11-order-history.spec.ts",
-              "line": 362,
+              "line": 491,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-011 - Dịch trạng thái đơn hàng sang tiếng Việt rõ ràng",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-011.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3170,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:14:29.835Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-011.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-abc1ad66c25fef00b83d",
+              "file": "fr11-order-history.spec.ts",
+              "line": 491,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-DT-012 - Phân biệt trạng thái đơn hàng bằng màu sắc",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-012.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 3210,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m80\u001b[39m\nReceived:    \u001b[31m5.916079783099616\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m80\u001b[39m\nReceived:    \u001b[31m5.916079783099616\u001b[39m\n    at assertStatusColorsDistinct (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:481:32)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:563:9",
+                        "location": {
+                          "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                          "column": 32,
+                          "line": 481
+                        },
+                        "snippet": "  479 |\n  480 |   for (const pair of distances) {\n> 481 |     expect.soft(pair.distance).toBeGreaterThanOrEqual(testCase.expected.minColorDistance ?? 80);\n      |                                ^\n  482 |   }\n  483 | }\n  484 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                            "column": 32,
+                            "line": 481
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m80\u001b[39m\nReceived:    \u001b[31m5.916079783099616\u001b[39m\n\n  479 |\n  480 |   for (const pair of distances) {\n> 481 |     expect.soft(pair.distance).toBeGreaterThanOrEqual(testCase.expected.minColorDistance ?? 80);\n      |                                ^\n  482 |   }\n  483 | }\n  484 |\n    at assertStatusColorsDistinct (/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:481:32)\n    at /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts:563:9"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:14:33.010Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/domain-testing/TC-FR11-DT-012.md"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "status-color-distances.json",
+                          "contentType": "application/json",
+                          "body": "WwogIHsKICAgICJsZWZ0IjogImNvbmZpcm1lZCIsCiAgICAicmlnaHQiOiAic2hpcHBpbmciLAogICAgImxlZnRDb2xvciI6ICJyZ2IoMjI0LCAyMzEsIDI1NSkiLAogICAgInJpZ2h0Q29sb3IiOiAicmdiKDIxOSwgMjM0LCAyNTQpIiwKICAgICJkaXN0YW5jZSI6IDUuOTE2MDc5NzgzMDk5NjE2CiAgfQpd"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/test-results/fr11-order-history/chromium/fr11-order-history-Run-by--79ecb--thái-đơn-hàng-bằng-màu-sắc-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/tests/automation/specs/fr11-order-history.spec.ts",
+                        "column": 32,
+                        "line": 481
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-d483a94397c7902d6f92",
+              "file": "fr11-order-history.spec.ts",
+              "line": 491,
+              "column": 9
+            },
+            {
+              "title": "TC-FR11-BVA-003 - User có nhiều đơn hàng (representative above min)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "manual-source",
+                      "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-003.md"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3242,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-08-09T16:14:36.477Z",
+                      "annotations": [
+                        {
+                          "type": "manual-source",
+                          "description": "tests/test-cases/FR-11-order-history/bva/TC-FR11-BVA-003.md"
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5657df7d5c98eb3c5950-23a895f1a59a7e3971e7",
+              "file": "fr11-order-history.spec.ts",
+              "line": 491,
               "column": 9
             }
           ]
@@ -718,11 +900,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-08-09T15:40:36.656Z",
-    "duration": 36482.406,
-    "expected": 11,
+    "startTime": "2026-08-09T16:13:53.997Z",
+    "duration": 45848.066999999995,
+    "expected": 13,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 2,
     "flaky": 0
   }
 }
