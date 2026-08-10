@@ -1,6 +1,6 @@
 # Test Design – API `GET /api/products`
 
-> **Sinh viên:** `2312464 - Trần Minh Quang`
+> **Sinh viên:** `23127464 - Trần Minh Quang`
 > **API đã chọn:** #1 – `GET /api/products` (Lấy danh sách sản phẩm, hỗ trợ `?search=<keyword>`)
 
 ---
@@ -149,7 +149,7 @@ Bảng liệt kê các Postman features đã sử dụng trong bài:
 | Feature | Đã dùng? | Ghi chú |
 |:---|:---|:---|
 | Collections | Có | Tạo collection `Mini Products API Test` chứa request GET /api/products với pre-request script và test assertions. |
-| Environment variables | Có | Sử dụng biến `baseUrl` (http://localhost:3000) và `studentId` (2312464) trong environment `Local Environment`. |
+| Environment variables | Có | Sử dụng biến `baseUrl` (http://localhost:3000) và `studentId` (23127464) trong environment `Local Environment`. |
 | Collection variables | Không | Không cần dùng vì đã dùng environment variables và iteration data. |
 | Pre-request scripts | Có | Sử dụng để tự động thêm header `X-Student-Id` và xây dựng URL động dựa trên dữ liệu từ data file (có/không có search query). |
 | Test scripts (assertions) | Có | Viết 7 assertions cho mỗi iteration: status code, Content-Type, response time, array check, length, name filter, schema validation. |
