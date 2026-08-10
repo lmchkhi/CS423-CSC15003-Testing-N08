@@ -307,7 +307,7 @@ Các bước: checkout → `setup-node@v4` (Node 20) → `npm install` cho backe
 |---|---|---|---|
 | C1 `a2d68af` | Pipeline pass — 66/66 assertion xanh | [run #1](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/31369911657) — Success (24s) | `ci-pass.png` |
 | C2 `d977636` | Fail có chủ đích — sửa `expected_status` của RUN-01 từ `200` thành `999` | [run #2](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/31370096847) — Failure, 3/66 assertion đỏ, `exit code 1` | `ci-fail.png` |
-| C3 | Khôi phục `expected_status` về `200`, pipeline trở lại pass | run #3 — Success | — |
+| C3 `ab4308b` | Khôi phục `expected_status` về `200`, pipeline trở lại pass | [run #3](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/31370268771) — Success (32s) | — |
 
 Ở C2, một giá trị sai trong data file làm đỏ 3 assertion khác nhau của cùng iteration 1 — status code (`expected 999 but got 200`), JSON Schema (nhánh 4xx đòi field `error`), và nội dung message. Đây là bằng chứng cho thấy các assertion đọc kỳ vọng từ data file chứ không hard-code.
 
