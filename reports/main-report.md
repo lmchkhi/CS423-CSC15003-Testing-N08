@@ -583,20 +583,7 @@ Quy tắc cập nhật:
 
 ## 11. Demo video
 
-TODO sau khi chọn script demo.
-
-Yêu cầu cần có trong video:
-
-- Video unlisted YouTube, tối thiểu 5 phút.
-- Narration tiếng Việt.
-- Demo một script automation chạy end-to-end.
-- Có multi-browser run và HTML report.
-- Nêu ít nhất một fix đã thực hiện khi review AI-generated script.
-- Chứng minh authorship bằng face-cam hoặc terminal chạy `whoami` và `hostname`.
-
-Ứng viên demo phù hợp hiện tại:
-
-- FR-03 vì đã hoàn tất 3 browser, có report và có bug thật để phân tích.
+Link video demo end-to-end: [https://youtu.be/LFFgFHookvI](https://youtu.be/LFFgFHookvI)
 
 ## 12. AI audit và AI critique
 
