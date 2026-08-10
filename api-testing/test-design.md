@@ -1,6 +1,6 @@
 # Test Design – API `GET /api/products`
 
-> **Sinh viên:** `2312464`
+> **Sinh viên:** `2312464 - Trần Minh Quang`
 > **API đã chọn:** #1 – `GET /api/products` (Lấy danh sách sản phẩm, hỗ trợ `?search=<keyword>`)
 
 ---
