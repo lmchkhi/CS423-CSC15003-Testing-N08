@@ -60,9 +60,9 @@ Chúng **giữ nguyên trạng thái fail**, đã xác nhận lại trên bản 
 ngày 08/08/2026 ở cả 3 trình duyệt, và có bug report HW04 riêng ở
 [`../../bug-reports/`](../../bug-reports/).
 
-| Case | Vi phạm quan sát được | Bug HW02 tương ứng | Bug report HW04 |
-|---|---|---|---|
-| F02-TC-002 | Ô email dùng `type="text"`, trình duyệt không validate định dạng | BUG-FR02-002 | [`BUG-FR02-001`](../../bug-reports/BUG-FR02-001.md) |
-| F02-TC-004 | Tài khoản đã bị khóa khi mới sai 2 lần liên tiếp | BUG-FR02-003 | [`BUG-FR02-002`](../../bug-reports/BUG-FR02-002.md) |
-| F02-TC-008 | Sau 31 giây tài khoản vẫn còn khóa (HW02 đo ~180 giây) | BUG-FR02-005 | [`BUG-FR02-003`](../../bug-reports/BUG-FR02-003.md) |
-| F02-TC-012 | Response `/api/login` trả về trường `password` dạng plaintext | BUG-FR02-001 | [`BUG-FR02-004`](../../bug-reports/BUG-FR02-004.md) |
+| Case | Vi phạm quan sát được | Bug HW02 tương ứng | Bug report HW04 | GitHub Issue |
+|---|---|---|---|---|
+| F02-TC-002 | Ô email dùng `type="text"`, trình duyệt không validate định dạng | BUG-FR02-002 | [`BUG-FR02-001`](../../bug-reports/BUG-FR02-001.md) | [#204](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204) |
+| F02-TC-004 | Tài khoản đã bị khóa khi mới sai 2 lần liên tiếp | BUG-FR02-003 | [`BUG-FR02-002`](../../bug-reports/BUG-FR02-002.md) | [#205](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205) |
+| F02-TC-008 | Sau 31 giây tài khoản vẫn còn khóa (HW02 đo ~180 giây) | BUG-FR02-005 | [`BUG-FR02-003`](../../bug-reports/BUG-FR02-003.md) | [#206](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/206) |
+| F02-TC-012 | Response `/api/login` trả về trường `password` dạng plaintext | BUG-FR02-001 | [`BUG-FR02-004`](../../bug-reports/BUG-FR02-004.md) | [#207](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/207) |

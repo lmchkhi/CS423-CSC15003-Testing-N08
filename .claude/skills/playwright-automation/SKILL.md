@@ -217,8 +217,10 @@ current behaviour, missing negative/state cases, ignored cross-origin admin.
 
 ## 8. Commits (§12)
 
-≥8 commits over ≥4 different days, and **only commits touching test-script
-files count**. Commit at the end of each stage-6/7 cycle, not in one batch:
+≥8 commits, and **only commits touching test-script files count**. The old
+"over ≥4 different days" clause was dropped on 2026-08-08 — the count alone is
+the requirement now. Still commit at the end of each stage-6/7 cycle rather
+than batching the feature work into one commit at the end:
 
 ```bash
 git add automation/tests/<feature>.spec.ts automation/test-data/<feature>.cases.json

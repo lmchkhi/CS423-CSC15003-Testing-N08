@@ -21,5 +21,5 @@ không lượt nào hỏi "hai feature còn lại có cùng bệnh không".
 Nguyên tắc rút ra: đừng đánh giá output AI bằng việc nó chạy được, mà bằng
 việc nó *kiểm chứng chéo* được không — với DOM thật, API thật, hoặc một quan
 sát độc lập ghi trước đó — và mỗi khi bắt được một lỗi, phải hỏi lỗi ấy còn ở
-đâu. 10/23 entry trong audit report dừng ở `INCOMPLETE` thay vì `VALID` chính
+đâu. 12/25 entry trong audit report dừng ở `INCOMPLETE` thay vì `VALID` chính
 vì nguyên tắc đó.

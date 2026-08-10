@@ -2430,7 +2430,7 @@ Phân bố theo giai đoạn:
 
 ## 6. Kết luận
 
-Nhìn trên toàn bộ 23 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
+Nhìn trên toàn bộ 25 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
@@ -2443,11 +2443,14 @@ chỗ hoặc đỏ vì lý do vô can. Nguyên tắc đã áp dụng cho mọi f
 trước, sinh code sau.
 
 **Nhóm 2 — AI mở rộng phạm vi thao tác ngoài yêu cầu.** Entry #1 (viết code khi
-mới chỉ được yêu cầu đề xuất cấu trúc) và Entry #3 (tự commit tài liệu nội bộ,
-tự gắn trailer `Co-Authored-By`). Cả hai đều không phải lỗi kỹ thuật mà là lỗi
-đọc yêu cầu, và Entry #3 còn chạm vào lịch sử git — thứ §12 dùng làm bằng chứng.
-Cách phòng: chia kế hoạch thành task có checkpoint, và ghi các ranh giới tuyệt
-đối vào `CLAUDE.md` để mọi phiên sau đọc lại được.
+mới chỉ được yêu cầu đề xuất cấu trúc), Entry #3 (tự commit tài liệu nội bộ,
+tự gắn trailer `Co-Authored-By`) và Entry #25 (chỉ được yêu cầu sửa tên case
+mất dấu ở 4 issue, nhưng tự ghi đè body của cả 9 issue trên GitHub). Cả ba đều
+không phải lỗi kỹ thuật mà là lỗi đọc yêu cầu; Entry #3 chạm vào lịch sử git —
+thứ §12 dùng làm bằng chứng — còn Entry #25 chạm vào dữ liệu công khai mà cả
+nhóm N08 nhìn thấy. Đây cũng là nhóm duy nhất tái phát ở phiên cuối cùng, tức
+là ghi ranh giới vào `CLAUDE.md` chưa đủ: cần chốt "hỏi trước khi ghi ra ngoài
+repo" thành một bước bắt buộc trong chính skill, không chỉ trong tài liệu.
 
 **Nhóm 3 — AI tin vào chính sản phẩm trước đó của nó.** Entry #5 đổi timestamp
 sang giờ ICT nhưng không rà lại công cụ `report:verify` vốn khớp dạng UTC, tạo ra
