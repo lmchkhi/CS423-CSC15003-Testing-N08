@@ -1,0 +1,56 @@
+[
+    {
+        "code": "SAVE10",
+        "type": "percent",
+        "value": 10,
+        "min_order_amount": 300000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1,
+        "description": "10% discount on orders >= 300k"
+    },
+    {
+        "code": "BIGBUY",
+        "type": "fixed",
+        "value": 50000,
+        "min_order_amount": 500000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1,
+        "description": "Fixed 50k discount on orders >= 500k"
+    },
+    {
+        "code": "VIP100",
+        "type": "fixed",
+        "value": 100000,
+        "min_order_amount": 300000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 2,
+        "description": "Fixed 100k discount on orders >= 300k"
+    },
+    {
+        "code": "EXPIRED",
+        "type": "percent",
+        "value": 20,
+        "min_order_amount": 100000,
+        "expired_at": "2020-01-01",
+        "max_uses_per_user": 1,
+        "description": "20% discount (Expired)"
+    },
+    {
+        "code": "EXPIRED_TODAY",
+        "type": "fixed",
+        "value": 20000,
+        "min_order_amount": 100000,
+        "expired_at": "-1",
+        "max_uses_per_user": 1,
+        "description": "Fixed 20k discount on orders >= 100k"
+    },
+    {
+        "code":"EXPIRED_TOMMORROW",
+        "type":"fixed",
+        "value":30000,
+        "min_order_amount":100000,
+        "expired_at":"-1",
+        "max_uses_per_user":1,
+        "description":"Fixed 30k discount on orders >= 100k"
+    }
+]

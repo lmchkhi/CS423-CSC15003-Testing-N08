@@ -1,0 +1,72 @@
+[
+    {
+        "name": "Điện thoại BVA 099999",
+        "price": 99999,
+        "picture": "https://placehold.co/600x400?text=099999",
+        "description": "BVA test product for orders below the 100,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 100000",
+        "price": 100000,
+        "picture": "https://placehold.co/600x400?text=100000",
+        "description": "BVA test product at the 100,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 100001",
+        "price": 100001,
+        "picture": "https://placehold.co/600x400?text=100001",
+        "description": "BVA test product just above the 100,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 299999",
+        "price": 299999,
+        "picture": "https://placehold.co/600x400?text=299999",
+        "description": "BVA test product just below the 300,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 300000",
+        "price": 300000,
+        "picture": "https://placehold.co/600x400?text=300000",
+        "description": "BVA test product at the 300,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 300001",
+        "price": 300001,
+        "picture": "https://placehold.co/600x400?text=300001",
+        "description": "BVA test product just above the 300,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 499999",
+        "price": 499999,
+        "picture": "https://placehold.co/600x400?text=499999",
+        "description": "BVA test product just below the 500,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 500000",
+        "price": 500000,
+        "picture": "https://placehold.co/600x400?text=500000",
+        "description": "BVA test product at the 500,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "Điện thoại BVA 500001",
+        "price": 500001,
+        "picture": "https://placehold.co/600x400?text=500001",
+        "description": "BVA test product just above the 500,000 VND threshold.",
+        "category": "Điện thoại"
+    },
+    {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "picture": "https://placehold.co/300x300/png?text=iPhone+15",
+        "description": "Điện thoại cao cấp của Apple",
+        "category": "Điện thoại"
+    }
+]
