@@ -1,0 +1,57 @@
+[
+  {
+    "tc_id": "AI-01",
+    "description": "Get all products - no search parameter",
+    "search_query": "",
+    "use_search": false,
+    "expected_status": 200,
+    "expected_is_array": true,
+    "expected_min_length": 5,
+    "expected_name_contains": "",
+    "check_name_contains": false
+  },
+  {
+    "tc_id": "AI-02",
+    "description": "Search with valid keyword - iPhone",
+    "search_query": "iPhone",
+    "use_search": true,
+    "expected_status": 200,
+    "expected_is_array": true,
+    "expected_min_length": 1,
+    "expected_name_contains": "iPhone",
+    "check_name_contains": true
+  },
+  {
+    "tc_id": "AI-04",
+    "description": "Search with non-existent keyword",
+    "search_query": "NonExistentProduct12345",
+    "use_search": true,
+    "expected_status": 200,
+    "expected_is_array": true,
+    "expected_min_length": 0,
+    "expected_name_contains": "",
+    "check_name_contains": false
+  },
+  {
+    "tc_id": "AI-08",
+    "description": "Search case-insensitive - lowercase iphone",
+    "search_query": "iphone",
+    "use_search": true,
+    "expected_status": 200,
+    "expected_is_array": true,
+    "expected_min_length": 1,
+    "expected_name_contains": "iPhone",
+    "check_name_contains": true
+  },
+  {
+    "tc_id": "EXT-01",
+    "description": "Content-Type and Response Time validation",
+    "search_query": "",
+    "use_search": false,
+    "expected_status": 200,
+    "expected_is_array": true,
+    "expected_min_length": 5,
+    "expected_name_contains": "",
+    "check_name_contains": false
+  }
+]
