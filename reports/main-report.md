@@ -612,11 +612,3 @@ Tóm tắt nội dung:
 | 2 | Task 2 — Demo video | 15 | 15 |
 | 3 | Agent Skills | 10 | 10 |
 |   | Total | 100 | 100 |
-
-## 14. Submission TODO checklist
-
-- Sinh Git commit log text file.
-- AI critique đã viết tại [`reports/ai-critique.md`](ai-critique.md).
-- Quay demo video và thêm YouTube link.
-- Xuất main report và AI audit report sang PDF.
-- Cập nhật README self-assessment table và test summary.
