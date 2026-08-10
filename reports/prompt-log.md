@@ -9227,6 +9227,2248 @@ The student removed `export_pdf.py` and the stray `backend/` folder mid-session 
    checked 219 quoted lines against 4708k chars of transcript
    ✓ every quoted line traces to a transcript
 → Bash: python3 reports/tools/extract-prompt-log.py 2>&1 | head -3 && echo "..." && python3 reports/tools/extract-prompt-log.py 2>&1 | tail -6
+   40 entries, 535200 chars -> /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/prompt-log.md
+     [ 1] 10:38 PM 05/08/2026    1 blocks  'but like it requires at least 8 commits per day so whats the plan?'
+     [ 2] 11:07 PM 05/08/2026  156 blocks  'read HW04-AutomationTesting.md and plan to setup the project for me\nma'
+   ...
+     [35] 3:06 PM 09/08/2026    1 blocks  'about the commit just fix some minor thing like add a blank line then '
+     [36] 3:07 PM 09/08/2026   62 blocks  'ok then do it'
+     [37] 3:18 PM 09/08/2026   72 blocks  'ok sut are up, and i pushed all commits, continue'
+     [38] 3:35 PM 09/08/2026  230 blocks  'i need you to scan this homework end-to-end and compare with the requi'
+     [39
+   … [cắt bớt 216 ký tự; xem transcript gốc]
+```text
+Regenerating the prompt log surfaced an error in my own audit output — I reported "prompt-log 68 entries" from a `grep '^## '` that was also matching markdown headings quoted *inside* the transcript blocks. The real count is 40. Logging that.
+```
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: git show HEAD:git-log.txt | head -3 > /tmp/x1 2>/dev/null; sed -n '1,3p;20,32p' git-log.txt
+   * commit db73e4191d18465c00c827bb191ae9302467f2cf
+   | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+   | Date:   Sun Aug 9 16:02:29 2026 +0700
+   |  4 files changed, 0 insertions(+), 0 deletions(-)
+   | 
+   * commit a0d39fb3e301a19b0c769801be57d1634f5a0429
+   | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+   | Date:   Sun Aug 9 16:02:23 2026 +0700
+   | 
+   |     test: re-run the full 3x3 matrix against the repaired specs
+   |     
+   |     Nine cells, unchanged results — 10p/4f, 11p/3f, 1p/11f — so none of the four
+   |     repairs moved a verdict. The FR-02 reports now carry the accented case titles.
+   |     report:verify: 9/9 reports found, 0 unlabeled.
+   | 
+   |  .../06a6411c95325280f02f4f30bf7d563bcd033426.zip  |  Bin 191225 -> 0 byt
+   … [cắt bớt 2 ký tự; xem transcript gốc]
+→ Bash: git log --all --graph --stat --author='Bảo Ngọc Hà' > /tmp/cand1.txt 2>&1; diff <(head -200 /tmp/cand1.txt) <(head -200 git-log.txt) > /dev/null && echo "MATCH: git log --all --graph --stat --author='Bảo Ngọc Hà'" || { e
+… [cắt bớt 98 ký tự; xem transcript gốc]
+   MATCH: git log --all --graph --stat --author='Bảo Ngọc Hà'
+→ Bash: python3 reports/tools/build-pdfs.py 2>&1 | tail -4 && echo "=== recount critique ===" && tail -n +2 reports/ai-critique.md | wc -w
+   reports/pdf/main-report.pdf  (208 KB)
+     reports/pdf/ai-critique.pdf  (49 KB)
+     reports/pdf/ai-audit-report.pdf  (622 KB)
+     reports/pdf/ai-gap-analysis.pdf  (175 KB)
+   === recount critique ===
+        295
+→ Bash: git add reports/ai-audit-report.md reports/ai-critique.md reports/main-report.md reports/prompt-log.md reports/tools/extract-prompt-log.py reports/pdf/ && git commit -q -F - <<'MSG' docs: pre-submission audit fixes — tri
+… [cắt bớt 1130 ký tự; xem transcript gốc]
+   25344a7 docs: pre-submission audit fixes — trim AI Critique to 295 words, log entry #23
+→ Bash: git log --all --graph --stat --author='Bảo Ngọc Hà' > git-log.txt && git add git-log.txt && git commit -q -m "docs: regenerate git-log.txt" && git log --oneline -2 && echo "=== push ===" && git push origin HW04/23127300
+… [cắt bớt 14 ký tự; xem transcript gốc]
+   a863d2a docs: regenerate git-log.txt
+   25344a7 docs: pre-submission audit fixes — trim AI Critique to 295 words, log entry #23
+   === push ===
+   To https://github.com/lmchkhi/CS423-CSC15003-Testing-N08.git
+      db73e41..a863d2a  HW04/23127300 -> HW04/23127300
+→ Bash: echo "=== working tree ===" && git status --porcelain -uall && echo "(clean if empty)" && echo "=== ahead of origin? ===" && git log origin/HW04/23127300..HEAD --oneline | wc -l && echo "=== reports still labelled ===" &
+… [cắt bớt 473 ký tự; xem transcript gốc]
+   === working tree ===
+   (clean if empty)
+   === ahead of origin? ===
+          0
+   === reports still labelled ===
+   
+   9/9 expected reports found, 0 unlabeled.
+   === critique words ===
+        295
+   === audit entries / verdicts ===
+   23
+     10 **`INCOMPLETE`**
+      1 **`INVALID`**
+     12 **`VALID`**
+   === zip size (tracked set) ===
+   32.6 MB
+```text
+All fixed, verified, and pushed. Working tree is clean and `origin/HW04/23127300` is up to date.
+
+## What changed
+
+| Fix | Result |
+|---|---|
+| §10 word cap | `reports/ai-critique.md` **302 → 295 words** (cut 6, argument untouched) |
+| `git-log.txt` stale on GitHub | Regenerated with the same author-filtered command it has always used (`git log --all --graph --stat --author='Bảo Ngọc Hà'`), committed, pushed |
+| Stray root files | `export_pdf.py` and `backend/` (19 MB) — you removed both mid-session; root is now exactly the tracked set + the locally-excluded `docs/superpowers/` |
+| AI logs | Entry **#23** appended; `prompt-log.md` rebuilt from this session's transcript (**40 entries**, 05/08 → 09/08); counts resynced to 23 entries / 12 VALID / 10 INCOMPLETE / 1 INVALID across audit §5–§6, main-report §6–§7, critique closing line |
+| PDFs | All 4 rebuilt via `reports/tools/build-pdfs.py` — main-report 5p, critique 1p, audit 45p, gap-analysis 6p |
+
+Two errors of mine that the fix pass caught, both now recorded in Entry #23 rather than quietly patched:
+
+- My "check the repo **entirely**" sweep truncated its own file listing at 300 lines, which is exactly why `export_pdf.py` and `backend/` never appeared in the original inventory.
+- The rubric table's "prompt-log 68 entries" was wrong — that `grep '^## '` was also counting Markdown headings quoted *inside* the transcript blocks. Real count is 40. The wrong number stays verbatim in the entry's AI Output field as evidence, with the correction in Reasoning.
+
+Note on the exporter: you asked for `export_pdf.py`, and you picked `build-pdfs.py` when I flagged the conflict — that's what ran. `export_pdf.py` is gone now anyway.
+
+## Post-fix verification
+
+- `report:verify` → `9/9 expected reports found, 0 unlabeled`
+- `verify-audit-verbatim.py` → `219 quoted lines checked, every quoted line traces to a transcript`
+- Working tree clean, 0 commits ahead of origin
+- `git archive HEAD` → **32.6 MB**
+
+## Submission
+
+The file/folder list from the audit is unchanged — zip the tracked set:
+
+```bash
+git archive --format=zip --output ~/Desktop/23127300_HW04_AI_Automation_100.zip HEAD
+```
+
+Still on you to confirm: both YouTube links resolve, are unlisted, ≥5 min, Vietnamese narration, and show face-cam or a terminal running `whoami`/`hostname`.
+```
+
+
+---
+
+
+## [41] Claude (Opus 5, Claude Code) — 7:40 PM 09/08/2026
+
+**Prompt:**
+
+```text
+do we need to delete the reports/tools?
+```
+
+**Output:**
+
+→ Bash: grep -rn "reports/tools" --include="*.md" . 2>/dev/null | grep -v node_modules | grep -v '^./reports/prompt-log.md' | grep -v '^./reports/ai-audit-report.md'
+   README.md:117:| `reports/pdf/` | Bản PDF của báo cáo chính, AI Critique và AI Audit Report (§14 yêu cầu cả Markdown lẫn PDF). Sinh lại bằng `python3 reports/tools/build-pdfs.py` |
+   .claude/skills/prompt-log/SKILL.md:88:python3 reports/tools/extract-prompt-log.py
+   .claude/skills/prompt-log/SKILL.md:113:git add reports/prompt-log.md reports/tools/extract-prompt-log.py
+   .claude/skills/ai-audit-log/SKILL.md:48:python3 reports/tools/extract-prompt-log.py
+   .claude/skills/ai-audit-log/SKILL.md:82:python3 reports/tools/verify-audit-verbatim.py
+   ai-gap-analysis/ai-generated-script-gaps.md:137:**Đã sửa:** Viết `reports/tools/extract-prompt-log.py` để trích trực tiếp
+   reports/ai-audit-report.md:1076:| **Arti
+   … [cắt bớt 11092 ký tự; xem transcript gốc]
+```text
+No — keep it. Deleting `reports/tools/` would actively cost you points:
+
+- **README.md:117** documents `python3 reports/tools/build-pdfs.py` as how the PDFs are regenerated. Deleting breaks a link in a graded document.
+- **Both AI-logging skills depend on it.** `prompt-log/SKILL.md` and `ai-audit-log/SKILL.md` invoke `extract-prompt-log.py` and `verify-audit-verbatim.py` by path. The skills are the §7 deliverable (10 pts) — shipping ones that call missing scripts makes them non-runnable.
+- **It's your §11 anti-cheat evidence.** `extract-prompt-log.py` is what proves `prompt-log.md` was machine-extracted from the Claude Code transcripts rather than written from memory; `verify-audit-verbatim.py` is what makes the audit report's "verbatim" claim checkable (it just passed 219/219). A grader who doubts the logs can re-run both.
+- **`ai-generated-script-gaps.md:137`** cites writing `extract-prompt-log.py` as the fix for a logged AI failure — the entry where a log claimed "verbatim" but held a rewritten summary. Remove the script and the gap analysis references something that isn't there.
+
+§14 explicitly allows "Any other supporting materials," and the whole folder is 32 KB. Nothing to gain by cutting it.
+
+Distinct from the things you did delete: `export_pdf.py` and `backend/` were untracked strays nothing referenced. `reports/tools/` is tracked, cited by four deliverables, and already on the public repo.
+```
+
+
+---
+
+
+## [42] Claude (Opus 5, Claude Code) — 7:41 PM 09/08/2026
+
+**Prompt:**
+
+```text
+'/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy'
+i setup for the submission here, can you check for me one last time?
+```
+
+**Output:**
+
+→ Bash: cd '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' 2>/dev/null && pwd && echo "=== top level ===" && ls -la && echo "=== total size ===" && du -sh .
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy
+   === top level ===
+   total 584
+   drwxr-xr-x@ 12 hbn  staff     384 Aug  9 19:38 .
+   drwx------@ 44 hbn  staff    1408 Aug  9 19:37 ..
+   -rw-r--r--@  1 hbn  staff   16388 Aug  9 19:38 .DS_Store
+   drwxr-xr-x@  3 hbn  staff      96 Aug  8 09:00 .claude
+   -rw-r--r--@  1 hbn  staff    7625 Aug  9 15:13 README.md
+   drwxr-xr-x@  3 hbn  staff      96 Aug  9 15:50 ai-gap-analysis
+   drwxr-xr-x@ 17 hbn  staff     544 Aug  9 19:37 automation
+   drwxr-xr-x@ 13 hbn  staff     416 Aug  8 22:04 bug-reports
+   -rw-r--r--@  1 hbn  staff  261938 Aug  9 19:35 git-log.txt
+   drwxr-xr-x@ 12 hbn  staff     384 Aug  9 19:38 reports
+   -rw-r--r--@  1 hbn  staff    6140 Aug  8 09:00 sut-requir
+   … [cắt bớt 165 ký tự; xem transcript gốc]
+→ Bash: SRC=/Users/hbn/Documents/CS423-CSC15003-Testing-N08; DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' cd "$SRC" && git ls-files > /tmp/tracked.txt cd "$DST" && find . -type f | sed 's|^\./||' | sort > /tmp/copy
+… [cắt bớt 298 ký tự; xem transcript gốc]
+   === TRACKED FILES MISSING FROM COPY ===
+   .github/ISSUE_TEMPLATE/bug-report-template.md
+   .gitignore
+   CLAUDE.md
+   HW04-AutomationTesting.md
+   automation/fixtures/.gitkeep
+   
+   === EXTRA FILES IN COPY (not tracked) ===
+   .DS_Store
+   automation/.DS_Store
+   automation/.env
+   automation/fixtures/.DS_Store
+   automation/test-results/.DS_Store
+   automation/test-results/.last-run.json
+   automation/test-results/fr-13-dashboard-FR-13-—-Da-26d82--khi-có-nhiều-đơn-delivered-webkit/error-context.md
+   automation/test-results/fr-13-dashboard-FR-13-—-Da-26d82--khi-có-nhiều-đơn-delivered-webkit/test-failed-1.png
+   automation/test-results/fr-13-dashboard-FR-13-—-Da-26d82--khi-có-nhiều-đơn-delivered-webkit/trace.zip
+   automation/test-results/
+   … [cắt bớt 3359 ký tự; xem transcript gốc]
+→ Bash: comm -13 <(sort /tmp/tracked.txt) /tmp/copy.txt | grep -v '^automation/test-results/' echo "=== node_modules present? ==="; ls -d '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/automation/node_modules' 2>&1 | head
+… [cắt bớt 121 ký tự; xem transcript gốc]
+   .DS_Store
+   automation/.DS_Store
+   automation/.env
+   automation/fixtures/.DS_Store
+   bug-reports/.DS_Store
+   reports/.DS_Store
+   reports/html/_ad-hoc/index.html
+   reports/json/ad-hoc.json
+   reports/json/fr-02-login-chromium.json
+   reports/json/fr-02-login-firefox.json
+   reports/json/fr-02-login-webkit.json
+   reports/json/fr-10-order-state-chromium.json
+   reports/json/fr-10-order-state-firefox.json
+   reports/json/fr-10-order-state-webkit.json
+   reports/json/fr-13-dashboard-chromium.json
+   reports/json/fr-13-dashboard-firefox.json
+   reports/json/fr-13-dashboard-webkit.json
+   test-design/.DS_Store
+   === node_modules present? ===
+   ls: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/automation/node_modules: No such file or dire
+   … [cắt bớt 38 ký tự; xem transcript gốc]
+→ Bash: SRC=/Users/hbn/Documents/CS423-CSC15003-Testing-N08; DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== content drift on tracked files present in both ===" n=0 while IFS= read -r f; do [ -f "$DST/$f" ]
+… [cắt bớt 135 ký tự; xem transcript gốc]
+   === content drift on tracked files present in both ===
+   total differing: 0
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== 9 report labels in the copy ==="; grep -l "Run by: 23127300" "$DST"/reports/html/*/*/index.html | wc -l echo "=== _ad-hoc report label ==="; grep -o 'R
+… [cắt bớt 253 ký tự; xem transcript gốc]
+   === 9 report labels in the copy ===
+          9
+   === _ad-hoc report label ===
+   === size breakdown ===
+   8.0K	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/README.md
+   8.0K	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/sut-requirements.md
+    20K	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/ai-gap-analysis
+    40K	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/test-design
+   256K	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/git-log.txt
+   3.7M	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/automation
+   5.8M	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/bug-reports
+    51M	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/reports
+   === junk total ===
+   3.5M	/Users/hbn/Doc
+   … [cắt bớt 212 ký tự; xem transcript gốc]
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' cd "$DST" echo "=== broken relative links in the copied deliverables ===" for f in README.md reports/main-report.md reports/ai-audit-report.md reports/ai-critiqu
+… [cắt bớt 435 ký tự; xem transcript gốc]
+   === broken relative links in the copied deliverables ===
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' cd "$DST" echo "=== .claude/skills tree ==="; find .claude -type f | sort echo; echo "=== broken relative links inside the skills ===" for f in $(find .claude -n
+… [cắt bớt 572 ký tự; xem transcript gốc]
+   === .claude/skills tree ===
+   .claude/skills/ai-audit-log/SKILL.md
+   .claude/skills/bug-report/SKILL.md
+   .claude/skills/playwright-automation/SKILL.md
+   .claude/skills/playwright-automation/references/eshop-environment.md
+   .claude/skills/prompt-log/SKILL.md
+   
+   === broken relative links inside the skills ===
+     .claude/skills/bug-report/SKILL.md -> screenshots/<BUG-ID>.png
+   (none above = clean)
+   
+   === paths the skills reference that must exist at repo root ===
+     MISSING: bug-reports/BUG-
+   (none above = clean)
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+```text
+Checked the copy against the fixed repo. **Content is correct** — zero drift on every shared file (all my fixes are in), all 9 reports carry `Run by: 23127300` + ISO timestamp, all 4 skills present, no broken links in any deliverable. §14 checklist is fully satisfied.
+
+Two things to clean up.
+
+## 1. Remove — 64 stray files, ~4.5 MB
+
+| Item | Files | Why |
+|---|---|---|
+| `reports/html/_ad-hoc/` | 1 (512 KB) | **Matters most.** An HTML report sitting beside the 9 graded ones — and it has **no `Run by:` label at all**. A TA opening `reports/html/` sees 4 folders, one unlabeled. It directly muddies your §11 evidence. |
+| `automation/.env` | 1 | Your own `.gitignore` says "never commit it"; `.env.example` (byte-identical) already ships. Only holds the SUT's public default accounts, so nothing leaked — but shipping it contradicts your documented practice. |
+| `automation/test-results/` | 48 (3.5 MB) | Raw WebKit failure scratch from the last run; superseded by `reports/html/`. |
+| `reports/json/` | 11 (492 KB) | JSON reporter side-output, not a deliverable. |
+| `.DS_Store` | 7 | macOS junk. |
+
+```bash
+cd '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy'
+rm -rf reports/html/_ad-hoc reports/json automation/test-results automation/.env
+find . -name .DS_Store -delete
+```
+
+## 2. Missing — 5 tracked files, none required
+
+`CLAUDE.md`, `HW04-AutomationTesting.md`, `.gitignore`, `.github/ISSUE_TEMPLATE/bug-report-template.md`, `automation/fixtures/.gitkeep`.
+
+None is on the §14 list, and I verified no deliverable links to any of them — so the copy is valid as-is. The only one I'd bother restoring is the issue template, since your 9 bug reports were written to it:
+
+```bash
+mkdir -p '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.github/ISSUE_TEMPLATE'
+cp .github/ISSUE_TEMPLATE/bug-report-template.md \
+   '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.github/ISSUE_TEMPLATE/'
+```
+
+## After cleanup
+
+61 MB → ~56 MB on disk, roughly **33 MB zipped**. Then:
+
+```bash
+cd ~/Documents
+zip -r 23127300_HW04_AI_Automation_100.zip 'CS423-CSC15003-Testing-N08 copy' -x '*.DS_Store'
+```
+
+One thing worth deciding: the zip's top folder will be named `CS423-CSC15003-Testing-N08 copy`. Rename it to something like `23127300_HW04_AI_Automation` before zipping — "copy" in a submitted folder name reads like an accident.
+```
+
+
+---
+
+
+## [43] Claude (Opus 5, Claude Code) — 7:45 PM 09/08/2026
+
+**Prompt:**
+
+```text
+but we can submit redundant right? its safer
+```
+
+**Output:**
+
+```text
+You're right on four of the five — §14 explicitly allows "Any other supporting materials," and §17 punishes *missing* documents, not extra ones. The asymmetry favors including more. Let me check my one remaining objection is actually real before I push it.
+```
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== _ad-hoc <title> ==="; grep -oE '<title>[^<]*</title>' "$DST/reports/html/_ad-hoc/index.html" echo "=== any 'Run by' at all? ==="; grep -c "Run by" "$DS
+… [cắt bớt 762 ký tự; xem transcript gốc]
+   Exit code 1
+   === _ad-hoc <title> ===
+   ugrep: warning: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/reports/html/_ad-hoc/index.html: No such file or directory
+   === any 'Run by' at all? ===
+   ugrep: warning: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/reports/html/_ad-hoc/index.html: No such file or directory
+   === what run is it? ===
+   Traceback (most recent call last):
+     File "<stdin>", line 2, in <module>
+   FileNotFoundError: [Errno 2] No such file or directory: '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/reports/html/_ad-hoc/index.html'
+   === ad-hoc.json: which tests? ===
+   Traceback (most recent call last):
+     File "<string>", line 3, in <module>
+       d=json.load(open('/Users/hb
+   … [cắt bớt 309 ký tự; xem transcript gốc]
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== copy: what remains ==="; ls "$DST"; echo "--- removed already? ---" for p in reports/html/_ad-hoc reports/json automation/test-results automation/.env;
+… [cắt bớt 483 ký tự; xem transcript gốc]
+   === copy: what remains ===
+   README.md
+   ai-gap-analysis
+   automation
+   bug-reports
+   git-log.txt
+   reports
+   sut-requirements.md
+   test-design
+   --- removed already? ---
+   gone: reports/html/_ad-hoc
+   gone: reports/json
+   gone: automation/test-results
+   STILL THERE: automation/.env
+   --- .DS_Store ---
+          7
+   --- size ---
+    56M	/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy
+   
+   === source repo _ad-hoc label check (file still exists there) ===
+   <title>Playwright Test Report</title>
+   'Run by' occurrences: 0
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== hidden entries ==="; ls -la "$DST" | grep '^\.\|^d.*\s\.' ; ls -d "$DST"/.* 2>/dev/null | grep -v '/\.$\|/\.\.$' echo "=== skills still there? (§7, 10
+… [cắt bớt 289 ký tự; xem transcript gốc]
+   === hidden entries ===
+   drwxr-xr-x@ 12 hbn  staff     384 Aug  9 19:38 .
+   drwx------@ 44 hbn  staff    1408 Aug  9 19:37 ..
+   drwxr-xr-x@  3 hbn  staff      96 Aug  8 09:00 .claude
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.DS_Store
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude
+   === skills still there? (§7, 10 pts) ===
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude/skills/ai-audit-log/SKILL.md
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude/skills/bug-report/SKILL.md
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude/skills/playwright-automation/SKILL.md
+   /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude/skills/playwright-au
+   … [cắt bớt 734 ký tự; xem transcript gốc]
+```text
+You're right, and I overstated it. Concretely:
+
+**Extra is safe — §14 allows "Any other supporting materials," §17 penalizes only *missing* documents.** Two of the things you removed were arguably net-positive evidence:
+
+- `automation/test-results/` — the failure screenshots, traces and videos behind the FR-13 WebKit cells
+- `reports/json/` — machine-readable run data corroborating the 9 cells
+
+`automation/.env` is harmless too (it only holds the SUT's public default accounts, and `.env.example` ships identical content). `.DS_Store` is cosmetic.
+
+**The one genuine exception was `_ad-hoc`, and I confirmed it before pushing:** `<title>Playwright Test Report</title>`, and `grep -c "Run by"` → **0**. §11 has TAs verifying that the HTML reports carry `Run by: {StudentID}`. A 10th report folder with no label isn't redundant evidence, it's *contradicting* evidence — the one case where more is worse. It's already gone, so that's settled.
+
+If you want the other two back for their supporting value:
+
+```bash
+cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+cp -R reports/json automation/test-results \
+   '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/'/../'CS423-CSC15003-Testing-N08 copy'/ 2>/dev/null
+# then drop the one ad-hoc leftover inside json/
+rm -f '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/reports/json/ad-hoc.json'
+```
+
+(Same reasoning for `ad-hoc.json` — it's the unlabeled run's data, so it doesn't belong beside the 9.)
+
+## Current state — verified good
+
+- `.claude/skills/` intact: all 4 skills + the `eshop-environment.md` reference (§7, 10 pts)
+- `reports/html/` now exactly 3 feature folders → 9 cells, **9/9 carrying `Run by: 23127300`**
+- All MD + PDF deliverables present, plus `run-manifest.md`, `prompt-log.md`, `tools/`
+- 56 MB on disk → roughly **33 MB zipped**
+
+Worth a glance at the Moodle upload limit before you zip; you're comfortably under a 50 MB cap either way. And rename the folder off `... copy` before zipping.
+```
+
+
+---
+
+
+## [44] Claude (Opus 5, Claude Code) — 7:47 PM 09/08/2026
+
+**Prompt:**
+
+```text
+then give me the final what to submit
+```
+
+**Output:**
+
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== file counts per top-level entry ===" for d in .claude ai-gap-analysis automation bug-reports reports test-design; do printf "%-18s %4s files %6s\n" "$d
+… [cắt bớt 1123 ký tự; xem transcript gốc]
+   === file counts per top-level entry ===
+   bfs: error: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude: No such file or directory.
+   du: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/.claude: No such file or directory
+   .claude               0 files        
+   bfs: error: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/ai-gap-analysis: No such file or directory.
+   du: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/ai-gap-analysis: No such file or directory
+   ai-gap-analysis       0 files        
+   bfs: error: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/automation: No such file or directory.
+   du: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy/automation: No such f
+   … [cắt bớt 2561 ký tự; xem transcript gốc]
+```text
+The copy folder is gone from that path — looks like you renamed it. Let me find it.
+```
+→ Bash: ls -la ~/Documents | head -30; echo "=== candidates ==="; find ~/Documents ~/Desktop ~/Downloads -maxdepth 1 -newermt '2026-08-09 19:30' 2>/dev/null
+   total 49720
+   drwx------@ 43 hbn  staff      1376 Aug  9 19:47 .
+   drwxr-x---+ 98 hbn  staff      3136 Aug  9 19:46 ..
+   -rw-r--r--@  1 hbn  staff     36868 Aug  9 19:47 .DS_Store
+   -rw-r--r--   1 hbn  staff         0 Jul 25  2025 .localized
+   drwxr-xr-x@ 13 hbn  staff       416 Jul 27 15:29 23127300
+   -rw-r--r--   1 hbn  staff   1365235 Jul 27 15:29 23127300.zip
+   drwxr-xr-x@ 19 hbn  staff       608 Jul 31 13:34 23127300_HW02_AI_DomainTesting_100
+   -rw-r--r--   1 hbn  staff  20688130 Jul  1 21:14 23127300_HW02_AI_DomainTesting_100.zip
+   drwxr-xr-x@ 14 hbn  staff       448 Aug  3 00:26 23127300_HW03_AI_GUIUsability_100
+   drwxr-xr-x@  6 hbn  staff       192 Jul 27 16:26 23127300_MINILAB_POSTGRES
+   -rw-r--r--@  1 h
+   … [cắt bớt 1348 ký tự; xem transcript gốc]
+→ Bash: find ~ -maxdepth 3 \( -iname '*HW04*' -o -iname '*Testing-N08*' \) -not -path '*/.git/*' -not -path '*/node_modules/*' 2>/dev/null | head -20; echo "--- trash ---"; ls ~/.Trash 2>/dev/null | head -20
+   The user doesn't want to proceed with this tool use. The tool use was rejected (eg. if it was a file edit, the new_string was NOT written to the file). STOP what you are doing and wait for the user to tell you how to proceed.
+
+
+---
+
+
+## [45] Claude (Opus 5, Claude Code) — 7:47 PM 09/08/2026
+
+**Prompt:**
+
+```text
+[Request interrupted by user for tool use]
+```
+
+**Output:**
+
+*(không có phản hồi — prompt bị huỷ hoặc thay bằng prompt kế tiếp)*
+
+
+---
+
+
+## [46] Claude (Opus 5, Claude Code) — 7:47 PM 09/08/2026
+
+**Prompt:**
+
+```text
+no i removed it just give me a list of what to submit
+```
+
+**Output:**
+
+```text
+Here's the final list. Everything below is in `/Users/hbn/Documents/CS423-CSC15003-Testing-N08` and is verified current (all fixes committed and pushed).
+
+## Submit — one command
+
+```bash
+cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+git archive --format=zip \
+  --prefix=23127300_HW04_AI_Automation/ \
+  --output ~/Desktop/23127300_HW04_AI_Automation_100.zip HEAD
+```
+
+This is the safe path: `git archive HEAD` emits **only tracked files**, so it automatically excludes `node_modules/`, `automation/test-results/`, `automation/.env`, `reports/json/`, `reports/html/_ad-hoc/`, `.DS_Store`, `.git/` and `docs/superpowers/` — no manual cleanup, nothing to forget. Result: **~33 MB**, 467 files.
+
+## What that zip contains
+
+```
+23127300_HW04_AI_Automation/
+├── README.md                      ← self-assessment table + test summary (§14)
+├── git-log.txt                    ← commit log (§12)
+├── sut-requirements.md            ← the oracle for every assertion
+├── CLAUDE.md, HW04-AutomationTesting.md, .gitignore, .github/
+│
+├── automation/                    ← Playwright project, 27 files
+│   ├── tests/          3 feature specs + smoke.spec.ts
+│   ├── test-data/      3 × *.cases.json   (14 / 14 / 12 cases)
+│   ├── pages/          4 page objects
+│   ├── fixtures/ utils/ scripts/
+│   └── playwright.config.ts, package.json, package-lock.json,
+│       tsconfig.json, README.md, .env.example
+│
+├── reports/
+│   ├── main-report.md             ← main report + requirement ledger (§14)
+│   ├── ai-audit-report.md         ← §9 appendix, 23 entries
+│   ├── ai-critique.md             ← §10, 295 words
+│   ├── prompt-log.md              ← unfiltered record, 40 entries
+│   ├── run-manifest.md            ← per-cell results + ISO timestamps
+│   ├── pdf/                       ← 4 PDFs (main-report, critique, audit, gap-analysis)
+│   ├── tools/                     ← the 4 generator/verifier scripts
+│   └── html/                      ← 9 reports, all labeled "Run by: 23127300"
+│       ├── fr-02-login/{chromium,firefox,webkit}/
+│       ├── fr-10-order-state/{chromium,firefox,webkit}/
+│       └── fr-13-dashboard/{chromium,firefox,webkit}/
+│
+├── bug-reports/                   ← 9 BUG-*.md + 9 failure screenshots
+│   ├── screenshots/                 + 9 GitHub-issue screenshots
+│   └── github-issues/
+│
+├── test-design/                   ← 3 case-maps + not-automated.md
+├── ai-gap-analysis/               ← §6 "what the AI got wrong"
+└── .claude/skills/                ← §7 deliverable: 4 skills
+```
+
+## §14 coverage
+
+| Required | Where |
+|---|---|
+| Main report (MD + PDF) | `reports/main-report.md` + `reports/pdf/main-report.pdf` |
+| GitHub repo link | README §4 → `github.com/lmchkhi/CS423-CSC15003-Testing-N08`, branch `HW04/23127300` (public) |
+| Multi-browser HTML reports | `reports/html/` — 9 cells, 9/9 labeled |
+| YouTube demo link | README §2.6 — Task 2 + Agent Skill demo |
+| AI Critique + Audit (MD + PDF) | `reports/ai-critique.md`, `reports/ai-audit-report.md` + both PDFs |
+| Git commit log | `git-log.txt` |
+| Bug reports + issue screenshots | `bug-reports/` —
+```
+
+
+---
+
+
+## [47] Claude (Opus 5, Claude Code) — 7:48 PM 09/08/2026
+
+**Prompt:**
+
+```text
+[Request interrupted by user]
+```
+
+**Output:**
+
+*(không có phản hồi — prompt bị huỷ hoặc thay bằng prompt kế tiếp)*
+
+
+---
+
+
+## [48] Claude (Opus 5, Claude Code) — 7:48 PM 09/08/2026
+
+**Prompt:**
+
+```text
+why do i have to keep the .github template?
+```
+
+**Output:**
+
+```text
+You don't. I flagged it as optional earlier and then over-sold it — it's not §14-required, and nothing in any deliverable links to it (I verified that when it was absent from your copy: zero broken links).
+
+Its only value is showing the bug reports follow a repo template, and that's already evidenced better by the 9 issue screenshots and the 9 live issue links.
+
+It's in the zip purely because `git archive` takes everything tracked, and it's ~1 KB. Keeping it costs nothing; removing it means abandoning the one-command approach for manual file-picking. Not worth the trade.
+
+If you want it gone anyway:
+
+```bash
+cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+git archive --format=zip --prefix=23127300_HW04_AI_Automation/ HEAD > /tmp/sub.zip
+zip -d /tmp/sub.zip '23127300_HW04_AI_Automation/.github/*'
+mv /tmp/sub.zip ~/Desktop/23127300_HW04_AI_Automation_100.zip
+```
+
+Same reasoning applies to `CLAUDE.md`, `HW04-AutomationTesting.md` and `.gitignore` — all tracked, none required, all harmless. §14 explicitly allows "Any other supporting materials," so extras don't cost you anything.
+```
+
+
+---
+
+
+## [49] Claude (Opus 5, Claude Code) — 7:50 PM 09/08/2026
+
+**Prompt:**
+
+```text
+ok check again for me at '/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy'
+```
+
+**Output:**
+
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' [ -d "$DST" ] || { echo "NOT FOUND"; exit 1; } echo "=== top level (incl. hidden) ==="; ls -la "$DST" echo; echo "=== total ==="; du -sh "$DST"; echo -n "files:
+… [cắt bớt 30 ký tự; xem transcript gốc]
+   === top level (incl. hidden) ===
+   total 584
+   drwxr-xr-x@ 12 hbn  staff     384 Aug  9 19:50 .
+   drwx------@ 44 hbn  staff    1408 Aug  9 19:47 ..
+   -rw-r--r--@  1 hbn  staff   16388 Aug  9 19:50 .DS_Store
+   drwxr-xr-x@  3 hbn  staff      96 Aug  8 09:00 .claude
+   -rw-r--r--@  1 hbn  staff    7625 Aug  9 15:13 README.md
+   drwxr-xr-x@  3 hbn  staff      96 Aug  9 15:50 ai-gap-analysis
+   drwxr-xr-x@ 17 hbn  staff     544 Aug  9 19:48 automation
+   drwxr-xr-x@ 14 hbn  staff     448 Aug  9 19:49 bug-reports
+   -rw-r--r--@  1 hbn  staff  261938 Aug  9 19:35 git-log.txt
+   drwxr-xr-x@ 12 hbn  staff     384 Aug  9 19:50 reports
+   -rw-r--r--@  1 hbn  staff    6140 Aug  8 09:00 sut-requirements.md
+   drwxr-xr-x@  6 hbn  staff
+   … [cắt bớt 119 ký tự; xem transcript gốc]
+→ Bash: SRC=/Users/hbn/Documents/CS423-CSC15003-Testing-N08; DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' cd "$SRC" && git ls-files | sort > /tmp/tracked.txt cd "$DST" && find . -type f | sed 's|^\./||' | sort > /t
+… [cắt bớt 345 ký tự; xem transcript gốc]
+   === TRACKED FILES MISSING FROM COPY ===
+   .github/ISSUE_TEMPLATE/bug-report-template.md
+   .gitignore
+   CLAUDE.md
+   HW04-AutomationTesting.md
+   automation/fixtures/.gitkeep
+   automation/pages/.gitkeep
+   bug-reports/screenshots/.gitkeep
+   reports/html/.gitkeep
+   
+   === EXTRA FILES (not tracked), grouped ===
+     45 automation/test-results/ ...
+     10 reports/json/ ...
+      1 reports/html/.DS_Store
+      1 reports/.DS_Store
+      1 bug-reports/screenshots/.DS_Store
+      1 bug-reports/.DS_Store
+      1 automation/pages/.DS_Store
+      1 automation/fixtures/.DS_Store
+      1 automation/.env
+      1 automation/.DS_Store
+      1 .DS_Store
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: SRC=/Users/hbn/Documents/CS423-CSC15003-Testing-N08; DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== content drift on shared tracked files ===" n=0; while IFS= read -r f; do [ -f "$DST/$f" ] || conti
+… [cắt bớt 1534 ký tự; xem transcript gốc]
+   === content drift on shared tracked files ===
+   differing: 0
+   
+   === §14 checklist ===
+     OK       reports/main-report.md
+     OK       reports/pdf/main-report.pdf
+     OK       reports/ai-critique.md
+     OK       reports/pdf/ai-critique.pdf
+     OK       reports/ai-audit-report.md
+     OK       reports/pdf/ai-audit-report.pdf
+     OK       reports/pdf/ai-gap-analysis.pdf
+     OK       ai-gap-analysis/ai-generated-script-gaps.md
+     OK       reports/prompt-log.md
+     OK       reports/run-manifest.md
+     OK       git-log.txt
+     OK       README.md
+     OK       sut-requirements.md
+     OK       test-design/not-automated.md
+     skills (§7):        5
+     specs:        4
+     data files:        3
+     case-maps:        3
+     bug reports:        9
+   … [cắt bớt 170 ký tự; xem transcript gốc]
+→ Bash: DST='/Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy' echo "=== every index.html under reports/html, labeled? (space-safe) ===" find "$DST/reports/html" -name index.html -print0 | while IFS= read -r -d '' f; do if g
+… [cắt bớt 333 ký tự; xem transcript gốc]
+   === every index.html under reports/html, labeled? (space-safe) ===
+   LABELED   reports/html/fr-02-login/firefox/index.html
+   LABELED   reports/html/fr-02-login/webkit/index.html
+   LABELED   reports/html/fr-02-login/chromium/index.html
+   LABELED   reports/html/fr-10-order-state/firefox/index.html
+   LABELED   reports/html/fr-10-order-state/webkit/index.html
+   LABELED   reports/html/fr-10-order-state/chromium/index.html
+   LABELED   reports/html/fr-13-dashboard/firefox/index.html
+   LABELED   reports/html/fr-13-dashboard/webkit/index.html
+   LABELED   reports/html/fr-13-dashboard/chromium/index.html
+   UNLABELED reports/html/fr-13-dashboard/webkit/trace/index.html
+   UNLABELED reports/html/fr-13-dashboard/chromium/trace/
+   … [cắt bớt 1693 ký tự; xem transcript gốc]
+```text
+Clean. Ready to zip.
+
+## Verified
+
+| Check | Result |
+|---|---|
+| Content drift vs repo | **0 files differ** — every fix is in |
+| Report cells | 9, all carrying `Run by: 23127300` **+ ISO timestamp** |
+| `_ad-hoc` (the unlabeled report) | gone ✓ |
+| `reports/json/ad-hoc.json` | correctly left out of the restored `json/` ✓ |
+| §14 items | all present — main report, critique, audit, gap-analysis (MD + all 4 PDFs), prompt-log, run-manifest, git-log, README, sut-requirements, not-automated |
+| §7 skills | 4 skills, 5 files |
+| Specs / data / case-maps | 4 / 3 / 3 |
+| Bug evidence | 9 reports, 9 failure screenshots, 9 issue screenshots |
+
+The 9 `*/trace/index.html` files that show as unlabeled are Playwright's bundled trace-viewer app, not reports — they ship inside every HTML report. Ignore.
+
+## Extras present — all fine
+
+`automation/test-results/` (45 files, failure traces/videos), `reports/json/` (10 files, run data), `automation/.env`, 9 × `.DS_Store`. None costs points; the first two are genuine supporting evidence.
+
+## Missing — 8 files, none required
+
+`CLAUDE.md`, `HW04-AutomationTesting.md`, `.gitignore`, `.github/ISSUE_TEMPLATE/bug-report-template.md`, and 4 × `.gitkeep`. The `.gitkeep` files exist only to keep empty directories in git — every one of those directories has real content here, so they're meaningless outside the repo. Nothing links to any of them.
+
+## Zip it
+
+```bash
+cd ~/Documents
+mv 'CS423-CSC15003-Testing-N08 copy' 23127300_HW04_AI_Automation
+zip -r ~/Desktop/23127300_HW04_AI_Automation_100.zip 23127300_HW04_AI_Automation -x '*.DS_Store'
+```
+
+60 MB on disk → roughly **36 MB zipped**. The rename matters: "copy" in a submitted folder name reads like an accident.
+
+Last thing still unverified from my side — both YouTube links resolving, unlisted, ≥5 min, Vietnamese narration, face-cam or `whoami`/`hostname` on screen.
+```
+
+
+---
+
+
+## [50] Claude (Opus 5, Claude Code) — 7:57 PM 09/08/2026
+
+**Prompt:**
+
+```text
+just zipped in /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.zip /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z02 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z01
+
+now unzip and check again
+```
+
+**Output:**
+
+→ Bash: ls -la /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z* && echo "=== total bytes ===" && du -ch /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z* | tail -1
+   -rw-r--r--@ 1 hbn  staff  20971520 Aug  9 19:55 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z01
+   -rw-r--r--@ 1 hbn  staff  20971520 Aug  9 19:55 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z02
+   -rw-r--r--@ 1 hbn  staff   2557764 Aug  9 19:55 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.zip
+   === total bytes ===
+    42M	total
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad mkdir -p "$SP/verify" && cd "$SP/verify" && rm -rf ./* 2>/dev/null zip -q -s 0 /Users/hbn/Downloa
+… [cắt bớt 218 ký tự; xem transcript gốc]
+   (eval):2: no matches found: ./*
+   -rw-r--r--@ 1 hbn  staff  44500800 Aug  9 19:57 /private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad/verify/merged.zip
+   === integrity test ===
+   ZIP OK (no CRC errors)
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad cd "$SP/verify" && unzip -qq merged.zip -d extracted && echo "extracted" echo "=== top level ==="
+… [cắt bớt 202 ký tự; xem transcript gốc]
+   extracted
+   === top level ===
+   total 0
+   drwxr-xr-x@ 3 hbn  wheel   96 Aug  9 19:57 .
+   drwxr-xr-x@ 4 hbn  wheel  128 Aug  9 19:57 ..
+   drwxr-xr-x@ 3 hbn  wheel   96 Aug  9 19:57 Users
+   === root folder(s) inside zip ===
+   cut: stdin: Illegal byte sequence
+   Users
+   === file count ===
+        523
+   === size ===
+    60M	extracted
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad cd "$SP/verify" echo "=== nesting path ==="; find extracted -maxdepth 5 -type d | head -8 echo; e
+… [cắt bớt 193 ký tự; xem transcript gốc]
+   === nesting path ===
+   extracted
+   extracted/Users
+   extracted/Users/hbn
+   extracted/Users/hbn/Documents
+   extracted/Users/hbn/Documents/23127300_HW04_AI_Automation_100
+   extracted/Users/hbn/Documents/23127300_HW04_AI_Automation_100/.claude
+   extracted/Users/hbn/Documents/23127300_HW04_AI_Automation_100/ai-gap-analysis
+   extracted/Users/hbn/Documents/23127300_HW04_AI_Automation_100/bug-reports
+   
+   === first 5 entries as stored in the zip ===
+   Users/hbn/Documents/23127300_HW04_AI_Automation_100/
+   Users/hbn/Documents/23127300_HW04_AI_Automation_100/git-log.txt
+   Users/hbn/Documents/23127300_HW04_AI_Automation_100/.DS_Store
+   Users/hbn/Documents/23127300_HW04_AI_Automation_100/.claude/
+   Users/hbn/Documents/23127300_HW04
+   … [cắt bớt 145 ký tự; xem transcript gốc]
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad P="$SP/verify/extracted/Users/hbn/Documents/23127300_HW04_AI_Automation_100" SRC='/Users/hbn/Docu
+… [cắt bớt 789 ký tự; xem transcript gốc]
+   === payload vs source folder: any drift? ===
+   diff: /Users/hbn/Documents/CS423-CSC15003-Testing-N08 copy: No such file or directory
+   (empty above = identical)
+   
+   === §14 spot check on the extracted payload ===
+     OK  reports/main-report.md
+     OK  reports/pdf/main-report.pdf
+     OK  reports/pdf/ai-critique.pdf
+     OK  reports/pdf/ai-audit-report.pdf
+     OK  reports/pdf/ai-gap-analysis.pdf
+     OK  reports/ai-audit-report.md
+     OK  reports/ai-critique.md
+     OK  reports/prompt-log.md
+     OK  reports/run-manifest.md
+     OK  git-log.txt
+     OK  README.md
+     labeled reports:        9
+     bug reports:        9
+     skills:        5
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad P="$SP/verify/extracted/Users/hbn/Documents/23127300_HW04_AI_Automation_100" SRC=/Users/hbn/Docum
+… [cắt bớt 153 ký tự; xem transcript gốc]
+   /Users/hbn/Documents/23127300_HW04_AI_Automation_100
+   (empty above = payload identical to source)
+```text
+Unzipped and checked. **The contents are perfect — but the archive itself has two structural problems.**
+
+## Contents: clean
+
+Payload is byte-identical to your source folder. 523 files, 60 MB. Zip passes `unzip -t` with no CRC errors. All §14 items present, 9/9 reports labeled, 9 bug reports, 4 skills.
+
+## Problem 1 — it's a split archive (3 files)
+
+`.z01` + `.z02` + `.zip`, split at 20 MB. Moodle's submission box expects **one** file. Even where multiple uploads are allowed, a grader who downloads only the `.zip` (the one that *looks* like the archive) gets 2.5 MB of trailing data that won't open — the `.z01`/`.z02` carry the actual payload. §14 specifies a single `<StudentID>_HW04_AI_Automation_<Grade>.zip`.
+
+## Problem 2 — absolute paths baked in
+
+Entries are stored as `Users/hbn/Documents/23127300_HW04_AI_Automation_100/...`. The TA unzips and gets four levels of nesting before your work, plus your local filesystem layout. That comes from `zip -r out.zip /Users/hbn/Documents/folder` — the absolute path gets stored.
+
+## Fix — rezip in one file, relative paths
+
+```bash
+rm -f ~/Downloads/23127300_HW04_AI_Automation_100.z*
+cd ~/Documents
+zip -r ~/Downloads/23127300_HW04_AI_Automation_100.zip \
+    23127300_HW04_AI_Automation_100 -x '*.DS_Store'
+```
+
+The `cd` is what matters — zipping the *relative* folder name stores paths as `23127300_HW04_AI_Automation_100/...`, and no `-s` means no splitting. Expect ~36 MB single file.
+
+Then verify:
+
+```bash
+unzip -l ~/Downloads/23127300_HW04_AI_Automation_100.zip | head -5
+```
+
+First entries should start with `23127300_HW04_AI_Automation_100/`, not `Users/`.
+
+If 36 MB genuinely exceeds the Moodle limit, drop `automation/test-results/` (3.5 MB) and the video/trace attachments rather than splitting — but check the limit first, since 36 MB is under the common 50 MB cap.
+```
+
+
+---
+
+
+## [51] Claude (Opus 5, Claude Code) — 7:59 PM 09/08/2026
+
+**Prompt:**
+
+```text
+the teacher said if exceeds 20mb then submit multiple split zips is okay
+```
+
+**Output:**
+
+```text
+Good — that settles the split. Ignore my Problem 1 entirely; the teacher's rule is authoritative.
+
+**Problem 2 still stands and is independent of splitting.** Your current parts store every entry as `Users/hbn/Documents/23127300_HW04_AI_Automation_100/...`, so the TA unzips into four levels of nesting before reaching your work. That's from zipping an absolute path, not from splitting.
+
+Rezip the same way, split included, but from inside `~/Documents` so paths are relative:
+
+```bash
+rm -f ~/Downloads/23127300_HW04_AI_Automation_100.z*
+cd ~/Documents
+zip -r -s 20m ~/Downloads/23127300_HW04_AI_Automation_100.zip \
+    23127300_HW04_AI_Automation_100 -x '*.DS_Store'
+```
+
+`-s 20m` keeps the 20 MB split; the `cd` is what fixes the paths. Excluding `.DS_Store` should bring it to ~36 MB, so you'll likely get 2 parts (`.z01` + `.zip`) instead of 3.
+
+Verify before uploading:
+
+```bash
+unzip -l ~/Downloads/23127300_HW04_AI_Automation_100.zip | head -5
+```
+
+First entries must start with `23127300_HW04_AI_Automation_100/`. Upload **all** parts together — the `.zip` alone is not openable.
+```
+
+
+---
+
+
+## [52] Claude (Opus 5, Claude Code) — 8:00 PM 09/08/2026
+
+**Prompt:**
+
+```text
+what why is that happen?
+```
+
+**Output:**
+
+```text
+`zip` stores the path **exactly as you typed it on the command line** — it doesn't rebase to the folder's basename.
+
+So this:
+
+```bash
+zip -r out.zip /Users/hbn/Documents/23127300_HW04_AI_Automation_100
+```
+
+stores `Users/hbn/Documents/23127300_HW04_AI_Automation_100/...`. The leading `/` is stripped (zip refuses to store absolute paths, since extracting one could overwrite system files), but everything after it is kept verbatim.
+
+Whereas:
+
+```bash
+cd ~/Documents
+zip -r out.zip 23127300_HW04_AI_Automation_100
+```
+
+stores `23127300_HW04_AI_Automation_100/...` — because that's the path you named.
+
+Same folder, same contents, different recorded prefix. That's why the `cd` matters and isn't cosmetic.
+
+Worth noting the archive also kept 8 `.DS_Store` files, so the `-x '*.DS_Store'` either wasn't in the command you ran or was placed where the shell didn't pass it through. The rezip command handles both.
+```
+
+
+---
+
+
+## [53] Claude (Opus 5, Claude Code) — 8:02 PM 09/08/2026
+
+**Prompt:**
+
+```text
+but is that a big problem because i do the same on the previous homework?
+```
+
+**Output:**
+
+```text
+Let me check your HW02 zip rather than guess.
+```
+→ Bash: for z in ~/Documents/23127300_HW02_AI_DomainTesting_100.zip ~/Documents/23127300.zip ~/Documents/23127300_MINILAB_POSTGRES.zip; do [ -f "$z" ] && { echo "=== $(basename $z) ==="; LC_ALL=C unzip -Z1 "$z" 2>/dev/null | hea
+… [cắt bớt 19 ký tự; xem transcript gốc]
+   === 23127300_HW02_AI_DomainTesting_100.zip ===
+   23127300_HW02_AI_DomainTesting_100/
+   __MACOSX/._23127300_HW02_AI_DomainTesting_100
+   23127300_HW02_AI_DomainTesting_100/.DS_Store
+   
+   === 23127300.zip ===
+   23127300/
+   __MACOSX/._23127300
+   23127300/.DS_Store
+   
+   === 23127300_MINILAB_POSTGRES.zip ===
+   23127300_MINILAB_POSTGRES/
+   __MACOSX/._23127300_MINILAB_POSTGRES
+   23127300_MINILAB_POSTGRES/.DS_Store
+```text
+You didn't, actually — your previous zips are clean:
+
+```
+23127300_HW02_AI_DomainTesting_100/
+23127300_MINILAB_POSTGRES/
+```
+
+Those were made with Finder's **Compress** (the `__MACOSX/` entries are its signature), which always stores clean relative paths. The HW04 one is different because it came from the CLI with an absolute path.
+
+On severity: it's **cosmetic**. Nothing is corrupted, nothing is missing, no rubric criterion touches archive layout, and the TA can open it fine — they just click through `Users → hbn → Documents` first. I listed it next to the split-archive issue, which made it look weightier than it is.
+
+So: your current 3-part archive is submittable as-is. Rezip only because it's a 20-second command and it'd match how your other submissions look — not because anything is at risk.
+
+One thing Finder can't do is split at 20 MB, so stick with the CLI version if you want the split; just `cd ~/Documents` first. Bonus: no `__MACOSX/` junk either.
+```
+
+
+---
+
+
+## [54] Claude (Opus 5, Claude Code) — 8:03 PM 09/08/2026
+
+**Prompt:**
+
+```text
+no the submission on hw03 i also split zip from documents to download folder, is it okay? i remember tested merge and its all good
+```
+
+**Output:**
+
+→ Bash: ls -la ~/Downloads/*HW03* ~/Downloads/*.z0* 2>/dev/null | head -20; echo "--- any HW03 zip anywhere ---"; find ~/Downloads ~/Documents ~/Desktop -maxdepth 2 -iname '*HW03*' 2>/dev/null | head
+   -rw-r--r--@ 1 hbn  staff    231854 Jul 30 16:05 /Users/hbn/Downloads/2026.HW03.GUI Usability_En (1).pdf
+   -rw-r--r--@ 1 hbn  staff    504373 Jul 19 22:52 /Users/hbn/Downloads/2026.HW03.GUI Usability_En.pdf
+   -rw-r--r--@ 1 hbn  staff  20971520 Aug  3 00:47 /Users/hbn/Downloads/23127300_HW03_AI_GUIUsability_100.z01
+   -rw-r--r--@ 1 hbn  staff  20971520 Aug  3 00:47 /Users/hbn/Downloads/23127300_HW03_AI_GUIUsability_100.z01
+   -rw-r--r--@ 1 hbn  staff   2613228 Aug  3 00:47 /Users/hbn/Downloads/23127300_HW03_AI_GUIUsability_100.zip
+   
+   /Users/hbn/Downloads/23127300_HW03_AI_GUIUsability_100:
+   total 1400
+   drwxr-xr-x   14 hbn  staff     448 Aug  3 00:26 .
+   drwx------@ 618 hbn  staff   19776 Aug  9 20:02 ..
+   -rw-r-
+   … [cắt bớt 1082 ký tự; xem transcript gốc]
+→ Bash: echo "=== HW03 zip: first entries ==="; LC_ALL=C unzip -Z1 ~/Downloads/23127300_HW03_AI_GUIUsability_100.zip 2>/dev/null | head -5 echo "(above is only the last split part; merging for the real listing)" SP=/private/tmp/
+… [cắt bớt 404 ký tự; xem transcript gốc]
+   === HW03 zip: first entries ===
+   23127300_HW03_AI_GUIUsability_100/
+   23127300_HW03_AI_GUIUsability_100/git-log.txt
+   23127300_HW03_AI_GUIUsability_100/cross-platform/
+   23127300_HW03_AI_GUIUsability_100/cross-platform/screenshots/
+   23127300_HW03_AI_GUIUsability_100/cross-platform/screenshots/android-chrome-cart-added.png
+   (above is only the last split part; merging for the real listing)
+   === HW03 merged: root prefix ===
+   23127300_HW03_AI_GUIUsability_100/
+   23127300_HW03_AI_GUIUsability_100/git-log.txt
+   23127300_HW03_AI_GUIUsability_100/cross-platform/
+   23127300_HW03_AI_GUIUsability_100/cross-platform/screenshots/
+   === HW03 integrity ===
+   OK
+```text
+Checked HW03 directly. You're right about the splitting — and it also answers the path question:
+
+```
+HW03 (2 parts, .z01 + .zip)   →  23127300_HW03_AI_GUIUsability_100/...   ✅ clean
+HW04 (3 parts, .z01/.z02/.zip) →  Users/hbn/Documents/23127300_HW04.../  ❌ nested
+```
+
+HW03 merges clean and passes `unzip -t`. So **splitting is proven fine** — that was never the issue, and the teacher's rule confirms it.
+
+The difference is just where you ran the command from. For HW03 the folder lived in `~/Downloads` and you zipped it by relative name. This time the folder is in `~/Documents` and you passed the absolute path, so zip recorded the whole `Users/hbn/Documents/` prefix.
+
+Still cosmetic — nothing broken either way. But since HW03 came out clean, matching it costs one command:
+
+```bash
+rm -f ~/Downloads/23127300_HW04_AI_Automation_100.z*
+cd ~/Documents
+zip -r -s 20m ~/Downloads/23127300_HW04_AI_Automation_100.zip \
+    23127300_HW04_AI_Automation_100 -x '*.DS_Store'
+```
+```
+
+
+---
+
+
+## [55] Claude (Opus 5, Claude Code) — 8:06 PM 09/08/2026
+
+**Prompt:**
+
+```text
+okay check again
+```
+
+**Output:**
+
+→ Bash: ls -la ~/Downloads/23127300_HW04_AI_Automation_100.z* 2>/dev/null; echo "=== total ==="; du -ch ~/Downloads/23127300_HW04_AI_Automation_100.z* 2>/dev/null | tail -1
+   -rw-r--r--  1 hbn  staff  20971520 Aug  9 20:05 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z01
+   -rw-r--r--  1 hbn  staff  20971520 Aug  9 20:05 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.z02
+   -rw-r--r--  1 hbn  staff   2525429 Aug  9 20:05 /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.zip
+   === total ===
+    42M	total
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad rm -rf "$SP/v2"; mkdir -p "$SP/v2" zip -q -s 0 ~/Downloads/23127300_HW04_AI_Automation_100.zip --
+… [cắt bớt 423 ký tự; xem transcript gốc]
+   === integrity ===
+   OK — no CRC errors
+   === root prefix ===
+   23127300_HW04_AI_Automation_100/
+   23127300_HW04_AI_Automation_100/git-log.txt
+   23127300_HW04_AI_Automation_100/.claude/
+   23127300_HW04_AI_Automation_100/.claude/skills/
+   === .DS_Store / __MACOSX in archive ===
+   0
+   === entries ===
+        594
+→ Bash: SP=/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/e98fa1cc-9d5d-4b1d-8e3b-32936028b047/scratchpad cd "$SP/v2" && unzip -qq merged.zip -d x P="$SP/v2/x/23127300_HW04_AI_Automation_100" echo "=== d
+… [cắt bớt 1364 ký tự; xem transcript gốc]
+   === drift vs source folder (excluding .DS_Store) ===
+   (empty above = identical)
+   
+   === §14 ===
+     OK       reports/main-report.md
+     OK       reports/pdf/main-report.pdf
+     OK       reports/ai-critique.md
+     OK       reports/pdf/ai-critique.pdf
+     OK       reports/ai-audit-report.md
+     OK       reports/pdf/ai-audit-report.pdf
+     OK       reports/pdf/ai-gap-analysis.pdf
+     OK       ai-gap-analysis/ai-generated-script-gaps.md
+     OK       reports/prompt-log.md
+     OK       reports/run-manifest.md
+     OK       git-log.txt
+     OK       README.md
+     OK       sut-requirements.md
+     OK       test-design/not-automated.md
+     skills (§7):        5
+     specs / data / case-maps:        4 /        3 /        3
+     bug reports / f
+   … [cắt bớt 236 ký tự; xem transcript gốc]
+```text
+Archive is good. Ship it.
+
+## Structure — both issues fixed
+
+```
+23127300_HW04_AI_Automation_100/
+23127300_HW04_AI_Automation_100/git-log.txt
+23127300_HW04_AI_Automation_100/.claude/...
+```
+
+Clean relative prefix, matching HW03. Zero `.DS_Store`, zero `__MACOSX`. Merges and passes `unzip -t` with no CRC errors. 3 parts, 42 MB total — split is fine per your teacher.
+
+## Contents — verified against source
+
+`diff -rq` against `~/Documents/23127300_HW04_AI_Automation_100`: **identical**, 515 files, 60 MB extracted.
+
+| Item | |
+|---|---|
+| Main report, AI Critique, AI Audit, gap-analysis | MD + all 4 PDFs ✓ |
+| prompt-log, run-manifest, git-log, README, sut-requirements, not-automated | ✓ |
+| Agent Skills (§7) | 4 skills, 5 files |
+| Specs / data files / case-maps | 4 / 3 / 3 |
+| Bug reports / failure screenshots / issue screenshots | 9 / 9 / 9 |
+| HTML report cells | 9 |
+| Labeled `Run by: 23127300` + ISO timestamp | **9 / 9** |
+
+## Upload
+
+All three files together — `.z01`, `.z02`, `.zip`. The `.zip` alone won't open.
+
+Only thing I can't verify from here: both YouTube links resolving, unlisted, ≥5 min, Vietnamese narration, and face-cam or `whoami`/`hostname` on screen.
+```
+
+
+---
+
+
+**Phiên `e22a2a0a` — Session 6 (tiếp) — đối chiếu kịch bản video 2 với yêu cầu prompt log**
+
+
+## [56] Claude (Opus 5, Claude Code) — 10:55 PM 09/08/2026
+
+**Prompt:**
+
+```text
+is it a problem that the demo script of video 2 in docs/superpowers/video-scripts.md doesnt have any real prompt for the agent? the requirements are in HW04-AutomationTesting.md
+```
+
+**Output:**
+
+→ Bash: ls && ls docs/superpowers/ 2>/dev/null && wc -l HW04-AutomationTesting.md docs/superpowers/video-scripts.md
+   CLAUDE.md
+   HW04-AutomationTesting.md
+   README.md
+   ai-gap-analysis
+   automation
+   bug-reports
+   docs
+   git-log.txt
+   reports
+   sut-requirements.md
+   test-design
+   plans
+   specs
+   video-scripts.md
+        292 HW04-AutomationTesting.md
+        230 docs/superpowers/video-scripts.md
+        522 total
+→ Read(docs/superpowers/video-scripts.md)
+→ Read(HW04-AutomationTesting.md)
+→ Bash: wc -l .claude/skills/playwright-automation/SKILL.md && head -70 .claude/skills/playwright-automation/SKILL.md
+   247 .claude/skills/playwright-automation/SKILL.md
+   ---
+   name: playwright-automation
+   description: Run HW04 Task 1 end to end — drive an AI stage by stage to convert manual test cases into data-driven Playwright specs for a feature, review and repair what the AI got wrong, execute the 3-browser matrix so every feature produces its own HTML report labeled "Run by: <StudentID>" plus an ISO timestamp, and turn genuine assertion failures into bug reports. Use when starting or continuing any HW04 automation feature, when running or repairing the browser matrix, when a report is missing/mislabeled, or when auditing the suite against the HW04 rubric.
+   ---
+   
+   # Playwright Automation (HW04 Task 1)
+   
+   Produce
+   … [cắt bớt 3373 ký tự; xem transcript gốc]
+→ Bash: wc -l reports/prompt-log.md && grep -n "^#\{2,3\} " reports/prompt-log.md | head -40
+   9232 reports/prompt-log.md
+   6:## Phạm vi và cách dựng file
+   54:## [1] Claude (Opus 5, Claude Code) — 10:38 PM 05/08/2026
+   99:## [2] Claude (Opus 5, Claude Code) — 11:07 PM 05/08/2026
+   450:## What the material tells me
+   458:## Assessment of the seminar skills
+   470:## Proposed structure
+   828:## [3] Claude (Opus 5, Claude Code) — 11:30 PM 05/08/2026
+   844:## [4] Claude (Opus 5, Claude Code) — 11:30 PM 05/08/2026
+   882:## [5] Claude (Opus 5, Claude Code) — 11:30 PM 05/08/2026
+   981:## [6] Claude (Opus 5, Claude Code) — 11:33 PM 05/08/2026
+   1007:## [7] Claude (Opus 5, Claude Code) — 11:34 PM 05/08/2026
+   1055:## [8] Claude (Opus 5, Claude Code) — 11:35 PM 05/08/2026
+   1126:## [9] Claude (Opus 5, Claude Code) — 11:
+   … [cắt bớt 1532 ký tự; xem transcript gốc]
+→ Bash: grep -n "FR-13\|fr-13" reports/prompt-log.md | head -30; echo ---; grep -n "^### Prompt\|^\*\*Prompt" reports/prompt-log.md | head -5
+   180:   FR-13-dashboard
+   192:   reviews/FR-13-dashboard:
+   341:   FR-13-dashboard/domain-testing:        6
+   393:     test/FR-13
+   452:**Your HW04 features are fixed by §5** — same three web features as HW02: **FR-02 login/lockout (Pool A)**, **FR-10 order state machine (Pool B)**, **FR-13 dashboard (Pool C)**. FR-26 is dropped (mobile).
+   454:Case-count gap: HW02 gave you FR-02 = 15 cases, FR-10 = 14, **FR-13 = 6**. HW04 needs ≥12 *per feature*, so FR-13 needs ~6 new cases designed in HW04 (dashboard is read-only, so they'll be stat-correctness / empty-state / role-access / refresh-after-order cases). That's the one real design gap.
+   456:**SUT topology matters for the config**: backend API `:3000`, we
+   … [cắt bớt 3550 ký tự; xem transcript gốc]
+→ Bash: grep -n "^## \[" reports/prompt-log.md | sed -n '25,60p'; echo "=== audit entries 16-18 ==="; grep -n "^## \|^### " reports/ai-audit-report.md | sed -n '1,40p'
+   3227:## [25] Claude (Opus 5, Claude Code) — 9:07 AM 08/08/2026
+   3332:## [7] Claude (Opus 5, Claude Code) — 8:24 AM 07/08/2026
+   3663:## [26] Claude (Sonnet 5, Claude Code) — 9:24 PM 08/08/2026
+   5428:## [27] Claude (Sonnet 5, Claude Code) — 10:27 PM 08/08/2026
+   5484:## [28] Claude (Sonnet 5, Claude Code) — 1:39 PM 09/08/2026
+   5607:## [29] Claude (Sonnet 5, Claude Code) — 1:49 PM 09/08/2026
+   5630:## [30] Claude (Sonnet 5, Claude Code) — 1:49 PM 09/08/2026
+   5657:## [31] Claude (Sonnet 5, Claude Code) — 1:52 PM 09/08/2026
+   5737:## [32] Claude (Opus 5, Claude Code) — 1:58 PM 09/08/2026
+   6114:## [33] Claude (Opus 5, Claude Code) — 2:06 PM 09/08/2026
+   6618:## [34] Claude (Opus 5, Claude Code) — 3:05 PM 09/08/
+   … [cắt bớt 1306 ký tự; xem transcript gốc]
+```text
+Yes — it's a real gap, and it's the one thing Video 2 is actually graded on.
+
+**What §7 asks for:** "Submit the skill together with a demonstration video that shows, **end to end, how you used the skill** on a complete feature." Worth 10 points (§15).
+
+**What the current script shows:** a tour of artifacts that already exist — `SKILL.md`, `case-map.md`, the JSON, the spec, audit Entries #16/#17 — plus one `npx playwright test` run in Cảnh 5. The skill is never invoked. Nothing on screen distinguishes "AI drove these 7 stages" from "student hand-wrote these files and put a SKILL.md next to them." Cảnh 4 in particular narrates *"AI tự phát hiện ra..."* while showing only a Markdown paragraph asserting that it happened.
+
+It also weakly serves §2's headline principle — "not a single generic prompt … guide the AI through every step" — which is exactly what a stage-by-stage skill is supposed to prove, and the video is where a TA would look for it.
+
+**Two fixes, both cheap:**
+
+1. **Show the real prompts you did use.** `reports/prompt-log.md` has them verbatim, chronologically, with the FR-13 work in entries [26]–[33]. A 40-second scene scrolling that file — "đây là 7 prompt riêng biệt cho FR-13, không phải một prompt duy nhất" — reading one stage prompt aloud, converts the claim into evidence. Retrospective, but truthful and zero risk.
+
+2. **Invoke the skill live, non-destructively.** Re-running Generate on FR-13 would overwrite committed artifacts, so don't. The skill's own description covers *"auditing the suite against the HW04 rubric"* — that path is read-only. Type a real prompt on camera (e.g. `Dùng skill playwright-automation để audit FR-13 theo rubric §6`), let the camera catch the skill announcing itself and walking its stages against the finished feature. That's a live end-to-end demonstration that touches nothing. If you'd rather show generation, do it in a `git worktree` on a throwaway branch against a feature outside your scope (FR-05, FR-11) and show stages 1–3 only, then cut back to FR-13.
+
+Doing #1 alone probably clears the bar. #1 + #2 makes it uncontestable.
+
+One smaller thing while you're in there: Cảnh 5's narration pre-states the result as "1 case pass, 11 case fail." If the live run disagrees on the day, you've narrated over your own evidence — phrase it as "kết quả kỳ vọng" or record the line after the run.
+
+Want me to write the added scenes into `docs/superpowers/video-scripts.md`?
+```
+
+
+---
+
+
+## [57] Claude (Opus 5, Claude Code) — 10:57 PM 09/08/2026
+
+**Prompt:**
+
+```text
+but i already filmed the video....
+```
+
+**Output:**
+
+```text
+Then don't reshoot — append. §7 sets no minimum length for the skill video, and the gap is a missing ~90 seconds, not a wrong video.
+
+Let me confirm which prompt-log entries actually cover the FR-13 stages so the addendum cites real numbers.
+```
+→ Bash: for n in 26 27 28 29 30 31 32 33; do l=$(grep -n "^## \[$n\]" reports/prompt-log.md | cut -d: -f1); if [ -n "$l" ]; then echo "--- [$n] line $l"; sed -n "$((l+1)),$((l+12))p" reports/prompt-log.md | grep -v '^$' | head -
+… [cắt bớt 11 ký tự; xem transcript gốc]
+   --- [26] line 3663
+   **Prompt:**
+   ```text
+   finish the superpowers plan for today's work, i prefer inline style because of the prompt log requirements
+   ```
+   **Output:**
+   → Bash: find . -iname "*plan*" -not -path "*/node_modules/*" -not -path "*/.git/*" | head -50
+   → Bash: git log --oneline -20 && echo --- && git status && echo --- && ls -la
+      ./docs/superpowers/plans
+   --- [27] line 5428
+   **Prompt:**
+   ```text
+   what about the video script, have you drafted it for me?
+   ```
+   **Output:**
+   → Bash: grep -rli "kịch bản\|video script\|narration" --include="*.md" . 2>/dev/null | grep -v node_modules
+      docs/superpowers/specs/2026-08-05-hw04-automation-design.md
+      reports/ai-audit-report.md
+   --- [28] line 5484
+   **Prom
+   … [cắt bớt 2151 ký tự; xem transcript gốc]
+```text
+Important correction to my earlier framing: entries [26]–[33] are planning/meta work, not the FR-13 stages. Let me find where the FR-13 stage prompts actually live.
+```
+→ Bash: awk '/^## \[/{hdr=$0; ln=NR} /^```text/{intext=1} {if(intext&&NR<=ln+14&&(tolower($0)~/fr-13|dashboard/)){print ln": "hdr" -> "$0; intext=0}}' reports/prompt-log.md | head -20
+   1486: ## [13] Claude (Opus 5, Claude Code) — 11:49 PM 05/08/2026 -> The problem isn't DB pollution. The suite is built to be re-runnable: FR-02 registers throwaway accounts, FR-10 creates a fresh order per case, FR-13 computes expected revenue live from `GET /api/admin/orders`. Running it again on Aug 9 doesn't corrupt anything.
+→ Bash: grep -n "^## \[" reports/prompt-log.md | awk -F: '{print $1}' > /tmp/x; while read l; do p=$(sed -n "$((l+1)),$((l+8))p" reports/prompt-log.md | grep -A3 '^\*\*Prompt' | tr '\n' ' ' | cut -c1-110); echo "L$l | $(sed -n "
+… [cắt bớt 81 ký tự; xem transcript gốc]
+   L1796 | ## [20] Claude (Opus 5, Claude Code) — 12:11  | **Prompt:**  ```text ok 
+   L2275 | ## [21] Claude (Opus 5, Claude Code) — 12:32  | **Prompt:**  ```text stop them 
+   L2301 | ## [22] Claude (Opus 5, Claude Code) — 9:20 P | **Prompt:**  ```text so we will start the session 2 when? on aug 7? 
+   L2334 | ## [23] Claude (Opus 5, Claude Code) — 8:25 A | **Prompt:**  ```text execute the session 2 in superpowers plan 
+   L3037 | ## [24] Claude (Opus 5, Claude Code) — 9:03 A | **Prompt:**  ```text check the superpowers plan, now we no longer need the 4 days commit constraint, the requi
+   L3227 | ## [25] Claude (Opus 5, Claude Code) — 9:07 A | **Prompt:**  ```text also i dont get why the ai-audit and the p
+   … [cắt bớt 2261 ký tự; xem transcript gốc]
+
+
+---
+
+
+## [58] Claude (Opus 5, Claude Code) — 10:58 PM 09/08/2026
+
+**Prompt:**
+
+```text
+[Request interrupted by user]
+```
+
+**Output:**
+
+*(không có phản hồi — prompt bị huỷ hoặc thay bằng prompt kế tiếp)*
+
+
+---
+
+
+## [59] Claude (Opus 5, Claude Code) — 10:58 PM 09/08/2026
+
+**Prompt:**
+
+```text
+also i submitted the homework already, but the content is just a bit lack right it should be minor?
+```
+
+**Output:**
+
+```text
+Yes — minor. I overstated it by calling it "the one thing Video 2 is graded on."
+
+Re-reading §7 literally: *"a demonstration video that shows, end to end, how you used the skill on a complete feature."* Past tense, and your Video 2 does walk FR-13 through the skill's seven stages in order, with a real Chromium run at the end. What's missing is the live invocation, not the demonstration. Two other things cover you:
+
+- The skill itself is submitted (`SKILL.md`), and §7 is phrased as *encouraged* — it's the 10-point row, not a pass/fail document under §17.
+- `reports/prompt-log.md` is 9,232 lines of verbatim prompts and `ai-audit-report.md` carries the Verdict/Reasoning/Student Fix entries. A TA who wants proof the stages were separately driven has it in writing, just not on camera.
+
+Realistic exposure is a point or two on the Agent Skills row. Task 1 (75) and Task 2 (15) are untouched — Video 1 hits every §11 and §7-Task-2 requirement.
+
+**Don't resubmit for this.** Re-editing means a new YouTube upload (YouTube won't swap the file on `youtu.be/cRN4PV6iYfE`), new links in README.md and main-report.md, re-exported PDFs, re-zipped. Poor trade for one or two points, and churn on a submitted package carries its own risk.
+
+**Do this instead:** §13 puts 30% of students into a 5–7 minute oral defense. If you're called, that's the natural place to run the skill live — it's read-only against the finished FR-13 artifacts, needs no SUT, and takes under a minute. Worth having the exact prompt and the prompt-log entries ready to pull up. I can put together a short prep note for that if you want.
+```
+
+
+---
+
+
+## [60] Claude (Opus 5, Claude Code) — 11:02 PM 09/08/2026
+
+**Prompt:**
+
+```text
+okay so i can defend that the prompt i used is already in the prompt log and they can check if they want, the video just show how i used that skill right? also where is the line in the prompt log just in case?
+```
+
+**Output:**
+
+```text
+Let me pin down the exact locations rather than guess.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 for n in 15 16 17 18 19; do l=$(grep -n "^## Entry #$n\b" reports/ai-audit-report.md | cut -d: -f1); echo "=== Entry #$n @ line $l"; sed -n "$((l)),$((l+16))p" reports/a
+… [cắt bớt 50 ký tự; xem transcript gốc]
+   === Entry #15 @ line 1068
+   ## Entry #15
+   ### (1) Prompt + Tool
+   | Field             | Content         |
+   | ----------------- | --------------- |
+   | **Tool**          | Claude (Opus 5, Claude Code) |
+   | **Timestamp**     | 9:07 AM 08/08/2026 |
+   | **Artifact type** | Dựng lại `reports/prompt-log.md` và `reports/ai-audit-report.md` nguyên văn từ transcript + `reports/tools/extract-prompt-log.py` |
+   **Full prompt:**
+   ```
+   also i dont get why the ai-audit and the prompt-log is not verbatim, it rephrases too much, and also not very sufficient as it only logs the session 2, not the plan and the session 1, so its missing a lot
+   ```
+   ### (2) AI Output
+   === Entry #16 @ line 1140
+   ## Entry #16
+   ### (1) Prompt + Tool
+   … [cắt bớt 2322 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 grep -n "^## Task 11\|^## Task 12\|^### Task 11\|^### Task 12\|Task 11\|Task 12" docs/superpowers/plans/2026-08-05-hw04-automation.md | head -10
+   43:| `automation/test-data/fr-13-dashboard.cases.json` | FR-13 case records | Create (Task 11) |
+   44:| `automation/pages/dashboard.page.ts` | Admin dashboard metrics (`:5174`) | Create (Task 12) |
+   45:| `automation/tests/fr-13-dashboard.spec.ts` | FR-13 spec | Create (Task 12) |
+   953:- Produces: `test` extended with an `adminPage` fixture (a `Page` already carrying an admin JWT on `:5174`); `AdminOrdersPage` with `goto()`, `rowFor(orderId)`, `statusSelect(orderId)`, `setStatus(orderId, status)`, `statusText(orderId)`; `MyOrdersPage` with `goto()`, `rowFor(orderId)`, `statusText(orderId)`, `cancelButton(orderId)`. Task 12's dashboard spec reuses `auth.fixture.ts`.
+   1188:### Task 11: Design and bu
+   … [cắt bớt 77 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08; sed -n '1188,1210p' docs/superpowers/plans/2026-08-05-hw04-automation.md
+   ### Task 11: Design and build the FR-13 case set
+   
+   **Files:**
+   - Read: `~/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-13-dashboard/**` (6 cases), `sut-requirements.md` §4
+   - Modify: `test-design/FR-13-dashboard/case-map.md`, `test-design/not-automated.md`, `automation/utils/data.ts`
+   - Create: `automation/test-data/fr-13-dashboard.cases.json`
+   
+   **Interfaces:**
+   - Produces: `dashboardCaseSchema`, `DashboardCase` from `utils/data.ts`.
+   
+   FR-13 is the only feature short of 12 carry-over cases: 6 exist, one of which is not automatable, so **7 cases are designed fresh in HW04** and must be documented as new HW04 design work in `reports/main-report.md`.
+   
+   - [ ] **Step 1: Read the 6 HW0
+   … [cắt bớt 886 ký tự; xem transcript gốc]
+```text
+Partly — but not the way you phrased it, and it matters because a TA can open the log in ten seconds.
+
+**The correction:** for FR-13 there wasn't a separate prompt per stage. All three audit entries (#16, #17, #18) share one typed prompt — *"finish the superpowers plan for today's work, i prefer inline style because of the prompt log requirements"* — and your own audit report says so explicitly under Entry #16: *"không có prompt riêng cho từng stage vì đây là một [task của kế hoạch]"*. If you claim seven prompts, the log contradicts you.
+
+**The defense that actually holds:** the stage-by-stage decomposition is in the plan file, not the chat. `docs/superpowers/plans/2026-08-05-hw04-automation.md` Task 11 (line 1188) covers stages 1–5 with numbered steps — read HW02 cases, mark the unautomatable one, design 7 new from `sut-requirements.md` §4, model the schema — and Task 12 (line 1314) covers stages 6–7. What §2 forbids is *"a single, generic prompt such as 'write all the automation scripts for this feature'"*. Yours decomposed the feature into named steps with explicit oracles, files and review checkpoints **before** execution, and the skill enforced the seven stages. That's the same discipline, written down in advance instead of typed one message at a time — and it's auditable, which a chat transcript isn't.
+
+So the line is: *"Skill ép AI đi qua 7 stage; việc phân rã nằm trong file kế hoạch Task 11–12, và mỗi stage được log riêng với phần review của em trong ai-audit-report Entry #16–17. Video trình bày lại từng stage đó trên FR-13."*
+
+**Where to point:**
+
+| What | File | Line |
+|---|---|---|
+| Prompt driving FR-13 (Tasks 11–12, all 7 stages) | `reports/prompt-log.md` | 3663 — entry `[26]`, 9:24 PM 08/08 |
+| Prompt driving FR-10 session | `reports/prompt-log.md` | 2334 — entry `[23]` |
+| FR-13 stages 1–5 + your review | `reports/ai-audit-report.md` | 1140 — Entry #16 |
+| FR-13 stages 6–7 (the `seedUserToken` self-catch) | `reports/ai-audit-report.md` | 1286 — Entry #17 |
+| Stage decomposition, FR-13 | `docs/superpowers/plans/…-hw04-automation.md` | 1188 (Task 11), 1314 (Task 12) |
+
+Two heads-ups: `prompt-log.md` has a duplicate entry `[7]` at line 3332 (same content as entry `[23]`, an extractor re-run) — harmless, just don't be surprised. And I only verified FR-13's entries here; say the word and I'll check whether FR-02 and FR-10 were driven more granularly, since FR-02 is Video 1's feature and carries 25 points.
+```
+
+
+---
+
+
+## [61] Claude (Opus 5, Claude Code) — 11:06 PM 09/08/2026
+
+**Prompt:**
+
+```text
+wait so the prompt doesnt really show how i used the skills. then what does the plan say ? like do step 1->5 in the skill in 1 task and 2 on the other one?
+```
+
+**Output:**
+
+```text
+Good question — that's the crux. Let me check whether the plan actually names the skill and its stages, or whether the mapping was made after the fact.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 echo "=== skill named in plan? ==="; grep -n "playwright-automation\|Agent Skill\|SKILL.md" docs/superpowers/plans/2026-08-05-hw04-automation.md | head -20 echo; echo "=
+… [cắt bớt 172 ký tự; xem transcript gốc]
+   === skill named in plan? ===
+   74:1. **The two YouTube links** (demo video + Agent Skill demo) into `README.md` and `reports/main-report.md`. Today these go in as the literal placeholder `<!-- TODO: YouTube link, Aug 9 -->` so the surrounding prose is already final.
+   292:This is the `playwright-automation` skill's stages 1–3 (analyze → design → review). Log the interaction with both the `prompt-log` and `ai-audit-log` skills.
+   1616:- [ ] **Step 9: Record the Agent Skill demo** (§7) — a shorter screen recording showing the `playwright-automation` skill used end to end on one feature. Upload both videos to YouTube as **unlisted**.
+   
+   === stage vocabulary in plan? ===
+   292:This is the `playwright-auto
+   … [cắt bớt 129 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 awk 'NR<=292 && /^### Task /{t=$0; ln=NR} END{}' docs/superpowers/plans/2026-08-05-hw04-automation.md grep -n "^### Task " docs/superpowers/plans/2026-08-05-hw04-automat
+… [cắt bớt 248 ký tự; xem transcript gốc]
+   157:### Task 2: Make the run manifest merge instead of overwrite
+   283:### Task 3: Design the FR-02 case set
+   === context around 292 ===
+   
+   **Files:**
+   - Read: `~/Downloads/23127300_HW02_AI_DomainTesting_100/tests/test-cases/FR-02-login/**` (15 cases), `sut-requirements.md` §2
+   - Modify: `test-design/FR-02-login/case-map.md`, `test-design/not-automated.md`
+   
+   **Interfaces:**
+   - Produces: a fixed list of FR-02 case IDs (`F02-TC-001` … `F02-TC-0NN`), each with category, HW02 source ID, requirement clause, inputs and expected outcome. Task 4 turns this list into JSON; Task 5 turns it into tests.
+   
+   This is the `playwright-automation` skill's stages 1–3 (analyze → design → review). Log the interaction with
+   … [cắt bớt 802 ký tự; xem transcript gốc]
+```text
+No — the plan doesn't say that. I repeated the audit report's mapping last message as if it came from the plan; it doesn't.
+
+**What the plan actually says.** The skill's stages are named exactly once, at line 292, inside **Task 3: Design the FR-02 case set**:
+
+> This is the `playwright-automation` skill's stages 1–3 (analyze → design → review). Log the interaction with both the `prompt-log` and `ai-audit-log` skills.
+
+and Task 3's Interfaces line forward-chains it: *"Task 4 turns this list into JSON; Task 5 turns it into tests."* So for **FR-02**, the plan does pre-register the stage split — 3 = stages 1–3, 4 = stage 4, 5 = stages 5–6.
+
+**Tasks 11 and 12 (FR-13) never mention the skill or any stage.** They're structured the same way — Task 11 reads the HW02 cases, marks the unautomatable one, designs 7 new against `sut-requirements.md` §4, defines the schema; Task 12 recons the dashboard, writes the page object and spec — which *is* the stage order in practice. But the labels "stage 1–5" and "stage 6–7" only exist in `ai-audit-report.md`'s Artifact type field, written when you composed the entries afterwards.
+
+That's a retrospective description of work that genuinely did follow the stages, not a fabrication — the skill was loaded and it mandates them. But it's a description, not an instruction the AI was given. So don't claim the plan directed the stages for FR-13; a TA reading Tasks 11–12 won't find it.
+
+**The practical consequence:** if the skill comes up in an oral defense, **argue from FR-02, not FR-13** — even though Video 2 demos FR-13. FR-02 has the explicit line in the plan, the pre-registered task chain, and it's the feature the grader already watched in Video 1.
+
+True version of the line: *"Skill quy định 7 stage. Với FR-02, kế hoạch chỉ rõ Task 3 là stage 1–3, Task 4 là stage 4, Task 5 là stage 5–6 — em có thể mở đúng dòng đó. Với FR-13 em áp dụng cùng trình tự, và mỗi stage được ghi lại kèm phần review của em ở Entry #16–17."*
+
+Want me to pull the exact FR-02 chain — Task 3/4/5 line numbers and the matching audit entries — so you've got that ready?
+```
+
+
+---
+
+
+## [62] Claude (Opus 5, Claude Code) — 11:08 PM 09/08/2026
+
+**Prompt:**
+
+```text
+but yet again the script is still valid right? no need to re-filming right?
+```
+
+**Output:**
+
+```text
+Right — no reshoot.
+
+I checked Video 2's narration against the record and it doesn't claim anything that's contradicted. Cảnh 1 says the skill *"ép AI phải đi qua đúng 7 bước tách rời"* — that's a statement about what `SKILL.md` mandates, which is true. It never claims you typed seven separate prompts. Cảnh 2's Analyze/Design account matches Task 11 Steps 1–2, and Cảnh 4's `seedUserToken` self-catch is recorded in Entry #17. The video walks a complete feature through the skill's stages, which is what §7 asks for.
+
+The only thing that changed across this conversation is what you'd *say out loud* if a TA presses in the oral defense — argue from FR-02's explicit plan line, don't claim the plan pre-registered stages for FR-13. The filmed video needs nothing.
+```
+
+
+---
+
+
+**Phiên `2ff486c8` — Session 7 — bổ sung nhãn cho issue #204–#212, sửa ảnh bằng chứng BUG-FR13-002, vá skill bug-report**
+
+
+## [63] Claude (Opus 5, Claude Code) — 8:46 AM 10/08/2026
+
+**Prompt:**
+
+```text
+the github issues for this homework is missing tags, add them. also check if all the playwright screenshots are all okay not all white
+```
+
+**Output:**
+
+```text
+I'll start by looking at the current state of the GitHub issues and the report screenshots.
+```
+→ Bash: ls && echo "---BUGS---" && ls bug-reports/ 2>/dev/null && echo "---GH---" && gh issue list --limit 50
+→ Bash: find . -name "*.png" -o -name "*.jpg" | grep -iv node_modules | head -50
+   CLAUDE.md
+   HW04-AutomationTesting.md
+   README.md
+   ai-gap-analysis
+   automation
+   bug-reports
+   docs
+   git-log.txt
+   reports
+   sut-requirements.md
+   test-design
+   ---BUGS---
+   BUG-FR02-001.md
+   BUG-FR02-002.md
+   BUG-FR02-003.md
+   BUG-FR02-004.md
+   BUG-FR10-001.md
+   BUG-FR10-002.md
+   BUG-FR10-003.md
+   BUG-FR13-001.md
+   BUG-FR13-002.md
+   github-issues
+   screenshots
+   ---GH---
+   243	OPEN	[BUG][FR-14] API cập nhật/xóa danh mục không tồn tại vẫn trả thành công	Type: Bug, Severity: Major, Status: New, Priority: P2, Module: Category CRUD	2026-08-09T19:21:36Z
+   242	OPEN	[BUG][FR-14] API danh mục không validate tên bắt buộc khi thêm hoặc cập nhật	Type: Bug, Severity: Major, Priority: P1, Status: New, Module: Category CRUD	2026-08-09T19:25:43Z
+   241	O
+   … [cắt bớt 8143 ký tự; xem transcript gốc]
+   ./bug-reports/screenshots/BUG-FR10-001.png
+   ./bug-reports/screenshots/BUG-FR10-003.png
+   ./bug-reports/screenshots/BUG-FR10-002.png
+   ./bug-reports/screenshots/BUG-FR02-001.png
+   ./bug-reports/screenshots/BUG-FR02-003.png
+   ./bug-reports/screenshots/BUG-FR02-002.png
+   ./bug-reports/screenshots/BUG-FR13-002.png
+   ./bug-reports/screenshots/BUG-FR02-004.png
+   ./bug-reports/screenshots/BUG-FR13-001.png
+   ./bug-reports/github-issues/issue-207-BUG-FR02-004.png
+   ./bug-reports/github-issues/issue-209-BUG-FR10-002.png
+   ./bug-reports/github-issues/issue-212-BUG-FR13-002.png
+   ./bug-reports/github-issues/issue-208-BUG-FR10-001.png
+   ./bug-reports/github-issues/issue-206-BUG-FR02-003.png
+   ./bug-reports/github-issues/issue-211-
+   … [cắt bớt 3276 ký tự; xem transcript gốc]
+```text
+Two things to fix. Issues #204–#212 (my HW04 bugs) only carry `Type: Bug, Status: New`, while every other issue in the repo has Severity/Priority/Module too. Let me check the bug reports and the label set.
+```
+→ Skill(bug-report)
+→ Bash: gh label list --limit 100
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/bug-reports && head -30 BUG-FR02-001.md
+   bug	Something isn't working	#d73a4a
+   documentation	Improvements or additions to documentation	#EEE5BF
+   duplicate	This issue or pull request already exists	#D3C1C3
+   enhancement	New feature or request	#D1FFC6
+   invalid	This doesn't seem right	#e4e669
+   question	Further information is requested	#d876e3
+   wontfix	This will not be worked on	#ffffff
+   Type: Bug	This is a bug	#6247AA
+   Module: Login		#006400
+   Severity: Major		#FFAA00
+   Priority: P1		#A71E34
+   Module: Register		#007200
+   Status: New	Bug has been newly discorver and not yet confirm	#CAF0F8
+   found-by: test-case		#aaaaaa
+   Severity: Minor	Bug severity is Minor	#FFC300
+   Severity: Trivial	Bug severity is Trivival	#FFDD00
+   Severity: Blocker	Bugs has halted the sy
+   … [cắt bớt 1683 ký tự; xem transcript gốc]
+   # BUG-FR02-001: Ô nhập email dùng `type="text"`, không chặn định dạng sai bằng validate HTML5
+   
+   ## Found by Test Case
+   F02-TC-002 — "F02-TC-002 — Email sai định dạng bị chặn bởi validate HTML5"
+   
+   ## Requirement liên quan
+   FR-02 — `sut-requirements.md` §2: trường email phải dùng `type="email"` để trình duyệt tự validate định dạng.
+   
+   ## GitHub Issue
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204
+   
+   ![Issue #204 trên GitHub](github-issues/issue-204-BUG-FR02-001.png)
+   
+   ## Severity / Priority
+   Major / P2
+   
+   ## Environment
+   **Browser**: Chromium 151.0.7922.34 (Playwright 1.62.1)
+   **OS**: macOS 26.5.2 (Tahoe)
+   **URL**: Frontend Web `http://localhost:5173/login`
+   **Ngày thực thi**: 08/08/2026
+   
+   ##
+   … [cắt bớt 431 ký tự; xem transcript gốc]
+→ Bash: for f in BUG-*.md; do echo "=== $f"; sed -n '1p' $f; grep -A2 '^## Severity / Priority' $f | tail -1; grep '^https://github.com' $f; done
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/bug-reports/screenshots && for f in *.png; do echo "$f: $(sips -g pixelWidth -g pixelHeight "$f" 2>/dev/null | tail -2 | tr '\n' ' ') size=$(stat -f%z "$f")"; done
+   === BUG-FR02-001.md
+   # BUG-FR02-001: Ô nhập email dùng `type="text"`, không chặn định dạng sai bằng validate HTML5
+   
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204
+   === BUG-FR02-002.md
+   # BUG-FR02-002: Tài khoản bị khóa sau 2 lần sai liên tiếp thay vì 3
+   
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205
+   === BUG-FR02-003.md
+   # BUG-FR02-003: Thời gian khóa tài khoản vượt quá 30 giây quy định
+   
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/206
+   === BUG-FR02-004.md
+   # BUG-FR02-004: Response đăng nhập trả về mật khẩu người dùng ở dạng plaintext
+   
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/207
+   === BUG-FR10-001.md
+   # BUG-FR10-001: Đơn đã hủy (
+   … [cắt bớt 774 ký tự; xem transcript gốc]
+   BUG-FR02-001.png:   pixelWidth: 1280   pixelHeight: 720  size=36235
+   BUG-FR02-002.png:   pixelWidth: 1280   pixelHeight: 720  size=40192
+   BUG-FR02-003.png:   pixelWidth: 1280   pixelHeight: 720  size=40639
+   BUG-FR02-004.png:   pixelWidth: 1280   pixelHeight: 720  size=42005
+   BUG-FR10-001.png:   pixelWidth: 1280   pixelHeight: 720  size=128257
+   BUG-FR10-002.png:   pixelWidth: 1280   pixelHeight: 720  size=61915
+   BUG-FR10-003.png:   pixelWidth: 1280   pixelHeight: 720  size=62785
+   BUG-FR13-001.png:   pixelWidth: 1280   pixelHeight: 720  size=34272
+   BUG-FR13-002.png:   pixelWidth: 1280   pixelHeight: 720  size=34272
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/bug-reports && grep -A3 'Severity / Priority' BUG-*.md | grep -v 'Severity / Priority' | grep -v '^--' | grep -v '^\s*$'; echo "=== hashes ==="; cd screenshots && md5 -q
+… [cắt bớt 34 ký tự; xem transcript gốc]
+   BUG-FR02-002.md-Major / P1
+   BUG-FR02-002.md-
+   BUG-FR02-002.md-## Environment
+   BUG-FR02-001.md-Major / P2
+   BUG-FR02-001.md-
+   BUG-FR02-001.md-## Environment
+   BUG-FR10-001.md-Critical / P1
+   BUG-FR10-001.md-
+   BUG-FR10-001.md-## Environment
+   BUG-FR10-002.md-Major / P1
+   BUG-FR10-002.md-
+   BUG-FR10-002.md-## Environment
+   BUG-FR02-003.md-Major / P2
+   BUG-FR02-003.md-
+   BUG-FR02-003.md-## Environment
+   BUG-FR02-004.md-Critical / P0
+   BUG-FR02-004.md-
+   BUG-FR02-004.md-## Environment
+   BUG-FR10-003.md-Critical / P0
+   BUG-FR10-003.md-
+   BUG-FR10-003.md-## Environment
+   BUG-FR13-001.md-Critical / P1
+   BUG-FR13-001.md-
+   BUG-FR13-001.md-## Environment
+   BUG-FR13-002.md-Critical / P0
+   BUG-FR13-002.md-
+   BUG-FR13-002.md-## Environment
+   === hashes
+   … [cắt bớt 454 ký tự; xem transcript gốc]
+```text
+FR13-001 and FR13-002 are byte-identical — same screenshot filed for two different bugs. Let me look at the images.
+```
+→ Read(bug-reports/screenshots/BUG-FR13-001.png)
+→ Read(bug-reports/screenshots/BUG-FR02-001.png)
+```text
+Both are real content. Let me check the rest.
+```
+→ Read(bug-reports/screenshots/BUG-FR02-002.png)
+→ Read(bug-reports/screenshots/BUG-FR02-003.png)
+→ Read(bug-reports/screenshots/BUG-FR02-004.png)
+→ Read(bug-reports/screenshots/BUG-FR10-001.png)
+→ Read(bug-reports/screenshots/BUG-FR10-002.png)
+→ Read(bug-reports/screenshots/BUG-FR10-003.png)
+```text
+All 9 screenshots show real content — none blank. One real problem though: `BUG-FR13-001.png` and `BUG-FR13-002.png` are byte-identical (same dashboard revenue shot), so FR13-002's evidence doesn't show its own defect. Let me check for its actual failure screenshot while I apply the labels.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/automation/test-results && ls -d *da7ca* *9f69e* 2>/dev/null; echo "---"; ls */ -d | head -30
+   fr-13-dashboard-FR-13-—-Da-9f69e--không-có-đơn-delivered-nào-webkit
+   fr-13-dashboard-FR-13-—-Da-da7ca-in-không-xem-được-Dashboard-webkit
+   ---
+   ls: -d: No such file or directory
+   fr-13-dashboard-FR-13-—-Da-26d82--khi-có-nhiều-đơn-delivered-webkit/:
+   error-context.md
+   test-failed-1.png
+   trace.zip
+   video.webm
+   
+   fr-13-dashboard-FR-13-—-Da-355dd--không-cần-tạo-thêm-dữ-liệu-webkit/:
+   error-context.md
+   test-failed-1.png
+   trace.zip
+   video.webm
+   
+   fr-13-dashboard-FR-13-—-Da-4c2e7-i-khi-thêm-một-đơn-shipping-webkit/:
+   error-context.md
+   test-failed-1.png
+   trace.zip
+   video.webm
+   
+   fr-13-dashboard-FR-13-—-Da-6bdcc-t-đơn-chuyển-sang-delivered-webkit/:
+   error-context.md
+   test-failed-1.png
+   trace.zip
+   video.webm
+   
+   fr-13-dashboard-FR
+   … [cắt bớt 107 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && grep -n 'Dashboard' bug-reports/BUG-FR13-002.md | head; echo "=== Found by ==="; sed -n '/## Found by/,/## Requirement/p' bug-reports/BUG-FR13-002.md; echo "=== Evide
+… [cắt bớt 63 ký tự; xem transcript gốc]
+   1:# BUG-FR13-002: Token của tài khoản không phải Admin vẫn truy cập được Dashboard và API quản trị
+   4:F13-TC-005 — "F13-TC-005 — Người dùng không có quyền Admin không xem được Dashboard"
+   31:Trang quản trị từ chối hiển thị Dashboard (quay về màn hình đăng nhập Admin, không hiển thị số liệu nào); request tới API quản trị bị từ chối.
+   34:Trang quản trị hiển thị Dashboard đầy đủ số liệu doanh thu và số đơn hàng, y hệt như một phiên Admin hợp lệ. Request `GET` tới API quản trị trả về `200` kèm dữ liệu đơn hàng thật, không phải lỗi từ chối quyền.
+   === Found by ===
+   ## Found by Test Case
+   F13-TC-005 — "F13-TC-005 — Người dùng không có quyền Admin không xem được Dashboard"
+   
+   ## Requirement liên quan
+   === E
+   … [cắt bớt 586 ký tự; xem transcript gốc]
+→ Read(automation/test-results/fr-13-dashboard-FR-13-—-Da-da7ca-in-không-xem-được-Dashboard-webkit/test-failed-1.png)
+→ Bash: sed -n '/## Environment/,/## Steps/p' bug-reports/BUG-FR13-002.md; echo "=== FR13-001 env ==="; sed -n '/## Environment/,/## Steps/p' bug-reports/BUG-FR13-001.md; echo "=== FR13-001 foundby ==="; sed -n '/## Found by/,/#
+… [cắt bớt 44 ký tự; xem transcript gốc]
+   ## Environment
+   **Browser**: Chromium 151.0.7922.34 (Playwright 1.62.1)
+   **OS**: macOS 26.5.2 (Tahoe)
+   **URL**: Frontend Admin `http://localhost:5174`, API `http://localhost:3000`
+   **Ngày thực thi**: 08/08/2026
+   
+   ## Steps to reproduce
+   === FR13-001 env ===
+   ## Environment
+   **Browser**: Chromium 151.0.7922.34 (Playwright 1.62.1)
+   **OS**: macOS 26.5.2 (Tahoe)
+   **URL**: Frontend Admin `http://localhost:5174`, API `http://localhost:3000`
+   **Ngày thực thi**: 08/08/2026
+   
+   ## Steps to reproduce
+   === FR13-001 foundby ===
+   ## Found by Test Case
+   F13-TC-001 — "F13-TC-001 — Doanh thu tăng đúng total_amount của một đơn delivered" (cùng nguyên nhân tái hiện ở F13-TC-002, F13-TC-003, F13-TC-004, F13-TC-006, F13-TC-007,
+   … [cắt bớt 165 ký tự; xem transcript gốc]
+```text
+All screenshots are fine — real page content, none white. Now applying the missing labels.
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 set -e gh issue edit 204 --add-label "Severity: Major,Priority: P2,Module: Login" gh issue edit 205 --add-label "Severity: Major,Priority: P1,Module: Login" gh issue edi
+… [cắt bớt 587 ký tự; xem transcript gốc]
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/206
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/207
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/208
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/209
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/210
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/211
+   https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/212
+   DONE
+→ Bash: gh issue list --limit 12 --state open | head -12
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/html/fr-13-dashboard && ls; echo "=== chromium data ==="; ls chromium/data 2>/dev/null | head
+   243	OPEN	[BUG][FR-14] API cập nhật/xóa danh mục không tồn tại vẫn trả thành công	Type: Bug, Severity: Major, Status: New, Priority: P2, Module: Category CRUD	2026-08-09T19:21:36Z
+   242	OPEN	[BUG][FR-14] API danh mục không validate tên bắt buộc khi thêm hoặc cập nhật	Type: Bug, Severity: Major, Priority: P1, Status: New, Module: Category CRUD	2026-08-09T19:25:43Z
+   241	OPEN	[BUG][FR-14] User thường thêm, sửa và xóa được danh mục qua API	Type: Bug, Priority: P1, Status: New, Severity: Critical, Module: Category CRUD	2026-08-09T19:29:58Z
+   240	OPEN	[BUG][FR-11] Màu trạng thái Đã xác nhận và Đang giao quá giống nhau	Type: Bug, Status: New, Severity: Minor, Priority: P3, Module: Order History	2026-08-0
+   … [cắt bớt 1431 ký tự; xem transcript gốc]
+   chromium
+   firefox
+   webkit
+   === chromium data ===
+   00dd96153577ff85c86c3ec2b6f1fdfbf51aa22a.webm
+   0d152e3d7527057a3c245d5651442e7a44d4bb8c.md
+   15d328639f52a1de1ade02e435bdaf690e881a27.webm
+   160d071e4aa5dc2b7a28ebbab1c57237ca4f94c5.zip
+   21ebc71c180b95e02a4ff1c8f543afcc63eb6ea5.webm
+   22dd728f14acd4918a28ef209892266873fd3797.png
+   3372cd73c00ed2eb6d62e266d101600e6f06a210.md
+   3b9d6ffff07bb3ff5585e94b31d04dcf277bcc04.zip
+   3ed4f0a9d530ae3506fd97ad56430fceae059f5d.zip
+   3f3055601207eb40b80e7e12deca34ac4e8fba6a.webm
+```text
+Labels applied. Verifying my nine and locating the chromium screenshot for F13-TC-005:
+```
+→ Bash: gh issue list --limit 60 --state open --json number,labels -q '.[] | select(.number>=204 and .number<=212) | "\(.number): \([.labels[].name] | join(", "))"' | sort
+   204: Type: Bug, Module: Login, Severity: Major, Status: New, Priority: P2
+   205: Type: Bug, Module: Login, Severity: Major, Priority: P1, Status: New
+   206: Type: Bug, Module: Login, Severity: Major, Status: New, Priority: P2
+   207: Type: Bug, Module: Login, Status: New, Severity: Critical, Priority: P0
+   208: Type: Bug, Priority: P1, Status: New, Severity: Critical, Module: Order State Machine
+   209: Type: Bug, Severity: Major, Priority: P1, Status: New, Module: Order State Machine
+   210: Type: Bug, Status: New, Severity: Critical, Priority: P0, Module: Order State Machine
+   211: Type: Bug, Priority: P1, Status: New, Severity: Critical, Module: Dashboard
+   212: Type: Bug, Status: New, Severity: Critical, P
+   … [cắt bớt 30 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/html/fr-13-dashboard/chromium && python3 - <<'EOF' import re,glob,json,base64 src=open('index.html',encoding='utf-8').read() m=re.search(r'window\.playwrightRepo
+… [cắt bớt 518 ký tự; xem transcript gốc]
+   embedded zip: False
+→ Bash: ls | head; echo "--- grep TC-005 ---"; grep -rl 'F13-TC-005' . 2>/dev/null | head
+   data
+   index.html
+   trace
+   --- grep TC-005 ---
+   data/c5927e5d86916e514448712defb51f45a0afd0b7.md
+→ Bash: grep -o 'window\.[A-Za-z]* *=' index.html | sort -u; echo "--- size ---"; ls -la index.html; echo "--- md ---"; head -5 data/c5927e5d86916e514448712defb51f45a0afd0b7.md
+   window.ErrorEvent=
+   window.document=
+   window.onload=
+   --- size ---
+   -rw-r--r--@ 1 hbn  staff  531593 Aug  9 15:55 index.html
+   --- md ---
+   # Instructions
+   
+   - Following Playwright test failed.
+   - Explain why, be concise, respect Playwright best practices.
+   - Provide a snippet of code with the fix, if possible.
+→ Bash: grep -c 'playwrightReportBase64' index.html; grep -o 'base64,[A-Za-z0-9+/]\{0,40\}' index.html | head -3; ls data/*.zip | wc -l; python3 -c " import zipfile,glob,json for z in glob.glob('data/*.zip'): try: zz=zipfile.Zip
+… [cắt bớt 109 ký tự; xem transcript gốc]
+   2
+   base64,
+   base64,iVBORw0KGgoAAAANSUhEUgAAAYgAAADqCAYAAAC4
+   base64,UEsDBBQAAAgIAOt+CV2pXIuJOyQAAJkhAgAZAAAA
+         11
+   data/9cafc77ee7a102a876f78e5fb02810141f40de2a.zip ['resources/src@d38c29f8d931ce5d397086578dcdc444ea8352b4.txt', 'resources/src@a28b9fba7d45c820a7f6298347c57338edb7a5c1.txt', 'resources/src@98329ea1cf3602935cf97420d1f0013545351e82.txt', 'resources/8c0b8b183365e8523e7f7b2784ad642a52f3c6b8', 'resources/3372cd73c00ed2eb6d62e266d101600e6f06a210']
+   data/a6141802fef194261b0f7e3277267ba34ca0ead5.zip ['resources/src@d38c29f8d931ce5d397086578dcdc444ea8352b4.txt', 'resources/src@a28b9fba7d45c820a7f6298347c57338edb7a5c1.txt', 'resources/src@98329ea1cf3602935cf97420d1f0013545351e82.txt', 're
+   … [cắt bớt 3201 ký tự; xem transcript gốc]
+→ Bash: python3 -c " import zipfile,os z=zipfile.ZipFile('data/3b9d6ffff07bb3ff5585e94b31d04dcf277bcc04.zip') res=[n.split('/')[-1] for n in z.namelist() if n.startswith('resources/')] pngs=[f[:-4] for f in os.listdir('data') if
+… [cắt bớt 94 ký tự; xem transcript gốc]
+   match: ['b27bf96383649765e28ec3da19f30841612e60f3']
+   all pngs: ['4dea0bacc702ecec0db5e6829565c62270c3d320', 'b5c384b366a6c28b28ec7f30158e29ac96a04331', '22dd728f14acd4918a28ef209892266873fd3797', 'b27bf96383649765e28ec3da19f30841612e60f3', '620bd2115f1548a70944e8897371bdd48de62e55', '8f3df0f9141b144cbb439270d94dac18d6900855', 'e991714496b79e4b0b5dfadc76922534eb11ab59', '4a94503256c911e1ba3640d052eb5b31d5d12625', '82e549d5469d687e6ae9919d5a4c64ce678772a9']
+→ Read(reports/html/fr-13-dashboard/chromium/data/b27bf96383649765e28ec3da19f30841612e60f3.png)
+```text
+That's F13-TC-005's own chromium failure screenshot — the admin Dashboard fully rendered under a non-admin token, which is exactly what BUG-FR13-002 claims. Replacing the duplicate:
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && cp reports/html/fr-13-dashboard/chromium/data/b27bf96383649765e28ec3da19f30841612e60f3.png bug-reports/screenshots/BUG-FR13-002.png && md5 -q bug-reports/screenshots/
+… [cắt bớt 16 ký tự; xem transcript gốc]
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && gh issue view 212 --json body -q .body | grep -i 'Evidence' -A3
+   6e9f77ec0f0bcdec4284d258b7067a88
+   f1aa8212433842a16113eccf83fd93fc
+   ## Evidence
+   ![BUG-FR13-002](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/raw/HW04/23127300/bug-reports/screenshots/BUG-FR13-002.png)
+→ Read(bug-reports/github-issues/issue-204-BUG-FR02-001.png)
+```text
+Confirmed the stale artifact: those issue-page screenshots embedded in each bug report show only `Status: New` / `Type: Bug` in the Labels panel, so they no longer match the issues. Let me commit the screenshot fix, push, then re-capture all nine.
+```
+→ Bash: git add bug-reports/screenshots/BUG-FR13-002.png && git commit -q -m "docs(bug): use F13-TC-005's own chromium failure screenshot for BUG-FR13-002 The previous file was a byte-identical copy of BUG-FR13-001.png, so the e
+… [cắt bớt 141 ký tự; xem transcript gốc]
+→ ToolSearch({"query": "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chro
+… [cắt bớt 75 ký tự; xem transcript gốc])
+   f5f1552 docs(bug): use F13-TC-005's own chromium failure screenshot for BUG-FR13-002
+→ mcp__claude-in-chrome__tabs_context_mcp({"createIfEmpty": true})
+→ mcp__claude-in-chrome__resize_window({"width": 1512, "height": 982, "tabId": 2038130718})
+→ mcp__claude-in-chrome__navigate({"url": "https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204", "tabId": 2038130718})
+→ mcp__claude-in-chrome__computer({"action": "screenshot", "tabId": 2038130718})
+```text
+All five labels render now. Capturing the nine issue pages losslessly:
+```
+→ ToolSearch({"query": "select:mcp__claude-in-chrome__browser_batch", "max_results": 1})
+→ mcp__claude-in-chrome__browser_batch({"actions": [{"name": "computer", "input": {"action": "zoom", "region": [0, 0, 1540, 784], "save_to_disk": true, "tabId": 2038130718}}, {"name": "navigate", "input": {"url": "https
+… [cắt bớt 460 ký tự; xem transcript gốc])
+```text
+Page body hadn't rendered before the capture — adding waits.
+```
+→ mcp__claude-in-chrome__browser_batch({"actions": [{"name": "navigate", "input": {"url": "https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205", "tabId": 2038130718}}, {"name": "computer", "input": {"action
+… [cắt bớt 850 ký tự; xem transcript gốc])
+→ mcp__claude-in-chrome__browser_batch({"actions": [{"name": "navigate", "input": {"url": "https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/208", "tabId": 2038130718}}, {"name": "computer", "input": {"action
+… [cắt bớt 850 ký tự; xem transcript gốc])
+→ mcp__claude-in-chrome__browser_batch({"actions": [{"name": "navigate", "input": {"url": "https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/211", "tabId": 2038130718}}, {"name": "computer", "input": {"action
+… [cắt bớt 511 ký tự; xem transcript gốc])
+```text
+All nine captured with full label sets. Installing them:
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/bug-reports/github-issues S=/var/folders/71/yvwmk4hn07l4ntdrpdw3_zr40000gn/T/claude-chrome-screenshots-Eg9j44 set -e cp $S/screenshot-1786326775557-0.png issue-204-BUG-F
+… [cắt bớt 662 ký tự; xem transcript gốc]
+   issue-204-BUG-FR02-001.png  image/png  138335 bytes
+   issue-205-BUG-FR02-002.png  image/png  134668 bytes
+   issue-206-BUG-FR02-003.png  image/png  135902 bytes
+   issue-207-BUG-FR02-004.png  image/png  146451 bytes
+   issue-208-BUG-FR10-001.png  image/png  139156 bytes
+   issue-209-BUG-FR10-002.png  image/png  141560 bytes
+   issue-210-BUG-FR10-003.png  image/png  145879 bytes
+   issue-211-BUG-FR13-001.png  image/png  145458 bytes
+   issue-212-BUG-FR13-002.png  image/png  146848 bytes
+   --- unique? ---
+          9
+→ mcp__claude-in-chrome__tabs_close_mcp({"tabId": 2038130718})
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && git add bug-reports/github-issues && git commit -q -m "docs(bug): re-capture issue screenshots showing full label set Issues #204-#212 were only carrying Type: Bug an
+… [cắt bớt 281 ký tự; xem transcript gốc]
+   917f883 docs(bug): re-capture issue screenshots showing full label set
+   f5f1552 docs(bug): use F13-TC-005's own chromium failure screenshot for BUG-FR13-002
+```text
+Both pushed. Now logging this session per the repo's AI-logging rule.
+```
+→ Skill(ai-audit-log)
+→ Bash: grep -c '^## Entry #' reports/ai-audit-report.md; grep '^## Entry #' reports/ai-audit-report.md | tail -3; echo "=== §4 table ==="; sed -n '/## 4\./,/## 5\./p' reports/ai-audit-report.md
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && ls -lt *.jsonl | head -3
+   <persisted-output>
+   Output too large (99.7KB). Full output saved to: /Users/hbn/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/2ff486c8-9114-49c2-b104-f1d21abf82ba/tool-results/bhsr27a1x.txt
+   
+   Preview (first 2KB):
+   23
+   ## Entry #21
+   ## Entry #22
+   ## Entry #23
+   === §4 table ===
+   ## 4. Audit Entries
+   
+   ---
+   
+   ## Entry #1
+   
+   ### (1) Prompt + Tool
+   
+   | Field             | Content         |
+   | ----------------- | --------------- |
+   | **Tool**          | Claude (Opus 5, Claude Code) |
+   | **Timestamp**     | 11:07 PM 05/08/2026 |
+   | **Artifact type** | Khung dự án `automation/` — `playwright.config.ts`, `utils/config.ts`, `utils/data.ts`, `utils/api.ts`, `utils/stamp.ts`, `scripts/run-matrix.ts`, `te
+   … [cắt bớt 1536 ký tự; xem transcript gốc]
+   -rw-------@ 1 hbn  staff   6585390 Aug 10 08:54 2ff486c8-9114-49c2-b104-f1d21abf82ba.jsonl
+   -rw-------@ 1 hbn  staff    267423 Aug  9 23:09 e22a2a0a-be12-4f4e-a9c0-828fcf9067d6.jsonl
+   -rw-------@ 1 hbn  staff   1098863 Aug  9 22:33 e98fa1cc-9d5d-4b1d-8e3b-32936028b047.jsonl
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) f='2ff486c8-9114-49c2-b104-f1d21abf8
+… [cắt bớt 387 ký tự; xem transcript gốc]
+→ Bash: grep -n 'Tổng hợp độ chính xác' -A 20 reports/ai-audit-report.md | head -30
+   ===== 08:46 =====
+   I'll start by looking at the current state of the GitHub issues and the report screenshots.
+   
+   ===== 08:46 =====
+   Two things to fix. Issues #204–#212 (my HW04 bugs) only carry `Type: Bug, Status: New`, while every other issue in the repo has Severity/Priority/Module too. Let me check the bug reports and the label set.
+   
+   ===== 08:47 =====
+   FR13-001 and FR13-002 are byte-identical — same screenshot filed for two different bugs. Let me look at the images.
+   
+   ===== 08:47 =====
+   Both are real content. Let me check the rest.
+   
+   ===== 08:48 =====
+   All 9 screenshots show real content — none blank. One real problem though: `BUG-FR13-001.png` and `BUG-FR13-002.png` are byte-identical (same dash
+   … [cắt bớt 1235 ký tự; xem transcript gốc]
+   2176:## 5. Tổng hợp độ chính xác của AI
+   2177-
+   2178-| Verdict | Số entry | Tỷ lệ |
+   2179-| --- | ---: | ---: |
+   2180-| `VALID` | 12 | 52.2% |
+   2181-| `INCOMPLETE` | 10 | 43.5% |
+   2182-| `INVALID` | 1 | 4.3% |
+   2183-| **Tổng số entry đã audit** | **23** | **100%** |
+   2184-
+   2185-Phân bố theo giai đoạn:
+   2186-
+   2187-| Giai đoạn | Entry | VALID | Cần sửa |
+   2188-| --- | --- | ---: | ---: |
+   2189-| Dựng khung + lập kế hoạch (05/08) | #1–#4 | 2 | 2 |
+   2190-| FR-02 — Session 1 (06/08) | #5–#9 | 3 | 2 |
+   2191-| FR-10 — Session 2 (07/08) | #10–#13 | 3 | 1 |
+   2192-| Rà soát kế hoạch và log (08/08) | #14–#15 | 2 | 0 |
+   2193-| FR-13 — Session 3 (08/08) | #16–#17 | 0 | 2 |
+   2194-| Triage + bug reports — Session 3 (08/08
+   … [cắt bớt 162 ký tự; xem transcript gốc]
+→ Bash: sed -n '2196,2215p' reports/ai-audit-report.md; echo "=== tail ==="; tail -5 reports/ai-audit-report.md
+   | Sửa lỗ hổng data-driven FR-02 — Session 4 (09/08) | #21 | 1 | 0 |
+   | Rà soát toàn bài theo rubric — Session 5 (09/08) | #22 | 0 | 1 |
+   | Rà soát trước khi nộp — Session 6 (09/08) | #23 | 0 | 1 |
+   
+   ## 6. Kết luận
+   
+   Nhìn trên toàn bộ 23 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
+   lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
+   
+   **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
+   là nhóm đông nhất và nguy hiểm nhất. FR-02: `getByLabel` không dùng được vì form
+   không gắn label với input, và banner lỗi nằm ngoài `<form>`. FR-10: ô `<select>`
+   không tồn tại, route `/orders` không tồn tại ở cả hai app, hai origin dùng hai
+   khoá token khác nhau, và locator theo
+   … [cắt bớt 639 ký tự; xem transcript gốc]
+```text
+Next entry is #24. Writing it, and noting the root cause I should also fix:
+```
+→ Bash: grep -n 'Type: Bug,Status: New' .claude/skills/bug-report/SKILL.md
+   156:     --label "Type: Bug,Status: New"
+```text
+That's the root cause — the skill's `gh issue create` template only ever passes two labels, which is why all nine issues were under-labeled at creation. Fixing it so this doesn't recur:
+```
+→ Read(.claude/skills/bug-report/SKILL.md)
+→ Edit(.claude/skills/bug-report/SKILL.md)
+→ Edit(.claude/skills/bug-report/SKILL.md)
+```text
+Now the audit entry:
+```
+→ Bash: sed -n '2170,2176p' reports/ai-audit-report.md
+   file nộp; sinh viên đã tự xoá cả hai ngay trong phiên. Sau khi xoá, thư mục
+     gốc chỉ còn đúng những mục được track cộng `docs/superpowers/` (loại trừ cục
+     bộ qua `.git/info/exclude`).
+   
+   ---
+   
+   ## 5. Tổng hợp độ chính xác của AI
+→ Write(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/2ff486c8-9114-49c2-b104-f1d21abf82ba/scratchpad/entry24.md, 120 dòng)
+→ Bash: python3 - <<'PY' p='reports/ai-audit-report.md' s=open(p,encoding='utf-8').read() entry=open('/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/2ff486c8-9114-49c2-b104-f1d21abf82ba/scratchpad/entry2
+… [cắt bớt 224 ký tự; xem transcript gốc]
+   24
+→ Edit(reports/ai-audit-report.md)
+→ Edit(reports/ai-audit-report.md)
+→ Bash: python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -20
+   checked 223 quoted lines against 4898k chars of transcript
+   
+   1 line(s) NOT found — not verbatim:
+   
+     ✗ | **Timestamp**     | 8:46 AM 10/08/2026 |
+→ Bash: sed -n '1,60p' reports/tools/verify-audit-verbatim.py
+   #!/usr/bin/env python3
+   """Check that every quoted English line in ai-audit-report.md is really verbatim.
+   
+   The audit report promises that Full prompt and AI Output are byte-for-byte what
+   happened. This proves it: each quoted line is searched for in the raw Claude Code
+   transcripts. A line that cannot be found is either paraphrased or invented, and
+   either way it must not ship.
+   
+   Vietnamese lines are skipped — those are the student's own Reasoning / Student
+   Fix, which are meant to be original prose, not quotations.
+   
+   Exit status 0 = every quote traces to a transcript.
+   """
+   import glob
+   import json
+   import os
+   import re
+   import sys
+   
+   PROJ = os.path.expanduser(
+       "~/.claude/projects/-Users-hbn-Documents
+   … [cắt bớt 1458 ký tự; xem transcript gốc]
+→ Bash: sed -n '60,120p' reports/tools/verify-audit-verbatim.py
+   def main():
+       blob = corpus()
+       text = open(REPORT).read()
+       checked, missing = 0, []
+       for block in re.findall(r"```\n(.*?)\n```", text, re.S):
+           for ln in [l for l in block.strip().split("\n") if l.strip()]:
+               if VIETNAMESE.search(ln.lower()) or len(ln.strip()) < MIN_LEN:
+                   continue
+               checked += 1
+               if " ".join(ln.split()) not in blob:
+                   missing.append(ln.strip())
+       print(f"checked {checked} quoted lines against {len(blob)/1000:.0f}k chars of transcript")
+       if missing:
+           print(f"\n{len(missing)} line(s) NOT found — not verbatim:\n")
+           for m in missing:
+               print("  ✗ " + m[:110])
+           return
+   … [cắt bớt 120 ký tự; xem transcript gốc]
+→ Bash: git stash -q && python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -8; git stash pop -q
+   checked 219 quoted lines against 4901k chars of transcript
+   ✓ every quoted line traces to a transcript
+→ Bash: python3 - <<'PY' import re t=open('reports/ai-audit-report.md',encoding='utf-8').read() i=t.index('## Entry #24') seg=t[i:] blocks=re.findall(r"```\n(.*?)\n```", seg, re.S) for b in blocks[:6]: print('---BLOCK---'); prin
+… [cắt bớt 13 ký tự; xem transcript gốc]
+   ---BLOCK---
+   the github issues for this homework is missing tags, add them. also check if all the playwright screenshots are all okay not all white
+   ---BLOCK---
+   I'll start by looking at the current state of the GitHub issues and the report screenshots.
+   ---BLOCK---
+   Two things to fix. Issues #204–#212 (my HW04 bugs) only carry `Type: Bug, Status: New`, while every other issue in the repo has Severity/Priority/Module too. Let me check the bug reports and the label
+   ---BLOCK---
+   FR13-001 and FR13-002 are byte-identical — same screenshot filed for two different bugs. Let me look at the images.
+   ---BLOCK---
+   Both are real content. Let me check the rest.
+   ---BLOCK---
+   All 9 screenshots show real content —
+   … [cắt bớt 162 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'PY' import re t=open('reports/ai-audit-report.md',encoding='utf-8').read() blocks=re.findall(r"```\n(.*?)\n```", t, re.S) for n,b in enumerate(blocks): if 'Timestamp' in b and '10/08/2026' in b: print("MISPA
+… [cắt bớt 52 ký tự; xem transcript gốc]
+   MISPAIRED BLOCK index 129
+   '\n### (3) Verdict\n\n**`INCOMPLETE`**\n\n### (4) Reasoning\n\nPhần đối chiếu rubric đúng và kiểm chứng được: mọi ô ✅ đều dựa trên một lệnh\nthật chạy trong phiên (`report:verify`, `playwright test --list`, `npm run\ntypecheck`, `gh issue view`, `git archive`), không có ô nào suy ra từ việc đọc\ntài liệu. Hai điểm không đạt nêu ra cũng đúng và đều nhỏ.\n\nNhưng lệnh này được giao là "check the repo **entirely*'
+```text
+The mis-pairing starts before my entry — entry #23 has an unbalanced fence that was previously harmless. Checking it:
+```
+→ Bash: python3 - <<'PY' t=open('reports/ai-audit-report.md',encoding='utf-8').read() import re for n in (22,23,24): i=t.index(f'## Entry #{n}') j=t.index(f'## Entry #{n+1}') if f'## Entry #{n+1}' in t else t.index('## 5. Tổng h
+… [cắt bớt 202 ký tự; xem transcript gốc]
+   Entry #22: 8 fence lines 
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+   Entry #23: 8 fence lines 
+       '```'
+       '```'
+       '```'
+       '```'
+       '````text'
+       '````'
+       '````text'
+       '````'
+   Entry #24: 28 fence lines 
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+       '```'
+```text
+Entry #23 uses four-backtick fences, which the checker's regex mis-pairs — a pre-existing blind spot in the tool, not a verbatim problem in my entry. Fixing the checker to handle variable-length fences:
+```
+→ Edit(reports/tools/verify-audit-verbatim.py)
+→ Bash: python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -10
+   checked 261 quoted lines against 4903k chars of transcript
+   
+   1 line(s) NOT found — not verbatim:
+   
+     ✗ | 11 | `Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each ind
+```text
+One remaining failure, now exposed in entry #23 (previously never checked because of the regex bug). Checking whether that line is genuinely in a transcript:
+```
+→ Bash: python3 - <<'PY' import re t=open('reports/ai-audit-report.md',encoding='utf-8').read() fenced=re.compile(r"^(`{3,})[^\n]*\n(.*?)\n\1[ \t]*$", re.S|re.M) for _,b in fenced.findall(t): for ln in b.split('\n'): if 'Run by:
+… [cắt bớt 32 ký tự; xem transcript gốc]
+   '| 11 | `Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Run by: 23127300 | … | <browser> | 2026-08-09T15:xx:xx+07:00` |'
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && grep -ho 'Run by: {ID}[^"]\{0,180\}' *.jsonl | head -5
+   Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Run by: 23127300 \\| … \\| <browser> \\| 2026-08-09T15:xx:xx+07:00` |\n| 
+   Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Run by: 23127300 | … | <browser> | 2026-08-09T15:xx:xx+07:00` |\n| 6 | Bu
+   Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Run by: 23127300 | … | <browser> | 2026-08-09T15:xx:xx+07:00` |\n| 6 | Bu
+   Run by: {ID}` + ISO timestamp in every report | ✅ `report:verify` → `9/9 found, 0 unlabeled`; each index.html carries `Ru
+   … [cắt bớt 235 ký tự; xem transcript gốc]
+→ Bash: python3 - <<'PY' import sys,importlib.util spec=importlib.util.spec_from_file_location("v","reports/tools/verify-audit-verbatim.py") m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m) blob=m.corpus() ln=
+… [cắt bớt 306 ký tự; xem transcript gốc]
+   full in blob: True
+   60 True
+   90 True
+   120 True
+   150 True
+   170 True
+→ Bash: python3 reports/tools/verify-audit-verbatim.py 2>&1 | tail -8
+   checked 261 quoted lines against 4904k chars of transcript
+   ✓ every quoted line traces to a transcript
+```text
+The line does trace to a transcript — but let me confirm it's from an earlier session, not just this one's debug output (the corpus includes the live transcript, which would be circular):
+```
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && for f in *.jsonl; do c=$(grep -c 'Run by: {ID}` + ISO timestamp in every report' "$f"); [ "$c" -gt 0 ] && echo "$f: $c"; done
+   Exit code 1
+   2ff486c8-9114-49c2-b104-f1d21abf82ba.jsonl: 4
+   e98fa1cc-9d5d-4b1d-8e3b-32936028b047.jsonl: 3
+```text
+Confirmed — it appears 3× in the earlier session `e98fa1cc` (entry #23's own session), so it's genuinely verbatim, not self-referential. Committing:
+```
+→ Bash: git add reports/ai-audit-report.md reports/tools/verify-audit-verbatim.py .claude/skills/bug-report/SKILL.md && git commit -q -m "docs(ai-audit): log entry #24 — issue labels + BUG-FR13-002 evidence fix Also hardens the
+… [cắt bớt 539 ký tự; xem transcript gốc]
+   5218623 docs(ai-audit): log entry #24 — issue labels + BUG-FR13-002 evidence fix
+   917f883 docs(bug): re-capture issue screenshots showing full label set
+   f5f1552 docs(bug): use F13-TC-005's own chromium failure screenshot for BUG-FR13-002
+→ Skill(prompt-log)
+→ Bash: grep -n 'SESSIONS' -A 25 reports/tools/extract-prompt-log.py | head -35
+   25:SESSIONS = [
+   26-    ("4e93c378", "Khởi tạo phiên làm việc trên repo HW04"),
+   27-    ("5eb7aacf", "Đọc đề HW04 và dựng khung dự án automation"),
+   28-    ("33676afb", "Lập kế hoạch HW04 (superpowers plan) và thực thi Session 1 — FR-02"),
+   29-    ("b45a13b7", "Thực thi Session 2 — FR-10"),
+   30-    ("78f17f22", "Điều chỉnh kế hoạch theo ràng buộc commit mới; rà soát log AI"),
+   31-    ("f6295926", "Thực thi Session 3 — FR-13, triage, bug report, tài liệu hoá"),
+   32-    ("ff131a90", "Đối chiếu kịch bản quay video với yêu cầu HW04"),
+   33-    ("7595b1b0", "Đặt tên hai video YouTube theo nội dung"),
+   34-    ("b078efda", "Thay hai link YouTube vào README và main-report"),
+   35-    ("a641cf9c", "Session 4 — r
+   … [cắt bớt 1057 ký tự; xem transcript gốc]
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json,glob for f in sorted(glob.glob('*.jsonl')): first=None for line in open(f): try: d=json.loads(line) except: continue m
+… [cắt bớt 277 ký tự; xem transcript gốc]
+   0afdf24c  https://gitlab.com/wokovn/Testing_Group06_Seminar.git
+   
+   can you deploy the application_demo_2 in this repo?
+   15e537e6  scan the whole repo and compare with the requirements in 2026.HW03.GUI Usability_En (1).pdf, check if:
+   - quant
+   1bd176ea  compare the current work with the requirements in 2026.HW03.GUI Usability_En (1).pdf, check all the materials 
+   1e7535bb  finish the gui-checklist, load all the skills you need, also review the exisiting work too. for the execution 
+   1f00a861  SUT chạy tại http://localhost:5173/, commit 85af3ba (repo eshop-sut). Claude
+   for Chrome đã kết nối — tự mở Pro
+   2e4a1bc7  Base directory for this skill: /Users/hbn/Documents/CS423-CSC15003-Testing-N08/.claude/sk
+   … [cắt bớt 3521 ký tự; xem transcript gốc]
+```text
+Two HW04 sessions are missing from the extractor — today's, plus `e22a2a0a` from last night. Adding both:
+```
+→ Edit(reports/tools/extract-prompt-log.py)
 
 
 ---

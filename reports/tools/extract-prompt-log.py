@@ -35,6 +35,8 @@ SESSIONS = [
     ("a641cf9c", "Session 4 — rà soát toàn bài theo rubric, sửa số liệu sai và văn phong tài liệu"),
     ("9f7afb69", "Session 5 — rà soát toàn bài lần cuối theo rubric; sửa 3 spec, 2 file dữ liệu và 6 tài liệu"),
     ("e98fa1cc", "Session 6 — rà soát toàn repo trước khi nộp; chốt danh sách file nộp, sửa AI Critique và dựng lại PDF"),
+    ("e22a2a0a", "Session 6 (tiếp) — đối chiếu kịch bản video 2 với yêu cầu prompt log"),
+    ("2ff486c8", "Session 7 — bổ sung nhãn cho issue #204–#212, sửa ảnh bằng chứng BUG-FR13-002, vá skill bug-report"),
 ]
 
 # Model display name per transcript's own `message.model` field — sessions
