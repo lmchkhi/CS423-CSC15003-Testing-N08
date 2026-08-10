@@ -1,3 +1,24 @@
+commit 507e006cb9d1238e419b4549a5a94029968bb82a
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Mon Aug 10 09:55:04 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Mon Aug 10 09:55:04 2026 +0700
+
+    docs(ai-audit): log entry #26 — pre-submission audit; add verify-doc-counts.py
+    
+    The audit-entry counts restated in main-report, ai-critique and the audit's
+    own conclusion had drifted twice (21->23, 23->25) and both times were caught
+    by eye. verify-doc-counts.py now treats the entries themselves as the source
+    of truth and checks all five restatements against them.
+
+commit 2ba8daed556ad491957180b1b2982df10da51bae
+Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+AuthorDate: Mon Aug 10 09:51:40 2026 +0700
+Commit:     Bảo Ngọc Hà <hiembaonon@gmail.com>
+CommitDate: Mon Aug 10 09:51:40 2026 +0700
+
+    docs: regenerate git-log.txt
+
 commit c7ee54ec928a24bb267c359199f691599fe64c88
 Author:     Bảo Ngọc Hà <hiembaonon@gmail.com>
 AuthorDate: Mon Aug 10 09:51:25 2026 +0700
