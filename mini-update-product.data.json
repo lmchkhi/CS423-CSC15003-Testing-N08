@@ -6,7 +6,7 @@
     "send_authorization": "true",
     "authorization": "Bearer admin-valid-token",
     "request_body": "{\"name\":\"iPhone 15 Pro Max DDT\",\"price\":31000000,\"description\":\"Điện thoại cao cấp của Apple\",\"imageUrl\":\"https://example.com/iphone-ddt.png\",\"category_id\":1}",
-    "expected_status": 200,
+    "expected_status": 999,
     "contract_status": 200,
     "expected_exists": "true"
   },
