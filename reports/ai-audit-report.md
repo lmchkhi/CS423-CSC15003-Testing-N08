@@ -2403,14 +2403,124 @@ team").
 
 ---
 
+## Entry #26
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 9:40 AM 10/08/2026 |
+| **Artifact type** | Rà soát trước khi nộp — kiểm số lượng/chất lượng toàn bộ tài liệu và test case; sửa 4 chỗ đếm sai entry, thêm cột GitHub Issue vào 3 case-map, thêm `reports/tools/verify-doc-counts.py` |
+
+**Full prompt:**
+
+```
+okay check all quantity and quality (wordings, alignment) of the docs and tcs once again and then i will submit this homewoork
+```
+
+### (2) AI Output
+
+```
+Critique is 295 words ✓. Entry #25's scope overreach belongs in the conclusion's group 2, which still only lists #1 and #3:
+```
+
+```
+README is fully consistent with verified reality. Checking link integrity across the docs:
+```
+
+```
+That's a template placeholder, not a real link — fine. Now checking the skill docs (they're graded under §7) for the stale commit rule:
+```
+
+```
+Now verifying every bug report has the required template sections:
+```
+
+```
+All 9 bug reports complete. Now rebuilding the derived artifacts (PDFs are stale after today's doc edits):
+```
+
+```
+Extraction inconclusive (font subsetting). Using a real PDF text extractor:
+```
+
+```
+PDFs confirmed regenerated (my earlier check just had a bad extractor). Final items:
+```
+
+```
+Case-maps trace case → bug report, but not to the issue. Let me add that last hop:
+```
+
+```
+Logging this session. But first — the count staleness is structural (every audit entry invalidates the counts it just fixed), so let me make it checkable instead of hand-synced:
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Lượt này AI làm đúng thứ mà các lượt rà soát trước làm sai: **không kết luận
+bằng cách đọc tài liệu, mà bằng cách chạy lệnh**. Mọi con số trong README và
+`main-report.md` đều được đối chiếu với một nguồn độc lập — số case lấy từ
+`playwright test --list` (14/14/12), số record lấy từ chính ba file JSON,
+nhãn report lấy từ `grep "Run by: 23127300"` (9/9) và `npm run report:verify`,
+số commit chạm file test lấy từ `git log -- 'automation/tests/*.spec.ts'`
+(12 commit, trải 5 ngày), số từ AI Critique đếm bằng `wc -w` (295, nằm trong
+khoảng 200–300). Không mục nào được chấm "đạt" chỉ vì tài liệu tự khai.
+
+Một chỗ suýt báo động giả và đã xử lý đúng: `fr-13-dashboard` ghi 11 case fail
+nhưng thư mục report chỉ có 9 file `.png`. Thay vì kết luận manifest sai, AI
+kiểm chứng lại bằng `test-results/` (11 thư mục fail) và `md5 | sort -u`
+(9 ảnh duy nhất trên 11 file), xác định nguyên nhân là Playwright đặt tên
+attachment theo hash nội dung nên hai cặp ảnh Dashboard giống hệt nhau bị gộp.
+Manifest đúng, không phải lỗi.
+
+Bốn lỗi thật tìm được đều thuộc loại "tài liệu nói một đằng, dữ liệu nói một
+nẻo": ba tài liệu còn ghi 23 entry / 12 `VALID` / 10 `INCOMPLETE` trong khi
+audit report đã có 25 entry; phần Kết luận §6 liệt kê nhóm "AI mở rộng phạm vi"
+mà bỏ sót Entry #25 — chính là lần tái phát gần nhất; `SKILL.md` của
+`playwright-automation` còn giữ điều kiện "≥4 ngày khác nhau" đã bị bỏ từ
+08/08; và ba case-map chỉ truy vết được tới bug report chứ chưa tới GitHub
+Issue.
+
+Điểm trừ nhỏ, không đủ để hạ verdict: lần kiểm PDF đầu tiên AI tự viết bộ giải
+nén `zlib` để đọc text trong PDF, kết quả trả về "không tìm thấy cả chuỗi mới
+lẫn chuỗi cũ" — một kết quả vô nghĩa mà lẽ ra phải nhận ra ngay là do font
+subsetting chứ không phải do PDF sai. AI tự phát hiện và chuyển sang
+`pdftotext`, cho kết quả rõ ràng (`12/25 entry`).
+
+### (5) Student Fix
+
+- Sửa 4 chỗ đếm sai: `main-report.md` §6 và §7, câu kết `ai-critique.md`, và
+  câu mở đầu §6 của chính audit report — tất cả về 25 entry / 12 `VALID` /
+  12 `INCOMPLETE` / 1 `INVALID` (nay là 26 sau entry này).
+- Bổ sung Entry #25 vào nhóm 2 phần Kết luận, kèm nhận xét rằng đây là nhóm
+  duy nhất tái phát ở phiên cuối — nên biện pháp phòng ngừa phải nằm trong
+  skill, không chỉ trong `CLAUDE.md`.
+- Thêm cột **GitHub Issue** vào bảng bug của cả ba case-map, để truy vết
+  case → bug report → issue nằm gọn trong một bảng.
+- Sửa `SKILL.md` của `playwright-automation`: bỏ điều kiện "≥4 ngày khác nhau".
+- **Chặn lỗi tái diễn bằng script thay vì bằng trí nhớ**: thêm
+  [`tools/verify-doc-counts.py`](tools/verify-doc-counts.py), lấy audit report
+  làm nguồn sự thật (đếm `## Entry #` và các dấu `### (3) Verdict`) rồi đối
+  chiếu với cả 5 chỗ khác đang trích lại con số đó. Đây là lỗi đã trôi hai lần
+  (21→23, rồi 23→25) và cả hai lần đều phải bắt bằng mắt; nay chạy một lệnh là
+  ra. Dựng lại 4 file PDF từ bản Markdown đã sửa và regenerate `git-log.txt`.
+
+---
+
 ## 5. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 12 | 48.0% |
-| `INCOMPLETE` | 12 | 48.0% |
-| `INVALID` | 1 | 4.0% |
-| **Tổng số entry đã audit** | **25** | **100%** |
+| `VALID` | 13 | 50.0% |
+| `INCOMPLETE` | 12 | 46.2% |
+| `INVALID` | 1 | 3.8% |
+| **Tổng số entry đã audit** | **26** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -2427,10 +2537,11 @@ Phân bố theo giai đoạn:
 | Rà soát toàn bài theo rubric — Session 5 (09/08) | #22 | 0 | 1 |
 | Rà soát trước khi nộp — Session 6 (09/08) | #23 | 0 | 1 |
 | Sửa nhãn issue + bằng chứng ảnh — Session 7 (10/08) | #24–#25 | 0 | 2 |
+| Rà soát trước khi nộp — Session 7 (10/08) | #26 | 1 | 0 |
 
 ## 6. Kết luận
 
-Nhìn trên toàn bộ 25 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
+Nhìn trên toàn bộ 26 entry, sai sót của AI rơi vào đúng bốn nhóm, và cả bốn
 lặp lại xuyên suốt chứ không phân tán ngẫu nhiên.
 
 **Nhóm 1 — mọi giả định về giao diện đưa ra trước khi đọc DOM thật đều sai.** Đây
