@@ -2,7 +2,7 @@
   {
     "tc_id": "PDET-01",
     "product_id": "1",
-    "expected_status": 999,
+    "expected_status": 200,
     "expected_found": true,
     "expected_name": "iPhone 15 Pro Max",
     "expected_price_type": "number"
