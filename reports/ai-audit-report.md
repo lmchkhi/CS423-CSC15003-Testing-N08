@@ -2293,14 +2293,124 @@ ngay trong chính nhiệm vụ đi soi ảnh trắng.
 
 ---
 
+## Entry #25
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 9:05 AM 10/08/2026 |
+| **Artifact type** | Sửa tên case mất dấu trong issue #204–#207, đồng bộ body của cả 9 issue với bug report, phân tích độ phủ để trả lời "9 bug có ít quá không" |
+
+**Full prompt:**
+
+```
+wait the first few issues still has the wrong vietnamese test case name, fix that too. also i will retake the gh issues screenshots by myself, yours is a bit blurry
+also is it too little bug we found?
+```
+
+### (2) AI Output
+
+```
+Let me check what the actual test titles are versus what the issues say.
+```
+
+```
+Confirmed — the four FR-02 issues (#204–#207) have unaccented Vietnamese; FR-10/FR-13 are correct. Let me get the real titles:
+```
+
+```
+Only the GitHub issue bodies lost diacritics — the local `.md` files are correct. Let me check how much of each body is affected:
+```
+
+```
+Runtime titles have the diacritics. Fixing just that line in the four issue bodies, leaving everything else byte-identical:
+```
+
+```
+Now sweeping all nine issues against their local `.md` files to catch anything else that drifted:
+```
+
+```
+Those remaining diffs are truncations — the issue bodies are older, shorter versions of text the `.md` files later expanded. Same class of drift, so I'll resync the bodies from the reports:
+```
+
+```
+Both fixes are done. Now your third question — let me check the actual numbers against what the rubric asks.
+```
+
+```
+Both issue fixes are done and verified. Now for your question about bug count — let me ground it rather than guess. Checking whether my 3 features have defects the suite doesn't probe:
+```
+
+```
+Confirms two of my FR-02 findings. Checking the order state machine and dashboard:
+```
+
+```
+`* 2` confirms the FR-13 revenue bug. Let me check one more thing — whether the password leak extends beyond the login response:
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Chẩn đoán đúng. Bốn issue FR-02 (#204–#207) có dòng `Found by Test Case` bị mất
+toàn bộ dấu tiếng Việt ("Email sai dinh dang bi chan boi validate HTML5"), trong
+khi các issue FR-10/FR-13 thì bình thường. AI xác định đúng rằng lỗi chỉ nằm ở
+**body trên GitHub**, còn file `bug-reports/BUG-FR02-00*.md` trong repo vẫn đủ
+dấu, và đối chiếu lại với tiêu đề test thật lấy từ `playwright test --list` chứ
+không tự gõ lại — đúng nguồn sự thật, vì tiêu đề test được ghép runtime từ
+`caseId` + `title` trong file dữ liệu.
+
+Phần trả lời câu hỏi "9 bug có ít quá không" cũng làm đúng cách: thay vì đưa
+cảm tính, AI đối chiếu từng mệnh đề của `sut-requirements.md` §2/§3/§4 (oracle
+của cả suite) với tập bug đã lập, và kết luận được rằng 9 bug đã phủ hết các
+mệnh đề bị vi phạm trong phạm vi 3 feature — không phải con số nhỏ vì làm ẩu,
+mà vì phạm vi cá nhân chỉ có 3 feature và đặc tả FR-13 chỉ gồm 2 mệnh đề.
+
+Điểm trừ nằm ở phạm vi thao tác, lặp lại đúng lỗi đã ghi ở Entry #1. Em chỉ yêu
+cầu sửa **tên case tiếng Việt**, nhưng khi quét đối chiếu, AI phát hiện thêm 5
+issue có phần `Expected result` / `Actual result` ngắn hơn bản `.md` (do body
+issue là bản cũ, file báo cáo về sau được viết dài thêm) và **tự động ghi đè
+body của cả 9 issue** mà không hỏi trước. Nội dung mới đúng và nhất quán hơn
+thật, nhưng đây là thao tác sửa dữ liệu công khai mà cả nhóm N08 nhìn thấy,
+lẽ ra phải xác nhận trước khi chạy — đúng nguyên tắc mà chính skill
+`bug-report` đã ghi ("Confirm the exact title/labels/repo with the student
+before running `gh issue create` — creating issues is visible to the whole
+team").
+
+### (5) Student Fix
+
+- Giữ phần sửa dấu: đã kiểm chứng lại cả 9 issue, dòng `Found by Test Case`
+  nay trùng khớp tiêu đề test runtime.
+- Rà lại toàn bộ 9 body sau khi đồng bộ: 6 mục nội dung (`Found by Test Case`,
+  `Requirement liên quan`, `Severity / Priority`, `Steps to reproduce`,
+  `Expected result`, `Actual result`) nay khớp với file `.md` tương ứng. Chấp
+  nhận kết quả này vì nó làm bug report và GitHub Issue kể cùng một câu chuyện
+  — nhưng ghi nhận rằng lẽ ra phải hỏi trước, và rút kinh nghiệm cho các thao
+  tác ghi lên GitHub sau này.
+- Về số lượng bug: **không bổ sung bug mới**. Kết luận sau khi đối chiếu là 9
+  bug đã phủ hết các mệnh đề bị vi phạm trong FR-02 / FR-10 / FR-13; 18 case
+  đỏ gộp lại chỉ còn 9 nguyên nhân gốc phân biệt (riêng `BUG-FR13-001` gộp 10
+  case cùng nguyên nhân). Một lỗi liên quan (token không hợp lệ trả 403 thay vì
+  401) đã được thành viên khác trong nhóm lập ở issue #238, nên không lập trùng
+  theo quy ước chống trùng của §5.
+- Ảnh chụp trang issue: em tự chụp lại, không dùng bản AI chụp (bị mờ).
+
+---
+
 ## 5. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 12 | 50.0% |
-| `INCOMPLETE` | 11 | 45.8% |
-| `INVALID` | 1 | 4.2% |
-| **Tổng số entry đã audit** | **24** | **100%** |
+| `VALID` | 12 | 48.0% |
+| `INCOMPLETE` | 12 | 48.0% |
+| `INVALID` | 1 | 4.0% |
+| **Tổng số entry đã audit** | **25** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -2316,7 +2426,7 @@ Phân bố theo giai đoạn:
 | Sửa lỗ hổng data-driven FR-02 — Session 4 (09/08) | #21 | 1 | 0 |
 | Rà soát toàn bài theo rubric — Session 5 (09/08) | #22 | 0 | 1 |
 | Rà soát trước khi nộp — Session 6 (09/08) | #23 | 0 | 1 |
-| Sửa nhãn issue + bằng chứng ảnh — Session 7 (10/08) | #24 | 0 | 1 |
+| Sửa nhãn issue + bằng chứng ảnh — Session 7 (10/08) | #24–#25 | 0 | 2 |
 
 ## 6. Kết luận
 

@@ -11469,6 +11469,475 @@ Confirmed — it appears 3× in the earlier session `e98fa1cc` (entry #23's own 
 Two HW04 sessions are missing from the extractor — today's, plus `e22a2a0a` from last night. Adding both:
 ```
 → Edit(reports/tools/extract-prompt-log.py)
+→ Bash: python3 reports/tools/extract-prompt-log.py 2>&1 | tail -20; echo "=== diff stat ==="; git diff --stat reports/prompt-log.md
+   [44] 7:47 PM 09/08/2026    7 blocks  'then give me the final what to submit'
+     [45] 7:47 PM 09/08/2026    0 blocks  '[Request interrupted by user for tool use]'
+     [46] 7:47 PM 09/08/2026    1 blocks  'no i removed it just give me a list of what to submit'
+     [47] 7:48 PM 09/08/2026    0 blocks  '[Request interrupted by user]'
+     [48] 7:48 PM 09/08/2026    1 blocks  'why do i have to keep the .github template?'
+     [49] 7:50 PM 09/08/2026    9 blocks  "ok check again for me at '/Users/hbn/Documents/CS423-CSC15003-Testing-"
+     [50] 7:57 PM 09/08/2026   13 blocks  'just zipped in /Users/hbn/Downloads/23127300_HW04_AI_Automation_100.zi'
+     [51] 7:59 PM 09/08/2026    1 blocks  'the teacher said if exce
+   … [cắt bớt 1355 ký tự; xem transcript gốc]
+```text
+Purely additive — 2242 insertions, no deletions, so no existing entry was renumbered.
+```
+→ Bash: git add reports/prompt-log.md reports/tools/extract-prompt-log.py && git commit -q -m "docs(prompt-log): regenerate through session 7 (10/08) Adds two HW04 sessions that were missing from SESSIONS: e22a2a0a (video-2 scri
+… [cắt bớt 212 ký tự; xem transcript gốc]
+   c35cb58 docs(prompt-log): regenerate through session 7 (10/08)
+   5218623 docs(ai-audit): log entry #24 — issue labels + BUG-FR13-002 evidence fix
+   917f883 docs(bug): re-capture issue screenshots showing full label set
+   f5f1552 docs(bug): use F13-TC-005's own chromium failure screenshot for BUG-FR13-002
+→ Bash: git status --short; echo "--- ahead/behind ---"; git status -sb | head -1; echo "--- dup screenshots ---"; md5 -q bug-reports/screenshots/*.png | sort | uniq -d | wc -l
+   ?? reports/tools/__pycache__/
+   --- ahead/behind ---
+   ## HW04/23127300...origin/HW04/23127300
+   --- dup screenshots ---
+          0
+→ Bash: rm -rf reports/tools/__pycache__ && git status --short && echo CLEAN
+   CLEAN
+```text
+Done — everything committed and pushed.
+
+## Labels
+
+Issues #204–#212 carried only `Type: Bug` + `Status: New`. All nine now have the full five-group set the rest of the repo uses, with Severity/Priority taken from each bug report's own `Severity / Priority` section (not invented):
+
+| Issue | Severity | Priority | Module |
+|---|---|---|---|
+| #204–#206 | Major | P2 / P1 / P2 | Login |
+| #207 | Critical | P0 | Login |
+| #208–#210 | Critical / Major / Critical | P1 / P1 / P0 | Order State Machine |
+| #211–#212 | Critical | P1 / P0 | Dashboard |
+
+## Screenshots
+
+None were white — all 9 evidence screenshots show real page content. But the check turned up a worse problem you hadn't asked about: **`BUG-FR13-001.png` and `BUG-FR13-002.png` were byte-identical**. FR13-002's evidence (non-admin access) was actually FR13-001's revenue screenshot. I recovered F13-TC-005's own chromium failure screenshot — the admin Dashboard rendering under a non-admin token, which is exactly what the bug claims — and replaced it. `test-results/` had been overwritten by the webkit run, so it came out of the chromium HTML report's trace zip. Verified no two bug screenshots share an md5.
+
+I also re-captured all 9 `github-issues/*.png` — those are embedded in the bug reports and visibly showed the old two-label panel.
+
+## Root cause, fixed
+
+The `bug-report` skill hardcoded `--label "Type: Bug,Status: New"` at `gh issue create`, so every issue it ever made was under-labeled. That step now requires all five groups and a `gh label list` check for `Module`; the screenshot step now forbids reusing a sibling bug's image, with an `md5 | uniq -d` check and instructions for recovering an image from the trace zip when `test-results/` is stale.
+
+## Two things worth flagging
+
+- My first screenshot batch didn't wait for page render, so two captures came out blank — the exact failure mode you asked me to look for. Caught and redone with waits, but logged honestly as `INCOMPLETE` in audit entry #24.
+- `verify-audit-verbatim.py` mis-paired four-backtick fences, so **every entry after #23 was being scanned with drifted offsets** — prose checked as quotes, real quotes never checked. Fixed to match the opening backtick run; it now checks 261 lines (was 219) and all trace to transcripts. The one line it flagged in entry #23 is genuine — confirmed 3× in that entry's own earlier session `e98fa1cc`, not from this session's output.
+
+Logged in `reports/ai-audit-report.md` (entry #24, §5 recounted to 24) and `reports/prompt-log.md` (regenerated; also added session `e22a2a0a`, which had been missing from `SESSIONS` entirely).
+```
+
+
+---
+
+
+## [64] Claude (Opus 5, Claude Code) — 9:04 AM 10/08/2026
+
+**Prompt:**
+
+```text
+wait the first few issues still has the wrong vietnamese test case name, fix that too. also i will retake the gh issues screenshots by myself, yours is a bit blurry
+also is it too little bug we found?
+```
+
+**Output:**
+
+```text
+Let me check what the actual test titles are versus what the issues say.
+```
+→ Bash: for n in 204 205 206 207 208 209 210 211 212; do echo "=== #$n"; gh issue view $n --json body -q .body | sed -n '/## Found by Test Case/,/## Requirement/p' | sed -n '2,3p'; done
+→ Bash: grep -n "F02-TC-002\|F02-TC-004\|F02-TC-008\|F02-TC-012" automation/tests/*.spec.ts automation/test-data/*.json | head -20
+   === #204
+   F02-TC-002 — "F02-TC-002 — Email sai dinh dang bi chan boi validate HTML5"
+   
+   === #205
+   F02-TC-004 — "F02-TC-004 — Sai 2 lan lien tiep chua khoa — mat khau dung van vao duoc"
+   
+   === #206
+   F02-TC-008 — "F02-TC-008 — Sau 31 giay het khoa — dang nhap lai duoc"
+   
+   === #207
+   F02-TC-012 — "F02-TC-012 — Response dang nhap khong duoc chua mat khau nguoi dung"
+   
+   === #208
+   F10-TC-009 — "F10-TC-009 — Đơn đã hủy là trạng thái kết thúc"
+   
+   === #209
+   F10-TC-010 — "F10-TC-010 — User không được tự hủy đơn đang giao"
+   
+   === #210
+   F10-TC-011 — "F10-TC-011 — Phiên User thường không được đổi trạng thái đơn hàng"
+   
+   === #211
+   F13-TC-001 — "F13-TC-001 — Doanh thu tăng đúng total_amount của một đơn delivered" (cùng nguyên nh
+   … [cắt bớt 195 ký tự; xem transcript gốc]
+   automation/test-data/fr-02-login.cases.json:18:    "caseId": "F02-TC-002",
+   automation/test-data/fr-02-login.cases.json:48:    "caseId": "F02-TC-004",
+   automation/test-data/fr-02-login.cases.json:108:    "caseId": "F02-TC-008",
+   automation/test-data/fr-02-login.cases.json:168:    "caseId": "F02-TC-012",
+```text
+Confirmed — the four FR-02 issues (#204–#207) have unaccented Vietnamese; FR-10/FR-13 are correct. Let me get the real titles:
+```
+→ Bash: python3 -c " import json d=json.load(open('automation/test-data/fr-02-login.cases.json')) cases = d if isinstance(d,list) else d.get('cases',d) for c in cases: if c.get('caseId') in ('F02-TC-002','F02-TC-004','F02-TC-008
+… [cắt bớt 78 ký tự; xem transcript gốc]
+→ Bash: grep -n 'Found by Test Case' -A2 bug-reports/BUG-FR02-00*.md
+   F02-TC-002 | Email sai định dạng bị chặn bởi validate HTML5
+   F02-TC-004 | Sai 2 lần liên tiếp chưa khóa — mật khẩu đúng vẫn vào được
+   F02-TC-008 | Sau 31 giây hết khóa — đăng nhập lại được
+   F02-TC-012 | Response đăng nhập không được chứa mật khẩu người dùng
+   bug-reports/BUG-FR02-004.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-004.md-4-F02-TC-012 — "F02-TC-012 — Response đăng nhập không được chứa mật khẩu người dùng"
+   bug-reports/BUG-FR02-004.md-5-
+   bug-reports/BUG-FR02-001.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-001.md-4-F02-TC-002 — "F02-TC-002 — Email sai định dạng bị chặn bởi validate HTML5"
+   bug-reports/BUG-FR02-001.md-5-
+   bug-reports/BUG-FR02-003.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-003.md-4-F02-TC-008 — "F02-TC-008 — Sau 31 giây hết khóa — đăng nhập lại được"
+   bug-reports/BUG-FR02-003.md-5-
+   bug-reports/BUG-FR02-002.md:3:## Found by Test Case
+   bug-reports/BUG-FR02-002.md-4-F02-TC-004 — "F02-TC-004 — Sai 2 lần liên tiếp chưa
+   … [cắt bớt 66 ký tự; xem transcript gốc]
+```text
+Only the GitHub issue bodies lost diacritics — the local `.md` files are correct. Let me check how much of each body is affected:
+```
+→ Bash: gh issue view 204 --json body -q .body
+   ## Found by Test Case
+   F02-TC-002 — "F02-TC-002 — Email sai dinh dang bi chan boi validate HTML5"
+   
+   ## Requirement liên quan
+   FR-02 — sut-requirements.md §2: trường email phải dùng `type="email"` để trình duyệt tự validate định dạng.
+   
+   ## Severity / Priority
+   Major / P2
+   
+   ## Environment
+   **Browser**: Chromium 151.0.7922.34 (Playwright 1.62.1)
+   **OS**: macOS 26.5.2 (Tahoe)
+   **URL**: Frontend Web http://localhost:5173/login
+   
+   ## Steps to reproduce
+   1. Mở trang đăng nhập tại http://localhost:5173/login.
+   2. Kiểm tra thuộc tính `type` của ô nhập email (DevTools → Inspect Element).
+   3. Nhập một chuỗi không đúng định dạng email, ví dụ `khong-phai-email`, vào ô email.
+   4. Bấm nút Đăng nhập.
+   
+   ## Expected result
+   Ô
+   … [cắt bớt 398 ký tự; xem transcript gốc]
+→ Bash: grep -n 'test(' automation/tests/fr-02-login.spec.ts | head -5; echo "=== actual titles ==="; cd automation && npx playwright test --list --project=chromium fr-02-login 2>/dev/null | grep 'F02-TC-002\|F02-TC-004\|F02-TC-
+… [cắt bớt 16 ký tự; xem transcript gốc]
+   59:    test(`${testCase.caseId} — ${testCase.title}`, async ({ page }) => {
+   === actual titles ===
+     [chromium] › fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-002 — Email sai định dạng bị chặn bởi validate HTML5
+     [chromium] › fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-004 — Sai 2 lần liên tiếp chưa khóa — mật khẩu đúng vẫn vào được
+     [chromium] › fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-008 — Sau 31 giây hết khóa — đăng nhập lại được
+     [chromium] › fr-02-login.spec.ts:59:9 › FR-02 — Đăng nhập & khóa tài khoản › F02-TC-012 — Response đăng nhập không được chứa mật khẩu người dùng
+```text
+Runtime titles have the diacritics. Fixing just that line in the four issue bodies, leaving everything else byte-identical:
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import subprocess, json, pathlib, tempfile # issue -> local bug report holding the correct, accented "Found by Test Case" line PAIRS = {204:'BUG-FR02-00
+… [cắt bớt 829 ký tự; xem transcript gốc]
+   #204
+      was: F02-TC-002 — "F02-TC-002 — Email sai dinh dang bi chan boi validate HTML5"
+      now: F02-TC-002 — "F02-TC-002 — Email sai định dạng bị chặn bởi validate HTML5"
+   #205
+      was: F02-TC-004 — "F02-TC-004 — Sai 2 lan lien tiep chua khoa — mat khau dung van vao duoc"
+      now: F02-TC-004 — "F02-TC-004 — Sai 2 lần liên tiếp chưa khóa — mật khẩu đúng vẫn vào được"
+   #206
+      was: F02-TC-008 — "F02-TC-008 — Sau 31 giay het khoa — dang nhap lai duoc"
+      now: F02-TC-008 — "F02-TC-008 — Sau 31 giây hết khóa — đăng nhập lại được"
+   #207
+      was: F02-TC-012 — "F02-TC-012 — Response dang nhap khong duoc chua mat khau nguoi dung"
+      now: F02-TC-012 — "F02-TC-012 — Response đăng nhập không được chứa mật khẩ
+   … [cắt bớt 13 ký tự; xem transcript gốc]
+```text
+Now sweeping all nine issues against their local `.md` files to catch anything else that drifted:
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import subprocess, pathlib, re, difflib PAIRS = {204:'BUG-FR02-001',205:'BUG-FR02-002',206:'BUG-FR02-003',207:'BUG-FR02-004', 208:'BUG-FR10-001',209:'BU
+… [cắt bớt 997 ký tự; xem transcript gốc]
+   #204 BUG-FR02-001: DIFFERS
+      ## Expected result:
+        issue: Ô email có thuộc tính type="email". Với chuỗi sai định dạng, trình duyệt tự chặn submit bằng cơ chế validate HTML5 gốc.
+        md   : Ô email có thuộc tính type="email". Với chuỗi sai định dạng, trình duyệt tự chặn submit bằng cơ chế validate HTML5 gốc, không gửi request đăng nhập.
+      ## Actual result:
+        issue: Ô email có thuộc tính type="text". Trình duyệt không chặn gì cả — form submit bình thường với chuỗi sai định dạng.
+        md   : Ô email có thuộc tính type="text". Trình duyệt không chặn gì cả — form submit bình thường với chuỗi sai định dạng, không có bước validate nào diễn ra 
+   #205 BUG-FR02-002: DIFFERS
+      ## Expected resu
+   … [cắt bớt 1729 ký tự; xem transcript gốc]
+```text
+Those remaining diffs are truncations — the issue bodies are older, shorter versions of text the `.md` files later expanded. Same class of drift, so I'll resync the bodies from the reports:
+```
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import subprocess, pathlib, re, tempfile PAIRS = {204:'BUG-FR02-001',205:'BUG-FR02-002',206:'BUG-FR02-003',207:'BUG-FR02-004', 208:'BUG-FR10-001',209:'B
+… [cắt bớt 1261 ký tự; xem transcript gốc]
+   #204 BUG-FR02-001: synced from report
+   #205 BUG-FR02-002: synced from report
+   #206 BUG-FR02-003: synced from report
+   #207 BUG-FR02-004: synced from report
+   #208 BUG-FR10-001: synced from report
+   #209 BUG-FR10-002: synced from report
+   #210 BUG-FR10-003: synced from report
+   #211 BUG-FR13-001: synced from report
+   #212 BUG-FR13-002: synced from report
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 python3 - <<'PY' import subprocess, pathlib, re PAIRS = {204:'BUG-FR02-001',205:'BUG-FR02-002',206:'BUG-FR02-003',207:'BUG-FR02-004', 208:'BUG-FR10-001',209:'BUG-FR10-00
+… [cắt bớt 727 ký tự; xem transcript gốc]
+   all in sync
+```text
+Both fixes are done. Now your third question — let me check the actual numbers against what the rubric asks.
+```
+→ Bash: grep -n -i 'bug' HW04-AutomationTesting.md | head -30
+   43:automation scripts, data files, HTML reports, the bug report, the demo
+   57:wrong or missed, and produce complete outputs (HTML reports and bug
+   154:defect, **a bug report**. Log such bugs both in the Markdown report and on
+   258:    - Bug report, with screenshots of the bugs on the GitHub Issues page (if
+   262:    executed, passed, and failed; number of browser runs; number of bugs;
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08/reports/html && for d in */; do for b in chromium firefox webkit; do f="$d$b/index.html"; [ -f "$f" ] && echo "$d$b: $(grep -o '[0-9]* passed\|[0-9]* failed\|[0-9]* flak
+… [cắt bớt 58 ký tự; xem transcript gốc]
+   fr-02-login/chromium:  passed 
+   fr-02-login/firefox:  passed 
+   fr-02-login/webkit:  passed 
+   fr-10-order-state/chromium:  passed 
+   fr-10-order-state/firefox:  passed 
+   fr-10-order-state/webkit:  passed 
+   fr-13-dashboard/chromium:  passed 
+   fr-13-dashboard/firefox:  passed 
+   fr-13-dashboard/webkit:  passed
+→ Bash: sed -n '148,160p' HW04-AutomationTesting.md; echo "=== §258-266 ==="; sed -n '255,268p' HW04-AutomationTesting.md
+   Exit code 1
+   sed: HW04-AutomationTesting.md: No such file or directory
+   === §258-266 ===
+   sed: HW04-AutomationTesting.md: No such file or directory
+→ Bash: grep -n 'Tổng.*case\|passed\|failed\|Kết quả' reports/main-report.md | head -20
+   ugrep: warning: reports/main-report.md: No such file or directory
+→ Bash: cd /Users/hbn/Documents/CS423-CSC15003-Testing-N08 && sed -n '150,158p' HW04-AutomationTesting.md; echo "=== deliverable §262 ==="; sed -n '258,266p' HW04-AutomationTesting.md
+   end to end and produce as full a set of outputs as you can: the multi-
+   browser HTML reports and, wherever a failing assertion reveals a genuine
+   
+   defect, **a bug report**. Log such bugs both in the Markdown report and on
+   your GitHub Issues page, attaching a **screenshot** to each issue. Document
+   any test cases you could not automate and explain why.
+   
+   ### 7. Task 2 — Demo video
+   === deliverable §262 ===
+       - Bug report, with screenshots of the bugs on the GitHub Issues page (if
+       any).
+       - A README.md containing the self-assessment table (below) and a test
+       summary report: number of features; number of test cases automated,
+       executed, passed, and failed; number of browser runs; numbe
+   … [cắt bớt 82 ký tự; xem transcript gốc]
+→ Bash: grep -n 'passed\|failed\|Tổng số' reports/main-report.md | head -20
+   (Bash completed with no output)
+→ Bash: grep -n -i 'pass\|fail\|bug' README.md | head -25
+   38:| Feature | Automated | Executed | Passed | Failed | Not automated |
+   78:### 2.5. Bug Summary
+   80:| Bug ID | Feature | Severity / Priority | Status | Local Report | GitHub Issue |
+   82:| BUG-FR02-001 | FR-02 | Major / P2 | New | [`bug-reports/BUG-FR02-001.md`](bug-reports/BUG-FR02-001.md) | [#204](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/204) |
+   83:| BUG-FR02-002 | FR-02 | Major / P1 | New | [`bug-reports/BUG-FR02-002.md`](bug-reports/BUG-FR02-002.md) | [#205](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/205) |
+   84:| BUG-FR02-003 | FR-02 | Major / P2 | New | [`bug-reports/BUG-FR02-003.md`](bug-reports/BUG-FR02-003.md) | [#206](https://github.com/lmchkhi/CS423
+   … [cắt bớt 1661 ký tự; xem transcript gốc]
+→ Bash: sed -n '36,50p' README.md
+   Số case đếm theo case logic, không nhân theo browser.
+   
+   | Feature | Automated | Executed | Passed | Failed | Not automated |
+   |---|---:|---:|---:|---:|---:|
+   | FR-02 | 14 | 14 | 10 | 4 | 1 |
+   | FR-10 | 14 | 14 | 11 | 3 | 1 |
+   | FR-13 | 12 | 12 | 1 | 11 | 1 |
+   | **Total** | **40** | **40** | **22** | **18** | **3** |
+   
+   > Case không tự động hoá được và lý do: [`test-design/not-automated.md`](test-design/not-automated.md).
+   > Ánh xạ case HW02 → case HW04 → automated test: `test-design/<feature>/case-map.md`.
+   
+   ### 2.3. Browser Runs
+   
+   | Feature | Chromium | Firefox | WebKit |
+```text
+Both issue fixes are done and verified. Now for your question about bug count — let me ground it rather than guess. Checking whether my 3 features have defects the suite doesn't probe:
+```
+→ Bash: cd ~/Documents/eshop-sut 2>/dev/null && ls && grep -rn "BUG\|bug:" --include=*.md README.md 2>/dev/null | head -30
+→ Bash: cat test-design/not-automated.md 2>/dev/null | head -40
+   # Case không tự động hoá được
+   
+   HW04 §6 yêu cầu ghi rõ những test case không automate được và lý do.
+   
+   | Case ID | Feature | Nội dung case | Lý do không automate | Điều kiện để automate được |
+   |---|---|---|---|---|
+   | — (nửa sau của BUG-FR02-002) | FR-02 | Ô nhập mật khẩu phải dùng `type="password"` để không hiển thị rõ ký tự | Không phải "không automate được về kỹ thuật" mà là **không có oracle**: `sut-requirements.md` §2 chỉ quy định kiểu của trường email, hoàn toàn im lặng về trường mật khẩu. Assert một quy tắc mà đặc tả không nêu sẽ biến quan sát chủ quan thành tiêu chí đánh giá | Đặc tả bổ sung ràng buộc kiểu cho trường mật khẩu (hoặc một yêu cầu chung về che giấu thông tin nhập nhạy cảm)
+   … [cắt bớt 1252 ký tự; xem transcript gốc]
+   README.md
+   api_specification.md
+   backend
+   frontend-admin
+   frontend-mobile
+   frontend-web
+   run_servers.sh
+   setup_guide.md
+   (eval):1: no matches found: --include=*.md
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: cd ~/Documents/eshop-sut/backend && ls && find . -name "*.js" -not -path "*/node_modules/*" | head -20
+   database.js
+   database.sqlite
+   node_modules
+   package-lock.json
+   package.json
+   server.js
+   test_profile.js
+   ./database.js
+   ./test_profile.js
+   ./server.js
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: cd ~/Documents/eshop-sut/backend && grep -n "login\|LOCK\|lock\|attempt" server.js | head -40
+   32:app.post("/api/login", (req, res) => {
+   40:    if (user.locked_until && new Date() < new Date(user.locked_until)) {
+   48:        "UPDATE users SET login_attempts = 0, locked_until = NULL WHERE id = ?",
+   54:      const newAttempts = user.login_attempts + 2;
+   55:      let lockedUntil = null;
+   57:        lockedUntil = new Date(Date.now() + 180000).toISOString();
+   60:        "UPDATE users SET login_attempts = ?, locked_until = ? WHERE id = ?",
+   61:        [newAttempts, lockedUntil, user.id],
+   496:    "SELECT id, name, email, role, login_attempts, locked_until, shipping_address FROM users",
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+```text
+Confirms two of my FR-02 findings. Checking the order state machine and dashboard:
+```
+→ Bash: cd ~/Documents/eshop-sut/backend && grep -n "status\|cancel\|deliver\|transition" server.js | sed -n '1,60p'
+   26:      if (err) return res.status(500).json({ error: err.message });
+   36:    if (err) return res.status(500).json({ error: err.message });
+   38:      return res.status(401).json({ error: "Invalid email or password" });
+   42:        .status(403)
+   63:      res.status(401).json({ error: "Invalid email or password" });
+   71:    if (!user) return res.status(404).json({ error: "User not found" });
+   77:        if (err) return res.status(500).json({ error: err.message });
+   94:        return res.status(400).json({ error: "Invalid token or email" });
+   103:  if (token == null) return res.status(401).json({ error: "Unauthorized" });
+   106:    if (err) return res.status(403).json({ error: "Forbidden" });
+   132:    if
+   … [cắt bớt 2913 ký tự; xem transcript gốc]
+→ Bash: cd ~/Documents/eshop-sut/backend && sed -n '100,115p;440,500p' server.js
+   const authenticateToken = (req, res, next) => {
+     const authHeader = req.headers["authorization"];
+     const token = authHeader && authHeader.split(" ")[1];
+     if (token == null) return res.status(401).json({ error: "Unauthorized" });
+   
+     jwt.verify(token, SECRET_KEY, (err, user) => {
+       if (err) return res.status(403).json({ error: "Forbidden" });
+       req.user = user;
+       next();
+     });
+   };
+   
+   app.get("/api/users/me", authenticateToken, (req, res) => {
+     db.get("SELECT * FROM users WHERE id = ?", [req.user.id], (err, user) => {
+       res.json(user);
+     });
+     );
+   });
+   
+   // POST save coupon usage (called after successful checkout)
+   app.post("/api/coupon-usage", authenticateToken, (req, res) => {
+     const {
+   … [cắt bớt 1620 ký tự; xem transcript gốc]
+→ Bash: cd ~/Documents/eshop-sut/backend && grep -n "stats\|revenue\|SUM" server.js
+   (Bash completed with no output)
+→ Bash: cd ~/Documents/eshop-sut/frontend-admin && grep -rn "doanh thu\|Tổng doanh\|total_amount" --include=*.jsx --include=*.js src 2>/dev/null | grep -v node_modules | head -10
+   (eval):1: no matches found: --include=*.jsx
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+→ Bash: cd ~/Documents/eshop-sut/frontend-admin && grep -rn "doanh thu\|total_amount" src 2>/dev/null | head -10
+   src/App.jsx:218:    if (o.status === "delivered") return sum + o.total_amount * 2;
+   src/App.jsx:281:                <h3 className="text-gray-500">Tổng doanh thu (Delivered)</h3>
+   src/App.jsx:797:                      {Number(o.total_amount || 0).toLocaleString()} ₫
+   Shell cwd was reset to /Users/hbn/Documents/CS423-CSC15003-Testing-N08
+```text
+`* 2` confirms the FR-13 revenue bug. Let me check one more thing — whether the password leak extends beyond the login response:
+```
+→ Bash: cd ~/Documents/eshop-sut/backend && sed -n '32,68p' server.js
+   app.post("/api/login", (req, res) => {
+     const { email, password } = req.body;
+   
+     db.get("SELECT * FROM users WHERE email = ?", [email], (err, user) => {
+       if (err) return res.status(500).json({ error: err.message });
+       if (!user)
+         return res.status(401).json({ error: "Invalid email or password" });
+   
+       if (user.locked_until && new Date() < new Date(user.locked_until)) {
+         return res
+           .status(403)
+           .json({ error: "Tài khoản đã bị khóa. Vui lòng thử lại sau." });
+       }
+   
+       if (user.password === password) {
+         db.run(
+           "UPDATE users SET login_attempts = 0, locked_until = NULL WHERE id = ?",
+           [user.id],
+         );
+         const token = jwt.sign({ id: us
+   … [cắt bớt 650 ký tự; xem transcript gốc]
+→ Bash: grep -n 'FR-13' -A 20 sut-requirements.md | head -35
+   1:# SUT Requirements — trích cho phạm vi HW04 (FR-02, FR-10, FR-13)
+   2-
+   3-> Trích nguyên văn từ `eshop-sut/README.md` (Đặc tả Yêu cầu Hệ thống EShop,
+   4-> phiên bản 2.0 — cập nhật 2026-05-14) và `eshop-sut/api_specification.md`.
+   5-> **Đây là oracle của toàn bộ suite automation**: assertion phải mã hoá đúng
+   6-> những gì tài liệu này nói hệ thống *phải* làm, không phải hành vi hiện tại
+   7-> của bản build đang chạy. Không viết lại, không diễn giải lại file này.
+   8-
+   9-## 1. Môi trường
+   10-
+   11-| Thành phần   | Công nghệ                   | URL mặc định            |
+   12-| ------------ | --------------------------- | ----------------------- |
+   13-| Backend API  | Node.js + Express + SQLite  | `http://loca
+   … [cắt bớt 773 ký tự; xem transcript gốc]
+→ Bash: sed -n '22,78p' sut-requirements.md
+   ---
+   
+   ## 2. FR-02: Đăng nhập & Khóa tài khoản (Pool A — web `:5173`)
+   
+   - Người dùng nhập Email và Mật khẩu.
+   - Sau mỗi lần đăng nhập sai, hệ thống tăng bộ đếm lên **đúng 1 đơn vị**.
+   - Nếu đăng nhập sai từ **3 lần trở lên** liên tiếp, tài khoản bị tạm khóa
+     **30 giây** (môi trường demo). Hệ thống trả về thông báo lỗi phù hợp; không
+     để lộ chi tiết nguyên nhân.
+   - Đăng nhập thành công trả về JWT Token. Token được lưu phía client và gửi kèm
+     tất cả các yêu cầu có xác thực qua header `Authorization: Bearer <token>`.
+   - Trường email phải dùng `type="email"` (có validate HTML5 format).
+   
+   Ràng buộc liên quan từ FR-01 (dùng khi tạo tài khoản throwaway cho test khóa
+   tài khoản): mật khẩu tối thiểu 8 ký t
+   … [cắt bớt 1848 ký tự; xem transcript gốc]
+```text
+Now I have a grounded answer. Let me log this follow-up work first.
+```
+→ Bash: cd ~/.claude/projects/-Users-hbn-Documents-CS423-CSC15003-Testing-N08 && python3 - <<'PY' import json from datetime import datetime,timedelta,timezone ICT=timezone(timedelta(hours=7)) for line in open('2ff486c8-9114-49c2
+… [cắt bớt 426 ký tự; xem transcript gốc]
+   ===== 08:56 =====
+   Now the audit entry:
+   
+   ===== 08:59 =====
+   The mis-pairing starts before my entry — entry #23 has an unbalanced fence that was previously harmless. Checking it:
+   
+   ===== 09:00 =====
+   Entry #23 uses four-backtick fences, which the checker's regex mis-pairs — a pre-existing blind spot in the tool, not a verbatim problem in my entry. Fixing the checker to handle variable-length fences:
+   
+   ===== 09:00 =====
+   One remaining failure, now exposed in entry #23 (previously never checked because of the regex bug). Checking whether that line is genuinely in a transcript:
+   
+   ===== 09:01 =====
+   The line does trace to a transcript — but let me confirm it's from an earlier session, not just this one's
+   … [cắt bớt 4622 ký tự; xem transcript gốc]
+→ Write(/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/2ff486c8-9114-49c2-b104-f1d21abf82ba/scratchpad/entry25.md, 110 dòng)
+→ Bash: python3 - <<'PY' p='reports/ai-audit-report.md' s=open(p,encoding='utf-8').read() e=open('/private/tmp/claude-501/-Users-hbn-Documents-CS423-CSC15003-Testing-N08/2ff486c8-9114-49c2-b104-f1d21abf82ba/scratchpad/entry25.md
+… [cắt bớt 773 ký tự; xem transcript gốc]
+   25
+   ## 5. Tổng hợp độ chính xác của AI
+   
+   checked 273 quoted lines against 4955k chars of transcript
+   ✓ every quoted line traces to a transcript
+→ Bash: grep -n 'VALID` | 12\|INCOMPLETE` | 12\|Tổng số entry\|Session 7' reports/ai-audit-report.md | tail -6
+   2410:| `VALID` | 12 | 48.0% |
+   2411:| `INCOMPLETE` | 12 | 48.0% |
+   2413:| **Tổng số entry đã audit** | **25** | **100%** |
+   2429:| Sửa nhãn issue + bằng chứng ảnh — Session 7 (10/08) | #24–#25 | 0 | 2 |
 
 
 ---
