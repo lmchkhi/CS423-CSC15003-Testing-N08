@@ -334,8 +334,6 @@ Report hiện hành được tạo lúc `09/08/2026 20:11`. Cả ba project tái
 - Run evidence: [`playwrite-test/fr12-access/evidence/phase-d-run.md`](../playwrite-test/fr12-access/evidence/phase-d-run.md)
 - Bug reports: [`bug-reports/FR-12/`](../bug-reports/FR-12/)
 
-Khoảng trống cần xử lý trước bản nộp public cuối: password user mặc định còn xuất hiện trong 39 runtime `error-context.md` và 16 Markdown attachment của report do snapshot giữ input value. Cần xóa giá trị input sau login, rerun đủ ba browsers và quét lại report. Build/commit SUT cũng chưa được endpoint/UI công khai để ghi nhận tự động.
-
 ---
 
 ## Tổng hợp Human Review toàn bài
