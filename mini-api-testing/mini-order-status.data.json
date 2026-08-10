@@ -1,0 +1,62 @@
+[
+  {
+    "tc_id": "RUN-01",
+    "description": "Happy path: admin chuyen don pending -> confirmed",
+    "precondition_status": "",
+    "order_id_override": "",
+    "auth": "admin",
+    "request_status": "confirmed",
+    "expected_status": 200,
+    "expected_message": "Order status updated",
+    "expected_error": "",
+    "expected_final_status": "confirmed"
+  },
+  {
+    "tc_id": "RUN-02",
+    "description": "State transition hop le: confirmed -> shipping",
+    "precondition_status": "confirmed",
+    "order_id_override": "",
+    "auth": "admin",
+    "request_status": "shipping",
+    "expected_status": 200,
+    "expected_message": "Order status updated",
+    "expected_error": "",
+    "expected_final_status": "shipping"
+  },
+  {
+    "tc_id": "RUN-03",
+    "description": "State transition khong hop le: pending -> shipping (nhay trang thai)",
+    "precondition_status": "",
+    "order_id_override": "",
+    "auth": "admin",
+    "request_status": "shipping",
+    "expected_status": 400,
+    "expected_message": "",
+    "expected_error": "Invalid state transition from pending to shipping",
+    "expected_final_status": "pending"
+  },
+  {
+    "tc_id": "RUN-04",
+    "description": "Resource khong ton tai: orderId = 999999",
+    "precondition_status": "",
+    "order_id_override": "999999",
+    "auth": "admin",
+    "request_status": "confirmed",
+    "expected_status": 404,
+    "expected_message": "",
+    "expected_error": "Order not found",
+    "expected_final_status": "pending"
+  },
+  {
+    "tc_id": "RUN-05",
+    "description": "Security: goi endpoint admin khi khong gui Authorization header",
+    "precondition_status": "",
+    "order_id_override": "",
+    "auth": "none",
+    "request_status": "confirmed",
+    "expected_status": 401,
+    "expected_message": "",
+    "expected_error": "Unauthorized",
+    "expected_final_status": "pending"
+  }
+]

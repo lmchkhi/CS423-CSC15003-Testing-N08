@@ -1,0 +1,74 @@
+name: Newman API tests
+
+on:
+  push:
+    branches:
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  newman:
+    name: Newman API tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Install Newman
+        run: npm install --global newman
+
+      - name: Start provider (eshop-sut backend)
+        working-directory: backend
+        run: |
+          node server.js > "${{ runner.temp }}/backend.log" 2>&1 &
+          echo "$!" > "${{ runner.temp }}/backend.pid"
+
+      - name: Wait for provider to be ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000/api/products/1 > /dev/null; then
+              echo "Provider is up after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Provider did not start in time"
+          cat "${{ runner.temp }}/backend.log"
+          exit 1
+
+      - name: Run Newman collection (data-driven, 5 iterations)
+        run: |
+          newman run mini-api-testing/mini-order-status.postman_collection.json \
+            --environment mini-api-testing/mini-local.postman_environment.json \
+            --iteration-data mini-api-testing/mini-order-status.data.json \
+            --reporters cli,json \
+            --reporter-json-export mini-api-testing/mini-newman-report.json
+
+      - name: Show backend log on failure
+        if: failure()
+        run: cat "${{ runner.temp }}/backend.log"
+
+      - name: Upload Newman report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mini-newman-report
+          path: mini-api-testing/mini-newman-report.json
+          if-no-files-found: error
+
+      - name: Stop provider
+        if: always()
+        run: kill "$(cat "${{ runner.temp }}/backend.pid")" || true
