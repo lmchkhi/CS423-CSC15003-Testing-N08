@@ -4,7 +4,7 @@
     "description": "Get all products - no search parameter",
     "search_query": "",
     "use_search": false,
-    "expected_status": 200,
+    "expected_status": 999,
     "expected_is_array": true,
     "expected_min_length": 5,
     "expected_name_contains": "",
