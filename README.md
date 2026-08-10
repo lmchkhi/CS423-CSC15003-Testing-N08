@@ -155,7 +155,7 @@ CS423-CSC15003-Testing-N08/
 ## 7. Submission Documents
 
 - [Main report](reports/main-report.md)
-- [Automation summary](reports/README_SUMMARY.md)
+- [Automation summary](reports/test-summary.md)
 - [AI Critique](reports/ai-critique.md)
 - [AI Audit Report](reports/ai-audit-report.md)
 - [Git commit log](git-log.txt)
