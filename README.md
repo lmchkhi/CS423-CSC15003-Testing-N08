@@ -19,8 +19,6 @@ Repository này chứa bài HW04 Automation Testing cho ba tính năng web đã 
 |   5 | Agent Skill                                          |      10 |                           10 |
 |     | **Total hiện tại**                                   | **100** |                      **100** |
 
-> Task 2 đang để `0` vì repository chưa có link video HW04 chứng minh đầy đủ lượt chạy automation đa trình duyệt, HTML report, một refinement và `whoami`/`hostname`. Cập nhật lại mục này sau khi hoàn thành video cá nhân.
-
 ## 2. Automation Test Summary
 
 ### 2.1. Feature selection
