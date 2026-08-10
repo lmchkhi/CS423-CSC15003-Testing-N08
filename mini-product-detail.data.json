@@ -1,0 +1,42 @@
+[
+  {
+    "tc_id": "PDET-01",
+    "product_id": "1",
+    "expected_status": 200,
+    "expected_found": true,
+    "expected_name": "iPhone 15 Pro Max",
+    "expected_price_type": "number"
+  },
+  {
+    "tc_id": "PDET-02",
+    "product_id": "2",
+    "expected_status": 200,
+    "expected_found": true,
+    "expected_name": "Samsung Galaxy S24 Ultra",
+    "expected_price_type": "string"
+  },
+  {
+    "tc_id": "PDET-03",
+    "product_id": "3",
+    "expected_status": 200,
+    "expected_found": true,
+    "expected_name": "MacBook Pro M3",
+    "expected_price_type": "number"
+  },
+  {
+    "tc_id": "PDET-04",
+    "product_id": "999",
+    "expected_status": 200,
+    "expected_found": false,
+    "expected_name": "",
+    "expected_price_type": "absent"
+  },
+  {
+    "tc_id": "PDET-05",
+    "product_id": "abc",
+    "expected_status": 200,
+    "expected_found": false,
+    "expected_name": "",
+    "expected_price_type": "absent"
+  }
+]

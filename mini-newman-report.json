@@ -1,0 +1,2086 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "b6fd2fe5-a8fb-4d9d-a02c-23127475a002"
+    },
+    "item": [
+      {
+        "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+        "name": "GET product detail by id",
+        "request": {
+          "url": {
+            "path": [
+              "api",
+              "products",
+              "{{product_id}}"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Accept",
+              "value": "application/json"
+            }
+          ],
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "ee3ad80f-774f-4104-b0cb-6a024b0f73bd",
+              "type": "text/javascript",
+              "exec": [
+                "pm.request.headers.upsert({",
+                "  key: \"X-Student-Id\",",
+                "  value: pm.environment.get(\"studentId\"),",
+                "});"
+              ],
+              "_lastExecutionId": "24c9da4b-4a84-4199-9bef-8a9c42c98ded"
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "b5ca63d7-7a22-4021-a412-4a2a16300ef9",
+              "type": "text/javascript",
+              "exec": [
+                "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+                "const productId = String(pm.iterationData.get(\"product_id\"));",
+                "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+                "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+                "const expectedName = pm.iterationData.get(\"expected_name\");",
+                "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+                "",
+                "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+                "  pm.response.to.have.status(expectedStatus);",
+                "});",
+                "",
+                "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+                "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+                "});",
+                "",
+                "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+                "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+                "});",
+                "",
+                "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+                "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                "});",
+                "",
+                "let jsonData = {};",
+                "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+                "  jsonData = pm.response.json();",
+                "  pm.expect(jsonData).to.be.an(\"object\");",
+                "});",
+                "",
+                "if (expectedFound) {",
+                "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+                "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+                "    pm.expect(jsonData.id).to.eql(Number(productId));",
+                "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+                "    pm.expect(jsonData.description).to.be.a(\"string\");",
+                "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+                "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+                "  });",
+                "",
+                "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+                "    pm.expect(jsonData.name).to.eql(expectedName);",
+                "  });",
+                "",
+                "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+                "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+                "    if (expectedPriceType === \"number\") {",
+                "      pm.expect(jsonData.price).to.be.above(0);",
+                "    } else {",
+                "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+                "    }",
+                "  });",
+                "} else {",
+                "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+                "    pm.expect(jsonData).to.deep.eql({});",
+                "  });",
+                "}"
+              ],
+              "_lastExecutionId": "fee52c57-0374-452e-bdfb-d9797072ce26"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "b6fd2fe5-a8fb-4d9d-a02c-23127475a002",
+      "name": "Mini API Testing - Product Detail",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "Data-driven Postman/Newman tests for GET /api/products/:id in the EShop SUT.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_using": "Codex"
+    },
+    "id": "6bbdaee0-0e6f-41f6-a970-23127475a001",
+    "name": "Mini Local - EShop",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "baseUrl"
+      },
+      {
+        "type": "any",
+        "value": "23127475",
+        "key": "studentId"
+      }
+    ]
+  },
+  "globals": {
+    "id": "592efb1a-87eb-4643-be94-4f70822028be",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 10,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 36,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 4.6,
+      "responseMin": 1,
+      "responseMax": 12,
+      "responseSd": 4.079215610874228,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1786350814328,
+      "completed": 1786350814434
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 5,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "bfebaf6f-7337-4974-9dd4-f316126c4910",
+          "httpRequestId": "ac492129-6cbc-4825-93de-2c309e4595cf"
+        },
+        "item": {
+          "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+          "name": "GET product detail by id",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{product_id}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ee3ad80f-774f-4104-b0cb-6a024b0f73bd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({",
+                  "  key: \"X-Student-Id\",",
+                  "  value: pm.environment.get(\"studentId\"),",
+                  "});"
+                ],
+                "_lastExecutionId": "24c9da4b-4a84-4199-9bef-8a9c42c98ded"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b5ca63d7-7a22-4021-a412-4a2a16300ef9",
+                "type": "text/javascript",
+                "exec": [
+                  "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+                  "const productId = String(pm.iterationData.get(\"product_id\"));",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+                  "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+                  "const expectedName = pm.iterationData.get(\"expected_name\");",
+                  "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+                  "  pm.response.to.have.status(expectedStatus);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+                  "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let jsonData = {};",
+                  "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+                  "  jsonData = pm.response.json();",
+                  "  pm.expect(jsonData).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (expectedFound) {",
+                  "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+                  "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+                  "    pm.expect(jsonData.id).to.eql(Number(productId));",
+                  "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.description).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+                  "    pm.expect(jsonData.name).to.eql(expectedName);",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+                  "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+                  "    if (expectedPriceType === \"number\") {",
+                  "      pm.expect(jsonData.price).to.be.above(0);",
+                  "    } else {",
+                  "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+                  "    }",
+                  "  });",
+                  "} else {",
+                  "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+                  "    pm.expect(jsonData).to.deep.eql({});",
+                  "  });",
+                  "}"
+                ],
+                "_lastExecutionId": "fee52c57-0374-452e-bdfb-d9797072ce26"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "1"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127475"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "9f3d6929-3688-499e-a6e5-739732a46e8c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "d138d3fd-59f2-4cbc-bc97-819d7848a5b5",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "183"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"b7-TDXxV8cogLA+39ph/S9GkjYsmjg\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 08:33:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              105,
+              80,
+              104,
+              111,
+              110,
+              101,
+              32,
+              49,
+              53,
+              32,
+              80,
+              114,
+              111,
+              32,
+              77,
+              97,
+              120,
+              34,
+              44,
+              34,
+              112,
+              114,
+              105,
+              99,
+              101,
+              34,
+              58,
+              51,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              196,
+              144,
+              105,
+              225,
+              187,
+              135,
+              110,
+              32,
+              116,
+              104,
+              111,
+              225,
+              186,
+              161,
+              105,
+              32,
+              99,
+              97,
+              111,
+              32,
+              99,
+              225,
+              186,
+              165,
+              112,
+              32,
+              99,
+              225,
+              187,
+              167,
+              97,
+              32,
+              65,
+              112,
+              112,
+              108,
+              101,
+              34,
+              44,
+              34,
+              105,
+              109,
+              97,
+              103,
+              101,
+              85,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              112,
+              108,
+              97,
+              99,
+              101,
+              104,
+              111,
+              108,
+              100,
+              46,
+              99,
+              111,
+              47,
+              51,
+              48,
+              48,
+              120,
+              51,
+              48,
+              48,
+              47,
+              112,
+              110,
+              103,
+              63,
+              116,
+              101,
+              120,
+              116,
+              61,
+              105,
+              80,
+              104,
+              111,
+              110,
+              101,
+              43,
+              49,
+              53,
+              34,
+              44,
+              34,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              95,
+              105,
+              100,
+              34,
+              58,
+              49,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 12,
+          "responseSize": 183
+        },
+        "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+        "assertions": [
+          {
+            "assertion": "[PDET-01] Functional: Status matches expected 200",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Functional: X-Student-Id header is attached",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Functional: Response time is under 1000ms",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Functional: Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Functional: Body is valid JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Contract: Product schema contains required fields",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Functional: Product name matches seeded data",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-01] Contract: Price type matches documented observed behavior",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "3926aaf9-4bef-4d62-b00c-767eaecaf3cc",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 1,
+          "cr": true,
+          "httpRequestId": "a931bb36-a495-4f1d-982a-9375caa30214"
+        },
+        "item": {
+          "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+          "name": "GET product detail by id",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{product_id}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ee3ad80f-774f-4104-b0cb-6a024b0f73bd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({",
+                  "  key: \"X-Student-Id\",",
+                  "  value: pm.environment.get(\"studentId\"),",
+                  "});"
+                ],
+                "_lastExecutionId": "24c9da4b-4a84-4199-9bef-8a9c42c98ded"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b5ca63d7-7a22-4021-a412-4a2a16300ef9",
+                "type": "text/javascript",
+                "exec": [
+                  "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+                  "const productId = String(pm.iterationData.get(\"product_id\"));",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+                  "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+                  "const expectedName = pm.iterationData.get(\"expected_name\");",
+                  "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+                  "  pm.response.to.have.status(expectedStatus);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+                  "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let jsonData = {};",
+                  "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+                  "  jsonData = pm.response.json();",
+                  "  pm.expect(jsonData).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (expectedFound) {",
+                  "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+                  "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+                  "    pm.expect(jsonData.id).to.eql(Number(productId));",
+                  "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.description).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+                  "    pm.expect(jsonData.name).to.eql(expectedName);",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+                  "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+                  "    if (expectedPriceType === \"number\") {",
+                  "      pm.expect(jsonData.price).to.be.above(0);",
+                  "    } else {",
+                  "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+                  "    }",
+                  "  });",
+                  "} else {",
+                  "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+                  "    pm.expect(jsonData).to.deep.eql({});",
+                  "  });",
+                  "}"
+                ],
+                "_lastExecutionId": "fee52c57-0374-452e-bdfb-d9797072ce26"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "2"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127475"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "0b802e95-6a2c-475d-b796-77dce15acd2f",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "87a9317c-7365-4f19-8d4a-9af3a0ee4efa",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "212"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"d4-YchK+1tiGENgvF6aMmqR7T6tdv0\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 08:33:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              97,
+              109,
+              115,
+              117,
+              110,
+              103,
+              32,
+              71,
+              97,
+              108,
+              97,
+              120,
+              121,
+              32,
+              83,
+              50,
+              52,
+              32,
+              85,
+              108,
+              116,
+              114,
+              97,
+              34,
+              44,
+              34,
+              112,
+              114,
+              105,
+              99,
+              101,
+              34,
+              58,
+              34,
+              50,
+              56,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              34,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              77,
+              195,
+              160,
+              110,
+              32,
+              104,
+              195,
+              172,
+              110,
+              104,
+              32,
+              104,
+              105,
+              225,
+              187,
+              131,
+              110,
+              32,
+              116,
+              104,
+              225,
+              187,
+              139,
+              32,
+              120,
+              117,
+              225,
+              186,
+              165,
+              116,
+              32,
+              115,
+              225,
+              186,
+              175,
+              99,
+              44,
+              32,
+              99,
+              97,
+              109,
+              101,
+              114,
+              97,
+              32,
+              115,
+              105,
+              195,
+              170,
+              117,
+              32,
+              122,
+              111,
+              111,
+              109,
+              34,
+              44,
+              34,
+              105,
+              109,
+              97,
+              103,
+              101,
+              85,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              112,
+              108,
+              97,
+              99,
+              101,
+              104,
+              111,
+              108,
+              100,
+              46,
+              99,
+              111,
+              47,
+              51,
+              48,
+              48,
+              120,
+              51,
+              48,
+              48,
+              47,
+              112,
+              110,
+              103,
+              63,
+              116,
+              101,
+              120,
+              116,
+              61,
+              83,
+              97,
+              109,
+              115,
+              117,
+              110,
+              103,
+              43,
+              83,
+              50,
+              52,
+              34,
+              44,
+              34,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              95,
+              105,
+              100,
+              34,
+              58,
+              49,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 6,
+          "responseSize": 212
+        },
+        "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+        "assertions": [
+          {
+            "assertion": "[PDET-02] Functional: Status matches expected 200",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Functional: X-Student-Id header is attached",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Functional: Response time is under 1000ms",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Functional: Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Functional: Body is valid JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Contract: Product schema contains required fields",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Functional: Product name matches seeded data",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-02] Contract: Price type matches documented observed behavior",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "e9f07653-0728-4136-97a8-0622538e8451",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 2,
+          "cr": true,
+          "httpRequestId": "b82113b6-e997-4c8e-8ba8-345676577c46"
+        },
+        "item": {
+          "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+          "name": "GET product detail by id",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{product_id}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ee3ad80f-774f-4104-b0cb-6a024b0f73bd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({",
+                  "  key: \"X-Student-Id\",",
+                  "  value: pm.environment.get(\"studentId\"),",
+                  "});"
+                ],
+                "_lastExecutionId": "24c9da4b-4a84-4199-9bef-8a9c42c98ded"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b5ca63d7-7a22-4021-a412-4a2a16300ef9",
+                "type": "text/javascript",
+                "exec": [
+                  "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+                  "const productId = String(pm.iterationData.get(\"product_id\"));",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+                  "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+                  "const expectedName = pm.iterationData.get(\"expected_name\");",
+                  "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+                  "  pm.response.to.have.status(expectedStatus);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+                  "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let jsonData = {};",
+                  "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+                  "  jsonData = pm.response.json();",
+                  "  pm.expect(jsonData).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (expectedFound) {",
+                  "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+                  "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+                  "    pm.expect(jsonData.id).to.eql(Number(productId));",
+                  "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.description).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+                  "    pm.expect(jsonData.name).to.eql(expectedName);",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+                  "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+                  "    if (expectedPriceType === \"number\") {",
+                  "      pm.expect(jsonData.price).to.be.above(0);",
+                  "    } else {",
+                  "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+                  "    }",
+                  "  });",
+                  "} else {",
+                  "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+                  "    pm.expect(jsonData).to.deep.eql({});",
+                  "  });",
+                  "}"
+                ],
+                "_lastExecutionId": "fee52c57-0374-452e-bdfb-d9797072ce26"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "3"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127475"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "fdc3f0ea-6de7-458d-a921-24338df923e7",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "85b8d6b4-8be6-446b-b4b7-2c754b7faa5a",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "180"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"b4-Vhl0d3sEXViaeQIOcNp4yngZAzU\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 08:33:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              77,
+              97,
+              99,
+              66,
+              111,
+              111,
+              107,
+              32,
+              80,
+              114,
+              111,
+              32,
+              77,
+              51,
+              34,
+              44,
+              34,
+              112,
+              114,
+              105,
+              99,
+              101,
+              34,
+              58,
+              52,
+              53,
+              48,
+              48,
+              48,
+              48,
+              48,
+              48,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              76,
+              97,
+              112,
+              116,
+              111,
+              112,
+              32,
+              99,
+              104,
+              117,
+              121,
+              195,
+              170,
+              110,
+              32,
+              110,
+              103,
+              104,
+              105,
+              225,
+              187,
+              135,
+              112,
+              32,
+              109,
+              225,
+              186,
+              161,
+              110,
+              104,
+              32,
+              109,
+              225,
+              186,
+              189,
+              34,
+              44,
+              34,
+              105,
+              109,
+              97,
+              103,
+              101,
+              85,
+              114,
+              108,
+              34,
+              58,
+              34,
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              112,
+              108,
+              97,
+              99,
+              101,
+              104,
+              111,
+              108,
+              100,
+              46,
+              99,
+              111,
+              47,
+              51,
+              48,
+              48,
+              120,
+              51,
+              48,
+              48,
+              47,
+              112,
+              110,
+              103,
+              63,
+              116,
+              101,
+              120,
+              116,
+              61,
+              77,
+              97,
+              99,
+              98,
+              111,
+              111,
+              107,
+              43,
+              80,
+              114,
+              111,
+              34,
+              44,
+              34,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 180
+        },
+        "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+        "assertions": [
+          {
+            "assertion": "[PDET-03] Functional: Status matches expected 200",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Functional: X-Student-Id header is attached",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Functional: Response time is under 1000ms",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Functional: Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Functional: Body is valid JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Contract: Product schema contains required fields",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Functional: Product name matches seeded data",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-03] Contract: Price type matches documented observed behavior",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "1175e0eb-c2d8-4740-a8dd-d631deb4a24d",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 3,
+          "cr": true,
+          "httpRequestId": "1922f173-c3ae-4917-b804-ea820330c9dd"
+        },
+        "item": {
+          "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+          "name": "GET product detail by id",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{product_id}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ee3ad80f-774f-4104-b0cb-6a024b0f73bd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({",
+                  "  key: \"X-Student-Id\",",
+                  "  value: pm.environment.get(\"studentId\"),",
+                  "});"
+                ],
+                "_lastExecutionId": "24c9da4b-4a84-4199-9bef-8a9c42c98ded"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b5ca63d7-7a22-4021-a412-4a2a16300ef9",
+                "type": "text/javascript",
+                "exec": [
+                  "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+                  "const productId = String(pm.iterationData.get(\"product_id\"));",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+                  "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+                  "const expectedName = pm.iterationData.get(\"expected_name\");",
+                  "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+                  "  pm.response.to.have.status(expectedStatus);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+                  "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let jsonData = {};",
+                  "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+                  "  jsonData = pm.response.json();",
+                  "  pm.expect(jsonData).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (expectedFound) {",
+                  "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+                  "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+                  "    pm.expect(jsonData.id).to.eql(Number(productId));",
+                  "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.description).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+                  "    pm.expect(jsonData.name).to.eql(expectedName);",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+                  "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+                  "    if (expectedPriceType === \"number\") {",
+                  "      pm.expect(jsonData.price).to.be.above(0);",
+                  "    } else {",
+                  "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+                  "    }",
+                  "  });",
+                  "} else {",
+                  "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+                  "    pm.expect(jsonData).to.deep.eql({});",
+                  "  });",
+                  "}"
+                ],
+                "_lastExecutionId": "fee52c57-0374-452e-bdfb-d9797072ce26"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "999"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127475"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "7370c13d-695e-4f40-80d5-eb0bad09db30",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "e3441a87-a774-4c05-9ed2-4262f5d6cfcd",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "2"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 08:33:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 2
+        },
+        "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+        "assertions": [
+          {
+            "assertion": "[PDET-04] Functional: Status matches expected 200",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-04] Functional: X-Student-Id header is attached",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-04] Functional: Response time is under 1000ms",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-04] Functional: Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-04] Functional: Body is valid JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-04] Functional: Missing or malformed product id returns empty object",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "c98fd949-4cdc-4a30-b13d-f7216a2ef197",
+          "length": 1,
+          "cycles": 5,
+          "position": 0,
+          "iteration": 4,
+          "cr": true,
+          "httpRequestId": "f68c7300-b238-4aaa-8b94-bd89701b4dd1"
+        },
+        "item": {
+          "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+          "name": "GET product detail by id",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "products",
+                "{{product_id}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "ee3ad80f-774f-4104-b0cb-6a024b0f73bd",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({",
+                  "  key: \"X-Student-Id\",",
+                  "  value: pm.environment.get(\"studentId\"),",
+                  "});"
+                ],
+                "_lastExecutionId": "24c9da4b-4a84-4199-9bef-8a9c42c98ded"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "b5ca63d7-7a22-4021-a412-4a2a16300ef9",
+                "type": "text/javascript",
+                "exec": [
+                  "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+                  "const productId = String(pm.iterationData.get(\"product_id\"));",
+                  "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+                  "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+                  "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+                  "const expectedName = pm.iterationData.get(\"expected_name\");",
+                  "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+                  "  pm.response.to.have.status(expectedStatus);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+                  "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});",
+                  "",
+                  "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+                  "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "let jsonData = {};",
+                  "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+                  "  jsonData = pm.response.json();",
+                  "  pm.expect(jsonData).to.be.an(\"object\");",
+                  "});",
+                  "",
+                  "if (expectedFound) {",
+                  "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+                  "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+                  "    pm.expect(jsonData.id).to.eql(Number(productId));",
+                  "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+                  "    pm.expect(jsonData.description).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+                  "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+                  "    pm.expect(jsonData.name).to.eql(expectedName);",
+                  "  });",
+                  "",
+                  "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+                  "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+                  "    if (expectedPriceType === \"number\") {",
+                  "      pm.expect(jsonData.price).to.be.above(0);",
+                  "    } else {",
+                  "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+                  "    }",
+                  "  });",
+                  "} else {",
+                  "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+                  "    pm.expect(jsonData).to.deep.eql({});",
+                  "  });",
+                  "}"
+                ],
+                "_lastExecutionId": "fee52c57-0374-452e-bdfb-d9797072ce26"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products",
+              "abc"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Accept",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127475"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "9313736f-ebd8-46b4-9017-b1d9aa2a819f",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "a85fd748-64b4-4146-95a3-6ee35441ef58",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "2"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\""
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 08:33:34 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 2
+        },
+        "id": "d34ccffd-303c-4869-8970-b391fcc992d4",
+        "assertions": [
+          {
+            "assertion": "[PDET-05] Functional: Status matches expected 200",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-05] Functional: X-Student-Id header is attached",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-05] Functional: Response time is under 1000ms",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-05] Functional: Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-05] Functional: Body is valid JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "[PDET-05] Functional: Missing or malformed product id returns empty object",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 579
+    },
+    "failures": [],
+    "error": null
+  }
+}

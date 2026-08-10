@@ -1,0 +1,114 @@
+{
+  "info": {
+    "_postman_id": "b6fd2fe5-a8fb-4d9d-a02c-23127475a002",
+    "name": "Mini API Testing - Product Detail",
+    "description": "Data-driven Postman/Newman tests for GET /api/products/:id in the EShop SUT.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET product detail by id",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.request.headers.upsert({",
+              "  key: \"X-Student-Id\",",
+              "  value: pm.environment.get(\"studentId\"),",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const tcId = pm.iterationData.get(\"tc_id\") || \"NO-TC\";",
+              "const productId = String(pm.iterationData.get(\"product_id\"));",
+              "const expectedStatus = Number(pm.iterationData.get(\"expected_status\"));",
+              "const expectedFoundRaw = pm.iterationData.get(\"expected_found\");",
+              "const expectedFound = expectedFoundRaw === true || expectedFoundRaw === \"true\";",
+              "const expectedName = pm.iterationData.get(\"expected_name\");",
+              "const expectedPriceType = pm.iterationData.get(\"expected_price_type\");",
+              "",
+              "pm.test(`[${tcId}] Functional: Status matches expected ${expectedStatus}`, function () {",
+              "  pm.response.to.have.status(expectedStatus);",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Functional: X-Student-Id header is attached`, function () {",
+              "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(pm.environment.get(\"studentId\"));",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Functional: Response time is under 1000ms`, function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Functional: Response is JSON`, function () {",
+              "  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+              "});",
+              "",
+              "let jsonData = {};",
+              "pm.test(`[${tcId}] Functional: Body is valid JSON`, function () {",
+              "  jsonData = pm.response.json();",
+              "  pm.expect(jsonData).to.be.an(\"object\");",
+              "});",
+              "",
+              "if (expectedFound) {",
+              "  pm.test(`[${tcId}] Contract: Product schema contains required fields`, function () {",
+              "    pm.expect(jsonData).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\");",
+              "    pm.expect(jsonData.id).to.eql(Number(productId));",
+              "    pm.expect(jsonData.name).to.be.a(\"string\").and.not.empty;",
+              "    pm.expect(jsonData.description).to.be.a(\"string\");",
+              "    pm.expect(jsonData.imageUrl).to.be.a(\"string\");",
+              "    pm.expect(jsonData.category_id).to.be.a(\"number\");",
+              "  });",
+              "",
+              "  pm.test(`[${tcId}] Functional: Product name matches seeded data`, function () {",
+              "    pm.expect(jsonData.name).to.eql(expectedName);",
+              "  });",
+              "",
+              "  pm.test(`[${tcId}] Contract: Price type matches documented observed behavior`, function () {",
+              "    pm.expect(typeof jsonData.price).to.eql(expectedPriceType);",
+              "    if (expectedPriceType === \"number\") {",
+              "      pm.expect(jsonData.price).to.be.above(0);",
+              "    } else {",
+              "      pm.expect(Number(jsonData.price)).to.be.above(0);",
+              "    }",
+              "  });",
+              "} else {",
+              "  pm.test(`[${tcId}] Functional: Missing or malformed product id returns empty object`, function () {",
+              "    pm.expect(jsonData).to.deep.eql({});",
+              "  });",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/{{product_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "products",
+            "{{product_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": []
+}
