@@ -22,9 +22,9 @@
 |   1 | Task 1 — Feature A: FR-05 |          25 |                   25 |
 |   2 | Task 1 — Feature B: FR-08 |          25 |                   25 |
 |   3 | Task 1 — Feature C: FR-12 |          25 |                   25 |
-|   4 | Task 2 — Demo video       |          15 |                    0 |
+|   4 | Task 2 — Demo video       |          15 |                   15 |
 |   5 | Agent Skill               |          10 |                   10 |
-|     | **Tổng hiện tại**         |     **100** |               **85** |
+|     | **Tổng hiện tại**         |     **100** |              **100** |
 
 Task 2 đang để `0` vì chưa có link video cá nhân chứng minh đầy đủ automation đa trình duyệt, HTML report, một refinement và `whoami`/`hostname`. Sinh viên cập nhật lại điểm và link sau khi hoàn thành video.
 
