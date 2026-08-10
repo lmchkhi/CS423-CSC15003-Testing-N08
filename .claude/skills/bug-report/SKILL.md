@@ -47,6 +47,21 @@ report ID in the body instead of silently reusing it.
    `bug-reports/screenshots/<BUG-ID>.png` — it is the run's own evidence, so
    prefer it over a hand-taken screenshot. Screenshot failures only.
 
+   The screenshot must come from **this bug's own failing test** — never copy a
+   sibling bug's image because it happens to show a similar screen. Verify
+   before committing:
+
+   ```bash
+   md5 -q bug-reports/screenshots/*.png | sort | uniq -d   # must print nothing
+   ```
+
+   A `test-results/` directory only holds the **most recent** run, so if it has
+   been overwritten by a later browser, recover the right image from the
+   feature's HTML report instead: the trace zip under
+   `reports/html/<feature>/<browser>/data/` that contains this test's
+   `error-context` resource also lists its screenshot's hash, and that hash is
+   the `.png` filename in the same `data/` directory.
+
 2. **Write `bug-reports/<BUG-ID>.md`** using the repo's own issue template at
    `.github/ISSUE_TEMPLATE/bug-report-template.md` as the source of truth for
    fields:
@@ -153,8 +168,17 @@ report ID in the body instead of silently reusing it.
    gh issue create \
      --title "[BUG][<Module>] <short title>" \
      --body-file /tmp/issue-body.md \
-     --label "Type: Bug,Status: New"
+     --label "Type: Bug,Status: New,Severity: <Critical|Major|Minor|Trivial>,Priority: <P0|P1|P2|P3>,Module: <Module>"
    ```
+
+   **All five label groups are required** — `Type`, `Status`, `Severity`,
+   `Priority`, and `Module`. The repo's other issues all carry the full set, so
+   an issue with only `Type: Bug,Status: New` is under-labelled and will not
+   filter correctly. `Severity` and `Priority` must repeat exactly what the
+   report's `Severity / Priority` section says; `Module` must be an existing
+   label — run `gh label list` first and reuse the feature's module
+   (`Module: Login` for FR-02, `Module: Order State Machine` for FR-10,
+   `Module: Dashboard` for FR-13) rather than creating a near-duplicate.
 
    Confirm the exact title/labels/repo with the student before running
    `gh issue create` — creating issues is visible to the whole team.

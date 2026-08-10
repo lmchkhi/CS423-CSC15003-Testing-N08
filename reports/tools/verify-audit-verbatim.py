@@ -61,7 +61,12 @@ def main():
     blob = corpus()
     text = open(REPORT).read()
     checked, missing = 0, []
-    for block in re.findall(r"```\n(.*?)\n```", text, re.S):
+    # Fences may be longer than three backticks (an entry whose quoted output
+    # itself contains ``` opens with ````). Match the opening run and require
+    # the same run to close it, or the pairing drifts and later entries get
+    # scanned as if prose were quoted text.
+    fenced = re.compile(r"^(`{3,})[^\n]*\n(.*?)\n\1[ \t]*$", re.S | re.M)
+    for _, block in fenced.findall(text):
         for ln in [l for l in block.strip().split("\n") if l.strip()]:
             if VIETNAMESE.search(ln.lower()) or len(ln.strip()) < MIN_LEN:
                 continue

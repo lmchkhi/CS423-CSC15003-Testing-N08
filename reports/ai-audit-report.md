@@ -2173,14 +2173,134 @@ thiếu:
 
 ---
 
+## Entry #24
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Claude (Opus 5, Claude Code) |
+| **Timestamp**     | 8:46 AM 10/08/2026 |
+| **Artifact type** | Gán nhãn Severity/Priority/Module cho issue #204–#212, thay ảnh bằng chứng `BUG-FR13-002.png`, chụp lại 9 ảnh issue, vá skill `bug-report` |
+
+**Full prompt:**
+
+```
+the github issues for this homework is missing tags, add them. also check if all the playwright screenshots are all okay not all white
+```
+
+### (2) AI Output
+
+```
+I'll start by looking at the current state of the GitHub issues and the report screenshots.
+```
+
+```
+Two things to fix. Issues #204–#212 (my HW04 bugs) only carry `Type: Bug, Status: New`, while every other issue in the repo has Severity/Priority/Module too. Let me check the bug reports and the label set.
+```
+
+```
+FR13-001 and FR13-002 are byte-identical — same screenshot filed for two different bugs. Let me look at the images.
+```
+
+```
+Both are real content. Let me check the rest.
+```
+
+```
+All 9 screenshots show real content — none blank. One real problem though: `BUG-FR13-001.png` and `BUG-FR13-002.png` are byte-identical (same dashboard revenue shot), so FR13-002's evidence doesn't show its own defect. Let me check for its actual failure screenshot while I apply the labels.
+```
+
+```
+All screenshots are fine — real page content, none white. Now applying the missing labels.
+```
+
+```
+Labels applied. Verifying my nine and locating the chromium screenshot for F13-TC-005:
+```
+
+```
+That's F13-TC-005's own chromium failure screenshot — the admin Dashboard fully rendered under a non-admin token, which is exactly what BUG-FR13-002 claims. Replacing the duplicate:
+```
+
+```
+Confirmed the stale artifact: those issue-page screenshots embedded in each bug report show only `Status: New` / `Type: Bug` in the Labels panel, so they no longer match the issues. Let me commit the screenshot fix, push, then re-capture all nine.
+```
+
+```
+All five labels render now. Capturing the nine issue pages losslessly:
+```
+
+```
+Page body hadn't rendered before the capture — adding waits.
+```
+
+```
+All nine captured with full label sets. Installing them:
+```
+
+```
+Both pushed. Now logging this session per the repo's AI-logging rule.
+```
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+Phần chẩn đoán đúng và còn vượt yêu cầu, nhưng cách thực thi để lọt một lỗi tự
+gây ra, nên không thể chấm `VALID`.
+
+Đúng ở ba điểm. Thứ nhất, AI khoanh vùng chính xác chỗ thiếu: 9 issue của em
+(#204–#212) chỉ mang `Type: Bug` và `Status: New`, trong khi toàn bộ issue còn
+lại của repo đều có đủ `Severity` / `Priority` / `Module`; giá trị gán vào cũng
+lấy đúng từ mục `Severity / Priority` mà mỗi bug report đã tự khai, không phải
+AI tự nghĩ ra. Thứ hai, câu hỏi của em chỉ là "ảnh có bị trắng không" — AI trả
+lời được là không (cả 9 ảnh đều có nội dung trang thật), nhưng đồng thời phát
+hiện một lỗi nặng hơn mà em không hỏi tới: `BUG-FR13-001.png` và
+`BUG-FR13-002.png` **trùng nhau từng byte**. Nghĩa là bằng chứng của bug phân
+quyền FR-13 thực chất là ảnh của bug sai doanh thu FR-13, một lỗi làm hỏng giá
+trị chứng minh của bug report mà nhìn bằng mắt thường không thể thấy. Thứ ba,
+AI truy ngược được nguyên nhân gốc thay vì chỉ chữa triệu chứng: skill
+`bug-report` hardcode `--label "Type: Bug,Status: New"` ở bước tạo issue, nên
+mọi issue sinh ra từ skill đều thiếu nhãn — đó mới là thứ cần sửa để không tái
+diễn.
+
+Sai ở khâu chụp lại ảnh. Lần chụp đầu AI gộp `navigate` + `zoom` vào cùng một
+`browser_batch` mà không chờ trang render, nên 2/3 ảnh đầu tiên (issue #205,
+#206) chụp ra body trống trơn — đúng kiểu "ảnh trắng" mà em vừa nhờ kiểm tra.
+AI tự phát hiện và chụp lại có `wait`, nhưng đây là lỗi lẽ ra không được xảy ra
+ngay trong chính nhiệm vụ đi soi ảnh trắng.
+
+### (5) Student Fix
+
+- Giữ nguyên phần gán nhãn: đã kiểm chứng lại bằng `gh issue list --json labels`
+  cho cả 9 issue, mỗi issue nay có đủ 5 nhóm nhãn và khớp với `Severity /
+  Priority` ghi trong file bug report tương ứng.
+- Thay `bug-reports/screenshots/BUG-FR13-002.png` bằng ảnh thất bại chromium của
+  đúng case F13-TC-005, lấy lại từ report HTML (`reports/html/fr-13-dashboard/`
+  `chromium/data/`) vì `test-results/` đã bị lượt chạy webkit ghi đè. Ảnh mới
+  cho thấy Dashboard render đầy đủ dưới token non-admin — đúng nội dung mà bug
+  này khẳng định. Đã xác minh không còn hai ảnh nào trùng md5.
+- Chụp lại toàn bộ 9 ảnh trang issue bằng `zoom` (PNG không nén mất dữ liệu)
+  thay vì `screenshot`, và kiểm tra từng ảnh có nội dung trước khi commit.
+- Vá skill `bug-report` để lỗi không lặp lại: bước tạo issue nay bắt buộc đủ 5
+  nhóm nhãn và yêu cầu đối chiếu `gh label list` trước khi chọn `Module`; bước
+  chụp ảnh nay cấm mượn ảnh của bug khác, kèm lệnh `md5 ... | uniq -d` để tự
+  kiểm và hướng dẫn lấy lại ảnh từ trace zip trong report HTML khi
+  `test-results/` đã bị ghi đè.
+
+---
+
 ## 5. Tổng hợp độ chính xác của AI
 
 | Verdict | Số entry | Tỷ lệ |
 | --- | ---: | ---: |
-| `VALID` | 12 | 52.2% |
-| `INCOMPLETE` | 10 | 43.5% |
-| `INVALID` | 1 | 4.3% |
-| **Tổng số entry đã audit** | **23** | **100%** |
+| `VALID` | 12 | 50.0% |
+| `INCOMPLETE` | 11 | 45.8% |
+| `INVALID` | 1 | 4.2% |
+| **Tổng số entry đã audit** | **24** | **100%** |
 
 Phân bố theo giai đoạn:
 
@@ -2196,6 +2316,7 @@ Phân bố theo giai đoạn:
 | Sửa lỗ hổng data-driven FR-02 — Session 4 (09/08) | #21 | 1 | 0 |
 | Rà soát toàn bài theo rubric — Session 5 (09/08) | #22 | 0 | 1 |
 | Rà soát trước khi nộp — Session 6 (09/08) | #23 | 0 | 1 |
+| Sửa nhãn issue + bằng chứng ảnh — Session 7 (10/08) | #24 | 0 | 1 |
 
 ## 6. Kết luận
 
