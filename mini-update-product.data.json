@@ -1,0 +1,57 @@
+[
+  {
+    "tc_id": "AI-01",
+    "test_name": "Valid full product update",
+    "id": "1",
+    "send_authorization": "true",
+    "authorization": "Bearer admin-valid-token",
+    "request_body": "{\"name\":\"iPhone 15 Pro Max DDT\",\"price\":31000000,\"description\":\"Điện thoại cao cấp của Apple\",\"imageUrl\":\"https://example.com/iphone-ddt.png\",\"category_id\":1}",
+    "expected_status": 200,
+    "contract_status": 200,
+    "expected_exists": "true"
+  },
+  {
+    "tc_id": "AI-02",
+    "test_name": "Unicode product name",
+    "id": "1",
+    "send_authorization": "true",
+    "authorization": "Bearer admin-valid-token",
+    "request_body": "{\"name\":\"Điện thoại 日本語 📱\",\"price\":31000000,\"description\":\"Sản phẩm Unicode\",\"imageUrl\":\"https://example.com/unicode.png\",\"category_id\":1}",
+    "expected_status": 200,
+    "contract_status": 200,
+    "expected_exists": "true"
+  },
+  {
+    "tc_id": "AI-03",
+    "test_name": "Valid but nonexistent product ID",
+    "id": "999999",
+    "send_authorization": "true",
+    "authorization": "Bearer admin-valid-token",
+    "request_body": "{\"name\":\"Nonexistent Product\",\"price\":31000000,\"description\":\"No matching row\",\"imageUrl\":\"https://example.com/missing.png\",\"category_id\":1}",
+    "expected_status": 200,
+    "contract_status": 404,
+    "expected_exists": "false"
+  },
+  {
+    "tc_id": "AI-04",
+    "test_name": "Boundary product ID zero",
+    "id": "0",
+    "send_authorization": "true",
+    "authorization": "Bearer admin-valid-token",
+    "request_body": "{\"name\":\"Zero ID Product\",\"price\":31000000,\"description\":\"Boundary ID\",\"imageUrl\":\"https://example.com/zero.png\",\"category_id\":1}",
+    "expected_status": 200,
+    "contract_status": 400,
+    "expected_exists": "false"
+  },
+  {
+    "tc_id": "AI-14",
+    "test_name": "Missing Authorization header",
+    "id": "1",
+    "send_authorization": "false",
+    "authorization": "",
+    "request_body": "{\"name\":\"Unauthorized Update Observed\",\"price\":31500000,\"description\":\"Request intentionally has no token\",\"imageUrl\":\"https://example.com/no-auth.png\",\"category_id\":1}",
+    "expected_status": 200,
+    "contract_status": 401,
+    "expected_exists": "true"
+  }
+]

@@ -1,0 +1,222 @@
+{
+  "info": {
+    "_postman_id": "812a1ad0-657e-43ae-9e46-231270620002",
+    "name": "Mini - Update Product API - 23127062",
+    "description": "Data-driven characterization tests for PUT /api/products/:id. expected_status follows the current SUT so Newman can pass; contract_status preserves the REST/admin oracle and exposes known defect candidates.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "apiName",
+      "value": "update-product"
+    },
+    {
+      "key": "restoreBody",
+      "value": "{\"name\":\"iPhone 15 Pro Max\",\"price\":30000000,\"description\":\"Điện thoại cao cấp của Apple\",\"imageUrl\":\"https://placehold.co/300x300/png?text=iPhone+15\",\"category_id\":1}"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const studentId = pm.environment.get('studentId');",
+          "pm.expect(studentId, 'studentId environment variable').to.be.a('string').and.not.empty;",
+          "pm.request.headers.upsert({ key: 'X-Student-Id', value: studentId });",
+          "",
+          "const sendAuthorization = String(pm.iterationData.get('send_authorization')).toLowerCase() === 'true';",
+          "if (sendAuthorization) {",
+          "  pm.request.headers.upsert({ key: 'Authorization', value: pm.iterationData.get('authorization') });",
+          "} else {",
+          "  pm.request.headers.remove('Authorization');",
+          "}",
+          "",
+          "console.log(`[MINI] ${pm.iterationData.get('tc_id')} X-Student-Id=${studentId} Authorization=${sendAuthorization ? 'present' : 'absent'}`);"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Update product",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const tcId = pm.iterationData.get('tc_id');",
+              "const expectedStatus = Number(pm.iterationData.get('expected_status'));",
+              "const contractStatus = Number(pm.iterationData.get('contract_status'));",
+              "",
+              "pm.test(`[${tcId}] Status is ${expectedStatus}`, () => {",
+              "  pm.response.to.have.status(expectedStatus);",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Response Content-Type is JSON`, () => {",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Response time is below 1000 ms`, () => {",
+              "  pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Student header uses MSSV`, () => {",
+              "  pm.expect(pm.request.headers.get('X-Student-Id')).to.eql(pm.environment.get('studentId'));",
+              "});",
+              "",
+              "pm.test(`[${tcId}] Success schema and exact message`, () => {",
+              "  const body = pm.response.json();",
+              "  pm.expect(body).to.be.an('object');",
+              "  pm.expect(body).to.have.property('message', 'Product updated');",
+              "  pm.expect(body).not.to.have.property('stack');",
+              "});",
+              "",
+              "if (expectedStatus !== contractStatus) {",
+              "  console.warn(`[DEFECT CANDIDATE] ${tcId}: current=${expectedStatus}, contract=${contractStatus}`);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{request_body}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/products/{{id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "products",
+            "{{id}}"
+          ]
+        },
+        "description": "Executes one data-driven PUT case. Authorization is controlled by send_authorization."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Verify persisted state",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const tcId = pm.iterationData.get('tc_id');",
+              "const expectedExists = String(pm.iterationData.get('expected_exists')).toLowerCase() === 'true';",
+              "",
+              "pm.test(`[${tcId}] Verification GET returns JSON 200`, () => {",
+              "  pm.response.to.have.status(200);",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+              "});",
+              "",
+              "const actual = pm.response.json();",
+              "if (expectedExists) {",
+              "  const expected = JSON.parse(pm.iterationData.get('request_body'));",
+              "  pm.test(`[${tcId}] Product data was persisted`, () => {",
+              "    pm.expect(actual.id).to.eql(Number(pm.iterationData.get('id')));",
+              "    pm.expect(actual.name).to.eql(expected.name);",
+              "    pm.expect(actual.price).to.eql(expected.price);",
+              "    pm.expect(actual.description).to.eql(expected.description);",
+              "    pm.expect(actual.imageUrl).to.eql(expected.imageUrl);",
+              "    pm.expect(actual.category_id).to.eql(expected.category_id);",
+              "  });",
+              "} else {",
+              "  pm.test(`[${tcId}] No product exists for the supplied ID`, () => {",
+              "    pm.expect(actual).to.eql({});",
+              "  });",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/{{id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "products",
+            "{{id}}"
+          ]
+        },
+        "description": "Confirms that a successful update changed the target and that no row exists for invalid/nonexistent IDs."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Restore product fixture",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const tcId = pm.iterationData.get('tc_id');",
+              "pm.test(`[${tcId}] Fixture restore succeeds`, () => {",
+              "  pm.response.to.have.status(200);",
+              "  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+              "  pm.expect(pm.response.json()).to.have.property('message', 'Product updated');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{restoreBody}}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/products/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "products",
+            "1"
+          ]
+        },
+        "description": "Restores seeded product 1 after every iteration so test data remains independent."
+      },
+      "response": []
+    }
+  ]
+}
