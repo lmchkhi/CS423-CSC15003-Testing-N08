@@ -6,7 +6,7 @@
     "order_id_override": "",
     "auth": "admin",
     "request_status": "confirmed",
-    "expected_status": 200,
+    "expected_status": 999,
     "expected_message": "Order status updated",
     "expected_error": "",
     "expected_final_status": "confirmed"
