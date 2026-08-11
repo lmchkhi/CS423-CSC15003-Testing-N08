@@ -8,6 +8,6 @@ User Prompt:
 
     `<exact user prompt>`
 
-AI Action:
+AI Output:
 
     `<actual/planned action, changed artifacts, and current checkpoint>`
