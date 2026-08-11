@@ -11,13 +11,13 @@ Read:
 - SUT `README.md`;
 - SUT API specification;
 - existing JMeter configuration;
-- existing WF-02 test artifacts, reports and data if they exist.
+- existing Returning Customer Search and Order test artifacts, reports and data if they exist.
 
 Legacy or template report content must not be treated as current HW05 runtime evidence.
 
 `reports/main-report.md` and `reports/test-summary.md` may remain structural templates until Phase E.
 
-During Phases A-D, only treat an artifact as current HW05 evidence when it is explicitly associated with WF-02 or the current execution.
+During Phases A-D, only treat an artifact as current HW05 evidence when it is explicitly associated with Returning Customer Search and Order or the current execution.
 
 Inspect the local environment before asking the user for information that can be verified directly.
 
@@ -38,7 +38,7 @@ Confirm:
 
 Do not perform Load, Stress, Spike or Endurance testing in Phase A.
 
-### A2. Verify the WF-02 API contract
+### A2. Verify the Returning Customer Search and Order API contract
 
 Verify the intended workflow against the actual SUT:
 
@@ -131,7 +131,7 @@ Maximum scope:
 
 ```text
 1 user
-1 logical WF-02 workflow
+1 logical Returning Customer Search and Order workflow
 ```
 
 The purpose is to establish:
@@ -215,13 +215,13 @@ OS
 Store hardware screenshots under:
 
 ```text
-tests/WF-02/evidence/hardware/
+tests/returning-customer-order/evidence/hardware/
 ```
 
 Suggested filenames:
 
 ```text
-tests/WF-02/evidence/hardware/
+tests/returning-customer-order/evidence/hardware/
 ├── hardware-system-info.png
 ├── hardware-cpu-memory.png
 ├── java-version.png
@@ -255,13 +255,13 @@ Observation time:
 Store baseline evidence under:
 
 ```text
-tests/WF-02/evidence/baseline/
+tests/returning-customer-order/evidence/baseline/
 ```
 
 Suggested evidence:
 
 ```text
-tests/WF-02/evidence/baseline/
+tests/returning-customer-order/evidence/baseline/
 ├── backend-idle-resource.png
 └── environment-baseline.png
 ```
@@ -273,7 +273,7 @@ Do not use a resource screenshot from another run or another machine.
 Add a structured hardware/environment section to:
 
 ```text
-reports/WF-02/WORKFLOW_DESIGN.md
+reports/returning-customer-order/WORKFLOW_DESIGN.md
 ```
 
 Use:
@@ -314,7 +314,7 @@ Do not leave an unknown value looking as if it were accidentally omitted.
 Update:
 
 ```text
-reports/WF-02/REVIEW_NOTES.md
+reports/returning-customer-order/REVIEW_NOTES.md
 ```
 
 with a reconciliation table such as:
@@ -348,15 +348,15 @@ Important differences affecting performance-test validity must not be silently c
 By the end of Phase A, produce or update:
 
 ```text
-reports/WF-02/REVIEW_NOTES.md
-reports/WF-02/WORKFLOW_DESIGN.md
-tests/WF-02/evidence/hardware/
-tests/WF-02/evidence/baseline/
+reports/returning-customer-order/REVIEW_NOTES.md
+reports/returning-customer-order/WORKFLOW_DESIGN.md
+tests/returning-customer-order/evidence/hardware/
+tests/returning-customer-order/evidence/baseline/
 ```
 
 Phase A must establish, or explicitly mark unresolved:
 
-- WF-02 endpoint contract;
+- Returning Customer Search and Order endpoint contract;
 - authentication;
 - dynamic correlation feasibility;
 - account/cart/order state risks;
@@ -411,7 +411,7 @@ Update `WORKFLOW_DESIGN.md`, `REVIEW_NOTES.md` and CSV files. End `PENDING HUMAN
 
 ## Phase C — Generate JMeter and validate smoke
 
-Require explicit Phase B approval. Generate `WF02-smoke.jmx` first with one thread and one iteration. Validate fixture rows, unique accounts when needed, positive quantity, useful keyword and shipping address. Run smoke only if SUT and JMeter are ready, logging exact command, timestamp, exit code, samples, assertion failures and corrections.
+Require explicit Phase B approval. Generate `returning-customer-order-smoke.jmx` first with one thread and one iteration. Validate fixture rows, unique accounts when needed, positive quantity, useful keyword and shipping address. Run smoke only if SUT and JMeter are ready, logging exact command, timestamp, exit code, samples, assertion failures and corrections.
 
 Verify token, product correlation, price normalization, total calculation, cart, checkout order ID and order lookup. Fix only harness defects (JSONPath, Groovy, request body/header, CSV, assertions, variables), not the SUT.
 
@@ -438,10 +438,10 @@ Require explicit D3 approval. Derive a sustained level from Stress evidence and 
 Require approval of Phase D. Read raw JTL first, then HTML, execution logs and resource evidence. Produce:
 
 ```text
-reports/WF-02/RESULT_ANALYSIS.md
-reports/WF-02/AI_MISINTERPRETATION_HUNT.md
-reports/WF-02/OPTIMIZATION_REVIEW.md
-reports/WF-02/CONTINUOUS_PERFORMANCE.md
+reports/returning-customer-order/RESULT_ANALYSIS.md
+reports/returning-customer-order/AI_MISINTERPRETATION_HUNT.md
+reports/returning-customer-order/OPTIMIZATION_REVIEW.md
+reports/returning-customer-order/CONTINUOUS_PERFORMANCE.md
 reports/ai-critique.md
 reports/main-report.md
 reports/test-summary.md

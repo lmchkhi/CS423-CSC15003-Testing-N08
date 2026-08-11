@@ -1,6 +1,6 @@
 ---
 name: ai-first-jmeter-performance-testing
-description: Thiết kế, sinh, review, thực thi và phân tích performance test Apache JMeter cho bài HW05 EShop theo hướng AI-first, data-driven, evidence-first và checkpoint-first. Dùng khi Codex xử lý Workflow 2 của sinh viên 23127464 (login, search, product detail, cart, checkout, my-orders), tạo hoặc review JMX/CSV, chạy Load/Stress/Spike/Endurance, phân tích JTL, săn lỗi diễn giải AI, đánh giá tối ưu, lập báo cáo hoặc đề xuất continuous performance testing. Bắt buộc dừng ở các checkpoint A-E và không tự duyệt hay bịa kết quả chạy, metric, screenshot, video, issue hoặc commit.
+description: Thiết kế, sinh, review, thực thi và phân tích performance test Apache JMeter cho bài HW05 EShop theo hướng AI-first, data-driven, evidence-first và checkpoint-first. Dùng khi Codex xử lý Returning Customer Search and Order của sinh viên 23127464 (login, search, product detail, cart, checkout, my-orders), tạo hoặc review JMX/CSV, chạy Load/Stress/Spike/Endurance, phân tích JTL, săn lỗi diễn giải AI, đánh giá tối ưu, lập báo cáo hoặc đề xuất continuous performance testing. Bắt buộc dừng ở các checkpoint A-E và không tự duyệt hay bịa kết quả chạy, metric, screenshot, video, issue hoặc commit.
 ---
 
 # AI-First JMeter Performance Testing
@@ -23,7 +23,7 @@ Không bao giờ tuyên bố đã chạy, passed, tạo issue/video/commit hoặ
 ## Nạp ngữ cảnh theo nhu cầu
 
 - Đọc [assignment-requirements.md](references/assignment-requirements.md) khi lập checklist, đánh giá completeness, chuẩn bị submission hoặc báo cáo.
-- Đọc [wf02-contract.md](references/wf02-contract.md) trước khi xác minh API, thiết kế data/correlation/assertion, tạo hoặc review JMX.
+- Đọc [returning-customer-order-contract.md](references/returning-customer-order-contract.md) trước khi xác minh API, thiết kế data/correlation/assertion, tạo hoặc review JMX.
 - Đọc [phase-playbook.md](references/phase-playbook.md) trước khi thực hiện bất kỳ phase A-E hoặc subphase D1-D4 nào.
 - Đọc [evidence-analysis.md](references/evidence-analysis.md) khi chạy test, quyết định VALID/INVALID, phân loại failure, phân tích JTL, review optimization/issue hoặc lập continuous-performance proposal.
 
@@ -34,16 +34,16 @@ Giữ ownership sau:
 | Nội dung | Nguồn chuẩn |
 | --- | --- |
 | SUT | `src/` |
-| JMX và CSV | `tests/WF-02/test-cases/`, `tests/WF-02/data/` |
-| Raw JTL và HTML | `tests/WF-02/test-runs/` |
-| Evidence runtime/hardware | `tests/WF-02/evidence/` |
-| Helper của test harness | `tests/WF-02/support/` |
-| Review và phân tích | `reports/WF-02/` |
+| JMX và CSV | `tests/returning-customer-order/test-cases/`, `tests/returning-customer-order/data/` |
+| Raw JTL và HTML | `tests/returning-customer-order/test-runs/` |
+| Evidence runtime/hardware | `tests/returning-customer-order/evidence/` |
+| Helper của test harness | `tests/returning-customer-order/support/` |
+| Review và phân tích | `reports/returning-customer-order/` |
 | Báo cáo tổng, audit, critique | `reports/` |
-| Issue draft có evidence | `bug-reports/WF-02/` |
+| Issue draft có evidence | `bug-reports/returning-customer-order/` |
 | JMeter config dùng chung | `jmeter/` |
 
-Không đặt canonical test artifact trong `src/` hoặc nhân đôi giữa `jmeter/` và `tests/`. Không xóa artifact bài cũ; dùng namespace `WF-02`.
+Không đặt canonical test artifact trong `src/` hoặc nhân đôi giữa `jmeter/` và `tests/`. Không xóa artifact bài cũ; dùng namespace `returning-customer-order`.
 
 ## Workflow checkpoint
 

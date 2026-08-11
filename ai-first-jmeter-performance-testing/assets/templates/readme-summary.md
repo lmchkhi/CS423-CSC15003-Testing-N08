@@ -2,7 +2,7 @@
 
 ### Workflow
 
-WF-02 — Returning customer search and checkout
+Returning Customer Search and Order
 
 ### Coverage
 

@@ -1,4 +1,12 @@
-# WF-02 Contract and JMeter Conventions
+# Returning Customer Search and Order — Contract and JMeter Conventions
+
+## Canonical identity
+
+- Business name: Returning Customer Search and Order
+- Vietnamese display name: Khách hàng quay lại tìm kiếm và đặt hàng
+- Folder slug: `returning-customer-order`
+- JMeter technical prefix: `RCO`
+- Workflow description: A returning customer logs in, searches for a product, views product details, checks the cart, adds the selected product, performs checkout, and verifies the created order in order history.
 
 ## Fixed workflow
 
@@ -49,16 +57,16 @@ Map each VU to an isolated account where the SUT state model requires it. Provis
 
 ## Common JMeter structure
 
-Use one logical transaction `WF02-E2E-ReturningCustomerOrder` with samplers:
+Use one logical transaction `RCO-E2E-ReturningCustomerOrder` with samplers:
 
 ```text
-WF02-01-Login
-WF02-02-Search
-WF02-03-ProductDetail
-WF02-04-GetCart
-WF02-05-AddCart
-WF02-06-Checkout
-WF02-07-MyOrders
+RCO-01-Login
+RCO-02-Search
+RCO-03-ProductDetail
+RCO-04-GetCart
+RCO-05-AddCart
+RCO-06-Checkout
+RCO-07-MyOrders
 ```
 
 Use variables:
@@ -100,9 +108,9 @@ Default distinct listeners: Load = Summary Report, Stress = Aggregate Report, Sp
 ## File placement
 
 ```text
-tests/WF-02/data/workflow2.csv
-tests/WF-02/data/account-provisioning.csv
-tests/WF-02/test-cases/smoke/WF02-smoke.jmx
-tests/WF-02/test-cases/{load,stress,spike}/23127464_<Scenario>_<YYYYMMDD>.jmx
-tests/WF-02/test-cases/endurance/WF02-endurance.jmx
+tests/returning-customer-order/data/returning-customer-order.csv
+tests/returning-customer-order/data/account-provisioning.csv
+tests/returning-customer-order/test-cases/smoke/returning-customer-order-smoke.jmx
+tests/returning-customer-order/test-cases/{load,stress,spike}/23127464_<Scenario>_<YYYYMMDD>.jmx
+tests/returning-customer-order/test-cases/endurance/returning-customer-order-endurance.jmx
 ```

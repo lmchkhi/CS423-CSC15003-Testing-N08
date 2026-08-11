@@ -3,7 +3,8 @@
 ## Scope
 
 - SUT: EShop REST backend.
-- Owner: student `23127464`; workflow `WF-02`.
+- Owner: student `23127464` — Quang.
+- Assigned workflow: `Returning Customer Search and Order`.
 - Exercise three endpoint groups in one end-to-end workflow: auth-heavy, read-heavy and transactional.
 - Design Load, Stress and Spike plans with AI, then review and correct them as the human owner.
 - Parameterize credentials, search/order inputs and other suitable data with CSV.

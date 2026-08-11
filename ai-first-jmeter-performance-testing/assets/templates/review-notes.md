@@ -1,10 +1,10 @@
-# Review Notes — WF-02
+# Review Notes — Returning Customer Search and Order
 
 ## Review Information
 
 | Item | Value |
 | --- | --- |
-| Workflow | WF-02 |
+| Workflow | Returning Customer Search and Order |
 | Student | 23127464 |
 | Stage | |
 | Reviewer | User |
