@@ -144,3 +144,19 @@ Cửa sổ neo theo actual JMeter start `02:23:20.131`. Baseline gồm ramp đ�
 ## Current status
 
 `SPIKE RESULT PENDING HUMAN REVIEW`
+
+## Human Review decision
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+- Reviewed artifact: báo cáo này và run `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`.
+- Accepted classification: `VALID WITH LIMITATION`; chấp nhận raw JTL/backend resource findings và giữ nguyên mọi giới hạn về video/visual milestone, load-generator resource, View Results Tree overhead, state/payload drift và recovery criterion.
+- Exact approval: **“Approve D3 Spike result with documented limitations. Authorize D4 Endurance preparation.”**
+- Reviewer/date: User — `14/08/2026 02:39`, Asia/Ho_Chi_Minh.
+- Next phase authorized: `D4 — Endurance`, chỉ bắt đầu bằng interaction PRECHECK / COMMAND PREPARATION riêng.
+- Interaction approval này không chọn endurance workload, không tạo folder/command D4 và không chạy Endurance.
+
+## Approved status
+
+`D3 SPIKE RESULT APPROVED — PHASE D4 ENDURANCE PREPARATION AUTHORIZED`

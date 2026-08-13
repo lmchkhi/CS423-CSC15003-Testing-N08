@@ -642,6 +642,25 @@ AI Output:
     nhật REVIEW_NOTES/WORKFLOW_DESIGN. Classification `VALID WITH LIMITATION` do thiếu video/visual milestone và
     load-generator resource. Không chạy JMeter, không sửa raw JTL/resource. Trạng thái: SPIKE RESULT PENDING HUMAN REVIEW.
 
+## Entry #23
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 02:39 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Approve D3 Spike result with documented limitations. Authorize D4 Endurance preparation.
+
+AI Output:
+
+    Ghi nhận Human Review approval cho D3 Spike run `20260814-021040-user-executed` với classification
+    `VALID WITH LIMITATION` và toàn bộ limitation đã công bố, đồng thời mở gate Phase D4 Endurance ở checkpoint
+    PREPARE ONLY. Đã cập nhật D3 result analysis, review notes và workflow status với exact approval/timestamp.
+    Không chuẩn bị command/folder D4 trong interaction phê duyệt này và không chạy Endurance/measured workload.
+
 AI Output:
 
     Đã xác minh D3 gate và JMX Spike SHA-256 AB01BD4F...CBDFF5 là bản sinh sau generator patch: đúng 1

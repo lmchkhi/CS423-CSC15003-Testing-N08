@@ -436,3 +436,17 @@ Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa
 - D4 chưa được authorize; chờ Human Review rõ ràng cho D3.
 
 **SPIKE RESULT PENDING HUMAN REVIEW**
+
+### Human Decision — D3 Spike result
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+- Reviewed run: `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`.
+- Accepted classification: `VALID WITH LIMITATION`; mọi downstream use phải giữ giới hạn visual evidence chỉ có start/PID, thiếu video/milestone spike-recovery-completion, thiếu load-generator resource, View Results Tree overhead chưa lượng hóa, state/payload drift và recovery criterion chưa khóa trước run.
+- Exact approval: **“Approve D3 Spike result with documented limitations. Authorize D4 Endurance preparation.”**
+- Reviewer/date: User — `14/08/2026 02:39`, Asia/Ho_Chi_Minh.
+- Next phase authorized: Phase D4 — Endurance, bắt đầu bằng checkpoint PREPARE ONLY trong interaction riêng.
+- Không lựa chọn endurance VU/duration, chuẩn bị command/folder D4 hoặc chạy measured Endurance trong interaction phê duyệt này.
+
+**D3 SPIKE RESULT APPROVED — PHASE D4 ENDURANCE PREPARATION AUTHORIZED**

@@ -414,3 +414,13 @@ Interaction phê duyệt này chưa đọc/precheck measured execution, chưa t�
 - Chi tiết tại `D3_SPIKE_RESULT_ANALYSIS.md`; Phase D4 vẫn khóa đến khi có Human Review/authorization rõ ràng.
 
 **SPIKE RESULT PENDING HUMAN REVIEW**
+
+## Human Review — D3 Spike result 14/08/2026
+
+- User phê duyệt run `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/` với classification `VALID WITH LIMITATION`.
+- Exact approval: **“Approve D3 Spike result with documented limitations. Authorize D4 Endurance preparation.”**
+- Các limitation về visual milestone/video, load-generator resource, View Results Tree overhead, state/payload drift và recovery criterion tiếp tục ràng buộc mọi kết luận downstream.
+- Phase D4 Endurance được authorize tại checkpoint PREPARE ONLY; workload/duration phải được derive và kiểm tra trong interaction D4 riêng từ evidence đã duyệt.
+- Interaction này không chuẩn bị D4 run folder/command và không chạy measured workload.
+
+**D3 SPIKE RESULT APPROVED — PHASE D4 ENDURANCE PREPARATION AUTHORIZED**
