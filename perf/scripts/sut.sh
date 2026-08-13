@@ -26,7 +26,8 @@ wait_for_api() {
 start() {
   if api_up; then echo "SUT already up on $BASE_URL"; return 0; fi
   mkdir -p "$(dirname "$PID_FILE")"
-  (cd "$SUT_DIR" && nohup node server.js >"$LOG_FILE" 2>&1 & echo $! >"$PID_FILE")
+  ( cd "$SUT_DIR"; exec nohup node server.js >"$LOG_FILE" 2>&1 ) &
+  echo $! >"$PID_FILE"
   wait_for_api
   echo "SUT started, pid $(cat "$PID_FILE"), db re-seeded"
 }
