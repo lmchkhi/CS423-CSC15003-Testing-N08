@@ -48,13 +48,19 @@ echo
 echo "== OR-2: how many consecutive failed logins lock an account, and for how long"
 EMAIL="lock-$(date +%s)@test.local"
 post /api/register "{\"name\":\"Lock\",\"email\":\"$EMAIL\",\"password\":\"$PW\"}" >/dev/null
+LOCK_AT=0
 for attempt in 1 2 3 4; do
   R=$(post /api/login "{\"email\":\"$EMAIL\",\"password\":\"WrongPassword!\"}")
   echo "  failed attempt $attempt -> HTTP $(code "$R") $(body "$R")"
+  [[ "$(code "$R")" == "403" && "$LOCK_AT" == "0" ]] && LOCK_AT=$attempt
 done
 R=$(post /api/login "{\"email\":\"$EMAIL\",\"password\":\"$PW\"}")
 echo "  correct password now -> HTTP $(code "$R") $(body "$R")"
 echo "  (403 here means the account is locked despite correct credentials)"
+[[ "$(code "$R")" == "403" && "$LOCK_AT" == "0" ]] && LOCK_AT=5
+# Armed after the lock has already been triggered -- the check above already
+# saw 403 -- so the measured delay below is a lower bound on the true lock
+# duration, not a measurement from the exact moment the lock started.
 LOCK_START=$(date +%s)
 echo "  polling every 15s until the correct password is accepted again..."
 while true; do
@@ -65,15 +71,33 @@ while true; do
   [[ "$(code "$R")" == "200" ]] && { echo "  -> lock cleared after ~${ELAPSED}s"; break; }
   [[ $ELAPSED -gt 300 ]] && { echo "  -> still locked after 300s, giving up"; break; }
 done
+if [[ "$LOCK_AT" != "0" ]]; then
+  THRESHOLD=$((LOCK_AT - 1))
+  [[ $THRESHOLD -ge 3 ]] && S=0 || S=1
+  check "lockout threshold: $THRESHOLD failed attempt(s) before a login was refused" "$S" "documented expectation: 3 failed attempts before lockout"
+else
+  check "lockout threshold: account never locked within 4 failed attempts + 1 correct-password check" 1 "documented expectation: 3 failed attempts before lockout"
+fi
+check "measured unlock delay ~${ELAPSED}s" 0 "documented/design expectation: ~180s"
 echo
 
 # ---------------------------------------------------------------- OR-3
 echo "== OR-3: GET /api/products/:id price type (spec says price is a number)"
+QUOTED_IDS=()
+UNQUOTED_IDS=()
 for id in 1 2 3 4 5; do
   R=$(get "/api/products/$id")
-  echo "  id=$id -> $(body "$R" | sed 's/\(.\{110\}\).*/\1.../')"
+  B=$(body "$R")
+  echo "  id=$id -> $(sed 's/\(.\{110\}\).*/\1.../' <<<"$B")"
+  if grep -qE '"price":"[0-9.]+"' <<<"$B"; then
+    QUOTED_IDS+=("$id")
+  elif grep -qE '"price":[0-9.]+' <<<"$B"; then
+    UNQUOTED_IDS+=("$id")
+  fi
 done
 echo "  -> compare the JSON type of \"price\" across odd and even ids"
+[[ ${#QUOTED_IDS[@]} -gt 0 && ${#UNQUOTED_IDS[@]} -gt 0 ]] && S=1 || S=0
+check "price JSON type is consistent across ids" "$S" "quoted ids: ${QUOTED_IDS[*]:-none}; unquoted ids: ${UNQUOTED_IDS[*]:-none} (api_specification.md documents price as a number)"
 echo
 
 # ---------------------------------------------------------------- OR-4

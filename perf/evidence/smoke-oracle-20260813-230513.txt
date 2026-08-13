@@ -1,0 +1,52 @@
+EShop black-box oracle — 2026-08-13T23:05:13+07:00
+Base URL: http://localhost:3000
+
+== OR-1: password-reset journey is replayable with a constant newPassword
+PASS  round 1: reset=200 login=200
+      token=5621
+PASS  round 2: reset=200 login=200
+      token=9832
+  -> a constant newPassword makes the journey idempotent across reruns
+
+== OR-2: how many consecutive failed logins lock an account, and for how long
+  failed attempt 1 -> HTTP 401 {"error":"Invalid email or password"}
+  failed attempt 2 -> HTTP 401 {"error":"Invalid email or password"}
+  failed attempt 3 -> HTTP 403 {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."}
+  failed attempt 4 -> HTTP 403 {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."}
+  correct password now -> HTTP 403 {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."}
+  (403 here means the account is locked despite correct credentials)
+  polling every 15s until the correct password is accepted again...
+    t+15s -> HTTP 403
+    t+30s -> HTTP 403
+    t+45s -> HTTP 403
+    t+60s -> HTTP 403
+    t+75s -> HTTP 403
+    t+90s -> HTTP 403
+    t+105s -> HTTP 403
+    t+120s -> HTTP 403
+    t+135s -> HTTP 403
+    t+150s -> HTTP 403
+    t+165s -> HTTP 403
+    t+180s -> HTTP 200
+  -> lock cleared after ~180s
+FAIL  lockout threshold: 2 failed attempt(s) before a login was refused
+      documented expectation: 3 failed attempts before lockout
+PASS  measured unlock delay ~180s
+      documented/design expectation: ~180s
+
+== OR-3: GET /api/products/:id price type (spec says price is a number)
+  id=1 -> {"id":1,"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"h...
+  id=2 -> {"id":2,"name":"Samsung Galaxy S24 Ultra","price":"28000000","description":"Màn hình hiển thị xuất sắc, camera...
+  id=3 -> {"id":3,"name":"MacBook Pro M3","price":45000000,"description":"Laptop chuyên nghiệp mạnh mẽ","imageUrl":"http...
+  id=4 -> {"id":4,"name":"Tai nghe AirPods Pro 2","price":"6000000","description":"Chống ồn chủ động xuất sắc","imageUrl...
+  id=5 -> {"id":5,"name":"Bàn phím cơ Keychron Q1","price":4000000,"description":"Gõ cực sướng, thiết kế kim loại","imag...
+  -> compare the JSON type of "price" across odd and even ids
+FAIL  price JSON type is consistent across ids
+      quoted ids: 2 4; unquoted ids: 1 3 5 (api_specification.md documents price as a number)
+
+== OR-4: GET /api/products/:id for a nonexistent id (spec implies 404)
+  HTTP 200 body={}
+FAIL  nonexistent product returns 404
+      got HTTP 200
+
+Transcript written to /Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/evidence/smoke-oracle-20260813-230513.txt
