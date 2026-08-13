@@ -21,5 +21,9 @@ perf/results/**/*.log
 # Scratch runs that are not one of the graded scenarios.
 perf/results/_scratch/
 
+# sut.sh runtime state — regenerated on every start, not a deliverable.
+perf/results/.sut.pid
+perf/results/.sut.log
+
 # Scratch materials for recording demo videos — not a submission deliverable.
 /demo-scratch/

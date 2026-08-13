@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # EShop SUT lifecycle for HW05 performance runs.
 #
-# The backend re-seeds its database on EVERY start: server.js loads a module
-# that drops and recreates all tables. So "reset to a clean baseline" is just
-# "restart", and test accounts must be created through the API afterwards.
+# Observed through the API: every server start produces an empty, freshly
+# seeded database (accounts registered before a restart no longer log in
+# afterwards). So "reset to a clean baseline" is just "restart", and test
+# accounts must be created through the API afterwards.
 set -euo pipefail
 
 SUT_DIR="${SUT_DIR:-$HOME/Documents/eshop-sut/backend}"
