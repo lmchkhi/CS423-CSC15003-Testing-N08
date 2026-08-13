@@ -6,11 +6,11 @@
 | --- | --- |
 | Workflow | Returning Customer Search and Order |
 | Sinh viên | 23127464 — Trần Minh Quang |
-| Stage | Phase A — Verify and reconcile (A1–A9) |
-| Artifact set | `reports/returning-customer-order/`, `tests/returning-customer-order/evidence/{hardware,baseline}/` |
+| Stage | Phase B — Design workload and data (B1–B7) |
+| Artifact set | `reports/returning-customer-order/`, `tests/returning-customer-order/data/` |
 | Reviewer | User |
 | Thời gian agent thực hiện | 13/08/2026, Asia/Ho_Chi_Minh |
-| Command measured test | Không có — Phase A không chạy performance test |
+| Command measured test | Không có — Phase B không chạy workload |
 | Exit code measured test | Không áp dụng |
 
 ## Bảng reconciliation
@@ -86,8 +86,8 @@ Hệ quả kỹ thuật đã được phản hồi lại: restart SUT drop/resee
 
 ## Blockers trước Phase B
 
-- Các correction/direction đã được ghi nhận, nhưng chưa có quyết định rõ `Approve Phase A` hoặc `Authorize Phase B` theo checkpoint gate.
-- Chi tiết account provisioning/reset runbook chưa được thiết kế vì thuộc Phase B.
+- Không còn blocker về approval gate: người dùng đã phê duyệt Phase A và authorize Phase B.
+- Chi tiết account provisioning/reset runbook chưa được thiết kế; đây là nội dung cần thực hiện trong Phase B, không phải phần còn thiếu của Phase A.
 
 ## Rủi ro cho Phase B
 
@@ -99,21 +99,84 @@ Hệ quả kỹ thuật đã được phản hồi lại: restart SUT drop/resee
 
 ## Human Decision
 
-- [ ] Approved
+- [x] Approved
 - [ ] Approved with corrections
 - [ ] Rejected
 
 ## Approval Gate
 
-- Phase/checkpoint reviewed:
-- Artifact/run folder reviewed:
-- Same-run evidence verified:
-- Corrections required:
-- Next phase authorized:
-- Reviewer name/date:
+- Phase/checkpoint reviewed: Phase A — Verify and reconcile (A1–A9)
+- Artifact/run folder reviewed: `reports/returning-customer-order/`; `tests/returning-customer-order/evidence/hardware/`; `tests/returning-customer-order/evidence/baseline/`
+- Same-run evidence verified: Không áp dụng cho measured run; Phase A chỉ có minimal functional probe và environment/baseline evidence đã được đối chiếu.
+- Corrections required: Các correction/direction ngày 13/08/2026 22:17 đã được ghi vào tài liệu.
+- Next phase authorized: Phase B — Design workload and data
+- Reviewer name/date: User — 13/08/2026 22:24, Asia/Ho_Chi_Minh
 
 ## Human Correction
 
-_Đã ghi nhận correction/direction ngày 13/08/2026 22:17. Chờ người dùng nêu rõ quyết định phê duyệt Phase A và authorization Phase B. Agent không tự đánh dấu approval._
+_Correction/direction được ghi nhận ngày 13/08/2026 22:17. Người dùng phê duyệt rõ ràng bằng câu “Approve Phase A. Authorize Phase B.” ngày 13/08/2026 22:24._
 
-**PENDING HUMAN REVIEW**
+**PHASE A APPROVED — PHASE B AUTHORIZED**
+
+## Phase B — nội dung trình Human Review
+
+### Thiết kế đã hoàn thành
+
+| Hạng mục | Đề xuất/quyết định Phase B | Căn cứ | Cần reviewer xác nhận |
+| --- | --- | --- | --- |
+| Workflow | Khóa `RCO-01` Login -> `RCO-02` Search -> `RCO-03` Product Detail -> `RCO-04` Get Cart -> `RCO-05` Add Cart -> `RCO-06` Checkout -> `RCO-07` My Orders. | Contract + Phase A source/runtime reconciliation | Đúng thứ tự và không bỏ sampler. |
+| Correlation | `token -> productId/productName -> detailPrice -> normalizedPrice -> totalAmount -> orderId`; giá number/string normalize bằng `BigDecimal`, quantity integer dương. | Finding Phase A và contract | Chấp nhận thiết kế fail-fast khi correlation/parse lỗi. |
+| Assertions | Mỗi bước có HTTP + JSON shape + business assertion; HTTP 200 không đủ nếu token/product/order không hợp lệ. | Bảng Functional assertions trong contract | Chấp nhận criteria chi tiết trong `WORKFLOW_DESIGN.md`. |
+| Workflow CSV | 150 fixture row, header chuẩn; ba window Load 20, Stress 80, Spike 50; không có token/productId/totalAmount. | Peak VU `INITIAL_PROPOSAL` | Xác nhận fixture test local và cơ chế window/projection. |
+| Provisioning CSV | Schema `scenario,vuIndex,name,email,password`; 150 danh tính unique, pool không giao nhau. | Quyết định 1 account/VU, pool riêng/scenario | Xác nhận account count 20/80/50; Endurance để trống. |
+| CSV exhaustion | Share trong Thread Group của scenario, atomic one-row/VU, recycle false, hết row thì stop test. | Tránh chạy thiếu VU/trùng account | Xác nhận stop-test fail-fast. |
+| Reset | Restart backend giữa scenario; verify PID mới + HTTP 200 + seed log; provision/validate lại ngoài measured interval. | `server.js` reset DB khi startup | Xác nhận đây là reset destructive có chủ đích trên SUT local. |
+| Lockout | Source: sai password tăng +2, khóa 180 giây; nếu 401/403 thì hủy run, restart/reprovision toàn pool. | Phase A source finding; runtime lockout chưa probe | Xác nhận không chờ/retry trong measured interval. |
+| State drift | Cart không clear, orders tích lũy trong scenario; không cleanup/SUT change; restart xóa state giữa scenario. | Phase A runtime + source | Chấp nhận residual risk và yêu cầu phân tích payload growth. |
+
+### Workload cần Human Review — INITIAL_PROPOSAL
+
+Đây **không phải SLA, threshold chính thức hoặc kết quả đo**. Assignment không cung cấp SLA nghiệp vụ chính thức.
+
+| Scenario | INITIAL_PROPOSAL | Account | Report view |
+| --- | --- | ---: | --- |
+| Load | 20 VU, ramp-up 60 giây, steady 360 giây | 20 | Summary Report |
+| Stress | 10 -> 20 -> 40 -> 60 -> 80 VU, 60 giây/bậc | 80 | Aggregate Report |
+| Spike | 5 VU/60 giây -> ramp 5 giây lên 50 -> giữ 60 giây -> ramp 5 giây về 5 -> recovery 60 giây | 50 | View Results Tree |
+| Endurance | `UNDECIDED`; derive từ Stress evidence đã review ở D4 | Chưa xác định | Chưa xác định |
+
+Think time đề xuất: random 1–3 giây giữa các business step, giống nhau ở ba plan.
+
+### Open questions / risks cho Phase C
+
+- Cần chọn implementation JMeter dễ audit để chỉ đọc đúng window của một scenario trong CSV canonical; có thể tạo projection có row count/checksum ngoài measured interval.
+- Phải preflight 150 row tĩnh và các keyword trước smoke; CSV hiện là designed fixture, chưa được provision hoặc runtime-validate.
+- Smoke phải kiểm chứng normalization với cả price JSON number và numeric string; probe Phase A mới xác nhận runtime numeric, còn string là source-derived.
+- View Results Tree có thể gây overhead đáng kể cho Spike; cần review cách thu report view mà không coi nó là nguồn metric chính.
+- Cart/order tăng qua iteration làm response payload và DB state không cố định. Account isolation loại cross-VU contamination nhưng không loại state growth trong một VU.
+- Runtime lockout +2/180 giây chưa được chủ động probe; không được coi source finding là runtime evidence.
+
+### Blockers
+
+- Không có blocker để hoàn tất thiết kế Phase B.
+- Approval gate Phase C đã được mở bằng human decision lúc `13/08/2026 22:42 — Asia/Ho_Chi_Minh`; Phase C chưa được thực hiện trong interaction ghi nhận approval này.
+
+## Human Decision — Phase B
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+
+### Approval Gate — Phase B
+
+- Phase/checkpoint reviewed: Phase B — Design workload and data (B1–B7)
+- Artifact reviewed: `WORKFLOW_DESIGN.md`, `REVIEW_NOTES.md`, `returning-customer-order.csv`, `account-provisioning.csv`
+- Measured evidence: Không áp dụng — chưa chạy workload và không có JMX/JTL.
+- Next phase authorized: Phase C — Generate JMeter and validate smoke.
+- Reviewer name/date: User — `13/08/2026 22:42`, Asia/Ho_Chi_Minh.
+
+## Human Correction — Phase B
+
+Không có correction kèm theo. Người dùng phê duyệt nguyên trạng bằng câu **“Approve Phase B. Authorize Phase C.”**
+
+**PHASE B APPROVED — PHASE C AUTHORIZED**

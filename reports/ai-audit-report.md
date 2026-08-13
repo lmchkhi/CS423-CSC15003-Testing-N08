@@ -207,3 +207,58 @@ AI Output:
     Ghi nhận phê duyệt chính thức Phase A và authorization cho Phase B trong REVIEW_NOTES.md
     và WORKFLOW_DESIGN.md. Đóng checkpoint Phase A với human approval thật; chưa triển khai nội dung
     Phase B, chưa thiết kế workload/CSV/reset runbook và chưa tạo JMX trong interaction này.
+
+## Entry #5
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 22:30 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order"
+    của sinh viên 23127464 trong bài HW05-AI (EShop, source: src/eshop-sut).
+
+    Checkpoint hiện tại: PHASE B — Design workload and data.
+    Phase A đã APPROVED, Phase B đã AUTHORIZED. Chỉ thực hiện đúng phạm vi Phase B.
+    Không tạo JMX, không chạy bất kỳ workload nào, không tuyên bố Load/Stress/Spike là threshold
+    chính thức — mọi con số ở phase này chỉ là INITIAL_PROPOSAL.
+
+    Thực hiện tuần tự B1–B7: khóa workflow RCO-01..RCO-07, correlation và functional assertion;
+    thiết kế returning-customer-order.csv và account-provisioning.csv; khóa mapping 1 account/VU,
+    pool riêng cho mỗi scenario và provision lại ngoài measured interval sau mỗi restart; quy định
+    CSV sharing/recycle/stop; hoàn chỉnh reset strategy theo lockout runtime +2/180 giây, PID/HTTP
+    verification, cart không clear và order tích lũy; đề xuất Load/Stress/Spike theo contract với
+    nhãn INITIAL_PROPOSAL, think time 1–3 giây và listener riêng; để Endurance undecided đến D4;
+    cập nhật WORKFLOW_DESIGN.md và REVIEW_NOTES.md bằng tiếng Việt; không tạo JMX.
+
+    Kết thúc bằng báo cáo Phase B có cấu trúc và dừng ở PENDING HUMAN REVIEW, chờ câu phê duyệt
+    rõ ràng "Approve Phase B. Authorize Phase C." trước khi tạo bất kỳ JMX nào.
+
+AI Output:
+
+    Thực hiện đúng Phase B đã được ủy quyền: kiểm tra contract/source/evidence Phase A, thiết kế dữ
+    liệu CSV không chứa secret hoặc giá trị correlation động, khóa account isolation/reset strategy,
+    lập đề xuất workload INITIAL_PROPOSAL và cập nhật tài liệu review. Chỉ thực hiện kiểm tra tĩnh;
+    không tạo JMX, không chạy workload, không sinh metric/evidence giả và dừng tại PENDING HUMAN REVIEW.
+
+## Entry #6
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 22:42 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Approve Phase B. Authorize Phase C.
+
+AI Output:
+
+    Ghi nhận human approval chính thức cho Phase B và authorization cho Phase C trong
+    REVIEW_NOTES.md và WORKFLOW_DESIGN.md. Đóng checkpoint Phase B; chưa thực hiện Phase C,
+    chưa tạo/chạy smoke JMX, chưa tạo graded JMX và chưa chạy bất kỳ measured workload nào
+    trong interaction phê duyệt này.

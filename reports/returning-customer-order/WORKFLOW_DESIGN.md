@@ -8,9 +8,9 @@
 | Bài tập | HW05-AI — Performance Testing |
 | SUT | EShop REST backend tại `src/eshop-sut` |
 | Workflow | Returning Customer Search and Order |
-| Checkpoint | Phase A — Verify and reconcile |
-| Trạng thái | **PENDING HUMAN REVIEW** |
-| Phạm vi tài liệu | Chỉ A1–A9; chưa thiết kế workload, chưa tạo JMX, chưa chạy performance test |
+| Checkpoint | Phase B đã đóng; Phase C đã được authorize nhưng chưa bắt đầu |
+| Trạng thái | **PHASE B APPROVED — PHASE C AUTHORIZED** |
+| Phạm vi tài liệu | Phase B đã được human review; interaction này chỉ ghi nhận approval, chưa tạo/chạy smoke JMX, chưa tạo graded JMX và chưa chạy workload |
 
 ## Nguồn đã kiểm tra
 
@@ -145,4 +145,146 @@ Thời điểm ghi nhận: `13/08/2026 22:17 — Asia/Ho_Chi_Minh`.
 - Giữ root README ở trạng thái HW03 và cập nhật cuối cùng cho HW05.
 - Xác nhận JMeter tại `D:\apache-jmeter-5.6.3\bin`.
 
-Phản hồi trên là correction/direction cho Phase A. Chưa có câu phê duyệt Phase A hoặc authorization bắt đầu Phase B, nên checkpoint vẫn là **PENDING HUMAN REVIEW**.
+Phản hồi trên là correction/direction cho Phase A. Người dùng đã phê duyệt rõ ràng bằng câu **“Approve Phase A. Authorize Phase B.”** lúc `13/08/2026 22:24 — Asia/Ho_Chi_Minh`. Phase A đã đóng; Phase B được phép bắt đầu trong một yêu cầu thực hiện tiếp theo.
+
+**PHASE A APPROVED — PHASE B AUTHORIZED**
+
+## Phase B — workflow đã khóa
+
+Tất cả Load, Stress và Spike phải giữ nguyên một transaction logic `RCO-E2E-ReturningCustomerOrder`, đúng thứ tự và tên sampler sau. Không được bỏ bước hoặc đổi thứ tự để làm số liệu đẹp hơn.
+
+| Sampler | Endpoint | Vai trò | Correlation đầu ra |
+| --- | --- | --- | --- |
+| `RCO-01-Login` | `POST /api/login` | Auth-heavy | `token` |
+| `RCO-02-Search` | `GET /api/products?search=${keyword}` | Read-heavy | `productId`, `productName` |
+| `RCO-03-ProductDetail` | `GET /api/products/${productId}` | Read-heavy | `detailPrice`, `normalizedPrice` |
+| `RCO-04-GetCart` | `GET /api/cart` | Transactional | Cart JSON hiện tại |
+| `RCO-05-AddCart` | `POST /api/cart` | Transactional | Kết quả add |
+| `RCO-06-Checkout` | `POST /api/checkout` | Transactional | `orderId` |
+| `RCO-07-MyOrders` | `GET /api/orders/my-orders` | Transactional | Xác minh `orderId` mới |
+
+### Chuỗi correlation và chuẩn hóa giá
+
+```text
+CSV(email,password) -> token
+CSV(keyword) -> productId + productName
+productId -> detailPrice -> normalizedPrice
+normalizedPrice * positive integer quantity -> totalAmount
+checkout -> orderId
+my-orders -> exact orderId
+```
+
+- Mọi extractor phải kiểm tra giá trị khác null/rỗng trước khi gửi request phụ thuộc. Thiếu correlation làm sampler/transaction fail; không gửi tiếp bằng giá trị mặc định giả.
+- `detailPrice` được chấp nhận khi JSON trả number hoặc numeric string. Phase C phải dùng `BigDecimal` hoặc tương đương: lấy giá trị thô, chuyển `toString().trim()`, reject rỗng/không phải số/không dương, rồi tạo `normalizedPrice` bằng decimal chính xác. Không dùng `double`, không làm tròn bằng magic number.
+- `quantity` phải parse thành số nguyên dương. `totalAmount = normalizedPrice.multiply(new BigDecimal(quantity))`; giá trị serialize cho checkout phải không dùng scientific notation. Không hard-code `productId` hoặc `totalAmount`.
+
+### Functional assertions bắt buộc
+
+| Sampler | Điều kiện thành công nghiệp vụ |
+| --- | --- |
+| `RCO-01-Login` | HTTP 200; body JSON hợp lệ; `token` tồn tại và khác rỗng; user/email trả về khớp row CSV. |
+| `RCO-02-Search` | HTTP 200; body là JSON array; có ít nhất một product; product được chọn có `id` và `name` khác rỗng. |
+| `RCO-03-ProductDetail` | HTTP 200; body là object không rỗng; `id` khớp `productId`; có `price`; normalize thành `BigDecimal > 0`. |
+| `RCO-04-GetCart` | HTTP 200; response authenticated và body là JSON array. Không assert cart luôn rỗng vì defect/state drift đã biết. |
+| `RCO-05-AddCart` | HTTP 200; JSON hợp lệ; message đúng `Added to cart`; không có 4xx/5xx. |
+| `RCO-06-Checkout` | HTTP 200; JSON hợp lệ; message đúng `Checkout successful`; `orderId` khác rỗng và là ID dương. |
+| `RCO-07-MyOrders` | HTTP 200; body là JSON array; có ít nhất một order có `id` khớp chính xác `orderId` vừa correlate. |
+
+HTTP 200 chỉ là điều kiện cần. JSON parse, correlation hoặc business assertion fail phải làm sampler và transaction cha fail để không biến response nhanh nhưng sai nghiệp vụ thành sample thành công.
+
+## Thiết kế CSV và mapping account/VU
+
+### Workflow CSV
+
+File `tests/returning-customer-order/data/returning-customer-order.csv` dùng đúng header:
+
+```csv
+email,password,keyword,quantity,shippingAddress
+```
+
+File có 150 row fixture tổng hợp, chia thành ba window không giao nhau. Các account này là danh tính test tổng hợp cần được tạo và login-validate sau mỗi restart; việc có row trong CSV **không** phải bằng chứng account đã tồn tại. Password `RcoFixture!2026` chỉ là fixture local của SUT demo, không phải token, personal credential hoặc production secret. Keyword lấy từ product seed trong source; Phase C vẫn phải preflight để xác nhận mỗi keyword trả product hợp lệ trên runtime hiện tại.
+
+| Pool | Peak VU | Window trong workflow CSV (không tính header) | Email prefix |
+| --- | ---: | --- | --- |
+| Load | 20 | row 1–20 | `rco.load.*@perf.test` |
+| Stress | 80 | row 21–100 | `rco.stress.*@perf.test` |
+| Spike | 50 | row 101–150 | `rco.spike.*@perf.test` |
+| Endurance | Chưa quyết định | Chưa cấp row | Sẽ tạo pool mới sau evidence Stress/D4 và human review |
+
+Phase C phải hiện thực lựa chọn đúng window theo scenario bằng cơ chế đọc CSV có kiểm soát; không để CSV Data Set mặc định của Stress/Spike bắt đầu từ row Load. Nếu cơ chế window khó audit, được phép tạo projection CSV riêng theo scenario từ file canonical, nhưng projection phải được tạo ngoài measured interval, có row count/checksum và không thay đổi dữ liệu.
+
+### Provisioning CSV
+
+File `tests/returning-customer-order/data/account-provisioning.csv` có schema:
+
+```csv
+scenario,vuIndex,name,email,password
+```
+
+CSV chứa cùng 150 danh tính: Load 20, Stress 80, Spike 50. Cặp `(scenario,vuIndex)` và `email` phải unique; mỗi scenario chỉ provision pool của chính nó. Endurance chưa có row vì peak VU chưa được quyết định. Mapping là `threadNum` 0-based -> `vuIndex = threadNum + 1`; một VU nhận đúng một account trong cả run và hai VU không được nhận cùng row.
+
+Provisioning/validation nằm hoàn toàn ngoài measured interval. Tiêu chí bắt buộc trước khi cho phép run:
+
+```text
+Requested: N
+Created: N
+Create failed: 0
+Unique email: N
+Login with non-empty token: N
+Login failed: 0
+Empty cart verified: N
+Empty order history verified: N
+```
+
+Với đề xuất hiện tại, `N` lần lượt là 20, 80 và 50. Không provision toàn bộ 150 account cho mỗi scenario. Nếu bất kỳ count nào lệch, không bắt đầu measured interval.
+
+### Sharing, recycle và hành vi hết row
+
+- Chỉ window/projection của scenario hiện tại được share ở phạm vi **All threads trong đúng Thread Group**, theo cơ chế cấp row nguyên tử một lần tại lúc thread khởi tạo.
+- `recycle = false`. Không quay lại đầu file, kể cả khi thread kết thúc sớm.
+- Khi hết row, chọn **stop test** (fail-fast), không chỉ stop một thread; tiếp tục với ít VU hơn sẽ làm sai workload đã review.
+- Trước run phải assert `row count == peak VU`, email unique, `quantity` là integer dương, keyword/address khác rỗng và mapping đủ `threadNum 0..peakVU-1`.
+- Không share alias CSV giữa các scenario chạy đồng thời. Các scenario chạy tuần tự, restart và provision lại; prefix/window ngăn tái sử dụng chéo.
+
+## Reset, seed và account isolation
+
+Chuỗi bắt buộc giữa hai scenario, toàn bộ nằm ngoài measured interval:
+
+1. Ghi scenario/run ID, timestamp, PID backend cũ và xác nhận không có measured run đang hoạt động.
+2. Dừng đúng process backend đã review; xác nhận PID cũ đã thoát. Không chạy `database.js` song song với backend.
+3. Start lại `node server.js` theo setup đã review. Do `server.js` import `database.js`, startup sẽ drop/recreate/seed toàn SQLite và tạo lại cart in-memory; đây là reset destructive có chủ đích đối với SUT test local.
+4. Ghi PID và start time mới; bắt buộc `new PID != old PID`. Nếu PID không đổi/không xác định, dừng chuẩn bị để điều tra thay vì giả định reset thành công.
+5. Poll endpoint `GET /api/products?search=iPhone` đến khi nhận HTTP 200, JSON array không rỗng trong timeout được review; đồng thời kiểm tra backend log có thông báo database initialized/seeded và listening. Đây chỉ là readiness check, không phải measured sample.
+6. Chọn đúng pool scenario, provision `N` account qua `/api/register`, rồi validate đủ các count nêu trên. Login đúng một lần/account với credential chính xác; không thử password đoán.
+7. Xác nhận cart và order history rỗng cho từng account, lưu log provisioning/preflight, rồi mới đánh dấu thời điểm bắt đầu measured interval.
+
+Lockout implementation quan sát từ source là tăng `+2` mỗi lần sai và khóa 180 giây khi counter đạt ít nhất 3; runtime lockout chưa được probe. Nếu vô tình có 401 do credential sai hoặc 403 lockout trong provisioning/smoke, hủy run. Cách reset xác định là restart backend, verify PID/HTTP, rồi provision lại toàn pool của scenario; không chờ 180 giây bên trong measured interval và không sửa trực tiếp SQLite. Có thể chờ hết 180 giây chỉ để chẩn đoán ngoài measured interval, không thay thế reset chuẩn.
+
+Checkout không clear cart, add-cart không merge duplicate và orders tích lũy trong SQLite. Vì vậy state/payload của mỗi account tăng qua iteration trong cùng scenario; my-orders có thể ngày càng lớn và đây là residual risk cần theo dõi theo thời gian. Restart trước scenario kế tiếp xóa cart/order và account cũ, nên không cần cleanup bổ sung và không được sửa SUT. So sánh scenario chỉ hợp lệ khi cùng reset/provision policy; khi diễn giải latency phải tách ảnh hưởng của VU khỏi ảnh hưởng payload/order-history tăng dần.
+
+## Thông số workload — INITIAL_PROPOSAL
+
+Các giá trị dưới đây chỉ là thiết kế khởi điểm để human review. Chúng **không phải SLA, threshold chính thức hoặc kết quả đo**; assignment không cung cấp SLA nghiệp vụ chính thức.
+
+| Scenario | INITIAL_PROPOSAL | Peak account cần provision | Listener/report riêng |
+| --- | --- | ---: | --- |
+| Load | 20 VU; ramp-up 60 giây; steady 360 giây | 20 | Summary Report |
+| Stress | Bậc 10 -> 20 -> 40 -> 60 -> 80 VU; 60 giây mỗi bậc; tổng 300 giây | 80 | Aggregate Report |
+| Spike | Baseline 5 VU/60 giây -> tăng lên 50 VU trong 5 giây -> giữ 50 VU/60 giây -> về 5 VU trong 5 giây -> recovery 5 VU/60 giây | 50 | View Results Tree |
+| Endurance | **UNDECIDED**; chỉ derive từ evidence Stress đã được review ở D4 | Chưa xác định | Chưa xác định |
+
+Think time chung là random 1–3 giây giữa các business step, không đặt trước Login hoặc sau My Orders. Cùng workflow, correlation, assertion, data policy và think-time distribution phải được giữ giữa ba plan. View Results Tree có overhead và chỉ là report view bắt buộc/aid; Phase C/D phải review cách bật/lưu phù hợp để không làm sai measured run, trong khi raw JTL và HTML mới là nguồn metric chính.
+
+## Điểm cần khóa trước Phase C
+
+- Human review số pool: Load 20, Stress 80, Spike 50 và tổng 150 fixture; Endurance chưa cấp account.
+- Human review Load 20/60/360, Stress 10–20–40–60–80 × 60 giây, Spike 5/50/5 và think time 1–3 giây.
+- Chọn và review implementation đọc đúng CSV window/projection, fail-fast khi thiếu row và mapping một row/VU.
+- Phase C phải preflight toàn bộ keyword, thử normalization cho cả JSON number và numeric string, và smoke 1 thread × 1 iteration trước khi sinh graded plans.
+- Review overhead của View Results Tree cho Spike và residual state growth do cart/order không cleanup.
+
+## Phê duyệt Phase B
+
+Người dùng đã phê duyệt rõ ràng bằng câu **“Approve Phase B. Authorize Phase C.”** lúc `13/08/2026 22:42 — Asia/Ho_Chi_Minh`. Phase B đã đóng và Phase C được phép bắt đầu trong một yêu cầu thực hiện tiếp theo. Interaction phê duyệt này không tạo hoặc chạy JMX.
+
+**PHASE B APPROVED — PHASE C AUTHORIZED**
