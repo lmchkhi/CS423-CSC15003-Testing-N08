@@ -83,8 +83,8 @@
   /api/login` and send `Authorization: Bearer ${token}` on cart/checkout. An
   extractor that silently yields an empty string turns the whole downstream
   chain into 401s — assert on the extracted value, not just on the status code.
-- **Login lockout is real and will fire under Stress/Spike.** ≥3 consecutive
-  failed logins locks the account on a 30-second wall-clock timer. §6 requires
+- **Login lockout is real and will fire under Stress/Spike.** Observed: 2
+  consecutive failed logins lock the account for ~180 seconds. §6 requires
   resetting it between runs *and documenting the steps* — script the reset under
   `perf/scripts/` and record it in the main report, don't do it by hand and
   forget how.
