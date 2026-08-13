@@ -29,6 +29,7 @@ Không tự chạy Load, Stress, Spike hoặc Endurance bằng GUI, non-GUI, scr
 - Đọc [returning-customer-order-contract.md](references/returning-customer-order-contract.md) trước khi xác minh API, thiết kế data/correlation/assertion, tạo hoặc review JMX.
 - Đọc [phase-playbook.md](references/phase-playbook.md) trước khi thực hiện bất kỳ phase A-E hoặc subphase D1-D4 nào.
 - Đọc [measured-execution.md](references/measured-execution.md) trước mọi hoạt động Phase D, kể cả precheck, chuẩn bị command, rerun hoặc phân tích evidence.
+- Đọc [measured-user-runbook.md](references/measured-user-runbook.md) khi chuẩn bị D1-D4; artifact bàn giao phải hướng dẫn đủ các bước trước/trong/sau run, không buộc user tự suy ra phần còn thiếu.
 - Đọc [evidence-analysis.md](references/evidence-analysis.md) khi đánh giá execution, quyết định validity, phân loại failure, phân tích JTL, review optimization/issue hoặc lập continuous-performance proposal.
 
 ## Ranh giới repository
@@ -89,6 +90,7 @@ Không gộp A-E. Không chạy D2 ngay sau D1, hoặc phase kế tiếp, nếu 
 - [Execution log](assets/templates/execution-log.md)
 - [Measured command preparation](assets/templates/measured-command-preparation.md)
 - [Measured evidence analysis](assets/templates/measured-evidence-analysis.md)
+- [User execution note](assets/templates/user-execution-note.md)
 - [Result summary](assets/templates/result-summary.md)
 - [Bug/performance issue](assets/templates/bug-report.md)
 - [README HW05 summary](assets/templates/readme-summary.md)

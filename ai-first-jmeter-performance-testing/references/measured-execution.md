@@ -39,6 +39,8 @@ Dùng [measured-command-preparation.md](../assets/templates/measured-command-pre
 - reset/provision, resource-monitor và visual-evidence checklist;
 - risks và limitations.
 
+Đọc và áp dụng [measured-user-runbook.md](measured-user-runbook.md). Artifact bàn giao phải có command PowerShell hoàn chỉnh cho đúng repository/máy hiện tại, milestone evidence riêng của scenario, cách đọc console, post-run artifact verification và user execution note. Không bàn giao placeholder như `<JMX>`, `<PLAN_DATE>` hoặc `<PID>` như thể đó là lệnh chạy được. Nếu đầu vào thật còn thiếu, ghi blocker và dừng ở preparation; không đoán path hoặc dữ liệu.
+
 Run folder phải có dạng:
 
 ```text

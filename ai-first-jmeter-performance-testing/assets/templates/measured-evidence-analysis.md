@@ -27,7 +27,16 @@
 
 ## Raw JTL summary
 
+- Header/schema and sample-variable check:
+- Expected sampler labels:
+- Assertion/business failures:
+- Measured start/end/duration:
+- Percentile method:
+
 ## HTML/statistics consistency
+
+- JTL vs HTML sample/error consistency:
+- Differences and explanation:
 
 ## Resource evidence
 
@@ -61,7 +70,61 @@
 | Max CPU % | | | |
 | Max RAM MB | | | |
 
+Every number must identify its source as raw JTL, resource CSV, HTML cross-check, console observation, visual evidence or user note. Console `Avg` must never be reported as p95.
+
+## Scenario-specific breakdown
+
+Complete only the applicable table and remove unused tables from the filled artifact.
+
+### D1 Load — per-sampler and steady-load observation
+
+| Sampler/workflow | Samples | Failed | Error % | Avg | Median | p90 | p95 | p99 | Throughput |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| | | | | | | | | | |
+
+- Ramp-up evidence:
+- Target 20 VU evidence:
+- Steady-state evidence:
+- Completion/backend state:
+
+### D2 Stress — stage analysis
+
+| Stage/time window | VU | Samples | Failed | Error % | Throughput | p95 | p99 | CPU avg/max | RAM avg/max |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| | | | | | | | | | |
+
+- Throughput plateau/degradation region:
+- First material latency/error change:
+- Scheduler cutoff/account/state effects:
+
+### D3 Spike — baseline/spike/recovery
+
+| Region/time window | VU | Samples | Error % | Throughput | p95 | p99 | CPU avg/max | RAM avg/max |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| Baseline | | | | | | | | |
+| Spike | | | | | | | | |
+| Recovery | | | | | | | | |
+
+- Spike p95/error/throughput change:
+- Reviewed recovery definition:
+- Observed recovery time:
+
+### D4 Endurance — time buckets
+
+| Minute/time bucket | Samples | RPS | Error % | p95 | CPU avg/max | RAM avg/max |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| | | | | | | |
+
+- Start-to-end p95/error change:
+- RAM start/end/delta/slope:
+- Stability observation:
+- State/payload/JVM/load-generator alternative explanations:
+
 ## Interpretation limitations
+
+- Missing evidence:
+- Unsupported conclusions intentionally withheld:
+- Console/visual observations not usable as raw metrics:
 
 ## Human Review recommendation
 

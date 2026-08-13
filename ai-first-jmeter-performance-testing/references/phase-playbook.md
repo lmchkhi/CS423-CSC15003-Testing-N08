@@ -436,7 +436,7 @@ Generate the three dated graded plans only after a successful smoke. Confirm ide
 
 Require explicit Phase C approval and read `measured-execution.md`. Do not execute Load.
 
-First perform D1 Precheck / Command Preparation only: validate the reviewed plan/data, prepare a new empty timestamped `user-executed` folder, reset/provision and visual-evidence requirements, plus exact JMeter/resource/HTML commands for the user. Use 20 VU, 60-second ramp-up, 360-second duration, randomized 1–3 second think time and Summary Report unless a newer configuration has explicit Human Review. End `D1 LOAD COMMAND READY — PENDING USER EXECUTION` and stop.
+First perform D1 Precheck / Command Preparation only using `measured-user-runbook.md`: validate the reviewed plan/data, prepare a new empty timestamped `user-executed` folder, reset/provision and visual-evidence requirements, plus exact pre-run/JMeter/resource/post-run/HTML commands for the user. Include Load evidence milestones for start, ramp-up, target 20 VU, steady state and completion. Use 20 VU, 60-second ramp-up, 360-second duration, randomized 1–3 second think time and Summary Report unless a newer configuration has explicit Human Review. End `D1 LOAD COMMAND READY — PENDING USER EXECUTION` and stop.
 
 Only after the user supplies same-run JTL/log/HTML/resource/visual evidence, perform D1 Evidence Analysis, classify `VALID`, `VALID WITH LIMITATION` or `INVALID`, update audit/review/result, end `LOAD RESULT PENDING HUMAN REVIEW` and stop.
 
@@ -444,19 +444,19 @@ Only after the user supplies same-run JTL/log/HTML/resource/visual evidence, per
 
 Require explicit Human Review of D1 evidence analysis and read `measured-execution.md`. Do not execute Stress.
 
-Prepare a new empty user-executed run and exact commands for the reviewed `10 -> 20 -> 40 -> 60 -> 80 VU` step model or explicitly approved alternative. State scheduler-cutoff, account-pool, state-drift and payload-growth risks. End `D2 STRESS COMMAND READY — PENDING USER EXECUTION` and stop.
+Prepare a new empty user-executed run using `measured-user-runbook.md` and exact pre-run/JMeter/resource/post-run/HTML commands for the reviewed `10 -> 20 -> 40 -> 60 -> 80 VU` step model or explicitly approved alternative. Include evidence milestones and exact time window for every step. State scheduler-cutoff, account-pool, state-drift and payload-growth risks. End `D2 STRESS COMMAND READY — PENDING USER EXECUTION` and stop.
 
 After user evidence arrives, analyse throughput, average, median, p90/p95/p99, errors, CPU/RAM, timeout and 5xx. Do not infer capacity from invalid lockout/data/correlation runs. End `STRESS RESULT PENDING HUMAN REVIEW` and stop.
 
 ## Phase D3 — Spike
 
-Require valid Load/Stress evidence with explicit Human Review and read `measured-execution.md`. Do not execute Spike. Derive or confirm magnitude from reviewed evidence. State View Results Tree overhead and require review before execution when applicable. Prepare a new empty user-executed run and exact commands. End `D3 SPIKE COMMAND READY — PENDING USER EXECUTION` and stop.
+Require valid Load/Stress evidence with explicit Human Review and read `measured-execution.md`. Do not execute Spike. Derive or confirm magnitude from reviewed evidence. State View Results Tree overhead and require review before execution when applicable. Using `measured-user-runbook.md`, prepare a new empty user-executed run, exact commands and evidence milestones for baseline, spike start/peak, spike end and recovery. End `D3 SPIKE COMMAND READY — PENDING USER EXECUTION` and stop.
 
 After user evidence arrives, measure baseline/spike/recovery p95, throughput, errors, CPU/RAM and recovery time; end `SPIKE RESULT PENDING HUMAN REVIEW` and stop.
 
 ## Phase D4 — Endurance
 
-Require valid Stress evidence with explicit Human Review of preceding gates and read `measured-execution.md`. Do not execute Endurance. Derive sustained load from reviewed Stress evidence, set duration to 10–15 minutes, prepare a new empty user-executed run and exact commands. End `D4 ENDURANCE COMMAND READY — PENDING USER EXECUTION` and stop.
+Require valid Stress evidence with explicit Human Review of preceding gates and read `measured-execution.md`. Do not execute Endurance. Derive sustained load from reviewed Stress evidence, set duration to 10–15 minutes and, using `measured-user-runbook.md`, prepare a new empty user-executed run, exact commands and time-based evidence milestones at least T+0, T+2, T+5, T+10 and T+15 when applicable. End `D4 ENDURANCE COMMAND READY — PENDING USER EXECUTION` and stop.
 
 After user evidence arrives, track VU, RPS, p95, errors, CPU and RAM over time. Do not label memory growth a leak until cart/order/response growth, account reuse and JVM/JMeter overhead are excluded. Draft an empirical threshold only from real evidence, end `ENDURANCE RESULT PENDING HUMAN REVIEW` and stop.
 

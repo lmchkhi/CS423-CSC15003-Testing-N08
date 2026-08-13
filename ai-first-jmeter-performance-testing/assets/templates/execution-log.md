@@ -21,6 +21,7 @@
 - Reset/provision result:
 - JTL:
 - JMeter log:
+- Console log:
 - HTML report:
 - Resource evidence:
 - Visual evidence:
@@ -29,4 +30,7 @@
 - Validity: `VALID | VALID WITH LIMITATION | INVALID | NOT RUN`
 - Same-run coherence: `PASS | FAIL | NOT DETERMINED`
 - Observed anomalies:
+- Evidence milestones captured:
+- Console Active/Started/Finished observations:
+- Console rate/Err observations:
 - Notes:
