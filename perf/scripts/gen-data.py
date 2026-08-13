@@ -42,7 +42,7 @@ def gen_accounts(count):
         rows.append({
             "email": f"perf{i:04d}@hw05.local",
             "newPassword": f"Perf{i:04d}!",
-            "shippingAddress": f"{i} Duong So {i % 50 + 1}, {DISTRICTS[i % len(DISTRICTS)]}, TP.HCM",
+            "shippingAddress": f"{i} Duong So {i % 50 + 1} - {DISTRICTS[i % len(DISTRICTS)]} - TP.HCM",
         })
     return rows
 
