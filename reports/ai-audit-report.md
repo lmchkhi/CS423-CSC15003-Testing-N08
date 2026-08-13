@@ -475,3 +475,99 @@ AI Output:
     Ghi nhận Human Review approval cho D1 Load result của run 20260814-001003-user-executed với các limitation
     đã công bố và mở gate Phase D2 Stress. Cập nhật D1 result/status, review notes và workflow design. Không chuẩn bị
     command/folder D2 trong interaction phê duyệt này và không chạy measured workload.
+
+## Entry #16
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 01:24 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order" của sinh viên
+    23127464 trong bài HW05-AI (EShop, source: src/eshop-sut). Checkpoint hiện tại: PHASE D2 — Stress, giai đoạn
+    PRECHECK / COMMAND PREPARATION ONLY. D1 Load đã APPROVED (VALID WITH LIMITATION), D2 đã AUTHORIZED. Đọc
+    measured-execution.md và measured-user-runbook.md (mục D2 — Stress) trước khi làm bất kỳ việc gì khác. Tuyệt đối
+    không tự chạy Stress; chỉ validate JMX/CSV đã duyệt, tạo run folder mới rỗng, resolve input/PID/HTTP, chuẩn bị lệnh
+    PowerShell thật cho reset/seed/provisioning, resource monitor, measured JMeter, HTML generation và artifact verification,
+    cùng checklist evidence và mục “Hướng dẫn thực thi cho User” A–E bằng tiếng Việt. Xác minh bản vá
+    ThreadGroup.main_controller/loops=-1, 7 sampler/14 assertion/6 timer; nếu thiếu thì tái sinh trước khi tiếp tục.
+    Kết thúc đúng trạng thái: D2 STRESS COMMAND READY — PENDING USER EXECUTION.
+
+AI Output:
+
+    Đã xác minh gate D1/D2; JMX Stress SHA-256 55C3A971...BB5A09 là bản sinh sau correction, có đúng một
+    ThreadGroup.main_controller/loops=-1, 7 sampler, 14 assertion, 6 timer, Aggregate Report và schedule
+    10→20→40→60→80 VU trong 300 giây. Hai CSV không rỗng; pool Stress có 80 account unique và không dùng chéo pool.
+    Đã tạo run folder tests/returning-customer-order/test-runs/stress/20260814-012626-user-executed với html-report rỗng,
+    backend-precheck.txt và user-execution-note.md; tạo D2_STRESS_COMMAND_PREPARATION.md bằng tiếng Việt với lệnh thật,
+    guard, monitor, HTML, artifact verification và hướng dẫn A–E. Precheck thật thấy backend đang dừng (0 listener port
+    3000), nên không bịa/reuse backend-pid.txt; runbook buộc User restart rồi resolve PID mới và HTTP 200 trước provisioning.
+    Parse tĩnh 8 PowerShell block: 0 lỗi, 0 placeholder dạng góc. Không chạy JMeter/reset/provisioning/measured workload.
+    Trạng thái: D2 STRESS COMMAND READY — PENDING USER EXECUTION.
+
+## Entry #17
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 01:37 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    User chạy khối provisioning Stress nhưng bắt đầu bằng `$provisionScript` và PowerShell báo hàng loạt
+    `Unexpected token '-CsvPath'`, `'-EvidencePath'`, `'-BaseUrl'`, `'-Scenario'`, `'-ExpectedCount'`.
+
+AI Output:
+
+    Chẩn đoán lỗi cú pháp trước execution: User bắt đầu selection ở `$provisionScript` thay vì
+    `& $provisionScript`, nên PowerShell không gọi script. Kiểm tra thật xác nhận `account-provisioning.txt` chưa tồn tại,
+    do đó provisioning chưa chạy và có thể retry an toàn trong cùng run folder. `backend-pid.txt` hiện ghi node PID 16488,
+    HTTP 200 lúc 01:35:45 +07:00. Đã sửa runbook sang một khối self-contained dùng splatting và call operator
+    `& $provisionScript @provisionArgs`, tránh backtick continuation. Không chạy provisioning hoặc JMeter thay User;
+    không tạo JTL/kết quả measured. Trạng thái vẫn PENDING USER EXECUTION.
+
+## Entry #18
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 01:48 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    đây là kết quả, tôi cũng đã quay lại quy trình, tiến hành tự động cập nhật các file cần thiết cho phase D2
+
+AI Output:
+
+    Đã phân tích run User `20260814-012626-user-executed`: exit 0, guard 8.370 samples, 7.293 HTTP request,
+    997 workflow hoàn chỉnh, 80 scheduler-cutoff rows, 0 failure, HTTP p95 37 ms và throughput 24,220 req/s.
+    Stage throughput 10→80 VU tăng 5,467→46,267 req/s, error 0%; không thấy request-level breaking point.
+    Phát hiện monitor bị User stop lúc 01:39:44, trước JMeter start 01:40:19.912; 6 resource rows chỉ pre-run,
+    nên không báo CPU/RAM Stress hoặc stable capacity. User nói đã quay nhưng chưa cung cấp video path/file nên visual
+    evidence chưa xác minh. Đã tạo D2_STRESS_RESULT_ANALYSIS.md, điền user-execution-note.md từ artifact và cập nhật
+    REVIEW_NOTES/WORKFLOW_DESIGN. Classification `VALID WITH LIMITATION`; D3 vẫn khóa. Không chạy lại JMeter và
+    không sửa raw JTL. Trạng thái: STRESS RESULT PENDING HUMAN REVIEW.
+
+## Entry #19
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 01:59 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Approve D2 Stress result with documented limitations. Authorize D3 Spike preparation.
+
+AI Output:
+
+    Ghi nhận Human Review approval cho D2 Stress run `20260814-012626-user-executed` với classification
+    `VALID WITH LIMITATION` và toàn bộ limitation đã công bố, đồng thời mở gate D3 Spike ở checkpoint
+    PREPARE ONLY. Cập nhật D2 result analysis, review notes và workflow status. Không chuẩn bị run folder/command
+    D3 trong interaction phê duyệt này và không chạy Spike/measured workload.

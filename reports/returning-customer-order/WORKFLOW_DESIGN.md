@@ -379,3 +379,15 @@ Interaction phê duyệt này chưa đọc/precheck measured execution, chưa t�
 - Phase D2 Stress đã được authorize nhưng chưa có D2 precheck, run folder hoặc measured execution.
 
 **D1 LOAD RESULT APPROVED — PHASE D2 AUTHORIZED**
+
+## Trạng thái checkpoint D2 — Stress Evidence Analysis 14/08/2026
+
+- User đã chạy reviewed Stress JMX trong folder `20260814-012626-user-executed`; JMeter exit `0`, raw JTL 8.370 rows và 0 failure.
+- 7.293 HTTP request; p95 overall `37 ms`; throughput `24,220 req/s`; 997 workflow hoàn chỉnh; peak `allThreads=80`.
+- Throughput theo stage tăng đến `46,267 req/s` ở 80 VU, không có error/plateau rõ trong raw request metrics.
+- Không suy ra capacity/stable threshold: resource monitor bị dừng trước workload, video chưa có path và stage 80 VU chỉ kéo dài 60 giây.
+- Classification được User chấp nhận: `VALID WITH LIMITATION`; chi tiết tại `D2_STRESS_RESULT_ANALYSIS.md`.
+- Human Review lúc `14/08/2026 01:59 +07:00`: **“Approve D2 Stress result with documented limitations. Authorize D3 Spike preparation.”**
+- Phase D3 đã được authorize ở checkpoint PREPARE ONLY; interaction phê duyệt này chưa tạo folder/command và chưa chạy Spike.
+
+**D2 STRESS RESULT APPROVED — PHASE D3 AUTHORIZED**

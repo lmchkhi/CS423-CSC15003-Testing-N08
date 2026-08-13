@@ -353,3 +353,45 @@ Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa
 - Không chuẩn bị hoặc chạy measured Stress trong interaction phê duyệt này.
 
 **D1 LOAD RESULT APPROVED — PHASE D2 AUTHORIZED**
+
+## Phase D2 — Stress PRECHECK / COMMAND PREPARATION
+
+- D1 result gate: User đã approve run `20260814-001003-user-executed` với classification `VALID WITH LIMITATION` và authorize D2.
+- JMX reviewed: `23127464_Stress_20260813.jmx`, SHA-256 `55C3A971DE7FF8DA8389A6A35541EA1A9EF5B853A39D22D80FCEF54591BB5A09`.
+- Correction verified: JMX được sinh sau generator patch; đúng 1 `ThreadGroup.main_controller`, `loops=-1`, 7 sampler, 14 assertion, 6 timer và Aggregate Report.
+- Workload verified: `10 → 20 → 40 → 60 → 80 VU`, các cửa sổ 60 giây trong scheduler 300 giây; pool Stress có 80 account unique, không dùng chéo pool.
+- Prepared run: `tests/returning-customer-order/test-runs/stress/20260814-012626-user-executed/`; `html-report/` rỗng, không có JTL/log/resource result.
+- Agent precheck backend: 0 listener port 3000; backend đang dừng, nên chưa có PID measured/HTTP 200 và không tạo evidence giả. User phải restart/reset, resolve PID mới, verify HTTP 200, provision/verify 80 account rồi mới chạy measured command.
+- Command/runbook: `reports/returning-customer-order/D2_STRESS_COMMAND_PREPARATION.md`; 8 PowerShell block parse tĩnh, 0 syntax error, 0 placeholder dạng góc.
+- Agent không chạy JMeter, reset, provisioning, monitor hoặc measured workload.
+
+**D2 STRESS COMMAND READY — PENDING USER EXECUTION**
+
+## Phase D2 — Stress Evidence Analysis
+
+- User-executed run: `tests/returning-customer-order/test-runs/stress/20260814-012626-user-executed/`.
+- JMeter actual interval: `2026-08-14 01:40:19.912–01:45:21.031 +07:00`; exit code `0`; guard transcript `POST_RUN_GUARD_OK SAMPLES=8370`.
+- Provisioning: 80/80 account, 80/80 token, 0 failure; cart/orders rỗng 80/80; backend PID `16488`, HTTP 200.
+- JTL: 7.293 HTTP requests, 997 completed workflow, 80 scheduler-cutoff transaction rows, 0 failed sample, error `0,00%`, max `allThreads=80`.
+- HTTP overall: Avg `8,581 ms`, median `3 ms`, p90 `28 ms`, p95 `37 ms`, p99 `55,08 ms`, throughput `24,220 req/s` trên actual span `301,119 giây`.
+- Stage throughput 10/20/40/60/80 VU: `5,467 / 11,283 / 22,883 / 34,750 / 46,267 req/s`; stage error đều `0,00%`; HTTP p95 `36 / 27,2 / 39 / 44 / 31 ms`. Không thấy plateau/error breaking point trong request metrics đến 80 VU.
+- Limitation: resource monitor dừng lúc `01:39:44`, trước JMeter start; 6 resource rows chỉ pre-run và không được dùng cho Stress CPU/RAM. User nói đã quay video nhưng chưa cung cấp path/file, nên visual milestone/same-frame/narration chưa xác minh.
+- Classification: `VALID WITH LIMITATION`; chỉ hỗ trợ request-level JTL findings, không hỗ trợ backend resource capacity, stable threshold hoặc endurance threshold.
+- Analysis: `reports/returning-customer-order/D2_STRESS_RESULT_ANALYSIS.md`.
+- D3 chưa được authorize; chờ Human Review rõ ràng cho D2.
+
+**STRESS RESULT PENDING HUMAN REVIEW**
+
+### Human Decision — D2 Stress result
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+- Reviewed run: `tests/returning-customer-order/test-runs/stress/20260814-012626-user-executed/`.
+- Accepted classification: `VALID WITH LIMITATION`; mọi downstream use phải giữ giới hạn resource monitor không bao phủ workload và visual evidence chưa được xác minh.
+- Exact approval: **“Approve D2 Stress result with documented limitations. Authorize D3 Spike preparation.”**
+- Reviewer/date: User — `14/08/2026 01:59`, Asia/Ho_Chi_Minh.
+- Next phase authorized: Phase D3 — Spike, bắt đầu bằng checkpoint PREPARE ONLY trong interaction riêng.
+- Không chuẩn bị command/folder D3 và không chạy measured Spike trong interaction phê duyệt này.
+
+**D2 STRESS RESULT APPROVED — PHASE D3 AUTHORIZED**

@@ -1,0 +1,7 @@
+﻿Timestamp: 2026-08-14 01:39:04 +07:00
+Backend PID: 16488
+Process name: node
+Process start time: 2026-08-14T01:35:03.9869911+07:00
+Port: 3000
+Reachability: HTTP 200
+URL: http://127.0.0.1:3000/api/products
