@@ -7,6 +7,7 @@
 | Workflow | Returning Customer Search and Order |
 | Student | 23127464 |
 | Stage | |
+| Run folder / artifact set | |
 | Reviewer | User |
 | Time | |
 | Command | |
@@ -27,6 +28,15 @@
 - [ ] Approved
 - [ ] Approved with corrections
 - [ ] Rejected
+
+## Approval Gate
+
+- Phase/checkpoint reviewed:
+- Artifact/run folder reviewed:
+- Same-run evidence verified:
+- Corrections required:
+- Next phase authorized:
+- Reviewer name/date:
 
 ## Human Correction
 

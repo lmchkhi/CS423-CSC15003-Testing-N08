@@ -3,7 +3,10 @@
 ## Scenario
 
 - Type:
+- Executor: `User` for Phase D measured runs
 - Date/time:
+- Start time:
+- End time:
 - JMX:
 - CSV:
 - Base URL:
@@ -14,8 +17,16 @@
 - Listener:
 - Command:
 - Exit code:
+- Backend PID:
+- Reset/provision result:
 - JTL:
+- JMeter log:
 - HTML report:
 - Resource evidence:
-- Validity: `VALID | INVALID | NOT RUN`
+- Visual evidence:
+- Measured interval:
+- HTML generation interval/method:
+- Validity: `VALID | VALID WITH LIMITATION | INVALID | NOT RUN`
+- Same-run coherence: `PASS | FAIL | NOT DETERMINED`
+- Observed anomalies:
 - Notes:

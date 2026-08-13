@@ -16,7 +16,10 @@
 - Keep the same business workflow in all three plans; vary only the workload model.
 - Use three distinct JMeter listener/report types across the graded plans; do not repeat a type.
 - Produce all three raw JTL logs in full and all three HTML report folders.
+- Require the student to execute every measured Load, Stress, Spike and Endurance run; the agent only prepares commands and analyses user-provided evidence.
 - Capture, per run, JMeter and the backend resource monitor in the same frame.
+- Show the correct backend process/PID, CPU and memory while the measured command is running; provide Vietnamese narration for the demo.
+- Keep reset/seed/provisioning and HTML generation outside the measured interval when possible.
 - Capture real hardware evidence whose hostname is attributable to the student's environment.
 - Reset and document login lockout state between runs when three failed logins trigger lockout.
 - Run an approximately 10–15 minute endurance test and report an empirical threshold with concrete VU/RPS, p95, error rate, CPU and RAM observations.
@@ -63,7 +66,12 @@
 
 ### Phase D
 
+- [ ] Each D1-D4 preparation used a new empty timestamped run folder and ended `PENDING USER EXECUTION`.
+- [ ] The user, not the agent, executed every measured workload.
 - [ ] Valid Load, Stress and Spike results exist with raw JTL, HTML and resource evidence.
+- [ ] JTL/log/HTML/resource/visual evidence for each result belongs to the same run.
+- [ ] Each execution log records `Executor: User`, start/end, exit code, backend PID, reset/provision result and visual-evidence path.
+- [ ] Visual evidence shows JMeter/terminal and the correct backend PID/CPU/memory in the same frame during the required workload stages.
 - [ ] Endurance ran for 10–15 minutes with time-based evidence.
 - [ ] Hardware evidence exists.
 - [ ] Human reviewed D1, D2, D3 and D4 separately.

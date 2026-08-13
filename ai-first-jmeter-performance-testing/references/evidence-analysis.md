@@ -5,14 +5,29 @@
 - Treat raw JTL as read-only after execution; preserve headers and never hand-edit it.
 - Preserve invalid runs as refinement evidence; create a new run folder rather than silently overwrite.
 - Record exact JMX, CSV, workload, time, command, exit code, base URL, environment and evidence paths.
+- Record the executor. For Phase D, require `Executor: User`; an agent-executed measured run cannot satisfy the workflow.
+- Keep raw JTL, JMeter log, HTML, backend resource data, PID evidence, visual evidence and user notes attributable to the same run and time window.
 - Use runtime evidence for performance conclusions. Source code may explain state, API contract or optimization compatibility, but cannot predict measured latency/capacity.
 - Use `Không xác định` when evidence is insufficient.
 
 ## Validity decision
 
-A run is `VALID` only when JMeter executed the intended plan, non-empty JTL contains expected labels, correlation and assertions worked, SUT and data were available, and the load generator was not clearly the first bottleneck.
+A run is `VALID` only when the user executed the intended plan, output folder was new/empty, non-empty JTL contains expected labels, correlation and assertions worked, SUT and data were available, the load generator was not clearly the first bottleneck, and required evidence is attributable to the same run.
 
-Mark `INVALID` for wrong URL/password, mass lockout, empty CSV, failed extraction, malformed request, blanket 401, JMeter OOM, unavailable backend or comparable harness/environment failures. Never use an invalid run to infer SUT capacity.
+Use `VALID WITH LIMITATION` when core JTL execution is technically valid but non-critical evidence is incomplete or a limitation is clearly bounded. List every limitation and restrict conclusions accordingly. Do not use this status to excuse mixed-run evidence, missing raw JTL, failed correlation, blanket 401 or mass lockout.
+
+Mark `INVALID` for wrong URL/password, mass lockout, empty CSV, failed extraction, malformed request, blanket 401, JMeter OOM, unavailable backend, agent-executed measured workload, reused/non-empty output target, mixed-run evidence or comparable harness/environment failures. Never use an invalid run to infer SUT capacity.
+
+Before deciding validity, verify:
+
+1. `Executor: User` and exact run folder;
+2. JMX/CSV/base URL/workload match the reviewed preparation;
+3. start/end time and JMeter exit code exist;
+4. JTL/log/HTML/resource/visual evidence belong to the same run;
+5. backend PID in monitor data matches `backend-pid.txt` and visual evidence;
+6. expected sampler labels, correlation and business assertions exist;
+7. setup/provisioning and HTML generation are excluded from measured interval;
+8. visual evidence covers the scenario-specific stages.
 
 ## Failure classification
 
