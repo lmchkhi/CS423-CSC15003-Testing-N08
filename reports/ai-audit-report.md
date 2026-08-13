@@ -262,3 +262,57 @@ AI Output:
     REVIEW_NOTES.md và WORKFLOW_DESIGN.md. Đóng checkpoint Phase B; chưa thực hiện Phase C,
     chưa tạo/chạy smoke JMX, chưa tạo graded JMX và chưa chạy bất kỳ measured workload nào
     trong interaction phê duyệt này.
+
+## Entry #7
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 22:46 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order"
+    của sinh viên 23127464 trong bài HW05-AI (EShop, source: src/eshop-sut).
+
+    Checkpoint hiện tại: PHASE C — Generate JMeter and validate smoke.
+    Phase B đã APPROVED, Phase C đã AUTHORIZED. Chỉ thực hiện đúng phạm vi Phase C.
+    Không chạy bất kỳ graded scenario (Load/Stress/Spike/Endurance) nào trong phase này.
+
+    Thực hiện tuần tự C1–C7: đọc lại thiết kế đã duyệt; validate hai CSV; tạo và chạy smoke
+    1 thread × 1 iteration nếu SUT/JMeter sẵn sàng; verify correlation, assertion và chuẩn hóa
+    giá; chỉ sau khi smoke pass mới tạo ba graded JMX Load/Stress/Spike theo INITIAL_PROPOSAL;
+    không chạy graded plan; cập nhật WORKFLOW_DESIGN.md và REVIEW_NOTES.md bằng tiếng Việt.
+
+    Kết thúc bằng báo cáo Phase C có cấu trúc, dừng ở PENDING HUMAN REVIEW và chờ câu phê duyệt
+    rõ ràng "Approve Phase C. Authorize Phase D1." trước khi chuẩn bị measured run.
+
+AI Output:
+
+    Đã validate 150 workflow row và 150 provisioning row, không tìm thấy lỗi fixture. Đã tạo smoke
+    JMX 1 thread × 1 iteration, chạy các lượt chẩn đoán, phát hiện HTTPArgument Search sai và
+    assertion keyword quá yếu, sửa harness rồi xác minh thành công cả price number và string:
+    mỗi lượt cuối có 8 JTL sample, 0 failed sample, 0 assertion failure, exit code 0. Sau smoke pass
+    mới tạo ba graded JMX đúng ngày 20260813 và validate tĩnh XML/workflow/listener/pool; không chạy
+    Load/Stress/Spike/Endurance, không sửa SUT. Đã cập nhật WORKFLOW_DESIGN.md, REVIEW_NOTES.md
+    và dừng tại PENDING HUMAN REVIEW — PHASE C.
+
+## Entry #8
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 23:21 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Approve Phase C. Authorize Phase D1.
+
+AI Output:
+
+    Ghi nhận human approval chính thức cho Phase C và authorization cho Phase D1 trong
+    REVIEW_NOTES.md và WORKFLOW_DESIGN.md. Đóng checkpoint Phase C; chưa thực hiện bước chuẩn bị
+    D1, chưa tạo thư mục measured run/command preparation và chưa chạy bất kỳ Load, Stress,
+    Spike hoặc Endurance workload nào trong interaction phê duyệt này.

@@ -1,0 +1,66 @@
+2026-08-13 22:53:15,509 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-08-13 22:53:17,129 INFO o.a.j.JMeter: Loading user properties from: D:\apache-jmeter-5.6.3\bin\user.properties
+2026-08-13 22:53:17,131 INFO o.a.j.JMeter: Loading system properties from: D:\apache-jmeter-5.6.3\bin\system.properties
+2026-08-13 22:53:17,131 INFO o.a.j.JMeter: Setting JMeter property: csvRowOffset=0
+2026-08-13 22:53:17,143 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-08-13 22:53:17,144 INFO o.a.j.JMeter: Version 5.6.3
+2026-08-13 22:53:17,144 INFO o.a.j.JMeter: java.version=17.0.16
+2026-08-13 22:53:17,144 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2026-08-13 22:53:17,144 INFO o.a.j.JMeter: os.name=Windows 11
+2026-08-13 22:53:17,145 INFO o.a.j.JMeter: os.arch=amd64
+2026-08-13 22:53:17,145 INFO o.a.j.JMeter: os.version=10.0
+2026-08-13 22:53:17,145 INFO o.a.j.JMeter: file.encoding=Cp1252
+2026-08-13 22:53:17,145 INFO o.a.j.JMeter: java.awt.headless=true
+2026-08-13 22:53:17,145 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-08-13 22:53:17,145 INFO o.a.j.JMeter: Available Processors =20
+2026-08-13 22:53:17,156 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-08-13 22:53:17,157 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-08-13 22:53:17,158 INFO o.a.j.JMeter: JMeterHome=D:\apache-jmeter-5.6.3
+2026-08-13 22:53:17,159 INFO o.a.j.JMeter: user.dir  =E:\Testing\CS423-CSC15003-Testing-N08
+2026-08-13 22:53:17,160 INFO o.a.j.JMeter: PWD       =E:\Testing\CS423-CSC15003-Testing-N08
+2026-08-13 22:53:17,163 INFO o.a.j.JMeter: IP: 192.168.1.15 Name: TMQ FullName: TMQ
+2026-08-13 22:53:17,172 INFO o.a.j.s.FileServer: Default base='E:\Testing\CS423-CSC15003-Testing-N08'
+2026-08-13 22:53:17,174 INFO o.a.j.s.FileServer: Set new base='E:\Testing\CS423-CSC15003-Testing-N08\.\tests\returning-customer-order\test-cases\smoke'
+2026-08-13 22:53:17,389 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-08-13 22:53:17,412 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-08-13 22:53:17,415 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-08-13 22:53:17,418 INFO o.a.j.s.SaveService: Loading file: .\tests\returning-customer-order\test-cases\smoke\returning-customer-order-smoke.jmx
+2026-08-13 22:53:17,518 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-13 22:53:17,519 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-13 22:53:17,519 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-13 22:53:17,519 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-13 22:53:17,519 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2026-08-13 22:53:17,519 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2026-08-13 22:53:17,564 INFO o.a.j.JMeter: Creating summariser <summary>
+2026-08-13 22:53:17,580 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2026-08-13 22:53:17,581 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-08-13 22:53:17,581 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-08-13 22:53:17,585 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2026-08-13 22:53:17,585 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2026-08-13 22:53:17,632 INFO o.a.j.r.ClassFinder: Will scan jar D:\apache-jmeter-5.6.3\lib\ext\jmeter-plugins-casutg-3.1.1.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-08-13 22:53:17,643 INFO o.a.j.r.ClassFinder: Will scan jar D:\apache-jmeter-5.6.3\lib\ext\jmeter-plugins-cmn-jmeter-0.6.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-08-13 22:53:17,867 INFO o.a.j.JMeter: Running test (1786636397867)
+2026-08-13 22:53:17,881 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Smoke 1 thread × 1 iteration
+2026-08-13 22:53:17,881 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Smoke 1 thread × 1 iteration.
+2026-08-13 22:53:17,881 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-08-13 22:53:17,881 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2026-08-13 22:53:17,885 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2026-08-13 22:53:17,885 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2026-08-13 22:53:17,888 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2026-08-13 22:53:17,888 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2026-08-13 22:53:17,888 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2026-08-13 22:53:17,888 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2026-08-13 22:53:17,889 INFO o.a.j.t.JMeterThread: Thread started: Smoke 1 thread × 1 iteration 1-1
+2026-08-13 22:53:19,277 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = TMQ
+2026-08-13 22:53:19,289 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2026-08-13 22:53:19,585 INFO o.a.j.a.J.RCO-01-Login - assertion nghi?p v?: RCO_VERIFY login tokenNonEmpty=true email=rco.load.001@perf.test
+2026-08-13 22:53:22,412 INFO o.a.j.a.J.RCO-02-Search - assertion nghi?p v?: RCO_VERIFY search productId=1 productName=iPhone 15 Pro Max
+2026-08-13 22:53:24,733 INFO o.a.j.a.J.RCO-03-ProductDetail - assertion nghi?p v?: RCO_VERIFY detail productId=1 productName=iPhone 15 Pro Max priceRaw=30000000 priceRuntimeType=Integer normalizedPrice=30000000 quantity=1 totalAmount=30000000
+2026-08-13 22:53:26,957 INFO o.a.j.a.J.RCO-04-GetCart - assertion nghi?p v?: RCO_VERIFY cart shape=array itemCount=1
+2026-08-13 22:53:28,362 INFO o.a.j.a.J.RCO-05-AddCart - assertion nghi?p v?: RCO_VERIFY addCart message=Added to cart
+2026-08-13 22:53:30,048 INFO o.a.j.a.J.RCO-06-Checkout - assertion nghi?p v?: RCO_VERIFY checkout orderId=3 totalAmount=30000000
+2026-08-13 22:53:31,783 INFO o.a.j.a.J.RCO-07-MyOrders - assertion nghi?p v?: RCO_VERIFY myOrders exactOrderIdFound=3 orderCount=2
+2026-08-13 22:53:31,784 INFO o.a.j.t.JMeterThread: Thread is done: Smoke 1 thread × 1 iteration 1-1
+2026-08-13 22:53:31,784 INFO o.a.j.t.JMeterThread: Thread finished: Smoke 1 thread × 1 iteration 1-1
+2026-08-13 22:53:31,786 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2026-08-13 22:53:31,790 INFO o.a.j.r.Summariser: summary =      0 in 00:00:00 = ******/s Avg:     0 Min: 9223372036854775807 Max: -9223372036854775808 Err:     0 (0.00%)

@@ -8,9 +8,9 @@
 | Bài tập | HW05-AI — Performance Testing |
 | SUT | EShop REST backend tại `src/eshop-sut` |
 | Workflow | Returning Customer Search and Order |
-| Checkpoint | Phase B đã đóng; Phase C đã được authorize nhưng chưa bắt đầu |
-| Trạng thái | **PHASE B APPROVED — PHASE C AUTHORIZED** |
-| Phạm vi tài liệu | Phase B đã được human review; interaction này chỉ ghi nhận approval, chưa tạo/chạy smoke JMX, chưa tạo graded JMX và chưa chạy workload |
+| Checkpoint | Phase C đã đóng; Phase D1 đã được authorize nhưng chưa bắt đầu preparation |
+| Trạng thái | **PHASE C APPROVED — PHASE D1 AUTHORIZED** |
+| Phạm vi tài liệu | Phase C đã được human review; interaction này chỉ ghi nhận approval, chưa chuẩn bị command/run folder D1 và chưa chạy measured workload |
 
 ## Nguồn đã kiểm tra
 
@@ -288,3 +288,59 @@ Think time chung là random 1–3 giây giữa các business step, không đặt
 Người dùng đã phê duyệt rõ ràng bằng câu **“Approve Phase B. Authorize Phase C.”** lúc `13/08/2026 22:42 — Asia/Ho_Chi_Minh`. Phase B đã đóng và Phase C được phép bắt đầu trong một yêu cầu thực hiện tiếp theo. Interaction phê duyệt này không tạo hoặc chạy JMX.
 
 **PHASE B APPROVED — PHASE C AUTHORIZED**
+
+## Phase C — Generate JMeter and validate smoke
+
+### Kết quả validate fixture
+
+Kiểm tra tĩnh ngày `13/08/2026` không thay đổi dữ liệu nghiệp vụ:
+
+| Artifact | Số row data | Pool | Lỗi rỗng/quantity | Email trùng trong cùng pool | Kết luận |
+| --- | ---: | --- | ---: | ---: | --- |
+| `returning-customer-order.csv` | 150 | Load 20, Stress 80, Spike 50 | 0 | 0 | Đạt |
+| `account-provisioning.csv` | 150 | Load 20, Stress 80, Spike 50 | 0 | 0 | Đạt |
+
+Các keyword `iPhone`, `Samsung`, `MacBook`, `AirPods`, `Keychron` đều match trực tiếp tên sản phẩm seed trong `src/eshop-sut/backend/database.js:98-102`. Mọi `shippingAddress` khác rỗng và mọi `quantity` là integer dương. Hai account đầu của pool Load đã được provision ngoài smoke; raw HTTP preflight xác nhận cart và my-orders ban đầu đều là `[]`. Không token runtime nào được ghi vào artifact.
+
+### Cấu trúc JMX chung
+
+- Một transaction `RCO-E2E-ReturningCustomerOrder`, đúng 7 HTTP sampler `RCO-01` đến `RCO-07`.
+- 7 assertion HTTP 200 và 7 JSR223 business assertion; HTTP 200 không che lỗi JSON/correlation/nghiệp vụ.
+- Sáu `UniformRandomTimer`: constant `1000 ms`, random range `2000 ms`, tạo think time 1–3 giây trước RCO-02 đến RCO-07.
+- Mapping CSV cố định `threadNum` 0-based → `offset + threadNum`; kiểm tra header, pool size, prefix email, field rỗng và quantity; không recycle, thiếu row thì stop-test fail-fast.
+- Chuỗi correlation giữ nguyên: `token → productId/productName → detailPrice → normalizedPrice → totalAmount → orderId`.
+- `detailPrice` được parse bằng `BigDecimal`, reject rỗng/không dương; `totalAmount` dùng `multiply` và `toPlainString`. Request JSON được dựng bằng `JsonOutput`, không nối chuỗi JSON thủ công.
+- SHA-256 của subtree workflow trong smoke/Load/Stress/Spike đều là `ef4e60ef9378ea48031eab88984de96564a3a9268ff51c5c90a04f872e9ce4cd`, xác nhận workflow/correlation/assertion/think time giống hệt nhau.
+
+### Smoke và correction
+
+JMeter/SUT precheck đạt lúc `2026-08-13 22:51:13 +07:00`: SUT HTTP 200, JMeter 5.6.3 exit 0. Các lượt smoke đều là 1 thread × 1 iteration; mỗi JTL có 7 HTTP sample và một transaction parent.
+
+Lỗi harness ban đầu: outer `HTTPArgument` của Search có name rỗng, vì vậy query `search` không được gửi. Assertion Search ban đầu chỉ yêu cầu array không rỗng nên response toàn bộ product vẫn chọn phần tử đầu và pass giả về nghiệp vụ keyword. Nguyên nhân là AI sinh cấu trúc HTTPArgument sai và assertion chưa ràng buộc dữ liệu CSV. Correction: đặt đúng argument name `search`, chọn product có `name` chứa keyword case-insensitive, fail nếu không match; đồng thời thêm log correlation không chứa token để review được giá trị dẫn xuất. Không sửa SUT hoặc CSV.
+
+Hai lượt cuối sau correction đều exit 0, 8 sample, 0 failed sample, 0 assertion failure:
+
+| Biến thể | Thời gian thật | Correlation/normalization | Checkout/history | Evidence |
+| --- | --- | --- | --- | --- |
+| Price number | `22:54:43–22:55:02 +07:00` | iPhone ID 1; runtime `Integer`; `30000000 × 1 = 30000000` | order ID 5, exact match trong my-orders | `tests/returning-customer-order/test-runs/smoke/20260813-2255-number-final/` |
+| Price string | `22:55:10–22:55:29 +07:00` | Samsung ID 2; runtime `String`; `28000000 × 1 = 28000000` | order ID 6, exact match trong my-orders | `tests/returning-customer-order/test-runs/smoke/20260813-2255-string-final/` |
+
+Cart/order count ở các lượt cuối không còn rỗng do các lượt chẩn đoán trước đã tạo state thật. Đây là manifestation của defect checkout không clear cart/order tích lũy đã biết, không phải assertion bị nới. Phase D bắt buộc restart/reset và provision pool mới trước measured interval.
+
+### Ba graded plan đã tạo, chưa chạy
+
+| File | Workload model đã duyệt | Listener | CSV mapping |
+| --- | --- | --- | --- |
+| `test-cases/load/23127464_Load_20260813.jmx` | 20 VU, ramp-up 60 giây, hold 360 giây | Summary Report | offset 0, pool 20, prefix `rco.load.` |
+| `test-cases/stress/23127464_Stress_20260813.jmx` | 10 → 20 → 40 → 60 → 80 VU, mốc thêm VU mỗi 60 giây, tổng 300 giây | Aggregate Report | offset 20, pool 80, prefix `rco.stress.` |
+| `test-cases/spike/23127464_Spike_20260813.jmx` | baseline 5; tại T+60 ramp 5 giây thêm 45; hold spike 60 giây; ramp-down 5 giây; recovery 5 VU | View Results Tree | offset 100, pool 50, prefix `rco.spike.` |
+
+Ba file đúng naming convention theo ngày thật `20260813`, XML well-formed, mỗi file có 7 sampler/14 assertion/6 think timer và listener không trùng. Plugin `jmeter-plugins-casutg-3.1.1.jar` đã có trong JMeter local. Validation chỉ là kiểm tra tĩnh; **không graded plan nào đã được chạy**.
+
+## Trạng thái checkpoint Phase C
+
+Người dùng đã phê duyệt rõ ràng bằng câu **“Approve Phase C. Authorize Phase D1.”** lúc `13/08/2026 23:21 — Asia/Ho_Chi_Minh`. Phase C đã đóng và Phase D1 được phép bắt đầu bằng checkpoint **PREPARE ONLY** trong một yêu cầu thực hiện tiếp theo.
+
+**PHASE C APPROVED — PHASE D1 AUTHORIZED**
+
+Interaction phê duyệt này chưa đọc/precheck measured execution, chưa tạo thư mục run, chưa chuẩn bị command và chưa chạy Load/Stress/Spike/Endurance.

@@ -1,4 +1,4 @@
-# Review Notes — Returning Customer Search and Order
+hả# Review Notes — Returning Customer Search and Order
 
 ## Thông tin review
 
@@ -6,8 +6,8 @@
 | --- | --- |
 | Workflow | Returning Customer Search and Order |
 | Sinh viên | 23127464 — Trần Minh Quang |
-| Stage | Phase B — Design workload and data (B1–B7) |
-| Artifact set | `reports/returning-customer-order/`, `tests/returning-customer-order/data/` |
+| Stage | Phase C — Generate JMeter and validate smoke (C1–C7) |
+| Artifact set | `reports/returning-customer-order/`, `tests/returning-customer-order/{data,test-cases,test-runs}/` |
 | Reviewer | User |
 | Thời gian agent thực hiện | 13/08/2026, Asia/Ho_Chi_Minh |
 | Command measured test | Không có — Phase B không chạy workload |
@@ -180,3 +180,99 @@ Think time đề xuất: random 1–3 giây giữa các business step, giống n
 Không có correction kèm theo. Người dùng phê duyệt nguyên trạng bằng câu **“Approve Phase B. Authorize Phase C.”**
 
 **PHASE B APPROVED — PHASE C AUTHORIZED**
+
+## Phase C — nội dung trình Human Review
+
+### Fixture validation
+
+| Kiểm tra | Kết quả |
+| --- | --- |
+| Workflow CSV | 150 row: Load 20, Stress 80, Spike 50 |
+| Provisioning CSV | 150 row: Load 20, Stress 80, Spike 50 |
+| Row/field rỗng | 0 |
+| Quantity không phải integer dương | 0 |
+| Email trùng trong cùng scenario pool | 0 |
+| Shipping address rỗng | 0 |
+| Keyword không match seed SUT | 0; cả 5 keyword match `database.js:98-102` |
+
+Preflight provision hai account Load đầu tiên: requested 2, created 2, login token không rỗng 2. Wrapper đếm array rỗng bằng `Invoke-RestMethod` ban đầu báo sai `0/2`; kiểm tra lại raw HTTP body xác nhận cả cart và my-orders đều trả `[]`. Đây là lỗi quan sát của script hỗ trợ, không phải lỗi fixture/SUT; raw response được dùng làm kết luận.
+
+### Smoke execution log
+
+Lệnh smoke number cuối:
+
+```powershell
+D:\apache-jmeter-5.6.3\bin\jmeter.bat -n -t .\tests\returning-customer-order\test-cases\smoke\returning-customer-order-smoke.jmx -JcsvRowOffset=0 -l .\tests\returning-customer-order\test-runs\smoke\20260813-2255-number-final\result.jtl -j .\tests\returning-customer-order\test-runs\smoke\20260813-2255-number-final\jmeter.log
+```
+
+- Start/end: `2026-08-13 22:54:43–22:55:02 +07:00`.
+- Exit code: `0`; sample: 8 = 7 HTTP + 1 transaction; failed sample: 0; assertion failure: 0.
+- Token khác rỗng nhưng không log giá trị; search match iPhone ID 1/name; price runtime `Integer`; normalized `30000000`; total `30000000`; add-cart đúng message; checkout order ID 5; my-orders tìm exact ID 5.
+
+Lệnh smoke string cuối:
+
+```powershell
+D:\apache-jmeter-5.6.3\bin\jmeter.bat -n -t .\tests\returning-customer-order\test-cases\smoke\returning-customer-order-smoke.jmx -JcsvRowOffset=1 -l .\tests\returning-customer-order\test-runs\smoke\20260813-2255-string-final\result.jtl -j .\tests\returning-customer-order\test-runs\smoke\20260813-2255-string-final\jmeter.log
+```
+
+- Start/end: `2026-08-13 22:55:10–22:55:29 +07:00`.
+- Exit code: `0`; sample: 8 = 7 HTTP + 1 transaction; failed sample: 0; assertion failure: 0.
+- Token khác rỗng nhưng không log giá trị; search match Samsung ID 2/name; price runtime `String`; normalized `28000000`; total `28000000`; add-cart đúng message; checkout order ID 6; my-orders tìm exact ID 6.
+
+### Harness corrections và các lượt chạy
+
+| Lượt | Kết quả kỹ thuật | Human/AI verification | Correction |
+| --- | --- | --- | --- |
+| `20260813-2253-number` | Exit 0, 8 sample, 0 assertion failure | Chưa đủ observability cho correlation/BigDecimal | Thêm `RCO_VERIFY` không chứa token/secret. |
+| `20260813-2254-number-rerun` | Exit 0, 8 sample, 0 assertion failure | Phát hiện Search không gửi keyword và chọn product đầu tiên | Sửa outer HTTPArgument name thành `search`; assertion phải match keyword CSV. |
+| `20260813-2254-string` | Exit 0, 8 sample, 0 assertion failure | Offset chọn đúng email row 2 nhưng vẫn ra iPhone, xác nhận lỗi query/assertion | Áp dụng cùng correction; không coi lượt này là smoke pass đúng nghiệp vụ. |
+| Hai lượt `2255-*-final` | Exit 0, mỗi lượt 8 sample, 0 failure | Correlation, number/string normalization, total, add-cart, checkout và exact order lookup đều đúng | Không cần correction thêm. |
+
+AI ban đầu làm sai vì dựng `HTTPArgument` theo shape raw body (name rỗng) cho query parameter và assertion Search chỉ kiểm tra collection/id/name, chưa buộc kết quả khớp keyword input. JMeter exit 0 và assertion 0 failure vì vậy không đủ để tự kết luận; log correlation và review dữ liệu đã tìm ra false positive.
+
+### Graded JMX structural review
+
+| File | Listener | Workload | Pool |
+| --- | --- | --- | --- |
+| `load/23127464_Load_20260813.jmx` | Summary Report | 20 VU; ramp 60s; hold 360s | offset 0 / 20 Load account |
+| `stress/23127464_Stress_20260813.jmx` | Aggregate Report | 10→20→40→60→80; 60s/bậc; 300s | offset 20 / 80 Stress account |
+| `spike/23127464_Spike_20260813.jmx` | View Results Tree | 5 baseline → 50 spike → 5 recovery | offset 100 / 50 Spike account |
+
+Static validation: ba XML well-formed; mỗi plan có đúng 7 sampler, 7 HTTP assertion, 7 business assertion, 6 timer; ba listener khác loại; workflow subtree SHA-256 giống nhau. Filename đúng convention và ngày thật `20260813`. Không dùng kết quả static này như runtime evidence.
+
+### Open questions / risks cho Phase D
+
+- Cart/order history hiện đã drift do smoke và checkout không clear cart; D1 phải restart backend, verify PID/HTTP/seed log, provision và validate đúng 20 account ngoài measured interval.
+- Runtime lockout `+2/180 giây` vẫn chưa được chủ động probe; bất kỳ 401/403 nào ở provisioning phải hủy run và reset/reprovision.
+- Ultimate Thread Group plugin đã cài, nhưng D1 vẫn phải precheck plan/plugin/JMeter trên đúng máy trước khi giao lệnh user-run.
+- View Results Tree của Spike có overhead; ở D3 phải giữ distinction giữa required report view và raw JTL/HTML metric source.
+- Console summariser của smoke hiện dòng `0 sample` trong khi raw JTL có 8 sample. Phase D phải lấy raw JTL làm nguồn đếm chính và không dựa vào một dòng console.
+
+### Blockers
+
+- Không có blocker kỹ thuật còn lại trong Phase C.
+- Gate quy trình: chưa có Human Review/approval Phase C, vì vậy chưa được chuẩn bị hoặc chạy D1.
+
+## Human Decision — Phase C
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+
+### Approval Gate — Phase C
+
+- Phase/checkpoint reviewed: Phase C — Generate JMeter and validate smoke (C1–C7).
+- Artifact reviewed: `WORKFLOW_DESIGN.md`, `REVIEW_NOTES.md`, smoke JMX/JTL/log và ba graded JMX ngày `20260813`.
+- Smoke evidence: hai lượt cuối number/string, mỗi lượt 8 sample, 0 failed sample, 0 assertion failure, exit code 0.
+- Graded execution evidence: Không có — đúng phạm vi Phase C, chưa chạy Load/Stress/Spike/Endurance.
+- Corrections required: Không có correction kèm theo approval.
+- Next phase authorized: Phase D1 — Load, bắt đầu bằng **PREPARE ONLY** trong một interaction tiếp theo.
+- Reviewer name/date: User — `13/08/2026 23:21`, Asia/Ho_Chi_Minh.
+
+## Human Correction — Phase C
+
+Không có correction kèm theo. Người dùng phê duyệt rõ ràng bằng câu **“Approve Phase C. Authorize Phase D1.”**
+
+**PHASE C APPROVED — PHASE D1 AUTHORIZED**
+
+Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa chạy measured workload.
