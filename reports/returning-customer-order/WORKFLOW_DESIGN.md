@@ -392,3 +392,25 @@ Interaction phê duyệt này chưa đọc/precheck measured execution, chưa t�
 - Phase D3 đã được authorize ở checkpoint PREPARE ONLY; interaction phê duyệt này chưa tạo folder/command và chưa chạy Spike.
 
 **D2 STRESS RESULT APPROVED — PHASE D3 AUTHORIZED**
+
+## Trạng thái checkpoint D3 — Spike Command Preparation 14/08/2026
+
+- Reviewed Spike JMX đã xác minh bản vá `main_controller/loops=-1`, 7 sampler/14 assertion/6 timer và schedule 5→50→5 VU.
+- Pool Spike đủ 50 account riêng; View Results Tree giữ theo thiết kế đã duyệt với overhead limitation.
+- Run chuẩn bị: `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`; HTML rỗng, chưa có measured artifact.
+- Backend precheck đang dừng; PID/HTTP 200 chỉ được User resolve sau restart/reset và trước provisioning 50 account.
+- Runbook `D3_SPIKE_COMMAND_PREPARATION.md` bổ sung gate chống lỗi D2: ≥3 resource sample, tail/start lệch tối đa 5 giây, stop sau exit/guard và coverage first≤start/last≥end.
+- Agent không chạy Spike. Chờ User thực thi và gửi same-run evidence trước D3 Evidence Analysis.
+
+**D3 SPIKE COMMAND READY — PENDING USER EXECUTION**
+
+## Trạng thái checkpoint D3 — Spike Evidence Analysis 14/08/2026
+
+- User đã chạy reviewed Spike JMX trong folder `20260814-021040-user-executed`; actual workload `189,086 giây`, exit `0`, guard 2.574 raw row.
+- Peak đạt 50 threads; 2.230 HTTP request, 294 workflow hoàn tất, 50 scheduler cutoff và 0 failure.
+- Baseline/Spike/Recovery HTTP p95 `26/36/16 ms`, throughput `2,683/27,171/2,836 req/s`, error đều `0,00%`.
+- Backend resource đúng PID 15944 và bao phủ toàn run; spike working-set max `85,098 MiB`, CPU normalized max `1,011%`, recovery averages trở về gần baseline.
+- Visual evidence chỉ có start/PID screenshot; thiếu video và milestone spike/recovery/completion. Classification `VALID WITH LIMITATION`.
+- Chi tiết tại `D3_SPIKE_RESULT_ANALYSIS.md`; Phase D4 vẫn khóa đến khi có Human Review/authorization rõ ràng.
+
+**SPIKE RESULT PENDING HUMAN REVIEW**

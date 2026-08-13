@@ -1,0 +1,12 @@
+﻿Timestamp: 2026-08-14 02:19:40 +07:00
+Scenario: Spike
+Base URL: http://127.0.0.1:3000
+CSV: E:\Testing\CS423-CSC15003-Testing-N08\tests\returning-customer-order\data\account-provisioning.csv
+Requested: 50
+Created: 50
+Create failed: 0
+Unique email: 50
+Login with non-empty token: 50
+Login failed: 0
+Empty cart verified: 50
+Empty order history verified: 50

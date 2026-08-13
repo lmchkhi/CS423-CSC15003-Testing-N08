@@ -396,3 +396,43 @@ Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa
 - Không chuẩn bị command/folder D3 và không chạy measured Spike trong interaction phê duyệt này.
 
 **D2 STRESS RESULT APPROVED — PHASE D3 AUTHORIZED**
+
+## Phase D3 — Spike PRECHECK / COMMAND PREPARATION
+
+- D2 result gate: User đã approve run `20260814-012626-user-executed` với classification `VALID WITH LIMITATION` và authorize D3.
+- JMX reviewed: `23127464_Spike_20260813.jmx`, SHA-256 `AB01BD4FEBB0FC3D4879590420CECADCFB37EA38DFD1D0D2E60FD9A769CBDFF5`.
+- Correction verified: JMX sinh sau generator patch; đúng 1 `ThreadGroup.main_controller`, `loops=-1`, 7 sampler, 14 assertion, 6 timer và View Results Tree.
+- Workload verified: baseline 5 VU, thêm 45 VU tại T+60 trong 5 giây, peak 50 VU giữ 60 giây, ramp-down 5 giây và recovery 5 VU; tổng khoảng 190 giây.
+- Pool Spike: 50 account unique; không tái sử dụng chéo Load/Stress. Workflow/provision CSV đều không rỗng.
+- Prepared run: `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`; `html-report/` rỗng, không có JTL/log/resource result.
+- Agent precheck: 0 listener port 3000; không bịa/reuse PID D2. User phải restart/reset, resolve PID mới, HTTP 200 và provision 50/50 trước đo.
+- Correction timing từ D2: monitor gate ≥3 sample và tail ≤5 giây; measured command kiểm lại ngay sau `$startTime`; stop chỉ sau exit code 0 + `POST_RUN_GUARD_OK`; artifact check yêu cầu resource first≤start/last≥end.
+- Command/runbook: `reports/returning-customer-order/D3_SPIKE_COMMAND_PREPARATION.md`; 9 PowerShell block parse tĩnh, 0 lỗi, 0 placeholder góc.
+- Agent không chạy JMeter, backend reset, provisioning, resource monitor hoặc measured workload.
+
+**D3 SPIKE COMMAND READY — PENDING USER EXECUTION**
+
+### D3 operator-sequence correction — 14/08/2026 02:21
+
+- User đã resolve backend PID `15944`, HTTP 200, provision Spike 50/50 và đạt `MONITOR_GATE_OK` với 3 sample/age `0,78s`.
+- User chạy nhầm Stop block trước measured command; `STOP_BLOCKED` hoạt động đúng, không tạo stop-file và chưa chạy JMeter.
+- Read-only check: backend còn sống, resource CSV tiếp tục tăng, chưa có JTL; có thể tiếp tục từ measured command trong cùng Terminal B.
+- Runbook đã sửa thứ tự hiển thị thành `monitor Start/gate → measured command → Stop monitor`, kèm cảnh báo cứng không chạy Stop ngay sau gate.
+- Không có measured result để phân tích; status vẫn pending User execution.
+
+## Phase D3 — Spike Evidence Analysis
+
+- User-executed run: `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`.
+- JMeter actual interval: `02:23:20.131–02:26:29.217 +07:00`; exit `0`; guard `POST_RUN_GUARD_OK SAMPLES=2574`; monitor/start lệch `0,074 giây`.
+- Provisioning: 50/50 account, 50/50 token, 0 failure; cart/orders rỗng; backend PID `15944`, HTTP 200.
+- Raw JTL: 2.230 HTTP request, 294 completed workflow, 50 scheduler-cutoff transaction, 0 failure; max `allThreads=50`.
+- HTTP overall: avg `8,125 ms`, median `3 ms`, p90 `26 ms`, p95 `35 ms`, p99 `48,71 ms`, throughput `11,794 req/s` trên actual span `189,086 giây`.
+- Baseline/Spike/Recovery: throughput `2,683 / 27,171 / 2,836 req/s`; p95 `26 / 36 / 16 ms`; error đều `0,00%`.
+- Backend CPU normalized avg/max theo vùng: `0,047/0,193% → 0,465/1,011% → 0,052/0,116%`; working set avg/max `53,820/55,035 → 68,969/85,098 → 54,022/54,848 MiB`.
+- Resource CSV có 206 row, đúng PID 15944, không có dead row, first≤start và last≥end; correction monitor D2 hoạt động thành công.
+- Ảnh root đã rename/move thành `tests/returning-customer-order/evidence/spike/20260814-021040-user-executed/d3-spike-start-jmeter-backend-pid-15944.png`; chỉ xác nhận start/PID cùng frame, memory là working-set delta.
+- Limitation: thiếu video/narration và visual milestone spike/recovery/completion; không có load-generator resource; View Results Tree overhead chưa lượng hóa; recovery criterion định lượng chưa được khóa trước run.
+- Classification: `VALID WITH LIMITATION`. Báo cáo: `reports/returning-customer-order/D3_SPIKE_RESULT_ANALYSIS.md`.
+- D4 chưa được authorize; chờ Human Review rõ ràng cho D3.
+
+**SPIKE RESULT PENDING HUMAN REVIEW**

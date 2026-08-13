@@ -571,3 +571,86 @@ AI Output:
     `VALID WITH LIMITATION` và toàn bộ limitation đã công bố, đồng thời mở gate D3 Spike ở checkpoint
     PREPARE ONLY. Cập nhật D2 result analysis, review notes và workflow status. Không chuẩn bị run folder/command
     D3 trong interaction phê duyệt này và không chạy Spike/measured workload.
+
+## Entry #20
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 02:08 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order" của sinh viên
+    23127464 trong bài HW05-AI (EShop, source: src/eshop-sut), tại PHASE D3 — Spike, PRECHECK / COMMAND PREPARATION
+    ONLY. D2 Stress đã APPROVED (VALID WITH LIMITATION), D3 đã AUTHORIZED. Đọc measured-execution.md và
+    measured-user-runbook.md mục D3 trước mọi việc; tuyệt đối không chạy Spike. Xác minh JMX đã có bản vá
+    ThreadGroup.main_controller/loops=-1 và giữ nguyên 7 sampler/14 assertion/6 timer, CSV/pool Spike 50 account,
+    tạo run folder mới rỗng, resolve input/PID/HTTP, chuẩn bị lệnh reset/seed/provision, resource monitor có gate ít nhất
+    3 sample và đối chiếu timestamp không lệch quá 5 giây, measured JMeter có Tee-Object/post-run guard, HTML/verify
+    artifacts, user-execution-note và hướng dẫn User A–E bằng tiếng Việt. Kết thúc đúng trạng thái:
+    D3 SPIKE COMMAND READY — PENDING USER EXECUTION.
+
+## Entry #21
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 02:21 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    User gửi transcript D3 Spike: resolve input/PID/HTTP thành công với backend PID 15944; provisioning Spike đạt
+    50 account, 0 create/login failure, cart/orders rỗng; resource monitor đạt MONITOR_GATE_OK với 3 sample và age
+    0,78 giây. Sau đó User chạy nhầm khối Stop trước measured command và nhận STOP_BLOCKED vì chưa có JMeter exit
+    code 0/POST_RUN_GUARD_OK.
+
+AI Output:
+
+    Chẩn đoán đây là lỗi thứ tự thao tác trước measured execution, không phải lỗi SUT/JMeter; gate chống dừng sớm
+    hoạt động đúng. Kiểm tra read-only lúc 02:21:40: backend PID 15944 còn sống; resource CSV có 48 sample,
+    tail age khoảng 1,4 giây và vẫn tăng; không có monitor.stop hoặc result.jtl; PID/provision evidence tồn tại.
+    User có thể tiếp tục ngay từ exact measured command trong cùng Terminal B. Phát hiện runbook đặt subsection Stop
+    trước measured command, dễ gây thao tác sai; đã chuyển Stop xuống sau measured command và thêm hard warning
+    “MONITOR_GATE_OK → measured command”, giữ nguyên command/guard. Không chạy JMeter hoặc sửa measured evidence.
+
+## Entry #22
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 02:29 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    User xác nhận đã hoàn thành quy trình D3 Spike cho run `20260814-021040-user-executed` và yêu cầu tự động cập
+    nhật các file cần thiết; đồng thời rename/move ảnh evidence mới đặt tại repository root. Transcript cho biết
+    monitor/start lệch 0,074 giây, JMeter exit code 0, POST_RUN_GUARD_OK với 2.574 sample, monitor dừng sau guard,
+    HTML exit code 0 và RESOURCE_COVERAGE_OK với 206 resource row bao phủ toàn bộ measured interval.
+
+AI Output:
+
+    Đã phân tích same-run evidence: 2.230 HTTP request, 294 workflow hoàn tất, 50 scheduler cutoff, 0 failure,
+    max 50 threads; HTTP p95 Baseline/Spike/Recovery 26/36/16 ms và throughput 2,683/27,171/2,836 req/s.
+    Resource đúng backend PID 15944, 206 row bao phủ toàn command interval; Spike CPU normalized max 1,011%,
+    working set max 85,098 MiB và recovery averages về gần baseline. Đã rename/move ảnh root thành
+    `evidence/spike/20260814-021040-user-executed/d3-spike-start-jmeter-backend-pid-15944.png`; ảnh chỉ xác nhận
+    start/PID, không phải spike/recovery/completion. Đã tạo D3_SPIKE_RESULT_ANALYSIS.md, điền execution note và cập
+    nhật REVIEW_NOTES/WORKFLOW_DESIGN. Classification `VALID WITH LIMITATION` do thiếu video/visual milestone và
+    load-generator resource. Không chạy JMeter, không sửa raw JTL/resource. Trạng thái: SPIKE RESULT PENDING HUMAN REVIEW.
+
+AI Output:
+
+    Đã xác minh D3 gate và JMX Spike SHA-256 AB01BD4F...CBDFF5 là bản sinh sau generator patch: đúng 1
+    ThreadGroup.main_controller, loops=-1, 7 sampler, 14 assertion, 6 timer, View Results Tree và schedule
+    baseline 5 → spike 50 → recovery 5 VU. Hai CSV không rỗng; pool Spike có 50 account unique, overlap với
+    Load/Stress bằng 0. Đã tạo run folder `20260814-021040-user-executed`, html-report rỗng, backend-precheck.txt
+    và user-execution-note.md; tạo D3_SPIKE_COMMAND_PREPARATION.md bằng tiếng Việt với 9 PowerShell block thật.
+    Correction D2 được khóa bằng gate monitor ≥3 sample, tail ≤5 giây ở cả pre-gate và ngay sau $startTime,
+    normal stop chỉ sau exit code 0 + POST_RUN_GUARD_OK, và verification first≤start/last≥end. Precheck thật thấy
+    backend đang dừng (0 listener port 3000), nên không bịa/reuse PID; User phải restart rồi resolve PID mới/HTTP 200.
+    Parse tĩnh: 0 lỗi, 0 placeholder góc; không chạy JMeter/reset/provision/monitor. Trạng thái:
+    D3 SPIKE COMMAND READY — PENDING USER EXECUTION.
