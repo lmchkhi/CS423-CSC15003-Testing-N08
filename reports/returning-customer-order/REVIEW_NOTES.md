@@ -541,10 +541,13 @@ Xem [D4_ENDURANCE_RESULT_ANALYSIS.md](file:///e:/Testing/CS423-CSC15003-Testing-
 
 ### Human Decision — D4 Endurance result
 
-- [ ] Approved
+- [x] Approved
 - [ ] Approved with corrections
 - [ ] Rejected
 - Reviewed run: `tests/returning-customer-order/test-runs/endurance/20260814-024700-user-executed/`.
-- Accepted classification:
-- Exact approval:
-- Reviewer/date:
+- Accepted classification: `VALID WITH LIMITATION`; mọi downstream use phải giữ giới hạn visual evidence chỉ có start/PID, thiếu video/milestone T+2/T+5/T+10/T+15/T+30, thiếu load-generator resource, heartbeat không hoạt động, state/payload drift và 30 phút minimum duration.
+- Exact approval: **"Approve D4 Endurance result with documented limitations. Authorize Phase E Final Report."**
+- Reviewer/date: User — `14/08/2026 03:46`, Asia/Ho_Chi_Minh.
+- Next phase authorized: Phase E — Final Report.
+
+**D4 ENDURANCE RESULT APPROVED — PHASE E FINAL REPORT AUTHORIZED**

@@ -197,10 +197,15 @@ HTTP p95 tăng đáng kể so với D1 do **state accumulation**: mỗi VU chạ
 
 ## Human Review decision
 
-- [ ] Approved
+- [x] Approved
 - [ ] Approved with corrections
 - [ ] Rejected
 - Reviewed artifact: báo cáo này và run `tests/returning-customer-order/test-runs/endurance/20260814-024700-user-executed/`.
-- Accepted classification:
-- Exact approval:
-- Reviewer/date:
+- Accepted classification: `VALID WITH LIMITATION`; chấp nhận raw JTL/backend resource findings và giữ nguyên mọi giới hạn về video/visual milestone, load-generator resource, heartbeat không hoạt động, state/payload drift, và 30 phút là minimum Endurance duration.
+- Exact approval: **"Approve D4 Endurance result with documented limitations. Authorize Phase E Final Report."**
+- Reviewer/date: User — `14/08/2026 03:46`, Asia/Ho_Chi_Minh.
+- Next phase authorized: `Phase E — Final Report`.
+
+## Approved status
+
+`D4 ENDURANCE RESULT APPROVED — PHASE E FINAL REPORT AUTHORIZED`
