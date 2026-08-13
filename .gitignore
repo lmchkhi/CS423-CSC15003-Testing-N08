@@ -1,8 +1,25 @@
 **/node_modules
-**/.claude
+# Keep .claude/skills tracked — they are graded deliverables (HW05 §7 Agent Skill).
+# Only personal/local Claude Code state is ignored.
+**/.claude/settings.local.json
+**/.claude/.credentials.json
+**/.claude/shell-snapshots/
+**/.claude/history/
 **/.vscode
 **/.idea
 **/dist
 **/build
 **/database.sqlite
 **/logs/
+
+# JMeter local noise. The graded artefacts — perf/results/jtl/*.jtl and the
+# HTML report folders under perf/results/html/ — are NOT ignored (§11 requires
+# the raw .jtl attached in full).
+jmeter.log
+perf/**/jmeter.log
+perf/results/**/*.log
+# Scratch runs that are not one of the graded scenarios.
+perf/results/_scratch/
+
+# Scratch materials for recording demo videos — not a submission deliverable.
+/demo-scratch/
