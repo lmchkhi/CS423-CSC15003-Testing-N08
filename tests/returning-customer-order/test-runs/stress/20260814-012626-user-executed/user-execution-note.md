@@ -43,10 +43,10 @@
 ## Visual evidence
 
 - Video path/link: `Chưa cung cấp — User xác nhận đã quay quy trình nhưng chưa gửi path/file/link`
-- Screenshot paths: `Chưa cung cấp`
-- Milestones captured: `User cho biết đã quay; Agent chưa thể xác minh 10/20/40/60/80 VU và completion`
-- JMeter and correct backend PID/CPU/Memory in same frame: `Không xác định — thiếu visual file/path`
-- Vietnamese narration present: `Không xác định — thiếu visual file/path`
+- Screenshot paths: `tests/returning-customer-order/evidence/stress/20260814-012626-user-executed/d2-stress-start-jmeter-backend-pid-16488.png`
+- Milestones captured: `Start/JMeter actual start 01:40:19; chưa có ảnh/file xác minh các bậc 20/40/60/80 VU và completion`
+- JMeter and correct backend PID/CPU/Memory in same frame: `PARTIAL — ảnh start có JMeter + Task Manager node.exe PID 16488 + CPU + Working set delta; không có RAM tuyệt đối hoặc Active threads`
+- Vietnamese narration present: `Không xác định — screenshot không có audio và video chưa được cung cấp`
 
 ## Observed console/resource behavior
 

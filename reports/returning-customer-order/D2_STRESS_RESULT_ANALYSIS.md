@@ -14,7 +14,7 @@
 - Backend: `node.exe`, PID `16488`; HTTP 200 trước run
 - Provision: 80 requested/created, 0 create failure, 80 token, 0 login failure; 80 cart và order history rỗng
 - HTML generation: `01:46:29–01:46:33 +07:00`, exit code `0`, ngoài measured interval
-- Visual evidence: User nói đã quay quy trình nhưng chưa cung cấp path/file/link; Agent chưa xem được video
+- Visual evidence: screenshot start tại `tests/returning-customer-order/evidence/stress/20260814-012626-user-executed/d2-stress-start-jmeter-backend-pid-16488.png`; User nói đã quay video nhưng chưa cung cấp path/file/link
 
 ## Run validity
 
@@ -24,7 +24,7 @@
 - Expected labels/correlation/assertions: đủ 7 HTTP label và transaction label; toàn bộ JTL `success=true`, response code 200, failureMessage rỗng; JMeter log không có ERROR/OOM/main-controller/Test failed.
 - Setup/HTML excluded: provisioning kết thúc `01:39:19`; JMeter actual start `01:40:19.912`; HTML bắt đầu `01:46:29` sau workload.
 - Max concurrency: raw JTL đạt `allThreads=80`.
-- Limitation nghiêm trọng nhưng có ranh giới: monitor bị dừng ở `01:39:44`, trước workload; 6 resource rows không đo Stress. Video chưa có path nên same-frame PID/CPU/Memory, narration và milestone chưa xác minh. Vì vậy run chỉ hỗ trợ kết luận JTL/request-level; không hỗ trợ backend CPU/RAM, breaking point theo tài nguyên hoặc capacity ổn định của phần cứng.
+- Limitation nghiêm trọng nhưng có ranh giới: monitor bị dừng ở `01:39:44`, trước workload; 6 resource rows không đo Stress. Screenshot chỉ xác nhận start/PID cùng frame; không có visual milestone 20/40/60/80 VU hoặc completion, RAM tuyệt đối hay narration/video để xác minh. Vì vậy run chỉ hỗ trợ kết luận JTL/request-level; không hỗ trợ backend CPU/RAM, breaking point theo tài nguyên hoặc capacity ổn định của phần cứng.
 - Không có defect làm vô hiệu core JTL: không blanket 401/403, lockout, correlation failure, malformed request, backend unavailable, JMeter OOM hoặc zero sample.
 
 ## Raw JTL summary
@@ -108,9 +108,11 @@ Stage table dùng HTTP sample theo sample-start timestamp. CPU/RAM để `Không
 
 ## Visual evidence
 
-- User tuyên bố đã quay quy trình.
-- Không có video/screenshot path trong run folder, evidence directory hoặc user note; Agent chưa xem file.
-- Không xác định: cùng-frame JMeter + đúng PID/CPU/Memory, các milestone 10/20/40/60/80 VU, narration tiếng Việt và secret exposure.
+- Screenshot: `tests/returning-customer-order/evidence/stress/20260814-012626-user-executed/d2-stress-start-jmeter-backend-pid-16488.png`.
+- Ảnh cùng frame cho thấy terminal JMeter đã tạo tree và bắt đầu standalone test lúc `01:40:19`, cùng Task Manager `Details` lọc `node.exe`, PID `16488`, CPU và cột `Working set delta (memory)`.
+- Ảnh có timestamp taskbar khoảng `01:40 AM`, khớp thời điểm bắt đầu measured workload và PID trong `backend-pid.txt`; không thấy password/token/secret.
+- Đây là start/PID-attribution evidence. Ảnh không hiển thị `Active/Started/Finished`, nên không chứng minh target 10 VU; `Working set delta=-96 K` không phải RAM tuyệt đối và không được dùng làm backend memory metric.
+- Chưa có visual file/path xác minh các bậc 20/40/60/80 VU, completion hoặc narration tiếng Việt. User tuyên bố đã quay video nhưng chưa cung cấp file/link.
 - Video không thay thế resource CSV số hóa; nếu video được cung cấp, có thể bổ sung observation nhưng không tự tạo CPU/RAM time series.
 
 ## Failure classification và AI misinterpretation guard
@@ -125,7 +127,7 @@ Stage table dùng HTTP sample theo sample-start timestamp. CPU/RAM để `Không
 ## Risks và giới hạn diễn giải
 
 - Không có backend CPU/RAM measured interval và không có resource evidence load generator.
-- Visual evidence chưa được cung cấp để kiểm tra.
+- Visual evidence mới chỉ có một screenshot ở start; thiếu milestone 20/40/60/80 VU, completion và video/narration.
 - User note ban đầu chưa điền; Agent đã điền các trường xác định được từ artifact và để rõ trường chưa xác định.
 - Cart/order history tăng trong từng account vì SUT không clear cart và orders tích lũy; stage sau có state/payload lớn hơn stage trước. Không thấy latency tăng tương ứng rõ ràng trong run này, nhưng confounder vẫn tồn tại.
 - Stage chỉ dài 60 giây và 80 VU chỉ là peak ngắn; không dùng làm endurance threshold.
@@ -136,7 +138,7 @@ Stage table dùng HTTP sample theo sample-start timestamp. CPU/RAM để `Không
 - Đề nghị chấp nhận classification `VALID WITH LIMITATION` cho JTL/request-level và giữ toàn bộ limitation khi dùng metric.
 - Correction bắt buộc cho D3/D4: monitor phải chạy `monitor start → recorder → JMeter → monitor stop`; xác minh timestamp resource bao phủ workload trước khi phân tích.
 - Nếu cần D2 đầy đủ CPU/RAM hoặc rubric bắt buộc resource evidence cho Stress, rerun bằng folder mới; không ghép resource/video từ run khác.
-- User cần gửi exact video path/file/link và điền observation thật nếu muốn bổ sung visual validation cho chính run này.
+- User cần gửi exact video path/file/link nếu muốn bổ sung visual validation cho các stage/completion của chính run này.
 - D3 gate đã được mở sau Human Review lúc `14/08/2026 01:59 +07:00`; các limitation vẫn bắt buộc đi kèm downstream analysis.
 
 ## Human Review decision
@@ -145,7 +147,7 @@ Stage table dùng HTTP sample theo sample-start timestamp. CPU/RAM để `Không
 - [ ] Approved with corrections
 - [ ] Rejected
 - Reviewed artifact: báo cáo này và run `tests/returning-customer-order/test-runs/stress/20260814-012626-user-executed/`.
-- Accepted classification: `VALID WITH LIMITATION`; chấp nhận request-level JTL metrics, giữ nguyên giới hạn resource monitor pre-run và visual evidence chưa xác minh.
+- Accepted classification: `VALID WITH LIMITATION`; chấp nhận request-level JTL metrics, giữ nguyên giới hạn resource monitor pre-run và visual evidence chỉ có start screenshot.
 - Exact approval: **“Approve D2 Stress result with documented limitations. Authorize D3 Spike preparation.”**
 - Reviewer/date: User — `14/08/2026 01:59`, Asia/Ho_Chi_Minh.
 - Next phase authorized: `D3 — Spike`, chỉ bắt đầu bằng interaction PRECHECK / COMMAND PREPARATION riêng.

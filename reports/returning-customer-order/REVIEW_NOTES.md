@@ -375,7 +375,8 @@ Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa
 - JTL: 7.293 HTTP requests, 997 completed workflow, 80 scheduler-cutoff transaction rows, 0 failed sample, error `0,00%`, max `allThreads=80`.
 - HTTP overall: Avg `8,581 ms`, median `3 ms`, p90 `28 ms`, p95 `37 ms`, p99 `55,08 ms`, throughput `24,220 req/s` trên actual span `301,119 giây`.
 - Stage throughput 10/20/40/60/80 VU: `5,467 / 11,283 / 22,883 / 34,750 / 46,267 req/s`; stage error đều `0,00%`; HTTP p95 `36 / 27,2 / 39 / 44 / 31 ms`. Không thấy plateau/error breaking point trong request metrics đến 80 VU.
-- Limitation: resource monitor dừng lúc `01:39:44`, trước JMeter start; 6 resource rows chỉ pre-run và không được dùng cho Stress CPU/RAM. User nói đã quay video nhưng chưa cung cấp path/file, nên visual milestone/same-frame/narration chưa xác minh.
+- Limitation: resource monitor dừng lúc `01:39:44`, trước JMeter start; 6 resource rows chỉ pre-run và không được dùng cho Stress CPU/RAM. Screenshot start cùng frame xác nhận JMeter + node PID 16488, nhưng không có Active threads/RAM tuyệt đối; milestone 20/40/60/80 VU, completion và narration/video chưa xác minh.
+- Visual evidence: `tests/returning-customer-order/evidence/stress/20260814-012626-user-executed/d2-stress-start-jmeter-backend-pid-16488.png`; không thấy secret, chỉ dùng làm start/PID attribution.
 - Classification: `VALID WITH LIMITATION`; chỉ hỗ trợ request-level JTL findings, không hỗ trợ backend resource capacity, stable threshold hoặc endurance threshold.
 - Analysis: `reports/returning-customer-order/D2_STRESS_RESULT_ANALYSIS.md`.
 - D3 chưa được authorize; chờ Human Review rõ ràng cho D2.
@@ -388,7 +389,7 @@ Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa
 - [ ] Approved with corrections
 - [ ] Rejected
 - Reviewed run: `tests/returning-customer-order/test-runs/stress/20260814-012626-user-executed/`.
-- Accepted classification: `VALID WITH LIMITATION`; mọi downstream use phải giữ giới hạn resource monitor không bao phủ workload và visual evidence chưa được xác minh.
+- Accepted classification: `VALID WITH LIMITATION`; mọi downstream use phải giữ giới hạn resource monitor không bao phủ workload và visual evidence chỉ có start screenshot.
 - Exact approval: **“Approve D2 Stress result with documented limitations. Authorize D3 Spike preparation.”**
 - Reviewer/date: User — `14/08/2026 01:59`, Asia/Ho_Chi_Minh.
 - Next phase authorized: Phase D3 — Spike, bắt đầu bằng checkpoint PREPARE ONLY trong interaction riêng.
