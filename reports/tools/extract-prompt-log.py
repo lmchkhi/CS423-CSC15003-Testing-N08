@@ -20,22 +20,20 @@ PROJ = os.path.expanduser(
 REPO = "/Users/hbn/Documents/CS423-CSC15003-Testing-N08"
 ICT = timezone(timedelta(hours=7))
 
-# HW05 sessions only. HW04's own sessions are recorded in that submission's
-# copy of this file and are deliberately excluded here.
+# Sessions belonging to this HW05 submission, from the 13/08/2026 clean start
+# onward. Earlier transcripts in the same directory are HW04's, plus a
+# read-heavy JMeter walkthrough done in class before the Workflow 5 scope was
+# fixed — none of them produced an artifact in this submission, so none are
+# logged here.
 #
 # Append a new tuple after every working session — running the script with an
 # unknown id prints the id and its first prompt, which is how you fill this in.
 SESSIONS = [
-    # Buổi thử nghiệm trên lớp, trước khi chốt phạm vi Workflow 5: chỉ dựng
-    # Load test plan cho nhóm read-heavy theo tài liệu hướng dẫn JMeter của
-    # giảng viên. Giữ lại vì đây vẫn là tương tác AI thuộc HW05.
-    ("3aa6dd52", "Chạy thử Load test plan read-heavy theo hướng dẫn JMeter trên lớp"),
     ("b91b82b0", "Dựng khung repo HW05 và mang các tài liệu dùng lại từ HW04 sang"),
 ]
 
-# Model display name per transcript's own `message.model` field — sessions
-# switched from Opus 5 to Sonnet 5 partway through HW04 (student's /model
-# command on 08/08/2026), so this must not be hardcoded to one value.
+# Model display name per transcript's own `message.model` field. Not hardcoded
+# to one value: a session can switch model mid-way via /model.
 MODEL_LABEL = {
     "claude-opus-5": "Opus 5",
     "claude-sonnet-5": "Sonnet 5",
@@ -229,8 +227,7 @@ HEADER = """# Prompt Log
 
 File này được trích **tự động** từ transcript gốc của Claude Code
 (`~/.claude/projects/`), không gõ lại và không viết lại từ trí nhớ. Toàn bộ
-HW05 được ghi: từ buổi chạy thử JMeter trên lớp (07/08/2026) đến phiên làm việc
-cuối.
+HW05 được ghi: từ phiên dựng repo (13/08/2026) đến phiên làm việc cuối.
 
 Nguyên tắc verbatim được áp dụng đúng nghĩa:
 
@@ -266,8 +263,9 @@ Hai ghi chú về giới hạn của chính transcript gốc, nêu ra để ngư
 - Các dòng `[Request interrupted by user]` là lúc sinh viên bấm dừng giữa chừng;
   giữ lại vì đó là một can thiệp thật vào quá trình làm bài.
 
-> Các transcript của HW04 nằm cùng thư mục nhưng thuộc bài trước; chúng đã được
-> ghi trong bản nộp HW04 nên không lặp lại ở đây.
+> Cùng thư mục còn có transcript của HW04 và một buổi chạy thử JMeter trên lớp
+> (07/08/2026) trước khi chốt phạm vi Workflow 5. Không phiên nào trong số đó
+> sinh ra sản phẩm nộp của HW05 nên không đưa vào đây.
 
 """
 
