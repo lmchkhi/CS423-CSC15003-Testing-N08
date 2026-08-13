@@ -337,6 +337,29 @@ Cart/order count ở các lượt cuối không còn rỗng do các lượt ch�
 
 Ba file đúng naming convention theo ngày thật `20260813`, XML well-formed, mỗi file có 7 sampler/14 assertion/6 think timer và listener không trùng. Plugin `jmeter-plugins-casutg-3.1.1.jar` đã có trong JMeter local. Validation chỉ là kiểm tra tĩnh; **không graded plan nào đã được chạy**.
 
+### Correction sau invalid D1 attempt — 14/08/2026
+
+User-executed Load attempt `20260813-233819-user-executed` kết thúc với 0 sample dù exit code 0.
+`jmeter.log` cho thấy cả 20 thread fail trong `JMeterThread.initRun` vì
+`Property ThreadGroup.main_controller is unset`. Root cause là hàm sinh Ultimate Thread Group có
+schedule nhưng thiếu sampler controller.
+
+Correction áp dụng tại nguồn `generate-phase-c-jmx.js`:
+
+- thêm đúng một `ThreadGroup.main_controller` kiểu `LoopController`;
+- `LoopController.continue_forever=false` và `LoopController.loops=-1`, để workflow lặp theo toàn bộ
+  schedule ramp/hold của Ultimate Thread Group;
+- tái tạo cả Load, Stress và Spike vì ba plan dùng chung generator;
+- giữ nguyên workload schedule, workflow, CSV mapping, assertions, think time và listener.
+
+Static validation sau correction: cả ba JMX XML well-formed, mỗi file có đúng một main controller,
+7 sampler, 14 assertion và 6 timer; workflow subtree giống nhau giữa ba plan. Không chạy measured
+workload trong correction. Corrected JMX và D1 rerun command cần Human Review trước khi User rerun.
+
+User đã phê duyệt correction và authorize đúng folder `20260814-001003-user-executed` lúc
+`14/08/2026 00:17 — Asia/Ho_Chi_Minh`. Approval chỉ mở quyền cho User rerun D1; Agent không chạy
+measured workload và chưa có corrected Load result để phân tích.
+
 ## Trạng thái checkpoint Phase C
 
 Người dùng đã phê duyệt rõ ràng bằng câu **“Approve Phase C. Authorize Phase D1.”** lúc `13/08/2026 23:21 — Asia/Ho_Chi_Minh`. Phase C đã đóng và Phase D1 được phép bắt đầu bằng checkpoint **PREPARE ONLY** trong một yêu cầu thực hiện tiếp theo.
@@ -344,3 +367,15 @@ Người dùng đã phê duyệt rõ ràng bằng câu **“Approve Phase C. Aut
 **PHASE C APPROVED — PHASE D1 AUTHORIZED**
 
 Interaction phê duyệt này chưa đọc/precheck measured execution, chưa tạo thư mục run, chưa chuẩn bị command và chưa chạy Load/Stress/Spike/Endurance.
+
+## Trạng thái checkpoint D1/D2 — 14/08/2026
+
+- D1 Load run được duyệt: `tests/returning-customer-order/test-runs/load/20260814-001003-user-executed/`.
+- D1 classification: `VALID WITH LIMITATION`; 4.547 HTTP request, 0 failure, HTTP p95 `9 ms`,
+  throughput `10.951 req/s`, 640 completed workflow.
+- Human Review: User phê duyệt bằng câu **“Approve D1 Load result. Authorize D2 Stress.”** lúc
+  `14/08/2026 00:59 — Asia/Ho_Chi_Minh`.
+- Các limitation về measured-interval visual milestone và load-generator resource vẫn được giữ nguyên.
+- Phase D2 Stress đã được authorize nhưng chưa có D2 precheck, run folder hoặc measured execution.
+
+**D1 LOAD RESULT APPROVED — PHASE D2 AUTHORIZED**

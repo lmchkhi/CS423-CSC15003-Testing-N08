@@ -316,3 +316,162 @@ AI Output:
     REVIEW_NOTES.md và WORKFLOW_DESIGN.md. Đóng checkpoint Phase C; chưa thực hiện bước chuẩn bị
     D1, chưa tạo thư mục measured run/command preparation và chưa chạy bất kỳ Load, Stress,
     Spike hoặc Endurance workload nào trong interaction phê duyệt này.
+
+## Entry #9
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 23:34 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order"
+    của sinh viên 23127464 trong bài HW05-AI (EShop, source: src/eshop-sut).
+
+    Checkpoint hiện tại: PHASE D1 — Load, giai đoạn PRECHECK / COMMAND PREPARATION ONLY.
+    Phase C đã APPROVED, Phase D1 đã AUTHORIZED. Đọc measured-execution.md và
+    measured-user-runbook.md (mục D1 — Load) trước khi làm bất kỳ việc gì khác.
+
+    Tuyệt đối không tự chạy Load bằng JMeter hoặc wrapper/script tạo JTL chính thức. Chỉ validate
+    JMX/CSV đã duyệt, tạo run folder mới rỗng, resolve JMeter/input/backend PID và HTTP 200, chuẩn bị
+    reset/seed/provisioning ngoài measured interval, resource monitor, exact measured command,
+    HTML generation, artifact verification, user execution note và hướng dẫn User A–E bằng tiếng Việt.
+    Kết thúc đúng trạng thái: D1 LOAD COMMAND READY — PENDING USER EXECUTION.
+
+AI Output:
+
+    Đã validate tĩnh JMX Load 20 VU/ramp 60 giây/hold 360 giây, 7 sampler/14 assertion/6 timer,
+    Summary Report; xác nhận workflow/provisioning pool Load đều có 20 account unique và khớp nhau.
+    Đã resolve JMeter/plugin/helper path; precheck PID 25832 là node và /api/products trả HTTP 200.
+
+    Đã tạo run folder tests/returning-customer-order/test-runs/load/20260813-233819-user-executed/
+    với html-report rỗng và user-execution-note.md; tạo helper provisioning/monitor cùng
+    reports/returning-customer-order/D1_LOAD_COMMAND_PREPARATION.md chứa exact commands và hướng dẫn
+    User A–E. Parse 10 PowerShell command block và hai helper: 0 syntax error, 0 placeholder.
+
+    Không restart/reset/provision backend, không chạy JMeter measured Load, không tạo JTL/log/resource
+    result và không bịa evidence/metric. Trạng thái: D1 LOAD COMMAND READY — PENDING USER EXECUTION.
+
+## Entry #10
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 23:57 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    ở mục Trình tự thao tác từng bước, để lệnh thực thi ứng với từng bước để tôi hiểu
+
+AI Output:
+
+    Cập nhật mục “B. Trình tự thao tác từng bước” trong D1_LOAD_COMMAND_PREPARATION.md để mỗi bước
+    có lệnh PowerShell ngay tại chỗ; bước thuần giao diện ghi rõ không có lệnh và mô tả thao tác.
+    Không chạy bất kỳ command JMeter, reset, provisioning hoặc measured workload nào.
+
+## Entry #11
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `14/08/2026 00:08 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    tiến hành chỉnh sửa
+
+AI Output:
+
+    Đã thêm ThreadGroup.main_controller/LoopController loops=-1 vào ultimateThreadGroup(), chạy
+    generator --graded để tái tạo Load/Stress/Spike và validate tĩnh: mỗi file có đúng một controller,
+    7 sampler, 14 assertion, 6 timer; workflow subtree giống nhau. Load JMX corrected SHA-256 là
+    1C52367FC08532D92DD0C6A5F9561AA69A81BACB3E9B5C3932EDDC97CEA3D5D5.
+
+    Đã giữ nguyên raw artifact của run 20260813-233819-user-executed, thêm INVALID_RUN.md và ghi
+    REVIEW_NOTES/WORKFLOW_DESIGN: 0 sample, 20 main-controller error, classification INVALID. Đã tạo
+    folder mới 20260814-001003-user-executed với html-report rỗng, execution note và runbook
+    D1_LOAD_COMMAND_PREPARATION_RERUN1.md có post-run zero-sample guard. Parse 21 PowerShell block:
+    0 lỗi, 0 placeholder. Không chạy JMeter hoặc measured workload.
+
+    Trạng thái: D1 LOAD RERUN COMMAND PREPARED — PENDING HUMAN REVIEW.
+
+## Entry #12
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `14/08/2026 00:15 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    sau khi chỉnh sửa thì quy trình có thay đổi không. nếu có thì sửa lại với file D1 hướng dẫn.
+    Nếu không tôi muốn xóa dữ liệu quy trình thực thi cũ để làm cái mới
+
+AI Output:
+
+    Quy trình có thay đổi: dùng corrected JMX/main controller, run folder mới và post-run zero-sample
+    guard. Cập nhật canonical D1_LOAD_COMMAND_PREPARATION.md theo runbook rerun mới. Không xóa raw
+    artifact của run INVALID cũ vì cần giữ same-run evidence/audit và không được tái sử dụng làm metric.
+    Không chạy JMeter hoặc measured workload.
+
+## Entry #13
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `14/08/2026 00:17 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Approve D1 main-controller correction. Authorize D1 Load rerun using
+    20260814-001003-user-executed.
+
+AI Output:
+
+    Ghi nhận Human Review approval cho main-controller correction và authorization để User rerun
+    D1 Load bằng folder 20260814-001003-user-executed. Cập nhật review/design/runbook sang
+    PENDING USER EXECUTION. Không chạy JMeter hoặc measured workload.
+
+## Entry #14
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 00:44 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    tôi có bổ sung cho JMeter and correct backend PID/CPU/Memory in the same frame trên root, hãy đổi tên và di chuyển vào folder phù hợp
+
+AI Output:
+
+    Đã xác minh screenshot mới cùng frame có JMeter completion và Task Manager node.exe PID 15308, không thấy
+    secret. Đổi tên và di chuyển thành tests/returning-customer-order/evidence/load/20260814-001003-user-executed/
+    d1-load-completion-jmeter-backend-pid-15308.png; cập nhật user note, D1 result analysis, D1 status và review notes.
+    Ảnh chụp sau measured interval nên chỉ được dùng làm completion/PID attribution evidence, không làm CPU/RAM
+    trong tải. Không chỉnh sửa raw JTL và không ghép evidence từ measured run khác.
+
+## Entry #15
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `14/08/2026 00:59 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Approve D1 Load result. Authorize D2 Stress.
+
+AI Output:
+
+    Ghi nhận Human Review approval cho D1 Load result của run 20260814-001003-user-executed với các limitation
+    đã công bố và mở gate Phase D2 Stress. Cập nhật D1 result/status, review notes và workflow design. Không chuẩn bị
+    command/folder D2 trong interaction phê duyệt này và không chạy measured workload.

@@ -41,6 +41,10 @@
       <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Spike — baseline 5, spike 50, recovery 5 VU" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">          <collectionProp name="schedule_0"><stringProp name="c0_0">5</stringProp><stringProp name="c0_1">0</stringProp><stringProp name="c0_2">5</stringProp><stringProp name="c0_3">180</stringProp><stringProp name="c0_4">5</stringProp></collectionProp>
           <collectionProp name="schedule_1"><stringProp name="c1_0">45</stringProp><stringProp name="c1_1">60</stringProp><stringProp name="c1_2">5</stringProp><stringProp name="c1_3">60</stringProp><stringProp name="c1_4">5</stringProp></collectionProp></collectionProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
       </kg.apc.jmeter.threads.UltimateThreadGroup>
       <hashTree>

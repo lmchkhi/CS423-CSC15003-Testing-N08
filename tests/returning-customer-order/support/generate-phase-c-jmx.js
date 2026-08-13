@@ -260,6 +260,10 @@ function ultimateThreadGroup(name, rows) {
   const schedule = rows.map((r, i) => `          <collectionProp name="schedule_${i}">${r.map((v, j) => `<stringProp name="c${i}_${j}">${v}</stringProp>`).join('')}</collectionProp>`).join('\n');
   return `      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="${name}" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">${schedule}</collectionProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
       </kg.apc.jmeter.threads.UltimateThreadGroup>`;
 }

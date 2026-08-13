@@ -276,3 +276,80 @@ Không có correction kèm theo. Người dùng phê duyệt rõ ràng bằng c�
 **PHASE C APPROVED — PHASE D1 AUTHORIZED**
 
 Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa chạy measured workload.
+
+## D1 Load — invalid attempt và correction ngày 14/08/2026
+
+### User-executed attempt bị loại
+
+- Run folder: `tests/returning-customer-order/test-runs/load/20260813-233819-user-executed/`.
+- User execution: `2026-08-14 00:04:37–00:04:41 +07:00`; JMeter exit code 0.
+- Raw evidence: console `summary = 0`; JTL 164 byte chỉ có header, 0 data row; JMeter log có
+  20 lỗi `Property ThreadGroup.main_controller is unset`.
+- Classification: `INVALID`. Exit code 0 chỉ phản ánh process kết thúc, không chứng minh workload chạy.
+- Không có request/sample measured để phân tích; không generate HTML và không dùng resource CSV làm
+  performance evidence.
+
+### Root cause và correction
+
+- Root cause: generator tạo Ultimate Thread Group có schedule nhưng thiếu
+  `ThreadGroup.main_controller`, khiến cả 20 thread fail trong `JMeterThread.initRun`.
+- Phạm vi: cùng defect tồn tại trong Load, Stress và Spike vì dùng chung `ultimateThreadGroup()`.
+- Correction: thêm Loop Controller với `continue_forever=false`, `loops=-1` vào generator và tái tạo
+  cả ba graded JMX.
+- Static validation sau correction: mỗi graded JMX có đúng một main controller/loops -1, 7 HTTP
+  sampler, 7 HTTP assertion, 7 business assertion, 6 timer; common workflow SHA-256
+  `5B3CB4BEA48546B805575E4DFE540F37ECEA25EA09FD7234CE6ED37CA0C723CD`.
+- Không chạy measured workload trong correction. D1 vẫn cần User rerun trong folder mới và cần
+  Human Review correction trước khi dùng kết quả.
+
+### Human Decision — D1 main-controller correction
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+
+- Correction reviewed: thêm `ThreadGroup.main_controller`/Loop Controller `loops=-1` vào generator
+  và ba graded JMX; giữ nguyên workload/workflow/data/assertion/listener.
+- Invalid run retained: `20260813-233819-user-executed`.
+- Authorized rerun folder: `20260814-001003-user-executed`.
+- Reviewer/date: User — `14/08/2026 00:17`, Asia/Ho_Chi_Minh.
+- Exact approval: **“Approve D1 main-controller correction. Authorize D1 Load rerun using
+  20260814-001003-user-executed.”**
+
+**D1 MAIN-CONTROLLER CORRECTION APPROVED — LOAD RERUN AUTHORIZED**
+
+## D1 Load — evidence analysis ngày 14/08/2026
+
+- Run được phân tích: `tests/returning-customer-order/test-runs/load/20260814-001003-user-executed/`.
+- Executor: `User`; thời gian `00:20:33–00:27:36 +07:00`; JMeter exit code `0`.
+- Provisioning: 20/20 account, 20/20 token, 0 failure; backend PID `15308`, HTTP 200 trước run.
+- Raw JTL: 5.207 dòng, gồm 4.547 HTTP request và 660 transaction row; 640 workflow đủ bảy bước,
+  không có failed sample/assertion và toàn bộ response code là 200.
+- HTTP-only: avg `3.448 ms`, median `3 ms`, p90 `7 ms`, p95 `9 ms`, p99 `13 ms`,
+  throughput `10.951 req/s`.
+- Completed E2E workflow: avg `11,954.092 ms`, p95 `14,295 ms`, throughput `1.535 workflow/s`;
+  thời gian E2E bao gồm sáu think timer 1–3 giây.
+- Backend trong measured command window: CPU avg/max `0.163% / 0.542%`, working set avg/max
+  `54.416 / 56.730 MiB`; PID sống ở toàn bộ 210 resource sample.
+- Visual evidence bổ sung: `tests/returning-customer-order/evidence/load/20260814-001003-user-executed/d1-load-completion-jmeter-backend-pid-15308.png`; cùng frame có JMeter completion và Task Manager `node.exe` PID `15308`. Ảnh chụp sau measured interval và cột memory là `Working set delta`, nên không dùng làm CPU/RAM trong tải.
+- Classification: `VALID WITH LIMITATION`. Chỉ có completion screenshot, thiếu ramp-up/steady-state visual milestone
+  và resource của máy chạy JMeter; vì vậy không kết luận load generator chắc chắn không phải bottleneck và không
+  dùng run này để suy ra maximum capacity/SLA phổ quát.
+- Báo cáo chi tiết: `reports/returning-customer-order/D1_LOAD_RESULT_ANALYSIS.md`.
+
+**LOAD RESULT PENDING HUMAN REVIEW**
+
+### Human Decision — D1 Load result
+
+- [x] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+- Reviewed run: `tests/returning-customer-order/test-runs/load/20260814-001003-user-executed/`.
+- Accepted result: `VALID WITH LIMITATION`; các giới hạn về visual milestone và load-generator resource
+  vẫn phải đi kèm khi sử dụng metric D1.
+- Exact approval: **“Approve D1 Load result. Authorize D2 Stress.”**
+- Reviewer/date: User — `14/08/2026 00:59`, Asia/Ho_Chi_Minh.
+- Next phase authorized: Phase D2 — Stress, bắt đầu bằng checkpoint PREPARE ONLY trong interaction riêng.
+- Không chuẩn bị hoặc chạy measured Stress trong interaction phê duyệt này.
+
+**D1 LOAD RESULT APPROVED — PHASE D2 AUTHORIZED**
