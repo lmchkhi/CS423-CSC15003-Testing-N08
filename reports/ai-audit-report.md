@@ -673,3 +673,73 @@ AI Output:
     backend đang dừng (0 listener port 3000), nên không bịa/reuse PID; User phải restart rồi resolve PID mới/HTTP 200.
     Parse tĩnh: 0 lỗi, 0 placeholder góc; không chạy JMeter/reset/provision/monitor. Trạng thái:
     D3 SPIKE COMMAND READY — PENDING USER EXECUTION.
+
+## Entry #24
+
+### AI Audit Entry
+
+Tool: `Claude Opus 4.6 (Thinking)`
+
+Date: `14/08/2026 02:46 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order" của sinh viên
+    23127464 trong bài HW05-AI (EShop, source: src/eshop-sut). Checkpoint hiện tại: PHASE D4 — Endurance, giai đoạn
+    DESIGN + GENERATE JMX + PRECHECK / COMMAND PREPARATION ONLY. Phase D3 Spike đã APPROVED (VALID WITH LIMITATION),
+    Phase D4 đã AUTHORIZED. Đọc measured-execution.md và measured-user-runbook.md (mục D4 — Endurance) trước khi làm.
+
+    D4.0: Chốt thông số Endurance từ evidence D2 Stress (VU/duration/ramp/milestone), gắn nhãn INITIAL_PROPOSAL.
+    D4.1: Sinh JMX Endurance giữ nguyên workflow/correlation/assertion, listener phù hợp theo dõi dài hạn.
+    D4.2: Provisioning pool Endurance riêng, không tái sử dụng chéo.
+    D4.3: Precheck/command preparation đầy đủ, chống lệch thời gian, heartbeat monitor, hướng dẫn User A–E.
+    Tuyệt đối không chạy Endurance.
+
+AI Output:
+
+    Đã đọc toàn bộ reference, D2_STRESS_RESULT_ANALYSIS.md, D3_SPIKE_RESULT_ANALYSIS.md, WORKFLOW_DESIGN.md và
+    REVIEW_NOTES.md. Derive Endurance VU=20, duration=30 phút, ramp 30 giây từ D2 evidence (20 VU là mức Load đã
+    xác minh ổn định, D2 cho thấy throughput tuyến tính/error 0% đến 80 VU nên 20 VU chắc chắn bền vững; duration
+    30 phút đủ để phát hiện memory leak/degradation). Cập nhật WORKFLOW_DESIGN.md mục Endurance.
+
+    Thêm hàm sinh Endurance vào generate-phase-c-jmx.js và tạo
+    test-cases/endurance/23127464_Endurance_20260814.jmx. Static validation: 1 main_controller/loops=-1,
+    7 sampler, 14 assertion, 6 timer, Response Time Graph listener. Thêm 20 account Endurance vào hai CSV,
+    pool riêng prefix rco.endurance.*, không tái sử dụng chéo.
+
+    Tạo run folder endurance/20260814-024700-user-executed/ với html-report rỗng, user-execution-note.md.
+    Tạo D4_ENDURANCE_COMMAND_PREPARATION.md đầy đủ lệnh PowerShell thật, monitor 5 giây interval cho run dài,
+    heartbeat log mỗi 60 giây, gate ≥3 sample/≤5s, chống lệch thời gian, hướng dẫn User A–E tiếng Việt với
+    milestone T+0/T+2/T+5/T+10/T+15 và mỗi 15 phút đến T+30.
+
+    Không chạy JMeter, reset, provisioning, monitor hoặc measured workload.
+    Trạng thái: D4 ENDURANCE COMMAND READY — PENDING USER EXECUTION.
+
+## Entry #25
+
+### AI Audit Entry
+
+Tool: `Claude Opus 4.6 (Thinking)`
+
+Date: `14/08/2026 03:34 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Tôi đã hoàn thành quy user, hãy cập nhật các file cần thiết cùng với đó là tôi đã bổ sung thêm hình ảnh evidence
+    đặt tại root, hãy rename và move phù hợp.
+
+AI Output:
+
+    Nhận và phân tích evidence D4 Endurance: run folder 20260814-024700-user-executed. Xác minh: JMeter exit 0,
+    POST_RUN_GUARD_OK SAMPLES=23655, duration 1803.2s (~30 phút), RESOURCE_COVERAGE_OK (387 row, max gap 5s,
+    density OK). Provisioning 20/0/20/0, PROVISIONING_OK. MONITOR_GATE_OK 3 sample, age 0.767s.
+
+    Rename/move Screenshot 2026-08-14 030140.png → evidence/endurance/20260814-024700-user-executed/
+    d4-endurance-start-jmeter-backend-pid-18048.png; SHA-256 80AFBDC3...
+
+    Phân tích raw JTL: 20.690 HTTP (0% error), 2.965 E2E completed, throughput 11.505 req/s. Time-bucket analysis
+    (5 phút/bucket): Working Set tăng +4.7 MiB/30 phút tốc độ giảm dần (warm-up + state accumulation, không phải
+    leak rõ ràng); response time giảm nhẹ / ổn định; CPU giảm nhẹ / ổn định; throughput ổn định ~11.5 req/s.
+
+    Tạo D4_ENDURANCE_RESULT_ANALYSIS.md. Decision: VALID WITH LIMITATION.
+    Trạng thái: ENDURANCE RESULT PENDING HUMAN REVIEW.

@@ -424,3 +424,107 @@ Interaction phê duyệt này chưa đọc/precheck measured execution, chưa t�
 - Interaction này không chuẩn bị D4 run folder/command và không chạy measured workload.
 
 **D3 SPIKE RESULT APPROVED — PHASE D4 ENDURANCE PREPARATION AUTHORIZED**
+
+## Phase D4 — Endurance INITIAL_PROPOSAL (derive từ D2 Stress evidence)
+
+### Cơ sở derive thông số
+
+Đây là **INITIAL_PROPOSAL**, không phải threshold/SLA chính thức. Các giá trị được derive từ dữ liệu D2 Stress đã được Human Review approve `VALID WITH LIMITATION`.
+
+**VU = 20** — Lý do:
+- D1 Load đã chạy thành công 20 VU trong 360 giây với 0% error, HTTP p95 `9 ms`, throughput `10,951 req/s` — đây là mức tải đã xác minh ổn định.
+- D2 Stress cho thấy throughput tăng tuyến tính từ `5,467 → 11,283 → 22,883 → 34,750 → 46,267 req/s` cho 10→20→40→60→80 VU, error `0,00%` ở mọi bậc, HTTP p95 dao động `27,2–44 ms` và không có breaking point dựa trên request/error.
+- Endurance cần mức tải **bền vững, không gây breaking point**, nên chọn 20 VU — mức đã xác minh ổn định cả ở D1 (6 phút) và ở bậc 20 VU của D2 (60 giây, p95 `27,2 ms`, error `0,00%`).
+- Không dùng peak 80 VU (chỉ kéo 60 giây, chưa có resource evidence) hay 60 VU (p95 cao nhất `44 ms` nhưng cũng chỉ 60 giây).
+- 20 VU cũng phù hợp với pool account vừa phải (20 account riêng) và giảm risk state drift/order accumulation.
+
+**Duration = 1800 giây (30 phút)** — Lý do:
+- Playbook cho phép duration 10–15 phút; prompt user yêu cầu tối thiểu 30–60 phút. Chọn 30 phút — gấp 5 lần D1 Load (6 phút), đủ dài để phát hiện memory leak/degradation nhưng không quá dài gây rủi ro gián đoạn máy.
+- Với 20 VU × 30 phút × khoảng ~1 workflow/VU/12 giây, dự kiến ~3.000 workflow, tạo đủ state drift cho order/cart accumulation observation.
+- JTL/resource CSV dự kiến kích thước vừa phải (~500 KB JTL, ~10 KB resource CSV).
+
+**Ramp-up = 30 giây** — Lý do:
+- Ramp ngắn để nhanh đạt trạng thái ổn định; sau 30 giây đã có 20 VU và 29,5 phút còn lại là sustained load thuần túy.
+- Mức này ngắn hơn ramp-up 60 giây của Load nhưng đủ để không gây spike ban đầu.
+
+**Shutdown = 0 giây** — Giữ nguyên convention; scheduler kết thúc tự nhiên.
+
+### Schedule Ultimate Thread Group
+
+```
+Threads=20, Initial delay=0, Ramp-up=30s, Hold=1770s, Shutdown=0
+Tổng: 30 + 1770 = 1800 giây = 30 phút
+```
+
+### Listener: Response Time Graph
+
+- Load dùng Summary Report, Stress dùng Aggregate Report, Spike dùng View Results Tree.
+- Chọn **Response Time Graph** cho Endurance vì: (1) không trùng với ba scenario trước; (2) phù hợp mục đích Endurance — theo dõi xu hướng response time theo thời gian dài trên đồ thị, giúp phát hiện degradation dần; (3) overhead thấp hơn View Results Tree vì không lưu toàn bộ response data.
+- Raw JTL và HTML vẫn là nguồn metric chính thức, không phải listener UI.
+
+### Milestone evidence theo mốc thời gian
+
+| Mốc | Thời gian từ start | VU kỳ vọng | Mục đích |
+| --- | ---: | ---: | --- |
+| T+0 | 0 giây | 0→20 ramp | Start state, PID/CPU/RAM cùng frame |
+| T+2 phút | 120 giây | 20 | Xác nhận ổn định ban đầu sau ramp |
+| T+5 phút | 300 giây | 20 | Baseline comparison point |
+| T+10 phút | 600 giây | 20 | Phát hiện sớm memory trend |
+| T+15 phút | 900 giây | 20 | Nửa chặng đường — so sánh với T+5 |
+| T+30 phút | 1800 giây | 20→0 | Completion; final CPU/RAM/state |
+
+Mục tiêu chính: phát hiện **xu hướng tăng dần** (memory liên tục tăng, response time chậm dần, CPU tăng dần dù VU không đổi) — đây là dấu hiệu resource leak/degradation, khác biệt cốt lõi của Endurance so với Load (ổn định ngắn hạn), Stress (tìm breaking point), Spike (phản ứng tức thời).
+
+### Account pool Endurance
+
+| Pool | VU | Window trong workflow CSV | Email prefix |
+| --- | ---: | --- | --- |
+| Endurance | 20 | row 151–170 (offset 150) | `rco.endurance.*@perf.test` |
+
+Provisioning 20 account riêng, không tái sử dụng Load/Stress/Spike. Điều kiện thành công:
+
+```text
+Requested: 20
+Created: 20
+Create failed: 0
+Unique email: 20
+Login with non-empty token: 20
+Login failed: 0
+Empty cart verified: 20
+Empty order history verified: 20
+```
+
+### Monitor resource interval: 5 giây
+
+- D1–D3 dùng interval 2 giây; Endurance 30 phút sẽ tạo ~360 resource rows ở 5 giây hoặc ~900 rows ở 2 giây.
+- Chọn **5 giây** để giảm kích thước CSV và overhead monitor, trong khi vẫn đủ granularity cho 30 phút (1 sample/5 giây × 360 sample = 360 data point, đủ cho time-bucket analysis mỗi phút).
+- Quyết định này là INITIAL_PROPOSAL; nếu cần granularity cao hơn, giữ nguyên 2 giây (900 rows vẫn chấp nhận được).
+
+### Workload table đã cập nhật
+
+| Scenario | INITIAL_PROPOSAL | Peak account cần provision | Listener/report riêng |
+| --- | --- | ---: | --- |
+| Load | 20 VU; ramp-up 60 giây; steady 360 giây | 20 | Summary Report |
+| Stress | Bậc 10 → 20 → 40 → 60 → 80 VU; 60 giây mỗi bậc; tổng 300 giây | 80 | Aggregate Report |
+| Spike | Baseline 5 VU/60 giây → tăng lên 50 VU trong 5 giây → giữ 50 VU/60 giây → về 5 VU trong 5 giây → recovery 5 VU/60 giây | 50 | View Results Tree |
+| Endurance | **20 VU; ramp-up 30 giây; sustained 1770 giây; tổng 1800 giây (30 phút)** | 20 | Response Time Graph |
+
+Tổng account: 20 + 80 + 50 + 20 = 170.
+
+## Trạng thái checkpoint D4 — Endurance Command Preparation 14/08/2026
+
+- D3 result gate: User đã approve run `20260814-021040-user-executed` với classification `VALID WITH LIMITATION` và authorize D4.
+- Endurance VU/duration derive từ D2 Stress evidence: 20 VU, 30 phút, ramp 30 giây — INITIAL_PROPOSAL.
+- JMX: `23127464_Endurance_20260814.jmx`, SHA-256 `16E92DE61486600CBCFC5B2C580B5EF3A51A309774FF4E16AD19128E88120674`.
+- JMX validation: đúng 1 `ThreadGroup.main_controller`, `loops=-1`, 7 sampler, 14 assertion, 6 timer, Response Time Graph.
+- Schedule: `(20, 0, 30, 1770, 0)` — 20 threads, 0 delay, 30s ramp, 1770s hold, 0 shutdown.
+- Pool Endurance: 20 account unique, prefix `rco.endurance.*`, offset 150, không tái sử dụng chéo.
+- Run: `tests/returning-customer-order/test-runs/endurance/20260814-024700-user-executed/`; PID `18048`.
+- JMeter: `03:01:20–03:31:23`, duration `1803,2s`, exit `0`, `POST_RUN_GUARD_OK SAMPLES=23655`.
+- HTTP: 20.690 request, error `0,00%`, throughput `11,505 req/s`.
+- Resource: 387 row, max gap `5s`, `RESOURCE_COVERAGE_OK`.
+- Xu hướng: WS +4,7 MiB/30 phút (warm-up/accumulation); response time ổn định; CPU ổn định; throughput ổn định.
+- Classification: `VALID WITH LIMITATION`.
+- Phân tích: `reports/returning-customer-order/D4_ENDURANCE_RESULT_ANALYSIS.md`.
+
+**D4 ENDURANCE RESULT PENDING HUMAN REVIEW**

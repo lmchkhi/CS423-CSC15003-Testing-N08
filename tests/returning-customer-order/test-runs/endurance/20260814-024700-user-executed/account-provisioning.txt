@@ -1,0 +1,12 @@
+﻿Timestamp: 2026-08-14 03:00:30 +07:00
+Scenario: Endurance
+Base URL: http://127.0.0.1:3000
+CSV: E:\Testing\CS423-CSC15003-Testing-N08\tests\returning-customer-order\data\account-provisioning.csv
+Requested: 20
+Created: 20
+Create failed: 0
+Unique email: 20
+Login with non-empty token: 20
+Login failed: 0
+Empty cart verified: 20
+Empty order history verified: 20

@@ -273,6 +273,7 @@ function listener(type) {
     summary: ['Summary Report', 'SummaryReport'],
     aggregate: ['Aggregate Report', 'StatVisualizer'],
     tree: ['View Results Tree', 'ViewResultsFullVisualizer'],
+    graph: ['Response Time Graph', 'RespTimeGraphVisualizer'],
   }[type];
   return `        <ResultCollector guiclass="${config[1]}" testclass="ResultCollector" testname="${config[0]}" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp><objProp><name>saveConfig</name><value class="SampleSaveConfiguration"/></objProp><stringProp name="filename"></stringProp>
@@ -319,13 +320,17 @@ const plans = [
   {file:'test-cases/load/23127464_Load_20260813.jmx', scenario:'Load', offset:'0', pool:'20', prefix:'rco.load.', threadGroup:ultimateThreadGroup('Load — 20 VU, ramp-up 60s, hold 360s', [[20,0,60,360,0]]), listener:'summary'},
   {file:'test-cases/stress/23127464_Stress_20260813.jmx', scenario:'Stress', offset:'20', pool:'80', prefix:'rco.stress.', threadGroup:ultimateThreadGroup('Stress — 10→20→40→60→80 VU, 60s/bậc', [[10,0,1,299,0],[10,60,1,239,0],[20,120,1,179,0],[20,180,1,119,0],[20,240,1,59,0]]), listener:'aggregate'},
   {file:'test-cases/spike/23127464_Spike_20260813.jmx', scenario:'Spike', offset:'100', pool:'50', prefix:'rco.spike.', threadGroup:ultimateThreadGroup('Spike — baseline 5, spike 50, recovery 5 VU', [[5,0,5,180,5],[45,60,5,60,5]]), listener:'tree'},
+  {file:'test-cases/endurance/23127464_Endurance_20260814.jmx', scenario:'Endurance', offset:'150', pool:'20', prefix:'rco.endurance.', threadGroup:ultimateThreadGroup('Endurance — 20 VU sustained 30 phút', [[20,0,30,1770,0]]), listener:'graph'},
 ];
 
 const mode = process.argv[2] || '--smoke';
-if (!['--smoke', '--graded', '--all'].includes(mode)) {
-  throw new Error('Usage: node generate-phase-c-jmx.js [--smoke|--graded|--all]');
+if (!['--smoke', '--graded', '--all', '--endurance'].includes(mode)) {
+  throw new Error('Usage: node generate-phase-c-jmx.js [--smoke|--graded|--all|--endurance]');
 }
-const selectedPlans = mode === '--smoke' ? plans.slice(0, 1) : mode === '--graded' ? plans.slice(1) : plans;
+const selectedPlans = mode === '--smoke' ? plans.slice(0, 1)
+  : mode === '--graded' ? plans.slice(1, 4)
+  : mode === '--endurance' ? plans.slice(4)
+  : plans;
 
 for (const config of selectedPlans) {
   const destination = path.join(root, 'tests', 'returning-customer-order', config.file);
@@ -333,3 +338,4 @@ for (const config of selectedPlans) {
   fs.writeFileSync(destination, plan(config), 'utf8');
   process.stdout.write(path.relative(root, destination) + '\n');
 }
+

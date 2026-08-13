@@ -450,3 +450,101 @@ Interaction phê duyệt này chưa chuẩn bị command/run folder D1 và chưa
 - Không lựa chọn endurance VU/duration, chuẩn bị command/folder D4 hoặc chạy measured Endurance trong interaction phê duyệt này.
 
 **D3 SPIKE RESULT APPROVED — PHASE D4 ENDURANCE PREPARATION AUTHORIZED**
+
+---
+
+## D4 — Endurance Command Preparation (14/08/2026 02:47+07:00)
+
+### Derivation
+
+| Parameter | Value | Source |
+| --- | --- | --- |
+| VU | 20 | D1 Load: 20 VU/360s/error 0%; D2 Stress: 20 VU bậc = p95 `27,2 ms`/error `0,00%` |
+| Duration | 1800 giây (30 phút) | Gấp 5× D1; đủ phát hiện memory leak/degradation |
+| Ramp-up | 30 giây | Ngắn hơn D1 (60 giây) vì VU đã verified ổn định |
+| Shutdown | 0 | Convention |
+| Monitor interval | 5 giây | Thay vì 2 giây; ~360 data point cho 30 phút |
+| Listener | Response Time Graph | Khác Load/Stress/Spike; phù hợp theo dõi trend dài hạn |
+
+### Artifacts tạo mới
+
+| File | SHA-256 / Size |
+| --- | --- |
+| `test-cases/endurance/23127464_Endurance_20260814.jmx` | `16E92DE61486600CBCFC5B2C580B5EF3A51A309774FF4E16AD19128E88120674`, 37.493 bytes |
+| `data/returning-customer-order.csv` | 170 rows (thêm 20 Endurance), `1694C61760459295FC1AE082AAA961041BB838FD5A965A2FFCF92391877379A1` |
+| `data/account-provisioning.csv` | 170 rows (thêm 20 Endurance), `532F35482D46AC7EBB50C5812FE8165556B61F4C72C96F4DE7686EA9EDB4861E` |
+| `test-runs/endurance/20260814-024700-user-executed/` | Run folder rỗng, `html-report/` rỗng, `user-execution-note.md` sẵn |
+| `reports/returning-customer-order/D4_ENDURANCE_COMMAND_PREPARATION.md` | Đầy đủ lệnh PowerShell, monitor gate, heartbeat, hướng dẫn A–E |
+
+### Static validation
+
+- 1 `ThreadGroup.main_controller`, `loops=-1`, 7 samplers, 14 assertions, 6 timers, 1 Response Time Graph.
+- Schedule: `(20, 0, 30, 1770, 0)`.
+- Pool: 20 unique Endurance accounts, offset 150, prefix `rco.endurance.*`, cross-pool overlap = 0.
+- Backend precheck: 0 listener port 3000 (đang dừng); PID chờ User resolve.
+
+### Cải tiến so với D3
+
+- Monitor interval 5 giây (thay vì 2 giây) do run dài.
+- Heartbeat job ghi vào console log mỗi 60 giây, kiểm tra monitor vẫn sống.
+- Post-run verification kiểm tra **mật độ đều đặn** (max gap ≤15 giây) để phát hiện máy sleep/monitor stall giữa run.
+- Hướng dẫn User tắt Sleep/Hibernate trước khi chạy.
+- Milestone tracking tại T+0, T+2, T+5, T+10, T+15, T+30 phút.
+
+### Trạng thái
+
+**D4 ENDURANCE EXECUTED — RESULT PENDING HUMAN REVIEW**
+
+---
+
+## D4 — Endurance Result (14/08/2026 03:01–03:31+07:00)
+
+### Run summary
+
+| Metric | Value |
+| --- | --- |
+| Run | `20260814-024700-user-executed` |
+| Backend PID | `18048` |
+| JMeter start | `03:01:20.284` |
+| JMeter end | `03:31:23.524` |
+| Duration | `1803,2 giây` |
+| Exit code | `0` |
+| Guard | `POST_RUN_GUARD_OK SAMPLES=23655` |
+| HTTP samples | 20.690 (error 0,00%) |
+| Completed E2E | 2.965 |
+| Throughput | 11,505 req/s |
+| Resource rows | 387 (max gap 5s, density OK) |
+| Coverage | `RESOURCE_COVERAGE_OK` |
+
+### Xu hướng Endurance (5 phút/bucket)
+
+| Metric | Xu hướng | Kết luận |
+| --- | --- | --- |
+| Working Set | +4,7 MiB/30 phút, tốc độ giảm dần | Warm-up + state accumulation, không leak rõ |
+| Response time | Giảm nhẹ / ổn định | Không degradation |
+| CPU | Giảm nhẹ / ổn định | Không degradation |
+| Throughput | Ổn định ~11,5 req/s | Không degradation |
+| Error | 0,00% toàn bộ | Không error |
+
+### Evidence visual
+
+- Screenshot tại start: `d4-endurance-start-jmeter-backend-pid-18048.png`, SHA-256 `80AFBDC3...`
+- Không có video/milestone T+2/T+5/T+10/T+15/T+30
+
+### Classification
+
+`VALID WITH LIMITATION` — cùng loại limitation với D1–D3 (visual evidence chỉ có start, thiếu video/milestone, thiếu load-generator resource).
+
+### Phân tích chi tiết
+
+Xem [D4_ENDURANCE_RESULT_ANALYSIS.md](file:///e:/Testing/CS423-CSC15003-Testing-N08/reports/returning-customer-order/D4_ENDURANCE_RESULT_ANALYSIS.md).
+
+### Human Decision — D4 Endurance result
+
+- [ ] Approved
+- [ ] Approved with corrections
+- [ ] Rejected
+- Reviewed run: `tests/returning-customer-order/test-runs/endurance/20260814-024700-user-executed/`.
+- Accepted classification:
+- Exact approval:
+- Reviewer/date:
