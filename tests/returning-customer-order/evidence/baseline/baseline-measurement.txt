@@ -1,0 +1,24 @@
+HW05-AI — PHASE A — BACKEND IDLE BASELINE
+Thời điểm kết thúc quan sát: 2026-08-13 22:03:16 +07:00
+Hostname: TMQ
+Backend process: node.exe
+Backend PID: 25832
+Executable: C:\Program Files\nodejs\node.exe
+Command line: node.exe server.js
+Phương pháp: 5 mẫu liên tiếp, mỗi mẫu 1 giây; CPU backend chuẩn hóa theo 20 logical processors.
+
+Sample,BackendCPUPercent,BackendWorkingSetMiB,BackendPrivateMiB,SystemCPUPercent,SystemMemoryUsedPercent,SystemMemoryAvailableGiB
+1,0,46.16,55.69,12,45.29,17.34
+2,0,46.16,55.69,20,45.62,17.23
+3,0,46.16,55.69,33,45.72,17.20
+4,0,46.16,55.69,17,45.60,17.24
+5,0,46.16,55.69,30,45.56,17.25
+
+Trung bình backend CPU: 0.000%
+Trung bình backend working set: 46.16 MiB
+Trung bình backend private memory: 55.69 MiB
+Trung bình system CPU: 22.40%
+Trung bình system memory used: 45.56%
+Trung bình system memory available: 17.25 GiB
+
+Ghi chú: đây là baseline khi không có performance workload. Task Manager screenshot xác nhận đúng node.exe/PID và CPU 00, nhưng không hiển thị cột working set tuyệt đối; số memory backend ở trên lấy trực tiếp từ Get-Process của cùng PID.

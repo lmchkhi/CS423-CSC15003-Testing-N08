@@ -53,3 +53,157 @@ AI Audit Entry:
 - User Prompt: Soạn usability test plan cho flow cart, checkout, coupon và thanh toán bằng SUS.
 - AI Action: Tạo kế hoạch goal-oriented, quy trình facilitator và các khung bảng dữ liệu rỗng theo template.
 ```
+
+## Entry #2
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 21:40 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Dùng skill $ai-first-jmeter-performance-testing cho workflow "Returning Customer Search and Order"
+    của sinh viên 23127464 trong bài HW05-AI (EShop, source: src/eshop-sut).
+
+    Checkpoint hiện tại: PHASE A — Verify and reconcile.
+    Chỉ thực hiện đúng phạm vi Phase A (A1–A9). Không thiết kế workload Load/Stress/Spike/Endurance,
+    không tạo JMX, không chạy bất kỳ performance test nào trong phase này.
+
+    Trước tiên, ghi một entry vào reports/ai-audit-report.md theo mẫu ai-audit-entry.md, dùng timestamp
+    thật lấy từ môi trường (Asia/Ho_Chi_Minh).
+
+    Sau đó thực hiện tuần tự:
+
+    A1. Inspect requirement, repo và environment
+    - Đọc 2026.HW05.Performance_Testing_En_2.md, README.md của repo, README.md/API spec của SUT,
+      JMeter config hiện có (JMeter nằm ở D:\apache-jmeter-5.6.3\bin>) , artifact cũ của Returning Customer Search and Order nếu có.
+    - Xác minh trực tiếp trên máy: đường dẫn SUT, backend base URL, Java version, JMeter version,
+      OS, CPU model, số logical processors, tổng RAM, hostname, backend process, idle CPU, idle memory.
+    - Không tự hỏi tôi những gì bạn có thể tự kiểm tra được.
+
+    A2. Verify API contract của Returning Customer Search and Order
+    - Đối chiếu luồng: POST /api/login -> GET /api/products?search=${keyword}
+      -> GET /api/products/${productId} -> GET /api/cart -> POST /api/cart
+      -> POST /api/checkout -> GET /api/orders/my-orders
+    - Với mỗi endpoint: method, path/port thật, payload/query, yêu cầu auth, response status/shape,
+      giá trị dynamic cần cho bước sau.
+    - Xác minh khả thi của correlation: login->token, search->productId/productName,
+      detail->detailPrice, detailPrice*quantity->totalAmount, checkout->orderId, my-orders->verify orderId.
+    - Ghi tách biệt: (1) kỳ vọng theo assignment/API spec, (2) quan sát từ source code,
+      (3) quan sát runtime thật. Không coi hợp đồng workflow là bằng chứng runtime.
+
+    A3. Verify test-data và state risks
+    - Kiểm tra hoặc đánh dấu "chưa xác định": account sharing, cart ownership/state, cart có persist
+      qua các iteration không, checkout có clear cart không, order accumulation, hành vi login sai
+      nhiều lần, lockout behavior, quy trình reset account/SUT, khả năng tái lập trạng thái ban đầu
+      giữa các scenario.
+    - Nếu SUT thực tế khác tài liệu, ghi rõ: Expected/documented behavior, Observed implementation,
+      Performance-test impact, Required mitigation/reset strategy.
+    - Không sửa SUT để làm test dễ hơn.
+
+    A4. Minimal runtime probe (không phải performance test)
+    - Nếu SUT/Java/JMeter sẵn sàng, chạy tối đa 1 user x 1 lần cả luồng Returning Customer Search
+      and Order để xác nhận: reachability, auth hợp lệ, credential dùng được, có dữ liệu search,
+      có product detail, cart accessible, checkout khả thi, order-history khả thi, correlation khả thi.
+    - Không suy luận performance capacity/p95/RPS ổn định từ probe này.
+    - Nếu không chạy được, ghi "Chưa chạy — <lý do thật>", không tuyên bố thành công giả.
+
+    A5. Hardware and environment baseline
+    - Thu thập bằng chứng thật: hostname, OS, CPU, logical processors, RAM, Java version,
+      JMeter version, backend process/PID, idle CPU/memory của backend và của hệ thống.
+    - Lưu screenshot dưới tests/returning-customer-order/evidence/hardware/.
+
+    A6. Backend idle-resource baseline
+    - Khởi động SUT theo quy trình đã review, để backend ổn định, mở Task Manager/htop/Activity
+      Monitor, xác định đúng backend process, ghi CPU/memory idle, lưu evidence dưới
+      tests/returning-customer-order/evidence/baseline/.
+
+    A7. Tạo bảng hardware specification
+    - Thêm section "Hardware and Environment Baseline" vào
+      reports/returning-customer-order/WORKFLOW_DESIGN.md theo đúng bảng mẫu trong phase-playbook.md.
+    - Giá trị nào không xác định được thì ghi "Không xác định — <lý do>", không được bỏ trống mập mờ.
+
+    A8. Reconciliation table
+    - Cập nhật reports/returning-customer-order/REVIEW_NOTES.md với bảng đối chiếu
+      Requirement/Expected vs Actual Observation vs Source Type vs Status (Khớp/Lệch/Không xác định)
+      vs Evidence vs Impact/Action.
+    - Không được âm thầm sửa hoặc bỏ qua sai lệch ảnh hưởng đến validity của performance test.
+
+    A9. Outputs bắt buộc cuối Phase A
+    - reports/returning-customer-order/REVIEW_NOTES.md
+    - reports/returning-customer-order/WORKFLOW_DESIGN.md
+    - tests/returning-customer-order/evidence/hardware/
+    - tests/returning-customer-order/evidence/baseline/
+    Không được tạo JMX, không thiết kế thông số Load/Stress/Spike/Endurance, không có ngưỡng
+    performance trong phase này.
+
+    Kết thúc lượt này bằng báo cáo có cấu trúc:
+    - Files changed
+    - Actions actually executed
+    - Runtime evidence collected
+    - Source-derived findings
+    - Runtime findings
+    - Khớp / Lệch / Không xác định items
+    - Blockers
+    - Risks for Phase B
+
+    Sau đó dừng ở trạng thái PENDING HUMAN REVIEW và chờ tôi phê duyệt rõ ràng trước khi
+    sang Phase B. Không tự chuyển phase, không tự phê duyệt, không bịa evidence, screenshot,
+    metric hoặc kết quả nào chưa thực sự tồn tại.
+    Notes: các tài liệu phải sử dụng tiếng việt
+
+AI Output:
+
+    Thực hiện tuần tự Phase A (A1–A9): audit trước, inspect requirement/repo/SUT/environment,
+    đối chiếu contract từ tài liệu/source/runtime, kiểm tra state risks, chỉ chạy probe 1 user x 1 lần
+    nếu đủ điều kiện, thu thập evidence hardware/baseline thật, rồi cập nhật REVIEW_NOTES.md và
+    WORKFLOW_DESIGN.md bằng tiếng Việt. Không tạo JMX, không thiết kế hoặc chạy measured workload;
+    kết thúc tại PENDING HUMAN REVIEW.
+
+## Entry #3
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 22:17 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    **Product detail — price không đồng nhất kiểu dữ liệu:  Chấp nhận rủi ro này và xử lý ở Phase B/C (normalize trong JMX)**
+    **Add-cart không merge item trùng Ghi nhận defect, không sửa SUT, xử lý bằng reset strategy**
+    Dùng account mới cho mỗi scenario **Checkout KHÔNG clear cart**
+    **CSV data rỗng sẽ được thiết kế ở phase sau**
+     **dùng 1 account/VU, và restart SUT giữa các scenario đối với**  **Login tăng failed attempts +2 thay vì +1** 
+    Hiểu rõ hành vi này khi thiết kế reset strategy ở Phase B
+    **Root README vẫn là HW03 sẽ update cuối cùng cho HW05**
+    JMeter ở đường dẫn: D:\apache-jmeter-5.6.3\bin>
+
+AI Output:
+
+    Ghi nhận các quyết định human review vào REVIEW_NOTES.md và WORKFLOW_DESIGN.md: chấp nhận
+    price number/string để normalize ở Phase B/C; giữ defect add-cart/checkout và không sửa SUT;
+    định hướng account mới theo scenario, một account/VU và restart SUT giữa scenario; thiết kế CSV
+    ở phase sau; lưu ý lockout +2 khi lập reset strategy; hoãn cập nhật README đến cuối HW05; xác nhận
+    JMeter tại D:\apache-jmeter-5.6.3\bin. Chưa thiết kế Phase B/C và chưa coi là authorization chuyển
+    phase vì prompt chưa nêu rõ quyết định Approve Phase A.
+
+## Entry #4
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5.6-Sol)`
+
+Date: `13/08/2026 22:24 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    **Approve Phase A. Authorize Phase B.**
+
+AI Output:
+
+    Ghi nhận phê duyệt chính thức Phase A và authorization cho Phase B trong REVIEW_NOTES.md
+    và WORKFLOW_DESIGN.md. Đóng checkpoint Phase A với human approval thật; chưa triển khai nội dung
+    Phase B, chưa thiết kế workload/CSV/reset runbook và chưa tạo JMX trong interaction này.
