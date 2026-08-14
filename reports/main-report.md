@@ -166,7 +166,7 @@ JMeter smoke:
 | Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO screenshot/video | Pass 20 samples, 0 errors |
 | Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png` | Pass 1176 samples, 0 errors |
 | Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl` | `testing-artifacts/hw05/html/stress/index.html` | `testing-artifacts/hw05/evidence/notes/stress-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/stress-cli-htop-20260815.png` | Pass 8930 samples, 0 errors |
-| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl` | `testing-artifacts/hw05/html/spike/index.html` | `testing-artifacts/hw05/evidence/notes/spike-20260815.md` | Pass 1,225,240 samples, 0 errors |
+| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl` | `testing-artifacts/hw05/html/spike/index.html` | `testing-artifacts/hw05/evidence/notes/spike-20260815.md` | Pass 1,225,240 samples, 0 errors; raw JTL giữ local/submit ngoài Git vì khoảng 160 MB |
 | Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | `testing-artifacts/hw05/results/endurance/23127475_Endurance_20260815.jtl` | `testing-artifacts/hw05/html/endurance/index.html` | `testing-artifacts/hw05/evidence/notes/endurance-20260815.md` | Pass 3837 samples, 0 errors |
 
 ## 9. Kết quả metric
@@ -230,31 +230,52 @@ Kết luận: 50 VUs là mức tải ổn định cao nhất đã kiểm chứng
 
 | Bug report | GitHub Issue | Severity / Priority | Evidence |
 | --- | --- | --- | --- |
-| TODO | TODO | TODO | TODO |
+| Không có | Không có | N/A | Tất cả run chính thức Load/Stress/Spike/Endurance đều 0% error; không có HTTP 4xx/5xx, timeout hoặc backend crash |
 
-Nếu không phát hiện bug thật, ghi rõ: không tạo bug report vì không có lỗi SUT được xác nhận; các lỗi do test data/script/sandbox đã được phân loại riêng.
+Không tạo bug report vì không có lỗi SUT được xác nhận. Các lỗi trước đó đã được phân loại riêng: sandbox Codex chặn JMeter/cURL gọi localhost có Authorization, và CSV account cũ không còn hợp lệ với database đang chạy.
 
 ## 13. AI analysis và misinterpretation hunt
 
 ### 13.1 Prompt phân tích bằng AI
 
-TODO.
+```text
+Phân tích các summary CSV của HW05 JMeter Workflow 1 gồm Load, Stress,
+Spike và Endurance. Hãy nhận xét p95, p99, throughput, error rate, resource
+evidence, điểm gãy nếu có, endurance threshold và đề xuất tối ưu backend.
+Không sửa code SUT, đây là blackbox performance testing.
+```
 
 ### 13.2 AI output tóm tắt
 
-TODO.
+AI/Codex draft analysis:
+
+- Cả 4 scenario chính đều có error rate 0.00%, nên chưa có bug hiệu năng dạng timeout/5xx/backend crash.
+- Load 50 VUs là baseline nhẹ: 1176 samples, p95 5 ms, throughput 4.0384 RPS.
+- Stress 150 VUs tăng throughput lên 21.6052 RPS, p95 4 ms, chưa tìm thấy điểm gãy.
+- Spike 200 VUs không think time tạo tải rất cao: 1,225,240 samples, throughput 10212.2907 RPS, p95 37 ms, p99 55 ms. Latency tăng rõ nhưng vẫn chưa có lỗi.
+- Endurance 50 VUs trong 15 phút ổn định: 3837 samples, p95 4 ms, p99 5 ms, throughput 4.3127 RPS.
+- Endpoint chậm nhất thường là `POST /api/checkout`, đặc biệt trong Spike với p95 54 ms và p99 64 ms.
+- Có thể cân nhắc tối ưu checkout/write path, cache dữ liệu read-heavy, hoặc chạy Node.js nhiều worker hơn nếu workload thực tế cần RPS cao hơn.
 
 ### 13.3 Human review: AI misinterpretation
 
 | AI nói | Giá trị đúng từ raw `.jtl` | Vì sao sai | Kết luận đã sửa |
 | --- | --- | --- | --- |
-| TODO | TODO | TODO | TODO |
+| "Stress chưa tìm thấy điểm gãy, vậy hệ thống không có vấn đề hiệu năng." | Stress chỉ kiểm chứng 150 VUs, p95 4 ms, p99 5 ms, 0% error. Spike mới làm latency tăng lên p95 37 ms, p99 55 ms. | Kết luận quá rộng so với phạm vi test; chưa tìm thấy điểm gãy không có nghĩa là không có bottleneck ở tải cao hơn. | Viết lại: trong phạm vi 150 VUs Stress, chưa thấy điểm gãy; Spike cho thấy latency nhạy với tải đột ngột. |
+| "Spike throughput 10212 RPS chứng minh backend xử lý production traffic rất tốt." | Spike dùng local machine, local network, dataset nhỏ, SQLite/demo data, duration 120s và 0 think time. | Không thể suy rộng từ môi trường local/demo sang production; thiếu network, DB thật, concurrency thực tế và profiling. | Viết lại: Spike chứng minh SUT local chịu được burst ngắn rất cao trong điều kiện HW05, không phải production capacity. |
+| "Endpoint checkout là bottleneck cần tối ưu ngay." | Spike checkout p95 54 ms, p99 64 ms, max 108 ms, nhưng error 0 và CPU/RAM chưa chạm trần. | Checkout là endpoint chậm nhất tương đối, nhưng số tuyệt đối vẫn thấp và chưa có lỗi; chưa đủ bằng chứng để gọi là bug/bottleneck nghiêm trọng. | Viết lại: checkout là ứng viên cần theo dõi/profiling nếu tăng tải thêm, không tạo bug report hiện tại. |
+| "Endurance threshold là mức chịu tải tối đa của hệ thống." | Endurance chỉ chạy 50 VUs, 15 phút, p95 4 ms, throughput 4.3127 RPS, CPU late-run còn 74.52% idle. | Đây là mức ổn định cao nhất đã kiểm chứng, không phải mức tối đa tuyệt đối; còn headroom để chạy tải cao hơn nếu có thời gian. | Viết lại: threshold hiện tại là 50 VUs ổn định đã được kiểm chứng trong phạm vi bài. |
 
 ## 14. Đánh giá đề xuất tối ưu của AI
 
 | Đề xuất AI | Phân loại | Lý do |
 | --- | --- | --- |
-| TODO | Feasible / Needs evidence / Hallucinated | TODO |
+| Theo dõi riêng `POST /api/checkout` và profiling write path nếu tăng tải thêm | Feasible | Checkout là request chậm nhất trong Load/Stress/Spike/Endurance, nhưng hiện chưa đủ bằng chứng để xem là bug. |
+| Thêm cache cho dữ liệu read-heavy như categories/products | Needs evidence | Read endpoints có p95 thấp trong mọi run; cache có thể hợp lý về kiến trúc nhưng chưa được dữ liệu hiện tại chứng minh là cần thiết. |
+| Xem xét Node.js clustering/multiple workers nếu cần duy trì spike RPS cao | Needs evidence | Trong Spike, process `node server.js` đạt khoảng 122.6% CPU, nhưng tổng CPU vẫn còn idle; cần profiling và test cao hơn trước khi kết luận. |
+| Tối ưu SQLite/write concurrency hoặc WAL cho checkout/order write | Needs evidence | Có thể hợp lý với stack demo nếu write contention tăng, nhưng blackbox test hiện tại không thấy 5xx/timeout/lock contention. |
+| Tối ưu frontend image lazy loading để giảm p95 API | Hallucinated | Test đo backend API blackbox, không chạy frontend rendering; tối ưu frontend không giải thích trực tiếp p95 API. |
+| Dùng Kubernetes autoscaling/CDN ngay cho bài này | Hallucinated | Không có bằng chứng về cloud deployment hoặc static asset bottleneck; vượt phạm vi local HW05. |
 
 ## 15. Continuous performance testing proposal
 

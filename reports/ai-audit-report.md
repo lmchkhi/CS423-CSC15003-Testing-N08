@@ -459,3 +459,25 @@ oke vậy tiếp tục với pha 6 giúp tôi, cũng không tự ý commit nhé
 ```text
 Thực hiện Pha 6 Endurance/Soak test nhưng không git add/commit. Chạy JMeter Endurance ngoài sandbox với 50 VUs, ramp-up 60s, duration 900s, think time 1500ms + random 1500ms. Kết quả pass: 3837 samples, 0 errors, avg 2.42 ms, p95 4 ms, p99 5 ms, throughput 4.3127 RPS. Sinh JTL, JMeter log, HTML Dashboard, endurance-summary.csv, top/process evidence; cập nhật main report/execution plan và note endurance. Kết luận threshold hiện tại: 50 VUs ổn định trong 15 phút, chưa chạm CPU/RAM ceiling.
 ```
+
+## Entry #19
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 06:11 GMT+7 |
+| **Artifact type** | HW05 Pha 7 performance analysis |
+
+**Full prompt:**
+
+```text
+tôi commit rồi, bây giờ làm pha 7 giúp tôi, cũng không tự ý commit
+```
+
+### (2) AI Output
+
+```text
+Thực hiện Pha 7 không commit: đối chiếu summary CSV Load/Stress/Spike/Endurance, cập nhật main report bug status, AI analysis draft, human misinterpretation hunt, recommendation judgement; cập nhật execution plan Pha 7. Không stage/commit, giữ raw Spike JTL 160 MB local ngoài Git.
+```

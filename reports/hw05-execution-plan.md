@@ -241,6 +241,14 @@ Kết quả cần có:
 - Section misinterpretation hunt.
 - Section feasible/needs evidence/hallucinated recommendations.
 
+Trạng thái 2026-08-15:
+
+- Đã đối chiếu summary CSV cho Load, Stress, Spike và Endurance.
+- Đã cập nhật `reports/main-report.md` phần bug report status: không tạo bug report vì không có lỗi SUT thật.
+- Đã viết AI analysis draft dựa trên p95/p99/throughput/error rate/resource evidence.
+- Đã thêm human misinterpretation hunt: sửa các kết luận quá rộng về Stress, Spike, checkout và Endurance threshold.
+- Đã phân loại đề xuất tối ưu thành `Feasible`, `Needs evidence`, `Hallucinated`.
+
 ### Pha 8 - Viết continuous performance testing proposal
 
 Mục tiêu:
