@@ -70,7 +70,16 @@ def _stats(samples):
     count = len(samples)
     errors = sum(1 for s in samples if not s["success"])
     first, last = min(s["ts"] for s in samples), max(s["ts"] for s in samples)
-    window = (last - first) / 1000.0
+    # JMeter's throughput denominator is the wall-clock span from the first
+    # sample's start to the *last sample's end* (ts + elapsed), not to the
+    # last sample's start. Using start-to-start would overstate throughput
+    # whenever the final sample in the window is slow — and on this SUT
+    # (one SQLite file) a slow last sample under checkout write-contention
+    # is the expected case, not an edge case. Keep this as ts+elapsed so the
+    # figure agrees with the .jtl's own HTML dashboard; do not "simplify"
+    # it back to last - first.
+    window_end = max(s["ts"] + s["elapsed"] for s in samples)
+    window = (window_end - first) / 1000.0
     stats = {
         "count": count,
         "errors": errors,

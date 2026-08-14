@@ -35,6 +35,12 @@ class TestPercentile(unittest.TestCase):
     def test_p100_is_the_maximum(self):
         self.assertEqual(analyze_jtl.percentile([5, 9, 42], 100), 42)
 
+    def test_p50_of_even_length_uses_nearest_rank_not_interpolation(self):
+        # Nearest rank: rank = ceil(0.5 * 4) = 2 -> values[1] = 20.
+        # An interpolating median would average values[1] and values[2]
+        # ((20 + 30) / 2 = 25) instead — this pins down which one we use.
+        self.assertEqual(analyze_jtl.percentile([10, 20, 30, 40], 50), 20)
+
     def test_empty_input_returns_zero(self):
         self.assertEqual(analyze_jtl.percentile([], 95), 0)
 
@@ -61,11 +67,19 @@ class TestSummarize(unittest.TestCase):
         self.assertEqual(s["by_label"]["checkout"]["count"], 2)
         self.assertEqual(s["by_label"]["checkout"]["errors"], 1)
 
-    def test_throughput_is_samples_over_wallclock_seconds(self):
-        # 5 samples spanning ts 1000..5000 -> 4s window (last start - first start)
-        path = jtl([(1000 + i * 1000, 10, "x", "200", "true") for i in range(5)])
+    def test_throughput_uses_jmeter_wallclock_denominator(self):
+        # JMeter's throughput window runs from the first sample's start to
+        # the *last sample's end* (ts + elapsed), not to the last sample's
+        # start. Give the last sample a slow elapsed time so the two
+        # formulas disagree and we pin down the right one:
+        #   old (start-to-start): window = 5000 - 1000 = 4000ms -> 1.25 req/s
+        #   new (start-to-end):   window = (5000 + 500) - 1000 = 4500ms
+        #                                -> 5 / 4.5 = 1.111... req/s
+        rows = [(1000 + i * 1000, 10, "x", "200", "true") for i in range(4)]
+        rows.append((5000, 500, "x", "200", "true"))
+        path = jtl(rows)
         s = analyze_jtl.summarize(analyze_jtl.load_samples(path))
-        self.assertAlmostEqual(s["overall"]["throughput"], 5 / 4.0, places=3)
+        self.assertAlmostEqual(s["overall"]["throughput"], 5 / 4.5, places=3)
 
     def test_records_response_code_breakdown(self):
         path = jtl([
