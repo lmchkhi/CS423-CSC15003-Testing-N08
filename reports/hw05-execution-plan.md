@@ -208,6 +208,15 @@ Kết quả cần có:
 - Screenshot evidence.
 - Kết luận endurance threshold bằng số cụ thể.
 
+Trạng thái 2026-08-15:
+
+- Đã chạy Endurance test chính thức ngoài sandbox bằng JMeter CLI.
+- Cấu hình: 50 VUs, ramp-up 60s, duration 900s, think time 1500ms + random 1500ms.
+- Kết quả: 3837 samples, 0 errors, avg 2.42 ms, p95 4 ms, p99 5 ms, throughput 4.3127 RPS.
+- Evidence chính: `testing-artifacts/hw05/results/endurance/23127475_Endurance_20260815.jtl`, `testing-artifacts/hw05/html/endurance/index.html`, `testing-artifacts/hw05/analysis/endurance-summary.csv`, `testing-artifacts/hw05/evidence/notes/endurance-20260815.md`.
+- Text resource evidence đã lưu bằng `top`/`ps`; screenshot Endurance có thể chụp bằng rerun riêng nếu cần.
+- Kết luận threshold hiện tại: 50 VUs ổn định trong 15 phút với 0% error, p95 4 ms và chưa chạm CPU/RAM ceiling.
+
 ### Pha 7 - Phân tích JTL và AI misinterpretation hunt
 
 Mục tiêu:

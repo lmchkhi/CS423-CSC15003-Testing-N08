@@ -437,3 +437,25 @@ tôi đã thêm ảnh vào rồi, bây giờ cho tôi lệnh git add và git com
 ```text
 Kiểm tra status và cung cấp lệnh git add/git commit cho Pha 5 Spike. Lệnh add loại trừ raw JTL 160 MB testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl, chỉ add spike summary, JMeter log nhỏ, HTML dashboard, screenshots Stress/Spike, resource snapshots, notes và reports/audit. Commit message ghi rõ raw JTL lớn được giữ local không commit.
 ```
+
+## Entry #18
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 05:50 GMT+7 |
+| **Artifact type** | HW05 Endurance test execution |
+
+**Full prompt:**
+
+```text
+oke vậy tiếp tục với pha 6 giúp tôi, cũng không tự ý commit nhé
+```
+
+### (2) AI Output
+
+```text
+Thực hiện Pha 6 Endurance/Soak test nhưng không git add/commit. Chạy JMeter Endurance ngoài sandbox với 50 VUs, ramp-up 60s, duration 900s, think time 1500ms + random 1500ms. Kết quả pass: 3837 samples, 0 errors, avg 2.42 ms, p95 4 ms, p99 5 ms, throughput 4.3127 RPS. Sinh JTL, JMeter log, HTML Dashboard, endurance-summary.csv, top/process evidence; cập nhật main report/execution plan và note endurance. Kết luận threshold hiện tại: 50 VUs ổn định trong 15 phút, chưa chạm CPU/RAM ceiling.
+```

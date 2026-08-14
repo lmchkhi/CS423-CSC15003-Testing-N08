@@ -60,7 +60,8 @@ Evidence phần cứng:
 - Load test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-postrun-20260815.txt`.
 - Stress test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-stress-ramp-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-stress-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-stress-postrun-20260815.txt`.
 - Spike test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-spike-ramp-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-spike-peak-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-spike-postrun-20260815.txt`.
-- Process snapshots: `testing-artifacts/hw05/evidence/hardware/process-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-stress-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-spike-midrun-20260815.txt`.
+- Endurance test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-endurance-start-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-endurance-mid-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-endurance-late-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-endurance-postrun-20260815.txt`.
+- Process snapshots: `testing-artifacts/hw05/evidence/hardware/process-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-stress-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-spike-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-endurance-midrun-20260815.txt`.
 - Screenshot/video evidence vẫn cần bổ sung khi quay demo để thấy JMeter CLI và resource monitor cùng khung hình.
 
 ## 4. Test data
@@ -166,7 +167,7 @@ JMeter smoke:
 | Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png` | Pass 1176 samples, 0 errors |
 | Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl` | `testing-artifacts/hw05/html/stress/index.html` | `testing-artifacts/hw05/evidence/notes/stress-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/stress-cli-htop-20260815.png` | Pass 8930 samples, 0 errors |
 | Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl` | `testing-artifacts/hw05/html/spike/index.html` | `testing-artifacts/hw05/evidence/notes/spike-20260815.md` | Pass 1,225,240 samples, 0 errors |
-| Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | `testing-artifacts/hw05/results/endurance/23127475_Endurance_20260815.jtl` | `testing-artifacts/hw05/html/endurance/index.html` | `testing-artifacts/hw05/evidence/notes/endurance-20260815.md` | Pass 3837 samples, 0 errors |
 
 ## 9. Kết quả metric
 
@@ -175,7 +176,7 @@ JMeter smoke:
 | Load | 50 | 1176 | 0.00% | 2.91 | 3 | 4 | 5 | 6 | 4.0384 | Steady `top`: 27.14% user, 16.44% sys, 56.41% idle; PhysMem 35G used, 0 swap |
 | Stress | 150 | 8930 | 0.00% | 1.89 | 2 | 3 | 4 | 5 | 21.6052 | Steady `top`: 16.81% user, 11.57% sys, 71.60% idle; PhysMem 33G used |
 | Spike | 200 | 1,225,240 | 0.00% | 17.14 | 16 | 31 | 37 | 55 | 10212.2907 | Peak `top`: 26.73% user, 22.81% sys, 50.44% idle; backend `node` about 122.6% CPU |
-| Endurance | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
+| Endurance | 50 | 3837 | 0.00% | 2.42 | 2 | 4 | 4 | 5 | 4.3127 | Late `top`: 12.4% user, 13.43% sys, 74.52% idle; PhysMem 34G used |
 
 ## 10. Phân tích từng scenario
 
@@ -205,21 +206,25 @@ Resource snapshot peak lúc 04:38:02 ghi nhận CPU còn 50.44% idle, nhưng pro
 
 ### 10.4 Endurance
 
-TODO.
+Endurance test chạy đủ 15 phút từ 05:32:40 đến 05:47:40 ngày 2026-08-15 với 50 VUs, ramp-up 60s và think time 1500ms + random 1500ms. Kết quả đạt 3837 samples, 0 errors, overall p95 4 ms, p99 5 ms và throughput 4.3127 RPS.
+
+So với Load baseline cùng mức 50 VUs nhưng duration dài hơn, Endurance không làm tăng error rate hoặc latency. `POST /api/checkout` vẫn là bước chậm nhất theo p95 với p95 5 ms và p99 6 ms, nhưng không có drift theo thời gian. Không có HTTP 4xx/5xx, timeout, token issue hoặc account lockout.
+
+Resource snapshots cho thấy hệ thống còn headroom trong toàn bộ run: CPU idle từ 68.73% ở mid-run đến 74.52% ở late-run; memory vẫn còn unused memory dù giảm từ 1795M lúc start xuống 1482M ở late-run. Không quan sát thấy swap pressure hoặc dấu hiệu resource ceiling. Kết quả này xác nhận 50 VUs là mức ổn định trong 15 phút trên máy cá nhân hiện tại.
 
 ## 11. Endurance threshold
 
 | Metric | Giá trị |
 | --- | --- |
-| Mức tải ổn định cao nhất | TODO |
-| RPS/TPS trung bình | TODO |
-| p95 | TODO |
-| Error rate | TODO |
-| CPU ceiling | TODO |
-| RAM ceiling | TODO |
-| Dấu hiệu phải dừng/tăng tải | TODO |
+| Mức tải ổn định cao nhất | 50 VUs trong 15 phút với think time 1500ms + random 1500ms |
+| RPS/TPS trung bình | 4.3127 RPS |
+| p95 | 4 ms |
+| Error rate | 0.00% |
+| CPU ceiling | Chưa chạm trần; late-run CPU còn 74.52% idle |
+| RAM ceiling | Chưa chạm trần; late-run PhysMem 34G used, 1482M unused |
+| Dấu hiệu phải dừng/tăng tải | Không có timeout/5xx/lockout; có thể tăng tải trong run bổ sung nếu cần tìm ngưỡng cao hơn |
 
-Kết luận: TODO.
+Kết luận: 50 VUs là mức tải ổn định cao nhất đã kiểm chứng bằng Endurance trong phạm vi HW05 hiện tại.
 
 ## 12. Bug reports và GitHub issues
 
