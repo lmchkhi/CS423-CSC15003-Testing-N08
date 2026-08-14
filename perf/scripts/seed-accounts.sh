@@ -25,8 +25,13 @@ export -f register_one
 export BASE_URL
 
 echo "Seeding accounts from $CSV ..."
+# A connect-level failure on any one of the parallel registrations makes
+# xargs exit nonzero, which (with pipefail) would abort the script here and
+# skip the verification loop below — leaving no ok/total line at all. The
+# login-verification loop is the real pass/fail gate per this script's
+# contract, so this pipeline's own exit status is deliberately ignored.
 tail -n +2 "$CSV" | cut -d, -f1,2 | tr ',' ' ' \
-  | xargs -P "$CONCURRENCY" -n 2 bash -c 'register_one "$0" "$1"'
+  | xargs -P "$CONCURRENCY" -n 2 bash -c 'register_one "$0" "$1"' || true
 
 # Verify: every account must be able to log in with its newPassword.
 echo "Verifying logins ..."
