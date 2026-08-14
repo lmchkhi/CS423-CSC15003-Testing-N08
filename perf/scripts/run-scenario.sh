@@ -64,32 +64,71 @@ kill "$MON_PID" 2>/dev/null || true
 trap - EXIT
 sleep 1
 
+# From here on JMeter has already exited and the run's evidence — .jtl, log,
+# resource CSV — is on disk. Nothing below may abort the script before it has
+# printed a summary of that evidence: a degraded step prints a visible
+# WARNING and sets DEGRADED so the script's own exit status still surfaces
+# it, but it must never take the rest of the summary down with it.
+DEGRADED=0
+
 echo "== lockout state after the run"
-LOCK_AFTER=$(perf/scripts/reset-lockout.sh)
+LOCK_AFTER_RC=0
+LOCK_AFTER=$(perf/scripts/reset-lockout.sh) || LOCK_AFTER_RC=$?
 echo "   $LOCK_AFTER"
+if [[ "$LOCK_AFTER_RC" -ne 0 ]]; then
+  echo "   WARNING: post-run lockout reset did not fully clear (exit $LOCK_AFTER_RC) — accounts may still be locked/pending for the next run" >&2
+  DEGRADED=1
+fi
 
 echo
 python3 perf/scripts/analyze_jtl.py "$JTL"
+
 echo
 echo "== peak resource usage"
-awk -F, 'NR>1 {if ($4>mr) mr=$4; if ($3>mc) mc=$3; if ($6>jr) jr=$6}
-         END {printf "   SUT peak: %.1f%% CPU, %d MB RSS | JMeter peak RSS: %d MB\n", mc, mr, jr}' \
-  "$RESOURCE/$STEM.csv"
+RESOURCE_CSV="$RESOURCE/$STEM.csv"
+if [[ -f "$RESOURCE_CSV" ]] && [[ "$(wc -l < "$RESOURCE_CSV")" -gt 1 ]]; then
+  awk -F, 'NR>1 {if ($4>mr) mr=$4; if ($3>mc) mc=$3; if ($6>jr) jr=$6}
+           END {printf "   SUT peak: %.1f%% CPU, %d MB RSS | JMeter peak RSS: %d MB\n", mc, mr, jr}' \
+    "$RESOURCE_CSV" \
+    || { echo "   WARNING: could not read resource trace $RESOURCE_CSV — peak CPU/RSS not available" >&2; DEGRADED=1; }
+else
+  echo "   WARNING: resource trace $RESOURCE_CSV is missing or has no samples — monitor.sh may not have started in time; peak CPU/RSS not available for this run" >&2
+  DEGRADED=1
+fi
 
 echo
 echo "== manifest row (paste into reports/run-manifest.md)"
-python3 - "$JTL" "$SCENARIO" "$STEM" "$START_ISO" "$DURATION" <<'PY'
+if ! python3 - "$JTL" "$SCENARIO" "$STEM" "$START_ISO" "$DURATION" <<'PY'
 import sys, pathlib
 sys.path.insert(0, "perf/scripts")
 import analyze_jtl
 jtl, scenario, stem, start, duration = sys.argv[1:6]
-s = analyze_jtl.summarize(analyze_jtl.load_samples(jtl))["overall"]
-print(f"| {scenario} | `{stem}.jmx` | JMeter | {start} | {duration}s | "
-      f"| {s['count']} | {s['error_pct']} | {s['p95']} | {s['throughput']} | "
-      f"`perf/results/jtl/{stem}.jtl` | `perf/results/html/{stem}/` | |")
+result = analyze_jtl.summarize(analyze_jtl.load_samples(jtl))
+s = result["overall"]
+if s is None:
+    # Zero-sample .jtl is a real outcome here (unreachable SUT, wrong loop
+    # count) — say so explicitly rather than crashing on s['count'] or
+    # printing a plausible-looking row built from missing numbers.
+    print(f"| {scenario} | `{stem}.jmx` | JMeter | {start} | {duration}s | "
+          f"| 0 | NO SAMPLES | NO SAMPLES | NO SAMPLES | "
+          f"`perf/results/jtl/{stem}.jtl` | `perf/results/html/{stem}/` | |")
+else:
+    print(f"| {scenario} | `{stem}.jmx` | JMeter | {start} | {duration}s | "
+          f"| {s['count']} | {s['error_pct']} | {s['p95']} | {s['throughput']} | "
+          f"`perf/results/jtl/{stem}.jtl` | `perf/results/html/{stem}/` | |")
 PY
+then
+  echo "   WARNING: manifest row generation failed unexpectedly — inspect $JTL by hand" >&2
+  DEGRADED=1
+fi
 
 echo
 echo "Done. Raw log: $JTL"
 echo "      Dashboard: $HTML/index.html"
 echo "      Resource trace: $RESOURCE/$STEM.csv"
+
+if [[ "$DEGRADED" -ne 0 ]]; then
+  echo
+  echo "WARNING: one or more post-run summary steps were degraded — see WARNING lines above; treat this run's evidence as incomplete." >&2
+  exit 1
+fi
