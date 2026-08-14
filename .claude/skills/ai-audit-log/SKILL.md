@@ -1,6 +1,6 @@
 ---
 name: ai-audit-log
-description: Auto-append an entry to reports/ai-audit-report.md every time an AI tool (this agent included) produces an artifact used in the HW05 deliverables — a generated JMeter/k6 test plan, a workload-model choice, a CSV data model, an extractor/assertion repair, an analysis of the raw .jtl logs, a bug triage, the continuous-testing proposal, etc. Use immediately after finishing any AI-assisted sub-task for HW05, not just at the end of the session. Required by HW05 §9 (AI Audit Report) and the course's "AI-First + mandatory audit log" policy. Runs alongside — not instead of — the prompt-log skill, which keeps the separate unfiltered reports/prompt-log.md the TA also requires.
+description: Auto-append an entry to reports/ai-audit-report.md every time an AI tool (this agent included) produces an artifact used in the HW05 deliverables — a generated JMeter test plan, a workload-model choice, a CSV data model, an extractor/assertion repair, an analysis of the raw .jtl logs, a bug triage, the continuous-testing proposal, etc. Use immediately after finishing any AI-assisted sub-task for HW05, not just at the end of the session. Required by HW05 §9 (AI Audit Report) and the course's "AI-First + mandatory audit log" policy. Runs alongside — not instead of — the prompt-log skill, which keeps the separate unfiltered reports/prompt-log.md the TA also requires.
 ---
 
 # AI Audit Log
@@ -72,9 +72,8 @@ changing its mind mid-stage.
 Two things that are legitimately not the AI's output, and belong in the
 student's own fields instead: the content of files the AI wrote (reference
 them by path — they ship in the repo), and tool results such as a JMeter
-summariser line or a k6 end-of-test summary (quote them under an explicit
-lead-in like "trích nguyên văn từ output của JMeter", never blended into the
-AI's own words).
+summariser line (quote them under an explicit lead-in like "trích nguyên văn
+từ output của JMeter", never blended into the AI's own words).
 
 **Before committing an edited audit report, verify the quotes are real:**
 
@@ -110,12 +109,12 @@ Run it right after any of these produce something that ends up in a
 deliverable:
 - any single stage of designing a test plan (map the workflow to samplers,
   choose the workload model, model the CSV data, wire extractors/assertions,
-  generate the `.jmx`/`.js`, review and fix) — §6 explicitly forbids a single
+  generate the `.jmx`, review and fix) — §6 explicitly forbids a single
   generic prompt and requires the AI to be driven step by step, so each stage
   is its own entry, never one lumped "generated the three plans" entry
 - an AI-chosen parameter (think-time, ramp-up, thread/VU count) and its
   justification — §6 Task 1 asks the AI to help choose these
-- an AI-generated `.jmx`, k6 script, CSV data file, or run script
+- an AI-generated `.jmx`, CSV data file, or run script
 - an AI-proposed fix for a failing extractor, assertion, or lockout collision
 - **Task 2**: the AI's analysis of the raw `.jtl` logs, its proposed
   thresholds, and its proposed optimizations — each is its own entry, and the

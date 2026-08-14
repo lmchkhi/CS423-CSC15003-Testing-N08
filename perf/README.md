@@ -34,7 +34,6 @@ run it as-is.
 | Tool | Version | Installed via |
 |---|---|---|
 | Apache JMeter | 5.6.3 | `brew install jmeter` (`/opt/homebrew/opt/jmeter/libexec`) |
-| k6 | v2.2.0 | `brew install k6` |
 | Java | OpenJDK 21.0.10 | Homebrew |
 
 Headless JMeter run, which is how every graded run is produced (GUI mode is for

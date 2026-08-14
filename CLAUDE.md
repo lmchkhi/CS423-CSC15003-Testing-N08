@@ -32,11 +32,10 @@
   journey**. Only the workload model changes between them — VU count, ramp-up,
   duration, arrival shape. Never reorder or drop a step to make a scenario run
   cleaner.
-- **Tools**: JMeter is the primary deliverable (§8 default); k6 is built
-  alongside it for the §8 bonus, running the *same* Workflow 5. Both live under
-  `perf/plans/`. Every JMeter-specific rubric item (raw `.jtl`, HTML report
-  folder, three distinct listener types) must be satisfied by the JMeter side on
-  its own — the k6 side is additive, never a substitute.
+- **Tools**: JMeter only (§8 default) — the §8 bonus is for using k6 *instead*
+  of JMeter, not in addition, so no k6 mirror is built. Every JMeter-specific
+  rubric item (raw `.jtl`, HTML report folder, three distinct listener types)
+  is satisfied by the JMeter side under `perf/plans/`.
 - **Test-plan naming (§11, verified by TAs)**: `{StudentID}_{ScenarioType}_{YYYYMMDD}`,
   e.g. `23127300_Load_20260813.jmx`. `ScenarioType` ∈ `Load` / `Stress` / `Spike`
   (plus `Endurance` for the soak run). The date is the **real run date**, not a
@@ -70,8 +69,8 @@
 # Working rules for this repo
 
 - **Data-driven is mandatory (§6).** Every parameterised value comes from CSV
-  under `perf/data/` via `CSV Data Set Config` (JMeter) / `SharedArray` + `open()`
-  (k6). No credentials, product IDs, or payloads hardcoded inside a plan.
+  under `perf/data/` via `CSV Data Set Config`. No credentials, product IDs, or
+  payloads hardcoded inside a plan.
 - **Workflow 5 mutates real account state.** It changes passwords for real. Each
   virtual user needs its **own** account row in the CSV, and no two threads may
   ever hold the same email — a shared account produces false failures that look

@@ -1,6 +1,6 @@
 ---
 name: bug-report
-description: File a bug revealed by an HW05 performance run — writes bug-reports/BUG-<ID>.md in the repo's own template and creates a matching GitHub issue with evidence attached. Use whenever a JMeter/k6 run surfaces a genuine EShop defect (error response, crash, functional regression) or a reportable performance issue (latency/error-rate breach), as opposed to a test-plan bug, exhausted CSV data, or a stopped SUT.
+description: File a bug revealed by an HW05 performance run — writes bug-reports/BUG-<ID>.md in the repo's own template and creates a matching GitHub issue with evidence attached. Use whenever a JMeter run surfaces a genuine EShop defect (error response, crash, functional regression) or a reportable performance issue (latency/error-rate breach), as opposed to a test-plan bug, exhausted CSV data, or a stopped SUT.
 ---
 
 # Bug Report
@@ -36,9 +36,8 @@ countable separately in the README summary table.
 Only file real findings. Triage first — the following are **not** bugs, fix them
 and rerun:
 
-- CSV data exhausted mid-run (JMeter recycles or stops the thread; k6 wraps the
-  array) so later iterations reuse a spent account or a password that was
-  already rotated;
+- CSV data exhausted mid-run (JMeter recycles or stops the thread) so later
+  iterations reuse a spent account or a password that was already rotated;
 - an extractor that yielded an empty `${resetToken}` / `${token}`, turning every
   downstream request into a 401;
 - the **login lockout** firing because the plan reused an account across threads
@@ -69,7 +68,7 @@ cross-reference the old report ID in the body instead of silently reusing it.
    performance bug's evidence is a set, not a single image. Collect:
 
    - the **failing sampler's response** — from JMeter's View Results Tree
-     (Request + Response data tabs) or k6's console/check output. Save as
+     (Request + Response data tabs). Save as
      `bug-reports/screenshots/<BUG-ID>.png`;
    - the **`.jtl` row(s)** that back the claim, quoted as text in the report
      body — label, timestamp, elapsed, responseCode, success flag, failureMessage;
@@ -130,7 +129,7 @@ cross-reference the old report ID in the body instead of silently reusing it.
    <Critical|Major|Minor|Trivial> / <P0|P1|P2|P3>
 
    ## Environment
-   **Tool**: Apache JMeter 5.6.3 (hoặc k6 v2.2.0)
+   **Tool**: Apache JMeter 5.6.3
    **OS / Hardware**: <macOS ver, chip, RAM — khớp với bảng spec trong báo cáo>
    **SUT**: EShop backend, http://localhost:3000
    **Workload**: <threads / ramp-up / duration của lần chạy tái hiện được>

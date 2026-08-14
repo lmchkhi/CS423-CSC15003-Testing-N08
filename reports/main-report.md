@@ -2,7 +2,7 @@
 
 > **Sinh viên:** Hà Bảo Ngọc — 23127300 · **Nhóm:** N08
 > **Workflow:** #5 — *Khôi phục tài khoản rồi mua hàng* (`workflows.md`)
-> **Công cụ:** Apache JMeter 5.6.3 (chính) · k6 v2.2.0 (bonus §8)
+> **Công cụ:** Apache JMeter 5.6.3
 > **SUT:** EShop backend API — `http://localhost:3000`
 
 *(Khung báo cáo. Mỗi mục được điền trong giai đoạn tương ứng và commit riêng
@@ -46,7 +46,7 @@ entry trong `ai-audit-report.md`.)*
 | 2 | Chọn workload model (think-time / ramp-up / thread count) | |
 | 3 | Mô hình hoá dữ liệu CSV | |
 | 4 | Extractor + assertion | |
-| 5 | Sinh `.jmx` / script k6 | |
+| 5 | Sinh `.jmx` | |
 | 6 | Rà soát và sửa (human review) | |
 
 ### 2.2. Ba workload model

@@ -4,7 +4,7 @@
 > **Nhóm:** N08
 > **Môn:** CS423 / CSC15003 — Kiểm thử Phần mềm
 > **Phạm vi:** Workflow 5 — *Khôi phục tài khoản rồi mua hàng*, phủ đủ ba nhóm endpoint auth-heavy / read-heavy / transactional (§5).
-> **Công cụ:** Apache JMeter 5.6.3 (chính, §8 mặc định) · k6 v2.2.0 (bonus §8)
+> **Công cụ:** Apache JMeter 5.6.3
 
 ---
 
@@ -76,11 +76,9 @@ POST /api/checkout
 | Đường dẫn | Nội dung |
 |---|---|
 | `perf/plans/jmeter/` | Test plan JMeter `.jmx` — `23127300_{Load\|Stress\|Spike}_{YYYYMMDD}` |
-| `perf/plans/k6/` | Bản k6 của cùng workflow (bonus §8) |
 | `perf/data/` | Dữ liệu CSV cho toàn bộ tham số (§6 — data-driven) |
 | `perf/results/jtl/` | Log `.jtl` thô, đính kèm đầy đủ (§11) |
 | `perf/results/html/` | Thư mục HTML report của từng lần chạy |
-| `perf/results/k6/` | Output tương đương của k6 |
 | `perf/scripts/` | Script seed dữ liệu, reset khoá tài khoản, chạy kịch bản |
 | `perf/evidence/` | Ảnh resource monitor và cấu hình phần cứng |
 | `reports/main-report.md` | Báo cáo chính |
