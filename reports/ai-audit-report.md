@@ -481,3 +481,25 @@ tôi commit rồi, bây giờ làm pha 7 giúp tôi, cũng không tự ý commit
 ```text
 Thực hiện Pha 7 không commit: đối chiếu summary CSV Load/Stress/Spike/Endurance, cập nhật main report bug status, AI analysis draft, human misinterpretation hunt, recommendation judgement; cập nhật execution plan Pha 7. Không stage/commit, giữ raw Spike JTL 160 MB local ngoài Git.
 ```
+
+## Entry #20
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 06:19 GMT+7 |
+| **Artifact type** | HW05 Pha 8 continuous performance testing proposal |
+
+**Full prompt:**
+
+```text
+thực hiện bước tiếp theo
+```
+
+### (2) AI Output
+
+```text
+Thực hiện Pha 8 không commit: bổ sung continuous performance testing proposal vào reports/main-report.md với flow chart, baseline Load p95/error rate, warning/fail gate cho p95/error/throughput/checkout, CI trigger/setup/JMeter CLI subset/artifact/baseline update và trade-off; cập nhật reports/hw05-execution-plan.md trạng thái Pha 8.
+```

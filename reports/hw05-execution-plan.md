@@ -263,6 +263,14 @@ Kết quả cần có:
 - Flow chart Mermaid trong `reports/main-report.md`.
 - Trade-off rõ ràng.
 
+Trạng thái 2026-08-15:
+
+- Đã viết proposal continuous performance testing trong `reports/main-report.md`.
+- Đã dùng Load p95 = 5 ms và error rate = 0% làm baseline đề xuất cho p95 regression gate.
+- Đã nêu warning/fail gate cho p95, error rate, throughput và checkout p95.
+- Đã mô tả CI trigger, setup, JMeter CLI subset, parse `.jtl`, lưu artifact và quy tắc update baseline.
+- Đã thảo luận trade-off: cost CI, false alarm, data stability, runner variability, coverage limitation và maintenance.
+
 ### Pha 9 - Hoàn thiện video demo và submission
 
 Mục tiêu:

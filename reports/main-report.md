@@ -279,6 +279,8 @@ AI/Codex draft analysis:
 
 ## 15. Continuous performance testing proposal
 
+Mục tiêu của continuous performance testing là phát hiện regression hiệu năng sớm khi backend/API thay đổi, không thay thế cho full benchmark thủ công. Pipeline đề xuất dùng một subset ngắn của Workflow 1, chạy trong CI hoặc pre-release job trên môi trường ổn định.
+
 ```mermaid
 flowchart TD
   A[Commit/PR] --> B{Backend/API changed?}
@@ -291,13 +293,33 @@ flowchart TD
   G -- No --> I[Pass and store baseline candidate]
 ```
 
+Baseline đề xuất:
+
+| Metric gate | Baseline dùng trong bài | Warning | Fail |
+| --- | ---: | ---: | ---: |
+| Workflow p95 | Load p95 = 5 ms | p95 tăng > 20% so với baseline trong 2 lần chạy liên tiếp | p95 tăng > 50% hoặc vượt SLA nội bộ |
+| Error rate | 0% | > 0% nhưng không lặp lại | > 1% hoặc có HTTP 5xx/timeout lặp lại |
+| Throughput | Load RPS = 4.0384 | giảm > 15% khi cấu hình tải giữ nguyên | giảm > 30% khi cấu hình tải giữ nguyên |
+| Checkout p95 | Theo dõi riêng vì là endpoint chậm nhất tương đối | tăng rõ rệt so với baseline endpoint | có 5xx/timeout hoặc tăng mạnh kèm CPU/RAM bất thường |
+
+Cấu hình CI gợi ý:
+
+- Trigger: chạy full functional tests cho mọi PR; chỉ chạy performance subset khi thay đổi `backend`, API contract, database schema, dependency runtime hoặc cấu hình deployment.
+- Setup: start backend trên runner cố định, seed dữ liệu, tạo account test bằng `/api/register` nếu chưa tồn tại.
+- Test subset: dùng JMeter CLI với Workflow 1 ở mức Load rút gọn, ví dụ 20-50 VUs trong 3-5 phút; không dùng Spike làm gate mặc định vì dễ nhiễu.
+- Parse metric: dùng script `skills/hw05-performance-report/scripts/summarize_jtl.py` để lấy p95/p99/error rate/throughput từ `.jtl`.
+- Artifact: lưu `.jtl`, JMeter log, HTML dashboard và summary CSV cho mỗi CI run.
+- Decision: fail build khi error rate > 1% hoặc có regression p95 nghiêm trọng; warning khi regression nhẹ để reviewer kiểm tra thêm.
+- Baseline update: chỉ cập nhật baseline sau khi run pass ổn định và thay đổi được reviewer xác nhận không phải regression.
+
 Trade-off:
 
-- Cost: TODO.
-- False alarms: TODO.
-- Data stability: TODO.
-- Runner variability: TODO.
-- Coverage limitation: TODO.
+- Cost: performance test làm CI lâu hơn functional smoke, nên không nên chạy Load/Stress/Spike/Endurance đầy đủ trên mọi commit.
+- False alarms: runner local/CI có nhiễu CPU/RAM, vì vậy warning nên dựa trên nhiều lần chạy hoặc ngưỡng đủ rộng thay vì chỉ một spike nhỏ.
+- Data stability: dữ liệu seed/account phải cố định; nếu account bị thiếu hoặc token/auth sai thì kết quả là lỗi test setup, không phải regression hiệu năng.
+- Runner variability: baseline nên được đo trên cùng loại runner và cùng cấu hình SUT; không so trực tiếp số local macOS với CI cloud nếu môi trường khác nhau.
+- Coverage limitation: subset Workflow 1 chỉ bao phủ login, read endpoints, cart và checkout; các workflow khác như admin/reporting/payment nếu có vẫn cần test riêng.
+- Maintenance: khi API thay đổi, JMeter plan và extractor/assertion phải được cập nhật cùng PR để tránh false fail.
 
 ## 16. Demo video
 
