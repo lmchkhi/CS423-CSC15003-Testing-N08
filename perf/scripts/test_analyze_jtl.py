@@ -77,5 +77,24 @@ class TestSummarize(unittest.TestCase):
         self.assertEqual(s["by_label"]["login"]["codes"]["403"], 2)
 
 
+class TestSteadyState(unittest.TestCase):
+    def test_drops_samples_inside_the_ramp_window(self):
+        rows = [(10_000 + i * 1000, 10, "x", "200", "true") for i in range(10)]
+        samples = analyze_jtl.load_samples(jtl(rows))
+        kept = analyze_jtl.steady_state(samples, 3)
+        self.assertEqual(len(kept), 7)
+        self.assertEqual(kept[0]["ts"], 13_000)
+
+    def test_zero_skip_keeps_everything(self):
+        rows = [(10_000 + i * 1000, 10, "x", "200", "true") for i in range(4)]
+        samples = analyze_jtl.load_samples(jtl(rows))
+        self.assertEqual(len(analyze_jtl.steady_state(samples, 0)), 4)
+
+    def test_skip_longer_than_the_run_keeps_nothing(self):
+        rows = [(10_000 + i * 1000, 10, "x", "200", "true") for i in range(4)]
+        samples = analyze_jtl.load_samples(jtl(rows))
+        self.assertEqual(analyze_jtl.steady_state(samples, 600), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

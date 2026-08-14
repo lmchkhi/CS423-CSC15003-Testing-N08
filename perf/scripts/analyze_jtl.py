@@ -52,6 +52,19 @@ def percentile(values, p):
     return values[rank - 1]
 
 
+def steady_state(samples, skip_seconds):
+    """Drop every sample that started within skip_seconds of the run's start.
+
+    Ramp-up inflates the mean and hides the plateau. Reporting a steady-state
+    figure alongside the whole-run figure is the honest way to describe a
+    ramped test, and it is how the Task 2 corrections are computed.
+    """
+    if not samples or skip_seconds <= 0:
+        return list(samples)
+    cutoff = min(s["ts"] for s in samples) + skip_seconds * 1000
+    return [s for s in samples if s["ts"] >= cutoff]
+
+
 def _stats(samples):
     elapsed = sorted(s["elapsed"] for s in samples)
     count = len(samples)
@@ -116,9 +129,17 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("jtl", type=pathlib.Path)
     ap.add_argument("--json", action="store_true", help="machine-readable output")
+    ap.add_argument("--skip-ramp", type=int, default=0, metavar="SECONDS",
+                    help="exclude samples started within SECONDS of the run start")
     args = ap.parse_args()
 
     samples = load_samples(args.jtl)
+    title = args.jtl.name
+    if args.skip_ramp:
+        before = len(samples)
+        samples = steady_state(samples, args.skip_ramp)
+        title += f" (steady state, first {args.skip_ramp}s dropped: " \
+                 f"{before - len(samples)} of {before} samples)"
     result = summarize(samples)
     if result["overall"] is None:
         print(f"{args.jtl}: no samples")
@@ -126,7 +147,7 @@ def main():
     if args.json:
         print(json.dumps(result, indent=2))
     else:
-        print(render(result, args.jtl.name))
+        print(render(result, title))
 
 
 if __name__ == "__main__":
