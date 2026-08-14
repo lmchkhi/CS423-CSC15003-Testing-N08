@@ -98,7 +98,11 @@ fi
 
 echo
 echo "== manifest row (paste into reports/run-manifest.md)"
-if ! python3 - "$JTL" "$SCENARIO" "$STEM" "$START_ISO" "$DURATION" <<'PY'
+# set +e around just this call: `if ! CMD; then` would discard CMD's real
+# exit code (collapsed to 0/1 by the negation), and exit 3 vs any other
+# nonzero code needs to stay distinguishable below.
+set +e
+python3 - "$JTL" "$SCENARIO" "$STEM" "$START_ISO" "$DURATION" <<'PY'
 import sys, pathlib
 sys.path.insert(0, "perf/scripts")
 import analyze_jtl
@@ -108,16 +112,26 @@ s = result["overall"]
 if s is None:
     # Zero-sample .jtl is a real outcome here (unreachable SUT, wrong loop
     # count) — say so explicitly rather than crashing on s['count'] or
-    # printing a plausible-looking row built from missing numbers.
+    # printing a plausible-looking row built from missing numbers. There is
+    # no legitimate way for a graded scenario to produce zero samples, so
+    # this is a failed run, signalled via exit 3 (distinct from the plain
+    # "something in this step broke" exit 1 below) and picked up by the
+    # shell side as a DEGRADED condition.
     print(f"| {scenario} | `{stem}.jmx` | JMeter | {start} | {duration}s | "
           f"| 0 | NO SAMPLES | NO SAMPLES | NO SAMPLES | "
           f"`perf/results/jtl/{stem}.jtl` | `perf/results/html/{stem}/` | |")
+    sys.exit(3)
 else:
     print(f"| {scenario} | `{stem}.jmx` | JMeter | {start} | {duration}s | "
           f"| {s['count']} | {s['error_pct']} | {s['p95']} | {s['throughput']} | "
           f"`perf/results/jtl/{stem}.jtl` | `perf/results/html/{stem}/` | |")
 PY
-then
+MANIFEST_RC=$?
+set -e
+if [[ "$MANIFEST_RC" -eq 3 ]]; then
+  echo "   WARNING: zero samples in $JTL — no legitimate graded run produces this; treat as a failed run and redo it" >&2
+  DEGRADED=1
+elif [[ "$MANIFEST_RC" -ne 0 ]]; then
   echo "   WARNING: manifest row generation failed unexpectedly — inspect $JTL by hand" >&2
   DEGRADED=1
 fi
