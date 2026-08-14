@@ -384,8 +384,8 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           <hashTree/>
         </hashTree>
         <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
-          <stringProp name="ConstantTimer.delay">1000</stringProp>
-          <stringProp name="RandomTimer.range">2000.0</stringProp>
+          <stringProp name="ConstantTimer.delay">${__P(think.delay,1000)}</stringProp>
+          <stringProp name="RandomTimer.range">${__P(think.range,2000.0)}</stringProp>
         </UniformRandomTimer>
         <hashTree/>
       </hashTree>
