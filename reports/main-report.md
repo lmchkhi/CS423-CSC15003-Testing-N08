@@ -55,7 +55,9 @@ Mapping nhóm endpoint:
 Evidence phần cứng:
 
 - Hardware spec: `testing-artifacts/hw05/evidence/hardware/system-profiler-hardware-20260815.txt`.
+- Screenshot Load CLI + htop: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png`.
 - Load test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-postrun-20260815.txt`.
+- Stress test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-stress-ramp-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-stress-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-stress-postrun-20260815.txt`.
 - Process snapshot: `testing-artifacts/hw05/evidence/hardware/process-load-midrun-20260815.txt`.
 - Screenshot/video evidence vẫn cần bổ sung khi quay demo để thấy JMeter CLI và resource monitor cùng khung hình.
 
@@ -159,8 +161,8 @@ JMeter smoke:
 | Scenario | Plan | Raw JTL | HTML report | Resource evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
 | Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO screenshot/video | Pass 20 samples, 0 errors |
-| Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md` | Pass 1176 samples, 0 errors |
-| Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png` | Pass 1176 samples, 0 errors |
+| Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl` | `testing-artifacts/hw05/html/stress/index.html` | `testing-artifacts/hw05/evidence/notes/stress-20260815.md` | Pass 8930 samples, 0 errors |
 | Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
 | Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
 
@@ -169,7 +171,7 @@ JMeter smoke:
 | Scenario | VUs | Samples | Error rate | Avg ms | p50 | p90 | p95 | p99 | Throughput/RPS | CPU/RAM note |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | Load | 50 | 1176 | 0.00% | 2.91 | 3 | 4 | 5 | 6 | 4.0384 | Steady `top`: 27.14% user, 16.44% sys, 56.41% idle; PhysMem 35G used, 0 swap |
-| Stress | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
+| Stress | 150 | 8930 | 0.00% | 1.89 | 2 | 3 | 4 | 5 | 21.6052 | Steady `top`: 16.81% user, 11.57% sys, 71.60% idle; PhysMem 33G used |
 | Spike | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 | Endurance | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 
@@ -185,7 +187,11 @@ Resource snapshot steady-state lúc 02:47:46 ghi nhận CPU còn 56.41% idle và
 
 ### 10.2 Stress
 
-TODO.
+Stress test chạy đủ 7 phút từ 04:00:29 đến 04:07:29 ngày 2026-08-15 với 150 VUs, ramp-up 120s và think time 800ms + random 800ms. Kết quả đạt 8930 samples, 0 errors, overall p95 4 ms, p99 5 ms và throughput 21.6052 RPS.
+
+So với Load baseline, Stress tăng throughput từ 4.0384 RPS lên 21.6052 RPS nhưng không làm tăng error rate. Latency vẫn thấp; request chậm nhất theo p95 là `POST /api/checkout` với p95 5 ms và p99 6 ms. Không có dấu hiệu token lỗi, account lockout, HTTP 4xx/5xx hoặc timeout.
+
+Resource snapshot steady-state lúc 04:02:32 ghi nhận CPU còn 71.60% idle và memory vẫn còn 2798M unused. Vì vậy ở mức 150 VUs chưa tìm thấy điểm gãy của SUT/hardware. Kết luận report cho Stress là hệ thống vẫn ổn định ở workload này; chưa tạo bug report.
 
 ### 10.3 Spike
 

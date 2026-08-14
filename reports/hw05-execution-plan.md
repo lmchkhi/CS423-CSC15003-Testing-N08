@@ -162,6 +162,15 @@ Kết quả cần có:
 - Nhận xét điểm gãy và recovery.
 - Bug report nếu có 5xx/crash/timeout thật.
 
+Trạng thái 2026-08-15:
+
+- Đã chạy Stress test chính thức ngoài sandbox bằng JMeter CLI.
+- Cấu hình: 150 VUs, ramp-up 120s, duration 420s, think time 800ms + random 800ms.
+- Kết quả: 8930 samples, 0 errors, avg 1.89 ms, p95 4 ms, p99 5 ms, throughput 21.6052 RPS.
+- Evidence chính: `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl`, `testing-artifacts/hw05/html/stress/index.html`, `testing-artifacts/hw05/analysis/stress-summary.csv`, `testing-artifacts/hw05/evidence/notes/stress-20260815.md`.
+- Text resource evidence đã lưu bằng `top`/`ps`; screenshot Stress có thể chụp bằng rerun riêng nếu chưa chụp trong run chính.
+- Không tạo bug report vì Stress run không có lỗi SUT và chưa tìm thấy điểm gãy ở 150 VUs.
+
 ### Pha 5 - Chạy Spike test
 
 Mục tiêu:

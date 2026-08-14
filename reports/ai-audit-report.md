@@ -305,3 +305,69 @@ tôi đã xoá các phần nên xoá rồi, kiểm tra lại xem đúng chưa, �
 ```text
 Xác nhận cleanup đúng: .DS_Store và dashboard troubleshooting smoke/smoke-rerun đã được xoá, còn EShop_Workload_Model.jmx là file seminar reference untracked. Thực hiện Pha 3 Load test bằng JMeter CLI ngoài sandbox với 50 VUs, ramp-up 60s, duration 300s. Kết quả Load pass: 1176 samples, 0 errors, avg 2.91 ms, p95 5 ms, p99 6 ms, throughput 4.0384 RPS. Sinh JTL, JMeter log, HTML Dashboard, load-summary.csv, hardware/top/process evidence và cập nhật main report/execution plan.
 ```
+
+## Entry #12
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 03:04 GMT+7 |
+| **Artifact type** | HW05 screenshot evidence guidance |
+
+**Full prompt:**
+
+```text
+theo như đề thì các phần này cần screenshot nữa mà đúng không, và nên chụp bằng htop hay Activity Monitor hay gì, chạy trong lúc đang chạy test hay sao, cần chụp thông tin gì. hiện tại bạn chạy lệnh rồi copy vào testing-artifacts/hw05/evidence/hardware đúng không, tôi có thể tự chạy lại lệnh test rồi trong 5 phút đó tôi chụp được không, nó sẽ thay đổi những file nào, có sao không.
+```
+
+### (2) AI Output
+
+```text
+Giải thích yêu cầu screenshot theo đề HW05: mỗi run cần ảnh tool JMeter/CLI cùng resource monitor htop/Activity Monitor trong lúc test đang chạy, cộng hardware/spec screenshot. Khuyến nghị dùng htop nếu muốn thấy rõ process backend/JMeter trong terminal, hoặc Activity Monitor nếu dễ chụp GUI; cần chụp CPU, memory, process backend node server.js và JMeter/java. Giải thích artifact hiện tại là text evidence từ system_profiler/top/ps, chưa thay thế screenshot/video. Nếu tự chạy lại Load để chụp thì nên ghi output vào file/folder rerun riêng để không ghi đè artifact chính đã commit.
+```
+
+## Entry #13
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 03:07 GMT+7 |
+| **Artifact type** | HW05 screenshot rerun cleanup guidance |
+
+**Full prompt:**
+
+```text
+có thể chạy lệnh bạn đưa để không ghi đè các file cũ rồi lấy screenshot xong thì xoá các file đó đi không
+```
+
+### (2) AI Output
+
+```text
+Trả lời có thể chạy rerun để chụp screenshot rồi xoá artifact tạm. Khuyến nghị ghi JTL/log vào /private/tmp hoặc thư mục rerun riêng, không dùng lại đường dẫn official đã commit; nếu chỉ cần screenshot CLI + htop thì không cần sinh HTML Dashboard rerun. Screenshot nên lưu vào testing-artifacts/hw05/evidence/screenshots, còn file tạm có thể xoá sau khi chụp.
+```
+
+## Entry #14
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 04:09 GMT+7 |
+| **Artifact type** | HW05 Stress test execution |
+
+**Full prompt:**
+
+```text
+tôi đã thêm hình rồi, bây giờ có thể tiếp tục pha 4 rồi đúng không. sau đó tôi cũng sẽ tự chạy lại để chụp screenshot đúng không
+```
+
+### (2) AI Output
+
+```text
+Xác nhận screenshot Load đã có tại testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png và tiếp tục Pha 4 Stress test. Chạy JMeter Stress ngoài sandbox với 150 VUs, ramp-up 120s, duration 420s. Kết quả Stress pass: 8930 samples, 0 errors, avg 1.89 ms, p95 4 ms, p99 5 ms, throughput 21.6052 RPS. Sinh JTL, JMeter log, HTML Dashboard, stress-summary.csv, top/process evidence; cập nhật main report/execution plan. Ghi chú người dùng có thể tự rerun Stress chỉ để chụp screenshot nếu chưa chụp trong run chính, dùng output tạm để không ghi đè artifact official.
+```
