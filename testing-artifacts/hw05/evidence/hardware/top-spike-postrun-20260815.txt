@@ -1,0 +1,32 @@
+Processes: 905 total, 5 running, 900 sleeping, 4146 threads 
+2026/08/15 04:39:43
+Load Avg: 3.27, 2.69, 2.22 
+CPU usage: 16.0% user, 14.85% sys, 69.14% idle 
+SharedLibs: 1271M resident, 244M data, 272M linkedit.
+MemRegions: 601056 total, 10G resident, 816M private, 4041M shared.
+PhysMem: 33G used (3167M wired, 688M compressor), 1963M unused.
+VM: 410T vsize, 6144M framework vsize, 0(0) swapins, 0(0) swapouts.
+Networks: packets: 28261950/23G in, 17890668/10G out.
+Disks: 5098303/133G read, 14061371/223G written.
+
+PID    COMMAND          %CPU TIME     #TH #WQ #PORTS MEM   PURG CMPRS PGRP  PPID  STATE    BOOSTS    %CPU_ME %CPU_OTHRS UID FAULTS COW  MSGSENT MSGRECV SYSBSD  SYSMACH CSW     PAGEINS IDLEW POWER INSTRS CYCLES JETPRI USER       #MREGS RPRVT VPRVT VSIZE KPRVT KSHRD
+99049  IOUserBluetoothS 0.0  00:00.18 2   1   78     912K  0B   0B    99049 1     sleeping  0[1]     0.00000 0.00000    270 473    60   4154    2723    2987    2887    3828    2       0     0.0   0      0      150    _driverkit N/A    N/A   N/A   N/A   N/A   N/A  
+99048  IOUserBluetoothS 0.0  00:00.21 2   1   77     928K  0B   0B    99048 1     sleeping  0[1]     0.00000 0.00000    270 473    60   4147    2718    2977    2879    4131    14      0     0.0   0      0      150    _driverkit N/A    N/A   N/A   N/A   N/A   N/A  
+99045  bluetoothd       0.0  03:19.95 10  4   440    9105K 80K  0B    99045 1     sleeping *0[1]     0.00000 0.00000    0   34897  190  474978  196910  4539930 814547  1448515 1       1068  0.0   0      0      40     root       N/A    N/A   N/A   N/A   N/A   N/A  
+95124  icloudwebd       0.0  00:02.36 2   1   95     9185K 0B   3184K 95124 1     sleeping *0[139]   0.00000 0.00000    502 5238   183  2371    5728    59266   15325   33527   13      87    0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+93636  writeconfig      0.0  00:00.03 2   1   29     2144K 0B   0B    93636 1     sleeping *0[1]     0.00000 0.00000    0   764    98   145     71      676     271     91      6       0     0.0   0      0      0      root       N/A    N/A   N/A   N/A   N/A   N/A  
+93161  SpeechSynthesisS 0.0  00:00.02 2   1   71     3536K 0B   1456K 93161 1     sleeping *1[1]     0.00000 0.00000    502 1016   107  306     169     1257    740     403     3       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+93146  QLPreviewGenerat 0.0  00:01.29 3   1   152    6673K 0B   976K  93146 1     sleeping *0[3096]  0.00000 0.00000    502 7144   170  19770   7375    44237   58592   23161   2       60    0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90777  Google Chrome He 0.0  00:04.07 21  1   147    79M   0B   2256K 86651 86651 sleeping  0[5]     0.00000 0.00000    502 20707  1022 39539   21058   32399   72802   44271   19      791   0.0   0      0      30     thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90244  MTLCompilerServi 0.0  00:00.11 2   1   40     19M   0B   1712K 90244 1     sleeping *0[5]     0.00000 0.00000    502 2455   121  192     137     1716    450     181     2       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90243  MTLCompilerServi 0.0  00:00.13 2   1   34     15M   0B   784K  90243 1     sleeping *0[26]    0.00000 0.00000    502 1916   121  200     143     1487    452     128     2       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90225  com.apple.photos 0.0  00:00.35 2   1   56     5169K 0B   3904K 90225 1     sleeping  0[0]     0.00000 0.00000    502 2248   138  7053    6884    5085    17329   5708    63      0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90224  PlugInLibrarySer 0.0  00:00.04 2   1   27     2032K 0B   1712K 90224 1     sleeping  0[0]     0.00000 0.00000    502 610    93   146     60      422     254     66      2       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90206  mstreamd         0.0  00:25.08 5   1   124    11M   32K  176K  90206 1     sleeping *27459[1] 0.00000 0.00000    502 13461  167  67328   37467   495307  304088  137356  2       104   0.0   0      0      60     thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+90157  com.apple.audio. 0.0  00:00.06 2   1   26     2848K 0B   32K   90157 1     sleeping *0[2]     0.00000 0.00000    502 1203   105  151     63      523     316     45      2       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+88936  SpeechSynthesisS 0.0  00:00.01 2   1   28     1952K 0B   32K   88936 1     sleeping *0[10]    0.00000 0.00000    502 736    102  233     88      667     439     99      3       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+88187  MTLCompilerServi 0.0  00:00.47 2   1   34     12M   0B   1568K 88187 1     sleeping *0[86]    0.00000 0.00000    502 1908   121  294     220     2562    631     268     2       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+88186  MTLCompilerServi 0.0  00:00.47 2   1   34     13M   0B   2336K 88186 1     sleeping *0[174]   0.00000 0.00000    502 2222   121  375     306     4231    801     427     2       0     0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+88134  PhotosPicker     0.0  00:12.73 9   6   469    24M   128K 560K  88134 1     sleeping *264[6]   0.00000 0.00000    502 14811  616  66503   36932   317923  214146  188617  16      2097  0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+88126  QuickLookUIServi 0.0  00:17.07 11  5   406    19M   103M 64K   88126 1     sleeping *0[24371] 0.00000 0.00000    502 118373 394  132910  82811   482029  402117  230389  105     1090  0.0   0      0      0      thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  
+88125  com.apple.appkit 0.0  02:47.29 4   2   426    181M  0B   22M   88125 1     sleeping *17678[5] 0.00000 0.00000    502 630280 524  609758  361019  2408586 2137863 819835  144     3249  0.0   0      0      40     thanhngo   N/A    N/A   N/A   N/A   N/A   N/A  

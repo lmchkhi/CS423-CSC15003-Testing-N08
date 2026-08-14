@@ -1,0 +1,737 @@
+2026-08-15 04:37:05,631 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-08-15 04:37:05,640 INFO o.a.j.JMeter: Loading user properties from: /Users/thanhngo/Applications/apache-jmeter-5.6.3/bin/user.properties
+2026-08-15 04:37:05,641 INFO o.a.j.JMeter: Loading system properties from: /Users/thanhngo/Applications/apache-jmeter-5.6.3/bin/system.properties
+2026-08-15 04:37:05,643 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-08-15 04:37:05,643 INFO o.a.j.JMeter: Version 5.6.3
+2026-08-15 04:37:05,643 INFO o.a.j.JMeter: java.version=25.0.4
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: os.name=Mac OS X
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: os.arch=aarch64
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: os.version=26.5.2
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: java.awt.headless=true
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-08-15 04:37:05,644 INFO o.a.j.JMeter: Available Processors =11
+2026-08-15 04:37:05,650 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-08-15 04:37:05,650 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-08-15 04:37:05,650 INFO o.a.j.JMeter: JMeterHome=/Users/thanhngo/Applications/apache-jmeter-5.6.3
+2026-08-15 04:37:05,650 INFO o.a.j.JMeter: user.dir  =/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08
+2026-08-15 04:37:05,650 INFO o.a.j.JMeter: PWD       =/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08
+2026-08-15 04:37:05,669 INFO o.a.j.JMeter: IP: 192.168.100.221 Name: MacBook-Pro FullName: mac.lan
+2026-08-15 04:37:05,673 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike'
+2026-08-15 04:37:05,674 INFO o.a.j.s.FileServer: Default base='/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08'
+2026-08-15 04:37:05,674 INFO o.a.j.s.FileServer: Set new base='/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/plans'
+2026-08-15 04:37:05,785 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-08-15 04:37:05,794 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-08-15 04:37:05,796 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-08-15 04:37:05,797 INFO o.a.j.s.SaveService: Loading file: testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx
+2026-08-15 04:37:05,818 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-15 04:37:05,818 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-15 04:37:05,818 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-15 04:37:05,818 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-15 04:37:05,818 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2026-08-15 04:37:05,818 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2026-08-15 04:37:05,834 INFO o.a.j.JMeter: Creating summariser <summary>
+2026-08-15 04:37:05,836 INFO o.a.j.r.d.ReportGenerator: ReportGenerator will use for Parsing the separator: ','
+2026-08-15 04:37:05,836 INFO o.a.j.r.d.ReportGenerator: Will generate report at end of test from  results file: testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl
+2026-08-15 04:37:05,836 INFO o.a.j.r.d.ReportGenerator: Reading report generator properties from: /Users/thanhngo/Applications/apache-jmeter-5.6.3/bin/reportgenerator.properties
+2026-08-15 04:37:05,836 INFO o.a.j.r.d.ReportGenerator: Merging with JMeter properties
+2026-08-15 04:37:05,838 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.temp_dir' not found, using default value 'temp' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.apdex_per_transaction' not found, using default value 'null' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: apdex_per_transaction is empty, not APDEX per transaction customization
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.sample_filter' not found, using default value 'null' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.report_title' not found, using default value 'null' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.start_date' not found, using default value 'null' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.end_date' not found, using default value 'null' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.date_format' not found, using default value 'null' instead.
+2026-08-15 04:37:05,839 INFO o.a.j.r.c.ReportGeneratorConfiguration: Will use date range start date: null, end date: null
+2026-08-15 04:37:05,840 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.totalTPS.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,840 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.activeThreadsOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,840 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.timeVsThreads.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimeDistribution.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.transactionsPerSecond.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentiles.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentilesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.connectTimeOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.latenciesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.filters_only_sample_series' not found, using default value 'true' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.series_filter' not found, using default value '' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.show_controllers_only' not found, using default value 'false' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.filters_only_sample_series' not found, using default value 'true' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.series_filter' not found, using default value '' instead.
+2026-08-15 04:37:05,841 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.show_controllers_only' not found, using default value 'false' instead.
+2026-08-15 04:37:05,848 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2026-08-15 04:37:05,849 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-08-15 04:37:05,849 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-08-15 04:37:05,851 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2026-08-15 04:37:05,851 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2026-08-15 04:37:05,872 INFO o.a.j.r.ClassFinder: Will scan jar /Users/thanhngo/Applications/apache-jmeter-5.6.3/lib/ext/jmeter-plugins-manager.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-08-15 04:37:05,902 INFO o.a.j.r.ClassFinder: Will scan jar /Users/thanhngo/Applications/apache-jmeter-5.6.3/lib/ext/jmeter-plugins-casutg-3.1.1.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-08-15 04:37:05,910 INFO o.a.j.JMeter: Running test (1786743425910)
+2026-08-15 04:37:05,918 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Spike Thread Group
+2026-08-15 04:37:05,918 INFO o.a.j.e.StandardJMeterEngine: Starting 200 threads for group Spike Thread Group.
+2026-08-15 04:37:05,918 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-08-15 04:37:05,918 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=200 ramp-up=30 delayedStart=false
+2026-08-15 04:37:05,950 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-1
+2026-08-15 04:37:05,951 INFO o.a.j.s.FileServer: Stored: testing-artifacts/hw05/data/workflow1_users.csv
+2026-08-15 04:37:05,963 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = MacBook-Pro
+2026-08-15 04:37:05,966 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2026-08-15 04:37:05,967 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2026-08-15 04:37:05,967 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2026-08-15 04:37:05,967 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2026-08-15 04:37:05,967 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2026-08-15 04:37:05,971 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2026-08-15 04:37:05,971 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2026-08-15 04:37:06,101 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-2
+2026-08-15 04:37:06,252 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-3
+2026-08-15 04:37:06,402 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-4
+2026-08-15 04:37:06,550 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-5
+2026-08-15 04:37:06,700 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-6
+2026-08-15 04:37:06,846 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-7
+2026-08-15 04:37:07,000 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-8
+2026-08-15 04:37:07,147 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-9
+2026-08-15 04:37:07,300 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-10
+2026-08-15 04:37:07,445 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-11
+2026-08-15 04:37:07,600 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-12
+2026-08-15 04:37:07,749 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-13
+2026-08-15 04:37:07,899 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-14
+2026-08-15 04:37:08,049 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-15
+2026-08-15 04:37:08,197 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-16
+2026-08-15 04:37:08,344 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-17
+2026-08-15 04:37:08,494 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-18
+2026-08-15 04:37:08,644 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-19
+2026-08-15 04:37:08,794 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-20
+2026-08-15 04:37:08,944 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-21
+2026-08-15 04:37:09,094 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-22
+2026-08-15 04:37:09,244 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-23
+2026-08-15 04:37:09,395 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-24
+2026-08-15 04:37:09,544 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-25
+2026-08-15 04:37:09,691 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-26
+2026-08-15 04:37:09,839 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-27
+2026-08-15 04:37:09,993 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-28
+2026-08-15 04:37:10,141 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-29
+2026-08-15 04:37:10,293 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-30
+2026-08-15 04:37:10,443 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-31
+2026-08-15 04:37:10,591 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-32
+2026-08-15 04:37:10,743 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-33
+2026-08-15 04:37:10,891 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-34
+2026-08-15 04:37:11,039 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-35
+2026-08-15 04:37:11,189 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-36
+2026-08-15 04:37:11,341 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-37
+2026-08-15 04:37:11,489 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-38
+2026-08-15 04:37:11,637 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-39
+2026-08-15 04:37:11,787 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-40
+2026-08-15 04:37:11,935 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-41
+2026-08-15 04:37:12,086 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-42
+2026-08-15 04:37:12,235 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-43
+2026-08-15 04:37:12,389 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-44
+2026-08-15 04:37:12,536 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-45
+2026-08-15 04:37:12,686 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-46
+2026-08-15 04:37:12,836 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-47
+2026-08-15 04:37:12,981 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-48
+2026-08-15 04:37:13,130 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-49
+2026-08-15 04:37:13,285 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-50
+2026-08-15 04:37:13,431 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-51
+2026-08-15 04:37:13,583 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-52
+2026-08-15 04:37:13,731 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-53
+2026-08-15 04:37:13,881 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-54
+2026-08-15 04:37:14,033 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-55
+2026-08-15 04:37:14,177 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-56
+2026-08-15 04:37:14,333 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-57
+2026-08-15 04:37:14,480 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-58
+2026-08-15 04:37:14,631 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-59
+2026-08-15 04:37:14,778 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-60
+2026-08-15 04:37:14,930 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-61
+2026-08-15 04:37:15,077 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-62
+2026-08-15 04:37:15,229 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-63
+2026-08-15 04:37:15,378 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-64
+2026-08-15 04:37:15,529 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-65
+2026-08-15 04:37:15,678 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-66
+2026-08-15 04:37:15,828 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-67
+2026-08-15 04:37:15,977 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-68
+2026-08-15 04:37:16,127 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-69
+2026-08-15 04:37:16,278 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-70
+2026-08-15 04:37:16,427 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-71
+2026-08-15 04:37:16,577 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-72
+2026-08-15 04:37:16,727 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-73
+2026-08-15 04:37:16,877 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-74
+2026-08-15 04:37:17,027 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-75
+2026-08-15 04:37:17,176 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-76
+2026-08-15 04:37:17,327 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-77
+2026-08-15 04:37:17,473 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-78
+2026-08-15 04:37:17,626 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-79
+2026-08-15 04:37:17,778 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-80
+2026-08-15 04:37:17,927 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-81
+2026-08-15 04:37:18,076 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-82
+2026-08-15 04:37:18,219 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-83
+2026-08-15 04:37:18,374 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-84
+2026-08-15 04:37:18,524 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-85
+2026-08-15 04:37:18,669 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-86
+2026-08-15 04:37:18,824 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-87
+2026-08-15 04:37:18,974 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-88
+2026-08-15 04:37:19,119 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-89
+2026-08-15 04:37:19,270 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-90
+2026-08-15 04:37:19,423 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-91
+2026-08-15 04:37:19,573 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-92
+2026-08-15 04:37:19,719 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-93
+2026-08-15 04:37:19,873 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-94
+2026-08-15 04:37:20,020 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-95
+2026-08-15 04:37:20,174 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-96
+2026-08-15 04:37:20,324 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-97
+2026-08-15 04:37:20,473 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-98
+2026-08-15 04:37:20,620 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-99
+2026-08-15 04:37:20,769 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-100
+2026-08-15 04:37:20,923 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-101
+2026-08-15 04:37:21,075 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-102
+2026-08-15 04:37:21,224 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-103
+2026-08-15 04:37:21,369 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-104
+2026-08-15 04:37:21,520 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-105
+2026-08-15 04:37:21,674 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-106
+2026-08-15 04:37:21,823 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-107
+2026-08-15 04:37:21,969 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-108
+2026-08-15 04:37:22,122 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-109
+2026-08-15 04:37:22,273 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-110
+2026-08-15 04:37:22,424 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-111
+2026-08-15 04:37:22,573 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-112
+2026-08-15 04:37:22,719 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-113
+2026-08-15 04:37:22,873 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-114
+2026-08-15 04:37:23,019 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-115
+2026-08-15 04:37:23,174 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-116
+2026-08-15 04:37:23,324 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-117
+2026-08-15 04:37:23,473 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-118
+2026-08-15 04:37:23,621 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-119
+2026-08-15 04:37:23,774 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-120
+2026-08-15 04:37:23,919 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-121
+2026-08-15 04:37:24,068 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-122
+2026-08-15 04:37:24,220 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-123
+2026-08-15 04:37:24,373 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-124
+2026-08-15 04:37:24,523 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-125
+2026-08-15 04:37:24,674 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-126
+2026-08-15 04:37:24,824 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-127
+2026-08-15 04:37:24,973 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-128
+2026-08-15 04:37:25,123 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-129
+2026-08-15 04:37:25,269 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-130
+2026-08-15 04:37:25,423 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-131
+2026-08-15 04:37:25,569 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-132
+2026-08-15 04:37:25,724 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-133
+2026-08-15 04:37:25,869 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-134
+2026-08-15 04:37:26,019 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-135
+2026-08-15 04:37:26,169 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-136
+2026-08-15 04:37:26,323 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-137
+2026-08-15 04:37:26,474 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-138
+2026-08-15 04:37:26,624 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-139
+2026-08-15 04:37:26,773 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-140
+2026-08-15 04:37:26,923 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-141
+2026-08-15 04:37:27,069 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-142
+2026-08-15 04:37:27,219 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-143
+2026-08-15 04:37:27,373 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-144
+2026-08-15 04:37:27,523 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-145
+2026-08-15 04:37:27,674 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-146
+2026-08-15 04:37:27,820 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-147
+2026-08-15 04:37:27,973 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-148
+2026-08-15 04:37:28,119 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-149
+2026-08-15 04:37:28,273 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-150
+2026-08-15 04:37:28,419 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-151
+2026-08-15 04:37:28,569 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-152
+2026-08-15 04:37:28,719 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-153
+2026-08-15 04:37:28,869 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-154
+2026-08-15 04:37:29,024 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-155
+2026-08-15 04:37:29,174 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-156
+2026-08-15 04:37:29,319 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-157
+2026-08-15 04:37:29,470 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-158
+2026-08-15 04:37:29,621 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-159
+2026-08-15 04:37:29,770 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-160
+2026-08-15 04:37:29,921 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-161
+2026-08-15 04:37:30,001 INFO o.a.j.r.Summariser: summary + 243285 in 00:00:24 = 10099.0/s Avg:     7 Min:     0 Max:    61 Err:     0 (0.00%) Active: 161 Started: 161 Finished: 0
+2026-08-15 04:37:30,073 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-162
+2026-08-15 04:37:30,223 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-163
+2026-08-15 04:37:30,370 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-164
+2026-08-15 04:37:30,524 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-165
+2026-08-15 04:37:30,673 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-166
+2026-08-15 04:37:30,823 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-167
+2026-08-15 04:37:30,973 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-168
+2026-08-15 04:37:31,123 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-169
+2026-08-15 04:37:31,270 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-170
+2026-08-15 04:37:31,423 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-171
+2026-08-15 04:37:31,574 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-172
+2026-08-15 04:37:31,723 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-173
+2026-08-15 04:37:31,871 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-174
+2026-08-15 04:37:32,020 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-175
+2026-08-15 04:37:32,173 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-176
+2026-08-15 04:37:32,323 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-177
+2026-08-15 04:37:32,470 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-178
+2026-08-15 04:37:32,620 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-179
+2026-08-15 04:37:32,774 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-180
+2026-08-15 04:37:32,920 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-181
+2026-08-15 04:37:33,069 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-182
+2026-08-15 04:37:33,223 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-183
+2026-08-15 04:37:33,371 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-184
+2026-08-15 04:37:33,524 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-185
+2026-08-15 04:37:33,673 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-186
+2026-08-15 04:37:33,820 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-187
+2026-08-15 04:37:33,969 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-188
+2026-08-15 04:37:34,120 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-189
+2026-08-15 04:37:34,273 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-190
+2026-08-15 04:37:34,423 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-191
+2026-08-15 04:37:34,573 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-192
+2026-08-15 04:37:34,723 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-193
+2026-08-15 04:37:34,872 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-194
+2026-08-15 04:37:35,023 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-195
+2026-08-15 04:37:35,174 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-196
+2026-08-15 04:37:35,324 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-197
+2026-08-15 04:37:35,474 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-198
+2026-08-15 04:37:35,623 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-199
+2026-08-15 04:37:35,770 INFO o.a.j.t.JMeterThread: Thread started: Spike Thread Group 1-200
+2026-08-15 04:38:00,000 INFO o.a.j.r.Summariser: summary + 313860 in 00:00:30 = 10462.0/s Avg:    18 Min:     1 Max:    75 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2026-08-15 04:38:00,000 INFO o.a.j.r.Summariser: summary = 557145 in 00:00:54 = 10300.3/s Avg:    14 Min:     0 Max:    75 Err:     0 (0.00%)
+2026-08-15 04:38:30,001 INFO o.a.j.r.Summariser: summary + 302253 in 00:00:30 = 10074.8/s Avg:    19 Min:     1 Max:    93 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2026-08-15 04:38:30,001 INFO o.a.j.r.Summariser: summary = 859398 in 00:01:24 = 10219.9/s Avg:    16 Min:     0 Max:    93 Err:     0 (0.00%)
+2026-08-15 04:39:00,002 INFO o.a.j.r.Summariser: summary + 304645 in 00:00:30 = 10154.5/s Avg:    19 Min:     0 Max:   108 Err:     0 (0.00%) Active: 200 Started: 200 Finished: 0
+2026-08-15 04:39:00,002 INFO o.a.j.r.Summariser: summary = 1164043 in 00:01:54 = 10202.7/s Avg:    17 Min:     0 Max:   108 Err:     0 (0.00%)
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-6
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-6
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-1
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-18
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-26
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-18
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-26
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-1
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-29
+2026-08-15 04:39:05,932 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-29
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-34
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-34
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-31
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-40
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-31
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-23
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-40
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-23
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-2
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-2
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-37
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-19
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-37
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-19
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-25
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-38
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-8
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-38
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-8
+2026-08-15 04:39:05,933 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-25
+2026-08-15 04:39:05,934 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-41
+2026-08-15 04:39:05,934 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-41
+2026-08-15 04:39:05,934 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-33
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-24
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-33
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-24
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-27
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-7
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-27
+2026-08-15 04:39:05,935 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-7
+2026-08-15 04:39:05,947 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-65
+2026-08-15 04:39:05,947 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-65
+2026-08-15 04:39:05,947 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-57
+2026-08-15 04:39:05,947 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-57
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-32
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-39
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-68
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-32
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-68
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-39
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-47
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-35
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-47
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-56
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-35
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-56
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-78
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-17
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-5
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-78
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-17
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-48
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-70
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-76
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-70
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-9
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-15
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-10
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-5
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-15
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-12
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-75
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-12
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-10
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-3
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-75
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-3
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-58
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-52
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-58
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-52
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-48
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-76
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-20
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-51
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-20
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-80
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-51
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-9
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-59
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-14
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-14
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-59
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-4
+2026-08-15 04:39:05,949 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-49
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-54
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-49
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-54
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-16
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-16
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-36
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-44
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-71
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-36
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-44
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-71
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-22
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-11
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-4
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-11
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-30
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-30
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-80
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-82
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-82
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-22
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-63
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-63
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-84
+2026-08-15 04:39:05,950 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-84
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-13
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-13
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-62
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-62
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-42
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-42
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-92
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-28
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-28
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-92
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-50
+2026-08-15 04:39:05,951 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-50
+2026-08-15 04:39:05,952 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-95
+2026-08-15 04:39:05,952 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-95
+2026-08-15 04:39:05,953 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-21
+2026-08-15 04:39:05,953 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-21
+2026-08-15 04:39:05,953 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-88
+2026-08-15 04:39:05,953 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-88
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-46
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-43
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-43
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-46
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-90
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-90
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-85
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-85
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-55
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-55
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-64
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-64
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-99
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-99
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-74
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-74
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-81
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-81
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-91
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-91
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-45
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-45
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-109
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-109
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-103
+2026-08-15 04:39:05,954 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-103
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-86
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-86
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-83
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-83
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-66
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-66
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-104
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-104
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-97
+2026-08-15 04:39:05,955 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-97
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-60
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-60
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-126
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-126
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-94
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-94
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-112
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-112
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-113
+2026-08-15 04:39:05,958 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-113
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-61
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-61
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-101
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-101
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-127
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-124
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-127
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-124
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-107
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-107
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-69
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-69
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-73
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-73
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-119
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-119
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-72
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-72
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-53
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-53
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-77
+2026-08-15 04:39:05,959 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-77
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-89
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-89
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-133
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-133
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-67
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-67
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-87
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-87
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-79
+2026-08-15 04:39:05,960 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-79
+2026-08-15 04:39:05,961 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-110
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-110
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-111
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-111
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-125
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-125
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-141
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-141
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-122
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-122
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-136
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-136
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-98
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-98
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-120
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-120
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-108
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-108
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-123
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-123
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-100
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-100
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-146
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-146
+2026-08-15 04:39:05,962 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-106
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-106
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-130
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-130
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-93
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-93
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-137
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-137
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-121
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-121
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-105
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-105
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-96
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-96
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-148
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-116
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-116
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-148
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-134
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-117
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-134
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-151
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-117
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-151
+2026-08-15 04:39:05,963 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-140
+2026-08-15 04:39:05,964 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-140
+2026-08-15 04:39:05,964 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-102
+2026-08-15 04:39:05,964 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-102
+2026-08-15 04:39:05,964 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-129
+2026-08-15 04:39:05,964 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-129
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-167
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-115
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-153
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-167
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-153
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-135
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-114
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-128
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-114
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-115
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-132
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-139
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-169
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-135
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-132
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-150
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-150
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-128
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-118
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-169
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-139
+2026-08-15 04:39:05,966 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-147
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-166
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-144
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-158
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-176
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-158
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-164
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-118
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-166
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-147
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-144
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-176
+2026-08-15 04:39:05,967 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-164
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-143
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-143
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-162
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-145
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-162
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-145
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-168
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-168
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-181
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-181
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-131
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-131
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-149
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-142
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-149
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-163
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-172
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-157
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-142
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-138
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-163
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-172
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-152
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-152
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-157
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-138
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-182
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-179
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-179
+2026-08-15 04:39:05,968 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-182
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-154
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-154
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-178
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-186
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-178
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-186
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-155
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-187
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-187
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-165
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-165
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-183
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-155
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-183
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-188
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-188
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-177
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-185
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-170
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-160
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-156
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-173
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-177
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-173
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-171
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-185
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-159
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-170
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-175
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-190
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-161
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-160
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-161
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-180
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-180
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-156
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-171
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-159
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-175
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-190
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-189
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-189
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-184
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-174
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-174
+2026-08-15 04:39:05,969 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-184
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-196
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-196
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-195
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-195
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-197
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-197
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-191
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-191
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-199
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-199
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-193
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-193
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-192
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-192
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-194
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-198
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-194
+2026-08-15 04:39:05,970 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-198
+2026-08-15 04:39:05,971 INFO o.a.j.t.JMeterThread: Stopping because end time detected by thread: Spike Thread Group 1-200
+2026-08-15 04:39:05,971 INFO o.a.j.t.JMeterThread: Thread finished: Spike Thread Group 1-200
+2026-08-15 04:39:05,971 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2026-08-15 04:39:05,971 INFO o.a.j.s.FileServer: Close: testing-artifacts/hw05/data/workflow1_users.csv
+2026-08-15 04:39:05,971 INFO o.a.j.r.Summariser: summary +  61197 in 00:00:06 = 10252.5/s Avg:    19 Min:     0 Max:    98 Err:     0 (0.00%) Active: 0 Started: 200 Finished: 200
+2026-08-15 04:39:05,971 INFO o.a.j.r.Summariser: summary = 1225240 in 00:02:00 = 10205.1/s Avg:    17 Min:     0 Max:   108 Err:     0 (0.00%)
+2026-08-15 04:39:05,971 INFO o.a.j.JMeter: Generating Dashboard
+2026-08-15 04:39:05,971 INFO o.a.j.r.d.ReportGenerator: Flushing result collector before report Generation
+2026-08-15 04:39:05,975 INFO o.a.j.r.p.NormalizerSampleConsumer: Using format, 'ms', to parse timeStamp field
+2026-08-15 04:39:12,502 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): beginDate produced 0 samples
+2026-08-15 04:39:12,502 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): endDate produced 0 samples
+2026-08-15 04:39:12,503 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ApdexSummaryConsumer#stopProducing(): apdexSummary produced 0 samples
+2026-08-15 04:39:12,503 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.RequestsSummaryConsumer#stopProducing(): requestsSummary produced 0 samples
+2026-08-15 04:39:12,512 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.StatisticsSummaryConsumer#stopProducing(): statisticsSummary produced 0 samples
+2026-08-15 04:39:12,513 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.Top5ErrorsBySamplerConsumer#stopProducing(): top5ErrorsBySampler produced 0 samples
+2026-08-15 04:39:12,513 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ErrorsSummaryConsumer#stopProducing(): errorsSummary produced 0 samples
+2026-08-15 04:39:12,513 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.HitsPerSecondGraphConsumer#stopProducing(): hitsPerSecond produced 0 samples
+2026-08-15 04:39:14,168 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyVSRequestGraphConsumer#stopProducing(): latencyVsRequest produced 0 samples
+2026-08-15 04:39:14,176 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.SyntheticResponseTimeDistributionGraphConsumer#stopProducing(): syntheticResponseTimeDistribution produced 0 samples
+2026-08-15 04:39:14,177 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.BytesThroughputGraphConsumer#stopProducing(): bytesThroughputOverTime produced 0 samples
+2026-08-15 04:39:14,177 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.CodesPerSecondGraphConsumer#stopProducing(): codesPerSecond produced 0 samples
+2026-08-15 04:39:15,773 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeVSRequestGraphConsumer#stopProducing(): responseTimeVsRequest produced 0 samples
+2026-08-15 04:39:15,779 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): startIntervalControlerFilter produced 8576680 samples
+2026-08-15 04:39:15,779 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TotalTPSGraphConsumer#stopProducing(): totalTPS produced 0 samples
+2026-08-15 04:39:15,779 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ActiveThreadsGraphConsumer#stopProducing(): activeThreadsOverTime produced 0 samples
+2026-08-15 04:39:15,779 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TimeVSThreadGraphConsumer#stopProducing(): timeVsThreads produced 0 samples
+2026-08-15 04:39:15,779 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeDistributionGraphConsumer#stopProducing(): responseTimeDistribution produced 0 samples
+2026-08-15 04:39:15,779 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TransactionsPerSecondGraphConsumer#stopProducing(): transactionsPerSecond produced 0 samples
+2026-08-15 04:39:15,780 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesGraphConsumer#stopProducing(): responseTimePercentiles produced 0 samples
+2026-08-15 04:39:15,781 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesOverTimeGraphConsumer#stopProducing(): responseTimePercentilesOverTime produced 0 samples
+2026-08-15 04:39:15,781 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeOverTimeGraphConsumer#stopProducing(): responseTimesOverTime produced 0 samples
+2026-08-15 04:39:15,782 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ConnectTimeOverTimeGraphConsumer#stopProducing(): connectTimeOverTime produced 0 samples
+2026-08-15 04:39:15,782 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyOverTimeGraphConsumer#stopProducing(): latenciesOverTime produced 0 samples
+2026-08-15 04:39:15,782 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): nameFilter produced 18378600 samples
+2026-08-15 04:39:15,782 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): dateRangeFilter produced 3675720 samples
+2026-08-15 04:39:15,782 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.NormalizerSampleConsumer#stopProducing(): normalizer produced 1225240 samples
+2026-08-15 04:39:15,782 INFO o.a.j.r.p.CsvFileSampleSource: produce(): 1225240 samples produced in 9s 798 ms on channel 0
+2026-08-15 04:39:15,782 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'json' of className:'org.apache.jmeter.report.dashboard.JsonExporter'
+2026-08-15 04:39:15,807 INFO o.a.j.r.d.JsonExporter: Found data for consumer statisticsSummary in context
+2026-08-15 04:39:15,807 INFO o.a.j.r.d.JsonExporter: Creating statistics for overall
+2026-08-15 04:39:15,807 INFO o.a.j.r.d.JsonExporter: Creating statistics for other transactions
+2026-08-15 04:39:15,807 INFO o.a.j.r.d.JsonExporter: Checking output folder
+2026-08-15 04:39:15,807 INFO o.a.j.r.d.JsonExporter: Writing statistics JSON to /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike/statistics.json
+2026-08-15 04:39:15,822 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'html' of className:'org.apache.jmeter.report.dashboard.HtmlTemplateExporter'
+2026-08-15 04:39:15,823 INFO o.a.j.r.d.HtmlTemplateExporter: Will generate dashboard in folder: /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike
+2026-08-15 04:39:15,863 INFO o.a.j.r.d.HtmlTemplateExporter: Report will be generated in: /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike, creating folder structure
+2026-08-15 04:39:15,864 INFO o.a.j.r.d.TemplateVisitor: Copying folder from '/Users/thanhngo/Applications/apache-jmeter-5.6.3/bin/report-template' to '/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike', got message: /Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike, found non empty folder with following content [/Users/thanhngo/study/Testing/CS423-CSC15003-Testing-N08/testing-artifacts/hw05/html/spike/statistics.json], will be ignored
+2026-08-15 04:39:15,954 INFO o.a.j.JMeter: Dashboard generated

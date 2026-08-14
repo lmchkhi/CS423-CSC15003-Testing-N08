@@ -56,9 +56,11 @@ Evidence phần cứng:
 
 - Hardware spec: `testing-artifacts/hw05/evidence/hardware/system-profiler-hardware-20260815.txt`.
 - Screenshot Load CLI + htop: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png`.
+- Screenshot Stress CLI + htop: `testing-artifacts/hw05/evidence/screenshots/stress-cli-htop-20260815.png`.
 - Load test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-postrun-20260815.txt`.
 - Stress test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-stress-ramp-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-stress-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-stress-postrun-20260815.txt`.
-- Process snapshot: `testing-artifacts/hw05/evidence/hardware/process-load-midrun-20260815.txt`.
+- Spike test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-spike-ramp-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-spike-peak-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-spike-postrun-20260815.txt`.
+- Process snapshots: `testing-artifacts/hw05/evidence/hardware/process-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-stress-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/process-spike-midrun-20260815.txt`.
 - Screenshot/video evidence vẫn cần bổ sung khi quay demo để thấy JMeter CLI và resource monitor cùng khung hình.
 
 ## 4. Test data
@@ -162,8 +164,8 @@ JMeter smoke:
 | --- | --- | --- | --- | --- | --- |
 | Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO screenshot/video | Pass 20 samples, 0 errors |
 | Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png` | Pass 1176 samples, 0 errors |
-| Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl` | `testing-artifacts/hw05/html/stress/index.html` | `testing-artifacts/hw05/evidence/notes/stress-20260815.md` | Pass 8930 samples, 0 errors |
-| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl` | `testing-artifacts/hw05/html/stress/index.html` | `testing-artifacts/hw05/evidence/notes/stress-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/stress-cli-htop-20260815.png` | Pass 8930 samples, 0 errors |
+| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl` | `testing-artifacts/hw05/html/spike/index.html` | `testing-artifacts/hw05/evidence/notes/spike-20260815.md` | Pass 1,225,240 samples, 0 errors |
 | Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
 
 ## 9. Kết quả metric
@@ -172,7 +174,7 @@ JMeter smoke:
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | Load | 50 | 1176 | 0.00% | 2.91 | 3 | 4 | 5 | 6 | 4.0384 | Steady `top`: 27.14% user, 16.44% sys, 56.41% idle; PhysMem 35G used, 0 swap |
 | Stress | 150 | 8930 | 0.00% | 1.89 | 2 | 3 | 4 | 5 | 21.6052 | Steady `top`: 16.81% user, 11.57% sys, 71.60% idle; PhysMem 33G used |
-| Spike | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
+| Spike | 200 | 1,225,240 | 0.00% | 17.14 | 16 | 31 | 37 | 55 | 10212.2907 | Peak `top`: 26.73% user, 22.81% sys, 50.44% idle; backend `node` about 122.6% CPU |
 | Endurance | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 
 ## 10. Phân tích từng scenario
@@ -195,7 +197,11 @@ Resource snapshot steady-state lúc 04:02:32 ghi nhận CPU còn 71.60% idle và
 
 ### 10.3 Spike
 
-TODO.
+Spike test chạy đủ 2 phút từ 04:37:05 đến 04:39:05 ngày 2026-08-15 với 200 VUs, ramp-up 30s và think time 0ms. Đây là workload đột ngột nhất hiện tại: 1,225,240 samples, 0 errors, throughput 10212.2907 RPS, p95 37 ms và p99 55 ms.
+
+So với Stress, Spike tăng throughput từ 21.6052 RPS lên hơn 10k RPS vì bỏ think time hoàn toàn. Latency tăng rõ rệt nhưng chưa tạo timeout hay HTTP 4xx/5xx. Request chậm nhất theo p95 là `POST /api/checkout` với p95 54 ms và p99 64 ms; `POST /api/login` cũng tăng lên p95 37 ms và p99 51 ms.
+
+Resource snapshot peak lúc 04:38:02 ghi nhận CPU còn 50.44% idle, nhưng process snapshot cho thấy backend `node server.js` lên khoảng 122.6% CPU. Kết luận: hệ thống chịu được spike ngắn 200 VUs/0 think time mà không lỗi, nhưng latency nhạy hơn rõ rệt dưới tải đột ngột. Không tạo bug report vì chưa có lỗi SUT; dùng kết quả này làm input cho Endurance threshold và phần phân tích tối ưu sau.
 
 ### 10.4 Endurance
 

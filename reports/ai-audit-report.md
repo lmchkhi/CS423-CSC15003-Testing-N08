@@ -371,3 +371,69 @@ tôi đã thêm hình rồi, bây giờ có thể tiếp tục pha 4 rồi đún
 ```text
 Xác nhận screenshot Load đã có tại testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png và tiếp tục Pha 4 Stress test. Chạy JMeter Stress ngoài sandbox với 150 VUs, ramp-up 120s, duration 420s. Kết quả Stress pass: 8930 samples, 0 errors, avg 1.89 ms, p95 4 ms, p99 5 ms, throughput 21.6052 RPS. Sinh JTL, JMeter log, HTML Dashboard, stress-summary.csv, top/process evidence; cập nhật main report/execution plan. Ghi chú người dùng có thể tự rerun Stress chỉ để chụp screenshot nếu chưa chụp trong run chính, dùng output tạm để không ghi đè artifact official.
 ```
+
+## Entry #15
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 04:19 GMT+7 |
+| **Artifact type** | HW05 Stress rerun decision guidance |
+
+**Full prompt:**
+
+```text
+trong lần chạy này vẫn chưa tìm thấy điểm gãy vậy có cần điều chỉnh rồi chạy lại không? nếu vậy thì có cần xoá cái file cũ đi không? chỉ cần trả lời, chưa cần chạy.
+```
+
+### (2) AI Output
+
+```text
+Tư vấn chưa cần xoá hay chạy lại ngay: Stress 150 VUs pass vẫn là kết quả hợp lệ để báo cáo ngưỡng đã kiểm thử. Nên chạy Spike trước vì Spike 200 VUs không timer có thể tạo áp lực cao hơn. Nếu sau Spike vẫn chưa thấy suy giảm và muốn tìm điểm gãy rõ hơn, có thể tạo một Stress rerun/tuned với tải cao hơn hoặc timer thấp hơn, lưu bằng tên riêng và đánh dấu run 150 VUs là baseline/exploratory; không ghi đè hoặc xoá artifact cũ đã commit.
+```
+
+## Entry #16
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 04:41 GMT+7 |
+| **Artifact type** | HW05 Spike test execution |
+
+**Full prompt:**
+
+```text
+tôi đã thêm ảnh testing-artifacts/hw05/evidence/screenshots/stress-cli-htop-20260815.png rồi, bây giờ tiếp tục với pha 5 đúng không. nhưng nhớ làm xong rồi thì gửi tôi lệnh git add và git commit rồi tôi xem xét chứ không tự commit
+```
+
+### (2) AI Output
+
+```text
+Xác nhận screenshot Stress đã có và thực hiện Pha 5 Spike test nhưng không tự git add/commit. Chạy JMeter Spike ngoài sandbox với 200 VUs, ramp-up 30s, duration 120s, think time 0ms. Kết quả pass: 1,225,240 samples, 0 errors, avg 17.14 ms, p95 37 ms, p99 55 ms, throughput 10212.2907 RPS. Sinh JTL, JMeter log, HTML Dashboard, spike-summary.csv, top/process evidence; cập nhật main report/execution plan và note spike. Ghi chú Spike JTL khoảng 160 MB nên cần người dùng review trước khi commit.
+```
+
+## Entry #17
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 05:26 GMT+7 |
+| **Artifact type** | HW05 Spike commit command guidance |
+
+**Full prompt:**
+
+```text
+tôi đã thêm ảnh vào rồi, bây giờ cho tôi lệnh git add và git commit. không commit file jtl 160md, trong commit message có note chuyện đó
+```
+
+### (2) AI Output
+
+```text
+Kiểm tra status và cung cấp lệnh git add/git commit cho Pha 5 Spike. Lệnh add loại trừ raw JTL 160 MB testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl, chỉ add spike summary, JMeter log nhỏ, HTML dashboard, screenshots Stress/Spike, resource snapshots, notes và reports/audit. Commit message ghi rõ raw JTL lớn được giữ local không commit.
+```

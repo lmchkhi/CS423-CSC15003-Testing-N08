@@ -185,6 +185,15 @@ Kết quả cần có:
 - Screenshot evidence.
 - Nhận xét p95/p99/error rate trong đỉnh spike.
 
+Trạng thái 2026-08-15:
+
+- Đã chạy Spike test chính thức ngoài sandbox bằng JMeter CLI.
+- Cấu hình: 200 VUs, ramp-up 30s, duration 120s, think time 0ms.
+- Kết quả: 1,225,240 samples, 0 errors, avg 17.14 ms, p95 37 ms, p99 55 ms, throughput 10212.2907 RPS.
+- Evidence chính: `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl`, `testing-artifacts/hw05/html/spike/index.html`, `testing-artifacts/hw05/analysis/spike-summary.csv`, `testing-artifacts/hw05/evidence/notes/spike-20260815.md`.
+- Text resource evidence đã lưu bằng `top`/`ps`; screenshot Spike có thể chụp bằng rerun riêng nếu cần.
+- Không tạo bug report vì Spike run không có lỗi SUT, nhưng report ghi nhận latency tăng rõ so với Stress.
+
 ### Pha 6 - Chạy Endurance / Soak test
 
 Mục tiêu:
