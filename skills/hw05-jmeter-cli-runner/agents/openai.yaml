@@ -1,0 +1,4 @@
+interface:
+  display_name: "HW05 JMeter CLI Runner"
+  short_description: "Chạy JMeter CLI và thu evidence HW05"
+  default_prompt: "Use $hw05-jmeter-cli-runner to run HW05 JMeter scenarios and collect evidence."

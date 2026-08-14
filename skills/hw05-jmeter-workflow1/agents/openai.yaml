@@ -1,0 +1,4 @@
+interface:
+  display_name: "HW05 JMeter Workflow 1"
+  short_description: "Thiết kế JMeter cho HW05 workflow 1"
+  default_prompt: "Use $hw05-jmeter-workflow1 to build HW05 JMeter test plans for workflow 1."

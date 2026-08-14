@@ -1,0 +1,4 @@
+interface:
+  display_name: "HW05 Performance Report"
+  short_description: "Phân tích JTL và viết báo cáo HW05"
+  default_prompt: "Use $hw05-performance-report to analyze JMeter logs and draft the HW05 report."

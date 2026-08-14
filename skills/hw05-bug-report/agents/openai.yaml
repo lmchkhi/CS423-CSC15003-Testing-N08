@@ -1,0 +1,4 @@
+interface:
+  display_name: "HW05 Bug Report"
+  short_description: "Tạo bug report HW05 từ template"
+  default_prompt: "Use $hw05-bug-report to create a Markdown bug report in reports/bug-reports from the repo template."

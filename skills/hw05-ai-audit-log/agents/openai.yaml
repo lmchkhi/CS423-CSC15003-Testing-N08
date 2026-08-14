@@ -1,0 +1,6 @@
+interface:
+  display_name: "HW05 AI Audit Log"
+  short_description: "Ghi audit log AI cho HW05"
+  default_prompt: "Use $hw05-ai-audit-log to append the current interaction to reports/ai-audit-report.md."
+policy:
+  allow_implicit_invocation: true
