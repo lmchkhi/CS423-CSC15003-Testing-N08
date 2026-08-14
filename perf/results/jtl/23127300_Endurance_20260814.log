@@ -1,0 +1,271 @@
+2026-08-14 22:32:48,067 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-08-14 22:32:48,075 INFO o.a.j.JMeter: Loading user properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/user.properties
+2026-08-14 22:32:48,075 INFO o.a.j.JMeter: Loading system properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/system.properties
+2026-08-14 22:32:48,075 INFO o.a.j.JMeter: Loading additional properties from: perf/config/jmeter-run.properties
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: Version 5.6.3
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: java.version=21.0.10
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: os.name=Mac OS X
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: os.arch=aarch64
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: os.version=26.5.2
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: java.awt.headless=true
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: Max memory     =4294967296
+2026-08-14 22:32:48,078 INFO o.a.j.JMeter: Available Processors =12
+2026-08-14 22:32:48,081 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-08-14 22:32:48,081 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-08-14 22:32:48,081 INFO o.a.j.JMeter: JMeterHome=/opt/homebrew/Cellar/jmeter/5.6.3/libexec
+2026-08-14 22:32:48,081 INFO o.a.j.JMeter: user.dir  =/Users/hbn/Documents/CS423-CSC15003-Testing-N08
+2026-08-14 22:32:48,081 INFO o.a.j.JMeter: PWD       =/Users/hbn/Documents/CS423-CSC15003-Testing-N08
+2026-08-14 22:32:48,083 INFO o.a.j.JMeter: IP: 127.0.0.1 Name: hbns-MacBook-Pro.local FullName: localhost
+2026-08-14 22:32:48,090 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'/Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814'
+2026-08-14 22:32:48,091 INFO o.a.j.s.FileServer: Default base='/Users/hbn/Documents/CS423-CSC15003-Testing-N08'
+2026-08-14 22:32:48,092 INFO o.a.j.s.FileServer: Set new base='/Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/plans/jmeter'
+2026-08-14 22:32:48,146 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-08-14 22:32:48,156 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-08-14 22:32:48,157 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-08-14 22:32:48,158 INFO o.a.j.s.SaveService: Loading file: perf/plans/jmeter/23127300_Endurance_20260814.jmx
+2026-08-14 22:32:48,179 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-14 22:32:48,180 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-14 22:32:48,180 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-14 22:32:48,180 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-08-14 22:32:48,180 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2026-08-14 22:32:48,180 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2026-08-14 22:32:48,203 INFO o.a.j.JMeter: Creating summariser <summary>
+2026-08-14 22:32:48,204 INFO o.a.j.r.d.ReportGenerator: ReportGenerator will use for Parsing the separator: ','
+2026-08-14 22:32:48,204 INFO o.a.j.r.d.ReportGenerator: Will generate report at end of test from  results file: perf/results/jtl/23127300_Endurance_20260814.jtl
+2026-08-14 22:32:48,204 INFO o.a.j.r.d.ReportGenerator: Reading report generator properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/reportgenerator.properties
+2026-08-14 22:32:48,204 INFO o.a.j.r.d.ReportGenerator: Merging with JMeter properties
+2026-08-14 22:32:48,206 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.temp_dir' not found, using default value 'temp' instead.
+2026-08-14 22:32:48,206 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.apdex_per_transaction' not found, using default value 'null' instead.
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: apdex_per_transaction is empty, not APDEX per transaction customization
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.sample_filter' not found, using default value 'null' instead.
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.report_title' not found, using default value 'null' instead.
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.start_date' not found, using default value 'null' instead.
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.end_date' not found, using default value 'null' instead.
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.date_format' not found, using default value 'null' instead.
+2026-08-14 22:32:48,207 INFO o.a.j.r.c.ReportGeneratorConfiguration: Will use date range start date: null, end date: null
+2026-08-14 22:32:48,208 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.totalTPS.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,208 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.activeThreadsOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,208 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.timeVsThreads.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,208 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimeDistribution.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,208 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.transactionsPerSecond.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,208 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentiles.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimePercentilesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.responseTimesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.connectTimeOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.graph.latenciesOverTime.exclude_controllers' not found, using default value 'false' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.filters_only_sample_series' not found, using default value 'true' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.series_filter' not found, using default value '' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.json.show_controllers_only' not found, using default value 'false' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.filters_only_sample_series' not found, using default value 'true' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.series_filter' not found, using default value '' instead.
+2026-08-14 22:32:48,209 INFO o.a.j.r.c.ReportGeneratorConfiguration: Property 'jmeter.reportgenerator.exporter.html.show_controllers_only' not found, using default value 'false' instead.
+2026-08-14 22:32:48,213 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2026-08-14 22:32:48,213 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-08-14 22:32:48,213 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-08-14 22:32:48,214 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2026-08-14 22:32:48,214 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2026-08-14 22:32:48,227 INFO o.a.j.r.ClassFinder: Will scan jar /opt/homebrew/Cellar/jmeter/5.6.3/libexec/lib/ext/jmeter-plugins-manager-1.9.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-08-14 22:32:48,319 INFO o.a.j.JMeter: Running test (1786721568319)
+2026-08-14 22:32:48,327 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : TG - Endurance 40 VU
+2026-08-14 22:32:48,327 INFO o.a.j.e.StandardJMeterEngine: Starting 40 threads for group TG - Endurance 40 VU.
+2026-08-14 22:32:48,327 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-08-14 22:32:48,327 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=40 ramp-up=60 delayedStart=false
+2026-08-14 22:32:48,334 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-1
+2026-08-14 22:32:48,334 INFO o.a.j.s.FileServer: Stored: perf/data/products.csv
+2026-08-14 22:32:48,340 INFO o.a.j.s.FileServer: Stored: perf/data/accounts.csv
+2026-08-14 22:32:48,343 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2026-08-14 22:32:48,343 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2026-08-14 22:32:49,841 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-2
+2026-08-14 22:32:50,374 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = hbns-MacBook-Pro.local
+2026-08-14 22:32:50,377 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2026-08-14 22:32:50,377 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2026-08-14 22:32:50,378 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2026-08-14 22:32:50,378 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2026-08-14 22:32:50,378 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2026-08-14 22:32:51,340 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-3
+2026-08-14 22:32:52,841 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-4
+2026-08-14 22:32:54,339 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-5
+2026-08-14 22:32:55,841 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-6
+2026-08-14 22:32:57,333 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-7
+2026-08-14 22:32:58,834 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-8
+2026-08-14 22:33:00,326 INFO o.a.j.r.Summariser: summary +     23 in 00:00:12 =    1.9/s Avg:     4 Min:     1 Max:    13 Err:     0 (0.00%) Active: 8 Started: 8 Finished: 0
+2026-08-14 22:33:00,334 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-9
+2026-08-14 22:33:01,837 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-10
+2026-08-14 22:33:03,336 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-11
+2026-08-14 22:33:04,838 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-12
+2026-08-14 22:33:06,340 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-13
+2026-08-14 22:33:07,833 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-14
+2026-08-14 22:33:09,334 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-15
+2026-08-14 22:33:10,833 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-16
+2026-08-14 22:33:12,338 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-17
+2026-08-14 22:33:13,837 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-18
+2026-08-14 22:33:15,339 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-19
+2026-08-14 22:33:16,837 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-20
+2026-08-14 22:33:18,337 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-21
+2026-08-14 22:33:19,834 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-22
+2026-08-14 22:33:21,338 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-23
+2026-08-14 22:33:22,839 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-24
+2026-08-14 22:33:24,330 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-25
+2026-08-14 22:33:25,835 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-26
+2026-08-14 22:33:27,338 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-27
+2026-08-14 22:33:28,837 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-28
+2026-08-14 22:33:30,027 INFO o.a.j.r.Summariser: summary +    267 in 00:00:30 =    9.0/s Avg:     3 Min:     0 Max:     8 Err:     0 (0.00%) Active: 28 Started: 28 Finished: 0
+2026-08-14 22:33:30,028 INFO o.a.j.r.Summariser: summary =    290 in 00:00:42 =    7.0/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:33:30,332 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-29
+2026-08-14 22:33:31,837 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-30
+2026-08-14 22:33:33,335 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-31
+2026-08-14 22:33:34,832 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-32
+2026-08-14 22:33:36,328 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-33
+2026-08-14 22:33:37,837 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-34
+2026-08-14 22:33:39,337 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-35
+2026-08-14 22:33:40,838 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-36
+2026-08-14 22:33:42,340 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-37
+2026-08-14 22:33:43,830 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-38
+2026-08-14 22:33:45,333 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-39
+2026-08-14 22:33:46,836 INFO o.a.j.t.JMeterThread: Thread started: TG - Endurance 40 VU 1-40
+2026-08-14 22:34:00,010 INFO o.a.j.r.Summariser: summary +    543 in 00:00:30 =   18.1/s Avg:     3 Min:     0 Max:    10 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:34:00,010 INFO o.a.j.r.Summariser: summary =    833 in 00:01:12 =   11.6/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:34:30,003 INFO o.a.j.r.Summariser: summary +    594 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:    11 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:34:30,004 INFO o.a.j.r.Summariser: summary =   1427 in 00:01:42 =   14.0/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:35:00,009 INFO o.a.j.r.Summariser: summary +    588 in 00:00:30 =   19.6/s Avg:     2 Min:     0 Max:     8 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:35:00,010 INFO o.a.j.r.Summariser: summary =   2015 in 00:02:12 =   15.3/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:35:30,008 INFO o.a.j.r.Summariser: summary +    594 in 00:00:30 =   19.8/s Avg:     3 Min:     0 Max:     9 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:35:30,009 INFO o.a.j.r.Summariser: summary =   2609 in 00:02:42 =   16.1/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:36:00,051 INFO o.a.j.r.Summariser: summary +    601 in 00:00:30 =   20.0/s Avg:     3 Min:     0 Max:    11 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:36:00,051 INFO o.a.j.r.Summariser: summary =   3210 in 00:03:12 =   16.7/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:36:30,086 INFO o.a.j.r.Summariser: summary +    588 in 00:00:30 =   19.6/s Avg:     2 Min:     0 Max:    11 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:36:30,086 INFO o.a.j.r.Summariser: summary =   3798 in 00:03:42 =   17.1/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:37:00,090 INFO o.a.j.r.Summariser: summary +    589 in 00:00:30 =   19.6/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:37:00,090 INFO o.a.j.r.Summariser: summary =   4387 in 00:04:12 =   17.4/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:37:30,009 INFO o.a.j.r.Summariser: summary +    596 in 00:00:30 =   19.9/s Avg:     2 Min:     0 Max:     8 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:37:30,010 INFO o.a.j.r.Summariser: summary =   4983 in 00:04:42 =   17.7/s Avg:     3 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:38:00,011 INFO o.a.j.r.Summariser: summary +    593 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:38:00,011 INFO o.a.j.r.Summariser: summary =   5576 in 00:05:12 =   17.9/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:38:30,040 INFO o.a.j.r.Summariser: summary +    615 in 00:00:30 =   20.5/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:38:30,041 INFO o.a.j.r.Summariser: summary =   6191 in 00:05:42 =   18.1/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:39:00,002 INFO o.a.j.r.Summariser: summary +    606 in 00:00:30 =   20.2/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:39:00,003 INFO o.a.j.r.Summariser: summary =   6797 in 00:06:12 =   18.3/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:39:30,012 INFO o.a.j.r.Summariser: summary +    611 in 00:00:30 =   20.4/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:39:30,013 INFO o.a.j.r.Summariser: summary =   7408 in 00:06:42 =   18.4/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:40:00,037 INFO o.a.j.r.Summariser: summary +    601 in 00:00:30 =   20.0/s Avg:     2 Min:     0 Max:     9 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:40:00,038 INFO o.a.j.r.Summariser: summary =   8009 in 00:07:12 =   18.6/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:40:30,097 INFO o.a.j.r.Summariser: summary +    595 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:40:30,098 INFO o.a.j.r.Summariser: summary =   8604 in 00:07:42 =   18.6/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:41:00,011 INFO o.a.j.r.Summariser: summary +    601 in 00:00:30 =   20.1/s Avg:     2 Min:     0 Max:    12 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:41:00,011 INFO o.a.j.r.Summariser: summary =   9205 in 00:08:12 =   18.7/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:41:30,043 INFO o.a.j.r.Summariser: summary +    599 in 00:00:30 =   19.9/s Avg:     2 Min:     0 Max:    12 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:41:30,043 INFO o.a.j.r.Summariser: summary =   9804 in 00:08:42 =   18.8/s Avg:     2 Min:     0 Max:    13 Err:     0 (0.00%)
+2026-08-14 22:42:00,043 INFO o.a.j.r.Summariser: summary +    594 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:42:00,044 INFO o.a.j.r.Summariser: summary =  10398 in 00:09:12 =   18.8/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:42:30,011 INFO o.a.j.r.Summariser: summary +    594 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:42:30,012 INFO o.a.j.r.Summariser: summary =  10992 in 00:09:42 =   18.9/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:43:00,091 INFO o.a.j.r.Summariser: summary +    597 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:    11 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:43:00,092 INFO o.a.j.r.Summariser: summary =  11589 in 00:10:12 =   18.9/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:43:30,069 INFO o.a.j.r.Summariser: summary +    593 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:43:30,069 INFO o.a.j.r.Summariser: summary =  12182 in 00:10:42 =   19.0/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:44:00,056 INFO o.a.j.r.Summariser: summary +    591 in 00:00:30 =   19.7/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:44:00,056 INFO o.a.j.r.Summariser: summary =  12773 in 00:11:12 =   19.0/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:44:30,045 INFO o.a.j.r.Summariser: summary +    592 in 00:00:30 =   19.7/s Avg:     2 Min:     0 Max:    11 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:44:30,046 INFO o.a.j.r.Summariser: summary =  13365 in 00:11:42 =   19.0/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:45:00,114 INFO o.a.j.r.Summariser: summary +    601 in 00:00:30 =   20.0/s Avg:     2 Min:     0 Max:    14 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:45:00,114 INFO o.a.j.r.Summariser: summary =  13966 in 00:12:12 =   19.1/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:45:30,030 INFO o.a.j.r.Summariser: summary +    605 in 00:00:30 =   20.2/s Avg:     2 Min:     0 Max:    10 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:45:30,031 INFO o.a.j.r.Summariser: summary =  14571 in 00:12:42 =   19.1/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:46:00,101 INFO o.a.j.r.Summariser: summary +    594 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:    11 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:46:00,103 INFO o.a.j.r.Summariser: summary =  15165 in 00:13:12 =   19.2/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:46:30,002 INFO o.a.j.r.Summariser: summary +    591 in 00:00:30 =   19.8/s Avg:     2 Min:     0 Max:     6 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:46:30,003 INFO o.a.j.r.Summariser: summary =  15756 in 00:13:42 =   19.2/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:47:00,029 INFO o.a.j.r.Summariser: summary +    604 in 00:00:30 =   20.1/s Avg:     2 Min:     0 Max:     9 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:47:00,029 INFO o.a.j.r.Summariser: summary =  16360 in 00:14:12 =   19.2/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:47:30,105 INFO o.a.j.r.Summariser: summary +    594 in 00:00:30 =   19.7/s Avg:     2 Min:     0 Max:     8 Err:     0 (0.00%) Active: 40 Started: 40 Finished: 0
+2026-08-14 22:47:30,106 INFO o.a.j.r.Summariser: summary =  16954 in 00:14:42 =   19.2/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:47:46,519 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-19
+2026-08-14 22:47:46,583 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-6
+2026-08-14 22:47:46,584 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-11
+2026-08-14 22:47:46,671 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-23
+2026-08-14 22:47:46,723 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-15
+2026-08-14 22:47:46,790 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-31
+2026-08-14 22:47:46,798 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-10
+2026-08-14 22:47:46,929 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-39
+2026-08-14 22:47:46,947 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-38
+2026-08-14 22:47:47,155 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-9
+2026-08-14 22:47:47,169 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-22
+2026-08-14 22:47:47,196 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-30
+2026-08-14 22:47:47,211 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-17
+2026-08-14 22:47:47,335 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-20
+2026-08-14 22:47:47,348 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-27
+2026-08-14 22:47:47,351 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-18
+2026-08-14 22:47:47,385 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-32
+2026-08-14 22:47:47,454 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-33
+2026-08-14 22:47:47,465 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-25
+2026-08-14 22:47:47,498 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-5
+2026-08-14 22:47:47,515 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-12
+2026-08-14 22:47:47,523 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-40
+2026-08-14 22:47:47,595 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-37
+2026-08-14 22:47:47,646 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-36
+2026-08-14 22:47:47,649 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-8
+2026-08-14 22:47:47,806 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-13
+2026-08-14 22:47:47,820 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-1
+2026-08-14 22:47:47,833 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-2
+2026-08-14 22:47:47,836 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-21
+2026-08-14 22:47:47,948 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-4
+2026-08-14 22:47:47,957 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-3
+2026-08-14 22:47:47,995 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-34
+2026-08-14 22:47:48,006 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-29
+2026-08-14 22:47:48,030 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-35
+2026-08-14 22:47:48,089 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-24
+2026-08-14 22:47:48,161 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-7
+2026-08-14 22:47:48,228 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-14
+2026-08-14 22:47:48,293 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-26
+2026-08-14 22:47:48,298 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-16
+2026-08-14 22:47:48,298 INFO o.a.j.t.JMeterThread: Thread finished: TG - Endurance 40 VU 1-28
+2026-08-14 22:47:48,298 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2026-08-14 22:47:48,298 INFO o.a.j.s.FileServer: Close: perf/data/products.csv
+2026-08-14 22:47:48,298 INFO o.a.j.s.FileServer: Close: perf/data/accounts.csv
+2026-08-14 22:47:48,300 INFO o.a.j.r.Summariser: summary +    373 in 00:00:18 =   20.5/s Avg:     2 Min:     0 Max:     7 Err:     0 (0.00%) Active: 0 Started: 40 Finished: 40
+2026-08-14 22:47:48,300 INFO o.a.j.r.Summariser: summary =  17327 in 00:15:00 =   19.3/s Avg:     2 Min:     0 Max:    15 Err:     0 (0.00%)
+2026-08-14 22:47:48,301 INFO o.a.j.JMeter: Generating Dashboard
+2026-08-14 22:47:48,301 INFO o.a.j.r.d.ReportGenerator: Flushing result collector before report Generation
+2026-08-14 22:47:48,307 INFO o.a.j.r.p.NormalizerSampleConsumer: Using format, 'ms', to parse timeStamp field
+2026-08-14 22:47:48,505 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): beginDate produced 0 samples
+2026-08-14 22:47:48,505 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.AggregateConsumer#stopProducing(): endDate produced 0 samples
+2026-08-14 22:47:48,507 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ApdexSummaryConsumer#stopProducing(): apdexSummary produced 0 samples
+2026-08-14 22:47:48,507 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.RequestsSummaryConsumer#stopProducing(): requestsSummary produced 0 samples
+2026-08-14 22:47:48,512 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.StatisticsSummaryConsumer#stopProducing(): statisticsSummary produced 0 samples
+2026-08-14 22:47:48,513 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.Top5ErrorsBySamplerConsumer#stopProducing(): top5ErrorsBySampler produced 0 samples
+2026-08-14 22:47:48,513 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.ErrorsSummaryConsumer#stopProducing(): errorsSummary produced 0 samples
+2026-08-14 22:47:48,513 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.HitsPerSecondGraphConsumer#stopProducing(): hitsPerSecond produced 0 samples
+2026-08-14 22:47:48,556 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyVSRequestGraphConsumer#stopProducing(): latencyVsRequest produced 0 samples
+2026-08-14 22:47:48,557 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.SyntheticResponseTimeDistributionGraphConsumer#stopProducing(): syntheticResponseTimeDistribution produced 0 samples
+2026-08-14 22:47:48,557 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.BytesThroughputGraphConsumer#stopProducing(): bytesThroughputOverTime produced 0 samples
+2026-08-14 22:47:48,557 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.CodesPerSecondGraphConsumer#stopProducing(): codesPerSecond produced 0 samples
+2026-08-14 22:47:48,581 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeVSRequestGraphConsumer#stopProducing(): responseTimeVsRequest produced 0 samples
+2026-08-14 22:47:48,582 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): startIntervalControlerFilter produced 121289 samples
+2026-08-14 22:47:48,582 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TotalTPSGraphConsumer#stopProducing(): totalTPS produced 0 samples
+2026-08-14 22:47:48,582 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ActiveThreadsGraphConsumer#stopProducing(): activeThreadsOverTime produced 0 samples
+2026-08-14 22:47:48,582 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TimeVSThreadGraphConsumer#stopProducing(): timeVsThreads produced 0 samples
+2026-08-14 22:47:48,582 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeDistributionGraphConsumer#stopProducing(): responseTimeDistribution produced 0 samples
+2026-08-14 22:47:48,582 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.TransactionsPerSecondGraphConsumer#stopProducing(): transactionsPerSecond produced 0 samples
+2026-08-14 22:47:48,583 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesGraphConsumer#stopProducing(): responseTimePercentiles produced 0 samples
+2026-08-14 22:47:48,584 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimePercentilesOverTimeGraphConsumer#stopProducing(): responseTimePercentilesOverTime produced 0 samples
+2026-08-14 22:47:48,586 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ResponseTimeOverTimeGraphConsumer#stopProducing(): responseTimesOverTime produced 0 samples
+2026-08-14 22:47:48,587 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.ConnectTimeOverTimeGraphConsumer#stopProducing(): connectTimeOverTime produced 0 samples
+2026-08-14 22:47:48,587 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.graph.impl.LatencyOverTimeGraphConsumer#stopProducing(): latenciesOverTime produced 0 samples
+2026-08-14 22:47:48,587 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): nameFilter produced 259905 samples
+2026-08-14 22:47:48,587 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.FilterConsumer#stopProducing(): dateRangeFilter produced 51981 samples
+2026-08-14 22:47:48,587 INFO o.a.j.r.p.AbstractSampleConsumer: class org.apache.jmeter.report.processor.NormalizerSampleConsumer#stopProducing(): normalizer produced 17327 samples
+2026-08-14 22:47:48,588 INFO o.a.j.r.p.CsvFileSampleSource: produce(): 17327 samples produced in 273ms on channel 0
+2026-08-14 22:47:48,588 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'json' of className:'org.apache.jmeter.report.dashboard.JsonExporter'
+2026-08-14 22:47:48,612 INFO o.a.j.r.d.JsonExporter: Found data for consumer statisticsSummary in context
+2026-08-14 22:47:48,612 INFO o.a.j.r.d.JsonExporter: Creating statistics for overall
+2026-08-14 22:47:48,612 INFO o.a.j.r.d.JsonExporter: Creating statistics for other transactions
+2026-08-14 22:47:48,612 INFO o.a.j.r.d.JsonExporter: Checking output folder
+2026-08-14 22:47:48,612 INFO o.a.j.r.d.JsonExporter: Writing statistics JSON to /Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814/statistics.json
+2026-08-14 22:47:48,626 INFO o.a.j.r.d.ReportGenerator: Exporting data using exporter:'html' of className:'org.apache.jmeter.report.dashboard.HtmlTemplateExporter'
+2026-08-14 22:47:48,627 INFO o.a.j.r.d.HtmlTemplateExporter: Will generate dashboard in folder: /Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814
+2026-08-14 22:47:48,674 INFO o.a.j.r.d.HtmlTemplateExporter: Report will be generated in: /Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814, creating folder structure
+2026-08-14 22:47:48,674 INFO o.a.j.r.d.TemplateVisitor: Copying folder from '/opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/report-template' to '/Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814', got message: /Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814, found non empty folder with following content [/Users/hbn/Documents/CS423-CSC15003-Testing-N08/perf/results/html/23127300_Endurance_20260814/statistics.json], will be ignored
+2026-08-14 22:47:48,768 INFO o.a.j.JMeter: Dashboard generated

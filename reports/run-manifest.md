@@ -42,7 +42,20 @@ trừ đi phần lỗi do khoá tài khoản.
 Không lần chạy nào ghi nhận `BindException` / "Can't assign requested address"
 (kiểm tra bằng `grep -ciE` trên cả bốn file log của JMeter đều trả về 0), xác
 nhận cấu hình cổng tạm trong `perf/config/jmeter-run.properties` giữ được ở mức
-620 luồng khai báo và 1565 req/s.
+620 luồng khai báo và 1565 req/s. Bốn file log này được commit tại
+`perf/results/jtl/23127300_{Load,Stress,Spike,Endurance}_20260814.log` nên phép
+kiểm tra `grep` trên có thể tái lập trực tiếp từ repo.
+
+**Về `locked_before` sau khi chạy:** `perf/scripts/run-scenario.sh` chỉ in dòng
+reset lockout ra console, không ghi vào file nào trong repo, nên các giá trị
+`locked_before=0` sau khi chạy ở bảng trên không có file lưu trữ trực tiếp.
+Chúng được **corroborate** (đối chiếu độc lập), không phải archive, qua hai
+nguồn: (1) ba trong bốn khung ảnh bằng chứng cho thấy dòng *trước khi chạy*
+`locked_before=0 cleared=0 attempts_pending=0 remaining=0` ngay trong pane
+terminal; (2) cả bốn file `.jtl` thô đều có 0 lỗi ở sampler `03 POST
+/api/login` trên tổng cộng ~1,08 triệu mẫu — nếu tài khoản nào đó đã bị khoá
+trong lúc chạy, sampler này sẽ ghi nhận lỗi đăng nhập, và không có lỗi nào như
+vậy xuất hiện.
 
 ## Tái lập số liệu từ log thô
 
@@ -57,3 +70,11 @@ python3 perf/scripts/analyze_jtl.py perf/results/jtl/23127300_<Scenario>_2026081
 
 Bảng HTML dashboard của JMeter đã được sinh sẵn từ bản `.jtl` chưa nén ngay
 trong lần chạy, nằm ở `perf/results/html/<stem>/index.html`.
+
+**Phương pháp tính percentile:** cột `p95` ở bảng đầu tiên là giá trị
+nearest-rank do `perf/scripts/analyze_jtl.py` tính (đúng như lệnh tái lập ở
+trên). JMeter dashboard tự sinh (`index.html`, trường `pct2ResTime`) dùng phép
+nội suy tuyến tính nên có thể ra số khác một chút ở cùng một lần chạy — ví dụ
+Spike: bảng này ghi p95 = 139 (nearest-rank), dashboard ghi `pct2ResTime:
+136.0` (nội suy). Cả hai đều đúng theo phương pháp của mình; ba lần chạy còn
+lại cho cùng một số ở cả hai nguồn.
