@@ -14,7 +14,7 @@
 | Resource monitor | `htop` / Activity Monitor |
 | AI tool | Codex |
 | Workflow chọn | Workflow 1 - Người dùng có sẵn mua hàng lần đầu |
-| Ngày chạy | TODO |
+| Ngày chạy | 2026-08-15 |
 | Video demo | TODO |
 
 ## 2. Tóm tắt workflow và phạm vi
@@ -44,13 +44,13 @@ Mapping nhóm endpoint:
 
 | Thành phần | Thông tin |
 | --- | --- |
-| OS | TODO |
+| OS | macOS local |
 | CPU | TODO |
 | RAM | TODO |
-| Java | TODO |
-| JMeter | TODO |
-| Backend process | TODO |
-| Database / data state | TODO |
+| Java | Java 25.0.4 LTS |
+| JMeter | Apache JMeter 5.6.3 |
+| Backend process | Đã xác nhận backend đang phục vụ `http://localhost:3000` khi chạy smoke |
+| Database / data state | Account CSV đã setup lại bằng `/api/register`; product seed id 1-5 |
 
 Evidence phần cứng:
 
@@ -72,16 +72,27 @@ Data strategy:
 
 - Mỗi VU nên dùng account riêng để tránh tranh chấp giỏ hàng/đơn hàng.
 - Account được tạo bằng `POST /api/register` trước khi chạy JMeter.
+- CSV hiện có 200 account để đủ cho scenario Spike 200 VUs; Load/Stress/Endurance dùng lại cùng pool account bằng chế độ recycle của CSV Data Set Config.
 - `productName` và `productPrice` dùng dữ liệu seed thật để payload `POST /api/cart` nhất quán với SUT.
+- Prefix account hiện tại: `hw05-perf-20260815-023132-XXX@example.com`.
 
 ## 5. Thiết kế test plan
 
 | Scenario | Mục tiêu | VUs | Ramp-up | Duration | Timer | Listener/report view |
 | --- | --- | ---: | --- | --- | --- | --- |
-| Load | Baseline dưới tải kỳ vọng | TODO | TODO | TODO | TODO | Summary Report |
-| Stress | Tìm điểm gãy hoặc vùng suy giảm | TODO | TODO | TODO | TODO | Aggregate Report |
-| Spike | Tải tăng đột ngột | TODO | TODO | TODO | TODO | View Results Tree |
-| Endurance | Ngưỡng ổn định 10-15 phút | TODO | TODO | TODO | TODO | Summary/HTML Dashboard |
+| Load | Baseline dưới tải kỳ vọng | 50 | 60s | 300s | 1500ms + random 1500ms | Summary Report |
+| Stress | Tìm điểm gãy hoặc vùng suy giảm | 150 | 120s | 420s | 800ms + random 800ms | Aggregate Report |
+| Spike | Tải tăng đột ngột | 200 | 30s | 120s | 0ms | View Results Tree |
+| Endurance | Ngưỡng ổn định 10-15 phút | 50 | 60s | 900s | 1500ms + random 1500ms | Summary/HTML Dashboard |
+| Smoke | Kiểm tra end-to-end trước khi chạy chính thức | 1 | 1s | 15s | 100ms | Summary Report |
+
+Test plan files:
+
+- `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx`
+- `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx`
+- `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx`
+- `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx`
+- `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx`
 
 Các thành phần JMeter cần có:
 
@@ -98,13 +109,19 @@ Các thành phần JMeter cần có:
 
 ### 6.1 AI đã hỗ trợ gì
 
-TODO: mô tả prompt chính, skill dùng, output AI tạo ra.
+AI/Codex được dùng để đọc đề HW05, workflow đã chọn, API specification và sinh JMeter JMX skeleton cho Workflow 1. AI cũng hỗ trợ tạo CSV account setup, kiểm tra API smoke bằng cURL trước đó, và sinh script để tạo JMX nhất quán giữa các lần chạy.
 
 ### 6.2 Human review và chỉnh sửa
 
 | Vấn đề AI sai/thiếu | Vì sao có vấn đề | Cách sửa của sinh viên |
 | --- | --- | --- |
-| TODO | TODO | TODO |
+| Ban đầu giả định `/api/register` không ổn định | Kiểm tra trực tiếp cho thấy backend `/api/register` trả `200 OK`; lỗi register nếu có nhiều khả năng nằm ở frontend | Sửa workflow: dùng register làm bước setup account CSV, không đưa vào measured workflow |
+| CSV ban đầu thiếu `productName` và `productPrice` | `POST /api/cart` cần payload sản phẩm nhất quán với seed data thật | Mở rộng CSV và JMX để đọc `productName`, `productPrice`; dùng sản phẩm seed id 1-5 |
+| JMX generator ban đầu dùng property assertion sai `Asserion.test_strings` | JMeter có thể không nhận đúng assertion HTTP code nếu property sai | Sửa generator sang `Assertion.test_strings` và sinh lại toàn bộ JMX |
+| JMX generator ban đầu chưa đặt rõ raw body cho POST | POST JSON có thể bị gửi sai dạng nếu không bật `HTTPSampler.postBodyRaw` | Thêm `HTTPSampler.postBodyRaw=true` cho login/cart/checkout |
+| Login chỉ extract token, chưa assert field token tồn tại | Nếu login response không có token, các request sau sẽ fail nhưng nguyên nhân khó đọc | Thêm `JSONPathAssertion` kiểm `$.token` |
+| File seminar `EShop_Workload_Model.jmx` có workload model hay nhưng hard-code account và dùng traffic mix | Không bảo đảm mọi VU đi đúng Workflow 1 end-to-end, chưa data-driven theo yêu cầu HW05 | Chỉ dùng file seminar làm reference; final plans sinh riêng theo Workflow 1, CSV và naming chuẩn |
+| CSV account setup cũ không còn login được trên database đang chạy | JMeter smoke ngoài sandbox trả `401` ở login và `403` ở cart/checkout | Tạo lại CSV 200 account bằng `/api/register`, sau đó smoke pass 0% lỗi |
 
 Các điểm cần nhấn mạnh:
 
@@ -120,23 +137,29 @@ Các điểm cần nhấn mạnh:
 | --- | --- | --- |
 | `POST /api/register` | `200 OK` | Tạo account setup thành công |
 | `POST /api/login` | `200 OK` | Trả JWT token |
-| `GET /api/categories` | `200 OK` | TODO |
+| `GET /api/categories` | `200 OK` | Trả danh sách category |
 | `GET /api/products?search=phone` | `200 OK` | Trả `iPhone 15 Pro Max` |
-| `GET /api/products/1` | `200 OK` | TODO |
+| `GET /api/products/1` | `200 OK` | Trả chi tiết sản phẩm seed id 1 |
 | `POST /api/cart` | `200 OK` | Cần Authorization |
 | `GET /api/cart` | `200 OK` | Cần Authorization |
 | `POST /api/checkout` | `200 OK` | Trả `orderId` |
 
-Ghi chú: sandbox Codex có thể chặn request localhost có Authorization; kết quả chính thức cần xác nhận bằng cURL/JMeter thật ngoài sandbox.
+JMeter smoke:
+
+- Lượt chạy trong sandbox Codex bị `Operation not permitted` khi JMeter gọi localhost; phân loại là lỗi môi trường, không phải lỗi SUT.
+- Lượt chạy ngoài sandbox với CSV cũ trả `401` ở login và `403` ở cart/checkout; phân loại là lỗi test data cũ.
+- Sau khi tạo lại 200 account qua `/api/register`, smoke chính thức pass: 20 samples, 0 errors, avg 3.9 ms, p95 6.55 ms, throughput 1.4232 RPS.
+- Evidence: `testing-artifacts/hw05/evidence/notes/smoke-20260815.md`.
 
 ## 8. Execution evidence
 
 | Scenario | Plan | Raw JTL | HTML report | Screenshot | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Load | TODO | TODO | TODO | TODO | TODO |
-| Stress | TODO | TODO | TODO | TODO | TODO |
-| Spike | TODO | TODO | TODO | TODO | TODO |
-| Endurance | TODO | TODO | TODO | TODO | TODO |
+| Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO | Pass 20 samples, 0 errors |
+| Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
 
 ## 9. Kết quả metric
 

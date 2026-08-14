@@ -10,10 +10,12 @@ from pathlib import Path
 DIRS = [
     "plans",
     "data",
+    "results/smoke",
     "results/load",
     "results/stress",
     "results/spike",
     "results/endurance",
+    "html/smoke",
     "html/load",
     "html/stress",
     "html/spike",

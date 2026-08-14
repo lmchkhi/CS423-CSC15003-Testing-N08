@@ -10,6 +10,14 @@ from xml.sax.saxutils import escape
 
 
 SCENARIOS = {
+    "Smoke": {
+        "threads": 1,
+        "ramp": 1,
+        "duration": 15,
+        "timer_ms": 100,
+        "listener_gui": "SummaryReport",
+        "listener_name": "Summary Report",
+    },
     "Load": {
         "threads": 50,
         "ramp": 60,
@@ -99,7 +107,7 @@ def auth_header() -> str:
 def response_assertion(name: str, pattern: str) -> str:
     return f"""
         <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="{escape(name)}" enabled="true">
-          <collectionProp name="Asserion.test_strings">
+          <collectionProp name="Assertion.test_strings">
             <stringProp name="49586">{escape(pattern)}</stringProp>
           </collectionProp>
           <stringProp name="Assertion.custom_message"></stringProp>
@@ -108,6 +116,19 @@ def response_assertion(name: str, pattern: str) -> str:
           <intProp name="Assertion.test_type">8</intProp>
         </ResponseAssertion>
         <hashTree/>"""
+
+
+def json_path_assertion(name: str, path: str) -> str:
+    return f"""
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="{escape(name)}" enabled="true">
+            {prop("JSON_PATH", path)}
+            {prop("EXPECTED_VALUE", "")}
+            {bool_prop("JSONVALIDATION", False)}
+            {bool_prop("EXPECT_NULL", False)}
+            {bool_prop("INVERT", False)}
+            {bool_prop("ISREGEX", False)}
+          </JSONPathAssertion>
+          <hashTree/>"""
 
 
 def timer(ms: int) -> str:
@@ -131,6 +152,7 @@ def sampler(name: str, method: str, path: str, body: str | None = None, authed: 
           {prop("HTTPSampler.contentEncoding", "UTF-8")}
           {prop("HTTPSampler.path", path)}
           {prop("HTTPSampler.method", method)}
+          {bool_prop("HTTPSampler.postBodyRaw", body is not None)}
           {bool_prop("HTTPSampler.follow_redirects", True)}
           {bool_prop("HTTPSampler.auto_redirects", False)}
           {bool_prop("HTTPSampler.use_keepalive", True)}
@@ -162,6 +184,7 @@ def build_jmx(student_id: str, scenario: str, date: str, base_url: str, csv_path
             {prop("JSONPostProcessor.defaultValues", "TOKEN_NOT_FOUND")}
           </JSONPostProcessor>
           <hashTree/>
+          {json_path_assertion("Assert - JWT Token Returned", "$.token")}
           {response_assertion("Login HTTP 200", "200")}"""
 
     samples = "\n".join(
@@ -287,6 +310,7 @@ def main() -> None:
     parser.add_argument("--date", required=True, help="YYYYMMDD")
     parser.add_argument("--out-dir", default="testing-artifacts/hw05")
     parser.add_argument("--base-url", default="http://localhost:3000")
+    parser.add_argument("--include-smoke", action="store_true", help="Also generate a short smoke-test JMX")
     args = parser.parse_args()
 
     root = Path(args.out_dir)
@@ -301,7 +325,8 @@ def main() -> None:
         print(csv_file)
 
     csv_ref = str(csv_file)
-    for scenario in SCENARIOS:
+    scenarios = SCENARIOS if args.include_smoke else {key: value for key, value in SCENARIOS.items() if key != "Smoke"}
+    for scenario in scenarios:
         jmx = build_jmx(args.student_id, scenario, args.date, args.base_url, csv_ref)
         path = plans / f"{args.student_id}_{scenario}_{args.date}.jmx"
         path.write_text(jmx, encoding="utf-8")

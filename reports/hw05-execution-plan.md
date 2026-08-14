@@ -14,7 +14,7 @@ Bộ tài liệu và skill hiện tại đã đủ để bắt đầu thực hi�
 - Skill ghi AI audit: `skills/hw05-ai-audit-log`.
 - Skill tạo bug report local: `skills/hw05-bug-report`.
 - Skill tạo GitHub issue từ bug report: `skills/gh-create-bug-issues`.
-- Account CSV setup ban đầu: `testing-artifacts/hw05/data/workflow1_users.csv`.
+- Account CSV hiện tại: `testing-artifacts/hw05/data/workflow1_users.csv` với 200 account tạo bằng `/api/register`.
 
 Còn phải tạo trong quá trình làm:
 
@@ -90,6 +90,15 @@ Kết quả cần có:
 - `testing-artifacts/hw05/plans/23127475_Endurance_YYYYMMDD.jmx`
 - Ghi human review vào `reports/main-report.md`.
 
+Trạng thái 2026-08-15:
+
+- Đã sinh 4 JMX với ngày `20260815`.
+- Đã validate XML bằng `xmllint`.
+- Đã review CSV, token extractor, Authorization header, POST raw body, assertions, timers và listener/report view.
+- Đã sửa generator để dùng đúng `Assertion.test_strings`, bật `HTTPSampler.postBodyRaw` cho POST và thêm JSONPath assertion kiểm `$.token`.
+- Đã bổ sung tùy chọn sinh Smoke plan bằng `--include-smoke` để kiểm tra end-to-end trước khi chạy chính thức.
+- Đã chạy smoke test ở Pha 2 và pass sau khi tạo lại CSV account.
+
 ### Pha 2 - Smoke test workflow
 
 Mục tiêu:
@@ -103,6 +112,15 @@ Kết quả cần có:
 - Smoke `.jtl` nếu chạy bằng JMeter.
 - Ghi chú smoke test trong `reports/main-report.md`.
 - Bug report nếu phát hiện lỗi SUT thật.
+
+Trạng thái 2026-08-15:
+
+- Đã sinh `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx`.
+- Đã xác nhận sandbox Codex chặn JMeter gọi localhost nên lượt đó không dùng làm kết quả chính thức.
+- Đã phát hiện CSV account cũ không còn hợp lệ với database đang chạy; tạo lại 200 account bằng `/api/register`.
+- Smoke chính thức ngoài sandbox pass: 20 samples, 0 errors, avg 3.9 ms, p95 6.55 ms.
+- Evidence chính: `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl`, `testing-artifacts/hw05/html/smoke-pass/index.html`, `testing-artifacts/hw05/analysis/smoke-summary.csv`, `testing-artifacts/hw05/evidence/notes/smoke-20260815.md`.
+- Không tạo bug report vì lỗi gặp phải là sandbox/test data cũ, không phải bug SUT.
 
 ### Pha 3 - Chạy Load test
 

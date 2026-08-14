@@ -131,3 +131,111 @@ AI đã tạo template chi tiết trong `reports/main-report.md` để cập nh�
 
 AI cũng tạo `reports/bug-reports/.gitkeep` để theo dõi thư mục bug reports rỗng, validate các skill HW05 liên quan bằng `quick_validate.py`, và chuẩn bị commit đầu tiên cho setup skill/docs hiện tại.
 ```
+
+## Entry #5
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:02 GMT+7 |
+| **Artifact type** | Hỏi đáp về file mẫu seminar JMeter |
+
+**Full prompt:**
+
+```text
+trong buổi seminar còn có cung cấp 1 file mẫu để tham khảo như sau: EShop_Workload_Model.jmx nó có ích hay cần giữ lại để làm gì không hay với bộ skill đã tạo là đủ rồi
+```
+
+### (2) AI Output
+
+```text
+AI đã kiểm tra `EShop_Workload_Model.jmx` trong repo. File này là JMeter 5.6.3 test plan mẫu tên `EShop - Workload Model (Throughput Controllers)`, có HTTP defaults localhost:3000, header JSON, token extractor, assertions, timers, Throughput Controllers theo tỉ lệ browse/detail/cart/checkout, Ultimate Thread Group baseline/spike và các listeners Aggregate Report, Summary Report, View Results Tree.
+
+Kết luận: file mẫu có ích để tham khảo workload model, timer, token extraction, assertions, listeners và cách seminar minh họa traffic mix; nên giữ lại như reference seminar. Tuy nhiên không nên dùng nguyên xi làm test plan nộp chính vì có hard-code account `test@eshop.com`, không data-driven bằng CSV, workflow dùng throughput mix thay vì bảo đảm mỗi virtual user đi đúng chuỗi Workflow 1 end-to-end, có Ultimate Thread Group phụ thuộc JMeter Plugins, và không tách rõ 3 plan Load/Stress/Spike theo naming `{StudentID}_{ScenarioType}_{YYYYMMDD}`. Bộ skill hiện tại vẫn đủ để bắt đầu và tạo plan chính thức; file mẫu nên dùng để đối chiếu/cải thiện JMX/human review.
+```
+
+## Entry #6
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:21 GMT+7 |
+| **Artifact type** | Hỏi đáp về lộ trình pha và commit HW05 |
+
+**Full prompt:**
+
+```text
+tiếp theo để bắt đầu thì sẽ thực hiện pha 1 theo plan hả, làm tới pha nào thì sẽ commit tiếp?
+```
+
+### (2) AI Output
+
+```text
+AI trả lời rằng bước tiếp theo là thực hiện Pha 1 theo plan: sinh JMeter JMX cho Load/Stress/Spike/Endurance, review cấu hình CSV, token extractor, Authorization header, assertions, timers và listener/report views. Commit kế tiếp nên được tạo sau khi hoàn thành Pha 1 và smoke check tối thiểu của Pha 2, để JMX được xác nhận chạy được ở tải thấp trước khi commit. Commit này tương ứng `test(hw05): add jmeter plans for workflow 1`. Nếu muốn commit rất nhỏ thì có thể commit ngay sau Pha 1, nhưng khuyến nghị là Pha 1 + smoke test pass rồi commit để chất lượng tốt hơn.
+```
+
+## Entry #7
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:25 GMT+7 |
+| **Artifact type** | Pha 1 - sinh và review JMeter test plans |
+
+**Full prompt:**
+
+```text
+oke bây giờ thực hiện pha 1 cho tôi đi
+```
+
+### (2) AI Output
+
+```text
+AI đã thực hiện Pha 1 theo `reports/hw05-execution-plan.md`.
+
+Kết quả:
+- Tạo cây thư mục artifact chuẩn bằng `skills/hw05-jmeter-cli-runner/scripts/create_hw05_artifacts.py`.
+- Sinh 4 JMeter plan bằng `skills/hw05-jmeter-workflow1/scripts/generate_workflow1_jmx.py`:
+  - `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx`
+  - `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx`
+  - `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx`
+  - `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx`
+- Review JMX theo checklist: CSV Data Set Config, variableNames, token extractor `$.token`, Authorization header cho cart/checkout, POST raw body, assertions, timers và listener/report views.
+- Phát hiện và sửa generator: đổi `Asserion.test_strings` thành `Assertion.test_strings`, bật `HTTPSampler.postBodyRaw` cho POST, thêm JSONPath assertion kiểm `$.token`.
+- Regenerate toàn bộ JMX sau khi sửa.
+- Validate XML bằng `xmllint`: pass cho cả 4 JMX.
+- Kiểm tra `rg` không còn `Asserion.test_strings` trong generated plans/generator.
+- Cập nhật `reports/main-report.md` với workload, plan paths, Java/JMeter version và human review.
+- Cập nhật `reports/hw05-execution-plan.md` trạng thái Pha 1.
+- Validate skill `hw05-jmeter-workflow1`: `Skill is valid!`.
+
+Pha 1 chưa chạy smoke test JMeter; bước tiếp theo là Pha 2 smoke test tải thấp trước commit 2.
+```
+
+## Entry #8
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:35 GMT+7 |
+| **Artifact type** | HW05 smoke test evidence |
+
+**Full prompt:**
+
+```text
+oke tiếp tục bước tiếp theo
+```
+
+### (2) AI Output
+
+```text
+Tiếp tục Pha 2: chạy và xác minh JMeter smoke test cho Workflow 1. Phát hiện sandbox chặn JMeter gọi localhost và CSV account cũ không còn login được; tạo lại 200 account qua /api/register, rerun smoke ngoài sandbox thành công với 20 samples, 0 errors. Cập nhật smoke evidence note, smoke summary, main report, execution plan và generator/runner để hỗ trợ Smoke plan.
+```

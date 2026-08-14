@@ -1,0 +1,21 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1786735934486,17,01 Login,200,OK,Smoke Thread Group 1-1,text,true,,671,263,1,1,http://localhost:3000/api/login,17,0,13
+1786735935225,3,02 Get Categories,200,OK,Smoke Thread Group 1-1,text,true,,358,162,1,1,http://localhost:3000/api/categories,3,0,0
+1786735936034,3,03 Search Products,200,OK,Smoke Thread Group 1-1,text,true,,453,173,1,1,http://localhost:3000/api/products?search=phone,2,0,0
+1786735936741,3,04 Product Detail,200,OK,Smoke Thread Group 1-1,text,true,,451,162,1,1,http://localhost:3000/api/products/1,2,0,0
+1786735937363,3,05 Add To Cart,200,OK,Smoke Thread Group 1-1,text,true,,294,416,1,1,http://localhost:3000/api/cart,3,0,0
+1786735938156,6,06 Checkout,200,OK,Smoke Thread Group 1-1,text,true,,312,418,1,1,http://localhost:3000/api/checkout,6,0,0
+1786735938962,3,01 Login,200,OK,Smoke Thread Group 1-1,text,true,,671,263,1,1,http://localhost:3000/api/login,3,0,0
+1786735939617,2,02 Get Categories,200,OK,Smoke Thread Group 1-1,text,true,,358,162,1,1,http://localhost:3000/api/categories,2,0,0
+1786735940331,2,03 Search Products,200,OK,Smoke Thread Group 1-1,text,true,,480,175,1,1,http://localhost:3000/api/products?search=samsung,2,0,0
+1786735941083,4,04 Product Detail,200,OK,Smoke Thread Group 1-1,text,true,,480,162,1,1,http://localhost:3000/api/products/2,4,0,0
+1786735941893,3,05 Add To Cart,200,OK,Smoke Thread Group 1-1,text,true,,294,423,1,1,http://localhost:3000/api/cart,3,0,0
+1786735942579,6,06 Checkout,200,OK,Smoke Thread Group 1-1,text,true,,312,418,1,1,http://localhost:3000/api/checkout,6,0,0
+1786735943241,4,01 Login,200,OK,Smoke Thread Group 1-1,text,true,,671,263,1,1,http://localhost:3000/api/login,3,0,0
+1786735943982,2,02 Get Categories,200,OK,Smoke Thread Group 1-1,text,true,,358,162,1,1,http://localhost:3000/api/categories,2,0,0
+1786735944833,2,03 Search Products,200,OK,Smoke Thread Group 1-1,text,true,,267,174,1,1,http://localhost:3000/api/products?search=laptop,2,0,0
+1786735945560,2,04 Product Detail,200,OK,Smoke Thread Group 1-1,text,true,,448,162,1,1,http://localhost:3000/api/products/3,2,0,0
+1786735946129,2,05 Add To Cart,200,OK,Smoke Thread Group 1-1,text,true,,294,413,1,1,http://localhost:3000/api/cart,2,0,0
+1786735946939,5,06 Checkout,200,OK,Smoke Thread Group 1-1,text,true,,312,418,1,1,http://localhost:3000/api/checkout,5,0,0
+1786735947701,4,01 Login,200,OK,Smoke Thread Group 1-1,text,true,,671,263,1,1,http://localhost:3000/api/login,3,0,0
+1786735948539,2,02 Get Categories,200,OK,Smoke Thread Group 1-1,text,true,,358,162,1,1,http://localhost:3000/api/categories,2,0,0
