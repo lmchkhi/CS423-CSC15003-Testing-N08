@@ -1,0 +1,16 @@
+Hardware:
+
+    Hardware Overview:
+
+      Model Name: MacBook Pro
+      Model Identifier: Mac15,6
+      Model Number: Z1AX002EXLL/A
+      Chip: Apple M3 Pro
+      Total Number of Cores: 11 (5 Performance and 6 Efficiency)
+      Memory: 36 GB
+      System Firmware Version: 18000.121.3
+      OS Loader Version: 18000.121.3
+      Serial Number (system): [redacted]
+      Hardware UUID: [redacted]
+      Provisioning UDID: [redacted]
+      Activation Lock Status: [redacted]

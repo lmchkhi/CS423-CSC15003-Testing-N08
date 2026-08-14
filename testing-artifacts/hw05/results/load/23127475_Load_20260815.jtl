@@ -1,0 +1,1177 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1786736777629,17,01 Login,200,OK,Load Thread Group 1-1,text,true,,671,263,8,8,http://localhost:3000/api/login,17,0,11
+1786736780086,2,01 Login,200,OK,Load Thread Group 1-2,text,true,,671,263,10,10,http://localhost:3000/api/login,2,0,0
+1786736782879,3,01 Login,200,OK,Load Thread Group 1-3,text,true,,671,263,12,12,http://localhost:3000/api/login,3,0,1
+1786736782887,2,01 Login,200,OK,Load Thread Group 1-5,text,true,,671,263,12,12,http://localhost:3000/api/login,2,0,1
+1786736783492,4,01 Login,200,OK,Load Thread Group 1-4,text,true,,671,263,13,13,http://localhost:3000/api/login,4,0,1
+1786736784988,3,01 Login,200,OK,Load Thread Group 1-6,text,true,,671,263,14,14,http://localhost:3000/api/login,3,0,1
+1786736786080,3,01 Login,200,OK,Load Thread Group 1-7,text,true,,671,263,15,15,http://localhost:3000/api/login,3,0,1
+1786736786887,4,01 Login,200,OK,Load Thread Group 1-8,text,true,,674,263,15,15,http://localhost:3000/api/login,4,0,2
+1786736788771,3,02 Get Categories,200,OK,Load Thread Group 1-1,text,true,,358,162,17,17,http://localhost:3000/api/categories,3,0,2
+1786736789425,3,01 Login,200,OK,Load Thread Group 1-9,text,true,,674,263,18,18,http://localhost:3000/api/login,3,0,1
+1786736791145,2,01 Login,200,OK,Load Thread Group 1-10,text,true,,674,263,19,19,http://localhost:3000/api/login,2,0,0
+1786736791552,2,01 Login,200,OK,Load Thread Group 1-11,text,true,,674,263,19,19,http://localhost:3000/api/login,2,0,1
+1786736792454,2,02 Get Categories,200,OK,Load Thread Group 1-2,text,true,,358,162,20,20,http://localhost:3000/api/categories,2,0,1
+1786736792807,3,01 Login,200,OK,Load Thread Group 1-12,text,true,,674,263,20,20,http://localhost:3000/api/login,3,0,1
+1786736792990,3,02 Get Categories,200,OK,Load Thread Group 1-3,text,true,,358,162,21,21,http://localhost:3000/api/categories,3,0,1
+1786736793738,2,02 Get Categories,200,OK,Load Thread Group 1-5,text,true,,358,162,21,21,http://localhost:3000/api/categories,2,0,1
+1786736794181,2,01 Login,200,OK,Load Thread Group 1-13,text,true,,674,263,22,22,http://localhost:3000/api/login,2,0,1
+1786736794747,3,02 Get Categories,200,OK,Load Thread Group 1-4,text,true,,358,162,22,22,http://localhost:3000/api/categories,3,0,1
+1786736795477,2,02 Get Categories,200,OK,Load Thread Group 1-7,text,true,,358,162,23,23,http://localhost:3000/api/categories,2,0,1
+1786736796183,3,02 Get Categories,200,OK,Load Thread Group 1-8,text,true,,358,162,23,23,http://localhost:3000/api/categories,3,0,2
+1786736796836,5,01 Login,200,OK,Load Thread Group 1-14,text,true,,674,263,24,24,http://localhost:3000/api/login,5,0,1
+1786736797338,3,02 Get Categories,200,OK,Load Thread Group 1-6,text,true,,358,162,24,24,http://localhost:3000/api/categories,3,0,1
+1786736798030,3,01 Login,200,OK,Load Thread Group 1-15,text,true,,674,263,25,25,http://localhost:3000/api/login,3,0,1
+1786736798368,4,01 Login,200,OK,Load Thread Group 1-16,text,true,,674,263,25,25,http://localhost:3000/api/login,4,0,1
+1786736799460,4,01 Login,200,OK,Load Thread Group 1-18,text,true,,674,263,26,26,http://localhost:3000/api/login,4,0,1
+1786736799880,4,01 Login,200,OK,Load Thread Group 1-17,text,true,,674,263,26,26,http://localhost:3000/api/login,4,0,2
+1786736800541,4,02 Get Categories,200,OK,Load Thread Group 1-9,text,true,,358,162,27,27,http://localhost:3000/api/categories,4,0,2
+1786736800667,3,03 Search Products,200,OK,Load Thread Group 1-1,text,true,,453,173,27,27,http://localhost:3000/api/products?search=phone,3,0,1
+1786736801525,3,01 Login,200,OK,Load Thread Group 1-19,text,true,,674,263,28,28,http://localhost:3000/api/login,3,0,1
+1786736802161,4,02 Get Categories,200,OK,Load Thread Group 1-11,text,true,,358,162,28,28,http://localhost:3000/api/categories,4,0,1
+1786736802338,4,02 Get Categories,200,OK,Load Thread Group 1-10,text,true,,358,162,28,28,http://localhost:3000/api/categories,4,0,2
+1786736802517,6,01 Login,200,OK,Load Thread Group 1-20,text,true,,674,263,28,28,http://localhost:3000/api/login,5,0,2
+1786736802876,4,02 Get Categories,200,OK,Load Thread Group 1-12,text,true,,358,162,29,29,http://localhost:3000/api/categories,4,0,2
+1786736803384,3,03 Search Products,200,OK,Load Thread Group 1-2,text,true,,480,175,29,29,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736804209,4,01 Login,200,OK,Load Thread Group 1-21,text,true,,674,263,30,30,http://localhost:3000/api/login,4,0,1
+1786736804374,4,01 Login,200,OK,Load Thread Group 1-22,text,true,,674,263,30,30,http://localhost:3000/api/login,4,0,2
+1786736804604,5,03 Search Products,200,OK,Load Thread Group 1-5,text,true,,469,176,30,30,http://localhost:3000/api/products?search=keychron,5,0,3
+1786736805024,4,02 Get Categories,200,OK,Load Thread Group 1-13,text,true,,358,162,31,31,http://localhost:3000/api/categories,4,0,2
+1786736805345,3,03 Search Products,200,OK,Load Thread Group 1-7,text,true,,480,175,31,31,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736805396,2,03 Search Products,200,OK,Load Thread Group 1-3,text,true,,267,174,31,31,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736805960,3,01 Login,200,OK,Load Thread Group 1-23,text,true,,674,263,31,31,http://localhost:3000/api/login,3,0,1
+1786736806166,4,03 Search Products,200,OK,Load Thread Group 1-4,text,true,,461,175,31,31,http://localhost:3000/api/products?search=airpods,4,0,2
+1786736806608,3,03 Search Products,200,OK,Load Thread Group 1-8,text,true,,267,174,32,32,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736806898,4,01 Login,200,OK,Load Thread Group 1-25,text,true,,674,263,32,32,http://localhost:3000/api/login,4,0,1
+1786736808527,5,02 Get Categories,200,OK,Load Thread Group 1-14,text,true,,358,162,33,33,http://localhost:3000/api/categories,5,0,2
+1786736808769,5,02 Get Categories,200,OK,Load Thread Group 1-16,text,true,,358,162,34,34,http://localhost:3000/api/categories,5,0,2
+1786736809078,3,02 Get Categories,200,OK,Load Thread Group 1-15,text,true,,358,162,34,34,http://localhost:3000/api/categories,3,0,1
+1786736809117,3,03 Search Products,200,OK,Load Thread Group 1-6,text,true,,453,173,34,34,http://localhost:3000/api/products?search=phone,3,0,1
+1786736809196,2,01 Login,200,OK,Load Thread Group 1-24,text,true,,674,263,34,34,http://localhost:3000/api/login,2,0,1
+1786736810569,4,03 Search Products,200,OK,Load Thread Group 1-9,text,true,,461,175,35,35,http://localhost:3000/api/products?search=airpods,4,0,1
+1786736810801,4,04 Product Detail,200,OK,Load Thread Group 1-1,text,true,,451,162,35,35,http://localhost:3000/api/products/1,4,0,2
+1786736810858,3,02 Get Categories,200,OK,Load Thread Group 1-17,text,true,,358,162,35,35,http://localhost:3000/api/categories,3,0,2
+1786736811272,2,02 Get Categories,200,OK,Load Thread Group 1-18,text,true,,358,162,36,36,http://localhost:3000/api/categories,2,0,1
+1786736811464,4,01 Login,200,OK,Load Thread Group 1-26,text,true,,674,263,36,36,http://localhost:3000/api/login,4,0,1
+1786736812272,2,01 Login,200,OK,Load Thread Group 1-28,text,true,,674,263,37,37,http://localhost:3000/api/login,2,0,1
+1786736812323,2,03 Search Products,200,OK,Load Thread Group 1-10,text,true,,469,176,37,37,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736812327,4,01 Login,200,OK,Load Thread Group 1-27,text,true,,674,263,37,37,http://localhost:3000/api/login,4,0,1
+1786736812381,2,02 Get Categories,200,OK,Load Thread Group 1-20,text,true,,358,162,37,37,http://localhost:3000/api/categories,2,0,1
+1786736812941,2,02 Get Categories,200,OK,Load Thread Group 1-19,text,true,,358,162,37,37,http://localhost:3000/api/categories,2,0,0
+1786736813441,3,04 Product Detail,200,OK,Load Thread Group 1-2,text,true,,480,162,38,38,http://localhost:3000/api/products/2,3,0,2
+1786736813664,2,01 Login,200,OK,Load Thread Group 1-29,text,true,,674,263,38,38,http://localhost:3000/api/login,2,0,0
+1786736813865,2,01 Login,200,OK,Load Thread Group 1-30,text,true,,674,263,38,38,http://localhost:3000/api/login,2,0,0
+1786736814011,3,03 Search Products,200,OK,Load Thread Group 1-12,text,true,,480,175,38,38,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736814058,3,03 Search Products,200,OK,Load Thread Group 1-11,text,true,,453,173,38,38,http://localhost:3000/api/products?search=phone,3,0,1
+1786736814802,3,02 Get Categories,200,OK,Load Thread Group 1-23,text,true,,358,162,39,39,http://localhost:3000/api/categories,3,0,1
+1786736815322,2,03 Search Products,200,OK,Load Thread Group 1-13,text,true,,267,174,39,39,http://localhost:3000/api/products?search=laptop,1,0,1
+1786736815666,3,02 Get Categories,200,OK,Load Thread Group 1-22,text,true,,358,162,39,39,http://localhost:3000/api/categories,3,0,1
+1786736815743,3,02 Get Categories,200,OK,Load Thread Group 1-21,text,true,,358,162,39,39,http://localhost:3000/api/categories,3,0,1
+1786736816357,3,04 Product Detail,200,OK,Load Thread Group 1-3,text,true,,448,162,40,40,http://localhost:3000/api/products/3,3,0,1
+1786736816551,3,04 Product Detail,200,OK,Load Thread Group 1-4,text,true,,461,162,40,40,http://localhost:3000/api/products/4,3,0,1
+1786736816756,1,04 Product Detail,200,OK,Load Thread Group 1-5,text,true,,467,162,40,40,http://localhost:3000/api/products/5,1,0,0
+1786736816789,2,04 Product Detail,200,OK,Load Thread Group 1-8,text,true,,448,162,40,40,http://localhost:3000/api/products/3,2,0,1
+1786736817185,4,01 Login,200,OK,Load Thread Group 1-32,text,true,,674,263,41,41,http://localhost:3000/api/login,4,0,1
+1786736817319,3,01 Login,200,OK,Load Thread Group 1-31,text,true,,674,263,41,41,http://localhost:3000/api/login,3,0,1
+1786736817551,3,01 Login,200,OK,Load Thread Group 1-33,text,true,,674,263,41,41,http://localhost:3000/api/login,3,0,1
+1786736817640,2,02 Get Categories,200,OK,Load Thread Group 1-25,text,true,,358,162,41,41,http://localhost:3000/api/categories,2,0,1
+1786736817770,3,01 Login,200,OK,Load Thread Group 1-34,text,true,,674,263,41,41,http://localhost:3000/api/login,3,0,1
+1786736817989,2,04 Product Detail,200,OK,Load Thread Group 1-7,text,true,,480,162,41,41,http://localhost:3000/api/products/2,2,0,1
+1786736818914,2,03 Search Products,200,OK,Load Thread Group 1-14,text,true,,461,175,42,42,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736819263,2,03 Search Products,200,OK,Load Thread Group 1-15,text,true,,469,176,42,42,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736820047,1,04 Product Detail,200,OK,Load Thread Group 1-6,text,true,,451,162,43,43,http://localhost:3000/api/products/1,1,0,0
+1786736820400,2,01 Login,200,OK,Load Thread Group 1-35,text,true,,674,263,43,43,http://localhost:3000/api/login,2,0,1
+1786736820747,2,02 Get Categories,200,OK,Load Thread Group 1-24,text,true,,358,162,44,44,http://localhost:3000/api/categories,2,0,1
+1786736821237,2,03 Search Products,200,OK,Load Thread Group 1-16,text,true,,453,173,44,44,http://localhost:3000/api/products?search=phone,2,0,1
+1786736821317,3,01 Login,200,OK,Load Thread Group 1-36,text,true,,674,263,44,44,http://localhost:3000/api/login,3,0,1
+1786736821382,3,04 Product Detail,200,OK,Load Thread Group 1-9,text,true,,461,162,44,44,http://localhost:3000/api/products/4,3,0,1
+1786736821597,2,02 Get Categories,200,OK,Load Thread Group 1-28,text,true,,358,162,44,44,http://localhost:3000/api/categories,1,0,0
+1786736821691,2,02 Get Categories,200,OK,Load Thread Group 1-27,text,true,,358,162,44,44,http://localhost:3000/api/categories,2,0,1
+1786736822068,2,03 Search Products,200,OK,Load Thread Group 1-18,text,true,,267,174,45,45,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736822283,3,02 Get Categories,200,OK,Load Thread Group 1-26,text,true,,358,162,45,45,http://localhost:3000/api/categories,3,0,2
+1786736822798,3,05 Add To Cart,200,OK,Load Thread Group 1-1,text,true,,294,416,45,45,http://localhost:3000/api/cart,3,0,2
+1786736822932,2,03 Search Products,200,OK,Load Thread Group 1-17,text,true,,480,175,45,45,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736823084,1,01 Login,200,OK,Load Thread Group 1-37,text,true,,674,263,46,46,http://localhost:3000/api/login,1,0,1
+1786736823441,3,03 Search Products,200,OK,Load Thread Group 1-20,text,true,,469,176,46,46,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736823608,3,04 Product Detail,200,OK,Load Thread Group 1-10,text,true,,467,162,46,46,http://localhost:3000/api/products/5,3,0,2
+1786736824384,2,02 Get Categories,200,OK,Load Thread Group 1-30,text,true,,358,162,47,47,http://localhost:3000/api/categories,2,0,1
+1786736824460,2,03 Search Products,200,OK,Load Thread Group 1-19,text,true,,461,175,47,47,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736824559,2,01 Login,200,OK,Load Thread Group 1-38,text,true,,674,263,47,47,http://localhost:3000/api/login,1,0,0
+1786736825278,2,04 Product Detail,200,OK,Load Thread Group 1-12,text,true,,480,162,47,47,http://localhost:3000/api/products/2,2,0,0
+1786736825280,3,01 Login,200,OK,Load Thread Group 1-40,text,true,,674,263,47,47,http://localhost:3000/api/login,3,0,1
+1786736825374,3,05 Add To Cart,200,OK,Load Thread Group 1-2,text,true,,294,423,48,48,http://localhost:3000/api/cart,3,0,2
+1786736826020,3,02 Get Categories,200,OK,Load Thread Group 1-29,text,true,,358,162,48,48,http://localhost:3000/api/categories,3,0,2
+1786736826291,4,04 Product Detail,200,OK,Load Thread Group 1-11,text,true,,451,162,48,48,http://localhost:3000/api/products/1,4,0,1
+1786736826651,2,01 Login,200,OK,Load Thread Group 1-39,text,true,,674,263,49,49,http://localhost:3000/api/login,2,0,1
+1786736826959,2,03 Search Products,200,OK,Load Thread Group 1-23,text,true,,267,174,49,49,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736827592,3,05 Add To Cart,200,OK,Load Thread Group 1-3,text,true,,294,413,49,49,http://localhost:3000/api/cart,3,0,1
+1786736827628,2,04 Product Detail,200,OK,Load Thread Group 1-13,text,true,,448,162,49,49,http://localhost:3000/api/products/3,2,0,1
+1786736827730,2,02 Get Categories,200,OK,Load Thread Group 1-31,text,true,,358,162,49,49,http://localhost:3000/api/categories,2,0,1
+1786736827806,2,05 Add To Cart,200,OK,Load Thread Group 1-8,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,1
+1786736827814,4,01 Login,200,OK,Load Thread Group 1-41,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736827900,3,02 Get Categories,200,OK,Load Thread Group 1-34,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736827956,1,03 Search Products,200,OK,Load Thread Group 1-22,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,1,0,0
+1786736828088,2,03 Search Products,200,OK,Load Thread Group 1-21,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736828234,2,05 Add To Cart,200,OK,Load Thread Group 1-4,text,true,,294,420,50,50,http://localhost:3000/api/cart,1,0,1
+1786736828234,2,05 Add To Cart,200,OK,Load Thread Group 1-5,text,true,,294,424,50,50,http://localhost:3000/api/cart,2,0,1
+1786736828717,2,03 Search Products,200,OK,Load Thread Group 1-25,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736829035,2,02 Get Categories,200,OK,Load Thread Group 1-32,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736829592,4,01 Login,200,OK,Load Thread Group 1-42,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736829766,3,04 Product Detail,200,OK,Load Thread Group 1-15,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736830301,2,04 Product Detail,200,OK,Load Thread Group 1-14,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736830542,2,02 Get Categories,200,OK,Load Thread Group 1-33,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736830723,3,01 Login,200,OK,Load Thread Group 1-43,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736830948,2,05 Add To Cart,200,OK,Load Thread Group 1-6,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,0
+1786736831050,2,02 Get Categories,200,OK,Load Thread Group 1-36,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736831242,3,04 Product Detail,200,OK,Load Thread Group 1-16,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736831459,3,05 Add To Cart,200,OK,Load Thread Group 1-7,text,true,,294,423,50,50,http://localhost:3000/api/cart,3,0,1
+1786736831617,3,05 Add To Cart,200,OK,Load Thread Group 1-9,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,1
+1786736831807,4,03 Search Products,200,OK,Load Thread Group 1-27,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,4,0,1
+1786736831888,3,01 Login,200,OK,Load Thread Group 1-44,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736832121,3,02 Get Categories,200,OK,Load Thread Group 1-35,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736832438,2,03 Search Products,200,OK,Load Thread Group 1-26,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736833016,4,03 Search Products,200,OK,Load Thread Group 1-24,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,2
+1786736833218,3,03 Search Products,200,OK,Load Thread Group 1-28,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,2
+1786736833221,4,01 Login,200,OK,Load Thread Group 1-46,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736833317,4,01 Login,200,OK,Load Thread Group 1-45,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736833985,4,02 Get Categories,200,OK,Load Thread Group 1-37,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,1
+1786736834301,3,04 Product Detail,200,OK,Load Thread Group 1-20,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736834585,4,06 Checkout,200,OK,Load Thread Group 1-1,text,true,,312,418,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736834748,3,04 Product Detail,200,OK,Load Thread Group 1-18,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786736834922,5,06 Checkout,200,OK,Load Thread Group 1-2,text,true,,312,418,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736834992,3,03 Search Products,200,OK,Load Thread Group 1-30,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736835039,2,02 Get Categories,200,OK,Load Thread Group 1-38,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736835114,4,04 Product Detail,200,OK,Load Thread Group 1-17,text,true,,480,162,50,50,http://localhost:3000/api/products/2,4,0,2
+1786736835181,2,01 Login,200,OK,Load Thread Group 1-47,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736835722,3,02 Get Categories,200,OK,Load Thread Group 1-40,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736836039,2,04 Product Detail,200,OK,Load Thread Group 1-19,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736836418,2,05 Add To Cart,200,OK,Load Thread Group 1-10,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736836696,4,05 Add To Cart,200,OK,Load Thread Group 1-12,text,true,,294,425,50,50,http://localhost:3000/api/cart,4,0,2
+1786736837420,4,05 Add To Cart,200,OK,Load Thread Group 1-11,text,true,,294,418,50,50,http://localhost:3000/api/cart,4,0,2
+1786736837648,3,02 Get Categories,200,OK,Load Thread Group 1-39,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736837765,3,04 Product Detail,200,OK,Load Thread Group 1-22,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736837800,4,03 Search Products,200,OK,Load Thread Group 1-29,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,4,0,2
+1786736838490,4,01 Login,200,OK,Load Thread Group 1-48,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736838515,4,01 Login,200,OK,Load Thread Group 1-49,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736838650,6,06 Checkout,200,OK,Load Thread Group 1-4,text,true,,312,418,50,50,http://localhost:3000/api/checkout,6,0,3
+1786736838712,5,06 Checkout,200,OK,Load Thread Group 1-8,text,true,,312,420,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736838742,3,04 Product Detail,200,OK,Load Thread Group 1-25,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,2
+1786736838906,6,06 Checkout,200,OK,Load Thread Group 1-3,text,true,,312,418,50,50,http://localhost:3000/api/checkout,6,0,2
+1786736838931,2,03 Search Products,200,OK,Load Thread Group 1-34,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736839096,4,03 Search Products,200,OK,Load Thread Group 1-31,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,4,0,2
+1786736839229,3,02 Get Categories,200,OK,Load Thread Group 1-41,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736839267,3,04 Product Detail,200,OK,Load Thread Group 1-23,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786736839424,4,05 Add To Cart,200,OK,Load Thread Group 1-13,text,true,,294,415,50,50,http://localhost:3000/api/cart,4,0,1
+1786736839445,7,06 Checkout,200,OK,Load Thread Group 1-5,text,true,,312,417,50,50,http://localhost:3000/api/checkout,7,0,2
+1786736839469,3,04 Product Detail,200,OK,Load Thread Group 1-21,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736840043,4,01 Login,200,OK,Load Thread Group 1-50,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736840924,4,03 Search Products,200,OK,Load Thread Group 1-33,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,4,0,1
+1786736841240,2,03 Search Products,200,OK,Load Thread Group 1-32,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,0
+1786736841342,2,02 Get Categories,200,OK,Load Thread Group 1-42,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736841514,4,05 Add To Cart,200,OK,Load Thread Group 1-16,text,true,,294,418,50,50,http://localhost:3000/api/cart,4,0,2
+1786736841563,2,05 Add To Cart,200,OK,Load Thread Group 1-14,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736841887,4,02 Get Categories,200,OK,Load Thread Group 1-44,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,3
+1786736841972,3,05 Add To Cart,200,OK,Load Thread Group 1-15,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786736842168,3,03 Search Products,200,OK,Load Thread Group 1-36,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736842171,4,06 Checkout,200,OK,Load Thread Group 1-9,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736842307,6,06 Checkout,200,OK,Load Thread Group 1-6,text,true,,313,418,50,50,http://localhost:3000/api/checkout,6,0,1
+1786736843294,2,03 Search Products,200,OK,Load Thread Group 1-35,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736843505,3,02 Get Categories,200,OK,Load Thread Group 1-46,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736843565,3,04 Product Detail,200,OK,Load Thread Group 1-26,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736843838,2,02 Get Categories,200,OK,Load Thread Group 1-43,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736844174,3,04 Product Detail,200,OK,Load Thread Group 1-28,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786736844264,3,04 Product Detail,200,OK,Load Thread Group 1-27,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736844438,6,06 Checkout,200,OK,Load Thread Group 1-7,text,true,,313,418,50,50,http://localhost:3000/api/checkout,6,0,2
+1786736844748,4,01 Login,200,OK,Load Thread Group 1-1,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736845027,6,06 Checkout,200,OK,Load Thread Group 1-12,text,true,,313,421,50,50,http://localhost:3000/api/checkout,6,0,1
+1786736845235,4,04 Product Detail,200,OK,Load Thread Group 1-24,text,true,,461,162,50,50,http://localhost:3000/api/products/4,4,0,1
+1786736845573,2,02 Get Categories,200,OK,Load Thread Group 1-45,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736845928,2,03 Search Products,200,OK,Load Thread Group 1-37,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736846242,2,02 Get Categories,200,OK,Load Thread Group 1-47,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736846242,2,05 Add To Cart,200,OK,Load Thread Group 1-18,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,0
+1786736846280,3,05 Add To Cart,200,OK,Load Thread Group 1-20,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,2
+1786736846517,3,03 Search Products,200,OK,Load Thread Group 1-38,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736846602,2,03 Search Products,200,OK,Load Thread Group 1-40,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736846817,3,04 Product Detail,200,OK,Load Thread Group 1-30,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736847295,3,01 Login,200,OK,Load Thread Group 1-2,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736847784,4,05 Add To Cart,200,OK,Load Thread Group 1-17,text,true,,294,425,50,50,http://localhost:3000/api/cart,4,0,1
+1786736847886,5,05 Add To Cart,200,OK,Load Thread Group 1-19,text,true,,294,422,50,50,http://localhost:3000/api/cart,5,0,1
+1786736848382,3,03 Search Products,200,OK,Load Thread Group 1-39,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736848526,4,05 Add To Cart,200,OK,Load Thread Group 1-22,text,true,,294,425,50,50,http://localhost:3000/api/cart,4,0,2
+1786736848588,5,06 Checkout,200,OK,Load Thread Group 1-10,text,true,,313,420,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736848960,2,02 Get Categories,200,OK,Load Thread Group 1-48,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736849532,3,04 Product Detail,200,OK,Load Thread Group 1-31,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736849766,2,01 Login,200,OK,Load Thread Group 1-5,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736850022,4,05 Add To Cart,200,OK,Load Thread Group 1-25,text,true,,294,426,50,50,http://localhost:3000/api/cart,4,0,1
+1786736850061,4,01 Login,200,OK,Load Thread Group 1-8,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736850113,2,04 Product Detail,200,OK,Load Thread Group 1-34,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736850396,3,02 Get Categories,200,OK,Load Thread Group 1-49,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736850396,5,06 Checkout,200,OK,Load Thread Group 1-13,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736850796,4,06 Checkout,200,OK,Load Thread Group 1-11,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736850938,4,01 Login,200,OK,Load Thread Group 1-4,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736850947,2,04 Product Detail,200,OK,Load Thread Group 1-29,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736851074,3,05 Add To Cart,200,OK,Load Thread Group 1-23,text,true,,294,415,50,50,http://localhost:3000/api/cart,3,0,1
+1786736851215,2,03 Search Products,200,OK,Load Thread Group 1-41,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736851331,4,06 Checkout,200,OK,Load Thread Group 1-15,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736851384,2,01 Login,200,OK,Load Thread Group 1-3,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736851504,3,02 Get Categories,200,OK,Load Thread Group 1-50,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736851880,4,05 Add To Cart,200,OK,Load Thread Group 1-21,text,true,,294,418,50,50,http://localhost:3000/api/cart,3,0,2
+1786736852159,3,04 Product Detail,200,OK,Load Thread Group 1-33,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,2
+1786736852245,3,04 Product Detail,200,OK,Load Thread Group 1-32,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,2
+1786736852568,3,03 Search Products,200,OK,Load Thread Group 1-42,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736852655,5,06 Checkout,200,OK,Load Thread Group 1-16,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736853563,5,01 Login,200,OK,Load Thread Group 1-9,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736854127,2,03 Search Products,200,OK,Load Thread Group 1-43,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736854129,4,06 Checkout,200,OK,Load Thread Group 1-14,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736854287,2,04 Product Detail,200,OK,Load Thread Group 1-36,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736854360,4,03 Search Products,200,OK,Load Thread Group 1-44,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736854487,3,03 Search Products,200,OK,Load Thread Group 1-46,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736854579,3,04 Product Detail,200,OK,Load Thread Group 1-35,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736854665,2,05 Add To Cart,200,OK,Load Thread Group 1-26,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736855210,5,01 Login,200,OK,Load Thread Group 1-7,text,true,,674,263,50,50,http://localhost:3000/api/login,5,0,2
+1786736855431,4,01 Login,200,OK,Load Thread Group 1-6,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736855738,6,06 Checkout,200,OK,Load Thread Group 1-18,text,true,,313,421,50,50,http://localhost:3000/api/checkout,6,0,2
+1786736855851,4,05 Add To Cart,200,OK,Load Thread Group 1-28,text,true,,294,415,50,50,http://localhost:3000/api/cart,3,0,1
+1786736856288,3,03 Search Products,200,OK,Load Thread Group 1-45,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736856635,2,05 Add To Cart,200,OK,Load Thread Group 1-27,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736856706,2,03 Search Products,200,OK,Load Thread Group 1-47,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736856737,5,06 Checkout,200,OK,Load Thread Group 1-20,text,true,,313,420,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736857182,4,02 Get Categories,200,OK,Load Thread Group 1-1,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,1
+1786736857201,3,05 Add To Cart,200,OK,Load Thread Group 1-24,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,1
+1786736857570,4,01 Login,200,OK,Load Thread Group 1-12,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736857714,3,04 Product Detail,200,OK,Load Thread Group 1-40,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736857956,3,04 Product Detail,200,OK,Load Thread Group 1-37,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736858377,2,05 Add To Cart,200,OK,Load Thread Group 1-30,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736858409,3,02 Get Categories,200,OK,Load Thread Group 1-2,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736858867,4,06 Checkout,200,OK,Load Thread Group 1-19,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736858968,2,04 Product Detail,200,OK,Load Thread Group 1-38,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736859200,4,06 Checkout,200,OK,Load Thread Group 1-17,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736859737,2,05 Add To Cart,200,OK,Load Thread Group 1-31,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736860007,2,04 Product Detail,200,OK,Load Thread Group 1-39,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736860349,12,06 Checkout,200,OK,Load Thread Group 1-25,text,true,,313,420,50,50,http://localhost:3000/api/checkout,12,0,4
+1786736860550,2,01 Login,200,OK,Load Thread Group 1-13,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736860581,3,06 Checkout,200,OK,Load Thread Group 1-22,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736860829,3,01 Login,200,OK,Load Thread Group 1-10,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,2
+1786736861213,3,02 Get Categories,200,OK,Load Thread Group 1-5,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736861335,2,02 Get Categories,200,OK,Load Thread Group 1-8,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736861609,2,02 Get Categories,200,OK,Load Thread Group 1-4,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736861671,3,05 Add To Cart,200,OK,Load Thread Group 1-29,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,2
+1786736861956,2,05 Add To Cart,200,OK,Load Thread Group 1-34,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736862030,3,01 Login,200,OK,Load Thread Group 1-15,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736862076,2,05 Add To Cart,200,OK,Load Thread Group 1-33,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,1
+1786736862235,2,01 Login,200,OK,Load Thread Group 1-11,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736862251,2,03 Search Products,200,OK,Load Thread Group 1-48,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736862329,2,03 Search Products,200,OK,Load Thread Group 1-49,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736862490,3,03 Search Products,200,OK,Load Thread Group 1-50,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736862792,5,06 Checkout,200,OK,Load Thread Group 1-23,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736862969,3,04 Product Detail,200,OK,Load Thread Group 1-42,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736863365,6,06 Checkout,200,OK,Load Thread Group 1-21,text,true,,313,421,50,50,http://localhost:3000/api/checkout,6,0,1
+1786736863419,3,02 Get Categories,200,OK,Load Thread Group 1-3,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736863524,10,04 Product Detail,200,OK,Load Thread Group 1-41,text,true,,451,162,50,50,http://localhost:3000/api/products/1,10,0,2
+1786736863821,3,02 Get Categories,200,OK,Load Thread Group 1-9,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736863834,2,05 Add To Cart,200,OK,Load Thread Group 1-32,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736864173,3,01 Login,200,OK,Load Thread Group 1-16,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736864453,3,01 Login,200,OK,Load Thread Group 1-18,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736864560,1,04 Product Detail,200,OK,Load Thread Group 1-44,text,true,,461,162,50,50,http://localhost:3000/api/products/4,1,0,1
+1786736865205,3,02 Get Categories,200,OK,Load Thread Group 1-7,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736865422,2,04 Product Detail,200,OK,Load Thread Group 1-43,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736865435,5,06 Checkout,200,OK,Load Thread Group 1-28,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736865931,2,05 Add To Cart,200,OK,Load Thread Group 1-36,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736866199,2,04 Product Detail,200,OK,Load Thread Group 1-46,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736866715,2,06 Checkout,200,OK,Load Thread Group 1-26,text,true,,313,421,50,50,http://localhost:3000/api/checkout,2,0,0
+1786736866820,2,02 Get Categories,200,OK,Load Thread Group 1-6,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736867265,2,05 Add To Cart,200,OK,Load Thread Group 1-35,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736867267,3,01 Login,200,OK,Load Thread Group 1-14,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736867426,4,01 Login,200,OK,Load Thread Group 1-20,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736867760,2,04 Product Detail,200,OK,Load Thread Group 1-47,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736867765,3,06 Checkout,200,OK,Load Thread Group 1-27,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736868183,3,02 Get Categories,200,OK,Load Thread Group 1-12,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736868221,4,06 Checkout,200,OK,Load Thread Group 1-24,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736868270,3,05 Add To Cart,200,OK,Load Thread Group 1-40,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,2
+1786736868488,3,04 Product Detail,200,OK,Load Thread Group 1-45,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736868493,1,03 Search Products,200,OK,Load Thread Group 1-2,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,1,0,0
+1786736868810,4,03 Search Products,200,OK,Load Thread Group 1-1,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,4,0,2
+1786736868891,3,05 Add To Cart,200,OK,Load Thread Group 1-37,text,true,,294,425,50,50,http://localhost:3000/api/cart,3,0,1
+1786736869418,4,06 Checkout,200,OK,Load Thread Group 1-30,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736869562,4,01 Login,200,OK,Load Thread Group 1-19,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736870101,3,05 Add To Cart,200,OK,Load Thread Group 1-39,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736870876,7,06 Checkout,200,OK,Load Thread Group 1-31,text,true,,313,421,50,50,http://localhost:3000/api/checkout,7,0,2
+1786736871067,2,05 Add To Cart,200,OK,Load Thread Group 1-38,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,1
+1786736871752,2,02 Get Categories,200,OK,Load Thread Group 1-10,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736871771,3,03 Search Products,200,OK,Load Thread Group 1-4,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736871826,3,02 Get Categories,200,OK,Load Thread Group 1-15,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736871829,1,01 Login,200,OK,Load Thread Group 1-25,text,true,,674,263,50,50,http://localhost:3000/api/login,1,0,0
+1786736871895,3,01 Login,200,OK,Load Thread Group 1-17,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,0
+1786736871921,3,03 Search Products,200,OK,Load Thread Group 1-8,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,2
+1786736871979,2,02 Get Categories,200,OK,Load Thread Group 1-13,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736872201,4,06 Checkout,200,OK,Load Thread Group 1-33,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736872572,2,04 Product Detail,200,OK,Load Thread Group 1-50,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,0
+1786736872573,4,06 Checkout,200,OK,Load Thread Group 1-34,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736873124,2,05 Add To Cart,200,OK,Load Thread Group 1-42,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736873615,2,04 Product Detail,200,OK,Load Thread Group 1-49,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736873620,1,03 Search Products,200,OK,Load Thread Group 1-5,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,1,0,0
+1786736873647,2,01 Login,200,OK,Load Thread Group 1-22,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736873698,2,04 Product Detail,200,OK,Load Thread Group 1-48,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736874121,2,03 Search Products,200,OK,Load Thread Group 1-9,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736874210,4,06 Checkout,200,OK,Load Thread Group 1-29,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736874376,2,02 Get Categories,200,OK,Load Thread Group 1-11,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736874843,3,02 Get Categories,200,OK,Load Thread Group 1-18,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736874886,3,02 Get Categories,200,OK,Load Thread Group 1-16,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736875113,3,06 Checkout,200,OK,Load Thread Group 1-36,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736875198,2,05 Add To Cart,200,OK,Load Thread Group 1-41,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736875468,4,06 Checkout,200,OK,Load Thread Group 1-32,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736875470,2,03 Search Products,200,OK,Load Thread Group 1-3,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,0
+1786736875524,5,05 Add To Cart,200,OK,Load Thread Group 1-44,text,true,,294,422,50,50,http://localhost:3000/api/cart,5,0,1
+1786736875613,3,01 Login,200,OK,Load Thread Group 1-23,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,2
+1786736875734,2,01 Login,200,OK,Load Thread Group 1-21,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736876525,2,05 Add To Cart,200,OK,Load Thread Group 1-43,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,0
+1786736876926,2,03 Search Products,200,OK,Load Thread Group 1-7,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736877125,2,02 Get Categories,200,OK,Load Thread Group 1-20,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736877189,2,01 Login,200,OK,Load Thread Group 1-28,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736877674,2,01 Login,200,OK,Load Thread Group 1-26,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736877703,3,01 Login,200,OK,Load Thread Group 1-27,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736877845,2,03 Search Products,200,OK,Load Thread Group 1-6,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736878166,2,05 Add To Cart,200,OK,Load Thread Group 1-47,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736878616,5,05 Add To Cart,200,OK,Load Thread Group 1-46,text,true,,294,418,50,50,http://localhost:3000/api/cart,5,0,2
+1786736879016,2,02 Get Categories,200,OK,Load Thread Group 1-14,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736879289,4,06 Checkout,200,OK,Load Thread Group 1-35,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736879292,2,01 Login,200,OK,Load Thread Group 1-24,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736879494,5,06 Checkout,200,OK,Load Thread Group 1-37,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736879634,3,04 Product Detail,200,OK,Load Thread Group 1-2,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736880291,2,05 Add To Cart,200,OK,Load Thread Group 1-45,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736880982,2,04 Product Detail,200,OK,Load Thread Group 1-1,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736881063,3,01 Login,200,OK,Load Thread Group 1-31,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736881274,3,06 Checkout,200,OK,Load Thread Group 1-38,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736881397,3,01 Login,200,OK,Load Thread Group 1-30,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736881627,1,03 Search Products,200,OK,Load Thread Group 1-12,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,1,0,0
+1786736881907,6,06 Checkout,200,OK,Load Thread Group 1-40,text,true,,313,420,50,50,http://localhost:3000/api/checkout,6,0,2
+1786736881992,2,02 Get Categories,200,OK,Load Thread Group 1-17,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736882200,4,06 Checkout,200,OK,Load Thread Group 1-39,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736882425,2,02 Get Categories,200,OK,Load Thread Group 1-19,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736882480,2,04 Product Detail,200,OK,Load Thread Group 1-8,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736882593,6,01 Login,200,OK,Load Thread Group 1-34,text,true,,674,263,50,50,http://localhost:3000/api/login,5,0,2
+1786736883239,3,01 Login,200,OK,Load Thread Group 1-33,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736883622,3,04 Product Detail,200,OK,Load Thread Group 1-4,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786736883687,3,03 Search Products,200,OK,Load Thread Group 1-10,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736883755,3,03 Search Products,200,OK,Load Thread Group 1-15,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,2
+1786736883867,3,02 Get Categories,200,OK,Load Thread Group 1-25,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736884027,2,05 Add To Cart,200,OK,Load Thread Group 1-49,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736884027,2,05 Add To Cart,200,OK,Load Thread Group 1-48,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,1
+1786736884302,3,05 Add To Cart,200,OK,Load Thread Group 1-50,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786736884651,3,03 Search Products,200,OK,Load Thread Group 1-13,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736884724,4,06 Checkout,200,OK,Load Thread Group 1-42,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736885003,3,01 Login,200,OK,Load Thread Group 1-29,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736885043,4,01 Login,200,OK,Load Thread Group 1-36,text,true,,674,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736885160,2,02 Get Categories,200,OK,Load Thread Group 1-22,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736885303,2,04 Product Detail,200,OK,Load Thread Group 1-5,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736885397,2,03 Search Products,200,OK,Load Thread Group 1-16,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736885568,2,04 Product Detail,200,OK,Load Thread Group 1-9,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736885586,4,06 Checkout,200,OK,Load Thread Group 1-44,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736886104,5,06 Checkout,200,OK,Load Thread Group 1-41,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736886135,3,03 Search Products,200,OK,Load Thread Group 1-11,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736886821,1,02 Get Categories,200,OK,Load Thread Group 1-21,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736886849,2,01 Login,200,OK,Load Thread Group 1-32,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736886884,2,03 Search Products,200,OK,Load Thread Group 1-20,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736886917,1,02 Get Categories,200,OK,Load Thread Group 1-28,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736887157,3,04 Product Detail,200,OK,Load Thread Group 1-3,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736887228,2,03 Search Products,200,OK,Load Thread Group 1-18,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736887257,2,02 Get Categories,200,OK,Load Thread Group 1-27,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736887296,2,02 Get Categories,200,OK,Load Thread Group 1-23,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736887441,2,06 Checkout,200,OK,Load Thread Group 1-43,text,true,,313,421,50,50,http://localhost:3000/api/checkout,2,0,0
+1786736887593,3,06 Checkout,200,OK,Load Thread Group 1-47,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736887931,2,04 Product Detail,200,OK,Load Thread Group 1-6,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736888809,4,04 Product Detail,200,OK,Load Thread Group 1-7,text,true,,461,162,50,50,http://localhost:3000/api/products/4,4,0,1
+1786736889072,2,02 Get Categories,200,OK,Load Thread Group 1-26,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736889564,5,06 Checkout,200,OK,Load Thread Group 1-46,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736889602,4,03 Search Products,200,OK,Load Thread Group 1-14,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,4,0,2
+1786736890317,5,01 Login,200,OK,Load Thread Group 1-37,text,true,,674,263,50,50,http://localhost:3000/api/login,5,0,1
+1786736890672,2,05 Add To Cart,200,OK,Load Thread Group 1-2,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736891577,2,02 Get Categories,200,OK,Load Thread Group 1-24,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736891752,3,05 Add To Cart,200,OK,Load Thread Group 1-8,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,2
+1786736891873,3,05 Add To Cart,200,OK,Load Thread Group 1-1,text,true,,294,418,50,50,http://localhost:3000/api/cart,3,0,1
+1786736892008,3,01 Login,200,OK,Load Thread Group 1-35,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736892034,2,04 Product Detail,200,OK,Load Thread Group 1-12,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736892075,2,02 Get Categories,200,OK,Load Thread Group 1-30,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736892218,4,06 Checkout,200,OK,Load Thread Group 1-45,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736892396,2,02 Get Categories,200,OK,Load Thread Group 1-33,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736892948,2,01 Login,200,OK,Load Thread Group 1-38,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736893066,2,03 Search Products,200,OK,Load Thread Group 1-17,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736893140,4,03 Search Products,200,OK,Load Thread Group 1-19,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,4,0,1
+1786736893152,6,02 Get Categories,200,OK,Load Thread Group 1-31,text,true,,358,162,50,50,http://localhost:3000/api/categories,6,0,1
+1786736893355,1,01 Login,200,OK,Load Thread Group 1-40,text,true,,674,263,50,50,http://localhost:3000/api/login,1,0,0
+1786736893405,1,02 Get Categories,200,OK,Load Thread Group 1-34,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736894484,2,01 Login,200,OK,Load Thread Group 1-39,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,0
+1786736895012,2,03 Search Products,200,OK,Load Thread Group 1-25,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786736895047,2,04 Product Detail,200,OK,Load Thread Group 1-15,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736895089,1,05 Add To Cart,200,OK,Load Thread Group 1-4,text,true,,294,415,50,50,http://localhost:3000/api/cart,1,0,0
+1786736895194,3,06 Checkout,200,OK,Load Thread Group 1-48,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736895476,2,04 Product Detail,200,OK,Load Thread Group 1-13,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736895630,3,02 Get Categories,200,OK,Load Thread Group 1-36,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736895744,4,06 Checkout,200,OK,Load Thread Group 1-50,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736895932,4,06 Checkout,200,OK,Load Thread Group 1-49,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736896158,2,05 Add To Cart,200,OK,Load Thread Group 1-9,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736896293,3,03 Search Products,200,OK,Load Thread Group 1-22,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736896557,3,05 Add To Cart,200,OK,Load Thread Group 1-5,text,true,,294,418,50,50,http://localhost:3000/api/cart,3,0,1
+1786736896945,3,01 Login,200,OK,Load Thread Group 1-42,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736897007,5,04 Product Detail,200,OK,Load Thread Group 1-10,text,true,,451,162,50,50,http://localhost:3000/api/products/1,5,0,2
+1786736897069,1,02 Get Categories,200,OK,Load Thread Group 1-29,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736897221,2,04 Product Detail,200,OK,Load Thread Group 1-16,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736897294,1,02 Get Categories,200,OK,Load Thread Group 1-32,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736897457,2,01 Login,200,OK,Load Thread Group 1-43,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736897767,2,03 Search Products,200,OK,Load Thread Group 1-23,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736897919,3,05 Add To Cart,200,OK,Load Thread Group 1-3,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786736898020,3,01 Login,200,OK,Load Thread Group 1-44,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736898196,2,03 Search Products,200,OK,Load Thread Group 1-28,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736898280,2,04 Product Detail,200,OK,Load Thread Group 1-20,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736898569,2,03 Search Products,200,OK,Load Thread Group 1-21,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736898655,3,03 Search Products,200,OK,Load Thread Group 1-26,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736898797,2,04 Product Detail,200,OK,Load Thread Group 1-11,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,0
+1786736898854,3,05 Add To Cart,200,OK,Load Thread Group 1-6,text,true,,294,415,50,50,http://localhost:3000/api/cart,3,0,2
+1786736898945,2,03 Search Products,200,OK,Load Thread Group 1-27,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736899165,3,01 Login,200,OK,Load Thread Group 1-41,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736899203,3,04 Product Detail,200,OK,Load Thread Group 1-18,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736899591,3,01 Login,200,OK,Load Thread Group 1-47,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736900213,3,05 Add To Cart,200,OK,Load Thread Group 1-7,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,2
+1786736901353,2,04 Product Detail,200,OK,Load Thread Group 1-14,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736901699,2,01 Login,200,OK,Load Thread Group 1-46,text,true,,674,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736901753,4,02 Get Categories,200,OK,Load Thread Group 1-35,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,1
+1786736901826,2,06 Checkout,200,OK,Load Thread Group 1-2,text,true,,313,421,50,50,http://localhost:3000/api/checkout,2,0,0
+1786736902313,3,02 Get Categories,200,OK,Load Thread Group 1-37,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736902322,2,03 Search Products,200,OK,Load Thread Group 1-24,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736902769,2,05 Add To Cart,200,OK,Load Thread Group 1-12,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,0
+1786736902896,3,03 Search Products,200,OK,Load Thread Group 1-30,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736903436,4,06 Checkout,200,OK,Load Thread Group 1-1,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736903894,2,02 Get Categories,200,OK,Load Thread Group 1-39,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736903941,3,01 Login,200,OK,Load Thread Group 1-45,text,true,,674,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736904256,2,03 Search Products,200,OK,Load Thread Group 1-33,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736904449,2,04 Product Detail,200,OK,Load Thread Group 1-19,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736904663,3,06 Checkout,200,OK,Load Thread Group 1-8,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736904845,2,05 Add To Cart,200,OK,Load Thread Group 1-13,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736904930,2,04 Product Detail,200,OK,Load Thread Group 1-17,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736904932,1,02 Get Categories,200,OK,Load Thread Group 1-40,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736905284,2,03 Search Products,200,OK,Load Thread Group 1-36,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736905360,2,03 Search Products,200,OK,Load Thread Group 1-34,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,0
+1786736905443,2,05 Add To Cart,200,OK,Load Thread Group 1-15,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736905672,2,03 Search Products,200,OK,Load Thread Group 1-31,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736905860,3,04 Product Detail,200,OK,Load Thread Group 1-25,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736906099,3,06 Checkout,200,OK,Load Thread Group 1-5,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736906167,2,02 Get Categories,200,OK,Load Thread Group 1-38,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736906613,4,06 Checkout,200,OK,Load Thread Group 1-4,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736906869,2,03 Search Products,200,OK,Load Thread Group 1-32,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736907720,3,01 Login,200,OK,Load Thread Group 1-49,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736907850,2,02 Get Categories,200,OK,Load Thread Group 1-42,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736907991,3,04 Product Detail,200,OK,Load Thread Group 1-22,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736908011,3,02 Get Categories,200,OK,Load Thread Group 1-41,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736908161,4,06 Checkout,200,OK,Load Thread Group 1-9,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,0
+1786736908221,3,01 Login,200,OK,Load Thread Group 1-50,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736908450,2,04 Product Detail,200,OK,Load Thread Group 1-23,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736908793,2,05 Add To Cart,200,OK,Load Thread Group 1-10,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736908926,4,06 Checkout,200,OK,Load Thread Group 1-3,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736909074,2,04 Product Detail,200,OK,Load Thread Group 1-21,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736909099,1,04 Product Detail,200,OK,Load Thread Group 1-28,text,true,,467,162,50,50,http://localhost:3000/api/products/5,1,0,1
+1786736909166,2,01 Login,200,OK,Load Thread Group 1-48,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736909463,4,06 Checkout,200,OK,Load Thread Group 1-7,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,0
+1786736909489,2,02 Get Categories,200,OK,Load Thread Group 1-43,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736909496,2,05 Add To Cart,200,OK,Load Thread Group 1-16,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736909539,13,05 Add To Cart,200,OK,Load Thread Group 1-20,text,true,,294,415,50,50,http://localhost:3000/api/cart,13,0,2
+1786736909746,2,02 Get Categories,200,OK,Load Thread Group 1-44,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736909787,2,05 Add To Cart,200,OK,Load Thread Group 1-11,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,1
+1786736910042,4,03 Search Products,200,OK,Load Thread Group 1-29,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,4,0,2
+1786736911192,2,04 Product Detail,200,OK,Load Thread Group 1-27,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736911419,3,04 Product Detail,200,OK,Load Thread Group 1-26,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736911942,2,03 Search Products,200,OK,Load Thread Group 1-35,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786736911994,2,05 Add To Cart,200,OK,Load Thread Group 1-18,text,true,,294,425,50,50,http://localhost:3000/api/cart,1,0,1
+1786736912001,1,05 Add To Cart,200,OK,Load Thread Group 1-14,text,true,,294,418,50,50,http://localhost:3000/api/cart,1,0,1
+1786736912158,2,02 Get Categories,200,OK,Load Thread Group 1-47,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736912734,3,06 Checkout,200,OK,Load Thread Group 1-6,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736912828,2,02 Get Categories,200,OK,Load Thread Group 1-46,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736912857,2,04 Product Detail,200,OK,Load Thread Group 1-24,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736913204,3,01 Login,200,OK,Load Thread Group 1-2,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736913358,2,03 Search Products,200,OK,Load Thread Group 1-37,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736913681,4,06 Checkout,200,OK,Load Thread Group 1-12,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736914202,2,02 Get Categories,200,OK,Load Thread Group 1-45,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736914555,4,01 Login,200,OK,Load Thread Group 1-1,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736914867,2,05 Add To Cart,200,OK,Load Thread Group 1-17,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,0
+1786736915059,3,03 Search Products,200,OK,Load Thread Group 1-40,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736915425,4,06 Checkout,200,OK,Load Thread Group 1-13,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736915469,2,04 Product Detail,200,OK,Load Thread Group 1-33,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736915623,3,03 Search Products,200,OK,Load Thread Group 1-39,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,2
+1786736915734,2,04 Product Detail,200,OK,Load Thread Group 1-30,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,0
+1786736916272,2,05 Add To Cart,200,OK,Load Thread Group 1-19,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736916388,3,03 Search Products,200,OK,Load Thread Group 1-38,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736916728,2,04 Product Detail,200,OK,Load Thread Group 1-31,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,0
+1786736916879,2,01 Login,200,OK,Load Thread Group 1-5,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736917231,2,05 Add To Cart,200,OK,Load Thread Group 1-25,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736917259,3,01 Login,200,OK,Load Thread Group 1-8,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736917511,2,04 Product Detail,200,OK,Load Thread Group 1-36,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736917575,2,04 Product Detail,200,OK,Load Thread Group 1-34,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736918354,4,06 Checkout,200,OK,Load Thread Group 1-15,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736918387,4,01 Login,200,OK,Load Thread Group 1-4,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736919183,5,06 Checkout,200,OK,Load Thread Group 1-10,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736919267,2,03 Search Products,200,OK,Load Thread Group 1-44,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736919330,2,05 Add To Cart,200,OK,Load Thread Group 1-28,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736919429,3,03 Search Products,200,OK,Load Thread Group 1-42,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736919494,3,02 Get Categories,200,OK,Load Thread Group 1-49,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736919494,3,01 Login,200,OK,Load Thread Group 1-9,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736919511,2,05 Add To Cart,200,OK,Load Thread Group 1-22,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,0
+1786736919583,2,04 Product Detail,200,OK,Load Thread Group 1-32,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,2
+1786736919636,4,06 Checkout,200,OK,Load Thread Group 1-20,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736920111,3,02 Get Categories,200,OK,Load Thread Group 1-50,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736920280,2,04 Product Detail,200,OK,Load Thread Group 1-29,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736920337,5,06 Checkout,200,OK,Load Thread Group 1-16,text,true,,313,420,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736920386,2,03 Search Products,200,OK,Load Thread Group 1-41,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736920423,3,03 Search Products,200,OK,Load Thread Group 1-43,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736920632,3,05 Add To Cart,200,OK,Load Thread Group 1-23,text,true,,294,415,50,50,http://localhost:3000/api/cart,3,0,1
+1786736920679,3,02 Get Categories,200,OK,Load Thread Group 1-48,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736920695,2,01 Login,200,OK,Load Thread Group 1-7,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736921322,3,01 Login,200,OK,Load Thread Group 1-3,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736921780,3,05 Add To Cart,200,OK,Load Thread Group 1-26,text,true,,294,418,50,50,http://localhost:3000/api/cart,3,0,1
+1786736921891,4,06 Checkout,200,OK,Load Thread Group 1-11,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736922078,2,05 Add To Cart,200,OK,Load Thread Group 1-21,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736922227,4,06 Checkout,200,OK,Load Thread Group 1-18,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736922970,5,06 Checkout,200,OK,Load Thread Group 1-14,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736923070,2,05 Add To Cart,200,OK,Load Thread Group 1-27,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736923759,3,04 Product Detail,200,OK,Load Thread Group 1-35,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736923761,2,03 Search Products,200,OK,Load Thread Group 1-47,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736923912,3,05 Add To Cart,200,OK,Load Thread Group 1-24,text,true,,294,415,50,50,http://localhost:3000/api/cart,3,0,1
+1786736924478,3,01 Login,200,OK,Load Thread Group 1-6,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736924636,3,03 Search Products,200,OK,Load Thread Group 1-45,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736924795,4,01 Login,200,OK,Load Thread Group 1-13,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736924858,4,03 Search Products,200,OK,Load Thread Group 1-46,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,4,0,1
+1786736925220,4,01 Login,200,OK,Load Thread Group 1-12,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736925571,2,02 Get Categories,200,OK,Load Thread Group 1-2,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736925655,5,06 Checkout,200,OK,Load Thread Group 1-17,text,true,,313,420,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736925657,3,04 Product Detail,200,OK,Load Thread Group 1-40,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786736925866,2,04 Product Detail,200,OK,Load Thread Group 1-37,text,true,,480,162,50,50,http://localhost:3000/api/products/2,1,0,0
+1786736926006,2,05 Add To Cart,200,OK,Load Thread Group 1-30,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736926437,4,02 Get Categories,200,OK,Load Thread Group 1-1,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,2
+1786736926601,2,05 Add To Cart,200,OK,Load Thread Group 1-31,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736926947,2,05 Add To Cart,200,OK,Load Thread Group 1-33,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736927012,2,04 Product Detail,200,OK,Load Thread Group 1-39,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736927329,3,02 Get Categories,200,OK,Load Thread Group 1-5,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736927561,2,04 Product Detail,200,OK,Load Thread Group 1-38,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,0
+1786736928151,6,06 Checkout,200,OK,Load Thread Group 1-19,text,true,,313,421,50,50,http://localhost:3000/api/checkout,6,0,1
+1786736929438,3,04 Product Detail,200,OK,Load Thread Group 1-44,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736929454,2,05 Add To Cart,200,OK,Load Thread Group 1-36,text,true,,294,422,50,50,http://localhost:3000/api/cart,2,0,1
+1786736929676,4,06 Checkout,200,OK,Load Thread Group 1-25,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736929678,2,02 Get Categories,200,OK,Load Thread Group 1-8,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736929901,3,01 Login,200,OK,Load Thread Group 1-20,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736930015,3,05 Add To Cart,200,OK,Load Thread Group 1-34,text,true,,294,425,50,50,http://localhost:3000/api/cart,3,0,1
+1786736930088,5,06 Checkout,200,OK,Load Thread Group 1-23,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736930120,4,02 Get Categories,200,OK,Load Thread Group 1-9,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,2
+1786736930328,4,01 Login,200,OK,Load Thread Group 1-15,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736930687,3,03 Search Products,200,OK,Load Thread Group 1-48,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,2
+1786736930751,3,05 Add To Cart,200,OK,Load Thread Group 1-32,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786736931349,5,06 Checkout,200,OK,Load Thread Group 1-28,text,true,,313,420,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736931654,3,04 Product Detail,200,OK,Load Thread Group 1-41,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786736931802,3,03 Search Products,200,OK,Load Thread Group 1-49,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736931869,2,03 Search Products,200,OK,Load Thread Group 1-50,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736931878,4,01 Login,200,OK,Load Thread Group 1-10,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736931945,2,04 Product Detail,200,OK,Load Thread Group 1-42,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736932063,3,06 Checkout,200,OK,Load Thread Group 1-21,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736932145,1,02 Get Categories,200,OK,Load Thread Group 1-4,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736932475,2,04 Product Detail,200,OK,Load Thread Group 1-43,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736932520,1,05 Add To Cart,200,OK,Load Thread Group 1-29,text,true,,294,415,50,50,http://localhost:3000/api/cart,1,0,0
+1786736932636,3,01 Login,200,OK,Load Thread Group 1-11,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736932812,4,01 Login,200,OK,Load Thread Group 1-16,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736933171,2,02 Get Categories,200,OK,Load Thread Group 1-3,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736933284,6,06 Checkout,200,OK,Load Thread Group 1-22,text,true,,313,421,50,50,http://localhost:3000/api/checkout,6,0,1
+1786736933442,2,02 Get Categories,200,OK,Load Thread Group 1-7,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736933686,5,06 Checkout,200,OK,Load Thread Group 1-26,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736933807,3,01 Login,200,OK,Load Thread Group 1-18,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,2
+1786736933945,2,05 Add To Cart,200,OK,Load Thread Group 1-35,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736934295,1,04 Product Detail,200,OK,Load Thread Group 1-45,text,true,,480,162,50,50,http://localhost:3000/api/products/2,1,0,0
+1786736934728,3,06 Checkout,200,OK,Load Thread Group 1-27,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736934962,3,06 Checkout,200,OK,Load Thread Group 1-24,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736935304,1,04 Product Detail,200,OK,Load Thread Group 1-47,text,true,,467,162,50,50,http://localhost:3000/api/products/5,1,0,1
+1786736935799,2,02 Get Categories,200,OK,Load Thread Group 1-6,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736935971,1,04 Product Detail,200,OK,Load Thread Group 1-46,text,true,,451,162,50,50,http://localhost:3000/api/products/1,1,0,1
+1786736936454,4,01 Login,200,OK,Load Thread Group 1-14,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736936809,4,06 Checkout,200,OK,Load Thread Group 1-31,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736936961,2,02 Get Categories,200,OK,Load Thread Group 1-13,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736937211,3,05 Add To Cart,200,OK,Load Thread Group 1-40,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,1
+1786736937311,2,03 Search Products,200,OK,Load Thread Group 1-2,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736937334,2,03 Search Products,200,OK,Load Thread Group 1-1,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736937544,2,05 Add To Cart,200,OK,Load Thread Group 1-37,text,true,,294,425,50,50,http://localhost:3000/api/cart,2,0,1
+1786736937865,5,06 Checkout,200,OK,Load Thread Group 1-33,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736938425,3,02 Get Categories,200,OK,Load Thread Group 1-12,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736938641,3,01 Login,200,OK,Load Thread Group 1-17,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736938700,2,05 Add To Cart,200,OK,Load Thread Group 1-39,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,0
+1786736939378,5,06 Checkout,200,OK,Load Thread Group 1-36,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736939492,5,06 Checkout,200,OK,Load Thread Group 1-30,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736939573,2,03 Search Products,200,OK,Load Thread Group 1-5,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736940329,2,05 Add To Cart,200,OK,Load Thread Group 1-38,text,true,,294,415,50,50,http://localhost:3000/api/cart,2,0,1
+1786736940435,2,01 Login,200,OK,Load Thread Group 1-19,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786736940543,2,04 Product Detail,200,OK,Load Thread Group 1-48,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736940597,2,03 Search Products,200,OK,Load Thread Group 1-8,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736940606,1,05 Add To Cart,200,OK,Load Thread Group 1-44,text,true,,294,425,50,50,http://localhost:3000/api/cart,1,0,1
+1786736940979,3,03 Search Products,200,OK,Load Thread Group 1-4,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736941064,3,01 Login,200,OK,Load Thread Group 1-25,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736941292,4,06 Checkout,200,OK,Load Thread Group 1-32,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736941404,3,02 Get Categories,200,OK,Load Thread Group 1-20,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736941443,3,01 Login,200,OK,Load Thread Group 1-28,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736941845,2,01 Login,200,OK,Load Thread Group 1-23,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736942048,5,06 Checkout,200,OK,Load Thread Group 1-34,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736942424,2,02 Get Categories,200,OK,Load Thread Group 1-15,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736942637,3,04 Product Detail,200,OK,Load Thread Group 1-50,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786736942828,4,02 Get Categories,200,OK,Load Thread Group 1-16,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,1
+1786736943053,5,06 Checkout,200,OK,Load Thread Group 1-29,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736943202,2,05 Add To Cart,200,OK,Load Thread Group 1-42,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736943219,3,05 Add To Cart,200,OK,Load Thread Group 1-43,text,true,,294,422,50,50,http://localhost:3000/api/cart,3,0,1
+1786736943244,3,03 Search Products,200,OK,Load Thread Group 1-9,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736943332,3,02 Get Categories,200,OK,Load Thread Group 1-10,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736943512,3,05 Add To Cart,200,OK,Load Thread Group 1-41,text,true,,294,415,50,50,http://localhost:3000/api/cart,3,0,1
+1786736943563,2,03 Search Products,200,OK,Load Thread Group 1-3,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736943679,2,02 Get Categories,200,OK,Load Thread Group 1-11,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736943754,3,01 Login,200,OK,Load Thread Group 1-21,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,2
+1786736943774,3,05 Add To Cart,200,OK,Load Thread Group 1-45,text,true,,294,425,50,50,http://localhost:3000/api/cart,3,0,1
+1786736943800,2,01 Login,200,OK,Load Thread Group 1-22,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736943967,2,04 Product Detail,200,OK,Load Thread Group 1-49,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736944909,3,01 Login,200,OK,Load Thread Group 1-27,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736945094,5,06 Checkout,200,OK,Load Thread Group 1-35,text,true,,313,421,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736945359,3,01 Login,200,OK,Load Thread Group 1-26,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736945508,2,02 Get Categories,200,OK,Load Thread Group 1-18,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736946070,6,05 Add To Cart,200,OK,Load Thread Group 1-47,text,true,,294,426,50,50,http://localhost:3000/api/cart,6,0,4
+1786736946244,2,03 Search Products,200,OK,Load Thread Group 1-7,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736946694,4,01 Login,200,OK,Load Thread Group 1-24,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736947337,2,02 Get Categories,200,OK,Load Thread Group 1-14,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736947652,2,03 Search Products,200,OK,Load Thread Group 1-6,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736947948,2,04 Product Detail,200,OK,Load Thread Group 1-2,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736948616,4,01 Login,200,OK,Load Thread Group 1-31,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736948749,4,06 Checkout,200,OK,Load Thread Group 1-40,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,0
+1786736948754,2,03 Search Products,200,OK,Load Thread Group 1-12,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736948941,3,04 Product Detail,200,OK,Load Thread Group 1-1,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786736949212,6,06 Checkout,200,OK,Load Thread Group 1-39,text,true,,313,420,50,50,http://localhost:3000/api/checkout,6,0,2
+1786736949267,2,05 Add To Cart,200,OK,Load Thread Group 1-46,text,true,,294,418,50,50,http://localhost:3000/api/cart,2,0,1
+1786736949370,4,06 Checkout,200,OK,Load Thread Group 1-37,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736949612,3,01 Login,200,OK,Load Thread Group 1-33,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736949736,3,01 Login,200,OK,Load Thread Group 1-36,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736949804,2,02 Get Categories,200,OK,Load Thread Group 1-17,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736949807,2,03 Search Products,200,OK,Load Thread Group 1-13,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736950259,3,04 Product Detail,200,OK,Load Thread Group 1-4,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736950796,3,02 Get Categories,200,OK,Load Thread Group 1-25,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736950824,2,01 Login,200,OK,Load Thread Group 1-30,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786736951072,3,05 Add To Cart,200,OK,Load Thread Group 1-48,text,true,,294,416,50,50,http://localhost:3000/api/cart,3,0,1
+1786736951355,4,06 Checkout,200,OK,Load Thread Group 1-44,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736951408,2,04 Product Detail,200,OK,Load Thread Group 1-8,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736951710,2,02 Get Categories,200,OK,Load Thread Group 1-19,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736951865,2,01 Login,200,OK,Load Thread Group 1-32,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736952006,4,06 Checkout,200,OK,Load Thread Group 1-38,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736952362,2,04 Product Detail,200,OK,Load Thread Group 1-5,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736952762,2,03 Search Products,200,OK,Load Thread Group 1-20,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736952887,2,03 Search Products,200,OK,Load Thread Group 1-16,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736953153,4,01 Login,200,OK,Load Thread Group 1-34,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736953340,2,03 Search Products,200,OK,Load Thread Group 1-10,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736953391,3,01 Login,200,OK,Load Thread Group 1-29,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736953433,4,06 Checkout,200,OK,Load Thread Group 1-43,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736953584,2,02 Get Categories,200,OK,Load Thread Group 1-28,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736953813,3,04 Product Detail,200,OK,Load Thread Group 1-9,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736953891,2,05 Add To Cart,200,OK,Load Thread Group 1-50,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,0
+1786736953890,3,02 Get Categories,200,OK,Load Thread Group 1-21,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736953898,1,03 Search Products,200,OK,Load Thread Group 1-11,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,1,0,0
+1786736954245,4,03 Search Products,200,OK,Load Thread Group 1-15,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,4,0,2
+1786736954273,4,06 Checkout,200,OK,Load Thread Group 1-41,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736954331,3,02 Get Categories,200,OK,Load Thread Group 1-23,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736954411,4,06 Checkout,200,OK,Load Thread Group 1-42,text,true,,313,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736954788,3,05 Add To Cart,200,OK,Load Thread Group 1-49,text,true,,294,427,50,50,http://localhost:3000/api/cart,3,0,2
+1786736955146,2,04 Product Detail,200,OK,Load Thread Group 1-3,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736955591,3,06 Checkout,200,OK,Load Thread Group 1-45,text,true,,313,421,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736955854,1,02 Get Categories,200,OK,Load Thread Group 1-27,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786736955925,2,02 Get Categories,200,OK,Load Thread Group 1-26,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736956752,2,02 Get Categories,200,OK,Load Thread Group 1-22,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736956848,4,06 Checkout,200,OK,Load Thread Group 1-47,text,true,,313,420,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736957515,2,03 Search Products,200,OK,Load Thread Group 1-18,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736957726,2,01 Login,200,OK,Load Thread Group 1-35,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736957962,7,05 Add To Cart,200,OK,Load Thread Group 1-2,text,true,,294,419,50,50,http://localhost:3000/api/cart,7,0,4
+1786736958269,3,04 Product Detail,200,OK,Load Thread Group 1-12,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736958713,3,01 Login,200,OK,Load Thread Group 1-40,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736959024,2,04 Product Detail,200,OK,Load Thread Group 1-7,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736959549,3,01 Login,200,OK,Load Thread Group 1-39,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736959948,2,04 Product Detail,200,OK,Load Thread Group 1-13,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736960048,2,02 Get Categories,200,OK,Load Thread Group 1-24,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736960112,3,01 Login,200,OK,Load Thread Group 1-37,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736960276,2,04 Product Detail,200,OK,Load Thread Group 1-6,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736960327,2,02 Get Categories,200,OK,Load Thread Group 1-36,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736960367,2,03 Search Products,200,OK,Load Thread Group 1-14,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736960817,4,06 Checkout,200,OK,Load Thread Group 1-46,text,true,,314,421,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736960949,2,02 Get Categories,200,OK,Load Thread Group 1-31,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736961326,2,03 Search Products,200,OK,Load Thread Group 1-19,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736961556,3,05 Add To Cart,200,OK,Load Thread Group 1-1,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786736961638,4,06 Checkout,200,OK,Load Thread Group 1-48,text,true,,314,422,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736961910,2,02 Get Categories,200,OK,Load Thread Group 1-30,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736962118,2,01 Login,200,OK,Load Thread Group 1-38,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736962150,2,02 Get Categories,200,OK,Load Thread Group 1-33,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736962225,3,05 Add To Cart,200,OK,Load Thread Group 1-4,text,true,,294,427,50,50,http://localhost:3000/api/cart,3,0,1
+1786736962520,2,05 Add To Cart,200,OK,Load Thread Group 1-8,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786736962600,2,03 Search Products,200,OK,Load Thread Group 1-17,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736962982,2,02 Get Categories,200,OK,Load Thread Group 1-32,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736963142,4,03 Search Products,200,OK,Load Thread Group 1-25,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,4,0,2
+1786736963437,3,04 Product Detail,200,OK,Load Thread Group 1-10,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786736963785,2,05 Add To Cart,200,OK,Load Thread Group 1-5,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,0
+1786736963854,3,03 Search Products,200,OK,Load Thread Group 1-21,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736963874,3,01 Login,200,OK,Load Thread Group 1-41,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736963974,2,02 Get Categories,200,OK,Load Thread Group 1-34,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736964370,2,04 Product Detail,200,OK,Load Thread Group 1-15,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736964483,3,04 Product Detail,200,OK,Load Thread Group 1-16,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736964563,3,01 Login,200,OK,Load Thread Group 1-44,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736964578,2,01 Login,200,OK,Load Thread Group 1-43,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736965310,2,04 Product Detail,200,OK,Load Thread Group 1-20,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736965312,3,06 Checkout,200,OK,Load Thread Group 1-50,text,true,,314,422,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736965354,3,02 Get Categories,200,OK,Load Thread Group 1-29,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736965404,3,03 Search Products,200,OK,Load Thread Group 1-28,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736965417,3,04 Product Detail,200,OK,Load Thread Group 1-11,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736965584,3,01 Login,200,OK,Load Thread Group 1-42,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736965716,3,05 Add To Cart,200,OK,Load Thread Group 1-9,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,1
+1786736966138,3,03 Search Products,200,OK,Load Thread Group 1-23,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736966384,3,01 Login,200,OK,Load Thread Group 1-45,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736966463,3,06 Checkout,200,OK,Load Thread Group 1-49,text,true,,314,422,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736967122,3,03 Search Products,200,OK,Load Thread Group 1-26,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736967233,5,06 Checkout,200,OK,Load Thread Group 1-2,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,2
+1786736967912,3,01 Login,200,OK,Load Thread Group 1-47,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736967959,2,05 Add To Cart,200,OK,Load Thread Group 1-3,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736968310,2,03 Search Products,200,OK,Load Thread Group 1-27,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736969057,3,03 Search Products,200,OK,Load Thread Group 1-22,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786736969240,3,03 Search Products,200,OK,Load Thread Group 1-24,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736969397,3,04 Product Detail,200,OK,Load Thread Group 1-18,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,2
+1786736969458,4,05 Add To Cart,200,OK,Load Thread Group 1-12,text,true,,294,427,50,50,http://localhost:3000/api/cart,4,0,1
+1786736970058,3,01 Login,200,OK,Load Thread Group 1-46,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736970093,2,02 Get Categories,200,OK,Load Thread Group 1-35,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736970225,4,03 Search Products,200,OK,Load Thread Group 1-31,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,4,0,2
+1786736970366,4,05 Add To Cart,200,OK,Load Thread Group 1-7,text,true,,294,416,50,50,http://localhost:3000/api/cart,4,0,1
+1786736970679,3,02 Get Categories,200,OK,Load Thread Group 1-39,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736971251,3,02 Get Categories,200,OK,Load Thread Group 1-40,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736971445,3,04 Product Detail,200,OK,Load Thread Group 1-19,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736971809,2,03 Search Products,200,OK,Load Thread Group 1-36,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736971817,4,05 Add To Cart,200,OK,Load Thread Group 1-13,text,true,,294,419,50,50,http://localhost:3000/api/cart,4,0,1
+1786736971875,2,02 Get Categories,200,OK,Load Thread Group 1-37,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736972118,2,04 Product Detail,200,OK,Load Thread Group 1-14,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736972149,5,06 Checkout,200,OK,Load Thread Group 1-1,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736973267,3,03 Search Products,200,OK,Load Thread Group 1-30,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736973634,4,01 Login,200,OK,Load Thread Group 1-48,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736973754,5,06 Checkout,200,OK,Load Thread Group 1-4,text,true,,314,422,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736973813,3,05 Add To Cart,200,OK,Load Thread Group 1-6,text,true,,294,423,50,50,http://localhost:3000/api/cart,3,0,1
+1786736973813,4,03 Search Products,200,OK,Load Thread Group 1-33,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,4,0,1
+1786736973817,2,04 Product Detail,200,OK,Load Thread Group 1-25,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736973941,3,03 Search Products,200,OK,Load Thread Group 1-32,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736974255,6,06 Checkout,200,OK,Load Thread Group 1-8,text,true,,314,423,50,50,http://localhost:3000/api/checkout,6,0,1
+1786736974624,2,02 Get Categories,200,OK,Load Thread Group 1-38,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736974827,3,05 Add To Cart,200,OK,Load Thread Group 1-16,text,true,,294,427,50,50,http://localhost:3000/api/cart,3,0,1
+1786736975105,3,03 Search Products,200,OK,Load Thread Group 1-34,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786736975304,5,06 Checkout,200,OK,Load Thread Group 1-5,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736975400,2,04 Product Detail,200,OK,Load Thread Group 1-28,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736975466,2,05 Add To Cart,200,OK,Load Thread Group 1-20,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786736975646,3,04 Product Detail,200,OK,Load Thread Group 1-21,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786736975682,3,02 Get Categories,200,OK,Load Thread Group 1-44,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,2
+1786736975715,3,05 Add To Cart,200,OK,Load Thread Group 1-10,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786736975799,2,05 Add To Cart,200,OK,Load Thread Group 1-15,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736975938,4,03 Search Products,200,OK,Load Thread Group 1-29,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,4,0,1
+1786736976057,3,04 Product Detail,200,OK,Load Thread Group 1-17,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786736976083,2,02 Get Categories,200,OK,Load Thread Group 1-42,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736976105,4,01 Login,200,OK,Load Thread Group 1-49,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786736976376,3,02 Get Categories,200,OK,Load Thread Group 1-43,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736976402,3,01 Login,200,OK,Load Thread Group 1-2,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,2
+1786736976739,2,02 Get Categories,200,OK,Load Thread Group 1-41,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736976890,5,06 Checkout,200,OK,Load Thread Group 1-9,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736977166,3,02 Get Categories,200,OK,Load Thread Group 1-45,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736977394,2,04 Product Detail,200,OK,Load Thread Group 1-23,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736977536,2,05 Add To Cart,200,OK,Load Thread Group 1-11,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,0
+1786736977719,3,04 Product Detail,200,OK,Load Thread Group 1-26,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736977905,2,01 Login,200,OK,Load Thread Group 1-50,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736978873,5,06 Checkout,200,OK,Load Thread Group 1-3,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736979744,4,06 Checkout,200,OK,Load Thread Group 1-12,text,true,,314,422,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736980068,2,04 Product Detail,200,OK,Load Thread Group 1-27,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736980324,2,05 Add To Cart,200,OK,Load Thread Group 1-18,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736980457,2,04 Product Detail,200,OK,Load Thread Group 1-24,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736980761,3,02 Get Categories,200,OK,Load Thread Group 1-47,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736980915,4,04 Product Detail,200,OK,Load Thread Group 1-31,text,true,,461,162,50,50,http://localhost:3000/api/products/4,4,0,1
+1786736980933,3,04 Product Detail,200,OK,Load Thread Group 1-22,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736981455,4,05 Add To Cart,200,OK,Load Thread Group 1-14,text,true,,294,416,50,50,http://localhost:3000/api/cart,4,0,2
+1786736981505,3,03 Search Products,200,OK,Load Thread Group 1-35,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786736982163,5,06 Checkout,200,OK,Load Thread Group 1-7,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,0
+1786736982282,3,03 Search Products,200,OK,Load Thread Group 1-40,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736982389,3,02 Get Categories,200,OK,Load Thread Group 1-46,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786736982454,3,03 Search Products,200,OK,Load Thread Group 1-37,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,2
+1786736982488,3,03 Search Products,200,OK,Load Thread Group 1-39,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736982621,3,06 Checkout,200,OK,Load Thread Group 1-13,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736982686,3,01 Login,200,OK,Load Thread Group 1-1,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736983362,2,04 Product Detail,200,OK,Load Thread Group 1-36,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736983792,3,05 Add To Cart,200,OK,Load Thread Group 1-19,text,true,,294,427,50,50,http://localhost:3000/api/cart,3,0,1
+1786736984590,1,05 Add To Cart,200,OK,Load Thread Group 1-25,text,true,,294,419,50,50,http://localhost:3000/api/cart,1,0,0
+1786736984711,2,02 Get Categories,200,OK,Load Thread Group 1-48,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736984862,4,04 Product Detail,200,OK,Load Thread Group 1-30,text,true,,480,162,50,50,http://localhost:3000/api/products/2,4,0,1
+1786736984921,3,04 Product Detail,200,OK,Load Thread Group 1-33,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786736985030,4,06 Checkout,200,OK,Load Thread Group 1-6,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736985569,3,01 Login,200,OK,Load Thread Group 1-4,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736985781,4,01 Login,200,OK,Load Thread Group 1-9,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786736985861,2,05 Add To Cart,200,OK,Load Thread Group 1-21,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786736986111,3,01 Login,200,OK,Load Thread Group 1-8,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736986195,2,03 Search Products,200,OK,Load Thread Group 1-38,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736986268,2,04 Product Detail,200,OK,Load Thread Group 1-34,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736986285,2,06 Checkout,200,OK,Load Thread Group 1-16,text,true,,314,422,50,50,http://localhost:3000/api/checkout,2,0,0
+1786736986514,2,03 Search Products,200,OK,Load Thread Group 1-43,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786736986815,2,04 Product Detail,200,OK,Load Thread Group 1-29,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,0
+1786736986884,2,04 Product Detail,200,OK,Load Thread Group 1-32,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,0
+1786736986914,4,06 Checkout,200,OK,Load Thread Group 1-15,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736987189,2,05 Add To Cart,200,OK,Load Thread Group 1-28,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786736987258,2,03 Search Products,200,OK,Load Thread Group 1-41,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786736987318,3,06 Checkout,200,OK,Load Thread Group 1-20,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736987396,2,03 Search Products,200,OK,Load Thread Group 1-44,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736987463,3,05 Add To Cart,200,OK,Load Thread Group 1-17,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786736987550,4,06 Checkout,200,OK,Load Thread Group 1-11,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736987560,2,01 Login,200,OK,Load Thread Group 1-5,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736987597,2,03 Search Products,200,OK,Load Thread Group 1-45,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736987638,4,02 Get Categories,200,OK,Load Thread Group 1-49,text,true,,358,162,50,50,http://localhost:3000/api/categories,4,0,2
+1786736988005,3,06 Checkout,200,OK,Load Thread Group 1-10,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736988114,2,02 Get Categories,200,OK,Load Thread Group 1-2,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736988557,2,03 Search Products,200,OK,Load Thread Group 1-42,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786736989095,2,02 Get Categories,200,OK,Load Thread Group 1-50,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736989764,3,05 Add To Cart,200,OK,Load Thread Group 1-23,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,2
+1786736990146,4,05 Add To Cart,200,OK,Load Thread Group 1-27,text,true,,294,426,50,50,http://localhost:3000/api/cart,4,0,2
+1786736991104,3,01 Login,200,OK,Load Thread Group 1-12,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736991114,1,05 Add To Cart,200,OK,Load Thread Group 1-26,text,true,,294,419,50,50,http://localhost:3000/api/cart,1,0,0
+1786736991613,2,04 Product Detail,200,OK,Load Thread Group 1-37,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786736991760,4,06 Checkout,200,OK,Load Thread Group 1-18,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736991783,3,06 Checkout,200,OK,Load Thread Group 1-14,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,0
+1786736991854,3,05 Add To Cart,200,OK,Load Thread Group 1-24,text,true,,294,416,50,50,http://localhost:3000/api/cart,3,0,1
+1786736992186,3,01 Login,200,OK,Load Thread Group 1-3,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736992694,2,03 Search Products,200,OK,Load Thread Group 1-47,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786736992762,4,05 Add To Cart,200,OK,Load Thread Group 1-22,text,true,,294,427,50,50,http://localhost:3000/api/cart,4,0,3
+1786736992916,2,04 Product Detail,200,OK,Load Thread Group 1-35,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786736993150,2,04 Product Detail,200,OK,Load Thread Group 1-39,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736993355,3,03 Search Products,200,OK,Load Thread Group 1-46,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786736993392,3,05 Add To Cart,200,OK,Load Thread Group 1-31,text,true,,294,423,50,50,http://localhost:3000/api/cart,3,0,1
+1786736994296,2,02 Get Categories,200,OK,Load Thread Group 1-9,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736994408,2,01 Login,200,OK,Load Thread Group 1-7,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786736994429,2,04 Product Detail,200,OK,Load Thread Group 1-40,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736994588,3,05 Add To Cart,200,OK,Load Thread Group 1-36,text,true,,294,419,50,50,http://localhost:3000/api/cart,3,0,1
+1786736994654,6,06 Checkout,200,OK,Load Thread Group 1-25,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736994691,2,02 Get Categories,200,OK,Load Thread Group 1-1,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736995392,4,06 Checkout,200,OK,Load Thread Group 1-19,text,true,,314,422,50,50,http://localhost:3000/api/checkout,4,0,0
+1786736995512,3,01 Login,200,OK,Load Thread Group 1-13,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736996063,4,06 Checkout,200,OK,Load Thread Group 1-21,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786736996409,2,05 Add To Cart,200,OK,Load Thread Group 1-33,text,true,,294,427,50,50,http://localhost:3000/api/cart,2,0,0
+1786736996424,2,02 Get Categories,200,OK,Load Thread Group 1-4,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736996688,1,05 Add To Cart,200,OK,Load Thread Group 1-34,text,true,,294,423,50,50,http://localhost:3000/api/cart,1,0,1
+1786736996950,2,02 Get Categories,200,OK,Load Thread Group 1-8,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786736997151,2,04 Product Detail,200,OK,Load Thread Group 1-43,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786736997237,2,01 Login,200,OK,Load Thread Group 1-16,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786736997345,2,01 Login,200,OK,Load Thread Group 1-6,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786736997464,5,06 Checkout,200,OK,Load Thread Group 1-28,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786736997675,3,04 Product Detail,200,OK,Load Thread Group 1-38,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786736998121,3,03 Search Products,200,OK,Load Thread Group 1-48,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786736998243,2,05 Add To Cart,200,OK,Load Thread Group 1-30,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786736998290,2,04 Product Detail,200,OK,Load Thread Group 1-44,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736998349,2,02 Get Categories,200,OK,Load Thread Group 1-5,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786736998377,4,05 Add To Cart,200,OK,Load Thread Group 1-32,text,true,,294,416,50,50,http://localhost:3000/api/cart,4,0,1
+1786736998681,3,06 Checkout,200,OK,Load Thread Group 1-17,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786736999013,3,01 Login,200,OK,Load Thread Group 1-15,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786736999030,2,03 Search Products,200,OK,Load Thread Group 1-49,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786736999074,3,04 Product Detail,200,OK,Load Thread Group 1-42,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786736999205,2,04 Product Detail,200,OK,Load Thread Group 1-45,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786736999358,2,05 Add To Cart,200,OK,Load Thread Group 1-29,text,true,,294,427,50,50,http://localhost:3000/api/cart,2,0,1
+1786736999740,2,04 Product Detail,200,OK,Load Thread Group 1-41,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786736999975,4,01 Login,200,OK,Load Thread Group 1-10,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,2
+1786737000248,3,06 Checkout,200,OK,Load Thread Group 1-23,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737000351,2,01 Login,200,OK,Load Thread Group 1-11,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737000487,3,03 Search Products,200,OK,Load Thread Group 1-2,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786737000886,33,01 Login,200,OK,Load Thread Group 1-20,text,true,,676,263,50,50,http://localhost:3000/api/login,33,0,7
+1786737000917,5,06 Checkout,200,OK,Load Thread Group 1-27,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737001790,2,05 Add To Cart,200,OK,Load Thread Group 1-37,text,true,,294,423,50,50,http://localhost:3000/api/cart,1,0,1
+1786737001793,1,03 Search Products,200,OK,Load Thread Group 1-50,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,1,0,1
+1786737002351,3,02 Get Categories,200,OK,Load Thread Group 1-12,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737002533,3,05 Add To Cart,200,OK,Load Thread Group 1-35,text,true,,294,419,50,50,http://localhost:3000/api/cart,3,0,1
+1786737002642,2,01 Login,200,OK,Load Thread Group 1-18,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737002720,2,04 Product Detail,200,OK,Load Thread Group 1-47,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,0
+1786737002841,4,06 Checkout,200,OK,Load Thread Group 1-26,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737003097,3,04 Product Detail,200,OK,Load Thread Group 1-46,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786737003198,6,06 Checkout,200,OK,Load Thread Group 1-22,text,true,,314,422,50,50,http://localhost:3000/api/checkout,6,0,1
+1786737003376,5,06 Checkout,200,OK,Load Thread Group 1-24,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,2
+1786737003848,3,02 Get Categories,200,OK,Load Thread Group 1-3,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737003981,3,01 Login,200,OK,Load Thread Group 1-14,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737004717,6,05 Add To Cart,200,OK,Load Thread Group 1-39,text,true,,294,416,50,50,http://localhost:3000/api/cart,6,0,5
+1786737005063,2,01 Login,200,OK,Load Thread Group 1-25,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786737005169,2,01 Login,200,OK,Load Thread Group 1-19,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786737005646,3,05 Add To Cart,200,OK,Load Thread Group 1-40,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786737005762,6,06 Checkout,200,OK,Load Thread Group 1-31,text,true,,314,423,50,50,http://localhost:3000/api/checkout,6,0,1
+1786737005973,5,06 Checkout,200,OK,Load Thread Group 1-36,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737006101,3,03 Search Products,200,OK,Load Thread Group 1-9,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,3,0,1
+1786737006139,6,02 Get Categories,200,OK,Load Thread Group 1-7,text,true,,358,162,50,50,http://localhost:3000/api/categories,6,0,2
+1786737006243,2,03 Search Products,200,OK,Load Thread Group 1-1,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,0
+1786737006243,2,02 Get Categories,200,OK,Load Thread Group 1-13,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786737006784,3,03 Search Products,200,OK,Load Thread Group 1-4,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,2
+1786737007227,3,06 Checkout,200,OK,Load Thread Group 1-33,text,true,,314,422,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737007409,2,01 Login,200,OK,Load Thread Group 1-21,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737007865,1,02 Get Categories,200,OK,Load Thread Group 1-16,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786737008034,1,02 Get Categories,200,OK,Load Thread Group 1-6,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,1
+1786737008291,2,05 Add To Cart,200,OK,Load Thread Group 1-43,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786737008739,6,06 Checkout,200,OK,Load Thread Group 1-30,text,true,,314,423,50,50,http://localhost:3000/api/checkout,6,0,2
+1786737008985,2,04 Product Detail,200,OK,Load Thread Group 1-48,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786737009035,2,03 Search Products,200,OK,Load Thread Group 1-8,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,0
+1786737009059,4,06 Checkout,200,OK,Load Thread Group 1-34,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737009133,3,01 Login,200,OK,Load Thread Group 1-28,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737009158,2,05 Add To Cart,200,OK,Load Thread Group 1-38,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,1
+1786737009231,2,03 Search Products,200,OK,Load Thread Group 1-5,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786737009899,1,05 Add To Cart,200,OK,Load Thread Group 1-44,text,true,,294,427,50,50,http://localhost:3000/api/cart,1,0,0
+1786737010356,4,06 Checkout,200,OK,Load Thread Group 1-29,text,true,,314,422,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737010936,3,02 Get Categories,200,OK,Load Thread Group 1-15,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737010943,2,05 Add To Cart,200,OK,Load Thread Group 1-45,text,true,,294,427,50,50,http://localhost:3000/api/cart,2,0,1
+1786737010961,1,05 Add To Cart,200,OK,Load Thread Group 1-41,text,true,,294,416,50,50,http://localhost:3000/api/cart,1,0,0
+1786737011417,2,05 Add To Cart,200,OK,Load Thread Group 1-42,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786737011652,2,01 Login,200,OK,Load Thread Group 1-27,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786737011680,2,02 Get Categories,200,OK,Load Thread Group 1-20,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737011736,5,02 Get Categories,200,OK,Load Thread Group 1-11,text,true,,358,162,50,50,http://localhost:3000/api/categories,5,0,1
+1786737011786,2,04 Product Detail,200,OK,Load Thread Group 1-49,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786737011886,3,01 Login,200,OK,Load Thread Group 1-23,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737012005,3,01 Login,200,OK,Load Thread Group 1-17,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737012444,2,02 Get Categories,200,OK,Load Thread Group 1-10,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737012573,3,06 Checkout,200,OK,Load Thread Group 1-32,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737012638,2,04 Product Detail,200,OK,Load Thread Group 1-50,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786737012736,5,06 Checkout,200,OK,Load Thread Group 1-37,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737013242,2,02 Get Categories,200,OK,Load Thread Group 1-18,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786737013320,3,05 Add To Cart,200,OK,Load Thread Group 1-46,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786737013515,3,04 Product Detail,200,OK,Load Thread Group 1-2,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786737013824,2,01 Login,200,OK,Load Thread Group 1-26,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737014063,4,06 Checkout,200,OK,Load Thread Group 1-35,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737014356,3,03 Search Products,200,OK,Load Thread Group 1-12,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786737014598,3,03 Search Products,200,OK,Load Thread Group 1-3,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786737015536,2,05 Add To Cart,200,OK,Load Thread Group 1-47,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,1
+1786737015547,3,06 Checkout,200,OK,Load Thread Group 1-39,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737015696,2,02 Get Categories,200,OK,Load Thread Group 1-14,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737015850,2,02 Get Categories,200,OK,Load Thread Group 1-25,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737016007,1,01 Login,200,OK,Load Thread Group 1-22,text,true,,676,263,50,50,http://localhost:3000/api/login,1,0,0
+1786737016322,3,01 Login,200,OK,Load Thread Group 1-24,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737016346,5,06 Checkout,200,OK,Load Thread Group 1-40,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,2
+1786737016880,3,01 Login,200,OK,Load Thread Group 1-36,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737017392,2,03 Search Products,200,OK,Load Thread Group 1-13,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786737017409,2,04 Product Detail,200,OK,Load Thread Group 1-9,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786737017724,3,01 Login,200,OK,Load Thread Group 1-31,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737018045,2,03 Search Products,200,OK,Load Thread Group 1-16,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786737018080,3,01 Login,200,OK,Load Thread Group 1-33,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737018226,3,04 Product Detail,200,OK,Load Thread Group 1-1,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786737018252,3,03 Search Products,200,OK,Load Thread Group 1-7,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786737018416,3,04 Product Detail,200,OK,Load Thread Group 1-4,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786737018812,3,02 Get Categories,200,OK,Load Thread Group 1-19,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737018817,3,06 Checkout,200,OK,Load Thread Group 1-44,text,true,,314,422,50,50,http://localhost:3000/api/checkout,3,0,0
+1786737018921,2,02 Get Categories,200,OK,Load Thread Group 1-21,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737018978,2,04 Product Detail,200,OK,Load Thread Group 1-5,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,1
+1786737019073,2,03 Search Products,200,OK,Load Thread Group 1-6,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786737019224,1,05 Add To Cart,200,OK,Load Thread Group 1-48,text,true,,294,416,50,50,http://localhost:3000/api/cart,1,0,0
+1786737019491,5,06 Checkout,200,OK,Load Thread Group 1-43,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737019948,7,02 Get Categories,200,OK,Load Thread Group 1-28,text,true,,358,162,50,50,http://localhost:3000/api/categories,7,0,5
+1786737020651,3,06 Checkout,200,OK,Load Thread Group 1-38,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737020906,3,04 Product Detail,200,OK,Load Thread Group 1-8,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786737020926,4,06 Checkout,200,OK,Load Thread Group 1-41,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737020968,2,01 Login,200,OK,Load Thread Group 1-30,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737021716,3,06 Checkout,200,OK,Load Thread Group 1-42,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737021837,2,02 Get Categories,200,OK,Load Thread Group 1-23,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737022079,3,05 Add To Cart,200,OK,Load Thread Group 1-50,text,true,,294,423,50,50,http://localhost:3000/api/cart,3,0,1
+1786737022079,3,06 Checkout,200,OK,Load Thread Group 1-45,text,true,,314,422,50,50,http://localhost:3000/api/checkout,3,0,0
+1786737022080,3,01 Login,200,OK,Load Thread Group 1-34,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,0
+1786737022083,1,03 Search Products,200,OK,Load Thread Group 1-15,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,1,0,1
+1786737022370,3,01 Login,200,OK,Load Thread Group 1-32,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737022495,3,01 Login,200,OK,Load Thread Group 1-29,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737022581,2,02 Get Categories,200,OK,Load Thread Group 1-27,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737023075,2,03 Search Products,200,OK,Load Thread Group 1-11,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786737023131,3,02 Get Categories,200,OK,Load Thread Group 1-17,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737023231,4,01 Login,200,OK,Load Thread Group 1-37,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786737023264,4,03 Search Products,200,OK,Load Thread Group 1-20,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,4,0,2
+1786737023701,2,03 Search Products,200,OK,Load Thread Group 1-18,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786737023851,2,03 Search Products,200,OK,Load Thread Group 1-10,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786737023874,2,05 Add To Cart,200,OK,Load Thread Group 1-49,text,true,,294,427,50,50,http://localhost:3000/api/cart,2,0,1
+1786737023896,3,01 Login,200,OK,Load Thread Group 1-35,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737024293,2,05 Add To Cart,200,OK,Load Thread Group 1-2,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,0
+1786737025271,2,02 Get Categories,200,OK,Load Thread Group 1-26,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737025832,4,06 Checkout,200,OK,Load Thread Group 1-46,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737025898,3,04 Product Detail,200,OK,Load Thread Group 1-12,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786737026865,4,01 Login,200,OK,Load Thread Group 1-40,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786737026873,3,01 Login,200,OK,Load Thread Group 1-39,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737026995,2,04 Product Detail,200,OK,Load Thread Group 1-3,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786737027513,2,02 Get Categories,200,OK,Load Thread Group 1-36,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737027696,4,06 Checkout,200,OK,Load Thread Group 1-47,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737027751,3,03 Search Products,200,OK,Load Thread Group 1-14,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786737028201,1,03 Search Products,200,OK,Load Thread Group 1-25,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,1,0,1
+1786737028267,1,04 Product Detail,200,OK,Load Thread Group 1-7,text,true,,461,162,50,50,http://localhost:3000/api/products/4,1,0,1
+1786737028301,2,02 Get Categories,200,OK,Load Thread Group 1-31,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737028338,2,02 Get Categories,200,OK,Load Thread Group 1-24,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737028598,2,02 Get Categories,200,OK,Load Thread Group 1-22,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786737028642,3,01 Login,200,OK,Load Thread Group 1-44,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737028959,1,04 Product Detail,200,OK,Load Thread Group 1-6,text,true,,451,162,50,50,http://localhost:3000/api/products/1,1,0,1
+1786737029157,2,05 Add To Cart,200,OK,Load Thread Group 1-4,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786737029180,3,04 Product Detail,200,OK,Load Thread Group 1-16,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786737029364,1,04 Product Detail,200,OK,Load Thread Group 1-13,text,true,,467,162,50,50,http://localhost:3000/api/products/5,1,0,0
+1786737029932,2,02 Get Categories,200,OK,Load Thread Group 1-33,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737029954,2,05 Add To Cart,200,OK,Load Thread Group 1-9,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,1
+1786737029995,2,03 Search Products,200,OK,Load Thread Group 1-19,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,2,0,1
+1786737030473,4,06 Checkout,200,OK,Load Thread Group 1-48,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,0
+1786737030850,2,03 Search Products,200,OK,Load Thread Group 1-21,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786737030932,2,02 Get Categories,200,OK,Load Thread Group 1-30,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737030936,3,03 Search Products,200,OK,Load Thread Group 1-28,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,3,0,1
+1786737030991,4,01 Login,200,OK,Load Thread Group 1-43,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786737031001,1,05 Add To Cart,200,OK,Load Thread Group 1-5,text,true,,294,427,50,50,http://localhost:3000/api/cart,1,0,0
+1786737031670,2,05 Add To Cart,200,OK,Load Thread Group 1-1,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786737032214,2,01 Login,200,OK,Load Thread Group 1-38,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,0
+1786737032505,2,01 Login,200,OK,Load Thread Group 1-41,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737032530,2,05 Add To Cart,200,OK,Load Thread Group 1-8,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786737032607,1,03 Search Products,200,OK,Load Thread Group 1-27,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,1,0,0
+1786737032680,2,01 Login,200,OK,Load Thread Group 1-42,text,true,,676,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737032904,3,02 Get Categories,200,OK,Load Thread Group 1-32,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737033065,4,04 Product Detail,200,OK,Load Thread Group 1-10,text,true,,451,162,50,50,http://localhost:3000/api/products/1,4,0,1
+1786737033275,3,03 Search Products,200,OK,Load Thread Group 1-23,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,1
+1786737033357,2,04 Product Detail,200,OK,Load Thread Group 1-20,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786737033742,3,02 Get Categories,200,OK,Load Thread Group 1-34,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737033809,6,06 Checkout,200,OK,Load Thread Group 1-2,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737034037,2,03 Search Products,200,OK,Load Thread Group 1-17,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786737034516,4,01 Login,200,OK,Load Thread Group 1-45,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786737034534,4,04 Product Detail,200,OK,Load Thread Group 1-15,text,true,,448,162,50,50,http://localhost:3000/api/products/3,3,0,1
+1786737034687,1,02 Get Categories,200,OK,Load Thread Group 1-35,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786737034796,2,04 Product Detail,200,OK,Load Thread Group 1-11,text,true,,467,162,50,50,http://localhost:3000/api/products/5,1,0,0
+1786737034846,4,06 Checkout,200,OK,Load Thread Group 1-50,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737035104,1,02 Get Categories,200,OK,Load Thread Group 1-29,text,true,,358,162,50,50,http://localhost:3000/api/categories,1,0,0
+1786737035226,2,04 Product Detail,200,OK,Load Thread Group 1-18,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786737035509,2,02 Get Categories,200,OK,Load Thread Group 1-37,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,0
+1786737035737,5,06 Checkout,200,OK,Load Thread Group 1-49,text,true,,314,422,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737036868,2,03 Search Products,200,OK,Load Thread Group 1-26,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786737036873,2,05 Add To Cart,200,OK,Load Thread Group 1-12,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786737037200,3,02 Get Categories,200,OK,Load Thread Group 1-39,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737037457,4,01 Login,200,OK,Load Thread Group 1-46,text,true,,676,263,50,50,http://localhost:3000/api/login,4,0,1
+1786737037818,3,05 Add To Cart,200,OK,Load Thread Group 1-3,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786737038395,2,02 Get Categories,200,OK,Load Thread Group 1-40,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737038712,3,03 Search Products,200,OK,Load Thread Group 1-24,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786737038841,4,05 Add To Cart,200,OK,Load Thread Group 1-6,text,true,,294,419,50,50,http://localhost:3000/api/cart,4,0,2
+1786737038946,2,04 Product Detail,200,OK,Load Thread Group 1-14,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786737038946,3,03 Search Products,200,OK,Load Thread Group 1-36,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786737039604,3,01 Login,200,OK,Load Thread Group 1-47,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737039786,3,05 Add To Cart,200,OK,Load Thread Group 1-7,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786737039812,2,03 Search Products,200,OK,Load Thread Group 1-22,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786737039855,3,01 Login,200,OK,Load Thread Group 1-48,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737040249,3,04 Product Detail,200,OK,Load Thread Group 1-25,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786737040589,3,05 Add To Cart,200,OK,Load Thread Group 1-16,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786737040657,2,04 Product Detail,200,OK,Load Thread Group 1-19,text,true,,467,162,50,50,http://localhost:3000/api/products/5,2,0,0
+1786737040865,3,03 Search Products,200,OK,Load Thread Group 1-31,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,0
+1786737041056,2,03 Search Products,200,OK,Load Thread Group 1-33,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786737041336,2,02 Get Categories,200,OK,Load Thread Group 1-44,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737041415,2,04 Product Detail,200,OK,Load Thread Group 1-21,text,true,,451,162,50,50,http://localhost:3000/api/products/1,2,0,1
+1786737041775,4,06 Checkout,200,OK,Load Thread Group 1-9,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737042023,5,06 Checkout,200,OK,Load Thread Group 1-5,text,true,,314,422,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737042079,5,06 Checkout,200,OK,Load Thread Group 1-4,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737042367,2,03 Search Products,200,OK,Load Thread Group 1-30,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786737042730,2,04 Product Detail,200,OK,Load Thread Group 1-28,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786737042824,3,05 Add To Cart,200,OK,Load Thread Group 1-13,text,true,,294,427,50,50,http://localhost:3000/api/cart,3,0,1
+1786737042847,2,02 Get Categories,200,OK,Load Thread Group 1-41,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737043076,1,04 Product Detail,200,OK,Load Thread Group 1-27,text,true,,467,162,50,50,http://localhost:3000/api/products/5,1,0,0
+1786737043113,3,06 Checkout,200,OK,Load Thread Group 1-1,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,1
+1786737043130,2,02 Get Categories,200,OK,Load Thread Group 1-42,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737043811,2,02 Get Categories,200,OK,Load Thread Group 1-43,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737044065,3,01 Login,200,OK,Load Thread Group 1-2,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737044421,2,04 Product Detail,200,OK,Load Thread Group 1-17,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786737045112,5,06 Checkout,200,OK,Load Thread Group 1-8,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737045149,3,03 Search Products,200,OK,Load Thread Group 1-32,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786737045188,3,02 Get Categories,200,OK,Load Thread Group 1-38,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737045363,3,04 Product Detail,200,OK,Load Thread Group 1-23,text,true,,461,162,50,50,http://localhost:3000/api/products/4,3,0,1
+1786737045496,3,01 Login,200,OK,Load Thread Group 1-49,text,true,,671,263,50,50,http://localhost:3000/api/login,3,0,0
+1786737045514,2,05 Add To Cart,200,OK,Load Thread Group 1-20,text,true,,294,423,50,50,http://localhost:3000/api/cart,2,0,1
+1786737045915,4,03 Search Products,200,OK,Load Thread Group 1-34,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,4,0,2
+1786737045963,3,01 Login,200,OK,Load Thread Group 1-50,text,true,,676,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737046072,2,05 Add To Cart,200,OK,Load Thread Group 1-10,text,true,,294,419,50,50,http://localhost:3000/api/cart,2,0,0
+1786737046323,1,03 Search Products,200,OK,Load Thread Group 1-35,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,1,0,0
+1786737046465,3,05 Add To Cart,200,OK,Load Thread Group 1-15,text,true,,294,416,50,50,http://localhost:3000/api/cart,3,0,1
+1786737046544,2,05 Add To Cart,200,OK,Load Thread Group 1-11,text,true,,294,427,50,50,http://localhost:3000/api/cart,2,0,1
+1786737046715,3,05 Add To Cart,200,OK,Load Thread Group 1-18,text,true,,294,426,50,50,http://localhost:3000/api/cart,3,0,1
+1786737046976,3,04 Product Detail,200,OK,Load Thread Group 1-26,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786737047107,3,03 Search Products,200,OK,Load Thread Group 1-39,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,3,0,1
+1786737047129,2,02 Get Categories,200,OK,Load Thread Group 1-45,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737048341,2,03 Search Products,200,OK,Load Thread Group 1-29,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786737048465,2,03 Search Products,200,OK,Load Thread Group 1-37,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,1
+1786737048968,4,06 Checkout,200,OK,Load Thread Group 1-3,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737049118,2,05 Add To Cart,200,OK,Load Thread Group 1-14,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786737049131,3,02 Get Categories,200,OK,Load Thread Group 1-46,text,true,,358,162,50,50,http://localhost:3000/api/categories,3,0,1
+1786737049213,5,06 Checkout,200,OK,Load Thread Group 1-12,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737049388,2,04 Product Detail,200,OK,Load Thread Group 1-24,text,true,,448,162,50,50,http://localhost:3000/api/products/3,2,0,1
+1786737049924,6,06 Checkout,200,OK,Load Thread Group 1-7,text,true,,314,423,50,50,http://localhost:3000/api/checkout,6,0,1
+1786737050192,2,02 Get Categories,200,OK,Load Thread Group 1-48,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,2
+1786737050368,4,06 Checkout,200,OK,Load Thread Group 1-6,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,0
+1786737050456,3,04 Product Detail,200,OK,Load Thread Group 1-22,text,true,,480,162,50,50,http://localhost:3000/api/products/2,3,0,1
+1786737050465,3,03 Search Products,200,OK,Load Thread Group 1-40,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,3,0,2
+1786737050545,5,02 Get Categories,200,OK,Load Thread Group 1-47,text,true,,358,162,50,50,http://localhost:3000/api/categories,5,0,1
+1786737051074,3,04 Product Detail,200,OK,Load Thread Group 1-36,text,true,,467,162,50,50,http://localhost:3000/api/products/5,3,0,1
+1786737051949,4,06 Checkout,200,OK,Load Thread Group 1-16,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,0
+1786737052443,2,01 Login,200,OK,Load Thread Group 1-9,text,true,,671,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737052512,2,04 Product Detail,200,OK,Load Thread Group 1-31,text,true,,461,162,50,50,http://localhost:3000/api/products/4,2,0,1
+1786737052532,3,03 Search Products,200,OK,Load Thread Group 1-44,text,true,,469,176,50,50,http://localhost:3000/api/products?search=keychron,3,0,1
+1786737052788,2,05 Add To Cart,200,OK,Load Thread Group 1-19,text,true,,294,427,50,50,http://localhost:3000/api/cart,2,0,0
+1786737053499,3,04 Product Detail,200,OK,Load Thread Group 1-33,text,true,,451,162,50,50,http://localhost:3000/api/products/1,3,0,1
+1786737053606,2,05 Add To Cart,200,OK,Load Thread Group 1-28,text,true,,294,426,50,50,http://localhost:3000/api/cart,2,0,1
+1786737053837,2,04 Product Detail,200,OK,Load Thread Group 1-30,text,true,,480,162,50,50,http://localhost:3000/api/products/2,2,0,1
+1786737053935,3,03 Search Products,200,OK,Load Thread Group 1-41,text,true,,267,174,50,50,http://localhost:3000/api/products?search=laptop,2,0,1
+1786737054075,6,05 Add To Cart,200,OK,Load Thread Group 1-25,text,true,,294,423,50,50,http://localhost:3000/api/cart,5,0,1
+1786737054170,3,05 Add To Cart,200,OK,Load Thread Group 1-21,text,true,,294,419,50,50,http://localhost:3000/api/cart,3,0,1
+1786737054217,3,01 Login,200,OK,Load Thread Group 1-4,text,true,,671,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737054368,2,03 Search Products,200,OK,Load Thread Group 1-42,text,true,,461,175,50,50,http://localhost:3000/api/products?search=airpods,2,0,1
+1786737054448,3,05 Add To Cart,200,OK,Load Thread Group 1-27,text,true,,294,427,50,50,http://localhost:3000/api/cart,3,0,1
+1786737054649,5,06 Checkout,200,OK,Load Thread Group 1-13,text,true,,314,422,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737055131,3,01 Login,200,OK,Load Thread Group 1-5,text,true,,671,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737055203,2,02 Get Categories,200,OK,Load Thread Group 1-2,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737055223,2,02 Get Categories,200,OK,Load Thread Group 1-49,text,true,,358,162,50,50,http://localhost:3000/api/categories,2,0,1
+1786737055346,2,03 Search Products,200,OK,Load Thread Group 1-43,text,true,,453,173,50,50,http://localhost:3000/api/products?search=phone,2,0,0
+1786737055800,3,01 Login,200,OK,Load Thread Group 1-1,text,true,,671,263,50,50,http://localhost:3000/api/login,3,0,1
+1786737055884,1,05 Add To Cart,200,OK,Load Thread Group 1-23,text,true,,294,423,50,50,http://localhost:3000/api/cart,1,0,0
+1786737055981,3,06 Checkout,200,OK,Load Thread Group 1-15,text,true,,314,423,50,50,http://localhost:3000/api/checkout,3,0,0
+1786737056210,2,05 Add To Cart,200,OK,Load Thread Group 1-17,text,true,,294,416,50,50,http://localhost:3000/api/cart,2,0,1
+1786737056364,5,06 Checkout,200,OK,Load Thread Group 1-10,text,true,,314,423,50,50,http://localhost:3000/api/checkout,5,0,1
+1786737056393,2,03 Search Products,200,OK,Load Thread Group 1-38,text,true,,480,175,50,50,http://localhost:3000/api/products?search=samsung,2,0,1
+1786737056574,2,01 Login,200,OK,Load Thread Group 1-8,text,true,,671,263,50,50,http://localhost:3000/api/login,2,0,1
+1786737057621,4,06 Checkout,200,OK,Load Thread Group 1-20,text,true,,314,423,50,50,http://localhost:3000/api/checkout,4,0,1
+1786737057657,3,05 Add To Cart,200,OK,Load Thread Group 1-26,text,true,,294,419,49,49,http://localhost:3000/api/cart,3,0,1
+1786737057733,2,04 Product Detail,200,OK,Load Thread Group 1-32,text,true,,467,162,48,48,http://localhost:3000/api/products/5,2,0,0
+1786737057959,2,03 Search Products,200,OK,Load Thread Group 1-45,text,true,,469,176,48,48,http://localhost:3000/api/products?search=keychron,2,0,0
+1786737058019,1,04 Product Detail,200,OK,Load Thread Group 1-34,text,true,,448,162,47,47,http://localhost:3000/api/products/3,1,0,0
+1786737058151,1,04 Product Detail,200,OK,Load Thread Group 1-37,text,true,,451,162,46,46,http://localhost:3000/api/products/1,1,0,0
+1786737058179,2,02 Get Categories,200,OK,Load Thread Group 1-50,text,true,,358,162,45,45,http://localhost:3000/api/categories,2,0,1
+1786737058536,4,06 Checkout,200,OK,Load Thread Group 1-11,text,true,,314,422,45,45,http://localhost:3000/api/checkout,4,0,1
+1786737058827,1,04 Product Detail,200,OK,Load Thread Group 1-35,text,true,,480,162,44,44,http://localhost:3000/api/products/2,1,0,0
+1786737058857,1,04 Product Detail,200,OK,Load Thread Group 1-39,text,true,,448,162,43,43,http://localhost:3000/api/products/3,1,0,0
+1786737058901,3,06 Checkout,200,OK,Load Thread Group 1-18,text,true,,314,423,43,43,http://localhost:3000/api/checkout,3,0,0
+1786737059241,2,01 Login,200,OK,Load Thread Group 1-12,text,true,,674,263,43,43,http://localhost:3000/api/login,2,0,0
+1786737059880,2,04 Product Detail,200,OK,Load Thread Group 1-29,text,true,,461,162,43,43,http://localhost:3000/api/products/4,2,0,1
+1786737059959,3,06 Checkout,200,OK,Load Thread Group 1-14,text,true,,314,423,42,42,http://localhost:3000/api/checkout,3,0,1
+1786737060221,2,05 Add To Cart,200,OK,Load Thread Group 1-24,text,true,,294,416,41,41,http://localhost:3000/api/cart,2,0,1
+1786737060460,3,01 Login,200,OK,Load Thread Group 1-3,text,true,,671,263,40,40,http://localhost:3000/api/login,3,0,1
+1786737061253,3,03 Search Products,200,OK,Load Thread Group 1-46,text,true,,453,173,39,39,http://localhost:3000/api/products?search=phone,3,0,1
+1786737061648,3,03 Search Products,200,OK,Load Thread Group 1-48,text,true,,267,174,38,38,http://localhost:3000/api/products?search=laptop,3,0,1
+1786737061688,3,01 Login,200,OK,Load Thread Group 1-6,text,true,,674,263,37,37,http://localhost:3000/api/login,3,0,1
+1786737062114,3,04 Product Detail,200,OK,Load Thread Group 1-40,text,true,,461,162,36,36,http://localhost:3000/api/products/4,2,0,1
+1786737062222,4,01 Login,200,OK,Load Thread Group 1-7,text,true,,674,263,35,35,http://localhost:3000/api/login,4,0,1
+1786737062341,2,05 Add To Cart,200,OK,Load Thread Group 1-22,text,true,,294,426,34,34,http://localhost:3000/api/cart,2,0,1
+1786737062522,4,05 Add To Cart,200,OK,Load Thread Group 1-36,text,true,,294,427,33,33,http://localhost:3000/api/cart,4,0,1
+1786737063165,2,02 Get Categories,200,OK,Load Thread Group 1-9,text,true,,358,162,32,32,http://localhost:3000/api/categories,2,0,1
+1786737063482,3,01 Login,200,OK,Load Thread Group 1-16,text,true,,674,263,31,31,http://localhost:3000/api/login,3,0,1
+1786737063638,3,05 Add To Cart,200,OK,Load Thread Group 1-33,text,true,,294,419,30,30,http://localhost:3000/api/cart,3,0,1
+1786737063721,3,03 Search Products,200,OK,Load Thread Group 1-47,text,true,,480,175,29,29,http://localhost:3000/api/products?search=samsung,3,0,1
+1786737063802,3,04 Product Detail,200,OK,Load Thread Group 1-44,text,true,,467,162,28,28,http://localhost:3000/api/products/5,3,0,1
+1786737064442,3,02 Get Categories,200,OK,Load Thread Group 1-4,text,true,,358,162,27,27,http://localhost:3000/api/categories,3,0,1
+1786737064639,6,06 Checkout,200,OK,Load Thread Group 1-28,text,true,,314,423,26,26,http://localhost:3000/api/checkout,6,0,2
+1786737064877,5,06 Checkout,200,OK,Load Thread Group 1-19,text,true,,314,422,25,25,http://localhost:3000/api/checkout,5,0,1
+1786737065041,4,06 Checkout,200,OK,Load Thread Group 1-21,text,true,,314,423,24,24,http://localhost:3000/api/checkout,4,0,1
+1786737065079,3,04 Product Detail,200,OK,Load Thread Group 1-41,text,true,,448,162,23,23,http://localhost:3000/api/products/3,2,0,1
+1786737065228,2,03 Search Products,200,OK,Load Thread Group 1-2,text,true,,461,175,22,22,http://localhost:3000/api/products?search=airpods,2,0,0
+1786737065395,3,01 Login,200,OK,Load Thread Group 1-15,text,true,,674,263,21,21,http://localhost:3000/api/login,3,0,1
+1786737065397,2,01 Login,200,OK,Load Thread Group 1-13,text,true,,674,263,21,21,http://localhost:3000/api/login,2,0,1
+1786737066080,3,05 Add To Cart,200,OK,Load Thread Group 1-30,text,true,,294,426,19,19,http://localhost:3000/api/cart,2,0,1
+1786737066219,3,05 Add To Cart,200,OK,Load Thread Group 1-31,text,true,,294,423,18,18,http://localhost:3000/api/cart,3,0,1
+1786737066355,4,06 Checkout,200,OK,Load Thread Group 1-25,text,true,,314,423,17,17,http://localhost:3000/api/checkout,4,0,1
+1786737066388,4,06 Checkout,200,OK,Load Thread Group 1-27,text,true,,314,422,16,16,http://localhost:3000/api/checkout,4,0,1
+1786737066394,2,03 Search Products,200,OK,Load Thread Group 1-49,text,true,,453,173,15,15,http://localhost:3000/api/products?search=phone,2,0,1
+1786737066958,3,06 Checkout,200,OK,Load Thread Group 1-23,text,true,,314,423,14,14,http://localhost:3000/api/checkout,3,0,0
+1786737067030,2,02 Get Categories,200,OK,Load Thread Group 1-1,text,true,,358,162,13,13,http://localhost:3000/api/categories,2,0,0
+1786737067109,3,04 Product Detail,200,OK,Load Thread Group 1-42,text,true,,461,162,12,12,http://localhost:3000/api/products/4,3,0,1
+1786737067224,3,03 Search Products,200,OK,Load Thread Group 1-50,text,true,,469,176,11,11,http://localhost:3000/api/products?search=keychron,3,0,1
+1786737067753,3,01 Login,200,OK,Load Thread Group 1-18,text,true,,674,263,10,10,http://localhost:3000/api/login,3,0,1
+1786737067982,2,04 Product Detail,200,OK,Load Thread Group 1-43,text,true,,451,162,9,9,http://localhost:3000/api/products/1,2,0,0
+1786737068034,2,05 Add To Cart,200,OK,Load Thread Group 1-39,text,true,,294,416,8,8,http://localhost:3000/api/cart,2,0,0
+1786737068058,4,06 Checkout,200,OK,Load Thread Group 1-17,text,true,,314,423,7,7,http://localhost:3000/api/checkout,4,0,0
+1786737068172,3,02 Get Categories,200,OK,Load Thread Group 1-8,text,true,,358,162,6,6,http://localhost:3000/api/categories,3,0,1
+1786737068247,3,01 Login,200,OK,Load Thread Group 1-10,text,true,,674,263,5,5,http://localhost:3000/api/login,3,0,1
+1786737068482,2,05 Add To Cart,200,OK,Load Thread Group 1-32,text,true,,294,427,4,4,http://localhost:3000/api/cart,2,0,1
+1786737068598,2,02 Get Categories,200,OK,Load Thread Group 1-12,text,true,,358,162,3,3,http://localhost:3000/api/categories,2,0,1
+1786737068718,2,02 Get Categories,200,OK,Load Thread Group 1-5,text,true,,358,162,2,2,http://localhost:3000/api/categories,2,0,1
+1786737068835,2,04 Product Detail,200,OK,Load Thread Group 1-38,text,true,,480,162,1,1,http://localhost:3000/api/products/2,2,0,1

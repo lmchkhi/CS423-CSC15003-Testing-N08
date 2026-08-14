@@ -239,3 +239,69 @@ oke tiếp tục bước tiếp theo
 ```text
 Tiếp tục Pha 2: chạy và xác minh JMeter smoke test cho Workflow 1. Phát hiện sandbox chặn JMeter gọi localhost và CSV account cũ không còn login được; tạo lại 200 account qua /api/register, rerun smoke ngoài sandbox thành công với 20 samples, 0 errors. Cập nhật smoke evidence note, smoke summary, main report, execution plan và generator/runner để hỗ trợ Smoke plan.
 ```
+
+## Entry #9
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:40 GMT+7 |
+| **Artifact type** | HW05 artifact status explanation |
+
+**Full prompt:**
+
+```text
+ủa các change không stage hiện tại là sao, các file đó không cần thiết hoặc bỏ hả và sao tôi thấy nhiều file quá vậy?
+```
+
+### (2) AI Output
+
+```text
+Giải thích các file chưa stage sau commit Pha 2: .DS_Store là file macOS không cần commit; EShop_Workload_Model.jmx là file seminar reference nên giữ untracked trừ khi muốn lưu tham khảo; html/smoke và html/smoke-rerun là dashboard từ các lượt troubleshooting lỗi sandbox/CSV cũ, không phải evidence chính. Nhiều file trong commit đến từ JMeter HTML Dashboard smoke-pass vì dashboard là thư mục tự chứa gồm CSS/JS/font/static assets.
+```
+
+## Entry #10
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:41 GMT+7 |
+| **Artifact type** | HW05 cleanup recommendation |
+
+**Full prompt:**
+
+```text
+các file không stage hiện tại có cần xoá đi không
+```
+
+### (2) AI Output
+
+```text
+Khuyến nghị cleanup các file chưa stage: có thể xoá .DS_Store và hai dashboard troubleshooting html/smoke, html/smoke-rerun vì không phải evidence chính; giữ hoặc chủ động commit EShop_Workload_Model.jmx nếu muốn lưu file seminar reference. Không xoá reports/ai-audit-report.md vì đó là audit log cần giữ và sẽ commit ở mốc tiếp theo.
+```
+
+## Entry #11
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 02:53 GMT+7 |
+| **Artifact type** | HW05 Load test execution |
+
+**Full prompt:**
+
+```text
+tôi đã xoá các phần nên xoá rồi, kiểm tra lại xem đúng chưa, đúng rồi thì thực hiện bước kế tiếp giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Xác nhận cleanup đúng: .DS_Store và dashboard troubleshooting smoke/smoke-rerun đã được xoá, còn EShop_Workload_Model.jmx là file seminar reference untracked. Thực hiện Pha 3 Load test bằng JMeter CLI ngoài sandbox với 50 VUs, ramp-up 60s, duration 300s. Kết quả Load pass: 1176 samples, 0 errors, avg 2.91 ms, p95 5 ms, p99 6 ms, throughput 4.0384 RPS. Sinh JTL, JMeter log, HTML Dashboard, load-summary.csv, hardware/top/process evidence và cập nhật main report/execution plan.
+```

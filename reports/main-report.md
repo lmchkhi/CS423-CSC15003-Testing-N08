@@ -44,9 +44,9 @@ Mapping nhóm endpoint:
 
 | Thành phần | Thông tin |
 | --- | --- |
-| OS | macOS local |
-| CPU | TODO |
-| RAM | TODO |
+| OS | macOS 26.5.2 build 25F84 |
+| CPU | Apple M3 Pro, 11 cores (5 Performance + 6 Efficiency) |
+| RAM | 36 GB |
 | Java | Java 25.0.4 LTS |
 | JMeter | Apache JMeter 5.6.3 |
 | Backend process | Đã xác nhận backend đang phục vụ `http://localhost:3000` khi chạy smoke |
@@ -54,7 +54,10 @@ Mapping nhóm endpoint:
 
 Evidence phần cứng:
 
-- TODO: path screenshot/spec table.
+- Hardware spec: `testing-artifacts/hw05/evidence/hardware/system-profiler-hardware-20260815.txt`.
+- Load test `top` snapshots: `testing-artifacts/hw05/evidence/hardware/top-load-midrun-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-steady-20260815.txt`, `testing-artifacts/hw05/evidence/hardware/top-load-postrun-20260815.txt`.
+- Process snapshot: `testing-artifacts/hw05/evidence/hardware/process-load-midrun-20260815.txt`.
+- Screenshot/video evidence vẫn cần bổ sung khi quay demo để thấy JMeter CLI và resource monitor cùng khung hình.
 
 ## 4. Test data
 
@@ -153,10 +156,10 @@ JMeter smoke:
 
 ## 8. Execution evidence
 
-| Scenario | Plan | Raw JTL | HTML report | Screenshot | Notes |
+| Scenario | Plan | Raw JTL | HTML report | Resource evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO | Pass 20 samples, 0 errors |
-| Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
+| Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO screenshot/video | Pass 20 samples, 0 errors |
+| Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md` | Pass 1176 samples, 0 errors |
 | Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
 | Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
 | Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | TODO | TODO | TODO | Pha 1: generated + XML validated |
@@ -165,7 +168,7 @@ JMeter smoke:
 
 | Scenario | VUs | Samples | Error rate | Avg ms | p50 | p90 | p95 | p99 | Throughput/RPS | CPU/RAM note |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| Load | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
+| Load | 50 | 1176 | 0.00% | 2.91 | 3 | 4 | 5 | 6 | 4.0384 | Steady `top`: 27.14% user, 16.44% sys, 56.41% idle; PhysMem 35G used, 0 swap |
 | Stress | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 | Spike | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
 | Endurance | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO | TODO |
@@ -174,7 +177,11 @@ JMeter smoke:
 
 ### 10.1 Load
 
-TODO.
+Load test chạy đủ 5 phút từ 02:46:08 đến 02:51:08 ngày 2026-08-15 với 50 VUs, ramp-up 60s và think time 1500ms + random 1500ms. Kết quả baseline ổn định: 1176 samples, 0 errors, overall p95 5 ms, p99 6 ms và throughput 4.0384 RPS.
+
+Theo từng bước workflow, `POST /api/checkout` là request chậm nhất nhưng vẫn rất thấp: avg 4.33 ms, p95 6 ms, p99 7 ms. `POST /api/login` có max 33 ms nhưng p95 chỉ 4 ms, nên đây là outlier nhỏ chứ không phải xu hướng suy giảm. Không có HTTP 4xx/5xx, timeout, lỗi token hoặc account lockout trong Load run.
+
+Resource snapshot steady-state lúc 02:47:46 ghi nhận CPU còn 56.41% idle và không có swapins/swapouts, nên ở mức Load này máy local và SUT chưa có dấu hiệu chạm trần. Kết quả Load được dùng làm baseline để so sánh với Stress/Spike; chưa tạo bug report.
 
 ### 10.2 Stress
 

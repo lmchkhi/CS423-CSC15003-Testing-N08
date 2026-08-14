@@ -137,6 +137,15 @@ Kết quả cần có:
 - Screenshot evidence.
 - Bảng metric trong `reports/main-report.md`.
 
+Trạng thái 2026-08-15:
+
+- Đã chạy Load test chính thức ngoài sandbox bằng JMeter CLI.
+- Cấu hình: 50 VUs, ramp-up 60s, duration 300s, think time 1500ms + random 1500ms.
+- Kết quả: 1176 samples, 0 errors, avg 2.91 ms, p95 5 ms, p99 6 ms, throughput 4.0384 RPS.
+- Evidence chính: `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl`, `testing-artifacts/hw05/html/load/index.html`, `testing-artifacts/hw05/analysis/load-summary.csv`, `testing-artifacts/hw05/evidence/notes/load-20260815.md`.
+- Text resource evidence đã lưu bằng `top`/`ps`; screenshot/video cần bổ sung khi quay demo.
+- Không tạo bug report vì Load run không có lỗi SUT.
+
 ### Pha 4 - Chạy Stress test
 
 Mục tiêu:
