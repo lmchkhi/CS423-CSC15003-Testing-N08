@@ -3,6 +3,11 @@
 HW05, Workflow 5 (Khôi phục tài khoản rồi mua hàng), student 23127300.
 Method per `.superpowers/sdd/2026-08-13-hw05-performance-testing/task-12-brief.md`.
 
+**This file has three sequential "Conclusions" sections, one per round of
+investigation (VU axis, arrival axis, harness-bug fix). Only the last one —
+"## Final conclusions", near the end of the file — is current; it
+supersedes the two before it. Read that section, not the first one.**
+
 ## Hardware and harness
 
 - Apple M4 Pro, 12 cores, 24 GB RAM, macOS 26.5.2
@@ -230,11 +235,11 @@ probes, 15 s ramp, `--skip-ramp 15`, same wall-clock guard (`run_bounded.sh`,
 | 100/200 | 7 | 0.00 | 51.0 | 117.8 | 239.88 |
 | 0/0 | 7 | **7.76** | 126.5 | 259.5 | 3924.16 |
 
-Raw logs: `perf/results/calibration/arr-{1000-2000,300-400,100-200}.jtl`
-and `arr-0-0.jtl.gz` (compressed for repository size; gunzip before
-analysing, see the "Files" list below) and matching `.csv` resource
-samples. No probe stalled; all 4 completed inside their 360 s
-wall-clock bound (93-94 s each).
+Raw logs: `perf/results/calibration/arr-{1000-2000,300-400,100-200}.jtl` and
+`arr-0-0.jtl.gz` (compressed — 51 MB uncompressed; see "Repository housekeeping"
+near the end of this file for why and how to read it) and matching `.csv`
+resource samples. No probe stalled; all 4 completed
+inside their 360 s wall-clock bound (93-94 s each).
 
 The control (1000/2000) reproduces the original T=50 VU-sweep row almost
 exactly (checkout p95 8 ms, throughput ~25 req/s, SUT CPU ~14 %),
@@ -353,10 +358,207 @@ of that design should be read, not that the design is wrong.
 - `perf/results/calibration/arr-1000-2000.{jtl,csv}` (control)
 - `perf/results/calibration/arr-300-400.{jtl,csv}`
 - `perf/results/calibration/arr-100-200.{jtl,csv}`
-- `perf/results/calibration/arr-0-0.jtl.gz` + `arr-0-0.csv` (the `.jtl`
-  is gzipped for repository size — 51 MB uncompressed. Reproduce any
-  quoted figure with:
-  `gunzip -k -c perf/results/calibration/arr-0-0.jtl.gz > /tmp/arr-0-0.jtl`
-  then `python3 perf/scripts/analyze_jtl.py /tmp/arr-0-0.jtl --skip-ramp 15`)
+- `perf/results/calibration/arr-0-0.jtl.gz` + `arr-0-0.csv` (the `.jtl` is
+  gzipped — see "Repository housekeeping" near the end of this file)
 - `perf/plans/jmeter/23127300_Load_20260814.jmx` — think timer parameterised
   (`think.delay`, `think.range`), defaults unchanged.
+
+---
+
+## Extension 2 — the harness's own connection-reset default (2026-08-14, same day)
+
+The controller independently verified black-box that the SUT genuinely
+honours keep-alive (`Connection: keep-alive`, `Keep-Alive: timeout=5` on
+both a GET and a POST) — so the `BindException` storm at 0/0 think time
+(Extension 1) could not be explained by the SUT dropping connections. With
+every sampler in this plan already setting `HTTPSampler.use_keepalive=true`,
+50 threads reusing persistent connections should never approach the
+~16383-port ephemeral range. Something was closing connections that should
+have stayed open. Hypothesis: JMeter's own
+`httpclient.reset_state_on_thread_group_iteration`, which **defaults to
+true** and closes the connection at the start of every thread-group
+iteration — at zero think time an iteration is tens of milliseconds, so 50
+threads would open on the order of 1000 fresh sockets/second.
+
+### Confirming the mechanism
+
+A short (25 s) zero-think probe at 50 threads, sampled with
+`netstat -an -p tcp | grep '\.3000 '` every 3 s, **before** any property
+change:
+
+| t (+3s steps) | total sockets to :3000 | ESTABLISHED | TIME_WAIT |
+|---|---:|---:|---:|
+| +3s | 1087 | 46 | 1042 |
+| +6s | 2765 | 96 | 2669 |
+| +9s | 4481 | 100 | 4386 |
+| +12s | 6194 | 100 | 6101 |
+| +15s | 7887 | 100 | 7791 |
+
+ESTABLISHED stayed near thread count (46-100, consistent with ~50 threads x
+~2 sockets — loopback shows both connection endpoints), exactly as
+keep-alive would predict. **TIME_WAIT climbed linearly, ~450/s, reaching
+7791 in 15 s** — thousands of connections being torn down and immediately
+re-opened. The hypothesis holds: this is JMeter closing and reopening
+sockets every iteration, not the SUT dropping them, and it is exactly the
+rate that exhausts a ~16383-port ephemeral range within the ~90 s probes
+used throughout this calibration.
+
+### The fix
+
+`perf/config/jmeter-run.properties` (the run-configuration file every
+invocation in this project passes with `-q`) now sets:
+
+```properties
+httpclient.reset_state_on_thread_group_iteration=false
+```
+
+Scope kept narrow, as authorised: only this one connection-reuse property
+was touched; every other line in the file is unchanged. The change is
+commented in place with the measured TIME_WAIT numbers above and a pointer
+to this record.
+
+### Re-verifying the mechanism, with the fix
+
+Same 25 s / 50-thread / 0-think probe, same `netstat` sampling, **with**
+the property change:
+
+| t (+3s steps) | total sockets to :3000 | ESTABLISHED | TIME_WAIT |
+|---|---:|---:|---:|
+| +3s | 49 | 48 | 0 |
+| +6s | 101 | 100 | 0 |
+| +9s | 101 | 100 | 0 |
+| +12s | 101 | 100 | 0 |
+| +15s | 101 | 100 | 0 |
+
+Socket count stabilises immediately at ~100 (≈2 x thread count) and stays
+flat — zero `TIME_WAIT` accumulation for the full 15 s window. The fix
+works exactly as diagnosed. This 25 s probe itself ran at ~4000 req/s with
+0.00 % error and no `BindException` (not part of the committed record;
+diagnostic only).
+
+### Re-running the full zero-think probe with the fix
+
+Full 90 s probe, 50 threads, 15 s ramp, `think.delay=0`/`think.range=0`,
+`--skip-ramp 15`, same `caffeinate` + wall-clock guard + `reset-lockout.sh`
+as every other probe in this file. Raw log:
+`perf/results/calibration/arr-0-0-reuse.jtl.gz` (compressed — 46 MB
+uncompressed; see "Repository housekeeping" near the end of this file).
+
+| Metric | Value |
+|---|---|
+| Checkout (`07 POST /api/checkout`) p95 | **21 ms** |
+| Checkout mean / p50 / p99 / max | 13.4 / 13 / 25 / 197 ms |
+| Overall error % | **0.00** (298660 of 298660 samples, all `200`) |
+| SUT peak CPU | 134.9 % (> 1 core) |
+| JMeter peak CPU | 308.5 % |
+| Overall throughput | 3983.30 req/s |
+| Checkout throughput | 569.14 req/s |
+
+**Zero errors across all 298660 steady-state samples, sustained for the
+full 90 s window, at ~4000 req/s from just 50 threads with literally zero
+think time.** Checkout p95 rose from the 7-8 ms seen at every gentler
+arrival rate to 21 ms — a real, measurable increase, and the first time
+any probe in this entire calibration showed checkout's latency move at
+all — but it is roughly 2.4x the unloaded baseline (9 ms) and two orders
+of magnitude under the 1000 ms Stress-ceiling bar. SUT CPU exceeded one
+full core (134.9 %) for the first time in this calibration, confirming the
+SUT was under genuine, measurable pressure — it simply did not fail or
+degrade past a reportable threshold. Each journey through the workflow
+consumes one CSV row, so the per-journey count is the right denominator,
+not the raw sample count (which counts all 7 samplers per journey): the
+checkout label's steady-state count is 42666, so 600 accounts were
+recycled roughly 42666/600 ≈ 71 times over the 90 s run at this rate, and
+that heavy recycling still produced zero collision-driven errors,
+reconfirming the idempotent-per-row design (Extension 1) holds even at
+this extreme.
+
+### What this means for the earlier findings
+
+- The `BindException` classification in Extension 1 is confirmed correct
+  as a harness artifact, and its root cause is now identified precisely:
+  not "JMeter running out of ports because the workload is heavy," but a
+  specific default (`httpclient.reset_state_on_thread_group_iteration=true`)
+  actively working against the plan's own `use_keepalive=true` setting.
+  It was a JMeter configuration boundary standing between the previous
+  calibration and the SUT's actual behaviour, not a real limit at all.
+- The VU-axis sweep (25-300 threads, 1-3 s default think time) and the
+  first three arrival-axis steps (1000/2000, 300/400, 100/200 think, all
+  at 50 VU) are **unaffected** by this fix: at those iteration rates
+  (seconds, not tens of milliseconds, between connection resets) the old
+  default never generated enough churn to matter, which is exactly why
+  those probes already showed 0.00 % error before the fix existed. Their
+  numbers stand unchanged.
+- Per the controller's explicit scope for this extension ("one attempt,
+  not an open investigation... if the SUT still shows no ceiling with
+  sockets reused, that is the answer... calibration is finished. Do not
+  start a third axis"): **no further probes were run.** Thread count was
+  not raised past 50 with the fix in place, and think time was not pushed
+  past 0 (there is nowhere lower to push it). This is the final result of
+  this calibration.
+
+## Final conclusions (supersedes both earlier "Conclusions" sections above)
+
+**No genuine SUT-driven ceiling was found anywhere this calibration looked**
+— not across 25-300 threads at default think time, not across
+1000ms-down-to-0ms think time at a fixed 50 threads, and not even at the
+single most extreme point measurable with this harness (50 threads, zero
+think time, connections properly reused, ~4000 req/s sustained for 90 s).
+The only boundary this calibration ever found was the test harness's own
+default connection-reset behaviour, and that has now been fixed at its
+root (`perf/config/jmeter-run.properties`) rather than avoided by picking a
+gentler workload shape.
+
+1. **Load: 50 VU, 1-3 s think time — unchanged.** Confirmed by the VU
+   sweep, the arrival-axis control, and unaffected by the harness fix
+   (this iteration rate never triggered the connection-churn bug).
+2. **Stress ceiling: not found; no evidence supports any specific number.**
+   Recommendation for Task 13 stands as tightening the inherited think
+   timer default to **100/200 ms** at the existing 60-VU x 5-step, 300-peak
+   staircase — the fastest arrival rate directly measured clean *at the
+   thread counts actually tested* (50). Zero think time is now known-safe
+   from the harness's perspective (root cause fixed, verified clean at 50
+   VU/90 s/~4000 req/s), but was never tested at Stress's 300-VU peak, so
+   it is not being prescribed as the shipped default — 100/200 ms is the
+   conservative, fully-evidence-backed choice; a team continuing this work
+   could reasonably push to 0/0 at 300 VU now that the harness bug is
+   fixed, but that is a new probe this calibration does not authorise
+   itself to run.
+3. **Spike burst: 300 VU — unchanged; the previously-flagged risk is now
+   substantially mitigated, not just flagged.** Task 14's burst groups
+   remove think time entirely by design (zero think, 300 VU). The prior
+   round of this record flagged that shape as a likely repeat of the
+   `BindException` storm seen at 50 VU. With the root cause now fixed
+   globally in `perf/config/jmeter-run.properties` — which every scenario's
+   `.jmx` is run through — that specific failure mode should no longer
+   occur at any thread count, including Spike's 300-VU burst. This is
+   still an inference for the untested 300-VU case, not a direct
+   measurement, but it is now an inference grounded in a fixed root cause
+   rather than an extrapolated symptom. Task 14 should still triage any
+   burst-run error by `failureMessage` on general principle, but should
+   no longer expect ephemeral-port exhaustion specifically.
+
+## Repository housekeeping — two raw logs are gzipped
+
+`arr-0-0.jtl` (51 MB uncompressed) and `arr-0-0-reuse.jtl` (46 MB
+uncompressed) are committed as `arr-0-0.jtl.gz` and `arr-0-0-reuse.jtl.gz`.
+Every other raw log in this directory is small (largest is
+`arr-100-200.jtl` at ~2.6 MB) and is committed uncompressed, unchanged.
+This is a repository-size decision (this branch tracks a shared group
+repo), not a data decision — nothing about the content or the figures
+quoted from these two files changed.
+
+To reproduce any figure quoted from a `.gz` file in this record, gunzip to
+a scratch path first (the analyser reads a plain `.jtl`, not a compressed
+one), then run it exactly as for any other probe in this file:
+
+```bash
+gunzip -k -c perf/results/calibration/arr-0-0.jtl.gz > /tmp/arr-0-0.jtl
+python3 perf/scripts/analyze_jtl.py /tmp/arr-0-0.jtl --skip-ramp 15
+
+gunzip -k -c perf/results/calibration/arr-0-0-reuse.jtl.gz > /tmp/arr-0-0-reuse.jtl
+python3 perf/scripts/analyze_jtl.py /tmp/arr-0-0-reuse.jtl --skip-ramp 15
+```
+
+(`-k` keeps the `.gz` in place; `-c` streams to stdout so nothing is
+overwritten. Either command reproduces the numbers quoted above for that
+probe.)
