@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-"""Rebuild reports/prompt-log.md verbatim from the Claude Code session transcripts.
+"""Rebuild reports/prompt-log.md from the Claude Code session transcripts.
 
-Nothing here paraphrases, translates or summarises. Prompts, assistant text and
-assistant reasoning are copied byte for byte. The only reductions are stated
-explicitly in the generated file's header:
-  - file bodies written by the AI are referenced by path + line count, because
-    the file itself is the deliverable and already ships in the repo;
-  - Bash stdout is capped, with the cut marked inline.
+Prompts, assistant text, Bash stdout, and tool-call arguments are copied without
+character caps. File bodies written by the AI are still referenced by path +
+line count because the files themselves already ship in the repo.
 """
 import json
 import glob
@@ -44,9 +41,6 @@ MODEL_LABEL = {
     "claude-haiku-4-5-20251001": "Haiku 4.5",
 }
 
-BASH_CAP = 700
-TEXT_CAP = 4000
-
 # Harness-generated pseudo-prompts: the student never typed these, so they are
 # not part of the prompt record.
 NOISE = re.compile(
@@ -67,13 +61,6 @@ def clean(t):
     return t.strip()
 
 
-def cap(t, n, what="ký tự"):
-    t = t.rstrip()
-    if len(t) <= n:
-        return t
-    return t[:n].rstrip() + f"\n… [cắt bớt {len(t) - n} {what}; xem transcript gốc]"
-
-
 def rel(p):
     if not isinstance(p, str):
         return str(p)
@@ -84,7 +71,7 @@ def trace(name, inp):
     """One line describing a tool call. Arguments verbatim, paths made relative."""
     if name == "Bash":
         cmd = " ".join(inp.get("command", "").split())
-        return "→ Bash: " + cap(cmd, 220)
+        return "→ Bash: " + cmd
     if name == "Read":
         return f"→ Read({rel(inp.get('file_path',''))})"
     if name == "Write":
@@ -99,7 +86,7 @@ def trace(name, inp):
         return "→ AskUserQuestion: " + " | ".join(qs)
     if name in ("Glob", "Grep"):
         return f"→ {name}({inp.get('pattern','')})"
-    return f"→ {name}({cap(json.dumps(inp, ensure_ascii=False), 180)})"
+    return f"→ {name}({json.dumps(inp, ensure_ascii=False)})"
 
 
 def result_text(c):
@@ -161,10 +148,10 @@ def build():
                         if name == "Bash" and txt.strip():
                             body.append(
                                 "   "
-                                + cap(txt.strip(), BASH_CAP).replace("\n", "\n   ")
+                                + txt.strip().replace("\n", "\n   ")
                             )
                         elif name == "AskUserQuestion" and txt.strip():
-                            body.append("   [sinh viên chọn] " + cap(txt.strip(), 600))
+                            body.append("   [sinh viên chọn] " + txt.strip())
                     continue
                 # a genuine typed prompt
                 txt = clean(
@@ -201,7 +188,7 @@ def build():
                     if t == "text":
                         tx = (b.get("text") or "").strip()
                         if tx:
-                            body.append("```text\n" + cap(tx, TEXT_CAP) + "\n```")
+                            body.append("```text\n" + tx + "\n```")
                     elif t == "tool_use":
                         calls[b.get("id")] = (b.get("name"), b.get("input") or {})
                         body.append(trace(b.get("name"), b.get("input") or {}))
@@ -247,16 +234,19 @@ Nguyên tắc verbatim được áp dụng đúng nghĩa:
   nguyên. Đây là phần "AI đã làm gì", đặt xen đúng thứ tự với phần "AI đã nói
   gì".
 
-Hai chỗ được rút gọn, và được nêu thẳng ở đây thay vì giấu:
+Một chỗ được rút gọn, và được nêu thẳng ở đây thay vì giấu:
 
-1. **Nội dung file do AI sinh ra** ghi bằng `Write(<đường dẫn>, N dòng)` chứ
+- **Nội dung file do AI sinh ra** ghi bằng `Write(<đường dẫn>, N dòng)` chứ
    không chép lại toàn văn — bản thân file đó chính là sản phẩm nộp, đã nằm
    trong repo, chép lại vào đây chỉ làm phồng tài liệu.
-2. **Đầu ra của lệnh Bash** cắt ở 700 ký tự, **có đánh dấu chỗ cắt ngay tại
-   dòng đó**. Đầu ra của `Read`/`Write`/`Edit` không ghi vì đó là nội dung file
-   đọc lên, không phải lời của AI.
 
-Ngoài hai điểm trên, không có chỗ nào bị lược.
+Đầu ra của `Read`/`Write`/`Edit` không ghi vì đó là nội dung file đọc lên hoặc
+ghi xuống, không phải lời của AI. Ngoài điểm trên, không có chỗ nào bị lược
+hoặc cắt ngắn bởi script này.
+
+Nếu trong log còn xuất hiện cụm `cắt bớt`, đó là chữ nằm sẵn trong file/output
+cũ mà AI đã đọc lại trong phiên làm việc, không phải chỗ script hiện tại cắt
+ngắn transcript.
 
 Hai ghi chú về giới hạn của chính transcript gốc, nêu ra để người chấm biết
 đây là giới hạn của công cụ chứ không phải lựa chọn của sinh viên:
