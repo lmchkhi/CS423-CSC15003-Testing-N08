@@ -76,19 +76,36 @@ wall-clock) trên chính 4 file `.jtl` đã chấm điểm — không phải s�
 
 ### (3) Verdict
 
-**`INCOMPLETE`** *(tạm thời — xem Entry #2, cuộc săn lỗi diễn giải, để có
-phán quyết cuối cùng theo đúng trình tự task-21-brief.md Step 3 / task-22-brief.md
-Step 6.)*
+**`INVALID`**
 
 ### (4) Reasoning
 
-Chưa đánh giá ở entry này — việc rà soát từng kết luận sai được tách thành
-Entry #2 (Task 22) để giữ đúng ranh giới "phân tích của AI" và "rà soát của
-sinh viên" mà `reports/ai-analysis-review.md` yêu cầu.
+Rà soát đầy đủ ở [`reports/ai-analysis-review.md`](ai-analysis-review.md).
+Tóm tắt: arithmetic thô của AI đúng (error % gộp, throughput, percentile gộp
+đều khớp `perf/results/ground-truth.txt` trong sai số làm tròn), nhưng lớp
+diễn giải phía trên sai ở 4 chỗ có bằng chứng cụ thể — (1) đọc error % gộp
+0.03% thành "Spike passed cleanly" trong khi 157 lỗi tập trung 100% ở một
+label và hai cửa sổ đột biến; (2) gán p95 gộp 139ms cho riêng checkout trong
+khi p95 thật của checkout là 82ms; (3) đọc throughput thô (983–1565 req/s)
+thành năng lực sản xuất đã kiểm chứng trong khi CPU đỉnh của SUT chỉ
+61.2–126.7% của **một** lõi trên máy 12 lõi và calibration không tìm được
+trần nào do SUT gây ra; (4) gán 157 lỗi 400 cho một nhu cầu rate-limit sản
+phẩm trong khi đó là artefact con trỏ CSV dùng chung của chính bộ khung kiểm
+thử. 4/5 đề xuất tối ưu hoá cũng hallucinated theo cùng cơ chế — hợp lý cho
+một kiến trúc chung chung, không khớp kiến trúc thật (catalog 5 dòng, một
+kết nối DB, một file SQLite). Vì các kết luận và ngưỡng đề xuất — phần sẽ
+thực sự được dùng để quyết định release/không release — sai ở nhiều điểm có
+hệ quả, verdict là `INVALID` dù các con số thô bên dưới đúng.
 
 ### (5) Student Fix
 
-*(Điền ở Entry #2.)*
+Không sửa trực tiếp file `ai-analysis-raw.md` (giữ nguyên văn theo đúng yêu
+cầu Task 21). Sửa chữa nằm ở `reports/ai-analysis-review.md`: thay error %
+gộp bằng error % theo label + cửa sổ thời gian; thay percentile gộp bằng
+percentile theo label (`07 POST /api/checkout` riêng); loại bỏ kết luận về
+capacity sản xuất chừng nào chưa có tín hiệu CPU/RSS đi kèm throughput; loại
+4/5 đề xuất tối ưu hoá không khớp kiến trúc; giữ lại đề xuất cache như một ý
+"feasible nhưng chưa có bằng chứng", không chuyển thẳng vào backlog.
 
 ---
 
@@ -100,8 +117,8 @@ tỉ lệ phần trăm.)*
 | Verdict | Số entry | Tỉ lệ |
 |---|---:|---:|
 | `VALID` | 0 | 0% |
-| `INVALID` | 0 | 0% |
-| `INCOMPLETE` | 1 | 100% |
+| `INVALID` | 1 | 100% |
+| `INCOMPLETE` | 0 | 0% |
 | **Tổng** | **1** | **100%** |
 
 ## 5. Kết luận
