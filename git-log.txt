@@ -1,3 +1,6 @@
+* 72d10f6b 2026-08-15 12:43:01 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): link published GitHub bug issues
+* 562c90a5 2026-08-15 12:37:45 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): clarify bug report evidence provenance
+* d9ce876c 2026-08-15 12:34:00 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): refresh filtered graph git log
 * 0480e27f 2026-08-15 12:33:38 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): recover AI logs and file bug reports
 * f26b5c3e 2026-08-15 12:19:24 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): finalize submission package artifacts
 * 67006706 2026-08-15 09:19:24 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): add Vietnamese narration scripts for both demo videos
