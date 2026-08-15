@@ -61,10 +61,10 @@ POST /api/checkout
 
 | ID | Loại | Severity / Priority | Báo cáo | GitHub Issue |
 |---|---|---|---|---|
-| BUG-FR02-001 | Undocumented behaviour | Major / P1 | `bug-reports/BUG-FR02-001.md` | Pending publish |
-| BUG-FR06-001 | Internal inconsistency | Minor / P2 | `bug-reports/BUG-FR06-001.md` | Pending publish |
-| BUG-FR06-002 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR06-002.md` | Pending publish |
-| BUG-FR03-001 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR03-001.md` | Pending publish |
+| BUG-FR02-001 | Undocumented behaviour | Major / P1 | `bug-reports/BUG-FR02-001.md` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/250 |
+| BUG-FR06-001 | Internal inconsistency | Minor / P2 | `bug-reports/BUG-FR06-001.md` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/248 |
+| BUG-FR06-002 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR06-002.md` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/249 |
+| BUG-FR03-001 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR03-001.md` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/251 |
 
 **Tổng số:** 4 bug (black-box oracle) · 0 performance issue thật (157 lỗi Spike là harness artifact)
 

@@ -220,15 +220,15 @@ Cả bốn lần chạy chấm điểm không sinh ra lỗi thật nào từ SUT
 `reports/run-manifest.md` và `reports/ai-analysis-review.md` mục 2.4 — đã
 loại khỏi bảng dưới). Các defect có thể báo cáo đến từ oracle black-box
 chạy riêng ở `perf/evidence/smoke-oracle-20260813-230513.txt`. Bốn file bug
-report cục bộ đã được tạo dưới `bug-reports/`; GitHub Issue sẽ được publish
-sau khi có xác nhận vì đó là hành động đưa thông tin ra ngoài repo.
+report cục bộ đã được tạo dưới `bug-reports/` và publish thành GitHub Issue
+riêng cho từng defect.
 
 | ID | Loại | Severity | Bằng chứng quan sát được | Báo cáo / GitHub |
 |---|---|---|---|---|
-| BUG-FR02-001 | Undocumented behaviour | Major / P1 | Tài khoản bị khoá ngay sau **2** lần đăng nhập sai liên tiếp, khoá kéo dài **~180 giây**; `POST /api/login` trả **403** trong lúc khoá, ngoài phạm vi hợp đồng tài liệu vì `api_specification.md` không mô tả lockout. | `bug-reports/BUG-FR02-001.md`; GitHub pending |
-| BUG-FR06-001 | Internal inconsistency | Minor / P2 | `GET /api/products/:id` trả `price` với **kiểu JSON không nhất quán** giữa các id — id lẻ (1, 3, 5) trả số, id chẵn (2, 4) trả chuỗi. | `bug-reports/BUG-FR06-001.md`; GitHub pending |
-| BUG-FR06-002 | Contract deviation | Minor / P2 | `GET /api/products/:id` với id không tồn tại trả **HTTP 200, body `{}`** thay vì not found. | `bug-reports/BUG-FR06-002.md`; GitHub pending |
-| BUG-FR03-001 | Contract deviation | Minor / P2 | `resetToken` trả về là **4 chữ số** (ví dụ `5621`, `9832`), trong khi `api_specification.md` tài liệu hoá ví dụ 6 chữ số (`"123456"`, dòng 42 và 50). | `bug-reports/BUG-FR03-001.md`; GitHub pending |
+| BUG-FR02-001 | Undocumented behaviour | Major / P1 | Tài khoản bị khoá ngay sau **2** lần đăng nhập sai liên tiếp, khoá kéo dài **~180 giây**; `POST /api/login` trả **403** trong lúc khoá, ngoài phạm vi hợp đồng tài liệu vì `api_specification.md` không mô tả lockout. | `bug-reports/BUG-FR02-001.md`; https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/250 |
+| BUG-FR06-001 | Internal inconsistency | Minor / P2 | `GET /api/products/:id` trả `price` với **kiểu JSON không nhất quán** giữa các id — id lẻ (1, 3, 5) trả số, id chẵn (2, 4) trả chuỗi. | `bug-reports/BUG-FR06-001.md`; https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/248 |
+| BUG-FR06-002 | Contract deviation | Minor / P2 | `GET /api/products/:id` với id không tồn tại trả **HTTP 200, body `{}`** thay vì not found. | `bug-reports/BUG-FR06-002.md`; https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/249 |
+| BUG-FR03-001 | Contract deviation | Minor / P2 | `resetToken` trả về là **4 chữ số** (ví dụ `5621`, `9832`), trong khi `api_specification.md` tài liệu hoá ví dụ 6 chữ số (`"123456"`, dòng 42 và 50). | `bug-reports/BUG-FR03-001.md`; https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/251 |
 
 ## 3. Task 2 — Phân tích của AI và cuộc săn lỗi diễn giải
 
