@@ -46,16 +46,16 @@ POST /api/checkout
 
 | Kịch bản | Test plan | Threads/VU | Duration | Report view | Kết quả |
 |---|---|---:|---|---|---|
-| Load | `23127300_Load_20260814.jmx` | 50 VU, ramp 60s | 360s | Summary Report | 8,193 mẫu · 0.00% lỗi · p95 7ms |
-| Stress | `23127300_Stress_20260814.jmx` | 5 bậc × 60 VU (300 đỉnh), think 100–300ms | ~600s | Aggregate Report | 590,123 mẫu · 0.00% lỗi · p95 4ms |
-| Spike | `23127300_Spike_20260814.jmx` | Nền 20 VU + 2×300 VU burst, không think-time | 300s | View Results Tree (lỗi) | 466,165 mẫu · 157 lỗi (harness artifact) · p95 139ms |
-| Endurance | `23127300_Endurance_20260814.jmx` | 40 VU, ramp 60s | 900s (15 phút) | Simple Data Writer | 17,327 mẫu · 0.00% lỗi · p95 5ms |
+| Load | `23127300_Load_20260814.jmx` | 50 VU, ramp 60s | 360s | Summary Report | 8,210 mẫu · 0.00% lỗi · p95 7ms |
+| Stress | `23127300_Stress_20260814.jmx` | 5 bậc × 60 VU (300 đỉnh), think 100–300ms | ~600s | Aggregate Report | 595,741 mẫu · 0.00% lỗi · p95 4ms |
+| Spike | `23127300_Spike_20260814.jmx` | Nền 20 VU + 2×300 VU burst, không think-time | 300s | View Results Tree (lỗi) | 455,302 mẫu · 0.00% lỗi · p95 140ms |
+| Endurance | `23127300_Endurance_20260814.jmx` | 40 VU, ramp 60s | 900s (15 phút) | Simple Data Writer | 17,346 mẫu · 0.00% lỗi · p95 7ms |
 
 ### 2.3. Ngưỡng chịu tải của phần cứng
 
 - **RPS ổn định tối đa (Endurance 40 VU):** ~19.3 req/s gộp cả 7 sampler
-- **Trần bộ nhớ SUT (RSS):** 67.8 MB (bắt đầu) → 79.8 MB (ở phút 14) — tăng nhưng không đơn điệu
-- **p95 bắt đầu trượt:** chưa quan sát được — p95 giữ ở 5ms suốt 15 phút Endurance; Spike (300 VU zero think) đẩy p95 toàn run lên 139ms nhưng vẫn 0.00% lỗi thật
+- **Trần bộ nhớ SUT (RSS):** 69.0 MB (bắt đầu) → 83.3 MB (ở phút 14) — tăng nhưng không đơn điệu
+- **p95 bắt đầu trượt:** chưa quan sát được — p95 giữ ở mức ≤7ms suốt 15 phút Endurance; Spike (300 VU zero think) đẩy p95 toàn run lên 140ms nhưng vẫn 0.00% lỗi thật
 
 ### 2.4. Bug / performance issue
 
@@ -66,7 +66,7 @@ POST /api/checkout
 | BUG-FR06-002 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR06-002.md` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/249 |
 | BUG-FR03-001 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR03-001.md` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/251 |
 
-**Tổng số:** 4 bug (black-box oracle) · 0 performance issue thật (157 lỗi Spike là harness artifact)
+**Tổng số:** 4 bug (black-box oracle) · 0 performance issue thật trong bốn lần chạy hiệu năng
 
 ### 2.5. Video demo
 

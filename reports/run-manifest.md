@@ -6,10 +6,10 @@ dưới tải là bằng chứng, không phải thứ để giấu.
 
 | Kịch bản | Test plan | Công cụ | Bắt đầu (ISO) | Thời lượng | Threads/VU | Samples | Error % | p95 (ms) | Throughput (req/s) | `.jtl` | HTML report | Ảnh bằng chứng |
 |---|---|---|---|---|---:|---:|---:|---:|---:|---|---|---|
-| Load | `23127300_Load_20260814.jmx` | JMeter | 2026-08-14T22:06:20+07:00 | 362s | 50 | 8193 | 0.0 | 7 | 22.875 | `perf/results/jtl/23127300_Load_20260814.jtl.gz` | `perf/results/html/23127300_Load_20260814/` | `perf/evidence/resource-monitor/Load-20260814-220824.png` |
-| Stress | `23127300_Stress_20260814.jmx` | JMeter | 2026-08-14T22:13:48+07:00 | 607s | 300 (5×60 bậc) | 590123 | 0.0 | 4 | 983.774 | `perf/results/jtl/23127300_Stress_20260814.jtl.gz` | `perf/results/html/23127300_Stress_20260814/` | `perf/evidence/resource-monitor/Stress-20260814-222150.png` |
-| Spike | `23127300_Spike_20260814.jmx` | JMeter | 2026-08-14T22:25:17+07:00 | 306s | 20 nền + 2×300 đột biến | 466165 | 0.034 | 139 | 1565.505 | `perf/results/jtl/23127300_Spike_20260814.jtl.gz` | `perf/results/html/23127300_Spike_20260814/` | `perf/evidence/resource-monitor/Spike-20260814-222701.png` |
-| Endurance | `23127300_Endurance_20260814.jmx` | JMeter | 2026-08-14T22:32:47+07:00 | 903s | 40 | 17327 | 0.0 | 5 | 19.297 | `perf/results/jtl/23127300_Endurance_20260814.jtl.gz` | `perf/results/html/23127300_Endurance_20260814/` | `perf/evidence/resource-monitor/Endurance-start-rss-20260814-223710.png`, `perf/evidence/resource-monitor/Endurance-min14-rss-20260814-224652.png` |
+| Load | `23127300_Load_20260814.jmx` | JMeter | 2026-08-15T15:46:19+07:00 | 362s | 50 | 8210 | 0.0 | 7 | 22.958 | `perf/results/jtl/23127300_Load_20260814.jtl.gz` | `perf/results/html/23127300_Load_20260814/` | `perf/evidence/resource-monitor/Load-20260815-155148.png` |
+| Stress | `23127300_Stress_20260814.jmx` | JMeter | 2026-08-15T15:53:27+07:00 | 607s | 300 (5×60 bậc) | 595741 | 0.0 | 4 | 993.833 | `perf/results/jtl/23127300_Stress_20260814.jtl.gz` | `perf/results/html/23127300_Stress_20260814/` | `perf/evidence/resource-monitor/Stress-20260815-160117.png` |
+| Spike | `23127300_Spike_20260814.jmx` | JMeter | 2026-08-15T16:05:02+07:00 | 306s | 20 nền + 2×300 đột biến | 455302 | 0.0 | 140 | 1533.726 | `perf/results/jtl/23127300_Spike_20260814.jtl.gz` | `perf/results/html/23127300_Spike_20260814/` | `perf/evidence/resource-monitor/Spike-20260815-160819.png` |
+| Endurance | `23127300_Endurance_20260814.jmx` | JMeter | 2026-08-15T16:11:10+07:00 | 903s | 40 | 17346 | 0.0 | 7 | 19.327 | `perf/results/jtl/23127300_Endurance_20260814.jtl.gz` | `perf/results/html/23127300_Endurance_20260814/` | `perf/evidence/resource-monitor/Endurance-start-20260815-161234.png`, `perf/evidence/resource-monitor/Endurance-min14-20260815-162532.png` |
 
 **Số lần chạy đã ghi:** 4
 
@@ -21,10 +21,10 @@ Giá trị khác 0 nghĩa là lần chạy đó đã kích hoạt cơ chế kho�
 
 | Kịch bản | `locked_before` trước khi chạy | `locked_before` sau khi chạy | CPU đỉnh của SUT | RSS đỉnh của SUT | RSS đỉnh của JMeter |
 |---|---:|---:|---:|---:|---:|
-| Load | 0 | **0** | 16.0 % | 98 MB | 494 MB |
-| Stress | 0 | **0** | 61.2 % | 168 MB | 930 MB |
-| Spike | 0 | **0** | 126.7 % | 173 MB | 987 MB |
-| Endurance | 0 | **0** | 12.5 % | 99 MB | 775 MB |
+| Load | 0 | **0** | 20.5 % | 97 MB | 834 MB |
+| Stress | 0 | **0** | 76.0 % | 167 MB | 926 MB |
+| Spike | 0 | **0** | 123.4 % | 177 MB | 995 MB |
+| Endurance | 0 | **0** | 17.3 % | 98 MB | 853 MB |
 
 Cả bốn lần chạy đều có `locked_before=0` sau khi chạy: **không lần nào chạm cơ
 chế khoá tài khoản**, nên các tỉ lệ lỗi ở bảng trên đọc trực tiếp được, không cần
@@ -36,13 +36,13 @@ trừ đi phần lỗi do khoá tài khoản.
 |---|---:|---:|---:|---|
 | Load | 0 | 0 | 0 | — |
 | Stress | 0 | 0 | 0 | — |
-| Spike | 157 | **0** | **157** | Toàn bộ là HTTP 400 ở `02 POST /api/reset-password`, chỉ xảy ra trong hai cửa sổ đột biến (t=90–150 s: 81 lỗi; t=210–270 s: 76 lỗi; ngoài hai cửa sổ: 0). 151/157 rơi vào nhóm luồng nền 20 VU. Nguyên nhân: `CSV Data Set Config` dùng `recycle=true` với con trỏ dùng chung cho 620 luồng, ~66.600 lượt journey trên kho 1000 tài khoản — hai luồng cùng giữ một email thì `forgot-password` của luồng sau ghi đè `resetToken` của luồng trước. Đây là hạn chế của bộ dữ liệu kiểm thử, **không phải lỗi của EShop**. |
+| Spike | 0 | 0 | 0 | Rerun sau khi bind tài khoản riêng cho từng VU; `View Results Tree (errors only)` rỗng và `.jtl` không còn HTTP 400 ở `02 POST /api/reset-password`. |
 | Endurance | 0 | 0 | 0 | — |
 
 Không lần chạy nào ghi nhận `BindException` / "Can't assign requested address"
 (kiểm tra bằng `grep -ciE` trên cả bốn file log của JMeter đều trả về 0), xác
 nhận cấu hình cổng tạm trong `perf/config/jmeter-run.properties` giữ được ở mức
-620 luồng khai báo và 1565 req/s. Bốn file log này được commit tại
+620 luồng khai báo và 1533.726 req/s. Bốn file log này được commit tại
 `perf/results/jtl/23127300_{Load,Stress,Spike,Endurance}_20260814.log` nên phép
 kiểm tra `grep` trên có thể tái lập trực tiếp từ repo.
 
@@ -53,7 +53,7 @@ Chúng được **corroborate** (đối chiếu độc lập), không phải arc
 nguồn: (1) ba trong bốn khung ảnh bằng chứng cho thấy dòng *trước khi chạy*
 `locked_before=0 cleared=0 attempts_pending=0 remaining=0` ngay trong pane
 terminal; (2) cả bốn file `.jtl` thô đều có 0 lỗi ở sampler `03 POST
-/api/login` trên tổng cộng ~1,08 triệu mẫu — nếu tài khoản nào đó đã bị khoá
+/api/login` trên tổng cộng 1.076.599 mẫu — nếu tài khoản nào đó đã bị khoá
 trong lúc chạy, sampler này sẽ ghi nhận lỗi đăng nhập, và không có lỗi nào như
 vậy xuất hiện.
 
@@ -75,6 +75,6 @@ trong lần chạy, nằm ở `perf/results/html/<stem>/index.html`.
 nearest-rank do `perf/scripts/analyze_jtl.py` tính (đúng như lệnh tái lập ở
 trên). JMeter dashboard tự sinh (`index.html`, trường `pct2ResTime`) dùng phép
 nội suy tuyến tính nên có thể ra số khác một chút ở cùng một lần chạy — ví dụ
-Spike: bảng này ghi p95 = 139 (nearest-rank), dashboard ghi `pct2ResTime:
+Spike: bảng này ghi p95 = 140 (nearest-rank), dashboard ghi `pct2ResTime:
 136.0` (nội suy). Cả hai đều đúng theo phương pháp của mình; ba lần chạy còn
-lại cho cùng một số ở cả hai nguồn.
+lại chỉ khác tối đa 1ms giữa hai phương pháp.

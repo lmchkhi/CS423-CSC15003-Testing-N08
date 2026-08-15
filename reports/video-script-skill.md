@@ -108,9 +108,10 @@ lại Workflow 5."*
    head -5 perf/data/accounts.csv
    ```
 3. Trỏ vào trap `CSV cursor shared across threads`:
-   *"Workflow 5 gặp trap này ở Spike — 620 luồng dùng chung con trỏ CSV,
-   gây 157 lỗi HTTP 400. Workflow 3 cần tối thiểu VU_MAX hàng trong accounts.csv
-   để tránh collision tương tự."*
+   *"Workflow 5 từng gặp trap này ở Spike trước khi sửa — 620 luồng dùng
+   chung con trỏ CSV gây 157 lỗi HTTP 400. Lần rerun hiện tại đã bind tài
+   khoản riêng cho từng VU và sạch 0 lỗi. Workflow 3 vẫn cần tối thiểu
+   VU_MAX hàng trong accounts.csv để tránh collision tương tự."*
 
 ---
 
@@ -195,7 +196,7 @@ gặp phải."*
    ```
 2. Đọc qua từng trap, đặc biệt nhấn mạnh:
    - **Silent extractor default** → `EXTRACTION_FAILED`
-   - **CSV cursor collision** → Spike 157 lỗi
+   - **CSV cursor collision** → Spike từng có 157 lỗi trước khi bind tài khoản theo VU
    - **Lockout masquerading as saturation** → reset-lockout.sh
    - **Machine sleep mid-run** → caffeinate
 

@@ -9,6 +9,7 @@ set -uo pipefail
 BASE_URL="${BASE_URL:-http://localhost:3000}"
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 OUT="$REPO/perf/evidence/smoke-oracle-$(date +%Y%m%d-%H%M%S).txt"
+FAILS=0
 mkdir -p "$(dirname "$OUT")"
 exec > >(tee "$OUT") 2>&1
 
@@ -22,7 +23,12 @@ body() { sed '$d' <<<"$1"; }
 code() { tail -1 <<<"$1"; }
 
 check() { # check <name> <condition-result> <detail>
-  if [[ "$2" == "0" ]]; then echo "PASS  $1"; else echo "FAIL  $1"; fi
+  if [[ "$2" == "0" ]]; then
+    echo "PASS  $1"
+  else
+    echo "FAIL  $1"
+    FAILS=$((FAILS + 1))
+  fi
   [[ -n "${3:-}" ]] && echo "      $3"
 }
 
@@ -34,6 +40,8 @@ post /api/register "{\"name\":\"Oracle\",\"email\":\"$EMAIL\",\"password\":\"$PW
 for round in 1 2; do
   R=$(post /api/forgot-password "{\"email\":\"$EMAIL\"}")
   TOKEN=$(body "$R" | sed -n 's/.*"resetToken":"\([0-9]*\)".*/\1/p')
+  [[ "$TOKEN" =~ ^[0-9]{6}$ ]] && S=0 || S=1
+  check "round $round: resetToken matches documented 6-digit format" "$S" "token=$TOKEN"
   R=$(post /api/reset-password "{\"email\":\"$EMAIL\",\"resetToken\":\"$TOKEN\",\"newPassword\":\"$PW\"}")
   RC=$(code "$R")
   R=$(post /api/login "{\"email\":\"$EMAIL\",\"password\":\"$PW\"}")
@@ -73,10 +81,9 @@ while true; do
 done
 if [[ "$LOCK_AT" != "0" ]]; then
   THRESHOLD=$((LOCK_AT - 1))
-  [[ $THRESHOLD -ge 3 ]] && S=0 || S=1
-  check "lockout threshold: $THRESHOLD failed attempt(s) before a login was refused" "$S" "documented expectation: 3 failed attempts before lockout"
+  check "undocumented lockout behaviour observed after $THRESHOLD failed attempt(s)" 1 "api_specification.md documents no lockout threshold, HTTP 403 lock response, or unlock duration"
 else
-  check "lockout threshold: account never locked within 4 failed attempts + 1 correct-password check" 1 "documented expectation: 3 failed attempts before lockout"
+  check "account never locked within 4 failed attempts + 1 correct-password check" 0 "api_specification.md still documents no lockout contract"
 fi
 check "measured unlock delay ~${ELAPSED}s" 0 "documented/design expectation: ~180s"
 echo
@@ -109,3 +116,7 @@ check "nonexistent product returns 404" "$S" "got HTTP $(code "$R")"
 echo
 
 echo "Transcript written to $OUT"
+if [[ "$FAILS" -gt 0 ]]; then
+  echo "Oracle found $FAILS reportable contract deviation(s)."
+  exit 1
+fi

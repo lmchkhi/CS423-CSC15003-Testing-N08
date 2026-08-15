@@ -6,10 +6,10 @@ Two files, both load-bearing (HW05 §6 requires the workflow to be data-driven):
   accounts.csv  email,newPassword,shippingAddress
   products.csv  productId,productName,unitPrice,quantity
 
-Peak concurrency across all four scenarios is 320 (Spike: 20 baseline VU plus
-a 300 VU burst; Stress tops out at 300). 600 account rows is roughly twice the
-peak, so threads in flight at the same moment cannot land on the same account,
-with headroom if calibration raises the thread counts.
+Peak declared concurrency across all four scenarios is 620 (Spike: 20 baseline
+VU plus two 300 VU burst groups, with separate account ranges). 1000 account
+rows leaves headroom above the largest plan while keeping each JMeter thread on
+one stable account row for its whole lifetime.
 
 Every account's newPassword is also the password it is registered with, which
 makes the forgot -> reset -> login journey replay identically on every run.
@@ -58,7 +58,7 @@ def write_csv(path, fieldnames, rows):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--accounts", type=int, default=600)
+    ap.add_argument("--accounts", type=int, default=1000)
     args = ap.parse_args()
 
     n = write_csv(DATA / "accounts.csv",

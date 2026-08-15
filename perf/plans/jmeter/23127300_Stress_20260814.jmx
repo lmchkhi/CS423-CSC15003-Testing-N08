@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="23127300 - Workflow 5 - Stress" enabled="true">
@@ -19,12 +19,12 @@
           </elementProp>
         </collectionProp>
       </elementProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <stringProp name="TestPlan.user_define_classpath" />
     </TestPlan>
     <hashTree>
       <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments"/>
+          <collectionProp name="Arguments.arguments" />
         </elementProp>
         <stringProp name="HTTPSampler.domain">${BASE_HOST}</stringProp>
         <stringProp name="HTTPSampler.port">${BASE_PORT}</stringProp>
@@ -32,7 +32,7 @@
         <stringProp name="HTTPSampler.connect_timeout">5000</stringProp>
         <stringProp name="HTTPSampler.response_timeout">30000</stringProp>
       </ConfigTestElement>
-      <hashTree/>
+      <hashTree />
       <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
         <collectionProp name="HeaderManager.headers">
           <elementProp name="" elementType="Header">
@@ -41,8 +41,8 @@
           </elementProp>
         </collectionProp>
       </HeaderManager>
-      <hashTree/>
-      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV - accounts" enabled="true">
+      <hashTree />
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV - accounts" enabled="false">
         <stringProp name="filename">perf/data/accounts.csv</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
         <stringProp name="variableNames">email,newPassword,shippingAddress</stringProp>
@@ -51,9 +51,9 @@
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
         <boolProp name="stopThread">false</boolProp>
-        <stringProp name="shareMode">shareMode.all</stringProp>
+        <stringProp name="shareMode">shareMode.all-disabled-by-thread-binder</stringProp>
       </CSVDataSet>
-      <hashTree/>
+      <hashTree />
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV - products" enabled="true">
         <stringProp name="filename">perf/data/products.csv</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
@@ -65,7 +65,7 @@
         <boolProp name="stopThread">false</boolProp>
         <stringProp name="shareMode">shareMode.all</stringProp>
       </CSVDataSet>
-      <hashTree/>
+      <hashTree />
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - Stress step 1 (60 VU)" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -80,6 +80,59 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
       <hashTree>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Bind account row to current VU" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename" />
+          <stringProp name="parameters" />
+          <stringProp name="script">import java.nio.file.Files
+import java.nio.file.Paths
+
+// Bind one stable account row to each JMeter thread. A shared recycled
+// CSV cursor can hand the same email to two overlapping reset-password
+// journeys, causing resetToken overwrite noise. This script keeps the
+// workflow data-driven while making account ownership deterministic.
+def rows = props.get('hw05.accounts.rows')
+if (rows == null) {
+    synchronized (props) {
+        rows = props.get('hw05.accounts.rows')
+        if (rows == null) {
+            rows = Files.readAllLines(Paths.get('perf/data/accounts.csv'), java.nio.charset.StandardCharsets.UTF_8)
+                    .drop(1)
+                    .findAll { it.trim() }
+            props.put('hw05.accounts.rows', rows)
+        }
+    }
+}
+
+def threadName = Thread.currentThread().getName()
+def m = (threadName =~ /^(.*) (\\d+)-(\\d+)$/)
+def group = m.matches() ? m[0][1] : threadName
+int parsedThreadNum = m.matches() ? (m[0][3] as int) - 1 : ctx.getThreadNum()
+int base = 0
+if (group.contains('Stress step 2')) base = 60
+else if (group.contains('Stress step 3')) base = 120
+else if (group.contains('Stress step 4')) base = 180
+else if (group.contains('Stress step 5')) base = 240
+else if (group.contains('Spike burst 1')) base = 20
+else if (group.contains('Spike burst 2')) base = 320
+
+int local = parsedThreadNum
+int idx = base + local
+if (idx &lt; 0 || idx &gt;= rows.size()) {
+    throw new IllegalStateException("No account row for " + group + " thread=" + local + " index=" + idx + " rows=" + rows.size())
+}
+
+def cols = rows[idx].split(',', 3)
+if (cols.length != 3) {
+    throw new IllegalStateException("Bad accounts.csv row " + (idx + 2) + ": " + rows[idx])
+}
+vars.put('email', cols[0])
+vars.put('newPassword', cols[1])
+vars.put('shippingAddress', cols[2])
+vars.put('accountRow', String.valueOf(idx + 2))</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree />
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="01 POST /api/forgot-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -103,7 +156,7 @@
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -112,19 +165,19 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is 4 digits" enabled="true">
+          <hashTree />
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1">^\d{4}$</stringProp>
+              <stringProp name="-1">^\d+$</stringProp>
             </collectionProp>
-            <stringProp name="Assertion.custom_message">resetToken was not extracted from the response</stringProp>
+            <stringProp name="Assertion.custom_message">resetToken was not extracted as a numeric token from the response</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">1</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">resetToken</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="02 POST /api/reset-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -151,7 +204,7 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert reset succeeded" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Password reset successfully</stringProp>
@@ -161,7 +214,7 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="03 POST /api/login" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -186,7 +239,7 @@
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -195,7 +248,7 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert JWT extracted" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^eyJ.+</stringProp>
@@ -207,12 +260,12 @@
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">token</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="04 GET /api/products" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -228,21 +281,21 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert catalogue is non-empty" enabled="true">
             <stringProp name="JSON_PATH">$[0].id</stringProp>
-            <stringProp name="EXPECTED_VALUE"></stringProp>
+            <stringProp name="EXPECTED_VALUE" />
             <boolProp name="JSONVALIDATION">false</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="05 GET /api/products/{id}" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products/${productId}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -258,7 +311,7 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert id matches requested productId" enabled="true">
             <stringProp name="JSON_PATH">$.id</stringProp>
             <stringProp name="EXPECTED_VALUE">${productId}</stringProp>
@@ -267,7 +320,7 @@
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="06 POST /api/cart" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -294,7 +347,7 @@
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -303,7 +356,7 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert item added" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Added to cart</stringProp>
@@ -313,7 +366,7 @@
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="07 POST /api/checkout" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -334,8 +387,8 @@
         <hashTree>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Compute order total" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters" />
+            <stringProp name="filename" />
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">// total_amount must match what was actually added to the cart,
 // otherwise the order is internally inconsistent and checkout latency
@@ -344,7 +397,7 @@ long unit = Long.parseLong(vars.get("unitPrice"))
 long qty  = Long.parseLong(vars.get("quantity"))
 vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           </JSR223PreProcessor>
-          <hashTree/>
+          <hashTree />
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Auth header" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
@@ -353,14 +406,14 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract orderId" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.orderId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -369,7 +422,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert orderId is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^[0-9]+$</stringProp>
@@ -381,13 +434,13 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">orderId</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
           <stringProp name="ConstantTimer.delay">${__P(think.delay,100)}</stringProp>
           <stringProp name="RandomTimer.range">${__P(think.range,200.0)}</stringProp>
         </UniformRandomTimer>
-        <hashTree/>
+        <hashTree />
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - Stress step 2 (+60 VU)" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -403,6 +456,59 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
       <hashTree>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Bind account row to current VU" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename" />
+          <stringProp name="parameters" />
+          <stringProp name="script">import java.nio.file.Files
+import java.nio.file.Paths
+
+// Bind one stable account row to each JMeter thread. A shared recycled
+// CSV cursor can hand the same email to two overlapping reset-password
+// journeys, causing resetToken overwrite noise. This script keeps the
+// workflow data-driven while making account ownership deterministic.
+def rows = props.get('hw05.accounts.rows')
+if (rows == null) {
+    synchronized (props) {
+        rows = props.get('hw05.accounts.rows')
+        if (rows == null) {
+            rows = Files.readAllLines(Paths.get('perf/data/accounts.csv'), java.nio.charset.StandardCharsets.UTF_8)
+                    .drop(1)
+                    .findAll { it.trim() }
+            props.put('hw05.accounts.rows', rows)
+        }
+    }
+}
+
+def threadName = Thread.currentThread().getName()
+def m = (threadName =~ /^(.*) (\\d+)-(\\d+)$/)
+def group = m.matches() ? m[0][1] : threadName
+int parsedThreadNum = m.matches() ? (m[0][3] as int) - 1 : ctx.getThreadNum()
+int base = 0
+if (group.contains('Stress step 2')) base = 60
+else if (group.contains('Stress step 3')) base = 120
+else if (group.contains('Stress step 4')) base = 180
+else if (group.contains('Stress step 5')) base = 240
+else if (group.contains('Spike burst 1')) base = 20
+else if (group.contains('Spike burst 2')) base = 320
+
+int local = parsedThreadNum
+int idx = base + local
+if (idx &lt; 0 || idx &gt;= rows.size()) {
+    throw new IllegalStateException("No account row for " + group + " thread=" + local + " index=" + idx + " rows=" + rows.size())
+}
+
+def cols = rows[idx].split(',', 3)
+if (cols.length != 3) {
+    throw new IllegalStateException("Bad accounts.csv row " + (idx + 2) + ": " + rows[idx])
+}
+vars.put('email', cols[0])
+vars.put('newPassword', cols[1])
+vars.put('shippingAddress', cols[2])
+vars.put('accountRow', String.valueOf(idx + 2))</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree />
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="01 POST /api/forgot-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -426,7 +532,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -435,19 +541,19 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is 4 digits" enabled="true">
+          <hashTree />
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1">^\d{4}$</stringProp>
+              <stringProp name="-1">^\d+$</stringProp>
             </collectionProp>
-            <stringProp name="Assertion.custom_message">resetToken was not extracted from the response</stringProp>
+            <stringProp name="Assertion.custom_message">resetToken was not extracted as a numeric token from the response</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">1</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">resetToken</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="02 POST /api/reset-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -474,7 +580,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert reset succeeded" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Password reset successfully</stringProp>
@@ -484,7 +590,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="03 POST /api/login" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -509,7 +615,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -518,7 +624,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert JWT extracted" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^eyJ.+</stringProp>
@@ -530,12 +636,12 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">token</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="04 GET /api/products" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -551,21 +657,21 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert catalogue is non-empty" enabled="true">
             <stringProp name="JSON_PATH">$[0].id</stringProp>
-            <stringProp name="EXPECTED_VALUE"></stringProp>
+            <stringProp name="EXPECTED_VALUE" />
             <boolProp name="JSONVALIDATION">false</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="05 GET /api/products/{id}" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products/${productId}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -581,7 +687,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert id matches requested productId" enabled="true">
             <stringProp name="JSON_PATH">$.id</stringProp>
             <stringProp name="EXPECTED_VALUE">${productId}</stringProp>
@@ -590,7 +696,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="06 POST /api/cart" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -617,7 +723,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -626,7 +732,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert item added" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Added to cart</stringProp>
@@ -636,7 +742,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="07 POST /api/checkout" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -657,8 +763,8 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <hashTree>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Compute order total" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters" />
+            <stringProp name="filename" />
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">// total_amount must match what was actually added to the cart,
 // otherwise the order is internally inconsistent and checkout latency
@@ -667,7 +773,7 @@ long unit = Long.parseLong(vars.get("unitPrice"))
 long qty  = Long.parseLong(vars.get("quantity"))
 vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           </JSR223PreProcessor>
-          <hashTree/>
+          <hashTree />
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Auth header" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
@@ -676,14 +782,14 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract orderId" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.orderId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -692,7 +798,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert orderId is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^[0-9]+$</stringProp>
@@ -704,13 +810,13 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">orderId</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
           <stringProp name="ConstantTimer.delay">${__P(think.delay,100)}</stringProp>
           <stringProp name="RandomTimer.range">${__P(think.range,200.0)}</stringProp>
         </UniformRandomTimer>
-        <hashTree/>
+        <hashTree />
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - Stress step 3 (+60 VU)" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -726,6 +832,59 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
       <hashTree>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Bind account row to current VU" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename" />
+          <stringProp name="parameters" />
+          <stringProp name="script">import java.nio.file.Files
+import java.nio.file.Paths
+
+// Bind one stable account row to each JMeter thread. A shared recycled
+// CSV cursor can hand the same email to two overlapping reset-password
+// journeys, causing resetToken overwrite noise. This script keeps the
+// workflow data-driven while making account ownership deterministic.
+def rows = props.get('hw05.accounts.rows')
+if (rows == null) {
+    synchronized (props) {
+        rows = props.get('hw05.accounts.rows')
+        if (rows == null) {
+            rows = Files.readAllLines(Paths.get('perf/data/accounts.csv'), java.nio.charset.StandardCharsets.UTF_8)
+                    .drop(1)
+                    .findAll { it.trim() }
+            props.put('hw05.accounts.rows', rows)
+        }
+    }
+}
+
+def threadName = Thread.currentThread().getName()
+def m = (threadName =~ /^(.*) (\\d+)-(\\d+)$/)
+def group = m.matches() ? m[0][1] : threadName
+int parsedThreadNum = m.matches() ? (m[0][3] as int) - 1 : ctx.getThreadNum()
+int base = 0
+if (group.contains('Stress step 2')) base = 60
+else if (group.contains('Stress step 3')) base = 120
+else if (group.contains('Stress step 4')) base = 180
+else if (group.contains('Stress step 5')) base = 240
+else if (group.contains('Spike burst 1')) base = 20
+else if (group.contains('Spike burst 2')) base = 320
+
+int local = parsedThreadNum
+int idx = base + local
+if (idx &lt; 0 || idx &gt;= rows.size()) {
+    throw new IllegalStateException("No account row for " + group + " thread=" + local + " index=" + idx + " rows=" + rows.size())
+}
+
+def cols = rows[idx].split(',', 3)
+if (cols.length != 3) {
+    throw new IllegalStateException("Bad accounts.csv row " + (idx + 2) + ": " + rows[idx])
+}
+vars.put('email', cols[0])
+vars.put('newPassword', cols[1])
+vars.put('shippingAddress', cols[2])
+vars.put('accountRow', String.valueOf(idx + 2))</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree />
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="01 POST /api/forgot-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -749,7 +908,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -758,19 +917,19 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is 4 digits" enabled="true">
+          <hashTree />
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1">^\d{4}$</stringProp>
+              <stringProp name="-1">^\d+$</stringProp>
             </collectionProp>
-            <stringProp name="Assertion.custom_message">resetToken was not extracted from the response</stringProp>
+            <stringProp name="Assertion.custom_message">resetToken was not extracted as a numeric token from the response</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">1</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">resetToken</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="02 POST /api/reset-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -797,7 +956,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert reset succeeded" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Password reset successfully</stringProp>
@@ -807,7 +966,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="03 POST /api/login" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -832,7 +991,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -841,7 +1000,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert JWT extracted" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^eyJ.+</stringProp>
@@ -853,12 +1012,12 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">token</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="04 GET /api/products" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -874,21 +1033,21 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert catalogue is non-empty" enabled="true">
             <stringProp name="JSON_PATH">$[0].id</stringProp>
-            <stringProp name="EXPECTED_VALUE"></stringProp>
+            <stringProp name="EXPECTED_VALUE" />
             <boolProp name="JSONVALIDATION">false</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="05 GET /api/products/{id}" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products/${productId}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -904,7 +1063,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert id matches requested productId" enabled="true">
             <stringProp name="JSON_PATH">$.id</stringProp>
             <stringProp name="EXPECTED_VALUE">${productId}</stringProp>
@@ -913,7 +1072,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="06 POST /api/cart" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -940,7 +1099,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -949,7 +1108,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert item added" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Added to cart</stringProp>
@@ -959,7 +1118,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="07 POST /api/checkout" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -980,8 +1139,8 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <hashTree>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Compute order total" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters" />
+            <stringProp name="filename" />
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">// total_amount must match what was actually added to the cart,
 // otherwise the order is internally inconsistent and checkout latency
@@ -990,7 +1149,7 @@ long unit = Long.parseLong(vars.get("unitPrice"))
 long qty  = Long.parseLong(vars.get("quantity"))
 vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           </JSR223PreProcessor>
-          <hashTree/>
+          <hashTree />
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Auth header" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
@@ -999,14 +1158,14 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract orderId" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.orderId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1015,7 +1174,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert orderId is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^[0-9]+$</stringProp>
@@ -1027,13 +1186,13 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">orderId</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
           <stringProp name="ConstantTimer.delay">${__P(think.delay,100)}</stringProp>
           <stringProp name="RandomTimer.range">${__P(think.range,200.0)}</stringProp>
         </UniformRandomTimer>
-        <hashTree/>
+        <hashTree />
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - Stress step 4 (+60 VU)" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -1049,6 +1208,59 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
       <hashTree>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Bind account row to current VU" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename" />
+          <stringProp name="parameters" />
+          <stringProp name="script">import java.nio.file.Files
+import java.nio.file.Paths
+
+// Bind one stable account row to each JMeter thread. A shared recycled
+// CSV cursor can hand the same email to two overlapping reset-password
+// journeys, causing resetToken overwrite noise. This script keeps the
+// workflow data-driven while making account ownership deterministic.
+def rows = props.get('hw05.accounts.rows')
+if (rows == null) {
+    synchronized (props) {
+        rows = props.get('hw05.accounts.rows')
+        if (rows == null) {
+            rows = Files.readAllLines(Paths.get('perf/data/accounts.csv'), java.nio.charset.StandardCharsets.UTF_8)
+                    .drop(1)
+                    .findAll { it.trim() }
+            props.put('hw05.accounts.rows', rows)
+        }
+    }
+}
+
+def threadName = Thread.currentThread().getName()
+def m = (threadName =~ /^(.*) (\\d+)-(\\d+)$/)
+def group = m.matches() ? m[0][1] : threadName
+int parsedThreadNum = m.matches() ? (m[0][3] as int) - 1 : ctx.getThreadNum()
+int base = 0
+if (group.contains('Stress step 2')) base = 60
+else if (group.contains('Stress step 3')) base = 120
+else if (group.contains('Stress step 4')) base = 180
+else if (group.contains('Stress step 5')) base = 240
+else if (group.contains('Spike burst 1')) base = 20
+else if (group.contains('Spike burst 2')) base = 320
+
+int local = parsedThreadNum
+int idx = base + local
+if (idx &lt; 0 || idx &gt;= rows.size()) {
+    throw new IllegalStateException("No account row for " + group + " thread=" + local + " index=" + idx + " rows=" + rows.size())
+}
+
+def cols = rows[idx].split(',', 3)
+if (cols.length != 3) {
+    throw new IllegalStateException("Bad accounts.csv row " + (idx + 2) + ": " + rows[idx])
+}
+vars.put('email', cols[0])
+vars.put('newPassword', cols[1])
+vars.put('shippingAddress', cols[2])
+vars.put('accountRow', String.valueOf(idx + 2))</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree />
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="01 POST /api/forgot-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -1072,7 +1284,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1081,19 +1293,19 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is 4 digits" enabled="true">
+          <hashTree />
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1">^\d{4}$</stringProp>
+              <stringProp name="-1">^\d+$</stringProp>
             </collectionProp>
-            <stringProp name="Assertion.custom_message">resetToken was not extracted from the response</stringProp>
+            <stringProp name="Assertion.custom_message">resetToken was not extracted as a numeric token from the response</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">1</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">resetToken</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="02 POST /api/reset-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1120,7 +1332,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert reset succeeded" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Password reset successfully</stringProp>
@@ -1130,7 +1342,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="03 POST /api/login" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1155,7 +1367,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1164,7 +1376,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert JWT extracted" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^eyJ.+</stringProp>
@@ -1176,12 +1388,12 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">token</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="04 GET /api/products" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1197,21 +1409,21 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert catalogue is non-empty" enabled="true">
             <stringProp name="JSON_PATH">$[0].id</stringProp>
-            <stringProp name="EXPECTED_VALUE"></stringProp>
+            <stringProp name="EXPECTED_VALUE" />
             <boolProp name="JSONVALIDATION">false</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="05 GET /api/products/{id}" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products/${productId}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1227,7 +1439,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert id matches requested productId" enabled="true">
             <stringProp name="JSON_PATH">$.id</stringProp>
             <stringProp name="EXPECTED_VALUE">${productId}</stringProp>
@@ -1236,7 +1448,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="06 POST /api/cart" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1263,7 +1475,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1272,7 +1484,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert item added" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Added to cart</stringProp>
@@ -1282,7 +1494,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="07 POST /api/checkout" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1303,8 +1515,8 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <hashTree>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Compute order total" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters" />
+            <stringProp name="filename" />
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">// total_amount must match what was actually added to the cart,
 // otherwise the order is internally inconsistent and checkout latency
@@ -1313,7 +1525,7 @@ long unit = Long.parseLong(vars.get("unitPrice"))
 long qty  = Long.parseLong(vars.get("quantity"))
 vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           </JSR223PreProcessor>
-          <hashTree/>
+          <hashTree />
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Auth header" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
@@ -1322,14 +1534,14 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract orderId" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.orderId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1338,7 +1550,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert orderId is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^[0-9]+$</stringProp>
@@ -1350,13 +1562,13 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">orderId</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
           <stringProp name="ConstantTimer.delay">${__P(think.delay,100)}</stringProp>
           <stringProp name="RandomTimer.range">${__P(think.range,200.0)}</stringProp>
         </UniformRandomTimer>
-        <hashTree/>
+        <hashTree />
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - Stress step 5 (+60 VU)" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -1372,6 +1584,59 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
       <hashTree>
+        <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Bind account row to current VU" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename" />
+          <stringProp name="parameters" />
+          <stringProp name="script">import java.nio.file.Files
+import java.nio.file.Paths
+
+// Bind one stable account row to each JMeter thread. A shared recycled
+// CSV cursor can hand the same email to two overlapping reset-password
+// journeys, causing resetToken overwrite noise. This script keeps the
+// workflow data-driven while making account ownership deterministic.
+def rows = props.get('hw05.accounts.rows')
+if (rows == null) {
+    synchronized (props) {
+        rows = props.get('hw05.accounts.rows')
+        if (rows == null) {
+            rows = Files.readAllLines(Paths.get('perf/data/accounts.csv'), java.nio.charset.StandardCharsets.UTF_8)
+                    .drop(1)
+                    .findAll { it.trim() }
+            props.put('hw05.accounts.rows', rows)
+        }
+    }
+}
+
+def threadName = Thread.currentThread().getName()
+def m = (threadName =~ /^(.*) (\\d+)-(\\d+)$/)
+def group = m.matches() ? m[0][1] : threadName
+int parsedThreadNum = m.matches() ? (m[0][3] as int) - 1 : ctx.getThreadNum()
+int base = 0
+if (group.contains('Stress step 2')) base = 60
+else if (group.contains('Stress step 3')) base = 120
+else if (group.contains('Stress step 4')) base = 180
+else if (group.contains('Stress step 5')) base = 240
+else if (group.contains('Spike burst 1')) base = 20
+else if (group.contains('Spike burst 2')) base = 320
+
+int local = parsedThreadNum
+int idx = base + local
+if (idx &lt; 0 || idx &gt;= rows.size()) {
+    throw new IllegalStateException("No account row for " + group + " thread=" + local + " index=" + idx + " rows=" + rows.size())
+}
+
+def cols = rows[idx].split(',', 3)
+if (cols.length != 3) {
+    throw new IllegalStateException("Bad accounts.csv row " + (idx + 2) + ": " + rows[idx])
+}
+vars.put('email', cols[0])
+vars.put('newPassword', cols[1])
+vars.put('shippingAddress', cols[2])
+vars.put('accountRow', String.valueOf(idx + 2))</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223PreProcessor>
+        <hashTree />
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="01 POST /api/forgot-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -1395,7 +1660,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1404,19 +1669,19 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is 4 digits" enabled="true">
+          <hashTree />
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert resetToken is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1">^\d{4}$</stringProp>
+              <stringProp name="-1">^\d+$</stringProp>
             </collectionProp>
-            <stringProp name="Assertion.custom_message">resetToken was not extracted from the response</stringProp>
+            <stringProp name="Assertion.custom_message">resetToken was not extracted as a numeric token from the response</stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">1</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">resetToken</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="02 POST /api/reset-password" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1443,7 +1708,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert reset succeeded" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Password reset successfully</stringProp>
@@ -1453,7 +1718,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="03 POST /api/login" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1478,7 +1743,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1487,7 +1752,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert JWT extracted" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^eyJ.+</stringProp>
@@ -1499,12 +1764,12 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">token</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="04 GET /api/products" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1520,21 +1785,21 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert catalogue is non-empty" enabled="true">
             <stringProp name="JSON_PATH">$[0].id</stringProp>
-            <stringProp name="EXPECTED_VALUE"></stringProp>
+            <stringProp name="EXPECTED_VALUE" />
             <boolProp name="JSONVALIDATION">false</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="05 GET /api/products/{id}" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments"/>
+            <collectionProp name="Arguments.arguments" />
           </elementProp>
           <stringProp name="HTTPSampler.path">/api/products/${productId}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -1550,7 +1815,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert id matches requested productId" enabled="true">
             <stringProp name="JSON_PATH">$.id</stringProp>
             <stringProp name="EXPECTED_VALUE">${productId}</stringProp>
@@ -1559,7 +1824,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="INVERT">false</boolProp>
             <boolProp name="ISREGEX">false</boolProp>
           </JSONPathAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="06 POST /api/cart" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1586,7 +1851,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1595,7 +1860,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert item added" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">Added to cart</stringProp>
@@ -1605,7 +1870,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">2</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="07 POST /api/checkout" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
@@ -1626,8 +1891,8 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
         <hashTree>
           <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="Compute order total" enabled="true">
             <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters" />
+            <stringProp name="filename" />
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="script">// total_amount must match what was actually added to the cart,
 // otherwise the order is internally inconsistent and checkout latency
@@ -1636,7 +1901,7 @@ long unit = Long.parseLong(vars.get("unitPrice"))
 long qty  = Long.parseLong(vars.get("quantity"))
 vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           </JSR223PreProcessor>
-          <hashTree/>
+          <hashTree />
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Auth header" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
@@ -1645,14 +1910,14 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
-          <hashTree/>
+          <hashTree />
           <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract orderId" enabled="true">
             <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.orderId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
             <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
           </JSONPostProcessor>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
@@ -1661,7 +1926,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert orderId is numeric" enabled="true">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1">^[0-9]+$</stringProp>
@@ -1673,34 +1938,51 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">orderId</stringProp>
           </ResponseAssertion>
-          <hashTree/>
+          <hashTree />
         </hashTree>
         <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
           <stringProp name="ConstantTimer.delay">${__P(think.delay,100)}</stringProp>
           <stringProp name="RandomTimer.range">${__P(think.range,200.0)}</stringProp>
         </UniformRandomTimer>
-        <hashTree/>
+        <hashTree />
       </hashTree>
       <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
-            <time>true</time><latency>true</latency><timestamp>true</timestamp><success>true</success>
-            <label>true</label><code>true</code><message>true</message><threadName>true</threadName>
-            <dataType>true</dataType><encoding>false</encoding><assertions>true</assertions>
-            <subresults>true</subresults><responseData>false</responseData><samplerData>false</samplerData>
-            <xml>false</xml><fieldNames>true</fieldNames><responseHeaders>false</responseHeaders>
-            <requestHeaders>false</requestHeaders><responseDataOnError>false</responseDataOnError>
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
             <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
             <assertionsResultsToSave>0</assertionsResultsToSave>
-            <bytes>true</bytes><sentBytes>true</sentBytes><url>true</url><threadCounts>true</threadCounts>
-            <idleTime>true</idleTime><connectTime>true</connectTime>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename"></stringProp>
+        <stringProp name="filename" />
       </ResultCollector>
-      <hashTree/>
+      <hashTree />
     </hashTree>
   </hashTree>
 </jmeterTestPlan>

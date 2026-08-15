@@ -133,7 +133,7 @@ $(document).ready(function() {
         widgets: ['zebra']
     });
 
-    var data = {"OkPercent": 99.96632093786535, "KoPercent": 0.033679062134651896};
+    var data = {"OkPercent": 100.0, "KoPercent": 0.0};
     var dataset = [
         {
             "label" : "FAIL",
@@ -173,7 +173,7 @@ $(document).ready(function() {
     });
 
     // Creates APDEX table
-    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.9996632093786535, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [1.0, 500, 1500, "06 POST /api/cart"], "isController": false}, {"data": [1.0, 500, 1500, "03 POST /api/login"], "isController": false}, {"data": [1.0, 500, 1500, "07 POST /api/checkout"], "isController": false}, {"data": [0.9976484332874004, 500, 1500, "02 POST /api/reset-password"], "isController": false}, {"data": [1.0, 500, 1500, "01 POST /api/forgot-password"], "isController": false}, {"data": [1.0, 500, 1500, "04 GET /api/products"], "isController": false}, {"data": [1.0, 500, 1500, "05 GET /api/products/{id}"], "isController": false}]}, function(index, item){
+    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.999994509138989, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [1.0, 500, 1500, "06 POST /api/cart"], "isController": false}, {"data": [1.0, 500, 1500, "03 POST /api/login"], "isController": false}, {"data": [1.0, 500, 1500, "07 POST /api/checkout"], "isController": false}, {"data": [1.0, 500, 1500, "02 POST /api/reset-password"], "isController": false}, {"data": [0.9999616458531496, 500, 1500, "01 POST /api/forgot-password"], "isController": false}, {"data": [1.0, 500, 1500, "04 GET /api/products"], "isController": false}, {"data": [1.0, 500, 1500, "05 GET /api/products/{id}"], "isController": false}]}, function(index, item){
         switch(index){
             case 0:
                 item = item.toFixed(3);
@@ -187,7 +187,7 @@ $(document).ready(function() {
     }, [[0, 0]], 3);
 
     // Create statistics table
-    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 466165, 157, 0.033679062134651896, 74.12977593770505, 0, 369, 71.0, 122.0, 136.0, 154.0, 1565.5045957826937, 789.096646711589, 408.6617672847689], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["06 POST /api/cart", 66384, 0, 0.0, 27.671728127259545, 0, 161, 28.0, 33.0, 35.0, 60.0, 232.03075847605734, 66.61820604683676, 91.88116452944774], "isController": false}, {"data": ["03 POST /api/login", 66715, 0, 0.0, 77.09129880836392, 0, 219, 77.0, 95.0, 97.0, 130.9900000000016, 228.1736192101564, 143.67597834804556, 51.91841140231098], "isController": false}, {"data": ["07 POST /api/checkout", 66343, 0, 0.0, 64.80160680101893, 0, 212, 67.0, 78.0, 83.0, 122.9900000000016, 234.0306194440525, 72.18212732159235, 97.08675849045787], "isController": false}, {"data": ["02 POST /api/reset-password", 66764, 157, 0.23515667125996045, 83.35066802468369, 0, 222, 86.0, 94.0, 97.0, 149.0, 226.04356054834966, 67.99070289249693, 58.49760111846939], "isController": false}, {"data": ["01 POST /api/forgot-password", 66861, 0, 0.0, 129.88962175259167, 0, 369, 135.0, 147.0, 152.0, 201.0, 224.83657053696328, 76.84843719525114, 48.30473195130072], "isController": false}, {"data": ["04 GET /api/products", 66633, 0, 0.0, 68.08275178965478, 0, 202, 70.0, 77.0, 80.0, 129.0, 230.23101534804331, 278.34570019616956, 36.19843112405759], "isController": false}, {"data": ["05 GET /api/products/{id}", 66465, 0, 0.0, 67.57746182201222, 0, 201, 70.0, 77.0, 80.0, 116.0, 231.82122577674846, 104.45549675104984, 36.901230275009766], "isController": false}]}, function(index, item){
+    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 455302, 0, 0.0, 75.59962398583538, 0, 534, 77.0, 119.0, 136.0, 153.0, 1533.7263356464325, 773.0444768525147, 400.3998491502728], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["06 POST /api/cart", 64992, 0, 0.0, 36.79794436238287, 0, 138, 41.0, 73.0, 81.0, 93.0, 226.39301091000294, 64.99955586673912, 89.63867173892976], "isController": false}, {"data": ["03 POST /api/login", 65107, 0, 0.0, 73.27909441381193, 0, 198, 74.0, 92.0, 100.0, 131.0, 222.09373326374464, 139.8263634824715, 50.534999853957515], "isController": false}, {"data": ["07 POST /api/checkout", 64804, 0, 0.0, 74.94367631627692, 1, 193, 83.0, 117.0, 133.0, 152.0, 227.4534854744113, 70.15265704684971, 94.33625763835022], "isController": false}, {"data": ["02 POST /api/reset-password", 65118, 0, 0.0, 81.89282533247385, 0, 209, 83.0, 103.0, 112.0, 163.0, 221.13177304771867, 66.51229111200912, 57.22648423598188], "isController": false}, {"data": ["01 POST /api/forgot-password", 65182, 0, 0.0, 124.7449295817863, 1, 534, 123.0, 165.0, 178.0, 208.0, 219.90041023426534, 75.16127302928992, 47.24422876126795], "isController": false}, {"data": ["04 GET /api/products", 65088, 0, 0.0, 71.90316187315688, 0, 189, 69.0, 88.0, 97.0, 122.0, 224.13454684449218, 270.9751650326966, 35.23990433785473], "isController": false}, {"data": ["05 GET /api/products/{id}", 65011, 0, 0.0, 65.49048622540717, 0, 198, 63.0, 90.0, 101.0, 125.0, 224.84963563229124, 101.3139946998506, 35.79149473443699], "isController": false}]}, function(index, item){
         switch(index){
             // Errors pct
             case 3:
@@ -217,7 +217,7 @@ $(document).ready(function() {
     }, [[0, 0]], 0, summaryTableHeader);
 
     // Create error table
-    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["400/Bad Request", 157, 100.0, 0.033679062134651896], "isController": false}]}, function(index, item){
+    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": []}, function(index, item){
         switch(index){
             case 2:
             case 3:
@@ -228,7 +228,7 @@ $(document).ready(function() {
     }, [[1, 1]]);
 
         // Create top5 errors by sampler
-    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 466165, 157, "400/Bad Request", 157, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": ["02 POST /api/reset-password", 66764, 157, "400/Bad Request", 157, "", "", "", "", "", "", "", ""], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
+    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 455302, 0, "", "", "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
         return item;
     }, [[0, 0]], 0);
 

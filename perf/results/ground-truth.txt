@@ -1,184 +1,184 @@
 ########## Load — whole run
-== Load.jtl
+== 23127300_Load_20260814.jtl
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password          1192       0    0.00       4.5       4       6       7       9       19      3.33
-02 POST /api/reset-password           1181       0    0.00       4.1       4       6       6       8       22      3.32
-03 POST /api/login                    1174       0    0.00       3.8       4       5       6       8       15      3.32
-04 GET /api/products                  1168       0    0.00       1.9       2       3       4       6        9      3.32
-05 GET /api/products/{id}             1164       0    0.00       1.9       2       3       4       6       29      3.32
-06 POST /api/cart                     1158       0    0.00       3.0       3       4       4       6       12      3.31
-07 POST /api/checkout                 1156       0    0.00       5.5       5       7       8       9       15      3.32
+01 POST /api/forgot-password          1194       0    0.00       4.4       4       6       8      11       30      3.34
+02 POST /api/reset-password           1186       0    0.00       4.1       4       6       7       9      139      3.33
+03 POST /api/login                    1182       0    0.00       3.6       4       5       6       9       15      3.34
+04 GET /api/products                  1173       0    0.00       2.0       2       3       4       6        8      3.34
+05 GET /api/products/{id}             1166       0    0.00       2.0       2       3       4       7       16      3.33
+06 POST /api/cart                     1157       0    0.00       2.9       3       4       5       7       12      3.33
+07 POST /api/checkout                 1152       0    0.00       5.2       5       7       8      11       22      3.33
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                   8193       0    0.00       3.5       3       6       7       8       29     22.88
+ALL                                   8210       0    0.00       3.5       3       6       7       9      139     22.96
 
 Response codes per label:
-  01 POST /api/forgot-password       200=1192
-  02 POST /api/reset-password        200=1181
-  03 POST /api/login                 200=1174
-  04 GET /api/products               200=1168
-  05 GET /api/products/{id}          200=1164
-  06 POST /api/cart                  200=1158
-  07 POST /api/checkout              200=1156
+  01 POST /api/forgot-password       200=1194
+  02 POST /api/reset-password        200=1186
+  03 POST /api/login                 200=1182
+  04 GET /api/products               200=1173
+  05 GET /api/products/{id}          200=1166
+  06 POST /api/cart                  200=1157
+  07 POST /api/checkout              200=1152
 ########## Load — steady state (skip-ramp 60)
-== Load.jtl (steady state, first 60s dropped: 798 of 8193 samples)
+== 23127300_Load_20260814.jtl (steady state, first 60s dropped: 808 of 8210 samples)
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password          1057       0    0.00       4.4       4       6       7       9       18      3.55
-02 POST /api/reset-password           1052       0    0.00       4.1       4       5       6       8       22      3.54
-03 POST /api/login                    1054       0    0.00       3.7       4       5       5       8       15      3.54
-04 GET /api/products                  1055       0    0.00       1.9       2       3       4       6        9      3.56
-05 GET /api/products/{id}             1058       0    0.00       1.9       2       3       4       6       29      3.56
-06 POST /api/cart                     1058       0    0.00       2.9       3       4       4       5       12      3.57
-07 POST /api/checkout                 1061       0    0.00       5.5       5       7       8       9       15      3.56
+01 POST /api/forgot-password          1054       0    0.00       4.2       4       6       7      10       16      3.55
+02 POST /api/reset-password           1058       0    0.00       3.9       4       6       6       9       19      3.56
+03 POST /api/login                    1060       0    0.00       3.5       3       5       6       9       15      3.57
+04 GET /api/products                  1058       0    0.00       1.9       2       3       4       6        8      3.56
+05 GET /api/products/{id}             1057       0    0.00       1.9       2       3       4       6       10      3.56
+06 POST /api/cart                     1057       0    0.00       2.8       3       4       4       7        8      3.56
+07 POST /api/checkout                 1058       0    0.00       5.2       5       7       8      10       13      3.56
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                   7395       0    0.00       3.5       3       6       6       8       29     24.81
+ALL                                   7402       0    0.00       3.4       3       6       7       9       19     24.88
 
 Response codes per label:
-  01 POST /api/forgot-password       200=1057
-  02 POST /api/reset-password        200=1052
-  03 POST /api/login                 200=1054
-  04 GET /api/products               200=1055
-  05 GET /api/products/{id}          200=1058
-  06 POST /api/cart                  200=1058
-  07 POST /api/checkout              200=1061
+  01 POST /api/forgot-password       200=1054
+  02 POST /api/reset-password        200=1058
+  03 POST /api/login                 200=1060
+  04 GET /api/products               200=1058
+  05 GET /api/products/{id}          200=1057
+  06 POST /api/cart                  200=1057
+  07 POST /api/checkout              200=1058
 ########## Stress — whole run
-== Stress.jtl
+== 23127300_Stress_20260814.jtl
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password         84425       0    0.00       2.4       2       4       5       8      108    140.75
-02 POST /api/reset-password          84385       0    0.00       1.8       1       3       4       6       94    140.73
-03 POST /api/login                   84345       0    0.00       1.8       2       3       4       6       89    140.72
-04 GET /api/products                 84312       0    0.00       1.4       1       3       3       5       87    140.72
-05 GET /api/products/{id}            84261       0    0.00       1.5       1       3       4       6       86    140.68
-06 POST /api/cart                    84224       0    0.00       0.9       1       2       2       3       69    140.68
-07 POST /api/checkout                84171       0    0.00       2.1       2       3       4       6       91    140.69
+01 POST /api/forgot-password         85232       0    0.00       2.2       2       4       5       9      259    142.19
+02 POST /api/reset-password          85184       0    0.00       1.7       1       3       3       6      223    142.15
+03 POST /api/login                   85150       0    0.00       1.7       1       3       4       6      216    142.14
+04 GET /api/products                 85101       0    0.00       1.3       1       2       3       6      221    142.11
+05 GET /api/products/{id}            85062       0    0.00       1.3       1       2       3       6      222    142.09
+06 POST /api/cart                    85030       0    0.00       0.9       1       2       2       3      182    142.09
+07 POST /api/checkout                84982       0    0.00       2.0       2       3       4       7      218    142.07
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                 590123       0    0.00       1.7       1       3       4       6      108    983.77
+ALL                                 595741       0    0.00       1.6       1       3       4       6      259    993.83
 
 Response codes per label:
-  01 POST /api/forgot-password       200=84425
-  02 POST /api/reset-password        200=84385
-  03 POST /api/login                 200=84345
-  04 GET /api/products               200=84312
-  05 GET /api/products/{id}          200=84261
-  06 POST /api/cart                  200=84224
-  07 POST /api/checkout              200=84171
+  01 POST /api/forgot-password       200=85232
+  02 POST /api/reset-password        200=85184
+  03 POST /api/login                 200=85150
+  04 GET /api/products               200=85101
+  05 GET /api/products/{id}          200=85062
+  06 POST /api/cart                  200=85030
+  07 POST /api/checkout              200=84982
 ########## Stress — steady state (skip-ramp 60)
-== Stress.jtl (steady state, first 60s dropped: 13141 of 590123 samples)
+== 23127300_Stress_20260814.jtl (steady state, first 60s dropped: 13361 of 595741 samples)
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password         82525       0    0.00       2.4       2       4       5       8      108    152.87
-02 POST /api/reset-password          82491       0    0.00       1.8       1       3       4       6       94    152.82
-03 POST /api/login                   82459       0    0.00       1.8       2       3       4       6       89    152.75
-04 GET /api/products                 82435       0    0.00       1.4       1       3       3       5       87    152.71
-05 GET /api/products/{id}            82395       0    0.00       1.5       1       3       4       5       86    152.64
-06 POST /api/cart                    82360       0    0.00       0.9       1       2       2       3       69    152.57
-07 POST /api/checkout                82317       0    0.00       2.1       2       3       4       6       91    152.50
+01 POST /api/forgot-password         83297       0    0.00       2.2       2       4       5       9      259    154.42
+02 POST /api/reset-password          83260       0    0.00       1.7       1       3       3       6      223    154.36
+03 POST /api/login                   83234       0    0.00       1.7       1       3       3       6      216    154.31
+04 GET /api/products                 83196       0    0.00       1.3       1       2       3       6      221    154.24
+05 GET /api/products/{id}            83164       0    0.00       1.4       1       2       3       6      222    154.18
+06 POST /api/cart                    83135       0    0.00       0.9       1       1       2       3      182    154.16
+07 POST /api/checkout                83094       0    0.00       2.0       2       3       4       7      218    154.04
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                 576982       0    0.00       1.7       1       3       4       6      108   1068.78
+ALL                                 582380       0    0.00       1.6       1       3       3       6      259   1079.62
 
 Response codes per label:
-  01 POST /api/forgot-password       200=82525
-  02 POST /api/reset-password        200=82491
-  03 POST /api/login                 200=82459
-  04 GET /api/products               200=82435
-  05 GET /api/products/{id}          200=82395
-  06 POST /api/cart                  200=82360
-  07 POST /api/checkout              200=82317
+  01 POST /api/forgot-password       200=83297
+  02 POST /api/reset-password        200=83260
+  03 POST /api/login                 200=83234
+  04 GET /api/products               200=83196
+  05 GET /api/products/{id}          200=83164
+  06 POST /api/cart                  200=83135
+  07 POST /api/checkout              200=83094
 ########## Spike — whole run
-== Spike.jtl
+== 23127300_Spike_20260814.jtl
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password         66861       0    0.00     129.9     134     148     152     200      369    224.84
-02 POST /api/reset-password          66764     157    0.23      83.4      86      94      97     122      222    226.04
-03 POST /api/login                   66715       0    0.00      77.1      76      94      97     111      219    228.17
-04 GET /api/products                 66633       0    0.00      68.1      70      76      79      97      202    230.23
-05 GET /api/products/{id}            66465       0    0.00      67.6      69      76      79      95      201    231.82
-06 POST /api/cart                    66384       0    0.00      27.7      28      33      34      44      161    232.03
-07 POST /api/checkout                66343       0    0.00      64.8      66      78      82     101      212    234.03
+01 POST /api/forgot-password         65182       0    0.00     124.7     125     159     169     199      534    219.90
+02 POST /api/reset-password          65118       0    0.00      81.9      84     106     114     141      209    221.13
+03 POST /api/login                   65107       0    0.00      73.3      73      98     105     124      198    222.09
+04 GET /api/products                 65088       0    0.00      71.9      72      93     104     125      189    224.13
+05 GET /api/products/{id}            65011       0    0.00      65.5      67      86      93     120      198    224.85
+06 POST /api/cart                    64992       0    0.00      36.8      34      58      69      85      138    226.39
+07 POST /api/checkout                64804       0    0.00      74.9      75     105     116     143      193    227.45
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                 466165     157    0.03      74.1      72     129     139     152      369   1565.51
+ALL                                 455302       0    0.00      75.6      73     119     140     166      534   1533.73
 
 Response codes per label:
-  01 POST /api/forgot-password       200=66861
-  02 POST /api/reset-password        200=66607, 400=157
-  03 POST /api/login                 200=66715
-  04 GET /api/products               200=66633
-  05 GET /api/products/{id}          200=66465
-  06 POST /api/cart                  200=66384
-  07 POST /api/checkout              200=66343
+  01 POST /api/forgot-password       200=65182
+  02 POST /api/reset-password        200=65118
+  03 POST /api/login                 200=65107
+  04 GET /api/products               200=65088
+  05 GET /api/products/{id}          200=65011
+  06 POST /api/cart                  200=64992
+  07 POST /api/checkout              200=64804
 ########## Spike — steady state (skip-ramp 60)
-== Spike.jtl (steady state, first 60s dropped: 514 of 466165 samples)
+== 23127300_Spike_20260814.jtl (steady state, first 60s dropped: 520 of 455302 samples)
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password         66777       0    0.00     130.0     134     148     152     200      369    284.33
-02 POST /api/reset-password          66684     157    0.23      83.4      86      94      97     122      222    280.85
-03 POST /api/login                   66639       0    0.00      77.2      76      94      97     111      219    281.09
-04 GET /api/products                 66562       0    0.00      68.2      70      76      79      97      202    281.24
-05 GET /api/products/{id}            66394       0    0.00      67.6      69      76      79      95      201    282.79
-06 POST /api/cart                    66316       0    0.00      27.7      28      33      34      44      161    279.02
-07 POST /api/checkout                66279       0    0.00      64.9      66      78      82     101      212    280.37
+01 POST /api/forgot-password         65098       0    0.00     124.9     125     160     169     199      534    276.90
+02 POST /api/reset-password          65036       0    0.00      82.0      84     106     114     141      209    276.37
+03 POST /api/login                   65030       0    0.00      73.4      73      98     105     124      198    274.81
+04 GET /api/products                 65014       0    0.00      72.0      72      93     104     125      189    275.36
+05 GET /api/products/{id}            64942       0    0.00      65.6      67      86      93     120      198    276.17
+06 POST /api/cart                    64924       0    0.00      36.8      34      58      69      85      138    275.74
+07 POST /api/checkout                64738       0    0.00      75.0      75     105     116     143      193    276.05
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                 465651     157    0.03      74.2      72     130     139     152      369   1958.50
+ALL                                 454782       0    0.00      75.7      74     119     140     166      534   1921.19
 
 Response codes per label:
-  01 POST /api/forgot-password       200=66777
-  02 POST /api/reset-password        200=66527, 400=157
-  03 POST /api/login                 200=66639
-  04 GET /api/products               200=66562
-  05 GET /api/products/{id}          200=66394
-  06 POST /api/cart                  200=66316
-  07 POST /api/checkout              200=66279
+  01 POST /api/forgot-password       200=65098
+  02 POST /api/reset-password        200=65036
+  03 POST /api/login                 200=65030
+  04 GET /api/products               200=65014
+  05 GET /api/products/{id}          200=64942
+  06 POST /api/cart                  200=64924
+  07 POST /api/checkout              200=64738
 ########## Endurance — whole run
-== Endurance.jtl
+== 23127300_Endurance_20260814.jtl
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password          2493       0    0.00       3.4       4       5       6       7       13      2.78
-02 POST /api/reset-password           2487       0    0.00       3.2       3       5       5       6       15      2.77
-03 POST /api/login                    2477       0    0.00       3.0       3       4       5       7       15      2.77
-04 GET /api/products                  2474       0    0.00       1.6       2       3       3       4       11      2.77
-05 GET /api/products/{id}             2468       0    0.00       1.6       2       3       3       5       12      2.77
-06 POST /api/cart                     2467       0    0.00       2.4       3       4       4       5        8      2.78
-07 POST /api/checkout                 2461       0    0.00       4.2       5       6       6       8       12      2.78
+01 POST /api/forgot-password          2496       0    0.00       4.1       4       6       7       9       33      2.78
+02 POST /api/reset-password           2491       0    0.00       3.9       4       6       7       8       11      2.78
+03 POST /api/login                    2487       0    0.00       3.5       3       5       6       8       16      2.78
+04 GET /api/products                  2477       0    0.00       1.9       2       3       4       6        9      2.78
+05 GET /api/products/{id}             2469       0    0.00       1.9       2       3       4       6       24      2.77
+06 POST /api/cart                     2464       0    0.00       2.8       3       4       5       6       11      2.77
+07 POST /api/checkout                 2462       0    0.00       5.1       5       7       8      10       24      2.78
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                  17327       0    0.00       2.8       3       5       5       7       15     19.30
+ALL                                  17346       0    0.00       3.3       3       6       7       9       33     19.33
 
 Response codes per label:
-  01 POST /api/forgot-password       200=2493
-  02 POST /api/reset-password        200=2487
-  03 POST /api/login                 200=2477
-  04 GET /api/products               200=2474
-  05 GET /api/products/{id}          200=2468
-  06 POST /api/cart                  200=2467
-  07 POST /api/checkout              200=2461
+  01 POST /api/forgot-password       200=2496
+  02 POST /api/reset-password        200=2491
+  03 POST /api/login                 200=2487
+  04 GET /api/products               200=2477
+  05 GET /api/products/{id}          200=2469
+  06 POST /api/cart                  200=2464
+  07 POST /api/checkout              200=2462
 ########## Endurance — steady state (skip-ramp 60)
-== Endurance.jtl (steady state, first 60s dropped: 645 of 17327 samples)
+== 23127300_Endurance_20260814.jtl (steady state, first 60s dropped: 661 of 17346 samples)
 
 label                                count  errors    err%      mean     p50     p90     p95     p99      max     req/s
 --------------------------------------------------------------------------------------------------------------------------------
-01 POST /api/forgot-password          2379       0    0.00       3.4       4       5       5       7       12      2.84
-02 POST /api/reset-password           2381       0    0.00       3.2       3       5       5       6       15      2.84
-03 POST /api/login                    2381       0    0.00       2.9       3       4       5       7       15      2.84
-04 GET /api/products                  2382       0    0.00       1.6       2       3       3       4       11      2.85
-05 GET /api/products/{id}             2385       0    0.00       1.6       2       2       3       5       12      2.85
-06 POST /api/cart                     2389       0    0.00       2.4       3       4       4       5        8      2.85
-07 POST /api/checkout                 2385       0    0.00       4.2       4       6       6       7       12      2.85
+01 POST /api/forgot-password          2386       0    0.00       4.0       4       6       7       9       33      2.85
+02 POST /api/reset-password           2385       0    0.00       3.8       4       6       6       8       11      2.85
+03 POST /api/login                    2386       0    0.00       3.4       3       5       6       8       16      2.85
+04 GET /api/products                  2384       0    0.00       1.9       2       3       4       6        8      2.85
+05 GET /api/products/{id}             2381       0    0.00       1.9       2       3       4       6       24      2.85
+06 POST /api/cart                     2379       0    0.00       2.7       3       4       4       6       11      2.84
+07 POST /api/checkout                 2384       0    0.00       5.0       5       7       8      10       24      2.85
 --------------------------------------------------------------------------------------------------------------------------------
-ALL                                  16682       0    0.00       2.8       3       5       5       7       15     19.91
+ALL                                  16685       0    0.00       3.3       3       6       6       8       33     19.92
 
 Response codes per label:
-  01 POST /api/forgot-password       200=2379
-  02 POST /api/reset-password        200=2381
-  03 POST /api/login                 200=2381
-  04 GET /api/products               200=2382
-  05 GET /api/products/{id}          200=2385
-  06 POST /api/cart                  200=2389
-  07 POST /api/checkout              200=2385
+  01 POST /api/forgot-password       200=2386
+  02 POST /api/reset-password        200=2385
+  03 POST /api/login                 200=2386
+  04 GET /api/products               200=2384
+  05 GET /api/products/{id}          200=2381
+  06 POST /api/cart                  200=2379
+  07 POST /api/checkout              200=2384

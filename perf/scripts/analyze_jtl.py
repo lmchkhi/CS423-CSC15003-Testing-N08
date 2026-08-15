@@ -5,9 +5,9 @@ HW05 Task 2 asks for AI misinterpretations to be corrected with "the correct
 value from your raw .jtl log". This script is how those values are produced, so
 a TA can rerun it against the attached logs and get the same numbers.
 
-Percentiles use the nearest-rank method on the sorted sample list, which is
-what JMeter's own Aggregate Report does, so the numbers here and in the HTML
-dashboard agree.
+Percentiles use nearest rank on the sorted sample list. JMeter's generated HTML
+dashboard may interpolate some percentile columns, so reports name the method
+when those values differ.
 
 Usage:
     python3 perf/scripts/analyze_jtl.py perf/results/jtl/<file>.jtl

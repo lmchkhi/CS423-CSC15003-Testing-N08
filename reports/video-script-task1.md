@@ -74,9 +74,10 @@ dashboard để các bạn thấy kết quả thực tế."*
    Trỏ vào dòng `ALL`.
 4. Mở ảnh bằng chứng:
    ```
-   open perf/evidence/resource-monitor/Load-20260814-220824.png
+   open perf/evidence/resource-monitor/Load-20260815-155148.png
    ```
-   *"CPU của node tại đỉnh Load: [đọc số từ ảnh] — máy còn nhiều tài nguyên."*
+   *"CPU của node trong ảnh Load khoảng 7 %, RSS khoảng 94 MB — máy còn
+   nhiều tài nguyên."*
 
 ---
 
@@ -91,17 +92,17 @@ request, đỉnh 300 VU."*
    ```
 2. Trình bày Aggregate Report:
    - Trỏ vào biểu đồ throughput — hình thang tăng theo từng bậc.
-   - *"~983 req/s tổng throughput ở đỉnh — 590 nghìn mẫu, 0.00 % lỗi."*
+   - *"~994 req/s tổng throughput — 595 nghìn mẫu, 0.00 % lỗi."*
 3. Chỉ vào biểu đồ Response Time Over Time — p95 vẫn bằng phẳng qua các bậc.
 4. Mở ảnh bằng chứng:
    ```
-   open perf/evidence/resource-monitor/Stress-20260814-222150.png
+   open perf/evidence/resource-monitor/Stress-20260815-160117.png
    ```
-   *"CPU đỉnh của SUT trong Stress: 61.2 % của 1 lõi — chưa đến 6 % tổng
+   *"CPU đỉnh của SUT trong Stress: 76.0 % của 1 lõi — chưa đến 7 % tổng
    năng lực máy. Không tìm được điểm gãy trong bộ calibration."*
 5. Mở listener screenshot:
    ```
-   open perf/evidence/resource-monitor/listener-Stress.png
+   open perf/evidence/resource-monitor/listener-Stress-20260815.png
    ```
    *"Đây là Aggregate Report từ JMeter GUI, load từ file `.jtl` đã chấm điểm."*
 
@@ -117,21 +118,19 @@ request, đỉnh 300 VU."*
    ```
 2. Trỏ vào biểu đồ Active Threads Over Time — rõ 2 đỉnh.
 3. Trỏ vào cột lỗi:
-   *"Có 157 lỗi HTTP 400 trên sampler `02 POST /api/reset-password` — những
-   lỗi này là nhiễu của bộ khung kiểm thử, không phải lỗi của SUT.
-   Nguyên nhân: CSV Data Set Config dùng chung con trỏ cho 620 luồng trong
-   burst; hai luồng cùng giữ một dòng tài khoản, luồng sau ghi đè resetToken
-   trước khi luồng trước kịp dùng."*
-4. Dẫn chứng: mở `reports/run-manifest.md`, trỏ vào hàng Spike, cột `lỗi thật`.
+   *"Sau khi bind một tài khoản riêng cho từng VU, Spike có 455.302 mẫu và
+   0.00 % lỗi. Đây là lần rerun sạch thay thế kết quả cũ bị nhiễu dữ liệu."*
+4. Dẫn chứng: mở `reports/run-manifest.md`, trỏ vào hàng Spike, cột `Tổng lỗi = 0`.
 5. Mở ảnh:
    ```
-   open perf/evidence/resource-monitor/Spike-20260814-222701.png
+   open perf/evidence/resource-monitor/Spike-20260815-160819.png
    ```
-   *"CPU đỉnh 126.7 % của 1 lõi — máy 12 lõi, vẫn chỉ ~11 % tổng CPU."*
+   *"CPU đỉnh 123.4 % của 1 lõi — máy 12 lõi, vẫn chỉ khoảng 10 % tổng CPU."*
 6. Mở View Results Tree listener screenshot:
    ```
-   open perf/evidence/resource-monitor/listener-Spike.png
+   open perf/evidence/resource-monitor/listener-Spike-20260815.png
    ```
+   *"Listener này lọc Errors only và đang rỗng, khớp với Spike 0 lỗi."*
 
 ---
 
@@ -145,13 +144,14 @@ leak và degradation theo thời gian."*
    open perf/results/html/23127300_Endurance_20260814/index.html
    ```
 2. Trỏ vào biểu đồ Response Time Over Time — phẳng suốt 15 phút.
-3. *"p95 giữ ở 5 ms từ đầu đến cuối, throughput ~19 req/s ổn định."*
+3. *"p95 giữ ở mức thấp, 7 ms toàn run và 6 ms nếu bỏ 60 giây ramp-up;
+   throughput ~19 req/s ổn định."*
 4. So sánh hai ảnh RSS:
    ```
-   open perf/evidence/resource-monitor/Endurance-start-rss-20260814-223710.png
-   open perf/evidence/resource-monitor/Endurance-min14-rss-20260814-224652.png
+   open perf/evidence/resource-monitor/Endurance-start-20260815-161234.png
+   open perf/evidence/resource-monitor/Endurance-min14-20260815-162532.png
    ```
-   *"RSS bắt đầu: 67.8 MB; phút 14: 79.8 MB — tăng nhưng không đơn điệu,
+   *"RSS bắt đầu: 69.0 MB; phút 14: 83.3 MB — tăng nhưng không đơn điệu,
    không có dấu hiệu memory leak rõ ràng. Để kết luận chắc cần time-series
    liên tục — đây là giới hạn của bộ evidence hiện tại."*
 
@@ -163,9 +163,9 @@ leak và degradation theo thời gian."*
 
 **Hành động:**
 1. Mở 3 screenshot listener:
-   - `listener-Load.png` — Summary Report
-   - `listener-Stress.png` — Aggregate Report
-   - `listener-Spike.png` — View Results Tree (errors only)
+   - `listener-Load-20260815.png` — Summary Report
+   - `listener-Stress-20260815.png` — Aggregate Report
+   - `listener-Spike-20260815.png` — View Results Tree (errors only)
 2. *"Load dùng Summary Report, Stress dùng Aggregate Report, Spike dùng
    View Results Tree chỉ hiển thị các request lỗi. Endurance dùng Simple
    Data Writer — không có screenshot vì listener đó không render table."*
@@ -180,10 +180,10 @@ leak và degradation theo thời gian."*
 
 *"Tóm lại: cả bốn kịch bản đều hoàn thành với kết quả đo được từ log thô.*
 
-*Load: 8,193 mẫu, 0 % lỗi, p95 7 ms.*
-*Stress: 590,123 mẫu, 0 % lỗi, p95 4 ms, throughput ~983 req/s.*
-*Spike: 466,165 mẫu, 157 lỗi harness artifact (0 lỗi SUT thật), p95 139 ms.*
-*Endurance: 17,327 mẫu, 0 % lỗi, p95 5 ms ổn định suốt 15 phút.*
+*Load: 8,210 mẫu, 0 % lỗi, p95 7 ms.*
+*Stress: 595,741 mẫu, 0 % lỗi, p95 4 ms, throughput ~994 req/s.*
+*Spike: 455,302 mẫu, 0 % lỗi, p95 140 ms.*
+*Endurance: 17,346 mẫu, 0 % lỗi, p95 7 ms ổn định suốt 15 phút.*
 
 *Tất cả file `.jtl` đã được gzip và commit vào nhánh `HW05/23127300`.
 Chi tiết phân tích đầy đủ có trong `reports/main-report.md`.*

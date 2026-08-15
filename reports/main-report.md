@@ -84,9 +84,9 @@ chính:
 
 | Kịch bản | Report view | Bằng chứng |
 |---|---|---|
-| Load | Summary Report (`ResultCollector guiclass="SummaryReport"`) | `perf/evidence/resource-monitor/listener-Load.png` |
-| Stress | Aggregate Report (`ResultCollector guiclass="StatVisualizer"`) | `perf/evidence/resource-monitor/listener-Stress.png` |
-| Spike | View Results Tree — chỉ lỗi (`ResultCollector guiclass="ViewResultsFullVisualizer"`, testname "View Results Tree (errors only)") | `perf/evidence/resource-monitor/listener-Spike.png` |
+| Load | Summary Report (`ResultCollector guiclass="SummaryReport"`) | `perf/evidence/resource-monitor/listener-Load-20260815.png` |
+| Stress | Aggregate Report (`ResultCollector guiclass="StatVisualizer"`) | `perf/evidence/resource-monitor/listener-Stress-20260815.png` |
+| Spike | View Results Tree — chỉ lỗi (`ResultCollector guiclass="ViewResultsFullVisualizer"`, testname "View Results Tree (errors only)") | `perf/evidence/resource-monitor/listener-Spike-20260815.png` |
 
 Cả bốn kịch bản còn có HTML dashboard sinh từ `.jtl` (`perf/results/html/<stem>/index.html`)
 — đây là báo cáo tổng hợp cuối cùng, không tính là một trong ba report view
@@ -128,10 +128,10 @@ tổng tiền từ dữ liệu CSV.
 
 | Kịch bản | Thời điểm chạy | `.jtl` | HTML report | Ảnh tool + resource monitor |
 |---|---|---|---|---|
-| Load | 2026-08-14T22:06:20+07:00, 362s | `perf/results/jtl/23127300_Load_20260814.jtl.gz` | `perf/results/html/23127300_Load_20260814/` | `perf/evidence/resource-monitor/Load-20260814-220824.png` |
-| Stress | 2026-08-14T22:13:48+07:00, 607s | `perf/results/jtl/23127300_Stress_20260814.jtl.gz` | `perf/results/html/23127300_Stress_20260814/` | `perf/evidence/resource-monitor/Stress-20260814-222150.png` |
-| Spike | 2026-08-14T22:25:17+07:00, 306s | `perf/results/jtl/23127300_Spike_20260814.jtl.gz` | `perf/results/html/23127300_Spike_20260814/` | `perf/evidence/resource-monitor/Spike-20260814-222701.png` |
-| Endurance | 2026-08-14T22:32:47+07:00, 903s | `perf/results/jtl/23127300_Endurance_20260814.jtl.gz` | `perf/results/html/23127300_Endurance_20260814/` | `perf/evidence/resource-monitor/Endurance-start-rss-20260814-223710.png`, `Endurance-min14-rss-20260814-224652.png` |
+| Load | 2026-08-15T15:46:19+07:00, 362s | `perf/results/jtl/23127300_Load_20260814.jtl.gz` | `perf/results/html/23127300_Load_20260814/` | `perf/evidence/resource-monitor/Load-20260815-155148.png` |
+| Stress | 2026-08-15T15:53:27+07:00, 607s | `perf/results/jtl/23127300_Stress_20260814.jtl.gz` | `perf/results/html/23127300_Stress_20260814/` | `perf/evidence/resource-monitor/Stress-20260815-160117.png` |
+| Spike | 2026-08-15T16:05:02+07:00, 306s | `perf/results/jtl/23127300_Spike_20260814.jtl.gz` | `perf/results/html/23127300_Spike_20260814/` | `perf/evidence/resource-monitor/Spike-20260815-160819.png` |
+| Endurance | 2026-08-15T16:11:10+07:00, 903s | `perf/results/jtl/23127300_Endurance_20260814.jtl.gz` | `perf/results/html/23127300_Endurance_20260814/` | `perf/evidence/resource-monitor/Endurance-start-20260815-161234.png`, `Endurance-min14-20260815-162532.png` |
 
 Số liệu tóm tắt từng lần chạy (đầy đủ ở `reports/run-manifest.md`, tái lập
 được bằng `gunzip -c perf/results/jtl/23127300_<Scenario>_20260814.jtl.gz >
@@ -139,10 +139,10 @@ Số liệu tóm tắt từng lần chạy (đầy đủ ở `reports/run-manife
 
 | Kịch bản | Samples | Error % | p95 (ms, nearest-rank) | Throughput (req/s) |
 |---|---:|---:|---:|---:|
-| Load | 8,193 | 0.00 | 7 | 22.875 |
-| Stress | 590,123 | 0.00 | 4 | 983.774 |
-| Spike | 466,165 | 0.034 | **139** (nearest-rank; dashboard `pct2ResTime` nội suy tuyến tính ghi **136.0** — cùng lần chạy, khác phương pháp, cả hai đều đúng) | 1565.505 |
-| Endurance | 17,327 | 0.00 | 5 | 19.297 |
+| Load | 8,210 | 0.00 | 7 | 22.958 |
+| Stress | 595,741 | 0.00 | 4 | 993.833 |
+| Spike | 455,302 | 0.00 | **140** (nearest-rank; dashboard `pct2ResTime` nội suy tuyến tính ghi **136.0** — cùng lần chạy, khác phương pháp, cả hai đều đúng) | 1533.726 |
+| Endurance | 17,346 | 0.00 | 7 | 19.327 |
 
 #### Cấu hình phần cứng
 
@@ -171,7 +171,7 @@ file lưu trực tiếp** — chúng được đối chiếu độc lập (corro
 phải archive) qua hai nguồn: (1) ba trong bốn khung ảnh bằng chứng cho thấy
 dòng *trước khi chạy* `locked_before=0 cleared=0 attempts_pending=0
 remaining=0` ngay trong terminal pane (ví dụ khung Endurance ở trên); (2) cả
-bốn `.jtl` đều có 0 lỗi ở `03 POST /api/login` trên tổng ~1.08 triệu mẫu —
+bốn `.jtl` đều có 0 lỗi ở `03 POST /api/login` trên tổng 1.076.599 mẫu —
 nếu có tài khoản nào bị khoá giữa lúc chạy, sampler này sẽ ghi nhận lỗi, và
 không có lỗi nào như vậy xuất hiện. Không lần chạy nào trong bốn lần chấm
 điểm kích hoạt cơ chế khoá.
@@ -182,20 +182,20 @@ Endurance chạy 40 VU liên tục trong 15 phút (900s cấu hình, 903s thực
 cả overhead khởi động JMeter/SUT).
 
 - **RPS ổn định tối đa quan sát được:** ~19.3 req/s gộp cả 7 sampler trên
-  toàn bộ 903s (19.297 theo `run-manifest.md`; 19.91 nếu bỏ 60s đầu ramp-up
+  toàn bộ 903s (19.327 theo `run-manifest.md`; 19.92 nếu bỏ 60s đầu ramp-up
   — hai số gần nhau, xác nhận hệ thống vào trạng thái ổn định gần như ngay
   từ đầu, không cần loại bỏ nhiều dữ liệu ramp).
 - **p95 không trượt ở bất kỳ thời điểm nào trong 15 phút:** p95 toàn bộ run
-  và p95 sau khi bỏ 60s ramp-up đều là **5ms**
+  là **7ms** và p95 sau khi bỏ 60s ramp-up là **6ms**
   (`perf/results/ground-truth.txt`) — bằng phẳng từ đầu tới cuối, không có
   điểm nào latency dịch chuyển theo thời gian.
 - **Trần bộ nhớ (RSS của SUT):** quan sát từ hai khung Activity Monitor —
-  **67.8 MB lúc bắt đầu → 79.8 MB ở phút 14**
-  (`perf/evidence/resource-monitor/Endurance-start-rss-20260814-223710.png`,
-  `Endurance-min14-rss-20260814-224652.png`) — tăng ròng khoảng 12MB sau 15
+  **69.0 MB lúc bắt đầu → 83.3 MB ở phút 14**
+  (`perf/evidence/resource-monitor/Endurance-start-20260815-161234.png`,
+  `Endurance-min14-20260815-162532.png`) — tăng ròng khoảng 14.3MB sau 15
   phút tải liên tục. Bản ghi CSV mức-giây thô hơn
   (`perf/results/resource/23127300_Endurance_20260814.csv`) cho cùng dải giá
-  trị (60–99 MB) nhưng **dao động không đơn điệu** theo từng giây thay vì
+  trị (67–98 MB) nhưng **dao động không đơn điệu** theo từng giây thay vì
   một đường tăng đều — nghĩa là mức tăng ròng quan sát được ở hai khung ảnh
   là thật, nhưng ở độ phân giải một giây, tín hiệu bị nhiễu (GC/bộ nhớ đệm
   của Node) đủ lớn để không thể khẳng định đó là rò rỉ bộ nhớ tuyến tính chỉ
@@ -215,10 +215,9 @@ bằng giọng của mình; không dựng link giả khi video chưa được up
 
 ### 2.9. Bug / performance issue đã ghi nhận
 
-Cả bốn lần chạy chấm điểm không sinh ra lỗi thật nào từ SUT (157 lỗi HTTP
-400 của Spike là artefact của bộ khung kiểm thử, xem
-`reports/run-manifest.md` và `reports/ai-analysis-review.md` mục 2.4 — đã
-loại khỏi bảng dưới). Các defect có thể báo cáo đến từ oracle black-box
+Cả bốn lần chạy chấm điểm không sinh ra lỗi thật nào từ SUT. Spike đã được
+rerun sau khi sửa binding tài khoản theo từng VU và không còn lỗi HTTP 400 ở
+`02 POST /api/reset-password`. Các defect có thể báo cáo đến từ oracle black-box
 chạy riêng ở `perf/evidence/smoke-oracle-20260813-230513.txt`. Bốn file bug
 report cục bộ đã được tạo dưới `bug-reports/` và publish thành GitHub Issue
 riêng cho từng defect.
