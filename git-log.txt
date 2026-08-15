@@ -1,3 +1,24 @@
+* commit 5067fcb80fff98da3b6e05ac7634acb4aebca2b9
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 15 12:53:07 2026 +0700
+| 
+|     docs(hw05): make AI logs verbatim and localize evidence labels
+| 
+|  bug-reports/BUG-FR02-001.md              |    7 +-
+|  bug-reports/BUG-FR03-001.md              |    7 +-
+|  bug-reports/BUG-FR06-001.md              |    7 +-
+|  bug-reports/BUG-FR06-002.md              |    7 +-
+|  git-log.txt                              |   16 +
+|  reports/ai-audit-report.md               | 4161 +++++++++++++++++++++++----
+|  reports/pdf/ai-analysis-review.pdf       |  Bin 173633 -> 173633 bytes
+|  reports/pdf/ai-audit-report.pdf          |  Bin 627819 -> 1512251 bytes
+|  reports/pdf/ai-critique.pdf              |  Bin 67081 -> 67081 bytes
+|  reports/pdf/continuous-perf-proposal.pdf |  Bin 172582 -> 172582 bytes
+|  reports/pdf/main-report.pdf              |  Bin 283720 -> 283720 bytes
+|  reports/prompt-log.md                    | 4306 ++++++++++++++++++++++++----
+|  reports/tools/extract-prompt-log.py      |   48 +-
+|  13 files changed, 7467 insertions(+), 1092 deletions(-)
+| 
 * commit 950a5a988c130d1edc5121e7ef1158e25e131b0e
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sat Aug 15 12:47:43 2026 +0700
