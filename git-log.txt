@@ -1,3 +1,4 @@
+* 0480e27f 2026-08-15 12:33:38 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): recover AI logs and file bug reports
 * f26b5c3e 2026-08-15 12:19:24 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): finalize submission package artifacts
 * 67006706 2026-08-15 09:19:24 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> docs(hw05): add Vietnamese narration scripts for both demo videos
 * 272cc5f4 2026-08-15 09:16:55 +0700 Bảo Ngọc Hà <hiembaonon@gmail.com> feat(skill): add reusable performance-testing workflow skill
