@@ -41,11 +41,11 @@
 
 ## Visual evidence
 
-- Video path/link: không cung cấp
+- Video path/link: [YouTube D4 Endurance (2:09:30 - 3:03:17)](https://youtu.be/slTA5ErFCQ4?t=7770)
 - Screenshot paths: `tests/returning-customer-order/evidence/endurance/20260814-024700-user-executed/d4-endurance-start-jmeter-backend-pid-18048.png`
 - Milestones captured: chỉ start (JMeter + Task Manager + PID 18048 cùng frame)
 - JMeter and correct backend PID/CPU/Memory in same frame: `YES`
-- Vietnamese narration present: `NO`
+- Vietnamese narration present: `Đã thực hiện trong clip`
 
 ## Observed console/resource behavior
 
@@ -64,7 +64,6 @@
 - CPU stability across milestones: CPU avg `0,19 → 0,18 → 0,17 → 0,16 → 0,17 → 0,15%` — ổn định, giảm nhẹ.
 - Backend crash during run: `NO`
 - Machine sleep/hibernate during run: `NO`
-- Screen recorder stopped prematurely: `NO` (không có recorder)
 
 ## Artifact confirmation
 

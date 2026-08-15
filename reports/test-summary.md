@@ -1,87 +1,69 @@
-# Test Summary — HW03 GUI & Usability
+# Test Summary — HW05 Performance Testing
 
-## 1. Số màn hình / flow đã test
+## Sinh viên: 23127464
+## Workflow: Returning Customer Search and Order
 
-| Hạng mục | Số lượng | Phạm vi |
-|---|---:|---|
-| Màn hình GUI | 5 | Cart; Checkout; Coupon section; Checkout Success; Admin Coupon Management |
-| Flow usability end-to-end | 1 | Thêm sản phẩm vào giỏ → xem lại giỏ → xóa/cập nhật sản phẩm → checkout → áp dụng coupon hợp lệ/không hợp lệ → xác nhận thanh toán |
+---
 
-## 2. Số item checklist: thiết kế / thực thi / passed / failed
+### Scenarios thực hiện
 
-| Platform | Thiết kế | Thực thi | PASSED | FAILED | BLOCKED |
-|---|---:|---:|---:|---:|---:|
-| Chrome/Windows — baseline | 51 | 51 | 32 | 16 | 3 |
-| Firefox/Windows | 51 | 51 | 32 | 16 | 3 |
-| Safari/macOS | 51 | 51 | 32 | 13 | 6 |
+| # | Scenario | JMX File | VU | Duration | Listener |
+| --- | --- | --- | ---: | --- | --- |
+| D1 | Load | 23127464_Load_20260813.jmx | 20 | Ramp 60s + Hold 360s | Summary Report |
+| D2 | Stress (rerun) | 23127464_Stress_20260813.jmx | 10→80 | Staircase 5 bậc × 60s | Aggregate Report |
+| D3 | Spike | 23127464_Spike_20260813.jmx | 5→50→5 | Baseline/spike/recovery ~190s | View Results Tree |
+| D4 | Endurance | 23127464_Endurance_20260814.jmx | 20 | 30 phút | Response Time Graph |
 
-| Đối chiếu dữ liệu nguồn | Giá trị |
-|---|---|
-| Item chuyển từ FAILED trên Chrome/Firefox sang BLOCKED trên Safari | GUI-38, GUI-43, GUI-44 |
+### Endpoint groups covered
 
-## 3. Số bug đã báo cáo
+| Nhóm | Endpoints | Vai trò trong workflow |
+| --- | --- | --- |
+| Auth-heavy | POST /api/login | Bước 1: đăng nhập, lấy JWT token |
+| Read-heavy | GET /api/products?search=, GET /api/products/:id, GET /api/orders/my-orders | Bước 2, 3, 7: tìm kiếm, xem chi tiết, lịch sử đơn hàng |
+| Transactional | GET /api/cart, POST /api/cart, POST /api/checkout | Bước 4, 5, 6: giỏ hàng và thanh toán |
 
-| Chỉ số | Số lượng |
-|---|---:|
-| FAILED có evidence tại Platform 1 — Chrome baseline | 16 |
-| Bug bổ sung có report riêng ngoài nhóm FAILED baseline | 4 |
-| Tổng bug riêng biệt đã báo cáo trên GitHub Issues | 20 |
-| Bug đếm thêm từ Platform 2/3 | 0 |
+### Endurance threshold
 
-| Bug / checklist ID | Evidence baseline | Tái hiện trên platform |
-|---|---|---:|
-| GUI-07 | GUI_07_49.png | 3/3 |
-| GUI-13 | GUI_13_14.png | 3/3 |
-| GUI-14 | GUI_13_14.png | 3/3 |
-| GUI-15 | GUI_15_16.png | 3/3 |
-| GUI-16 | GUI_15_16.png | 3/3 |
-| GUI-17 | GUI_17.png | 3/3 |
-| GUI-23 | GUI_23_33_34.png | 3/3 |
-| GUI-26 | GUI_26_27_36.png | 3/3 |
-| GUI-27 | GUI_26_27_36.png | 3/3 |
-| GUI-33 | GUI_23_33_34.png | 3/3 |
-| GUI-34 | GUI_23_33_34.png | 3/3 |
-| GUI-36 | GUI_26_27_36.png | 3/3 |
-| GUI-38 | GUI_38_43.png | 2/3 |
-| GUI-43 | GUI_38_43.png | 2/3 |
-| GUI-44 | GUI_44.png | 2/3 |
-| GUI-46 | GUI_46.png | 3/3 |
-| GUI-48 | GUI_48.png | 3/3 |
-| GUI-49 | GUI_07_49.png | 3/3 |
-| GUI-50 | GUI_50.png | 3/3 |
-| GUI-51 | GUI_13_14.png | 3/3 |
+> **20 VU / 11,5 req/s** sustained 30 phút, p95 = 40 ms, error = 0,00%, CPU max = 0,452%, RAM max = 61,61 MiB.
 
-## 4. Số participant usability
+### Issues / Performance findings
 
-| Chỉ số | Giá trị |
-|---|---:|
-| Participant | 7 |
-| Hoàn thành độc lập | 0 |
-| Hoàn thành có can thiệp | 7 |
-| Không hoàn thành | 0 |
-| Bị chặn | 0 |
-| SUS Mean | 79.64 |
-| SUS Median | 90 |
+| # | Loại | Mô tả | Evidence |
+| --- | --- | --- | --- |
+| 1 | Performance finding | Checkout latency tăng từ 7,9 ms → 36,3 ms sau 30 phút do order/cart accumulation | D1 vs D4 JTL |
+| 2 | Functional defect | Checkout không clear cart | Source code `server.js:297-308` + runtime probe Phase A |
+| 3 | Security defect | SQL injection trong search endpoint (`LIKE '%${searchQuery}%'`) | Source code `server.js:144` |
+| 4 | Design inconsistency | Login failed +2 attempts thay vì +1; lockout 180s thay vì 30s | Source code `server.js:54-57` vs assignment spec |
 
-| Participant | Completion | SUS score |
-|---|---|---:|
-| P01 | Hoàn thành có can thiệp | 95 |
-| P02 | Hoàn thành có can thiệp | 90 |
-| P03 | Hoàn thành có can thiệp | 67.5 |
-| P04 | Hoàn thành có can thiệp | 92.5 |
-| P05 | Hoàn thành có can thiệp | 75 |
-| P06 | Hoàn thành có can thiệp | 92.5 |
-| P07 | Hoàn thành có can thiệp | 45 |
+### 2.5. Demo video
 
-## 5. Demo videos
+| Phase | Timestamp | Link |
+| --- | --- | --- |
+| D1 Load | 22:41 - 1:25:20 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=1361) |
+| D2 Stress | 1:26:00 - 1:48:36 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=5160) |
+| D3 Spike | 1:48:42 - 2:09:20 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=6522) |
+| D4 Endurance | 2:09:30 - 3:03:17 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=7770) |
+| Full video | 0:00 - 3:03:17 | [https://youtu.be/slTA5ErFCQ4](https://youtu.be/slTA5ErFCQ4) |
 
-| Video | Link |
-|---|---|
-| Demo skill | [Demo sử dụng agent trong GUI Testing](https://youtu.be/20f_YV-PS4A) |
-| Usability session P01 | [Video P01](https://youtu.be/yNWfs-Z4MqY) |
-| Usability session P02 | [Video P02](https://youtu.be/3PnK0Gon4dE) |
-| Usability session P03 | [Video P03](https://youtu.be/j-RkKLtdni0) |
-| Usability session P04 | [Video P04](https://youtu.be/eshhExP4SNo) |
-| Usability session P05 | [Video P05](https://youtu.be/fWkFW9seKGc) |
-| Usability session P06 | [Video P06](https://youtu.be/fHVS8BKAV-I) |
-| Usability session P07 | [Video P07](https://youtu.be/HOA_h8H6R0I) |
+### Repository
+
+- GitHub: (cần user cung cấp link public)
+
+### Deliverables checklist
+
+| # | Artifact | Trạng thái |
+| --- | --- | --- |
+| 1 | Main report (MD + PDF) | ✅ MD có / ⚠️ PDF chưa export |
+| 2 | 3 graded JMX | ✅ Load, Stress, Spike |
+| 3 | 3 raw JTL logs | ✅ |
+| 4 | 3 HTML report folders | ✅ |
+| 5 | Resource monitor evidence | ✅ Load, Stress (rerun), Spike, Endurance — tất cả RESOURCE_COVERAGE_OK |
+| 6 | Hardware spec screenshots | ✅ |
+| 7 | AI Audit Report (MD + PDF) | ✅ MD / ⚠️ PDF chưa export |
+| 8 | AI Critique | ✅ (274 từ) |
+| 9 | Demo video (YouTube) | ✅ [https://youtu.be/slTA5ErFCQ4](https://youtu.be/slTA5ErFCQ4) (~3h03m) |
+| 10 | Git commit log | ✅ (cần generate) |
+| 11 | Test summary | ✅ |
+| 12 | README.md self-assessment | ✅ |
+| 13 | Endurance JMX + JTL + HTML | ✅ |
+| 14 | Bug/issue reports | ⚠️ Ghi nhận trong reports, chưa tạo GitHub Issues |

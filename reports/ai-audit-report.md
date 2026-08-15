@@ -766,3 +766,34 @@ AI Output:
     Cập nhật D4_ENDURANCE_RESULT_ANALYSIS.md, REVIEW_NOTES.md, WORKFLOW_DESIGN.md — đánh dấu
     [x] Approved, ghi exact approval, reviewer/date.
     Trạng thái: D4 ENDURANCE RESULT APPROVED — PHASE E FINAL REPORT AUTHORIZED.
+
+## Entry #27
+
+### AI Audit Entry
+
+Tool: `Claude Opus 4.6 (Thinking)`
+
+Date: `14/08/2026 03:57 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Phase E — Analyse, challenge and report. D1–D4 đều APPROVED. Thực hiện tuần tự E1–E10:
+    đọc raw JTL/resource trước, tạo RESULT_ANALYSIS.md tổng hợp 4 scenario, AI_MISINTERPRETATION_HUNT.md
+    (chủ động tạo draft AI sai rồi tự sửa), OPTIMIZATION_REVIEW.md (phân loại feasibility),
+    CONTINUOUS_PERFORMANCE.md (pipeline + flowchart + trade-off), ai-critique.md (200–300 từ dựa trên
+    lỗi thật A–E), main-report.md, test-summary.md, README.md (self-assessment table),
+    git-log.txt, rà soát Definition of Done.
+
+AI Output:
+
+    Đọc raw JTL 4 scenario (Load 5209 row, Stress 8372 row, Spike 2576 row, Endurance 23657 row)
+    và 4 backend-resource.csv (Load 267 row, Stress 6 row — lệch thời gian D2, Spike 206 row,
+    Endurance 387 row) trước khi đọc HTML/log. Tính metric trực tiếp bằng PowerShell sort-based
+    percentile từ raw JTL elapsed values.
+
+    Tạo: RESULT_ANALYSIS.md, AI_MISINTERPRETATION_HUNT.md, OPTIMIZATION_REVIEW.md,
+    CONTINUOUS_PERFORMANCE.md, ai-critique.md, cập nhật main-report.md, test-summary.md,
+    README.md (self-assessment table mục 15).
+
+    Xuất git-log.txt. Rà soát Definition of Done Phase E.
+    Trạng thái: PHASE E — PENDING HUMAN REVIEW.

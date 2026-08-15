@@ -1,209 +1,353 @@
-# Main Report
+# Báo cáo chính — HW05 Performance Testing
 
-## Mục lục
-
-- [Thông tin sinh viên](#thông-tin-sinh-viên)
-- [Tổng quan](#tổng-quan)
-- [Task 1 — GUI Checklist](#task-1--gui-checklist)
-- [Task 2 — Usability Evaluation](#task-2--usability-evaluation)
-- [Task 3 — Cross-Browser/Cross-Platform](#task-3--cross-browsercross-platform)
-
-## Thông tin sinh viên
-
-| Mục                     | Giá trị                                                                                                                          |
-| :---------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| **Họ tên sinh viên:**   | Trần Minh Quang                                                                                                                  |
-| **MSSV:**               | 23127464                                                                                                                         |
-| **Lớp / Khoá:**         | CS423 / CSC13003                                                                                                                 |
-| **Mã bài tập :**        | HW03                                                                                                                             |
-| **Ngày làm bài:**       | 28-07-2026                                                                                                                       |
-| **Công cụ AI đã dùng:** | ChatGPT, Claude , Antigravity                                                                                                    |
-| **Repository:**         | [CS423-CSC15003-Testing-N08](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08) - Branch: 23127464-GUI-and-Usability-Testing |
+## Sinh viên: 23127464 — Trần Minh Quang
+## Workflow: Returning Customer Search and Order
+## SUT: EShop REST Backend (Node.js + Express + SQLite)
 
 ---
 
-## Tổng quan
+## 1. Phạm vi kiểm thử và lựa chọn endpoint
 
-- **SUT:** EShop.
-- **Phạm vi được giao:** Cart, Checkout, Coupon, Checkout Success và Admin Coupon Management.
-- **Usability flow:** Participant chọn sản phẩm, chuẩn bị và điều chỉnh giỏ hàng, tiếp tục checkout, thử một ưu đãi được kỳ vọng chấp nhận và một ưu đãi được kỳ vọng không chấp nhận, sau đó hoàn tất thanh toán và nhận biết trạng thái xác nhận.
-- **Cross-platform:** Chrome/Windows, Firefox/Windows và Safari/macOS, được kiểm thử bằng BrowserStack.
+### 1.1. Workflow end-to-end
 
----
+Workflow "Returning Customer Search and Order" mô phỏng một khách hàng quay lại: đăng nhập, tìm kiếm sản phẩm, xem chi tiết, thêm vào giỏ hàng, thanh toán và kiểm tra lịch sử đơn hàng. Workflow gồm 7 bước API tuần tự:
 
-## Task 1 — GUI Checklist
+| Bước | Sampler | Method | Endpoint | Nhóm endpoint |
+| ---: | --- | --- | --- | --- |
+| 1 | RCO-01-Login | POST | `/api/login` | Auth-heavy |
+| 2 | RCO-02-Search | GET | `/api/products?search={keyword}` | Read-heavy |
+| 3 | RCO-03-ProductDetail | GET | `/api/products/{id}` | Read-heavy |
+| 4 | RCO-04-GetCart | GET | `/api/cart` | Transactional |
+| 5 | RCO-05-AddCart | POST | `/api/cart` | Transactional |
+| 6 | RCO-06-Checkout | POST | `/api/checkout` | Transactional |
+| 7 | RCO-07-MyOrders | GET | `/api/orders/my-orders` | Read-heavy |
 
-### Quy trình thiết kế checklist
+Giữa mỗi bước có think timer ngẫu nhiên 1–3 giây mô phỏng thời gian đọc/thao tác của người dùng thật.
 
-AI được sử dụng để sinh 46 item ban đầu, bao phủ bốn nhóm IA-01 đến IA-04. Sau đó, checklist được human review và bổ sung 4 item GUI-047 đến GUI-50.
+### 1.2. Correlation chain
 
-### Các item Human-added
+Workflow sử dụng chuỗi correlation xuyên suốt:
+- Login → trích JWT `token` → dùng trong header `Authorization: Bearer {token}` cho tất cả bước sau
+- Search → trích `productId` từ kết quả đầu tiên
+- ProductDetail → trích `price` (normalize BigDecimal do SUT trả string cho product ID chẵn, integer cho lẻ) → tính `totalAmount = price × quantity`
+- Checkout → trích `orderId` → verify trong MyOrders
 
-| ID      | Why AI may have missed it                                                |
-| ------- | ------------------------------------------------------------------------ |
-| GUI-047 | Hành vi phụ thuộc trạng thái lỗi hiếm gặp với các dòng sản phẩm trùng.   |
-| GUI-48 | Sắc thái accessibility của nhiều vùng tương tác gộp trong một màn hình.  |
-| GUI-49 | Kỳ vọng ngữ nghĩa giữa nhãn hiển thị và kết quả tính toán có thể mơ hồ.  |
-| GUI-50 | Hành vi lưu trạng thái chỉ xuất hiện qua chuyển tiếp refresh giữa chừng. |
+### 1.3. Hardware
 
-### Tóm tắt kết quả thực thi
-
-| Tổng số item | PASSED | FAILED | BLOCKED |
-| -----------: | -----: | -----: | ------: |
-|           51 |     32 |     16 |       3 |
-
-### 16 item FAILED tại baseline Chrome/Windows
-
-- **GUI-07:** Coupon SAVE10 tăng giá thay vì giảm, sai logic áp dụng, không phải lỗi định dạng. Evidence: [GUI_07_49.png](../evidence/hw03/Chrome/GUI_07_49.png)
-- **GUI-15:** Không có dấu `*` hoặc dấu hiệu nào cho trường bắt buộc. Evidence: [GUI_15_16.png](../evidence/hw03/Chrome/GUI_15_16.png)
-- **GUI-17:** Ô Tổng tiền thanh toán là input có thể chỉnh sửa trực tiếp bằng bàn phím, không phải trường chỉ đọc như kỳ vọng. Evidence: [GUI_17.png](../evidence/hw03/Chrome/GUI_17.png)
-- **GUI-23:** Form tạo coupon không hiển thị ký hiệu `*` cho các trường bắt buộc; các ô nhập chủ yếu chỉ dùng placeholder, không có nhãn văn bản riêng hiển thị cạnh từng control. Evidence: [GUI_23_33_34.png](../evidence/hw03/Chrome/GUI_23_33_34.png)
-- **GUI-26:** Không có breadcrumb/navbar/step indicator nào thể hiện Cart là bước hiện tại trước khi chuyển sang Checkout. Evidence: [GUI_26_27_36.png](../evidence/hw03/Chrome/GUI_26_27_36.png)
-- **GUI-27:** Luồng Cart → Checkout không có breadcrumb/step indicator nào thể hiện bước hiện tại. Evidence: [GUI_26_27_36.png](../evidence/hw03/Chrome/GUI_26_27_36.png)
-- **GUI-33:** Mục “Mã Giảm Giá” được highlight màu xanh và mở đúng màn hình “Quản lý Mã Giảm Giá”; Khi ấn backward thì lại ra trang chủ trình duyệt thay vì tab trước đó. Evidence: [GUI_23_33_34.png](../evidence/hw03/Chrome/GUI_23_33_34.png)
-- **GUI-34:** Không có luồng tách biệt xem/tạo/sửa/xóa; toàn bộ gộp trên một màn hình. Evidence: [GUI_23_33_34.png](../evidence/hw03/Chrome/GUI_23_33_34.png)
-- **GUI-36:** Xóa sản phẩm không có hộp thoại xác nhận; sản phẩm bị xóa ngay khi bấm. Evidence: [GUI_26_27_36.png](../evidence/hw03/Chrome/GUI_26_27_36.png)
-- **GUI-38:** Khi mất kết nối mạng lúc submit, hệ thống hiển thị alert lỗi chung "Lỗi khi thanh toán: Network Error", nút Xác nhận thanh toán bị kẹt ở trạng thái "Đang xử lý..." không rõ có cho phép thử lại hay không. Evidence: [GUI_38_43.png](../evidence/hw03/Chrome/GUI_38_43.png)
-- **GUI-43:** Ảnh ghi nhận tại Checkout khi mất mạng: alert “Lỗi khi thanh toán: Network Error”, request checkout ở trạng thái pending và nút hiển thị “Đang xử lý...”; ảnh không hiển thị màn hình Checkout Success hoặc trạng thái tải lại chi tiết xác nhận. Evidence: [GUI_38_43.png](../evidence/hw03/Chrome/GUI_38_43.png)
-- **GUI-44:** Khi mạng chậm (Slow 4G), bảng danh sách coupon hiển thị trống hoàn toàn, không có loading indicator nào trong lúc chờ dữ liệu. Evidence: [GUI_44.png](../evidence/hw03/Chrome/GUI_44.png)
-- **GUI-46:** Xóa coupon SAVE10 không xuất hiện hộp thoại xác nhận nào; danh sách cập nhật ngay từ 4 xuống 3 dòng. Evidence: [GUI_46.png](../evidence/hw03/Chrome/GUI_46.png)
-- **GUI-49:** Nhãn hiển thị “Giảm 10%” đúng, nhưng tổng tiền tăng từ 103.000.000 ₫ lên 1.030.000.000 ₫ nên kết quả cuối cùng không phù hợp. Evidence: [GUI_07_49.png](../evidence/hw03/Chrome/GUI_07_49.png)
-- **GUI-50:** Nếu đang trong quá trình nhập mà refresh, UI hiển thị **404: NOT_FOUND**. Evidence: [GUI_50.png](../evidence/hw03/Chrome/GUI_50.png)
-- **GUI-51:** Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
-
-### 4 bug bổ sung ngoài nhóm FAILED baseline
-
-Bốn bug dưới đây có GitHub Issue và evidence riêng nhưng không làm thay đổi tổng trạng thái checklist `32 PASSED / 16 FAILED / 3 BLOCKED`:
-
-- **GUI-13 — BLOCKED:** Cart không có control tăng/giảm số lượng, nên không thể thực thi kiểm tra giới hạn số lượng. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
-- **GUI-14 — BLOCKED:** Không tồn tại control số lượng để kiểm tra focus và thứ tự bàn phím. Evidence: [GUI_13_14.png](../evidence/hw03/Chrome/GUI_13_14.png)
-- **GUI-16 — BLOCKED:** Checkout không có trường bắt buộc để thực thi kịch bản submit khi bỏ trống. Evidence: [GUI_15_16.png](../evidence/hw03/Chrome/GUI_15_16.png)
-- **GUI-48 — PASSED trong checklist:** Human review ghi nhận item đã thực thi; bug report riêng phản ánh vấn đề thứ tự Tab giữa form và danh sách coupon. Evidence: [GUI_48.png](../evidence/hw03/Chrome/GUI_48.png)
-
-Như vậy, tổng số bug riêng biệt đã báo cáo trên GitHub Issues là **20**: 16 bug thuộc nhóm `FAILED` baseline và 4 bug bổ sung nêu trên.
-
-### Bug đã báo cáo lên GitHub Issues
-
-| ID      | Bug                                                                    | Issue                                                                     |
-| ------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| GUI-07  | [BUG][Coupon] SAVE10 làm tăng tổng tiền thay vì giảm                   | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/132) |
-| GUI-13  | [BUG][Cart] Không có điều khiển tăng giảm số lượng                     | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/133) |
-| GUI-14  | [BUG][Cart] Không thể kiểm tra focus của điều khiển số lượng           | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/134) |
-| GUI-15  | [BUG][Checkout] Thiếu dấu hiệu nhận biết trường bắt buộc               | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/135) |
-| GUI-16  | [BUG][Checkout] Thiếu trường bắt buộc để kiểm tra submit rỗng          | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/136) |
-| GUI-17  | [BUG][Checkout] Tổng tiền thanh toán có thể chỉnh sửa trực tiếp        | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/137) |
-| GUI-23  | [BUG][Admin Coupon] Form tạo coupon thiếu nhãn và dấu bắt buộc         | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/138) |
-| GUI-26  | [BUG][Cart] Thiếu chỉ báo vị trí hiện tại trước Checkout               | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/139) |
-| GUI-27  | [BUG][Checkout] Luồng Cart sang Checkout thiếu step indicator          | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/140) |
-| GUI-33  | [BUG][Admin Navigation] Back rời Admin thay vì về tab trước            | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/141) |
-| GUI-34  | [BUG][Admin Coupon] Các luồng quản lý coupon bị gộp trên một màn hình  | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/142) |
-| GUI-36  | [BUG][Cart] Xóa sản phẩm ngay không có xác nhận                        | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/143) |
-| GUI-38  | [BUG][Checkout] Lỗi mạng khiến submit kẹt ở trạng thái xử lý           | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/144) |
-| GUI-43  | [BUG][Checkout Success] Không có trạng thái khôi phục rõ khi mất mạng  | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/145) |
-| GUI-44  | [BUG][Admin Coupon] Danh sách trống khi tải chậm không có loading      | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/146) |
-| GUI-46  | [BUG][Admin Coupon] Xóa coupon không có xác nhận                       | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/147) |
-| GUI-48 | [BUG][Admin Coupon] Thứ tự Tab giữa form và danh sách không hợp lý     | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/148) |
-| GUI-49 | [BUG][Coupon] Nhãn giảm 10% không khớp tổng tiền cuối                  | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/149) |
-| GUI-50 | [BUG][Checkout] Refresh khi đang nhập hiển thị 404 NOT_FOUND           | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/150) |
-| GUI-51 | [BUG][Cart] Thêm lại sản phẩm tạo dòng trùng thay vì cộng dồn số lượng | [Issue](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
+| Thông số | Giá trị |
+| --- | --- |
+| CPU | Intel Core i7-12700H (20 logical processors) |
+| RAM | 32 GB DDR5 |
+| OS | Windows 11 Pro 24H2 |
+| Java | OpenJDK 17.0.16 LTS |
+| JMeter | Apache JMeter 5.6.3 (non-GUI mode) |
+| SUT | Node.js + Express + SQLite, `localhost:3000` |
 
 ---
 
-## Task 2 — Usability Evaluation
+## 2. Task 1 — Thiết kế và thực thi kiểm thử với AI
 
-### Mục tiêu đánh giá và task scenario
+### 2.1. Thiết kế test plan với AI (AI-first)
 
-**Objective:** Đánh giá khả năng người dùng quản lý giỏ hàng và hoàn tất mua hàng, đồng thời hiểu tổng tiền, phản hồi coupon và trạng thái xác nhận thanh toán.
+AI được dẫn dắt qua từng bước (không phải single generic prompt):
+- **Phase A:** AI xác minh API contract, runtime probe 1 user × 1 flow, phát hiện 10 điểm lệch giữa spec và implementation (login lockout `+2` thay vì `+1`, checkout không clear cart, price type không nhất quán, v.v.).
+- **Phase B:** AI thiết kế workload profile, CSV data (150 account pool, mỗi VU 1 account riêng), reset strategy (restart backend → provision → verify trước mỗi measured interval).
+- **Phase C:** AI sinh JMX thông qua script `generate-phase-c-jmx.js`, tạo smoke JMX trước, rồi derive 3 graded JMX từ smoke đã verify.
 
-#### Mục tiêu đánh giá cụ thể
+### 2.2. Workflow data-driven
 
-1. Xác định participant có thể tự thêm sản phẩm, xem lại giỏ, xóa hoặc cập nhật sản phẩm hay không; đồng thời có hiểu đúng số lượng, giá, khoản giảm và tổng tiền cuối cùng hay không.
-2. Xác định participant có hiểu phản hồi khi coupon được chấp nhận và bị từ chối, có nhận ra tổng tiền phải trả thay đổi đúng như họ mong đợi hay không, và họ xử lý thế nào khi coupon không hoạt động như kỳ vọng.
-3. Xác định participant có thể tự tìm mã coupon hoặc một nguồn mã đáng tin cậy mà không được cung cấp mã trước hay không; ghi nhận việc participant có yêu cầu facilitator cung cấp mã hay không.
-4. Xác định participant có thể hoàn tất checkout và thanh toán một cách tự tin, nhận biết giao dịch đã được xác nhận và giải thích được điều họ mong đợi sẽ xảy ra tiếp theo hay không.
+Sử dụng 2 file CSV:
+- `returning-customer-order.csv` — 170 dòng (Load 20 + Stress 80 + Spike 50 + Endurance 20), mỗi dòng chứa: `email`, `password`, `keyword`, `quantity`, `shippingAddress`. Recycle = false, stopOnEOF = true → mỗi VU dùng 1 dòng duy nhất, không trùng account.
+- `account-provisioning.csv` — 170 dòng với cột `name`, `scenario`, `vuIndex` để provision account trước mỗi run.
 
-**Goal-oriented scenario:**
+Keyword search (5 giá trị xoay vòng: iPhone, Samsung, MacBook, AirPods, Keychron) và quantity (1–3) được phân bổ trước trong CSV.
 
-> Bạn muốn mua một số sản phẩm phù hợp trên EShop. Hãy chọn sản phẩm, chuẩn bị giỏ hàng theo đúng nhu cầu của bạn và điều chỉnh giỏ nếu cần. Sau đó, hãy hoàn tất việc mua hàng. Trong quá trình đó, hãy thử một ưu đãi mà bạn cho rằng có thể được chấp nhận và một ưu đãi mà bạn cho rằng sẽ không được chấp nhận. Hãy nói thành tiếng điều bạn đang tìm kiếm, điều bạn mong đợi và mức độ chắc chắn của bạn khi thực hiện.
+### 2.3. Ba report view khác nhau
 
-Facilitator phải đọc nguyên văn kịch bản. Kịch bản chỉ nêu kết quả cần đạt, không chỉ ra nút, menu, trường nhập, đường điều hướng hay bất kỳ mã coupon nào.
+| Scenario | Listener | Lý do chọn |
+| --- | --- | --- |
+| Load | Summary Report | Tổng hợp throughput/error rate/avg ổn định qua thời gian |
+| Stress | Aggregate Report | So sánh per-sampler percentile giữa các bậc tải |
+| Spike | View Results Tree | Kiểm tra từng request/response tại các giai đoạn baseline/spike/recovery |
 
-### Participants
+Endurance (bổ sung): Response Time Graph — theo dõi response time trend qua 30 phút.
 
-**Đường dẫn thực hiện:**[Usability Test](https://testing-23127464.vercel.app/)
+### 2.4. Đặt tên test plan
 
-| ID  | Participant | Email                       | Thiết bị/browser             | Ngày                  | Completion              |
-| --- | ----------- | --------------------------- | ---------------------------- | --------------------- | ----------------------- |
-| P01 | Khoa        | vankhoa0506@gmail.com       | Máy tính, Windows 10, Chrome | 23h46 ngày 24/07/2026 | Hoàn thành có can thiệp |
-| P02 | Huy         | Vumanhhuy111975@gmail.com   | Laptop, Windows 11, Edge     | 22h23 ngày 25/07/2026 | Hoàn thành có can thiệp |
-| P03 | Phong       | ltphong23@clc.fitus.edu.vn  | Laptop, Linux, Firefox       | 22h45 ngày 25/07/2026 | Hoàn thành có can thiệp |
-| P04 | Minh        | pvminh23@clc.fitus.edu.vn   | Laptop, Windows 10, Chrome   | 10h01 ngày 26/07/2026 | Hoàn thành có can thiệp |
-| P05 | Duyên       | mtkduyen23@clc.fitus.edu.vn | Laptop, Linux, Chrome        | 22h20 ngày 26/07/2026 | Hoàn thành có can thiệp |
-| P06 | Nhật        | lnnhat23@clc.fitus.edu.vn   | Laptop, Windows, Edge        | 22h56 ngày 26/07/2026 | Hoàn thành có can thiệp |
-| P07 | Owen        | ntowen23@clc.fitus.edu.vn   | Laptop, Windows, Chrome      | 00h14 ngày 27/07/2026 | Hoàn thành có can thiệp |
+| File | Convention |
+| --- | --- |
+| `23127464_Load_20260813.jmx` | StudentID_ScenarioType_YYYYMMDD |
+| `23127464_Stress_20260813.jmx` | StudentID_ScenarioType_YYYYMMDD |
+| `23127464_Spike_20260813.jmx` | StudentID_ScenarioType_YYYYMMDD |
+| `23127464_Endurance_20260814.jmx` | StudentID_ScenarioType_YYYYMMDD |
 
-### Kết quả SUS
+### 2.5. Human review — AI đã sai gì
 
-| Participant | SUS raw score |
-| ----------- | ------------: |
-| P01         |            95 |
-| P02         |            90 |
-| P03         |          67.5 |
-| P04         |          92.5 |
-| P05         |            75 |
-| P06         |          92.5 |
-| P07         |            45 |
+| # | Lỗi AI | Phát hiện ở | Sửa chữa |
+| --- | --- | --- | --- |
+| 1 | JMX thiếu `ThreadGroup.main_controller` + `LoopController loops=-1` | Phase C — run D1 lần 1 tạo JTL 0 sample hữu ích | Vá generator, tái sinh cả 3 JMX |
+| 2 | Search HTTPArgument thiếu tên query param | Phase C — smoke chạy không đúng keyword | Thêm `name="search"` vào element |
+| 3 | Assertion search quá yếu (chỉ check HTTP 200, không verify keyword match) | Phase C — smoke pass nhưng không phát hiện response sai | Thêm assertion kiểm tra keyword xuất hiện trong response body |
+| 4 | Resource monitor runbook đặt "Stop" trước "Start JMeter" | Phase D2 — monitor dừng 35 giây trước workload, mất toàn bộ CPU/RAM | Sửa thứ tự: start monitor → verify ≥3 sample → start JMeter. Chạy lại D2 |
 
-|   n |  Mean | Median | Range              |
-| --: | ----: | -----: | ------------------ |
-|   7 | 79.64 |     90 | 45–95 (độ rộng 50) |
+**Nguyên nhân AI sai:**
+- Lỗi 1: Template string trong generator không khớp schema JMeter 5.6.3; AI không có smoke validation tự động cho XML output.
+- Lỗi 2–3: AI tối ưu hóa sớm (generate nhanh) mà không kiểm tra correlation end-to-end.
+- Lỗi 4: AI sinh tài liệu theo thứ tự logic (setup → run → teardown) nhưng thứ tự thời gian thực khác (monitor phải chạy song song, không teardown trước run).
 
-### Severity-ranked findings
+### 2.6. Thực thi và kết quả
 
-#### (a) Bug kỹ thuật trùng khớp Task 1
+#### 2.6.1. Load Test — 20 VU, Ramp 60s, Hold 360s
 
-| Rank | Finding                                                               | Evidence                                                                                                  | Impact                                                                                                              | Frequency                                            | Persistence                                         | Severity | Recommendation                                                                 |
-| ---: | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------- | -------- | ------------------------------------------------------------------------------ |
-|    1 | **GUI-07/GUI-49:** SAVE10 tính sai, làm tổng tiền tăng thay vì giảm. | P02, P05 và P07 tự phát hiện; P06 nhận thấy điểm kỳ lạ nhưng không nêu đủ cụ thể để xác nhận cùng vấn đề. | Sai giá trị thanh toán và làm giảm niềm tin vào coupon/tổng tiền.                                                   | 3/7 xác nhận; 1/7 nghi ngờ nhưng chưa đủ bằng chứng. | Tái diễn ở nhiều phiên khi dùng SAVE10.             | Critical | Sửa công thức SAVE10 và kiểm thử lại tổng tiền trước/sau áp mã.                |
-|    2 | **GUI-17:** tổng tiền tại checkout có thể chỉnh sửa trực tiếp.        | P02, P06 và P07 tự phát hiện ngẫu nhiên trong lúc thao tác.                                               | Người dùng có thể thay đổi giá trị đơn hàng; ảnh hưởng nghiêm trọng đến tính toàn vẹn và độ tin cậy của thanh toán. | 3/7.                                                 | Xuất hiện tại checkout trong cả ba phiên phát hiện. | Critical | Chuyển tổng tiền thành giá trị chỉ đọc và tính lại phía hệ thống khi xác nhận. |
-|    6 | **GUI-13/GUI-14:** Cart thiếu control tăng/giảm số lượng.             | P07 không thể tăng số lượng trong Cart và cần facilitator chỉ sang trang chi tiết.                        | Cản trở điều chỉnh giỏ tại đúng ngữ cảnh, buộc người dùng rời Cart.                                                 | 1/7.                                                 | Tồn tại trong luồng Cart của phiên P07.             | Medium   | Bổ sung control số lượng tại Cart với phản hồi cập nhật tổng tiền.             |
-|    7 | **GUI-36:** xóa sản phẩm không có bước xác nhận.                      | P04 quan sát sản phẩm bị xóa ngay lập tức khi bấm.                                                        | Tăng nguy cơ xóa nhầm và mất công khôi phục lựa chọn.                                                               | 1/7.                                                 | Quan sát tại thao tác xóa trong Cart.               | Medium   | Thêm xác nhận hoặc cơ chế Undo sau khi xóa.                                    |
+| Metric | Giá trị |
+| --- | --- |
+| HTTP Samples | 4.547 |
+| Error Rate | 0,00% (0 failure) |
+| Avg Response Time | 3,4 ms |
+| Median | 3 ms |
+| p90 | 7 ms |
+| p95 | 9 ms |
+| p99 | 13 ms |
+| Throughput | 10,95 req/s |
+| E2E Workflows | 660 (640 hoàn chỉnh, 20 scheduler cutoff) |
+| Workflow/s | 1,54 |
+| Backend CPU Max | 0,542% (normalized) |
+| Backend RAM Max | 56,73 MiB (working set) |
+| Resource Monitor | 267 rows, 2s interval, RESOURCE_COVERAGE_OK |
 
-#### (b) Bug mới chỉ phát hiện qua usability
+**Per-endpoint Load:**
 
-| Rank | Finding                                                     | Evidence                                                                                                                          | Impact                                                                             | Frequency | Persistence                                        | Severity | Recommendation                                                                                       |
-| ---: | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------- | -------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-|    4 | **Thiếu phản hồi thêm giỏ hàng/phải ấn 2 lần.**             | P03 gặp ở trang chi tiết và trang chủ; P05 phải bấm lần hai; P06 phải hỏi và được gợi ý kiểm tra; P07 được hướng dẫn bấm hai lần. | Gây không chắc chắn, thao tác lặp, tự kiểm tra giỏ và tăng nhu cầu hỗ trợ.         | 4/7.      | Lặp lại ở nhiều điểm thêm sản phẩm và nhiều phiên. | High     | Cung cấp phản hồi xác nhận ngay sau một lần thêm và bảo đảm một thao tác được ghi nhận đúng một lần. |
-|    5 | **Số lượng âm được chấp nhận tại trang chi tiết sản phẩm.** | P05 nhập số lượng âm; hệ thống vẫn nhận và thêm vào giỏ.                                                                          | Cho phép trạng thái đơn hàng không hợp lệ, có thể ảnh hưởng số lượng và tính tiền. | 1/7.      | Quan sát được tại product detail trong phiên P05.  | High     | Chặn số lượng nhỏ hơn 1 và hiển thị validation rõ ràng trước khi thêm giỏ.                           |
+| Sampler | Samples | Avg (ms) | p95 (ms) |
+| --- | ---: | ---: | ---: |
+| RCO-01-Login | 660 | 3,7 | 7 |
+| RCO-02-Search | 659 | 2,5 | 5 |
+| RCO-03-ProductDetail | 657 | 2,3 | 4 |
+| RCO-04-GetCart | 655 | 2,0 | 4 |
+| RCO-05-AddCart | 653 | 2,1 | 4 |
+| RCO-06-Checkout | 645 | 7,9 | 13 |
+| RCO-07-MyOrders | 618 | 3,2 | 6 |
 
-#### (c) Finding discoverability coupon
+Run folder: `tests/returning-customer-order/test-runs/load/20260814-001003-user-executed/`
 
-| Rank | Finding                                                                                                    | Evidence                                                                                                                                   | Impact                                                                             | Frequency | Persistence                                        | Severity | Recommendation                                                                                    |
-| ---: | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- | --------- | -------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------- |
-|    3 | **Coupon discoverability:** người dùng không tìm được mã hợp lệ trên UI và phải đoán hoặc hỏi facilitator. | P01 đoán rồi hỏi; P02 đoán rồi hỏi; P03 đoán rồi hỏi; P04 đoán rồi hỏi; P05 hỏi từ trước khi thao tác; P06 đoán rồi hỏi; P07 hỏi nguồn mã. | Chặn việc hoàn thành bước coupon độc lập, gây do dự và buộc facilitator can thiệp. | **7/7.**  | Xuất hiện ở mọi phiên và xuyên suốt bước checkout. | High     | Hiển thị nơi tìm coupon/danh sách mã còn hiệu lực và điều kiện áp dụng ngay trong luồng checkout. |
+Demo video: [YouTube D1 Load (22:41 - 1:25:20)](https://youtu.be/slTA5ErFCQ4?t=1361)
+
+#### 2.6.2. Stress Test — Staircase 10→20→40→60→80 VU, 60s/bậc (Rerun)
+
+| Metric | Giá trị |
+| --- | --- |
+| HTTP Samples | 7.192 |
+| Error Rate | 0,00% (0 failure) |
+| Avg Response Time | 17,4 ms |
+| Median | 3 ms |
+| p90 | 59 ms |
+| p95 | 80 ms |
+| p99 | 160 ms |
+| Throughput | 24,09 req/s |
+| E2E Workflows | 1.062 |
+| Workflow/s | 3,56 |
+| Backend CPU Max | 93,200% (normalized) |
+| Backend RAM Max | 83,98 MiB (working set) |
+| Resource Monitor | 196 rows, 2s interval, RESOURCE_COVERAGE_OK |
+
+**Throughput theo bậc tải (từ run cũ, cùng JMX):**
+
+| Bậc | VU | Throughput (req/s) | Error % |
+| --- | ---: | ---: | ---: |
+| 1 | 10 | 5,47 | 0,00% |
+| 2 | 20 | 11,28 | 0,00% |
+| 3 | 40 | 22,88 | 0,00% |
+| 4 | 60 | 34,75 | 0,00% |
+| 5 | 80 | 46,27 | 0,00% |
+
+Throughput tuyến tính theo VU, chưa đạt plateau, error 0% ở tất cả bậc. Tuy nhiên, CPU max đạt 93,2% (rerun) cho thấy backend gần saturate tại 80 VU.
+
+Run folder (rerun): `tests/returning-customer-order/test-runs/stress/20260814-041320-user-executed/`
+
+Demo video: [YouTube D2 Stress (1:26:00 - 1:48:36)](https://youtu.be/slTA5ErFCQ4?t=5160)
+
+#### 2.6.3. Spike Test — Baseline 5 → Spike 50 → Recovery 5 VU
+
+| Metric | Baseline (5 VU) | Spike (50 VU) | Recovery (5 VU) |
+| --- | ---: | ---: | ---: |
+| HTTP p95 (ms) | 26 | 36 | 16 |
+| Throughput (req/s) | 2,683 | 27,171 | 2,836 |
+| CPU Avg (%) | 0,047 | 0,465 | 0,052 |
+| RAM Avg (MiB) | 53,820 | 68,969 | 54,022 |
+
+| Metric tổng | Giá trị |
+| --- | --- |
+| HTTP Samples | 2.230 |
+| Error Rate | 0,00% |
+| E2E Workflows | 344 (294 hoàn chỉnh, 50 scheduler cutoff) |
+| Peak allThreads | 50 |
+| Resource Monitor | 206 rows, RESOURCE_COVERAGE_OK |
+
+Recovery hoàn toàn: p95 giảm từ 36 ms (spike) về 16 ms (thấp hơn baseline 26 ms), RAM giảm từ 69,0 về 54,0 MiB. Không có dấu hiệu degradation sau spike.
+
+Run folder: `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`
+
+Demo video: [YouTube D3 Spike (1:48:42 - 2:09:20)](https://youtu.be/slTA5ErFCQ4?t=6522)
+
+#### 2.6.4. Endurance Test — 20 VU, 30 phút
+
+| Metric | Giá trị |
+| --- | --- |
+| HTTP Samples | 20.690 |
+| Error Rate | 0,00% (0 failure) |
+| Avg Response Time | 8,0 ms |
+| p90 | 32 ms |
+| p95 | 40 ms |
+| p99 | 51 ms |
+| Throughput | 11,52 req/s |
+| E2E Workflows | 2.965 |
+| Backend CPU Max | 0,452% (normalized) |
+| Backend RAM Max | 61,61 MiB |
+| Resource Monitor | 387 rows, 5s interval, RESOURCE_COVERAGE_OK |
+
+**Trend analysis (bucket 5 phút):**
+
+| Bucket | Throughput (req/s) | RAM Avg (MiB) | Response Avg (ms) |
+| --- | ---: | ---: | ---: |
+| 0–5 min | 10,95 | 56,1 | 9,2 |
+| 5–10 min | 11,42 | 58,3 | 8,1 |
+| 10–15 min | 11,56 | 59,7 | 7,8 |
+| 15–20 min | 11,71 | 60,2 | 7,6 |
+| 20–25 min | 11,65 | 60,8 | 7,5 |
+| 25–30 min | 11,58 | 61,2 | 7,4 |
+
+Working set tăng +4,7 MiB/30 phút, tốc độ giảm dần và ổn định sau T+10. Response time giảm nhẹ (warm-up effect). Throughput ổn định 10,95–11,71 req/s. Không có dấu hiệu memory leak hay degradation.
+
+**Per-endpoint Endurance:**
+
+| Sampler | Samples | Avg (ms) | p95 (ms) |
+| --- | ---: | ---: | ---: |
+| RCO-01-Login | 2.965 | 4,0 | 7 |
+| RCO-02-Search | 2.964 | 2,7 | 5 |
+| RCO-03-ProductDetail | 2.959 | 2,8 | 6 |
+| RCO-04-GetCart | 2.956 | 2,4 | 4 |
+| RCO-05-AddCart | 2.952 | 2,5 | 5 |
+| RCO-06-Checkout | 2.949 | 36,3 | 52 |
+| RCO-07-MyOrders | 2.945 | 4,8 | 10 |
+
+Checkout (avg 36,3 ms, p95 = 52 ms) là endpoint nặng nhất do SQLite write + state accumulation. Tăng từ 7,9 ms (Load, 6 phút) lên 36,3 ms (Endurance, 30 phút) vì mỗi VU tạo ~150 orders qua 30 phút, order history tích lũy.
+
+Run folder: `tests/returning-customer-order/test-runs/endurance/20260814-024700-user-executed/`
+
+Demo video: [YouTube D4 Endurance (2:09:30 - 3:03:17)](https://youtu.be/slTA5ErFCQ4?t=7770)
+
+### 2.7. Endurance threshold
+
+Trên phần cứng này, tải bền vững tối đa quan sát được ổn định trong 30 phút là khoảng **20 VU / 11,5 req/s**, với:
+- p95 = 40 ms (HTTP)
+- Error rate = 0,00%
+- Backend CPU max = 0,452% (normalized)
+- RAM max = 61,61 MiB (working set)
+
+Cơ sở: Endurance run 30 phút với 20 VU cho throughput ổn định, memory trend giảm dần và ổn định. Stress (rerun) cho thấy CPU max 93,2% tại 80 VU — backend gần saturate, vì vậy 20 VU là mức bền vững trên phần cứng này.
+
+### 2.8. Reset strategy giữa các scenario
+
+Mỗi measured run tuân thủ trình tự:
+1. Restart backend (`node server.js` — SUT tự drop/recreate/seed database)
+2. Resolve PID qua `Get-NetTCPConnection -LocalPort 3000`
+3. Verify HTTP 200 trên `/api/products`
+4. Provision account pool bằng `provision-load-accounts.ps1` (register + login validate)
+5. Start resource monitor (PowerShell script, 2s hoặc 5s interval)
+6. Verify monitor ≥3 samples (alignment gate)
+7. Start JMeter measured command
+8. Post-run guard: verify JTL non-empty, no `main_controller` error, exit code 0
+9. Stop monitor sau khi coverage đủ
+10. Generate HTML report
+
+### 2.9. Bugs phát hiện
+
+| # | ID | Severity | Mô tả | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | PERF-01 | Major/P1 | Checkout không xóa giỏ hàng sau đặt hàng | `server.js:297-308`, D4 Endurance state drift |
+| 2 | PERF-02 | Critical/P0 | SQL injection trong search endpoint | `server.js:144`, string interpolation `LIKE '%${searchQuery}%'` |
+| 3 | PERF-03 | Major/P1 | Login lockout +2/180s thay vì +1/30s | `server.js:54-57` |
+| 4 | PERF-04 | Critical/P0 | Checkout trust client `total_amount` | `server.js:297-308`, không validate server-side |
+
+Chi tiết: xem `bug-reports/hw05-perf/PERF-01..04`.
 
 ---
 
-## Task 3 — Cross-Browser/Cross-Platform
+## 3. Task 2 — AI analysis và misinterpretation hunt
 
-### Các platform đã kiểm thử
+### 3.1. AI phân tích raw JTL
 
-| Platform   | Trình duyệt / hệ điều hành | Công cụ      |
-| ---------- | -------------------------- | ------------ |
-| Platform 1 | Chrome / Windows           | BrowserStack |
-| Platform 2 | Firefox / Windows          | BrowserStack |
-| Platform 3 | Safari / macOS             | BrowserStack |
+AI được yêu cầu đọc raw JTL của 4 scenario và đưa ra phân tích ban đầu. Bản draft AI chứa nhiều lỗi diễn giải điển hình:
 
-Platform 1 là bản chạy gốc từ Task 1, được copy lại theo đúng hướng dẫn của giảng viên.
+> "Kết quả Load test cho thấy hệ thống xử lý 5.207 samples với error rate 0% và average response time 11.740 ms. Throughput đạt 1,54 req/s. Stress test đẩy lên 80 VU cho thấy p95 = 37 ms, CPU max đạt 54,14 MiB, xác nhận 80 VU là ngưỡng ổn định. Spike test cho thấy hệ thống có memory leak nghiêm trọng..."
 
-### Tóm tắt so sánh chéo
+### 3.2. Phát hiện lỗi AI (10 lỗi)
 
-Chỉ các dòng có khác biệt trạng thái thực tế trong bảng so sánh được liệt kê dưới đây:
+| # | Lỗi | Giá trị AI nêu | Giá trị đúng (raw JTL) |
+| --- | --- | --- | --- |
+| 1 | Nhầm E2E avg với HTTP avg | 11.740 ms | HTTP avg = 3,4 ms; 11.740 ms là E2E (có think time) |
+| 2 | Gộp transaction rows vào sample count | 5.207 samples | HTTP = 4.547; E2E transaction = 660 |
+| 3 | Nhầm RAM pre-run với CPU, sai đơn vị | CPU = 54,14 MiB | 54,14 MiB là RAM pre-run; CPU Stress không xác định (run cũ) |
+| 4 | Nhầm max thread với sustainable capacity | 80 VU sustained | 80 VU là peak thread; endurance chỉ 20 VU |
+| 5 | Gọi transient spike memory là leak | Memory leak | RAM tăng lúc spike rồi giảm về 54,0 MiB — transient, không leak |
+| 6 | Hoán đổi p90/p95 | p90 = 40 ms | p90 = 32 ms; p95 = 40 ms |
+| 7 | Gán metric Checkout cho Search | Search p95 = 52 ms | Checkout p95 = 52 ms; Search p95 = 5 ms |
+| 8 | Nhầm E2E throughput với HTTP throughput | HTTP = 1,54 req/s | 1,54 là workflow/s; HTTP = 10,95 req/s |
+| 9 | Bịa error rate | Stress error = 0,03% | 0,00% (0 failure / 7.293 HTTP) |
+| 10 | Dùng metric ngắn hạn cho kết luận chung | Checkout avg = 7,9 ms | 7,9 ms chỉ ở Load (6 phút); Endurance (30 phút) = 36,3 ms |
 
-| ID     | Platform 1 (Chrome) | Platform 2 (Firefox) | Platform 3 (Safari) | Nhận xét khác biệt                                                                                      |
-| ------ | ------------------- | -------------------- | ------------------- | ------------------------------------------------------------------------------------------------------- |
-| GUI-38 | FAILED              | FAILED               | BLOCKED             | Blocked trên Safari do giới hạn công cụ chỉnh sửa băng thông mạng, không phải do khác biệt hành vi SUT. |
-| GUI-43 | FAILED              | FAILED               | BLOCKED             | Blocked trên Safari do giới hạn công cụ chỉnh sửa băng thông mạng, không phải do khác biệt hành vi SUT. |
-| GUI-44 | FAILED              | FAILED               | BLOCKED             | Blocked trên Safari do giới hạn công cụ chỉnh sửa băng thông mạng, không phải do khác biệt hành vi SUT. |
+Chi tiết mỗi lỗi (raw evidence, verdict, correction, nguyên nhân AI bỏ lỡ): xem [AI_MISINTERPRETATION_HUNT.md](./returning-customer-order/AI_MISINTERPRETATION_HUNT.md).
 
-Ba trạng thái BLOCKED trên Safari xuất phát từ giới hạn công cụ DevTools khi chỉnh sửa băng thông mạng, không phải khác biệt hành vi của SUT.
+### 3.3. Đánh giá đề xuất tối ưu của AI (7 đề xuất)
+
+| # | Đề xuất | Phân loại | Lý do |
+| --- | --- | --- | --- |
+| 1 | Index `orders(user_id)` | Plausible but unproven | MyOrders p95 chỉ 10 ms; chưa có evidence bottleneck |
+| 2 | SQLite WAL mode | Plausible but unproven | Single-process Node.js, lock contention chưa rõ |
+| 3 | Connection Pool | Hallucinated | SQLite dùng single file connection, không có pool concept |
+| 4 | In-memory cache products | Plausible but unproven | Search avg = 2,7 ms; dataset 5 sản phẩm quá nhỏ |
+| 5 | Pagination my-orders | Feasible | Response time tăng tương quan với order count tích lũy |
+| 6 | Rate Limiting | Not supported | 80 VU 0% error, CPU max 93,2% nhưng không crash |
+| 7 | Clear cart sau checkout | Feasible | Functional fix + giảm state accumulation |
+
+Chi tiết: xem [OPTIMIZATION_REVIEW.md](./returning-customer-order/OPTIMIZATION_REVIEW.md).
+
+---
+
+## 4. Task 3 — Continuous Performance Testing proposal
+
+Đề xuất pipeline CI/CD tự động:
+
+1. **Trigger:** Mỗi PR thay đổi `src/eshop-sut/backend/` → chạy smoke + short Load gate
+2. **Smoke gate:** 1 VU × 1 iteration, kiểm tra functional regression
+3. **Load gate (PR):** 20 VU × 60s hold, threshold: `p95 > baseline_p95 × 1.20 OR error_rate > 1%` → block merge
+4. **Nightly Stress:** Staircase 10→80 VU, so sánh throughput plateau + error trend
+5. **Weekly Spike + Endurance:** 50 VU spike + 15 phút endurance, cập nhật baseline nếu cải thiện
+
+Trade-off chính:
+- **Chi phí:** Smoke + Load gate mỗi PR ~2–3 phút — chấp nhận được
+- **False alarm:** p95 variance cao trên SUT nhẹ (latency <10 ms → 1–2 ms = 10–20%); dùng moving average baseline 3 lần chạy gần nhất
+- **State accumulation:** Bắt buộc restart SUT trước mỗi run để reset DB
+- **Isolation:** Cần dedicated runner để tránh runner noise
+
+Chi tiết (flowchart + discussion): xem [CONTINUOUS_PERFORMANCE.md](./returning-customer-order/CONTINUOUS_PERFORMANCE.md).
+
+---
+
+## 5. Tài liệu đính kèm
+
+| Tài liệu | Đường dẫn |
+| --- | --- |
+| Phân tích tổng hợp | [RESULT_ANALYSIS.md](./returning-customer-order/RESULT_ANALYSIS.md) |
+| AI Misinterpretation Hunt | [AI_MISINTERPRETATION_HUNT.md](./returning-customer-order/AI_MISINTERPRETATION_HUNT.md) |
+| Optimization Review | [OPTIMIZATION_REVIEW.md](./returning-customer-order/OPTIMIZATION_REVIEW.md) |
+| Continuous Performance | [CONTINUOUS_PERFORMANCE.md](./returning-customer-order/CONTINUOUS_PERFORMANCE.md) |
+| AI Critique (274 từ) | [ai-critique.md](./ai-critique.md) |
+| AI Audit Report (27 entries) | [ai-audit-report.md](./ai-audit-report.md) |
+| Workflow Design | [WORKFLOW_DESIGN.md](./returning-customer-order/WORKFLOW_DESIGN.md) |
+| Review Notes | [REVIEW_NOTES.md](./returning-customer-order/REVIEW_NOTES.md) |
+| D1 Load Analysis | [D1_LOAD_RESULT_ANALYSIS.md](./returning-customer-order/D1_LOAD_RESULT_ANALYSIS.md) |
+| D2 Stress Analysis | [D2_STRESS_RESULT_ANALYSIS.md](./returning-customer-order/D2_STRESS_RESULT_ANALYSIS.md) |
+| D3 Spike Analysis | [D3_SPIKE_RESULT_ANALYSIS.md](./returning-customer-order/D3_SPIKE_RESULT_ANALYSIS.md) |
+| D4 Endurance Analysis | [D4_ENDURANCE_RESULT_ANALYSIS.md](./returning-customer-order/D4_ENDURANCE_RESULT_ANALYSIS.md) |
+| Bug Reports | [bug-reports/hw05-perf/](../bug-reports/hw05-perf/) |
+| Test Summary | [test-summary.md](./test-summary.md) |

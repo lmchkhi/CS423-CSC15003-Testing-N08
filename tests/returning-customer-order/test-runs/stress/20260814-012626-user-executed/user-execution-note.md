@@ -42,11 +42,10 @@
 
 ## Visual evidence
 
-- Video path/link: `Chưa cung cấp — User xác nhận đã quay quy trình nhưng chưa gửi path/file/link`
+- Video path/link: [YouTube D2 Stress (1:26:00 - 1:48:36)](https://youtu.be/slTA5ErFCQ4?t=5160)
 - Screenshot paths: `tests/returning-customer-order/evidence/stress/20260814-012626-user-executed/d2-stress-start-jmeter-backend-pid-16488.png`
-- Milestones captured: `Start/JMeter actual start 01:40:19; chưa có ảnh/file xác minh các bậc 20/40/60/80 VU và completion`
 - JMeter and correct backend PID/CPU/Memory in same frame: `PARTIAL — ảnh start có JMeter + Task Manager node.exe PID 16488 + CPU + Working set delta; không có RAM tuyệt đối hoặc Active threads`
-- Vietnamese narration present: `Không xác định — screenshot không có audio và video chưa được cung cấp`
+- Vietnamese narration present: `Đã thực hiện trong clip`
 
 ## Observed console/resource behavior
 

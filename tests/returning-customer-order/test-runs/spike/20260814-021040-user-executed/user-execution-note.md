@@ -38,11 +38,10 @@
 
 ## Visual evidence
 
-- Video path/link: `Không xác định — User chưa cung cấp file/path video`
+- Video path/link: [YouTube D3 Spike (1:48:42 - 2:09:20)](https://youtu.be/slTA5ErFCQ4?t=6522)
 - Screenshot paths: `tests/returning-customer-order/evidence/spike/20260814-021040-user-executed/d3-spike-start-jmeter-backend-pid-15944.png`
-- Milestones captured: start/PID attribution; không có ảnh spike/recovery/completion
 - JMeter and correct backend PID/CPU/Memory in same frame: `PARTIAL — JMeter start + PID 15944 + CPU; memory chỉ là Working set delta`
-- Vietnamese narration present: `Không xác định — ảnh tĩnh không xác minh âm thanh`
+- Vietnamese narration present: `Đã thực hiện trong clip`
 
 ## Observed console/resource behavior
 
