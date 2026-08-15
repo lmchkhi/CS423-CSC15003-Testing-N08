@@ -2,6 +2,7 @@
 **/.claude
 **/.vscode
 **/.idea
+**/.DS_Store
 **/dist
 **/build
 **/database.sqlite

@@ -15,7 +15,9 @@
 | AI tool | Codex |
 | Workflow chọn | Workflow 1 - Người dùng có sẵn mua hàng lần đầu |
 | Ngày chạy | 2026-08-15 |
-| Video demo | TODO |
+| Public GitHub repository | [https://github.com/lmchkhi/CS423-CSC15003-Testing-N08](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08) |
+| README.md | [/reports/README.md](/reports/README.md) |
+| Video demo | [https://youtu.be/AcoNQVMlhS4](https://youtu.be/AcoNQVMlhS4) |
 
 ## 2. Tóm tắt workflow và phạm vi
 
@@ -81,8 +83,9 @@ Data strategy:
 - Mỗi VU nên dùng account riêng để tránh tranh chấp giỏ hàng/đơn hàng.
 - Account được tạo bằng `POST /api/register` trước khi chạy JMeter.
 - CSV hiện có 200 account để đủ cho scenario Spike 200 VUs; Load/Stress/Endurance dùng lại cùng pool account bằng chế độ recycle của CSV Data Set Config.
+- `workflow1_users.csv` là test data snapshot tương ứng với database local tại thời điểm chạy. Script `skills/hw05-jmeter-workflow1/scripts/create_workflow1_accounts.py` tự gọi `/api/register` và ghi đè CSV này; nếu reset database hoặc chạy trên môi trường khác thì phải chạy lại script trước khi chạy JMeter.
 - `productName` và `productPrice` dùng dữ liệu seed thật để payload `POST /api/cart` nhất quán với SUT.
-- Prefix account hiện tại: `hw05-perf-20260815-023132-XXX@example.com`.
+- Prefix account hiện tại: `hw05-perf-20260815-1205-rerun-XXX@example.com`.
 
 ## 5. Thiết kế test plan
 
@@ -166,7 +169,7 @@ JMeter smoke:
 | Smoke | `testing-artifacts/hw05/plans/23127475_Smoke_20260815.jmx` | `testing-artifacts/hw05/results/smoke/23127475_Smoke_20260815_pass.jtl` | `testing-artifacts/hw05/html/smoke-pass/index.html` | TODO screenshot/video | Pass 20 samples, 0 errors |
 | Load | `testing-artifacts/hw05/plans/23127475_Load_20260815.jmx` | `testing-artifacts/hw05/results/load/23127475_Load_20260815.jtl` | `testing-artifacts/hw05/html/load/index.html` | `testing-artifacts/hw05/evidence/notes/load-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/load-cli-htop-20260815.png` | Pass 1176 samples, 0 errors |
 | Stress | `testing-artifacts/hw05/plans/23127475_Stress_20260815.jmx` | `testing-artifacts/hw05/results/stress/23127475_Stress_20260815.jtl` | `testing-artifacts/hw05/html/stress/index.html` | `testing-artifacts/hw05/evidence/notes/stress-20260815.md`; screenshot: `testing-artifacts/hw05/evidence/screenshots/stress-cli-htop-20260815.png` | Pass 8930 samples, 0 errors |
-| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl` | `testing-artifacts/hw05/html/spike/index.html` | `testing-artifacts/hw05/evidence/notes/spike-20260815.md` | Pass 1,225,240 samples, 0 errors; raw JTL giữ local/submit ngoài Git vì khoảng 160 MB |
+| Spike | `testing-artifacts/hw05/plans/23127475_Spike_20260815.jmx` | Raw local: `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl`; compressed commit/submission artifact: `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl.gz` | `testing-artifacts/hw05/html/spike/index.html` | `testing-artifacts/hw05/evidence/notes/spike-20260815.md` | Pass 1,225,240 samples, 0 errors; raw JTL 156 MB được nén gzip còn 7.4 MB để commit/nộp |
 | Endurance | `testing-artifacts/hw05/plans/23127475_Endurance_20260815.jmx` | `testing-artifacts/hw05/results/endurance/23127475_Endurance_20260815.jtl` | `testing-artifacts/hw05/html/endurance/index.html` | `testing-artifacts/hw05/evidence/notes/endurance-20260815.md` | Pass 3837 samples, 0 errors |
 
 ## 9. Kết quả metric
@@ -201,6 +204,8 @@ Resource snapshot steady-state lúc 04:02:32 ghi nhận CPU còn 71.60% idle và
 Spike test chạy đủ 2 phút từ 04:37:05 đến 04:39:05 ngày 2026-08-15 với 200 VUs, ramp-up 30s và think time 0ms. Đây là workload đột ngột nhất hiện tại: 1,225,240 samples, 0 errors, throughput 10212.2907 RPS, p95 37 ms và p99 55 ms.
 
 So với Stress, Spike tăng throughput từ 21.6052 RPS lên hơn 10k RPS vì bỏ think time hoàn toàn. Latency tăng rõ rệt nhưng chưa tạo timeout hay HTTP 4xx/5xx. Request chậm nhất theo p95 là `POST /api/checkout` với p95 54 ms và p99 64 ms; `POST /api/login` cũng tăng lên p95 37 ms và p99 51 ms.
+
+Artifact lưu ý: raw Spike JTL có kích thước 156 MB nên bản gốc `23127475_Spike_20260815.jtl` được giữ local để tái phân tích khi cần. Bản nén gzip `23127475_Spike_20260815.jtl.gz` có kích thước 7.4 MB và được dùng làm raw result artifact phù hợp để commit/nộp kèm.
 
 Resource snapshot peak lúc 04:38:02 ghi nhận CPU còn 50.44% idle, nhưng process snapshot cho thấy backend `node server.js` lên khoảng 122.6% CPU. Kết luận: hệ thống chịu được spike ngắn 200 VUs/0 think time mà không lỗi, nhưng latency nhạy hơn rõ rệt dưới tải đột ngột. Không tạo bug report vì chưa có lỗi SUT; dùng kết quả này làm input cho Endurance threshold và phần phân tích tối ưu sau.
 
@@ -323,7 +328,7 @@ Trade-off:
 
 ## 16. Demo video
 
-Link: TODO.
+Link video demo YouTube unlisted: [https://youtu.be/AcoNQVMlhS4](https://youtu.be/AcoNQVMlhS4)
 
 Nội dung video:
 
@@ -337,15 +342,11 @@ Nội dung video:
 
 ## 17. AI Audit Report
 
-File: `reports/ai-audit-report.md`
-
-Tóm tắt việc dùng AI:
-
-- TODO.
+File: [`reports/ai-audit-report.md`](./ai-audit-report.md)
 
 ## 18. AI Critique 200-300 từ
 
-TODO: viết đoạn 200-300 từ bằng tiếng Việt, nêu AI sai/thiếu ở đâu, vì sao không phát hiện, và nguyên tắc rút ra khi cộng tác với AI.
+File: [`reports/ai-critique.md`](./ai-critique.md)
 
 ## 19. Submission checklist
 
@@ -353,6 +354,7 @@ TODO: viết đoạn 200-300 từ bằng tiếng Việt, nêu AI sai/thiếu ở
 - [ ] CSV data-driven.
 - [ ] Ba listener/report views khác nhau.
 - [ ] Raw `.jtl` đầy đủ.
+- [ ] Spike raw result có bản nén `23127475_Spike_20260815.jtl.gz` vì file gốc 156 MB.
 - [ ] HTML report folders.
 - [ ] Screenshot tool + resource monitor.
 - [ ] Hardware evidence.

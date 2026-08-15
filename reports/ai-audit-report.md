@@ -503,3 +503,157 @@ thực hiện bước tiếp theo
 ```text
 Thực hiện Pha 8 không commit: bổ sung continuous performance testing proposal vào reports/main-report.md với flow chart, baseline Load p95/error rate, warning/fail gate cho p95/error/throughput/checkout, CI trigger/setup/JMeter CLI subset/artifact/baseline update và trade-off; cập nhật reports/hw05-execution-plan.md trạng thái Pha 8.
 ```
+
+## Entry #21
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 11:34 GMT+7 |
+| **Artifact type** | HW05 compressed Spike JTL artifact notes |
+
+**Full prompt:**
+
+```text
+ghi chú trong report và những chỗ liên quan khác về việc file zip này. tôi dự định vẫn sẽ commit file zip này vì thấy còn 7.4mb không quá lớn
+```
+
+### (2) AI Output
+
+```text
+Cập nhật main report, execution plan, spike evidence note và video script để ghi rõ raw Spike JTL 156 MB giữ local, bản gzip 7.4 MB dùng làm artifact commit/nộp; thêm checklist về compressed Spike raw result và ignore .DS_Store để tránh add nhầm file hệ thống.
+```
+
+## Entry #22
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 11:58 GMT+7 |
+| **Artifact type** | HW05 Endurance screenshot guidance |
+
+**Full prompt:**
+
+```text
+à khoan, tôi có cần chạy lại endurance để chụp screenshot không và nếu có thì chụp ở phút thứ mấy, lệnh chạy là
+```
+
+### (2) AI Output
+
+```text
+Hướng dẫn nên rerun Endurance để có screenshot tool/resource monitor nếu muốn đủ evidence trực quan; chụp chính ở phút 7-8 sau khi tải ổn định, có thể chụp thêm phút 13-14; cung cấp lệnh JMeter CLI xuất artifact tạm vào /tmp để không ghi đè kết quả chính.
+```
+
+## Entry #23
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 12:11 GMT+7 |
+| **Artifact type** | HW05 account register rerun |
+
+**Full prompt:**
+
+```text
+tôi chạy backend lên rồi, giờ cần chạy thêm script register rồi mới chạy test được đúng không, chạy script đó giúp tôi đi
+```
+
+### (2) AI Output
+
+```text
+Kiểm tra backend /api/categories trả 200; chạy script create_workflow1_accounts.py ngoài sandbox để tạo lại 200 account qua /api/register với prefix hw05-perf-20260815-1205-rerun; ghi đè testing-artifacts/hw05/data/workflow1_users.csv; xác nhận login account đầu trả HTTP 200. Có thể rerun Endurance screenshot với CSV mới.
+```
+
+## Entry #24
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 12:28 GMT+7 |
+| **Artifact type** | HW05 test data snapshot note |
+
+**Full prompt:**
+
+```text
+chạy script đó có tự động cập nhật file testing-artifacts/hw05/data/workflow1_users.csv không, nếu có thì oke và note vấn đề workflow1_users.csv là test data snapshot; nếu reset database hoặc chạy trên môi trường khác thì chạy lại create_workflow1_accounts.py trước khi chạy JMeter. vào report giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Cập nhật reports/main-report.md, reports/hw05-execution-plan.md và video-script-demo.md để ghi rõ workflow1_users.csv là test data snapshot; script create_workflow1_accounts.py gọi /api/register và tự ghi đè CSV; nếu reset database hoặc chạy môi trường khác thì phải chạy lại script trước JMeter.
+```
+
+## Entry #25
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 13:16 GMT+7 |
+| **Artifact type** | HW05 revert account CSV snapshot |
+
+**Full prompt:**
+
+```text
+trong report chỉ có dòng Prefix account hiện tại bị thay đổi theo csv đúng không, vậy revert file csv rồi sửa lại dòng đó trong report theo csv cũ là được mà đúng không; làm giúp tôi đi
+```
+
+### (2) AI Output
+
+```text
+Revert testing-artifacts/hw05/data/workflow1_users.csv về bản committed trước đó với prefix hw05-perf-20260815-023132; cập nhật reports/main-report.md để dòng Prefix account hiện tại khớp CSV cũ; giữ note test data snapshot/rerun script khi reset database.
+```
+
+## Entry #26
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 13:23 GMT+7 |
+| **Artifact type** | HW05 submission README and repository link |
+
+**Full prompt:**
+
+```text
+xem phần 14. Submission Regulations của đề. tôi thấy có yêu cầu: The public GitHub repository link (test plans and data files). vậy là thêm link repo vào đâu? đây là link repo: https://github.com/lmchkhi/CS423-CSC15003-Testing-N08 . thêm giúp tôi phần đó và phần readme file mà đề yêu cầu luôn, readme đó thì đặt ở trong reports cho không bị trùng với readme ở root
+```
+
+### (2) AI Output
+
+```text
+Đọc section 14 Submission Regulations; thêm public GitHub repository link vào bảng thông tin chung của reports/main-report.md và checklist; tạo reports/README.md chứa thông tin chung, repo/video/report links, self-assessment table, test summary report, endpoint groups, endurance threshold, bug/performance issue count và artifact paths.
+```
+
+## Entry #27
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 13:40 GMT+7 |
+| **Artifact type** | HW05 submission readiness check |
+
+**Full prompt:**
+
+```text
+bây giờ kiểm tra lại xem đã đủ các file vào hoàn thiện theo yêu cầu đề bài chưa. oke rồi thì cho tôi lệnh git add, commit và push branch lên. về file main-report.md, ai-audit-report.md và git commit log tôi sẽ còn chỉnh sửa tiếp
+```
+
+### (2) AI Output
+
+```text
+Rà soát section 14 Submission Regulations: có repo link, reports/README.md, main report, AI audit, AI critique MD/PDF, JMeter plans/data, Load/Stress/Endurance JTL, Spike JTL gzip 7.4 MB, HTML dashboards, screenshots/hardware evidence, bug-reports folder và git-commit-log.txt. Ghi chú các mục còn polish trước khi zip nộp: export main report PDF, export AI audit PDF nếu cần, cập nhật self-assessment TODO và refresh git commit log sau commit cuối.
+```

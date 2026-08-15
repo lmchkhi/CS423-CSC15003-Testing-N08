@@ -15,6 +15,7 @@ Bộ tài liệu và skill hiện tại đã đủ để bắt đầu thực hi�
 - Skill tạo bug report local: `skills/hw05-bug-report`.
 - Skill tạo GitHub issue từ bug report: `skills/gh-create-bug-issues`.
 - Account CSV hiện tại: `testing-artifacts/hw05/data/workflow1_users.csv` với 200 account tạo bằng `/api/register`.
+- `workflow1_users.csv` là test data snapshot; nếu reset database hoặc chạy trên môi trường khác thì chạy lại `skills/hw05-jmeter-workflow1/scripts/create_workflow1_accounts.py` trước khi chạy JMeter. Script này tự ghi đè CSV bằng danh sách account mới theo prefix được truyền vào.
 
 Còn phải tạo trong quá trình làm:
 
@@ -30,6 +31,7 @@ Còn phải tạo trong quá trình làm:
 
 - Giữ blackbox testing: không sửa `backend`, `frontend-web`, `frontend-admin`, `frontend-mobile`.
 - Workflow đo chính không bao gồm register; register chỉ dùng để setup account CSV.
+- Không xem việc register lại account/ghi đè CSV là thay đổi SUT; đây là bước seed test data cho blackbox performance test.
 - Ba scenario Load, Stress, Spike dùng cùng workflow endpoint, chỉ khác workload model/timer/listener.
 - Dùng ba report views khác nhau:
   - Load: `Summary Report`.
@@ -190,7 +192,8 @@ Trạng thái 2026-08-15:
 - Đã chạy Spike test chính thức ngoài sandbox bằng JMeter CLI.
 - Cấu hình: 200 VUs, ramp-up 30s, duration 120s, think time 0ms.
 - Kết quả: 1,225,240 samples, 0 errors, avg 17.14 ms, p95 37 ms, p99 55 ms, throughput 10212.2907 RPS.
-- Evidence chính: `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl`, `testing-artifacts/hw05/html/spike/index.html`, `testing-artifacts/hw05/analysis/spike-summary.csv`, `testing-artifacts/hw05/evidence/notes/spike-20260815.md`.
+- Evidence chính: raw local `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl`, bản nén commit/submission `testing-artifacts/hw05/results/spike/23127475_Spike_20260815.jtl.gz`, `testing-artifacts/hw05/html/spike/index.html`, `testing-artifacts/hw05/analysis/spike-summary.csv`, `testing-artifacts/hw05/evidence/notes/spike-20260815.md`.
+- Raw Spike JTL 156 MB được giữ local; bản gzip còn 7.4 MB nên có thể commit/nộp như artifact raw result đã nén.
 - Text resource evidence đã lưu bằng `top`/`ps`; screenshot Spike có thể chụp bằng rerun riêng nếu cần.
 - Không tạo bug report vì Spike run không có lỗi SUT, nhưng report ghi nhận latency tăng rõ so với Stress.
 
