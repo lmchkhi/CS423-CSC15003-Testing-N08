@@ -219,18 +219,16 @@ Cả bốn lần chạy chấm điểm không sinh ra lỗi thật nào từ SUT
 400 của Spike là artefact của bộ khung kiểm thử, xem
 `reports/run-manifest.md` và `reports/ai-analysis-review.md` mục 2.4 — đã
 loại khỏi bảng dưới). Các defect có thể báo cáo đến từ oracle black-box
-chạy riêng ở `perf/evidence/smoke-oracle-20260813-230513.txt`. Quyết định có
-chủ đích của bài này: **không** tạo file `bug-reports/BUG-*.md` hay GitHub
-issue riêng cho các defect này — bằng chứng và trích dẫn nằm ngay trong bảng
-dưới, đủ để thoả yêu cầu "report issues" của §6 mà không cần một pipeline
-báo cáo lỗi song song (`bug-reports/` giữ nguyên rỗng, chỉ có `.gitkeep`).
+chạy riêng ở `perf/evidence/smoke-oracle-20260813-230513.txt`. Bốn file bug
+report cục bộ đã được tạo dưới `bug-reports/`; GitHub Issue sẽ được publish
+sau khi có xác nhận vì đó là hành động đưa thông tin ra ngoài repo.
 
-| ID (oracle) | Loại | Severity | Bằng chứng quan sát được | Trích dẫn |
+| ID | Loại | Severity | Bằng chứng quan sát được | Báo cáo / GitHub |
 |---|---|---|---|---|
-| OR-2 | Undocumented behaviour | Major | Tài khoản bị khoá ngay sau **2** lần đăng nhập sai liên tiếp (không phải 3 — không có số nào được tài liệu hoá cả), khoá kéo dài **~180 giây**; `POST /api/login` trả **403** trong lúc khoá, ngoài phạm vi hợp đồng tài liệu hoàn toàn vì `api_specification.md` không có một dòng nào nói về lockout. **Không** báo cáo đây là "khoá sau 2 thay vì 3" — không có tài liệu nào ghi 3 để so sánh. | `perf/evidence/smoke-oracle-20260813-230513.txt` mục OR-2 |
-| OR-3 | Internal inconsistency | Minor | `GET /api/products/:id` trả `price` với **kiểu JSON không nhất quán** giữa các id — id lẻ (1, 3, 5) trả số (`30000000`), id chẵn (2, 4) trả chuỗi (`"28000000"`). Không phải vi phạm schema vì endpoint này không có response schema được tài liệu hoá cho `price`. | `perf/evidence/smoke-oracle-20260813-230513.txt` mục OR-3 |
-| OR-4 | Contract deviation | Minor | `GET /api/products/:id` với id không tồn tại trả **HTTP 200, body `{}`**, trong khi §4 của `api_specification.md` ngụ ý phản hồi 404 cho trường hợp không tìm thấy tài nguyên. | `perf/evidence/smoke-oracle-20260813-230513.txt` mục OR-4 |
-| OR-1 (độ dài token) | Contract deviation | Minor | `resetToken` trả về là **4 chữ số** (ví dụ `5621`, `9832`), trong khi `api_specification.md` tài liệu hoá ví dụ 6 chữ số (`"123456"`, dòng 42 và 50). | `perf/evidence/smoke-oracle-20260813-230513.txt` mục OR-1; `api_specification.md` dòng 42, 50 |
+| BUG-FR02-001 | Undocumented behaviour | Major / P1 | Tài khoản bị khoá ngay sau **2** lần đăng nhập sai liên tiếp, khoá kéo dài **~180 giây**; `POST /api/login` trả **403** trong lúc khoá, ngoài phạm vi hợp đồng tài liệu vì `api_specification.md` không mô tả lockout. | `bug-reports/BUG-FR02-001.md`; GitHub pending |
+| BUG-FR06-001 | Internal inconsistency | Minor / P2 | `GET /api/products/:id` trả `price` với **kiểu JSON không nhất quán** giữa các id — id lẻ (1, 3, 5) trả số, id chẵn (2, 4) trả chuỗi. | `bug-reports/BUG-FR06-001.md`; GitHub pending |
+| BUG-FR06-002 | Contract deviation | Minor / P2 | `GET /api/products/:id` với id không tồn tại trả **HTTP 200, body `{}`** thay vì not found. | `bug-reports/BUG-FR06-002.md`; GitHub pending |
+| BUG-FR03-001 | Contract deviation | Minor / P2 | `resetToken` trả về là **4 chữ số** (ví dụ `5621`, `9832`), trong khi `api_specification.md` tài liệu hoá ví dụ 6 chữ số (`"123456"`, dòng 42 và 50). | `bug-reports/BUG-FR03-001.md`; GitHub pending |
 
 ## 3. Task 2 — Phân tích của AI và cuộc săn lỗi diễn giải
 

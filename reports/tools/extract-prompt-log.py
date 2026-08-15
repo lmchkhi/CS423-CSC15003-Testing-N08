@@ -30,6 +30,10 @@ ICT = timezone(timedelta(hours=7))
 # unknown id prints the id and its first prompt, which is how you fill this in.
 SESSIONS = [
     ("b91b82b0", "Dựng khung repo HW05 và mang các tài liệu dùng lại từ HW04 sang"),
+    ("7a54b501", "Lập kế hoạch SDD cho toàn bộ HW05"),
+    ("f3c37e26", "Thực thi các task đầu tiên của kế hoạch HW05"),
+    ("0b0bddfd", "Tiếp tục thực thi kế hoạch HW05 bằng subagent-driven development"),
+    ("6b6df3b7", "Tiếp tục hoàn thiện task, deliverable và đóng gói HW05"),
 ]
 
 # Model display name per transcript's own `message.model` field. Not hardcoded

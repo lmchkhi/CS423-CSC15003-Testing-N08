@@ -61,10 +61,10 @@ POST /api/checkout
 
 | ID | Loại | Severity / Priority | Báo cáo | GitHub Issue |
 |---|---|---|---|---|
-| OR-2 | Undocumented behaviour | Major | `reports/main-report.md` mục 2.9; bằng chứng: `perf/evidence/smoke-oracle-20260813-230513.txt` mục OR-2 | — |
-| OR-3 | Internal inconsistency | Minor | `reports/main-report.md` mục 2.9 | — |
-| OR-4 | Contract deviation | Minor | `reports/main-report.md` mục 2.9 | — |
-| OR-1 | Contract deviation | Minor | `reports/main-report.md` mục 2.9 | — |
+| BUG-FR02-001 | Undocumented behaviour | Major / P1 | `bug-reports/BUG-FR02-001.md` | Pending publish |
+| BUG-FR06-001 | Internal inconsistency | Minor / P2 | `bug-reports/BUG-FR06-001.md` | Pending publish |
+| BUG-FR06-002 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR06-002.md` | Pending publish |
+| BUG-FR03-001 | Contract deviation | Minor / P2 | `bug-reports/BUG-FR03-001.md` | Pending publish |
 
 **Tổng số:** 4 bug (black-box oracle) · 0 performance issue thật (157 lỗi Spike là harness artifact)
 
