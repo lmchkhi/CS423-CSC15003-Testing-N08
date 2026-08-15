@@ -1,6 +1,6 @@
 ---
 name: perf-test-workflow
-description: Apply the HW05 Workflow-5 performance testing loop — map endpoints to samplers, calibrate the workload, model CSV data so no two virtual users collide, build extractors and assertions, generate a JMeter .jmx from the template, seed accounts, run headless, collect .jtl, and analyse results against the raw log. Use whenever a new endpoint group (auth, read, transactional) needs a JMeter test plan, workload calibration, or raw-log analysis for the EShop backend. Includes the full trap list from HW05: silent extractor defaults, functional defects inflating error rate, CSV-cursor collisions, lockout masquerading as saturation, and connection-reuse misconfiguration.
+description: Apply the HW05 EShop performance testing loop to a new endpoint group — map endpoints to samplers, calibrate the workload, model CSV data so no two virtual users collide, build extractors and assertions, generate a JMeter .jmx from the template, seed accounts, run headless, collect .jtl, and analyse results against the raw log. Use whenever an auth, read-heavy, transactional, or mixed EShop workflow needs a JMeter test plan, workload calibration, or raw-log analysis. Includes the full trap list from HW05: silent extractor defaults, functional defects inflating error rate, CSV-cursor collisions, lockout masquerading as saturation, and connection-reuse misconfiguration.
 ---
 
 # Performance Test Workflow Skill
@@ -105,7 +105,7 @@ After calibration, write a one-paragraph justification of each scenario's:
 
 ### Accounts CSV (`perf/data/accounts.csv`)
 
-Columns: `email,newPassword`
+Columns: `email,newPassword,shippingAddress`
 
 Rules:
 - **One row per concurrent VU** — size to the *largest* VU count across all
@@ -115,12 +115,14 @@ Rules:
 - `newPassword`: constant string reused across iterations — makes the
   reset-password journey idempotent (confirmed by oracle OR-1).
 - Never embed commas in any field; the CSV parser is not quote-aware.
+- `shippingAddress` is passed into checkout; keep it deterministic and
+  comma-free so reruns are comparable.
 
 ```bash
 python3 perf/scripts/gen-data.py --accounts 720 --products 5
 ```
 
-Verify: `awk -F, 'NF!=2' perf/data/accounts.csv` must print nothing.
+Verify: `awk -F, 'NF!=3' perf/data/accounts.csv` must print nothing.
 
 ### Products CSV (`perf/data/products.csv`)
 
@@ -185,9 +187,10 @@ Copy `templates/journey.jmx.template` and substitute:
 | `{{VU_COUNT}}` | calibrated thread count |
 | `{{RAMP_SECONDS}}` | calibrated ramp |
 | `{{DURATION_SECONDS}}` | calibrated duration |
-| `{{THINK_MIN_MS}}` / `{{THINK_MAX_MS}}` | think-time range from calibration |
-| `{{LISTENER_CLASS}}` | `SummaryReport` / `StatVisualizer` / `ViewResultsFullVisualizer` |
-| `{{LISTENER_GUICLASS}}` | matching guiclass string |
+| `{{THINK_DELAY_MS}}` / `{{THINK_RANGE_MS}}` | Uniform Random Timer minimum delay and additional range |
+| `{{PROPERTY_PREFIX}}` | lowercase scenario/config prefix, e.g. `load` |
+| `{{LISTENER_GUICLASS}}` | `SummaryReport` / `StatVisualizer` / `ViewResultsFullVisualizer` |
+| `{{LISTENER_NAME}}` | listener display name, e.g. `Summary Report` |
 
 Output path: `perf/plans/jmeter/{{STUDENT_ID}}_{{SCENARIO}}_{{RUNDATE}}.jmx`
 

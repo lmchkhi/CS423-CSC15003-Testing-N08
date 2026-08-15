@@ -69,7 +69,7 @@ ramp 60s, duration 900s (15 phút), think-time 1–3s — xem mục 2.7.
 
 | File | Cột | Số dòng | Dùng ở sampler |
 |---|---|---:|---|
-| `perf/data/accounts.csv` | `email`, `newPassword` (mỗi VU giữ một hàng riêng, không share) | 1000 | `01 POST /api/forgot-password`, `02 POST /api/reset-password`, `03 POST /api/login` |
+| `perf/data/accounts.csv` | `email`, `newPassword`, `shippingAddress` (mỗi VU giữ một hàng riêng, không share) | 1000 | `01 POST /api/forgot-password`, `02 POST /api/reset-password`, `03 POST /api/login`, `07 POST /api/checkout` |
 | `perf/data/products.csv` | `productId`, `productName`, `unitPrice`, `quantity` | 5 | `05 GET /api/products/{id}`, `06 POST /api/cart`, `07 POST /api/checkout` (tính `orderTotal` qua `JSR223PreProcessor`) |
 
 1000 dòng `accounts.csv` được chọn để phủ đỉnh concurrency lớn nhất trong
@@ -205,13 +205,13 @@ cả overhead khởi động JMeter/SUT).
 
 ### 2.8. Video demo
 
-*(Chưa có — Task 27 "quay video demo" nằm ngoài phạm vi bốn tác vụ được
-thực hiện trong phiên viết báo cáo này. Không dựng link giả; mục này để
-trống cho tới khi Task 27 chạy.)*
+Task 27 đã chuẩn bị đầy đủ kịch bản quay để sinh viên tự ghi âm/ghi màn hình
+bằng giọng của mình; không dựng link giả khi video chưa được upload.
 
-| Nội dung | Link |
+| Nội dung | Tài liệu quay / link |
 |---|---|
-| — | *(chưa có)* |
+| Task 1 — Load/Stress/Spike/Endurance, tool + resource monitor cùng khung hình | `reports/video-script-task1.md` |
+| Agent Skill demo (§7) — áp dụng skill cho Workflow 3, không phải Workflow 5 | `reports/video-script-skill.md` |
 
 ### 2.9. Bug / performance issue đã ghi nhận
 
@@ -245,9 +245,14 @@ Xem [`continuous-perf-proposal.md`](continuous-perf-proposal.md).
 
 ## 5. Agent Skill (§7)
 
-*(Skill áp dụng lại quy trình performance testing + phân tích log cho endpoint
-khác, kèm video demo — nằm ngoài phạm vi bốn tác vụ được thực hiện trong
-phiên viết báo cáo này.)*
+Skill đã được tạo ở `.claude/skills/perf-test-workflow/SKILL.md`, kèm
+template `.claude/skills/perf-test-workflow/templates/journey.jmx.template`.
+Nội dung skill tham số hoá vòng lặp kiểm thử hiệu năng cho workflow EShop
+khác Workflow 5: map endpoint sang sampler, calibration trước khi chọn tải,
+thiết kế CSV tránh va chạm VU, extractor/assertion có default thất bại rõ,
+chạy JMeter headless qua script, thu `.jtl`/HTML/resource evidence và phân
+tích lại từ raw log. Video demo tương ứng dùng Workflow 3 trong
+`reports/video-script-skill.md`.
 
 ## 6. Phụ lục AI
 

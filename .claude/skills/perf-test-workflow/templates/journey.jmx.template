@@ -66,16 +66,16 @@
         <stringProp name="shareMode">shareMode.all</stringProp>
       </CSVDataSet>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - Load 50 VU" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG - {{SCENARIO}} {{VU_COUNT}} VU" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(load.threads,50)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(load.ramp,60)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P({{PROPERTY_PREFIX}}.threads,{{VU_COUNT}})}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P({{PROPERTY_PREFIX}}.ramp,{{RAMP_SECONDS}})}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(load.duration,360)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P({{PROPERTY_PREFIX}}.duration,{{DURATION_SECONDS}})}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
@@ -101,7 +101,7 @@
             <stringProp name="JSONPostProcessor.referenceNames">resetToken</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.resetToken</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">EXTRACTION_FAILED</stringProp>
           </JSONPostProcessor>
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
@@ -184,7 +184,7 @@
             <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.token</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">EXTRACTION_FAILED</stringProp>
           </JSONPostProcessor>
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
@@ -358,7 +358,7 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
             <stringProp name="JSONPostProcessor.referenceNames">orderId</stringProp>
             <stringProp name="JSONPostProcessor.jsonPathExprs">$.orderId</stringProp>
             <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">EXTRACT_FAILED</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">EXTRACTION_FAILED</stringProp>
           </JSONPostProcessor>
           <hashTree/>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200" enabled="true">
@@ -383,13 +383,13 @@ vars.put("orderTotal", String.valueOf(unit * qty))</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time 1-3s" enabled="true">
-          <stringProp name="ConstantTimer.delay">${__P(think.delay,1000)}</stringProp>
-          <stringProp name="RandomTimer.range">${__P(think.range,2000.0)}</stringProp>
+        <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Think time {{THINK_DELAY_MS}}ms + {{THINK_RANGE_MS}}ms" enabled="true">
+          <stringProp name="ConstantTimer.delay">${__P(think.delay,{{THINK_DELAY_MS}})}</stringProp>
+          <stringProp name="RandomTimer.range">${__P(think.range,{{THINK_RANGE_MS}})}</stringProp>
         </UniformRandomTimer>
         <hashTree/>
       </hashTree>
-      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+      <ResultCollector guiclass="{{LISTENER_GUICLASS}}" testclass="ResultCollector" testname="{{LISTENER_NAME}}" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>

@@ -208,7 +208,8 @@ rules, extractor rules, và bảy trap được rút ra từ kinh nghiệm thự
 bốn kịch bản cho Workflow 5.*
 
 *Template `journey.jmx.template` cho phép áp dụng sang workflow mới bằng
-cách thay 7 marker — không cần rebuild plan từ đầu.*
+cách thay các marker `{{...}}` cho workflow, tải, think-time và listener —
+không cần rebuild plan từ đầu.*
 
 *Skill nằm tại `.claude/skills/perf-test-workflow/SKILL.md`, có YAML
 frontmatter hợp lệ với `name` và `description`, và đã được xác nhận load

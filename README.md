@@ -17,8 +17,8 @@
 | 3 | Task 1 — Spike testing | 20 | 18 |
 | 4 | Task 2 — AI analysis + misinterpretation hunt | 10 | 9 |
 | 5 | Task 3 — Continuous Performance Testing proposal (G9.6) | 10 | 9 |
-| 6 | Agent Skills | 10 | 0 |
-| | **Tổng** | **100** | **72** |
+| 6 | Agent Skills | 10 | 9 |
+| | **Tổng** | **100** | **81** |
 
 ---
 
@@ -72,8 +72,8 @@ POST /api/checkout
 
 | Nội dung | Link |
 |---|---|
-| Task 1 — ba kịch bản, tool + resource monitor cùng khung hình (≥6 phút, tiếng Việt) | |
-| Agent Skill demo (§7) | |
+| Task 1 — ba kịch bản, tool + resource monitor cùng khung hình (≥6 phút, tiếng Việt) | Kịch bản quay: `reports/video-script-task1.md`; link video để điền sau khi upload |
+| Agent Skill demo (§7) | Kịch bản quay: `reports/video-script-skill.md`; link video để điền sau khi upload |
 
 ---
 
@@ -82,7 +82,7 @@ POST /api/checkout
 | Đường dẫn | Nội dung |
 |---|---|
 | `perf/plans/jmeter/` | Test plan JMeter `.jmx` — `23127300_{Load\|Stress\|Spike}_{YYYYMMDD}` |
-| `perf/data/` | Dữ liệu CSV cho toàn bộ tham số (§6 — data-driven) |
+| `perf/data/` | Dữ liệu CSV cho toàn bộ tham số (§6 — data-driven), gồm `shippingAddress` cho checkout |
 | `perf/results/jtl/` | Log `.jtl` thô, đính kèm đầy đủ (§11) |
 | `perf/results/html/` | Thư mục HTML report của từng lần chạy |
 | `perf/scripts/` | Script seed dữ liệu, reset khoá tài khoản, chạy kịch bản |
@@ -106,4 +106,4 @@ POST /api/checkout
 |---|---|
 | GitHub repository | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08 (branch `HW05/23127300`) |
 | SUT | https://github.com/ttbhanh/eshop-sut |
-| Demo video | |
+| Demo video | Chưa upload; kịch bản quay nằm ở `reports/video-script-task1.md` và `reports/video-script-skill.md` |

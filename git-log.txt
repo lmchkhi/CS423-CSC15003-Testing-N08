@@ -1,0 +1,56 @@
+67006706 2026-08-15 09:19:24 +0700 docs(hw05): add Vietnamese narration scripts for both demo videos
+272cc5f4 2026-08-15 09:16:55 +0700 feat(skill): add reusable performance-testing workflow skill
+c08bbcf1 2026-08-15 09:13:40 +0700 build(reports): render mermaid diagrams in the generated PDFs
+29c7b5df 2026-08-15 08:53:53 +0700 docs(hw05): add AI critique, README summary and finalize the audit report
+2d397c3e 2026-08-15 08:50:15 +0700 docs(hw05): complete the main performance-testing report
+3594a7e0 2026-08-15 08:39:13 +0700 docs(hw05): propose a continuous performance testing model with regression gating
+e62be051 2026-08-15 08:37:33 +0700 docs(hw05): complete the AI misinterpretation hunt with recomputed values
+a965e732 2026-08-15 08:34:34 +0700 docs(hw05): capture the AI analysis of the raw logs verbatim
+f747d538 2026-08-15 08:20:39 +0700 docs(hw05): capture the three distinct listener views from the graded logs
+b5ee5074 2026-08-14 23:06:51 +0700 fix(perf): commit raw JMeter run logs, fix .gitignore comment, document manifest provenance
+050e24fe 2026-08-14 22:50:17 +0700 docs(hw05): fill the run manifest from the executed runs
+06bd3d95 2026-08-14 22:48:20 +0700 test(perf): record Endurance soak run with raw log, dashboard and evidence
+67a710aa 2026-08-14 22:31:45 +0700 test(perf): record Spike scenario run with raw log, dashboard and evidence
+90629887 2026-08-14 22:24:23 +0700 test(perf): record Stress scenario run with raw log, dashboard and evidence
+3b5a5ff3 2026-08-14 22:12:47 +0700 test(perf): record Load scenario run with raw log, dashboard and evidence
+694ee5db 2026-08-14 21:53:20 +0700 feat(perf): add evidence capture tooling and record the hardware report
+6c3b360c 2026-08-14 21:51:00 +0700 fix(perf): grow accounts.csv to 1000 rows to cover Spike's 620 threads
+ae206de8 2026-08-14 21:37:50 +0700 feat(perf): add Endurance test plan for the hardware threshold measurement
+e1178ccc 2026-08-14 21:37:36 +0700 feat(perf): add Spike test plan with baseline traffic and two bursts
+739a75cb 2026-08-14 21:29:32 +0700 feat(perf): add Stress test plan with a five-step concurrency staircase
+0dc3aaba 2026-08-14 21:09:16 +0700 fix(perf): stop JMeter from thrashing connections every iteration
+ed535761 2026-08-14 21:08:53 +0700 feat(perf): parameterise think time and calibrate the arrival-rate axis
+062faa8a 2026-08-14 21:08:27 +0700 test(perf): calibrate workload thread counts against this hardware
+a1d85853 2026-08-14 19:46:56 +0700 feat(perf): add Load test plan for Workflow 5 with extractors and assertions
+1464ec61 2026-08-14 12:06:37 +0700 fix(perf): treat a zero-sample .jtl as a failed run, not a clean exit
+aff5cc88 2026-08-14 12:03:35 +0700 fix(perf): keep run-scenario summary alive when post-run steps degrade
+1cc5fffb 2026-08-14 11:53:32 +0700 feat(perf): add end-to-end scenario runner with monitoring and manifest output
+87d7dd85 2026-08-14 11:47:23 +0700 fix(perf): match JMeter's throughput window and pin nearest-rank at p50 even-length
+9135ed0f 2026-08-14 11:35:39 +0700 feat(perf): add steady-state windowing to the .jtl analyser
+de7a67ea 2026-08-14 11:34:46 +0700 feat(perf): add raw .jtl analyser with percentile and per-label stats
+56c8066e 2026-08-14 11:32:02 +0700 chore(hw05): drop k6 — §8's bonus is for k6 instead of JMeter, not both
+d4df1933 2026-08-14 11:23:44 +0700 fix(perf): stop reset-lockout.sh counting pending attempts as lockouts
+27df4ca8 2026-08-14 11:23:39 +0700 fix(perf): don't let one connect failure kill seed-accounts.sh before verification
+75b80ecf 2026-08-14 11:05:52 +0700 feat(perf): sample SUT and JMeter resource usage during runs
+0c262579 2026-08-14 11:05:11 +0700 feat(perf): script and document the between-run lockout reset
+aeb5dd22 2026-08-14 11:04:41 +0700 feat(perf): seed and verify Workflow 5 accounts through the API
+ed68bc36 2026-08-14 11:02:58 +0700 chore(perf): drop the superseded oracle transcript
+d5b64e6c 2026-08-13 23:08:31 +0700 test(perf): give OR-2 and OR-3 explicit PASS/FAIL verdicts
+b65d7d7b 2026-08-13 22:54:16 +0700 chore(perf): keep SUT source out of comments; ignore sut.sh runtime state
+42ef4a5e 2026-08-13 22:54:12 +0700 test(perf): add black-box oracle and correct the lockout note from observation
+035ba321 2026-08-13 22:43:01 +0700 fix(perf): make shippingAddress comma-free so it does not need CSV quoting
+9c6f6521 2026-08-13 22:42:52 +0700 fix(perf): make sut.sh reset actually restart the node process
+f482bd1c 2026-08-13 22:39:10 +0700 chore(perf): pin .jtl fields and dashboard percentiles for reproducible runs
+bf3e2956 2026-08-13 22:38:45 +0700 feat(perf): generate data-driven CSV inputs for Workflow 5
+981ab218 2026-08-13 22:38:03 +0700 feat(perf): add SUT lifecycle script for HW05 runs
+15b3100f 2026-08-13 21:55:51 +0700 chore(hw05): log only this submission's sessions in the prompt log
+ffab9ee0 2026-08-13 21:49:50 +0700 chore(hw05): scaffold repo and carry over reusable HW04 material
+d6972bf2 2026-08-13 21:49:38 +0700 chore(hw05): strip SUT source from the submission branch
+969e1566 2026-06-10 17:06:05 +0700 Remove commiting database to git
+807c1b7b 2026-06-10 16:39:00 +0700 Merge pull request #5 from lmchkhi/issues_template
+371b1045 2026-06-09 11:24:22 +0700 Fixing template comment
+538890ac 2026-06-09 11:18:46 +0700 Adding default label to template
+56333545 2026-06-09 09:59:12 +0700 Update issue templates
+e59ee5a6 2026-06-08 16:38:13 +0700 adding .gitignore
+85af3ba8 2026-05-15 08:30:35 +0700 first upload
+2f9bf2ba 2026-05-15 08:27:44 +0700 Initial commit
