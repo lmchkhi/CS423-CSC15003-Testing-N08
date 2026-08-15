@@ -615,6 +615,54 @@ Not done yet, for the planning phase: the §7 Agent Skill for the perf workflow,
 
 ---
 
+**Phiên thủ công — Codex trong OpenAI/Codex API, không có Claude JSONL transcript**
+
+## [15] Codex (GPT-5, Codex API) — 12:45 PM 15/08/2026
+
+**Prompt:**
+```text
+do the remaining tasks of the .superpowers/sdd and docs/superpowers
+
+change the git log to use the git log graph command and filter the author as my email only hiembaonon@gmail.com
+
+also i see that the reports/prompt-log.md and reports/ai-audit-report.md has not been appended for a long time, can you retrieve those missing logs (i know it from claude)
+
+next question, since i ran out of quota on claude, can i really film the video base on the script to demo the skill? can I use claude model on antigravity? or we should create a temporary folder and adjust the skills for you to use for demo purpose? because i fear the model on antigravity ide will not complete the prompt as good as you.
+
+next problem is the task for bug report and gh issue still not fulfilled
+
+logged into github. but im confused why the bug report evidence not pointing to a screenshot but a generated script that looks not very trustable, is this intentional?
+
+✓ Configured git protocol
+✓ Logged in as hbnnnnnnn
+! You were already logged in to this account
+
+nope, create new ones, delete your comments, it can be duplicated
+
+change git log command to git log --graph --all --stat, filter my account
+
+commit my changes in video scripts too, also can you export this conversation prompt log and append ai audit report too?
+```
+
+**Output:**
+```text
+Codex completed the remaining local HW05 finalization work:
+- committed the reusable Agent Skill/package fixes and final PDFs;
+- regenerated `git-log.txt` first with graph author filtering, then with `git log --graph --all --stat --author='hiembaonon@gmail.com'`;
+- recovered Claude prompt-log entries from local Claude JSONL transcripts by extending `reports/tools/extract-prompt-log.py`;
+- appended recovered audit entries via `reports/tools/recover-ai-audit-from-prompt-log.py`;
+- created local bug reports for BUG-FR02-001, BUG-FR03-001, BUG-FR06-001, BUG-FR06-002;
+- clarified that API-bug evidence is a committed black-box console transcript rather than a screenshot;
+- published four GitHub issues: #248, #249, #250, #251;
+- deleted the two comments previously posted to existing duplicate issues #71 and #214 after the user requested fresh duplicate issues;
+- updated README/main report/bug report files with issue URLs and refreshed PDFs;
+- committed the user's video-script wording edits as `02234c03 docs(hw05): adjust Vietnamese video narration voice`.
+
+Limitation: this entry is manually exported from the visible Codex conversation. It is not generated from Claude Code JSONL and does not include hidden model reasoning or every tool stdout byte-for-byte.
+```
+
+---
+
 
 ## [2] Claude (Opus 5, Claude Code) — 9:53 PM 13/08/2026
 

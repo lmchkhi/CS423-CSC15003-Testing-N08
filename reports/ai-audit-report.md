@@ -8,7 +8,7 @@
 | **MSSV** | 23127300 |
 | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
 | **Ngày làm bài** | 13/08/2026 – 15/08/2026 |
-| **Công cụ AI đã dùng** | Claude (Opus 5, chạy trong Claude Code) |
+| **Công cụ AI đã dùng** | Claude (Opus 5, chạy trong Claude Code); Codex (GPT-5, OpenAI/Codex API) |
 
 ## 2. Tuyên bố sử dụng AI (HW05 §9)
 
@@ -24,6 +24,7 @@ lọc nằm ở [`prompt-log.md`](prompt-log.md).
 | Thực thi | Apache JMeter 5.6.3 | Chạy Load / Stress / Spike / Endurance trên backend API |
 | Phân tích log (§6 Task 2) | Claude (Opus 5, trong Claude Code) | Phân tích `.jtl` thô, đề xuất ngưỡng và tối ưu hoá — sau đó bị sinh viên rà soát lại |
 | Đề xuất CI hiệu năng (§6 Task 3) | Claude (Opus 5, trong Claude Code) | Dựng bản nháp mô hình continuous performance testing |
+| Hoàn thiện đóng gói sau quota (§6/§7/§9/§12) | Codex (GPT-5, OpenAI/Codex API) | Khôi phục prompt/audit log, hoàn thiện bug reports/GitHub issues, cập nhật git log, PDF và script video |
 
 Mức Bloom-AI mà HW05 §8 yêu cầu — **G9.2 (Apply), G9.3 (Analyse), G9.4
 (Collaborate), G9.6 (Disrupt)** — được thể hiện lần lượt ở: quy trình từng bước
@@ -3376,6 +3377,42 @@ Phiên quota-limit tạo các deliverable quan trọng nhưng cố ý giảm cer
 
 ---
 
+## Entry #16
+
+### (1) Prompt + Tool
+
+| Field             | Content         |
+| ----------------- | --------------- |
+| **Tool**          | Codex (GPT-5, OpenAI/Codex API) |
+| **Timestamp**     | 12:45 PM 15/08/2026 |
+| **Artifact type** | Finalization session — recovered logs, bug reports, GitHub issues, git-log format, video-script commit, and this Codex-session audit entry |
+
+**Full prompt:**
+
+```text
+commit my changes in video scripts too, also can you export this conversation prompt log and append ai audit report too?
+```
+
+### (2) AI Output
+
+```text
+Committed the video-script narration edits as `02234c03 docs(hw05): adjust Vietnamese video narration voice`, appended a manual Codex-session entry to `reports/prompt-log.md`, appended this audit entry, regenerated PDFs, and refreshed the author-filtered graph/stat git log.
+```
+
+### (3) Verdict
+
+**`VALID`**
+
+### (4) Reasoning
+
+Entry này hợp lệ cho mục đích audit vì nó ghi rõ giới hạn của phiên Codex: không có transcript JSONL kiểu Claude để trích tự động, nên prompt/output được xuất thủ công từ phần hội thoại nhìn thấy. Các artifact tạo ra trong phiên này có thể kiểm tra độc lập bằng git history, bug-report files, GitHub issue links và PDF đã regenerate.
+
+### (5) Student Fix
+
+Không cần sửa nội dung kỹ thuật; chỉ cần giữ chú thích rằng đây là bản export thủ công, không phải log tự động từ Claude transcript.
+
+---
+
 ## 4. Tổng hợp độ chính xác của AI
 
 *(Cập nhật lại sau mỗi entry — tổng số entry, số VALID / INVALID / INCOMPLETE và
@@ -3383,15 +3420,17 @@ tỉ lệ phần trăm.)*
 
 | Verdict | Số entry | Tỉ lệ |
 |---|---:|---:|
-| `VALID` | 6 | 40% |
-| `INVALID` | 1 | 7% |
-| `INCOMPLETE` | 8 | 53% |
-| **Tổng** | **15** | **100%** |
+| `VALID` | 7 | 44% |
+| `INVALID` | 1 | 6% |
+| `INCOMPLETE` | 8 | 50% |
+| **Tổng** | **16** | **100%** |
 
 ## 5. Kết luận
 
-Duy nhất Entry #1 (Task 2 — phân tích log) có một cuộc rà soát độc lập đầy
-đủ với số liệu đối chiếu. Nhận xét dưới đây dựa vào entry đó.
+Entry #1 (Task 2 — phân tích log) là cuộc rà soát độc lập đầy đủ nhất với
+số liệu đối chiếu. Entry #16 ghi nhận phiên Codex cuối dùng để đóng gói và
+khôi phục log sau khi quota Claude hết; các nhận xét về lỗi diễn giải bên
+dưới vẫn dựa chủ yếu vào Entry #1.
 
 **Nhóm lỗi lặp lại.** Cả bốn lỗi diễn giải ở Entry #1 đều thuộc cùng một
 gốc: model tổng hợp thống kê *gộp* (error % toàn run, percentile toàn label,

@@ -1,3 +1,22 @@
+* commit 02234c039a43ce8e72e912b405e583b2c5edc218
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 15 12:45:41 2026 +0700
+| 
+|     docs(hw05): adjust Vietnamese video narration voice
+| 
+|  reports/video-script-skill.md | 6 +++---
+|  reports/video-script-task1.md | 8 ++++----
+|  2 files changed, 7 insertions(+), 7 deletions(-)
+| 
+* commit a33ed4c9a7f7a2dc6cd46614621093dfb1c90401
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 15 12:44:24 2026 +0700
+| 
+|     docs(hw05): use graph stat git log for author history
+| 
+|  git-log.txt | 6487 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+|  1 file changed, 6434 insertions(+), 53 deletions(-)
+| 
 * commit 675deaf48e08a477d46539cf27220c4ffe83a2dd
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sat Aug 15 12:43:24 2026 +0700
