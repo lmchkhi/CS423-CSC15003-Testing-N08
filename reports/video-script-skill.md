@@ -33,16 +33,16 @@ Không có forgot-password hay reset-password → CSV đơn giản hơn (chỉ c
 
 ## Phần 0 — Giới thiệu skill (≈ 0:00–0:50)
 
-*"Xin chào, tôi là Hà Bảo Ngọc, MSSV 23127300.*
+*"Xin chào, em là Hà Bảo Ngọc, MSSV 23127300.*
 
-*Trong video này tôi sẽ demo Agent Skill `perf-test-workflow` —
+*Trong video này em sẽ demo Agent Skill `perf-test-workflow` —
 một skill tái sử dụng được, áp dụng vòng lặp kiểm thử hiệu năng HW05 cho
 bất kỳ nhóm endpoint nào của EShop backend.*
 
 *Skill nằm tại `.claude/skills/perf-test-workflow/SKILL.md` và đi kèm
 template JMX tại `templates/journey.jmx.template`.*
 
-*Tôi sẽ áp dụng nó cho Workflow 3: Browse and Add-to-Cart — nhóm endpoint
+*em sẽ áp dụng nó cho Workflow 3: Browse and Add-to-Cart — nhóm endpoint
 này chưa có test plan, chưa có calibration, và chưa có dữ liệu chạy —
 đây là bằng chứng skill hoạt động trên workflow mới, không phải chỉ wrap
 lại Workflow 5."*

@@ -20,10 +20,10 @@
 
 > *(Nói trước khi bật ghi màn hình nếu muốn, hoặc ghi thẳng)*
 
-*"Xin chào, tôi là Hà Bảo Ngọc, MSSV 23127300, nhóm N08,
+*"Xin chào, em là Hà Bảo Ngọc, MSSV 23127300, nhóm N08,
 môn CS423/CSC15003 Kiểm thử Phần mềm.*
 
-*Trong video này tôi sẽ trình bày Task 1 của HW05: chạy bốn kịch bản kiểm
+*Trong video này em sẽ trình bày Task 1 của HW05: chạy bốn kịch bản kiểm
 thử hiệu năng — Load, Stress, Spike và Endurance — trên SUT EShop backend
 chạy ở localhost:3000.*
 
@@ -39,7 +39,7 @@ trên máy Apple M4 Pro 12-core, 24 GB RAM."*
 
 ## Phần 1 — Môi trường và cửa sổ (≈ 0:45–1:30)
 
-*"Trước tiên tôi sẽ cho thấy bố cục màn hình làm việc."*
+*"Trước tiên em sẽ cho thấy bố cục màn hình làm việc."*
 
 **Hành động:**
 1. Phóng to Terminal và Activity Monitor — phải cùng khung hình.
@@ -48,7 +48,7 @@ trên máy Apple M4 Pro 12-core, 24 GB RAM."*
 4. Gõ `ls perf/plans/jmeter/` — show 4 file `.jmx` với MSSV và ngày 20260814.
 5. Gõ `ls perf/results/jtl/` — show 4 file `.jtl.gz` đã có.
 
-*"Đây là bốn test plan đã được tôi chạy. Tôi sẽ load lại `.jtl` và mở HTML
+*"Đây là bốn test plan đã được em chạy. em sẽ load lại `.jtl` và mở HTML
 dashboard để các bạn thấy kết quả thực tế."*
 
 ---
