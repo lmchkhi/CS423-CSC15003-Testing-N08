@@ -9,6 +9,7 @@
     "pdf": "python3 build-pdfs.py"
   },
   "dependencies": {
+    "mermaid": "^11.16.1",
     "playwright": "^1.49.0"
   }
 }
