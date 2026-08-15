@@ -1,4 +1,0 @@
-interface:
-  display_name: "AI-First JMeter Performance Testing"
-  short_description: "Thiết kế và chạy HW05 JMeter theo checkpoint"
-  default_prompt: "Dùng $ai-first-jmeter-performance-testing cho workflow Returning Customer Search and Order của HW05. Xác định checkpoint hiện tại từ repository và prompt, chỉ thực hiện checkpoint được yêu cầu, sử dụng runtime evidence thật và dừng chờ Human Review trước checkpoint kế tiếp."

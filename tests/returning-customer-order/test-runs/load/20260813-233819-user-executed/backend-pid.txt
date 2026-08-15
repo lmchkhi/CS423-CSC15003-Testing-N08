@@ -1,8 +1,0 @@
-﻿Timestamp: 2026-08-14 00:01:57 +07:00
-Backend PID: 30888
-Process name: node
-Process start time: 2026-08-14T00:01:31.2915211+07:00
-Executable: C:\Program Files\nodejs\node.exe
-Port: 3000
-Reachability: HTTP 200
-URL: http://127.0.0.1:3000/api/products

@@ -1,7 +1,0 @@
-Timestamp: 2026-08-14 02:10 +07:00
-Checkpoint: D3 Spike PRECHECK / COMMAND PREPARATION ONLY
-Port: 3000
-Listener count: 0
-Reachability: NOT CHECKED — không có listener để gửi HTTP request
-Backend PID: NOT AVAILABLE — không tái sử dụng PID 16488 của D2
-Required next action: User restart/reset backend, sau đó resolve PID mới và require HTTP 200 trước provisioning.

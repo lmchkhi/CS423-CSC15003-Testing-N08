@@ -1,9 +1,0 @@
-timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
-1786636397889,13865,RCO-E2E-ReturningCustomerOrder,200,"Number of samples in transaction : 7, number of failing samples : 0",Smoke 1 thread × 1 iteration 1-1,,true,,3860,1896,1,1,null,0,0,32
-1786636399442,47,RCO-01-Login,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,655,242,1,1,http://127.0.0.1:3000/api/login,42,0,32
-1786636402359,2,RCO-02-Search,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,1238,129,1,1,http://127.0.0.1:3000/api/products,2,0,0
-1786636404678,2,RCO-03-ProductDetail,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,451,131,1,1,http://127.0.0.1:3000/api/products/1,2,0,0
-1786636406936,3,RCO-04-GetCart,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,334,282,1,1,http://127.0.0.1:3000/api/cart,3,0,0
-1786636408333,5,RCO-05-AddCart,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,294,400,1,1,http://127.0.0.1:3000/api/cart,5,0,0
-1786636409997,11,RCO-06-Checkout,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,312,418,1,1,http://127.0.0.1:3000/api/checkout,11,0,0
-1786636411753,2,RCO-07-MyOrders,200,OK,Smoke 1 thread × 1 iteration 1-1,text,true,,576,294,1,1,http://127.0.0.1:3000/api/orders/my-orders,2,0,0

@@ -1,8 +1,0 @@
-Timestamp: 2026-08-14 01:31:56 +07:00
-Checkpoint: D2 Stress PRECHECK / COMMAND PREPARATION ONLY
-Port: 3000
-Listener count: 0
-Backend PID: Không xác định — không có process lắng nghe port 3000 tại thời điểm Agent precheck
-Reachability: Không đạt — backend đang dừng, nên chưa thể nhận HTTP 200
-Required user action: Khởi động lại backend trong Terminal A, sau đó resolve PID mới và chỉ tạo backend-pid.txt khi HTTP 200 đã được xác minh.
-Measured workload executed by Agent: NO
