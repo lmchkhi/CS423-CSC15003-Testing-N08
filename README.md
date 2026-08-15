@@ -12,13 +12,13 @@
 
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---:|---:|
-| 1 | Task 1 — Load testing | 20 | |
-| 2 | Task 1 — Stress testing | 20 | |
-| 3 | Task 1 — Spike testing | 20 | |
-| 4 | Task 2 — AI analysis + misinterpretation hunt | 10 | |
-| 5 | Task 3 — Continuous Performance Testing proposal (G9.6) | 10 | |
-| 6 | Agent Skills | 10 | |
-| | **Total** | **100** | |
+| 1 | Task 1 — Load testing | 20 | 18 |
+| 2 | Task 1 — Stress testing | 20 | 18 |
+| 3 | Task 1 — Spike testing | 20 | 18 |
+| 4 | Task 2 — AI analysis + misinterpretation hunt | 10 | 9 |
+| 5 | Task 3 — Continuous Performance Testing proposal (G9.6) | 10 | 9 |
+| 6 | Agent Skills | 10 | 0 |
+| | **Tổng** | **100** | **72** |
 
 ---
 
@@ -46,21 +46,27 @@ POST /api/checkout
 
 | Kịch bản | Test plan | Threads/VU | Duration | Report view | Kết quả |
 |---|---|---:|---|---|---|
-| Load | | | | | |
-| Stress | | | | | |
-| Spike | | | | | |
-| Endurance | | | | | |
+| Load | `23127300_Load_20260814.jmx` | 50 VU, ramp 60s | 360s | Summary Report | 8,193 mẫu · 0.00% lỗi · p95 7ms |
+| Stress | `23127300_Stress_20260814.jmx` | 5 bậc × 60 VU (300 đỉnh), think 100–300ms | ~600s | Aggregate Report | 590,123 mẫu · 0.00% lỗi · p95 4ms |
+| Spike | `23127300_Spike_20260814.jmx` | Nền 20 VU + 2×300 VU burst, không think-time | 300s | View Results Tree (lỗi) | 466,165 mẫu · 157 lỗi (harness artifact) · p95 139ms |
+| Endurance | `23127300_Endurance_20260814.jmx` | 40 VU, ramp 60s | 900s (15 phút) | Simple Data Writer | 17,327 mẫu · 0.00% lỗi · p95 5ms |
 
 ### 2.3. Ngưỡng chịu tải của phần cứng
 
-*(Điền bằng số: RPS ổn định tối đa, trần bộ nhớ, mức tải mà p95 bắt đầu trượt.)*
+- **RPS ổn định tối đa (Endurance 40 VU):** ~19.3 req/s gộp cả 7 sampler
+- **Trần bộ nhớ SUT (RSS):** 67.8 MB (bắt đầu) → 79.8 MB (ở phút 14) — tăng nhưng không đơn điệu
+- **p95 bắt đầu trượt:** chưa quan sát được — p95 giữ ở 5ms suốt 15 phút Endurance; Spike (300 VU zero think) đẩy p95 toàn run lên 139ms nhưng vẫn 0.00% lỗi thật
 
 ### 2.4. Bug / performance issue
 
 | ID | Loại | Severity / Priority | Báo cáo | GitHub Issue |
 |---|---|---|---|---|
+| OR-2 | Undocumented behaviour | Major | `reports/main-report.md` mục 2.9; bằng chứng: `perf/evidence/smoke-oracle-20260813-230513.txt` mục OR-2 | — |
+| OR-3 | Internal inconsistency | Minor | `reports/main-report.md` mục 2.9 | — |
+| OR-4 | Contract deviation | Minor | `reports/main-report.md` mục 2.9 | — |
+| OR-1 | Contract deviation | Minor | `reports/main-report.md` mục 2.9 | — |
 
-**Tổng số:** 0 bug · 0 performance issue
+**Tổng số:** 4 bug (black-box oracle) · 0 performance issue thật (157 lỗi Spike là harness artifact)
 
 ### 2.5. Video demo
 

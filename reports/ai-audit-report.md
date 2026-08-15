@@ -7,7 +7,7 @@
 | **Họ tên** | Hà Bảo Ngọc |
 | **MSSV** | 23127300 |
 | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
-| **Ngày làm bài** | 13/08/2026 – *(đang cập nhật)* |
+| **Ngày làm bài** | 13/08/2026 – 15/08/2026 |
 | **Công cụ AI đã dùng** | Claude (Opus 5, chạy trong Claude Code) |
 
 ## 2. Tuyên bố sử dụng AI (HW05 §9)
@@ -123,11 +123,36 @@ tỉ lệ phần trăm.)*
 
 ## 5. Kết luận
 
-*(Viết sau khi hoàn tất Task 1–3: các nhóm lỗi lặp lại của AI, chỗ AI làm tốt, và
-bài học rút ra. Mọi nhận định phải dẫn được về một số entry cụ thể.)*
+Duy nhất Entry #1 (Task 2 — phân tích log) có một cuộc rà soát độc lập đầy
+đủ với số liệu đối chiếu. Nhận xét dưới đây dựa vào entry đó.
+
+**Nhóm lỗi lặp lại.** Cả bốn lỗi diễn giải ở Entry #1 đều thuộc cùng một
+gốc: model tổng hợp thống kê *gộp* (error % toàn run, percentile toàn label,
+throughput toàn kịch bản) và diễn giải chúng như thể chúng đã mang đủ ngữ
+cảnh để kết luận về capacity, label cụ thể, hay nguồn gốc lỗi — trong khi
+file `.jtl` không mang theo workload design, tín hiệu tài nguyên hay kiến
+trúc SUT. Lỗi không nằm ở arithmetic (arithmetic đúng, đối chiếu với
+`perf/results/ground-truth.txt`), mà ở tầng diễn giải phía trên.
+
+**Chỗ AI làm tốt.** Trong Entry #1, ở kết luận #6 về Endurance, model tự nhận
+*"a proper leak check would need a memory/RSS time series... which isn't in
+the `.jtl`"* — đúng giới hạn thật của dữ liệu nó có, thay vì đoán bừa.
+Trong giai đoạn sinh test plan và đề xuất CI, output được sử dụng làm khung
+ban đầu và sau đó được rà soát qua các vòng sửa ghi ở `prompt-log.md`; chất
+lượng cấu trúc (danh sách bước, bảng workload, cấu trúc CI pipeline) cao hơn
+hẳn chất lượng thông số cụ thể (ngưỡng VU, kết luận capacity).
+
+**Bài học rút ra.** Cung cấp ngữ cảnh domain *trước* khi AI phân tích dữ liệu
+thô: workload design của từng kịch bản, kiến trúc SUT, và ranh giới phân biệt
+harness artifact với SUT defect. Không có ngữ cảnh đó, model lấp chỗ trống
+bằng giả định hợp lý cho một kiến trúc chung — và những giả định đó sai trên
+bất kỳ SUT nào đủ cụ thể.
 
 ## 6. Công bố bắt buộc (Mandatory Disclosure)
 
-*(Điền khi chốt bài.)*
+Tôi xác nhận rằng mọi prompt và output AI trong bài này được ghi lại trung
+thực, không chỉnh sửa hậu kỳ, trong `reports/prompt-log.md` và các entry
+`reports/ai-audit-report.md`. Công việc phân tích, rà soát, sửa lỗi và kết
+luận là của tôi; AI chỉ là công cụ hỗ trợ được kiểm soát qua từng bước.
 
-**Ký tên:** Hà Bảo Ngọc — 23127300 — *(ngày nộp)*
+**Ký tên:** Hà Bảo Ngọc — 23127300 — 15/08/2026
