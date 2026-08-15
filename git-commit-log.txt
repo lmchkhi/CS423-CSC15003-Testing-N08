@@ -1,3 +1,35 @@
+* commit a53b6aa543c4dd088d358f25755769707048e202
+| Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+| Date:   Sat Aug 15 14:02:20 2026 +0700
+| 
+|     docs(hw05): update reports and export to pdf
+| 
+|  reports/README.md           |  25 ++++++++++++-------------
+|  reports/ai-audit-report.md  |  22 ++++++++++++++++++++++
+|  reports/ai-audit-report.pdf | Bin 0 -> 423025 bytes
+|  reports/main-report.md      |  22 ++++------------------
+|  reports/main-report.pdf     | Bin 0 -> 549320 bytes
+|  5 files changed, 38 insertions(+), 31 deletions(-)
+| 
+* commit 2f823cfe08afa3b24e08c26851bf06c4013fbd72
+| Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+| Date:   Sat Aug 15 13:41:47 2026 +0700
+| 
+|     docs(hw05): finalize submission artifacts
+| 
+|  .gitignore                                        |   11 +-
+|  git-commit-log.txt                                | 3359 +++++++++++++++++++
+|  reports/README.md                                 |   72 +
+|  reports/ai-audit-report.md                        |  154 +
+|  reports/ai-critique.md                            |    8 +
+|  reports/ai-critique.pdf                           |  Bin 0 -> 99894 bytes
+|  reports/hw05-execution-plan.md                    |    5 +-
+|  reports/main-report.md                            |   22 +-
+|  .../hw05/evidence/notes/spike-20260815.md         |    3 +-
+|  .../screenshots/endurance-cli-htop-20260815.png   |  Bin 0 -> 774432 bytes
+|  .../results/spike/23127475_Spike_20260815.jtl.gz  |  Bin 0 -> 7709099 bytes
+|  11 files changed, 3617 insertions(+), 17 deletions(-)
+| 
 * commit 50b72ce4bfdcc5bc23a5b0910e41703cc5b42425
 | Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
 | Date:   Sat Aug 15 06:21:20 2026 +0700
