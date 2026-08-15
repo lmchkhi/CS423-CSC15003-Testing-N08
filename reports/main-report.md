@@ -15,7 +15,7 @@
 | AI tool | Codex |
 | Workflow chọn | Workflow 1 - Người dùng có sẵn mua hàng lần đầu |
 | Ngày chạy | 2026-08-15 |
-| Public GitHub repository | [https://github.com/lmchkhi/CS423-CSC15003-Testing-N08](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08) |
+| Public GitHub repository | [https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/hw05/23127475](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/hw05/23127475) |
 | README.md | [/reports/README.md](/reports/README.md) |
 | Video demo | [https://youtu.be/AcoNQVMlhS4](https://youtu.be/AcoNQVMlhS4) |
 
@@ -344,24 +344,10 @@ Nội dung video:
 
 File: [`reports/ai-audit-report.md`](./ai-audit-report.md)
 
+File: [`reports/ai-audit-report.pdf`](./ai-audit-report.pdf)
+
 ## 18. AI Critique 200-300 từ
 
 File: [`reports/ai-critique.md`](./ai-critique.md)
 
-## 19. Submission checklist
-
-- [ ] JMX Load/Stress/Spike đúng tên `{StudentID}_{ScenarioType}_{YYYYMMDD}`.
-- [ ] CSV data-driven.
-- [ ] Ba listener/report views khác nhau.
-- [ ] Raw `.jtl` đầy đủ.
-- [ ] Spike raw result có bản nén `23127475_Spike_20260815.jtl.gz` vì file gốc 156 MB.
-- [ ] HTML report folders.
-- [ ] Screenshot tool + resource monitor.
-- [ ] Hardware evidence.
-- [ ] Endurance threshold 10-15 phút.
-- [ ] Bug reports/GitHub issues nếu có bug thật.
-- [ ] AI analysis + human misinterpretation hunt.
-- [ ] Continuous performance testing proposal + flow chart.
-- [ ] AI Audit Report.
-- [ ] AI Critique 200-300 từ.
-- [ ] Video demo YouTube unlisted tối thiểu 6 phút.
+File: [`reports/ai-critique.pdf`](./ai-critique.pdf)

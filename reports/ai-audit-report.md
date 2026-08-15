@@ -657,3 +657,25 @@ bây giờ kiểm tra lại xem đã đủ các file vào hoàn thiện theo yê
 ```text
 Rà soát section 14 Submission Regulations: có repo link, reports/README.md, main report, AI audit, AI critique MD/PDF, JMeter plans/data, Load/Stress/Endurance JTL, Spike JTL gzip 7.4 MB, HTML dashboards, screenshots/hardware evidence, bug-reports folder và git-commit-log.txt. Ghi chú các mục còn polish trước khi zip nộp: export main report PDF, export AI audit PDF nếu cần, cập nhật self-assessment TODO và refresh git commit log sau commit cuối.
 ```
+
+## Entry #28
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 15/08/2026 13:46 GMT+7 |
+| **Artifact type** | HW05 branch repository link and checklist cleanup |
+
+**Full prompt:**
+
+```text
+phần github repo link có cần sửa để chỉ thằng đến branch làm bài tập này của tôi không... xoá phần 19 Submission checklist trong main-report
+```
+
+### (2) AI Output
+
+```text
+Cập nhật public GitHub repository link trong reports/main-report.md và reports/README.md sang branch hw05/23127475; xoá section 19 Submission checklist khỏi main report vì README submission đã hoàn thiện và checklist nội bộ không cần nằm trong report cuối.
+```
