@@ -205,13 +205,10 @@ cả overhead khởi động JMeter/SUT).
 
 ### 2.8. Video demo
 
-Task 27 đã chuẩn bị đầy đủ kịch bản quay để sinh viên tự ghi âm/ghi màn hình
-bằng giọng của mình; không dựng link giả khi video chưa được upload.
-
-| Nội dung | Tài liệu quay / link |
+| Nội dung | Link |
 |---|---|
-| Task 1 — Load/Stress/Spike/Endurance, tool + resource monitor cùng khung hình | `reports/video-script-task1.md` |
-| Agent Skill demo (§7) — áp dụng skill cho Workflow 3, không phải Workflow 5 | `reports/video-script-skill.md` |
+| Task 1 — Load/Stress/Spike/Endurance, tool + resource monitor cùng khung hình | https://youtu.be/0TcSNEaEyMA |
+| Agent Skill demo (§7) | https://youtu.be/yC2Ksdpl1og |
 
 ### 2.9. Bug / performance issue đã ghi nhận
 

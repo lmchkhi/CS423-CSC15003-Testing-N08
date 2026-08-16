@@ -72,8 +72,8 @@ POST /api/checkout
 
 | Nội dung | Link |
 |---|---|
-| Task 1 — ba kịch bản, tool + resource monitor cùng khung hình (≥6 phút, tiếng Việt) | Kịch bản quay: `reports/video-script-task1.md`; link video để điền sau khi upload |
-| Agent Skill demo (§7) | Kịch bản quay: `reports/video-script-skill.md`; link video để điền sau khi upload |
+| Task 1 — ba kịch bản, tool + resource monitor cùng khung hình (≥6 phút, tiếng Việt) | https://youtu.be/0TcSNEaEyMA |
+| Agent Skill demo (§7) | https://youtu.be/yC2Ksdpl1og |
 
 ---
 
