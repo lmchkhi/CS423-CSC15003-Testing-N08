@@ -1,3 +1,166 @@
+* commit b13818113e9c716dd9aea69f8275620b4d434a54
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 16 20:27:35 2026 +0700
+| 
+|     docs: add more hardware screenshot pics
+| 
+|  perf/evidence/hardware/hardware-screenshot.png | Bin 267994 -> 530073 bytes
+|  perf/evidence/hardware/system-information.png  | Bin 0 -> 256484 bytes
+|  2 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit f99d0083662adac5df3364f68c4a11baf1649b0e
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 16 20:19:34 2026 +0700
+| 
+|     docs(hw05): scrub internal tooling references and fix audit findings
+|     
+|     - Remove .superpowers/ and task-brief dead-link references from
+|       main-report, ai-analysis-review, ai-analysis-raw, calibration
+|     - Add Spike data provenance note clarifying AI analyzed an older run
+|     - Rewrite English AI quote in main-report into Vietnamese
+|     - Trim ai-critique from ~435 to ~329 words
+|     - Add system_profiler hardware screenshot + text dump
+|     - Shorten ai-analysis-raw preamble (remove internal orchestration details)
+|     - Regenerate all PDFs
+|     - Remove non-graded scratch HTML reports and logs from disk
+| 
+|  perf/evidence/hardware/hardware-screenshot.png    | Bin 0 -> 267994 bytes
+|  perf/evidence/hardware/system-profiler-output.txt |  32 ++++++++++++
+|  perf/results/ai-analysis-raw.md                   |  36 +++++--------
+|  perf/results/calibration/calibration-20260814.md  |  20 ++++----
+|  reports/ai-analysis-review.md                     |  27 ++++++----
+|  reports/ai-critique.md                            |  53 +++++++++-----------
+|  reports/main-report.md                            |  18 +++----
+|  reports/pdf/ai-analysis-review.pdf                | Bin 173633 -> 178412 bytes
+|  reports/pdf/ai-audit-report.pdf                   | Bin 1512251 -> 1512251 bytes
+|  reports/pdf/ai-critique.pdf                       | Bin 67081 -> 53070 bytes
+|  reports/pdf/continuous-perf-proposal.pdf          | Bin 172582 -> 172582 bytes
+|  reports/pdf/main-report.pdf                       | Bin 283720 -> 273631 bytes
+|  12 files changed, 103 insertions(+), 83 deletions(-)
+| 
+* commit 9d5d61d809a4581f90dc7c5ab5111d31f5c4c57c
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 16 18:21:43 2026 +0700
+| 
+|     docs: replace the placeholders with video links
+| 
+|  README.md              | 4 ++--
+|  reports/main-report.md | 9 +++------
+|  2 files changed, 5 insertions(+), 8 deletions(-)
+| 
+* commit a3319862dc3878d3854805ef6349d4e1fdf23808
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 16 00:38:11 2026 +0700
+| 
+|     test(hw05): rerun the tests
+| 
+|  README.md                                         |   14 +-
+|  .../Endurance-min14-20260815-162532.png           |  Bin 0 -> 2505071 bytes
+|  .../Endurance-min14-alt-after-20260815-162601.png |  Bin 0 -> 2504237 bytes
+|  ...Endurance-min14-alt-before-20260815-162507.png |  Bin 0 -> 2503913 bytes
+|  .../Endurance-min14-rss-20260814-224652.png       |  Bin 2353509 -> 0 bytes
+|  .../Endurance-start-20260814-223422.png           |  Bin 2184473 -> 0 bytes
+|  .../Endurance-start-20260815-161234.png           |  Bin 0 -> 2044146 bytes
+|  .../Endurance-start-rss-20260814-223710.png       |  Bin 2404681 -> 0 bytes
+|  .../resource-monitor/Load-20260814-220824.png     |  Bin 2145200 -> 0 bytes
+|  .../resource-monitor/Load-20260815-155148.png     |  Bin 0 -> 2513456 bytes
+|  .../resource-monitor/Spike-20260814-222701.png    |  Bin 2242085 -> 0 bytes
+|  .../resource-monitor/Spike-20260815-160819.png    |  Bin 0 -> 2224867 bytes
+|  .../resource-monitor/Stress-20260814-222150.png   |  Bin 2467970 -> 0 bytes
+|  .../resource-monitor/Stress-20260815-160117.png   |  Bin 0 -> 2557504 bytes
+|  .../resource-monitor/listener-Load-20260815.png   |  Bin 0 -> 1782644 bytes
+|  perf/evidence/resource-monitor/listener-Load.png  |  Bin 1916636 -> 0 bytes
+|  .../resource-monitor/listener-Spike-20260815.png  |  Bin 0 -> 1694140 bytes
+|  perf/evidence/resource-monitor/listener-Spike.png |  Bin 1582675 -> 0 bytes
+|  .../resource-monitor/listener-Stress-20260815.png |  Bin 0 -> 1823446 bytes
+|  .../evidence/resource-monitor/listener-Stress.png |  Bin 1953668 -> 0 bytes
+|  perf/plans/jmeter/23127300_Endurance_20260814.jmx |  168 +-
+|  perf/plans/jmeter/23127300_Load_20260814.jmx      |  168 +-
+|  perf/plans/jmeter/23127300_Spike_20260814.jmx     |  386 +-
+|  perf/plans/jmeter/23127300_Stress_20260814.jmx    |  612 ++-
+|  perf/results/ground-truth.txt                     |  256 +-
+|  .../content/js/dashboard.js                       |    4 +-
+|  .../content/js/graph.js                           |   32 +-
+|  .../content/pages/CustomsGraphs.html              |    4 +-
+|  .../content/pages/OverTime.html                   |    4 +-
+|  .../content/pages/ResponseTimes.html              |    4 +-
+|  .../content/pages/Throughput.html                 |    4 +-
+|  .../html/23127300_Endurance_20260814/index.html   |    4 +-
+|  .../23127300_Endurance_20260814/statistics.json   |  140 +-
+|  .../content/js/dashboard.js                       |    4 +-
+|  .../23127300_Load_20260814/content/js/graph.js    |   32 +-
+|  .../content/pages/CustomsGraphs.html              |    4 +-
+|  .../content/pages/OverTime.html                   |    4 +-
+|  .../content/pages/ResponseTimes.html              |    4 +-
+|  .../content/pages/Throughput.html                 |    4 +-
+|  .../html/23127300_Load_20260814/index.html        |    4 +-
+|  .../html/23127300_Load_20260814/statistics.json   |  116 +-
+|  .../content/js/dashboard.js                       |   10 +-
+|  .../23127300_Spike_20260814/content/js/graph.js   |   32 +-
+|  .../content/pages/CustomsGraphs.html              |    4 +-
+|  .../content/pages/OverTime.html                   |    4 +-
+|  .../content/pages/ResponseTimes.html              |    4 +-
+|  .../content/pages/Throughput.html                 |    4 +-
+|  .../html/23127300_Spike_20260814/index.html       |    4 +-
+|  .../html/23127300_Spike_20260814/statistics.json  |  170 +-
+|  .../content/js/dashboard.js                       |    4 +-
+|  .../23127300_Stress_20260814/content/js/graph.js  |   32 +-
+|  .../content/pages/CustomsGraphs.html              |    4 +-
+|  .../content/pages/OverTime.html                   |    4 +-
+|  .../content/pages/ResponseTimes.html              |    4 +-
+|  .../content/pages/Throughput.html                 |    4 +-
+|  .../html/23127300_Stress_20260814/index.html      |    4 +-
+|  .../html/23127300_Stress_20260814/statistics.json |  128 +-
+|  .../jtl/23127300_Endurance_20260814.jtl.gz        |  Bin 151898 -> 168668 bytes
+|  perf/results/jtl/23127300_Endurance_20260814.log  |  540 ++-
+|  perf/results/jtl/23127300_Load_20260814.jtl.gz    |  Bin 73543 -> 82228 bytes
+|  perf/results/jtl/23127300_Load_20260814.log       |  509 ++-
+|  perf/results/jtl/23127300_Spike_20260814.jtl.gz   |  Bin 3051064 -> 3385424 bytes
+|  perf/results/jtl/23127300_Spike_20260814.log      | 4000 +++++++++----------
+|  perf/results/jtl/23127300_Stress_20260814.jtl.gz  |  Bin 4611916 -> 5364450 bytes
+|  perf/results/jtl/23127300_Stress_20260814.log     | 1598 ++++----
+|  .../resource/23127300_Endurance_20260814.csv      | 1681 ++++----
+|  perf/results/resource/23127300_Load_20260814.csv  |  675 ++--
+|  perf/results/resource/23127300_Spike_20260814.csv |  575 ++-
+|  .../results/resource/23127300_Stress_20260814.csv | 1151 +++---
+|  perf/scripts/analyze_jtl.py                       |    6 +-
+|  perf/scripts/gen-data.py                          |   10 +-
+|  perf/scripts/smoke-oracle.sh                      |   19 +-
+|  reports/main-report.md                            |   43 +-
+|  reports/run-manifest.md                           |   26 +-
+|  reports/video-script-skill.md                     |    9 +-
+|  reports/video-script-task1.md                     |   52 +-
+|  76 files changed, 6928 insertions(+), 6354 deletions(-)
+| 
+* commit 1649aa170e3525a6b4446742d05d3e546d417f62
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 15 12:59:57 2026 +0700
+| 
+|     docs(hw05): add github issue screenshots
+| 
+|  bug-reports/github-issues/BUG-FR02-001.md |   7 -------
+|  bug-reports/github-issues/BUG-FR03-001.md |   7 -------
+|  bug-reports/github-issues/BUG-FR06-001.md |   7 -------
+|  bug-reports/github-issues/BUG-FR06-002.md |   7 -------
+|  bug-reports/github-issues/issue-248.png   | Bin 0 -> 619011 bytes
+|  bug-reports/github-issues/issue-249.png   | Bin 0 -> 617077 bytes
+|  bug-reports/github-issues/issue-250.png   | Bin 0 -> 595340 bytes
+|  bug-reports/github-issues/issue-251.png   | Bin 0 -> 617628 bytes
+|  8 files changed, 28 deletions(-)
+| 
+* commit be9085974b43e2dcbcae5a44290f72f9fc7b9f17
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 15 12:56:43 2026 +0700
+| 
+|     docs(bug): record GitHub issue labels
+| 
+|  bug-reports/github-issues/BUG-FR02-001.md |  2 ++
+|  bug-reports/github-issues/BUG-FR03-001.md |  4 +++-
+|  bug-reports/github-issues/BUG-FR06-001.md |  4 +++-
+|  bug-reports/github-issues/BUG-FR06-002.md |  4 +++-
+|  git-log.txt                               | 21 +++++++++++++++++++++
+|  5 files changed, 32 insertions(+), 3 deletions(-)
+| 
 * commit 5067fcb80fff98da3b6e05ac7634acb4aebca2b9
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sat Aug 15 12:53:07 2026 +0700

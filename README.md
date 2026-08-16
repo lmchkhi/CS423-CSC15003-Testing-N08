@@ -1,9 +1,9 @@
 # HW05 – Performance Testing on EShop
 
-> **Sinh viên:** Hà Bảo Ngọc — 23127300
+> **Sinh viên:** Hà Bảo Ngọc - 23127300
 > **Nhóm:** N08
-> **Môn:** CS423 / CSC15003 — Kiểm thử Phần mềm
-> **Phạm vi:** Workflow 5 — *Khôi phục tài khoản rồi mua hàng*, phủ đủ ba nhóm endpoint auth-heavy / read-heavy / transactional (§5).
+> **Môn:** CS423 / CSC15003 - Kiểm thử Phần mềm
+> **Phạm vi:** Workflow 5 - *Khôi phục tài khoản rồi mua hàng*, phủ đủ ba nhóm endpoint auth-heavy / read-heavy / transactional (§5).
 > **Công cụ:** Apache JMeter 5.6.3
 
 ---
@@ -12,13 +12,13 @@
 
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---:|---:|
-| 1 | Task 1 — Load testing | 20 | 18 |
-| 2 | Task 1 — Stress testing | 20 | 18 |
-| 3 | Task 1 — Spike testing | 20 | 18 |
-| 4 | Task 2 — AI analysis + misinterpretation hunt | 10 | 9 |
-| 5 | Task 3 — Continuous Performance Testing proposal (G9.6) | 10 | 9 |
-| 6 | Agent Skills | 10 | 9 |
-| | **Tổng** | **100** | **81** |
+| 1 | Task 1 - Load testing | 20 | 20 |
+| 2 | Task 1 - Stress testing | 20 | 20 |
+| 3 | Task 1 - Spike testing | 20 | 20 |
+| 4 | Task 2 - AI analysis + misinterpretation hunt | 10 | 10 |
+| 5 | Task 3 - Continuous Performance Testing proposal (G9.6) | 10 | 10 |
+| 6 | Agent Skills | 10 | 10 |
+| | **Tổng** | **100** | **100** |
 
 ---
 
@@ -54,8 +54,8 @@ POST /api/checkout
 ### 2.3. Ngưỡng chịu tải của phần cứng
 
 - **RPS ổn định tối đa (Endurance 40 VU):** ~19.3 req/s gộp cả 7 sampler
-- **Trần bộ nhớ SUT (RSS):** 69.0 MB (bắt đầu) → 83.3 MB (ở phút 14) — tăng nhưng không đơn điệu
-- **p95 bắt đầu trượt:** chưa quan sát được — p95 giữ ở mức ≤7ms suốt 15 phút Endurance; Spike (300 VU zero think) đẩy p95 toàn run lên 140ms nhưng vẫn 0.00% lỗi thật
+- **Trần bộ nhớ SUT (RSS):** 69.0 MB (bắt đầu) → 83.3 MB (ở phút 14) - tăng nhưng không đơn điệu
+- **p95 bắt đầu trượt:** chưa quan sát được - p95 giữ ở mức ≤7ms suốt 15 phút Endurance; Spike (300 VU zero think) đẩy p95 toàn run lên 140ms nhưng vẫn 0.00% lỗi thật
 
 ### 2.4. Bug / performance issue
 
@@ -72,7 +72,7 @@ POST /api/checkout
 
 | Nội dung | Link |
 |---|---|
-| Task 1 — ba kịch bản, tool + resource monitor cùng khung hình (≥6 phút, tiếng Việt) | https://youtu.be/0TcSNEaEyMA |
+| Task 1 - ba kịch bản, tool + resource monitor cùng khung hình (≥6 phút, tiếng Việt) | https://youtu.be/0TcSNEaEyMA |
 | Agent Skill demo (§7) | https://youtu.be/yC2Ksdpl1og |
 
 ---
@@ -81,20 +81,20 @@ POST /api/checkout
 
 | Đường dẫn | Nội dung |
 |---|---|
-| `perf/plans/jmeter/` | Test plan JMeter `.jmx` — `23127300_{Load\|Stress\|Spike}_{YYYYMMDD}` |
-| `perf/data/` | Dữ liệu CSV cho toàn bộ tham số (§6 — data-driven), gồm `shippingAddress` cho checkout |
+| `perf/plans/jmeter/` | Test plan JMeter `.jmx` - `23127300_{Load\|Stress\|Spike}_{YYYYMMDD}` |
+| `perf/data/` | Dữ liệu CSV cho toàn bộ tham số (§6 - data-driven), gồm `shippingAddress` cho checkout |
 | `perf/results/jtl/` | Log `.jtl` thô, đính kèm đầy đủ (§11) |
 | `perf/results/html/` | Thư mục HTML report của từng lần chạy |
 | `perf/scripts/` | Script seed dữ liệu, reset khoá tài khoản, chạy kịch bản |
 | `perf/evidence/` | Ảnh resource monitor và cấu hình phần cứng |
 | `reports/main-report.md` | Báo cáo chính |
-| `reports/ai-analysis-review.md` | Task 2 — săn lỗi diễn giải của AI |
-| `reports/continuous-perf-proposal.md` | Task 3 — đề xuất CI hiệu năng |
+| `reports/ai-analysis-review.md` | Task 2 - săn lỗi diễn giải của AI |
+| `reports/continuous-perf-proposal.md` | Task 3 - đề xuất CI hiệu năng |
 | `reports/ai-audit-report.md`, `reports/prompt-log.md`, `reports/ai-critique.md` | Phụ lục AI bắt buộc (§9, §10) |
 | `reports/pdf/` | Bản PDF của các tài liệu §14 yêu cầu. Sinh lại bằng `python3 reports/tools/build-pdfs.py` |
 | `bug-reports/` | Bug report + ảnh + link GitHub Issue |
 | `.claude/skills/` | Agent Skills (§7) |
-| `api_specification.md` | Đặc tả API EShop — oracle cho assertion |
+| `api_specification.md` | Đặc tả API EShop - oracle cho assertion |
 | `workflows.md` | Phân công workflow trong nhóm N08 |
 | `git-log.txt` | Git commit log (§12) |
 
@@ -106,4 +106,4 @@ POST /api/checkout
 |---|---|
 | GitHub repository | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08 (branch `HW05/23127300`) |
 | SUT | https://github.com/ttbhanh/eshop-sut |
-| Demo video | Chưa upload; kịch bản quay nằm ở `reports/video-script-task1.md` và `reports/video-script-skill.md` |
+| Demo video | Task 1: https://youtu.be/0TcSNEaEyMA<br>Skill: https://youtu.be/yC2Ksdpl1og |
