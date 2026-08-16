@@ -1,7 +1,7 @@
 # Calibration probe — 2026-08-14
 
 HW05, Workflow 5 (Khôi phục tài khoản rồi mua hàng), student 23127300.
-Method per `.superpowers/sdd/2026-08-13-hw05-performance-testing/task-12-brief.md`.
+Method: calibration sweep across VU-axis and arrival-rate axis.
 
 **This file has three sequential "Conclusions" sections, one per round of
 investigation (VU axis, arrival axis, harness-bug fix). Only the last one —
@@ -171,16 +171,14 @@ the provisional values are contradicted by measurement; all sit inside the
 range this calibration confirmed safe (0 % error, healthy latency). What
 was edited:
 
-- `docs/superpowers/plans/2026-08-13-hw05-performance-testing.md`: Task 13
-  and Task 14 gained a short note pointing at this calibration file and
-  stating the 300-peak is a confirmed-safe ceiling, not a discovered
-  breaking point, so the Stress run is expected to show flat, healthy
-  numbers throughout rather than a knee.
-- `docs/superpowers/specs/2026-08-13-hw05-performance-testing-design.md`
-  §4.1: the "provisional numbers" framing is replaced with the actual
-  calibration result — checkout p95 never crossed 500 ms and error rate
-  never crossed 1 % inside the tested 25-300 thread range, so those
-  crossing points were not found, only bounded from below.
+- Kế hoạch thiết kế kịch bản Stress và Spike được cập nhật để ghi nhận rằng
+  đỉnh 300 luồng là trần an toàn đã xác nhận, không phải điểm gãy đã phát
+  hiện — vì vậy Stress sẽ cho số liệu phẳng xuyên suốt thay vì một điểm
+  ngoặt.
+- Đặc tả thiết kế §4.1 được cập nhật: thay khung "provisional numbers"
+  bằng kết quả calibration thật — checkout p95 không vượt 500 ms và error
+  rate không vượt 1 % trong toàn dải 25–300 luồng đã quét, nghĩa là các
+  điểm gãy đó không tìm thấy, chỉ được giới hạn dưới (bounded from below).
 
 ### Load `.jmx` change (VU-axis part)
 

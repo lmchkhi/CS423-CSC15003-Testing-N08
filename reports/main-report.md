@@ -40,9 +40,8 @@ có entry nào ghi lại các stage thiết kế Task 1 dưới đây — file n
 entry cho tới khi Task 2 (Entry #1, phân tích `.jtl`) được thêm vào. Đây là
 một khoảng trống quy trình có thật, phát hiện khi biên soạn báo cáo này,
 không phải lựa chọn của báo cáo — không có entry thật để trích nên bảng dưới
-dẫn tới commit đã review (`git log`) và transcript trong
-`.superpowers/sdd/2026-08-13-hw05-performance-testing/` thay vì một số entry
-không tồn tại.
+dẫn tới commit đã review (`git log`) và bản ghi prompt thô
+(`reports/prompt-log.md`) thay vì một số entry không tồn tại.
 
 | Stage | Nội dung | Bằng chứng (commit / transcript) |
 |---|---|---|
@@ -116,13 +115,12 @@ một dòng nào nói về lockout).
 /api/checkout` dùng hàm JMeter `${__intSum(...)}` để tính `total_amount` —
 một hàm cộng các tham số cố định, không nhân `unitPrice × quantity` theo
 từng dòng CSV sản phẩm đã chọn. Được thay bằng một `JSR223PreProcessor`
-("Compute order total") tính đúng tổng trước khi gửi request (xác nhận ở
-`.superpowers/sdd/2026-08-13-hw05-performance-testing/task-11-report.md`:
-*"The Step 3 fix already applied: checkout body sends `{"total_amount":
-${orderTotal},...}`, not the `${__intSum(...)}` placeholder"*). Đây là lỗi
-thuộc giới hạn của model đối với cú pháp JMeter cụ thể — `__intSum` nghe tên
-có vẻ đúng chức năng nhưng ngữ nghĩa thật sự không khớp với việc cần tính
-tổng tiền từ dữ liệu CSV.
+("Compute order total") tính đúng tổng trước khi gửi request — xác nhận
+bằng cách mở `.jmx` và kiểm tra body của sampler `07 POST /api/checkout`:
+body gửi `{"total_amount": ${orderTotal},...}` (biến do PreProcessor tính),
+không còn dùng `${__intSum(...)}`. Đây là lỗi thuộc giới hạn của model đối
+với cú pháp JMeter cụ thể — `__intSum` nghe tên có vẻ đúng chức năng nhưng
+ngữ nghĩa thật sự không khớp với việc cần tính tổng tiền từ dữ liệu CSV.
 
 ### 2.6. Thực thi và bằng chứng
 

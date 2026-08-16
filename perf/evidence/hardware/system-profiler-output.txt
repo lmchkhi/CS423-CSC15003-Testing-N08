@@ -1,0 +1,32 @@
+2026-08-16 20:14:35.259 system_profiler[38462:14333512] hw.cpufamily: 0x17d5b93a
+Hardware:
+
+    Hardware Overview:
+
+      Model Name: MacBook Pro
+      Model Identifier: Mac16,8
+      Model Number: MX2H3SA/A
+      Chip: Apple M4 Pro
+      Total Number of Cores: 12 (8 Performance and 4 Efficiency)
+      Memory: 24 GB
+      System Firmware Version: 18000.121.3
+      OS Loader Version: 18000.121.3
+      Serial Number (system): C7RV0369KT
+      Hardware UUID: AE638601-4AC8-57AB-B16E-CD34C7C3CCA0
+      Provisioning UDID: 00006040-000E615021BA801C
+      Activation Lock Status: Enabled
+
+Software:
+
+    System Software Overview:
+
+      System Version: macOS 26.5.2 (25F84)
+      Kernel Version: Darwin 25.5.0
+      Boot Volume: Macintosh HD
+      Boot Mode: Normal
+      Computer Name: hbn’s MacBook Pro
+      User Name: Bảo Ngọc Hà (hbn)
+      Secure Virtual Memory: Enabled
+      System Integrity Protection: Enabled
+      Time since boot: 34 days, 16 hours, 40 minutes
+
