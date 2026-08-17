@@ -3,6 +3,7 @@
 > **Sinh viên:** Trần Minh Quang - 23127464
 > **Nhóm:** N08
 > **Môn:** CS423 / CSC15003 — Kiểm thử Phần mềm
+> **Repository:** [23127464 Performance Testing HW05](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/test/23127464-Performance-Testing)
 
 ---
 
