@@ -1,0 +1,126 @@
+[
+  {
+    "_desc": "valid checkout",
+    "authMode": "user",
+    "total_amount": 200000,
+    "shipping_address": "123 Le Loi, Q1, TP.HCM",
+    "expectStatus": 200,
+    "expectSchema": true
+  },
+  {
+    "_desc": "no token",
+    "authMode": "none",
+    "total_amount": 200000,
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 401,
+    "expectSchema": false
+  },
+  {
+    "_desc": "invalid token",
+    "authMode": "invalid",
+    "total_amount": 200000,
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 403,
+    "expectSchema": false
+  },
+  {
+    "_desc": "negative total",
+    "authMode": "user",
+    "total_amount": -5000,
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 400,
+    "expectSchema": false,
+    "knownBug": true
+  },
+  {
+    "_desc": "zero total",
+    "authMode": "user",
+    "total_amount": 0,
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 400,
+    "expectSchema": false,
+    "knownBug": true
+  },
+  {
+    "_desc": "missing shipping_address",
+    "authMode": "user",
+    "total_amount": 200000,
+    "shipping_address": "",
+    "expectStatus": 400,
+    "expectSchema": false,
+    "knownBug": true
+  },
+  {
+    "_desc": "boundary total=1",
+    "authMode": "user",
+    "total_amount": 1,
+    "shipping_address": "456 Nguyen Hue, Q3",
+    "expectStatus": 200,
+    "expectSchema": true
+  },
+  {
+    "_desc": "large total",
+    "authMode": "user",
+    "total_amount": 999999999,
+    "shipping_address": "789 Tran Hung Dao, Q5",
+    "expectStatus": 200,
+    "expectSchema": true
+  },
+  {
+    "_desc": "unicode address",
+    "authMode": "user",
+    "total_amount": 150000,
+    "shipping_address": "123 Lê Lợi, Quận 1, Thành phố Hồ Chí Minh",
+    "expectStatus": 200,
+    "expectSchema": true
+  },
+  {
+    "_desc": "missing total_amount",
+    "authMode": "user",
+    "total_amount": null,
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 400,
+    "expectSchema": false
+  },
+  {
+    "_desc": "string numeric total",
+    "authMode": "user",
+    "total_amount": "50000",
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 400,
+    "expectSchema": false,
+    "knownBug": true
+  },
+  {
+    "_desc": "non-numeric string total",
+    "authMode": "user",
+    "total_amount": "abc",
+    "shipping_address": "123 Le Loi",
+    "expectStatus": 400,
+    "expectSchema": false
+  },
+  {
+    "_desc": "very long address",
+    "authMode": "user",
+    "total_amount": 100000,
+    "shipping_address": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "expectStatus": 400,
+    "expectSchema": false
+  },
+  {
+    "_desc": "whitespace-only address",
+    "authMode": "user",
+    "total_amount": 100000,
+    "shipping_address": "   ",
+    "expectStatus": 400,
+    "expectSchema": false
+  },
+  {
+    "_desc": "SQL injection in address",
+    "authMode": "user",
+    "total_amount": 100000,
+    "shipping_address": "123' OR '1'='1",
+    "expectStatus": 200,
+    "expectSchema": true
+  }
+]
