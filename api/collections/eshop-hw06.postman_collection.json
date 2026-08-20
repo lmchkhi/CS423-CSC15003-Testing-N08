@@ -111,7 +111,55 @@
     },
     {
       "name": "FR-01 Register",
-      "item": []
+      "item": [
+        {
+          "name": "Register (data-driven)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const row = pm.iterationData.toObject();",
+                  "if (row.knownBug) {",
+                  "  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
+                  "}",
+                  "else if (row.expectSchema) {",
+                  "  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
+                  "  const b = pm.response.json();",
+                  "  pm.test(`${row._desc}: schema {message,id}`, () => {",
+                  "    pm.expect(b).to.have.property('message');",
+                  "    pm.expect(b).to.have.property('id');",
+                  "    pm.expect(b.id).to.be.a('number');",
+                  "  });",
+                  "}",
+                  "else {",
+                  "  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"{{name}}\",\"email\":\"{{email}}\",\"password\":\"{{password}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "register"]
+            }
+          }
+        }
+      ]
     },
     {
       "name": "FR-08 Checkout",
