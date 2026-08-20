@@ -1,0 +1,4 @@
+interface:
+  display_name: "GH Bug Issues"
+  short_description: "Tạo GitHub bug issues từ reports"
+  default_prompt: "Dùng $gh-create-bug-issues để tạo GitHub issues từ Markdown bug reports và cập nhật các file liên quan."

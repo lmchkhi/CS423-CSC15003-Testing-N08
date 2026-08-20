@@ -1,0 +1,4 @@
+interface:
+  display_name: "EShop API Test Generator"
+  short_description: "Sinh blackbox API test cases cho EShop"
+  default_prompt: "Dùng $eshop-api-test-generator để sinh audited blackbox API test cases cho một EShop endpoint đã chọn."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "HW06 API Testing"
+  short_description: "Điều phối deliverables HW06 API testing"
+  default_prompt: "Dùng $hw06-api-testing để lập kế hoạch và tạo deliverables HW06 API testing cho EShop."

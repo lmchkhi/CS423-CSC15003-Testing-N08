@@ -1,0 +1,4 @@
+interface:
+  display_name: "Postman Newman API Runner"
+  short_description: "Tạo Postman/Newman artifacts cho HW06"
+  default_prompt: "Dùng $postman-newman-api-runner để chuyển audited HW06 API test cases thành Postman, Newman, và CI artifacts."

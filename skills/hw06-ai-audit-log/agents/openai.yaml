@@ -1,0 +1,6 @@
+interface:
+  display_name: "HW06 AI Audit Log"
+  short_description: "Ghi audit log AI cho HW06"
+  default_prompt: "Dùng $hw06-ai-audit-log để append tương tác hiện tại vào reports/ai-audit-report.md."
+policy:
+  allow_implicit_invocation: true
