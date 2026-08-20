@@ -1,4 +1,4 @@
 interface:
-  display_name: "AI-First API Testing"
-  short_description: "Thiết kế, audit và thực thi API tests cho HW06"
-  default_prompt: "Dùng $ai-first-api-testing để hoàn thành phần HW06 API Testing tôi yêu cầu. Đối chiếu đề bài, SUT README và API specification; chỉ dùng evidence thật, giữ traceability và đánh dấu rõ phần còn chờ human review."
+  display_name: "Kiểm thử API ưu tiên AI"
+  short_description: "Thiết kế, kiểm toán và thực thi API cho HW06"
+  default_prompt: "Dùng $ai-first-api-testing để hoàn thành phần kiểm thử API HW06 tôi yêu cầu. Đối chiếu đề bài, README của SUT và đặc tả API; chỉ dùng bằng chứng thật, giữ khả năng truy vết và đánh dấu rõ phần còn chờ con người đánh giá."

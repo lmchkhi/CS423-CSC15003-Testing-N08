@@ -1,17 +1,17 @@
-### Tóm tắt kết quả kiểm thử API tổng thể (Result Summary)
+### Tóm tắt kết quả kiểm thử API tổng thể
 
-#### Bảng chi tiết theo API (Per-API Table)
-| API | Tests Generated | Audited V/I/I | Human-added | Executed | Passed | Failed | Bugs | Evidence Path |
+#### Bảng chi tiết theo API
+| API | AI sinh | Đã kiểm toán V/I/I | Con người bổ sung | Đã thực thi | Đạt | Không đạt | Lỗi | Đường dẫn bằng chứng |
 |-----|-----------------|---------|----------|----------|--------|--------|------|---------------|
-| 1   | `{gen}`         | `{aud}` | `{ext}`  | `{exe}`  | `{pass}` | `{fail}` | `{bug}` | `{path}` |
-| 2   | `{gen}`         | `{aud}` | `{ext}`  | `{exe}`  | `{pass}` | `{fail}` | `{bug}` | `{path}` |
-| 3   | `{gen}`         | `{aud}` | `{ext}`  | `{exe}`  | `{pass}` | `{fail}` | `{bug}` | `{path}` |
+| 1 | `{ai_sinh}` | `{da_kiem_toan}` | `{con_nguoi_bo_sung}` | `{da_thuc_thi}` | `{dat}` | `{khong_dat}` | `{loi}` | `{duong_dan}` |
+| 2 | `{ai_sinh}` | `{da_kiem_toan}` | `{con_nguoi_bo_sung}` | `{da_thuc_thi}` | `{dat}` | `{khong_dat}` | `{loi}` | `{duong_dan}` |
+| 3 | `{ai_sinh}` | `{da_kiem_toan}` | `{con_nguoi_bo_sung}` | `{da_thuc_thi}` | `{dat}` | `{khong_dat}` | `{loi}` | `{duong_dan}` |
 
-#### Ma trận bao phủ (Coverage Matrix)
-| API | Domain Partitions | State Transitions | Security | Schema | Evidence Path |
+#### Ma trận bao phủ
+| API | Phân vùng miền | Chuyển đổi trạng thái | Bảo mật | Lược đồ | Đường dẫn bằng chứng |
 |-----|-------------------|-------------------|----------|--------|---------------|
-| 1   | `{dom}`           | `{state}`         | `{sec}`  | `{sch}`| `{path}`      |
-| 2   | `{dom}`           | `{state}`         | `{sec}`  | `{sch}`| `{path}`      |
-| 3   | `{dom}`           | `{state}`         | `{sec}`  | `{sch}`| `{path}`      |
+| 1 | `{mien}` | `{trang_thai}` | `{bao_mat}` | `{luoc_do}` | `{duong_dan}` |
+| 2 | `{mien}` | `{trang_thai}` | `{bao_mat}` | `{luoc_do}` | `{duong_dan}` |
+| 3 | `{mien}` | `{trang_thai}` | `{bao_mat}` | `{luoc_do}` | `{duong_dan}` |
 
-*(Mọi giá trị được điền phải trích dẫn đường dẫn bằng chứng - Every populated value must cite evidence path)*
+*(Mọi giá trị được điền phải trích dẫn đường dẫn bằng chứng.)*

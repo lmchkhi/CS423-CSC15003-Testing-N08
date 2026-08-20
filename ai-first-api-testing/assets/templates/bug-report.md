@@ -1,44 +1,44 @@
-### Báo cáo lỗi (Bug Report)
+### Báo cáo lỗi
 
-- **Issue ID:** `{issue_id}`
-- **Title:** `{bug_title}`
-- **Severity:** `{Critical/High/Medium/Low}`
-- **API Endpoint:** `{endpoint}`
-- **HTTP Method:** `{method}`
-- **Pool:** `{A/B/C}`
-- **Bug Type:** `{Functional / Security / State Transition / Schema Mismatch}`
+- **Mã vấn đề:** `{ma_van_de}`
+- **Tiêu đề:** `{tieu_de_loi}`
+- **Mức độ nghiêm trọng:** `{Nghiem_trong/Cao/Trung_binh/Thap}`
+- **Điểm cuối API:** `{diem_cuoi}`
+- **Phương thức HTTP:** `{phuong_thuc}`
+- **Nhóm:** `{A/B/C}`
+- **Loại lỗi:** `{Chuc_nang/Bao_mat/Chuyen_doi_trang_thai/Sai_lech_luoc_do}`
 
-#### Mô tả (Description)
-{description_of_bug}
+#### Mô tả
+{mo_ta_loi}
 
-#### Các bước tái hiện (Steps to Reproduce)
-1. {step_1}
-2. {step_2}
+#### Các bước tái hiện
+1. {buoc_1}
+2. {buoc_2}
 
-#### Yêu cầu (Request)
-- **Method:** `{method}`
+#### Yêu cầu HTTP
+- **Phương thức:** `{phuong_thuc}`
 - **URL:** `{url}`
-- **Headers:** `{headers}`
-- **Body:** `{body}`
+- **Header:** `{header}`
+- **Nội dung:** `{noi_dung}`
 
-#### Phản hồi mong đợi và thực tế (Expected vs Actual Response)
-- **Requirement Source:** `{file/section/FR/SEC}`
-- **Expected:** Status `{expected_status}`, Body `{expected_body}`, Headers `{expected_headers}`
-- **Actual:** Status `{actual_status}`, Body `{actual_body}`, Headers `{actual_headers}`
+#### Phản hồi mong đợi và thực tế
+- **Nguồn yêu cầu:** `{tep/muc/FR/SEC}`
+- **Mong đợi:** Trạng thái `{trang_thai_mong_doi}`, nội dung `{noi_dung_mong_doi}`, header `{header_mong_doi}`
+- **Thực tế:** Trạng thái `{trang_thai_thuc_te}`, nội dung `{noi_dung_thuc_te}`, header `{header_thuc_te}`
 
-#### Bằng chứng (Evidence)
-- **Newman Report Path:** `{report_path}`
-- **Screenshot Path:** `{screenshot_path}`
-- **Postman Test Script:** `{postman_test_script}`
-- **Reproduction Run/Time:** `{run_id_and_timestamp}`
+#### Bằng chứng
+- **Đường dẫn báo cáo Newman:** `{duong_dan_bao_cao}`
+- **Đường dẫn ảnh chụp màn hình:** `{duong_dan_anh}`
+- **Mã kiểm thử Postman:** `{ma_kiem_thu_postman}`
+- **Lần chạy/Thời gian tái hiện:** `{ma_lan_chay_va_dau_thoi_gian}`
 
-#### Tác động bảo mật (Security Impact)
-{reference_to_SEC-01_to_SEC-07_if_applicable}
+#### Tác động bảo mật
+{tham_chieu_SEC-01_den_SEC-07_neu_ap_dung}
 
-#### Giả thuyết nguyên nhân gốc rễ (Root-cause hypothesis)
-{root_cause_hypothesis}
+#### Giả thuyết nguyên nhân gốc rễ
+{gia_thuyet_nguyen_nhan_goc}
 
-#### Trạng thái xuất bản (Publication status)
-- **Status:** `{LOCAL DRAFT / PUBLISHED}`
-- **GitHub Issue URL:** `{PENDING or real_issue_url}`
-- **Issue Screenshot:** `{PENDING or screenshot_path}`
+#### Trạng thái xuất bản
+- **Trạng thái:** `{BAN_NHAP_CUC_BO / DA_XUAT_BAN}`
+- **URL GitHub Issue:** `{DANG_CHO_hoac_url_van_de_that}`
+- **Ảnh chụp vấn đề:** `{DANG_CHO_hoac_duong_dan_anh}`

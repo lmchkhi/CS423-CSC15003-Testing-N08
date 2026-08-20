@@ -1,17 +1,17 @@
-### Nhật ký kiểm toán AI (AI Audit Entry) `{interaction_id}`
+### Mục nhật ký kiểm toán AI `{ma_tuong_tac}`
 
-- **Công cụ (Tool):** `{tool/model if known}`
-- **Thời gian (Date/Time + timezone):** `{yyyy-MM-dd HH:mm UTC+offset}`
-- **Mục đích (Task):** `{task}`
+- **Công cụ:** `{cong_cu/mo_hinh_neu_biet}`
+- **Thời gian và múi giờ:** `{yyyy-MM-dd HH:mm UTC+do_lech}`
+- **Mục đích:** `{nhiem_vu}`
 
-**Yêu cầu người dùng (User Prompt):**
+**Câu lệnh nguyên văn của người dùng:**
 
-    {exact user prompt}
+    {cau_lenh_nguyen_van_cua_nguoi_dung}
 
-**Kết quả nguyên văn từ AI (Verbatim AI Output):**
+**Kết quả nguyên văn từ AI:**
 
-    {full AI output; if stored separately, provide an immutable/traceable path}
+    {toan_bo_ket_qua_AI; neu_luu_rieng_hay_cung_cap_duong_dan_bat_bien_va_truy_vet_duoc}
 
-**Human review/correction:**
+**Đánh giá/chỉnh sửa của con người:**
 
-    {PENDING, or the actual review and corrections}
+    {PENDING_hoac_noi_dung_danh_gia_va_chinh_sua_thuc_te}

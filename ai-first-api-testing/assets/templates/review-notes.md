@@ -1,30 +1,30 @@
-### Ghi chú Đánh giá (Review Notes)
+### Ghi chú đánh giá
 
-#### Thông tin Đánh giá (Review Information)
+#### Thông tin đánh giá
 | Thuộc tính | Chi tiết |
 |------------|----------|
-| Workflow | API Testing HW06 |
-| Student ID | `{student_id}` |
-| Stage | `{stage}` |
-| Reviewer | `{reviewer}` |
-| Time | `{time}` |
+| Quy trình | Kiểm thử API HW06 |
+| Mã sinh viên | `{ma_sinh_vien}` |
+| Giai đoạn | `{giai_doan}` |
+| Người đánh giá | `{nguoi_danh_gia}` |
+| Thời gian | `{thoi_gian}` |
 
-#### Các phát hiện (Findings)
-| Item | AI Decision | Actual Observation | Status | Correction | Evidence |
+#### Các phát hiện
+| Hạng mục | Quyết định của AI | Quan sát thực tế | Trạng thái | Chỉnh sửa | Bằng chứng |
 |------|-------------|--------------------|--------|------------|----------|
-| `{item}` | `{ai_decision}` | `{observation}` | `{status}` | `{correction}` | `{evidence}` |
+| `{hang_muc}` | `{quyet_dinh_ai}` | `{quan_sat}` | `{trang_thai}` | `{chinh_sua}` | `{bang_chung}` |
 
-#### Phân loại lỗi (Failure Classification)
-| Lỗi (Error) | Loại (Type) | Mô tả (Description) |
+#### Phân loại lỗi
+| Lỗi | Loại | Mô tả |
 |-------------|-------------|---------------------|
-| `{error}` | `{type}` | `{description}` |
+| `{loi}` | `{loai}` | `{mo_ta}` |
 
-#### Quyết định của con người (Human Decision)
-- **Decision:** `{Approved / Approved with corrections / Rejected}`
+#### Quyết định của con người
+- **Quyết định:** `{Da_duyet / Da_duyet_kem_chinh_sua / Tu_choi}`
 
-#### Cổng phê duyệt (Approval Gate)
-- **Status:** `{PENDING / APPROVED / APPROVED WITH CORRECTIONS / REJECTED}`
-- **Details:** `{approval_details}`
+#### Cổng phê duyệt
+- **Trạng thái:** `{DANG_CHO / DA_DUYET / DA_DUYET_KEM_CHINH_SUA / TU_CHOI}`
+- **Chi tiết:** `{chi_tiet_phe_duyet}`
 
-#### Chỉnh sửa của con người (Human Correction)
-{human_correction_details}
+#### Chỉnh sửa của con người
+{chi_tiet_chinh_sua_cua_con_nguoi}

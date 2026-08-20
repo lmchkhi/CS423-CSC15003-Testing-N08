@@ -1,47 +1,47 @@
 # Hợp đồng chọn API
 
-Dùng tài liệu này để map feature scope sang endpoint. Trước khi chốt, đọc lại `src/eshop-sut/api_specification.md` và `src/eshop-sut/README.md` vì bảng này chỉ là chỉ mục.
+Dùng tài liệu này để ánh xạ phạm vi tính năng sang điểm cuối. Trước khi chốt, đọc lại `src/eshop-sut/api_specification.md` và `src/eshop-sut/README.md` vì bảng này chỉ là chỉ mục.
 
-## Pool A — Authentication, Categories, Products
+## Nhóm A — Xác thực, Danh mục và Sản phẩm
 
-- FR-01 Registration: `POST /api/register`
-- FR-02 Login/lockout: `POST /api/login`
-- FR-03 Password reset: `POST /api/forgot-password`, `POST /api/reset-password`
-- FR-04 Profile: `GET /api/users/me`, `PUT /api/users/me`
-- FR-05 Product listing/search: `GET /api/products?search=...`
-- FR-06 Product detail: `GET /api/products/:id`
+- FR-01 Đăng ký tài khoản: `POST /api/register`
+- FR-02 Đăng nhập/khóa tài khoản: `POST /api/login`
+- FR-03 Đặt lại mật khẩu: `POST /api/forgot-password`, `POST /api/reset-password`
+- FR-04 Hồ sơ cá nhân: `GET /api/users/me`, `PUT /api/users/me`
+- FR-05 Danh sách/tìm kiếm sản phẩm: `GET /api/products?search=...`
+- FR-06 Chi tiết sản phẩm: `GET /api/products/:id`
 
-## Pool B — Cart and Checkout
+## Nhóm B — Giỏ hàng và Thanh toán
 
-- FR-07 Cart: `GET /api/cart`, `POST /api/cart`
-- FR-08 Checkout: `POST /api/checkout`
-- FR-09 Coupon application: `POST /api/apply-coupon`
-- FR-10 Order state machine:
-  - user cancellation: `PUT /api/orders/:id/cancel`
-  - admin transition: `PUT /api/admin/orders/:id/status`
-- FR-11 User order history/detail: `GET /api/orders/my-orders`, `GET /api/orders/:id`
+- FR-07 Giỏ hàng: `GET /api/cart`, `POST /api/cart`
+- FR-08 Thanh toán: `POST /api/checkout`
+- FR-09 Áp dụng mã giảm giá: `POST /api/apply-coupon`
+- FR-10 Máy trạng thái đơn hàng:
+  - người dùng hủy đơn: `PUT /api/orders/:id/cancel`
+  - quản trị viên chuyển trạng thái: `PUT /api/admin/orders/:id/status`
+- FR-11 Lịch sử/chi tiết đơn hàng của người dùng: `GET /api/orders/my-orders`, `GET /api/orders/:id`
 
-FR-10 expected transitions come from the SUT README: `pending -> confirmed -> shipping -> delivered`; `pending` and `confirmed` may transition to `canceled`; `delivered` and `canceled` are final; a user cannot cancel at `shipping`, while an admin may act only according to the state machine. The API specification's looser phrase “chưa giao” must not silently weaken these rules.
+Các chuyển đổi mong đợi của FR-10 lấy từ README của SUT: `pending -> confirmed -> shipping -> delivered`; `pending` và `confirmed` có thể chuyển sang `canceled`; `delivered` và `canceled` là trạng thái kết thúc; người dùng không thể hủy ở trạng thái `shipping`, còn quản trị viên chỉ được thao tác theo máy trạng thái. Không được âm thầm dùng cụm từ ít chặt chẽ hơn “chưa giao” trong đặc tả API để làm yếu các quy tắc này.
 
-## Pool C — Web Admin
+## Nhóm C — Trang quản trị Web
 
-These mutating/admin scopes require a valid JWT and `role = admin` according to FR-12.
+Theo FR-12, các phạm vi thay đổi dữ liệu/dành cho quản trị viên này yêu cầu JWT hợp lệ và `role = admin`.
 
-- FR-12 Access control: `/api/admin/*` and protected product/category/coupon mutations
-- FR-13 Dashboard: no endpoint documented in the API specification; inspect source and record the documentation gap before selecting it
-- FR-14 Category CRUD: `GET /api/categories`, `POST /api/categories`, `PUT /api/categories/:id`, `DELETE /api/categories/:id`
-- FR-15 Product CRUD: `POST /api/products`, `PUT /api/products/:id`, `DELETE /api/products/:id`
-- FR-16 CSV import: `POST /api/admin/import-products`
-- FR-17 Coupon CRUD: `GET /api/coupons`, `POST /api/admin/coupons`, `DELETE /api/admin/coupons/:id`
-- FR-18 Order management: `GET /api/admin/orders`, `PUT /api/admin/orders/:id/status`
-- FR-19 User management: `GET /api/admin/users`, `DELETE /api/admin/users/:id`
+- FR-12 Kiểm soát truy cập: `/api/admin/*` và các thao tác thay đổi sản phẩm/danh mục/mã giảm giá được bảo vệ
+- FR-13 Bảng điều khiển: đặc tả API không ghi điểm cuối; phải kiểm tra mã nguồn và ghi nhận khoảng trống tài liệu trước khi chọn
+- FR-14 Thêm/xem/sửa/xóa danh mục: `GET /api/categories`, `POST /api/categories`, `PUT /api/categories/:id`, `DELETE /api/categories/:id`
+- FR-15 Thêm/xem/sửa/xóa sản phẩm: `POST /api/products`, `PUT /api/products/:id`, `DELETE /api/products/:id`
+- FR-16 Nhập CSV: `POST /api/admin/import-products`
+- FR-17 Thêm/xem/sửa/xóa mã giảm giá: `GET /api/coupons`, `POST /api/admin/coupons`, `DELETE /api/admin/coupons/:id`
+- FR-18 Quản lý đơn hàng: `GET /api/admin/orders`, `PUT /api/admin/orders/:id/status`
+- FR-19 Quản lý người dùng: `GET /api/admin/users`, `DELETE /api/admin/users/:id`
 
-FR-16 has a notable contract gap: the business requirement describes CSV upload/RFC 4180, while the published API specification shows a JSON `products` array. Record this discrepancy and ask for a human decision before assuming an upload format.
+FR-16 có khoảng trống hợp đồng đáng chú ý: yêu cầu nghiệp vụ mô tả việc tải tệp CSV theo RFC 4180, trong khi đặc tả API công bố một mảng JSON `products`. Ghi nhận mâu thuẫn này và yêu cầu con người quyết định trước khi giả định định dạng tải lên.
 
-## Selection checks
+## Kiểm tra lựa chọn
 
-- Select one feature/API scope from each Pool A, B and C. A feature may contain multiple endpoints when its workflow requires them.
-- Confirm the selected triple is not duplicated by another group member; repository inspection cannot prove this without the group's selection list.
-- Record feature ID, method/path, auth/role, inputs, preconditions, expected rule source, known spec gaps and data/state dependencies.
-- Do not claim an exact response schema where the API specification only provides prose or a partial example. Such schema assertions remain `INCOMPLETE` until the expected contract is approved.
-- Map relevant SEC-01–SEC-07 from the SUT README; do not state that these requirements are defined in `api_specification.md`.
+- Chọn một phạm vi tính năng/API từ mỗi Nhóm A, B và C. Một tính năng có thể gồm nhiều điểm cuối khi quy trình của nó yêu cầu.
+- Xác nhận bộ ba đã chọn không trùng với thành viên khác; việc kiểm tra kho mã nguồn không thể chứng minh điều này nếu thiếu danh sách lựa chọn của nhóm.
+- Ghi mã tính năng, phương thức/đường dẫn, xác thực/vai trò, dữ liệu đầu vào, điều kiện tiên quyết, nguồn quy tắc mong đợi, khoảng trống đặc tả đã biết và phụ thuộc dữ liệu/trạng thái.
+- Không khẳng định lược đồ phản hồi chính xác khi đặc tả API chỉ cung cấp mô tả hoặc ví dụ một phần. Các câu lệnh kiểm tra lược đồ đó giữ trạng thái `INCOMPLETE` cho đến khi hợp đồng mong đợi được duyệt.
+- Ánh xạ SEC-01–SEC-07 liên quan từ README của SUT; không nói rằng các yêu cầu này được định nghĩa trong `api_specification.md`.

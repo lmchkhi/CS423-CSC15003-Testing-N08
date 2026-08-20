@@ -1,45 +1,45 @@
-### Nhật ký thực thi Newman (Execution Log)
+### Nhật ký thực thi Newman
 
-- **Thời gian (Date/Time):** `{date_time}`
+- **Thời gian:** `{ngay_gio}`
 - **API:** `{1/2/3}`
-- **Pool:** `{A/B/C}`
-- **Endpoint:** `{endpoint}`
-- **Base URL / Hostname observed:** `{base_url}` / `{hostname}`
-- **Node / Newman / Reporter versions:** `{versions}`
+- **Nhóm:** `{A/B/C}`
+- **Điểm cuối:** `{diem_cuoi}`
+- **URL cơ sở / Tên máy chủ quan sát:** `{url_co_so}` / `{ten_may_chu}`
+- **Phiên bản Node / Newman / Trình tạo báo cáo:** `{phien_ban}`
 
-#### Tệp cấu hình (Configuration Files)
-- **Postman Collection Path:** `{collection_path}`
-- **Environment Path:** `{environment_path}`
-- **Data File Path:** `{data_file_path}`
+#### Tệp cấu hình
+- **Đường dẫn bộ sưu tập Postman:** `{duong_dan_bo_suu_tap}`
+- **Đường dẫn môi trường:** `{duong_dan_moi_truong}`
+- **Đường dẫn tệp dữ liệu:** `{duong_dan_du_lieu}`
 
-- **Lệnh Newman (Newman Command Used):** `{newman_command}`
-- **Exit code:** `{exit_code}`
-- **Header xác nhận (X-Student-Id header confirmed):** `{true/false}`
-- **Header screenshot path:** `{screenshot_path_or_PENDING}`
-- **Người chạy (Run by):** `{Agent/Human}`
+- **Lệnh Newman đã dùng:** `{lenh_newman}`
+- **Mã thoát:** `{ma_thoat}`
+- **Đã xác nhận header X-Student-Id:** `{true/false}`
+- **Đường dẫn ảnh chụp header:** `{duong_dan_anh_hoac_PENDING}`
+- **Người chạy:** `{Agent/Con_nguoi}`
 
-#### Danh sách kiểm tra trước khi chạy (Pre-run checklist)
-- [ ] SUT running
-- [ ] Data seeded
-- [ ] {other_checklist_items}
+#### Danh sách kiểm tra trước khi chạy
+- [ ] SUT đang chạy
+- [ ] Dữ liệu đã được khởi tạo
+- [ ] {muc_kiem_tra_khac}
 
-#### Tóm tắt kết quả (Result Summary)
-| Iterations | Requests | Assertions | Passed Assertions | Failed Assertions | Skipped | Duration |
+#### Tóm tắt kết quả
+| Vòng lặp | Yêu cầu | Câu lệnh kiểm tra | Kiểm tra đạt | Kiểm tra không đạt | Bỏ qua | Thời lượng |
 |------------|----------|------------|-------------------|-------------------|---------|----------|
-| {iterations} | {requests} | {assertions} | {pass} | {fail} | {skip} | {time} |
+| {vong_lap} | {yeu_cau} | {cau_lenh_kiem_tra} | {dat} | {khong_dat} | {bo_qua} | {thoi_luong} |
 
-#### Chi tiết theo Request (Per-request breakdown)
-| Request | Passed | Failed | Skipped | Duration |
+#### Chi tiết theo yêu cầu
+| Yêu cầu | Đạt | Không đạt | Bỏ qua | Thời lượng |
 |---------|--------|--------|---------|----------|
-| {name}  | {pass} | {fail} | {skip}  | {time}   |
+| {ten} | {dat} | {khong_dat} | {bo_qua} | {thoi_luong} |
 
-- **Đường dẫn báo cáo HTML Newman (Newman HTML Report Path):** `{html_report_path}`
+- **Đường dẫn báo cáo HTML Newman:** `{duong_dan_bao_cao_html}`
 
-#### Quan sát (Observations)
-{observations}
+#### Quan sát
+{quan_sat}
 
-#### Suy luận/Giả thuyết (Inferences/Hypotheses)
-{inferences_or_none}
+#### Suy luận/Giả thuyết
+{suy_luan_hoac_khong}
 
-#### Phán quyết (Verdict)
-- **Verdict:** `{PASS / FAIL / INCONCLUSIVE}`
+#### Kết luận
+- **Kết luận:** `{DAT / KHONG_DAT / CHUA_DU_CAN_CU}`

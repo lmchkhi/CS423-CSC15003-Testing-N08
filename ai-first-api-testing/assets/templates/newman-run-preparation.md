@@ -1,28 +1,28 @@
-### Chuẩn bị chạy Newman (Newman Run Preparation)
+### Chuẩn bị chạy Newman
 
-- **API Details:** Endpoint `{endpoint}`, Method `{method}`, Pool `{pool}`
-- **Base URL / expected hostname:** `{base_url}` / `{hostname}`
+- **Chi tiết API:** Điểm cuối `{diem_cuoi}`, Phương thức `{phuong_thuc}`, Nhóm `{nhom}`
+- **URL cơ sở / tên máy chủ mong đợi:** `{url_co_so}` / `{ten_may_chu}`
 
-#### Danh sách kiểm tra điều kiện tiên quyết (Pre-conditions checklist)
-- [ ] SUT running
-- [ ] Collection reviewed
-- [ ] Environment set
-- [ ] X-Student-Id configured
-- [ ] Student ID value verified
-- [ ] Test data/state prepared
-- [ ] Newman and HTML reporter versions recorded
-- [ ] New output paths selected (do not overwrite old evidence)
+#### Danh sách kiểm tra điều kiện tiên quyết
+- [ ] SUT đang chạy
+- [ ] Bộ sưu tập đã được đánh giá
+- [ ] Môi trường đã được thiết lập
+- [ ] X-Student-Id đã được cấu hình
+- [ ] Giá trị mã sinh viên đã được xác minh
+- [ ] Dữ liệu/trạng thái kiểm thử đã được chuẩn bị
+- [ ] Phiên bản Newman và trình tạo báo cáo HTML đã được ghi
+- [ ] Đã chọn đường dẫn kết quả mới, không ghi đè bằng chứng cũ
 
-#### Lệnh thực thi Newman (Newman command to run)
-`{newman_command}`
+#### Lệnh thực thi Newman
+`{lenh_newman}`
 
-- **Thời gian dự kiến (Expected duration):** `{duration}`
+- **Thời gian dự kiến:** `{thoi_luong}`
 
-#### Các bước sau khi chạy (Post-run steps)
-- [ ] Verify report
-- [ ] Preserve console output and exit code
-- [ ] Capture real console screenshot showing X-Student-Id
-- [ ] Verify observed hostname matches deployment
+#### Các bước sau khi chạy
+- [ ] Xác minh báo cáo
+- [ ] Giữ kết quả bảng điều khiển và mã thoát
+- [ ] Chụp ảnh bảng điều khiển thật có X-Student-Id
+- [ ] Xác minh tên máy chủ quan sát khớp môi trường triển khai
 
-#### Trạng thái (Checkpoint)
-- **Checkpoint:** `{PENDING USER EXECUTION / PENDING NEWMAN RUN}`
+#### Trạng thái
+- **Trạng thái:** `{CHO_NGUOI_DUNG_THUC_THI / CHO_CHAY_NEWMAN}`

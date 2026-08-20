@@ -1,16 +1,16 @@
-### CI/CD Report
+### Báo cáo CI/CD
 
-- **Workflow file:** `{workflow_path}`
-- **Trigger(s):** `{triggers}`
-- **Collection/environment/data:** `{paths}`
-- **Newman command and reporter:** `{command}`
-- **Artifact retention:** `{report_artifact_details}`
-- **Student ID injection (non-secret):** `{mechanism}`
-- **Secret handling:** `{mechanism_or_N/A}`
+- **Tệp quy trình:** `{duong_dan_quy_trinh}`
+- **Sự kiện kích hoạt:** `{su_kien_kich_hoat}`
+- **Bộ sưu tập/môi trường/dữ liệu:** `{duong_dan}`
+- **Lệnh Newman và trình tạo báo cáo:** `{lenh}`
+- **Lưu giữ sản phẩm:** `{chi_tiet_luu_bao_cao}`
+- **Cách truyền mã sinh viên (không bí mật):** `{co_che}`
+- **Xử lý thông tin bí mật:** `{co_che_hoac_N/A}`
 
-| Required run | Commit SHA | Run URL | Observed result | Screenshot | Evidence notes |
+| Lần chạy bắt buộc | SHA commit | URL lần chạy | Kết quả quan sát | Ảnh chụp màn hình | Ghi chú bằng chứng |
 |---|---|---|---|---|---|
-| All-passing | `{real_sha}` | `{real_url}` | `{counts_and_status}` | `{path}` | `{notes}` |
-| One test failing | `{real_sha}` | `{real_url}` | `{counts_and_status}` | `{path}` | `{intentional_failure_and_restoration_notes}` |
+| Đạt toàn bộ | `{sha_that}` | `{url_that}` | `{so_luong_va_trang_thai}` | `{duong_dan}` | `{ghi_chu}` |
+| Một ca kiểm thử thất bại | `{sha_that}` | `{url_that}` | `{so_luong_va_trang_thai}` | `{duong_dan}` | `{ghi_chu_tao_loi_co_chu_dich_va_khoi_phuc}` |
 
-Do not fill commit SHAs, URLs, results or screenshots until they exist. Explain how the intentionally failing sample was isolated and how the normal test was restored afterward.
+Không điền SHA commit, URL, kết quả hoặc ảnh chụp màn hình trước khi chúng tồn tại. Giải thích cách cô lập mẫu thất bại có chủ đích và cách khôi phục ca kiểm thử bình thường sau đó.

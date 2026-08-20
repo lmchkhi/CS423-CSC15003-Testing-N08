@@ -1,27 +1,27 @@
-# Runbook thiết kế và audit API tests
+# Cẩm nang thiết kế và kiểm toán ca kiểm thử API
 
-## Tạo test cases
+## Tạo ca kiểm thử
 
-Mỗi case nên có: ID, origin (`AI-GENERATED`/`HUMAN-ADDED`), feature/endpoint, objective, category, preconditions/state, request data, steps, expected status/body/headers/schema, requirement source và automation status.
+Mỗi ca nên có: mã, nguồn gốc (`AI-SINH`/`CON-NGUOI-BO-SUNG`), tính năng/điểm cuối, mục tiêu, danh mục, điều kiện tiên quyết/trạng thái, dữ liệu yêu cầu, các bước, trạng thái/nội dung/header/lược đồ mong đợi, nguồn yêu cầu và trạng thái tự động hóa.
 
 Điều khiển AI theo các lượt có mục tiêu, ví dụ:
 
-1. Trích xuất contract và liệt kê spec gaps.
-2. Partition từng path/query/header/body parameter, gồm missing/null/type/boundary/format.
-3. Lập state-transition matrix nếu feature có trạng thái.
-4. Map SEC-01–SEC-07 và threat cases áp dụng được.
-5. Tạo schema assertions chỉ từ schema/field có nguồn.
-6. Deduplicate và lập traceability; bổ sung khoảng trống tới `>= 35` case/API.
+1. Trích xuất hợp đồng và liệt kê khoảng trống đặc tả.
+2. Phân vùng từng tham số đường dẫn/truy vấn/header/nội dung, gồm thiếu/rỗng/kiểu/biên/định dạng.
+3. Lập ma trận chuyển đổi trạng thái nếu tính năng có trạng thái.
+4. Ánh xạ SEC-01–SEC-07 và các ca kiểm thử mối đe dọa áp dụng được.
+5. Tạo câu lệnh kiểm tra lược đồ chỉ từ lược đồ/trường có nguồn.
+6. Loại ca trùng và lập khả năng truy vết; bổ sung khoảng trống tới `>= 35` ca/API.
 
-Không ép mọi SEC hoặc state-transition category vào endpoint không liên quan. Không dùng số lượng để che lấp case trùng hoặc expected result vô căn cứ.
+Không ép mọi SEC hoặc danh mục chuyển đổi trạng thái vào điểm cuối không liên quan. Không dùng số lượng để che lấp ca trùng hoặc kết quả mong đợi vô căn cứ.
 
 ## Audit
 
-- `VALID`: input, precondition, action và expected result đều có căn cứ và thực thi được.
-- `INVALID`: case mâu thuẫn với contract/business rule hoặc kiểm thử sai scope; ghi correction hoặc lý do loại.
-- `INCOMPLETE`: thiếu dữ liệu, oracle, schema, precondition hoặc cleanup; ghi chính xác phần cần bổ sung.
+- `VALID`: dữ liệu đầu vào, điều kiện tiên quyết, hành động và kết quả mong đợi đều có căn cứ và thực thi được.
+- `INVALID`: ca mâu thuẫn với hợp đồng/quy tắc nghiệp vụ hoặc kiểm thử sai phạm vi; ghi nội dung chỉnh sửa hoặc lý do loại.
+- `INCOMPLETE`: thiếu dữ liệu, cơ sở xác định kết quả, lược đồ, điều kiện tiên quyết hoặc bước dọn dẹp; ghi chính xác phần cần bổ sung.
 
-Human verdict phải độc lập với AI verdict. Sau correction, giữ cả bản gốc và final version để chứng minh audit.
+Kết luận của con người phải độc lập với kết luận của AI. Sau khi chỉnh sửa, giữ cả bản gốc và phiên bản cuối để chứng minh việc kiểm toán.
 
 ## Các điểm EShop dễ sai
 
@@ -32,11 +32,11 @@ Human verdict phải độc lập với AI verdict. Sau correction, giữ cả b
 - FR-15: name required/max 255, price `> 0`, category tồn tại; update không làm đổi product khác.
 - FR-16: tài liệu mâu thuẫn CSV upload với JSON array; không tự chọn contract.
 - FR-19: không lộ password và admin không tự xóa chính mình.
-- SEC: invalid/missing/expired token, user gọi admin API, IDOR, mass assignment `role`, injection và output escaping khi có UI sink.
+- SEC: token không hợp lệ/thiếu/hết hạn, người dùng thường gọi API quản trị, IDOR, gán hàng loạt trường `role`, chèn mã và thoát dữ liệu đầu ra khi có nơi hiển thị trên giao diện.
 
 ## Chuyển sang Postman/Newman
 
-- Mỗi assertion phải trace về test case đã duyệt.
-- Dùng variables, environments, data-driven runs, mock server hoặc monitor chỉ khi chúng tạo giá trị thật; report chỉ liệt kê feature đã thực sự dùng.
-- Phân biệt assertion failure với request/network/setup failure.
-- Không khẳng định “exact schema” nếu source chỉ có response example một phần.
+- Mỗi câu lệnh kiểm tra phải truy vết về ca kiểm thử đã duyệt.
+- Dùng biến, môi trường, lần chạy theo dữ liệu, máy chủ giả lập hoặc bộ giám sát chỉ khi chúng tạo giá trị thật; báo cáo chỉ liệt kê tính năng đã thực sự dùng.
+- Phân biệt lỗi câu lệnh kiểm tra với lỗi yêu cầu/mạng/thiết lập.
+- Không khẳng định “lược đồ chính xác” nếu nguồn chỉ có ví dụ phản hồi một phần.

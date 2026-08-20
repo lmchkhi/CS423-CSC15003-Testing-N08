@@ -1,40 +1,40 @@
-### Tổng kết HW06 (Readme Summary)
+### Tổng kết HW06
 
-- **Student ID:** `{student_id}`
+- **Mã sinh viên:** `{ma_sinh_vien}`
 - **SUT:** EShop SUT
-- **Repository Link:** `{repo_link}`
+- **Liên kết kho mã nguồn:** `{lien_ket_kho_ma_nguon}`
 
-#### Các API đã chọn (APIs Selected)
-| API | Pool | Feature | Endpoints |
+#### Các API đã chọn
+| API | Nhóm | Tính năng | Điểm cuối |
 |-----|------|---------|-----------|
-| 1   | `{pool}` | `{feature}` | `{endpoint}` |
-| 2   | `{pool}` | `{feature}` | `{endpoint}` |
-| 3   | `{pool}` | `{feature}` | `{endpoint}` |
+| 1   | `{nhom}` | `{tinh_nang}` | `{diem_cuoi}` |
+| 2   | `{nhom}` | `{tinh_nang}` | `{diem_cuoi}` |
+| 3   | `{nhom}` | `{tinh_nang}` | `{diem_cuoi}` |
 
-#### Tóm tắt kiểm thử (Test Summary)
-| API | Generated | Audited (Valid/Invalid/Incomplete) | Human-added | Total | Executed | Passed | Failed | Bugs Found |
+#### Tóm tắt kiểm thử
+| API | AI sinh | Đã kiểm toán (VALID/INVALID/INCOMPLETE) | Con người bổ sung | Tổng | Đã thực thi | Đạt | Không đạt | Lỗi phát hiện |
 |-----|-----------|-------------------------------------|----------|-------|----------|--------|--------|------------|
-| 1   | {gen}     | {valid}/{invalid}/{inc}           | {ext}    | {tot} | {exec}   | {pass} | {fail} | {bugs}     |
-| 2   | {gen}     | {valid}/{invalid}/{inc}           | {ext}    | {tot} | {exec}   | {pass} | {fail} | {bugs}     |
-| 3   | {gen}     | {valid}/{invalid}/{inc}           | {ext}    | {tot} | {exec}   | {pass} | {fail} | {bugs}     |
-| **Total** | {gen_total} | {valid_total}/{invalid_total}/{inc_total} | {added_total} | {total} | {exec_total} | {pass_total} | {fail_total} | {bug_total} |
+| 1 | {ai_sinh} | {valid}/{invalid}/{incomplete} | {con_nguoi_bo_sung} | {tong} | {da_thuc_thi} | {dat} | {khong_dat} | {loi} |
+| 2 | {ai_sinh} | {valid}/{invalid}/{incomplete} | {con_nguoi_bo_sung} | {tong} | {da_thuc_thi} | {dat} | {khong_dat} | {loi} |
+| 3 | {ai_sinh} | {valid}/{invalid}/{incomplete} | {con_nguoi_bo_sung} | {tong} | {da_thuc_thi} | {dat} | {khong_dat} | {loi} |
+| **Tổng** | {tong_ai_sinh} | {tong_valid}/{tong_invalid}/{tong_incomplete} | {tong_bo_sung} | {tong} | {tong_thuc_thi} | {tong_dat} | {tong_khong_dat} | {tong_loi} |
 
-#### Tự đánh giá (Self-Assessment)
-| No. | Criteria | Max | Self |
+#### Tự đánh giá
+| STT | Tiêu chí | Tối đa | Tự đánh giá |
 |-----|----------|-----|------|
-| 1 | API 1 - full pipeline | 30 | `{self_score_1}` |
-| 2 | API 2 - full pipeline | 30 | `{self_score_2}` |
-| 3 | API 3 - full pipeline | 30 | `{self_score_3}` |
-| 4 | Agent Skills | 10 | `{self_score_4}` |
-| | **Total** | **100** | `{self_score_total}` |
+| 1 | API 1 — quy trình đầy đủ | 30 | `{diem_tu_danh_gia_1}` |
+| 2 | API 2 — quy trình đầy đủ | 30 | `{diem_tu_danh_gia_2}` |
+| 3 | API 3 — quy trình đầy đủ | 30 | `{diem_tu_danh_gia_3}` |
+| 4 | Kỹ năng Agent | 10 | `{diem_tu_danh_gia_4}` |
+| | **Tổng** | **100** | `{tong_diem_tu_danh_gia}` |
 
-#### Các tính năng Postman đã sử dụng (Postman Features Used)
-- `{feature_1}`
-- `{feature_2}`
+#### Các tính năng Postman đã sử dụng
+- `{tinh_nang_1}`
+- `{tinh_nang_2}`
 
-- **CI/CD Pipeline Link:** `{pipeline_link}`
-- **All-passing run:** `{commit_sha}` — `{run_link}` — `{screenshot_path}`
-- **One-failing run:** `{commit_sha}` — `{run_link}` — `{screenshot_path}`
+- **Liên kết quy trình CI/CD:** `{lien_ket_quy_trinh}`
+- **Lần chạy đạt toàn bộ:** `{sha_commit}` — `{lien_ket_lan_chay}` — `{duong_dan_anh}`
+- **Lần chạy có một ca thất bại:** `{sha_commit}` — `{lien_ket_lan_chay}` — `{duong_dan_anh}`
 
-#### Phát hiện chính (Key Findings)
-{key_findings_summary}
+#### Phát hiện chính
+{tom_tat_phat_hien_chinh}

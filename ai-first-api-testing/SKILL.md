@@ -1,11 +1,11 @@
 ---
 name: ai-first-api-testing
-description: Thiết kế, audit, triển khai và phân tích API tests cho bài HW06 EShop bằng Postman/Newman hoặc công cụ tương đương. Dùng khi chọn ba API thuộc Pool A/B/C, tạo và human-review test cases, thu thập evidence thật, báo lỗi, tích hợp CI/CD, hoặc hoàn thiện AI audit, critique và báo cáo nộp bài; không dùng cho performance testing hay kiểm thử GUI thuần túy.
+description: Thiết kế, kiểm toán, triển khai và phân tích ca kiểm thử API cho bài HW06 EShop bằng Postman/Newman hoặc công cụ tương đương. Dùng khi chọn ba API thuộc Nhóm A/B/C, tạo và đánh giá ca kiểm thử do AI sinh, thu thập bằng chứng thật, báo lỗi, tích hợp CI/CD hoặc hoàn thiện nhật ký AI, bài phê bình AI và báo cáo nộp bài; không dùng cho kiểm thử hiệu năng hay kiểm thử giao diện thuần túy.
 ---
 
-# AI-first API testing cho HW06
+# Kiểm thử API theo hướng ưu tiên AI cho HW06
 
-Hoàn thành đúng phần việc người dùng yêu cầu và để lại artifact có thể truy vết. Có thể xử lý một bước hoặc nhiều bước trong cùng lượt; không tự mở rộng sang phase khác, chạy hệ thống, commit hay xuất bản GitHub Issue nếu người dùng chưa yêu cầu hoặc chưa cấp quyền cần thiết.
+Hoàn thành đúng phần việc người dùng yêu cầu và để lại sản phẩm có thể truy vết. Có thể xử lý một bước hoặc nhiều bước trong cùng lượt; không tự mở rộng sang giai đoạn khác, chạy hệ thống, tạo commit hay xuất bản GitHub Issue nếu người dùng chưa yêu cầu hoặc chưa cấp quyền cần thiết.
 
 ## Nguồn chuẩn và cách xử lý mâu thuẫn
 
@@ -13,49 +13,49 @@ Hoàn thành đúng phần việc người dùng yêu cầu và để lại arti
 
 1. `2026.HW06.API_Testing_En.md`: yêu cầu chấm điểm và deliverables.
 2. `src/eshop-sut/README.md`: hành vi nghiệp vụ mong đợi, gồm FR-01–FR-24 và SEC-01–SEC-07.
-3. `src/eshop-sut/api_specification.md`: method, path, header và payload được công bố.
+3. `src/eshop-sut/api_specification.md`: phương thức, đường dẫn, header và dữ liệu gửi được công bố.
 4. Code SUT: hành vi triển khai thực tế và các chi tiết tài liệu còn thiếu.
 
-Không coi hành vi code hiện tại là kết quả mong đợi nếu trái với README. Ghi rõ mọi mâu thuẫn hoặc khoảng trống tài liệu; không tự bịa status code, response schema, validation rule hay endpoint. Nếu chưa đủ căn cứ để tạo assertion chính xác, đánh dấu test là `INCOMPLETE` và nêu thông tin cần human quyết định.
+Không coi hành vi mã nguồn hiện tại là kết quả mong đợi nếu trái với README. Ghi rõ mọi mâu thuẫn hoặc khoảng trống tài liệu; không tự bịa mã trạng thái, lược đồ phản hồi, quy tắc xác thực hay điểm cuối. Nếu chưa đủ căn cứ để tạo câu lệnh kiểm tra chính xác, đánh dấu ca kiểm thử là `INCOMPLETE` và nêu thông tin cần con người quyết định.
 
-Lấy Student ID từ yêu cầu hoặc repository; repository này hiện dùng `23127464`. Mọi request thực thi phải mang `X-Student-Id: <StudentID>`. Không dùng một ID hard-code khi áp dụng skill cho repository khác.
+Lấy mã sinh viên từ yêu cầu hoặc kho mã nguồn; kho này hiện dùng `23127464`. Mọi yêu cầu HTTP khi thực thi phải mang `X-Student-Id: <StudentID>`. Không gắn cứng một mã sinh viên khi áp dụng kỹ năng cho kho mã nguồn khác.
 
 ## Quy tắc bắt buộc
 
-- Tách rõ **quan sát** (request, response, log, report) khỏi **suy luận** (nguyên nhân hoặc tác động có thể có).
-- Không bịa pass/fail, số lượng test, coverage, thời gian, screenshot, video, URL, issue, pipeline run hay commit.
-- AI output phải được human audit. Nhãn bắt buộc cho từng test do AI sinh là `VALID`, `INVALID` hoặc `INCOMPLETE`, kèm lý do và chỉnh sửa đối với trường hợp cần sửa.
-- Chỉ báo bug khi expected result có nguồn và actual result có evidence tái hiện. Giữ failed run thay vì ghi đè.
-- Sơ đồ AI test-generator nộp bài phải do sinh viên tự thiết kế và tự vẽ. Chỉ hỗ trợ pseudocode, câu hỏi thiết kế hoặc review sơ đồ mà sinh viên đã tạo; không tạo diagram/Mermaid hoàn chỉnh để nộp thay.
-- Ghi AI Audit với tên công cụ, ngày giờ, prompt nguyên văn và output AI. Không thay output thật bằng bản tóm tắt nếu bài nộp cần nội dung đầy đủ.
-- Nhắc human review tại điểm bàn giao, nhưng không tuyên bố human đã duyệt nếu chưa có xác nhận.
+- Tách rõ **quan sát** (yêu cầu, phản hồi, nhật ký, báo cáo) khỏi **suy luận** (nguyên nhân hoặc tác động có thể có).
+- Không bịa kết quả đạt/không đạt, số lượng ca kiểm thử, độ bao phủ, thời gian, ảnh chụp màn hình, video, URL, vấn đề, lần chạy quy trình hay commit.
+- Kết quả AI phải được con người kiểm toán. Nhãn bắt buộc cho từng ca kiểm thử do AI sinh là `VALID`, `INVALID` hoặc `INCOMPLETE`, kèm lý do và nội dung chỉnh sửa khi cần.
+- Chỉ báo lỗi khi kết quả mong đợi có nguồn và kết quả thực tế có bằng chứng tái hiện. Giữ lần chạy thất bại thay vì ghi đè.
+- Sơ đồ bộ sinh ca kiểm thử bằng AI nộp bài phải do sinh viên tự thiết kế và tự vẽ. Chỉ hỗ trợ mã giả, câu hỏi thiết kế hoặc đánh giá sơ đồ mà sinh viên đã tạo; không tạo sơ đồ/Mermaid hoàn chỉnh để nộp thay.
+- Ghi Báo cáo kiểm toán AI với tên công cụ, ngày giờ, câu lệnh nguyên văn và kết quả AI. Không thay kết quả thật bằng bản tóm tắt nếu bài nộp cần nội dung đầy đủ.
+- Nhắc con người đánh giá tại điểm bàn giao, nhưng không tuyên bố đã được duyệt nếu chưa có xác nhận.
 
 ## Định tuyến tài liệu
 
 Chỉ đọc tài liệu cần cho tác vụ hiện tại:
 
-- Kiểm tra phạm vi và deliverables: [assignment-requirements.md](references/assignment-requirements.md).
-- Chọn API/feature scope và map endpoint: [api-selection-contract.md](references/api-selection-contract.md).
-- Điều phối các phần generate, audit, extend, execute và report: [phase-playbook.md](references/phase-playbook.md).
-- Thiết kế/audit test cases và Postman assertions: [api-testing-runbook.md](references/api-testing-runbook.md).
+- Kiểm tra phạm vi và sản phẩm bàn giao: [assignment-requirements.md](references/assignment-requirements.md).
+- Chọn phạm vi API/tính năng và ánh xạ điểm cuối: [api-selection-contract.md](references/api-selection-contract.md).
+- Điều phối các phần sinh, kiểm toán, mở rộng, thực thi và báo cáo: [phase-playbook.md](references/phase-playbook.md).
+- Thiết kế/kiểm toán ca kiểm thử và câu lệnh kiểm tra Postman: [api-testing-runbook.md](references/api-testing-runbook.md).
 - Chuẩn bị hoặc chạy Newman: [newman-execution.md](references/newman-execution.md).
-- Đọc report, phân loại failure và xác nhận bug: [evidence-analysis.md](references/evidence-analysis.md).
+- Đọc báo cáo, phân loại thất bại và xác nhận lỗi: [evidence-analysis.md](references/evidence-analysis.md).
 
-## Workflow theo yêu cầu HW06
+## Quy trình theo yêu cầu HW06
 
-1. Chọn đúng ba feature/API scopes: một từ Pool A, một từ Pool B và một từ Pool C; kiểm tra không trùng bộ ba với thành viên nhóm.
-2. Với **mỗi** API, dùng chuỗi prompt có chủ đích để sinh mục tiêu ít nhất 35 test cases. Bao phủ domain partition cho mọi input và, khi áp dụng, state transition, security SEC-01–SEC-07 và response schema.
-3. Human audit từng test AI sinh; sửa case invalid/incomplete. Sau audit, human bổ sung ít nhất 5 case mà AI bỏ sót cho mỗi API và giải thích nguyên nhân bỏ sót.
-4. Chuyển các case đã duyệt thành collection và assertions. Chạy Postman + Newman (hoặc Karate/RestAssured nếu người dùng chọn), lưu collection, input data, console log và HTML report. Kiểm tra hostname evidence khớp deployment; `localhost` hoặc `127.0.0.1` được chấp nhận.
-5. Với bug thật, tạo Markdown report và chuẩn bị GitHub Issue có screenshot. Chỉ xuất bản issue khi người dùng yêu cầu; ghi URL thật sau khi xuất bản.
-6. Tích hợp CI/CD và tài liệu hóa hai run có thật: một all-passing và một có một test failing, kèm commit, screenshot và link.
-7. Hoàn thiện report, README summary, AI Audit, AI Critique 200–300 words, Git commit log, pseudocode và sơ đồ tự vẽ.
+1. Chọn đúng ba phạm vi tính năng/API: một từ Nhóm A, một từ Nhóm B và một từ Nhóm C; kiểm tra không trùng bộ ba với thành viên nhóm.
+2. Với **mỗi** API, dùng chuỗi câu lệnh có chủ đích để sinh mục tiêu ít nhất 35 ca kiểm thử. Bao phủ phân vùng miền cho mọi dữ liệu đầu vào và, khi áp dụng, chuyển đổi trạng thái, bảo mật SEC-01–SEC-07 và lược đồ phản hồi.
+3. Con người kiểm toán từng ca kiểm thử AI sinh; sửa ca `INVALID`/`INCOMPLETE`. Sau kiểm toán, con người bổ sung ít nhất 5 ca mà AI bỏ sót cho mỗi API và giải thích nguyên nhân bỏ sót.
+4. Chuyển các ca đã duyệt thành bộ sưu tập và câu lệnh kiểm tra. Chạy Postman + Newman (hoặc Karate/RestAssured nếu người dùng chọn), lưu bộ sưu tập, dữ liệu đầu vào, nhật ký bảng điều khiển và báo cáo HTML. Kiểm tra tên máy chủ trong bằng chứng khớp môi trường triển khai; `localhost` hoặc `127.0.0.1` được chấp nhận.
+5. Với lỗi thật, tạo báo cáo Markdown và chuẩn bị GitHub Issue có ảnh chụp màn hình. Chỉ xuất bản vấn đề khi người dùng yêu cầu; ghi URL thật sau khi xuất bản.
+6. Tích hợp CI/CD và tài liệu hóa hai lần chạy có thật: một lần đạt toàn bộ và một lần có một ca kiểm thử thất bại, kèm commit, ảnh chụp màn hình và liên kết.
+7. Hoàn thiện báo cáo, tóm tắt README, Báo cáo kiểm toán AI, bài phê bình AI dài 200–300 từ, nhật ký commit Git, mã giả và sơ đồ tự vẽ.
 
-Nếu người dùng yêu cầu toàn bộ workflow, có thể tiếp tục qua các bước trong phạm vi đó nhưng vẫn ghi rõ artifact nào đang `PENDING HUMAN REVIEW` và không tự điền quyết định review.
+Nếu người dùng yêu cầu toàn bộ quy trình, có thể tiếp tục qua các bước trong phạm vi đó nhưng vẫn ghi rõ sản phẩm nào đang `CHỜ CON NGƯỜI ĐÁNH GIÁ` và không tự điền quyết định đánh giá.
 
-## Vị trí artifact
+## Vị trí sản phẩm
 
-Trước khi ghi file, khám phá cấu trúc repository bằng `rg --files` và ưu tiên convention đang có. Không tạo cây thư mục song song chỉ vì ví dụ trong skill. Với repository chưa có convention, dùng:
+Trước khi ghi tệp, khám phá cấu trúc kho mã nguồn bằng `rg --files` và ưu tiên quy ước đang có. Không tạo cây thư mục song song chỉ vì ví dụ trong kỹ năng. Với kho mã nguồn chưa có quy ước, dùng:
 
 ```text
 tests/api-testing/{collections,environments,data,test-cases,reports,evidence}/
@@ -63,12 +63,12 @@ reports/api-testing/
 bug-report/api-testing/
 ```
 
-Dùng template hiện có trong `assets/templates/` khi phù hợp; thay toàn bộ placeholder bằng dữ liệu thật hoặc để rõ `TBD/PENDING`, không bịa giá trị. Các template là điểm khởi đầu, không phải danh sách deliverable đầy đủ.
+Dùng mẫu hiện có trong `assets/templates/` khi phù hợp; thay toàn bộ chỗ giữ chỗ bằng dữ liệu thật hoặc để rõ `TBD/PENDING`, không bịa giá trị. Các mẫu là điểm khởi đầu, không phải danh sách sản phẩm bàn giao đầy đủ.
 
 ## Điều kiện bàn giao
 
-- Mỗi con số và verdict trỏ tới evidence hoặc được ghi `PENDING/NOT EXECUTED`.
-- Mỗi API có chuỗi artifact generate → audit/correction → human-added cases → executable tests → execution evidence → bug report nếu có.
-- README có đúng các tổng số mà đề yêu cầu; report liệt kê chỉ những Postman features thực sự đã dùng.
-- CI/CD, GitHub Issue, screenshot, diagram tự vẽ và commit log không được tuyên bố hoàn tất nếu chưa tồn tại.
-- Kết thúc bằng trạng thái ngắn: phần đã làm, phần cần human review, và phần còn thiếu.
+- Mỗi con số và kết luận trỏ tới bằng chứng hoặc được ghi `PENDING/NOT EXECUTED`.
+- Mỗi API có chuỗi sản phẩm: sinh ca → kiểm toán/chỉnh sửa → ca do con người bổ sung → ca có thể thực thi → bằng chứng thực thi → báo cáo lỗi nếu có.
+- README có đúng các tổng số mà đề yêu cầu; báo cáo chỉ liệt kê những tính năng Postman thực sự đã dùng.
+- CI/CD, GitHub Issue, ảnh chụp màn hình, sơ đồ tự vẽ và nhật ký commit không được tuyên bố hoàn tất nếu chưa tồn tại.
+- Kết thúc bằng trạng thái ngắn: phần đã làm, phần cần con người đánh giá và phần còn thiếu.

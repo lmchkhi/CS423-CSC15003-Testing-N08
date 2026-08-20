@@ -1,22 +1,22 @@
-# AI Audit Report
+# Báo cáo kiểm toán AI
 
-## Declaration
+## Tuyên bố
 
-Use the statement that matches reality:
+Dùng câu phù hợp với thực tế:
 
-- `I use AI tools for the following tasks,` followed by `{task list}`
+- `I use AI tools for the following tasks,` rồi liệt kê `{danh_sach_nhiem_vu}`
 - `I do not use any AI help in this exercise.`
 
-For this AI-assisted workflow, do not select the no-AI statement.
+Hai câu tiếng Anh trên được giữ nguyên vì đề bài yêu cầu. Với quy trình có AI hỗ trợ này, không chọn câu tuyên bố không dùng AI.
 
-## Tools declared
+## Công cụ đã khai báo
 
-| Tool / model | Tasks used for | Notes |
+| Công cụ / mô hình | Nhiệm vụ sử dụng | Ghi chú |
 |---|---|---|
-| `{tool_and_model_if_known}` | `{tasks}` | `{limitations_or_context}` |
+| `{cong_cu_va_mo_hinh_neu_biet}` | `{nhiem_vu}` | `{gioi_han_hoac_boi_canh}` |
 
-## Interaction log
+## Nhật ký tương tác
 
-For every interaction, include the fields from `ai-audit-entry.md`: interaction ID, tool, timestamp/timezone, task, exact prompt, full AI output or a traceable attachment path, and actual human review/correction.
+Với mỗi tương tác, điền các trường trong `ai-audit-entry.md`: mã tương tác, công cụ, thời gian/múi giờ, nhiệm vụ, câu lệnh nguyên văn, toàn bộ kết quả AI hoặc đường dẫn tệp đính kèm truy vết được, cùng nội dung đánh giá/chỉnh sửa thực tế của con người.
 
-Do not reconstruct prompts, timestamps or outputs from memory without labeling the limitation. Keep sensitive credentials out of the report.
+Không dựng lại câu lệnh, thời gian hoặc kết quả từ trí nhớ mà không ghi rõ giới hạn. Không đưa thông tin xác thực nhạy cảm vào báo cáo.

@@ -1,26 +1,26 @@
-### Kiểm toán Test Case (Test Case Audit)
+### Kiểm toán ca kiểm thử
 
-- **API Details:** Endpoint `{endpoint}`, Pool `{pool}`, Feature `{feature}`
+- **Chi tiết API:** Điểm cuối `{diem_cuoi}`, Nhóm `{nhom}`, Tính năng `{tinh_nang}`
 
-#### Tóm tắt kiểm toán (Audit Summary)
-| Test Case ID | Origin | Description | Category | Requirement source | AI output/verdict | Human verdict | Reasoning | Final correction |
+#### Tóm tắt kiểm toán
+| Mã ca kiểm thử | Nguồn gốc | Mô tả | Danh mục | Nguồn yêu cầu | Kết quả/kết luận AI | Kết luận con người | Lý do | Chỉnh sửa cuối cùng |
 |---|---|---|---|---|---|---|---|---|
-| `{id}` | `AI-GENERATED` | `{desc}` | `{Domain/State/Security/Schema}` | `{FR/SEC/spec section}` | `{ai_output}` | `{VALID/INVALID/INCOMPLETE}` | `{reasoning}` | `{corrected_case_or_N/A}` |
+| `{ma}` | `AI-SINH` | `{mo_ta}` | `{Mien/Trang_thai/Bao_mat/Luoc_do}` | `{FR/SEC/muc_dac_ta}` | `{ket_qua_ai}` | `{VALID/INVALID/INCOMPLETE}` | `{ly_do}` | `{ca_da_sua_hoac_N/A}` |
 
-#### Thống kê (Statistics)
-- **Total reviewed:** `{total}`
-- **Valid count:** `{valid}`
-- **Invalid count:** `{invalid}`
-- **Incomplete count:** `{incomplete}`
+#### Thống kê
+- **Tổng số đã đánh giá:** `{tong}`
+- **Số VALID:** `{valid}`
+- **Số INVALID:** `{invalid}`
+- **Số INCOMPLETE:** `{incomplete}`
 
-#### Các khu vực bao phủ còn thiếu (Missing coverage areas identified)
-{missing_coverage_areas}
+#### Các khu vực bao phủ còn thiếu
+{khu_vuc_bao_phu_con_thieu}
 
-#### Test Cases mở rộng (Extended test cases - 5+ per API)
-| Test Case ID | Origin | Test objective / expected result | Requirement source | Lý do AI bỏ lỡ |
+#### Ca kiểm thử mở rộng (ít nhất 5 ca mỗi API)
+| Mã ca kiểm thử | Nguồn gốc | Mục tiêu / kết quả mong đợi | Nguồn yêu cầu | Lý do AI bỏ lỡ |
 |---|---|---|---|---|
-| `{ext_id_1}` | `HUMAN-ADDED` | `{case}` | `{source}` | `{reason}` |
-| `{ext_id_2}` | `HUMAN-ADDED` | `{case}` | `{source}` | `{reason}` |
-| `{ext_id_3}` | `HUMAN-ADDED` | `{case}` | `{source}` | `{reason}` |
-| `{ext_id_4}` | `HUMAN-ADDED` | `{case}` | `{source}` | `{reason}` |
-| `{ext_id_5}` | `HUMAN-ADDED` | `{case}` | `{source}` | `{reason}` |
+| `{ma_mo_rong_1}` | `CON-NGUOI-BO-SUNG` | `{ca}` | `{nguon}` | `{ly_do}` |
+| `{ma_mo_rong_2}` | `CON-NGUOI-BO-SUNG` | `{ca}` | `{nguon}` | `{ly_do}` |
+| `{ma_mo_rong_3}` | `CON-NGUOI-BO-SUNG` | `{ca}` | `{nguon}` | `{ly_do}` |
+| `{ma_mo_rong_4}` | `CON-NGUOI-BO-SUNG` | `{ca}` | `{nguon}` | `{ly_do}` |
+| `{ma_mo_rong_5}` | `CON-NGUOI-BO-SUNG` | `{ca}` | `{nguon}` | `{ly_do}` |
