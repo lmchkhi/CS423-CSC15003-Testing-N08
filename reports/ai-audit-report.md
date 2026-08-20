@@ -558,3 +558,261 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+## Entry #10
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 01:44 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE A — chọn phạm vi và trích xuất contract chỉ cho FR-16 / POST /api/admin/import-products`
+
+User Prompt:
+
+    sử dụng ai-first-api-testing thực hiện:
+    - Pool C
+    - FR-16 — Product Import from CSV
+    - Endpoint thuộc phạm vi:
+      - POST /api/admin/import-products
+
+    ## NGUYÊN TẮC PHẠM VI
+
+    Chỉ tập trung vào FR-16 và POST /api/admin/import-products.
+
+    Không phân tích, mô tả, tạo test hoặc mở rộng sang bất kỳ FR hay endpoint admin nào khác.
+
+    Chỉ sử dụng các rule authentication/admin/security nếu chúng trực tiếp ảnh hưởng đến FR-16.
+
+    Không trình bày tổng quan Pool C hoặc các chức năng admin khác.
+
+    ## TÀI LIỆU CẦN DÙNG
+
+    Đọc và tuân thủ:
+
+    - SKILL.md
+    - references/phase-playbook.md
+    - references/api-selection-contract.md
+    - references/api-testing-runbook.md
+    - references/assignment-requirements.md
+    - src/eshop-sut/api_specification.md
+    - src/eshop-sut/README.md
+
+    Chỉ đọc source code nếu cần xác minh contract conflict trực tiếp của FR-16.
+
+    ## PHẠM VI THỰC THI
+
+    Chỉ thực hiện:
+
+    PHASE A — CHỌN PHẠM VI / TRÍCH XUẤT CONTRACT CHO FR-16
+
+    Không được:
+    - sinh test cases;
+    - audit;
+    - human extension;
+    - tạo executable tests;
+    - chạy Postman/Newman;
+    - báo bug;
+    - CI/CD;
+    - tổng hợp report;
+    - chuyển sang Phase B.
+
+    Sau Phase A phải DỪNG.
+
+    ## NHIỆM VỤ
+
+    1. Xác minh endpoint:
+       POST /api/admin/import-products
+
+    2. Trích xuất contract chỉ cho FR-16:
+       - authentication;
+       - admin authorization;
+       - request representation;
+       - product fields;
+       - validation rules;
+       - CSV format rules;
+       - RFC 4180 nếu có;
+       - rollback/atomicity;
+       - result reporting;
+       - category/data dependency;
+       - documented response/schema;
+       - spec gaps.
+
+    3. Kiểm tra trực tiếp conflict của FR-16:
+
+    README có thể mô tả:
+    - upload file .csv;
+    - header:
+      name,price,description,imageUrl,category_id
+    - RFC 4180;
+    - name không rỗng;
+    - price > 0;
+    - một dòng lỗi thì rollback toàn bộ.
+
+    API specification có thể mô tả:
+    - POST /api/admin/import-products
+    - JSON body chứa products array.
+
+    Phải tự xác minh lại từ tài liệu.
+
+    Nếu đúng là có mâu thuẫn thì ghi:
+
+    SPEC GAP / CONTRACT CONFLICT
+
+    Không tự chọn CSV hay JSON làm contract cuối.
+
+    Nếu source code dùng một format, chỉ ghi:
+
+    IMPLEMENTATION OBSERVATION
+
+    không tự coi đó là expected contract.
+
+    4. Xây dựng planned partition model cho riêng FR-16:
+       - valid import;
+       - invalid file/request representation;
+       - empty input;
+       - header issues;
+       - malformed rows;
+       - quoted comma fields;
+       - name validation;
+       - price validation;
+       - category_id dependency;
+       - one invalid row among valid rows;
+       - rollback/atomicity;
+       - admin vs non-admin vs unauthenticated.
+
+    5. Chỉ áp dụng security concern liên quan trực tiếp:
+       - missing/invalid auth;
+       - non-admin access;
+       - unauthorized bulk mutation;
+       - injection-oriented imported values nếu phù hợp.
+
+    Không mở rộng sang các admin API khác.
+
+    6. Không tự bịa:
+       - exact status code;
+       - response body;
+       - exact response schema;
+       - import format;
+       - error reporting format.
+
+    Nếu thiếu nguồn, ghi:
+
+    INCOMPLETE / SPEC GAP
+
+    7. Tạo mục riêng:
+
+    ### HUMAN DECISION REQUIRED
+
+    Nêu ngắn gọn:
+    - README nói gì;
+    - API specification nói gì;
+    - conflict nằm ở đâu;
+    - phần nào của Phase B bị ảnh hưởng;
+    - AI không tự chọn contract.
+
+    Trạng thái:
+
+    CONTRACT DECISION: PENDING HUMAN REVIEW
+
+    8. Xác định Student ID nhưng không execute request.
+
+    9. Chỉ tạo/cập nhật artifact cho Phase A của FR-16.
+
+    10. Ghi AI Audit cho interaction này.
+
+    ## OUTPUT CUỐI
+
+    Chỉ báo cáo:
+
+    ### FR-16 Scope
+
+    ### Contract
+
+    ### Authentication / Admin Requirement
+
+    ### Contract Conflict
+
+    ### HUMAN DECISION REQUIRED
+
+    ### Inputs / Planned Partitions
+
+    ### Applicable Security
+
+    ### Spec Gaps
+
+    ### Data Dependencies
+
+    ### Artifact Paths
+
+    ### Status
+
+    Dùng:
+
+    PHASE A: COMPLETE
+    CONTRACT DECISION: PENDING HUMAN REVIEW
+    HUMAN REVIEW: PENDING
+    NEXT ALLOWED PHASE: B — AI GENERATION
+    EXECUTION: NOT EXECUTED
+
+    Sau đó DỪNG.
+
+    Không được tự động chạy Phase B.
+
+AI Output:
+
+    ### FR-16 Scope
+
+    Đã xác minh Pool C, FR-16 — Product Import from CSV, với endpoint duy nhất `POST /api/admin/import-products`. Student ID là `23127464`; chưa gửi request.
+
+    ### Contract
+
+    README quy định file `.csv`, header `name,price,description,imageUrl,category_id`, quoted comma theo RFC 4180, `name` không rỗng, `price > 0`, rollback toàn bộ nếu một dòng lỗi và báo số dòng thành công/lỗi kèm lý do. API specification công bố JSON `{ "products": [...] }`. Không có exact status code, response body/schema hay error-reporting format.
+
+    ### Authentication / Admin Requirement
+
+    Endpoint yêu cầu JWT hợp lệ qua `Authorization: Bearer <token>` và `role = 'admin'`. Exact rejection status/body là `INCOMPLETE / SPEC GAP`.
+
+    ### Contract Conflict
+
+    **SPEC GAP / CONTRACT CONFLICT** — README yêu cầu CSV upload, còn API specification yêu cầu JSON products array. Source nhận JSON array nhưng đây chỉ là **IMPLEMENTATION OBSERVATION**, không phải expected contract.
+
+    ### HUMAN DECISION REQUIRED
+
+    README và API specification mâu thuẫn tại request representation. Quyết định này ảnh hưởng trực tiếp đến Content-Type/body, empty-input/header/malformed-row/quoted-comma partitions và executable design của Phase B. AI không tự chọn CSV hay JSON.
+
+    CONTRACT DECISION: PENDING HUMAN REVIEW
+
+    ### Inputs / Planned Partitions
+
+    Artifact đã hoạch định riêng các partition: valid import; invalid representation; empty input; header issues; malformed rows; quoted comma; `name`; `price`; `category_id`; một dòng invalid giữa các dòng valid; rollback/atomicity; admin/non-admin/unauthenticated.
+
+    ### Applicable Security
+
+    Chỉ áp dụng missing/invalid JWT, non-admin access, unauthorized bulk mutation và giá trị import hướng injection theo SEC-02/SEC-03/SEC-04/SEC-05.
+
+    ### Spec Gaps
+
+    Các khoảng trống gồm representation cuối, upload/Content-Type, phạm vi RFC 4180, header policy, field schema/validation, category dependency, atomic/error semantics, status codes và exact response/error schema; tất cả được ghi `INCOMPLETE / SPEC GAP`.
+
+    ### Data Dependencies
+
+    Cần admin/non-admin JWT fixtures, category tồn tại/không tồn tại, valid/invalid product batches, baseline kiểm tra rollback, isolation/reset và `X-Student-Id: 23127464` cho phase thực thi tương lai.
+
+    ### Artifact Paths
+
+    - `reports/api-testing/fr-16-phase-a-contract.md`
+    - `reports/ai-audit-report.md` — Entry #10
+
+    ### Status
+
+    PHASE A: COMPLETE
+    CONTRACT DECISION: PENDING HUMAN REVIEW
+    HUMAN REVIEW: PENDING
+    NEXT ALLOWED PHASE: B — AI GENERATION
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
