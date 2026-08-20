@@ -1,29 +1,42 @@
-# Cẩm Nang Kiểm Thử API (API Testing Runbook)
+# Runbook thiết kế và audit API tests
 
-Runbook chi tiết cho toàn bộ pipeline kiểm thử API:
+## Tạo test cases
 
-### Phase B - Tạo Test Case (Test Case Generation)
-- **Cách điều khiển AI từng bước**: Không sử dụng một prompt chung chung (single generic prompt). Cần prompt theo từng bước.
-- **Độ bao phủ phân vùng miền (Domain partition coverage)**: định dạng email, độ phức tạp của mật khẩu, giá cả > 0, v.v.
-- **Độ bao phủ chuyển đổi trạng thái (State transition coverage)**: Trạng thái đơn hàng theo FR-10.
-- **Độ bao phủ bảo mật (Security coverage)**: SQL injection, IDOR, leo thang đặc quyền (SEC-01-SEC-07).
-- **Xác thực lược đồ (Schema validation)**: Hình dạng phản hồi (response shape) khớp với spec.
-- **Mục tiêu**: ≥35 test cases cho mỗi API.
-- Tài liệu hóa mọi tương tác với AI.
+Mỗi case nên có: ID, origin (`AI-GENERATED`/`HUMAN-ADDED`), feature/endpoint, objective, category, preconditions/state, request data, steps, expected status/body/headers/schema, requirement source và automation status.
 
-### Phase C - Kiểm Toán và Mở Rộng (Audit and Extension)
-- **Đánh giá từng test case**: VALID / INVALID / INCOMPLETE kèm theo lý do (reasoning).
-- **Chỉnh sửa**: Sửa lại các test cases không hợp lệ (invalid) hoặc không đầy đủ (incomplete).
-- **Thêm mới**: Thêm ≥5 test cases mà AI đã bỏ sót cho mỗi API (đặc biệt là bảo mật và state transitions).
-- **Giải thích**: Giải thích tại sao AI lại bỏ sót chúng (chất lượng prompt, hạn chế của mô hình, đặc điểm API).
+Điều khiển AI theo các lượt có mục tiêu, ví dụ:
 
-### Phase D - Thực Thi (Execution)
-- Thiết lập Postman collection với cấu trúc phù hợp.
-- Cấu hình header `X-Student-Id` qua pre-request script (Mã sinh viên: 23127464).
-- Chạy bằng Newman và tạo báo cáo HTML.
-- **Thực hành các tính năng của Postman**: workspaces, collections, variables, environments, data-driven runs, monitors, mock servers.
+1. Trích xuất contract và liệt kê spec gaps.
+2. Partition từng path/query/header/body parameter, gồm missing/null/type/boundary/format.
+3. Lập state-transition matrix nếu feature có trạng thái.
+4. Map SEC-01–SEC-07 và threat cases áp dụng được.
+5. Tạo schema assertions chỉ từ schema/field có nguồn.
+6. Deduplicate và lập traceability; bổ sung khoảng trống tới `>= 35` case/API.
 
-### Phase E - Tích Hợp CI/CD (CI/CD Integration)
-- Cấu hình luồng xử lý GitHub Actions với Newman.
-- Hai commits mẫu: một lần vượt qua tất cả (all-passing) và một lần thất bại (one-failing).
-- Tài liệu hóa cấu hình pipeline.
+Không ép mọi SEC hoặc state-transition category vào endpoint không liên quan. Không dùng số lượng để che lấp case trùng hoặc expected result vô căn cứ.
+
+## Audit
+
+- `VALID`: input, precondition, action và expected result đều có căn cứ và thực thi được.
+- `INVALID`: case mâu thuẫn với contract/business rule hoặc kiểm thử sai scope; ghi correction hoặc lý do loại.
+- `INCOMPLETE`: thiếu dữ liệu, oracle, schema, precondition hoặc cleanup; ghi chính xác phần cần bổ sung.
+
+Human verdict phải độc lập với AI verdict. Sau correction, giữ cả bản gốc và final version để chứng minh audit.
+
+## Các điểm EShop dễ sai
+
+- FR-02: lockout sau từ 3 lần sai liên tiếp, 30 giây; không lộ chi tiết nguyên nhân.
+- FR-08: backend tự tính total từ cart và xóa cart sau checkout.
+- FR-09: đủ C1–C5, boundary `total == min_order_amount`, usage per user và công thức percent/fixed.
+- FR-10: chỉ transition hợp lệ; `delivered`/`canceled` là final; user không cancel `shipping`; ownership/role checks.
+- FR-15: name required/max 255, price `> 0`, category tồn tại; update không làm đổi product khác.
+- FR-16: tài liệu mâu thuẫn CSV upload với JSON array; không tự chọn contract.
+- FR-19: không lộ password và admin không tự xóa chính mình.
+- SEC: invalid/missing/expired token, user gọi admin API, IDOR, mass assignment `role`, injection và output escaping khi có UI sink.
+
+## Chuyển sang Postman/Newman
+
+- Mỗi assertion phải trace về test case đã duyệt.
+- Dùng variables, environments, data-driven runs, mock server hoặc monitor chỉ khi chúng tạo giá trị thật; report chỉ liệt kê feature đã thực sự dùng.
+- Phân biệt assertion failure với request/network/setup failure.
+- Không khẳng định “exact schema” nếu source chỉ có response example một phần.

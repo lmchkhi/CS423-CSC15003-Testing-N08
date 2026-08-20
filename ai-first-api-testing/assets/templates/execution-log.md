@@ -4,6 +4,8 @@
 - **API:** `{1/2/3}`
 - **Pool:** `{A/B/C}`
 - **Endpoint:** `{endpoint}`
+- **Base URL / Hostname observed:** `{base_url}` / `{hostname}`
+- **Node / Newman / Reporter versions:** `{versions}`
 
 #### Tệp cấu hình (Configuration Files)
 - **Postman Collection Path:** `{collection_path}`
@@ -11,7 +13,9 @@
 - **Data File Path:** `{data_file_path}`
 
 - **Lệnh Newman (Newman Command Used):** `{newman_command}`
+- **Exit code:** `{exit_code}`
 - **Header xác nhận (X-Student-Id header confirmed):** `{true/false}`
+- **Header screenshot path:** `{screenshot_path_or_PENDING}`
 - **Người chạy (Run by):** `{Agent/Human}`
 
 #### Danh sách kiểm tra trước khi chạy (Pre-run checklist)
@@ -20,9 +24,9 @@
 - [ ] {other_checklist_items}
 
 #### Tóm tắt kết quả (Result Summary)
-| Total Tests | Passed | Failed | Skipped | Duration |
-|-------------|--------|--------|---------|----------|
-| {total}     | {pass} | {fail} | {skip}  | {time}   |
+| Iterations | Requests | Assertions | Passed Assertions | Failed Assertions | Skipped | Duration |
+|------------|----------|------------|-------------------|-------------------|---------|----------|
+| {iterations} | {requests} | {assertions} | {pass} | {fail} | {skip} | {time} |
 
 #### Chi tiết theo Request (Per-request breakdown)
 | Request | Passed | Failed | Skipped | Duration |
@@ -33,6 +37,9 @@
 
 #### Quan sát (Observations)
 {observations}
+
+#### Suy luận/Giả thuyết (Inferences/Hypotheses)
+{inferences_or_none}
 
 #### Phán quyết (Verdict)
 - **Verdict:** `{PASS / FAIL / INCONCLUSIVE}`

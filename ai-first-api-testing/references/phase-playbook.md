@@ -1,60 +1,43 @@
-# Cẩm Nang Các Giai Đoạn (Phase Playbook)
+# Playbook công việc HW06
 
-Playbook chi tiết cho từng giai đoạn (comprehensive):
+Các phase dưới đây là cách tổ chức artifact, không phải yêu cầu phải dừng cứng sau từng phase. Thực hiện đúng phạm vi người dùng giao và luôn để human review các output AI.
 
-### Phase A — Verify SUT/API Spec/Environment & Select APIs
-- Clone/inspect repository của EShop SUT.
-- Đọc kỹ `api_specification.md`.
-- Xác minh SUT chạy được ở local (`npm install`, `npm start` hoặc tương đương).
-- Ánh xạ (Map) các tính năng với các API endpoints.
-- Chọn 3 APIs: một từ Pool A, một từ Pool B, một từ Pool C.
-- Đảm bảo không trùng lặp API với các thành viên khác trong nhóm.
-- Tài liệu hóa các APIs đã chọn với endpoints, methods, parameters.
-- Xác minh các yêu cầu bảo mật SEC-01 đến SEC-07 trong spec.
-- **Kết thúc**: PENDING HUMAN REVIEW (Chờ con người đánh giá)
+## A — Chọn phạm vi
 
-### Phase B — Generate Test Cases with AI
-- Đối với mỗi API trong 3 APIs đã chọn:
-  - Cung cấp API spec cho công cụ AI.
-  - Điều khiển quá trình tạo test case từng bước (KHÔNG dùng single generic prompt).
-  - Tạo ≥35 test cases bao phủ:
-    - Domain partitions trên mọi parameter.
-    - State transitions (đặc biệt là FR-10).
-    - Bảo mật (SEC-01-SEC-07: SQL injection, IDOR, leo thang quyền).
-    - Schema validation (phản hồi khớp với spec).
-  - Tài liệu hóa mọi tương tác AI vào audit log.
-- **Kết thúc**: PENDING HUMAN REVIEW
+- Đọc đề bài, SUT README, API specification và code liên quan.
+- Chọn một feature/API scope từ mỗi Pool A/B/C; map mọi endpoint thuộc workflow.
+- Ghi auth/role, inputs, preconditions, state/data dependency và khoảng trống spec.
+- Human xác nhận lựa chọn và tình trạng không trùng trong nhóm.
 
-### Phase C — Audit and Extend
-- Đối với test cases của mỗi API:
-  - Gắn nhãn từng test case: VALID / INVALID / INCOMPLETE kèm theo lý do.
-  - Sửa lỗi các test cases invalid/incomplete.
-  - Thêm ≥5 test cases mới mà AI bỏ sót.
-  - Tập trung vào khoảng trống bảo mật (security) và chuyển đổi trạng thái (state transition).
-  - Giải thích lý do AI bỏ sót.
-- **Kết thúc**: PENDING HUMAN REVIEW
+## B — AI generation
 
-### Phase D — Execute (D1, D2, D3)
-- Đối với mỗi API:
-  - Tạo/cập nhật Postman collection.
-  - Cấu hình environment variables.
-  - Thêm `X-Student-Id` pre-request script.
-  - Implement test scripts trong Postman.
-  - Chạy bằng Newman, tạo HTML report.
-  - Phân tích kết quả: passed/failed/skipped.
-  - Tài liệu hóa các bugs tìm thấy.
-- **Kết thúc mỗi Dn**: PENDING HUMAN REVIEW
+- Lưu chuỗi prompt và output đầy đủ trong AI Audit.
+- Sinh mục tiêu `>= 35` cases/API; không padding bằng các case trùng ý nghĩa.
+- Lập traceability tới parameter partitions, FR, SEC và schema rule có nguồn.
+- Đánh dấu giả định hoặc expected result chưa có căn cứ.
 
-### Ghi chú xuyên suốt A-E — Git Commit Log
-- Sau khi hoàn tất **mỗi phase** (A, B, C) và sau khi hoàn tất **mỗi API trong Phase D** (D1, D2, D3), Agent phải nhắc sinh viên tạo một Git commit riêng biệt tương ứng (ví dụ: `feat(api1): generate test cases`, `test(api1): audit + extend`, `test(api1): execute newman run`).
-- Agent không tự thực hiện commit thay sinh viên; chỉ nhắc và giúp soạn commit message rõ ràng.
-- Sinh viên tổng hợp toàn bộ log commit vào một file text-based để nộp kèm (mục 12 đề bài).
+## C — Human audit và extension
 
-### Phase E — CI/CD, Bugs, Agent Skill, Report
-- Thiết lập GitHub Actions với Newman.
-- Tạo 2 sample commits (pass/fail).
-- Báo cáo lỗi (File bug reports) trên GitHub Issues kèm ảnh chụp màn hình.
-- Thiết kế AI-driven API test generator (diagram + pseudocode).
-- Viết AI Critique (200-300 chữ).
-- Biên soạn báo cáo cuối cùng (final report).
-- **Kết thúc**: PENDING HUMAN REVIEW
+- Human review từng case bằng đúng ba nhãn `VALID/INVALID/INCOMPLETE`.
+- Ghi lý do, correction và final expected result; giữ dấu vết output AI ban đầu.
+- Human thêm `>= 5` case/API, gắn origin `HUMAN-ADDED`, và giải thích nguyên nhân AI bỏ sót.
+- Chỉ case đã duyệt mới được chuyển sang executable tests.
+
+## D — Thực thi
+
+- Tạo/cập nhật collection, environment/data file và assertions từ cases đã duyệt.
+- Đặt `X-Student-Id` ở collection-level pre-request script hoặc cơ chế tương đương; lưu screenshot console do human chụp.
+- Chạy từng API hoặc toàn suite theo phạm vi được yêu cầu; không cần chờ giữa D1/D2/D3 nếu người dùng đã yêu cầu chạy tất cả.
+- Lưu command, versions, timestamp, hostname, console log, HTML report và exit code.
+- Phân loại failures trước khi gọi là SUT bug.
+
+## E — Tổng hợp
+
+- Với bug đã xác thực, tạo Markdown report; publish GitHub Issue và đính screenshot khi người dùng yêu cầu.
+- Cấu hình CI/CD và ghi nhận hai run/commit thật: all-passing và one-failing.
+- Viết main report, README summary, AI Audit, AI Critique 200–300 words và commit log.
+- Hỗ trợ pseudocode; để sinh viên tự thiết kế/tự vẽ diagram AI test-generator.
+
+## Git và review
+
+Đề yêu cầu commit mới cho mỗi bước procedure. Không gom nhắc commit chỉ theo phase tổng quát: tối thiểu phải truy vết generation, audit, extension và execution cho từng API, cùng các bước chung như CI/CD/report khi có. Agent chỉ commit hoặc publish khi người dùng yêu cầu; tuyệt đối không bịa hash, run link hay quyết định human review.

@@ -1,88 +1,74 @@
 ---
 name: ai-first-api-testing
-description: Thiết kế, sinh, review và phân tích API test cases cho bài HW06 EShop theo hướng AI-first, evidence-first và checkpoint-first. Dùng khi xử lý 3 API pipelines của sinh viên 23127464 (Pool A, Pool B, Pool C), tạo hoặc review Postman collection/Newman tests, audit test cases (VALID/INVALID/INCOMPLETE), mở rộng test suite, chạy Newman, phân tích kết quả, săn lỗi bảo mật/state transition, lập báo cáo và đề xuất CI/CD. Agent bắt buộc dừng ở các checkpoint A-E và không tự duyệt hay bịa kết quả, metric, screenshot, video, issue hoặc commit.
+description: Thiết kế, audit, triển khai và phân tích API tests cho bài HW06 EShop bằng Postman/Newman hoặc công cụ tương đương. Dùng khi chọn ba API thuộc Pool A/B/C, tạo và human-review test cases, thu thập evidence thật, báo lỗi, tích hợp CI/CD, hoặc hoàn thiện AI audit, critique và báo cáo nộp bài; không dùng cho performance testing hay kiểm thử GUI thuần túy.
 ---
 
-# 1. Nguyên tắc điều phối
-- **Audit Logging**: Mọi tương tác, phân tích, đề xuất của Agent phải được ghi nhận vắn tắt vào `ai-audit-report.md` theo thời gian thực (nếu file tồn tại) để review.
-- **Tính tối thượng của đề bài**: File `2026.HW06.API_Testing_En.md` (hoặc tương đương) là nguồn tham chiếu cao nhất. Không được đoán yêu cầu hay áp dụng các best practice không có trong đề bài. Yêu cầu sinh viên 23127464, header `X-Student-Id` trên mọi request.
-- **Khảo sát trước khi hỏi**: Trước khi yêu cầu human cung cấp thông tin, Agent phải tự tìm kiếm trong repository, đọc code SUT (`eshop-sut`), kiểm tra API spec, và xem các report cũ.
-- **Chỉ thực thi Phase được cấp phép**: Tuyệt đối không tự ý chạy toàn bộ các phase từ A-E. Chỉ thực thi phase mà human yêu cầu.
-- **Phân biệt Quan sát và Suy diễn**: Khi phân tích kết quả Newman hoặc Postman, phải phân biệt rõ đâu là quan sát thực tế (status code 500, response time > 2s) và đâu là suy diễn/giả thuyết (có thể do thiếu index DB). Chỉ dựa trên quan sát có thật.
-- **Thực thi Phase D**: Agent có thể hỗ trợ chạy Newman test (bằng lệnh CLI), tuy nhiên human phải là người review và phê duyệt kết quả. Không tự ý kết luận SUT "Passed" nếu không có evidence xác nhận.
-- **Luôn có Checkpoint PENDING HUMAN REVIEW**: Cuối mỗi phase, Agent phải dừng và đợi human review.
-- **Không giả tạo (Fabrication)**: Không bịa đặt kết quả test (Pass/Fail), không bịa metrics (coverage, response time), không bịa screenshot, video, bug reports hay commits.
-- **Diagram AI test-generator phải do con người tự vẽ (Anti-AI-Cheat)**: Ở Phase E, Agent chỉ được hỗ trợ **pseudocode** và góp ý cấu trúc bằng lời (text). Agent **tuyệt đối không được tự vẽ, xuất, hay generate hình ảnh/diagram** (kể cả Mermaid do AI tự soạn hoàn chỉnh) để nộp thay sinh viên — đây là 1 trong 3 hạng mục TA xác minh chống gian lận. Agent có thể góp ý bố cục sau khi sinh viên đã tự vẽ, nhưng bản vẽ cuối cùng phải là sản phẩm tự tay sinh viên.
-- **Xác minh hostname Newman khớp môi trường**: Khi phân tích bất kỳ Newman report/console output nào ở Phase D, Agent phải kiểm tra hostname trong request URL khớp với môi trường deploy thật của sinh viên (`localhost` / `127.0.0.1` được chấp nhận). Nếu hostname không khớp hoặc không xác định được, Agent phải nêu rõ nghi vấn này trong review-notes thay vì bỏ qua.
+# AI-first API testing cho HW06
 
-# 2. Nạp ngữ cảnh theo nhu cầu
-Trước khi bắt đầu các nhiệm vụ cụ thể, Agent cần chủ động tham khảo các file hướng dẫn sau để nạp ngữ cảnh (chỉ load file liên quan để tiết kiệm token):
-- **Kiểm tra tính hoàn thiện**: Xem [assignment-requirements.md](references/assignment-requirements.md) để biết checklist DoD (Definition of Done) và trạng thái hiện tại.
-- **Trước Phase API Selection (A)**: Xem [api-selection-contract.md](references/api-selection-contract.md) để verify 3 APIs chọn từ Pool A, B, C.
-- **Trước khi thực hiện các Phase (A-E)**: Xem [phase-playbook.md](references/phase-playbook.md) để nắm rõ cách xử lý.
-- **Trước khi chạy Newman**: Xem [newman-execution.md](references/newman-execution.md) để biết cách cấu hình, arguments và format report.
-- **Xây dựng & Audit Test Cases (B & C)**: Xem [api-testing-runbook.md](references/api-testing-runbook.md) để sinh test (domain partition, state transitions FR-10, security SEC-01-SEC-07, schema validation), audit theo phân loại VALID/INVALID/INCOMPLETE và sinh thêm 5 test cases.
-- **Đánh giá & Phân tích (D)**: Xem [evidence-analysis.md](references/evidence-analysis.md) khi phân tích log, report.
-- **Trước khi kết thúc mỗi Phase (A-E)**: Nhắc sinh viên tạo một Git commit riêng cho phase/API vừa hoàn thành (generation, audit, extension, execution cho từng API) và cập nhật vào file log commit dạng text — đây là yêu cầu bắt buộc của đề (mục 12), Agent không tự commit thay.
+Hoàn thành đúng phần việc người dùng yêu cầu và để lại artifact có thể truy vết. Có thể xử lý một bước hoặc nhiều bước trong cùng lượt; không tự mở rộng sang phase khác, chạy hệ thống, commit hay xuất bản GitHub Issue nếu người dùng chưa yêu cầu hoặc chưa cấp quyền cần thiết.
 
-# 3. Ranh giới repository
-Dưới đây là sơ đồ ranh giới các thư mục. Agent chỉ làm việc trong các khu vực được cấp phép:
+## Nguồn chuẩn và cách xử lý mâu thuẫn
 
-| Nội dung | Nguồn chuẩn |
-| :--- | :--- |
-| SUT | `src/` |
-| Postman Collections | `tests/api-testing/collections/` |
-| Test Data & Environments | `tests/api-testing/data/` |
-| Newman Reports | `tests/api-testing/reports/` |
-| Evidence | `tests/api-testing/evidence/` |
-| CI/CD Config | `.github/workflows/` |
-| Review và phân tích | `reports/api-testing/` |
-| Báo cáo tổng, audit, critique | `reports/` |
-| Bug reports | `bug-reports/api-testing/` |
-| Test case Excel | `tests/api-testing/test-cases/` |
+Đọc các nguồn liên quan theo thứ tự sau:
 
-# 4. Workflow checkpoint
-Agent phải tuân thủ nghiêm ngặt quy trình tuần tự, dừng ở từng Checkpoint:
+1. `2026.HW06.API_Testing_En.md`: yêu cầu chấm điểm và deliverables.
+2. `src/eshop-sut/README.md`: hành vi nghiệp vụ mong đợi, gồm FR-01–FR-24 và SEC-01–SEC-07.
+3. `src/eshop-sut/api_specification.md`: method, path, header và payload được công bố.
+4. Code SUT: hành vi triển khai thực tế và các chi tiết tài liệu còn thiếu.
+
+Không coi hành vi code hiện tại là kết quả mong đợi nếu trái với README. Ghi rõ mọi mâu thuẫn hoặc khoảng trống tài liệu; không tự bịa status code, response schema, validation rule hay endpoint. Nếu chưa đủ căn cứ để tạo assertion chính xác, đánh dấu test là `INCOMPLETE` và nêu thông tin cần human quyết định.
+
+Lấy Student ID từ yêu cầu hoặc repository; repository này hiện dùng `23127464`. Mọi request thực thi phải mang `X-Student-Id: <StudentID>`. Không dùng một ID hard-code khi áp dụng skill cho repository khác.
+
+## Quy tắc bắt buộc
+
+- Tách rõ **quan sát** (request, response, log, report) khỏi **suy luận** (nguyên nhân hoặc tác động có thể có).
+- Không bịa pass/fail, số lượng test, coverage, thời gian, screenshot, video, URL, issue, pipeline run hay commit.
+- AI output phải được human audit. Nhãn bắt buộc cho từng test do AI sinh là `VALID`, `INVALID` hoặc `INCOMPLETE`, kèm lý do và chỉnh sửa đối với trường hợp cần sửa.
+- Chỉ báo bug khi expected result có nguồn và actual result có evidence tái hiện. Giữ failed run thay vì ghi đè.
+- Sơ đồ AI test-generator nộp bài phải do sinh viên tự thiết kế và tự vẽ. Chỉ hỗ trợ pseudocode, câu hỏi thiết kế hoặc review sơ đồ mà sinh viên đã tạo; không tạo diagram/Mermaid hoàn chỉnh để nộp thay.
+- Ghi AI Audit với tên công cụ, ngày giờ, prompt nguyên văn và output AI. Không thay output thật bằng bản tóm tắt nếu bài nộp cần nội dung đầy đủ.
+- Nhắc human review tại điểm bàn giao, nhưng không tuyên bố human đã duyệt nếu chưa có xác nhận.
+
+## Định tuyến tài liệu
+
+Chỉ đọc tài liệu cần cho tác vụ hiện tại:
+
+- Kiểm tra phạm vi và deliverables: [assignment-requirements.md](references/assignment-requirements.md).
+- Chọn API/feature scope và map endpoint: [api-selection-contract.md](references/api-selection-contract.md).
+- Điều phối các phần generate, audit, extend, execute và report: [phase-playbook.md](references/phase-playbook.md).
+- Thiết kế/audit test cases và Postman assertions: [api-testing-runbook.md](references/api-testing-runbook.md).
+- Chuẩn bị hoặc chạy Newman: [newman-execution.md](references/newman-execution.md).
+- Đọc report, phân loại failure và xác nhận bug: [evidence-analysis.md](references/evidence-analysis.md).
+
+## Workflow theo yêu cầu HW06
+
+1. Chọn đúng ba feature/API scopes: một từ Pool A, một từ Pool B và một từ Pool C; kiểm tra không trùng bộ ba với thành viên nhóm.
+2. Với **mỗi** API, dùng chuỗi prompt có chủ đích để sinh mục tiêu ít nhất 35 test cases. Bao phủ domain partition cho mọi input và, khi áp dụng, state transition, security SEC-01–SEC-07 và response schema.
+3. Human audit từng test AI sinh; sửa case invalid/incomplete. Sau audit, human bổ sung ít nhất 5 case mà AI bỏ sót cho mỗi API và giải thích nguyên nhân bỏ sót.
+4. Chuyển các case đã duyệt thành collection và assertions. Chạy Postman + Newman (hoặc Karate/RestAssured nếu người dùng chọn), lưu collection, input data, console log và HTML report. Kiểm tra hostname evidence khớp deployment; `localhost` hoặc `127.0.0.1` được chấp nhận.
+5. Với bug thật, tạo Markdown report và chuẩn bị GitHub Issue có screenshot. Chỉ xuất bản issue khi người dùng yêu cầu; ghi URL thật sau khi xuất bản.
+6. Tích hợp CI/CD và tài liệu hóa hai run có thật: một all-passing và một có một test failing, kèm commit, screenshot và link.
+7. Hoàn thiện report, README summary, AI Audit, AI Critique 200–300 words, Git commit log, pseudocode và sơ đồ tự vẽ.
+
+Nếu người dùng yêu cầu toàn bộ workflow, có thể tiếp tục qua các bước trong phạm vi đó nhưng vẫn ghi rõ artifact nào đang `PENDING HUMAN REVIEW` và không tự điền quyết định review.
+
+## Vị trí artifact
+
+Trước khi ghi file, khám phá cấu trúc repository bằng `rg --files` và ưu tiên convention đang có. Không tạo cây thư mục song song chỉ vì ví dụ trong skill. Với repository chưa có convention, dùng:
+
 ```text
-A Verify SUT/API spec/environment, chọn 3 APIs
-  -> human approval
-B Generate test cases với AI (≥35 per API)
-  -> human approval
-C Audit (VALID/INVALID/INCOMPLETE) + Extend (+5 per API)
-  -> human approval
-D1 Execute API 1 (Postman + Newman) -> analyse -> review
-  -> D2 Execute API 2 -> analyse -> review
-  -> D3 Execute API 3 -> analyse -> review
-  -> human approval
-E CI/CD, bug reports, agent skill, final report
-  -> final human approval
+tests/api-testing/{collections,environments,data,test-cases,reports,evidence}/
+reports/api-testing/
+bug-report/api-testing/
 ```
-**Lưu ý:** Không gộp các phase A-E. Trong Phase D, không chạy D2 ngay sau D1 nếu chưa có approval của D1.
 
-# 5. Quy trình mỗi lượt
-Mỗi khi Agent nhận prompt từ human:
-1. Xác định Phase hiện tại dựa trên Context/Files được cung cấp hoặc prompt.
-2. Kiểm tra `assignment-requirements.md` xem checklist.
-3. Đọc Rule/Playbook/Runbook tương ứng trong `references/`.
-4. Tìm kiếm file/code liên quan trong thư mục được phép.
-5. Thực hiện nhiệm vụ (sinh test, audit, thiết lập Postman, phân tích report).
-6. Ghi log tương tác, phân tích vào `ai-audit-report.md` (nếu cần).
-7. Nếu nhiệm vụ sinh ra file, chỉ tạo file vào đúng cấu trúc Ranh giới repo.
-8. Dừng và trả về status `[PENDING HUMAN REVIEW]`.
+Dùng template hiện có trong `assets/templates/` khi phù hợp; thay toàn bộ placeholder bằng dữ liệu thật hoặc để rõ `TBD/PENDING`, không bịa giá trị. Các template là điểm khởi đầu, không phải danh sách deliverable đầy đủ.
 
-# 6. Template đóng gói
-Agent phải sử dụng các template được chuẩn bị sẵn (đặt tại `assets/templates/` nếu có):
-- API Selection Template
-- Prompt Engineering Log Template
-- Test Case Generation Template (Excel/CSV format)
-- Test Case Audit Template
-- Postman Collection Template
-- Postman Environment Template
-- Newman HTML Extra Report Template (nếu có custom config)
-- Bug Report Template
-- AI Skill Demonstration Report Template
+## Điều kiện bàn giao
 
-# 7. Definition of Done (DoD)
-Một phase hoặc toàn bộ quy trình chỉ được coi là hoàn tất khi:
-- Tất cả các item trong checklist của `assignment-requirements.md` đã có artifact truy ngược rõ ràng.
-- Bất kỳ kết luận hoặc kết quả test nào cũng phải có evidence (log, Newman report, screenshot) đính kèm hoặc được chỉ định rõ đường dẫn. Thiếu evidence = chưa hoàn tất. Không bịa evidence.
+- Mỗi con số và verdict trỏ tới evidence hoặc được ghi `PENDING/NOT EXECUTED`.
+- Mỗi API có chuỗi artifact generate → audit/correction → human-added cases → executable tests → execution evidence → bug report nếu có.
+- README có đúng các tổng số mà đề yêu cầu; report liệt kê chỉ những Postman features thực sự đã dùng.
+- CI/CD, GitHub Issue, screenshot, diagram tự vẽ và commit log không được tuyên bố hoàn tất nếu chưa tồn tại.
+- Kết thúc bằng trạng thái ngắn: phần đã làm, phần cần human review, và phần còn thiếu.

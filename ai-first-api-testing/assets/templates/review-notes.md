@@ -4,7 +4,7 @@
 | Thuộc tính | Chi tiết |
 |------------|----------|
 | Workflow | API Testing HW06 |
-| Student | 23127464 |
+| Student ID | `{student_id}` |
 | Stage | `{stage}` |
 | Reviewer | `{reviewer}` |
 | Time | `{time}` |
@@ -23,6 +23,7 @@
 - **Decision:** `{Approved / Approved with corrections / Rejected}`
 
 #### Cổng phê duyệt (Approval Gate)
+- **Status:** `{PENDING / APPROVED / APPROVED WITH CORRECTIONS / REJECTED}`
 - **Details:** `{approval_details}`
 
 #### Chỉnh sửa của con người (Human Correction)

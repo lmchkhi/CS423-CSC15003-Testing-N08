@@ -1,45 +1,47 @@
-# Hợp Đồng Chọn API (API Selection Contract)
+# Hợp đồng chọn API
 
-Contract cho việc chọn API từ EShop SUT.
+Dùng tài liệu này để map feature scope sang endpoint. Trước khi chốt, đọc lại `src/eshop-sut/api_specification.md` và `src/eshop-sut/README.md` vì bảng này chỉ là chỉ mục.
 
-> **Nguồn duy nhất đáng tin cậy (Single Source of Truth):** Mọi path, method, request/response body dưới đây được đồng bộ trực tiếp từ `api_specification.md` của SUT. **Agent KHÔNG được suy diễn hay đoán path** — nếu SUT cập nhật spec, agent phải đọc lại `api_specification.md` gốc trước khi thiết kế test, không dựa vào bảng bên dưới nếu có xung đột.
+## Pool A — Authentication, Categories, Products
 
-### Pool A — Authentication, Categories, Products
-- **FR-01**: Account registration → `POST /api/register`
-- **FR-02**: Login và account lockout → `POST /api/login`
-- **FR-03**: Forgot password (2 bước) → `POST /api/forgot-password`, `POST /api/reset-password`
-- **FR-04**: Profile management → `GET /api/users/me`, `PUT /api/users/me`
-- **FR-05**: Product listing/search → `GET /api/products` (query `?search=keyword`)
-- **FR-06**: Product detail → `GET /api/products/:id`
+- FR-01 Registration: `POST /api/register`
+- FR-02 Login/lockout: `POST /api/login`
+- FR-03 Password reset: `POST /api/forgot-password`, `POST /api/reset-password`
+- FR-04 Profile: `GET /api/users/me`, `PUT /api/users/me`
+- FR-05 Product listing/search: `GET /api/products?search=...`
+- FR-06 Product detail: `GET /api/products/:id`
 
-### Pool B — Shopping Cart and Checkout
-- **FR-07**: Shopping cart → `GET /api/cart`, `POST /api/cart`
-- **FR-08**: Checkout → `POST /api/checkout`
-- **FR-09**: Discount coupons → `POST /api/apply-coupon`
-- **FR-10**: Order state machine → **hai endpoint tách biệt, KHÔNG dùng chung một route:**
-  - `PUT /api/admin/orders/:id/status` — **chỉ Admin**, cập nhật tự do giữa các trạng thái `pending → confirmed → shipping → delivered / canceled`.
-  - `PUT /api/orders/:id/cancel` — **user thường**, chỉ được chuyển sang `canceled` và **chỉ khi đơn chưa giao** (chưa `delivered`).
-  - ⚠️ Đây là trọng tâm test SEC (role escalation / IDOR): phải kiểm tra user thường **không** gọi được endpoint admin, và **không** hủy được đơn đã ở trạng thái `delivered` hoặc đã `canceled`.
-- **FR-11**: Order history → `GET /api/orders/my-orders` (danh sách), `GET /api/orders/:id` (chi tiết)
+## Pool B — Cart and Checkout
 
-### Pool C — Web Admin
-*Tất cả API dưới đây yêu cầu `Authorization: Bearer <token>` và tài khoản phải có quyền Admin.*
-- **FR-12**: Access control → role-based middleware trên toàn bộ nhóm `/api/admin/*`
-- **FR-13**: Dashboard → *(không có endpoint riêng trong `api_specification.md` hiện tại — nếu chọn FR-13, agent phải xác minh trực tiếp trong code SUT `src/`, không giả định path)*
-- **FR-14**: Category CRUD → `GET /api/categories`, `POST /api/categories`, `PUT /api/categories/:id`, `DELETE /api/categories/:id`
-- **FR-15**: Product CRUD → `POST /api/products`, `PUT /api/products/:id`, `DELETE /api/products/:id`
-- **FR-16**: Product CSV import → `POST /api/admin/import-products` (body: JSON array `products`)
-- **FR-17**: Coupon CRUD → `GET /api/coupons`, `POST /api/admin/coupons`, `DELETE /api/admin/coupons/:id`
-- **FR-18**: Order management → `GET /api/admin/orders`, `PUT /api/admin/orders/:id/status`
-- **FR-19**: User management → `GET /api/admin/users`, `DELETE /api/admin/users/:id`
+- FR-07 Cart: `GET /api/cart`, `POST /api/cart`
+- FR-08 Checkout: `POST /api/checkout`
+- FR-09 Coupon application: `POST /api/apply-coupon`
+- FR-10 Order state machine:
+  - user cancellation: `PUT /api/orders/:id/cancel`
+  - admin transition: `PUT /api/admin/orders/:id/status`
+- FR-11 User order history/detail: `GET /api/orders/my-orders`, `GET /api/orders/:id`
 
-### Yêu Cầu Bảo Mật (Security Requirements)
-- SEC-01 đến SEC-07 (như đã định nghĩa trong `api_specification.md`).
-- SQL injection, XSS, IDOR, role escalation, authentication bypass, v.v.
-- Chú ý đặc biệt: phân quyền Admin vs User trên các endpoint trùng tài nguyên nhưng khác route (ví dụ FR-10 ở trên) — đây là nơi role escalation/IDOR dễ bị bỏ sót nhất.
+FR-10 expected transitions come from the SUT README: `pending -> confirmed -> shipping -> delivered`; `pending` and `confirmed` may transition to `canceled`; `delivered` and `canceled` are final; a user cannot cancel at `shipping`, while an admin may act only according to the state machine. The API specification's looser phrase “chưa giao” must not silently weaken these rules.
 
-### Quy Tắc Lựa Chọn (Selection Rules)
-- Phải chọn chính xác 1 API từ mỗi pool (A, B, C).
-- Không trùng lặp trong nhóm (No duplication within group).
-- **Trước khi thiết kế test cho bất kỳ endpoint nào, agent phải đọc lại `api_specification.md` gốc của SUT** (không copy từ file contract này) để lấy path, method, request/response body chính xác nhất — file spec là nguồn chuẩn, file này chỉ là bản tóm tắt hỗ trợ điều hướng.
-- Tài liệu hóa các endpoints đã chọn cùng với parameters, request/response schemas trong báo cáo Phase A.
+## Pool C — Web Admin
+
+These mutating/admin scopes require a valid JWT and `role = admin` according to FR-12.
+
+- FR-12 Access control: `/api/admin/*` and protected product/category/coupon mutations
+- FR-13 Dashboard: no endpoint documented in the API specification; inspect source and record the documentation gap before selecting it
+- FR-14 Category CRUD: `GET /api/categories`, `POST /api/categories`, `PUT /api/categories/:id`, `DELETE /api/categories/:id`
+- FR-15 Product CRUD: `POST /api/products`, `PUT /api/products/:id`, `DELETE /api/products/:id`
+- FR-16 CSV import: `POST /api/admin/import-products`
+- FR-17 Coupon CRUD: `GET /api/coupons`, `POST /api/admin/coupons`, `DELETE /api/admin/coupons/:id`
+- FR-18 Order management: `GET /api/admin/orders`, `PUT /api/admin/orders/:id/status`
+- FR-19 User management: `GET /api/admin/users`, `DELETE /api/admin/users/:id`
+
+FR-16 has a notable contract gap: the business requirement describes CSV upload/RFC 4180, while the published API specification shows a JSON `products` array. Record this discrepancy and ask for a human decision before assuming an upload format.
+
+## Selection checks
+
+- Select one feature/API scope from each Pool A, B and C. A feature may contain multiple endpoints when its workflow requires them.
+- Confirm the selected triple is not duplicated by another group member; repository inspection cannot prove this without the group's selection list.
+- Record feature ID, method/path, auth/role, inputs, preconditions, expected rule source, known spec gaps and data/state dependencies.
+- Do not claim an exact response schema where the API specification only provides prose or a partial example. Such schema assertions remain `INCOMPLETE` until the expected contract is approved.
+- Map relevant SEC-01–SEC-07 from the SUT README; do not state that these requirements are defined in `api_specification.md`.

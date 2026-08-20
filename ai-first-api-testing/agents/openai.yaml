@@ -1,4 +1,4 @@
 interface:
   display_name: "AI-First API Testing"
-  short_description: "Thiết kế và thực thi HW06 API Testing theo checkpoint"
-  default_prompt: "Dùng $ai-first-api-testing cho workflow API Testing của HW06. Xác định checkpoint hiện tại từ repository và prompt, chỉ thực hiện checkpoint được yêu cầu, sử dụng runtime evidence thật và dừng chờ Human Review trước checkpoint kế tiếp."
+  short_description: "Thiết kế, audit và thực thi API tests cho HW06"
+  default_prompt: "Dùng $ai-first-api-testing để hoàn thành phần HW06 API Testing tôi yêu cầu. Đối chiếu đề bài, SUT README và API specification; chỉ dùng evidence thật, giữ traceability và đánh dấu rõ phần còn chờ human review."

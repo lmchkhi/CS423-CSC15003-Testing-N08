@@ -1,16 +1,39 @@
-# Giao Thức Thực Thi Newman (Newman Execution Protocol)
+# Giao thức thực thi Newman
 
-Giao thức thực thi cho các lần chạy Newman (phỏng theo measured-execution.md):
+Chỉ chạy khi người dùng yêu cầu execution hoặc việc chạy nằm rõ trong phạm vi giao. Không sửa SUT chỉ để làm test pass.
 
-- **Nguyên tắc cốt lõi**: Agent CÓ THỂ thực thi các lần chạy Newman (khác với tải đo lường JMeter), nhưng phải tài liệu hóa mọi thứ.
-- **Những gì Agent CÓ THỂ làm**: chạy Newman, tạo collections, thiết lập environments, cấu hình pre-request scripts.
-- **Những gì Agent KHÔNG ĐƯỢC làm**: ngụy tạo kết quả, bỏ qua audit, tự động phê duyệt (auto-approve), sửa đổi SUT.
-- **Quy trình Phase D**: D1/D2/D3 cho mỗi API.
-- **Thiết lập Header `X-Student-Id`** (Mã sinh viên: 23127464) thông qua pre-request script.
-- **Mẫu lệnh Newman (Newman command patterns)**:
-  ```bash
-  newman run collection.json -e environment.json --reporters cli,html --reporter-html-export report.html
-  ```
-- **Yêu cầu bằng chứng**: báo cáo Newman (HTML), console output, Postman collection JSON.
-- **Human Review**: Yêu cầu con người đánh giá (Human Review) sau mỗi lần thực thi API.
-- **Xác minh hostname (Anti-AI-Cheat)**: Trước khi ghi nhận bất kỳ verdict PASS/FAIL nào, Agent phải kiểm tra hostname xuất hiện trong Newman console output / HTML report có khớp với môi trường deploy thật của sinh viên hay không (`localhost` / `127.0.0.1` được chấp nhận). Nếu không khớp hoặc report không lộ hostname rõ ràng, Agent phải flag rõ trong `newman-evidence-analysis.md` thay vì mặc định coi là hợp lệ.
+## Trước khi chạy
+
+- Ghi versions của Node, Newman và reporter.
+- Xác minh SUT đang chạy và base URL trỏ đúng deployment.
+- Xác minh collection/environment/data file đúng API và không chứa secret cần che.
+- Xác minh collection-level pre-request script đặt `X-Student-Id` từ biến đã biết.
+- Xác minh test data/state và cleanup/reseed strategy.
+- Tạo đường dẫn output mới; không ghi đè failed evidence.
+
+## Lệnh mẫu
+
+Chọn reporter thực sự đã cài. Ví dụ với `newman-reporter-htmlextra`:
+
+```powershell
+newman run <collection.json> -e <environment.json> -d <data.json> `
+  --reporters cli,htmlextra `
+  --reporter-htmlextra-export <report.html>
+```
+
+Nếu dùng reporter `html`, kiểm tra package và dùng option đúng của reporter đó. Không tuyên bố HTML report đã tạo chỉ dựa trên command dự kiến.
+
+## Evidence cần giữ
+
+- Command nguyên văn, timestamp, working directory và exit code.
+- Collection/environment/data đã dùng.
+- Console output nguyên vẹn và HTML report.
+- Base URL/hostname quan sát được trong request output.
+- Tổng iterations, requests, test scripts/assertions, passed/failed/skipped và duration lấy từ report.
+- Screenshot console cho thấy `X-Student-Id`; screenshot này phải là evidence thật do human capture.
+
+Hostname phải khớp deployment đã khai báo; `localhost` và `127.0.0.1` được đề chấp nhận. Nếu report không cho kiểm tra hostname hoặc header, kết quả evidence là `INCONCLUSIVE`, không tự coi là hợp lệ.
+
+## Sau khi chạy
+
+Giữ failure nguyên trạng, phân tích theo `evidence-analysis.md`, rồi bàn giao `PENDING HUMAN REVIEW`. Có thể tiếp tục API kế tiếp nếu nó nằm trong phạm vi người dùng đã yêu cầu.

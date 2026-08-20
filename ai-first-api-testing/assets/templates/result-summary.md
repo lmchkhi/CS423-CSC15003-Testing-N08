@@ -1,7 +1,7 @@
 ### Tóm tắt kết quả kiểm thử API tổng thể (Result Summary)
 
 #### Bảng chi tiết theo API (Per-API Table)
-| API | Tests Generated | Audited | Extended | Executed | Passed | Failed | Bugs | Evidence Path |
+| API | Tests Generated | Audited V/I/I | Human-added | Executed | Passed | Failed | Bugs | Evidence Path |
 |-----|-----------------|---------|----------|----------|--------|--------|------|---------------|
 | 1   | `{gen}`         | `{aud}` | `{ext}`  | `{exe}`  | `{pass}` | `{fail}` | `{bug}` | `{path}` |
 | 2   | `{gen}`         | `{aud}` | `{ext}`  | `{exe}`  | `{pass}` | `{fail}` | `{bug}` | `{path}` |

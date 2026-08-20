@@ -2,7 +2,7 @@
 
 - **Issue ID:** `{issue_id}`
 - **Title:** `{bug_title}`
-- **Severity:** `{Critical/Major/Minor}`
+- **Severity:** `{Critical/High/Medium/Low}`
 - **API Endpoint:** `{endpoint}`
 - **HTTP Method:** `{method}`
 - **Pool:** `{A/B/C}`
@@ -22,6 +22,7 @@
 - **Body:** `{body}`
 
 #### Phản hồi mong đợi và thực tế (Expected vs Actual Response)
+- **Requirement Source:** `{file/section/FR/SEC}`
 - **Expected:** Status `{expected_status}`, Body `{expected_body}`, Headers `{expected_headers}`
 - **Actual:** Status `{actual_status}`, Body `{actual_body}`, Headers `{actual_headers}`
 
@@ -29,6 +30,7 @@
 - **Newman Report Path:** `{report_path}`
 - **Screenshot Path:** `{screenshot_path}`
 - **Postman Test Script:** `{postman_test_script}`
+- **Reproduction Run/Time:** `{run_id_and_timestamp}`
 
 #### Tác động bảo mật (Security Impact)
 {reference_to_SEC-01_to_SEC-07_if_applicable}
@@ -37,4 +39,6 @@
 {root_cause_hypothesis}
 
 #### Trạng thái xuất bản (Publication status)
-- **LOCAL DRAFT** — publish only after human approval
+- **Status:** `{LOCAL DRAFT / PUBLISHED}`
+- **GitHub Issue URL:** `{PENDING or real_issue_url}`
+- **Issue Screenshot:** `{PENDING or screenshot_path}`

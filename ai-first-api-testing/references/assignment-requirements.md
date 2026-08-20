@@ -1,39 +1,55 @@
-# Yêu Cầu Bài Tập (Assignment Requirements)
+# Checklist yêu cầu HW06
 
-Danh sách kiểm tra (checklist) đầy đủ cho các yêu cầu của HW06:
+Đối chiếu checklist này với `2026.HW06.API_Testing_En.md`; file đề bài luôn thắng nếu có thay đổi.
 
-### Định Dạng Nộp Bài (Submission Format)
-- Tên file: `<StudentID>_HW06_AI_API_<SelfAssessedGrade>.zip`
-- Báo cáo chính (Markdown + PDF) với báo cáo kiểm thử API (API testing report) và kiểm toán AI (AI audit)
-- Link repository GitHub công khai (bao gồm collections, scripts, reports)
-- Postman collection (.json) và báo cáo Newman (HTML)
-- Danh sách các tính năng Postman đã sử dụng
-- Báo cáo CI/CD: cấu hình pipeline, hai lần chạy mẫu (một lần pass toàn bộ + một lần fail)
-- Test cases Excel và tóm tắt kiểm thử (test summary)
-- Sơ đồ (diagram) và mã giả (pseudocode) của AI test-generator
-- Tùy chọn: OpenAPI spec (.yaml/.json)
-- Báo cáo lỗi (Bug report) kèm theo ảnh chụp màn hình GitHub Issues
-- AI Critique (Đánh giá AI) và Báo cáo kiểm toán AI (AI Audit Report) (Markdown + PDF)
-- Nhật ký Git commit
-- File README.md với tự đánh giá (self-assessment) và tóm tắt kiểm thử
+## Ba pipeline API
 
-### Danh Sách Kiểm Tra Các Giai Đoạn (Phase Checklists - A đến E)
-- **Phase A**: Xác minh SUT/API spec, chọn 3 API (mỗi API từ một Pool khác nhau), ánh xạ (mapping) các endpoints.
-- **Phase B**: Tạo ra ≥35 test cases cho mỗi API bao gồm domain/state/security/schema.
-- **Phase C**: Kiểm toán (Audit) tất cả các test cases là VALID/INVALID/INCOMPLETE, mở rộng thêm +5 test cases cho mỗi API.
-- **Phase D**: Thực thi Newman cho mỗi API với báo cáo và header `X-Student-Id`.
-- **Phase E**: Tích hợp CI/CD, báo cáo bug, thiết kế agent skill, báo cáo cuối cùng.
+- [ ] Chọn 3 feature/API scopes: đúng 1 từ Pool A, 1 từ Pool B, 1 từ Pool C.
+- [ ] Bộ ba không trùng với thành viên khác trong nhóm.
+- [ ] Mỗi API có mục tiêu `>= 35` test cases do AI tạo qua nhiều prompt có chủ đích.
+- [ ] Mọi parameter có domain partitions; state/security/schema được bao phủ khi áp dụng.
+- [ ] Mỗi test AI sinh được human gắn `VALID/INVALID/INCOMPLETE`, có lý do và correction.
+- [ ] Human thêm `>= 5` test cases/API mà AI bỏ sót và giải thích vì sao.
+- [ ] Các case đã duyệt được thực thi bằng Postman + Newman hoặc Karate/RestAssured.
+- [ ] Mọi request có `X-Student-Id: <StudentID>` và có screenshot console xác thực header.
+- [ ] Có collection, data/environment nếu dùng, console output và Newman HTML report.
+- [ ] Hostname trong output khớp deployment thật (`localhost`/`127.0.0.1` được chấp nhận).
+- [ ] Bug thật được ghi cả trong Markdown và GitHub Issues, mỗi issue có screenshot.
 
-### Tiêu Chí Đánh Giá (Assessment Criteria từ HW06):
-| No | Criteria | Max |
-|---|---|---|
-| 1 | API 1 - full pipeline | 30 |
-| 2 | API 2 - full pipeline | 30 |
-| 3 | API 3 - full pipeline | 30 |
-| 4 | Agent Skills | 10 |
-| | **Total** | **100** |
+## Yêu cầu toàn suite
 
-### Chống Gian Lận AI (Anti-AI-Cheat)
-- Header `X-Student-Id` (Mã sinh viên: 23127464) với ảnh chụp màn hình console.
-- Hostname trong output của Newman phải khớp với môi trường deployment.
-- Sơ đồ AI test-generator phải do sinh viên tự vẽ.
+- [ ] Report liệt kê các Postman features **thực sự** đã dùng; không cần tuyên bố dùng mọi feature ví dụ trong đề.
+- [ ] CI/CD chạy API tests.
+- [ ] Có hai commit/run mẫu có thật: một all-passing, một có một test failing; kèm screenshots và links.
+- [ ] AI test-generator có pseudocode và diagram do sinh viên tự thiết kế/tự vẽ.
+- [ ] AI Audit mở đầu bằng declaration bắt buộc và ghi công cụ, ngày giờ, prompt nguyên văn, AI output cho từng interaction.
+- [ ] AI Critique là một đoạn 200–300 words, trả lời đủ ba câu hỏi trong đề.
+- [ ] Có Git commit riêng cho từng bước của procedure và log dạng text.
+
+## Gói nộp
+
+- [ ] Tên ZIP: `<StudentID>_HW06_AI_API_<SelfAssessedGrade>.zip`, grade gồm 3 chữ số `000`–`100`.
+- [ ] Main report Markdown + PDF, gồm API-testing report và AI audit.
+- [ ] Public GitHub repository link.
+- [ ] Postman collection JSON + Newman HTML report + danh sách Postman features.
+- [ ] CI/CD report có config, hai runs, screenshots và links.
+- [ ] Excel test cases + test summary.
+- [ ] Diagram + pseudocode (`PNG/Mermaid` và `.md/.py` theo mục nội dung ZIP), nhưng diagram không do AI tạo.
+- [ ] Bug reports + screenshots GitHub Issues.
+- [ ] AI Critique và AI Audit Report ở Markdown + PDF.
+- [ ] Git commit log dạng text.
+- [ ] README có self-assessment và số API; generated, added, executed, passed, failed; số bugs.
+- [ ] OpenAPI conversion chỉ là tùy chọn; nếu dùng AI tạo thì cũng phải audit.
+- [ ] Video demo Agent Skill là tùy chọn.
+
+Thiếu bất kỳ tài liệu bắt buộc nào có thể dẫn đến 0 điểm theo đề. Không đánh dấu item hoàn tất nếu artifact hoặc evidence chưa tồn tại.
+
+## Thang điểm
+
+| Criteria | Max |
+|---|---:|
+| API 1 full pipeline | 30 |
+| API 2 full pipeline | 30 |
+| API 3 full pipeline | 30 |
+| Agent Skill | 10 |
+| **Total** | **100** |

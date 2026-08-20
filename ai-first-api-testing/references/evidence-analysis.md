@@ -1,12 +1,41 @@
-# Phân Tích Bằng Chứng (Evidence Analysis)
+# Phân tích evidence
 
-Các quy tắc phân tích bằng chứng cho API testing:
+## Kiểm tra tính toàn vẹn
 
-- **Tính toàn vẹn của bằng chứng (Evidence integrity)**: coi báo cáo Newman là chỉ đọc (read-only), giữ nguyên các lần chạy bị lỗi (failed runs).
-- **Bằng chứng bắt buộc cho mỗi API**: Postman collection, báo cáo HTML của Newman, console output, Excel chứa test case.
-- **Xác định tính hợp lệ (Validity determination)**: Phân loại test case thành VALID (Hợp lệ) / VALID WITH LIMITATION (Hợp lệ có giới hạn) / INVALID (Không hợp lệ).
-- **Phân loại lỗi (Failure classification)**: Test defect (Lỗi kiểm thử), Environment issue (Vấn đề môi trường), Data issue (Vấn đề dữ liệu), SUT functional defect (Lỗi chức năng SUT), SUT security defect (Lỗi bảo mật SUT), Unknown (Không xác định).
-- **Phân tích độ bao phủ (Coverage analysis)**: kiểm tra các phân vùng miền (domain partitions), chuyển đổi trạng thái (state transitions), bảo mật (SEC-01-SEC-07), xác thực lược đồ (schema validation).
-- **Săn lùng sự hiểu sai (Misinterpretation hunt)**: thách thức các tuyên bố của AI về độ bao phủ kiểm thử, dương tính giả/âm tính giả (false positives/negatives), phát hiện bảo mật.
-- **Xác thực bug (Bug validation)**: xác minh các bugs bằng chứng trước khi báo cáo.
-- **Bằng chứng CI/CD**: cấu hình pipeline, hai commits (một pass + một fail).
+- Đối chiếu collection, environment/data, console log và HTML report có cùng run.
+- Ghi hostname, timestamp, command, exit code và tool versions.
+- Không chỉnh report gốc; tạo analysis file riêng.
+- Không suy ra header chỉ từ collection: evidence chống gian lận cần console screenshot thực tế.
+
+## Tóm tắt kết quả
+
+Chép metric đúng cấp từ report (iterations, requests, assertions/tests). Nêu denominator rõ để tránh cộng lẫn requests và assertions. Mọi số phải trỏ đến report/log; nếu chưa chạy, dùng `NOT EXECUTED`.
+
+## Phân loại failure
+
+- `TEST_DEFECT`: assertion/script sai.
+- `ENVIRONMENT`: SUT unavailable, DNS/port/dependency/configuration.
+- `TEST_DATA_OR_STATE`: seed, ownership, token hoặc state precondition sai.
+- `SUT_FUNCTIONAL_DEFECT`: actual trái FR/contract có nguồn.
+- `SUT_SECURITY_DEFECT`: actual trái SEC hoặc access-control rule có nguồn.
+- `SPEC_GAP_OR_CONFLICT`: không có oracle duy nhất.
+- `UNKNOWN`: chưa đủ evidence.
+
+Một assertion fail không tự động là bug. Muốn xác nhận bug phải có requirement source, request tái hiện, expected/actual, evidence path và kết quả rerun phù hợp. Root-cause chỉ là hypothesis trừ khi code/log chứng minh.
+
+## Coverage
+
+Đánh giá traceability, không chỉ đếm case:
+
+- domain partitions cho mọi input;
+- state transition hợp lệ/không hợp lệ và final states khi áp dụng;
+- SEC-01–SEC-07 áp dụng được, auth/role/ownership/injection;
+- schema fields/types/requiredness có nguồn;
+- so sánh AI-generated với human-added cases.
+
+## CI/CD và bug evidence
+
+- CI/CD cần workflow/config, commit SHA thật, run URL thật, screenshot và result cho cả all-passing lẫn one-failing run.
+- Bug cần local Markdown report, GitHub Issue URL và screenshot gắn với issue. Không coi draft local là issue đã publish.
+
+Kết luận bằng `PASS`, `FAIL` hoặc `INCONCLUSIVE` cho execution evidence, đồng thời ghi riêng quyết định human review (`PENDING` cho đến khi human xác nhận).
