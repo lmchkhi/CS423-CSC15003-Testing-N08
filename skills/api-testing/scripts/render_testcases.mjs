@@ -12,6 +12,26 @@ function show(key, value) {
   const text = String(value);
   return /token|password|otp|secret|cookie/i.test(key) && !text.startsWith("{{") ? "`<redacted-or-variable>`" : `\`${text.replaceAll("`", "\\`")}\``;
 }
+function renderBodyAssertion(assertion) {
+  const field = assertion.path ? `\`${String(assertion.path).replaceAll("`", "\\`")}\`` : "response body";
+  const value = show(assertion.path || "", assertion.value);
+
+  switch (assertion.operator) {
+    case "equals": return `- ${field} phải bằng ${value}`;
+    case "notEquals": return `- ${field} không được bằng ${value}`;
+    case "exists": return `- ${field} phải tồn tại`;
+    case "absent": return `- ${field} không được xuất hiện`;
+    case "type": return `- ${field} phải có kiểu ${value}`;
+    case "matches": return `- ${field} phải khớp biểu thức ${value}`;
+    case "includes": return `- ${field} phải chứa ${value}`;
+    case "gt": return `- ${field} phải lớn hơn ${value}`;
+    case "gte": return `- ${field} phải lớn hơn hoặc bằng ${value}`;
+    case "lt": return `- ${field} phải nhỏ hơn ${value}`;
+    case "lte": return `- ${field} phải nhỏ hơn hoặc bằng ${value}`;
+    case "arrayLength": return `- ${field} phải là array có đúng ${value} phần tử`;
+    default: return `- Assertion không được hỗ trợ cho ${field}: \`${String(assertion.operator).replaceAll("`", "\\`")}\``;
+  }
+}
 
 const manifestPath = arg("--manifest");
 const output = arg("--output");
@@ -28,6 +48,7 @@ for (const tc of doc.cases || []) {
     `- HTTP status: \`${(expected.status || []).join(" hoặc ")}\``,
     expected.contentType ? `- Content-Type: \`${expected.contentType}\`` : null,
     expected.schema ? `- Response schema: \`${JSON.stringify(expected.schema)}\`` : null,
+    ...(expected.bodyAssertions || []).map(renderBodyAssertion),
     ...(expected.notes || []).map((v) => `- ${v}`),
   ].filter(Boolean).join("\n");
   const source = tc.source === "ai-generated" ? "AI_GENERATED" : "EXTENSION_CANDIDATE";

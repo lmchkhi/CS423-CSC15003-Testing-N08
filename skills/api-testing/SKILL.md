@@ -1,9 +1,9 @@
 ---
-name: hw06-api-testing
+name: api-testing
 description: Generate, audit, execute, and report data-driven API tests for the EShop HW06 repository from an API endpoint and student ID. Use when Codex must read api_specification.md, create at least 35 Markdown API test cases covering domain partitions, state transitions, security, and schema validation, build Postman/Newman artifacts, enforce X-Student-Id, create real execution evidence and HTML reports, write one Markdown bug report per confirmed defect, or deduplicate and publish GitHub Issues using the repository's label conventions. Write all user-facing artifacts in Vietnamese while retaining clear English technical terms.
 ---
 
-# HW06 API Testing
+# API Testing
 
 Execute the complete pipeline for exactly one user-selected endpoint. Treat the endpoint and student ID as required inputs. Keep instructions and code in English; write generated testcase, run, summary, and bug-report content in Vietnamese, preserving useful technical terms.
 
@@ -39,9 +39,9 @@ Create the layout from [references/artifact-contract.md](references/artifact-con
 Create `suite.manifest.json` following [references/suite-manifest.md](references/suite-manifest.md). Then run:
 
 ```bash
-node skills/hw06-api-testing/scripts/validate_suite.mjs --manifest <suite.manifest.json>
-node skills/hw06-api-testing/scripts/render_testcases.mjs --manifest <suite.manifest.json> --output <test-case-directory>
-node skills/hw06-api-testing/scripts/build_postman_collection.mjs --manifest <suite.manifest.json> --collection <collection.json> --data <test-data.json>
+node skills/api-testing/scripts/validate_suite.mjs --manifest <suite.manifest.json>
+node skills/api-testing/scripts/render_testcases.mjs --manifest <suite.manifest.json> --output <test-case-directory>
+node skills/api-testing/scripts/build_postman_collection.mjs --manifest <suite.manifest.json> --collection <collection.json> --data <test-data.json>
 ```
 
 Fix every validation error. Do not lower minimum counts to make validation pass.
@@ -55,7 +55,7 @@ Use a data-driven collection: one endpoint request consumes one JSON row per ite
 3. Run the supplied runner:
 
 ```bash
-bash skills/hw06-api-testing/scripts/run_newman.sh \
+bash skills/api-testing/scripts/run_newman.sh \
   --collection <collection.json> \
   --data <test-data.json> \
   --environment <environment.json> \

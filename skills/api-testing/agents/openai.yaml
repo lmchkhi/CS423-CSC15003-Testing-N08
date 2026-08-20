@@ -1,0 +1,4 @@
+interface:
+  display_name: "API Testing"
+  short_description: "Generate and execute HW06 API test suites"
+  default_prompt: "Use $api-testing to test an API endpoint with my student ID and produce Vietnamese artifacts."

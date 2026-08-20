@@ -15,11 +15,11 @@
 
 ### (1) Prompt + Tool
 
-| Field             | Content                             |
-| ----------------- | ----------------------------------- |
-| **Tool**          | GPT-5.6 Sol                         |
-| **Timestamp**     | 20/08/2026 13:54:49                 |
-| **Artifact type** | Agent Skill kiểm thử API cho HW06  |
+| Field             | Content                           |
+| ----------------- | --------------------------------- |
+| **Tool**          | GPT-5.6 Sol                       |
+| **Timestamp**     | 20/08/2026 13:54:49               |
+| **Artifact type** | Agent Skill kiểm thử API cho HW06 |
 
 **Full prompt:**
 
@@ -27,14 +27,14 @@
 Dựa vào spec của HW06, giúp tôi tạo một agent skill để thực hiện api testing.
 
 Khi người dùng input vào một api endpoint và student id, agent sẽ:
-- Lấy spec của endpoint trong [api_specification.md](api_specification.md) 
+- Lấy spec của endpoint trong [api_specification.md](api_specification.md)
 - Tạo ra >= 35 test case cho endpoint (mỗi test case là 1 markdown theo format trong [03 - github_testcase_management.pptx](req/03 - github_testcase_management.pptx)) đó, bao phủ:
-  - domain partitions 
+  - domain partitions
   - state transitions
   - security
   - schema validation
 - Tạo các test script để test bằng newman (theo hướng data-driven)
-- Thực thi và sử dụng đúng header. Đồng thời tạo ra new man/html report 
+- Thực thi và sử dụng đúng header. Đồng thời tạo ra new man/html report
 - Nếu có bug trong quá trình, tạo 1 bug report markdown tương ứng với 1 bug theo format trong [03 - github_testcase_management.pptx](req/03 - github_testcase_management.pptx), phần evidence là screenshot của response từ api hay phần log lỗi.
 - Kiểm tra xem github issues có bug đó chưa, chưa thì thêm vào với các tag theo convention hiện có.
 
@@ -102,12 +102,12 @@ GitHub CLI hiện có token hết hạn, nên khi thực thi phần tạo issue 
 
 ### (3) Verdict
 
-**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+**`INCOMPLETE`**
 
 ### (4) Reasoning
 
-- _[Người dùng tự điền]_
+- Testcase markdown không hiển thị đầy đủ Expected Result, dù Newman vẫn chạy các assertion đó.
 
 ### (5) Student Fix
 
-- _[Người dùng tự điền]_
+- Render đủ các loại bodyAssertions vào phần Expected result.
