@@ -1433,3 +1433,88 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+---
+
+## Entry #17
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 03:26 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE E — local bug reporting và README summary cho FR-16 / POST /api/admin/import-products`
+
+User Prompt:
+
+    Thực hiện Phase E cho FR-16. Đọc trước:
+
+    - reports/api-testing/fr-16-phase-d-execution-analysis.md
+    - tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md
+    - reports/api-testing/fr-16-phase-a-contract.md
+    - src/eshop-sut/backend/server.js dòng 198-241
+
+    ## NHIỆM VỤ
+
+    1. Tạo 3 bug reports tại bug-report/:
+
+       a. bug-report/fr-16-missing-admin-role-check.md:
+       - Tiêu đề: POST /api/admin/import-products thiếu kiểm tra role admin
+       - Mức độ: Critical / Security
+       - Mô tả: endpoint gắn authenticateToken nhưng không kiểm tra role=admin trong JWT payload. User thường có JWT hợp lệ vẫn import được product vào DB.
+       - Bước tái hiện: curl với JWT non-admin + batch product hợp lệ
+       - Expected: reject, không tạo product (FR-12, SEC-03)
+       - Actual: 200 OK, product được lưu vào DB
+       - Evidence: FR16-AUTH-002, FR16-H05 trong canonical run 20260821-024915
+       - Root cause: server.js:199 chỉ gắn authenticateToken, middleware tại :100-110 chỉ verify JWT signature/expiry nhưng không check req.user.role === 'admin'
+       - Nguồn: FR-12, SEC-03, API spec Admin section
+       - GitHub Issue: NOT CREATED
+
+       b. bug-report/fr-16-missing-price-validation.md:
+       - Tiêu đề: POST /api/admin/import-products không validate price > 0
+       - Mức độ: Medium / Functional
+       - Mô tả: README FR-16 yêu cầu price > 0 nhưng endpoint chấp nhận price=0 và price âm, lưu vào DB
+       - Bước tái hiện: admin JWT + product với price=0, admin JWT + product price=-1
+       - Expected: reject dòng lỗi, rollback batch (FR-16)
+       - Actual: product được import thành công
+       - Evidence: FR16-PRICE-002, FR16-PRICE-003 trong canonical run
+       - Root cause: server.js:213-217 chỉ kiểm tra !row.name, không kiểm tra price <= 0
+       - Nguồn: README FR-16
+
+       c. bug-report/fr-16-missing-atomicity-rollback.md:
+       - Tiêu đề: POST /api/admin/import-products không rollback batch khi có dòng lỗi
+       - Mức độ: High / Functional
+       - Mô tả: README FR-16 yêu cầu all-or-nothing: nếu bất kỳ dòng nào lỗi, toàn bộ batch phải rollback. Thực tế các dòng valid vẫn bị commit vào DB khi batch có dòng invalid.
+       - Bước tái hiện: admin JWT + batch [valid, invalid name="", valid] → kiểm tra DB sau request
+       - Expected: không product nào của batch được lưu
+       - Actual: product valid vẫn tồn tại trong DB (partial commit)
+       - Evidence: FR16-ATOM-001 đến ATOM-004 trong canonical run
+       - Root cause: server.js:209-231 dùng forEach + stmt.run không có db.run("BEGIN TRANSACTION") / db.run("ROLLBACK")
+       - Nguồn: README FR-16
+
+       Format mỗi bug report giống bug-report/fr-11-idor-missing-auth.md. Mỗi report có: mã vấn đề, mức độ, mô tả, điều kiện tái hiện, bước tái hiện, expected vs actual, evidence, root cause, nguồn, tác động, trạng thái.
+
+    2. Cập nhật README.md thêm section FR-16 (Pool C):
+
+       - API: FR-16, POST /api/admin/import-products
+       - Test cases: 40 AI + 5 human = 45
+       - Audit: 29 VALID, 2 INVALID, 9 INCOMPLETE
+       - Executed: 32 ca, 77 assertions, 69 passed, 8 failed
+       - Bugs: 3 (missing role check, missing price validation, missing rollback)
+       - Postman features: giữ list đã có, bổ sung nếu dùng thêm feature mới
+
+AI Output:
+
+    Đã tạo ba local bug report cho missing admin role check, missing price validation và missing atomicity/rollback. Mỗi report có mã vấn đề, severity, điều kiện/curl tái hiện, expected/actual, canonical evidence, source root cause, nguồn yêu cầu, tác động và trạng thái GitHub Issue NOT CREATED.
+
+    README đã được mở rộng cho Pool C / FR-16 với 45 designed cases, audit 29 VALID + 2 INVALID + 9 INCOMPLETE, execution 32 cases / 77 assertions / 69 passed / 8 failed và ba confirmed bugs. Danh sách Postman bổ sung pm.sendRequest cho post-condition persistence/rollback.
+
+    PHASE E: COMPLETE
+    GITHUB ISSUES: NOT CREATED
+    FR-16 CI/CD: NOT CREATED
+    AI CRITIQUE: NOT CREATED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING

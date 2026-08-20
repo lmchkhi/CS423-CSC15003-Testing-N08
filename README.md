@@ -8,10 +8,11 @@
 
 | Hạng mục | Nội dung |
 |---|---|
-| Pool | Pool B |
-| Feature | FR-11 — Order History View |
+| Pool | Pool B và Pool C |
+| Feature | FR-11 — Order History View; FR-16 — Product Import from CSV |
 | Endpoint 1 | `GET /api/orders/my-orders` |
 | Endpoint 2 | `GET /api/orders/:id` |
+| Endpoint 3 | `POST /api/admin/import-products` |
 | Student header | `X-Student-Id: 23127464` |
 
 ## 2. Assessment summary
@@ -38,17 +39,39 @@
 - Các failure được con người xác nhận là `LOI_BAO_MAT_SUT`.
 - Lỗi bảo mật: endpoint detail thiếu authentication và ownership check, dẫn đến IDOR và làm lộ order data.
 
-## 4. Postman/Newman features đã sử dụng
+## 4. FR-16 — Product Import (Pool C)
+
+| Hạng mục | Kết quả |
+|---|---|
+| API | FR-16 — `POST /api/admin/import-products` |
+| Test cases | 45 — 40 AI-generated + 5 human-origin |
+| Human audit | 29 `VALID`; 2 `INVALID`; 9 `INCOMPLETE` |
+| Executed | 32 ca; 77 assertions; 69 passed; 8 failed |
+| Confirmed failures | 2 `LOI_BAO_MAT_SUT`; 6 `LOI_CHUC_NANG_SUT` |
+| Bugs | 3 — missing role check; missing price validation; missing rollback |
+| Contract decision | JSON array là primary; CSV upload là exploratory/negative |
+| Phase status | `PHASE E: COMPLETE` |
+
+Ba local bug report đã tạo:
+
+- `bug-report/fr-16-missing-admin-role-check.md` — Critical / Security.
+- `bug-report/fr-16-missing-price-validation.md` — Medium / Functional.
+- `bug-report/fr-16-missing-atomicity-rollback.md` — High / Functional.
+
+Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915/`. GitHub Issue và CI/CD riêng cho FR-16 chưa được tạo.
+
+## 5. Postman/Newman features đã sử dụng
 
 - Postman collections và folders.
 - Collection variables, environment variables và Postman environment file.
 - Collection-level pre-request script để gắn `X-Student-Id: 23127464`.
 - Postman test scripts và assertions.
+- `pm.sendRequest` để kiểm tra read-only post-condition và persistence/rollback bằng marker duy nhất.
 - Collection Runner/Newman data-driven execution với iteration data file.
 - Newman CLI với JSON và `htmlextra` reporters.
 - GitHub Actions với Newman HTML report được upload làm artifact.
 
-## 5. Execution và CI/CD evidence
+## 6. Execution và CI/CD evidence
 
 ### Local canonical run
 
@@ -67,7 +90,7 @@
 | All-pass `my-orders` folder | `fa490400e8145ecc72685328e15542d9ae79e051` | `SUCCESS` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185); `tests/api-testing/evidence/fr-11/ci-cd-run1-all-pass.png` |
 | Full FR-11 collection | `fa469cff4cdf4de5ea71cc2883d182c730684132` | `FAILURE` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32403028362); `tests/api-testing/evidence/fr-11/ci-cd-run2-with-failure.png` |
 
-## 6. Deliverables
+## 7. Deliverables
 
 ### Hoàn thành
 
@@ -80,6 +103,9 @@
 | Phase D execution analysis | `reports/api-testing/fr-11-phase-d-execution-analysis.md` |
 | Evidence manifest | `tests/api-testing/evidence/fr-11/20260821-001900/evidence-manifest.md` |
 | Security bug report | `bug-report/fr-11-idor-missing-auth.md` |
+| FR-16 security bug report | `bug-report/fr-16-missing-admin-role-check.md` |
+| FR-16 price-validation bug report | `bug-report/fr-16-missing-price-validation.md` |
+| FR-16 atomicity bug report | `bug-report/fr-16-missing-atomicity-rollback.md` |
 | GitHub Actions workflow | `.github/workflows/fr-11-api-test.yml` |
 | CI/CD report | `reports/api-testing/fr-11-cicd-report.md` |
 | AI audit report | `reports/ai-audit-report.md` |
@@ -93,10 +119,16 @@
 | Sơ đồ AI test-generation do sinh viên tự thiết kế/tự vẽ | `PENDING` |
 | Video demo FR-11 | `NOT PROVIDED` — tùy chọn khi áp dụng |
 
-## 7. Trạng thái
+## 8. Trạng thái
 
-PHASE E: COMPLETE
+FR-11 PHASE E: COMPLETE
 
-CI/CD CONFIGURATION: COMPLETE
+FR-16 PHASE E: COMPLETE
 
-GITHUB ACTIONS EXECUTION: COMPLETE — 1 SUCCESS, 1 FAILURE
+FR-11 CI/CD CONFIGURATION: COMPLETE
+
+FR-11 GITHUB ACTIONS EXECUTION: COMPLETE — 1 SUCCESS, 1 FAILURE
+
+FR-16 GITHUB ISSUE: NOT CREATED
+
+FR-16 CI/CD: NOT CREATED
