@@ -32,7 +32,7 @@ Artifact layout chủ đích:
 
 - `postman/` nằm ở root repo vì đây là input artifacts để chạy test: collection, environment, iteration data.
 - `reports/newman/` nằm trong `reports/` vì đây là output evidence/report do Newman sinh ra sau execution.
-- `test-cases/hw06-api/` chứa per-test-case Markdown files để dễ đọc/review; `reports/hw06-test-cases.md` là index/summary.
+- `test-cases/hw06-api/` chứa per-test-case Markdown files để dễ đọc/review; `reports/hw06-test-cases.md` là master table theo từng test case, đồng thời chứa audit summary và human extension tracking.
 - `reports/bug-reports/` chứa bug report Markdown theo template GitHub Issue của repo.
 
 | Phase | Commit message | Công việc chính | Artifacts/evidence |
@@ -167,14 +167,13 @@ Việc cần làm:
 - Chuẩn hóa final TC IDs, ví dụ `FR03-RP-DOM-001`, `FR03-RP-SEC-001`, `FR03-RP-SCH-001`.
 - Thêm ít nhất 5 human-authored cases AI bỏ sót, ưu tiên SEC-07: OTP dùng sai email, OTP reuse, weak password, SQLi email, malformed resetToken.
 - Ghi vì sao AI bỏ sót từng human case.
-- Append AI audit entry.
 
 Files/artifacts:
 
 - FR-03 audit table
 - FR-03 final test case table
 - FR-03 human extension table
-- `reports/ai-audit-report.md`
+- `reports/hw06-test-cases.md`
 
 Kiểm tra trước commit:
 

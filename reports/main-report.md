@@ -28,7 +28,7 @@ Ghi chú: các FR được phân không chứa FR-10 order state machine, nên s
 | Path | Vai trò | Ghi chú |
 | --- | --- | --- |
 | `test-cases/hw06-api/` | Test case design chi tiết | Mỗi final test case có một file Markdown riêng, dùng template `TEMPLATE-HW06-API-TEST-CASE.md`. |
-| `reports/hw06-test-cases.md` | Master index/summary | Tổng hợp TC ID, file path, audit label, execution result, evidence. |
+| `reports/hw06-test-cases.md` | Master test case table | Tổng hợp từng TC ID, file path, audit label, human extension, execution result, evidence. |
 | `postman/` | Input artifacts để execute test | Chứa Postman collection, environment và data files. Đặt ở root để CLI/CI path ngắn và dễ chạy. |
 | `reports/newman/` | Output evidence từ execution | Chứa Newman HTML/JSON reports, nên đặt dưới `reports/` cùng các evidence/report khác. |
 | `reports/bug-reports/` | Bug report Markdown | Mỗi bug report bám template `.github/ISSUE_TEMPLATE/bug-report-template.md`. |
@@ -37,7 +37,7 @@ Ghi chú: các FR được phân không chứa FR-10 order state machine, nên s
 
 ### 3.1 Generate with AI
 
-Trạng thái: Đã thực hiện ở Phase 02. Raw output chưa human audit.
+Trạng thái: Đã thực hiện ở Phase 02; raw output đã được human audit ở Phase 03.
 
 | Artifact | Link/ghi chú |
 | --- | --- |
@@ -54,23 +54,28 @@ Raw generation summary:
 | Security | 8 | Cover SEC-05, SEC-07, sensitive data exposure |
 | Workflow | 8 | Cover forgot-password setup, token binding/reuse, postcondition login |
 | Schema | 8 | Cover JSON content type, message/error shape, no sensitive fields, response time |
-| Total | 46 | Chưa audit; Phase 03 sẽ gắn `VALID` / `INVALID` / `INCOMPLETE` |
+| Total | 46 | Đã audit ở Phase 03; xem `reports/hw06-test-cases.md` section 3 |
 
 ### 3.2 Human audit
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 03.
+Trạng thái: Đã thực hiện ở Phase 03. Chi tiết audit: `reports/hw06-test-cases.md` section 3.
 
 | Tổng AI cases | VALID | INVALID | INCOMPLETE | Corrected final cases |
 | --- | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| 46 | 39 | 1 | 6 | 44 |
 
 ### 3.3 Human extension
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 03.
+Trạng thái: Đã thực hiện ở Phase 03. Đã thêm 6 human-authored cases, final FR-03 suite có 50 cases.
 
 | TC ID | Missed case | Expected result | Vì sao AI bỏ sót |
 | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có |
+| `TC-FR03-API-DOM-023` | `newPassword` empty string | 400, có `message`/`error`, không 5xx | AI thường gộp empty password với too-short password |
+| `TC-FR03-API-DOM-024` | Valid password đúng boundary 8 ký tự | 200, có `message`, không trả password/token | AI có case too short và valid dài hơn nhưng bỏ sót exact lower boundary |
+| `TC-FR03-API-DOM-025` | `resetToken` có whitespace đầu/cuối | 400, có `message`/`error`, không 5xx | AI kiểm tra whitespace email nhưng bỏ sót whitespace token |
+| `TC-FR03-API-WF-007` | Failed reset do weak password không đổi password hiện tại | 400 then old password login 200 | AI tập trung token consumption, bỏ sót postcondition dữ liệu password |
+| `TC-FR03-API-SCH-009` | Malformed JSON body | 400, không leak stack trace | AI chủ yếu sinh JSON syntactically valid |
+| `TC-FR03-API-SCH-010` | Invalid `Content-Type: text/plain` | 400 hoặc 415, không 5xx | AI kiểm tra success Content-Type nhưng bỏ sót request content-type negative |
 
 ### 3.4 Execution with Postman/Newman
 
@@ -288,7 +293,7 @@ Trạng thái: Chưa có số liệu execution.
 | Newman HTML reports | Chưa có | Chưa có |
 | Postman feature list | Chưa có | Section 6 |
 | CI/CD report | Chưa có | Section 7 |
-| Excel/test case table | Skeleton | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
+| Excel/test case table | Đang cập nhật; FR-03 completed | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
 | Bug reports/GitHub Issues | Chưa có bug xác nhận | `reports/bug-reports/` |
 | AI Critique | Chưa có | Section 10 |
