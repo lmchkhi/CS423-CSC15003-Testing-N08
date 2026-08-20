@@ -46,7 +46,6 @@ The workflow performs a static preflight check for both the header upsert and it
 
 ```bash
 newman run tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json \
-  --folder "GET /api/orders/my-orders" \
   --environment tests/api-testing/environments/fr-11-local.postman_environment.json \
   --iteration-data tests/api-testing/data/fr-11-run-data.json \
   --reporters cli,json,htmlextra \
@@ -68,12 +67,12 @@ newman run tests/api-testing/collections/23127464_FR11_Order_History.postman_col
 | Evidence | Value |
 |---|---|
 | Purpose | Demonstrate a real FR-11 run with all assertions passing |
-| Commit SHA | `PENDING — fill after push` |
-| GitHub Actions run URL | `PENDING — run not executed` |
-| Result | `PENDING` |
-| Newman HTML artifact URL | `PENDING` |
+| Commit SHA | `fa490400e8145ecc72685328e15542d9ae79e051` |
+| GitHub Actions run URL | `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185` |
+| Result | `SUCCESS` |
+| Newman HTML artifact URL | `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419095230/zip` |
 | Screenshot | `PENDING — human capture required after the real run` |
-| Timestamp | `PENDING` |
+| Timestamp | `2026-08-21 01:21:19–01:21:55 (Asia/Ho_Chi_Minh)` |
 
 This first CI revision intentionally selects the `GET /api/orders/my-orders` folder (25 executable cases) to produce the required real all-pass sample. It does not represent a claim that the full FR-11 collection passes.
 
@@ -92,11 +91,21 @@ This first CI revision intentionally selects the `GET /api/orders/my-orders` fol
 
 The controlled-failure evidence must come from a real commit/run and must not overwrite the all-pass evidence.
 
+### Bootstrap attempt — not counted as a required sample run
+
+| Evidence | Value |
+|---|---|
+| Commit SHA | `528b66aee41d9e73fb85448e65504d399eae0da8` |
+| GitHub Actions run URL | `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402504988` |
+| Result | `FAILURE — Setup Node.js failed before Newman execution` |
+
+The backend dependency manifest and SUT source were ignored by the repository's `**/src` rule and therefore absent from the first runner checkout. Commit `fa490400e8145ecc72685328e15542d9ae79e051` added only the required backend runtime files and produced the successful all-pass sample above.
+
 ## Commit and publication status
 
-- Workflow commit SHA: `PENDING — fill after commit and push`.
-- Repository URL: `PENDING — no public repository URL recorded in this report`.
-- Workflow run links: `PENDING`.
+- Workflow commit SHA: `PENDING — fill after full-collection commit and push`.
+- Repository URL: `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08`.
+- Workflow run links: all-pass recorded; full-collection run `PENDING`.
 - Screenshots: `PENDING`.
 
 ## Status
@@ -105,7 +114,7 @@ CI/CD CONFIGURATION: COMPLETE
 
 GITHUB ACTIONS EXECUTION: NOT EXECUTED
 
-ALL-PASS RUN EVIDENCE: PENDING
+ALL-PASS RUN EVIDENCE: COMPLETE — SCREENSHOT PENDING HUMAN CAPTURE
 
 CONTROLLED-FAILURE RUN EVIDENCE: PENDING
 
