@@ -1,0 +1,15 @@
+{
+  "name": "hw05-report-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Headless Chromium used only to render the HW05 Markdown deliverables as PDF (§14 wants Markdown + PDF). Not part of the performance testing itself.",
+  "type": "module",
+  "scripts": {
+    "setup": "npx playwright install chromium",
+    "pdf": "python3 build-pdfs.py"
+  },
+  "dependencies": {
+    "mermaid": "^11.16.1",
+    "playwright": "^1.49.0"
+  }
+}
