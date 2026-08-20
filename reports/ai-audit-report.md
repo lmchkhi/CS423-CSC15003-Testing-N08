@@ -816,3 +816,432 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+## Entry #11
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 02:06 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE B — AI generation chỉ cho FR-16 / POST /api/admin/import-products`
+
+User Prompt:
+
+    Đọc và tuân thủ:
+
+    - ai-first-api-testing/SKILL.md
+    - ai-first-api-testing/references/phase-playbook.md
+    - ai-first-api-testing/references/api-testing-runbook.md
+    - reports/api-testing/fr-16-phase-a-contract.md
+
+    ## HUMAN CONTRACT DECISION
+
+    Con người đã quyết định contract conflict giữa README (CSV upload) và API spec (JSON array):
+
+    - PRIMARY: Test JSON array — endpoint thực tế nhận `Content-Type: application/json`
+      với body `{ "products": [...] }`. Đây là contract chính cho test.
+    - SECONDARY: Thêm 1-2 ca gửi CSV file upload (multipart/form-data) để document
+      spec conflict. Expected: server reject hoặc không xử lý đúng vì endpoint nhận JSON.
+    - Ghi rõ trong output: HUMAN DECISION — JSON array là primary contract,
+      CSV upload là exploratory/negative test cho spec conflict.
+
+    ## PHẠM VI
+
+    Pool C, FR-16, POST /api/admin/import-products.
+    Student ID: 23127464.
+    Chỉ thực hiện PHASE B — AI GENERATION.
+    Không audit, không extend, không execute, không báo bug.
+    Sau Phase B phải DỪNG.
+
+    ## YÊU CẦU SINH TEST CASE
+
+    Sinh ít nhất 35 test case cho endpoint POST /api/admin/import-products.
+    Mỗi test case phải có: mã, mục tiêu, dữ liệu đầu vào, kết quả mong đợi,
+    danh mục, truy vết nguồn yêu cầu.
+
+    ### Phân bổ partition — phải bao phủ tất cả nhóm sau:
+
+    1. **Valid import (3-4 ca):**
+
+       - Import 1 product hợp lệ
+       - Import nhiều product hợp lệ (batch)
+       - Product có quoted comma trong description (RFC 4180 context, gửi qua JSON)
+       - Product với tất cả field đầy đủ
+
+    2. **Authentication/Authorization (6-8 ca):**
+
+       - Admin + valid JWT → success
+       - User (non-admin) + valid JWT → reject
+       - Không có Authorization header → reject
+       - Authorization rỗng → reject
+       - Bearer không token → reject
+       - Token ngẫu nhiên → reject
+       - JWT hết hạn → reject
+       - JWT sửa signature → reject
+
+    3. **Name validation (4-5 ca):**
+
+       - name rỗng "" → reject/rollback
+       - name missing (không có key) → reject/rollback
+       - name null → reject/rollback
+       - name whitespace-only → INCOMPLETE (spec không định nghĩa)
+       - name rất dài → INCOMPLETE
+
+    4. **Price validation (5-6 ca):**
+
+       - price > 0 hợp lệ
+       - price = 0 → reject (spec: > 0)
+       - price âm → reject
+       - price không phải số (string "abc") → INCOMPLETE
+       - price null/missing → INCOMPLETE
+       - price thập phân (1.5) → hợp lệ nếu > 0
+
+    5. **category_id dependency (3-4 ca):**
+
+       - category_id tồn tại → success
+       - category_id không tồn tại → INCOMPLETE (spec không định nghĩa)
+       - category_id missing → INCOMPLETE (spec không định nghĩa)
+       - category_id sai kiểu → INCOMPLETE
+
+    6. **Atomicity/Rollback (3-4 ca):**
+
+       - 1 dòng invalid giữa các dòng valid → toàn bộ rollback
+       - Dòng invalid ở đầu batch → rollback
+       - Dòng invalid ở cuối batch → rollback
+       - Kiểm tra DB không có product nào sau rollback
+
+    7. **Empty/invalid input (3-4 ca):**
+
+       - Body rỗng {} → reject
+       - products missing → reject
+       - products = [] (array rỗng) → reject
+       - products không phải array → reject
+
+    8. **Security/Injection (2-3 ca):**
+
+       - SQL injection trong name
+       - XSS/script trong description
+       - Import không được tạo product khi auth fail
+
+    9. **Spec conflict — CSV upload (2 ca):**
+
+       - Gửi multipart/form-data với file .csv → document spec conflict
+       - Gửi Content-Type: text/csv với raw CSV body → document spec conflict
+       - Ghi rõ: HUMAN DECISION — đây là exploratory test cho contract conflict
+
+    ### QUY TẮC
+
+    - Không bịa exact status code, response body hay error schema cho expected result.
+      Chỉ dùng semantic assertion: "phải reject", "không được tạo product",
+      "phải rollback toàn bộ".
+    - Nếu expected result không có nguồn, ghi INCOMPLETE / SPEC GAP.
+    - Auth/role rejection: chỉ assert "không được import/tạo product",
+      không assert 401/403.
+    - Rollback assertion: assert "không product nào của batch được lưu vào DB".
+    - Truy vết nguồn: FR-16, SEC-02, SEC-03, FR-12, API spec §6.3, README.
+    - Ghi X-Student-Id: 23127464 là precondition chung, không tạo ca riêng.
+    - Tổng tối thiểu 35 ca.
+
+    ## OUTPUT FORMAT
+
+    Tạo file tests/api-testing/test-cases/fr-16-ai-generated-phase-b.md với format:
+
+    ### Bảng test case endpoint POST /api/admin/import-products
+
+    | Mã | Mục tiêu | Dữ liệu đầu vào | Kết quả mong đợi | Danh mục | Nguồn |
+
+    ### Traceability matrix
+
+    ### Status
+
+    PHASE B: COMPLETE
+    NEXT ALLOWED PHASE: C — HUMAN REVIEW
+    EXECUTION: NOT EXECUTED
+
+    Ghi AI Audit cho interaction này.
+    Sau đó DỪNG. Không chạy Phase C.
+
+AI Output:
+
+    ### HUMAN DECISION
+
+    JSON array với `Content-Type: application/json` và body `{ "products": [...] }` đã được dùng làm primary contract. Hai ca CSV là exploratory/negative để ghi nhận spec conflict, không thay thế primary contract.
+
+    ### Generated Test Cases
+
+    Đã tạo 40 test case AI-sinh cho duy nhất `POST /api/admin/import-products`: 4 valid import, 8 authentication/authorization, 5 name, 6 price, 4 category_id, 4 atomicity/rollback, 4 empty/invalid input, 3 security/injection và 2 CSV conflict. Tất cả ca có mã, mục tiêu, input, semantic expected result, danh mục và nguồn. `X-Student-Id: 23127464` được ghi là precondition chung.
+
+    ### Oracle Discipline
+
+    Không dùng exact status code, response body hay response/error schema. Các behavior thiếu nguồn được đánh dấu `INCOMPLETE / SPEC GAP`; auth failure chỉ yêu cầu không import, rollback chỉ yêu cầu không product nào của batch được lưu.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/test-cases/fr-16-ai-generated-phase-b.md`
+    - `reports/ai-audit-report.md` — Entry #11
+
+    SHA-256 test-case artifact: `D813762456F6ED9D2BE2F53566F650EC3DCB1EAC62134ED9CDC36167CD69C44E`.
+
+    ### Status
+
+    PHASE B: COMPLETE
+    NEXT ALLOWED PHASE: C — HUMAN REVIEW
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #12
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 02:20 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE C — tạo human review worksheet chỉ cho FR-16 / POST /api/admin/import-products`
+
+User Prompt:
+
+    Đọc và tuân thủ:
+    - ai-first-api-testing/SKILL.md
+    - ai-first-api-testing/references/phase-playbook.md
+    - ai-first-api-testing/references/api-testing-runbook.md
+    - reports/api-testing/fr-16-phase-a-contract.md
+    - tests/api-testing/test-cases/fr-16-ai-generated-phase-b.md
+
+    ## PHẠM VI
+
+    Pool C, FR-16, POST /api/admin/import-products.
+    Student ID: 23127464.
+    Chỉ thực hiện PHASE C — HUMAN REVIEW WORKSHEET.
+    Không execute, không báo bug, không CI/CD.
+    Sau Phase C phải DỪNG.
+
+    ## HUMAN CONTRACT DECISION (đã chốt từ Phase A)
+
+    JSON array là primary contract. CSV upload là exploratory/negative.
+
+    ## NHIỆM VỤ
+
+    1. Tính SHA-256 của file `tests/api-testing/test-cases/fr-16-ai-generated-phase-b.md`
+       và ghi vào worksheet.
+
+    2. Tạo file `tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md`
+       với cấu trúc:
+
+    ### Phần A: Bảng kiểm toán AI pre-audit cho 40 ca
+
+    Mỗi ca một dòng với các cột:
+    | Mã | Mô tả rút gọn | Danh mục | Đề xuất AI | Lý do/đề xuất chỉnh sửa của AI |
+    Kết luận con người | Lý do của con người | Chỉnh sửa cuối cùng |
+
+    Quy tắc gán nhãn AI pre-audit:
+    - VALID: ca có đầu vào, bước, expected result đều có nguồn trực tiếp từ
+      FR-16/SEC-02/SEC-03/FR-12/API spec và thực thi được mà không cần bịa oracle.
+    - INVALID: ca trùng lặp hoặc ngoài phạm vi FR-16.
+    - INCOMPLETE: ca có ý nghĩa nhưng thiếu oracle (exact status, schema, field type,
+      coercion rule). Ghi rõ phần nào thiếu.
+
+    Cột "Kết luận con người", "Lý do của con người", "Chỉnh sửa cuối cùng" để PENDING.
+
+    3. Thống kê đề xuất AI: số VALID, INVALID, INCOMPLETE.
+
+    ### Phần B: Vùng ca kiểm thử do con người bổ sung
+
+    Tạo bảng 5 slot PENDING cho endpoint POST /api/admin/import-products:
+
+    | Slot | Mã do người review đặt | Mục tiêu / kết quả mong đợi | Nguồn yêu cầu |
+    Lý do AI bỏ sót | Xác nhận do con người tạo |
+
+    5 slot với giá trị PENDING.
+
+    ### Phần C: Gate Phase C
+
+    Checklist:
+    - [ ] Con người đã gắn nhãn cho 40/40 ca.
+    - [ ] Mọi ca INVALID/INCOMPLETE có lý do và chỉnh sửa cuối cùng.
+    - [ ] Đã bổ sung ít nhất 5 ca human-origin.
+    - [ ] Mỗi ca human-origin có nguồn và lý do AI bỏ sót.
+    - [ ] Bản cuối đã được con người phê duyệt để chuyển sang executable tests.
+
+    ### Trạng thái
+
+    PHASE C: IN PROGRESS
+    AI PRE-AUDIT: COMPLETE
+    HUMAN CASE-BY-CASE AUDIT: PENDING
+    HUMAN-ADDED CASES: PENDING
+    EXECUTION: NOT EXECUTED
+
+    4. Ghi AI Audit cho interaction này.
+       Sau đó DỪNG. Không chạy Phase D.
+
+AI Output:
+
+    ### Worksheet
+
+    Đã tạo worksheet Phase C cho đủ 40/40 ca FR-16. SHA-256 của Phase B artifact được ghi là `D813762456F6ED9D2BE2F53566F650EC3DCB1EAC62134ED9CDC36167CD69C44E`.
+
+    ### AI Pre-audit
+
+    Đề xuất AI: 29 `VALID`, 2 `INVALID`, 9 `INCOMPLETE`. Hai ca `INVALID` là `FR16-VLD-004` (trùng semantic với `FR16-VLD-001`) và `FR16-SEC-003` (trùng semantic với `FR16-AUTH-006`). Cả 40 dòng giữ ba cột quyết định con người ở `PENDING`.
+
+    ### Human-added Slots / Gate
+
+    Đã tạo đúng 5 slot human-origin với toàn bộ giá trị `PENDING`. Năm gate Phase C đều chưa được đánh dấu vì chưa có quyết định hoặc ca bổ sung từ con người.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md`
+    - `reports/ai-audit-report.md` — Entry #12
+
+    SHA-256 workbook: `0435B02836FBE7AB480DBD808193F8BF6A0A94D8D19A0279338A9F62671D0372`.
+
+    ### Trạng thái
+
+    PHASE C: IN PROGRESS
+    AI PRE-AUDIT: COMPLETE
+    HUMAN CASE-BY-CASE AUDIT: PENDING
+    HUMAN-ADDED CASES: PENDING
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #13
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 02:25 — Asia/Ho_Chi_Minh`
+
+Purpose: `Điền 5 ca CON-NGUOI-BO-SUNG vào Phần B của FR-16 Phase C worksheet`
+
+User Prompt:
+
+    Đọc file tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md phần B.
+    Điền 5 ca kiểm thử vào 5 slot PENDING. Nguồn gốc: CON-NGUOI-BO-SUNG.
+    Không sửa phần A và Gate.
+
+    1. FR16-H01 — Gửi GET /api/admin/import-products với admin JWT hợp lệ → server reject,
+       không import. Nguồn: API spec chỉ công bố POST. Lý do AI bỏ sót: AI không test
+       method mismatch.
+
+    2. FR16-H02 — Gửi products array 500+ object hợp lệ → INCOMPLETE, spec không định nghĩa
+       batch size limit, server không được crash. Nguồn: Phase A spec gap batch/file size.
+       Lý do AI bỏ sót: AI chỉ test batch nhỏ 1-3 product.
+
+    3. FR16-H03 — Gửi batch có 2 product cùng name và category_id → INCOMPLETE, spec không
+       định nghĩa duplicate handling. Nguồn: Phase A spec gap duplicate product.
+       Lý do AI bỏ sót: AI không xét duplicate logic.
+
+    4. FR16-H04 — Gửi product có extra field không thuộc schema (ví dụ malicious_field) →
+       extra field phải bị bỏ qua, chỉ 5 field công bố được lưu, không side effect.
+       Nguồn: API spec §6.3 chỉ công bố 5 field, SEC-05.
+       Lý do AI bỏ sót: AI test field thiếu/sai nhưng không test thừa field.
+
+    5. FR16-H05 — User thường (non-admin) gửi batch 3 product hợp lệ, kiểm tra DB
+       trước/sau → không product nào được tạo. Nguồn: FR-12/SEC-03 + atomicity.
+       Lý do AI bỏ sót: AI có AUTH-002 reject non-admin nhưng không verify DB persistence,
+       SEC-003 bị đánh INVALID nên thiếu coverage persistence cho non-admin.
+
+AI Output:
+
+    ### Phần B
+
+    Đã điền đủ 5 slot bằng `FR16-H01`–`FR16-H05`. Mỗi ca giữ nguyên mục tiêu/kết quả mong đợi, nguồn yêu cầu và lý do AI bỏ sót do con người cung cấp; cột xác nhận nguồn gốc là `CON-NGUOI-BO-SUNG`.
+
+    `FR16-H02` và `FR16-H03` được giữ rõ `INCOMPLETE / SPEC GAP`. Không có request nào được thực thi.
+
+    ### Phạm vi thay đổi
+
+    Chỉ Phần B của worksheet được sửa. Phần A và toàn bộ Gate Phase C vẫn giữ nguyên, chưa đánh dấu checklist.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md`
+    - `reports/ai-audit-report.md` — Entry #13
+
+    SHA-256 workbook sau cập nhật: `6AF12F4FD27A1D8ABF16591D8863311F5702C1C4F77413E186BE4F63D147ACB0`.
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #14
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 02:33 — Asia/Ho_Chi_Minh`
+
+Purpose: `Ghi quyết định human case-by-case audit cho 40 ca FR-16 và cập nhật Phase C gate`
+
+User Prompt:
+
+    Điền cột "Kết luận con người", "Lý do của con người" và "Chỉnh sửa cuối cùng"
+    cho 40 ca trong file tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md.
+    Không sửa các cột khác. Không sửa phần B.
+
+    Quy tắc gán nhãn:
+
+    - VALID: đầu vào, bước, expected result có nguồn và thực thi được. Chỉnh sửa = "N/A".
+    - INVALID: trùng lặp hoặc ngoài phạm vi. Ghi lý do cụ thể.
+    - INCOMPLETE: có ý nghĩa nhưng thiếu oracle. Ghi phần nào thiếu.
+
+    Gán nhãn cụ thể:
+
+    - VALID cho: VLD-001, VLD-002, VLD-003, AUTH-001 đến AUTH-008,
+      NAME-001, NAME-002, PRICE-001, PRICE-002, PRICE-003, PRICE-006,
+      CAT-001, ATOM-001 đến ATOM-004, INPUT-001 đến INPUT-004,
+      SEC-001, CSV-001, CSV-002.
+    - INVALID cho: VLD-004 (trùng VLD-001), SEC-003 (trùng AUTH-006).
+    - INCOMPLETE cho: NAME-003, NAME-004, NAME-005, PRICE-004, PRICE-005,
+      CAT-002, CAT-003, CAT-004, SEC-002.
+
+    Lý do VALID: viết cụ thể cho từng ca, KHÔNG dùng cùng 1 câu cho tất cả.
+    Lý do INCOMPLETE: ghi dựa trên cột "Lý do/đề xuất chỉnh sửa của AI".
+
+    Cập nhật trạng thái:
+
+    - HUMAN CASE-BY-CASE AUDIT: COMPLETE
+    - HUMAN-ADDED CASES: 5 COMPLETE
+    - Tick checkbox gate tương ứng.
+    - Checkbox cuối "Bản cuối phê duyệt" để trống.
+
+AI Output:
+
+    ### Human Audit Results
+
+    Đã điền đúng ba cột human audit cho 40/40 ca, không sửa năm cột nội dung AI. Kết quả: 29 `VALID`, 2 `INVALID`, 9 `INCOMPLETE`; không còn quyết định `PENDING`. Cả 29 ca `VALID` có `Chỉnh sửa cuối cùng = N/A`, với lý do riêng cho từng ca.
+
+    Hai ca `INVALID` được ghi cụ thể: `FR16-VLD-004` trùng `FR16-VLD-001`; `FR16-SEC-003` trùng `FR16-AUTH-006`. Chín ca `INCOMPLETE` ghi rõ oracle còn thiếu và điều kiện cần trước khi đưa vào executable suite.
+
+    ### Phase C Gate
+
+    Phần B giữ nguyên 5 ca `CON-NGUOI-BO-SUNG`. Bốn checkbox tương ứng với audit hoàn tất, lý do/chỉnh sửa hoàn tất và human-added cases đã được tick. Checkbox phê duyệt cuối vẫn để trống.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md`
+    - `reports/ai-audit-report.md` — Entry #14
+
+    SHA-256 workbook: `F77FBEE8D1744E3FA220372B6A6E6A4AE0748661E0704AE151B4361B1145B0E5`.
+
+    ### Status
+
+    PHASE C: IN PROGRESS
+    HUMAN CASE-BY-CASE AUDIT: COMPLETE
+    HUMAN-ADDED CASES: 5 COMPLETE
+    HUMAN FINAL APPROVAL FOR PHASE D: PENDING
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
