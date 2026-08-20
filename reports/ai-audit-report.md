@@ -198,7 +198,7 @@ AI Output:
 
     PENDING
 
-## Entry #28
+## Entry #2
 
 ### AI Audit Entry
 
@@ -233,7 +233,7 @@ AI Output:
     - `tests/api-testing/test-cases/fr-11-ai-generated-phase-b.md`
     - `reports/api-testing/fr-11-phase-b-generation.md`
     - `reports/api-testing/fr-11-phase-a-contract.md`
-    - `reports/ai-audit-report.md` — Entry #28
+    - `reports/ai-audit-report.md` — Entry #2
 
     Kết quả AI đầy đủ nằm tại file test case, SHA-256 `ABB5FE9F7D6148C1F1743AC8500001B7FF7401CBA454695383120414895E4667`, và được truy vết bằng chuỗi prompt trong báo cáo Phase B.
 
@@ -243,6 +243,244 @@ AI Output:
     HUMAN REVIEW: PENDING
     NEXT ALLOWED PHASE: C — HUMAN AUDIT AND EXTENSION
     EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #3
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `20/08/2026 23:15 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    approved, continue
+
+AI Output:
+
+    ### Phase B Approval
+
+    Đã ghi nhận Phase B được phê duyệt ngày 2026-08-20 và mở gate Phase C cho riêng FR-11. Bản AI gốc gồm 70 ca được giữ nguyên để bảo toàn dấu vết.
+
+    ### Phase C Progress
+
+    Đã tạo pre-audit worksheet cho đủ 70/70 ca. Đề xuất AI gồm 33 `VALID`, 2 `INVALID` và 35 `INCOMPLETE`; đây không phải kết luận audit của con người. Cả 70 cột quyết định con người vẫn là `PENDING`.
+
+    ### Human Review Required
+
+    Con người cần quyết định độc lập `VALID/INVALID/INCOMPLETE`, ghi lý do và chỉnh sửa cuối cùng cho từng ca. Worksheet cũng có 10 slot trống để con người tự bổ sung tối thiểu 5 ca cho mỗi endpoint; chưa có slot nào được tính là `CON-NGUOI-BO-SUNG`.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md`
+    - `tests/api-testing/test-cases/fr-11-ai-generated-phase-b.md` — bản AI gốc, không ghi đè
+    - `reports/api-testing/fr-11-phase-b-generation.md` — Phase B đã approved
+    - `reports/ai-audit-report.md` — Entry #3
+
+    SHA-256 worksheet: `9FB90DC81435A4E8F314ACDF9831819F30A63F299E84362D4BAC0CB3ACD338AE`.
+
+    ### Status
+
+    PHASE C: IN PROGRESS
+    AI PRE-AUDIT: COMPLETE
+    HUMAN CASE-BY-CASE AUDIT: PENDING
+    HUMAN-ADDED CASES: PENDING
+    NEXT PHASE GATE: D — LOCKED
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #4
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `20/08/2026 23:29 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    bổ sung các nội endpoint tôi cảm thấy thiếu vào
+
+    ### `GET /api/orders/my-orders` — 5 ca:
+
+    1. **FR11-MYO-H01** — Gửi `POST /api/orders/my-orders` với JWT hợp lệ → server phải reject, không trả order. Nguồn: API spec §4 chỉ công bố GET. Lý do AI bỏ sót: AI không test method mismatch.
+
+    2. **FR11-MYO-H02** — User A checkout tạo order mới → gọi ngay `GET /api/orders/my-orders` → order vừa tạo phải xuất hiện, status=pending. Nguồn: FR-08 + FR-11 + FR-10. Lý do AI bỏ sót: AI dùng fixture tĩnh, không test cross-feature flow checkout→lịch sử.
+
+    3. **FR11-MYO-H03** — Gọi `GET /api/orders/my-orders` khi DB gặp sự cố → server trả error 5xx, không crash, không lộ data. Nguồn: Phase A spec gap "xử lý lỗi kho dữ liệu"; server.js:315 không handle err. Lý do AI bỏ sót: AI không test error handling path.
+
+    4. **FR11-MYO-H04** — Gửi `HEAD /api/orders/my-orders` với JWT hợp lệ → trả header giống GET nhưng không có body chứa order data. Nguồn: RFC 7231 §4.3.2. Lý do AI bỏ sót: AI không test HTTP method chuẩn khác ngoài GET.
+
+    5. **FR11-MYO-H05** — Admin xóa User A (FR-19) → dùng token cũ của User A gọi `GET /api/orders/my-orders` → không được trả order data. Nguồn: FR-19 + FR-11 + SEC-02. Lý do AI bỏ sót: AI có MYO-032 nhưng mô tả trừu tượng, không cụ thể hóa scenario user bị xóa qua FR-19 mà JWT chưa hết hạn.
+
+    ### `GET /api/orders/:id` — 5 ca:
+
+    1. **FR11-DET-H01** — Gửi `DELETE /api/orders/:id` với JWT hợp lệ và owned ID → server reject, order không bị xóa. Nguồn: API spec chỉ công bố GET. Lý do AI bỏ sót: AI không test method mismatch.
+
+    2. **FR11-DET-H02** — Gọi `GET /api/orders/:id` với owned order, kiểm tra response chứa đủ cả 4 trường FR-11 đồng thời: mã đơn (id), ngày đặt (created_at), tổng tiền (total_amount), trạng thái (status). Nguồn: FR-11 "Hiển thị: Mã đơn, Ngày đặt, Tổng tiền, Trạng thái hiện tại". Lý do AI bỏ sót: AI tách thành 4 ca riêng (DET-004→007), thiếu combined assertion.
+
+    3. **FR11-DET-H03** — User A hủy order A1 → gọi `GET /api/orders/A1` → order vẫn hiển thị được, status=canceled. Nguồn: FR-10 (canceled là final state) + FR-11. Lý do AI bỏ sót: AI không test trạng thái order sau chuyển đổi, cross-feature FR-10→FR-11.
+
+    4. **FR11-DET-H04** — Gửi `GET /api/orders/..%2Fadmin%2Forders` (path traversal) với JWT hợp lệ → không được truy cập admin route, không trả danh sách tất cả orders. Nguồn: FR-11 + FR-12 + SEC-03. Lý do AI bỏ sót: AI test SQL injection (DET-025) nhưng bỏ qua path traversal.
+
+    5. **FR11-DET-H05** — Gọi `GET /api/orders/:id` với cùng owned order A1 hai lần liên tiếp cùng token → cả 2 response phải giống nhau, không side effect. Nguồn: RFC 7231 §4.2.2 (GET idempotent) + FR-11. Lý do AI bỏ sót: AI test concurrent khác owner nhưng không test idempotency cùng user.
+
+AI Output:
+
+    ### Human-Added Cases
+
+    Đã ghi đủ 10 ca do người dùng cung cấp với nguồn gốc `CON-NGUOI-BO-SUNG`: 5 ca `FR11-MYO-H01`–`H05` và 5 ca `FR11-DET-H01`–`H05`. Mỗi ca giữ nguồn yêu cầu, lý do AI bỏ sót và xác nhận nguồn gốc con người.
+
+    ### Oracle Corrections
+
+    `MYO-H04` được chỉnh theo [RFC 7231 §4.3.2](https://www.rfc-editor.org/rfc/rfc7231.html#section-4.3.2): HEAD không có message body; header chỉ `SHOULD` tương đương GET và payload header có thể bị lược bỏ. `DET-H05` được chỉnh theo [RFC 7231 §4.2.2](https://www.rfc-editor.org/rfc/rfc7231.html#section-4.2.2): idempotency áp dụng cho intended effect trên server, không bắt buộc hai response giống byte-for-byte.
+
+    ### Pending Eligibility
+
+    `MYO-H03` thiếu nguồn cho exact `5xx`; spec gap và source thiếu error handler không phải expected oracle. `MYO-H05` trùng semantic với `MYO-032`; `DET-H02` gộp `DET-004`–`DET-007` và dùng tên trường chưa được phê duyệt làm exact schema. Các ca vẫn được lưu nhưng cần human resolution trước khi tính đủ “AI bỏ sót”.
+
+    ### Artifact Path
+
+    - `tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md`
+    - `reports/ai-audit-report.md` — Entry #4
+
+    SHA-256 worksheet: `07C3F8296D82A93F6757B56816FE40BDAAFD8CFA71900A620AC55A2A532F96B4`.
+
+    ### Status
+
+    PHASE C: IN PROGRESS
+    HUMAN-ADDED CASES: 10 PROVIDED
+    COUNT ELIGIBILITY: PENDING
+    HUMAN CASE-BY-CASE AUDIT: PENDING
+    NEXT PHASE GATE: D — LOCKED
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #5
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `20/08/2026 23:48 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    **FR11-MYO-H05**  Gọi `GET /api/orders/my-orders` với `Accept: text/xml` hoặc `Accept: application/xml`. Server phải trả JSON (hoặc 406 Not Acceptable), không được trả order data dưới format không mong đợi. Nguồn: API chỉ công bố JSON response. Lý do AI bỏ sót: AI không test content negotiation.
+
+    **FR11-DET-H02**  Gọi `PUT /api/orders/:id` với JWT hợp lệ, owned ID, body `{"status":"delivered"}`. Server phải reject — user không được tự chuyển trạng thái qua endpoint detail. Order không bị thay đổi. Nguồn: FR-10 (chỉ admin chuyển trạng thái) + API spec chỉ công bố GET. Lý do AI bỏ sót: AI không test method mismatch trên endpoint detail cho phương thức PUT.
+
+    Điền cột "Kết luận con người", "Lý do của con người" và "Chỉnh sửa cuối cùng"
+    cho 70 ca trong file tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md
+    theo hướng dẫn sau. Không sửa các cột khác.
+    Quy tắc gán nhãn:
+    - VALID: ca có đầu vào, bước, expected result đều có căn cứ từ FR-11/SEC-02/API spec
+      và thực thi được. Chỉnh sửa = "N/A".
+    - INVALID: ca trùng lặp hoặc ngoài phạm vi. Ghi lý do cụ thể.
+    - INCOMPLETE: ca có ý nghĩa nhưng thiếu oracle (status code, schema, field name).
+      Ghi rõ phần nào thiếu.
+    Gán nhãn cụ thể:
+    - VALID cho: MYO-004 đến MYO-008, MYO-014 đến MYO-028, MYO-030,
+      DET-008, DET-011, DET-012, DET-025 đến DET-033.
+    - INVALID cho: MYO-034 (lý do: không phải test FR-11, là precondition chung),
+      DET-013 (lý do: trùng mục tiêu DET-009).
+    - INCOMPLETE cho tất cả ca còn lại. Ghi phần thiếu dựa trên cột "Lý do/đề xuất
+      chỉnh sửa của AI".
+    Cập nhật thống kê cuối mỗi bảng và checklist gate Phase C.
+
+AI Output:
+
+    ### Human-Case Replacements
+
+    Đã thay `FR11-MYO-H05` bằng ca content negotiation và `FR11-DET-H02` bằng ca method mismatch `PUT`. Hai ca hiện là coverage khác biệt, nguồn gốc `CON-NGUOI-BO-SUNG`; không tạo request thực thi.
+
+    ### Human Audit Results
+
+    Đã điền đúng ba cột human audit cho 70/70 ca, không sửa các cột AI khác. Kết quả `GET /api/orders/my-orders`: 21 `VALID`, 1 `INVALID`, 13 `INCOMPLETE`. Kết quả `GET /api/orders/:id`: 12 `VALID`, 1 `INVALID`, 22 `INCOMPLETE`. Tổng cộng: 33 `VALID`, 2 `INVALID`, 35 `INCOMPLETE`; không còn quyết định `PENDING`.
+
+    ### Phase C Gate
+
+    Đã hoàn tất audit từng ca, lý do/chỉnh sửa cho `INVALID` và `INCOMPLETE`, cùng 5 ca human-added khác biệt cho mỗi endpoint. Gate phê duyệt cuối để chuyển sang executable tests vẫn chưa được đánh dấu vì người dùng chưa phê duyệt Phase C.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md`
+    - `reports/ai-audit-report.md` — Entry #5
+
+    SHA-256 worksheet: `9AF3403215F6C8A55404F8063185A6068DC1AAEA9C2F1729CC2A7B19AD8B5BF6`.
+
+    ### Status
+
+    PHASE C: IN PROGRESS
+    HUMAN CASE-BY-CASE AUDIT: COMPLETE
+    HUMAN-ADDED CASES: 10 COMPLETE
+    HUMAN FINAL APPROVAL FOR PHASE D: PENDING
+    NEXT PHASE GATE: D — LOCKED
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #6
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 00:18 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    approved, continue
+
+AI Output:
+
+    Phase C final approval was recorded and Phase D was performed for FR-11 only.
+
+    The executable collection contains 42 cases: all 33 AI cases labelled VALID and 9 human-origin cases. The 2 INVALID and 35 INCOMPLETE AI cases were excluded. FR11-MYO-H03 was not automated because controlled database fault injection and an exact oracle remain unspecified.
+
+    Newman 6.2.2 executed 53 requests and 101 assertions. Result: 92 assertions passed, 9 failed, exit code 1. All nine failures affect GET /api/orders/:id and were classified LOI_BAO_MAT_SUT because protected order data was disclosed under foreign, absent, empty, malformed, tampered, expired, or unsupported authentication.
+
+    Raw console, JSON, HTML, metadata, collection, environment, data, fixture scripts and a separate analysis report were retained. X-Student-Id was logged for all 42 subject requests with no header assertion failure. A real Postman header screenshot remains PENDING HUMAN CAPTURE and was not fabricated.
+
+    PHASE D: COMPLETE
+    EXECUTION: EXECUTED — FAILED
+    HUMAN ASSESSMENT: PENDING
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+## Entry #7
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 00:52 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    tôi đã bổ sung các tài liệu còn thiếu tại phase D, rà soát lại và cung cấp nội dung cần thực hiện tiếp theo
+
+AI Output:
+
+    Đã rà soát lại artifact Phase D của FR-11. Ảnh postman-header-screenshot.png là ảnh Postman Console thực tế, hiển thị đúng collection/request FR-11, localhost:3000 và request header X-Student-Id: 23127464; hạng mục screenshot có thể chuyển từ PENDING sang PROVIDED.
+
+    Collection, raw console, JSON report và HTML report của canonical Newman run vẫn nguyên vẹn. File environment hiện tại được sinh lại sau canonical run và có bảy token được tái tạo; vì vậy cần đóng băng environment chính xác từ Newman JSON report hoặc tạo evidence manifest/addendum thay vì coi file environment hiện tại là bản đã dùng cho canonical run.
+
+    Việc tiếp theo: đồng bộ execution analysis/evidence manifest với screenshot; con người xác nhận hoặc chỉnh sửa phân loại chín failure; quyết định oracle và cơ chế fault injection cho FR11-MYO-H03; chỉ sau khi được duyệt mới chuyển Phase E để lập bug report Markdown, còn xuất bản GitHub Issue cần yêu cầu riêng.
 
 **Đánh giá/chỉnh sửa của con người:**
 

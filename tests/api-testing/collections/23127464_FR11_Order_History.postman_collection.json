@@ -1,0 +1,2046 @@
+{
+  "info": {
+    "_postman_id": "23127464-fr11-order-history",
+    "name": "23127464 | FR-11 Order History",
+    "description": "Executable Phase-D subset for FR-11 only.\nAI cases automated: 33 VALID; INVALID and INCOMPLETE AI cases excluded.\nHuman cases automated: 9/10; FR11-MYO-H03 requires controlled DB fault injection and remains not automated.\nSetup calls used by human cross-feature cases are dependencies, not additional feature subjects.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const studentId = pm.environment.get(\"studentId\");",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "console.log(\"[FR11 HEADER] \" + pm.info.requestName + \" X-Student-Id=\" + studentId);"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "newOrderId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "GET /api/orders/my-orders",
+      "item": [
+        {
+          "name": "FR11-MYO-004 | Nhiều owner trong CSDL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-004 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-004 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"ownedA1Id\")), String(pm.environment.get(\"ownedA2Id\")), String(pm.environment.get(\"cancelOrderId\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"foreignB1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-004. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-005 | Đổi identity A→B",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-005 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-005 | first identity isolated\", function () { pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\")); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/my-orders\", method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenB\") },",
+                  "  { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) {",
+                  "  pm.test(\"FR11-MYO-005 | second identity isolated\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.text()).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-005. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-006 | Đổi identity B→A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-006 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-006 | first identity isolated\", function () { pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\")); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/my-orders\", method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") },",
+                  "  { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) {",
+                  "  pm.test(\"FR11-MYO-006 | second identity isolated\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.text()).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-006. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-007 | Hai identity đồng thời",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-007 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-007 | User A isolated\", function () { pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\")); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/my-orders\", method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenB\") },",
+                  "  { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) {",
+                  "  pm.test(\"FR11-MYO-007 | User B isolated\", function () { pm.expect(error).to.eql(null); pm.expect(response.text()).not.to.include(pm.environment.get(\"markerA1\")); });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-007. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-008 | Đối chiếu tập owned ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-008 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-008 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-008 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"ownedA1Id\")), String(pm.environment.get(\"ownedA2Id\")), String(pm.environment.get(\"cancelOrderId\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"foreignB1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-008. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-014 | Query user_id cố ghi đè",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-014 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-014 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-014 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"ownedA1Id\")), String(pm.environment.get(\"ownedA2Id\")), String(pm.environment.get(\"cancelOrderId\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"foreignB1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders?user_id={{foreignB1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders?user_id={{foreignB1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-014. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-015 | Query user_id lặp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-015 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-015 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-015 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"ownedA1Id\")), String(pm.environment.get(\"ownedA2Id\")), String(pm.environment.get(\"cancelOrderId\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"foreignB1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders?user_id=2&user_id={{foreignB1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders?user_id=2&user_id={{foreignB1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-015. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-016 | Query id foreign",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-016 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-016 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-016 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"ownedA1Id\")), String(pm.environment.get(\"ownedA2Id\")), String(pm.environment.get(\"cancelOrderId\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"foreignB1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders?id={{foreignB1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders?id={{foreignB1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-016. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-017 | SQL injection qua query",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-017 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-017 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-017 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"ownedA1Id\")), String(pm.environment.get(\"ownedA2Id\")), String(pm.environment.get(\"cancelOrderId\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"foreignB1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders?user_id=%27%20OR%201%3D1--",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders?user_id=%27%20OR%201%3D1--"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-017. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-018 | Thiếu Authorization",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-018 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-018 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-018. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-019 | Authorization rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-019 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-019 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-019. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-020 | Bearer thiếu token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-020 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-020 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-020. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-021 | Token ngẫu nhiên",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-021 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-021 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer not-a-jwt",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-021. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-022 | JWT một segment",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-022 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-022 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer abc",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-022. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-023 | JWT hai segment",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-023 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-023 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer abc.def",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-023. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-024 | JWT Base64URL sai",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-024 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-024 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer !!!.@@@.$$$",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-024. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-025 | Sửa identity claim",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-025 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-025 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tamperedPayloadToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-025. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-026 | Sửa signature",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-026 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-026 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tamperedSignatureToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-026. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-027 | JWT hết hạn",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-027 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-027 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{expiredToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-027. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-028 | Basic scheme",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-028 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-028 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic dGVzdDp0ZXN0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-028. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-030 | Token owner khác sau client state",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-030 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-030 | response is inspectable as order list\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-030 | no foreign-owned order disclosed\", function () {",
+                  "  const ids = Array.isArray(responseJson) ? responseJson.map(function (o) { return String(o.id); }) : [];",
+                  "  const allowed = [String(pm.environment.get(\"foreignB1Id\"))];",
+                  "  ids.forEach(function (value) { pm.expect(allowed).to.include(value); });",
+                  "  pm.expect(ids).not.to.include(String(pm.environment.get(\"ownedA1Id\")));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-030. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-H01 | POST method mismatch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-H01 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-H01 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});",
+                  "pm.test(\"FR11-MYO-H01 | unsupported method rejected\", function () { pm.expect(pm.response.code).to.be.at.least(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-H01. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-H02 | Checkout dependency then history",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/checkout\", method: \"POST\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") },",
+                  "  { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") },",
+                  "  { key: \"Content-Type\", value: \"application/json\" }",
+                  "], body: { mode: \"raw\", raw: JSON.stringify({ total_amount: 555555, shipping_address: \"FR11-H02-CHECKOUT\" }) } }, function (error, response) {",
+                  "  if (!error) { const json = response.json(); pm.collectionVariables.set(\"newOrderId\", String(json.orderId)); }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-H02 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-H02 | newly created order appears pending\", function () {",
+                  "  pm.expect(responseJson).to.be.an(\"array\");",
+                  "  const found = responseJson.find(function (o) { return String(o.id) === pm.collectionVariables.get(\"newOrderId\"); });",
+                  "  pm.expect(found).to.be.an(\"object\"); pm.expect(found.status).to.eql(\"pending\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-H02. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-H04 | HEAD semantics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-H04 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-H04 | HEAD has no message body\", function () { pm.expect(pm.response.text()).to.eql(\"\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "HEAD",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-H04. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-H05 | Content negotiation",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-H05 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-H05 | JSON or 406, never XML order payload\", function () {",
+                  "  const contentType = pm.response.headers.get(\"Content-Type\") || \"\";",
+                  "  pm.expect(pm.response.code === 406 || contentType.toLowerCase().includes(\"json\")).to.eql(true);",
+                  "  pm.expect(pm.response.text().trim().startsWith(\"<\")).to.eql(false);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/my-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "my-orders"
+              ]
+            },
+            "description": "Traceability: FR11-MYO-H05. Subject under test remains FR-11."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "GET /api/orders/:id",
+      "item": [
+        {
+          "name": "FR11-DET-008 | Phân biệt A1/A2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-008 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-008 | A1 selected\", function () { pm.expect(String(responseJson && responseJson.id)).to.eql(String(pm.environment.get(\"ownedA1Id\"))); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"ownedA2Id\"), method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) { pm.test(\"FR11-DET-008 | A2 selected\", function () { pm.expect(error).to.eql(null); pm.expect(String(response.json().id)).to.eql(String(pm.environment.get(\"ownedA2Id\"))); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-008. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-011 | Đổi token trên cùng ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-011 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-011 | owner can inspect selected order\", function () { pm.expect(responseText).to.include(pm.environment.get(\"markerA1\")); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"ownedA1Id\"), method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenB\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) { pm.test(\"FR11-DET-011 | foreign token cannot inspect A1\", function () { pm.expect(error).to.eql(null); pm.expect(response.text()).not.to.include(pm.environment.get(\"markerA1\")); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-011. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-012 | Hai owner đồng thời",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-012 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-012 | A receives A1\", function () { pm.expect(responseText).to.include(pm.environment.get(\"markerA1\")); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"foreignB1Id\"), method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenB\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) { pm.test(\"FR11-DET-012 | B receives B1\", function () { pm.expect(error).to.eql(null); pm.expect(response.text()).to.include(pm.environment.get(\"markerB1\")); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-012. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-025 | SQL injection trong ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-025 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-025 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/%27%20OR%201%3D1--",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "%27%20OR%201%3D1--"
+              ]
+            },
+            "description": "Traceability: FR11-DET-025. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-026 | Thiếu auth với owned ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-026 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-026 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-026. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-027 | Thiếu auth với foreign ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-027 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-027 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{foreignB1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{foreignB1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-027. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-028 | Authorization rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-028 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-028 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-028. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-029 | Bearer thiếu token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-029 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-029 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-029. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-030 | Token ngẫu nhiên",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-030 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-030 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer not-a-jwt",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-030. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-031 | Token sửa identity",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-031 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-031 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tamperedPayloadToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{foreignB1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{foreignB1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-031. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-032 | JWT hết hạn",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-032 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-032 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{expiredToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-032. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-033 | Basic scheme",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-033 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-033 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerA1\"));",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic dGVzdDp0ZXN0",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-033. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-H01 | DELETE method mismatch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-H01 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-H01 | DELETE rejected\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"ownedA1Id\"), method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) { pm.test(\"FR11-DET-H01 | order remains\", function () { pm.expect(error).to.eql(null); pm.expect(response.text()).to.include(pm.environment.get(\"markerA1\")); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-H01. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-H02 | PUT method mismatch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-H02 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-H02 | PUT rejected\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"ownedA1Id\"), method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) { pm.test(\"FR11-DET-H02 | order status unchanged\", function () { pm.expect(error).to.eql(null); pm.expect(response.json().status).to.eql(\"pending\"); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-H02. Subject under test remains FR-11.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\":\"delivered\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-H03 | Canceled order remains visible",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"cancelOrderId\") + \"/cancel\", method: \"PUT\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) { if (error) { console.error(error); } });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-H03 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-H03 | canceled order still visible\", function () { pm.expect(String(responseJson.id)).to.eql(String(pm.environment.get(\"cancelOrderId\"))); pm.expect(responseJson.status).to.eql(\"canceled\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{cancelOrderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{cancelOrderId}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-H03. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-H04 | Encoded path traversal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-H04 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-H04 | protected order data not disclosed\", function () {",
+                  "  pm.expect(responseText).not.to.include(pm.environment.get(\"markerB1\"));",
+                  "});",
+                  "pm.test(\"FR11-DET-H04 | no admin order list\", function () { pm.expect(Array.isArray(responseJson)).to.eql(false); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/..%2Fadmin%2Forders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "..%2Fadmin%2Forders"
+              ]
+            },
+            "description": "Traceability: FR11-DET-H04. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-H05 | GET idempotency",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-H05 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/orders/\" + pm.environment.get(\"ownedA1Id\"), method: \"GET\", header: [",
+                  "  { key: \"Authorization\", value: \"Bearer \" + pm.environment.get(\"tokenA\") }, { key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }",
+                  "]}, function (error, response) {",
+                  "  pm.test(\"FR11-DET-H05 | repeated GET has equivalent order state\", function () {",
+                  "    pm.expect(error).to.eql(null); const second = response.json();",
+                  "    pm.expect(String(second.id)).to.eql(String(responseJson.id));",
+                  "    pm.expect(second.status).to.eql(responseJson.status);",
+                  "    pm.expect(second.total_amount).to.eql(responseJson.total_amount);",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{ownedA1Id}}"
+              ]
+            },
+            "description": "Traceability: FR11-DET-H05. Subject under test remains FR-11."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
