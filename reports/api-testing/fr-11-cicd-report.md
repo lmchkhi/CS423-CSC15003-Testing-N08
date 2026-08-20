@@ -81,13 +81,13 @@ This first CI revision intentionally selects the `GET /api/orders/my-orders` fol
 | Evidence | Value |
 |---|---|
 | Purpose | Run the complete FR-11 collection after removing the folder filter, exposing the confirmed detail-endpoint failures |
-| Commit SHA | `PENDING — fill after push` |
-| GitHub Actions run URL | `PENDING — run not executed` |
-| Result | `PENDING` |
-| Failed assertion | `PENDING — record the actual failed assertions` |
-| Newman HTML artifact URL | `PENDING` |
+| Commit SHA | `fa469cff4cdf4de5ea71cc2883d182c730684132` |
+| GitHub Actions run URL | `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32403028362` |
+| Result | `FAILURE — Enforce Newman result` |
+| Failed assertion | `PENDING — verify exact assertion list from the authenticated CI artifact; canonical local run identifies DET-011 and DET-026–DET-033` |
+| Newman HTML artifact URL | `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419199893/zip` |
 | Screenshot | `PENDING — human capture required after the real run` |
-| Timestamp | `PENDING` |
+| Timestamp | `2026-08-21 01:24:38–01:25:00 (Asia/Ho_Chi_Minh)` |
 
 The controlled-failure evidence must come from a real commit/run and must not overwrite the all-pass evidence.
 
@@ -103,9 +103,9 @@ The backend dependency manifest and SUT source were ignored by the repository's 
 
 ## Commit and publication status
 
-- Workflow commit SHA: `PENDING — fill after full-collection commit and push`.
+- Workflow commit SHA: `fa469cff4cdf4de5ea71cc2883d182c730684132`.
 - Repository URL: `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08`.
-- Workflow run links: all-pass recorded; full-collection run `PENDING`.
+- Workflow run links: all-pass and full-collection runs recorded above.
 - Screenshots: `PENDING`.
 
 ## Status
@@ -116,6 +116,8 @@ GITHUB ACTIONS EXECUTION: NOT EXECUTED
 
 ALL-PASS RUN EVIDENCE: COMPLETE — SCREENSHOT PENDING HUMAN CAPTURE
 
-CONTROLLED-FAILURE RUN EVIDENCE: PENDING
+CONTROLLED-FAILURE RUN EVIDENCE: COMPLETE — SCREENSHOT AND AUTHENTICATED ASSERTION REVIEW PENDING
 
-COMMIT SHA: PENDING
+ALL-PASS COMMIT SHA: fa490400e8145ecc72685328e15542d9ae79e051
+
+FULL-COLLECTION COMMIT SHA: fa469cff4cdf4de5ea71cc2883d182c730684132

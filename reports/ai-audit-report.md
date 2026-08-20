@@ -485,3 +485,33 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+## Entry #8
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 01:26 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Thiết lập CI/CD cho FR-11:
+
+    1. Tạo `.github/workflows/fr-11-api-test.yml` với checkout, Node.js 22, cài backend, chạy SUT và health check, cài Newman/htmlextra, chạy fixture/Newman và upload HTML report.
+    2. Tạo commit all-pass bằng folder `GET /api/orders/my-orders`, push, chạy pipeline và ghi bằng chứng.
+    3. Tạo commit full collection có failure, push, chạy pipeline và ghi bằng chứng.
+    4. Tạo `reports/api-testing/fr-11-cicd-report.md` với hai run và dùng PENDING cho bằng chứng chưa tồn tại.
+    5. Không bịa link, screenshot hoặc commit hash.
+
+AI Output:
+
+    Đã tạo và push workflow GitHub Actions FR-11. Lần bootstrap tại commit 528b66aee41d9e73fb85448e65504d399eae0da8 thất bại ở Setup Node.js vì backend bị gitignore và chưa có trên runner; Newman chưa chạy. Sau khi bổ sung bốn file backend runtime tối thiểu, run all-pass folder my-orders tại commit fa490400e8145ecc72685328e15542d9ae79e051 hoàn tất SUCCESS: https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185.
+
+    Đã bỏ folder filter và push commit full collection fa469cff4cdf4de5ea71cc2883d182c730684132. Run hoàn tất FAILURE tại bước Enforce Newman result: https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32403028362. Cả hai run có artifact Newman/HTML thật. GitHub API công khai trả 403 khi tải log/artifact chi tiết, nên screenshot và việc đối chiếu assertion trực tiếp từ artifact vẫn PENDING; không tạo bằng chứng giả.
+
+    Báo cáo CI/CD được cập nhật tại reports/api-testing/fr-11-cicd-report.md. Workflow cuối chạy toàn bộ collection. Bug report untracked không được đưa vào các commit CI.
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
