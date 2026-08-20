@@ -1,0 +1,164 @@
+name: FR-11 API Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/fr-11-api-test.yml"
+      - "src/eshop-sut/backend/**"
+      - "tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json"
+      - "tests/api-testing/environments/fr-11-local.postman_environment.json"
+      - "tests/api-testing/data/fr-11-run-data.json"
+      - "tests/api-testing/scripts/prepare-fr11-fixture.js"
+  pull_request:
+    paths:
+      - ".github/workflows/fr-11-api-test.yml"
+      - "src/eshop-sut/backend/**"
+      - "tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json"
+      - "tests/api-testing/environments/fr-11-local.postman_environment.json"
+      - "tests/api-testing/data/fr-11-run-data.json"
+      - "tests/api-testing/scripts/prepare-fr11-fixture.js"
+
+permissions:
+  contents: read
+
+jobs:
+  fr11-newman:
+    name: FR-11 Postman + Newman
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI_EVIDENCE_DIR: tests/api-testing/evidence/fr-11/ci-${{ github.run_id }}-${{ github.run_attempt }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: src/eshop-sut/backend/package-lock.json
+
+      - name: Install SUT dependencies
+        shell: bash
+        run: |
+          cd src/eshop-sut/backend
+          npm install
+
+      - name: Install Newman and HTML reporter
+        run: npm install --global newman@6.2.2 newman-reporter-htmlextra@1.23.1
+
+      - name: Verify FR-11 collection and student header
+        shell: bash
+        run: |
+          set -euo pipefail
+          collection="tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json"
+          test -f "$collection"
+          grep -Fq 'pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });' "$collection"
+          grep -Fq 'pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");' "$collection"
+
+      - name: Prepare CI evidence directory
+        shell: bash
+        run: mkdir -p "$CI_EVIDENCE_DIR"
+
+      - name: Start SUT and wait for readiness
+        shell: bash
+        run: |
+          set -euo pipefail
+          pushd src/eshop-sut/backend >/dev/null
+          node server.js > "$GITHUB_WORKSPACE/$CI_EVIDENCE_DIR/sut.log" 2>&1 &
+          echo "$!" > "$GITHUB_WORKSPACE/$CI_EVIDENCE_DIR/sut.pid"
+          popd >/dev/null
+
+          ready=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error "http://localhost:3000/api/products" >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            cat "$CI_EVIDENCE_DIR/sut.log"
+            exit 1
+          fi
+
+      - name: Prepare deterministic FR-11 fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/api-testing/scripts/prepare-fr11-fixture.js 2>&1 | tee "$CI_EVIDENCE_DIR/fixture-output.txt"
+
+      - name: Run FR-11 Newman collection
+        id: newman
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          newman run tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json \
+            --folder "GET /api/orders/my-orders" \
+            --environment tests/api-testing/environments/fr-11-local.postman_environment.json \
+            --iteration-data tests/api-testing/data/fr-11-run-data.json \
+            --reporters cli,json,htmlextra \
+            --reporter-json-export "$CI_EVIDENCE_DIR/fr-11-newman-report.json" \
+            --reporter-htmlextra-export "$CI_EVIDENCE_DIR/fr-11-newman-report.html" \
+            2>&1 | tee "$CI_EVIDENCE_DIR/fr-11-newman-console.txt"
+          newman_exit=${PIPESTATUS[0]}
+          set -e
+          echo "$newman_exit" > "$CI_EVIDENCE_DIR/newman-exit-code.txt"
+          echo "exit_code=$newman_exit" >> "$GITHUB_OUTPUT"
+          exit "$newman_exit"
+
+      - name: Record CI metadata
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "student_id=23127464"
+            echo "base_url=http://127.0.0.1:3000"
+            echo "commit_sha=${GITHUB_SHA}"
+            echo "run_id=${GITHUB_RUN_ID}"
+            echo "run_attempt=${GITHUB_RUN_ATTEMPT}"
+            echo "node_version=$(node --version)"
+            echo "newman_version=$(newman --version 2>/dev/null || echo NOT_AVAILABLE)"
+          } > "$CI_EVIDENCE_DIR/ci-metadata.txt"
+
+      - name: Upload FR-11 Newman HTML and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fr-11-newman-html-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ env.CI_EVIDENCE_DIR }}/fr-11-newman-report.html
+            ${{ env.CI_EVIDENCE_DIR }}/fr-11-newman-report.json
+            ${{ env.CI_EVIDENCE_DIR }}/fr-11-newman-console.txt
+            ${{ env.CI_EVIDENCE_DIR }}/fixture-output.txt
+            ${{ env.CI_EVIDENCE_DIR }}/sut.log
+            ${{ env.CI_EVIDENCE_DIR }}/ci-metadata.txt
+            ${{ env.CI_EVIDENCE_DIR }}/newman-exit-code.txt
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop SUT
+        if: always()
+        shell: bash
+        run: |
+          if [ -f "$CI_EVIDENCE_DIR/sut.pid" ]; then
+            sut_pid=$(cat "$CI_EVIDENCE_DIR/sut.pid")
+            if kill -0 "$sut_pid" 2>/dev/null; then
+              kill "$sut_pid"
+            fi
+          fi
+
+      - name: Enforce Newman result
+        if: always()
+        shell: bash
+        run: |
+          if [ ! -f "$CI_EVIDENCE_DIR/newman-exit-code.txt" ]; then
+            echo "Newman did not produce an exit code."
+            exit 1
+          fi
+          exit "$(cat "$CI_EVIDENCE_DIR/newman-exit-code.txt")"
