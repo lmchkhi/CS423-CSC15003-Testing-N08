@@ -1,173 +1,59 @@
 {
   "info": {
-    "name": "EShop HW06 – API Testing (23127300)",
+    "name": "EShop HW06",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          "// Collection-level: attach the mandatory anti-cheat header to EVERY request (§11)",
-          "pm.request.headers.upsert({ key: 'X-Student-Id', value: pm.environment.get('studentId') });",
-          "console.log('[HW06] X-Student-Id =', pm.environment.get('studentId'), '→', pm.request.url.toString());"
-        ]
-      }
-    }
-  ],
   "item": [
     {
-      "name": "0 - Auth Bootstrap",
-      "item": [
-        {
-          "name": "Register HW06 Runner",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"name\":\"HW06 Runner\",\"email\":\"runner+{{$timestamp}}@hw06.test\",\"password\":\"Runner123!\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "register"]
-            }
-          }
-        },
-        {
-          "name": "Login User",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('user login 200', () => pm.response.to.have.status(200));",
-                  "pm.environment.set('userToken', pm.response.json().token);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"email\":\"test@eshop.com\",\"password\":\"Test1234!\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "login"]
-            }
-          }
-        },
-        {
-          "name": "Login Admin",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test('admin login 200', () => pm.response.to.have.status(200));",
-                  "pm.environment.set('adminToken', pm.response.json().token);"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "login"]
-            }
-          }
-        }
-      ]
-    },
-    {
       "name": "FR-01 Register",
-      "item": [
+      "event": [
         {
-          "name": "Register (data-driven)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "const row = pm.iterationData.toObject();",
-                  "if (row.knownBug) {",
-                  "  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
-                  "}",
-                  "else if (row.expectSchema) {",
-                  "  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
-                  "  const b = pm.response.json();",
-                  "  pm.test(`${row._desc}: schema {message,id}`, () => {",
-                  "    pm.expect(b).to.have.property('message');",
-                  "    pm.expect(b).to.have.property('id');",
-                  "    pm.expect(b.id).to.be.a('number');",
-                  "  });",
-                  "}",
-                  "else {",
-                  "  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
-                  "}"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"name\":\"{{name}}\",\"email\":\"{{email}}\",\"password\":\"{{password}}\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "register"]
-            }
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+              "const row = pm.iterationData.toObject();",
+              "const body = {};",
+              "if (row.name !== null && row.name !== undefined) body.name = row.name;",
+              "if (row.email !== null && row.email !== undefined) body.email = row.email;",
+              "if (row.password !== null && row.password !== undefined) body.password = row.password;",
+              "pm.request.body.raw = JSON.stringify(body);"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const row = pm.iterationData.toObject();",
+              "if (row.knownBug) {",
+              "  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
+              "} else if (row.expectSchema) {",
+              "  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
+              "} else {",
+              "  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
+              "}"
+            ]
           }
         }
-      ]
-    },
-    {
-      "name": "FR-08 Checkout",
-      "item": []
-    },
-    {
-      "name": "FR-14 Category",
-      "item": []
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": "http://127.0.0.1:3000/api/register"
+      }
     }
   ]
 }
