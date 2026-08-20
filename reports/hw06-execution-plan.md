@@ -28,10 +28,17 @@ Ghi chú về state transitions: bộ FR được phân không chứa FR-10 orde
 
 Mỗi phase tương ứng một commit. Commit message có thể dùng theo cột `Commit message`.
 
+Artifact layout chủ đích:
+
+- `postman/` nằm ở root repo vì đây là input artifacts để chạy test: collection, environment, iteration data.
+- `reports/newman/` nằm trong `reports/` vì đây là output evidence/report do Newman sinh ra sau execution.
+- `test-cases/hw06-api/` chứa per-test-case Markdown files để dễ đọc/review; `reports/hw06-test-cases.md` là index/summary.
+- `reports/bug-reports/` chứa bug report Markdown theo template GitHub Issue của repo.
+
 | Phase | Commit message | Công việc chính | Artifacts/evidence |
 | --- | --- | --- | --- |
 | 00 | `chore(hw06): setup skills and execution plan` | Hoàn thiện bộ skills, tạo file plan này, xác nhận API selection FR-03/09/17 | `skills/`, `reports/hw06-execution-plan.md`, `reports/ai-audit-report.md` |
-| 01 | `docs(hw06): select APIs and prepare report skeleton` | Tạo skeleton main report, test case workbook/table, Postman folder layout, bug report folder | `reports/main-report.md`, `reports/bug-reports/`, `postman/`, `reports/newman/` |
+| 01 | `docs(hw06): select APIs and prepare report skeleton` | Tạo skeleton main report, test case index/template, Postman folder layout, bug report folder | `reports/main-report.md`, `reports/hw06-test-cases.md`, `test-cases/hw06-api/`, `reports/bug-reports/`, `postman/`, `reports/newman/` |
 | 02 | `test(hw06-fr03): generate reset-password API cases` | Dùng `$eshop-api-test-generator` sinh >=35 AI cases cho `POST /api/reset-password`; log prompt/output | AI prompt log, raw AI test case table cho FR-03 |
 | 03 | `test(hw06-fr03): audit and extend reset-password cases` | Audit mọi AI case thành `VALID/INVALID/INCOMPLETE`, sửa case lỗi, thêm >=5 human cases | Final FR-03 test cases, audit table, extension table |
 | 04 | `test(hw06-fr03): implement and run reset-password Postman tests` | Tạo collection/data cho FR-03, setup forgot-password token flow, chạy Newman, lưu report | `postman/hw06-fr03-reset-password.*`, Newman HTML/JSON, console evidence `X-Student-Id` |
@@ -90,7 +97,9 @@ Việc cần làm:
 - Tạo folder `reports/bug-reports` để lưu bug report Markdown theo template `.github/ISSUE_TEMPLATE/bug-report-template.md`.
 - Tạo folder `reports/newman` cho Newman HTML/JSON reports.
 - Tạo folder `postman/data` cho iteration data.
-- Tạo bảng test case master, có thể trong Markdown hoặc file spreadsheet sau: API, TC ID, source, group, request/input, expected status, assertions, audit label.
+- Tạo folder `test-cases/hw06-api` cho per-test-case Markdown files.
+- Tạo template `test-cases/hw06-api/TEMPLATE-HW06-API-TEST-CASE.md` dựa trên sample `test-cases/TC-FR03-DT-001.md` nhưng điều chỉnh cho API testing: thêm method/endpoint, headers/body/query, expected status, schema assertions, Postman/Newman mapping, audit label.
+- Tạo bảng test case master/index trong `reports/hw06-test-cases.md`: API, TC ID, file, source, group, request/input, expected status, assertions, audit label.
 - Ghi rõ trong report rằng đây là blackbox testing và API được chọn theo FR-03/09/17.
 
 Files/artifacts:
@@ -100,11 +109,14 @@ Files/artifacts:
 - `reports/newman/`
 - `postman/`
 - `postman/data/`
+- `test-cases/hw06-api/`
+- `test-cases/hw06-api/TEMPLATE-HW06-API-TEST-CASE.md`
 
 Kiểm tra trước commit:
 
 - Report skeleton có đủ heading cho 3 API.
 - `reports/bug-reports` tồn tại.
+- `test-cases/hw06-api` có template và folder con cho FR-03/FR-09/FR-17.
 - Chưa có evidence giả hoặc placeholder bị trình bày như kết quả thật.
 
 Không làm trong phase này:

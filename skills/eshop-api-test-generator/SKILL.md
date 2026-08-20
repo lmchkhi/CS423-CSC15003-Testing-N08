@@ -115,6 +115,7 @@ Tạo:
 - Corrected final test suite.
 - Human extension table.
 - Notes cho Postman data fields và variables.
+- Per-test-case Markdown files trong `test-cases/hw06-api/<api-slug>/`, dùng naming `TC-FR<id>-API-<DOM|SEC|WF|SCH>-<NNN>.md`.
 
 ## References
 

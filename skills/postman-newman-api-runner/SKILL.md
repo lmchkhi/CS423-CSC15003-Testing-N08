@@ -12,6 +12,7 @@ Dùng skill này sau khi test cases đã được generate, audit, và extend. S
 ## Inputs
 
 - Final audited test cases có expected status và assertions.
+- Per-test-case Markdown files trong `test-cases/hw06-api/<api-slug>/` nếu đã có.
 - Student ID.
 - Metadata của API đã chọn: method, path, auth requirement, required tokens/IDs.
 - Real setup data thu qua API, ví dụ product IDs, order IDs, user/admin tokens.
@@ -37,6 +38,12 @@ reports/
   newman-api-test.yml
 ```
 
+Lý do layout:
+
+- `postman/` là input artifacts để chạy test, nên đặt ở root repo để command local/CI ngắn và rõ.
+- `reports/newman/` là output evidence do Newman sinh ra, nên đặt dưới `reports/`.
+- `test-cases/hw06-api/` là test design chi tiết; Postman data rows phải trace được về `TC ID` trong các file này.
+
 ### 2. Tạo data-driven test data
 
 Mỗi data row nên map với một audited test case:
@@ -53,6 +60,8 @@ Mỗi data row nên map với một audited test case:
 ```
 
 Giữ token và dynamic IDs trong environment hoặc collection variables, không hard-code trong data files.
+
+Mỗi data row nên map ngược được về một test case file qua `tc_id`. Khi có file chi tiết, cập nhật section Postman/Newman mapping trong file `test-cases/hw06-api/<api-slug>/TC-...md`.
 
 ### 3. Thêm required header
 

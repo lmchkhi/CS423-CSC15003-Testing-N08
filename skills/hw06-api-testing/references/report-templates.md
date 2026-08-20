@@ -24,9 +24,29 @@ Dùng các bảng này trong Markdown report và supporting files.
 
 ## Test Case Table
 
-| TC ID | Source | Group | Description | Preconditions | Request/Input | Expected Status | Expected Fields/Assertions | Rationale |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| | AI / Human | Domain / Security / State / Schema | | | | | | |
+Mỗi test case chi tiết nên có file riêng trong `test-cases/hw06-api/<api-slug>/`. File `reports/hw06-test-cases.md` là index/summary.
+
+Naming convention: `TC-FR<id>-API-<GROUP>-<NNN>.md`, ví dụ `TC-FR03-API-DOM-001.md`, `TC-FR09-API-SEC-001.md`, `TC-FR17-API-SCH-001.md`.
+
+| TC ID | File | Source | Group | Description | Preconditions | Request/Input | Expected Status | Expected Fields/Assertions | Rationale |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| | `test-cases/hw06-api/<api-slug>/TC-...md` | AI / Human | DOM / SEC / WF / SCH | | | | | | |
+
+## Test Case File Template
+
+Tham khảo `test-cases/hw06-api/TEMPLATE-HW06-API-TEST-CASE.md`. Mỗi file nên có:
+
+- Requirement ID.
+- API / Test type / Technique.
+- Blackbox basis.
+- Domain / Security / Workflow analysis.
+- Preconditions.
+- Test data.
+- Test steps.
+- Expected result.
+- Postman/Newman mapping.
+- AI audit / Human review.
+- Status / Related bugs.
 
 ## AI Audit Table
 

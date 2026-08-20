@@ -16,6 +16,7 @@ Dùng skill này như bộ điều phối cấp bài tập cho HW06. Skill giúp
 - Giữ AI audit trail cho mọi tương tác AI: tool name, date/time, prompt, và output summary hoặc full output.
 - Mọi API request khi execute phải có `X-Student-Id: {StudentID}`.
 - Với mỗi API được chọn, nhắm tối thiểu 35 final test cases, audit mọi AI-generated case, và thêm ít nhất 5 human-authored missed cases.
+- Lưu test case chi tiết dạng Markdown trong `test-cases/hw06-api/<api-slug>/` theo template `test-cases/hw06-api/TEMPLATE-HW06-API-TEST-CASE.md`; dùng `reports/hw06-test-cases.md` làm index/summary.
 
 ## Bắt đầu nhanh
 

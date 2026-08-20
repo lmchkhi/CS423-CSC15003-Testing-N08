@@ -151,6 +151,29 @@ Mark `INCOMPLETE` khi:
 - Cleanup hoặc created IDs chưa capture.
 - Không thể chuyển thành Postman data nếu thiếu thêm thông tin.
 
+## API test case file convention
+
+Sau khi audit/extend, tạo file Markdown chi tiết cho mỗi final test case:
+
+```text
+test-cases/hw06-api/fr03-reset-password/TC-FR03-API-DOM-001.md
+test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-001.md
+test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-001.md
+```
+
+Group code:
+
+| Code | Meaning |
+| --- | --- |
+| `DOM` | Domain partition |
+| `SEC` | Security |
+| `WF` | Workflow/state/lifecycle |
+| `SCH` | Schema/contract validation |
+
+Template: `test-cases/hw06-api/TEMPLATE-HW06-API-TEST-CASE.md`.
+
+Mỗi file phải giữ rõ blackbox basis, preconditions, request/test data, expected result, Postman/Newman mapping, audit label và related bug nếu có.
+
 ## Human extensions giá trị cao thường gặp
 
 - Checkout ignore manipulated `total_amount` và recalculate từ cart.

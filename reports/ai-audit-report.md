@@ -99,3 +99,47 @@ Các skill hiện tại đã đủ để thực hiện HW06 này chưa, nếu r�
 ```text
 Đã mở rộng reports/hw06-execution-plan.md bằng section Detailed phase guide cho Phase 00 đến Phase 16. Mỗi phase có mục tiêu, việc cần làm, files/artifacts, kiểm tra trước commit và những việc không làm trong phase đó. Đã giữ API selection FR-03 POST /api/reset-password, FR-09 POST /api/apply-coupon, FR-17 POST /api/admin/coupons; giữ rule bug report trong reports/bug-reports theo template repo. Đã kiểm tra headings Phase 00-16 và sửa numbering Bug handling thành section 6.
 ```
+
+## Entry #5
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 20/08/2026 17:52 GMT+7 |
+| **Artifact type** | Phase 01 report skeleton |
+
+**Full prompt:**
+
+```text
+Tôi commit phase 0 rồi, bây giờ thực hiện phase 1 giúp tôi, không tự ý commit.
+```
+
+### (2) AI Output
+
+```text
+Đã thực hiện Phase 01 theo reports/hw06-execution-plan.md và không commit. Đã tạo/cập nhật reports/main-report.md với skeleton đầy đủ: thông tin bài làm, API selection, 3 API sections FR-03/FR-09/FR-17, Postman features, CI/CD report, bug reports, AI generator design, AI critique, AI Audit Report, test summary, self-assessment, submission checklist. Đã tạo reports/hw06-test-cases.md làm test case master table. Đã tạo các folder artifact được Git track bằng .gitkeep: reports/bug-reports, reports/newman, postman, postman/data. Đã kiểm tra bằng rg/find/git status; chưa tạo evidence giả, chưa tạo GitHub Issue, chưa chạy Newman.
+```
+
+## Entry #6
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 20/08/2026 18:16 GMT+7 |
+| **Artifact type** | Phase 01 artifact layout và test case template cập nhật |
+
+**Full prompt:**
+
+```text
+Tại sao folder postman nằm ở root repo còn newman nằm trong reports; có nên thêm folder test case để chứa các file md cho từng test case cho dễ đọc không. Có file mẫu test-cases/TC-FR03-DT-001.md, nếu cần thì tham khảo cấu trúc và điều chỉnh cho API testing HW06, cập nhật skill và các file hiện tại về template/cách đặt tên.
+```
+
+### (2) AI Output
+
+```text
+Đã giải thích và ghi vào plan/report/skill rằng postman/ là input artifacts để chạy test, còn reports/newman/ là output evidence/report. Đã thêm cấu trúc test-cases/hw06-api với template TEMPLATE-HW06-API-TEST-CASE.md và folder con cho fr03-reset-password, fr09-apply-coupon, fr17-admin-coupons. Đã cập nhật reports/hw06-test-cases.md thành master index có naming convention TC-FR<id>-API-<DOM|SEC|WF|SCH>-<NNN>.md. Đã cập nhật reports/main-report.md, reports/hw06-execution-plan.md, skills hw06-api-testing, eshop-api-test-generator và postman-newman-api-runner để dùng per-test-case Markdown files và trace từ Postman data row về TC ID. Đã kiểm tra bằng rg/find và YAML skills parse OK bằng Ruby.
+```
