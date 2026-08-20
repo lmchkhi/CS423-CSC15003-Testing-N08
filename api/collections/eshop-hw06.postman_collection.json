@@ -1113,6 +1113,30 @@
           }
         }
       ]
+    },
+    {
+      "name": "DEMO-FAILING (ci-failure-demo)",
+      "item": [
+        {
+          "name": "demo-failing: GET /api/products returns 500",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('demo-failing: /api/products should return 500', () => pm.response.to.have.status(500));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3000/api/products"
+          }
+        }
+      ]
     }
   ]
 }
