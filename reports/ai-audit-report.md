@@ -1245,3 +1245,191 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+## Entry #15
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 02:53 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE D — execution chỉ cho FR-16 / POST /api/admin/import-products`
+
+User Prompt:
+
+    Đọc và tuân thủ:
+    - ai-first-api-testing/SKILL.md
+    - ai-first-api-testing/references/phase-playbook.md
+    - ai-first-api-testing/references/api-testing-runbook.md
+    - reports/api-testing/fr-16-phase-a-contract.md
+    - tests/api-testing/test-cases/fr-16-ai-generated-phase-b.md
+    - tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md
+
+    ## PHẠM VI
+
+    Pool C, FR-16, POST /api/admin/import-products.
+    Student ID: 23127464.
+    Chỉ thực hiện PHASE D — EXECUTION.
+    Không báo bug, không CI/CD, không tổng hợp.
+    Sau Phase D phải DỪNG.
+
+    ## HUMAN CONTRACT DECISION
+
+    JSON array là primary contract. CSV upload là exploratory/negative.
+    Phase C đã approved — checkbox cuối được tick.
+
+    ## NHIỆM VỤ
+
+    1. Chọn ca để tự động hóa:
+       - 29 ca AI VALID + tối đa ca human-origin có oracle đủ.
+       - KHÔNG tự động hóa 9 ca INCOMPLETE và 2 ca INVALID.
+       - FR16-H02 (batch 500+) và FR16-H03 (duplicate) là INCOMPLETE → không bắt buộc.
+       - FR16-H01 (method mismatch), FR16-H04 (extra field), FR16-H05 (non-admin DB check)
+         có oracle → tự động hóa.
+       - Ghi rõ bao nhiêu ca được tự động hóa, bao nhiêu loại trừ.
+
+    2. Tạo fixture script tại tests/api-testing/scripts/prepare-fr16-fixture.js:
+       - Tạo admin user (hoặc dùng admin sẵn có) + non-admin user.
+       - Tạo ít nhất 1 category fixture ổn định.
+       - Ký JWT tokens: admin valid, non-admin valid, expired, tampered payload,
+         tampered signature, missing identity.
+       - Ghi baseline product count trước import tests.
+       - Xuất environment JSON tại tests/api-testing/environments/fr-16-local.postman_environment.json.
+
+    3. Tạo Postman collection tại
+       tests/api-testing/collections/23127464_FR16_Product_Import.postman_collection.json:
+       - Collection-level pre-request script upsert X-Student-Id: 23127464.
+       - Mỗi ca là 1 request với test script (pm.test).
+       - Auth tests: assert response không chứa marker import success.
+       - Valid import: dùng marker name duy nhất, kiểm tra import thành công.
+       - Rollback/atomicity: gửi batch mixed valid+invalid, sau đó kiểm tra
+         marker products KHÔNG tồn tại (dùng pm.sendRequest GET products nếu cần).
+       - CSV exploratory: gửi multipart hoặc text/csv, assert không import.
+       - KHÔNG bịa exact status code cho auth rejection — chỉ assert semantic
+         (response không chứa marker, status >= 400 cho method mismatch).
+
+    4. Tạo data file tests/api-testing/data/fr-16-run-data.json.
+
+    5. Tạo runner script:
+       - tests/api-testing/scripts/run-fr16-newman.js hoặc .ps1
+       - Start SUT, health check, run fixture, run Newman với cli+json+htmlextra.
+       - Lưu evidence vào tests/api-testing/evidence/fr-16/<timestamp>/.
+
+    6. Chạy Newman và lưu evidence:
+       - newman-console.txt, newman-report.json, newman-report.html
+       - execution-metadata.json (command, versions, timestamps, exit code, SHA-256)
+       - Giữ tất cả runs kể cả thất bại.
+
+    7. Phân loại failure:
+       - Nếu test fail, phân loại LOI_MOI_TRUONG, LOI_SCRIPT, hoặc LOI_BAO_MAT_SUT
+         trước khi kết luận.
+       - Tạo execution analysis tại reports/api-testing/fr-16-phase-d-execution-analysis.md.
+       - Tạo execution plan tại reports/api-testing/fr-16-phase-d-execution-plan.md.
+
+    8. Ghi AI Audit cho interaction này.
+
+    9. Trạng thái cuối:
+       PHASE D: COMPLETE hoặc IN PROGRESS (tùy kết quả)
+       HUMAN ASSESSMENT: PENDING
+       HEADER SCREENSHOT: PENDING HUMAN CAPTURE (dùng chung screenshot FR-11 nếu được)
+
+    Sau đó DỪNG. Không chạy Phase E.
+
+AI Output:
+
+    ### Selection
+
+    Đã tự động hóa 32 ca: 29 AI `VALID` và ba ca human-origin `FR16-H01`, `FR16-H04`, `FR16-H05`. Đã loại 13 ca khỏi collection: 9 AI `INCOMPLETE`, 2 AI `INVALID`, cùng `FR16-H02`/`H03` chưa đủ oracle.
+
+    ### Execution
+
+    Canonical run `20260821-024915` chạy 32 items, 63 HTTP requests, 32 test scripts, 33 pre-request scripts và 77 assertions. Kết quả: 69 assertions passed, 8 failed; Newman exit code 1. Host là `http://127.0.0.1:3000`. Node `v22.18.0`, Newman `6.2.2`, htmlextra `1.23.1`.
+
+    Hai attempt trước được giữ nguyên: `20260821-024805` dừng do `LOI_MOI_TRUONG` khi fixture chạy trước SQLite schema; `20260821-024833` có một `LOI_SCRIPT` ở AUTH-003 và được sửa trước canonical run.
+
+    ### Failure Classification
+
+    Canonical run không còn lỗi môi trường/script. `FR16-AUTH-002` và `FR16-H05` được phân loại `LOI_BAO_MAT_SUT` vì non-admin đã tạo product. `FR16-PRICE-002`, `PRICE-003`, `ATOM-001`–`004` được phân loại `LOI_CHUC_NANG_SUT` theo taxonomy của skill vì price không hợp lệ vẫn được lưu và mixed batch không rollback. Đây chưa phải bug report hoặc kết luận cuối của con người.
+
+    ### Evidence
+
+    Raw console, JSON, HTML, fixture output, SUT log, exact command và metadata có timestamps, versions, exit code, SHA-256 đã được lưu tại `tests/api-testing/evidence/fr-16/20260821-024915/`. Execution plan và analysis đã được tạo. Database được backup trước mỗi attempt.
+
+    Tất cả subject request có collection-level `X-Student-Id: 23127464`; không có header assertion failure. Screenshot FR-11 không được tái sử dụng vì không chứng minh header trên request FR-16.
+
+    ### Artifact Paths
+
+    - `tests/api-testing/collections/23127464_FR16_Product_Import.postman_collection.json`
+    - `tests/api-testing/environments/fr-16-local.postman_environment.json`
+    - `tests/api-testing/data/fr-16-run-data.json`
+    - `tests/api-testing/scripts/prepare-fr16-fixture.js`
+    - `tests/api-testing/scripts/run-fr16-newman.js`
+    - `tests/api-testing/evidence/fr-16/20260821-024915/`
+    - `reports/api-testing/fr-16-phase-d-execution-plan.md`
+    - `reports/api-testing/fr-16-phase-d-execution-analysis.md`
+    - `reports/ai-audit-report.md` — Entry #15
+
+    ### Status
+
+    PHASE D: COMPLETE
+    EXECUTION: EXECUTED — FAILED
+    HUMAN ASSESSMENT: PENDING
+    HEADER SCREENSHOT: PENDING HUMAN CAPTURE
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+---
+
+## Entry #16
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 03:14 — Asia/Ho_Chi_Minh`
+
+Purpose: `Hoàn thiện evidence và trạng thái PHASE D cho FR-16 / POST /api/admin/import-products`
+
+User Prompt:
+
+    Hoàn thiện Phase D cho FR-16. Chỉ Phase D, KHÔNG thực hiện Phase E.
+
+    1. Cập nhật reports/api-testing/fr-16-phase-d-execution-analysis.md:
+
+       - Đổi HEADER SCREENSHOT: PENDING HUMAN CAPTURE thành HEADER SCREENSHOT: PROVIDED
+       - Đổi HUMAN ASSESSMENT: ĐANG CHỜ thành HUMAN ASSESSMENT: XÁC NHẬN — 2 LOI_BAO_MAT_SUT + 6 LOI_CHUC_NANG_SUT
+       - Thêm section "Evidence addendum" ghi:
+         - Đường dẫn: tests/api-testing/evidence/fr-16/postman-header-screenshot.png
+         - Thời gian chụp: 2026-08-21 03:09 (Asia/Ho_Chi_Minh)
+         - Tính SHA-256 của file tests/api-testing/evidence/fr-16/postman-header-screenshot.png
+           và thêm vào bảng SHA-256 hiện có
+       - Cập nhật trạng thái cuối:
+         PHASE D: COMPLETE
+         HUMAN ASSESSMENT: XÁC NHẬN
+         HEADER SCREENSHOT: PROVIDED
+
+    2. Tạo evidence manifest nếu chưa có tại
+       tests/api-testing/evidence/fr-16/20260821-024915/evidence-manifest.md
+       liệt kê tất cả artifact trong canonical run kèm SHA-256 và thêm dòng screenshot.
+
+    3. Không tạo bug report. Không viết AI critique. Không cập nhật README.
+       Không tạo CI/CD. Không thực hiện Phase E.
+
+AI Output:
+
+    Đã hoàn thiện Phase D cho FR-16. Ảnh Postman được kiểm tra trực quan, cho thấy request FR16-AUTH-003 có header X-Student-Id: 23127464. SHA-256 của ảnh là BB9B72072C95796A39D137C8CB87D13A79A036406439877AF0133360A0A1E34F.
+
+    Execution analysis, canonical metadata và evidence manifest đã được đồng bộ với ảnh, thời gian chụp và kết luận con người: 2 LOI_BAO_MAT_SUT + 6 LOI_CHUC_NANG_SUT.
+
+    PHASE D: COMPLETE
+    HUMAN ASSESSMENT: XÁC NHẬN
+    HEADER SCREENSHOT: PROVIDED
+
+    Không tạo bug report, AI critique, README, CI/CD và không thực hiện Phase E.
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING

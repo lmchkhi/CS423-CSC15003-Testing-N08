@@ -1,0 +1,2203 @@
+{
+  "info": {
+    "_postman_id": "23127464-fr16-product-import",
+    "name": "23127464 | FR-16 Product Import",
+    "description": "Phase D executable suite for FR-16 POST /api/admin/import-products only.\nHuman contract: JSON products array is primary; CSV is exploratory/negative.\nAutomated: 29 human-approved AI cases + 3 human-origin cases = 32.\nExcluded: 9 AI INCOMPLETE + 2 AI INVALID + human H02/H03 INCOMPLETE = 13.\nGET /api/products calls are read-only verification dependencies, not additional test subjects.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const studentId = pm.environment.get(\"studentId\");",
+          "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+          "console.log(\"[FR16 HEADER] \" + pm.info.requestName + \" X-Student-Id=\" + studentId);"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "h01BeforeCount",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "29 AI VALID",
+      "item": [
+        {
+          "name": "FR16-VLD-001 | Một product JSON hợp lệ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-VLD-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-VLD-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-VLD-001\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-VLD-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-VLD-001\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-VLD-001\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-VLD-002 | Batch ba product hợp lệ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-VLD-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-VLD-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-VLD-002-A\");",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-VLD-002-B\");",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-VLD-002-C\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-VLD-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-VLD-002-A\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-VLD-002-A\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-VLD-002-B\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-VLD-002-B\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-VLD-002-C\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-VLD-002-C\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-VLD-003 | Description JSON chứa dấu phẩy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-VLD-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-VLD-003 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-VLD-003\");",
+                  "    const row = products.find(function (item) { return item.name === pm.environment.get(\"runId\") + \"-FR16-VLD-003\"; });",
+                  "    pm.expect(row.description).to.eql(\"Mô tả có dấu phẩy, vẫn là một field\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-VLD-003. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-VLD-003\",\n      \"price\": 10000,\n      \"description\": \"Mô tả có dấu phẩy, vẫn là một field\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-001 | Admin JWT hợp lệ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-001-A\");",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-001-B\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-001-A\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-001-A\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-001-B\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-001-B\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-002 | User thường có JWT hợp lệ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-002 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-002\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-002\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{nonAdminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-002\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-002\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-003 | Thiếu Authorization",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-003 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-003\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-003 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-003\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-003. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-003\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-003\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-004 | Authorization rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-004 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-004\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-004 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-004\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-004. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-004\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-004\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-005 | Bearer không có token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-005 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-005 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-005\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-005 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-005\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-005. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-005\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-005\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-006 | Token ngẫu nhiên",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-006 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-006 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-006\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-006 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-006\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer not-a-valid-jwt",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-006. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-006\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-006\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-007 | JWT hết hạn",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-007 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-007 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-007\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-007 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-007\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{expiredToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-007. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-007\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-007\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-AUTH-008 | JWT sửa signature",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-AUTH-008 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-AUTH-008 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-008\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-AUTH-008 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-008\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tamperedSignatureToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-AUTH-008. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-AUTH-008\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-AUTH-008\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-NAME-001 | Name chuỗi rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-NAME-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-NAME-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-NAME-001\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-NAME-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"\",\n      \"price\": 10000,\n      \"description\": \"{{runId}}-FR16-NAME-001\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-NAME-002 | Thiếu key name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-NAME-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-NAME-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-NAME-002\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-NAME-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"price\": 10000,\n      \"description\": \"{{runId}}-FR16-NAME-002\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-PRICE-001 | Price bằng 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-PRICE-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-PRICE-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-PRICE-001\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-PRICE-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-PRICE-001\",\n      \"price\": 1,\n      \"description\": \"Description -FR16-PRICE-001\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-PRICE-002 | Price bằng 0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-PRICE-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-PRICE-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-PRICE-002\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-PRICE-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-PRICE-002\",\n      \"price\": 0,\n      \"description\": \"Description -FR16-PRICE-002\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-PRICE-003 | Price âm",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-PRICE-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-PRICE-003 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-PRICE-003\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-PRICE-003. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-PRICE-003\",\n      \"price\": -1,\n      \"description\": \"Description -FR16-PRICE-003\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-PRICE-006 | Price thập phân dương",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-PRICE-006 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-PRICE-006 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-PRICE-006\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-PRICE-006. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-PRICE-006\",\n      \"price\": 1.5,\n      \"description\": \"Description -FR16-PRICE-006\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-CAT-001 | Category ID tồn tại",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-CAT-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-CAT-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-CAT-001\");",
+                  "    const row = products.find(function (item) { return item.name === pm.environment.get(\"runId\") + \"-FR16-CAT-001\"; });",
+                  "    pm.expect(String(row.category_id)).to.eql(String(pm.environment.get(\"categoryId\")));",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-CAT-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-CAT-001\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-CAT-001\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-ATOM-001 | Mixed batch phải rollback toàn bộ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-ATOM-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-ATOM-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-001-A\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-001-X\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-001-C\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-ATOM-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-001-A\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-001-A\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"\",\n      \"price\": 10000,\n      \"description\": \"{{runId}}-FR16-ATOM-001-X\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-001-C\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-001-C\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-ATOM-002 | Mixed batch phải rollback toàn bộ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-ATOM-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-ATOM-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-002-X\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-002-B\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-002-C\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-ATOM-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-002-X\",\n      \"price\": 0,\n      \"description\": \"Description -FR16-ATOM-002-X\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-002-B\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-002-B\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-002-C\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-002-C\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-ATOM-003 | Mixed batch phải rollback toàn bộ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-ATOM-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-ATOM-003 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-003-A\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-003-B\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-003-X\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-ATOM-003. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-003-A\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-003-A\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-003-B\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-003-B\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"\",\n      \"price\": 10000,\n      \"description\": \"{{runId}}-FR16-ATOM-003-X\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-ATOM-004 | Mixed batch phải rollback toàn bộ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-ATOM-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-ATOM-004 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-004-A\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-004-X\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-ATOM-004-C\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-ATOM-004. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-004-A\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-004-A\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-004-X\",\n      \"price\": -1,\n      \"description\": \"Description -FR16-ATOM-004-X\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-ATOM-004-C\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-ATOM-004-C\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-INPUT-001 | Body rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-INPUT-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-INPUT-001 | request rejected semantically\", function () { pm.expect(pm.response.code).to.be.at.least(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-INPUT-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-INPUT-002 | Thiếu products dùng items",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-INPUT-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-INPUT-002 | request rejected semantically\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-INPUT-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-INPUT-002\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-INPUT-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"name\": \"{{runId}}-FR16-INPUT-002\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-INPUT-002\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-INPUT-003 | Products array rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-INPUT-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-INPUT-003 | request rejected semantically\", function () { pm.expect(pm.response.code).to.be.at.least(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-INPUT-003. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-INPUT-004 | Products không phải array",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-INPUT-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-INPUT-004 | request rejected semantically\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-INPUT-004 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-INPUT-004\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-INPUT-004. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": {\n    \"name\": \"{{runId}}-FR16-INPUT-004\",\n    \"price\": 10000,\n    \"description\": \"Description -FR16-INPUT-004\",\n    \"imageUrl\": \"https://example.test/fr16.png\",\n    \"category_id\": {{categoryId}}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-SEC-001 | SQL injection payload trong name",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-SEC-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-SEC-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"sentinelName\"));",
+                  "    pm.expect(products.length).to.be.at.least(Number(pm.environment.get(\"baselineProductCount\")));",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-SEC-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-SEC-001-x'); DROP TABLE products;--\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-SEC-001\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-CSV-001 | Multipart CSV exploratory negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-CSV-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-CSV-001 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(\"FR16-CSV-001-FIXED\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-CSV-001 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(\"FR16-CSV-001-FIXED\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-CSV-001. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\data\\fr-16-exploratory.csv"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-CSV-002 | Raw text/csv exploratory negative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-CSV-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-CSV-002 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-CSV-002\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-CSV-002 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-CSV-002\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/csv",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-CSV-002. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "name,price,description,imageUrl,category_id\n{{runId}}-FR16-CSV-002,10000,\"raw CSV, exploratory\",https://example.test/csv2.png,{{categoryId}}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3 CON-NGUOI-BO-SUNG",
+      "item": [
+        {
+          "name": "FR16-H01 | GET method mismatch",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/products\", method: \"GET\", header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }] }, function (error, response) {",
+                  "  if (!error) pm.collectionVariables.set(\"h01BeforeCount\", String(response.json().length));",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-H01 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-H01 | unsupported method rejected\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-H01 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(products.length).to.eql(Number(pm.collectionVariables.get(\"h01BeforeCount\")));",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-H01. Subject: FR-16 POST /api/admin/import-products only."
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-H04 | Extra field ignored",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-H04 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-H04 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-H04\");",
+                  "    const row = products.find(function (item) { return item.name === pm.environment.get(\"runId\") + \"-FR16-H04\"; });",
+                  "    pm.expect(row).not.to.have.property(\"malicious_field\");",
+                  "    pm.expect(row.name).to.eql(pm.environment.get(\"runId\") + \"-FR16-H04\");",
+                  "    pm.expect(Number(row.price)).to.eql(10000);",
+                  "    pm.expect(row.description).to.eql(\"Description -FR16-H04\");",
+                  "    pm.expect(row.imageUrl).to.eql(\"https://example.test/fr16.png\");",
+                  "    pm.expect(String(row.category_id)).to.eql(String(pm.environment.get(\"categoryId\")));",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-H04. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-H04\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-H04\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}},\n      \"malicious_field\": \"MUST_NOT_PERSIST\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FR16-H05 | Non-admin DB persistence check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR16-H05 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR16-H05 | rejection response has no import marker\", function () {",
+                  "  pm.expect(pm.response.text()).not.to.include(pm.environment.get(\"runId\") + \"-FR16-H05-A\");",
+                  "});",
+                  "pm.sendRequest({",
+                  "  url: pm.environment.get(\"baseUrl\") + \"/api/products\",",
+                  "  method: \"GET\",",
+                  "  header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }]",
+                  "}, function (error, response) {",
+                  "  pm.test(\"FR16-H05 | persisted marker state\", function () {",
+                  "    pm.expect(error).to.eql(null);",
+                  "    pm.expect(response.code).to.be.below(500);",
+                  "    const products = response.json();",
+                  "    pm.expect(products).to.be.an(\"array\");",
+                  "    const serialized = JSON.stringify(products);",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-H05-A\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-H05-B\");",
+                  "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-H05-C\");",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{nonAdminToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/import-products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "import-products"
+              ]
+            },
+            "description": "Traceability: FR16-H05. Subject: FR-16 POST /api/admin/import-products only.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    {\n      \"name\": \"{{runId}}-FR16-H05-A\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-H05-A\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-H05-B\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-H05-B\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    },\n    {\n      \"name\": \"{{runId}}-FR16-H05-C\",\n      \"price\": 10000,\n      \"description\": \"Description -FR16-H05-C\",\n      \"imageUrl\": \"https://example.test/fr16.png\",\n      \"category_id\": {{categoryId}}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Error: SQLITE_ERROR: no such table: products
+--> in Database#run("DELETE FROM products WHERE name LIKE 'FR16-RUN-%' OR name = ?", [ 'FR16-BASELINE-SENTINEL' ], [Function: callback])
+    at E:\Testing\CS423-CSC15003-Testing-N08\tests\api-testing\scripts\prepare-fr16-fixture.js:25:8
+    at new Promise (<anonymous>)
+    at run (E:\Testing\CS423-CSC15003-Testing-N08\tests\api-testing\scripts\prepare-fr16-fixture.js:24:3)
+    at main (E:\Testing\CS423-CSC15003-Testing-N08\tests\api-testing\scripts\prepare-fr16-fixture.js:40:9)
+    at Object.<anonymous> (E:\Testing\CS423-CSC15003-Testing-N08\tests\api-testing\scripts\prepare-fr16-fixture.js:119:1)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Object..js (node:internal/modules/cjs/loader:1820:10)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)

@@ -1,0 +1,6 @@
+Database initialized and seeded (Phase 2).
+Server is running on http://localhost:3000
+Connected to database
+Error: Fixture preparation failed with exit code 1
+    at main (E:\Testing\CS423-CSC15003-Testing-N08\tests\api-testing\scripts\run-fr16-newman.js:146:32)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
