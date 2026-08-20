@@ -1,3 +1,20 @@
+* commit 28a0235b337a589cfb734765cea2e6823db269f1
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 16 20:37:33 2026 +0700
+| 
+|     docs: re-export the pdfs after changes
+| 
+|  README.md                                |  38 +++----
+|  git-log.txt                              | 163 +++++++++++++++++++++++++++++
+|  reports/continuous-perf-proposal.md      |  42 ++++----
+|  reports/main-report.md                   |  98 ++++++++---------
+|  reports/pdf/ai-analysis-review.pdf       | Bin 178412 -> 178412 bytes
+|  reports/pdf/ai-audit-report.pdf          | Bin 1512251 -> 1512251 bytes
+|  reports/pdf/ai-critique.pdf              | Bin 53070 -> 53070 bytes
+|  reports/pdf/continuous-perf-proposal.pdf | Bin 172582 -> 172330 bytes
+|  reports/pdf/main-report.pdf              | Bin 273631 -> 273361 bytes
+|  9 files changed, 252 insertions(+), 89 deletions(-)
+| 
 * commit b13818113e9c716dd9aea69f8275620b4d434a54
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sun Aug 16 20:27:35 2026 +0700
