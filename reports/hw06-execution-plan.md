@@ -39,13 +39,13 @@ Artifact layout chủ đích:
 | --- | --- | --- | --- |
 | 00 | `chore(hw06): setup skills and execution plan` | Hoàn thiện bộ skills, tạo file plan này, xác nhận API selection FR-03/09/17 | `skills/`, `reports/hw06-execution-plan.md`, `reports/ai-audit-report.md` |
 | 01 | `docs(hw06): select APIs and prepare report skeleton` | Tạo skeleton main report, test case index/template, Postman folder layout, bug report folder | `reports/main-report.md`, `reports/hw06-test-cases.md`, `test-cases/hw06-api/`, `reports/bug-reports/`, `postman/`, `reports/newman/` |
-| 02 | `test(hw06-fr03): generate reset-password API cases` | Dùng `$eshop-api-test-generator` sinh >=35 AI cases cho `POST /api/reset-password`; log prompt/output | AI prompt log, raw AI test case table cho FR-03 |
+| 02 | `test(hw06-fr03): generate reset-password API cases` | Dùng `$eshop-api-test-generator` sinh >=35 AI cases cho `POST /api/reset-password`; log prompt/output trong AI audit | AI audit entry, raw AI test case table cho FR-03 |
 | 03 | `test(hw06-fr03): audit and extend reset-password cases` | Audit mọi AI case thành `VALID/INVALID/INCOMPLETE`, sửa case lỗi, thêm >=5 human cases | Final FR-03 test cases, audit table, extension table |
 | 04 | `test(hw06-fr03): implement and run reset-password Postman tests` | Tạo collection/data cho FR-03, setup forgot-password token flow, chạy Newman, lưu report | `postman/hw06-fr03-reset-password.*`, Newman HTML/JSON, console evidence `X-Student-Id` |
-| 05 | `test(hw06-fr09): generate apply-coupon API cases` | Sinh >=35 AI cases cho `POST /api/apply-coupon`, cover C1-C5, calculation, auth/IDOR/security/schema | AI prompt log, raw AI test case table cho FR-09 |
+| 05 | `test(hw06-fr09): generate apply-coupon API cases` | Sinh >=35 AI cases cho `POST /api/apply-coupon`, cover C1-C5, calculation, auth/IDOR/security/schema | AI audit entry, raw AI test case table cho FR-09 |
 | 06 | `test(hw06-fr09): audit and extend apply-coupon cases` | Audit toàn bộ FR-09 cases, sửa invalid/incomplete, thêm >=5 human cases | Final FR-09 test cases, audit table, extension table |
 | 07 | `test(hw06-fr09): implement and run apply-coupon Postman tests` | Tạo collection/data, setup user token/coupon scenarios, chạy Newman | `postman/hw06-fr09-apply-coupon.*`, Newman reports, `X-Student-Id` evidence |
-| 08 | `test(hw06-fr17): generate admin coupon API cases` | Sinh >=35 AI cases cho `POST /api/admin/coupons`, cover domain/security/admin/schema | AI prompt log, raw AI test case table cho FR-17 |
+| 08 | `test(hw06-fr17): generate admin coupon API cases` | Sinh >=35 AI cases cho `POST /api/admin/coupons`, cover domain/security/admin/schema | AI audit entry, raw AI test case table cho FR-17 |
 | 09 | `test(hw06-fr17): audit and extend admin coupon cases` | Audit FR-17 cases, sửa case, thêm >=5 human cases, định nghĩa cleanup bằng DELETE nếu cần | Final FR-17 test cases, audit table, extension table |
 | 10 | `test(hw06-fr17): implement and run admin coupon Postman tests` | Tạo collection/data, setup admin/user token, chạy Newman, cleanup created coupons | `postman/hw06-fr17-admin-coupons.*`, Newman reports, `X-Student-Id` evidence |
 | 11 | `ci(hw06): add Newman API test workflow passing run` | Tạo GitHub Actions workflow chạy backend + Newman; push để có passing run | `.github/workflows/newman-api-test.yml`, CI pass screenshot/link |
@@ -135,7 +135,7 @@ Việc cần làm:
 - Nói rõ `POST /api/forgot-password` chỉ là setup API để lấy `resetToken`.
 - Yêu cầu AI không invent field `confirmPassword` cho API vì API spec không liệt kê field này.
 - Yêu cầu output >=35 cases, columns: `tc_id`, `group`, `description`, `precondition`, `request`, `input`, `expected_status`, `expected_fields`, `rationale`.
-- Lưu prompt và raw AI output vào report hoặc file phụ.
+- Lưu prompt/output trace trong `reports/ai-audit-report.md`; lưu raw AI output trong file raw test case riêng.
 - Append AI audit entry.
 
 Files/artifacts:

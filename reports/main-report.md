@@ -37,14 +37,24 @@ Ghi chú: các FR được phân không chứa FR-10 order state machine, nên s
 
 ### 3.1 Generate with AI
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 02.
+Trạng thái: Đã thực hiện ở Phase 02. Raw output chưa human audit.
 
 | Artifact | Link/ghi chú |
 | --- | --- |
 | Test case files | `test-cases/hw06-api/fr03-reset-password/` |
-| Prompt sequence | Chưa có |
-| Raw AI test cases | Chưa có |
-| AI audit entry | Chưa có |
+| Prompt/output trace | `reports/ai-audit-report.md` Entry #7; prompt framework dựa trên `skills/` và `reports/hw06-execution-plan.md` |
+| Raw AI test cases | `reports/ai-generated/fr03-reset-password-raw-test-cases.md` |
+| AI audit entry | `reports/ai-audit-report.md` Entry #7 |
+
+Raw generation summary:
+
+| Group | Count | Ghi chú |
+| --- | --- | --- |
+| Domain | 22 | Cover `email`, `resetToken`, `newPassword` partitions |
+| Security | 8 | Cover SEC-05, SEC-07, sensitive data exposure |
+| Workflow | 8 | Cover forgot-password setup, token binding/reuse, postcondition login |
+| Schema | 8 | Cover JSON content type, message/error shape, no sensitive fields, response time |
+| Total | 46 | Chưa audit; Phase 03 sẽ gắn `VALID` / `INVALID` / `INCOMPLETE` |
 
 ### 3.2 Human audit
 
@@ -92,7 +102,7 @@ Trạng thái: Chưa thực hiện, sẽ làm ở Phase 05.
 | Artifact | Link/ghi chú |
 | --- | --- |
 | Test case files | `test-cases/hw06-api/fr09-apply-coupon/` |
-| Prompt sequence | Chưa có |
+| Prompt/output trace | Chưa có |
 | Raw AI test cases | Chưa có |
 | AI audit entry | Chưa có |
 
@@ -142,7 +152,7 @@ Trạng thái: Chưa thực hiện, sẽ làm ở Phase 08.
 | Artifact | Link/ghi chú |
 | --- | --- |
 | Test case files | `test-cases/hw06-api/fr17-admin-coupons/` |
-| Prompt sequence | Chưa có |
+| Prompt/output trace | Chưa có |
 | Raw AI test cases | Chưa có |
 | AI audit entry | Chưa có |
 

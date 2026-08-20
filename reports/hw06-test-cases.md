@@ -58,6 +58,8 @@ Template chi tiết: `test-cases/hw06-api/TEMPLATE-HW06-API-TEST-CASE.md`.
 | API-2 | Chưa có | `test-cases/hw06-api/fr09-apply-coupon/` | AI/Human | Domain/Security/Workflow/Schema | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa audit | Chưa chạy | Chưa có |
 | API-3 | Chưa có | `test-cases/hw06-api/fr17-admin-coupons/` | AI/Human | Domain/Security/Workflow/Schema | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa audit | Chưa chạy | Chưa có |
 
+FR-03 raw AI output đã được lưu ở `reports/ai-generated/fr03-reset-password-raw-test-cases.md`. Phase 03 sẽ chuyển các raw cases đã audit thành per-test-case Markdown files trong `test-cases/hw06-api/fr03-reset-password/`.
+
 ## 3. Audit labels
 
 | Label | Ý nghĩa | Khi dùng |

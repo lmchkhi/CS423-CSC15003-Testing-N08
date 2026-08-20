@@ -143,3 +143,25 @@ Tại sao folder postman nằm ở root repo còn newman nằm trong reports; c�
 ```text
 Đã giải thích và ghi vào plan/report/skill rằng postman/ là input artifacts để chạy test, còn reports/newman/ là output evidence/report. Đã thêm cấu trúc test-cases/hw06-api với template TEMPLATE-HW06-API-TEST-CASE.md và folder con cho fr03-reset-password, fr09-apply-coupon, fr17-admin-coupons. Đã cập nhật reports/hw06-test-cases.md thành master index có naming convention TC-FR<id>-API-<DOM|SEC|WF|SCH>-<NNN>.md. Đã cập nhật reports/main-report.md, reports/hw06-execution-plan.md, skills hw06-api-testing, eshop-api-test-generator và postman-newman-api-runner để dùng per-test-case Markdown files và trace từ Postman data row về TC ID. Đã kiểm tra bằng rg/find và YAML skills parse OK bằng Ruby.
 ```
+
+## Entry #7
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 20/08/2026 18:44 GMT+7 |
+| **Artifact type** | Phase 02 raw AI test generation - FR-03 reset-password |
+
+**Full prompt:**
+
+```text
+tôi đã xem qua, xác nhận và commit phase 1 rồi, bây giờ thực hiện phase 2 giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Đã tạo reports/ai-generated/fr03-reset-password-raw-test-cases.md gồm 46 raw cases cho FR-03: 22 Domain, 8 Security, 8 Workflow, 8 Schema. Không dùng file prompt riêng vì prompt framework đã được mô tả trong skills/ và reports/hw06-execution-plan.md; Entry #7 này giữ trace prompt/output cần thiết cho AI audit. Đã cập nhật reports/main-report.md và reports/hw06-test-cases.md để trỏ artifact Phase 02 và ghi rõ Phase 03 mới audit/convert thành per-test-case Markdown files. Chưa chạy Newman, chưa tạo bug report, chưa tạo GitHub Issue, chưa commit.
+```
