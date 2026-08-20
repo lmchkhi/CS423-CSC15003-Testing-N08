@@ -38,6 +38,23 @@ SESSIONS = [
     ("d58e17e9", "Kiểm tra tiến độ HW06 và chẩn đoán, khắc phục reports/prompt-log.md"),
 ]
 
+# Task 7 (CI/CD) and Task 8 (Agent Skill) were done outside Claude Code, in
+# Antigravity IDE (Google) — confirmed by the commit timestamps (20:23–20:59
+# 20/08/2026) falling exactly in the gap between the 1dc914ec and d58e17e9
+# Claude Code sessions, and by content match (GitHub Actions workflow,
+# SKILL.md, test-generator diagram all mentioned). Antigravity keeps its own
+# plain-JSONL transcript per conversation under
+# ~/.gemini/antigravity-ide/brain/<conversation-id>/.system_generated/logs/,
+# structurally distinct from Claude Code's format but just as extractable —
+# same rule applies: regenerate from it, never hand-write.
+ANTIGRAVITY_SESSIONS = [
+    (
+        "5a1f777d-2b96-495c-9e61-c9aecdec40c5",
+        "Thực thi Task 7 (CI/CD) và Task 8 (Agent Skill) trong Antigravity IDE",
+    ),
+]
+ANTIGRAVITY_BRAIN = os.path.expanduser("~/.gemini/antigravity-ide/brain")
+
 # Model display name per transcript's own `message.model` field. Not hardcoded
 # to one value: a session can switch model mid-way via /model.
 MODEL_LABEL = {
@@ -46,6 +63,7 @@ MODEL_LABEL = {
     "claude-haiku-4-5-20251001": "Haiku 4.5",
     "claude-opus-4-8": "Opus 4.8",
     "claude-sonnet-4-6": "Sonnet 4.6",
+    "antigravity": "Sonnet 4.6 (Thinking)",
 }
 
 # Harness-generated pseudo-prompts: the student never typed these, so they are
@@ -211,12 +229,111 @@ def extract_raw(recs):
     return raw, dispatches
 
 
+def antigravity_tool_trace(name, args):
+    """One line per tool call, same spirit as trace() above."""
+    a = dict(args or {})
+    a.pop("toolAction", None)
+    a.pop("toolSummary", None)
+    if name == "run_command":
+        return "→ run_command: " + " ".join(a.get("CommandLine", "").split())
+    if name == "view_file":
+        return f"→ view_file({rel(a.get('AbsolutePath',''))})"
+    if name == "list_dir":
+        return f"→ list_dir({rel(a.get('DirectoryPath',''))})"
+    if name == "write_to_file":
+        body = a.get("CodeContent", "")
+        return f"→ write_to_file({rel(a.get('TargetFile',''))}, {len(body.splitlines())} dòng)"
+    if name == "replace_file_content":
+        return f"→ replace_file_content({rel(a.get('TargetFile',''))})"
+    return f"→ {name}({json.dumps(a, ensure_ascii=False)})"
+
+
+def extract_antigravity(convo_id):
+    """Parse one Antigravity IDE conversation's own JSONL transcript into the
+    same raw {when, prompt, body, model} shape extract_raw() produces, so it
+    slots into the same render() pipeline. Structurally different source
+    (Antigravity's step log, not Claude Code's message log) but the same
+    verbatim rule: every field copied as stored, nothing paraphrased."""
+    path = os.path.join(ANTIGRAVITY_BRAIN, convo_id, ".system_generated", "logs", "transcript_full.jsonl")
+    raw = []
+    body = []
+
+    def flush():
+        nonlocal body
+        if raw and body:
+            raw[-1]["body"] = body
+        body = []
+
+    for line in open(path):
+        d = json.loads(line)
+        typ = d.get("type")
+        when = d.get("created_at", "")
+        if typ == "USER_INPUT":
+            flush()
+            full = d.get("content", "")
+            # Antigravity wraps what the user actually typed in
+            # <USER_REQUEST>...</USER_REQUEST> plus harness-attached
+            # environment context (open files, model-setting changes). Split
+            # them the same way the Claude Code side drops <system-reminder>:
+            # the typed text is the Prompt, the rest is kept as an output
+            # note rather than presented as something the student wrote.
+            m = re.search(r"<USER_REQUEST>\n(.*?)\n</USER_REQUEST>", full, re.S)
+            prompt_txt = m.group(1) if m else full
+            rest = (full[: m.start()] + full[m.end():]).strip() if m else ""
+            raw.append({"when": ts(when) if when else "", "prompt": prompt_txt, "body": [], "model": "antigravity"})
+            if rest:
+                body.append("   [ngữ cảnh do Antigravity đính kèm cùng prompt, không phải do sinh viên gõ]\n   " + rest.replace("\n", "\n   "))
+            continue
+        if typ in ("CONVERSATION_HISTORY", "KNOWLEDGE_ARTIFACTS"):
+            # Harness-injected context the user never typed — same treatment
+            # as Claude Code's <system-reminder> stripping.
+            continue
+        if not raw:
+            continue
+        if typ == "CHECKPOINT":
+            body.append("   [hệ thống Antigravity tự nén ngữ cảnh tại đây — không phải nội dung do người/AI tạo ra]")
+            continue
+        if typ == "PLANNER_RESPONSE":
+            think = (d.get("thinking") or "").strip()
+            if think:
+                body.append("```text\n[thinking] " + think + "\n```")
+            tx = (d.get("content") or "").strip()
+            if tx:
+                body.append("```text\n" + tx + "\n```")
+            for tc in d.get("tool_calls") or []:
+                body.append(antigravity_tool_trace(tc.get("name"), tc.get("args")))
+            continue
+        # LIST_DIRECTORY / VIEW_FILE / RUN_COMMAND / CODE_ACTION / ERROR_MESSAGE:
+        # the tool result text itself.
+        txt = (d.get("content") or "").strip()
+        if txt:
+            body.append("   " + txt.replace("\n", "\n   "))
+    flush()
+    return raw
+
+
 def build():
     entries = []
     n = 0
-    for pre, label in SESSIONS:
-        recs = load(pre)
-        raw, dispatches = extract_raw(recs)
+    # Chronological schedule mixing both tools: 4bb08949 (plan) → 1dc914ec
+    # (Claude Code SDD, Tasks 1-6) → the Antigravity session (Task 7-8, done
+    # in the gap between the two Claude Code sessions) → d58e17e9 (this
+    # diagnostic/fix session). Kept as an explicit merge rather than a sort
+    # key so the true dispatch order stays obvious from reading this list.
+    cc_sessions = list(SESSIONS)
+    timeline = [("cc",) + cc_sessions[0], ("cc",) + cc_sessions[1]]
+    timeline += [("ag",) + s for s in ANTIGRAVITY_SESSIONS]
+    timeline += [("cc",) + s for s in cc_sessions[2:]]
+
+    for kind, ident, label in timeline:
+        if kind == "ag":
+            raw = extract_antigravity(ident)
+            dispatches = []
+            pre = None
+        else:
+            recs = load(ident)
+            raw, dispatches = extract_raw(recs)
+            pre = ident
         session_open = True
         for r in raw:
             n += 1
@@ -228,11 +345,14 @@ def build():
                     "body": r["body"],
                     "model": r["model"],
                     "session": label if session_open else None,
-                    "file": pre if session_open else None,
+                    "file": (pre or ident) if session_open else None,
                     "sub": None,
                 }
             )
             session_open = False
+
+        if kind == "ag":
+            continue
 
         # Subagent-driven-development dispatches most of the actual HW06
         # generation work to background subagents (Agent tool), each with its
@@ -346,11 +466,23 @@ Hai ghi chú về giới hạn của chính transcript gốc, nêu ra để ngư
 - Các dòng `[Request interrupted by user]` là lúc sinh viên bấm dừng giữa chừng;
   giữ lại vì đó là một can thiệp thật vào quá trình làm bài.
 
-**Khoảng trống đã biết:** Task 7 (CI/CD) và Task 8 (Agent Skill sinh test)
-có commit trên nhánh (`d10902e9`…`b6833ded`, `40f599dc`, `d04085da`, khoảng
-20:23–20:59 20/08/2026) nhưng không tìm thấy transcript Claude Code nào bao
-phủ khoảng thời gian đó trong `~/.claude/projects/` của máy này — không phải
-lựa chọn lọc bớt của script. Nêu thẳng ở đây thay vì bịa lại nội dung.
+**Task 7 và Task 8 làm ở Antigravity IDE, không phải Claude Code.** Commit
+`d10902e9`…`b6833ded`, `40f599dc`, `d04085da` (20:23–20:59 20/08/2026) đúng
+vào khoảng trống giữa hai phiên Claude Code (`1dc914ec` kết thúc 19:46,
+`d58e17e9` bắt đầu 21:03) — không có transcript Claude Code nào phủ khoảng
+đó. Xác nhận: Task 7/8 được thực hiện trong Antigravity IDE (Google), công
+cụ này lưu transcript riêng dạng JSONL cho từng hội thoại tại
+`~/.gemini/antigravity-ide/brain/<conversation-id>/.system_generated/logs/`.
+Phần log của phiên đó được trích cùng cơ chế **tự động, không gõ lại** như
+trên, chỉ khác cấu trúc nguồn (bước log kiểu Antigravity thay vì message
+kiểu Claude Code) — xem hàm `extract_antigravity()` trong script này.
+
+**Một điểm phát hiện được khi trích log này, ghi lại ở đây cho minh bạch:**
+`diagrams/test-generator.mmd` (sơ đồ Mermaid) do chính Antigravity ghi bằng
+`write_to_file` ở bước dispatch Task 8 — tức là AI đã sinh, không phải sinh
+viên tự vẽ. Theo §11 (anti-cheat), file `diagrams/test-generator.png` nộp
+phải là ảnh do sinh viên tự vẽ tay (Excalidraw/draw.io/giấy), **không được**
+render lại từ file `.mmd` này.
 
 """
 
@@ -363,7 +495,8 @@ def render(entries):
         if e.get("sub"):
             out.append(f"\n**↳ Tiểu-phiên `{e['sub'].split(' — ')[0]}` — {e['sub'].split(' — ', 1)[1]}**\n")
         model_label = MODEL_LABEL.get(e.get("model"), e.get("model") or "Opus 5")
-        out.append(f"\n## [{e['n']}] Claude ({model_label}, Claude Code) — {e['when']}\n")
+        tool = "Antigravity IDE" if e.get("model") == "antigravity" else "Claude Code"
+        out.append(f"\n## [{e['n']}] Claude ({model_label}, {tool}) — {e['when']}\n")
         out.append("**Prompt:**\n")
         out.append("```text\n" + e["prompt"] + "\n```\n")
         out.append("**Output:**\n")
