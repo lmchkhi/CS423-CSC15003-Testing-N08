@@ -1,0 +1,47 @@
+newman
+
+EShop HW06 – API Testing (23127300)
+
+❏ 0 - Auth Bootstrap
+↳ Register HW06 Runner
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', '{{baseUrl}}
+  │ /api/register'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 19ms]
+
+↳ Login User
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', '{{baseUrl}}
+  │ /api/login'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 3ms]
+  ✓  user login 200
+
+↳ Login Admin
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', '{{baseUrl}}
+  │ /api/login'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 2ms]
+  ✓  admin login 200
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │               3 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │               2 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               3 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │               2 │               0 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 68ms                                    │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 786B (approx)                          │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 8ms [min: 2ms, max: 19ms, s.d.: 7ms] │
+└─────────────────────────────────────────────────────────────┘
