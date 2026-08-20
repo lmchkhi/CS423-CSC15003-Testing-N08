@@ -515,3 +515,46 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+## Entry #9
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 01:35 — Asia/Ho_Chi_Minh`
+
+User Prompt:
+
+    Hoàn thiện Phase E cho FR-11 (Pool B). Thực hiện tất cả các việc sau:
+
+    1. Cập nhật CI/CD report `reports/api-testing/fr-11-cicd-report.md`:
+       - Điền link, commit hash, screenshot path cho 2 runs nếu còn PENDING.
+       - Kiểm tra nội dung đầy đủ theo đề bài: pipeline configuration + 2 runs.
+
+    2. Cập nhật `README.md` (file gốc ở root repo) thêm section FR-11 (Pool B) summary:
+       - API đã chọn: FR-11, GET /api/orders/my-orders, GET /api/orders/:id
+       - Test case: 70 AI-sinh, 10 human bổ sung, tổng 80
+       - Audit: 33 VALID, 2 INVALID, 35 INCOMPLETE
+       - Executed: 42 ca, 101 assertions, 92 passed, 9 failed
+       - Bug: 1 (IDOR + missing auth trên GET /api/orders/:id)
+       - Postman features đã dùng: collections, variables, environments, pre-request scripts, test scripts, Collection Runner with data file, Newman CLI with htmlextra reporter
+       - Ghi theo format bảng assessment template trong đề bài nếu phù hợp.
+
+    3. Cập nhật trạng thái cuối:
+       PHASE E: COMPLETE
+       Liệt kê deliverables đã hoàn thành và deliverables còn thiếu (sơ đồ tự vẽ, video demo nếu có).
+
+    Không bịa commit hash, link, hay screenshot. Ghi PENDING cho phần chưa có.
+
+AI Output:
+
+    Đã kiểm tra trực quan hai ảnh GitHub Actions thật và xác nhận chúng khớp run all-pass 32402724185 và run failure 32403028362. CI/CD report được điền đường dẫn ảnh, SHA-256 ảnh, link run, artifact URL, commit SHA và trạng thái thực thi; pipeline configuration cùng hai run đều hiện diện.
+
+    README root được bổ sung summary FR-11 Pool B theo dạng assessment table: 70 AI-generated, 10 human-added, tổng 80; audit 33 VALID, 2 INVALID, 35 INCOMPLETE; thực thi 42 ca với 101 assertions, 92 passed và 9 failed; một bug IDOR + missing authentication. README chỉ liệt kê các Postman/Newman features thực sự dùng.
+
+    PHASE E được đánh dấu COMPLETE. Các mục chưa có được giữ rõ: authenticated CI assertion detail review PENDING, GitHub Issue NOT CREATED, sơ đồ tự vẽ PENDING và video FR-11 NOT PROVIDED.
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING

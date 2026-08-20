@@ -58,7 +58,8 @@ newman run tests/api-testing/collections/23127464_FR11_Order_History.postman_col
 - Artifact name pattern: `fr-11-newman-html-<run_id>-<run_attempt>`.
 - Expected contents: Newman HTML, Newman JSON, raw console, fixture output, SUT log, CI metadata and Newman exit code.
 - Retention: 14 days.
-- Real artifact URL: `PENDING — workflow has not been run on GitHub Actions`.
+- All-pass artifact URL: `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419095230/zip`.
+- Full-collection artifact URL: `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419199893/zip`.
 
 ## Required CI run evidence
 
@@ -71,7 +72,8 @@ newman run tests/api-testing/collections/23127464_FR11_Order_History.postman_col
 | GitHub Actions run URL | `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185` |
 | Result | `SUCCESS` |
 | Newman HTML artifact URL | `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419095230/zip` |
-| Screenshot | `PENDING — human capture required after the real run` |
+| Screenshot | `tests/api-testing/evidence/fr-11/ci-cd-run1-all-pass.png` |
+| Screenshot SHA-256 | `983384EE4637844F862E38CBE9BBD7E5010E1BF8C81EC40AA4283C7934409693` |
 | Timestamp | `2026-08-21 01:21:19–01:21:55 (Asia/Ho_Chi_Minh)` |
 
 This first CI revision intentionally selects the `GET /api/orders/my-orders` folder (25 executable cases) to produce the required real all-pass sample. It does not represent a claim that the full FR-11 collection passes.
@@ -86,7 +88,8 @@ This first CI revision intentionally selects the `GET /api/orders/my-orders` fol
 | Result | `FAILURE — Enforce Newman result` |
 | Failed assertion | `PENDING — verify exact assertion list from the authenticated CI artifact; canonical local run identifies DET-011 and DET-026–DET-033` |
 | Newman HTML artifact URL | `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419199893/zip` |
-| Screenshot | `PENDING — human capture required after the real run` |
+| Screenshot | `tests/api-testing/evidence/fr-11/ci-cd-run2-with-failure.png` |
+| Screenshot SHA-256 | `B118D9A9FEFFEC9279257ACC9DA9CA05300C8C4E88C0E047DD5876BEB24406D5` |
 | Timestamp | `2026-08-21 01:24:38–01:25:00 (Asia/Ho_Chi_Minh)` |
 
 The controlled-failure evidence must come from a real commit/run and must not overwrite the all-pass evidence.
@@ -106,18 +109,38 @@ The backend dependency manifest and SUT source were ignored by the repository's 
 - Workflow commit SHA: `fa469cff4cdf4de5ea71cc2883d182c730684132`.
 - Repository URL: `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08`.
 - Workflow run links: all-pass and full-collection runs recorded above.
-- Screenshots: `PENDING`.
+- Screenshots: `PROVIDED` for both required runs.
 
 ## Status
 
 CI/CD CONFIGURATION: COMPLETE
 
-GITHUB ACTIONS EXECUTION: NOT EXECUTED
+GITHUB ACTIONS EXECUTION: COMPLETE — 1 SUCCESS, 1 FAILURE
 
-ALL-PASS RUN EVIDENCE: COMPLETE — SCREENSHOT PENDING HUMAN CAPTURE
+ALL-PASS RUN EVIDENCE: COMPLETE
 
-CONTROLLED-FAILURE RUN EVIDENCE: COMPLETE — SCREENSHOT AND AUTHENTICATED ASSERTION REVIEW PENDING
+CONTROLLED-FAILURE RUN EVIDENCE: COMPLETE — AUTHENTICATED ASSERTION DETAIL REVIEW PENDING
 
 ALL-PASS COMMIT SHA: fa490400e8145ecc72685328e15542d9ae79e051
 
 FULL-COLLECTION COMMIT SHA: fa469cff4cdf4de5ea71cc2883d182c730684132
+
+PHASE E: COMPLETE
+
+## Phase E deliverables
+
+### Completed
+
+- GitHub Actions workflow for FR-11 with Node.js 22, SUT startup/readiness, deterministic fixture, Newman and htmlextra artifact upload.
+- Real all-pass run with commit, link, artifact and screenshot.
+- Real full-collection failure run with commit, link, artifact and screenshot.
+- Local Newman console/JSON/HTML evidence and Postman header screenshot.
+- Local security bug report for missing authentication and ownership/IDOR on `GET /api/orders/:id`.
+- FR-11 Phase A contract, Phase B generation log, Phase C human-review workbook and Phase D execution analysis.
+
+### Missing or pending
+
+- Exact assertion list from the authenticated CI artifact: `PENDING`; canonical local evidence records `DET-011` and `DET-026`–`DET-033`.
+- Published GitHub Issue and issue screenshot: `NOT CREATED`.
+- Student-designed/self-drawn AI test-generation diagram: `PENDING`.
+- FR-11/API demo video: `NOT PROVIDED` (optional when applicable).
