@@ -134,6 +134,10 @@ Skill chứa:
 
 ---
 
-## 5. Demo (tùy chọn)
+## 5. Demo
 
-*(Video demo tùy chọn — nếu có, link YouTube đặt ở đây)*
+Kịch bản quay chi tiết (phân cảnh + lời thoại + checklist §11) ở
+[`reports/demo-video-script.md`](demo-video-script.md) — demo skill sinh case cho
+FR-14 `POST /api/categories` rồi chạy Newman.
+
+*(Link YouTube đặt ở đây sau khi quay.)*
