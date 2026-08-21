@@ -1,47 +1,112 @@
-newman
+EShop HW06
 
-EShop HW06 – API Testing (23127300)
-
-❏ 0 - Auth Bootstrap
-↳ Register HW06 Runner
+❏ FR-08 State & Security
+↳ Setup: Register fresh user
   ┌
-  │ '[HW06] X-Student-Id =', '23127300', '→', '{{baseUrl}}
-  │ /api/register'
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/register'
   └
-  POST http://localhost:3000/api/register [200 OK, 316B, 19ms]
+  POST http://127.0.0.1:3000/api/register [200 OK, 316B, 15ms]
+  ✓  Fresh user registered
 
-↳ Login User
+↳ Setup: Login fresh user
   ┌
-  │ '[HW06] X-Student-Id =', '23127300', '→', '{{baseUrl}}
-  │ /api/login'
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/login'
   └
-  POST http://localhost:3000/api/login [200 OK, 635B, 3ms]
-  ✓  user login 200
+  POST http://127.0.0.1:3000/api/login [200 OK, 644B, 2ms]
+  ✓  Fresh user login: 200
 
-↳ Login Admin
+↳ Setup: Login as admin
   ┌
-  │ '[HW06] X-Student-Id =', '23127300', '→', '{{baseUrl}}
-  │ /api/login'
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/login'
   └
-  POST http://localhost:3000/api/login [200 OK, 640B, 2ms]
-  ✓  admin login 200
+  POST http://127.0.0.1:3000/api/login [200 OK, 640B, 1ms]
+  ✓  Admin login: 200
+
+↳ Seed: valid checkout (sets lastOrderId)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/checkout'
+  └
+  POST http://127.0.0.1:3000/api/checkout [200 OK, 312B, 4ms]
+  ✓  Seed checkout 200 + orderId
+
+↳ GET /api/orders/:id (IDOR test - no auth)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/orders/{{lastOrderId}}'
+  └
+  GET http://127.0.0.1:3000/api/orders/1 [200 OK, 400B, 1ms]
+  ✓  [BUG-FR08-001] IDOR: GET /orders/:id without token returns 200 (should be 401)
+
+↳ PUT /admin/orders/:id/status (pending→confirmed)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/admin/orders/{{lastOrderId}}/status'
+  └
+  PUT http://127.0.0.1:3000/api/admin/orders/1/status [200 OK, 301B, 2ms]
+  ✓  Legal transition pending→confirmed: 200
+
+↳ PUT /admin/orders/:id/status (confirmed→shipping)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/admin/orders/{{lastOrderId}}/status'
+  └
+  PUT http://127.0.0.1:3000/api/admin/orders/1/status [200 OK, 301B, 2ms]
+  ✓  Legal transition confirmed→shipping: 200
+
+↳ PUT /admin/orders/:id/status (shipping→delivered)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/admin/orders/{{lastOrderId}}/status'
+  └
+  PUT http://127.0.0.1:3000/api/admin/orders/1/status [200 OK, 301B, 2ms]
+  ✓  Legal transition shipping→delivered: 200
+
+↳ POST /api/checkout (for canceled state test)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/checkout'
+  └
+  POST http://127.0.0.1:3000/api/checkout [200 OK, 312B, 2ms]
+  ✓  Create order for canceled→delivered test: 200
+
+↳ PUT /admin/orders/:id/status (pending→canceled)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/admin/orders/{{canceledOrderId}}/status
+  │ '
+  └
+  PUT http://127.0.0.1:3000/api/admin/orders/2/status [200 OK, 301B, 2ms]
+  ✓  Legal transition pending→canceled: 200
+
+↳ PUT /admin/orders/:id/status (canceled→delivered BUG)
+  ┌
+  │ '[HW06] X-Student-Id =', '23127300', '→', 'http://127.
+  │ 0.0.1:3000/api/admin/orders/{{canceledOrderId}}/status
+  │ '
+  └
+  PUT http://127.0.0.1:3000/api/admin/orders/2/status [200 OK, 301B, 3ms]
+  ✓  [BUG-FR08-003] Illegal transition canceled→delivered returns 200 (should be 400)
 
 ┌─────────────────────────┬─────────────────┬─────────────────┐
 │                         │        executed │          failed │
 ├─────────────────────────┼─────────────────┼─────────────────┤
 │              iterations │               1 │               0 │
 ├─────────────────────────┼─────────────────┼─────────────────┤
-│                requests │               3 │               0 │
+│                requests │              11 │               0 │
 ├─────────────────────────┼─────────────────┼─────────────────┤
-│            test-scripts │               2 │               0 │
+│            test-scripts │              11 │               0 │
 ├─────────────────────────┼─────────────────┼─────────────────┤
-│      prerequest-scripts │               3 │               0 │
+│      prerequest-scripts │              22 │               0 │
 ├─────────────────────────┼─────────────────┼─────────────────┤
-│              assertions │               2 │               0 │
+│              assertions │              11 │               0 │
 ├─────────────────────────┴─────────────────┴─────────────────┤
-│ total run duration: 68ms                                    │
+│ total run duration: 173ms                                   │
 ├─────────────────────────────────────────────────────────────┤
-│ total data received: 786B (approx)                          │
+│ total data received: 1.19kB (approx)                        │
 ├─────────────────────────────────────────────────────────────┤
-│ average response time: 8ms [min: 2ms, max: 19ms, s.d.: 7ms] │
+│ average response time: 3ms [min: 1ms, max: 15ms, s.d.: 3ms] │
 └─────────────────────────────────────────────────────────────┘

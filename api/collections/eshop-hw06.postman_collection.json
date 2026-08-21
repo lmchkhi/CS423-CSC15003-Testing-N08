@@ -1450,5 +1450,18 @@
 				}
 			]
 		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Collection-level: attach the mandatory anti-cheat header to EVERY request (§11) and log it.",
+					"pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+					"console.log('[HW06] X-Student-Id =', '23127300', '→', pm.request.url.toString());"
+				]
+			}
+		}
 	]
 }

@@ -39,11 +39,10 @@ Mọi request trong collection đều mang header `X-Student-Id: 23127300` thôn
 ```javascript
 // Collection-level pre-request script
 pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });
-console.log('[HW06] X-Student-Id =', pm.environment.get('studentId'),
-            '→', pm.request.url.toString());
+console.log('[HW06] X-Student-Id =', '23127300', '→', pm.request.url.toString());
 ```
 
-Bằng chứng: file `reports/hw06-auth-bootstrap-evidence.log` ghi lại console output của Newman khi chạy auth bootstrap folder, xác nhận header xuất hiện trong mọi request tại `localhost:3000`.
+Bằng chứng: file `reports/hw06-auth-bootstrap-evidence.log` ghi lại console output của Newman khi chạy folder `FR-08 State & Security`, xác nhận dòng `[HW06] X-Student-Id = 23127300` xuất hiện trong **mọi** request tại `localhost:3000` (11/11 assertion pass). Chạy lại bất kỳ folder nào cũng in dòng này vì script nằm ở cấp collection.
 
 ---
 
