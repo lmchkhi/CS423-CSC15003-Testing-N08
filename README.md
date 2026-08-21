@@ -8,11 +8,12 @@
 
 | Hạng mục | Nội dung |
 |---|---|
-| Pool | Pool B và Pool C |
-| Feature | FR-11 — Order History View; FR-16 — Product Import from CSV |
-| Endpoint 1 | `GET /api/orders/my-orders` |
-| Endpoint 2 | `GET /api/orders/:id` |
-| Endpoint 3 | `POST /api/admin/import-products` |
+| Pool | Pool A, Pool B và Pool C |
+| Feature | FR-05 — Product Listing and Search; FR-11 — Order History View; FR-16 — Product Import from CSV |
+| Endpoint 1 | `GET /api/products` |
+| Endpoint 2 | `GET /api/orders/my-orders` |
+| Endpoint 3 | `GET /api/orders/:id` |
+| Endpoint 4 | `POST /api/admin/import-products` |
 | Student header | `X-Student-Id: 23127464` |
 
 ## 2. Assessment summary
@@ -39,7 +40,20 @@
 - Các failure được con người xác nhận là `LOI_BAO_MAT_SUT`.
 - Lỗi bảo mật: endpoint detail thiếu authentication và ownership check, dẫn đến IDOR và làm lộ order data.
 
-## 4. FR-16 — Product Import (Pool C)
+## 4. FR-05 — Product Listing and Search (Pool A)
+
+| Hạng mục | Kết quả |
+|---|---|
+| API | FR-05 — `GET /api/products` |
+| Test cases | 45 — 40 AI-generated + 5 human-origin |
+| Human audit | 16 `VALID`; 2 `INVALID`; 22 `INCOMPLETE` |
+| Executed | 20 ca; 55 assertions; 50 passed; 5 failed |
+| Bugs | 1 — SQL injection qua `search` với 4 biểu hiện: tautology, UNION, information exposure và null byte |
+| Phase status | `PHASE E: COMPLETE` |
+
+Local bug report: `bug-report/fr-05-sql-injection-search.md`. Canonical evidence nằm tại `tests/api-testing/evidence/fr-05/20260821-213052/`. GitHub Issue và CI/CD riêng cho FR-05 chưa được tạo.
+
+## 5. FR-16 — Product Import (Pool C)
 
 | Hạng mục | Kết quả |
 |---|---|
@@ -60,7 +74,7 @@ Ba local bug report đã tạo:
 
 Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915/`. GitHub Issue và CI/CD riêng cho FR-16 chưa được tạo.
 
-## 5. Postman/Newman features đã sử dụng
+## 6. Postman/Newman features đã sử dụng
 
 - Postman collections và folders.
 - Collection variables, environment variables và Postman environment file.
@@ -71,7 +85,7 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 - Newman CLI với JSON và `htmlextra` reporters.
 - GitHub Actions với Newman HTML report được upload làm artifact.
 
-## 6. Execution và CI/CD evidence
+## 7. Execution và CI/CD evidence
 
 ### Local canonical run
 
@@ -90,7 +104,7 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 | All-pass `my-orders` folder | `fa490400e8145ecc72685328e15542d9ae79e051` | `SUCCESS` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185); `tests/api-testing/evidence/fr-11/ci-cd-run1-all-pass.png` |
 | Full FR-11 collection | `fa469cff4cdf4de5ea71cc2883d182c730684132` | `FAILURE` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32403028362); `tests/api-testing/evidence/fr-11/ci-cd-run2-with-failure.png` |
 
-## 7. Deliverables
+## 8. Deliverables
 
 ### Hoàn thành
 
@@ -103,6 +117,7 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 | Phase D execution analysis | `reports/api-testing/fr-11-phase-d-execution-analysis.md` |
 | Evidence manifest | `tests/api-testing/evidence/fr-11/20260821-001900/evidence-manifest.md` |
 | Security bug report | `bug-report/fr-11-idor-missing-auth.md` |
+| FR-05 SQL injection bug report | `bug-report/fr-05-sql-injection-search.md` |
 | FR-16 security bug report | `bug-report/fr-16-missing-admin-role-check.md` |
 | FR-16 price-validation bug report | `bug-report/fr-16-missing-price-validation.md` |
 | FR-16 atomicity bug report | `bug-report/fr-16-missing-atomicity-rollback.md` |
@@ -119,9 +134,11 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 | Sơ đồ AI test-generation do sinh viên tự thiết kế/tự vẽ | `PENDING` |
 | Video demo FR-11 | `NOT PROVIDED` — tùy chọn khi áp dụng |
 
-## 8. Trạng thái
+## 9. Trạng thái
 
 FR-11 PHASE E: COMPLETE
+
+FR-05 PHASE E: COMPLETE
 
 FR-16 PHASE E: COMPLETE
 
@@ -130,5 +147,9 @@ FR-11 CI/CD CONFIGURATION: COMPLETE
 FR-11 GITHUB ACTIONS EXECUTION: COMPLETE — 1 SUCCESS, 1 FAILURE
 
 FR-16 GITHUB ISSUE: NOT CREATED
+
+FR-05 GITHUB ISSUE: NOT CREATED
+
+FR-05 CI/CD: NOT CREATED
 
 FR-16 CI/CD: NOT CREATED

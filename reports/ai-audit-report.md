@@ -1976,3 +1976,59 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+---
+
+## Entry #22
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 22:00 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE E — tạo local security bug report và hoàn tất báo cáo FR-05 / GET /api/products`
+
+User Prompt:
+
+    Thực hiện Phase E cho FR-05. Đọc trước:
+
+    - reports/api-testing/fr-05-phase-d-execution-analysis.md
+    - tests/api-testing/test-cases/fr-05-phase-c-human-review-workbook.md
+    - reports/api-testing/fr-05-phase-a-contract.md
+    - src/eshop-sut/backend/server.js dòng 141-157
+
+    Tạo bug report bug-report/fr-05-sql-injection-search.md cho SQL injection qua search với bốn biểu hiện đã xác nhận; cập nhật README.md với thống kê FR-05; cập nhật AI Audit cho Phase A, B, C, D, E. Không tạo GitHub Issue.
+
+AI Output:
+
+    ### Phase traceability
+
+    - Phase A: Entry #18 — contract extraction; COMPLETE và đã được con người phê duyệt.
+    - Phase B: Entry #19 — 40 AI-generated cases; COMPLETE.
+    - Phase C: Entry #20 — AI pre-audit/workbook; workbook cuối xác nhận 16 VALID, 2 INVALID, 22 INCOMPLETE và 5 human-added cases; COMPLETE.
+    - Phase D: Entry #21 — 20 ca được thực thi, 55 assertions, 50 passed, 5 failed; con người xác nhận 4 LOI_BAO_MAT_SUT; COMPLETE.
+    - Phase E: Entry #22 — một local bug report Critical / Security được tạo cho SQL injection với bốn biểu hiện; COMPLETE.
+
+    ### Phase E result
+
+    Đã tạo bug-report/fr-05-sql-injection-search.md theo format bug FR-11. Báo cáo gom bốn biểu hiện FR05-SEC-001, FR05-SEC-002, FR05-SEC-004 và FR05-H05 vào cùng root cause tại server.js:143-149; có curl với payload URL-encoded, expected/actual, evidence, source và remediation bằng parameterized query.
+
+    README.md đã có section FR-05 Pool A: 45 ca thiết kế, audit 16 VALID / 2 INVALID / 22 INCOMPLETE, thực thi 20 ca với 50/55 assertions đạt và một bug SQL injection có bốn biểu hiện.
+
+    ### Artifact Paths
+
+    - bug-report/fr-05-sql-injection-search.md
+    - README.md
+    - reports/api-testing/fr-05-phase-d-execution-analysis.md
+    - reports/ai-audit-report.md — Entry #22
+
+    ### Status
+
+    PHASE E: COMPLETE — LOCAL BUG REPORT CREATED
+    GITHUB ISSUE: NOT CREATED
+    CI/CD: NOT CREATED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
