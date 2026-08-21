@@ -28,7 +28,7 @@ Mỗi job thực hiện:
 3. Cài đúng phiên bản Newman và trình tạo báo cáo HTML.
 4. Tạo lại ba collection gốc và áp dụng các hiệu chỉnh đã được con người duyệt.
 5. Tạo collection CI theo chế độ được chọn và kiểm tra số lượng test case duy nhất.
-6. Kiểm tra tĩnh việc gắn và assertion của `X-Student-Id`.
+6. Đọc cấu trúc JSON để kiểm tra việc gắn `X-Student-Id`, assertion trên mọi request và giá trị `studentId` trong environment.
 7. Khởi động SUT độc lập và chờ dữ liệu nền 5 sản phẩm sẵn sàng.
 8. Chuẩn bị fixture xác định tương ứng với FR.
 9. Chạy Newman và giữ nguyên mã thoát thực tế.
@@ -102,7 +102,7 @@ git status --short
 ```powershell
 git add -A -- .github/workflows
 git add README.md reports/api-testing/api-cicd-report.md reports/api-testing/fr-11-cicd-report.md
-git add tests/api-testing/ci-mode.json tests/api-testing/scripts/build-ci-collection.js
+git add tests/api-testing/ci-mode.json tests/api-testing/scripts/build-ci-collection.js tests/api-testing/scripts/verify-ci-collection.js
 git add tests/api-testing/test-cases/fr-05-phase-c-human-review-workbook.md
 git add tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md
 git add tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md

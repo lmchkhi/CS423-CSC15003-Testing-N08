@@ -110,12 +110,7 @@ jobs:
         run: node tests/api-testing/scripts/build-ci-collection.js --fr "${{ matrix.fr }}" --mode "$TEST_MODE" --output "${{ matrix.collection }}"
 
       - name: Kiểm tra collection và student header
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f "${{ matrix.collection }}"
-          grep -Fq 'pm.request.headers.upsert({ key: "X-Student-Id", value: studentId });' "${{ matrix.collection }}"
-          grep -Fq 'pm.expect(pm.request.headers.get("X-Student-Id")).to.eql("23127464");' "${{ matrix.collection }}"
+        run: node tests/api-testing/scripts/verify-ci-collection.js --collection "${{ matrix.collection }}" --environment "${{ matrix.environment }}" --student-id "23127464"
 
       - name: Chuẩn bị thư mục evidence CI
         run: mkdir -p "$CI_EVIDENCE_DIR"
