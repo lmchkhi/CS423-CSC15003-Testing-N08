@@ -1,9 +1,9 @@
 # HW06 – Báo cáo CI/CD Pipeline
 
-**Sinh viên:** Hà Bảo Ngọc — 23127300, nhóm N08  
-**Nhánh:** `HW06/23127300`  
-**Repo:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08  
-**Ngày:** 2026-08-20
+**Sinh viên:** Hà Bảo Ngọc — 23127300, nhóm N08
+**Nhánh:** `HW06/23127300`
+**Repo:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08
+**Ngày:** 2026-08-21
 
 ---
 
@@ -11,68 +11,80 @@
 
 File cấu hình: `.github/workflows/hw06-newman.yml`
 
-Các bước (jobs: `api-tests`, runner: `ubuntu-latest`):
+Job `api-tests` (runner `ubuntu-latest`), trigger: `push` lên `HW06/23127300` và `workflow_dispatch`.
 
 | Bước | Mô tả |
 |------|-------|
 | `actions/checkout@v4` | Checkout nhánh `HW06/23127300` |
-| `actions/setup-node@v4` (Node 20) | Cài đặt Node.js 20 |
-| Clone & start SUT | `git clone https://github.com/ttbhanh/eshop-sut.git`, `npm install`, `node server.js &`, chờ `localhost:3000` sẵn sàng (tối đa 30s) |
+| `actions/setup-node@v4` (Node 20) | Cài Node.js |
+| Clone & start SUT | `git clone https://github.com/ttbhanh/eshop-sut.git`, `npm install`, `node server.js &`, chờ `localhost:3000` sẵn sàng (≤30s) |
 | Install Newman | `npm install -g newman newman-reporter-htmlextra` |
-| Run full collection | `newman run eshop-hw06.postman_collection.json -e local.postman_environment.json -r cli,htmlextra` |
-| Upload artifact | Upload `newman-ci-report.html` (if: always) |
+| Run API suite (per folder) | Chạy lần lượt 5 folder; folder data-driven kèm `-d`, folder state/lifecycle chạy một lần. `set -e` ⇒ bất kỳ folder nào fail sẽ fail cả job |
+| Upload artifacts | Upload thư mục `newman-reports/` (5 file htmlextra) — `if: always()` |
 
-Trigger: `push` lên `HW06/23127300` và `workflow_dispatch`.
+Các lệnh Newman trong bước chạy suite:
+
+```bash
+run "FR-01 Register"            fr01-register     api/data/register-cases.json
+run "FR-08 Checkout"            fr08-checkout     api/data/checkout-cases.json
+run "FR-08 State & Security"    fr08-state
+run "FR-14 Category CRUD"       fr14-category     api/data/fr14-post-categories.csv
+run "FR-14 Lifecycle & Access"  fr14-lifecycle
+```
+
+> **Vì sao tách folder:** một folder chạy với `-d` sẽ lặp **toàn bộ** request trong folder theo từng dòng dữ liệu. Đặt request lifecycle/state chung folder data-driven khiến chúng chạy lặp và đè state → suite đỏ giả. Tách data-driven (chạy với `-d`) khỏi state/lifecycle (chạy một lần, tự đăng ký user riêng) làm suite xanh ổn định: **213 request / 233 assertion / 0 fail**.
 
 ---
 
 ## 2. Lần chạy PASS (Passing Run)
 
-**Commit SHA:** `d10902e9`  
-**Commit message:** `ci(hw06): add Newman GitHub Actions workflow (passing run)`  
-**Run URL:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/workflows/hw06-newman.yml  
-
-**Kết quả:** Pipeline hoàn tất, toàn bộ test cases qua. Newman chạy collection không có assertion thất bại nào ngoài các `[known-bug]` đã đánh dấu (trả về `true`).
+**Commit SHA:** `f51ffff`
+**Commit message:** `fix(hw06): green Newman suite, CI per-folder, FR-14 issues, corrected counts`
+**Run:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32495791347
+**Kết luận:** ✅ **success** — cả 5 folder qua, 233/233 assertion pass. Assertion known-bug kiểm hành vi quan sát (gắn nhãn `[BUG-*]`) nên đều pass; lỗi được ghi riêng ở bug reports + GitHub Issues.
 
 ---
 
 ## 3. Lần chạy FAIL (Failing Run)
 
-**Commit SHA:** `f6c3bc8c`  
-**Commit message:** `ci(hw06): demo failing assertion to show pipeline catches failures`  
-**Run URL:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/workflows/hw06-newman.yml  
+**Commit SHA:** `e647064`
+**Commit message:** `ci(hw06): demo failing assertion to show pipeline catches failures`
+**Run:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32495915226
+**Kết luận:** ❌ **failure** (có chủ đích).
 
-**Thay đổi:** Thêm folder `DEMO-FAILING (ci-failure-demo)` vào collection, chứa một request `GET /api/products` với assertion sai cố ý:
+**Thay đổi:** thêm folder `DEMO Failing (intentional)` gồm một request `GET /api/products` với assertion sai cố ý:
 
 ```javascript
-pm.test('demo-failing: /api/products should return 500',
-  () => pm.response.to.have.status(500));
+pm.test('DEMO-FAIL: /api/products returns 500',
+  () => pm.expect(pm.response.code).to.eql(500));
 ```
 
-`GET /api/products` trả về `200 OK`, nên assertion thất bại → Newman thoát với exit code khác 0 → GitHub Actions đánh dấu step "Run full collection" là **Failed** → toàn bộ job **Failed**.
+`GET /api/products` trả `200 OK` ⇒ assertion sai ⇒ Newman exit code ≠ 0 ⇒ `set -e` dừng job ⇒ GitHub Actions đánh dấu job **Failed**. Chứng minh pipeline thực sự bắt được lỗi.
 
 ---
 
 ## 4. Khôi phục PASS
 
-**Commit SHA:** `b6833ded`  
-**Commit message:** `ci(hw06): revert demo failing assertion, pipeline green again`  
-
-Xóa folder `DEMO-FAILING` khỏi collection → pipeline trở về trạng thái **Passed**.
+**Commit SHA:** `48f25bd`
+**Commit message:** `Revert "ci(hw06): demo failing assertion to show pipeline catches failures"`
+**Run:** https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32495999390
+**Kết luận:** ✅ **success** — gỡ folder demo ⇒ pipeline xanh trở lại.
 
 ---
 
 ## 5. Tóm tắt 3 lần chạy
 
-| Run | Commit | Kết quả | Ghi chú |
-|-----|--------|---------|---------|
-| 1 | `d10902e9` | ✅ Pass | Workflow được tạo, pipeline chạy xanh lần đầu |
-| 2 | `f6c3bc8c` | ❌ Fail | Assertion sai cố ý → pipeline bắt được lỗi |
-| 3 | `b6833ded` | ✅ Pass | Revert → pipeline xanh trở lại |
+| Run | Commit | Kết quả | Run ID |
+|-----|--------|---------|--------|
+| 1 | `f51ffff` | ✅ Pass | [32495791347](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32495791347) |
+| 2 | `e647064` | ❌ Fail (chủ đích) | [32495915226](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32495915226) |
+| 3 | `48f25bd` | ✅ Pass | [32495999390](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32495999390) |
+
+Ảnh chụp: `reports/ci-run-pass.png`, `reports/ci-run-fail.png`.
 
 ---
 
 ## 6. Artifacts
 
-- Newman HTML report được upload tự động tại mỗi lần chạy (tab **Artifacts** trong Actions run)
-- File workflow: `.github/workflows/hw06-newman.yml`
+- Thư mục `newman-reports/` (5 file htmlextra) upload tự động mỗi lần chạy — tab **Artifacts** trong Actions run.
+- File workflow: `.github/workflows/hw06-newman.yml`.
