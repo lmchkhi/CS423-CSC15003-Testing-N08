@@ -1,0 +1,27 @@
+Raw Newman response extract; password values and JWTs are redacted, field presence is preserved.
+Run: 20260820T191531+0700
+Commit: d4d070a22f00b9365864d40a82b6625b79ba30f6
+
+=== TC-LOGIN-001 ===
+HTTP 200 OK
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":2,"name":"Test User","email":"test@eshop.com","password":"<redacted-password>","role":"user","login_attempts":0,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}
+
+=== TC-LOGIN-002 ===
+HTTP 200 OK
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":1,"name":"Admin User","email":"admin@eshop.com","password":"<redacted-password>","role":"admin","login_attempts":0,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}
+
+=== TC-LOGIN-027 ===
+HTTP 200 OK
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":2,"name":"Test User","email":"test@eshop.com","password":"<redacted-password>","role":"user","login_attempts":0,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}
+
+=== TC-LOGIN-037 ===
+HTTP 200 OK
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":2,"name":"Test User","email":"test@eshop.com","password":"<redacted-password>","role":"user","login_attempts":0,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}

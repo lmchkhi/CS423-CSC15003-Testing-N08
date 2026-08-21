@@ -1,0 +1,4178 @@
+{
+  "suite": {
+    "name": "Login API - HW06 - MSSV 23127062",
+    "module": "LOGIN",
+    "endpoint": "POST /api/login",
+    "method": "POST",
+    "path": "/api/login",
+    "baseUrl": "http://localhost:3000",
+    "studentId": "23127062",
+    "stateTransitionApplicable": true
+  },
+  "cases": [
+    {
+      "id": "TC-LOGIN-001",
+      "title": "Đăng nhập user với credentials hợp lệ",
+      "requirementIds": [
+        "FR-02",
+        "SEC-01"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition",
+        "schema-validation",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-002",
+      "title": "Đăng nhập admin với credentials hợp lệ",
+      "requirementIds": [
+        "FR-02",
+        "SEC-01"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition",
+        "schema-validation",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validAdminEmail}}",
+        "password": "{{validAdminPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validAdminEmail}}",
+          "password": "{{validAdminPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-003",
+      "title": "Email hợp lệ với chữ hoa",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không nói email login có phân biệt hoa thường; oracle dùng thông lệ email case-insensitive."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{uppercaseUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{uppercaseUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 4,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-004",
+      "title": "Email hợp lệ có khoảng trắng đầu cuối",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không nói server có trim email; cần human review trước khi coi sai khác là defect."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{spacedUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{spacedUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 4,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-005",
+      "title": "Mật khẩu đúng kèm khoảng trắng cuối",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Dùng email không tồn tại để không làm biến đổi lockout state; server vẫn phải từ chối an toàn."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": "{{validUserPasswordWithTrailingSpace}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": "{{validUserPasswordWithTrailingSpace}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-006",
+      "title": "Email chưa đăng ký",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Thông báo không được tiết lộ email có tồn tại hay không."
+        ]
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-007",
+      "title": "Credentials không hợp lệ không lộ nguyên nhân",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "another@example.invalid",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "another@example.invalid",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký; wrong-password state được kiểm tra riêng ở TC-LOGIN-038 trở đi."
+        ]
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-008",
+      "title": "Thiếu trường email",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-009",
+      "title": "Thiếu trường password",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-010",
+      "title": "Thiếu cả email và password",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {},
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {}
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-011",
+      "title": "Email bằng null",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": null,
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": null,
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-012",
+      "title": "Password bằng null",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": null
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": null
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-013",
+      "title": "Email là chuỗi rỗng",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-014",
+      "title": "Password là chuỗi rỗng",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": ""
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": ""
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-015",
+      "title": "Email chỉ chứa whitespace",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "   ",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "   ",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-016",
+      "title": "Password chỉ chứa whitespace",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": "   "
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": "   "
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-017",
+      "title": "Email có kiểu number",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": 12345,
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": 12345,
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-018",
+      "title": "Password có kiểu number",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": 12345
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": 12345
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-019",
+      "title": "Email có kiểu boolean",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": true,
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": true,
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-020",
+      "title": "Password có kiểu boolean",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": false
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": false
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-021",
+      "title": "Email có kiểu object",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": {
+          "value": "{{validUserEmail}}"
+        },
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": {
+            "value": "{{validUserEmail}}"
+          },
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-022",
+      "title": "Password có kiểu object",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": {
+          "value": "{{invalidPassword}}"
+        }
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": {
+            "value": "{{invalidPassword}}"
+          }
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-023",
+      "title": "Top-level JSON bằng null",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "requestBody": null
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": null
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 400,
+        "failedAssertions": 3,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-024",
+      "title": "Top-level JSON là array",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "requestBody": []
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": []
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-025",
+      "title": "Top-level JSON là string",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Type Confusion",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "requestBody": "login"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": "login"
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 400,
+        "failedAssertions": 3,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-026",
+      "title": "Request không có body",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "Negative Testing",
+      "coverage": [
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "requestBody": "(omitted)"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none"
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-027",
+      "title": "Credentials hợp lệ kèm unknown field role",
+      "requirementIds": [
+        "FR-02",
+        "SEC-01"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition",
+        "security",
+        "schema-validation"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}",
+        "role": "admin"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}",
+          "role": "admin"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Unknown field role không được thay đổi role trả về hoặc cấp quyền ngoài tài khoản thực."
+        ]
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-028",
+      "title": "SQL injection trong email",
+      "requirementIds": [
+        "FR-02",
+        "SEC-05"
+      ],
+      "testType": "Security",
+      "technique": "SQL Injection",
+      "coverage": [
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "' OR 1=1 --",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "' OR 1=1 --",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Không được trả token hoặc thông tin user."
+        ]
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-029",
+      "title": "SQL injection trong password",
+      "requirementIds": [
+        "FR-02",
+        "SEC-05"
+      ],
+      "testType": "Security",
+      "technique": "SQL Injection",
+      "coverage": [
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "nobody@example.invalid",
+        "password": "' OR '1'='1"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "nobody@example.invalid",
+          "password": "' OR '1'='1"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Không được bypass authentication; dùng email không tồn tại để không đổi lockout state."
+        ]
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-030",
+      "title": "NoSQL-style injection object",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Injection",
+      "coverage": [
+        "security",
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": {
+          "$ne": null
+        },
+        "password": {
+          "$ne": null
+        }
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": {
+            "$ne": null
+          },
+          "password": {
+            "$ne": null
+          }
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-031",
+      "title": "XSS payload trong email",
+      "requirementIds": [
+        "FR-02",
+        "SEC-04"
+      ],
+      "testType": "Security",
+      "technique": "Injection",
+      "coverage": [
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "<script>alert(1)</script>",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "<script>alert(1)</script>",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Response không được phản chiếu payload dưới dạng executable content."
+        ]
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-032",
+      "title": "CRLF payload trong email",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Injection",
+      "coverage": [
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "a@example.com\r\nX-Test: injected",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "a@example.com\r\nX-Test: injected",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-033",
+      "title": "Email vượt kích thước hợp lý",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Boundary Value Analysis",
+      "coverage": [
+        "security",
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{oversizedEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{oversizedEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 1,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-034",
+      "title": "Content-Type không phải JSON",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Content-Type Confusion",
+      "coverage": [
+        "security",
+        "domain-partition"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "text/plain"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          400
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 500,
+        "failedAssertions": 4,
+        "classification": "specification gap / incomplete oracle"
+      }
+    },
+    {
+      "id": "TC-LOGIN-035",
+      "title": "Login public bỏ qua Authorization header không hợp lệ",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "security",
+        "schema-validation"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không yêu cầu token cho login; bearer thừa không nên thay đổi authentication bằng credentials."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "invalid",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-036",
+      "title": "Query parameter thừa không thay đổi login",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "Equivalence Partitioning",
+      "coverage": [
+        "domain-partition",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không mô tả query parameter; kỳ vọng endpoint bỏ qua tham số không được hỗ trợ một cách an toàn."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}",
+        "query": {
+          "debug": "true"
+        }
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {
+          "debug": "true"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-037",
+      "title": "Schema thành công không lộ trường nhạy cảm",
+      "requirementIds": [
+        "FR-02",
+        "SEC-01"
+      ],
+      "testType": "Contract",
+      "technique": "Schema Validation",
+      "coverage": [
+        "schema-validation",
+        "security"
+      ],
+      "source": "ai-generated",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-038",
+      "title": "Sai password lần 1 của chuỗi reset",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-039",
+      "title": "Login đúng sau 1 lần sai reset bộ đếm",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Functional",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "schema-validation"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Một lần sai chưa đủ ngưỡng khóa; login đúng phải thành công và reset chuỗi sai liên tiếp."
+        ]
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#69"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 200,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-040",
+      "title": "Sai password lần 1 của chuỗi khóa sớm",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-041",
+      "title": "Sai password lần 2 của chuỗi khóa sớm",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-042",
+      "title": "Login đúng sau đúng 2 lần sai vẫn phải thành công",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "schema-validation",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "Hai testcase TC-LOGIN-040 và TC-LOGIN-041 vừa chạy liên tiếp trên cùng tài khoản."
+      ],
+      "testData": {
+        "email": "{{validUserEmail}}",
+        "password": "{{validUserPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validUserEmail}}",
+          "password": "{{validUserPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          200
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "token",
+            "user"
+          ],
+          "properties": {
+            "token": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+            },
+            "user": {
+              "type": "object",
+              "required": [
+                "id",
+                "email",
+                "role"
+              ]
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "token",
+            "operator": "exists"
+          },
+          {
+            "path": "user",
+            "operator": "type",
+            "value": "object"
+          },
+          {
+            "path": "password",
+            "operator": "absent"
+          },
+          {
+            "path": "user.password",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "FR-02 chỉ khóa từ 3 lần sai liên tiếp; sau 2 lần sai tài khoản chưa được khóa."
+        ]
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#246"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 403,
+        "failedAssertions": 4,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-043",
+      "title": "Admin sai password lần 1",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validAdminEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validAdminEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-044",
+      "title": "Admin sai password lần 2",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validAdminEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validAdminEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": []
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-LOGIN-045",
+      "title": "Admin sai password lần 3 kích hoạt khóa",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validAdminEmail}}",
+        "password": "{{invalidPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validAdminEmail}}",
+          "password": "{{invalidPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          401
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "Sau response này tài khoản phải chuyển sang locked trong 30 giây."
+        ]
+      },
+      "status": "Failed",
+      "relatedBugs": [
+        "#246"
+      ],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 403,
+        "failedAssertions": 1,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-LOGIN-046",
+      "title": "Login đúng ngay khi tài khoản đang khóa",
+      "requirementIds": [
+        "FR-02"
+      ],
+      "testType": "Security",
+      "technique": "State Transition",
+      "coverage": [
+        "state-transition",
+        "security",
+        "schema-validation"
+      ],
+      "source": "extension-candidate",
+      "agentAudit": {
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
+      },
+      "humanReview": {
+        "status": "PENDING",
+        "reason": ""
+      },
+      "preconditions": [
+        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
+      ],
+      "testData": {
+        "email": "{{validAdminEmail}}",
+        "password": "{{validAdminPassword}}"
+      },
+      "steps": [
+        "Gửi POST /api/login với headers và JSON body đã nêu.",
+        "Ghi nhận status, Content-Type và response body."
+      ],
+      "request": {
+        "path": "/api/login",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "none",
+        "body": {
+          "email": "{{validAdminEmail}}",
+          "password": "{{validAdminPassword}}"
+        }
+      },
+      "expected": {
+        "status": [
+          403
+        ],
+        "contentType": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "error"
+          ],
+          "properties": {
+            "error": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "bodyAssertions": [
+          {
+            "path": "error",
+            "operator": "exists"
+          },
+          {
+            "path": "token",
+            "operator": "absent"
+          },
+          {
+            "path": "user",
+            "operator": "absent"
+          }
+        ],
+        "maxResponseTimeMs": 2000,
+        "notes": [
+          "FR-02 yêu cầu trả lỗi phù hợp trong 30 giây khóa; đặc tả không ấn định status 403."
+        ]
+      },
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260820T191531+0700",
+        "actualStatus": 403,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    }
+  ]
+}

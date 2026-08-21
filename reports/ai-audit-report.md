@@ -111,3 +111,89 @@ GitHub CLI hiện có token hết hạn, nên khi thực thi phần tạo issue 
 ### (5) Student Fix
 
 - Render đủ các loại bodyAssertions vào phần Expected result.
+
+## Entry #2
+
+### (1) Prompt + Tool
+
+| Field             | Content                         |
+| ----------------- | ------------------------------- |
+| **Tool**          | GPT-5.6 Sol                     |
+| **Timestamp**     | 20/08/2026 18:46:34             |
+| **Artifact type** | Bộ kiểm thử API Login cho HW06  |
+
+**Full prompt:**
+
+```
+Dùng skill [api-testing](skills/api-testing/) để thực hiện test cho api sau: POST /api/login. 
+MSSV: 23127062.
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `api-testing` theo đúng yêu cầu, trước hết đọc toàn bộ hướng dẫn của skill rồi kiểm tra cấu trúc bài tập và đặc tả endpoint `POST /api/login` trước khi chạy test.
+
+Skill yêu cầu pipeline đầy đủ cho đúng một endpoint: lập mô hình coverage, tạo tối thiểu 40 test case, sinh Postman/Newman artifacts, chạy thật, lưu báo cáo/evidence và chỉ lập bug khi lỗi được tái hiện. Mình đang đọc oracle, quy ước artifact và đặc tả repo; chưa dùng implementation làm oracle.
+
+Endpoint hiện chưa chạy ở `localhost:3000`, còn Newman và HTML reporter đã có sẵn trong repo. Lệnh khởi động backend do repo cung cấp là an toàn cho phạm vi bài; mình sẽ dùng dữ liệu mặc định qua API và sắp thứ tự state-transition để tránh các ca khóa tài khoản làm nhiễu những ca còn lại. Đồng thời mình kiểm tra GitHub để đối chiếu label và tránh tạo issue trùng, đúng quy trình của skill.
+
+Đặc tả cho thấy oracle chính là `FR-02`, `SEC-01`, `SEC-05` và schema thành công của API. GitHub đã có các issue trùng chính xác cho lỗi khóa sớm/thời gian khóa và lộ plaintext password (#246/#69), nên nếu tái hiện mình sẽ liên kết issue hiện có, không tạo issue mới. Mình đang materialize 46 ca (37 AI-generated + 9 extension candidates), trong đó các status code âm chưa được đặc tả sẽ được đánh dấu `INCOMPLETE` thay vì tự nhận là product bug.
+
+Backend chưa có dependencies (`express` không tồn tại), nên chưa thể chạy SUT. Repo có `backend/package-lock.json`; mình sẽ cài đúng phiên bản khóa bằng `npm ci` trong `backend`, không cài global.
+
+Suite đã validate thành công: 46 ca, đủ bốn coverage families và giữ `Human review: PENDING`. Tiếp theo mình chạy Newman thật với environment tạm (permissions 0600); các credentials/token chỉ tồn tại lúc chạy và sẽ được redaction khỏi JSON/HTML/CLI artifacts ngay sau đó.
+
+Lần chạy đầu không chạm được SUT vì sandbox chặn kết nối loopback (`connect EPERM 127.0.0.1:3000`), nên đây là environment failure, không phải kết quả test. Artifacts lần này vẫn được giữ và redaction; mình sẽ chạy lại Newman ngoài sandbox để kết nối đúng backend local.
+
+Chạy thật đã xác nhận hai vấn đề rõ ràng, nhưng cũng lộ ra một lỗi thiết kế suite: nhiều ca input validation dùng email thật đã cộng dồn state và khóa tài khoản trước nhóm state-transition, làm nhiễu các ca sau. Mình đang sửa test data để mọi partition âm không liên quan state dùng email không tồn tại, rồi reset database bằng cách khởi động lại SUT và rerun. Kết quả nhiễu này sẽ không được dùng để kết luận defect.
+
+Rerun sạch state đã cho kết quả có thể triage: header `X-Student-Id: 23127062` được chứng minh ở cả 46 request. Hai defect theo oracle rõ ràng đã tái hiện nhiều lần: response thành công trả `user.password` plaintext (SEC-01), và tài khoản bị khóa sau 2 lần sai (FR-02). Các mismatch 400/401 và email trim/case được giữ là specification gap; ca JSON `null` có lỗi generator nên mình sẽ sửa và rerun ca đó trước khi tổng hợp.
+
+Final run đã hoàn tất: 46/46 request thực thi, 12 testcase pass hoàn toàn và 34 testcase có ít nhất một assertion fail; trong 34 ca fail, 9 ca liên quan hai defect xác nhận, phần còn lại là specification gaps về validation/status/schema lỗi. Mình đang cập nhật từng testcase với actual result, tạo hai bug report local liên kết issue trùng (#69 và #246), đồng thời chuẩn bị ảnh console thật bắt buộc của Newman. Vì bước này cần thao tác Terminal UI trên macOS, mình dùng skill `computer-use` để chụp evidence thật, không dựng lại từ log.
+
+Hai bug report local và evidence đã được tạo; duplicate check không phát sinh GitHub write mới. Mình bổ sung một probe 31 giây cho ranh giới hết khóa của FR-02: tạo state bằng đúng hai lần sai, chờ vượt 30 giây rồi thử credentials đúng. Probe đọc account mặc định từ README và chỉ ghi response đã redaction.
+
+Probe ranh giới đã xác nhận thêm cùng root cause #246: sau 31 giây vẫn HTTP 403. Mình đã redaction toàn bộ retained artifacts (scan: 0 credential hits, 0 JWT hits) và chuyển ảnh console sang PNG thật. Bây giờ mình dọn hai file environment/data tạm chứa runtime values và dừng backend test.
+
+Đã hoàn tất kiểm thử `POST /api/login` với MSSV `23127062`.
+
+Kết quả final run:
+
+- 46 test cases: 37 AI-generated + 9 extension candidates.
+- 12 Passed, 34 Failed, 0 Blocked.
+- Trong 34 ca Failed: 9 ca phát hiện 2 SUT defects; 25 ca được phân loại specification gap/`INCOMPLETE`.
+- Cả 46 request đều xác nhận header `X-Student-Id: 23127062`.
+- Không phát hiện credentials/JWT còn sót trong artifacts.
+
+Hai defects xác nhận:
+
+- Response login trả plaintext `user.password`, trùng [issue #69](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69).
+- Tài khoản khóa sau 2 lần sai và vẫn khóa sau 31 giây, trùng [issue #246](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/246).
+
+Artifacts chính:
+
+- [Test-run summary](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/test-runs/login-20260820T191531+0700.md)
+- [Suite manifest](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/login/suite.manifest.json)
+- [Coverage matrix](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/login/coverage-matrix.md)
+- [Postman collection](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/login/login.postman_collection.json)
+- [Newman HTML report](/Users/lvkhang/Documents/uni/software-testing/HW06/reports/newman/login-20260820T191531+0700/newman-report.html)
+- [Bug report SEC-01](/Users/lvkhang/Documents/uni/software-testing/HW06/bugs/login/BUG-LOGIN-001.md)
+- [Bug report FR-02](/Users/lvkhang/Documents/uni/software-testing/HW06/bugs/login/BUG-LOGIN-002.md)
+
+![Newman console evidence](/Users/lvkhang/Documents/uni/software-testing/HW06/reports/evidence/login/x-student-id-console/evidence.png)
+
+46 test cases vẫn để `Human review: PENDING`. Các phần sinh viên còn cần tự hoàn thiện gồm human review, sơ đồ generator tự vẽ, AI Audit Report, CI/CD sample runs và commit bài. Hai runtime files chứa credentials đã được xóa và backend test đã dừng. Thay đổi có sẵn trong `skills/api-testing/SKILL.md` được giữ nguyên.
+'''
+
+### (3) Verdict
+
+**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+
+### (4) Reasoning
+
+- _[Người dùng tự điền]_
+
+### (5) Student Fix
+
+- _[Người dùng tự điền]_

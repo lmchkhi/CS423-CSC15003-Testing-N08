@@ -1,0 +1,45 @@
+Raw Newman state-transition response extract; requests ran sequentially in one collection run.
+Run: 20260820T191531+0700
+Commit: d4d070a22f00b9365864d40a82b6625b79ba30f6
+
+=== TC-LOGIN-040 ===
+HTTP 401 Unauthorized
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Invalid email or password"}
+
+=== TC-LOGIN-041 ===
+HTTP 401 Unauthorized
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Invalid email or password"}
+
+=== TC-LOGIN-042 ===
+HTTP 403 Forbidden
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."}
+
+=== TC-LOGIN-043 ===
+HTTP 401 Unauthorized
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Invalid email or password"}
+
+=== TC-LOGIN-044 ===
+HTTP 401 Unauthorized
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Invalid email or password"}
+
+=== TC-LOGIN-045 ===
+HTTP 403 Forbidden
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."}
+
+=== TC-LOGIN-046 ===
+HTTP 403 Forbidden
+Content-Type: application/json; charset=utf-8
+X-Student-Id assertion: PASS
+Response body (secrets redacted): {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."}

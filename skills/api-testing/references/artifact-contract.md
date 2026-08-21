@@ -11,7 +11,7 @@ tests/
 │   ├── <module>.test-data.json
 │   └── <module>.postman_environment.example.json
 └── test-runs/<module>-<run-id>.md
-reports/
+test-reports/
 ├── newman/<module>-<run-id>/
 │   ├── cli.log
 │   ├── newman-report.json

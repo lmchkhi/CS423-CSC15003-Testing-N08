@@ -1,0 +1,1039 @@
+newman
+
+Login API - HW06 - MSSV 23127062
+
+Iteration 1/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-001 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 20ms]
+  ✓  [TC-LOGIN-001] X-Student-Id header was set
+  ✓  [TC-LOGIN-001] status is expected
+  ✓  [TC-LOGIN-001] Content-Type
+  ✓  [TC-LOGIN-001] response time
+  ✓  [TC-LOGIN-001] JSON schema
+  ✓  [TC-LOGIN-001] token exists
+  ✓  [TC-LOGIN-001] user type
+  ✓  [TC-LOGIN-001] password absent
+  1. [TC-LOGIN-001] user.password absent
+
+Iteration 2/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-002 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 2ms]
+  ✓  [TC-LOGIN-002] X-Student-Id header was set
+  ✓  [TC-LOGIN-002] status is expected
+  ✓  [TC-LOGIN-002] Content-Type
+  ✓  [TC-LOGIN-002] response time
+  ✓  [TC-LOGIN-002] JSON schema
+  ✓  [TC-LOGIN-002] token exists
+  ✓  [TC-LOGIN-002] user type
+  ✓  [TC-LOGIN-002] password absent
+  2. [TC-LOGIN-002] user.password absent
+
+Iteration 3/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-003 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-003] X-Student-Id header was set
+  3. [TC-LOGIN-003] status is expected
+  ✓  [TC-LOGIN-003] Content-Type
+  ✓  [TC-LOGIN-003] response time
+  4. [TC-LOGIN-003] JSON schema
+  5. [TC-LOGIN-003] token exists
+  6. [TC-LOGIN-003] user type
+  ✓  [TC-LOGIN-003] password absent
+  ✓  [TC-LOGIN-003] user.password absent
+
+Iteration 4/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-004 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-004] X-Student-Id header was set
+  7. [TC-LOGIN-004] status is expected
+  ✓  [TC-LOGIN-004] Content-Type
+  ✓  [TC-LOGIN-004] response time
+  8. [TC-LOGIN-004] JSON schema
+  9. [TC-LOGIN-004] token exists
+ 10. [TC-LOGIN-004] user type
+  ✓  [TC-LOGIN-004] password absent
+  ✓  [TC-LOGIN-004] user.password absent
+
+Iteration 5/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-005 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-005] X-Student-Id header was set
+  ✓  [TC-LOGIN-005] status is expected
+  ✓  [TC-LOGIN-005] Content-Type
+  ✓  [TC-LOGIN-005] response time
+  ✓  [TC-LOGIN-005] JSON schema
+  ✓  [TC-LOGIN-005] error exists
+  ✓  [TC-LOGIN-005] token absent
+  ✓  [TC-LOGIN-005] user absent
+
+Iteration 6/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-006 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-006] X-Student-Id header was set
+  ✓  [TC-LOGIN-006] status is expected
+  ✓  [TC-LOGIN-006] Content-Type
+  ✓  [TC-LOGIN-006] response time
+  ✓  [TC-LOGIN-006] JSON schema
+  ✓  [TC-LOGIN-006] error exists
+  ✓  [TC-LOGIN-006] token absent
+  ✓  [TC-LOGIN-006] user absent
+
+Iteration 7/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-007 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-007] X-Student-Id header was set
+  ✓  [TC-LOGIN-007] status is expected
+  ✓  [TC-LOGIN-007] Content-Type
+  ✓  [TC-LOGIN-007] response time
+  ✓  [TC-LOGIN-007] JSON schema
+  ✓  [TC-LOGIN-007] error exists
+  ✓  [TC-LOGIN-007] token absent
+  ✓  [TC-LOGIN-007] user absent
+
+Iteration 8/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-008 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-008] X-Student-Id header was set
+ 11. [TC-LOGIN-008] status is expected
+  ✓  [TC-LOGIN-008] Content-Type
+  ✓  [TC-LOGIN-008] response time
+  ✓  [TC-LOGIN-008] JSON schema
+  ✓  [TC-LOGIN-008] error exists
+  ✓  [TC-LOGIN-008] token absent
+  ✓  [TC-LOGIN-008] user absent
+
+Iteration 9/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-009 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-009] X-Student-Id header was set
+ 12. [TC-LOGIN-009] status is expected
+  ✓  [TC-LOGIN-009] Content-Type
+  ✓  [TC-LOGIN-009] response time
+  ✓  [TC-LOGIN-009] JSON schema
+  ✓  [TC-LOGIN-009] error exists
+  ✓  [TC-LOGIN-009] token absent
+  ✓  [TC-LOGIN-009] user absent
+
+Iteration 10/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-010 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-010] X-Student-Id header was set
+ 13. [TC-LOGIN-010] status is expected
+  ✓  [TC-LOGIN-010] Content-Type
+  ✓  [TC-LOGIN-010] response time
+  ✓  [TC-LOGIN-010] JSON schema
+  ✓  [TC-LOGIN-010] error exists
+  ✓  [TC-LOGIN-010] token absent
+  ✓  [TC-LOGIN-010] user absent
+
+Iteration 11/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-011 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-011] X-Student-Id header was set
+ 14. [TC-LOGIN-011] status is expected
+  ✓  [TC-LOGIN-011] Content-Type
+  ✓  [TC-LOGIN-011] response time
+  ✓  [TC-LOGIN-011] JSON schema
+  ✓  [TC-LOGIN-011] error exists
+  ✓  [TC-LOGIN-011] token absent
+  ✓  [TC-LOGIN-011] user absent
+
+Iteration 12/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-012 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-012] X-Student-Id header was set
+ 15. [TC-LOGIN-012] status is expected
+  ✓  [TC-LOGIN-012] Content-Type
+  ✓  [TC-LOGIN-012] response time
+  ✓  [TC-LOGIN-012] JSON schema
+  ✓  [TC-LOGIN-012] error exists
+  ✓  [TC-LOGIN-012] token absent
+  ✓  [TC-LOGIN-012] user absent
+
+Iteration 13/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-013 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-013] X-Student-Id header was set
+ 16. [TC-LOGIN-013] status is expected
+  ✓  [TC-LOGIN-013] Content-Type
+  ✓  [TC-LOGIN-013] response time
+  ✓  [TC-LOGIN-013] JSON schema
+  ✓  [TC-LOGIN-013] error exists
+  ✓  [TC-LOGIN-013] token absent
+  ✓  [TC-LOGIN-013] user absent
+
+Iteration 14/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-014 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-014] X-Student-Id header was set
+ 17. [TC-LOGIN-014] status is expected
+  ✓  [TC-LOGIN-014] Content-Type
+  ✓  [TC-LOGIN-014] response time
+  ✓  [TC-LOGIN-014] JSON schema
+  ✓  [TC-LOGIN-014] error exists
+  ✓  [TC-LOGIN-014] token absent
+  ✓  [TC-LOGIN-014] user absent
+
+Iteration 15/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-015 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 9ms]
+  ✓  [TC-LOGIN-015] X-Student-Id header was set
+ 18. [TC-LOGIN-015] status is expected
+  ✓  [TC-LOGIN-015] Content-Type
+  ✓  [TC-LOGIN-015] response time
+  ✓  [TC-LOGIN-015] JSON schema
+  ✓  [TC-LOGIN-015] error exists
+  ✓  [TC-LOGIN-015] token absent
+  ✓  [TC-LOGIN-015] user absent
+
+Iteration 16/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-016 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-016] X-Student-Id header was set
+  ✓  [TC-LOGIN-016] status is expected
+  ✓  [TC-LOGIN-016] Content-Type
+  ✓  [TC-LOGIN-016] response time
+  ✓  [TC-LOGIN-016] JSON schema
+  ✓  [TC-LOGIN-016] error exists
+  ✓  [TC-LOGIN-016] token absent
+  ✓  [TC-LOGIN-016] user absent
+
+Iteration 17/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-017 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-017] X-Student-Id header was set
+ 19. [TC-LOGIN-017] status is expected
+  ✓  [TC-LOGIN-017] Content-Type
+  ✓  [TC-LOGIN-017] response time
+  ✓  [TC-LOGIN-017] JSON schema
+  ✓  [TC-LOGIN-017] error exists
+  ✓  [TC-LOGIN-017] token absent
+  ✓  [TC-LOGIN-017] user absent
+
+Iteration 18/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-018 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-018] X-Student-Id header was set
+ 20. [TC-LOGIN-018] status is expected
+  ✓  [TC-LOGIN-018] Content-Type
+  ✓  [TC-LOGIN-018] response time
+  ✓  [TC-LOGIN-018] JSON schema
+  ✓  [TC-LOGIN-018] error exists
+  ✓  [TC-LOGIN-018] token absent
+  ✓  [TC-LOGIN-018] user absent
+
+Iteration 19/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-019 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-019] X-Student-Id header was set
+ 21. [TC-LOGIN-019] status is expected
+  ✓  [TC-LOGIN-019] Content-Type
+  ✓  [TC-LOGIN-019] response time
+  ✓  [TC-LOGIN-019] JSON schema
+  ✓  [TC-LOGIN-019] error exists
+  ✓  [TC-LOGIN-019] token absent
+  ✓  [TC-LOGIN-019] user absent
+
+Iteration 20/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-020 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-020] X-Student-Id header was set
+ 22. [TC-LOGIN-020] status is expected
+  ✓  [TC-LOGIN-020] Content-Type
+  ✓  [TC-LOGIN-020] response time
+  ✓  [TC-LOGIN-020] JSON schema
+  ✓  [TC-LOGIN-020] error exists
+  ✓  [TC-LOGIN-020] token absent
+  ✓  [TC-LOGIN-020] user absent
+
+Iteration 21/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-021 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-021] X-Student-Id header was set
+ 23. [TC-LOGIN-021] status is expected
+  ✓  [TC-LOGIN-021] Content-Type
+  ✓  [TC-LOGIN-021] response time
+  ✓  [TC-LOGIN-021] JSON schema
+  ✓  [TC-LOGIN-021] error exists
+  ✓  [TC-LOGIN-021] token absent
+  ✓  [TC-LOGIN-021] user absent
+
+Iteration 22/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-022 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-022] X-Student-Id header was set
+ 24. [TC-LOGIN-022] status is expected
+  ✓  [TC-LOGIN-022] Content-Type
+  ✓  [TC-LOGIN-022] response time
+  ✓  [TC-LOGIN-022] JSON schema
+  ✓  [TC-LOGIN-022] error exists
+  ✓  [TC-LOGIN-022] token absent
+  ✓  [TC-LOGIN-022] user absent
+
+Iteration 23/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-023 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 2ms]
+  ✓  [TC-LOGIN-023] X-Student-Id header was set
+ 25. [TC-LOGIN-023] status is expected
+  ✓  [TC-LOGIN-023] Content-Type
+  ✓  [TC-LOGIN-023] response time
+ 26. [TC-LOGIN-023] JSON schema
+ 27. [TC-LOGIN-023] error exists
+ 28. [TC-LOGIN-023] token absent
+ 29. [TC-LOGIN-023] user absent
+
+Iteration 24/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-024 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-024] X-Student-Id header was set
+ 30. [TC-LOGIN-024] status is expected
+  ✓  [TC-LOGIN-024] Content-Type
+  ✓  [TC-LOGIN-024] response time
+  ✓  [TC-LOGIN-024] JSON schema
+  ✓  [TC-LOGIN-024] error exists
+  ✓  [TC-LOGIN-024] token absent
+  ✓  [TC-LOGIN-024] user absent
+
+Iteration 25/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-025 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [400 Bad Request, 1.6kB, 1ms]
+  ✓  [TC-LOGIN-025] X-Student-Id header was set
+  ✓  [TC-LOGIN-025] status is expected
+ 31. [TC-LOGIN-025] Content-Type
+  ✓  [TC-LOGIN-025] response time
+ 32. [TC-LOGIN-025] JSON schema
+ 33. [TC-LOGIN-025] error exists
+  ✓  [TC-LOGIN-025] token absent
+  ✓  [TC-LOGIN-025] user absent
+
+Iteration 26/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-026 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-026] X-Student-Id header was set
+ 34. [TC-LOGIN-026] status is expected
+  ✓  [TC-LOGIN-026] Content-Type
+  ✓  [TC-LOGIN-026] response time
+  ✓  [TC-LOGIN-026] JSON schema
+  ✓  [TC-LOGIN-026] error exists
+  ✓  [TC-LOGIN-026] token absent
+  ✓  [TC-LOGIN-026] user absent
+
+Iteration 27/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-027 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  [TC-LOGIN-027] X-Student-Id header was set
+  ✓  [TC-LOGIN-027] status is expected
+  ✓  [TC-LOGIN-027] Content-Type
+  ✓  [TC-LOGIN-027] response time
+  ✓  [TC-LOGIN-027] JSON schema
+  ✓  [TC-LOGIN-027] token exists
+  ✓  [TC-LOGIN-027] user type
+  ✓  [TC-LOGIN-027] password absent
+ 35. [TC-LOGIN-027] user.password absent
+
+Iteration 28/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-028 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-028] X-Student-Id header was set
+  ✓  [TC-LOGIN-028] status is expected
+  ✓  [TC-LOGIN-028] Content-Type
+  ✓  [TC-LOGIN-028] response time
+  ✓  [TC-LOGIN-028] JSON schema
+  ✓  [TC-LOGIN-028] error exists
+  ✓  [TC-LOGIN-028] token absent
+  ✓  [TC-LOGIN-028] user absent
+
+Iteration 29/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-029 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-029] X-Student-Id header was set
+  ✓  [TC-LOGIN-029] status is expected
+  ✓  [TC-LOGIN-029] Content-Type
+  ✓  [TC-LOGIN-029] response time
+  ✓  [TC-LOGIN-029] JSON schema
+  ✓  [TC-LOGIN-029] error exists
+  ✓  [TC-LOGIN-029] token absent
+  ✓  [TC-LOGIN-029] user absent
+
+Iteration 30/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-030 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-030] X-Student-Id header was set
+ 36. [TC-LOGIN-030] status is expected
+  ✓  [TC-LOGIN-030] Content-Type
+  ✓  [TC-LOGIN-030] response time
+  ✓  [TC-LOGIN-030] JSON schema
+  ✓  [TC-LOGIN-030] error exists
+  ✓  [TC-LOGIN-030] token absent
+  ✓  [TC-LOGIN-030] user absent
+
+Iteration 31/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-031 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-031] X-Student-Id header was set
+ 37. [TC-LOGIN-031] status is expected
+  ✓  [TC-LOGIN-031] Content-Type
+  ✓  [TC-LOGIN-031] response time
+  ✓  [TC-LOGIN-031] JSON schema
+  ✓  [TC-LOGIN-031] error exists
+  ✓  [TC-LOGIN-031] token absent
+  ✓  [TC-LOGIN-031] user absent
+
+Iteration 32/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-032 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-032] X-Student-Id header was set
+ 38. [TC-LOGIN-032] status is expected
+  ✓  [TC-LOGIN-032] Content-Type
+  ✓  [TC-LOGIN-032] response time
+  ✓  [TC-LOGIN-032] JSON schema
+  ✓  [TC-LOGIN-032] error exists
+  ✓  [TC-LOGIN-032] token absent
+  ✓  [TC-LOGIN-032] user absent
+
+Iteration 33/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-033 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-033] X-Student-Id header was set
+ 39. [TC-LOGIN-033] status is expected
+  ✓  [TC-LOGIN-033] Content-Type
+  ✓  [TC-LOGIN-033] response time
+  ✓  [TC-LOGIN-033] JSON schema
+  ✓  [TC-LOGIN-033] error exists
+  ✓  [TC-LOGIN-033] token absent
+  ✓  [TC-LOGIN-033] user absent
+
+Iteration 34/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-034 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [500 Internal Server Error, 1.8kB, 2ms]
+  ✓  [TC-LOGIN-034] X-Student-Id header was set
+ 40. [TC-LOGIN-034] status is expected
+ 41. [TC-LOGIN-034] Content-Type
+  ✓  [TC-LOGIN-034] response time
+ 42. [TC-LOGIN-034] JSON schema
+ 43. [TC-LOGIN-034] error exists
+  ✓  [TC-LOGIN-034] token absent
+  ✓  [TC-LOGIN-034] user absent
+
+Iteration 35/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-035 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  [TC-LOGIN-035] X-Student-Id header was set
+  ✓  [TC-LOGIN-035] status is expected
+  ✓  [TC-LOGIN-035] Content-Type
+  ✓  [TC-LOGIN-035] response time
+  ✓  [TC-LOGIN-035] JSON schema
+  ✓  [TC-LOGIN-035] token exists
+  ✓  [TC-LOGIN-035] user type
+  ✓  [TC-LOGIN-035] password absent
+ 44. [TC-LOGIN-035] user.password absent
+
+Iteration 36/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-036 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login?debug=true [200 OK, 635B, 1ms]
+  ✓  [TC-LOGIN-036] X-Student-Id header was set
+  ✓  [TC-LOGIN-036] status is expected
+  ✓  [TC-LOGIN-036] Content-Type
+  ✓  [TC-LOGIN-036] response time
+  ✓  [TC-LOGIN-036] JSON schema
+  ✓  [TC-LOGIN-036] token exists
+  ✓  [TC-LOGIN-036] user type
+  ✓  [TC-LOGIN-036] password absent
+ 45. [TC-LOGIN-036] user.password absent
+
+Iteration 37/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-037 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  [TC-LOGIN-037] X-Student-Id header was set
+  ✓  [TC-LOGIN-037] status is expected
+  ✓  [TC-LOGIN-037] Content-Type
+  ✓  [TC-LOGIN-037] response time
+  ✓  [TC-LOGIN-037] JSON schema
+  ✓  [TC-LOGIN-037] token exists
+  ✓  [TC-LOGIN-037] user type
+  ✓  [TC-LOGIN-037] password absent
+ 46. [TC-LOGIN-037] user.password absent
+
+Iteration 38/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-038 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-038] X-Student-Id header was set
+  ✓  [TC-LOGIN-038] status is expected
+  ✓  [TC-LOGIN-038] Content-Type
+  ✓  [TC-LOGIN-038] response time
+  ✓  [TC-LOGIN-038] JSON schema
+  ✓  [TC-LOGIN-038] error exists
+  ✓  [TC-LOGIN-038] token absent
+  ✓  [TC-LOGIN-038] user absent
+
+Iteration 39/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-039 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  [TC-LOGIN-039] X-Student-Id header was set
+  ✓  [TC-LOGIN-039] status is expected
+  ✓  [TC-LOGIN-039] Content-Type
+  ✓  [TC-LOGIN-039] response time
+  ✓  [TC-LOGIN-039] JSON schema
+  ✓  [TC-LOGIN-039] token exists
+  ✓  [TC-LOGIN-039] user type
+  ✓  [TC-LOGIN-039] password absent
+ 47. [TC-LOGIN-039] user.password absent
+
+Iteration 40/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-040 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-040] X-Student-Id header was set
+  ✓  [TC-LOGIN-040] status is expected
+  ✓  [TC-LOGIN-040] Content-Type
+  ✓  [TC-LOGIN-040] response time
+  ✓  [TC-LOGIN-040] JSON schema
+  ✓  [TC-LOGIN-040] error exists
+  ✓  [TC-LOGIN-040] token absent
+  ✓  [TC-LOGIN-040] user absent
+
+Iteration 41/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-041 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-041] X-Student-Id header was set
+  ✓  [TC-LOGIN-041] status is expected
+  ✓  [TC-LOGIN-041] Content-Type
+  ✓  [TC-LOGIN-041] response time
+  ✓  [TC-LOGIN-041] JSON schema
+  ✓  [TC-LOGIN-041] error exists
+  ✓  [TC-LOGIN-041] token absent
+  ✓  [TC-LOGIN-041] user absent
+
+Iteration 42/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-042 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ✓  [TC-LOGIN-042] X-Student-Id header was set
+ 48. [TC-LOGIN-042] status is expected
+  ✓  [TC-LOGIN-042] Content-Type
+  ✓  [TC-LOGIN-042] response time
+ 49. [TC-LOGIN-042] JSON schema
+ 50. [TC-LOGIN-042] token exists
+ 51. [TC-LOGIN-042] user type
+  ✓  [TC-LOGIN-042] password absent
+  ✓  [TC-LOGIN-042] user.password absent
+
+Iteration 43/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-043 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-043] X-Student-Id header was set
+  ✓  [TC-LOGIN-043] status is expected
+  ✓  [TC-LOGIN-043] Content-Type
+  ✓  [TC-LOGIN-043] response time
+  ✓  [TC-LOGIN-043] JSON schema
+  ✓  [TC-LOGIN-043] error exists
+  ✓  [TC-LOGIN-043] token absent
+  ✓  [TC-LOGIN-043] user absent
+
+Iteration 44/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-044 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-044] X-Student-Id header was set
+  ✓  [TC-LOGIN-044] status is expected
+  ✓  [TC-LOGIN-044] Content-Type
+  ✓  [TC-LOGIN-044] response time
+  ✓  [TC-LOGIN-044] JSON schema
+  ✓  [TC-LOGIN-044] error exists
+  ✓  [TC-LOGIN-044] token absent
+  ✓  [TC-LOGIN-044] user absent
+
+Iteration 45/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-045 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ✓  [TC-LOGIN-045] X-Student-Id header was set
+ 52. [TC-LOGIN-045] status is expected
+  ✓  [TC-LOGIN-045] Content-Type
+  ✓  [TC-LOGIN-045] response time
+  ✓  [TC-LOGIN-045] JSON schema
+  ✓  [TC-LOGIN-045] error exists
+  ✓  [TC-LOGIN-045] token absent
+  ✓  [TC-LOGIN-045] user absent
+
+Iteration 46/46
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-046 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ✓  [TC-LOGIN-046] X-Student-Id header was set
+  ✓  [TC-LOGIN-046] status is expected
+  ✓  [TC-LOGIN-046] Content-Type
+  ✓  [TC-LOGIN-046] response time
+  ✓  [TC-LOGIN-046] JSON schema
+  ✓  [TC-LOGIN-046] error exists
+  ✓  [TC-LOGIN-046] token absent
+  ✓  [TC-LOGIN-046] user absent
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             378 │              52 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 738ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 7.14kB (approx)                        │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 1ms [min: 1ms, max: 20ms, s.d.: 2ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                                                                [39m
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 01.  AssertionError  [TC-LOGIN-001] user.password absent                                                   
+      iteration: 1    expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 02.  AssertionError  [TC-LOGIN-002] user.password absent                                                   
+      iteration: 2    expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 03.  AssertionError  [TC-LOGIN-003] status is expected                                                     
+      iteration: 3    expected [ 200 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 04.  AssertionError  [TC-LOGIN-003] JSON schema                                                            
+      iteration: 3    expected data to satisfy schema but found following errors:                           
+                      data should have required property 'token', data should have required property 'user' 
+                      at assertion:4 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 05.  AssertionError  [TC-LOGIN-003] token exists                                                           
+      iteration: 3    expected undefined to not equal undefined                                             
+                      at assertion:5 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 06.  AssertionError  [TC-LOGIN-003] user type                                                              
+      iteration: 3    expected 'undefined' to deeply equal 'object'                                         
+                      at assertion:6 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 07.  AssertionError  [TC-LOGIN-004] status is expected                                                     
+      iteration: 4    expected [ 200 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 08.  AssertionError  [TC-LOGIN-004] JSON schema                                                            
+      iteration: 4    expected data to satisfy schema but found following errors:                           
+                      data should have required property 'token', data should have required property 'user' 
+                      at assertion:4 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 09.  AssertionError  [TC-LOGIN-004] token exists                                                           
+      iteration: 4    expected undefined to not equal undefined                                             
+                      at assertion:5 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 10.  AssertionError  [TC-LOGIN-004] user type                                                              
+      iteration: 4    expected 'undefined' to deeply equal 'object'                                         
+                      at assertion:6 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 11.  AssertionError  [TC-LOGIN-008] status is expected                                                     
+      iteration: 8    expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 12.  AssertionError  [TC-LOGIN-009] status is expected                                                     
+      iteration: 9    expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 13.  AssertionError  [TC-LOGIN-010] status is expected                                                     
+      iteration: 10   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 14.  AssertionError  [TC-LOGIN-011] status is expected                                                     
+      iteration: 11   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 15.  AssertionError  [TC-LOGIN-012] status is expected                                                     
+      iteration: 12   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 16.  AssertionError  [TC-LOGIN-013] status is expected                                                     
+      iteration: 13   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 17.  AssertionError  [TC-LOGIN-014] status is expected                                                     
+      iteration: 14   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 18.  AssertionError  [TC-LOGIN-015] status is expected                                                     
+      iteration: 15   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 19.  AssertionError  [TC-LOGIN-017] status is expected                                                     
+      iteration: 17   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 20.  AssertionError  [TC-LOGIN-018] status is expected                                                     
+      iteration: 18   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 21.  AssertionError  [TC-LOGIN-019] status is expected                                                     
+      iteration: 19   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 22.  AssertionError  [TC-LOGIN-020] status is expected                                                     
+      iteration: 20   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 23.  AssertionError  [TC-LOGIN-021] status is expected                                                     
+      iteration: 21   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 24.  AssertionError  [TC-LOGIN-022] status is expected                                                     
+      iteration: 22   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 25.  AssertionError  [TC-LOGIN-023] status is expected                                                     
+      iteration: 23   expected [ 400 ] to include 200                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 26.  AssertionError  [TC-LOGIN-023] JSON schema                                                            
+      iteration: 23   expected data to satisfy schema but found following errors:                           
+                      data should have required property 'error'                                            
+                      at assertion:4 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 27.  AssertionError  [TC-LOGIN-023] error exists                                                           
+      iteration: 23   expected undefined to not equal undefined                                             
+                      at assertion:5 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 28.  AssertionError  [TC-LOGIN-023] token absent                                                           
+      iteration: 23   expected 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.…' to equal undefined                  
+                      at assertion:6 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 29.  AssertionError  [TC-LOGIN-023] user absent                                                            
+      iteration: 23   expected { id: 2, name: 'Test User', …(8) } to equal undefined                        
+                      at assertion:7 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 30.  AssertionError  [TC-LOGIN-024] status is expected                                                     
+      iteration: 24   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 31.  AssertionError  [TC-LOGIN-025] Content-Type                                                           
+      iteration: 25   expected 'text/html; charset=utf-8' to include 'application/json'                     
+                      at assertion:2 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 32.  JSONError       [TC-LOGIN-025] JSON schema                                                            
+      iteration: 25   Unexpected token '<' at 1:1                                                           
+                      <!DOCTYPE html>                                                                       
+                      ^                                                                                     
+                      at assertion:4 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 33.  AssertionError  [TC-LOGIN-025] error exists                                                           
+      iteration: 25   expected undefined to not equal undefined                                             
+                      at assertion:5 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 34.  AssertionError  [TC-LOGIN-026] status is expected                                                     
+      iteration: 26   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 35.  AssertionError  [TC-LOGIN-027] user.password absent                                                   
+      iteration: 27   expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 36.  AssertionError  [TC-LOGIN-030] status is expected                                                     
+      iteration: 30   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 37.  AssertionError  [TC-LOGIN-031] status is expected                                                     
+      iteration: 31   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 38.  AssertionError  [TC-LOGIN-032] status is expected                                                     
+      iteration: 32   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 39.  AssertionError  [TC-LOGIN-033] status is expected                                                     
+      iteration: 33   expected [ 400 ] to include 401                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 40.  AssertionError  [TC-LOGIN-034] status is expected                                                     
+      iteration: 34   expected [ 400 ] to include 500                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 41.  AssertionError  [TC-LOGIN-034] Content-Type                                                           
+      iteration: 34   expected 'text/html; charset=utf-8' to include 'application/json'                     
+                      at assertion:2 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 42.  JSONError       [TC-LOGIN-034] JSON schema                                                            
+      iteration: 34   Unexpected token '<' at 1:1                                                           
+                      <!DOCTYPE html>                                                                       
+                      ^                                                                                     
+                      at assertion:4 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 43.  AssertionError  [TC-LOGIN-034] error exists                                                           
+      iteration: 34   expected undefined to not equal undefined                                             
+                      at assertion:5 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 44.  AssertionError  [TC-LOGIN-035] user.password absent                                                   
+      iteration: 35   expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 45.  AssertionError  [TC-LOGIN-036] user.password absent                                                   
+      iteration: 36   expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 46.  AssertionError  [TC-LOGIN-037] user.password absent                                                   
+      iteration: 37   expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 47.  AssertionError  [TC-LOGIN-039] user.password absent                                                   
+      iteration: 39   expected '<redacted-password>' to equal undefined                                               
+                      at assertion:8 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 48.  AssertionError  [TC-LOGIN-042] status is expected                                                     
+      iteration: 42   expected [ 200 ] to include 403                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 49.  AssertionError  [TC-LOGIN-042] JSON schema                                                            
+      iteration: 42   expected data to satisfy schema but found following errors:                           
+                      data should have required property 'token', data should have required property 'user' 
+                      at assertion:4 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 50.  AssertionError  [TC-LOGIN-042] token exists                                                           
+      iteration: 42   expected undefined to not equal undefined                                             
+                      at assertion:5 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 51.  AssertionError  [TC-LOGIN-042] user type                                                              
+      iteration: 42   expected 'undefined' to deeply equal 'object'                                         
+                      at assertion:6 in test-script                                                         
+                      inside "POST /api/login"                                                              
+[90m     [39m[90m                [39m[90m                                                                                       [39m
+ 52.  AssertionError  [TC-LOGIN-045] status is expected                                                     
+      iteration: 45   expected [ 401 ] to include 403                                                       
+                      at assertion:1 in test-script                                                         
+                      inside "POST /api/login"                                                              

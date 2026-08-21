@@ -1,0 +1,42 @@
+# TC-LOGIN-029: SQL injection trong password
+
+## Requirement ID
+FR-02, SEC-05
+
+## Module / Test type / Technique
+LOGIN / Security / SQL Injection
+
+## Preconditions
+- SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa.
+
+## Test data
+| Trường | Giá trị |
+|---|---|
+| email | `nobody@example.invalid` |
+| password | `<redacted-or-variable>` |
+
+## Test steps
+1. Gửi POST /api/login với headers và JSON body đã nêu.
+2. Ghi nhận status, Content-Type và response body.
+
+## Expected result
+- HTTP status: `401`
+- Content-Type: `application/json`
+- Response schema: `{"type":"object","required":["error"],"properties":{"error":{"type":"string","minLength":1}}}`
+- `error` phải tồn tại
+- `token` không được xuất hiện
+- `user` không được xuất hiện
+- Không được bypass authentication; dùng email không tồn tại để không đổi lockout state.
+
+## Status / Related bugs
+Passed / None
+
+## AI audit
+- Source: `AI_GENERATED`
+- Recommendation: `VALID`
+- Reason: Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification.
+- Human review: `PENDING`
+
+## Automation mapping
+- Data row: `TC-LOGIN-029`
+- Coverage: `security`

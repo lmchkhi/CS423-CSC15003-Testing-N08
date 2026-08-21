@@ -59,7 +59,7 @@ bash skills/api-testing/scripts/run_newman.sh \
   --collection <collection.json> \
   --data <test-data.json> \
   --environment <environment.json> \
-  --report-dir <reports/newman/run-id>
+  --report-dir <test-reports/newman/run-id>
 ```
 
 4. Preserve CLI output, Newman JSON, and HTML. A nonzero Newman exit code means tests failed, not that the runner should discard artifacts.
@@ -82,12 +82,16 @@ Write each local report from [references/bug-report-template.md](references/bug-
 
 Treat issue creation as an external write. A request for the complete HW06 pipeline including GitHub issue handling authorizes confirmed bug issue creation. If the prompt asks only for generation, review, local execution, or reporting, ask before publishing.
 
-1. Confirm GitHub authentication and the canonical `owner/repo` from `origin`.
-2. Inspect current labels. Prefer exact existing names and casing. The local convention currently starts with `Type: Bug` and `Status: New`; add existing module, severity, priority, and found-by labels when available. Never create labels unless separately authorized.
-3. Search open and closed issues by normalized symptom, endpoint, actual status/error, primary testcase ID, and affected requirement. Inspect candidate bodies, not titles alone.
-4. If the same root cause already exists, do not create a duplicate. Add a comment/evidence only when authorized and useful; otherwise link the existing issue locally.
-5. If no duplicate exists, upload or attach the real screenshot using the available GitHub capability, then create the issue from the local Markdown. Verify the returned issue number and URL exactly once.
-6. Update the testcase and test-run `Related bugs` fields with the issue number. Never claim an issue exists if authentication, upload, or creation failed.
+Use the authenticated `gh` CLI for repository discovery, labels, issue searches, issue reads, and issue creation. Run every networked `gh` command outside the sandbox with escalated execution, including read-only fetches. When using `exec_command`, set `sandbox_permissions` to `require_escalated` and provide a concise `justification`; request approval when escalation is not already approved. Do not first run `gh` inside the sandbox: sandboxed network or credential isolation can produce misleading token/authentication failures. If a `gh` command was accidentally run inside the sandbox and fails with an authentication, token, DNS, or connection error, retry the same command once with escalated execution before diagnosing GitHub authentication.
+
+Never print, request, copy, or pass a GitHub token on the command line. Use the existing `gh` credential store. Check authentication with `gh auth status`; if the escalated check still fails, stop and ask the user to authenticate with `gh auth login` themselves.
+
+1. Resolve the canonical repository from `origin`, then confirm it outside the sandbox with `gh repo view --json nameWithOwner,url`.
+2. Inspect labels outside the sandbox with `gh label list --json name,description`. Prefer exact existing names and casing. The local convention currently starts with `Type: Bug` and `Status: New`; add existing module, severity, priority, and found-by labels when available. Never create labels unless separately authorized.
+3. Search both open and closed issues outside the sandbox with `gh issue list --state all --limit 200 --json number,title,body,state,url,labels`. Compare normalized symptom, endpoint, actual status/error, primary testcase ID, and affected requirement. Inspect candidate bodies, not titles alone.
+4. If the same root cause already exists, do not create a duplicate. Add a comment with `gh issue comment` only when authorized and useful; otherwise link the existing issue locally.
+5. If no duplicate exists, prepare the final issue body in a local Markdown file and create it outside the sandbox with `gh issue create --repo <owner/repo> --title <title> --body-file <bug-report.md> --label <existing-label>`. Use arguments or `--body-file`; do not interpolate the report body into a shell command. Attach or link the real screenshot using an available GitHub-supported mechanism, and never fabricate an upload. Verify the returned issue number and URL exactly once with `gh issue view`.
+6. Update the testcase and test-run `Related bugs` fields with the verified issue number. Never claim an issue exists if escalated authentication, upload, or creation failed.
 
 ## Finish and report
 
