@@ -1,5 +1,5 @@
 {
-  "mode": "controlled-failure",
+  "mode": "all-pass",
   "allowedModes": [
     "all-pass",
     "controlled-failure",
