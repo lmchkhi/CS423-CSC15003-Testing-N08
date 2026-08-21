@@ -1,29 +1,32 @@
-# GET /api/products SQL injection qua query parameter search
+---
+title: "[BUG][FR-05] SQL injection qua query parameter search"
+labels: '["Type: Bug", "Status: New"]'
+assignees: "Trần Minh Quang"
+---
 
-- **Mã vấn đề:** `FR05-SEC-001`, `FR05-SEC-002`, `FR05-SEC-004`, `FR05-H05`
-- **Mức độ:** `Critical / Security`
-- **Endpoint:** `GET /api/products`
-- **Phạm vi:** Pool A — FR-05
-- **Phân loại:** `LOI_BAO_MAT_SUT` — SQL Injection / Information Exposure
-- **Trạng thái xuất bản:** `BẢN NHÁP CỤC BỘ`
-- **GitHub Issue:** `NOT CREATED`
+## Found by Test Case
 
-## Mô tả
+FR05-SEC-001, FR05-SEC-002, FR05-SEC-004, FR05-H05
 
-Endpoint `GET /api/products` dùng string interpolation trong biểu thức `LIKE '%${searchQuery}%'` thay vì parameterized query. Giá trị do caller kiểm soát từ query parameter `search` vì thế được ghép trực tiếp vào câu SQL, cho phép thay đổi cấu trúc truy vấn.
+## Requirement liên quan
 
-Lần chạy canonical đã xác nhận SQL injection bằng tautology và UNION, đồng thời xác nhận thông tin lỗi SQLite bị đưa vào response khi đầu vào gây lỗi cú pháp hoặc chứa null byte.
+FR-05, SEC-05
 
-## Điều kiện tái hiện
+## Severity / Priority
 
-- SUT chạy tại `http://localhost:3000`.
-- Database có baseline sản phẩm.
-- Student ID của repository: `23127464`.
-- Các URL dưới đây giữ nguyên payload đã percent-encode để tránh shell hoặc HTTP client diễn giải khác đi.
+Critical / P0
 
-## Các bước tái hiện
+## Environment
 
-### 1. Tautology — FR05-SEC-001
+- OS: Windows 11
+- Node.js: v22.18.0
+- SUT: http://localhost:3000
+- Newman: 6.2.2
+- Student ID: 23127464
+
+## Steps to reproduce
+
+1. Tautology — FR05-SEC-001
 
 Payload thô:
 
@@ -45,7 +48,7 @@ curl -i \
 
 Quan sát: response trả toàn bộ sản phẩm baseline, chứng minh tautology đã mở rộng kết quả tìm kiếm.
 
-### 2. UNION injection — FR05-SEC-002
+2. UNION injection — FR05-SEC-002
 
 Payload thô:
 
@@ -67,7 +70,7 @@ curl -i \
 
 Quan sát: response chứa hàng do payload chèn vào với `id: 9999` và tên `FR05-UNION-MARKER`.
 
-### 3. Dấu nháy đơn làm lộ lỗi — FR05-SEC-004
+3. Dấu nháy đơn làm lộ lỗi — FR05-SEC-004
 
 Payload thô là một dấu nháy đơn (`'`); giá trị URL-encoded là `%27`.
 
@@ -79,7 +82,7 @@ curl -i \
 
 Quan sát: server trả HTTP 500 với nội dung chứa `Database Error`, `SQLITE_ERROR` và chi tiết lỗi cú pháp SQLite.
 
-### 4. Null byte — FR05-H05
+4. Null byte — FR05-H05
 
 Payload thô chứa byte null giữa `test` và `admin`; biểu diễn URL-encoded là `test%00admin`.
 
@@ -91,16 +94,14 @@ curl -i \
 
 Quan sát: server trả HTTP 500 và response làm lộ lỗi database liên quan đến null character. Request kiểm tra sau đó cho thấy server chưa crash, nhưng input vẫn gây lỗi nội bộ và information exposure.
 
-## Expected vs Actual
-
-### Expected
+## Expected result
 
 - `search` phải được xử lý như dữ liệu, không được làm thay đổi cấu trúc câu SQL.
 - Truy vấn cơ sở dữ liệu phải dùng parameterized query theo SEC-05.
 - Input gây lỗi không được làm lộ thông tin database, câu SQL hoặc chi tiết lỗi nội bộ.
 - Contract không định nghĩa exact rejection status code hoặc error schema, nên báo cáo không tự đặt oracle cho các chi tiết đó.
 
-### Actual
+## Actual result
 
 - Tautology làm truy vấn trả toàn bộ sản phẩm.
 - UNION cho phép chèn dữ liệu tùy ý vào response.
@@ -124,7 +125,7 @@ Quan sát: server trả HTTP 500 và response làm lộ lỗi database liên qua
 | `FR05-SEC-004` | Dấu nháy đơn gây HTTP 500 và lộ `SQLITE_ERROR`. |
 | `FR05-H05` | Null byte gây HTTP 500 và lộ database detail. |
 
-## Root cause — quan sát source
+## Root cause
 
 Tại `src/eshop-sut/backend/server.js:141-150`, endpoint lấy `req.query.search` rồi ghép trực tiếp giá trị này vào SQL:
 
@@ -160,23 +161,6 @@ db.all(
 
 Ngoài ra, handler tại `server.js:146-149` phản hồi trực tiếp `err.message`, gây information exposure khi payload tạo lỗi database.
 
-## Nguồn yêu cầu
-
-- `src/eshop-sut/README.md` — FR-05: tìm kiếm sản phẩm theo tên.
-- `src/eshop-sut/README.md` — SEC-05: truy vấn cơ sở dữ liệu phải dùng Parameterized Query, không nối chuỗi trực tiếp.
-- `src/eshop-sut/api_specification.md` — mục 3.1 công bố `GET /api/products` và query tùy chọn `search`.
-- `reports/api-testing/fr-05-phase-a-contract.md` — contract FR-05, concern injection và information exposure.
-
-## Tác động bảo mật
+## Impact
 
 Kẻ tấn công không cần xác thực có thể thay đổi logic truy vấn, đọc/chèn dữ liệu tùy ý vào tập kết quả tùy khả năng của database/driver, dò cấu trúc database qua lỗi và làm endpoint trả lỗi nội bộ. Với các payload UNION phức tạp hơn, rủi ro có thể mở rộng sang làm lộ dữ liệu ngoài danh sách sản phẩm.
-
-## Trạng thái Phase E
-
-PHASE E: COMPLETE — LOCAL BUG REPORT CREATED
-
-GITHUB ISSUE: NOT CREATED
-
-CI/CD: NOT CREATED
-
-AI CRITIQUE: NOT CREATED

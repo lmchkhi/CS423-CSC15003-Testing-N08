@@ -1,28 +1,30 @@
-# POST /api/admin/import-products thiếu kiểm tra role admin
+---
+title: "[BUG][FR-16] POST /api/admin/import-products thiếu kiểm tra role admin"
+labels: '["Type: Bug", "Status: New"]'
+assignees: "Trần Minh Quang"
+---
 
-- **Mã vấn đề:** `FR16-SEC-001`
-- **Mức độ:** `Critical / Security`
-- **Endpoint:** `POST /api/admin/import-products`
-- **Phạm vi:** Pool C — FR-16
-- **Phân loại:** `LOI_BAO_MAT_SUT` — Missing Admin Role Authorization
-- **Trạng thái xuất bản:** `BẢN NHÁP CỤC BỘ`
-- **GitHub Issue:** `NOT CREATED`
+## Found by Test Case
 
-## Mô tả
+FR16-AUTH-002, FR16-H05
 
-Endpoint gắn middleware `authenticateToken` nhưng không kiểm tra `role = 'admin'` trong JWT payload. Vì vậy user thường có JWT hợp lệ vẫn có thể gọi chức năng bulk import và tạo product trong cơ sở dữ liệu.
+## Requirement liên quan
 
-Canonical run đã chứng minh lỗi bằng cả một product đơn lẻ và một batch ba product của non-admin. Đây là bypass authorization trên endpoint admin có khả năng thay đổi dữ liệu hàng loạt.
+FR-16, FR-12, SEC-03
 
-## Điều kiện tái hiện
+## Severity / Priority
 
-- SUT chạy tại `http://localhost:3000`.
-- Có JWT hợp lệ của một user không có role admin tại `<NON_ADMIN_VALID_TOKEN>`.
-- Có `category_id` hợp lệ tại `<CATEGORY_ID>`.
-- Student ID của repository: `23127464`.
-- Ghi nhận danh sách hoặc product count trước request để kiểm tra persistence.
+Critical / P0
 
-## Các bước tái hiện
+## Environment
+
+- OS: Windows 11
+- Node.js: v22.18.0
+- SUT: http://localhost:3000
+- Newman: 6.2.2
+- Student ID: 23127464
+
+## Steps to reproduce
 
 1. Gửi batch hợp lệ bằng JWT của user thường:
 
@@ -39,15 +41,13 @@ curl -i \
 2. Đọc lại danh sách product hoặc truy vấn DB bằng cơ chế quan sát được phê duyệt.
 3. Tìm marker `FR16-NONADMIN-REPRO` và so sánh trạng thái trước/sau request.
 
-## Expected vs Actual
-
-### Expected
+## Expected result
 
 - Request của non-admin phải bị từ chối theo FR-12 và SEC-03.
 - Không product nào trong batch được tạo.
 - Không tự đặt exact rejection status code hoặc error schema vì contract không công bố các chi tiết này.
 
-### Actual
+## Actual result
 
 - Server trả `200 OK`.
 - Product có marker của non-admin được lưu vào DB.
@@ -69,7 +69,7 @@ Các assertion liên quan:
 | `FR16-AUTH-002` | Non-admin gửi một product hợp lệ; marker vẫn xuất hiện trong danh sách sau request. |
 | `FR16-H05` | Non-admin gửi batch ba product hợp lệ; marker `FR16-H05-A` vẫn tồn tại sau request. |
 
-## Root cause — quan sát source
+## Root cause
 
 Tại `src/eshop-sut/backend/server.js:199`, route chỉ gắn middleware xác thực:
 
@@ -89,23 +89,6 @@ jwt.verify(token, SECRET_KEY, (err, user) => {
 
 Không có điều kiện kiểm tra `req.user.role === 'admin'` trước khi thực hiện import. Quan sát source phù hợp với unauthorized persistence được tái hiện trong canonical run.
 
-## Nguồn yêu cầu
-
-- `src/eshop-sut/README.md` — FR-12: mọi `/api/admin/*` yêu cầu JWT hợp lệ và `role = 'admin'` trong token.
-- `src/eshop-sut/README.md` — SEC-03: API Admin phải kiểm tra role admin, không chỉ kiểm tra token.
-- `src/eshop-sut/api_specification.md` — phần 6 “API Dành cho Admin” yêu cầu tài khoản có quyền Admin; §6.3 công bố endpoint import.
-- `reports/api-testing/fr-16-phase-a-contract.md` — authentication/admin requirement áp dụng trực tiếp cho FR-16.
-
-## Tác động bảo mật
+## Impact
 
 Bất kỳ tài khoản user thường nào có JWT hợp lệ đều có thể vượt qua ranh giới quyền admin để tạo sản phẩm hàng loạt. Lỗi có thể gây chèn dữ liệu trái phép, làm sai lệch catalog, tăng nhanh số bản ghi và ảnh hưởng tính toàn vẹn dữ liệu kinh doanh.
-
-## Trạng thái Phase E
-
-PHASE E: COMPLETE — LOCAL BUG REPORT CREATED
-
-GITHUB ISSUE: NOT CREATED
-
-CI/CD: NOT CREATED FOR FR-16
-
-AI CRITIQUE: NOT CREATED

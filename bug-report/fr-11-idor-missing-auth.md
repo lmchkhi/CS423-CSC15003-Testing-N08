@@ -1,29 +1,32 @@
-# GET /api/orders/:id thiếu authentication và ownership check (IDOR)
+---
+title: "[BUG][FR-11] GET /api/orders/:id thiếu authentication và ownership check (IDOR)"
+labels: '["Type: Bug", "Status: New"]'
+assignees: "Trần Minh Quang"
+---
 
-- **Mã vấn đề:** `FR11-SEC-001`
-- **Mức độ:** `Critical / Security`
-- **Endpoint:** `GET /api/orders/:id`
-- **Phạm vi:** Pool B — FR-11
-- **Phân loại:** `LOI_BAO_MAT_SUT` — Missing Authentication / Broken Object Level Authorization (IDOR)
-- **Trạng thái xuất bản:** `BẢN NHÁP CỤC BỘ`
-- **GitHub Issue:** `NOT CREATED`
+## Found by Test Case
 
-## Mô tả
+FR11-DET-011, FR11-DET-026, FR11-DET-027, FR11-DET-028, FR11-DET-029, FR11-DET-030, FR11-DET-031, FR11-DET-032, FR11-DET-033
 
-Endpoint `GET /api/orders/:id` không có middleware `authenticateToken` và không ràng buộc order được yêu cầu với danh tính chủ sở hữu trong JWT. Vì vậy endpoint trả dữ liệu order cho request không có JWT, có JWT không hợp lệ, hoặc có JWT hợp lệ của người dùng khác.
+## Requirement liên quan
 
-Lỗi cho phép caller biết một order ID có thể đọc trực tiếp dữ liệu của order không thuộc quyền sở hữu của mình. Đây là lỗi thiếu authentication kết hợp với IDOR/ownership bypass.
+FR-11, SEC-02
 
-## Điều kiện tái hiện
+## Severity / Priority
 
-- SUT chạy tại `http://localhost:3000`.
-- Có một order tồn tại với ID `<ORDER_ID>` thuộc User A.
-- Có JWT hợp lệ của User B tại `<USER_B_VALID_TOKEN>`.
-- Student ID của repository: `23127464`.
+Critical / P0
 
-## Các bước tái hiện
+## Environment
 
-### 1. Không gửi authentication
+- OS: Windows 11
+- Node.js: v22.18.0
+- SUT: http://localhost:3000
+- Newman: 6.2.2
+- Student ID: 23127464
+
+## Steps to reproduce
+
+1. Không gửi authentication:
 
 ```bash
 curl -i \
@@ -31,7 +34,7 @@ curl -i \
   "http://localhost:3000/api/orders/<ORDER_ID>"
 ```
 
-### 2. Gửi token không hợp lệ
+2. Gửi token không hợp lệ:
 
 ```bash
 curl -i \
@@ -40,7 +43,7 @@ curl -i \
   "http://localhost:3000/api/orders/<ORDER_ID>"
 ```
 
-### 3. User B dùng token hợp lệ để đọc order của User A
+3. User B dùng token hợp lệ để đọc order của User A:
 
 ```bash
 curl -i \
@@ -49,16 +52,14 @@ curl -i \
   "http://localhost:3000/api/orders/<ORDER_ID>"
 ```
 
-## Expected vs Actual
-
-### Expected
+## Expected result
 
 - Endpoint yêu cầu JWT hợp lệ theo SEC-02.
 - Danh tính trong JWT chỉ được xem order thuộc chính người dùng đó theo FR-11.
 - Request thiếu/sai JWT hoặc truy cập foreign-owned order phải bị từ chối và không được làm lộ dữ liệu order.
 - Tài liệu không định nghĩa exact rejection status code hoặc error body; báo cáo này không tự đặt oracle cho các chi tiết đó.
 
-### Actual
+## Actual result
 
 - Endpoint trả `200 OK` cùng JSON order data cho các request được kiểm tra dù không có JWT, JWT không hợp lệ hoặc JWT thuộc người dùng khác.
 - Marker fixture `FR11-A1-OWNED` hoặc `FR11-B1-FOREIGN` xuất hiện trong response, chứng minh protected order data bị làm lộ.
@@ -85,7 +86,7 @@ Các assertion thất bại:
 | `FR11-DET-032` | JWT hết hạn |
 | `FR11-DET-033` | Dùng `Basic` thay cho Bearer JWT |
 
-## Root cause — quan sát source
+## Root cause
 
 Tại `src/eshop-sut/backend/server.js:344`, route được khai báo như sau:
 
@@ -104,23 +105,6 @@ Quan sát:
 - Truy vấn chỉ lọc theo `id`, không lọc theo `user_id` lấy từ JWT đã xác thực.
 - Source observation phù hợp với disclosure đã được tái hiện trong canonical Newman run.
 
-## Nguồn yêu cầu
-
-- `src/eshop-sut/README.md` — FR-11: người dùng chỉ xem được đơn hàng của chính mình.
-- `src/eshop-sut/README.md` — SEC-02: API bảo mật phải yêu cầu JWT hợp lệ.
-- `src/eshop-sut/api_specification.md` — §4.5 công bố endpoint `GET /api/orders/:id` trong nhóm Giỏ hàng & Đơn hàng.
-- `reports/api-testing/fr-11-phase-a-contract.md` — authentication, ownership và IDOR áp dụng trực tiếp cho endpoint detail.
-
-## Tác động bảo mật
+## Impact
 
 Kẻ tấn công có thể thay đổi order ID trên URL để đọc dữ liệu đơn hàng của người dùng khác mà không cần xác thực hợp lệ. Tùy dữ liệu thực tế được lưu trong order, việc này có thể làm lộ thông tin giao dịch, tổng tiền, trạng thái và địa chỉ giao hàng.
-
-## Trạng thái Phase E
-
-PHASE E: COMPLETE — LOCAL BUG REPORT CREATED
-
-GITHUB ISSUE: NOT CREATED
-
-CI/CD: NOT CREATED
-
-AI CRITIQUE: NOT CREATED

@@ -1,26 +1,30 @@
-# POST /api/admin/import-products không rollback batch khi có dòng lỗi
+---
+title: "[BUG][FR-16] POST /api/admin/import-products không rollback batch khi có dòng lỗi"
+labels: '["Type: Bug", "Status: New"]'
+assignees: "Trần Minh Quang"
+---
 
-- **Mã vấn đề:** `FR16-FUNC-002`
-- **Mức độ:** `High / Functional`
-- **Endpoint:** `POST /api/admin/import-products`
-- **Phạm vi:** Pool C — FR-16
-- **Phân loại:** `LOI_CHUC_NANG_SUT` — Missing Atomicity / Partial Commit
-- **Trạng thái xuất bản:** `BẢN NHÁP CỤC BỘ`
-- **GitHub Issue:** `NOT CREATED`
+## Found by Test Case
 
-## Mô tả
+FR16-ATOM-001, FR16-ATOM-002, FR16-ATOM-003, FR16-ATOM-004
 
-README FR-16 yêu cầu import theo cơ chế all-or-nothing: nếu bất kỳ dòng nào lỗi thì toàn bộ batch phải rollback. Thực tế endpoint insert riêng từng dòng; các dòng hợp lệ vẫn được commit vào DB khi cùng batch có dòng invalid.
+## Requirement liên quan
 
-## Điều kiện tái hiện
+FR-16
 
-- SUT chạy tại `http://localhost:3000`.
-- Có JWT admin hợp lệ tại `<ADMIN_VALID_TOKEN>`.
-- Có `category_id` hợp lệ tại `<CATEGORY_ID>`.
-- Student ID của repository: `23127464`.
-- Ghi nhận danh sách hoặc product count trước request.
+## Severity / Priority
 
-## Các bước tái hiện
+High / P0
+
+## Environment
+
+- OS: Windows 11
+- Node.js: v22.18.0
+- SUT: http://localhost:3000
+- Newman: 6.2.2
+- Student ID: 23127464
+
+## Steps to reproduce
 
 1. Gửi batch gồm một dòng hợp lệ, một dòng có `name = ""`, rồi một dòng hợp lệ:
 
@@ -37,15 +41,13 @@ curl -i \
 2. Đọc lại danh sách product hoặc truy vấn DB bằng cơ chế quan sát được phê duyệt.
 3. Tìm marker `FR16-ATOM-REPRO-A` và `FR16-ATOM-REPRO-B`.
 
-## Expected vs Actual
-
-### Expected
+## Expected result
 
 - Dòng có `name = ""` phải làm batch thất bại.
 - Không product nào của batch được lưu vào DB.
 - Trạng thái dữ liệu sau request phải giữ nguyên so với baseline đối với các marker của batch.
 
-### Actual
+## Actual result
 
 - Server trả `200 OK` với kết quả import một phần.
 - Các product hợp lệ vẫn tồn tại trong DB; batch bị partial commit thay vì rollback toàn bộ.
@@ -67,7 +69,7 @@ Các assertion liên quan:
 | `FR16-ATOM-003` | Dòng lỗi ở cuối; dòng hợp lệ đã xử lý trước vẫn tồn tại. |
 | `FR16-ATOM-004` | Kiểm tra DB sau failed mixed batch vẫn tìm thấy marker của batch. |
 
-## Root cause — quan sát source
+## Root cause
 
 Tại `src/eshop-sut/backend/server.js:209-231`, endpoint tạo prepared statement rồi gọi `stmt.run` riêng cho từng phần tử trong `rows.forEach`. Dòng invalid chỉ được thêm vào mảng `errors` và bỏ qua bằng `return` của callback:
 
@@ -83,21 +85,6 @@ rows.forEach((row, index) => {
 
 Không có `db.run("BEGIN TRANSACTION")`, không có `db.run("ROLLBACK")`, và response được gửi sau `stmt.finalize` tại dòng 234-239. Vì vậy những insert thành công không được hoàn tác khi batch có lỗi. Quan sát source phù hợp với partial persistence trong bốn test atomicity.
 
-## Nguồn yêu cầu
-
-- `src/eshop-sut/README.md` — FR-16: nếu có lỗi ở bất kỳ dòng nào, toàn bộ import phải rollback theo giao dịch nguyên tử all-or-nothing.
-- `reports/api-testing/fr-16-phase-a-contract.md` — rollback/atomicity contract và planned persistence verification cho FR-16.
-
-## Tác động
+## Impact
 
 Caller không thể tin rằng một batch thất bại để lại dữ liệu nguyên vẹn. Partial commit có thể tạo catalog thiếu hoặc không đồng bộ, gây khó retry vì các dòng đã được lưu, sinh duplicate và làm tăng chi phí khôi phục dữ liệu thủ công.
-
-## Trạng thái Phase E
-
-PHASE E: COMPLETE — LOCAL BUG REPORT CREATED
-
-GITHUB ISSUE: NOT CREATED
-
-CI/CD: NOT CREATED FOR FR-16
-
-AI CRITIQUE: NOT CREATED
