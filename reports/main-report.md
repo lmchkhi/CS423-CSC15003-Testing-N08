@@ -1,353 +1,444 @@
-# Báo cáo chính — HW05 Performance Testing
+# Báo cáo chính — HW06: AI-First API Testing on EShop
 
 ## Sinh viên: 23127464 — Trần Minh Quang
-## Workflow: Returning Customer Search and Order
-## SUT: EShop REST Backend (Node.js + Express + SQLite)
+
+| | |
+|:---|:---|
+| **Nhóm** | N08 |
+| **Môn** | CS423 / CSC15003 — Kiểm thử Phần mềm |
+| **Branch** | [test/23127464-API-Testing](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/test/23127464-API-Testing) |
+| **Video demo** | [https://youtu.be/k49pwd-5vUs](https://youtu.be/k49pwd-5vUs) |
 
 ---
 
-## 1. Phạm vi kiểm thử và lựa chọn endpoint
+## 1. Bảng tự đánh giá
 
-### 1.1. Workflow end-to-end
+| No. | Criteria | Grade | Self-Assessed Grade |
+|:---:|---|:---:|:---:|
+| 1 | API 1 (FR-05) — full pipeline (generate + audit + extend + execute + bugs) | 30 | 30 |
+| 2 | API 2 (FR-11) — full pipeline (generate + audit + extend + execute + bugs) | 30 | 30 |
+| 3 | API 3 (FR-16) — full pipeline (generate + audit + extend + execute + bugs) | 30 | 30 |
+| 4 | Agent Skills (AI-driven test generator: diagram + pseudocode + skill) | 10 | 10 |
+| | **Total** | **100** | **100** |
 
-Workflow "Returning Customer Search and Order" mô phỏng một khách hàng quay lại: đăng nhập, tìm kiếm sản phẩm, xem chi tiết, thêm vào giỏ hàng, thanh toán và kiểm tra lịch sử đơn hàng. Workflow gồm 7 bước API tuần tự:
+| Criteria | Evidence |
+|---|---|
+| **API 1 — FR-05 (30/30)** | 45 ca (40 AI + 5 human) · Phase C: 16 VALID / 2 INVALID / 22 INCOMPLETE đã hiệu chỉnh · 45/45 thực thi · 35 đạt / 10 fail · 1 bug report Critical SQL injection · CI/CD pass · [Issue #262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
+| **API 2 — FR-11 (30/30)** | 80 ca (70 AI + 10 human) · Phase C: 33 VALID / 2 INVALID / 35 INCOMPLETE đã hiệu chỉnh · 80/80 thực thi · 60 đạt / 20 fail · 1 bug report Critical IDOR · CI/CD pass · [Issue #263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| **API 3 — FR-16 (30/30)** | 45 ca (40 AI + 5 human) · Phase C: 29 VALID / 2 INVALID / 9 INCOMPLETE đã hiệu chỉnh · 45/45 thực thi · 29 đạt / 16 fail · 3 bug reports · CI/CD pass · [Issue #264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264)–[#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
+| **Agent Skills (10/10)** | Sơ đồ tự vẽ PNG + Pseudocode 700 dòng + Skill implementation hoạt động (`ai-first-api-testing/`) |
 
-| Bước | Sampler | Method | Endpoint | Nhóm endpoint |
-| ---: | --- | --- | --- | --- |
-| 1 | RCO-01-Login | POST | `/api/login` | Auth-heavy |
-| 2 | RCO-02-Search | GET | `/api/products?search={keyword}` | Read-heavy |
-| 3 | RCO-03-ProductDetail | GET | `/api/products/{id}` | Read-heavy |
-| 4 | RCO-04-GetCart | GET | `/api/cart` | Transactional |
-| 5 | RCO-05-AddCart | POST | `/api/cart` | Transactional |
-| 6 | RCO-06-Checkout | POST | `/api/checkout` | Transactional |
-| 7 | RCO-07-MyOrders | GET | `/api/orders/my-orders` | Read-heavy |
+---
 
-Giữa mỗi bước có think timer ngẫu nhiên 1–3 giây mô phỏng thời gian đọc/thao tác của người dùng thật.
+## 2. Tổng quan SUT và Phạm vi lựa chọn
 
-### 1.2. Correlation chain
-
-Workflow sử dụng chuỗi correlation xuyên suốt:
-- Login → trích JWT `token` → dùng trong header `Authorization: Bearer {token}` cho tất cả bước sau
-- Search → trích `productId` từ kết quả đầu tiên
-- ProductDetail → trích `price` (normalize BigDecimal do SUT trả string cho product ID chẵn, integer cho lẻ) → tính `totalAmount = price × quantity`
-- Checkout → trích `orderId` → verify trong MyOrders
-
-### 1.3. Hardware
+### 2.1. System Under Test
 
 | Thông số | Giá trị |
-| --- | --- |
-| CPU | Intel Core i7-12700H (20 logical processors) |
-| RAM | 32 GB DDR5 |
-| OS | Windows 11 Pro 24H2 |
-| Java | OpenJDK 17.0.16 LTS |
-| JMeter | Apache JMeter 5.6.3 (non-GUI mode) |
-| SUT | Node.js + Express + SQLite, `localhost:3000` |
+|---|---|
+| SUT | EShop — Vietnamese e-commerce demo application |
+| Repository | [github.com/ttbhanh/eshop-sut](https://github.com/ttbhanh/eshop-sut) |
+| Stack | Node.js + Express + SQLite |
+| Host kiểm thử | `http://localhost:3000` |
+| Công cụ kiểm thử | Postman + Newman 6.2.2 + `htmlextra` reporter |
+| CI/CD | GitHub Actions (`ubuntu-latest`, Node.js 22) |
+
+### 2.2. Lựa chọn 3 API
+
+Ba API được chọn, mỗi API thuộc một Pool khác nhau theo yêu cầu đề bài (Section 5):
+
+| Pool | Feature | Endpoint | Mô tả |
+|:---:|---|---|---|
+| A | FR-05 — Product Listing & Search | `GET /api/products` | Xem danh sách và tìm kiếm sản phẩm |
+| B | FR-11 — Order History View | `GET /api/orders/my-orders` | Xem lịch sử đơn hàng của user |
+| B | FR-11 — Order History View | `GET /api/orders/:id` | Xem chi tiết một đơn hàng |
+| C | FR-16 — Product Import | `POST /api/admin/import-products` | Admin import sản phẩm hàng loạt |
+
+Mọi request đều mang header `X-Student-Id: 23127464` (gắn tự động qua collection-level pre-request script).
 
 ---
 
-## 2. Task 1 — Thiết kế và thực thi kiểm thử với AI
+## 3. Quy trình kiểm thử AI-First — 5 Phase
 
-### 2.1. Thiết kế test plan với AI (AI-first)
+Quy trình tuân theo phương pháp luận AI-First được giảng dạy trong môn học, gồm 5 giai đoạn:
 
-AI được dẫn dắt qua từng bước (không phải single generic prompt):
-- **Phase A:** AI xác minh API contract, runtime probe 1 user × 1 flow, phát hiện 10 điểm lệch giữa spec và implementation (login lockout `+2` thay vì `+1`, checkout không clear cart, price type không nhất quán, v.v.).
-- **Phase B:** AI thiết kế workload profile, CSV data (150 account pool, mỗi VU 1 account riêng), reset strategy (restart backend → provision → verify trước mỗi measured interval).
-- **Phase C:** AI sinh JMX thông qua script `generate-phase-c-jmx.js`, tạo smoke JMX trước, rồi derive 3 graded JMX từ smoke đã verify.
+### Phase A — Contract Extraction
 
-### 2.2. Workflow data-driven
+Trích xuất hợp đồng API từ `api_specification.md` và source code `server.js` của SUT. Xác định:
+- Endpoint, method, request/response schema.
+- Business rules (FR-05: search by keyword, FR-11: ownership isolation, FR-16: bulk import với atomicity).
+- Security requirements (SEC-01 đến SEC-07).
+- Spec gaps (những chỗ tài liệu không định nghĩa rõ).
 
-Sử dụng 2 file CSV:
-- `returning-customer-order.csv` — 170 dòng (Load 20 + Stress 80 + Spike 50 + Endurance 20), mỗi dòng chứa: `email`, `password`, `keyword`, `quantity`, `shippingAddress`. Recycle = false, stopOnEOF = true → mỗi VU dùng 1 dòng duy nhất, không trùng account.
-- `account-provisioning.csv` — 170 dòng với cột `name`, `scenario`, `vuIndex` để provision account trước mỗi run.
+Artifacts: `reports/api-testing/fr-{05,11,16}-phase-a-contract.md`
 
-Keyword search (5 giá trị xoay vòng: iPhone, Samsung, MacBook, AirPods, Keychron) và quantity (1–3) được phân bổ trước trong CSV.
+### Phase B — AI Generation (≥ 35 ca/API)
 
-### 2.3. Ba report view khác nhau
+Dùng AI sinh test cases có hệ thống, bao phủ:
+- **Domain partitions**: phân vùng trên mọi tham số (keyword search, order ID, JWT, product fields).
+- **State transitions**: checkout → order history, admin import → product listing.
+- **Security**: SQL injection, IDOR, role escalation, JWT tampering, XSS (SEC-01–SEC-07).
+- **Schema validation**: response shape, field types, Content-Type.
 
-| Scenario | Listener | Lý do chọn |
-| --- | --- | --- |
-| Load | Summary Report | Tổng hợp throughput/error rate/avg ổn định qua thời gian |
-| Stress | Aggregate Report | So sánh per-sampler percentile giữa các bậc tải |
-| Spike | View Results Tree | Kiểm tra từng request/response tại các giai đoạn baseline/spike/recovery |
+Kết quả: 150 ca AI-generated (40 FR-05 + 70 FR-11 + 40 FR-16).
 
-Endurance (bổ sung): Response Time Graph — theo dõi response time trend qua 30 phút.
+Artifacts: `tests/api-testing/test-cases/fr-{05,11,16}-ai-generated-phase-b.md`
 
-### 2.4. Đặt tên test plan
+### Phase C — Human Audit & Extension
 
-| File | Convention |
-| --- | --- |
-| `23127464_Load_20260813.jmx` | StudentID_ScenarioType_YYYYMMDD |
-| `23127464_Stress_20260813.jmx` | StudentID_ScenarioType_YYYYMMDD |
-| `23127464_Spike_20260813.jmx` | StudentID_ScenarioType_YYYYMMDD |
-| `23127464_Endurance_20260814.jmx` | StudentID_ScenarioType_YYYYMMDD |
+Gắn nhãn từng ca AI-generated: `VALID` / `INVALID` / `INCOMPLETE` kèm reasoning.
 
-### 2.5. Human review — AI đã sai gì
+| Pool | FR | VALID | INVALID | INCOMPLETE |
+|:---:|---|---:|---:|---:|
+| A | FR-05 | 16 | 2 | 22 |
+| B | FR-11 | 33 | 2 | 35 |
+| C | FR-16 | 29 | 2 | 9 |
+| | **Tổng** | **78** | **6** | **66** |
 
-| # | Lỗi AI | Phát hiện ở | Sửa chữa |
-| --- | --- | --- | --- |
-| 1 | JMX thiếu `ThreadGroup.main_controller` + `LoopController loops=-1` | Phase C — run D1 lần 1 tạo JTL 0 sample hữu ích | Vá generator, tái sinh cả 3 JMX |
-| 2 | Search HTTPArgument thiếu tên query param | Phase C — smoke chạy không đúng keyword | Thêm `name="search"` vào element |
-| 3 | Assertion search quá yếu (chỉ check HTTP 200, không verify keyword match) | Phase C — smoke pass nhưng không phát hiện response sai | Thêm assertion kiểm tra keyword xuất hiện trong response body |
-| 4 | Resource monitor runbook đặt "Stop" trước "Start JMeter" | Phase D2 — monitor dừng 35 giây trước workload, mất toàn bộ CPU/RAM | Sửa thứ tự: start monitor → verify ≥3 sample → start JMeter. Chạy lại D2 |
+Sau audit, con người bổ sung thêm **20 ca** (5 ca/API hoặc 5 ca/endpoint) tập trung vào:
+- Protocol-level: method mismatch (POST/DELETE/PUT/HEAD trên endpoint chỉ công bố GET/POST).
+- Security nâng cao: comment-style SQL bypass, null-byte injection, path traversal, JWT missing identity claim.
+- Concurrency & idempotency: concurrent requests, read-after-write consistency.
+- Integration: flow checkout → order history, non-admin persistence verification.
 
-**Nguyên nhân AI sai:**
-- Lỗi 1: Template string trong generator không khớp schema JMeter 5.6.3; AI không có smoke validation tự động cho XML output.
-- Lỗi 2–3: AI tối ưu hóa sớm (generate nhanh) mà không kiểm tra correlation end-to-end.
-- Lỗi 4: AI sinh tài liệu theo thứ tự logic (setup → run → teardown) nhưng thứ tự thời gian thực khác (monitor phải chạy song song, không teardown trước run).
+Mọi ca `INVALID` và `INCOMPLETE` đã được hiệu chỉnh thành ca cuối cùng có thể thực thi. Chi tiết hiệu chỉnh: `reports/api-testing/human-correction-rerun.md`.
 
-### 2.6. Thực thi và kết quả
+Artifacts: `tests/api-testing/test-cases/fr-{05,11,16}-phase-c-human-review-workbook.md`
 
-#### 2.6.1. Load Test — 20 VU, Ramp 60s, Hold 360s
+### Phase D — Automated Execution
 
-| Metric | Giá trị |
-| --- | --- |
-| HTTP Samples | 4.547 |
-| Error Rate | 0,00% (0 failure) |
-| Avg Response Time | 3,4 ms |
-| Median | 3 ms |
-| p90 | 7 ms |
-| p95 | 9 ms |
-| p99 | 13 ms |
-| Throughput | 10,95 req/s |
-| E2E Workflows | 660 (640 hoàn chỉnh, 20 scheduler cutoff) |
-| Workflow/s | 1,54 |
-| Backend CPU Max | 0,542% (normalized) |
-| Backend RAM Max | 56,73 MiB (working set) |
-| Resource Monitor | 267 rows, 2s interval, RESOURCE_COVERAGE_OK |
+Chạy toàn bộ 170 ca bằng Newman CLI, ghi nhận evidence tự động (JSON report, HTML report, console log, SUT log, execution metadata).
 
-**Per-endpoint Load:**
+| Pool | FR | Ca thực thi | Đạt | Không đạt | Assertions đạt / không đạt |
+|:---:|---|---:|---:|---:|---:|
+| A | FR-05 | 45 | 35 | 10 | 108 / 11 |
+| B | FR-11 | 80 | 60 | 20 | 167 / 22 |
+| C | FR-16 | 45 | 29 | 16 | 89 / 16 |
+| | **Tổng** | **170** | **124** | **46** | **364 / 49** |
 
-| Sampler | Samples | Avg (ms) | p95 (ms) |
-| --- | ---: | ---: | ---: |
-| RCO-01-Login | 660 | 3,7 | 7 |
-| RCO-02-Search | 659 | 2,5 | 5 |
-| RCO-03-ProductDetail | 657 | 2,3 | 4 |
-| RCO-04-GetCart | 655 | 2,0 | 4 |
-| RCO-05-AddCart | 653 | 2,1 | 4 |
-| RCO-06-Checkout | 645 | 7,9 | 13 |
-| RCO-07-MyOrders | 618 | 3,2 | 6 |
+FR-05 có 119 assertions trong các lần chạy chính và baseline rỗng.
 
-Run folder: `tests/returning-customer-order/test-runs/load/20260814-001003-user-executed/`
+Artifacts:
+- Newman HTML: `tests/api-testing/evidence/fr-{05,11,16}/*/newman-*-report.html`
+- Newman JSON: `tests/api-testing/evidence/fr-{05,11,16}/*/newman-*-report.json`
+- Execution analysis: `reports/api-testing/fr-{05,11,16}-phase-d-execution-analysis.md`
 
-Demo video: [YouTube D1 Load (22:41 - 1:25:20)](https://youtu.be/slTA5ErFCQ4?t=1361)
+### Phase E — Bug Reporting & CI/CD
 
-#### 2.6.2. Stress Test — Staircase 10→20→40→60→80 VU, 60s/bậc (Rerun)
+Phân loại mỗi failure:
+- `LOI_BAO_MAT_SUT` — lỗi bảo mật của SUT (SQL injection, IDOR, missing auth, missing role check).
+- `LOI_CHUC_NANG_SUT` — lỗi chức năng của SUT (missing validation, missing rollback, ID coercion).
 
-| Metric | Giá trị |
-| --- | --- |
-| HTTP Samples | 7.192 |
-| Error Rate | 0,00% (0 failure) |
-| Avg Response Time | 17,4 ms |
-| Median | 3 ms |
-| p90 | 59 ms |
-| p95 | 80 ms |
-| p99 | 160 ms |
-| Throughput | 24,09 req/s |
-| E2E Workflows | 1.062 |
-| Workflow/s | 3,56 |
-| Backend CPU Max | 93,200% (normalized) |
-| Backend RAM Max | 83,98 MiB (working set) |
-| Resource Monitor | 196 rows, 2s interval, RESOURCE_COVERAGE_OK |
-
-**Throughput theo bậc tải (từ run cũ, cùng JMX):**
-
-| Bậc | VU | Throughput (req/s) | Error % |
-| --- | ---: | ---: | ---: |
-| 1 | 10 | 5,47 | 0,00% |
-| 2 | 20 | 11,28 | 0,00% |
-| 3 | 40 | 22,88 | 0,00% |
-| 4 | 60 | 34,75 | 0,00% |
-| 5 | 80 | 46,27 | 0,00% |
-
-Throughput tuyến tính theo VU, chưa đạt plateau, error 0% ở tất cả bậc. Tuy nhiên, CPU max đạt 93,2% (rerun) cho thấy backend gần saturate tại 80 VU.
-
-Run folder (rerun): `tests/returning-customer-order/test-runs/stress/20260814-041320-user-executed/`
-
-Demo video: [YouTube D2 Stress (1:26:00 - 1:48:36)](https://youtu.be/slTA5ErFCQ4?t=5160)
-
-#### 2.6.3. Spike Test — Baseline 5 → Spike 50 → Recovery 5 VU
-
-| Metric | Baseline (5 VU) | Spike (50 VU) | Recovery (5 VU) |
-| --- | ---: | ---: | ---: |
-| HTTP p95 (ms) | 26 | 36 | 16 |
-| Throughput (req/s) | 2,683 | 27,171 | 2,836 |
-| CPU Avg (%) | 0,047 | 0,465 | 0,052 |
-| RAM Avg (MiB) | 53,820 | 68,969 | 54,022 |
-
-| Metric tổng | Giá trị |
-| --- | --- |
-| HTTP Samples | 2.230 |
-| Error Rate | 0,00% |
-| E2E Workflows | 344 (294 hoàn chỉnh, 50 scheduler cutoff) |
-| Peak allThreads | 50 |
-| Resource Monitor | 206 rows, RESOURCE_COVERAGE_OK |
-
-Recovery hoàn toàn: p95 giảm từ 36 ms (spike) về 16 ms (thấp hơn baseline 26 ms), RAM giảm từ 69,0 về 54,0 MiB. Không có dấu hiệu degradation sau spike.
-
-Run folder: `tests/returning-customer-order/test-runs/spike/20260814-021040-user-executed/`
-
-Demo video: [YouTube D3 Spike (1:48:42 - 2:09:20)](https://youtu.be/slTA5ErFCQ4?t=6522)
-
-#### 2.6.4. Endurance Test — 20 VU, 30 phút
-
-| Metric | Giá trị |
-| --- | --- |
-| HTTP Samples | 20.690 |
-| Error Rate | 0,00% (0 failure) |
-| Avg Response Time | 8,0 ms |
-| p90 | 32 ms |
-| p95 | 40 ms |
-| p99 | 51 ms |
-| Throughput | 11,52 req/s |
-| E2E Workflows | 2.965 |
-| Backend CPU Max | 0,452% (normalized) |
-| Backend RAM Max | 61,61 MiB |
-| Resource Monitor | 387 rows, 5s interval, RESOURCE_COVERAGE_OK |
-
-**Trend analysis (bucket 5 phút):**
-
-| Bucket | Throughput (req/s) | RAM Avg (MiB) | Response Avg (ms) |
-| --- | ---: | ---: | ---: |
-| 0–5 min | 10,95 | 56,1 | 9,2 |
-| 5–10 min | 11,42 | 58,3 | 8,1 |
-| 10–15 min | 11,56 | 59,7 | 7,8 |
-| 15–20 min | 11,71 | 60,2 | 7,6 |
-| 20–25 min | 11,65 | 60,8 | 7,5 |
-| 25–30 min | 11,58 | 61,2 | 7,4 |
-
-Working set tăng +4,7 MiB/30 phút, tốc độ giảm dần và ổn định sau T+10. Response time giảm nhẹ (warm-up effect). Throughput ổn định 10,95–11,71 req/s. Không có dấu hiệu memory leak hay degradation.
-
-**Per-endpoint Endurance:**
-
-| Sampler | Samples | Avg (ms) | p95 (ms) |
-| --- | ---: | ---: | ---: |
-| RCO-01-Login | 2.965 | 4,0 | 7 |
-| RCO-02-Search | 2.964 | 2,7 | 5 |
-| RCO-03-ProductDetail | 2.959 | 2,8 | 6 |
-| RCO-04-GetCart | 2.956 | 2,4 | 4 |
-| RCO-05-AddCart | 2.952 | 2,5 | 5 |
-| RCO-06-Checkout | 2.949 | 36,3 | 52 |
-| RCO-07-MyOrders | 2.945 | 4,8 | 10 |
-
-Checkout (avg 36,3 ms, p95 = 52 ms) là endpoint nặng nhất do SQLite write + state accumulation. Tăng từ 7,9 ms (Load, 6 phút) lên 36,3 ms (Endurance, 30 phút) vì mỗi VU tạo ~150 orders qua 30 phút, order history tích lũy.
-
-Run folder: `tests/returning-customer-order/test-runs/endurance/20260814-024700-user-executed/`
-
-Demo video: [YouTube D4 Endurance (2:09:30 - 3:03:17)](https://youtu.be/slTA5ErFCQ4?t=7770)
-
-### 2.7. Endurance threshold
-
-Trên phần cứng này, tải bền vững tối đa quan sát được ổn định trong 30 phút là khoảng **20 VU / 11,5 req/s**, với:
-- p95 = 40 ms (HTTP)
-- Error rate = 0,00%
-- Backend CPU max = 0,452% (normalized)
-- RAM max = 61,61 MiB (working set)
-
-Cơ sở: Endurance run 30 phút với 20 VU cho throughput ổn định, memory trend giảm dần và ổn định. Stress (rerun) cho thấy CPU max 93,2% tại 80 VU — backend gần saturate, vì vậy 20 VU là mức bền vững trên phần cứng này.
-
-### 2.8. Reset strategy giữa các scenario
-
-Mỗi measured run tuân thủ trình tự:
-1. Restart backend (`node server.js` — SUT tự drop/recreate/seed database)
-2. Resolve PID qua `Get-NetTCPConnection -LocalPort 3000`
-3. Verify HTTP 200 trên `/api/products`
-4. Provision account pool bằng `provision-load-accounts.ps1` (register + login validate)
-5. Start resource monitor (PowerShell script, 2s hoặc 5s interval)
-6. Verify monitor ≥3 samples (alignment gate)
-7. Start JMeter measured command
-8. Post-run guard: verify JTL non-empty, no `main_controller` error, exit code 0
-9. Stop monitor sau khi coverage đủ
-10. Generate HTML report
-
-### 2.9. Bugs phát hiện
-
-| # | ID | Severity | Mô tả | Evidence |
-| --- | --- | --- | --- | --- |
-| 1 | PERF-01 | Major/P1 | Checkout không xóa giỏ hàng sau đặt hàng | `server.js:297-308`, D4 Endurance state drift |
-| 2 | PERF-02 | Critical/P0 | SQL injection trong search endpoint | `server.js:144`, string interpolation `LIKE '%${searchQuery}%'` |
-| 3 | PERF-03 | Major/P1 | Login lockout +2/180s thay vì +1/30s | `server.js:54-57` |
-| 4 | PERF-04 | Critical/P0 | Checkout trust client `total_amount` | `server.js:297-308`, không validate server-side |
-
-Chi tiết: xem `bug-reports/hw05-perf/PERF-01..04`.
+Tạo 5 bug reports tại `bug-report/`, xuất bản GitHub Issues (#262–#266), tích hợp CI/CD pipeline.
 
 ---
 
-## 3. Task 2 — AI analysis và misinterpretation hunt
+## 4. Chi tiết kết quả kiểm thử từng API
 
-### 3.1. AI phân tích raw JTL
+### 4.1. FR-05 — Product Listing & Search (Pool A)
 
-AI được yêu cầu đọc raw JTL của 4 scenario và đưa ra phân tích ban đầu. Bản draft AI chứa nhiều lỗi diễn giải điển hình:
+| Hạng mục | Kết quả |
+|---|---|
+| **Endpoint** | `GET /api/products` |
+| **Test cases** | 45 (40 AI-generated + 5 human-origin) |
+| **Phân vùng bao phủ** | Listing, existing/no-match keyword, empty/duplicate query, whitespace, encoding, Unicode (NFC/NFD, accent), ký tự đặc biệt (wildcard `%`, `_`), SQL injection, XSS, long keyword |
+| **Phase C audit** | 16 VALID · 2 INVALID · 22 INCOMPLETE |
+| **Ca con người bổ sung** | FR05-H01 (method mismatch POST), FR05-H02 (concurrent 5 requests), FR05-H03 (comment-style SQL bypass), FR05-H04 (Content-Type header), FR05-H05 (null-byte injection) |
+| **Execution** | 45/45 thực thi · 35 đạt · 10 không đạt · 119 assertions (108 đạt / 11 không đạt) |
+| **Bug** | 1 — SQL injection qua `search` parameter |
 
-> "Kết quả Load test cho thấy hệ thống xử lý 5.207 samples với error rate 0% và average response time 11.740 ms. Throughput đạt 1,54 req/s. Stress test đẩy lên 80 VU cho thấy p95 = 37 ms, CPU max đạt 54,14 MiB, xác nhận 80 VU là ngưỡng ổn định. Spike test cho thấy hệ thống có memory leak nghiêm trọng..."
+#### Bug phát hiện: SQL Injection qua Search
 
-### 3.2. Phát hiện lỗi AI (10 lỗi)
+| | |
+|---|---|
+| **Issue** | [#262 — SQL injection qua query parameter search](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
+| **Severity** | Critical / P0 |
+| **Root cause** | `server.js:143–149` — chuỗi `search` được nối trực tiếp vào SQL query `LIKE '%${searchQuery}%'` không qua parameterized query |
+| **4 biểu hiện** | FR05-SEC-001 (tautology `' OR '1'='1'`), FR05-SEC-002 (UNION-based), FR05-SEC-004 (information exposure qua metacharacter), FR05-H05 (null-byte `%00`) |
+| **Remediation** | Thay chuỗi nối bằng parameterized query: `WHERE name LIKE ?` với `%${searchQuery}%` truyền qua parameter |
 
-| # | Lỗi | Giá trị AI nêu | Giá trị đúng (raw JTL) |
-| --- | --- | --- | --- |
-| 1 | Nhầm E2E avg với HTTP avg | 11.740 ms | HTTP avg = 3,4 ms; 11.740 ms là E2E (có think time) |
-| 2 | Gộp transaction rows vào sample count | 5.207 samples | HTTP = 4.547; E2E transaction = 660 |
-| 3 | Nhầm RAM pre-run với CPU, sai đơn vị | CPU = 54,14 MiB | 54,14 MiB là RAM pre-run; CPU Stress không xác định (run cũ) |
-| 4 | Nhầm max thread với sustainable capacity | 80 VU sustained | 80 VU là peak thread; endurance chỉ 20 VU |
-| 5 | Gọi transient spike memory là leak | Memory leak | RAM tăng lúc spike rồi giảm về 54,0 MiB — transient, không leak |
-| 6 | Hoán đổi p90/p95 | p90 = 40 ms | p90 = 32 ms; p95 = 40 ms |
-| 7 | Gán metric Checkout cho Search | Search p95 = 52 ms | Checkout p95 = 52 ms; Search p95 = 5 ms |
-| 8 | Nhầm E2E throughput với HTTP throughput | HTTP = 1,54 req/s | 1,54 là workflow/s; HTTP = 10,95 req/s |
-| 9 | Bịa error rate | Stress error = 0,03% | 0,00% (0 failure / 7.293 HTTP) |
-| 10 | Dùng metric ngắn hạn cho kết luận chung | Checkout avg = 7,9 ms | 7,9 ms chỉ ở Load (6 phút); Endurance (30 phút) = 36,3 ms |
+Bug report: `bug-report/fr-05-sql-injection-search.md`
 
-Chi tiết mỗi lỗi (raw evidence, verdict, correction, nguyên nhân AI bỏ lỡ): xem [AI_MISINTERPRETATION_HUNT.md](./returning-customer-order/AI_MISINTERPRETATION_HUNT.md).
+Evidence: `tests/api-testing/evidence/fr-05/20260821-223004/`
 
-### 3.3. Đánh giá đề xuất tối ưu của AI (7 đề xuất)
+### 4.2. FR-11 — Order History View (Pool B)
 
-| # | Đề xuất | Phân loại | Lý do |
-| --- | --- | --- | --- |
-| 1 | Index `orders(user_id)` | Plausible but unproven | MyOrders p95 chỉ 10 ms; chưa có evidence bottleneck |
-| 2 | SQLite WAL mode | Plausible but unproven | Single-process Node.js, lock contention chưa rõ |
-| 3 | Connection Pool | Hallucinated | SQLite dùng single file connection, không có pool concept |
-| 4 | In-memory cache products | Plausible but unproven | Search avg = 2,7 ms; dataset 5 sản phẩm quá nhỏ |
-| 5 | Pagination my-orders | Feasible | Response time tăng tương quan với order count tích lũy |
-| 6 | Rate Limiting | Not supported | 80 VU 0% error, CPU max 93,2% nhưng không crash |
-| 7 | Clear cart sau checkout | Feasible | Functional fix + giảm state accumulation |
+| Hạng mục | Kết quả |
+|---|---|
+| **Endpoints** | `GET /api/orders/my-orders` (35 AI + 5 human) · `GET /api/orders/:id` (35 AI + 5 human) |
+| **Test cases** | 80 (70 AI-generated + 10 human-origin) |
+| **Phân vùng bao phủ** | Ownership isolation (User A vs User B), JWT authentication (missing/empty/invalid/expired/tampered), IDOR (foreign order), parameter pollution, schema/response, ID domain (zero/negative/string/decimal/scientific/leading-zero) |
+| **Phase C audit** | 33 VALID · 2 INVALID · 35 INCOMPLETE |
+| **Ca con người bổ sung** | FR11-MYO-H01–H05: method mismatch POST, flow checkout→history, read consistency, HEAD, content negotiation · FR11-DET-H01–H05: method mismatch DELETE, PUT, history after state change, path traversal, idempotency |
+| **Execution** | 80/80 thực thi · 60 đạt · 20 không đạt · 189 assertions (167 đạt / 22 không đạt) |
+| **Bug** | 1 — IDOR + Missing Authentication |
 
-Chi tiết: xem [OPTIMIZATION_REVIEW.md](./returning-customer-order/OPTIMIZATION_REVIEW.md).
+#### Bug phát hiện: IDOR & Missing Authentication
+
+| | |
+|---|---|
+| **Issue** | [#263 — IDOR + thiếu authentication trên order detail](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| **Severity** | Critical / P0 |
+| **Root cause** | `GET /api/orders/:id` không kiểm tra JWT authentication và không kiểm tra ownership — bất kỳ ai biết order ID đều xem được dữ liệu đơn hàng |
+| **Test cases xác nhận** | FR11-DET-009 (IDOR A→B), FR11-DET-010 (IDOR B→A), FR11-DET-011 (switch token), FR11-DET-026–033 (missing auth variants) |
+| **Impact** | Toàn bộ order data (mã đơn, ngày đặt, tổng tiền, trạng thái, sản phẩm) bị lộ cho bất kỳ ai |
+
+Bug report: `bug-report/fr-11-idor-missing-auth.md`
+
+Evidence: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
+
+### 4.3. FR-16 — Product Import (Pool C)
+
+| Hạng mục | Kết quả |
+|---|---|
+| **Endpoint** | `POST /api/admin/import-products` |
+| **Test cases** | 45 (40 AI-generated + 5 human-origin) |
+| **Phân vùng bao phủ** | Valid import (single/batch/full fields), authentication (missing/empty/bearer/invalid/expired/tampered), name validation (empty/missing/null/whitespace/length), price validation (boundary/zero/negative/wrong type/null), category dependency (existing/nonexistent/missing/wrong type), atomicity (invalid first/middle/last + persistence), SQL injection, XSS, CSV conflict |
+| **Phase C audit** | 29 VALID · 2 INVALID · 9 INCOMPLETE |
+| **Contract decision** | JSON array là primary; CSV upload là exploratory/negative |
+| **Ca con người bổ sung** | FR16-H01 (method mismatch GET), FR16-H02 (large batch 500+), FR16-H03 (duplicate product), FR16-H04 (extra field), FR16-H05 (non-admin persistence) |
+| **Execution** | 45/45 thực thi · 29 đạt · 16 không đạt · 105 assertions (89 đạt / 16 không đạt) |
+| **Bugs** | 3 |
+
+#### Bug 1: Missing Admin Role Check
+
+| | |
+|---|---|
+| **Issue** | [#264 — Thiếu kiểm tra role admin](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264) |
+| **Severity** | Critical / P0 |
+| **Root cause** | Endpoint chỉ kiểm tra JWT hợp lệ nhưng không kiểm tra role — user thường có JWT hợp lệ vẫn import được sản phẩm |
+| **Test cases** | FR16-AUTH-002, FR16-H05, FR16-SEC-003 |
+
+#### Bug 2: Missing Price Validation
+
+| | |
+|---|---|
+| **Issue** | [#265 — Không validate price > 0](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) |
+| **Severity** | Medium / P2 |
+| **Root cause** | Endpoint không kiểm tra giá trị price — price = 0, âm, string, null đều được lưu vào database |
+| **Test cases** | FR16-PRICE-002, FR16-PRICE-003, FR16-PRICE-004, FR16-PRICE-005 |
+
+#### Bug 3: Missing Atomicity / Rollback
+
+| | |
+|---|---|
+| **Issue** | [#266 — Không rollback batch khi có dòng lỗi](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
+| **Severity** | High / P1 |
+| **Root cause** | Batch import xử lý từng dòng tuần tự không có transaction — khi dòng giữa/cuối invalid, các dòng valid trước đó đã được commit (partial commit) |
+| **Test cases** | FR16-ATOM-001, FR16-ATOM-002, FR16-ATOM-003, FR16-ATOM-004 |
+
+Bug reports: `bug-report/fr-16-missing-admin-role-check.md`, `bug-report/fr-16-missing-price-validation.md`, `bug-report/fr-16-missing-atomicity-rollback.md`
+
+Evidence: `tests/api-testing/evidence/fr-16/20260821-223035/`
 
 ---
 
-## 4. Task 3 — Continuous Performance Testing proposal
+## 5. Tổng hợp số liệu
 
-Đề xuất pipeline CI/CD tự động:
+### 5.1. Bảng tổng hợp test cases
 
-1. **Trigger:** Mỗi PR thay đổi `src/eshop-sut/backend/` → chạy smoke + short Load gate
-2. **Smoke gate:** 1 VU × 1 iteration, kiểm tra functional regression
-3. **Load gate (PR):** 20 VU × 60s hold, threshold: `p95 > baseline_p95 × 1.20 OR error_rate > 1%` → block merge
-4. **Nightly Stress:** Staircase 10→80 VU, so sánh throughput plateau + error trend
-5. **Weekly Spike + Endurance:** 50 VU spike + 15 phút endurance, cập nhật baseline nếu cải thiện
+| Pool | FR | Endpoint | Thiết kế | AI sinh | Người bổ sung | VALID | INVALID | INCOMPLETE | Thực thi | Đạt | Không đạt | Bugs |
+|:---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| A | FR-05 | `GET /api/products` | 45 | 40 | 5 | 16 | 2 | 22 | 45 | 35 | 10 | 1 |
+| B | FR-11 | `GET /api/orders/my-orders`; `GET /api/orders/:id` | 80 | 70 | 10 | 33 | 2 | 35 | 80 | 60 | 20 | 1 |
+| C | FR-16 | `POST /api/admin/import-products` | 45 | 40 | 5 | 29 | 2 | 9 | 45 | 29 | 16 | 3 |
+| | **Tổng** | — | **170** | **150** | **20** | **78** | **6** | **66** | **170** | **124** | **46** | **5** |
 
-Trade-off chính:
-- **Chi phí:** Smoke + Load gate mỗi PR ~2–3 phút — chấp nhận được
-- **False alarm:** p95 variance cao trên SUT nhẹ (latency <10 ms → 1–2 ms = 10–20%); dùng moving average baseline 3 lần chạy gần nhất
-- **State accumulation:** Bắt buộc restart SUT trước mỗi run để reset DB
-- **Isolation:** Cần dedicated runner để tránh runner noise
+### 5.2. Phân loại failure
 
-Chi tiết (flowchart + discussion): xem [CONTINUOUS_PERFORMANCE.md](./returning-customer-order/CONTINUOUS_PERFORMANCE.md).
+| Phân loại | Số ca | Ví dụ |
+|---|---:|---|
+| `LOI_BAO_MAT_SUT` | 23 | SQL injection (FR-05), IDOR + missing auth (FR-11), missing role check (FR-16) |
+| `LOI_CHUC_NANG_SUT` | 23 | Wildcard handling (FR-05), ID coercion (FR-11), missing validation + rollback (FR-16) |
+| **Tổng không đạt** | **46** | |
+
+### 5.3. Deliverable files
+
+| File | Path |
+|---|---|
+| Test Cases CSV (UTF-8 BOM) | `tests/api-testing/test-cases/23127464_test_cases.csv` |
+| Test Summary CSV | `tests/api-testing/test-cases/23127464_test_summary.csv` |
+| Test Cases Excel | `reports/23127464_test_cases.xlsx` |
+| Test Summary Excel | `reports/23127464_test_summary.xlsx` |
 
 ---
 
-## 5. Tài liệu đính kèm
+## 6. Tính năng Postman & Newman đã sử dụng
 
-| Tài liệu | Đường dẫn |
-| --- | --- |
-| Phân tích tổng hợp | [RESULT_ANALYSIS.md](./returning-customer-order/RESULT_ANALYSIS.md) |
-| AI Misinterpretation Hunt | [AI_MISINTERPRETATION_HUNT.md](./returning-customer-order/AI_MISINTERPRETATION_HUNT.md) |
-| Optimization Review | [OPTIMIZATION_REVIEW.md](./returning-customer-order/OPTIMIZATION_REVIEW.md) |
-| Continuous Performance | [CONTINUOUS_PERFORMANCE.md](./returning-customer-order/CONTINUOUS_PERFORMANCE.md) |
-| AI Critique (274 từ) | [ai-critique.md](./ai-critique.md) |
-| AI Audit Report (27 entries) | [ai-audit-report.md](./ai-audit-report.md) |
-| Workflow Design | [WORKFLOW_DESIGN.md](./returning-customer-order/WORKFLOW_DESIGN.md) |
-| Review Notes | [REVIEW_NOTES.md](./returning-customer-order/REVIEW_NOTES.md) |
-| D1 Load Analysis | [D1_LOAD_RESULT_ANALYSIS.md](./returning-customer-order/D1_LOAD_RESULT_ANALYSIS.md) |
-| D2 Stress Analysis | [D2_STRESS_RESULT_ANALYSIS.md](./returning-customer-order/D2_STRESS_RESULT_ANALYSIS.md) |
-| D3 Spike Analysis | [D3_SPIKE_RESULT_ANALYSIS.md](./returning-customer-order/D3_SPIKE_RESULT_ANALYSIS.md) |
-| D4 Endurance Analysis | [D4_ENDURANCE_RESULT_ANALYSIS.md](./returning-customer-order/D4_ENDURANCE_RESULT_ANALYSIS.md) |
-| Bug Reports | [bug-reports/hw05-perf/](../bug-reports/hw05-perf/) |
-| Test Summary | [test-summary.md](./test-summary.md) |
+| # | Feature | Mô tả sử dụng |
+|---:|---|---|
+| 1 | **Collections & Folders** | Tổ chức test case theo endpoint và category (listing, search, auth, security, schema) |
+| 2 | **Collection variables** | Quản lý `baseUrl`, `adminToken`, `userToken`, fixture IDs giữa các request |
+| 3 | **Environment variables** | Tách biến môi trường (`studentId`, `baseUrl`) ra file environment |
+| 4 | **Postman environment file** | File `.postman_environment.json` dùng cho cả local và CI |
+| 5 | **Collection-level pre-request script** | Tự động gắn `X-Student-Id: 23127464` vào header mọi request |
+| 6 | **Test scripts & Assertions** | Semantic assertions kiểm tra ownership, non-disclosure, schema, security invariants |
+| 7 | **`pm.sendRequest`** | Kiểm tra post-condition: đọc database sau request để xác minh persistence/rollback bằng marker duy nhất |
+| 8 | **Data-driven execution** | Collection Runner / Newman với iteration data file cho nhiều biến thể input |
+| 9 | **Newman CLI** | Chạy tự động với `--reporters cli,json,htmlextra` |
+| 10 | **Newman `htmlextra` reporter** | Tạo HTML report chi tiết với request/response body, assertion results |
+| 11 | **GitHub Actions integration** | Newman chạy trong CI pipeline, HTML report upload làm artifact |
+
+---
+
+## 7. CI/CD — GitHub Actions
+
+### 7.1. Pipeline
+
+- Workflow: `.github/workflows/api-test-pools-a-b-c.yml`
+- Kiến trúc: **Matrix strategy** tạo 3 job độc lập (Pool A / Pool B / Pool C) với `fail-fast: false`.
+- Mỗi job: clone → `npm ci` → generate collections → apply corrections → prepare fixture → Newman run → upload artifacts.
+- Nền tảng: `ubuntu-latest`, Node.js 22, Newman 6.2.2, `newman-reporter-htmlextra` 1.23.1.
+
+### 7.2. Hai mẫu commit evidence
+
+| Run | Chế độ | Commit | Kết quả | Link |
+|---|---|---|---|---|
+| **All-pass** | `all-pass` | `34455d7` | SUCCESS — 3/3 jobs đạt | [GitHub Actions Run](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502275099) |
+| **Controlled-failure** | `controlled-failure` | `c2610bb` | FAILURE — Pool C fail do FR16-AUTH-002 | [GitHub Actions Run](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502722228) |
+
+**All-pass run:** Cả 3 Pool đều chạy subset ca kiểm thử (5 ca/Pool trong chế độ `all-pass`) và đạt 100%.
+
+**Controlled-failure run:** Pool A và Pool B đạt. Pool C chạy thêm ca `FR16-AUTH-002` (user thường import — lỗi thật do SUT thiếu role check) → pipeline fail. Đây là lỗi thực tế (genuine bug), không phải lỗi giả lập.
+
+### 7.3. Evidence screenshots
+
+- All-pass: `tests/api-testing/evidence/ci-cd/all-pass/github-actions-overview.png`
+- Controlled-failure: `tests/api-testing/evidence/ci-cd/controlled-failure/github-actions-overview.png`
+
+CI/CD report chi tiết: `reports/api-testing/api-cicd-report.md`
+
+---
+
+## 8. Agent Skill — AI-Driven API Test Generator
+
+### 8.1. Sơ đồ tự vẽ
+
+Sơ đồ kiến trúc do sinh viên tự thiết kế (self-drawn), minh họa pipeline từ API specification đến test suite cuối cùng:
+
+`reports/Self-Drawn_AI_Driven_Diagram.png`
+
+### 8.2. Thuật toán (Pseudocode)
+
+Thuật toán `GenerateAllTests` gồm các bước chính:
+
+1. **Parse specification** — trích xuất endpoint, schema, business rules, security requirements.
+2. **Generate domain partitions** — phân vùng trên mọi tham số (valid/invalid/boundary/null/missing).
+3. **Generate state transitions** — kiểm thử các chuyển đổi trạng thái (checkout → order, import → product listing).
+4. **Generate security tests** — SQL injection, IDOR, role escalation, JWT tampering, XSS (SEC-01–SEC-07).
+5. **Generate schema validation** — response shape, field types, Content-Type.
+6. **Deduplicate** — loại bỏ ca trùng lặp về semantic.
+7. **Evaluate coverage** — đánh giá coverage và bổ sung test cho vùng thiếu.
+8. **Output** — `generatedTestSuites`, `coverageReports`, `traceabilityMatrix`, `specificationGaps`.
+
+Pseudocode đầy đủ (700 dòng): `reports/PSEUDOCODE.md`
+
+### 8.3. Skill implementation
+
+Thư mục `ai-first-api-testing/` chứa Agent Skill có thể tái sử dụng, cho phép AI tự động sinh test case cho các API tương tự khi được cung cấp specification.
+
+---
+
+## 9. Danh mục lỗi phát hiện & GitHub Issues
+
+### 9.1. Tổng hợp 5 lỗi
+
+| # | Issue | FR | Severity | Mô tả | Test Cases |
+|---:|---|---|---|---|---|
+| 1 | [#262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) | FR-05 | Critical / P0 | SQL injection qua `search` parameter với 4 biểu hiện | FR05-SEC-001, SEC-002, SEC-004, H05 |
+| 2 | [#263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) | FR-11 | Critical / P0 | IDOR + thiếu authentication trên `GET /api/orders/:id` | FR11-DET-009–011, DET-026–033 |
+| 3 | [#264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264) | FR-16 | Critical / P0 | Thiếu kiểm tra role admin khi import product | FR16-AUTH-002, H05, SEC-003 |
+| 4 | [#265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) | FR-16 | Medium / P2 | Không validate price > 0 (zero, âm, string, null đều lưu) | FR16-PRICE-002–005 |
+| 5 | [#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) | FR-16 | High / P1 | Không rollback batch khi có dòng invalid (partial commit) | FR16-ATOM-001–004 |
+
+### 9.2. Issue screenshots
+
+| Issue | Screenshot |
+|---|---|
+| #262 — FR-05 SQL Injection | `bug-report/issue_screenshot/[BUG][FR-05] SQL injection qua query parameter search.png` |
+| #263 — FR-11 IDOR | `bug-report/issue_screenshot/[BUG][FR-11] thiếu authentication và ownership check.png` |
+| #264 — FR-16 Missing Role Check | `bug-report/issue_screenshot/[BUG][FR-16] thiếu kiểm tra role admin.png` |
+| #265 — FR-16 Missing Price Validation | `bug-report/issue_screenshot/[BUG][FR-16] không validate price lớn hơn 0.png` |
+| #266 — FR-16 Missing Rollback | `bug-report/issue_screenshot/[BUG][FR-16] không rollback batch khi có dòng lỗi.png` |
+
+---
+
+## 10. Phê bình AI & Bài học rút ra
+
+**AI sai hoặc thiếu sót ở đâu:** AI sinh 150 ca phân vùng tốt nhưng bỏ sót:
+- FR-05: method mismatch, injection nâng cao (comment-style, null-byte), nhầm oracle API/browser sink.
+- FR-11: không kiểm tra IDOR thực tế cross-account (User B truy xuất đơn User A).
+- FR-16: không xác minh DB persistence sau request non-admin, thiếu batch lớn / trùng lặp / extra field.
+
+**Tại sao bỏ sót:** AI tư duy cục bộ per-endpoint, thiên lệch theo template, thiếu attacker mindset.
+
+**Bài học:** AI = bộ tăng tốc bao phủ; con người thẩm định oracle + bổ sung 20 ca bảo mật + chịu trách nhiệm cuối cùng.
+
+---
+
+## 11. Kết luận và Danh mục tài liệu nộp kèm
+
+### 11.1. Kết luận
+
+Quy trình AI-First API Testing đã hoàn thành đầy đủ 5 Phase cho cả 3 API:
+- **170 ca kiểm thử** được thiết kế (150 AI + 20 human), toàn bộ đã thực thi.
+- **124 ca đạt**, **46 ca không đạt** — mỗi failure đều truy vết được về lỗi thực sự của SUT.
+- **5 bug reports** đã tạo và xuất bản trên GitHub Issues (#262–#266).
+- **CI/CD pipeline** hoạt động với 2 mẫu commit evidence (all-pass + controlled-failure).
+- **Agent Skill** với sơ đồ tự vẽ, pseudocode 700 dòng và implementation hoạt động.
+
+### 11.2. Danh mục tài liệu
+
+| # | Deliverable | Path |
+|---:|---|---|
+| 1 | README (bảng tự đánh giá + test summary) | `README.md` |
+| 2 | Báo cáo chính | `reports/main-report.md` |
+| 3 | AI Audit Report | `reports/ai-audit-report.md` |
+| 4 | AI Critique (298 từ) | `reports/ai-critique.md` |
+| 5 | Phase A Contract — FR-05 | `reports/api-testing/fr-05-phase-a-contract.md` |
+| 6 | Phase A Contract — FR-11 | `reports/api-testing/fr-11-phase-a-contract.md` |
+| 7 | Phase A Contract — FR-16 | `reports/api-testing/fr-16-phase-a-contract.md` |
+| 8 | Phase B AI Test Cases — FR-05 | `tests/api-testing/test-cases/fr-05-ai-generated-phase-b.md` |
+| 9 | Phase B AI Test Cases — FR-11 | `tests/api-testing/test-cases/fr-11-ai-generated-phase-b.md` |
+| 10 | Phase B AI Test Cases — FR-16 | `tests/api-testing/test-cases/fr-16-ai-generated-phase-b.md` |
+| 11 | Phase C Human Review — FR-05 | `tests/api-testing/test-cases/fr-05-phase-c-human-review-workbook.md` |
+| 12 | Phase C Human Review — FR-11 | `tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md` |
+| 13 | Phase C Human Review — FR-16 | `tests/api-testing/test-cases/fr-16-phase-c-human-review-workbook.md` |
+| 14 | Phase D Execution Analysis — FR-05 | `reports/api-testing/fr-05-phase-d-execution-analysis.md` |
+| 15 | Phase D Execution Analysis — FR-11 | `reports/api-testing/fr-11-phase-d-execution-analysis.md` |
+| 16 | Phase D Execution Analysis — FR-16 | `reports/api-testing/fr-16-phase-d-execution-analysis.md` |
+| 17 | Human Correction & Rerun | `reports/api-testing/human-correction-rerun.md` |
+| 18 | Postman Collection — FR-05 | `tests/api-testing/collections/23127464_FR05_Product_Search.postman_collection.json` |
+| 19 | Postman Collection — FR-11 | `tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json` |
+| 20 | Postman Collection — FR-16 | `tests/api-testing/collections/23127464_FR16_Product_Import.postman_collection.json` |
+| 21 | Newman HTML Report — FR-05 | `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-report.html` |
+| 22 | Newman HTML Report — FR-11 | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.html` |
+| 23 | Newman HTML Report — FR-16 | `tests/api-testing/evidence/fr-16/20260821-223035/` |
+| 24 | Bug Report — FR-05 SQL Injection | `bug-report/fr-05-sql-injection-search.md` |
+| 25 | Bug Report — FR-11 IDOR | `bug-report/fr-11-idor-missing-auth.md` |
+| 26 | Bug Report — FR-16 Missing Role Check | `bug-report/fr-16-missing-admin-role-check.md` |
+| 27 | Bug Report — FR-16 Missing Price Validation | `bug-report/fr-16-missing-price-validation.md` |
+| 28 | Bug Report — FR-16 Missing Rollback | `bug-report/fr-16-missing-atomicity-rollback.md` |
+| 29 | Issue Screenshots (5 ảnh) | `bug-report/issue_screenshot/` |
+| 30 | CI/CD Report | `reports/api-testing/api-cicd-report.md` |
+| 31 | CI/CD Workflow | `.github/workflows/api-test-pools-a-b-c.yml` |
+| 32 | CI/CD Evidence — All-pass | `tests/api-testing/evidence/ci-cd/all-pass/` |
+| 33 | CI/CD Evidence — Controlled-failure | `tests/api-testing/evidence/ci-cd/controlled-failure/` |
+| 34 | Test Cases CSV (UTF-8 BOM) | `tests/api-testing/test-cases/23127464_test_cases.csv` |
+| 35 | Test Summary CSV | `tests/api-testing/test-cases/23127464_test_summary.csv` |
+| 36 | Test Cases Excel | `reports/23127464_test_cases.xlsx` |
+| 37 | Test Summary Excel | `reports/23127464_test_summary.xlsx` |
+| 38 | Sơ đồ AI Test Generator (tự vẽ) | `reports/Self-Drawn_AI_Driven_Diagram.png` |
+| 39 | Pseudocode AI Test Generator | `reports/PSEUDOCODE.md` |
+| 40 | Agent Skill implementation | `ai-first-api-testing/` |
+| 41 | Git commit log | `git-log.txt` |
+| 42 | Header screenshots (3 ảnh) | `tests/api-testing/evidence/fr-{05,11,16}/postman-header-screenshot.png` |
+| 43 | Video demo | [https://youtu.be/k49pwd-5vUs](https://youtu.be/k49pwd-5vUs) |
+
+### 11.3. Anti-AI-Cheat Evidence
+
+| Yêu cầu | Evidence |
+|---|---|
+| `X-Student-Id: 23127464` header | Screenshot Postman Console cho mỗi FR |
+| Newman hostname | `http://127.0.0.1:3000` — ghi nhận trong mọi execution metadata |
+| AI test-generator diagram | Tự vẽ bởi sinh viên: `reports/Self-Drawn_AI_Driven_Diagram.png` |

@@ -1,51 +1,62 @@
-# Test Summary — HW05 Performance Testing
+# Test Summary — HW06 AI-First API Testing
 
-## Sinh viên: 23127464
+## Sinh viên: 23127464 — Trần Minh Quang
 
-## Workflow: Returning Customer Search and Order
+## SUT: EShop REST Backend (`localhost:3000`)
 
 ---
 
-### Scenarios thực hiện
+### Phạm vi kiểm thử
 
-| #   | Scenario       | JMX File                        |     VU | Duration                      | Listener            |
-| --- | -------------- | ------------------------------- | -----: | ----------------------------- | ------------------- |
-| D1  | Load           | 23127464_Load_20260813.jmx      |     20 | Ramp 60s + Hold 360s          | Summary Report      |
-| D2  | Stress (rerun) | 23127464_Stress_20260813.jmx    |  10→80 | Staircase 5 bậc × 60s         | Aggregate Report    |
-| D3  | Spike          | 23127464_Spike_20260813.jmx     | 5→50→5 | Baseline/spike/recovery ~190s | View Results Tree   |
-| D4  | Endurance      | 23127464_Endurance_20260814.jmx |     20 | 30 phút                       | Response Time Graph |
+| Pool | FR | Endpoint | Mô tả |
+|:---:|---|---|---|
+| A | FR-05 | `GET /api/products` | Product Listing & Search |
+| B | FR-11 | `GET /api/orders/my-orders` | Order History (danh sách) |
+| B | FR-11 | `GET /api/orders/:id` | Order History (chi tiết) |
+| C | FR-16 | `POST /api/admin/import-products` | Product Import (admin) |
 
-### Endpoint groups covered
+### Tổng hợp test cases
 
-| Nhóm          | Endpoints                                                                   | Vai trò trong workflow                                 |
-| ------------- | --------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Auth-heavy    | POST /api/login                                                             | Bước 1: đăng nhập, lấy JWT token                       |
-| Read-heavy    | GET /api/products?search=, GET /api/products/:id, GET /api/orders/my-orders | Bước 2, 3, 7: tìm kiếm, xem chi tiết, lịch sử đơn hàng |
-| Transactional | GET /api/cart, POST /api/cart, POST /api/checkout                           | Bước 4, 5, 6: giỏ hàng và thanh toán                   |
+| Pool | FR | Thiết kế | AI sinh | Người bổ sung | VALID | INVALID | INCOMPLETE | Thực thi | Đạt | Không đạt | Bugs |
+|:---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| A | FR-05 | 45 | 40 | 5 | 16 | 2 | 22 | 45 | 35 | 10 | 1 |
+| B | FR-11 | 80 | 70 | 10 | 33 | 2 | 35 | 80 | 60 | 20 | 1 |
+| C | FR-16 | 45 | 40 | 5 | 29 | 2 | 9 | 45 | 29 | 16 | 3 |
+| | **Tổng** | **170** | **150** | **20** | **78** | **6** | **66** | **170** | **124** | **46** | **5** |
 
-### Endurance threshold
+### Tỉ lệ
 
-> **20 VU / 11,5 req/s** sustained 30 phút, p95 = 40 ms, error = 0,00%, CPU max = 0,452%, RAM max = 61,61 MiB.
+| Metric | Giá trị |
+|---|---:|
+| Tỉ lệ thực thi | 170 / 170 = **100%** |
+| Tỉ lệ đạt | 124 / 170 = **72,9%** |
+| Tỉ lệ không đạt | 46 / 170 = **27,1%** |
+| Assertions đạt / không đạt | 364 / 49 |
+| Bugs phát hiện | **5** (3 Critical, 1 High, 1 Medium) |
 
-### Issues / Performance findings
+### Bugs phát hiện
 
-| #   | Loại                 | Mô tả                                                                            | Evidence                                                |
-| --- | -------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| 1   | Performance finding  | Checkout latency tăng từ 7,9 ms → 36,3 ms sau 30 phút do order/cart accumulation | D1 vs D4 JTL                                            |
-| 2   | Functional defect    | Checkout không clear cart                                                        | Source code `server.js:297-308` + runtime probe Phase A |
-| 3   | Security defect      | SQL injection trong search endpoint (`LIKE '%${searchQuery}%'`)                  | Source code `server.js:144`                             |
-| 4   | Design inconsistency | Login failed +2 attempts thay vì +1; lockout 180s thay vì 30s                    | Source code `server.js:54-57` vs assignment spec        |
+| # | FR | Severity | Mô tả | GitHub Issue |
+|---:|---|---|---|---|
+| 1 | FR-05 | Critical / P0 | SQL injection qua `search` parameter | [#262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
+| 2 | FR-11 | Critical / P0 | IDOR + thiếu authentication trên order detail | [#263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| 3 | FR-16 | Critical / P0 | Thiếu kiểm tra role admin khi import | [#264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264) |
+| 4 | FR-16 | Medium / P2 | Không validate price > 0 | [#265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) |
+| 5 | FR-16 | High / P1 | Không rollback batch khi có dòng invalid | [#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
 
-### 2.5. Demo video
+### CI/CD
 
-| Phase        | Timestamp         | Link                                                         |
-| ------------ | ----------------- | ------------------------------------------------------------ |
-| D1 Load      | 22:41 - 1:25:20   | [YouTube](https://youtu.be/slTA5ErFCQ4?t=1361)               |
-| D2 Stress    | 1:26:00 - 1:48:36 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=5160)               |
-| D3 Spike     | 1:48:42 - 2:09:20 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=6522)               |
-| D4 Endurance | 2:09:30 - 3:03:17 | [YouTube](https://youtu.be/slTA5ErFCQ4?t=7770)               |
-| Full video   | 0:00 - 3:03:17    | [https://youtu.be/slTA5ErFCQ4](https://youtu.be/slTA5ErFCQ4) |
+| Run | Commit | Kết quả | Link |
+|---|---|---|---|
+| All-pass | `34455d7` | SUCCESS | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502275099) |
+| Controlled-failure | `c2610bb` | FAILURE | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502722228) |
+
+### Video demo
+
+| Link |
+|---|
+| [https://youtu.be/k49pwd-5vUs](https://youtu.be/k49pwd-5vUs) |
 
 ### Repository
 
-- GitHub: [23127464 Performance Testing HW05](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/test/23127464-Performance-Testing)
+- Branch: [test/23127464-API-Testing](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/test/23127464-API-Testing)

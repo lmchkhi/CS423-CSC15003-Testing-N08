@@ -1,0 +1,5 @@
+﻿Pool,FR,Endpoint,Total Designed,AI Generated,Human Added,VALID,INVALID,INCOMPLETE,Executed,Passed,Failed,Bugs Found
+A,FR-05,GET /api/products,45,40,5,16,2,22,45,35,10,1
+B,FR-11,"GET /api/orders/my-orders; GET /api/orders/:id",80,70,10,33,2,35,80,60,20,1
+C,FR-16,POST /api/admin/import-products,45,40,5,29,2,9,45,29,16,3
+Total,—,—,170,150,20,78,6,66,170,124,46,5
