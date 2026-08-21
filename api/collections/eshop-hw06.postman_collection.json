@@ -1449,6 +1449,37 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "DEMO Failing (intentional)",
+			"item": [
+				{
+					"name": "GET /api/products (demo wrong assertion)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://127.0.0.1:3000/api/products"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Intentionally-wrong assertion to demonstrate the pipeline catching failures.",
+									"pm.test('DEMO-FAIL: /api/products returns 500', () => pm.expect(pm.response.code).to.eql(500));"
+								]
+							}
+						}
+					]
+				}
+			]
 		}
 	]
 }

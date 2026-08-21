@@ -46,6 +46,8 @@ jobs:
           run "FR-08 State & Security"    fr08-state
           run "FR-14 Category CRUD"       fr14-category     api/data/fr14-post-categories.csv
           run "FR-14 Lifecycle & Access"  fr14-lifecycle
+          # DEMO: intentionally-failing folder to show the pipeline catches failures (reverted next commit).
+          run "DEMO Failing (intentional)" demo-failing
 
       - name: Upload Newman reports
         uses: actions/upload-artifact@v4
