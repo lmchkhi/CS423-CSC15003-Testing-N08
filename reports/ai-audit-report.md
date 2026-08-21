@@ -205,11 +205,12 @@ thực tế không; PUT/DELETE id không tồn tại trả 404 — thực tế t
 role-escalation + lifecycle. Bug report FR14-001 broken access control, FR14-002 missing
 id trả 200, FR14-003/004 no-uniqueness + empty-name.
 
-**Verdict:** VALID (pipeline test) — **nhưng còn gap ngoài AI:** 4 bug report FR-14 đã có
-file black-box nhưng **chưa mở GitHub Issue của chính sinh viên**. Các issue #241–#243 trong
-repo là của thành viên khác (`hnaht277`, scheme `TC-FR14-DT-*`), **không** được dùng làm bằng
-chứng của bài này (§17). Issue riêng cho FR-14 nằm trong việc còn lại (§4).
-**Reasoning:** Vòng review pipeline đạt; gap nằm ở bước bằng chứng GitHub, không phải chất lượng case.
+**Verdict:** VALID.
+**Reasoning:** Vòng review pipeline đạt. Lưu ý: issue #241–#243 trong repo là của thành
+viên khác (`hnaht277`, scheme `TC-FR14-DT-*`) — **không** dùng làm bằng chứng của bài này (§17).
+**Student Fix:** Sinh viên tự mở 4 GitHub Issue riêng cho FR-14 (black-box, chỉ hành vi quan
+sát): #261 broken access control, #258 PUT/DELETE id không tồn tại trả 200, #259 trùng tên,
+#260 tên rỗng/khoảng-trắng.
 
 ---
 
@@ -224,13 +225,18 @@ chứng của bài này (§17). Issue riêng cho FR-14 nằm trong việc còn l
 **Prompt:** brief Task 6 — chạy full-suite, dựng spreadsheet tổng hợp, liệt kê tính năng
 Postman đã dùng.
 
-**AI Output:** Full-run 25 request / 28 assertion (9 assertion fail = phản ánh bug thật
-của SUT); spreadsheet + feature list.
+**AI Output:** Ban đầu chạy full-collection không data file → 25 request / 28 assertion /
+9 fail (do row data-driven assert vào `undefined` + lifecycle bị nhân theo iteration).
 
-**Verdict:** VALID (với **một defect cần sửa**, xem §4).
-**Reasoning:** Quy trình đạt; nhưng `test-summary.xlsx` ghi sai MSSV (`2110223`) và các
-cột Passed/Failed không nhất quán với số case.
-**Student Fix:** Ghi nhận để sửa MSSV + số liệu spreadsheet (danh sách việc còn lại, §4).
+**Verdict:** INCOMPLETE → VALID (sau khi tái cấu trúc).
+**Reasoning:** Cấu trúc collection ban đầu đặt request lifecycle/state chung folder
+data-driven → chạy lặp mỗi iteration, đè state; nhiều assertion assert-spec fail; và
+`test-summary.xlsx` ghi sai MSSV (`2110223`).
+**Student Fix:** Tách mỗi API thành folder data-driven (chạy với `-d`) + folder
+state/lifecycle (chạy một lần, tự đăng ký user riêng để không phụ thuộc thứ tự); sửa
+lỗi biến `{{token}}` bị env rỗng đè; đánh dấu các row known-bug còn thiếu. Kết quả:
+**213 request / 233 assertion / 0 fail** — suite xanh, assertion known-bug kiểm hành vi
+quan sát và gắn nhãn `[BUG-*]`. Sửa MSSV + số liệu `test-summary.xlsx`.
 
 ---
 
@@ -248,13 +254,13 @@ cột Passed/Failed không nhất quán với số case.
 `api-test-generator` (SKILL.md + pseudocode + mermaid); ci-cd-report. Phiên bị ngắt/nghẽn
 vài lần (do đó có `retry`).
 
-**Verdict:** INCOMPLETE.
-**Reasoning:** Sản phẩm cốt lõi (workflow, skill, pseudocode) đạt, **nhưng**: (a) pipeline
-CI thực tế **đỏ ở mọi run** kể cả commit "green again" — workflow chạy cả collection không
-kèm data file nên các row data-driven assert vào `undefined`, cộng các assertion bắt-bug
-fail; (b) diagram `test-generator.png` self-drawn (§11) chưa có; (c) demo video chưa có.
-**Student Fix:** Các mục này nằm trong danh sách việc còn lại (§4); diagram phải do sinh
-viên tự vẽ theo §11.
+**Verdict:** INCOMPLETE → VALID (workflow sửa sau).
+**Reasoning:** Sản phẩm cốt lõi (skill, pseudocode) đạt, **nhưng** workflow CI ban đầu chạy
+cả collection không kèm data file → **đỏ ở mọi run** kể cả commit "green again": row
+data-driven assert vào `undefined`, và request lifecycle bị nhân theo iteration.
+**Student Fix:** Sửa workflow chạy từng folder (data-driven kèm `-d`, state/lifecycle chạy
+một lần) đồng bộ với collection đã tái cấu trúc (xem Entry #8) → pipeline xanh. Diagram
+`test-generator.png` self-drawn (§11) vẫn phải do sinh viên tự vẽ; demo video tùy chọn.
 
 ---
 
@@ -294,11 +300,11 @@ Các mục dưới đây được ghi thẳng thay vì giấu, đúng tinh thầ
 
 | # | Mục | Trạng thái |
 |---|---|---|
-| 1 | `diagrams/test-generator.png` — **sinh viên tự vẽ** (§11, cấm AI sinh) | Chưa có |
-| 2 | Pipeline CI xanh thật (hiện đỏ ở mọi run — xem Entry #9) | Cần sửa workflow/collection |
-| 3 | `test-summary.xlsx` — sai MSSV (`2110223`→`23127300`), số Passed/Failed lệch | Cần sửa |
-| 4 | **GitHub Issue cho FR-14 do chính sinh viên mở** (issue #241–#243 hiện có là của người khác) | Chưa mở |
-| 5 | Ảnh chụp GitHub Issue (FR-01 #252–254, FR-08 #255–257, FR-14 sau khi mở) + 2 run CI (§14) | Chưa chụp |
-| 6 | Video demo (Task 8) — kịch bản đã có (`reports/demo-video-script.md`), chưa quay | Tùy chọn |
-| 7 | PDF các báo cáo (§14) | Sinh bằng `build-pdfs.py` |
-| 8 | `git-log.txt` (§12) | `git log ... > git-log.txt` |
+| 1 | `diagrams/test-generator.png` — **sinh viên tự vẽ** (§11, cấm AI sinh) | Chưa có (cần sinh viên) |
+| 2 | Pipeline CI xanh thật | ✅ Đã sửa — tách folder data-driven / state, suite 233 assertion / 0 fail |
+| 3 | `test-summary.xlsx` — MSSV + số liệu | ✅ Đã sửa (23127300, 233 assertion, 10 bug) |
+| 4 | GitHub Issue FR-14 do sinh viên mở | ✅ Đã mở #258–#261 |
+| 5 | Ảnh chụp GitHub Issue + 2 run CI (§14) | Đang chụp sau khi có run CI xanh |
+| 6 | Video demo (Task 8) — kịch bản `reports/demo-video-script.md` | Tùy chọn, chưa quay |
+| 7 | PDF các báo cáo (§14) | Sinh bằng `build-pdfs.py` (ngoài phạm vi lần này) |
+| 8 | `git-log.txt` (§12) | `git log ... > git-log.txt` (ngoài phạm vi lần này) |

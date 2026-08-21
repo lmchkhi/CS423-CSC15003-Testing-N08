@@ -28,17 +28,28 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-htmlextra
 
-      - name: Run full collection
+      - name: Run API suite (per folder)
         run: |
-          newman run api/collections/eshop-hw06.postman_collection.json \
-            -e api/environments/local.postman_environment.json \
-            -r cli,htmlextra \
-            --reporter-htmlextra-export newman-ci-report.html \
-            --reporter-htmlextra-title "HW06 API Tests – 23127300"
+          set -e
+          C=api/collections/eshop-hw06.postman_collection.json
+          E=api/environments/local.postman_environment.json
+          mkdir -p newman-reports
+          run() { # $1 folder  $2 out-name  $3 optional data file
+            newman run "$C" -e "$E" --folder "$1" ${3:+-d "$3"} \
+              -r cli,htmlextra \
+              --reporter-htmlextra-export "newman-reports/$2.html" \
+              --reporter-htmlextra-title "HW06 $1 – 23127300"
+          }
+          # Data-driven folders run with their data file; state/lifecycle folders run once.
+          run "FR-01 Register"            fr01-register     api/data/register-cases.json
+          run "FR-08 Checkout"            fr08-checkout     api/data/checkout-cases.json
+          run "FR-08 State & Security"    fr08-state
+          run "FR-14 Category CRUD"       fr14-category     api/data/fr14-post-categories.csv
+          run "FR-14 Lifecycle & Access"  fr14-lifecycle
 
-      - name: Upload Newman report
+      - name: Upload Newman reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: newman-report
-          path: newman-ci-report.html
+          name: newman-reports
+          path: newman-reports/

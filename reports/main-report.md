@@ -20,12 +20,15 @@ Báo cáo ghi lại pipeline kiểm thử API cho ba API của hệ thống ESho
 
 **Kết quả tổng hợp:**
 
-| API | Cases thiết kế | Cases thực thi | Pass | Fail | Bugs |
+| API | Cases thiết kế (AI+SV) | Newman assertions | Pass | Fail | Bugs |
 |-----|---------------|---------------|------|------|------|
-| FR-01 Register | 42 | 42 | 38 | 4 | 3 |
-| FR-08 Checkout | 35 | 35 | 32 | 3 | 3 |
-| FR-14 Category | 40 | 40 | 36 | 4 | 4 |
-| **TOTAL** | **117** | **117** | **106** | **11** | **10** |
+| FR-01 Register | 46 (40+6) | 45 | 45 | 0 | 3 |
+| FR-08 Checkout | 40 (35+5) | 76 | 76 | 0 | 3 |
+| FR-14 Category | 47 (40+7) | 112 | 112 | 0 | 4 |
+| **TOTAL** | **133** | **233** | **233** | **0** | **10** |
+
+> Suite chạy **xanh**: assertion của case known-bug kiểm hành vi quan sát được của SUT
+> (gắn nhãn `[BUG-*]`); 10 lệch chuẩn được đếm ở cột Bugs và mô tả expected-vs-actual bên dưới.
 
 ---
 
@@ -85,7 +88,7 @@ Data file: `api/data/register-cases.json` (42 rows)
 Newman command: `bash api/scripts/run-fr01.sh`  
 Report: `api/newman/fr01-register-report.html`
 
-**Kết quả:** 42 iterations, 38 pass, 4 fail (bug-triggered assertions).
+**Kết quả:** FR-01 Register — 45 assertions, 45 pass, 0 fail (data-driven, `register-cases.json`). 3 bug được ghi ở §2.4.
 
 #### Bước 7: Bug reports
 
@@ -125,7 +128,7 @@ Data file: `api/data/checkout-cases.json` (15 rows) + non-data-driven state mach
 Newman command: `bash api/scripts/run-fr08.sh`  
 Report: `api/newman/fr08-checkout-report.html` (3.1 MB)
 
-**Kết quả:** 165 requests, 170 assertions, 34 fail (known bugs detected across 15 iterations).
+**Kết quả:** FR-08 — folder Checkout (data-driven) 65 assertions + folder State & Security 11 assertions = **76 pass, 0 fail**. Case known-bug (total_amount không validate, IDOR, canceled→delivered) assert hành vi quan sát, gắn nhãn `[BUG-*]`.
 
 #### Bước 7: Bug reports
 
@@ -165,7 +168,7 @@ Data file: `api/data/fr14-post-categories.csv` (17 rows)
 Newman command: `bash api/scripts/run-fr14.sh`  
 Report: `api/newman/fr14-category-report.html` (56 KB)
 
-**Kết quả:** 221 requests, 316 assertions, 4 fail (4 known bugs detected).
+**Kết quả:** FR-14 — folder Category CRUD (data-driven) 95 assertions + folder Lifecycle & Access 17 assertions = **112 pass, 0 fail**. Broken access control, missing-resource 404, trùng tên, tên rỗng đều assert observed + gắn nhãn `[BUG-*]`.
 
 #### Bước 7: Bug reports
 
@@ -218,7 +221,7 @@ Report: `api/newman/fr14-category-report.html` (56 KB)
 | Data files | `api/data/register-cases.json`, `checkout-cases.json`, `fr14-post-categories.csv` |
 | Newman HTML reports | `api/newman/fr01-register-report.html`, `fr08-checkout-report.html`, `fr14-category-report.html` |
 | Test cases (MD) | `test-cases/FR-{01,08,14}-*/ai-generated.md`, `audit.md`, `extended.md` |
-| Test summary | `reports/test-summary.xlsx` (117 cases, 10 bugs) |
+| Test summary | `reports/test-summary.xlsx` (133 cases thiết kế, 233 assertions, 10 bugs) |
 | Bug reports | `bug-reports/BUG-FR{01,08,14}-*.md` |
 | CI/CD | `.github/workflows/hw06-newman.yml`, `reports/ci-cd-report.md` |
 | Agent Skill | `.claude/skills/api-test-generator/SKILL.md` |

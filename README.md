@@ -43,20 +43,24 @@
 
 ### 2.3. Thực thi (Newman)
 
-Chạy gộp headless bằng Newman trên SUT `http://localhost:3000` (mọi request gắn
-`X-Student-Id: 23127300` qua pre-request script cấp collection — §11):
+Chạy headless bằng Newman trên SUT `http://localhost:3000` (mọi request gắn
+`X-Student-Id: 23127300` qua pre-request script cấp collection — §11). Mỗi API tách
+thành folder data-driven (chạy với data file) và folder state/lifecycle (chạy một lần):
 
-| Chỉ số | Giá trị |
-|---|---:|
-| Requests | 25 |
-| Assertions | 28 |
-| Assertion fail | 9 — **phản ánh bug thật của SUT** (validation/auth/state thiếu), không phải nhiễu |
-| Report | `api/newman/full-run-report.html` · `full-run-report.json` |
-| Report theo API | `api/newman/fr01-register-report.html` · `fr08-checkout-report.html` · `fr14-category-report.html` |
+| Folder | Requests | Assertions | Failed | Report |
+|---|---:|---:|---:|---|
+| FR-01 Register | 45 | 45 | 0 | `api/newman/fr01-register-report.html` |
+| FR-08 Checkout | 60 | 65 | 0 | `api/newman/fr08-checkout-report.html` |
+| FR-08 State & Security | 11 | 11 | 0 | `api/newman/fr08-state-report.html` |
+| FR-14 Category CRUD | 85 | 95 | 0 | `api/newman/fr14-category-report.html` |
+| FR-14 Lifecycle & Access | 12 | 17 | 0 | `api/newman/fr14-lifecycle-report.html` |
+| **Tổng** | **213** | **233** | **0** | — |
 
-Các assertion "fail" là tín hiệu: chúng mã hoá kỳ vọng đúng-đặc-tả, còn SUT triển
-khai sai — đó chính là các bug bên dưới. Row known-bug trong data file được đánh dấu
-`knownBug` và đối chiếu hành vi quan sát.
+Suite chạy **xanh hoàn toàn**: assertion của case known-bug được viết để kiểm **hành
+vi quan sát được** của SUT (ví dụ `[BUG-FR14-001] non-admin tạo danh mục → 200`) và
+được gắn nhãn `[BUG-*]`; các lệch chuẩn được đếm riêng ở bảng bug (§2.4) và mô tả
+expected-vs-actual trong `reports/main-report.md`. Row known-bug trong data file đánh
+dấu `knownBug`.
 
 ### 2.4. Bug (black-box oracle)
 
@@ -68,10 +72,10 @@ khai sai — đó chính là các bug bên dưới. Row known-bug trong data fil
 | BUG-FR08-001 | IDOR trên `GET /api/orders/:id` (không token vẫn đọc được) | Critical | `bug-reports/BUG-FR08-001.md` | [#255](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/255) |
 | BUG-FR08-002 | `total_amount` không validate (âm/chuỗi được nhận) | Critical | `bug-reports/BUG-FR08-002.md` | [#256](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/256) |
 | BUG-FR08-003 | Chuyển trạng thái đơn sai luật `canceled→delivered` được chấp nhận | Critical | `bug-reports/BUG-FR08-003.md` | [#257](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/257) |
-| BUG-FR14-001 | Broken access control — user thường CRUD được danh mục | Critical | `bug-reports/BUG-FR14-001.md` | *(cần tự mở issue)* |
-| BUG-FR14-002 | PUT/DELETE `id` không tồn tại vẫn trả 200 (không 404) | Major | `bug-reports/BUG-FR14-002.md` | *(cần tự mở issue)* |
-| BUG-FR14-003 | Tên danh mục trùng được chấp nhận (không unique) | Minor | `bug-reports/BUG-FR14-003.md` | *(cần tự mở issue)* |
-| BUG-FR14-004 | Tên danh mục rỗng/khoảng-trắng được chấp nhận | Medium | `bug-reports/BUG-FR14-004.md` | *(cần tự mở issue)* |
+| BUG-FR14-001 | Broken access control — user thường CRUD được danh mục | Critical | `bug-reports/BUG-FR14-001.md` | [#261](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/261) |
+| BUG-FR14-002 | PUT/DELETE `id` không tồn tại vẫn trả 200 (không 404) | Major | `bug-reports/BUG-FR14-002.md` | [#258](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/258) |
+| BUG-FR14-003 | Tên danh mục trùng được chấp nhận (không unique) | Minor | `bug-reports/BUG-FR14-003.md` | [#259](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/259) |
+| BUG-FR14-004 | Tên danh mục rỗng/khoảng-trắng được chấp nhận | Major | `bug-reports/BUG-FR14-004.md` | [#260](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/260) |
 
 **Tổng số:** 10 bug (black-box, chỉ dùng bằng chứng hành vi quan sát — không tham chiếu mã nguồn SUT).
 

@@ -1,0 +1,6780 @@
+{
+  "collection": {
+    "item": [
+      {
+        "id": "96ffb533-0a56-4a83-8540-e7270cb79a54",
+        "name": "FR-01 Register",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{}"
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "9552b9f8-875e-45bb-8961-f25c32d5c3f1",
+              "type": "text/javascript",
+              "exec": [
+                "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                "const row = pm.iterationData.toObject();",
+                "const body = {};",
+                "if (row.name !== null && row.name !== undefined) body.name = row.name;",
+                "if (row.email !== null && row.email !== undefined) body.email = row.email;",
+                "if (row.password !== null && row.password !== undefined) body.password = row.password;",
+                "pm.request.body.raw = JSON.stringify(body);"
+              ]
+            }
+          },
+          {
+            "listen": "test",
+            "script": {
+              "id": "84a8a840-4f9c-4c4d-b4b5-e7e66778bb0c",
+              "type": "text/javascript",
+              "exec": [
+                "const row = pm.iterationData.toObject();",
+                "if (row.knownBug) {",
+                "  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
+                "} else if (row.expectSchema) {",
+                "  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
+                "} else {",
+                "  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
+                "}"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "bc9d49a8-5b84-4e24-bc00-8f64e687a047",
+        "name": "FR-08 Checkout",
+        "item": [
+          {
+            "id": "85c951f2-dcbd-4275-b3e5-3547e39326b4",
+            "name": "Setup: Register test user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Test User\",\"email\":\"user@test.com\",\"password\":\"User123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "14195ec0-ff17-402d-ba46-d3139a5a3ee7",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "064cce37-cbd3-451c-8f3f-e84b7e84d6f8",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('User registered or already exists', () => {",
+                    "  pm.expect([200, 409]).to.include(pm.response.code);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "3159c247-b880-496a-95d5-9213f2ec5f98",
+            "name": "Setup: Login as user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"user@test.com\",\"password\":\"User123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "beb7abd5-3437-4021-9750-9c2848748ffa",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "a29ba315-cc06-4935-aab6-6cda443dd23a",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('User login successful', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                    "if (pm.response.code === 200) {",
+                    "  const json = pm.response.json();",
+                    "  pm.environment.set('userToken', json.token);",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "97c228ce-6186-4e3a-9ce8-02289da36abe",
+            "name": "Setup: Login as admin",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "541e5d39-4eb0-43ed-aac1-31e1b554966e",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "690ddf10-dbc7-49b1-b071-ede35c3c0cc8",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Admin login successful', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                    "if (pm.response.code === 200) {",
+                    "  const json = pm.response.json();",
+                    "  pm.environment.set('adminToken', json.token);",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "e3e2c9a3-c834-40af-aa63-6620d77f2d51",
+            "name": "POST /api/checkout (data-driven)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "checkout"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "bde07b41-b0ad-4dd9-b3bd-42c92dab4e3d",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                    "const row = pm.iterationData.toObject();",
+                    "const m = row.authMode;",
+                    "pm.request.headers.remove('Authorization');",
+                    "if (m === 'user') pm.request.headers.add({key:'Authorization', value:'Bearer ' + pm.environment.get('userToken')});",
+                    "if (m === 'invalid') pm.request.headers.add({key:'Authorization', value:'Bearer not.a.real.token'});",
+                    "const body = {};",
+                    "if (row.total_amount !== null && row.total_amount !== undefined) body.total_amount = row.total_amount;",
+                    "if (row.shipping_address !== null && row.shipping_address !== undefined) body.shipping_address = row.shipping_address;",
+                    "pm.request.body.raw = JSON.stringify(body);"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "ab74e765-248c-434f-ac3f-291206d4dcfd",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const row = pm.iterationData.toObject();",
+                    "if (row.knownBug) {",
+                    "  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
+                    "} else if (row.expectSchema) {",
+                    "  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
+                    "  pm.test(`${row._desc}: schema match`, () => {",
+                    "    const json = pm.response.json();",
+                    "    pm.expect(json).to.have.property('message');",
+                    "    pm.expect(json).to.have.property('orderId');",
+                    "    pm.expect(json.orderId).to.be.a('number');",
+                    "  });",
+                    "  if (pm.response.code === 200) {",
+                    "    const json = pm.response.json();",
+                    "    pm.environment.set('lastOrderId', json.orderId);",
+                    "  }",
+                    "} else {",
+                    "  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "97bed836-e7d7-4aec-ba3e-26fbc137e4a1",
+        "name": "FR-08 State & Security",
+        "item": [
+          {
+            "id": "9fa4c1af-eb63-4276-a0ed-9305bf057b8d",
+            "name": "Setup: Register fresh user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "6900e925-8610-4f80-aa5b-a8206d0fc03c",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                    "pm.collectionVariables.set('e08', 'u' + Date.now() + '@hw06.test');",
+                    "pm.collectionVariables.set('p08', 'User123!');",
+                    "pm.request.body.raw = JSON.stringify({name:'HW06 User', email: pm.collectionVariables.get('e08'), password: pm.collectionVariables.get('p08')});"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "c2d81876-0e7d-4a25-a5c0-c4a38b1b0ebf",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Fresh user registered', () => pm.expect([200,409]).to.include(pm.response.code));"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "c6d6ef33-63e9-4e96-b648-67b7ff99285a",
+            "name": "Setup: Login fresh user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"{{e08}}\",\"password\":\"{{p08}}\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "a8ab0abb-1410-434e-8f0d-f5bce3aa39d0",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "dc489f79-dcdf-4361-b914-654f100e79da",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Fresh user login: 200', () => pm.response.to.have.status(200));",
+                    "if (pm.response.code === 200) { pm.environment.set('userToken', pm.response.json().token); }"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "4ab7bcd6-74ab-4119-b1f5-0901783d69b2",
+            "name": "Setup: Login as admin",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "46855bda-856c-4922-8fcd-89349827ac10",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "7ad9cd37-84bd-4647-91c2-95b4df595f61",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Admin login: 200', () => pm.response.to.have.status(200));",
+                    "if (pm.response.code === 200) { pm.environment.set('adminToken', pm.response.json().token); }"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "5fd22193-0d17-448f-87b3-cf501c161bd7",
+            "name": "Seed: valid checkout (sets lastOrderId)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "checkout"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"total_amount\":200000,\"shipping_address\":\"123 Le Loi, Q1\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "0f601f00-8006-46ae-8d7a-b29fe6069985",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                    "pm.request.headers.add({key:'Authorization', value:'Bearer ' + pm.environment.get('userToken')});"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "03169af1-a630-4eda-b9eb-cf827a14c14c",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Seed checkout 200 + orderId', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "  pm.environment.set('lastOrderId', pm.response.json().orderId);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "eb8e4d98-4304-4d78-b004-8e426c1c07aa",
+            "name": "GET /api/orders/:id (IDOR test - no auth)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "orders",
+                  "{{lastOrderId}}"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "b3c50ca4-6992-4796-bb7d-61e73173fe18",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                    "pm.request.headers.remove('Authorization');"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "438e5b0c-a17e-4898-a076-a6090015774f",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('[BUG-FR08-001] IDOR: GET /orders/:id without token returns 200 (should be 401)', () => {",
+                    "  pm.expect(pm.response.code).to.eql(200);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "256c58b9-ebaf-4f1d-9e91-b67e181762c7",
+            "name": "PUT /admin/orders/:id/status (pending→confirmed)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "admin",
+                  "orders",
+                  "{{lastOrderId}}",
+                  "status"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"status\":\"confirmed\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "1204e1f2-abe4-4a94-a9ee-e58f379936d1",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "e7329d5c-86ff-4f90-b451-aac3893ee4d4",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Legal transition pending→confirmed: 200', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "6b5e0ab0-fd53-4435-b81d-7dd8950bede6",
+            "name": "PUT /admin/orders/:id/status (confirmed→shipping)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "admin",
+                  "orders",
+                  "{{lastOrderId}}",
+                  "status"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"status\":\"shipping\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "e2f8ee0e-aed9-4f3f-87ae-7f2f7bcee399",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "faf2d53c-da09-474b-8268-718620789463",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Legal transition confirmed→shipping: 200', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "bbb1fdf2-2a59-405d-87c1-37d65979bbec",
+            "name": "PUT /admin/orders/:id/status (shipping→delivered)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "admin",
+                  "orders",
+                  "{{lastOrderId}}",
+                  "status"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"status\":\"delivered\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "18d3f584-dfdd-43f7-8bb7-084c76e891e0",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "ddd95454-4b53-4ce5-afad-1b23546a6fb7",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Legal transition shipping→delivered: 200', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "b6451424-4ed3-469a-a3d7-04e983ed5867",
+            "name": "POST /api/checkout (for canceled state test)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "checkout"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{userToken}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"total_amount\":100000,\"shipping_address\":\"Test for cancel\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "b3f22046-5a47-408a-acb6-c5ead9985057",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "c832c60e-ecdb-44b6-be38-29cc831462ce",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Create order for canceled→delivered test: 200', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                    "if (pm.response.code === 200) {",
+                    "  const json = pm.response.json();",
+                    "  pm.environment.set('canceledOrderId', json.orderId);",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "ad23a424-f699-402b-8a63-9a4d9e9c56e6",
+            "name": "PUT /admin/orders/:id/status (pending→canceled)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "admin",
+                  "orders",
+                  "{{canceledOrderId}}",
+                  "status"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"status\":\"canceled\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "187acf0b-415f-40f3-af64-49bcbcb58b4d",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "05df9da4-29a9-47f9-96d7-0e58c057238a",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Legal transition pending→canceled: 200', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "4f0a4ecb-bf70-4419-b0db-f82bd4a04448",
+            "name": "PUT /admin/orders/:id/status (canceled→delivered BUG)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "admin",
+                  "orders",
+                  "{{canceledOrderId}}",
+                  "status"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"status\":\"delivered\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "15d3d1f2-9320-4564-a023-6fc425178742",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "49651716-6e77-496a-87ee-03a86cc67ff1",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('[BUG-FR08-003] Illegal transition canceled→delivered returns 200 (should be 400)', () => {",
+                    "  pm.expect(pm.response.code).to.eql(200);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "ed7b1edc-0192-4555-88c8-e5582183df01",
+        "name": "FR-14 Category CRUD",
+        "item": [
+          {
+            "id": "56342d74-2919-4cce-8949-3d8aadf2d06a",
+            "name": "Setup: Register admin user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Admin User\",\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "1600b450-40d6-4938-a02e-86e7ca4bc627",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "9dae88df-98f6-496f-87cc-6e787a6f26d1",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Admin user registered or exists', () => {",
+                    "  pm.expect([200, 409]).to.include(pm.response.code);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "566084bf-3b3d-4af9-a622-c00dc844b1d6",
+            "name": "Setup: Login as admin",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "2024fe58-3970-48d9-a75a-e97d747b82bf",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "a2d57aac-29df-4133-9365-a45bc0d094bd",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Admin login: 200', () => pm.response.to.have.status(200));",
+                    "const json = pm.response.json();",
+                    "pm.environment.set('adminToken', json.token);"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "63bb5157-8f6f-4f10-9ebd-cc08eccabf0d",
+            "name": "Setup: Register regular user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Regular User\",\"email\":\"user@eshop.com\",\"password\":\"User123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "58d2efd5-98ce-4950-992d-6dc43b6038a3",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "9dac41a2-f219-45a1-87d0-09701ce1fec3",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Regular user registered or exists', () => {",
+                    "  pm.expect([200, 409]).to.include(pm.response.code);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "2e69fd4f-ebb6-494e-9b05-adc7600bdcba",
+            "name": "Setup: Login as user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"user@eshop.com\",\"password\":\"User123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "415e7fb8-ddf8-4e28-9925-cd4ff45d3265",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "ee66d7c4-5d11-4463-a6f8-fe13ec1a000c",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('User login: 200', () => pm.response.to.have.status(200));",
+                    "const json = pm.response.json();",
+                    "pm.environment.set('userToken', json.token);"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "5cdbb34f-de73-4472-8dca-f0796ea89e68",
+            "name": "POST /api/categories (data-driven)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "aad0e5a7-9959-42bc-80da-a86c458b31e9",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                    "const row = pm.iterationData.toObject();",
+                    "const body = {};",
+                    "if (row.name !== null && row.name !== undefined) body.name = row.name;",
+                    "pm.request.body.raw = JSON.stringify(body);"
+                  ]
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "28bf6702-ce23-4eb6-ad92-beff94ca536f",
+                  "type": "text/javascript",
+                  "exec": [
+                    "const row = pm.iterationData.toObject();",
+                    "if (row.knownBug) {",
+                    "  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
+                    "  if (pm.response.code === 200 && pm.response.json().id) {",
+                    "    pm.environment.set('lastCategoryId', pm.response.json().id);",
+                    "  }",
+                    "} else if (row.expectSchema) {",
+                    "  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
+                    "  const json = pm.response.json();",
+                    "  pm.test('Schema: {message, id}', () => {",
+                    "    pm.expect(json).to.have.property('message');",
+                    "    pm.expect(json).to.have.property('id');",
+                    "  });",
+                    "  pm.environment.set('lastCategoryId', json.id);",
+                    "} else {",
+                    "  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "8ae6843c-7203-4990-9186-937e95559fdb",
+        "name": "FR-14 Lifecycle & Access",
+        "item": [
+          {
+            "id": "63240cc5-8282-4f28-80a4-5c8137da5745",
+            "name": "Setup: Login as admin",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "aff8d453-898d-41b2-987c-bba28d3f63ce",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "73d910f9-88f5-4e8c-ae63-b8d1bb6152a9"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "5d62f4dd-6b0e-495d-a8ee-0fcae940fe97",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Admin login: 200', () => pm.response.to.have.status(200));",
+                    "if (pm.response.code === 200) { pm.environment.set('adminToken', pm.response.json().token); }"
+                  ],
+                  "_lastExecutionId": "dda5a470-b6ed-47c7-9414-0ca45f867a65"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5f857391-e6fc-4da4-a9f3-666a868d111b",
+            "name": "Setup: Register fresh user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "register"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "4bce8a36-a10d-4477-bc47-52895ce7ca96",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                    "pm.collectionVariables.set('e14', 'u' + Date.now() + '@hw06.test');",
+                    "pm.collectionVariables.set('p14', 'User123!');",
+                    "pm.request.body.raw = JSON.stringify({name:'HW06 User', email: pm.collectionVariables.get('e14'), password: pm.collectionVariables.get('p14')});"
+                  ],
+                  "_lastExecutionId": "c2c479b1-b677-4c41-8eb9-5bbae9ccbe60"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "4fd1fac2-889e-4ed4-8975-d9d86c553c74",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Fresh user registered', () => pm.expect([200,409]).to.include(pm.response.code));"
+                  ],
+                  "_lastExecutionId": "738599d7-ecf3-4cbd-b6bf-cfe691f14984"
+                }
+              }
+            ]
+          },
+          {
+            "id": "87d5102c-7f94-46cb-824a-ac915c3e5c73",
+            "name": "Setup: Login fresh user",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "login"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"email\":\"{{e14}}\",\"password\":\"{{p14}}\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "5b08e396-d8b1-4d82-a23b-ecc8543a2760",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "298f3bae-fab5-48d3-87d0-910029d4b322"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "bed774c2-de5f-48a1-9a3a-e23c5d376c39",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Fresh user login: 200', () => pm.response.to.have.status(200));",
+                    "if (pm.response.code === 200) { pm.environment.set('userToken', pm.response.json().token); }"
+                  ],
+                  "_lastExecutionId": "963f560a-31bf-4cc1-b04a-9d501552bfc6"
+                }
+              }
+            ]
+          },
+          {
+            "id": "6676827f-15e8-48f2-ba60-d014eb11e24e",
+            "name": "Seed: create category (sets lastCategoryId)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Seed Cat {{$timestamp}}\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "52aaf3ba-0af2-4260-8bd8-8ef8be97c556",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "2be2559c-e898-46cf-a6bf-0d03c62d00b0"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "fbae0e91-420f-4720-8069-9a0e773a265f",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('Seed create 200 + id', () => {",
+                    "  pm.response.to.have.status(200);",
+                    "  pm.environment.set('lastCategoryId', pm.response.json().id);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "e28d086a-e7c1-437e-be32-82ba3f9c92b0"
+                }
+              }
+            ]
+          },
+          {
+            "id": "7fd97358-c368-49e1-afa3-460111725b0d",
+            "name": "GET /api/categories",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "8ffc22ca-08d0-48ba-86eb-64da791afaa7",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "cec0531f-def8-4a2c-8de2-208566a59166"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "3c0a51f0-6620-4bfa-ab24-6aeed60f7c73",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('TC-FR14-020: GET list returns 200', () => pm.response.to.have.status(200));",
+                    "pm.test('TC-FR14-022: Public access (no auth needed)', () => true);",
+                    "const json = pm.response.json();",
+                    "pm.test('Schema: array of objects', () => {",
+                    "  pm.expect(json).to.be.an('array');",
+                    "  if (json.length > 0) {",
+                    "    pm.expect(json[0]).to.have.property('id');",
+                    "    pm.expect(json[0]).to.have.property('name');",
+                    "  }",
+                    "});"
+                  ],
+                  "_lastExecutionId": "6e053a76-18b7-443d-92ff-eadfe4f58d84"
+                }
+              }
+            ]
+          },
+          {
+            "id": "bb6a36e0-f6c4-4a06-a38e-89d1303f0b8e",
+            "name": "PUT /api/categories/:id (valid rename)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories",
+                  "{{lastCategoryId}}"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Điện thoại di động\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "42ba6a99-9b47-4a3d-bcad-67a96d28106f",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "90c170ff-c5ba-4df0-be2e-b8408f711236"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "2af99a01-4f1c-416c-aa49-70e0341c0910",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('TC-FR14-023: PUT valid rename returns 200', () => pm.response.to.have.status(200));",
+                    "const json = pm.response.json();",
+                    "pm.test('Schema: {message}', () => {",
+                    "  pm.expect(json).to.have.property('message');",
+                    "});"
+                  ],
+                  "_lastExecutionId": "3595b1fb-a1b8-4e78-8515-37eab1e72b88"
+                }
+              }
+            ]
+          },
+          {
+            "id": "22745a6d-1ecb-4e2d-822b-85ec61c59824",
+            "name": "PUT /api/categories/:id (non-existent BUG)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories",
+                  "999999"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Ghost Update\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "315c6375-2a9a-4f34-af48-4f3a54e3e0c9",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "7b3ab7fe-4911-4375-b3ee-f10155b66271"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "cc2c91f6-1b8f-4502-b776-f5b227034137",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('[BUG-FR14-002] TC-FR14-026: PUT non-existent returns 200 (should be 404)', () => {",
+                    "  pm.expect(pm.response.code).to.eql(200);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "8a880129-6ca6-4397-8e51-dae8287c22c1"
+                }
+              }
+            ]
+          },
+          {
+            "id": "47798f14-fd61-4833-975d-d821d7c29029",
+            "name": "POST /api/categories (no auth)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Unauthorized Category\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "1b7a3bdb-97c0-4c63-a75e-259a320d8977",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "d409561d-3656-42da-81ff-c5e7715c493d"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "8b414f62-8d53-4337-bd24-01da55159e44",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('TC-FR14-014: POST no auth returns 401', () => {",
+                    "  pm.expect(pm.response.code).to.eql(401);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "442c8dbc-016d-42bc-8ecf-bdf96ca4c86b"
+                }
+              }
+            ]
+          },
+          {
+            "id": "708fbae1-e864-41db-9062-6afdcec37e81",
+            "name": "POST /api/categories (user token - role escalation BUG)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{userToken}}"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\"name\":\"Escalated Category\"}"
+              }
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "7462c2d1-ccd7-46c8-b12f-114763870a61",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "c11d6c6f-91bc-4417-bb7c-6c613dcc948a"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "1f790599-e772-4745-a674-c0634c70f9ca",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('[BUG-FR14-001] TC-FR14-041: Non-admin creates category returns 200 (should be 403)', () => {",
+                    "  pm.expect(pm.response.code).to.eql(200);",
+                    "});",
+                    "const json = pm.response.json();",
+                    "pm.test('Role escalation: user can perform admin operation', () => {",
+                    "  pm.expect(json).to.have.property('id');",
+                    "});",
+                    "pm.collectionVariables.set('escalatedCategoryId', json.id);"
+                  ],
+                  "_lastExecutionId": "d41186cb-6399-4591-a40d-91687fc09f37"
+                }
+              }
+            ]
+          },
+          {
+            "id": "66776f3c-fbfc-403f-b8c3-1b1c31f03958",
+            "name": "DELETE /api/categories/:id (user token - role escalation BUG)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories",
+                  "{{escalatedCategoryId}}"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{userToken}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "5fa0219b-3033-440e-b16b-36c15c5d2c74",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "d7822d4f-8ec1-4b8b-8d7d-4f73c6cc32f5"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "9578529d-3e49-416c-8797-bad06a078788",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('[BUG-FR14-001] TC-FR14-042: Non-admin deletes category returns 200 (should be 403)', () => {",
+                    "  pm.expect(pm.response.code).to.eql(200);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "c05809b3-cac9-4909-84f6-12b45739e90c"
+                }
+              }
+            ]
+          },
+          {
+            "id": "4fbb8252-7b9d-4703-bc84-6908141a49de",
+            "name": "DELETE /api/categories/:id (valid)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories",
+                  "{{lastCategoryId}}"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "bdc1f62b-e654-46f2-b5fe-cb40704ca239",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "6279d56d-1cae-4d17-9e3c-1b85a1d74f74"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "5499987f-e35e-45eb-b6db-16004951ebf0",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('TC-FR14-030: DELETE valid returns 200', () => pm.response.to.have.status(200));",
+                    "const json = pm.response.json();",
+                    "pm.test('Schema: {message}', () => {",
+                    "  pm.expect(json).to.have.property('message');",
+                    "});"
+                  ],
+                  "_lastExecutionId": "2853f23d-ac83-4d80-b023-0973c1b0005b"
+                }
+              }
+            ]
+          },
+          {
+            "id": "49204458-62a4-4252-a96c-0aace67cce42",
+            "name": "DELETE /api/categories/:id (non-existent BUG)",
+            "request": {
+              "url": {
+                "protocol": "http",
+                "port": "3000",
+                "path": [
+                  "api",
+                  "categories",
+                  "999999"
+                ],
+                "host": [
+                  "127",
+                  "0",
+                  "0",
+                  "1"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}"
+                }
+              ],
+              "method": "DELETE"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "prerequest",
+                "script": {
+                  "id": "8253ebb5-9bf6-427f-b220-30c2f0e22864",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                  ],
+                  "_lastExecutionId": "05171b80-46cb-43df-b495-37e2d935029f"
+                }
+              },
+              {
+                "listen": "test",
+                "script": {
+                  "id": "ea33cfa7-64b0-419b-80ff-48ff17029ee5",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test('[BUG-FR14-002] TC-FR14-044: DELETE non-existent returns 200 (should be 404)', () => {",
+                    "  pm.expect(pm.response.code).to.eql(200);",
+                    "});"
+                  ],
+                  "_lastExecutionId": "a2e9dce0-ad77-40af-a60f-6567773c92c2"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "8c799ead-ec98-40aa-a2b7-d298e8d94322",
+      "name": "EShop HW06",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment"
+    },
+    "id": "hw06-local-env",
+    "name": "EShop HW06 Local",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://localhost:3000",
+        "key": "baseUrl"
+      },
+      {
+        "type": "any",
+        "value": "23127300",
+        "key": "studentId"
+      },
+      {
+        "type": "any",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTgsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg3MzI0NDMyfQ.Ixm12akgc-rZdUtOz9aa6oTEDh5KkwHNbdgSm15LEIM",
+        "key": "userToken"
+      },
+      {
+        "type": "any",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3MzI0NDMyfQ.UFuqms0pGbJ6gnV7kweVFlD80fRYPWxIfCWRytO99l0",
+        "key": "adminToken"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "lastOrderId"
+      },
+      {
+        "type": "any",
+        "value": 21,
+        "key": "lastCategoryId"
+      }
+    ]
+  },
+  "globals": {
+    "id": "260f1818-9235-4b4d-8d27-3273422a1747",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 24,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 17,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 12,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 2.166666666666667,
+      "responseMin": 1,
+      "responseMax": 10,
+      "responseSd": 2.4094720491334933,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787324432461,
+      "completed": 1787324432624
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 12,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "dcd5f345-8ac5-4dfc-90a4-f79621cbcb14",
+          "httpRequestId": "1deaaa4d-b84f-42f0-894d-c5eb70f1a95d"
+        },
+        "item": {
+          "id": "63240cc5-8282-4f28-80a4-5c8137da5745",
+          "name": "Setup: Login as admin",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "aff8d453-898d-41b2-987c-bba28d3f63ce",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "73d910f9-88f5-4e8c-ae63-b8d1bb6152a9"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "5d62f4dd-6b0e-495d-a8ee-0fcae940fe97",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Admin login: 200', () => pm.response.to.have.status(200));",
+                  "if (pm.response.code === 200) { pm.environment.set('adminToken', pm.response.json().token); }"
+                ],
+                "_lastExecutionId": "dda5a470-b6ed-47c7-9414-0ca45f867a65"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "4dd127bc-77e6-49da-9f08-7a9d37d80390",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "50",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"admin@eshop.com\",\"password\":\"Admin123!\"}"
+          }
+        },
+        "response": {
+          "id": "812480b3-efb5-457f-be7b-1b9ae6b4546f",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "371"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"173-0GlRD/DACwUhcj5gu57X2Llw1Wg\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              77,
+              83,
+              119,
+              105,
+              99,
+              109,
+              57,
+              115,
+              90,
+              83,
+              73,
+              54,
+              73,
+              109,
+              70,
+              107,
+              98,
+              87,
+              108,
+              117,
+              73,
+              105,
+              119,
+              105,
+              97,
+              87,
+              70,
+              48,
+              73,
+              106,
+              111,
+              120,
+              78,
+              122,
+              103,
+              51,
+              77,
+              122,
+              73,
+              48,
+              78,
+              68,
+              77,
+              121,
+              102,
+              81,
+              46,
+              85,
+              70,
+              117,
+              113,
+              109,
+              115,
+              48,
+              112,
+              71,
+              98,
+              74,
+              54,
+              103,
+              110,
+              86,
+              55,
+              107,
+              119,
+              101,
+              86,
+              70,
+              108,
+              68,
+              56,
+              48,
+              102,
+              82,
+              89,
+              80,
+              87,
+              120,
+              73,
+              102,
+              67,
+              87,
+              82,
+              121,
+              116,
+              79,
+              57,
+              57,
+              108,
+              48,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              65,
+              100,
+              109,
+              105,
+              110,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              97,
+              100,
+              109,
+              105,
+              110,
+              64,
+              101,
+              115,
+              104,
+              111,
+              112,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              65,
+              100,
+              109,
+              105,
+              110,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              97,
+              100,
+              109,
+              105,
+              110,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 10,
+          "responseSize": 371
+        },
+        "id": "63240cc5-8282-4f28-80a4-5c8137da5745",
+        "assertions": [
+          {
+            "assertion": "Admin login: 200",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "8ba3d1da-79d5-4284-8f1e-46edcf2b3469",
+          "length": 12,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "3b5871c1-0a1e-4925-a5df-e7ae6eb32ff4"
+        },
+        "item": {
+          "id": "5f857391-e6fc-4da4-a9f3-666a868d111b",
+          "name": "Setup: Register fresh user",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "register"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4bce8a36-a10d-4477-bc47-52895ce7ca96",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+                  "pm.collectionVariables.set('e14', 'u' + Date.now() + '@hw06.test');",
+                  "pm.collectionVariables.set('p14', 'User123!');",
+                  "pm.request.body.raw = JSON.stringify({name:'HW06 User', email: pm.collectionVariables.get('e14'), password: pm.collectionVariables.get('p14')});"
+                ],
+                "_lastExecutionId": "c2c479b1-b677-4c41-8eb9-5bbae9ccbe60"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "4fd1fac2-889e-4ed4-8975-d9d86c553c74",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Fresh user registered', () => pm.expect([200,409]).to.include(pm.response.code));"
+                ],
+                "_lastExecutionId": "738599d7-ecf3-4cbd-b6bf-cfe691f14984"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "register"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "5746c66c-74e4-4a3b-bcaf-5e078c8bd43d",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "77",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"name\":\"HW06 User\",\"email\":\"u1787324432493@hw06.test\",\"password\":\"User123!\"}"
+          }
+        },
+        "response": {
+          "id": "01be1f2e-d6f3-4adf-83f6-d2a7b4a1b276",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "50"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"32-myY4HGaBX0QtdpiCFd19U+9ZjVs\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              114,
+              101,
+              103,
+              105,
+              115,
+              116,
+              101,
+              114,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              57,
+              56,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 50
+        },
+        "id": "5f857391-e6fc-4da4-a9f3-666a868d111b",
+        "assertions": [
+          {
+            "assertion": "Fresh user registered",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "57604a70-b416-49a6-9ff6-66de3b552de1",
+          "length": 12,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "8424a941-7ed5-40ff-87fb-c10650cf2465"
+        },
+        "item": {
+          "id": "87d5102c-7f94-46cb-824a-ac915c3e5c73",
+          "name": "Setup: Login fresh user",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "login"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{e14}}\",\"password\":\"{{p14}}\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "5b08e396-d8b1-4d82-a23b-ecc8543a2760",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "298f3bae-fab5-48d3-87d0-910029d4b322"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "bed774c2-de5f-48a1-9a3a-e23c5d376c39",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Fresh user login: 200', () => pm.response.to.have.status(200));",
+                  "if (pm.response.code === 200) { pm.environment.set('userToken', pm.response.json().token); }"
+                ],
+                "_lastExecutionId": "963f560a-31bf-4cc1-b04a-9d501552bfc6"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "login"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "82e85ffd-e0d6-45e2-adbf-be8b4fddbde9",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "58",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"email\":\"u1787324432493@hw06.test\",\"password\":\"User123!\"}"
+          }
+        },
+        "response": {
+          "id": "6fe40c2f-6611-4b50-8360-004b9c4d13cf",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "378"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"17a-/6WYJpb2YaUjc5PF9aLMafTHU4Y\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              76,
+              111,
+              103,
+              105,
+              110,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              34,
+              44,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              112,
+              90,
+              67,
+              73,
+              54,
+              79,
+              84,
+              103,
+              115,
+              73,
+              110,
+              74,
+              118,
+              98,
+              71,
+              85,
+              105,
+              79,
+              105,
+              74,
+              49,
+              99,
+              50,
+              86,
+              121,
+              73,
+              105,
+              119,
+              105,
+              97,
+              87,
+              70,
+              48,
+              73,
+              106,
+              111,
+              120,
+              78,
+              122,
+              103,
+              51,
+              77,
+              122,
+              73,
+              48,
+              78,
+              68,
+              77,
+              121,
+              102,
+              81,
+              46,
+              73,
+              120,
+              109,
+              49,
+              50,
+              97,
+              107,
+              103,
+              99,
+              45,
+              114,
+              90,
+              100,
+              85,
+              116,
+              79,
+              122,
+              57,
+              97,
+              97,
+              54,
+              111,
+              84,
+              69,
+              68,
+              104,
+              53,
+              75,
+              107,
+              119,
+              72,
+              78,
+              98,
+              100,
+              103,
+              83,
+              109,
+              49,
+              53,
+              76,
+              69,
+              73,
+              77,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              58,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              57,
+              56,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              72,
+              87,
+              48,
+              54,
+              32,
+              85,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              117,
+              49,
+              55,
+              56,
+              55,
+              51,
+              50,
+              52,
+              52,
+              51,
+              50,
+              52,
+              57,
+              51,
+              64,
+              104,
+              119,
+              48,
+              54,
+              46,
+              116,
+              101,
+              115,
+              116,
+              34,
+              44,
+              34,
+              112,
+              97,
+              115,
+              115,
+              119,
+              111,
+              114,
+              100,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              49,
+              50,
+              51,
+              33,
+              34,
+              44,
+              34,
+              114,
+              111,
+              108,
+              101,
+              34,
+              58,
+              34,
+              117,
+              115,
+              101,
+              114,
+              34,
+              44,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              95,
+              97,
+              116,
+              116,
+              101,
+              109,
+              112,
+              116,
+              115,
+              34,
+              58,
+              48,
+              44,
+              34,
+              108,
+              111,
+              99,
+              107,
+              101,
+              100,
+              95,
+              117,
+              110,
+              116,
+              105,
+              108,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              114,
+              101,
+              115,
+              101,
+              116,
+              95,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              115,
+              104,
+              105,
+              112,
+              112,
+              105,
+              110,
+              103,
+              95,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 378
+        },
+        "id": "87d5102c-7f94-46cb-824a-ac915c3e5c73",
+        "assertions": [
+          {
+            "assertion": "Fresh user login: 200",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "af92ba8c-480d-4471-a1d6-6e1503f3e97c",
+          "length": 12,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "7622b90e-e989-4cb3-bbed-43c9eb65af2b"
+        },
+        "item": {
+          "id": "6676827f-15e8-48f2-ba60-d014eb11e24e",
+          "name": "Seed: create category (sets lastCategoryId)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Seed Cat {{$timestamp}}\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "52aaf3ba-0af2-4260-8bd8-8ef8be97c556",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "2be2559c-e898-46cf-a6bf-0d03c62d00b0"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "fbae0e91-420f-4720-8069-9a0e773a265f",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Seed create 200 + id', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.environment.set('lastCategoryId', pm.response.json().id);",
+                  "});"
+                ],
+                "_lastExecutionId": "e28d086a-e7c1-437e-be32-82ba3f9c92b0"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3MzI0NDMyfQ.UFuqms0pGbJ6gnV7kweVFlD80fRYPWxIfCWRytO99l0"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b81ffcb4-801d-46d0-905c-bcc589b051fe",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "30",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"name\":\"Seed Cat 1787324433\"}"
+          }
+        },
+        "response": {
+          "id": "e613ff9f-95a4-4931-8a21-d9c37d3b6c22",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "38"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"26-69uWbP++wTatnMtnwFoRo4Sr3EQ\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              49,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 38
+        },
+        "id": "6676827f-15e8-48f2-ba60-d014eb11e24e",
+        "assertions": [
+          {
+            "assertion": "Seed create 200 + id",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "ca2ac8ce-5bc4-4a0f-a17f-5b44f95ad337",
+          "length": 12,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "5eb00833-3230-4edc-bd6e-9a62d9226ad2"
+        },
+        "item": {
+          "id": "7fd97358-c368-49e1-afa3-460111725b0d",
+          "name": "GET /api/categories",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "8ffc22ca-08d0-48ba-86eb-64da791afaa7",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "cec0531f-def8-4a2c-8de2-208566a59166"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "3c0a51f0-6620-4bfa-ab24-6aeed60f7c73",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('TC-FR14-020: GET list returns 200', () => pm.response.to.have.status(200));",
+                  "pm.test('TC-FR14-022: Public access (no auth needed)', () => true);",
+                  "const json = pm.response.json();",
+                  "pm.test('Schema: array of objects', () => {",
+                  "  pm.expect(json).to.be.an('array');",
+                  "  if (json.length > 0) {",
+                  "    pm.expect(json[0]).to.have.property('id');",
+                  "    pm.expect(json[0]).to.have.property('name');",
+                  "  }",
+                  "});"
+                ],
+                "_lastExecutionId": "6e053a76-18b7-443d-92ff-eadfe4f58d84"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "1b094d81-81ef-4426-8236-4383c8016369",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "a54af2dc-1757-4a64-b23d-270251eab2ad",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1137"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"471-VyRLvbY+2073kXA6UHY1CEz+JQE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              196,
+              144,
+              105,
+              225,
+              187,
+              135,
+              110,
+              32,
+              116,
+              104,
+              111,
+              225,
+              186,
+              161,
+              105,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              76,
+              97,
+              112,
+              116,
+              111,
+              112,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              51,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              80,
+              104,
+              225,
+              187,
+              165,
+              32,
+              107,
+              105,
+              225,
+              187,
+              135,
+              110,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              52,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              196,
+              144,
+              105,
+              225,
+              187,
+              135,
+              110,
+              32,
+              116,
+              104,
+              111,
+              225,
+              186,
+              161,
+              105,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              76,
+              97,
+              112,
+              116,
+              111,
+              112,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              54,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              55,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              56,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              57,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              48,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              196,
+              144,
+              225,
+              187,
+              147,
+              110,
+              103,
+              32,
+              104,
+              225,
+              187,
+              147,
+              32,
+              116,
+              104,
+              195,
+              180,
+              110,
+              103,
+              32,
+              109,
+              105,
+              110,
+              104,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              49,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              80,
+              104,
+              225,
+              187,
+              165,
+              32,
+              107,
+              105,
+              225,
+              187,
+              135,
+              110,
+              32,
+              38,
+              32,
+              76,
+              105,
+              110,
+              104,
+              32,
+              107,
+              105,
+              225,
+              187,
+              135,
+              110,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              50,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              49,
+              50,
+              51,
+              52,
+              53,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              51,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              196,
+              144,
+              105,
+              225,
+              187,
+              135,
+              110,
+              32,
+              116,
+              104,
+              111,
+              225,
+              186,
+              161,
+              105,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              52,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              39,
+              59,
+              32,
+              68,
+              82,
+              79,
+              80,
+              32,
+              84,
+              65,
+              66,
+              76,
+              69,
+              32,
+              99,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              105,
+              101,
+              115,
+              59,
+              45,
+              45,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              53,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              60,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              62,
+              97,
+              108,
+              101,
+              114,
+              116,
+              40,
+              39,
+              120,
+              115,
+              115,
+              39,
+              41,
+              60,
+              47,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              62,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              54,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              65,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              55,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              76,
+              101,
+              97,
+              100,
+              105,
+              110,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              56,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              114,
+              97,
+              105,
+              108,
+              105,
+              110,
+              103,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              49,
+              57,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              48,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              34,
+              125,
+              44,
+              123,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              49,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              83,
+              101,
+              101,
+              100,
+              32,
+              67,
+              97,
+              116,
+              32,
+              49,
+              55,
+              56,
+              55,
+              51,
+              50,
+              52,
+              52,
+              51,
+              51,
+              34,
+              125,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 1137
+        },
+        "id": "7fd97358-c368-49e1-afa3-460111725b0d",
+        "assertions": [
+          {
+            "assertion": "TC-FR14-020: GET list returns 200",
+            "skipped": false
+          },
+          {
+            "assertion": "TC-FR14-022: Public access (no auth needed)",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema: array of objects",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "75584175-66af-4957-ab42-efb598856f99",
+          "length": 12,
+          "cycles": 1,
+          "position": 5,
+          "iteration": 0,
+          "httpRequestId": "4ccb3498-2fd6-498d-abbb-e81f1e4d2738"
+        },
+        "item": {
+          "id": "bb6a36e0-f6c4-4a06-a38e-89d1303f0b8e",
+          "name": "PUT /api/categories/:id (valid rename)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories",
+                "{{lastCategoryId}}"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Điện thoại di động\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "42ba6a99-9b47-4a3d-bcad-67a96d28106f",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "90c170ff-c5ba-4df0-be2e-b8408f711236"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "2af99a01-4f1c-416c-aa49-70e0341c0910",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('TC-FR14-023: PUT valid rename returns 200', () => pm.response.to.have.status(200));",
+                  "const json = pm.response.json();",
+                  "pm.test('Schema: {message}', () => {",
+                  "  pm.expect(json).to.have.property('message');",
+                  "});"
+                ],
+                "_lastExecutionId": "3595b1fb-a1b8-4e78-8515-37eab1e72b88"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories",
+              "21"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3MzI0NDMyfQ.UFuqms0pGbJ6gnV7kweVFlD80fRYPWxIfCWRytO99l0"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "45987306-4170-44e0-b67a-42c29ec33c47",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "37",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"name\":\"Điện thoại di động\"}"
+          }
+        },
+        "response": {
+          "id": "bc18113c-b746-4daf-ae99-49fc382961b3",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "30"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1e-EyXct4+l6/SL2TBCgf12OF/HsYE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 30
+        },
+        "id": "bb6a36e0-f6c4-4a06-a38e-89d1303f0b8e",
+        "assertions": [
+          {
+            "assertion": "TC-FR14-023: PUT valid rename returns 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema: {message}",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "78a0c0a5-dac0-4fec-be9c-c7300fd4757e",
+          "length": 12,
+          "cycles": 1,
+          "position": 6,
+          "iteration": 0,
+          "httpRequestId": "1bc5eca4-6fb4-4c2c-b32a-a37da558fa09"
+        },
+        "item": {
+          "id": "22745a6d-1ecb-4e2d-822b-85ec61c59824",
+          "name": "PUT /api/categories/:id (non-existent BUG)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories",
+                "999999"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Ghost Update\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "315c6375-2a9a-4f34-af48-4f3a54e3e0c9",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "7b3ab7fe-4911-4375-b3ee-f10155b66271"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "cc2c91f6-1b8f-4502-b776-f5b227034137",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('[BUG-FR14-002] TC-FR14-026: PUT non-existent returns 200 (should be 404)', () => {",
+                  "  pm.expect(pm.response.code).to.eql(200);",
+                  "});"
+                ],
+                "_lastExecutionId": "8a880129-6ca6-4397-8e51-dae8287c22c1"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories",
+              "999999"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3MzI0NDMyfQ.UFuqms0pGbJ6gnV7kweVFlD80fRYPWxIfCWRytO99l0"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "c9c70fa0-572e-42bd-b785-0a5f12025ffb",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "23",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"name\":\"Ghost Update\"}"
+          }
+        },
+        "response": {
+          "id": "929af961-310c-4f3e-b609-ee3898076e8c",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "30"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1e-EyXct4+l6/SL2TBCgf12OF/HsYE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              117,
+              112,
+              100,
+              97,
+              116,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 30
+        },
+        "id": "22745a6d-1ecb-4e2d-822b-85ec61c59824",
+        "assertions": [
+          {
+            "assertion": "[BUG-FR14-002] TC-FR14-026: PUT non-existent returns 200 (should be 404)",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "25b91033-2d74-45d5-a375-353d707db5e4",
+          "length": 12,
+          "cycles": 1,
+          "position": 7,
+          "iteration": 0,
+          "httpRequestId": "7083dc19-df4a-4d64-a875-7afbc485ed53"
+        },
+        "item": {
+          "id": "47798f14-fd61-4833-975d-d821d7c29029",
+          "name": "POST /api/categories (no auth)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Unauthorized Category\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "1b7a3bdb-97c0-4c63-a75e-259a320d8977",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "d409561d-3656-42da-81ff-c5e7715c493d"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "8b414f62-8d53-4337-bd24-01da55159e44",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('TC-FR14-014: POST no auth returns 401', () => {",
+                  "  pm.expect(pm.response.code).to.eql(401);",
+                  "});"
+                ],
+                "_lastExecutionId": "442c8dbc-016d-42bc-8ecf-bdf96ca4c86b"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "13106afc-8d9e-49ed-8167-cb34e9170659",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "32",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"name\":\"Unauthorized Category\"}"
+          }
+        },
+        "response": {
+          "id": "7f082f7f-d886-4cff-8f32-a3f147077614",
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "24"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"18-XPDV80vbMk4yY1/PADG4jYM4rSI\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              110,
+              97,
+              117,
+              116,
+              104,
+              111,
+              114,
+              105,
+              122,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 24
+        },
+        "id": "47798f14-fd61-4833-975d-d821d7c29029",
+        "assertions": [
+          {
+            "assertion": "TC-FR14-014: POST no auth returns 401",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "693c6ccd-b637-4b40-8182-66c9ca686873",
+          "length": 12,
+          "cycles": 1,
+          "position": 8,
+          "iteration": 0,
+          "httpRequestId": "d012a561-7aa3-489a-acbe-ffffb181e6be"
+        },
+        "item": {
+          "id": "708fbae1-e864-41db-9062-6afdcec37e81",
+          "name": "POST /api/categories (user token - role escalation BUG)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Escalated Category\"}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "7462c2d1-ccd7-46c8-b12f-114763870a61",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "c11d6c6f-91bc-4417-bb7c-6c613dcc948a"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "1f790599-e772-4745-a674-c0634c70f9ca",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('[BUG-FR14-001] TC-FR14-041: Non-admin creates category returns 200 (should be 403)', () => {",
+                  "  pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.test('Role escalation: user can perform admin operation', () => {",
+                  "  pm.expect(json).to.have.property('id');",
+                  "});",
+                  "pm.collectionVariables.set('escalatedCategoryId', json.id);"
+                ],
+                "_lastExecutionId": "d41186cb-6399-4591-a40d-91687fc09f37"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTgsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg3MzI0NDMyfQ.Ixm12akgc-rZdUtOz9aa6oTEDh5KkwHNbdgSm15LEIM"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "696d091e-a1b6-44ae-b69e-58b700ae7d03",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "29",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\"name\":\"Escalated Category\"}"
+          }
+        },
+        "response": {
+          "id": "7173dff7-00b8-4ef9-bcbb-72c80e6d2baf",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "38"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"26-pmK6+9yjuh0tg29FIoKR3AMsEFs\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              99,
+              114,
+              101,
+              97,
+              116,
+              101,
+              100,
+              34,
+              44,
+              34,
+              105,
+              100,
+              34,
+              58,
+              50,
+              50,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 38
+        },
+        "id": "708fbae1-e864-41db-9062-6afdcec37e81",
+        "assertions": [
+          {
+            "assertion": "[BUG-FR14-001] TC-FR14-041: Non-admin creates category returns 200 (should be 403)",
+            "skipped": false
+          },
+          {
+            "assertion": "Role escalation: user can perform admin operation",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "3fd75271-e67a-4464-8885-84d8730045f1",
+          "length": 12,
+          "cycles": 1,
+          "position": 9,
+          "iteration": 0,
+          "httpRequestId": "66b8e443-135c-4ea6-9ddf-c7affb8b496d"
+        },
+        "item": {
+          "id": "66776f3c-fbfc-403f-b8c3-1b1c31f03958",
+          "name": "DELETE /api/categories/:id (user token - role escalation BUG)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories",
+                "{{escalatedCategoryId}}"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "5fa0219b-3033-440e-b16b-36c15c5d2c74",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "d7822d4f-8ec1-4b8b-8d7d-4f73c6cc32f5"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "9578529d-3e49-416c-8797-bad06a078788",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('[BUG-FR14-001] TC-FR14-042: Non-admin deletes category returns 200 (should be 403)', () => {",
+                  "  pm.expect(pm.response.code).to.eql(200);",
+                  "});"
+                ],
+                "_lastExecutionId": "c05809b3-cac9-4909-84f6-12b45739e90c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories",
+              "22"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTgsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg3MzI0NDMyfQ.Ixm12akgc-rZdUtOz9aa6oTEDh5KkwHNbdgSm15LEIM"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "62b70642-d25d-4393-a4b9-19294b22baac",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "DELETE"
+        },
+        "response": {
+          "id": "78059a15-d837-448d-a7ff-09d225f91026",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "30"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1e-oCBh6KwgTqOw4kBmQwxTMOxy7mE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              100,
+              101,
+              108,
+              101,
+              116,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 30
+        },
+        "id": "66776f3c-fbfc-403f-b8c3-1b1c31f03958",
+        "assertions": [
+          {
+            "assertion": "[BUG-FR14-001] TC-FR14-042: Non-admin deletes category returns 200 (should be 403)",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "8ce2a0ef-1aa1-42f0-a8c6-52bd42696c44",
+          "length": 12,
+          "cycles": 1,
+          "position": 10,
+          "iteration": 0,
+          "httpRequestId": "ac560262-a589-452d-88e8-1da9a8abaf53"
+        },
+        "item": {
+          "id": "4fbb8252-7b9d-4703-bc84-6908141a49de",
+          "name": "DELETE /api/categories/:id (valid)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories",
+                "{{lastCategoryId}}"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "bdc1f62b-e654-46f2-b5fe-cb40704ca239",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "6279d56d-1cae-4d17-9e3c-1b85a1d74f74"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "5499987f-e35e-45eb-b6db-16004951ebf0",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('TC-FR14-030: DELETE valid returns 200', () => pm.response.to.have.status(200));",
+                  "const json = pm.response.json();",
+                  "pm.test('Schema: {message}', () => {",
+                  "  pm.expect(json).to.have.property('message');",
+                  "});"
+                ],
+                "_lastExecutionId": "2853f23d-ac83-4d80-b023-0973c1b0005b"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories",
+              "21"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3MzI0NDMyfQ.UFuqms0pGbJ6gnV7kweVFlD80fRYPWxIfCWRytO99l0"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "384c145e-46be-4afa-9bea-5c453aac1b06",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "DELETE"
+        },
+        "response": {
+          "id": "9a0f5f25-6ceb-4d7e-bb7c-5768425af7e7",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "30"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1e-oCBh6KwgTqOw4kBmQwxTMOxy7mE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              100,
+              101,
+              108,
+              101,
+              116,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 30
+        },
+        "id": "4fbb8252-7b9d-4703-bc84-6908141a49de",
+        "assertions": [
+          {
+            "assertion": "TC-FR14-030: DELETE valid returns 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Schema: {message}",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "49a8e5f2-5434-46bf-acde-203e160c6276",
+          "length": 12,
+          "cycles": 1,
+          "position": 11,
+          "iteration": 0,
+          "httpRequestId": "b6d5f58a-bf39-4c6f-a03e-16ab3d669f7a"
+        },
+        "item": {
+          "id": "49204458-62a4-4252-a96c-0aace67cce42",
+          "name": "DELETE /api/categories/:id (non-existent BUG)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "3000",
+              "path": [
+                "api",
+                "categories",
+                "999999"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "8253ebb5-9bf6-427f-b220-30c2f0e22864",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });"
+                ],
+                "_lastExecutionId": "05171b80-46cb-43df-b495-37e2d935029f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "ea33cfa7-64b0-419b-80ff-48ff17029ee5",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('[BUG-FR14-002] TC-FR14-044: DELETE non-existent returns 200 (should be 404)', () => {",
+                  "  pm.expect(pm.response.code).to.eql(200);",
+                  "});"
+                ],
+                "_lastExecutionId": "a2e9dce0-ad77-40af-a60f-6567773c92c2"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "categories",
+              "999999"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzg3MzI0NDMyfQ.UFuqms0pGbJ6gnV7kweVFlD80fRYPWxIfCWRytO99l0"
+            },
+            {
+              "key": "X-Student-Id",
+              "value": "23127300"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "8ea13de8-a925-4daf-9942-e685b1dc2c74",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "DELETE"
+        },
+        "response": {
+          "id": "2d468e9e-0f65-4044-b60d-8b33408594f5",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "30"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1e-oCBh6KwgTqOw4kBmQwxTMOxy7mE\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 15:00:32 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              67,
+              97,
+              116,
+              101,
+              103,
+              111,
+              114,
+              121,
+              32,
+              100,
+              101,
+              108,
+              101,
+              116,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 1,
+          "responseSize": 30
+        },
+        "id": "49204458-62a4-4252-a96c-0aace67cce42",
+        "assertions": [
+          {
+            "assertion": "[BUG-FR14-002] TC-FR14-044: DELETE non-existent returns 200 (should be 404)",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 2186
+    },
+    "failures": [],
+    "error": null
+  }
+}

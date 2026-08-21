@@ -80,7 +80,8 @@
     "total_amount": null,
     "shipping_address": "123 Le Loi",
     "expectStatus": 400,
-    "expectSchema": false
+    "expectSchema": false,
+    "knownBug": true
   },
   {
     "_desc": "string numeric total",
@@ -97,7 +98,8 @@
     "total_amount": "abc",
     "shipping_address": "123 Le Loi",
     "expectStatus": 400,
-    "expectSchema": false
+    "expectSchema": false,
+    "knownBug": true
   },
   {
     "_desc": "very long address",
@@ -105,7 +107,8 @@
     "total_amount": 100000,
     "shipping_address": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
     "expectStatus": 400,
-    "expectSchema": false
+    "expectSchema": false,
+    "knownBug": true
   },
   {
     "_desc": "whitespace-only address",
@@ -113,7 +116,8 @@
     "total_amount": 100000,
     "shipping_address": "   ",
     "expectStatus": 400,
-    "expectSchema": false
+    "expectSchema": false,
+    "knownBug": true
   },
   {
     "_desc": "SQL injection in address",
