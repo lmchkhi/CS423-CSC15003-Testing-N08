@@ -1518,3 +1518,410 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+---
+
+## Entry #18
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 20:41 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE A — scope selection and contract extraction for FR-05 / GET /api/products with optional search`
+
+User Prompt:
+
+    sử dụng ai-first-api-testing thực hiện:
+    \- Pool A
+    \- FR-05 — Product Listing and Search
+    \- Endpoint thuộc phạm vi:
+    &#x20; \- GET /api/products
+    &#x20; \- query tùy chọn: ?search=\<keyword>
+
+    Lần chạy FR-05 này dự kiến được dùng để phục vụ demo Agent Skill.
+
+    \## NGUYÊN TẮC PHẠM VI
+
+    Chỉ tập trung vào FR-05.
+
+    Không phân tích, mô tả, tạo test hoặc mở rộng sang:
+    \- product detail;
+    \- product CRUD;
+    \- category API;
+    \- authentication feature;
+    \- hoặc bất kỳ FR/endpoint nào khác.
+
+    Chỉ đọc rule khác nếu trực tiếp ảnh hưởng đến FR-05.
+
+    Không trình bày tổng quan Pool A.
+
+    \## TÀI LIỆU CẦN DÙNG
+
+    Đọc và tuân thủ:
+
+    \- SKILL.md
+    \- references/phase-playbook.md
+    \- references/api-selection-contract.md
+    \- references/api-testing-runbook.md
+    \- references/assignment-requirements.md
+    \- src/eshop-sut/api\_specification.md
+    \- src/eshop-sut/README.md
+
+    Chỉ đọc source code nếu cần kiểm tra spec gap trực tiếp của FR-05.
+
+    \## PHẠM VI THỰC THI
+
+    Chỉ thực hiện:
+
+    PHASE A — CHỌN PHẠM VI / TRÍCH XUẤT CONTRACT CHO FR-05
+
+    Không được:
+    \- sinh >=35 test cases;
+    \- audit;
+    \- human extension;
+    \- tạo executable tests;
+    \- chạy Postman/Newman;
+    \- bug reporting;
+    \- CI/CD;
+    \- final reporting;
+    \- chuyển sang Phase B.
+
+    Sau Phase A phải DỪNG.
+
+    \## NHIỆM VỤ
+
+    1\. Xác minh scope:
+    &#x20;  \- GET /api/products
+    &#x20;  \- optional query ?search=\<keyword>
+
+    2\. Trích xuất contract chỉ cho FR-05:
+    &#x20;  \- method/path;
+    &#x20;  \- auth requirement nếu có;
+    &#x20;  \- search query;
+    &#x20;  \- optional/required;
+    &#x20;  \- search semantics có nguồn;
+    &#x20;  \- response information có nguồn;
+    &#x20;  \- schema information có nguồn;
+    &#x20;  \- security concern trực tiếp;
+    &#x20;  \- spec gaps;
+    &#x20;  \- data dependency.
+
+    3\. Kiểm tra tài liệu có định nghĩa hay không đối với:
+    &#x20;  \- partial/exact search;
+    &#x20;  \- case sensitivity;
+    &#x20;  \- whitespace;
+    &#x20;  \- empty search;
+    &#x20;  \- Unicode/Vietnamese;
+    &#x20;  \- special characters;
+    &#x20;  \- long keyword;
+    &#x20;  \- numeric input;
+    &#x20;  \- encoded input;
+    &#x20;  \- no-match result;
+    &#x20;  \- ordering.
+
+    Nếu không có rule thì ghi:
+
+    INCOMPLETE ORACLE / SPEC GAP
+
+    Không tự suy đoán expected behavior.
+
+    4\. Xây dựng planned partitions cho Phase B:
+    &#x20;  \- request không có search;
+    &#x20;  \- valid existing keyword;
+    &#x20;  \- nonexistent keyword;
+    &#x20;  \- empty;
+    &#x20;  \- whitespace;
+    &#x20;  \- one-character keyword;
+    &#x20;  \- long keyword;
+    &#x20;  \- numeric keyword;
+    &#x20;  \- special characters;
+    &#x20;  \- Unicode/Vietnamese;
+    &#x20;  \- encoded input;
+    &#x20;  \- injection-oriented input nếu phù hợp.
+
+    5\. Chỉ áp dụng security concern liên quan trực tiếp đến FR-05:
+    &#x20;  \- injection qua search;
+    &#x20;  \- information exposure;
+    &#x20;  \- unsafe output nếu có sink phù hợp;
+    &#x20;  \- authentication chỉ nếu contract yêu cầu.
+
+    Không mở rộng sang các endpoint khác.
+
+    6\. Không tự bịa:
+    &#x20;  \- pagination;
+    &#x20;  \- sorting;
+    &#x20;  \- filters khác;
+    &#x20;  \- status code;
+    &#x20;  \- response schema;
+    &#x20;  \- search behavior.
+
+    7\. Exact schema assertion chỉ được xem là complete nếu tài liệu có source rõ ràng.
+
+    Nếu không có exact schema thì ghi:
+
+    SCHEMA ORACLE: INCOMPLETE
+
+    8\. Xác định Student ID nhưng không execute request.
+
+    9\. Chỉ tạo/cập nhật artifact cho Phase A của FR-05.
+
+    10\. Ghi AI Audit cho interaction này.
+
+    \## OUTPUT CUỐI
+
+    Chỉ báo cáo:
+
+    \### FR-05 Scope
+
+    \### Contract
+
+    \### Search Input Model
+
+    \### Applicable Security
+
+    \### Response / Schema Oracle
+
+    \### Spec Gaps
+
+    \### Data Dependencies
+
+    \### Artifact Paths
+
+    \### Demo Readiness Note
+
+    Chỉ nêu artifact của FR-05 giúp demo workflow dễ quan sát.
+    Không trình bày các FR khác.
+
+    \### Status
+
+    Dùng:
+
+    PHASE A: COMPLETE
+    HUMAN REVIEW: PENDING
+    NEXT ALLOWED PHASE: B — AI GENERATION
+    EXECUTION: NOT EXECUTED
+
+    Sau đó DỪNG.
+
+    Không được tự động chạy Phase B.
+
+AI Output:
+
+    ### FR-05 Scope
+
+    Đã khóa phạm vi vào `GET /api/products` và query tùy chọn `?search=<keyword>`. Student ID là `23127464`; mọi request ở phase thực thi sau này phải có `X-Student-Id: 23127464`. Không request nào được gửi.
+
+    ### Contract
+
+    Nguồn chỉ xác định `search` là tùy chọn, tìm theo tên sản phẩm; khi không có search, use case là danh sách tất cả sản phẩm. Không có JWT/admin requirement được tài liệu hóa cho GET này. Product detail, CRUD, category, authentication feature và mọi endpoint khác bị loại khỏi phạm vi.
+
+    ### Search Input Model
+
+    Artifact lập planned partitions cho: không có search, keyword tồn tại/không tồn tại, empty, whitespace, một ký tự, dài, numeric, special characters, Unicode/Vietnamese, encoded và injection-oriented. Đây không phải test cases. Mọi semantics chưa có nguồn được gắn `INCOMPLETE ORACLE / SPEC GAP`.
+
+    ### Applicable Security
+
+    Chỉ ánh xạ SEC-05/injection qua search, information exposure từ database error, và SEC-04 cho sink hiển thị keyword đã được README định nghĩa. Source hiện tại nội suy search vào SQL và có thể đưa `err.message` vào HTML error; đây là quan sát tĩnh, chưa phải bug runtime. Authentication không áp dụng theo contract FR-05.
+
+    ### Response / Schema Oracle
+
+    README chỉ cung cấp nhu cầu UI về image/name/price và empty state; không định nghĩa exact API status, envelope, fields/types hay empty-result representation. Các cột và `SELECT *` trong source chỉ là implementation observation.
+
+    SCHEMA ORACLE: INCOMPLETE
+
+    ### Spec Gaps
+
+    Partial/exact, case sensitivity, whitespace, empty, Unicode/Vietnamese, special characters, long/numeric/encoded input, exact no-match API result và ordering đều là `INCOMPLETE ORACLE / SPEC GAP`. Không bịa pagination, sorting parameter, filter, status code, schema hay search behavior.
+
+    ### Data Dependencies
+
+    Phase B cần baseline sản phẩm có kiểm soát, tên tồn tại ổn định, keyword chắc chắn không tồn tại, dữ liệu Vietnamese nếu muốn assert match, và isolation khỏi dữ liệu CRUD/import trước đó. Seed source hiện có 5 product candidates nhưng không được coi là contract data.
+
+    ### Artifact Paths
+
+    - `reports/api-testing/fr-05-phase-a-contract.md`
+    - `reports/ai-audit-report.md` — Entry #18
+
+    ### Demo Readiness Note
+
+    Artifact thể hiện rõ scope lock, contract extraction theo nguồn, phân biệt contract với implementation, planned partitions không sinh test, security mapping có giới hạn và incomplete-oracle labels. Sẵn sàng cho demo điểm bàn giao Phase A; cần human review trước Phase B.
+
+    ### Status
+
+    PHASE A: COMPLETE
+    HUMAN REVIEW: PENDING
+    NEXT ALLOWED PHASE: B — AI GENERATION
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+---
+
+## Entry #19
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 20:59 — Asia/Ho_Chi_Minh`
+
+Purpose: `Phê duyệt Phase A và thực hiện Phase B — AI Generation cho FR-05 / GET /api/products`
+
+User Prompt:
+
+    approve, continue
+
+AI Output:
+
+    ### Approval
+
+    Phase A của FR-05 đã được ghi nhận HUMAN REVIEW: APPROVED — 2026-08-21. Phạm vi tiếp tục bị khóa ở GET /api/products với query tùy chọn search; Student ID là 23127464.
+
+    ### Phase B Result
+
+    Đã sinh 40 test case AI với 40 ID duy nhất, không trùng. Không có human-added case, chưa thực hiện case-by-case audit, chưa tạo executable tests và không gửi HTTP request.
+
+    ### Coverage
+
+    Bao phủ listing, response information, keyword tồn tại/không tồn tại, empty, duplicate query, whitespace, một ký tự, keyword dài, numeric, ký tự đặc biệt, Unicode/tiếng Việt, encoded input, SQL injection, information exposure và unsafe output tại sink phù hợp.
+
+    ### Oracle Control
+
+    Không tự đặt status code, content type, exact schema, ordering hoặc search semantics. Partial/exact, case, whitespace, length, encoding và exact no-match representation tiếp tục được gắn INCOMPLETE ORACLE / SPEC GAP.
+
+    ### Artifact Paths
+
+    - reports/api-testing/fr-05-phase-a-contract.md
+    - reports/api-testing/fr-05-phase-b-generation.md
+    - tests/api-testing/test-cases/fr-05-ai-generated-phase-b.md
+    - reports/ai-audit-report.md — Entry #19
+
+    ### Status
+
+    PHASE B: COMPLETE
+    AI-GENERATED TEST CASES: 40
+    HUMAN CASE-BY-CASE AUDIT: PENDING
+    NEXT ALLOWED PHASE: C — HUMAN REVIEW
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
+
+---
+
+## Entry #20
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 21:07 — Asia/Ho_Chi_Minh`
+
+Purpose: `PHASE C — tạo Human Review Worksheet và AI pre-audit cho 40 ca FR-05 / GET /api/products`
+
+User Prompt:
+
+    Đọc và tuân thủ:
+
+    - ai-first-api-testing/SKILL.md
+    - ai-first-api-testing/references/phase-playbook.md
+    - ai-first-api-testing/references/api-testing-runbook.md
+    - reports/api-testing/fr-05-phase-a-contract.md
+    - tests/api-testing/test-cases/fr-05-ai-generated-phase-b.md
+
+    ## PHẠM VI
+
+    Pool A, FR-05, GET /api/products.
+    Student ID: 23127464.
+    Chỉ thực hiện PHASE C — HUMAN REVIEW WORKSHEET.
+    Không execute, không báo bug, không CI/CD.
+    Sau Phase C phải DỪNG.
+
+    ## NHIỆM VỤ
+
+    1. Tính SHA-256 của file tests/api-testing/test-cases/fr-05-ai-generated-phase-b.md
+
+    2. Tạo file tests/api-testing/test-cases/fr-05-phase-c-human-review-workbook.md:
+
+    ### Phần A: Bảng kiểm toán AI pre-audit cho 40 ca
+
+    | Mã | Mô tả rút gọn | Danh mục | Đề xuất AI | Lý do AI |
+    Kết luận con người | Lý do con người | Chỉnh sửa cuối cùng |
+
+    Quy tắc:
+
+    - VALID: input, bước, oracle đều có nguồn và thực thi được.
+      Lưu ý: FR-05 có rất nhiều SPEC GAP, nên ca có oracle bảo mật
+      (không lộ SQL, không inject, không render HTML) vẫn có thể VALID
+      vì oracle bảo mật có nguồn từ SEC-04/SEC-05.
+      Ca listing/existing keyword có oracle semantic (trả sản phẩm đúng)
+      cũng VALID dù schema chưa có.
+    - INVALID: trùng lặp hoặc ngoài phạm vi.
+    - INCOMPLETE: có ý nghĩa nhưng thiếu oracle hoàn toàn — chỉ khám phá,
+      không thể assert bất kỳ điều gì.
+
+    Cột "Kết luận con người", "Lý do con người", "Chỉnh sửa cuối cùng" để PENDING.
+
+    3. Thống kê: số VALID, INVALID, INCOMPLETE.
+
+    ### Phần B: 5 slot PENDING cho ca con người bổ sung
+
+    | Slot | Mã | Mục tiêu | Nguồn | Lý do AI bỏ sót | Xác nhận |
+
+    ### Phần C: Gate Phase C (checklist PENDING)
+
+    ### Trạng thái
+
+    PHASE C: IN PROGRESS
+    AI PRE-AUDIT: COMPLETE
+    HUMAN AUDIT: PENDING
+    HUMAN-ADDED: PENDING
+
+    4. Ghi AI Audit. Sau đó DỪNG.
+
+AI Output:
+
+    ### SHA-256
+
+    File Phase B có SHA-256:
+    C9392ECB27D3AA60DEB4B673B9B61348A18884BD9ADB39D6E168C145A54FE324
+
+    Hash trong worksheet đã được đối chiếu và khớp với file nguồn.
+
+    ### Phase C Worksheet
+
+    Đã tạo worksheet đủ 40 dòng pre-audit cho FR-05. Mỗi dòng có đề xuất AI và lý do; cả ba cột Kết luận con người, Lý do con người, Chỉnh sửa cuối cùng đều là PENDING.
+
+    ### AI Pre-audit Statistics
+
+    - VALID: 16
+    - INVALID: 2
+    - INCOMPLETE: 22
+    - Tổng: 40
+
+    Đây chỉ là đề xuất AI, chưa phải kết luận của con người.
+
+    ### Human Review State
+
+    Đã tạo đúng 5 slot human-added, tất cả PENDING. Toàn bộ Gate Phase C vẫn PENDING. Không tạo executable tests, không execute request, không báo bug và không tạo CI/CD.
+
+    ### Artifact Path
+
+    tests/api-testing/test-cases/fr-05-phase-c-human-review-workbook.md
+
+    ### Status
+
+    PHASE C: IN PROGRESS
+    AI PRE-AUDIT: COMPLETE
+    HUMAN AUDIT: PENDING
+    HUMAN-ADDED: PENDING
+    EXECUTION: NOT EXECUTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
