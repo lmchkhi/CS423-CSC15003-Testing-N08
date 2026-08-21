@@ -1,0 +1,1354 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "23127464-fr05-product-search"
+    },
+    "item": [
+      {
+        "id": "97fe6dd6-530a-4d17-8906-79d19c23b220",
+        "name": "Main controlled baseline",
+        "item": [
+          {
+            "id": "d4cee45b-1c7a-42d5-aa45-bd45090643a7",
+            "name": "FR05-LST-001 | Bỏ search, baseline nhiều sản phẩm",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-LST-001. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "239e74dd-8228-4af7-a878-c07554c5e691",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-LST-001 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-LST-001 | response exposes an inspectable product list\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                    "pm.test(\"FR05-LST-001 | all controlled baseline products are listed\", function () {",
+                    "  pm.expect(productNames.slice().sort()).to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "51b9485f-03f7-49ca-8712-974fd119dcff",
+            "name": "FR05-EXI-001 | Full name iPhone 15 Pro Max",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-EXI-001. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "iPhone%2015%20Pro%20Max"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "e88234cb-c9f2-4c72-b6e3-4ec6cce0fb4b",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-EXI-001 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-EXI-001 | target product returned semantically\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(productNames).to.include(\"iPhone 15 Pro Max\");",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "13704d56-1d55-43bc-859a-c3910aa87213",
+            "name": "FR05-EXI-002 | Full name MacBook Pro M3",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-EXI-002. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "MacBook%20Pro%20M3"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "a20d3d56-d3c0-44e0-bc2b-351b4ce621ed",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-EXI-002 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-EXI-002 | target product returned semantically\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(productNames).to.include(\"MacBook Pro M3\");",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "7c6820be-f244-4a3e-a858-aa14e5ff2435",
+            "name": "FR05-UNI-001 | Full name tiếng Việt chính xác",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-UNI-001. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "B%C3%A0n%20ph%C3%ADm%20c%C6%A1%20Keychron%20Q1"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "0ef50112-41b5-4806-8b00-c8c2e54377b9",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-UNI-001 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-UNI-001 | target product returned semantically\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(productNames).to.include(\"Bàn phím cơ Keychron Q1\");",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "ac76e3ba-a326-429f-b5ce-b15cbac92ed6",
+            "name": "FR05-NOM-001 | ASCII keyword không tồn tại",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-NOM-001. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "FR05-NO-MATCH-9F4C2A"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "e0fa33b2-3f39-4230-bd55-2d43c1a3f0de",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-NOM-001 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-NOM-001 | semantic no-match\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(products).to.have.lengthOf(0);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "4fd05231-f355-40bf-96c5-51843b2eb05a",
+            "name": "FR05-NOM-002 | Keyword tiếng Việt không tồn tại",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-NOM-002. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "S%E1%BA%A3n%20ph%E1%BA%A9m%20kh%C3%B4ng%20t%E1%BB%93n%20t%E1%BA%A1i%20FR05"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "03463eec-ceee-416e-8ef5-6abb530ed42d",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-NOM-002 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-NOM-002 | semantic no-match\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(products).to.have.lengthOf(0);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "de3403c9-3da8-4da4-951a-fde42c0c7205",
+            "name": "FR05-ONE-002 | Một ký tự không tồn tại",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-ONE-002. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%C2%A7"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "d284d4a1-cd9a-4c7e-9e6b-22c9d00f6f90",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-ONE-002 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-ONE-002 | semantic no-match\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(products).to.have.lengthOf(0);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "bf8a8c3e-0f4f-4691-952c-2b3f4aaf168d",
+            "name": "FR05-NUM-002 | Numeric keyword không tồn tại",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-NUM-002. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "987654321098765"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "fe6b2072-6d73-4975-8637-12bfa7f66df6",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-NUM-002 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-NUM-002 | semantic no-match\", function () {",
+                    "  pm.expect(products).to.be.an(\"array\");",
+                    "  pm.expect(products).to.have.lengthOf(0);",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "beb34148-a5c2-4468-9846-0c3aa6cdaeeb",
+            "name": "FR05-UNI-004 | Emoji no-match và không lộ lỗi",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-UNI-004. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%F0%9F%93%A6%F0%9F%94%8E"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "db01869e-2694-447c-b81a-b1f5e02d7c9c",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-UNI-004 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-UNI-004 | emoji semantic no-match\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });",
+                    "pm.test(\"FR05-UNI-004 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "1022801d-a392-40f3-bd79-1e906437a076",
+            "name": "FR05-ENC-004 | Percent-encoding không hợp lệ",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-ENC-004. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%E0%A4%A"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "c6df1937-6dc7-45a8-9a12-2261665ffe9f",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-ENC-004 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "pm.test(\"FR05-ENC-004 | server returned a response\", function () { pm.expect(pm.response).to.exist; });",
+                    "pm.test(\"FR05-ENC-004 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "2c914cd1-daf0-498e-8ec9-78cf488a9713",
+            "name": "FR05-SEC-001 | SQL tautology injection",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-SEC-001. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%27%20OR%20%271%27%3D%271%27%20--"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "01f71235-c99f-4361-82f5-9e40b1eca101",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-SEC-001 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-SEC-001 | tautology does not broaden to full baseline\", function () {",
+                    "  if (Array.isArray(products)) pm.expect(productNames.slice().sort()).not.to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]);",
+                    "});",
+                    "pm.test(\"FR05-SEC-001 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "f161f45b-c90b-467a-90dc-5df65347f0c2",
+            "name": "FR05-SEC-002 | UNION-based injection",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-SEC-002. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%25%27%20UNION%20SELECT%209999%2C%27FR05-UNION-MARKER%27%2C1%2C%27x%27%2C%27y%27%2C1%20--"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "a385834a-7b30-4696-8e0b-6a38ab446955",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-SEC-002 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-SEC-002 | UNION marker absent\", function () { pm.expect(responseText).not.to.include(\"FR05-UNION-MARKER\"); });",
+                    "pm.test(\"FR05-SEC-002 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "f31063de-9ff4-47c1-ab3c-f9fd1b6caf4b",
+            "name": "FR05-SEC-003 | Stacked destructive injection",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-SEC-003. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%27%3B%20DROP%20TABLE%20products%3B--"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "79816a6a-e411-4b2a-b7e6-1e22f4437573",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-SEC-003 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "pm.test(\"FR05-SEC-003 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});",
+                    "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/products\", method: \"GET\", header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }] }, function (error, response) {",
+                    "  pm.test(\"FR05-SEC-003 | product table and baseline remain available\", function () {",
+                    "    pm.expect(error).to.eql(null); const body = response.json();",
+                    "    pm.expect(body).to.be.an(\"array\");",
+                    "    pm.expect(body.map(function (p) { return p.name; }).slice().sort()).to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "829b5c4a-4c01-40c0-9f1f-01acd022c1a2",
+            "name": "FR05-SEC-004 | Quote không lộ database detail",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-SEC-004. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "%27"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "3ba9a6fd-78f5-448d-81f9-2e7ad2cecadd",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-SEC-004 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "pm.test(\"FR05-SEC-004 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "fd81e176-765d-47ef-9452-e456052c79d9",
+            "name": "FR05-H02 | Năm GET search đồng thời",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-H02. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "iPhone"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "453299d4-5f29-49e1-b5b2-df10c9f1d4c8",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-H02 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const concurrentBodies = [];",
+                    "for (let index = 0; index < 5; index += 1) {",
+                    "  pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/products?search=iPhone\", method: \"GET\", header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }] }, function (error, response) {",
+                    "    pm.test(\"FR05-H02 | concurrent request \" + (index + 1) + \" succeeds\", function () { pm.expect(error).to.eql(null); pm.expect(response.code).to.be.below(500); });",
+                    "    concurrentBodies.push(response.text());",
+                    "    if (concurrentBodies.length === 5) {",
+                    "      pm.test(\"FR05-H02 | five concurrent responses are identical\", function () { concurrentBodies.forEach(function (body) { pm.expect(body).to.eql(concurrentBodies[0]); }); });",
+                    "    }",
+                    "  });",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "7036c29c-45b4-4e43-ad43-c48520044a8e",
+            "name": "FR05-H03 | Comment-style SQL bypass",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-H03. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "test%2F**%2FOR%2F**%2F1%3D1"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "5242fa28-eeea-4570-a663-ee500bc324ee",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-H03 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-H03 | comment-style input does not broaden to full baseline\", function () {",
+                    "  if (Array.isArray(products)) pm.expect(productNames.slice().sort()).not.to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]);",
+                    "});",
+                    "pm.test(\"FR05-H03 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "b8dc0813-06be-46bb-82be-2cac966acfb4",
+            "name": "FR05-H04 | Content-Type application/json",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-H04. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "89f64cdc-db42-41ef-97ed-8d34d6c2bf6a",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-H04 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "pm.test(\"FR05-H04 | Content-Type is application/json\", function () {",
+                    "  const contentType = (pm.response.headers.get(\"Content-Type\") || \"\").toLowerCase();",
+                    "  pm.expect(contentType).to.include(\"application/json\");",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "a7648c87-cd21-4d85-a654-228d4a670495",
+            "name": "FR05-H05 | Null-byte injection",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-H05. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "test%00admin"
+                  }
+                ],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "6e728ab8-9ceb-4e2e-a822-bc496c6ddfca",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-H05 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "pm.test(\"FR05-H05 | server responds without 5xx\", function () { pm.expect(pm.response.code).to.be.below(500); });",
+                    "pm.test(\"FR05-H05 | no database details disclosed\", function () {",
+                    "  const lower = String(responseText || \"\").toLowerCase();",
+                    "  [\"sqlite\", \"database error\", \"select *\", \"products where\", \"server.js\", \"unrecognized token\", \"query contains a null character\"].forEach(function (marker) {",
+                    "    pm.expect(lower).not.to.include(marker);",
+                    "  });",
+                    "});",
+                    "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/products\", method: \"GET\", header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }] }, function (error, response) {",
+                    "  pm.test(\"FR05-H05 | server remains available\", function () { pm.expect(error).to.eql(null); pm.expect(response.code).to.be.below(500); });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "e8ec79e3-116e-4d27-bcac-c95ed6f0974e",
+            "name": "FR05-H01 | POST không body phải reject và không tạo product",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-H01. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "POST"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "98ea4751-7947-47c0-a7ab-4e34ddcc467d",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-H01 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "pm.test(\"FR05-H01 | unsupported method for FR-05 contract rejected\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                    "pm.sendRequest({ url: pm.environment.get(\"baseUrl\") + \"/api/products\", method: \"GET\", header: [{ key: \"X-Student-Id\", value: pm.environment.get(\"studentId\") }] }, function (error, response) {",
+                    "  pm.test(\"FR05-H01 | no product created\", function () {",
+                    "    pm.expect(error).to.eql(null); const body = response.json();",
+                    "    pm.expect(body).to.be.an(\"array\").and.have.lengthOf(5);",
+                    "    pm.expect(body.every(function (p) { return typeof p.name === \"string\" && p.name.length > 0; })).to.eql(true);",
+                    "  });",
+                    "});"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      },
+      {
+        "id": "feb96f1f-cbc0-4308-b5c8-9439642103c7",
+        "name": "Empty controlled baseline",
+        "item": [
+          {
+            "id": "ab81b2c2-bd39-4757-85fa-3e800381d656",
+            "name": "FR05-LST-002 | Bỏ search, baseline rỗng",
+            "request": {
+              "description": {
+                "content": "Traceability: FR05-LST-002. Scope: FR-05 product listing/search.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "products"
+                ],
+                "host": [
+                  "{{baseUrl}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "response": [],
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "b4242e9f-82e2-4754-9c8a-b470a3757c23",
+                  "type": "text/javascript",
+                  "exec": [
+                    "pm.test(\"FR05-LST-002 | X-Student-Id present\", function () {",
+                    "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                    "});",
+                    "const responseText = pm.response.text();",
+                    "let responseJson = null;",
+                    "try { responseJson = pm.response.json(); } catch (error) {}",
+                    "const products = Array.isArray(responseJson) ? responseJson :",
+                    "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                    "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                    "pm.test(\"FR05-LST-002 | semantic empty product set\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
+                  ],
+                  "_lastExecutionId": "fc3542c6-5a34-4aae-9a4d-3fdbd5b9f313"
+                }
+              }
+            ]
+          }
+        ],
+        "event": []
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "39c6c524-6391-4347-8739-1cb096617176",
+          "type": "text/javascript",
+          "exec": [
+            "const studentId = pm.environment.get(\"studentId\");",
+            "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
+            "console.log(\"[FR05 HEADER] \" + pm.info.requestName + \" X-Student-Id=\" + studentId);"
+          ],
+          "_lastExecutionId": "b4724a56-9c02-42d3-8706-68635d921e4d"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "23127464-fr05-product-search",
+      "name": "23127464 | FR-05 Product Listing and Search",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "Executable Phase-D subset for FR-05.\nAI cases automated: 15 VALID.\nHuman-origin cases automated: 5.\nFR05-SEC-005 remains NOT AUTOMATED because its approved oracle requires observing a UI rendering sink.\nINVALID and INCOMPLETE AI cases are excluded.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_at": "2026-08-21T14:30:46.646Z",
+      "postman_exported_using": "Codex Phase-D generator"
+    },
+    "id": "23127464-fr05-local",
+    "name": "23127464 FR-05 Local Runtime",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://127.0.0.1:3000",
+        "key": "baseUrl"
+      },
+      {
+        "type": "any",
+        "value": "23127464",
+        "key": "studentId"
+      }
+    ]
+  },
+  "globals": {
+    "id": "3aa547e4-4c7e-4719-9f58-3bb07a608ca3",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 24,
+      "responseMin": 24,
+      "responseMax": 24,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1787322657865,
+      "completed": 1787322657953
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "740e02bd-59ff-4a81-9bfe-67362952eb86",
+          "httpRequestId": "3d6eac0c-044f-4fea-8800-46313cf87bc2"
+        },
+        "item": {
+          "id": "ab81b2c2-bd39-4757-85fa-3e800381d656",
+          "name": "FR05-LST-002 | Bỏ search, baseline rỗng",
+          "request": {
+            "description": {
+              "content": "Traceability: FR05-LST-002. Scope: FR-05 product listing/search.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b4242e9f-82e2-4754-9c8a-b470a3757c23",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-LST-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "const responseText = pm.response.text();",
+                  "let responseJson = null;",
+                  "try { responseJson = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(responseJson) ? responseJson :",
+                  "  (responseJson && Array.isArray(responseJson.products) ? responseJson.products : null);",
+                  "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-LST-002 | semantic empty product set\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
+                ],
+                "_lastExecutionId": "fc3542c6-5a34-4aae-9a4d-3fdbd5b9f313"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Traceability: FR05-LST-002. Scope: FR-05 product listing/search.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "3000",
+            "path": [
+              "api",
+              "products"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "X-Student-Id",
+              "value": "23127464"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "75cc689a-c8f6-4eca-b14b-dec78adf2925",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:3000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "e151f366-25ba-4cd7-b1ee-6698d41196f3",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "2"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 21 Aug 2026 14:30:57 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              93
+            ]
+          },
+          "cookie": [],
+          "responseTime": 24,
+          "responseSize": 2
+        },
+        "id": "ab81b2c2-bd39-4757-85fa-3e800381d656",
+        "assertions": [
+          {
+            "assertion": "FR05-LST-002 | X-Student-Id present",
+            "skipped": false
+          },
+          {
+            "assertion": "FR05-LST-002 | semantic empty product set",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 2
+    },
+    "failures": [],
+    "error": null
+  }
+}

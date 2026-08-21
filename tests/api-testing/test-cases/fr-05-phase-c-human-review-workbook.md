@@ -9,7 +9,7 @@
 - SHA-256 bản AI gốc: `C9392ECB27D3AA60DEB4B673B9B61348A18884BD9ADB39D6E168C145A54FE324`.
 - Cột **Đề xuất AI** là pre-audit để hỗ trợ review, không phải kết luận của con người.
 - Người review phải điền độc lập **Kết luận con người** bằng đúng một nhãn `VALID`, `INVALID` hoặc `INCOMPLETE`, kèm lý do và chỉnh sửa cuối cùng.
-- Con người đã hoàn tất audit 40/40 ca và bổ sung 5 ca nguồn gốc `CON-NGUOI-BO-SUNG`; chưa phê duyệt gate cuối, chưa tạo executable tests và chưa gửi HTTP request.
+- Con người đã hoàn tất audit 40/40 ca, bổ sung 5 ca nguồn gốc `CON-NGUOI-BO-SUNG` và phê duyệt gate cuối bằng chỉ dẫn `approve, continue`.
 
 ## Quy tắc pre-audit
 
@@ -100,14 +100,13 @@ Các số trên là kết quả **AI pre-audit** và đã được con người 
 - [x] COMPLETE — Mọi ca `INVALID`/`INCOMPLETE` có lý do và chỉnh sửa cuối cùng.
 - [x] COMPLETE — Con người đã bổ sung 5 ca, gắn nguồn gốc `CON-NGUOI-BO-SUNG`.
 - [x] COMPLETE — Mỗi ca con người bổ sung có nguồn và lý do AI bỏ sót.
-- [ ] PENDING — Bản cuối đã được con người phê duyệt để chuyển sang executable tests.
+- [x] COMPLETE — Bản cuối đã được con người phê duyệt để chuyển sang executable tests bằng chỉ dẫn `approve, continue`.
 
 ## Trạng thái
 
-PHASE C: IN PROGRESS  
+PHASE C: COMPLETE  
 AI PRE-AUDIT: COMPLETE  
 HUMAN AUDIT: COMPLETE  
 HUMAN-ADDED: 5 COMPLETE  
+NEXT ALLOWED PHASE: D — EXECUTION  
 EXECUTION: NOT EXECUTED
-
-

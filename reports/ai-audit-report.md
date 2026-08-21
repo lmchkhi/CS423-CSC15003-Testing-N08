@@ -1925,3 +1925,54 @@ AI Output:
 **Đánh giá/chỉnh sửa của con người:**
 
     PENDING
+
+---
+
+## Entry #21
+
+### AI Audit Entry
+
+Tool: `Codex (GPT-5)`
+
+Date: `21/08/2026 21:34 — Asia/Ho_Chi_Minh`
+
+Purpose: `Phê duyệt gate cuối Phase C và thực hiện Phase D — Execution cho FR-05 / GET /api/products`
+
+User Prompt:
+
+    approve, continue
+
+AI Output:
+
+    ### Kết quả
+
+    Phase C đã được phê duyệt. Phase D đã tự động hóa và chạy 20 ca FR-05: 16 đạt, 4 không đạt; 50/55 assertion đạt. Lần chạy canonical là 20260821-213052.
+
+    Bốn ca không đạt là FR05-SEC-001, FR05-SEC-002, FR05-SEC-004 và FR05-H05; tất cả được phân loại LOI_BAO_MAT_SUT từ bằng chứng thực thi. Không tạo bug report và không chuyển sang Phase E.
+
+    Lần 20260821-213008 bị mất query string khi sinh collection được bảo toàn và phân loại LOI_CA_KIEM_THU, không dùng để kết luận SUT. Database đã được khôi phục đúng SHA-256 trước chạy. Ảnh Postman chứng minh header vẫn PENDING HUMAN CAPTURE.
+
+    ### Artifact Paths
+
+    - reports/api-testing/fr-05-phase-d-execution-plan.md
+    - reports/api-testing/fr-05-phase-d-execution-analysis.md
+    - tests/api-testing/collections/23127464_FR05_Product_Search.postman_collection.json
+    - tests/api-testing/environments/fr-05-local.postman_environment.json
+    - tests/api-testing/data/fr-05-run-data.json
+    - tests/api-testing/evidence/fr-05/20260821-213052/
+    - tests/api-testing/evidence/fr-05/20260821-213008/
+
+    ### Status
+
+    PHASE D: COMPLETE
+    EXECUTION: EXECUTED — FAILED
+    PASSED CASES: 16
+    FAILED CASES: 4
+    HUMAN ASSESSMENT: PENDING
+    HEADER SCREENSHOT: PENDING HUMAN CAPTURE
+    BUG REPORTING: NOT STARTED
+    PHASE E: NOT STARTED
+
+**Đánh giá/chỉnh sửa của con người:**
+
+    PENDING
