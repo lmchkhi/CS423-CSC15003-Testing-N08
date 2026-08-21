@@ -1,5 +1,7 @@
 # FR-16 — Phase D Execution Analysis
 
+> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là final rerun `tests/api-testing/evidence/fr-16/20260821-223035/`; các run cũ được liệt kê bên dưới đã được thay thế và dọn khỏi bộ evidence cuối.
+
 ## Scope and selection
 
 - Endpoint under test: `POST /api/admin/import-products` only.
@@ -12,13 +14,13 @@
 
 | Run | Outcome | Classification and action |
 |---|---|---|
-| `20260821-024805` | Newman did not start; fixture encountered `SQLITE_ERROR: no such table: products`. | `LOI_MOI_TRUONG`: race between asynchronous SUT schema initialization and the fixture connection. Added seeded-schema readiness polling. Evidence retained. |
-| `20260821-024833` | 77 assertions, 9 failed. | One failure (`FR16-AUTH-003`) was `LOI_SCRIPT`: generator defaulted an omitted Authorization header to admin auth. Request construction was corrected. The other eight failures remained candidates for SUT classification. Evidence retained and not used as canonical. |
-| `20260821-024915` | Newman completed; exit code `1`; 77 assertions, 8 failed. | Canonical run. No environment or test-script failure remained. Raw reports were retained unchanged. |
+| `20260821-024805` | Newman did not start; fixture encountered `SQLITE_ERROR: no such table: products`. | `LOI_MOI_TRUONG`: race between asynchronous SUT schema initialization and the fixture connection. Added seeded-schema readiness polling. Run cũ đã được dọn sau final rerun. |
+| `20260821-024833` | 77 assertions, 9 failed. | One failure (`FR16-AUTH-003`) was `LOI_SCRIPT`: generator defaulted an omitted Authorization header to admin auth. Request construction was corrected. Run cũ đã được dọn sau final rerun. |
+| `20260821-024915` | Newman completed; exit code `1`; 77 assertions, 8 failed. | Canonical run tại thời điểm Phase D; sau đó được thay thế bởi final rerun 45/45 ca. |
 
-## Canonical evidence
+## Historical canonical evidence
 
-- Run directory: `tests/api-testing/evidence/fr-16/20260821-024915/`.
+- Run directory tại thời điểm Phase D: `20260821-024915` — đã được thay thế bởi `tests/api-testing/evidence/fr-16/20260821-223035/`.
 - Host observed: `http://127.0.0.1:3000`.
 - Started: `2026-08-20T19:49:15.885Z` (`2026-08-21 02:49:15` Asia/Saigon).
 - Ended: `2026-08-20T19:49:25.861Z`.

@@ -64,10 +64,10 @@ curl -i \
 
 ## Evidence
 
-- Canonical run: `tests/api-testing/evidence/fr-16/20260821-024915/`
-- Newman console: `tests/api-testing/evidence/fr-16/20260821-024915/newman-console.txt`
-- Newman JSON: `tests/api-testing/evidence/fr-16/20260821-024915/newman-report.json`
-- Newman HTML: `tests/api-testing/evidence/fr-16/20260821-024915/newman-report.html`
+- Final run: `tests/api-testing/evidence/fr-16/20260821-223035/`
+- Newman console: `tests/api-testing/evidence/fr-16/20260821-223035/newman-console.txt`
+- Newman JSON: `tests/api-testing/evidence/fr-16/20260821-223035/newman-report.json`
+- Newman HTML: `tests/api-testing/evidence/fr-16/20260821-223035/newman-report.html`
 - Execution analysis: `reports/api-testing/fr-16-phase-d-execution-analysis.md`
 
 Các assertion liên quan:

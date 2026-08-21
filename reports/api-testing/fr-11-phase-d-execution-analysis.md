@@ -1,5 +1,7 @@
 # FR-11 — Phase D Execution Analysis
 
+> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là final rerun `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`; run `20260821-001900` đã được thay thế và dọn khỏi bộ evidence cuối.
+
 ## Evidence integrity
 
 - Canonical run: `tests/api-testing/evidence/fr-11/20260821-001900/`.

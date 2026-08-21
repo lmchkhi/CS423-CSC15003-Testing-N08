@@ -39,17 +39,17 @@ Lý do hiệu chỉnh và sự phân biệt giữa oracle có nguồn với orac
 | 4 | Human-added test cases | 10 | 5 cases per endpoint |
 | 5 | Total designed test cases | 80 | 70 AI-generated + 10 human-added |
 | 6 | Human audit of AI cases | 70 | 33 `VALID`; 2 `INVALID`; 35 `INCOMPLETE` |
-| 7 | Executed cases | 42 | 33 valid AI cases + 9 executable human-origin cases |
-| 8 | Assertions | 101 | 92 passed; 9 failed |
+| 7 | Executed cases | 80 | Toàn bộ 70 AI-generated và 10 human-added cases sau hiệu chỉnh |
+| 8 | Assertions | 189 | 167 passed; 22 failed |
 | 9 | Confirmed bugs | 1 | IDOR + missing authentication on `GET /api/orders/:id` |
 | 10 | Phase status | — | `PHASE E: COMPLETE` |
 
-`FR11-MYO-H03` được giữ ở trạng thái `INCOMPLETE / NOT AUTOMATED` vì chưa có oracle cho lỗi cơ sở dữ liệu và cơ chế fault injection an toàn.
+`FR11-MYO-H03` đã được sửa thành phép đọc lặp lại có oracle xác định và được thực thi trong final rerun.
 
 ## 3. Kết quả kiểm thử
 
-- `GET /api/orders/my-orders`: các executable test trong canonical run không có assertion thất bại.
-- `GET /api/orders/:id`: có 9 assertion thất bại tại `FR11-DET-011` và `FR11-DET-026`–`FR11-DET-033`.
+- Final rerun thực thi 80/80 ca; 60 ca đạt và 20 ca không đạt, tương ứng 167 assertion đạt và 22 assertion không đạt.
+- Các failure tiếp tục xác nhận lỗi authentication/authorization và IDOR ở order history/detail.
 - Các failure được con người xác nhận là `LOI_BAO_MAT_SUT`.
 - Lỗi bảo mật: endpoint detail thiếu authentication và ownership check, dẫn đến IDOR và làm lộ order data.
 
@@ -60,11 +60,11 @@ Lý do hiệu chỉnh và sự phân biệt giữa oracle có nguồn với orac
 | API | FR-05 — `GET /api/products` |
 | Test cases | 45 — 40 AI-generated + 5 human-origin |
 | Human audit | 16 `VALID`; 2 `INVALID`; 22 `INCOMPLETE` |
-| Executed | 20 ca; 55 assertions; 50 passed; 5 failed |
+| Executed | 45 ca; 119 assertions; 108 passed; 11 failed |
 | Bugs | 1 — SQL injection qua `search` với 4 biểu hiện: tautology, UNION, information exposure và null byte |
 | Phase status | `PHASE E: COMPLETE` |
 
-Local bug report: `bug-report/fr-05-sql-injection-search.md`. Canonical evidence nằm tại `tests/api-testing/evidence/fr-05/20260821-213052/`. FR-05 hiện được bao phủ bởi pipeline chung `.github/workflows/api-test-pools-a-b-c.yml`; GitHub Issue chưa được tạo.
+Local bug report: `bug-report/fr-05-sql-injection-search.md`. Final evidence nằm tại `tests/api-testing/evidence/fr-05/20260821-223004/`. FR-05 hiện được bao phủ bởi pipeline chung `.github/workflows/api-test-pools-a-b-c.yml`; GitHub Issue chưa được tạo.
 
 ## 5. FR-16 — Product Import (Pool C)
 
@@ -73,8 +73,8 @@ Local bug report: `bug-report/fr-05-sql-injection-search.md`. Canonical evidence
 | API | FR-16 — `POST /api/admin/import-products` |
 | Test cases | 45 — 40 AI-generated + 5 human-origin |
 | Human audit | 29 `VALID`; 2 `INVALID`; 9 `INCOMPLETE` |
-| Executed | 32 ca; 77 assertions; 69 passed; 8 failed |
-| Confirmed failures | 2 `LOI_BAO_MAT_SUT`; 6 `LOI_CHUC_NANG_SUT` |
+| Executed | 45 ca; 105 assertions; 89 passed; 16 failed |
+| Confirmed failures | 16 ca không đạt trong final rerun; tiếp tục thể hiện lỗi security, validation và atomicity |
 | Bugs | 3 — missing role check; missing price validation; missing rollback |
 | Contract decision | JSON array là primary; CSV upload là exploratory/negative |
 | Phase status | `PHASE E: COMPLETE` |
@@ -85,7 +85,7 @@ Ba local bug report đã tạo:
 - `bug-report/fr-16-missing-price-validation.md` — Medium / Functional.
 - `bug-report/fr-16-missing-atomicity-rollback.md` — High / Functional.
 
-Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915/`. FR-16 hiện được bao phủ bởi pipeline chung `.github/workflows/api-test-pools-a-b-c.yml`; GitHub Issue chưa được tạo.
+Final evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-223035/`. FR-16 hiện được bao phủ bởi pipeline chung `.github/workflows/api-test-pools-a-b-c.yml`; GitHub Issue chưa được tạo.
 
 ## 6. Postman/Newman features đã sử dụng
 
@@ -100,22 +100,22 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 
 ## 7. Execution và CI/CD evidence
 
-### Local canonical run
+### Local final rerun
 
 | Artifact | Path |
 |---|---|
 | Postman collection | `tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json` |
-| Newman console | `tests/api-testing/evidence/fr-11/20260821-001900/newman-console.txt` |
-| Newman JSON report | `tests/api-testing/evidence/fr-11/20260821-001900/newman-report.json` |
-| Newman HTML report | `tests/api-testing/evidence/fr-11/20260821-001900/newman-report.html` |
+| Newman console | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-console.txt` |
+| Newman JSON report | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.json` |
+| Newman HTML report | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.html` |
 | Header screenshot | `tests/api-testing/evidence/fr-11/postman-header-screenshot.png` |
 
-### GitHub Actions runs
+### GitHub Actions runs cho cả ba Pool
 
 | Run | Commit | Result | Evidence |
 |---|---|---|---|
-| All-pass `my-orders` folder | `fa490400e8145ecc72685328e15542d9ae79e051` | `SUCCESS` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185); `tests/api-testing/evidence/fr-11/ci-cd-run1-all-pass.png` |
-| Full FR-11 collection | `fa469cff4cdf4de5ea71cc2883d182c730684132` | `FAILURE` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32403028362); `tests/api-testing/evidence/fr-11/ci-cd-run2-with-failure.png` |
+| `all-pass` — Pool A/B/C đều đạt | `34455d7f486aa550f6896edae60615d23395fb65` | `SUCCESS` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502275099); `tests/api-testing/evidence/ci-cd/all-pass/github-actions-overview.png` |
+| `controlled-failure` — A/B đạt, C không đạt | `c2610bb52a99a8d22f8c6a2e3f24e2bc80e12f12` | `FAILURE` | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502722228); `tests/api-testing/evidence/ci-cd/controlled-failure/github-actions-overview.png` |
 
 ## 8. Deliverables
 
@@ -128,7 +128,7 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 | AI-generated test cases | `tests/api-testing/test-cases/fr-11-ai-generated-phase-b.md` |
 | Phase C human-review workbook | `tests/api-testing/test-cases/fr-11-phase-c-human-review-workbook.md` |
 | Phase D execution analysis | `reports/api-testing/fr-11-phase-d-execution-analysis.md` |
-| Evidence manifest | `tests/api-testing/evidence/fr-11/20260821-001900/evidence-manifest.md` |
+| Execution metadata | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/execution-metadata.json` |
 | Security bug report | `bug-report/fr-11-idor-missing-auth.md` |
 | FR-05 SQL injection bug report | `bug-report/fr-05-sql-injection-search.md` |
 | FR-16 security bug report | `bug-report/fr-16-missing-admin-role-check.md` |

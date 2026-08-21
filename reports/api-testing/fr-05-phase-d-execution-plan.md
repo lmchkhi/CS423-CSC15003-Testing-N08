@@ -1,5 +1,7 @@
 # FR-05 — Kế hoạch thực thi Phase D
 
+> Tài liệu này ghi lại kế hoạch và tên run tại thời điểm Phase D. Các run Newman cũ đã được thay thế bởi final rerun `tests/api-testing/evidence/fr-05/20260821-223004/` và được dọn khỏi bộ evidence cuối.
+
 ## Gate đầu vào
 
 - Phase C được con người phê duyệt bằng chỉ dẫn `approve, continue`.

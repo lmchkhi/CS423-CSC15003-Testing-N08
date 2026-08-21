@@ -185,7 +185,21 @@ tests/api-testing/evidence/ci-cd/
     └── artifacts/...
 ```
 
-Sau đó cập nhật URL, SHA và đường dẫn ảnh thật vào báo cáo này. Không ghi giá trị giả hoặc giá trị dự kiến vào vị trí dành cho evidence thực tế.
+### 5.6. Evidence thực tế đã thu thập cho toàn bộ ba Pool
+
+Hai ảnh dưới đây là ảnh tổng quan của pipeline chung, bao phủ đồng thời Pool A, B và C; chúng không thuộc riêng FR nào:
+
+| Chế độ | Run và commit | Kết quả xác nhận | Ảnh tổng quan |
+|---|---|---|---|
+| `all-pass` | [Run 32502275099](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502275099) — `34455d7f486aa550f6896edae60615d23395fb65` | Pool A, B và C đều `SUCCESS`; có 3 artifact | `tests/api-testing/evidence/ci-cd/all-pass/github-actions-overview.png` |
+| `controlled-failure` | [Run 32502722228](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502722228) — `c2610bb52a99a8d22f8c6a2e3f24e2bc80e12f12` | Pool A/B `SUCCESS`, Pool C `FAILURE`; có 3 artifact | `tests/api-testing/evidence/ci-cd/controlled-failure/github-actions-overview.png` |
+
+Mã SHA-256 của ảnh:
+
+- `all-pass`: `179B1714996440473BF524F72B89D5084F0D43B2E747C4274EC794B03397F868`.
+- `controlled-failure`: `A6A12EF11A6FD8D7C176CAEAF7766FCCBE7B8D6C1432D4AA875F5FBD23E3DE03`.
+
+Ảnh tổng quan failure chứng minh chỉ job Pool C không đạt. Để chứng minh trực tiếp tên test case lỗi, vẫn cần lưu thêm ảnh chi tiết `FR16-AUTH-002` từ log hoặc Newman HTML vào `tests/api-testing/evidence/ci-cd/controlled-failure/fr16-auth-002-failure.png`.
 
 ## 6. Chạy thủ công
 
@@ -230,10 +244,16 @@ Riêng artifact FR-05 có báo cáo tách biệt cho dữ liệu nền chính v�
 
 ## 9. Trạng thái xuất bản
 
-CẤU HÌNH PIPELINE: HOÀN TẤT  
-PHẠM VI POOL: HOÀN TẤT — A, B, C  
-LẦN CHẠY GITHUB `all-pass`: CHỜ PUSH/CHẠY  
-LẦN CHẠY GITHUB `controlled-failure`: CHỜ COMMIT THỨ HAI/PUSH  
-ẢNH CHỤP VÀ URL LẦN CHẠY MỚI: CHỜ NGƯỜI THỰC HIỆN THU THẬP
+CẤU HÌNH PIPELINE: HOÀN TẤT
+
+PHẠM VI POOL: HOÀN TẤT — A, B, C
+
+LẦN CHẠY GITHUB `all-pass`: HOÀN TẤT — RUN 32502275099
+
+LẦN CHẠY GITHUB `controlled-failure`: HOÀN TẤT — RUN 32502722228
+
+ẢNH TỔNG QUAN VÀ URL HAI LẦN CHẠY: HOÀN TẤT
+
+ẢNH CHI TIẾT ASSERTION `FR16-AUTH-002`: CHƯA CUNG CẤP
 
 Báo cáo này không tạo giả lần chạy GitHub, URL, commit SHA hoặc ảnh chụp màn hình.

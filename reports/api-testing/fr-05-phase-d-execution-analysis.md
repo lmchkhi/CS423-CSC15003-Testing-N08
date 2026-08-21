@@ -1,5 +1,7 @@
 # FR-05 — Phân tích thực thi Phase D
 
+> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là final rerun `tests/api-testing/evidence/fr-05/20260821-223004/`; các thư mục run cũ được nhắc bên dưới đã được dọn sau khi final rerun hoàn tất.
+
 ## Phạm vi và gate
 
 - Pool A, FR-05: `GET /api/products`, query tùy chọn `search`.
@@ -41,7 +43,7 @@ Không tạo bug report trong Phase D. Các phân loại trên là kết quả p
 
 ## Lần chạy không canonical
 
-Run `20260821-213008` được bảo toàn làm dấu vết. Generator ban đầu tạo URL object với danh sách query rỗng nên query string không được gửi; 7 assertion thất bại do cấu hình collection. Lần này được phân loại `LOI_CA_KIEM_THU`, không dùng để kết luận hành vi SUT và không gộp vào thống kê canonical.
+Run `20260821-213008` từng được giữ làm dấu vết trong Phase D. Generator ban đầu tạo URL object với danh sách query rỗng nên query string không được gửi; 7 assertion thất bại do cấu hình collection. Lần này được phân loại `LOI_CA_KIEM_THU`, không dùng để kết luận hành vi SUT và đã được xóa sau final rerun.
 
 ## Artifact
 
@@ -49,9 +51,9 @@ Run `20260821-213008` được bảo toàn làm dấu vết. Generator ban đầ
 - Collection: `tests/api-testing/collections/23127464_FR05_Product_Search.postman_collection.json`
 - Environment: `tests/api-testing/environments/fr-05-local.postman_environment.json`
 - Data: `tests/api-testing/data/fr-05-run-data.json`
-- Evidence canonical: `tests/api-testing/evidence/fr-05/20260821-213052/`
-- Evidence manifest: `tests/api-testing/evidence/fr-05/20260821-213052/evidence-manifest.md`
-- Evidence lỗi ca kiểm thử: `tests/api-testing/evidence/fr-05/20260821-213008/`
+- Final evidence hiện hành: `tests/api-testing/evidence/fr-05/20260821-223004/`
+- Execution metadata: `tests/api-testing/evidence/fr-05/20260821-223004/execution-metadata.json`
+- Evidence lỗi ca kiểm thử cũ `20260821-213008` đã được final rerun thay thế và dọn khỏi repository.
 
 ## Trạng thái
 

@@ -65,11 +65,11 @@ curl -i \
 
 ## Evidence
 
-- Canonical run: `tests/api-testing/evidence/fr-11/20260821-001900/`
-- Newman console: `tests/api-testing/evidence/fr-11/20260821-001900/newman-console.txt`
-- Newman JSON: `tests/api-testing/evidence/fr-11/20260821-001900/newman-report.json`
-- Newman HTML: `tests/api-testing/evidence/fr-11/20260821-001900/newman-report.html`
-- Kết quả chạy: 101 assertions, 9 failed assertions, Newman exit code `1`.
+- Final run: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
+- Newman console: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-console.txt`
+- Newman JSON: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.json`
+- Newman HTML: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.html`
+- Kết quả chạy: 189 assertions, 22 failed assertions, Newman exit code `1`.
 
 Các assertion thất bại:
 

@@ -74,7 +74,7 @@ newman run tests/api-testing/collections/23127464_FR11_Order_History.postman_col
 | GitHub Actions run URL | `https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32402724185` |
 | Result | `SUCCESS` |
 | Newman HTML artifact URL | `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419095230/zip` |
-| Screenshot | `tests/api-testing/evidence/fr-11/ci-cd-run1-all-pass.png` |
+| Screenshot | Ảnh cũ không còn lưu; evidence hiện hành của pipeline ba Pool nằm tại `tests/api-testing/evidence/ci-cd/` |
 | Screenshot SHA-256 | `983384EE4637844F862E38CBE9BBD7E5010E1BF8C81EC40AA4283C7934409693` |
 | Timestamp | `2026-08-21 01:21:19–01:21:55 (Asia/Ho_Chi_Minh)` |
 
@@ -90,7 +90,7 @@ This first CI revision intentionally selects the `GET /api/orders/my-orders` fol
 | Result | `FAILURE — Enforce Newman result` |
 | Failed assertion | `PENDING — verify exact assertion list from the authenticated CI artifact; canonical local run identifies DET-011 and DET-026–DET-033` |
 | Newman HTML artifact URL | `https://api.github.com/repos/lmchkhi/CS423-CSC15003-Testing-N08/actions/artifacts/9419199893/zip` |
-| Screenshot | `tests/api-testing/evidence/fr-11/ci-cd-run2-with-failure.png` |
+| Screenshot | Ảnh cũ không còn lưu; evidence hiện hành của pipeline ba Pool nằm tại `tests/api-testing/evidence/ci-cd/` |
 | Screenshot SHA-256 | `B118D9A9FEFFEC9279257ACC9DA9CA05300C8C4E88C0E047DD5876BEB24406D5` |
 | Timestamp | `2026-08-21 01:24:38–01:25:00 (Asia/Ho_Chi_Minh)` |
 

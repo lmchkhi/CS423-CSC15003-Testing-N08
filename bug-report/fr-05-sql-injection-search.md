@@ -109,13 +109,13 @@ Quan sát: server trả HTTP 500 và response làm lộ lỗi database liên qua
 
 ## Evidence
 
-- Canonical run: `tests/api-testing/evidence/fr-05/20260821-213052/`
-- Newman console: `tests/api-testing/evidence/fr-05/20260821-213052/newman-main-console.txt`
-- Newman JSON: `tests/api-testing/evidence/fr-05/20260821-213052/newman-main-report.json`
-- Newman HTML: `tests/api-testing/evidence/fr-05/20260821-213052/newman-main-report.html`
-- Evidence manifest: `tests/api-testing/evidence/fr-05/20260821-213052/evidence-manifest.md`
+- Final run: `tests/api-testing/evidence/fr-05/20260821-223004/`
+- Newman console: `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-console.txt`
+- Newman JSON: `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-report.json`
+- Newman HTML: `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-report.html`
+- Execution metadata: `tests/api-testing/evidence/fr-05/20260821-223004/execution-metadata.json`
 - Phase D analysis: `reports/api-testing/fr-05-phase-d-execution-analysis.md`
-- Kết quả canonical: 20 test case, 55 assertion, 5 assertion thất bại trong 4 test case bảo mật.
+- Kết quả final: 45 test case, 119 assertion, 11 assertion thất bại trong 10 test case; các ca SQL injection vẫn tái hiện lỗi.
 
 | Test case | Biểu hiện được xác nhận |
 |---|---|

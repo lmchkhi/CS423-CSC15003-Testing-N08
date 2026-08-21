@@ -1,5 +1,7 @@
 # FR-16 — Phase D Execution Plan
 
+> Tài liệu này ghi lại kế hoạch và tên run tại thời điểm Phase D. Các run Newman cũ đã được thay thế bởi final rerun `tests/api-testing/evidence/fr-16/20260821-223035/` và được dọn khỏi bộ evidence cuối.
+
 ## Scope lock
 
 - Pool C, FR-16, endpoint under test: `POST /api/admin/import-products`.
