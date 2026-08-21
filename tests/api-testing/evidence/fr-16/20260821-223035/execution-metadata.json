@@ -1,0 +1,51 @@
+{
+  "scope": "FR-16 POST /api/admin/import-products",
+  "host": "http://127.0.0.1:3000",
+  "working_directory": "E:\\Testing\\CS423-CSC15003-Testing-N08",
+  "run_directory": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-16\\20260821-223035",
+  "started_at": "2026-08-21T15:30:35.240Z",
+  "ended_at": "2026-08-21T15:30:44.366Z",
+  "node_version": "v22.18.0",
+  "newman_version": "6.2.2",
+  "htmlextra_version": "1.23.1",
+  "automated_cases": 45,
+  "excluded_ai_incomplete": 0,
+  "excluded_ai_invalid": 0,
+  "excluded_human_incomplete": 0,
+  "database_backup": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\backups\\database-before-fr16-phase-d-20260821-223035.sqlite",
+  "header_screenshot": "PENDING HUMAN CAPTURE",
+  "artifact_hashes": {
+    "collection": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\collections\\23127464_FR16_Product_Import.postman_collection.json",
+      "sha256": "8F2059AD4ADD5702A2D187F7A43DD85F3E871BDB33C590D3B29E7220B7C28F7E"
+    },
+    "environment": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\environments\\fr-16-local.postman_environment.json",
+      "sha256": "4F96FEBB7B648BBFBDF9668D482C8E05A2D3E004AA1EE27CC246892D28B9CDFD"
+    },
+    "data": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\data\\fr-16-run-data.json",
+      "sha256": "1CE7314D1AAA1145BDA7A89539E4FD68BBA079A3AFCF30A8635AABDB4D9A1CF4"
+    },
+    "console": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-16\\20260821-223035\\newman-console.txt",
+      "sha256": "A0FF1DB0FAEBF9396C0BA165D16F590A3B5671C224326D5572EAD9722A52D317"
+    },
+    "json_report": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-16\\20260821-223035\\newman-report.json",
+      "sha256": "0364F7795E7AC61E8263025E23A5E6CF7A42FF8F894112AA252280794238CEC6"
+    },
+    "html_report": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-16\\20260821-223035\\newman-report.html",
+      "sha256": "4120CE78B255A2D8E8D8C304BAB933274E5EC4321593FDA1177C1CDB6D90A47A"
+    },
+    "fixture_output": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-16\\20260821-223035\\fixture-output.txt",
+      "sha256": "9A25498087001F616085FBCA557C6B881C20A8C682F045A075170E7F045F80B0"
+    }
+  },
+  "sut_ready": true,
+  "health_status": 200,
+  "fixture_exit_code": 0,
+  "newman_exit_code": 1
+}

@@ -1,0 +1,529 @@
+newman
+
+23127464 | FR-05 Product Listing and Search
+
+□ Main controlled baseline
+└ FR05-LST-001 | Bỏ search, baseline nhiều sản phẩm
+  ┌
+  │ '[FR05 HEADER] FR05-LST-001 | Bỏ search, baseline nhiề
+  │ u sản phẩm X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.24kB, 31ms]
+  √  FR05-LST-001 | X-Student-Id present
+  √  FR05-LST-001 | response exposes an inspectable product list
+  √  FR05-LST-001 | all controlled baseline products are listed
+
+└ FR05-EXI-001 | Full name iPhone 15 Pro Max
+  ┌
+  │ '[FR05 HEADER] FR05-EXI-001 | Full name iPhone 15 Pro 
+  │ Max X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone%2015%20Pro%20Max [200 OK, 453B, 8ms]
+  √  FR05-EXI-001 | X-Student-Id present
+  √  FR05-EXI-001 | target product returned semantically
+
+└ FR05-EXI-002 | Full name MacBook Pro M3
+  ┌
+  │ '[FR05 HEADER] FR05-EXI-002 | Full name MacBook Pro M3
+  │  X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=MacBook%20Pro%20M3 [200 OK, 450B, 4ms]
+  √  FR05-EXI-002 | X-Student-Id present
+  √  FR05-EXI-002 | target product returned semantically
+
+└ FR05-UNI-001 | Full name tiếng Việt chính xác
+  ┌
+  │ '[FR05 HEADER] FR05-UNI-001 | Full name tiếng Việt chí
+  │ nh xác X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=B%C3%A0n%20ph%C3%ADm%20c%C6%A1%20Keychron%20Q1 [200 OK, 469B, 3ms]
+  √  FR05-UNI-001 | X-Student-Id present
+  √  FR05-UNI-001 | target product returned semantically
+
+└ FR05-NOM-001 | ASCII keyword không tồn tại
+  ┌
+  │ '[FR05 HEADER] FR05-NOM-001 | ASCII keyword không tồn 
+  │ tại X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=FR05-NO-MATCH-9F4C2A [200 OK, 267B, 3ms]
+  √  FR05-NOM-001 | X-Student-Id present
+  √  FR05-NOM-001 | semantic no-match
+
+└ FR05-NOM-002 | Keyword tiếng Việt không tồn tại
+  ┌
+  │ '[FR05 HEADER] FR05-NOM-002 | Keyword tiếng Việt không
+  │  tồn tại X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=S%E1%BA%A3n%20ph%E1%BA%A9m%20kh%C3%B4ng%20t%E1%BB%93n%20t%E1%BA%A1i%20FR05 [200 OK, 267B, 2ms]
+  √  FR05-NOM-002 | X-Student-Id present
+  √  FR05-NOM-002 | semantic no-match
+
+└ FR05-ONE-002 | Một ký tự không tồn tại
+  ┌
+  │ '[FR05 HEADER] FR05-ONE-002 | Một ký tự không tồn tại 
+  │ X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%C2%A7 [200 OK, 267B, 4ms]
+  √  FR05-ONE-002 | X-Student-Id present
+  √  FR05-ONE-002 | semantic no-match
+
+└ FR05-NUM-002 | Numeric keyword không tồn tại
+  ┌
+  │ '[FR05 HEADER] FR05-NUM-002 | Numeric keyword không tồ
+  │ n tại X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=987654321098765 [200 OK, 267B, 8ms]
+  √  FR05-NUM-002 | X-Student-Id present
+  √  FR05-NUM-002 | semantic no-match
+
+└ FR05-UNI-004 | Emoji no-match và không lộ lỗi
+  ┌
+  │ '[FR05 HEADER] FR05-UNI-004 | Emoji no-match và không 
+  │ lộ lỗi X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%F0%9F%93%A6%F0%9F%94%8E [200 OK, 267B, 5ms]
+  √  FR05-UNI-004 | X-Student-Id present
+  √  FR05-UNI-004 | emoji semantic no-match
+  √  FR05-UNI-004 | no database details disclosed
+
+└ FR05-ENC-004 | Percent-encoding không hợp lệ
+  ┌
+  │ '[FR05 HEADER] FR05-ENC-004 | Percent-encoding không h
+  │ ợp lệ X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%E0%A4%A [200 OK, 267B, 6ms]
+  √  FR05-ENC-004 | X-Student-Id present
+  √  FR05-ENC-004 | server returned a response
+  √  FR05-ENC-004 | no database details disclosed
+
+└ FR05-SEC-001 | SQL tautology injection
+  ┌
+  │ '[FR05 HEADER] FR05-SEC-001 | SQL tautology injection 
+  │ X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%27%20OR%20%271%27%3D%271%27%20-- [200 OK, 1.24kB, 3ms]
+  √  FR05-SEC-001 | X-Student-Id present
+  1. FR05-SEC-001 | tautology does not broaden to full baseline
+  √  FR05-SEC-001 | no database details disclosed
+
+└ FR05-SEC-002 | UNION-based injection
+  ┌
+  │ '[FR05 HEADER] FR05-SEC-002 | UNION-based injection X-
+  │ Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%25%27%20UNION%20SELECT%209999%2C%27FR05-UNION-MARKER%27%2C1%2C%27x%27%2C%27y%27%2C1%20-- [200 OK, 1.34kB, 4ms]
+  √  FR05-SEC-002 | X-Student-Id present
+  2. FR05-SEC-002 | UNION marker absent
+  √  FR05-SEC-002 | no database details disclosed
+
+└ FR05-SEC-003 | Stacked destructive injection
+  ┌
+  │ '[FR05 HEADER] FR05-SEC-003 | Stacked destructive inje
+  │ ction X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%27%3B%20DROP%20TABLE%20products%3B-- [200 OK, 1.24kB, 5ms]
+  √  FR05-SEC-003 | X-Student-Id present
+  √  FR05-SEC-003 | no database details disclosed
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.24kB, 3ms]
+  √  FR05-SEC-003 | product table and baseline remain available
+
+└ FR05-SEC-004 | Quote không lộ database detail
+  ┌
+  │ '[FR05 HEADER] FR05-SEC-004 | Quote không lộ database 
+  │ detail X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%27 [500 Internal Server Error, 346B, 4ms]
+  √  FR05-SEC-004 | X-Student-Id present
+  3. FR05-SEC-004 | no database details disclosed
+
+└ FR05-H02 | Năm GET search đồng thời
+  ┌
+  │ '[FR05 HEADER] FR05-H02 | Năm GET search đồng thời X-S
+  │ tudent-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone [200 OK, 453B, 2ms]
+  √  FR05-H02 | X-Student-Id present
+  GET http://127.0.0.1:3000/api/products?search=iPhone   GET http://127.0.0.1:3000/api/products?search=iPhone   GET http://127.0.0.1:3000/api/products?search=iPhone   GET http://127.0.0.1:3000/api/products?search=iPhone   GET http://127.0.0.1:3000/api/products?search=iPhone [200 OK, 453B, 6ms]
+  √  FR05-H02 | concurrent request 1 succeeds
+[200 OK, 453B, 9ms]
+  √  FR05-H02 | concurrent request 2 succeeds
+[200 OK, 453B, 12ms]
+  √  FR05-H02 | concurrent request 3 succeeds
+[200 OK, 453B, 15ms]
+  √  FR05-H02 | concurrent request 4 succeeds
+[200 OK, 453B, 16ms]
+  √  FR05-H02 | concurrent request 5 succeeds
+  √  FR05-H02 | five concurrent responses are identical
+
+└ FR05-H03 | Comment-style SQL bypass
+  ┌
+  │ '[FR05 HEADER] FR05-H03 | Comment-style SQL bypass X-S
+  │ tudent-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=test%2F**%2FOR%2F**%2F1%3D1 [200 OK, 267B, 3ms]
+  √  FR05-H03 | X-Student-Id present
+  √  FR05-H03 | comment-style input does not broaden to full baseline
+  √  FR05-H03 | no database details disclosed
+
+└ FR05-H04 | Content-Type application/json
+  ┌
+  │ '[FR05 HEADER] FR05-H04 | Content-Type application/jso
+  │ n X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.24kB, 3ms]
+  √  FR05-H04 | X-Student-Id present
+  √  FR05-H04 | Content-Type is application/json
+
+└ FR05-H05 | Null-byte injection
+  ┌
+  │ '[FR05 HEADER] FR05-H05 | Null-byte injection X-Studen
+  │ t-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=test%00admin [500 Internal Server Error, 351B, 4ms]
+  √  FR05-H05 | X-Student-Id present
+  4. FR05-H05 | server responds without 5xx
+  5. FR05-H05 | no database details disclosed
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.24kB, 4ms]
+  √  FR05-H05 | server remains available
+
+└ FR05-H01 | POST không body phải reject và không tạo product
+  ┌
+  │ '[FR05 HEADER] FR05-H01 | POST không body phải reject 
+  │ và không tạo product X-Student-Id=23127464'
+  └
+  POST http://127.0.0.1:3000/api/products [500 Internal Server Error, 1.81kB, 10ms]
+  √  FR05-H01 | X-Student-Id present
+  √  FR05-H01 | unsupported method for FR-05 contract rejected
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.24kB, 6ms]
+  √  FR05-H01 | no product created
+
+└ FR05-LST-003 | Corrected API product field schema
+  ┌
+  │ '[FR05 HEADER] FR05-LST-003 | Corrected API product fi
+  │ eld schema X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.24kB, 6ms]
+  √  FR05-LST-003 | X-Student-Id present
+  √  FR05-LST-003 | product list is JSON array
+  √  FR05-LST-003 | fields support image name and price
+
+└ FR05-EXI-003 | Prefix search
+  ┌
+  │ '[FR05 HEADER] FR05-EXI-003 | Prefix search X-Student-
+  │ Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone [200 OK, 453B, 6ms]
+  √  FR05-EXI-003 | X-Student-Id present
+  √  FR05-EXI-003 | expected product matched
+
+└ FR05-EXI-004 | Substring search
+  ┌
+  │ '[FR05 HEADER] FR05-EXI-004 | Substring search X-Stude
+  │ nt-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=Pro [200 OK, 827B, 2ms]
+  √  FR05-EXI-004 | X-Student-Id present
+  √  FR05-EXI-004 | expected product matched
+
+└ FR05-EXI-005 | ASCII case-insensitive search
+  ┌
+  │ '[FR05 HEADER] FR05-EXI-005 | ASCII case-insensitive s
+  │ earch X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iphone%2015%20pro%20max [200 OK, 453B, 5ms]
+  √  FR05-EXI-005 | X-Student-Id present
+  √  FR05-EXI-005 | expected product matched
+
+└ FR05-ONE-001 | One-character partial search
+  ┌
+  │ '[FR05 HEADER] FR05-ONE-001 | One-character partial se
+  │ arch X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=M [200 OK, 1.05kB, 11ms]
+  √  FR05-ONE-001 | X-Student-Id present
+  √  FR05-ONE-001 | expected product matched
+
+└ FR05-NUM-001 | Numeric partial search
+  ┌
+  │ '[FR05 HEADER] FR05-NUM-001 | Numeric partial search X
+  │ -Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=15 [200 OK, 453B, 10ms]
+  √  FR05-NUM-001 | X-Student-Id present
+  √  FR05-NUM-001 | expected product matched
+
+└ FR05-ENC-001 | Percent-encoded exact-name transport
+  ┌
+  │ '[FR05 HEADER] FR05-ENC-001 | Percent-encoded exact-na
+  │ me transport X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone%2015%20Pro%20Max [200 OK, 453B, 10ms]
+  √  FR05-ENC-001 | X-Student-Id present
+  √  FR05-ENC-001 | expected product matched
+
+└ FR05-ENC-002 | Plus decoded as space
+  ┌
+  │ '[FR05 HEADER] FR05-ENC-002 | Plus decoded as space X-
+  │ Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone+15+Pro+Max [200 OK, 453B, 4ms]
+  √  FR05-ENC-002 | X-Student-Id present
+  √  FR05-ENC-002 | expected product matched
+
+└ FR05-EMP-001 | Empty search equals omitted search
+  ┌
+  │ '[FR05 HEADER] FR05-EMP-001 | Empty search equals omit
+  │ ted search X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search= [200 OK, 1.24kB, 4ms]
+  √  FR05-EMP-001 | X-Student-Id present
+  6. FR05-EMP-001 | controlled full baseline returned
+
+└ FR05-EMP-002 | Bare search equals omitted search
+  ┌
+  │ '[FR05 HEADER] FR05-EMP-002 | Bare search equals omitt
+  │ ed search X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search [200 OK, 1.24kB, 3ms]
+  √  FR05-EMP-002 | X-Student-Id present
+  7. FR05-EMP-002 | controlled full baseline returned
+
+└ FR05-EMP-003 | Duplicate search empty then value is handled safely
+  ┌
+  │ '[FR05 HEADER] FR05-EMP-003 | Duplicate search empty t
+  │ hen value is handled safely X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=&search=iPhone [200 OK, 267B, 9ms]
+  √  FR05-EMP-003 | X-Student-Id present
+  √  FR05-EMP-003 | product list is JSON array
+  √  FR05-EMP-003 | no database detail disclosure
+
+└ FR05-EMP-004 | Duplicate search value then empty is handled safely
+  ┌
+  │ '[FR05 HEADER] FR05-EMP-004 | Duplicate search value t
+  │ hen empty is handled safely X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone&search= [200 OK, 267B, 4ms]
+  √  FR05-EMP-004 | X-Student-Id present
+  √  FR05-EMP-004 | product list is JSON array
+  √  FR05-EMP-004 | no database detail disclosure
+
+└ FR05-SPC-004 | Encoded reserved characters handled safely
+  ┌
+  │ '[FR05 HEADER] FR05-SPC-004 | Encoded reserved charact
+  │ ers handled safely X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%2B%26%3D%23%3F [200 OK, 267B, 5ms]
+  √  FR05-SPC-004 | X-Student-Id present
+  √  FR05-SPC-004 | product list is JSON array
+  √  FR05-SPC-004 | no database detail disclosure
+
+└ FR05-ENC-003 | Double-encoded keyword is decoded once only
+  ┌
+  │ '[FR05 HEADER] FR05-ENC-003 | Double-encoded keyword i
+  │ s decoded once only X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone%252015%2520Pro%2520Max [200 OK, 267B, 6ms]
+  √  FR05-ENC-003 | X-Student-Id present
+  √  FR05-ENC-003 | product list is JSON array
+  √  FR05-ENC-003 | no database detail disclosure
+
+└ FR05-WS-001 | Whitespace-only search is trimmed
+  ┌
+  │ '[FR05 HEADER] FR05-WS-001 | Whitespace-only search is
+  │  trimmed X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%20 [200 OK, 1.24kB, 6ms]
+  √  FR05-WS-001 | X-Student-Id present
+  8. FR05-WS-001 | normalized search result
+
+└ FR05-WS-002 | Leading and trailing whitespace is trimmed
+  ┌
+  │ '[FR05 HEADER] FR05-WS-002 | Leading and trailing whit
+  │ espace is trimmed X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%20iPhone%2015%20Pro%20Max%20 [200 OK, 267B, 9ms]
+  √  FR05-WS-002 | X-Student-Id present
+  9. FR05-WS-002 | normalized search result
+
+└ FR05-WS-003 | Internal whitespace is normalized
+  ┌
+  │ '[FR05 HEADER] FR05-WS-003 | Internal whitespace is no
+  │ rmalized X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=iPhone%20%2015%20Pro%20Max [200 OK, 267B, 10ms]
+  √  FR05-WS-003 | X-Student-Id present
+ 10. FR05-WS-003 | normalized search result
+
+└ FR05-LEN-001 | 256-character search is bounded safely
+  ┌
+  │ '[FR05 HEADER] FR05-LEN-001 | 256-character search is 
+  │ bounded safely X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA [200 OK, 267B, 6ms]
+  √  FR05-LEN-001 | X-Student-Id present
+  √  FR05-LEN-001 | product list is JSON array
+  √  FR05-LEN-001 | no database detail disclosure
+  √  FR05-LEN-001 | no server error
+
+└ FR05-LEN-002 | 4096-character search is bounded safely
+  ┌
+  │ '[FR05 HEADER] FR05-LEN-002 | 4096-character search is
+  │  bounded safely X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA [200 OK, 267B, 15ms]
+  √  FR05-LEN-002 | X-Student-Id present
+  √  FR05-LEN-002 | product list is JSON array
+  √  FR05-LEN-002 | no database detail disclosure
+  √  FR05-LEN-002 | no server error
+
+└ FR05-SPC-001 | Backslash and double quote remain data
+  ┌
+  │ '[FR05 HEADER] FR05-SPC-001 | Backslash and double quo
+  │ te remain data X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%5C%22 [200 OK, 267B, 5ms]
+  √  FR05-SPC-001 | X-Student-Id present
+  √  FR05-SPC-001 | no database detail disclosure
+  √  FR05-SPC-001 | metacharacter does not broaden results
+
+└ FR05-SPC-002 | Percent is escaped as literal
+  ┌
+  │ '[FR05 HEADER] FR05-SPC-002 | Percent is escaped as li
+  │ teral X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%25 [200 OK, 1.24kB, 4ms]
+  √  FR05-SPC-002 | X-Student-Id present
+  √  FR05-SPC-002 | no database detail disclosure
+ 11. FR05-SPC-002 | metacharacter does not broaden results
+
+└ FR05-SPC-003 | Underscore is escaped as literal
+  ┌
+  │ '[FR05 HEADER] FR05-SPC-003 | Underscore is escaped as
+  │  literal X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=_ [200 OK, 1.24kB, 3ms]
+  √  FR05-SPC-003 | X-Student-Id present
+  √  FR05-SPC-003 | no database detail disclosure
+ 12. FR05-SPC-003 | metacharacter does not broaden results
+
+└ FR05-UNI-002 | NFD and NFC Vietnamese names are equivalent
+  ┌
+  │ '[FR05 HEADER] FR05-UNI-002 | NFD and NFC Vietnamese n
+  │ ames are equivalent X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=Ba%CC%80n%20phi%CC%81m%20co%CC%9B%20Keychron%20Q1 [200 OK, 267B, 4ms]
+  √  FR05-UNI-002 | X-Student-Id present
+ 13. FR05-UNI-002 | normalized Unicode match
+
+└ FR05-UNI-003 | Accent-insensitive Vietnamese search
+  ┌
+  │ '[FR05 HEADER] FR05-UNI-003 | Accent-insensitive Vietn
+  │ amese search X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=Ban%20phim%20co%20Keychron%20Q1 [200 OK, 267B, 4ms]
+  √  FR05-UNI-003 | X-Student-Id present
+ 14. FR05-UNI-003 | accent-insensitive match
+
+└ FR05-SEC-005 | API boundary does not reflect executable HTML
+  ┌
+  │ '[FR05 HEADER] FR05-SEC-005 | API boundary does not re
+  │ flect executable HTML X-Student-Id=23127464'
+  └
+  GET http://127.0.0.1:3000/api/products?search=%3Cscript%3Ealert(1)%3C%2Fscript%3E [200 OK, 267B, 5ms]
+  √  FR05-SEC-005 | X-Student-Id present
+  √  FR05-SEC-005 | product list is JSON array
+  √  FR05-SEC-005 | no database detail disclosure
+  √  FR05-SEC-005 | response is JSON and does not reflect script
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              52 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              44 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │              44 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             117 │              14 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 4.3s                                    │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 19.27kB (approx)                       │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 6ms [min: 2ms, max: 31ms, s.d.: 4ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                                                                               [39m
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 01.  AssertionError  FR05-SEC-001 | tautology does not broaden to full baseline                                           
+                      expected [ 'Bàn phím cơ Keychron Q1', …(4) ] to not deeply equal [ 'Bàn phím cơ Keychron Q1', …(4) ] 
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-SEC-001 | SQL tautology injection"                           
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 02.  AssertionError  FR05-SEC-002 | UNION marker absent                                                                   
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR05-UNION-MARKER'                 
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-SEC-002 | UNION-based injection"                             
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 03.  AssertionError  FR05-SEC-004 | no database details disclosed                                                         
+                      expected '<h1>database error</h1><p>sqlite_erro…' to not include 'sqlite'                            
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-SEC-004 | Quote không lộ database detail"                    
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 04.  AssertionError  FR05-H05 | server responds without 5xx                                                               
+                      expected 500 to be below 500                                                                         
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-H05 | Null-byte injection"                                   
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 05.  AssertionError  FR05-H05 | no database details disclosed                                                             
+                      expected '<h1>database error</h1><p>sqlite_erro…' to not include 'sqlite'                            
+                      at assertion:2 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-H05 | Null-byte injection"                                   
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 06.  AssertionError  FR05-EMP-001 | controlled full baseline returned                                                     
+                      expected [ 'Bàn phím cơ Keychron Q1', …(4) ] to deeply equal [ …(5) ]                                
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-EMP-001 | Empty search equals omitted search"                
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 07.  AssertionError  FR05-EMP-002 | controlled full baseline returned                                                     
+                      expected [ 'Bàn phím cơ Keychron Q1', …(4) ] to deeply equal [ …(5) ]                                
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-EMP-002 | Bare search equals omitted search"                 
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 08.  AssertionError  FR05-WS-001 | normalized search result                                                               
+                      expected [ 'Bàn phím cơ Keychron Q1', …(4) ] to deeply equal [ …(5) ]                                
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-WS-001 | Whitespace-only search is trimmed"                  
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 09.  AssertionError  FR05-WS-002 | normalized search result                                                               
+                      expected [] to deeply equal [ 'iPhone 15 Pro Max' ]                                                  
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-WS-002 | Leading and trailing whitespace is trimmed"         
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 10.  AssertionError  FR05-WS-003 | normalized search result                                                               
+                      expected [] to deeply equal [ 'iPhone 15 Pro Max' ]                                                  
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-WS-003 | Internal whitespace is normalized"                  
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 11.  AssertionError  FR05-SPC-002 | metacharacter does not broaden results                                                
+                      expected [ { id: 1, …(5) }, …(4) ] to have a length of +0 but got 5                                  
+                      at assertion:2 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-SPC-002 | Percent is escaped as literal"                     
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 12.  AssertionError  FR05-SPC-003 | metacharacter does not broaden results                                                
+                      expected [ { id: 1, …(5) }, …(4) ] to have a length of +0 but got 5                                  
+                      at assertion:2 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-SPC-003 | Underscore is escaped as literal"                  
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 13.  AssertionError  FR05-UNI-002 | normalized Unicode match                                                              
+                      expected [] to include 'BÃ n phÃ\u00adm cÆ¡ Keychron Q1'                                             
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-UNI-002 | NFD and NFC Vietnamese names are equivalent"       
+[90m     [39m[90m                [39m[90m                                                                                                      [39m
+ 14.  AssertionError  FR05-UNI-003 | accent-insensitive match                                                              
+                      expected [] to include 'BÃ n phÃ\u00adm cÆ¡ Keychron Q1'                                             
+                      at assertion:1 in test-script                                                                        
+                      inside "Main controlled baseline / FR05-UNI-003 | Accent-insensitive Vietnamese search"              

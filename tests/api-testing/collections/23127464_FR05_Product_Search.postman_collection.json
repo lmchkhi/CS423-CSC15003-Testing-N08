@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "23127464-fr05-product-search",
     "name": "23127464 | FR-05 Product Listing and Search",
-    "description": "Executable Phase-D subset for FR-05.\nAI cases automated: 15 VALID.\nHuman-origin cases automated: 5.\nFR05-SEC-005 remains NOT AUTOMATED because its approved oracle requires observing a UI rendering sink.\nINVALID and INCOMPLETE AI cases are excluded.",
+    "description": "Corrected full suite: all 40 AI-generated and 5 human-origin FR-05 cases are executable. Former gaps use sourced or explicitly human-approved oracles.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -654,6 +654,725 @@
             "header": [],
             "url": "{{baseUrl}}/api/products",
             "description": "Traceability: FR05-H01. Scope: FR-05 product listing/search."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-LST-003 | Corrected API product field schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-LST-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-LST-003 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-LST-003 | fields support image name and price\", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"); pm.expect(p.name).to.be.a(\"string\").and.not.empty; pm.expect(Number(p.price)).to.be.above(0); pm.expect(p.imageUrl).to.be.a(\"string\").and.not.empty; }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products",
+            "description": "Corrected human-review executable: FR05-LST-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EXI-003 | Prefix search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EXI-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EXI-003 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"iPhone 15 Pro Max\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iPhone",
+            "description": "Corrected human-review executable: FR05-EXI-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EXI-004 | Substring search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EXI-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EXI-004 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"MacBook Pro M3\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=Pro",
+            "description": "Corrected human-review executable: FR05-EXI-004."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EXI-005 | ASCII case-insensitive search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EXI-005 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EXI-005 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"iPhone 15 Pro Max\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iphone%2015%20pro%20max",
+            "description": "Corrected human-review executable: FR05-EXI-005."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-ONE-001 | One-character partial search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-ONE-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-ONE-001 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"MacBook Pro M3\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=M",
+            "description": "Corrected human-review executable: FR05-ONE-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-NUM-001 | Numeric partial search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-NUM-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-NUM-001 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"iPhone 15 Pro Max\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=15",
+            "description": "Corrected human-review executable: FR05-NUM-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-ENC-001 | Percent-encoded exact-name transport",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-ENC-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-ENC-001 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"iPhone 15 Pro Max\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iPhone%2015%20Pro%20Max",
+            "description": "Corrected human-review executable: FR05-ENC-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-ENC-002 | Plus decoded as space",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-ENC-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-ENC-002 | expected product matched\", function () { pm.expect(products).to.be.an(\"array\"); pm.expect(names).to.include(\"iPhone 15 Pro Max\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iPhone+15+Pro+Max",
+            "description": "Corrected human-review executable: FR05-ENC-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EMP-001 | Empty search equals omitted search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EMP-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EMP-001 | controlled full baseline returned\", function () { pm.expect(names.slice().sort()).to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=",
+            "description": "Corrected human-review executable: FR05-EMP-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EMP-002 | Bare search equals omitted search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EMP-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EMP-002 | controlled full baseline returned\", function () { pm.expect(names.slice().sort()).to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search",
+            "description": "Corrected human-review executable: FR05-EMP-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EMP-003 | Duplicate search empty then value is handled safely",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EMP-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EMP-003 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-EMP-003 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=&search=iPhone",
+            "description": "Corrected human-review executable: FR05-EMP-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-EMP-004 | Duplicate search value then empty is handled safely",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-EMP-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-EMP-004 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-EMP-004 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iPhone&search=",
+            "description": "Corrected human-review executable: FR05-EMP-004."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-SPC-004 | Encoded reserved characters handled safely",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-SPC-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-SPC-004 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-SPC-004 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=%2B%26%3D%23%3F",
+            "description": "Corrected human-review executable: FR05-SPC-004."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-ENC-003 | Double-encoded keyword is decoded once only",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-ENC-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-ENC-003 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-ENC-003 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iPhone%252015%2520Pro%2520Max",
+            "description": "Corrected human-review executable: FR05-ENC-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-WS-001 | Whitespace-only search is trimmed",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-WS-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-WS-001 | normalized search result\", function () { pm.expect(names.slice().sort()).to.eql([\"Bàn phím cơ Keychron Q1\",\"MacBook Pro M3\",\"Samsung Galaxy S24 Ultra\",\"Tai nghe AirPods Pro 2\",\"iPhone 15 Pro Max\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=%20",
+            "description": "Corrected human-review executable: FR05-WS-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-WS-002 | Leading and trailing whitespace is trimmed",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-WS-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-WS-002 | normalized search result\", function () { pm.expect(names.slice().sort()).to.eql([\"iPhone 15 Pro Max\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=%20iPhone%2015%20Pro%20Max%20",
+            "description": "Corrected human-review executable: FR05-WS-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-WS-003 | Internal whitespace is normalized",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-WS-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-WS-003 | normalized search result\", function () { pm.expect(names.slice().sort()).to.eql([\"iPhone 15 Pro Max\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=iPhone%20%2015%20Pro%20Max",
+            "description": "Corrected human-review executable: FR05-WS-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-LEN-001 | 256-character search is bounded safely",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-LEN-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-LEN-001 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-LEN-001 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});",
+                  "pm.test(\"FR05-LEN-001 | no server error\", function () { pm.expect(pm.response.code).to.be.below(500); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "description": "Corrected human-review executable: FR05-LEN-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-LEN-002 | 4096-character search is bounded safely",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-LEN-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-LEN-002 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-LEN-002 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});",
+                  "pm.test(\"FR05-LEN-002 | no server error\", function () { pm.expect(pm.response.code).to.be.below(500); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "description": "Corrected human-review executable: FR05-LEN-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-SPC-001 | Backslash and double quote remain data",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-SPC-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-SPC-001 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});",
+                  "pm.test(\"FR05-SPC-001 | metacharacter does not broaden results\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=%5C%22",
+            "description": "Corrected human-review executable: FR05-SPC-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-SPC-002 | Percent is escaped as literal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-SPC-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-SPC-002 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});",
+                  "pm.test(\"FR05-SPC-002 | metacharacter does not broaden results\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=%25",
+            "description": "Corrected human-review executable: FR05-SPC-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-SPC-003 | Underscore is escaped as literal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-SPC-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-SPC-003 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});",
+                  "pm.test(\"FR05-SPC-003 | metacharacter does not broaden results\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=_",
+            "description": "Corrected human-review executable: FR05-SPC-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-UNI-002 | NFD and NFC Vietnamese names are equivalent",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-UNI-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-UNI-002 | normalized Unicode match\", function () { pm.expect(names).to.include(\"Bàn phím cơ Keychron Q1\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=Ba%CC%80n%20phi%CC%81m%20co%CC%9B%20Keychron%20Q1",
+            "description": "Corrected human-review executable: FR05-UNI-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-UNI-003 | Accent-insensitive Vietnamese search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-UNI-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-UNI-003 | accent-insensitive match\", function () { pm.expect(names).to.include(\"Bàn phím cơ Keychron Q1\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=Ban%20phim%20co%20Keychron%20Q1",
+            "description": "Corrected human-review executable: FR05-UNI-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR05-SEC-005 | API boundary does not reflect executable HTML",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR05-SEC-005 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
+                  "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
+                  "pm.test(\"FR05-SEC-005 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
+                  "pm.test(\"FR05-SEC-005 | no database detail disclosure\", function () {",
+                  "  const text = pm.response.text().toLowerCase();",
+                  "  [\"sqlite\", \"unrecognized token\", \"server.js\", \"select *\", \"database error\"].forEach(function (m) { pm.expect(text).not.to.include(m); });",
+                  "});",
+                  "pm.test(\"FR05-SEC-005 | response is JSON and does not reflect script\", function () { pm.expect((pm.response.headers.get(\"Content-Type\") || \"\").toLowerCase()).to.include(\"application/json\"); pm.expect(pm.response.text()).not.to.include(\"<script>\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/products?search=%3Cscript%3Ealert(1)%3C%2Fscript%3E",
+            "description": "Corrected human-review executable: FR05-SEC-005."
           },
           "response": []
         }

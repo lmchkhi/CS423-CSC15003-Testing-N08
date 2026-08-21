@@ -110,3 +110,10 @@ HUMAN AUDIT: COMPLETE
 HUMAN-ADDED: 5 COMPLETE  
 NEXT ALLOWED PHASE: D — EXECUTION  
 EXECUTION: NOT EXECUTED
+
+## Phase C2 human correction addendum
+
+The labels above are retained as audit history. All 22 formerly `INCOMPLETE` cases, both formerly `INVALID` cases, and `FR05-SEC-005` were corrected into executable final cases. The final collection contains 45/45 unique cases and excludes none. Decisions and evidence are in `reports/api-testing/human-correction-rerun.md`.
+
+FINAL CORRECTED CASES: 45/45 EXECUTABLE
+FINAL RERUN: 45 EXECUTED — 35 PASSED, 10 FAILED

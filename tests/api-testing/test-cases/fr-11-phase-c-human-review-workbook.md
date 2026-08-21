@@ -165,3 +165,10 @@ HUMAN CASE-BY-CASE AUDIT: COMPLETE
 HUMAN-ADDED CASES: 10 COMPLETE
 HUMAN FINAL APPROVAL FOR PHASE D: APPROVED — 2026-08-21
 EXECUTION: NOT EXECUTED
+
+## Phase C2 human correction addendum
+
+The labels above are retained as audit history. All 35 formerly `INCOMPLETE` AI cases, both formerly `INVALID` AI cases, and `FR11-MYO-H03` were corrected into executable final cases. The final collection contains 80/80 unique cases and excludes none. Decisions and evidence are in `reports/api-testing/human-correction-rerun.md`.
+
+FINAL CORRECTED CASES: 80/80 EXECUTABLE
+FINAL RERUN: 80 EXECUTED — 60 PASSED, 20 FAILED

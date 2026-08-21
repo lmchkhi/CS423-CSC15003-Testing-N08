@@ -160,13 +160,13 @@ function writeMetadata() {
     node_version: process.version,
     newman_version: packageVersion(newmanPackage),
     htmlextra_version: packageVersion(htmlExtraPackage),
-    approved_ai_cases: 16,
-    automated_ai_cases: 15,
+    approved_ai_cases: 40,
+    automated_ai_cases: 40,
     approved_human_cases: 5,
     automated_human_cases: 5,
-    excluded_valid_case: "FR05-SEC-005 — requires UI sink observation",
-    excluded_ai_invalid: 2,
-    excluded_ai_incomplete: 22,
+    excluded_valid_case: null,
+    excluded_ai_invalid: 0,
+    excluded_ai_incomplete: 0,
     health_status: healthStatus,
     main_newman_exit_code: mainExit,
     empty_fixture_exit_code: fixtureExit,
@@ -240,4 +240,3 @@ async function main() {
     process.exit(exitCode);
   }
 })();
-

@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "23127464-fr11-order-history",
     "name": "23127464 | FR-11 Order History",
-    "description": "Executable Phase-D subset for FR-11 only.\nAI cases automated: 33 VALID; INVALID and INCOMPLETE AI cases excluded.\nHuman cases automated: 9/10; FR11-MYO-H03 requires controlled DB fault injection and remains not automated.\nSetup calls used by human cross-feature cases are dependencies, not additional feature subjects.",
+    "description": "Corrected full suite: all 70 AI-generated and 10 human-origin FR-11 cases are executable. Former gaps use sourced or explicitly human-approved oracles.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "event": [
@@ -1242,6 +1242,479 @@
             "description": "Traceability: FR11-MYO-H05. Subject under test remains FR-11."
           },
           "response": []
+        },
+        {
+          "name": "FR11-MYO-001 | User with no orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-001 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-001 | empty list\", function () { pm.expect(json).to.have.lengthOf(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenC}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-002 | User with exactly one order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-002 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-002 | one owned order\", function () { pm.expect(json).to.have.lengthOf(1); pm.expect(json[0].shipping_address).to.eql(pm.environment.get(\"markerB1\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-003 | User with multiple orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-003 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-003 | at least the three owned fixtures\", function () { const text=JSON.stringify(json); [\"markerA1\",\"markerA2\",\"markerCancel\"].forEach(function(k){pm.expect(text).to.include(pm.environment.get(k));}); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-009 | Owned-order completeness",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-009 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-009 | controlled owned IDs are not omitted\", function () { const ids=json.map(function(o){return String(o.id);}); [pm.environment.get(\"ownedA1Id\"),pm.environment.get(\"ownedA2Id\"),pm.environment.get(\"cancelOrderId\")].forEach(function(id){pm.expect(ids).to.include(id);}); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-009."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-010 | Approved id mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-010 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-010 | id contract\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function(o){ pm.expect(o.id).to.be.a(\"number\"); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-010."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-011 | Approved created_at mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-011 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-011 | created_at contract\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function(o){ pm.expect(o.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}/); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-011."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-012 | Approved total_amount mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-012 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-012 | total_amount contract\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function(o){ pm.expect(Number(o.total_amount)).to.be.at.least(0); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-012."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-013 | Approved status mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-013 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-013 | status contract\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function(o){ pm.expect([\"pending\",\"confirmed\",\"shipping\",\"delivered\",\"canceled\"]).to.include(o.status); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-013."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-029 | JWT missing identity is rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-029 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-029 | protected markers absent\", function () { const text = JSON.stringify(json); pm.expect(text).not.to.include(pm.environment.get(\"markerA1\")); pm.expect(text).not.to.include(pm.environment.get(\"markerB1\")); });",
+                  "pm.test(\"FR11-MYO-029 | invalid identity rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([401,403]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{missingIdentityToken}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-029."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-031 | Admin token remains user scoped",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-031 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-031 | protected markers absent\", function () { const text = JSON.stringify(json); pm.expect(text).not.to.include(pm.environment.get(\"markerA1\")); pm.expect(text).not.to.include(pm.environment.get(\"markerB1\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-031."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-032 | Orphan identity returns no orders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-032 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-032 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-032 | no orphan orders\", function () { pm.expect(json).to.have.lengthOf(0); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{orphanToken}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-032."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-033 | Duplicate Authorization headers rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-033 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-MYO-033 | ambiguous credentials rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,401,403]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-033."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-034 | Mandatory student header",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-034 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-034 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-034."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-035 | List media type and exact schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-035 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-MYO-035 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-035 | JSON media type\", function () { pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-035."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-MYO-H03 | Repeated history read is consistent",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-MYO-H03 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.sendRequest({url:pm.environment.get(\"baseUrl\")+\"/api/orders/my-orders\",method:\"GET\",header:[{key:\"Authorization\",value:\"Bearer \"+pm.environment.get(\"tokenA\")},{key:\"X-Student-Id\",value:pm.environment.get(\"studentId\")}]},function(e,r){pm.test(\"FR11-MYO-H03 | repeatable read\",function(){pm.expect(e).to.eql(null);pm.expect(r.json()).to.eql(json);});});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/my-orders",
+            "description": "Corrected human-review executable: FR11-MYO-H03."
+          },
+          "response": []
         }
       ]
     },
@@ -2037,6 +2510,714 @@
               ]
             },
             "description": "Traceability: FR11-DET-H05. Subject under test remains FR-11."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-001 | Owned order detail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-001 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-001 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-001 | correct owned marker\", function () { pm.expect(json.shipping_address).to.eql(pm.environment.get(\"markerA1\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-001."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-002 | Owned order detail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-002 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-002 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-002 | correct owned marker\", function () { pm.expect(json.shipping_address).to.eql(pm.environment.get(\"markerA2\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA2Id}}",
+            "description": "Corrected human-review executable: FR11-DET-002."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-003 | Owned order detail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-003 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-003 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-003 | correct owned marker\", function () { pm.expect(json.shipping_address).to.eql(pm.environment.get(\"markerB1\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{foreignB1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-003."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-004 | Approved detail id mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-004 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-004 | id contract\", function () { pm.expect(String(json.id)).to.eql(pm.environment.get(\"ownedA1Id\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-004."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-005 | Approved detail created_at mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-005 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-005 | created_at contract\", function () { pm.expect(json.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}/); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-005."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-006 | Approved detail total_amount mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-006 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-006 | total_amount contract\", function () { pm.expect(Number(json.total_amount)).to.eql(111111); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-006."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-007 | Approved detail status mapping",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-007 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-007 | status contract\", function () { pm.expect(json.status).to.eql(\"pending\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-007."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-009 | Foreign order rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-009 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-009 | protected markers absent\", function () { const text = JSON.stringify(json); pm.expect(text).not.to.include(pm.environment.get(\"markerB1\")); });",
+                  "pm.test(\"FR11-DET-009 | non-disclosing rejection\", function () { pm.expect(pm.response.code).to.be.oneOf([403,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{foreignB1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-009."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-010 | Foreign order rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-010 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-010 | protected markers absent\", function () { const text = JSON.stringify(json); pm.expect(text).not.to.include(pm.environment.get(\"markerA1\")); });",
+                  "pm.test(\"FR11-DET-010 | non-disclosing rejection\", function () { pm.expect(pm.response.code).to.be.oneOf([403,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-010."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-013 | Random foreign ID cannot bypass ownership",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-013 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-013 | protected markers absent\", function () { const text = JSON.stringify(json); pm.expect(text).not.to.include(pm.environment.get(\"markerB1\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{foreignB1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-013."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-014 | Foreign and nonexistent IDs use non-disclosing status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-014 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-014 | foreign resource is hidden\", function () { pm.expect(pm.response.code).to.eql(404); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{foreignB1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-014."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-015 | Nonexistent ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-015 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-015 | not found\", function () { pm.expect(pm.response.code).to.eql(404); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/999999999",
+            "description": "Corrected human-review executable: FR11-DET-015."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-016 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-016 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-016 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/0",
+            "description": "Corrected human-review executable: FR11-DET-016."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-017 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-017 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-017 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/-1",
+            "description": "Corrected human-review executable: FR11-DET-017."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-018 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-018 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-018 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/abc",
+            "description": "Corrected human-review executable: FR11-DET-018."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-019 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-019 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-019 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/1.5",
+            "description": "Corrected human-review executable: FR11-DET-019."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-020 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-020 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-020 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/0{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-020."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-021 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-021 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-021 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/%2B{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-021."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-022 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-022 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-022 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/%20{{ownedA1Id}}%20",
+            "description": "Corrected human-review executable: FR11-DET-022."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-023 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-023 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-023 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/999999999999999999999999999",
+            "description": "Corrected human-review executable: FR11-DET-023."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-024 | Non-canonical order ID rejected",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-024 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "pm.test(\"FR11-DET-024 | invalid ID rejected\", function () { pm.expect(pm.response.code).to.be.oneOf([400,404]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/1e0",
+            "description": "Corrected human-review executable: FR11-DET-024."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-034 | Admin cannot bypass ownership",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-034 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-034 | protected markers absent\", function () { const text = JSON.stringify(json); pm.expect(text).not.to.include(pm.environment.get(\"markerA1\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-034."
+          },
+          "response": []
+        },
+        {
+          "name": "FR11-DET-035 | Detail media type and exact schema",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"FR11-DET-035 | X-Student-Id present\", function () {",
+                  "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
+                  "});",
+                  "let json = null; try { json = pm.response.json(); } catch (error) {}",
+                  "pm.test(\"FR11-DET-035 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-035 | JSON media type\", function () { pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{baseUrl}}/api/orders/{{ownedA1Id}}",
+            "description": "Corrected human-review executable: FR11-DET-035."
           },
           "response": []
         }

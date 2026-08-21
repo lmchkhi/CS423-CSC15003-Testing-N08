@@ -76,6 +76,10 @@ async function main() {
     expiresIn: -1,
   });
   const missingIdentityToken = jwt.sign({ role: "user" }, secret);
+  const admin = await get("SELECT id FROM users WHERE email = ?", ["admin@eshop.com"]);
+  if (!admin) throw new Error("Default admin was not initialized by the SUT");
+  const adminToken = jwt.sign({ id: admin.id, role: "admin" }, secret);
+  const orphanToken = jwt.sign({ id: 999999, role: "user" }, secret);
 
   const tokenParts = tokenA.split(".");
   const changedPayload = Buffer.from(
@@ -92,6 +96,8 @@ async function main() {
     environmentValue("tokenC", tokenC, "secret"),
     environmentValue("expiredToken", expiredToken, "secret"),
     environmentValue("missingIdentityToken", missingIdentityToken, "secret"),
+    environmentValue("adminToken", adminToken, "secret"),
+    environmentValue("orphanToken", orphanToken, "secret"),
     environmentValue("tamperedPayloadToken", tamperedPayloadToken, "secret"),
     environmentValue("tamperedSignatureToken", tamperedSignatureToken, "secret"),
     environmentValue("ownedA1Id", a1.lastID),

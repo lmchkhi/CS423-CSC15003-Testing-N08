@@ -16,6 +16,19 @@
 | Endpoint 4 | `POST /api/admin/import-products` |
 | Student header | `X-Student-Id: 23127464` |
 
+## Final human-corrected full rerun
+
+The earlier Phase D subset results below are retained as execution history. After correcting every AI case previously labelled `INVALID` or `INCOMPLETE`, the final collections execute all designed cases:
+
+| Pool | FR | Designed / executed | Passed cases | Failed cases | Assertions passed / failed | Final evidence |
+|---|---|---:|---:|---:|---:|---|
+| A | FR-05 | 45 / 45 | 35 | 10 | 108 / 11 | `tests/api-testing/evidence/fr-05/20260821-223004/` |
+| B | FR-11 | 80 / 80 | 60 | 20 | 167 / 22 | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/` |
+| C | FR-16 | 45 / 45 | 29 | 16 | 89 / 16 | `tests/api-testing/evidence/fr-16/20260821-223035/` |
+| **Total** | — | **170 / 170** | **124** | **46** | **364 / 49** | `reports/api-testing/human-correction-rerun.md` |
+
+Correction rationale and the distinction between sourced and human-approved oracles are documented in `reports/api-testing/human-correction-rerun.md`. The AI Audit Report was not modified.
+
 ## 2. Assessment summary
 
 | No. | Assessment item | FR-11 result | Status / evidence |

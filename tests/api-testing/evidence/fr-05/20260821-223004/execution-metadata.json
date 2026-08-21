@@ -1,0 +1,172 @@
+{
+  "scope": "FR-05 GET /api/products with optional search",
+  "host": "http://127.0.0.1:3000",
+  "student_id": "23127464",
+  "working_directory": "E:\\Testing\\CS423-CSC15003-Testing-N08",
+  "run_directory": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004",
+  "started_at": "2026-08-21T15:30:04.356Z",
+  "ended_at": "2026-08-21T15:30:11.901Z",
+  "node_version": "v22.18.0",
+  "newman_version": "6.2.2",
+  "htmlextra_version": "1.23.1",
+  "approved_ai_cases": 40,
+  "automated_ai_cases": 40,
+  "approved_human_cases": 5,
+  "automated_human_cases": 5,
+  "excluded_valid_case": null,
+  "excluded_ai_invalid": 0,
+  "excluded_ai_incomplete": 0,
+  "health_status": 200,
+  "main_newman_exit_code": 1,
+  "empty_fixture_exit_code": 0,
+  "empty_newman_exit_code": 0,
+  "overall_exit_code": 1,
+  "main_stats": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 44,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 88,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 44,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 52,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 44,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 117,
+      "pending": 0,
+      "failed": 11
+    },
+    "testScripts": {
+      "total": 44,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 44,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "empty_stats": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 2,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 2,
+      "pending": 0,
+      "failed": 0
+    },
+    "testScripts": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "database_backup": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\backups\\database-before-fr05-phase-d-20260821-223004.sqlite",
+  "database_restored": true,
+  "header_screenshot": "PENDING HUMAN CAPTURE",
+  "orchestration_error": null,
+  "artifact_hashes": {
+    "collection": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\collections\\23127464_FR05_Product_Search.postman_collection.json",
+      "sha256": "84628225409E3BFBA43FE769CC7C30B06AE485CA91C2941C35E33A55FEA299D4"
+    },
+    "environment": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\environments\\fr-05-local.postman_environment.json",
+      "sha256": "5E5E4D2B9ECA2DC8C4CDC2D090AC35821DD2D3A035A85E6EC1C62F9ABEAD8791"
+    },
+    "data": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\data\\fr-05-run-data.json",
+      "sha256": "1CF2CA75A0B38F5A2F12F0D8E5E2495F547A6FF6E58E47D92232C428C222723D"
+    },
+    "main_console": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-main-console.txt",
+      "sha256": "0C535E5781937CBCE95E142AA99584665AFE72B37592A16E3F37C0A1EB766D8E"
+    },
+    "empty_console": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-empty-console.txt",
+      "sha256": "6F17F977E5F92451B1BB76516E228C7899D01AB655E86B881D6306CD5263C896"
+    },
+    "main_json": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-main-report.json",
+      "sha256": "9620640A9EC64F8E736A3AA1FEE333BB7E8096BC0FA6A79B75712DCB6756A4F7"
+    },
+    "empty_json": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-empty-report.json",
+      "sha256": "383FE8F465627627E0A31372F00441F304EFC82FFB6C91BA2F21CF32BB3CBE7A"
+    },
+    "main_html": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-main-report.html",
+      "sha256": "C6A683D3C136FD500A79D90DA30A50517EF538A3A3193B74F527776F8F786756"
+    },
+    "empty_html": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-empty-report.html",
+      "sha256": "8C5675A9B31C55AC35864E91DC6919F113BBDD9B6048F79FA190DED1300FFC26"
+    },
+    "fixture_output": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\empty-fixture-output.txt",
+      "sha256": "F677ABCF95F207581709F5E0D9671A1E5CADE643C06F6188416BBCB195FEC940"
+    },
+    "command": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\newman-command.txt",
+      "sha256": "8CD36873E512662B3B9B7089AE8C2401CFB85224F1B4D91F00039B2BAF510690"
+    },
+    "sut_log": {
+      "path": "E:\\Testing\\CS423-CSC15003-Testing-N08\\tests\\api-testing\\evidence\\fr-05\\20260821-223004\\sut-process.log",
+      "sha256": "5388630F431FABBEC89A6E519EDBCE8BEC5C3AF203BF5FC28FAEBCD3418C18AC"
+    }
+  }
+}

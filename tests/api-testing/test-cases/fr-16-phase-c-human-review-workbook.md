@@ -92,3 +92,10 @@ AI PRE-AUDIT: COMPLETE
 HUMAN CASE-BY-CASE AUDIT: COMPLETE  
 HUMAN-ADDED CASES: 5 COMPLETE  
 EXECUTION: NOT EXECUTED
+
+## Phase C2 human correction addendum
+
+The labels above are retained as audit history. All 9 formerly `INCOMPLETE` AI cases, both formerly `INVALID` AI cases, and `FR16-H02`/`FR16-H03` were corrected into executable final cases. The final collection contains 45/45 unique cases and excludes none. Decisions and evidence are in `reports/api-testing/human-correction-rerun.md`.
+
+FINAL CORRECTED CASES: 45/45 EXECUTABLE
+FINAL RERUN: 45 EXECUTED — 29 PASSED, 16 FAILED
