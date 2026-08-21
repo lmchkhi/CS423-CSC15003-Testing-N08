@@ -1,0 +1,243 @@
+name: Kiểm thử API - Pool A B C
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Chế độ chạy: tất cả đạt, một lỗi có kiểm soát hoặc toàn bộ 170 ca"
+        required: true
+        default: all-pass
+        type: choice
+        options:
+          - all-pass
+          - controlled-failure
+          - full
+  push:
+    paths:
+      - ".github/workflows/api-test-pools-a-b-c.yml"
+      - "src/eshop-sut/backend/**"
+      - "tests/api-testing/collections/**"
+      - "tests/api-testing/ci-mode.json"
+      - "tests/api-testing/data/**"
+      - "tests/api-testing/scripts/**"
+  pull_request:
+    paths:
+      - ".github/workflows/api-test-pools-a-b-c.yml"
+      - "src/eshop-sut/backend/**"
+      - "tests/api-testing/collections/**"
+      - "tests/api-testing/ci-mode.json"
+      - "tests/api-testing/data/**"
+      - "tests/api-testing/scripts/**"
+
+permissions:
+  contents: read
+
+env:
+  REQUESTED_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || '' }}
+
+jobs:
+  newman:
+    name: ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - fr: fr05
+            label: Pool A - FR-05 Tìm kiếm sản phẩm
+            collection: tests/api-testing/collections/ci-fr05.postman_collection.json
+            environment: tests/api-testing/environments/fr-05-local.postman_environment.json
+            data: tests/api-testing/data/fr-05-run-data.json
+            fixture: ""
+          - fr: fr11
+            label: Pool B - FR-11 Lịch sử đơn hàng
+            collection: tests/api-testing/collections/ci-fr11.postman_collection.json
+            environment: tests/api-testing/environments/fr-11-local.postman_environment.json
+            data: tests/api-testing/data/fr-11-run-data.json
+            fixture: tests/api-testing/scripts/prepare-fr11-fixture.js
+          - fr: fr16
+            label: Pool C - FR-16 Nhập sản phẩm
+            collection: tests/api-testing/collections/ci-fr16.postman_collection.json
+            environment: tests/api-testing/environments/fr-16-local.postman_environment.json
+            data: tests/api-testing/data/fr-16-run-data.json
+            fixture: tests/api-testing/scripts/prepare-fr16-fixture.js
+    env:
+      CI_EVIDENCE_DIR: tests/api-testing/evidence/${{ matrix.fr }}/ci-${{ github.run_id }}-${{ github.run_attempt }}
+
+    steps:
+      - name: Lấy mã nguồn đúng commit
+        uses: actions/checkout@v4
+
+      - name: Thiết lập Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: src/eshop-sut/backend/package-lock.json
+
+      - name: Xác định chế độ CI từ commit hoặc lựa chọn thủ công
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$REQUESTED_MODE" ]; then
+            mode="$REQUESTED_MODE"
+          else
+            mode=$(node -p 'require("./tests/api-testing/ci-mode.json").mode')
+          fi
+          case "$mode" in
+            all-pass|controlled-failure|full) ;;
+            *) echo "Chế độ CI không được hỗ trợ: $mode"; exit 2 ;;
+          esac
+          echo "TEST_MODE=$mode" >> "$GITHUB_ENV"
+          echo "Chế độ CI được sử dụng: $mode"
+
+      - name: Cài đặt thư viện của SUT
+        working-directory: src/eshop-sut/backend
+        run: npm ci
+
+      - name: Cài đặt Newman và trình tạo báo cáo HTML
+        run: npm install --global newman@6.2.2 newman-reporter-htmlextra@1.23.1
+
+      - name: Tạo lại các collection hoàn chỉnh đã hiệu chỉnh
+        run: |
+          node tests/api-testing/scripts/generate-fr05-postman.js
+          node tests/api-testing/scripts/generate-fr11-postman.js
+          node tests/api-testing/scripts/generate-fr16-postman.js
+          node tests/api-testing/scripts/upgrade-corrected-suites.js
+
+      - name: Tạo collection CI theo chế độ đã chọn
+        run: node tests/api-testing/scripts/build-ci-collection.js --fr "${{ matrix.fr }}" --mode "$TEST_MODE" --output "${{ matrix.collection }}"
+
+      - name: Kiểm tra collection và student header
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "${{ matrix.collection }}"
+          grep -Fq 'pm.request.headers.upsert({ key: "X-Student-Id", value: studentId });' "${{ matrix.collection }}"
+          grep -Fq 'pm.expect(pm.request.headers.get("X-Student-Id")).to.eql("23127464");' "${{ matrix.collection }}"
+
+      - name: Chuẩn bị thư mục evidence CI
+        run: mkdir -p "$CI_EVIDENCE_DIR"
+
+      - name: Khởi động SUT và chờ dữ liệu nền sẵn sàng
+        shell: bash
+        run: |
+          set -euo pipefail
+          pushd src/eshop-sut/backend >/dev/null
+          node server.js > "$GITHUB_WORKSPACE/$CI_EVIDENCE_DIR/sut.log" 2>&1 &
+          echo "$!" > "$GITHUB_WORKSPACE/$CI_EVIDENCE_DIR/sut.pid"
+          popd >/dev/null
+
+          ready=0
+          for attempt in $(seq 1 40); do
+            if node -e 'fetch("http://127.0.0.1:3000/api/products").then(r=>r.json()).then(x=>process.exit(Array.isArray(x)&&x.length===5?0:1)).catch(()=>process.exit(1))'; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat "$CI_EVIDENCE_DIR/sut.log"
+            exit 1
+          fi
+
+      - name: Chuẩn bị fixture xác định
+        if: matrix.fixture != ''
+        shell: bash
+        run: node "${{ matrix.fixture }}" 2>&1 | tee "$CI_EVIDENCE_DIR/fixture-output.txt"
+
+      - name: Chạy FR-05 với dữ liệu nền chính và dữ liệu rỗng
+        if: matrix.fr == 'fr05'
+        id: fr05_newman
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          newman run "${{ matrix.collection }}" -e "${{ matrix.environment }}" -d "${{ matrix.data }}" \
+            --folder "Main controlled baseline" \
+            --reporters cli,json,htmlextra \
+            --reporter-json-export "$CI_EVIDENCE_DIR/newman-main-report.json" \
+            --reporter-htmlextra-export "$CI_EVIDENCE_DIR/newman-main-report.html" \
+            2>&1 | tee "$CI_EVIDENCE_DIR/newman-main-console.txt"
+          main_exit=${PIPESTATUS[0]}
+
+          node tests/api-testing/scripts/prepare-fr05-empty-fixture.js 2>&1 | tee "$CI_EVIDENCE_DIR/empty-fixture-output.txt"
+          fixture_exit=${PIPESTATUS[0]}
+
+          newman run "${{ matrix.collection }}" -e "${{ matrix.environment }}" -d "${{ matrix.data }}" \
+            --folder "Empty controlled baseline" \
+            --reporters cli,json,htmlextra \
+            --reporter-json-export "$CI_EVIDENCE_DIR/newman-empty-report.json" \
+            --reporter-htmlextra-export "$CI_EVIDENCE_DIR/newman-empty-report.html" \
+            2>&1 | tee "$CI_EVIDENCE_DIR/newman-empty-console.txt"
+          empty_exit=${PIPESTATUS[0]}
+          set -e
+
+          overall=0
+          if [ "$main_exit" -ne 0 ] || [ "$fixture_exit" -ne 0 ] || [ "$empty_exit" -ne 0 ]; then overall=1; fi
+          printf 'main=%s\nfixture=%s\nempty=%s\noverall=%s\n' "$main_exit" "$fixture_exit" "$empty_exit" "$overall" > "$CI_EVIDENCE_DIR/exit-codes.txt"
+          exit "$overall"
+
+      - name: Chạy collection FR-11 hoặc FR-16
+        if: matrix.fr != 'fr05'
+        id: standard_newman
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          newman run "${{ matrix.collection }}" -e "${{ matrix.environment }}" -d "${{ matrix.data }}" \
+            --reporters cli,json,htmlextra \
+            --reporter-json-export "$CI_EVIDENCE_DIR/newman-report.json" \
+            --reporter-htmlextra-export "$CI_EVIDENCE_DIR/newman-report.html" \
+            2>&1 | tee "$CI_EVIDENCE_DIR/newman-console.txt"
+          newman_exit=${PIPESTATUS[0]}
+          set -e
+          printf 'overall=%s\n' "$newman_exit" > "$CI_EVIDENCE_DIR/exit-codes.txt"
+          exit "$newman_exit"
+
+      - name: Ghi metadata của lần chạy CI
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "student_id=23127464"
+            echo "feature=${{ matrix.fr }}"
+            echo "mode=$TEST_MODE"
+            echo "commit_sha=$GITHUB_SHA"
+            echo "run_id=$GITHUB_RUN_ID"
+            echo "run_attempt=$GITHUB_RUN_ATTEMPT"
+            echo "node_version=$(node --version)"
+            echo "newman_version=$(newman --version 2>/dev/null || echo NOT_AVAILABLE)"
+          } > "$CI_EVIDENCE_DIR/ci-metadata.txt"
+
+      - name: Tải lên báo cáo Newman HTML và evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.fr }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.CI_EVIDENCE_DIR }}/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Dừng SUT
+        if: always()
+        shell: bash
+        run: |
+          if [ -f "$CI_EVIDENCE_DIR/sut.pid" ]; then
+            sut_pid=$(cat "$CI_EVIDENCE_DIR/sut.pid")
+            if kill -0 "$sut_pid" 2>/dev/null; then kill "$sut_pid"; fi
+          fi
+
+      - name: Áp dụng kết quả thực tế của Newman
+        if: always()
+        shell: bash
+        run: |
+          if [ ! -f "$CI_EVIDENCE_DIR/exit-codes.txt" ]; then
+            echo "Newman không tạo được evidence về mã thoát."
+            exit 1
+          fi
+          cat "$CI_EVIDENCE_DIR/exit-codes.txt"
+          overall=$(awk -F= '$1=="overall" {print $2}' "$CI_EVIDENCE_DIR/exit-codes.txt")
+          test -n "$overall"
+          exit "$overall"

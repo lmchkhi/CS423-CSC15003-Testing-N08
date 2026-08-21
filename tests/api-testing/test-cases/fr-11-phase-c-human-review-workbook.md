@@ -166,9 +166,9 @@ HUMAN-ADDED CASES: 10 COMPLETE
 HUMAN FINAL APPROVAL FOR PHASE D: APPROVED — 2026-08-21
 EXECUTION: NOT EXECUTED
 
-## Phase C2 human correction addendum
+## Phụ lục Phase C2 — Hiệu chỉnh của con người
 
-The labels above are retained as audit history. All 35 formerly `INCOMPLETE` AI cases, both formerly `INVALID` AI cases, and `FR11-MYO-H03` were corrected into executable final cases. The final collection contains 80/80 unique cases and excludes none. Decisions and evidence are in `reports/api-testing/human-correction-rerun.md`.
+Các nhãn phía trên được giữ nguyên làm lịch sử audit. Toàn bộ 35 ca AI từng là `INCOMPLETE`, 2 ca AI từng là `INVALID` và `FR11-MYO-H03` đã được sửa thành các ca cuối cùng có thể thực thi. Collection cuối chứa đủ 80/80 ca duy nhất, không loại ca nào. Quyết định và evidence được trình bày tại `reports/api-testing/human-correction-rerun.md`.
 
-FINAL CORRECTED CASES: 80/80 EXECUTABLE
-FINAL RERUN: 80 EXECUTED — 60 PASSED, 20 FAILED
+SỐ CA CUỐI ĐÃ HIỆU CHỈNH: 80/80 CÓ THỂ THỰC THI
+LẦN CHẠY LẠI CUỐI: 80 CA ĐÃ THỰC THI — 60 ĐẠT, 20 KHÔNG ĐẠT

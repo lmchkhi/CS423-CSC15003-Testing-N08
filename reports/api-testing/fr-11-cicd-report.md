@@ -1,5 +1,7 @@
 # FR-11 — CI/CD Report
 
+> Báo cáo lịch sử của pipeline cũ chỉ dành cho Pool B và hai lần chạy GitHub thực tế. Cấu hình hiện hành bao phủ cả ba Pool được trình bày tại `reports/api-testing/api-cicd-report.md` và `.github/workflows/api-test-pools-a-b-c.yml`.
+
 ## Scope
 
 - Feature: Pool B — FR-11 Order History View.

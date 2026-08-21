@@ -93,9 +93,9 @@ HUMAN CASE-BY-CASE AUDIT: COMPLETE
 HUMAN-ADDED CASES: 5 COMPLETE  
 EXECUTION: NOT EXECUTED
 
-## Phase C2 human correction addendum
+## Phụ lục Phase C2 — Hiệu chỉnh của con người
 
-The labels above are retained as audit history. All 9 formerly `INCOMPLETE` AI cases, both formerly `INVALID` AI cases, and `FR16-H02`/`FR16-H03` were corrected into executable final cases. The final collection contains 45/45 unique cases and excludes none. Decisions and evidence are in `reports/api-testing/human-correction-rerun.md`.
+Các nhãn phía trên được giữ nguyên làm lịch sử audit. Toàn bộ 9 ca AI từng là `INCOMPLETE`, 2 ca AI từng là `INVALID` và `FR16-H02`/`FR16-H03` đã được sửa thành các ca cuối cùng có thể thực thi. Collection cuối chứa đủ 45/45 ca duy nhất, không loại ca nào. Quyết định và evidence được trình bày tại `reports/api-testing/human-correction-rerun.md`.
 
-FINAL CORRECTED CASES: 45/45 EXECUTABLE
-FINAL RERUN: 45 EXECUTED — 29 PASSED, 16 FAILED
+SỐ CA CUỐI ĐÃ HIỆU CHỈNH: 45/45 CÓ THỂ THỰC THI
+LẦN CHẠY LẠI CUỐI: 45 CA ĐÃ THỰC THI — 29 ĐẠT, 16 KHÔNG ĐẠT

@@ -16,18 +16,18 @@
 | Endpoint 4 | `POST /api/admin/import-products` |
 | Student header | `X-Student-Id: 23127464` |
 
-## Final human-corrected full rerun
+## Lần chạy lại toàn bộ sau khi con người hiệu chỉnh
 
-The earlier Phase D subset results below are retained as execution history. After correcting every AI case previously labelled `INVALID` or `INCOMPLETE`, the final collections execute all designed cases:
+Các kết quả chạy một phần ở Phase D bên dưới được giữ lại làm lịch sử thực thi. Sau khi sửa mọi ca do AI tạo từng được gắn nhãn `INVALID` hoặc `INCOMPLETE`, các collection cuối cùng đã thực thi toàn bộ ca kiểm thử được thiết kế:
 
-| Pool | FR | Designed / executed | Passed cases | Failed cases | Assertions passed / failed | Final evidence |
+| Pool | FR | Đã thiết kế / thực thi | Ca đạt | Ca không đạt | Assertion đạt / không đạt | Evidence cuối cùng |
 |---|---|---:|---:|---:|---:|---|
 | A | FR-05 | 45 / 45 | 35 | 10 | 108 / 11 | `tests/api-testing/evidence/fr-05/20260821-223004/` |
 | B | FR-11 | 80 / 80 | 60 | 20 | 167 / 22 | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/` |
 | C | FR-16 | 45 / 45 | 29 | 16 | 89 / 16 | `tests/api-testing/evidence/fr-16/20260821-223035/` |
 | **Total** | — | **170 / 170** | **124** | **46** | **364 / 49** | `reports/api-testing/human-correction-rerun.md` |
 
-Correction rationale and the distinction between sourced and human-approved oracles are documented in `reports/api-testing/human-correction-rerun.md`. The AI Audit Report was not modified.
+Lý do hiệu chỉnh và sự phân biệt giữa oracle có nguồn với oracle được con người phê duyệt được trình bày tại `reports/api-testing/human-correction-rerun.md`. Báo cáo AI Audit không bị chỉnh sửa.
 
 ## 2. Assessment summary
 
@@ -64,7 +64,7 @@ Correction rationale and the distinction between sourced and human-approved orac
 | Bugs | 1 — SQL injection qua `search` với 4 biểu hiện: tautology, UNION, information exposure và null byte |
 | Phase status | `PHASE E: COMPLETE` |
 
-Local bug report: `bug-report/fr-05-sql-injection-search.md`. Canonical evidence nằm tại `tests/api-testing/evidence/fr-05/20260821-213052/`. GitHub Issue và CI/CD riêng cho FR-05 chưa được tạo.
+Local bug report: `bug-report/fr-05-sql-injection-search.md`. Canonical evidence nằm tại `tests/api-testing/evidence/fr-05/20260821-213052/`. FR-05 hiện được bao phủ bởi pipeline chung `.github/workflows/api-test-pools-a-b-c.yml`; GitHub Issue chưa được tạo.
 
 ## 5. FR-16 — Product Import (Pool C)
 
@@ -85,7 +85,7 @@ Ba local bug report đã tạo:
 - `bug-report/fr-16-missing-price-validation.md` — Medium / Functional.
 - `bug-report/fr-16-missing-atomicity-rollback.md` — High / Functional.
 
-Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915/`. GitHub Issue và CI/CD riêng cho FR-16 chưa được tạo.
+Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915/`. FR-16 hiện được bao phủ bởi pipeline chung `.github/workflows/api-test-pools-a-b-c.yml`; GitHub Issue chưa được tạo.
 
 ## 6. Postman/Newman features đã sử dụng
 
@@ -134,8 +134,8 @@ Canonical evidence nằm tại `tests/api-testing/evidence/fr-16/20260821-024915
 | FR-16 security bug report | `bug-report/fr-16-missing-admin-role-check.md` |
 | FR-16 price-validation bug report | `bug-report/fr-16-missing-price-validation.md` |
 | FR-16 atomicity bug report | `bug-report/fr-16-missing-atomicity-rollback.md` |
-| GitHub Actions workflow | `.github/workflows/fr-11-api-test.yml` |
-| CI/CD report | `reports/api-testing/fr-11-cicd-report.md` |
+| GitHub Actions workflow | `.github/workflows/api-test-pools-a-b-c.yml` |
+| CI/CD report | `reports/api-testing/api-cicd-report.md` |
 | AI audit report | `reports/ai-audit-report.md` |
 
 ### Còn thiếu hoặc chưa xuất bản
@@ -155,7 +155,7 @@ FR-05 PHASE E: COMPLETE
 
 FR-16 PHASE E: COMPLETE
 
-FR-11 CI/CD CONFIGURATION: COMPLETE
+FR-11 CI/CD CONFIGURATION: COMPLETE — COVERED BY SHARED A/B/C PIPELINE
 
 FR-11 GITHUB ACTIONS EXECUTION: COMPLETE — 1 SUCCESS, 1 FAILURE
 
@@ -163,6 +163,6 @@ FR-16 GITHUB ISSUE: NOT CREATED
 
 FR-05 GITHUB ISSUE: NOT CREATED
 
-FR-05 CI/CD: NOT CREATED
+FR-05 CI/CD CONFIGURATION: COMPLETE — NEW GITHUB RUN PENDING
 
-FR-16 CI/CD: NOT CREATED
+FR-16 CI/CD CONFIGURATION: COMPLETE — NEW GITHUB RUN PENDING

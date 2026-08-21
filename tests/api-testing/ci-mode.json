@@ -1,0 +1,9 @@
+{
+  "mode": "all-pass",
+  "allowedModes": [
+    "all-pass",
+    "controlled-failure",
+    "full"
+  ],
+  "purpose": "Chế độ CI được lưu theo commit để tạo hai lần chạy minh họa bắt buộc. Giá trị workflow_dispatch sẽ được ưu tiên khi chạy thủ công."
+}
