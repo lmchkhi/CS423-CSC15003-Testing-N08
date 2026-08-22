@@ -106,7 +106,7 @@ Mỗi row trong bảng này là một final test case có thể map sang Postman
 | API-1 | TC-FR03-API-SCH-008 | `test-cases/hw06-api/fr03-reset-password/TC-FR03-API-SCH-008.md` | AI | Schema Validation | GET /api/reset-password không được thành công | Backend running. | `GET /api/reset-password` | 404 hoặc 405 | Không trả success schema của POST reset-password. | VALID | Passed | Newman: `reports/newman/hw06-fr03-reset-password.html`, JSON: `reports/newman/hw06-fr03-reset-password.json` |
 | API-1 | TC-FR03-API-SCH-009 | `test-cases/hw06-api/fr03-reset-password/TC-FR03-API-SCH-009.md` | Human | Schema Validation | Malformed JSON body trả client error và không leak stack | Backend running. | `Body raw: { "email": "test@eshop.com",` | 400 | Có error/message hoặc body lỗi an toàn; không stack trace. | HUMAN_ADDED | Passed | Newman: `reports/newman/hw06-fr03-reset-password.html`, JSON: `reports/newman/hw06-fr03-reset-password.json` |
 | API-1 | TC-FR03-API-SCH-010 | `test-cases/hw06-api/fr03-reset-password/TC-FR03-API-SCH-010.md` | Human | Schema Validation | Content-Type text/plain cho JSON body không được xử lý như success | Backend running. | `Header Content-Type: text/plain, body JSON string valid` | 400 hoặc 415 | Không success; không 5xx; có message/error nếu JSON. | HUMAN_ADDED | Failed | Newman: `reports/newman/hw06-fr03-reset-password.html`; Bug: `reports/bug-reports/BUG-FR03-API-003.md` |
-| API-2 | Chưa có | `test-cases/hw06-api/fr09-apply-coupon/` | AI/Human | Domain/Security/Workflow/Schema | Chưa generate | Chưa có | Chưa có | Chưa có | Chưa có | Chưa audit | Chưa chạy | Chưa có |
+| API-2 | Raw generated | `test-cases/hw06-api/fr09-apply-coupon/` | AI | Domain/Security/Workflow/Schema | Phase 05 raw FR-09 cases đã generate, chưa audit/finalize | `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md` | Chưa final | Chưa final | Chưa final | Chưa audit | Chưa chạy | Raw: `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md` |
 | API-3 | Chưa có | `test-cases/hw06-api/fr17-admin-coupons/` | AI/Human | Domain/Security/Workflow/Schema | Chưa generate | Chưa có | Chưa có | Chưa có | Chưa có | Chưa audit | Chưa chạy | Chưa có |
 
 FR-03 raw AI output đã được lưu ở `reports/ai-generated/fr03-reset-password-raw-test-cases.md`. Phase 03 audit/final suite được tổng hợp ngay trong file master này; 50 per-test-case Markdown files nằm trong `test-cases/hw06-api/fr03-reset-password/`.
@@ -174,7 +174,23 @@ Notes:
 | FR03-RP-SCH-007 | VALID | TC-FR03-API-SCH-007 | Response không được trả password/newPassword plaintext. |
 | FR03-RP-SCH-008 | VALID | TC-FR03-API-SCH-008 | Method contract: endpoint chỉ được spec là POST, GET không được thành công. |
 
-## 4. Human extension tracking
+FR-09 raw AI output đã được lưu ở `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md`. Phase 05 chỉ tạo raw cases; Phase 06 sẽ audit, sửa assumptions và tạo final per-test-case Markdown files trong `test-cases/hw06-api/fr09-apply-coupon/`.
+
+## 4. FR-09 raw AI generation summary
+
+| Tổng raw AI cases | Domain | Security | Workflow/State | Schema | Status |
+| --- | --- | --- | --- | --- | --- |
+| 46 | 20 | 10 | 8 | 8 | Chưa audit; Phase 06 sẽ gắn `VALID` / `INVALID` / `INCOMPLETE` |
+
+Coverage notes:
+
+- Cover đủ C1-C5 của FR-09: code tồn tại/active, expiration, min-order, JWT auth, usage-limit per user.
+- Cover công thức percent/fixed với `SAVE10`, `BIGBUY`, `VIP100`; có boundary `total_amount == min_order_amount` và just-below-min.
+- Cover security theo SEC-02/SEC-05: missing/malformed/invalid token, IDOR qua `user_id`, SQLi/XSS payload, response không leak token/password.
+- Cover schema/contract: `discount_amount`, `final_amount`, JSON content type, error shape, malformed JSON, response time.
+- Các assumptions cần audit ở Phase 06: exact status cho unknown code, lowercase coupon behavior, percent rounding, thời điểm count coupon usage, và rule `user_id` phải match JWT user.
+
+## 5. Human extension tracking
 
 Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót. Các case này cũng đã xuất hiện trong master table ở section 2 với `Source = Human` và `Audit Label = HUMAN_ADDED`.
 
@@ -189,7 +205,7 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | API-2 | Chưa có | Chưa có | Chưa có | Chưa có |
 | API-3 | Chưa có | Chưa có | Chưa có | Chưa có |
 
-## 5. Audit labels
+## 6. Audit labels
 
 | Label | Ý nghĩa | Khi dùng |
 | --- | --- | --- |
@@ -198,7 +214,7 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | `INCOMPLETE` | Case có ý tưởng hợp lý nhưng thiếu setup/assertion/expected data | Bổ sung rồi mới đưa vào final suite |
 | `HUMAN_ADDED` | Case do sinh viên thêm sau audit | Dùng cho >=5 cases AI bỏ sót |
 
-## 6. Execution summary
+## 7. Execution summary
 
 | API ID | Final cases | Executed | Passed | Failed | Bugs confirmed |
 | --- | --- | --- | --- | --- | --- |

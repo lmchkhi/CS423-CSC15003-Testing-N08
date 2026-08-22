@@ -119,14 +119,24 @@ Trạng thái: Đã xác nhận 3 bug qua Newman evidence và đã tạo GitHub 
 
 ### 4.1 Generate with AI
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 05.
+Trạng thái: Đã thực hiện ở Phase 05; raw output sẽ được human audit ở Phase 06.
 
 | Artifact | Link/ghi chú |
 | --- | --- |
 | Test case files | `test-cases/hw06-api/fr09-apply-coupon/` |
-| Prompt/output trace | Chưa có |
-| Raw AI test cases | Chưa có |
-| AI audit entry | Chưa có |
+| Prompt/output trace | `reports/ai-audit-report.md` Entry #9; prompt framework dựa trên `skills/` và `reports/hw06-execution-plan.md` |
+| Raw AI test cases | `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md` |
+| AI audit entry | `reports/ai-audit-report.md` Entry #9 |
+
+Raw generation summary:
+
+| Group | Count | Ghi chú |
+| --- | --- | --- |
+| Domain | 20 | Cover `code`, `total_amount`, `user_id`, sample coupons, min-order boundary, expired/unknown code |
+| Security | 10 | Cover C4/SEC-02 auth, IDOR/body `user_id` mismatch, SQLi/XSS, sensitive-field leak |
+| Workflow | 8 | Cover C5 per-user usage limit, repeated use, failed apply should not consume usage |
+| Schema | 8 | Cover `discount_amount`, `final_amount`, JSON content type, calculation, error shape, response time |
+| Total | 46 | Sẽ audit ở Phase 06; có assumptions cần xác nhận bằng blackbox observation |
 
 ### 4.2 Human audit
 
@@ -286,9 +296,9 @@ Trạng thái: Đã có số liệu execution cho FR-03; FR-09 và FR-17 chưa t
 | API | Generated cases | Human added cases | Final cases | Executed | Passed | Failed | Bugs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FR-03 `POST /api/reset-password` | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
-| FR-09 `POST /api/apply-coupon` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| FR-09 `POST /api/apply-coupon` | 46 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
 | FR-17 `POST /api/admin/coupons` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
+| Total | 92 | 6 | 50 | 50 | 36 | 14 | 3 |
 
 ## 13. Self-assessment
 

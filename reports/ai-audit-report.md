@@ -187,3 +187,25 @@ tôi đã chạy backend lên ở [http://localhost:3000](http://localhost:3000)
 ```text
 Đã dùng các skill trong folder skills để thực hiện Phase 04 cho FR-03 theo hướng blackbox, không dùng source code. Đã tạo Postman collection/environment/case data cho 50 test cases reset-password, bổ sung static header X-Student-Id cho 50/50 request item và pre-request script upsert/log header runtime. Đã chạy Newman trên backend http://localhost:3000, xuất reports/newman/hw06-fr03-reset-password.html, .json và -cli.txt. Kết quả: 50 executed, 36 passed, 14 failed; Newman requests 136 executed/0 failed; assertions 218 executed/20 failed. Đã triage failures thành 3 bug thật và tạo bug report Markdown theo template trong reports/bug-reports: BUG-FR03-API-001, BUG-FR03-API-002, BUG-FR03-API-003. Đã cập nhật reports/hw06-test-cases.md, 50 file test case FR-03 và reports/main-report.md với execution result/evidence. Chưa tạo GitHub Issue và không commit.
 ```
+
+## Entry #9
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 16:57 GMT+7 |
+| **Artifact type** | Phase 05 raw AI test generation - FR-09 apply-coupon |
+
+**Full prompt:**
+
+```text
+tôi đã review và commit rồi, bây giờ dựa vào plan và thực hiện phase 5 giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Đã thực hiện Phase 05 theo reports/hw06-execution-plan.md, không commit và không dùng source code. Đã dùng các skill hw06-api-testing, eshop-api-test-generator và hw06-ai-audit-log; đọc blackbox context từ README.md, api_specification.md và skill references. Đã tạo reports/ai-generated/fr09-apply-coupon-raw-test-cases.md gồm 46 raw cases cho FR-09 POST /api/apply-coupon: 20 Domain, 10 Security, 8 Workflow/State, 8 Schema. Bộ raw cases cover C1-C5, sample coupons SAVE10/BIGBUY/VIP100/EXPIRED, percent/fixed formula, JWT auth, IDOR user_id mismatch, SQLi/XSS, response schema discount_amount/final_amount và các assumptions cần Phase 06 audit. Đã cập nhật reports/main-report.md và reports/hw06-test-cases.md để trỏ raw artifact, summary counts và trạng thái Phase 05. Chưa audit, chưa tạo per-test-case Markdown final files, chưa tạo Postman/Newman artifacts, chưa tạo bug report/GitHub Issue.
+```
