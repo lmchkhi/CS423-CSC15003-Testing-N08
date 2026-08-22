@@ -1,6 +1,6 @@
 # FR-16 — Phase D Execution Plan
 
-> Tài liệu này ghi lại kế hoạch và tên run tại thời điểm Phase D. Các run Newman cũ đã được thay thế bởi final rerun `tests/api-testing/evidence/fr-16/20260821-223035/` và được dọn khỏi bộ evidence cuối.
+> Tài liệu này ghi lại kế hoạch tại thời điểm Phase D. Evidence hiện hành là schema rerun `tests/api-testing/evidence/fr-16/20260822-230924/`.
 
 ## Scope lock
 

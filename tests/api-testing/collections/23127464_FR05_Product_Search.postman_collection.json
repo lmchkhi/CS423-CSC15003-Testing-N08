@@ -672,7 +672,8 @@
                   "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
                   "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
                   "pm.test(\"FR05-LST-003 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
-                  "pm.test(\"FR05-LST-003 | fields support image name and price\", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"); pm.expect(p.name).to.be.a(\"string\").and.not.empty; pm.expect(Number(p.price)).to.be.above(0); pm.expect(p.imageUrl).to.be.a(\"string\").and.not.empty; }); });"
+                  "pm.test(\"FR05-LST-003 | exact human-approved product schema\", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"); pm.expect(p.id).to.be.a(\"number\"); pm.expect(p.name).to.be.a(\"string\").and.not.empty; pm.expect(p.price).to.be.a(\"number\").and.above(0); pm.expect(p.description).to.be.a(\"string\"); pm.expect(p.imageUrl).to.be.a(\"string\"); pm.expect(p.category_id).to.be.a(\"number\"); }); });",
+                  "pm.test(\"FR05-LST-003 | JSON media type\", function () { pm.expect((pm.response.headers.get(\"Content-Type\") || \"\").toLowerCase()).to.include(\"application/json\"); });"
                 ]
               }
             }

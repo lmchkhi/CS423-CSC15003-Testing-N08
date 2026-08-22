@@ -1,6 +1,6 @@
 # FR-05 — Kế hoạch thực thi Phase D
 
-> Tài liệu này ghi lại kế hoạch và tên run tại thời điểm Phase D. Các run Newman cũ đã được thay thế bởi final rerun `tests/api-testing/evidence/fr-05/20260821-223004/` và được dọn khỏi bộ evidence cuối.
+> Tài liệu này ghi lại kế hoạch tại thời điểm Phase D. Evidence hiện hành là schema rerun `tests/api-testing/evidence/fr-05/20260822-230735/`.
 
 ## Gate đầu vào
 

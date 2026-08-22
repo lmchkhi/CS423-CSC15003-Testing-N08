@@ -1,6 +1,6 @@
 # FR-16 — Phase D Execution Analysis
 
-> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là final rerun `tests/api-testing/evidence/fr-16/20260821-223035/`; các run cũ được liệt kê bên dưới đã được thay thế và dọn khỏi bộ evidence cuối.
+> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là schema rerun `tests/api-testing/evidence/fr-16/20260822-230924/`: 45 ca, 29 đạt, 16 không đạt, 113 assertions (97 đạt, 16 không đạt).
 
 ## Scope and selection
 
@@ -20,7 +20,7 @@
 
 ## Historical canonical evidence
 
-- Run directory tại thời điểm Phase D: `20260821-024915` — đã được thay thế bởi `tests/api-testing/evidence/fr-16/20260821-223035/`.
+- Run directory tại thời điểm Phase D: `20260821-024915` — đã được thay thế bởi `tests/api-testing/evidence/fr-16/20260822-230924/`.
 - Host observed: `http://127.0.0.1:3000`.
 - Started: `2026-08-20T19:49:15.885Z` (`2026-08-21 02:49:15` Asia/Saigon).
 - Ended: `2026-08-20T19:49:25.861Z`.

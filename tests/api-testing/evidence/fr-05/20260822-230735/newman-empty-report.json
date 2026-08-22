@@ -5,11 +5,11 @@
     },
     "item": [
       {
-        "id": "aa61fa3e-df0a-4ee9-a837-2154560ba9e5",
+        "id": "ea1098d2-474e-4521-b53b-5e88d23c98f2",
         "name": "Main controlled baseline",
         "item": [
           {
-            "id": "0215a7af-2640-48ce-9885-efb857e1215d",
+            "id": "b7fb68af-6f55-41a9-9228-91e367a809ac",
             "name": "FR05-LST-001 | Bỏ search, baseline nhiều sản phẩm",
             "request": {
               "description": {
@@ -34,7 +34,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "633b2823-4b1a-49e1-8af8-3b74a9a8bc9f",
+                  "id": "c9487810-874b-437b-86b1-21111c4b1a22",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-LST-001 | X-Student-Id present\", function () {",
@@ -56,7 +56,7 @@
             ]
           },
           {
-            "id": "9a760c5d-2746-4060-b7dd-87df8ae9b87d",
+            "id": "2cfc4f4b-6e83-4b1b-8288-88f227eb7e56",
             "name": "FR05-EXI-001 | Full name iPhone 15 Pro Max",
             "request": {
               "description": {
@@ -86,7 +86,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "547b76ce-bf8b-4273-9bee-dbd093ce2574",
+                  "id": "e6ed0637-21f7-40d3-902f-dd7b2ce2fd8f",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EXI-001 | X-Student-Id present\", function () {",
@@ -108,7 +108,7 @@
             ]
           },
           {
-            "id": "38c3c5bd-fd6a-47bb-8a8f-91b4d6ee31c2",
+            "id": "63a496bf-bb50-4664-a5c9-12d089d69291",
             "name": "FR05-EXI-002 | Full name MacBook Pro M3",
             "request": {
               "description": {
@@ -138,7 +138,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "51dfed12-d452-4421-b6a4-093f9d9f0848",
+                  "id": "dde0370a-a833-4546-9fc8-40070bd8e2e9",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EXI-002 | X-Student-Id present\", function () {",
@@ -160,7 +160,7 @@
             ]
           },
           {
-            "id": "141e5a58-4591-47b2-bfec-8532748d8a97",
+            "id": "a5b2c93a-f35b-490d-b046-1bea2c8e19ed",
             "name": "FR05-UNI-001 | Full name tiếng Việt chính xác",
             "request": {
               "description": {
@@ -190,7 +190,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "2c9ba17b-1202-4a8d-91e6-f1ebf70c2aeb",
+                  "id": "918a89c9-71c5-420b-a16d-5c46968ec9e4",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-UNI-001 | X-Student-Id present\", function () {",
@@ -212,7 +212,7 @@
             ]
           },
           {
-            "id": "c5ca7d90-c857-4004-b33f-cccc1f03bf24",
+            "id": "763060d2-09ea-47e4-a4a1-73309dc1d31e",
             "name": "FR05-NOM-001 | ASCII keyword không tồn tại",
             "request": {
               "description": {
@@ -242,7 +242,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "88fe14d1-7082-4eb9-8bf0-496c2a389b65",
+                  "id": "ed55b4e0-71c4-4233-b613-1a7c72f5b8f4",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-NOM-001 | X-Student-Id present\", function () {",
@@ -264,7 +264,7 @@
             ]
           },
           {
-            "id": "1077bac9-5e63-4bce-af82-38e73e95316d",
+            "id": "9ad8c116-65a3-46a7-b9ff-12a3be958428",
             "name": "FR05-NOM-002 | Keyword tiếng Việt không tồn tại",
             "request": {
               "description": {
@@ -294,7 +294,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "b9ef750d-bd2a-45ab-80df-a89e3ebed48c",
+                  "id": "9d2433a3-8943-4834-93d0-4ad2b037c161",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-NOM-002 | X-Student-Id present\", function () {",
@@ -316,7 +316,7 @@
             ]
           },
           {
-            "id": "d1dd47f8-8599-4755-90ae-034a2a03ea39",
+            "id": "e8afb0a1-bf82-4581-a688-0226a274eb68",
             "name": "FR05-ONE-002 | Một ký tự không tồn tại",
             "request": {
               "description": {
@@ -346,7 +346,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "84d4f21d-4c1c-42bc-8b5e-c0d5177de55e",
+                  "id": "7e6c2314-1ef3-4009-acdb-d9d9ccc6b6a0",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-ONE-002 | X-Student-Id present\", function () {",
@@ -368,7 +368,7 @@
             ]
           },
           {
-            "id": "64f0f43c-13b9-4c98-b6e9-5eea9b7df769",
+            "id": "367e9a94-1585-4592-84cc-b1c520a7b783",
             "name": "FR05-NUM-002 | Numeric keyword không tồn tại",
             "request": {
               "description": {
@@ -398,7 +398,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "4716f368-17e4-4beb-81ee-65edade718e7",
+                  "id": "b5858cc7-abd8-45d1-aa73-9fef830750f0",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-NUM-002 | X-Student-Id present\", function () {",
@@ -420,7 +420,7 @@
             ]
           },
           {
-            "id": "67524203-6bce-4006-b1a6-a9299654e360",
+            "id": "2e5c29c2-8a88-4e1c-bbd9-5f0f8e48b01e",
             "name": "FR05-UNI-004 | Emoji no-match và không lộ lỗi",
             "request": {
               "description": {
@@ -450,7 +450,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "e3bc53a0-5e7d-462c-8b9e-5d36df3d4e15",
+                  "id": "bd18ac65-a13f-44a5-8a44-7b31e5566a52",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-UNI-004 | X-Student-Id present\", function () {",
@@ -475,7 +475,7 @@
             ]
           },
           {
-            "id": "0e8531ef-617a-42ed-956a-88ca4d21c0c9",
+            "id": "a5f151fb-da64-4363-a3fa-025a269881e5",
             "name": "FR05-ENC-004 | Percent-encoding không hợp lệ",
             "request": {
               "description": {
@@ -505,7 +505,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "72ccefe7-a0d6-47c6-bfad-3113f5027dde",
+                  "id": "4c72f279-ad58-465e-9bf6-67cf5560f79b",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-ENC-004 | X-Student-Id present\", function () {",
@@ -525,7 +525,7 @@
             ]
           },
           {
-            "id": "8df47bfc-8e36-4cf5-8161-afc5e1543409",
+            "id": "6973103f-a9cd-48b0-9612-48362477a41b",
             "name": "FR05-SEC-001 | SQL tautology injection",
             "request": {
               "description": {
@@ -555,7 +555,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "8f3cd3d8-816f-47a4-9e41-13b978ed835c",
+                  "id": "a2755851-4257-451f-b168-20af0e3e390c",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SEC-001 | X-Student-Id present\", function () {",
@@ -582,7 +582,7 @@
             ]
           },
           {
-            "id": "d3d80125-f14b-4935-a4a8-dcf3a762e220",
+            "id": "f31d5269-cd55-4358-8ca9-b0f3357409a6",
             "name": "FR05-SEC-002 | UNION-based injection",
             "request": {
               "description": {
@@ -612,7 +612,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "0c5b19d1-958b-47e2-b019-8a28a016c9e1",
+                  "id": "b413f085-7c6d-496a-bc71-bea5af8c92a0",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SEC-002 | X-Student-Id present\", function () {",
@@ -637,7 +637,7 @@
             ]
           },
           {
-            "id": "ce8109f8-410e-49cd-aece-8513baa9d552",
+            "id": "90409eeb-c388-4d29-abba-6493e0b9ee63",
             "name": "FR05-SEC-003 | Stacked destructive injection",
             "request": {
               "description": {
@@ -667,7 +667,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "98185a4e-3f6b-4a4b-bd33-bde08019a40d",
+                  "id": "20517694-d0fd-49dd-bb94-af02c84a9d61",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SEC-003 | X-Student-Id present\", function () {",
@@ -693,7 +693,7 @@
             ]
           },
           {
-            "id": "26d56707-e0b1-44f6-9c01-f1948b86e697",
+            "id": "bbb8f160-671e-4289-b454-1c8888d494b9",
             "name": "FR05-SEC-004 | Quote không lộ database detail",
             "request": {
               "description": {
@@ -723,7 +723,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "a4266a28-1a4e-424a-84bc-ee6b52226560",
+                  "id": "0ade344f-c9f0-4e56-a9dd-b7a82e2ae099",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SEC-004 | X-Student-Id present\", function () {",
@@ -742,7 +742,7 @@
             ]
           },
           {
-            "id": "8c0e296f-79aa-41bf-837f-1fa80b0907c2",
+            "id": "1c87192e-5520-44b1-bb99-570543babf3d",
             "name": "FR05-H02 | Năm GET search đồng thời",
             "request": {
               "description": {
@@ -772,7 +772,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "0f1bf43a-2bbe-4d48-af55-467f719c5355",
+                  "id": "19d8734b-aafb-4836-9182-2fbc33b845fd",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-H02 | X-Student-Id present\", function () {",
@@ -794,7 +794,7 @@
             ]
           },
           {
-            "id": "3b260519-c99e-4a23-bf3d-efc074dec03b",
+            "id": "b1b70523-d56f-4125-816b-3f1336790d95",
             "name": "FR05-H03 | Comment-style SQL bypass",
             "request": {
               "description": {
@@ -824,7 +824,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "8d1583e5-55e7-48a7-a6da-5c2428e86ef3",
+                  "id": "2b35b553-d022-4937-9e29-31a49e4e6258",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-H03 | X-Student-Id present\", function () {",
@@ -851,7 +851,7 @@
             ]
           },
           {
-            "id": "97e180db-17bc-47fa-b3fa-abf859455ea8",
+            "id": "5bf9ab67-8d34-4d73-b3c1-2348b496c8a2",
             "name": "FR05-H04 | Content-Type application/json",
             "request": {
               "description": {
@@ -876,7 +876,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "057d27ae-b3b3-4a9a-9f04-4ada1fa45c9f",
+                  "id": "c01726ea-f4eb-4d84-b6ce-00f982025f21",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-H04 | X-Student-Id present\", function () {",
@@ -892,7 +892,7 @@
             ]
           },
           {
-            "id": "0d6a2bd2-58d9-4eef-9ae5-1ca2eaa123da",
+            "id": "2bc7e0ae-c1ce-4e88-a94b-5f89f7753b57",
             "name": "FR05-H05 | Null-byte injection",
             "request": {
               "description": {
@@ -922,7 +922,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "1988881d-2b7a-4ff5-84f6-276238c0814e",
+                  "id": "78df29e5-988f-418a-af25-e476d29172f1",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-H05 | X-Student-Id present\", function () {",
@@ -945,7 +945,7 @@
             ]
           },
           {
-            "id": "c68aeaee-74f8-4896-bf4d-38d042c62844",
+            "id": "63e6066b-243b-4a79-bd01-7ffb394c69ff",
             "name": "FR05-H01 | POST không body phải reject và không tạo product",
             "request": {
               "description": {
@@ -970,7 +970,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "2c8458c1-51e5-4c43-8ffd-511601f1e597",
+                  "id": "60b45671-0721-4ccb-a512-0d944a474c2e",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-H01 | X-Student-Id present\", function () {",
@@ -990,7 +990,7 @@
             ]
           },
           {
-            "id": "2d5f018b-136f-49ac-9d11-5a52b1208e53",
+            "id": "f9a31ffb-92c1-4913-bfa8-b6ca68d36327",
             "name": "FR05-LST-003 | Corrected API product field schema",
             "request": {
               "description": {
@@ -1015,7 +1015,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "b9eb3d38-c1da-4f3e-8167-b5ed9f88e3f2",
+                  "id": "bbab8a07-ae08-434b-8c3e-8fc9d679fe82",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-LST-003 | X-Student-Id present\", function () {",
@@ -1025,14 +1025,15 @@
                     "const products = Array.isArray(json) ? json : (json && Array.isArray(json.products) ? json.products : null);",
                     "const names = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
                     "pm.test(\"FR05-LST-003 | product list is JSON array\", function () { pm.expect(products).to.be.an(\"array\"); });",
-                    "pm.test(\"FR05-LST-003 | fields support image name and price\", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"); pm.expect(p.name).to.be.a(\"string\").and.not.empty; pm.expect(Number(p.price)).to.be.above(0); pm.expect(p.imageUrl).to.be.a(\"string\").and.not.empty; }); });"
+                    "pm.test(\"FR05-LST-003 | exact human-approved product schema\", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys(\"id\", \"name\", \"price\", \"description\", \"imageUrl\", \"category_id\"); pm.expect(p.id).to.be.a(\"number\"); pm.expect(p.name).to.be.a(\"string\").and.not.empty; pm.expect(p.price).to.be.a(\"number\").and.above(0); pm.expect(p.description).to.be.a(\"string\"); pm.expect(p.imageUrl).to.be.a(\"string\"); pm.expect(p.category_id).to.be.a(\"number\"); }); });",
+                    "pm.test(\"FR05-LST-003 | JSON media type\", function () { pm.expect((pm.response.headers.get(\"Content-Type\") || \"\").toLowerCase()).to.include(\"application/json\"); });"
                   ]
                 }
               }
             ]
           },
           {
-            "id": "bd85a702-a561-4147-8c48-37dc8ec6d9a8",
+            "id": "a38a1a06-153c-4132-8183-321c4590e485",
             "name": "FR05-EXI-003 | Prefix search",
             "request": {
               "description": {
@@ -1062,7 +1063,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "08f3a16a-7ff0-465b-a292-e82aed90bdcd",
+                  "id": "c6819955-ed12-4b32-b77f-67fb60b53590",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EXI-003 | X-Student-Id present\", function () {",
@@ -1078,7 +1079,7 @@
             ]
           },
           {
-            "id": "33454436-464f-455f-a2ba-63e4b2a0086b",
+            "id": "6d76a754-ac39-4752-9355-df6b944e8701",
             "name": "FR05-EXI-004 | Substring search",
             "request": {
               "description": {
@@ -1108,7 +1109,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "232acfc6-6491-4e82-af70-77dbaeca0dc4",
+                  "id": "d22c98a1-1e40-48d2-b867-d9249ea00f3d",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EXI-004 | X-Student-Id present\", function () {",
@@ -1124,7 +1125,7 @@
             ]
           },
           {
-            "id": "7ed10bc3-88bf-4884-8fe6-83660c1fb6cb",
+            "id": "9f0f7828-d822-4b05-864d-643bfa1367ff",
             "name": "FR05-EXI-005 | ASCII case-insensitive search",
             "request": {
               "description": {
@@ -1154,7 +1155,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "433d4344-fa20-415e-a3a6-6182d0d32274",
+                  "id": "10c25bf5-26f5-4aeb-898f-a0d7c9a47973",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EXI-005 | X-Student-Id present\", function () {",
@@ -1170,7 +1171,7 @@
             ]
           },
           {
-            "id": "8798bc3c-da70-4ce3-a645-493873258e4b",
+            "id": "870d368c-66dd-49e1-9741-b66f57b4ba51",
             "name": "FR05-ONE-001 | One-character partial search",
             "request": {
               "description": {
@@ -1200,7 +1201,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "7e2dbe1b-8306-4684-860a-df4430d3389d",
+                  "id": "1e4f0f6b-65ed-4287-9cfe-6934ad907907",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-ONE-001 | X-Student-Id present\", function () {",
@@ -1216,7 +1217,7 @@
             ]
           },
           {
-            "id": "9539272d-0a0e-4ca7-92bd-c87856254259",
+            "id": "98e8cc5e-c32c-4b9c-a2c2-955e1e758624",
             "name": "FR05-NUM-001 | Numeric partial search",
             "request": {
               "description": {
@@ -1246,7 +1247,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "c00dff06-e9ba-4bb8-86f7-6273d6864914",
+                  "id": "99612299-f0bf-445b-b571-b731160e31e9",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-NUM-001 | X-Student-Id present\", function () {",
@@ -1262,7 +1263,7 @@
             ]
           },
           {
-            "id": "9cb3684b-3402-424c-bb68-87e890f3106e",
+            "id": "bdffad9a-eae8-46c4-8d9c-fee3a8ec849d",
             "name": "FR05-ENC-001 | Percent-encoded exact-name transport",
             "request": {
               "description": {
@@ -1292,7 +1293,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "ea094a94-c2a4-47af-9a44-26727b20ddaf",
+                  "id": "179f461a-cdb4-4c71-9a89-fc698d937f93",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-ENC-001 | X-Student-Id present\", function () {",
@@ -1308,7 +1309,7 @@
             ]
           },
           {
-            "id": "e1339c91-bdbf-4cce-a770-7d4ffcaf9982",
+            "id": "f60e1faa-5c21-4d0d-823b-978963b2cddf",
             "name": "FR05-ENC-002 | Plus decoded as space",
             "request": {
               "description": {
@@ -1338,7 +1339,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "ac3db884-3430-4fd3-9187-771047ead804",
+                  "id": "b8115cff-abca-4360-95f9-cad0588d791f",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-ENC-002 | X-Student-Id present\", function () {",
@@ -1354,7 +1355,7 @@
             ]
           },
           {
-            "id": "3a05a5f0-5d56-4fc3-bcf9-f67a13ae1061",
+            "id": "ebbcaa7e-326b-4128-b10a-f844bc008251",
             "name": "FR05-EMP-001 | Empty search equals omitted search",
             "request": {
               "description": {
@@ -1384,7 +1385,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "f6841e86-dd56-4ee0-8504-061c80662320",
+                  "id": "e119f814-53e4-4785-9416-1e2328298ef1",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EMP-001 | X-Student-Id present\", function () {",
@@ -1400,7 +1401,7 @@
             ]
           },
           {
-            "id": "2f819fac-c735-4e02-9c21-c8ff32f2f0da",
+            "id": "cf61c82d-3f87-485d-83e8-ffa42c6c2f39",
             "name": "FR05-EMP-002 | Bare search equals omitted search",
             "request": {
               "description": {
@@ -1430,7 +1431,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "f913f0c7-158d-4890-8f83-a63dc3459f1d",
+                  "id": "dce94962-14e0-453d-9028-e93608bbf240",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EMP-002 | X-Student-Id present\", function () {",
@@ -1446,7 +1447,7 @@
             ]
           },
           {
-            "id": "acdcb02e-792c-4527-b769-3baa39cf651f",
+            "id": "806c99e1-40ee-4440-b660-e294b56593f4",
             "name": "FR05-EMP-003 | Duplicate search empty then value is handled safely",
             "request": {
               "description": {
@@ -1480,7 +1481,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "51caea47-9cdd-4818-ad85-b1a29361ef0b",
+                  "id": "300dfe79-ba0b-44cb-9e1b-db974b6da7e3",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EMP-003 | X-Student-Id present\", function () {",
@@ -1500,7 +1501,7 @@
             ]
           },
           {
-            "id": "31a05283-7c47-4830-a5d6-c5f0992047ac",
+            "id": "f226fd7c-67db-4d6c-aca3-18248949761f",
             "name": "FR05-EMP-004 | Duplicate search value then empty is handled safely",
             "request": {
               "description": {
@@ -1534,7 +1535,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "82d10d51-8234-4b4d-8a82-e46d6ec161c6",
+                  "id": "6a179fe8-ce27-4d79-8b4c-244fd574c17d",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-EMP-004 | X-Student-Id present\", function () {",
@@ -1554,7 +1555,7 @@
             ]
           },
           {
-            "id": "ddf10994-4d6e-4dc4-8d2f-6a36295bbac5",
+            "id": "09d7b223-7a06-41de-ad0e-59b66fad49dc",
             "name": "FR05-SPC-004 | Encoded reserved characters handled safely",
             "request": {
               "description": {
@@ -1584,7 +1585,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "9a635019-fe74-47e8-b924-91885db71736",
+                  "id": "2787c53f-8737-452e-9691-68b553fd59cc",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SPC-004 | X-Student-Id present\", function () {",
@@ -1604,7 +1605,7 @@
             ]
           },
           {
-            "id": "3e256862-cbb7-4789-9bda-7cad82f13a5a",
+            "id": "15a85893-da35-44c9-94f5-a5aabd3098b2",
             "name": "FR05-ENC-003 | Double-encoded keyword is decoded once only",
             "request": {
               "description": {
@@ -1634,7 +1635,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "ec448917-cd50-4f23-ad75-d9f5ac4feb70",
+                  "id": "dcbc1fc5-6a16-41e6-b85e-8c6bdda4f12b",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-ENC-003 | X-Student-Id present\", function () {",
@@ -1654,7 +1655,7 @@
             ]
           },
           {
-            "id": "49bc0792-d588-49fe-a0b4-f7a859c8a91f",
+            "id": "9878f8c4-6a87-4417-a060-d99cf9c402c5",
             "name": "FR05-WS-001 | Whitespace-only search is trimmed",
             "request": {
               "description": {
@@ -1684,7 +1685,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "09e503e4-d65b-4094-8546-15587bb151e2",
+                  "id": "413991b3-440a-47fa-bcde-0e4dce9e1a74",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-WS-001 | X-Student-Id present\", function () {",
@@ -1700,7 +1701,7 @@
             ]
           },
           {
-            "id": "a9f79954-f66b-4997-96a7-6589e9ecf96d",
+            "id": "0c6c2d52-1a07-40c3-8a61-e8459caf25c9",
             "name": "FR05-WS-002 | Leading and trailing whitespace is trimmed",
             "request": {
               "description": {
@@ -1730,7 +1731,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "743d1067-4b94-47f1-8162-e65154bf84d9",
+                  "id": "ff834932-0c52-4714-9986-8aee57059116",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-WS-002 | X-Student-Id present\", function () {",
@@ -1746,7 +1747,7 @@
             ]
           },
           {
-            "id": "12dea0e5-3fd1-4e6b-938f-0c945622f18a",
+            "id": "fdd3241b-328c-4201-a6cc-68cbc5c2abe6",
             "name": "FR05-WS-003 | Internal whitespace is normalized",
             "request": {
               "description": {
@@ -1776,7 +1777,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "4c4b27fa-c715-42b7-a898-506ecb44715c",
+                  "id": "a31849c7-9ce7-460d-a3e2-4c222d8599cd",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-WS-003 | X-Student-Id present\", function () {",
@@ -1792,7 +1793,7 @@
             ]
           },
           {
-            "id": "38e3c887-18af-45f1-8331-e8a6a1908577",
+            "id": "1fbefefe-9579-4234-af47-2e92941888fd",
             "name": "FR05-LEN-001 | 256-character search is bounded safely",
             "request": {
               "description": {
@@ -1822,7 +1823,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "3779d373-d339-41c8-93cd-0b16bcb15a61",
+                  "id": "bf7988ce-a5dc-4ac8-9940-1c781ea7d0c1",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-LEN-001 | X-Student-Id present\", function () {",
@@ -1843,7 +1844,7 @@
             ]
           },
           {
-            "id": "5b60ca01-c547-4bb2-9a78-700dd1c4f967",
+            "id": "b329c119-2391-49d1-8a7b-16959a733412",
             "name": "FR05-LEN-002 | 4096-character search is bounded safely",
             "request": {
               "description": {
@@ -1873,7 +1874,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "352a01f0-b472-4257-a164-1a07a0554175",
+                  "id": "273b394a-9fc7-4373-8bfd-c2058503891e",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-LEN-002 | X-Student-Id present\", function () {",
@@ -1894,7 +1895,7 @@
             ]
           },
           {
-            "id": "0d5528ba-6451-45a7-820c-4d901954f3a3",
+            "id": "31a12379-2b64-47f2-9d29-b411d188f938",
             "name": "FR05-SPC-001 | Backslash and double quote remain data",
             "request": {
               "description": {
@@ -1924,7 +1925,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "f6746d25-81ef-41b9-b3d2-bdac69859d32",
+                  "id": "360cd8dc-ca73-4c1f-a07d-5f5772c6136a",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SPC-001 | X-Student-Id present\", function () {",
@@ -1944,7 +1945,7 @@
             ]
           },
           {
-            "id": "59d8e8a2-9a9b-470c-8523-b278fcc77701",
+            "id": "44ff9efe-8919-4788-a8d3-b3230c355e43",
             "name": "FR05-SPC-002 | Percent is escaped as literal",
             "request": {
               "description": {
@@ -1974,7 +1975,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "5191d457-66e4-47f6-87df-44bfb713bbec",
+                  "id": "215ac4a6-0933-4ad0-a55b-143e3f11f2a2",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SPC-002 | X-Student-Id present\", function () {",
@@ -1994,7 +1995,7 @@
             ]
           },
           {
-            "id": "d4d9e2e7-87a1-4141-a6c6-c7833fdf4c55",
+            "id": "25440ab9-870a-4ca8-9304-15a589a7e9eb",
             "name": "FR05-SPC-003 | Underscore is escaped as literal",
             "request": {
               "description": {
@@ -2024,7 +2025,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "8214ab04-a56e-4eb3-937d-ace16b33c520",
+                  "id": "89ea269f-8611-41d8-a80c-4e95eabe6503",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SPC-003 | X-Student-Id present\", function () {",
@@ -2044,7 +2045,7 @@
             ]
           },
           {
-            "id": "6d95ca04-0b35-4ec1-9f06-0ea4ef33717f",
+            "id": "d3946ae8-3994-4ebc-9b96-5593c5c39d5d",
             "name": "FR05-UNI-002 | NFD and NFC Vietnamese names are equivalent",
             "request": {
               "description": {
@@ -2074,7 +2075,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "8047fcee-2431-476a-a852-5e1357a9a771",
+                  "id": "02957cf8-9b3f-466b-bc84-cfef0693cf76",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-UNI-002 | X-Student-Id present\", function () {",
@@ -2090,7 +2091,7 @@
             ]
           },
           {
-            "id": "2bd6e797-a75d-42ff-84c3-ce11ed5cc454",
+            "id": "820fd3ed-1950-4d0a-92c6-c7ef36410768",
             "name": "FR05-UNI-003 | Accent-insensitive Vietnamese search",
             "request": {
               "description": {
@@ -2120,7 +2121,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "28cf171a-405d-4041-8b2b-f70b97c4b4d9",
+                  "id": "7737fbdb-91fd-43ff-8947-5e21943d8be6",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-UNI-003 | X-Student-Id present\", function () {",
@@ -2136,7 +2137,7 @@
             ]
           },
           {
-            "id": "7a9d7192-e116-41de-a2a1-2a6a8bf8beaa",
+            "id": "a7afcbf6-6157-42ce-af70-06f0553a048c",
             "name": "FR05-SEC-005 | API boundary does not reflect executable HTML",
             "request": {
               "description": {
@@ -2166,7 +2167,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "48cdd08d-288e-43dc-811d-f21be305c8ed",
+                  "id": "3b02a535-02a8-49a2-ab81-9c1653bf54ed",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-SEC-005 | X-Student-Id present\", function () {",
@@ -2190,11 +2191,11 @@
         "event": []
       },
       {
-        "id": "1b479453-0c0d-4740-9164-9c753d51accd",
+        "id": "5afdf276-d0c7-4cd5-a4d0-d4c7d5ff2c16",
         "name": "Empty controlled baseline",
         "item": [
           {
-            "id": "f900ce22-3655-4210-92b7-e2b5f01f7ebe",
+            "id": "6d5e836a-db10-4aaa-9a01-316eb978982e",
             "name": "FR05-LST-002 | Bỏ search, baseline rỗng",
             "request": {
               "description": {
@@ -2219,7 +2220,7 @@
               {
                 "listen": "test",
                 "script": {
-                  "id": "5f1772ec-9908-445d-a3d9-12153ce4f0dc",
+                  "id": "f7bbf6ba-a675-45ea-967e-9dac6b5c8d4f",
                   "type": "text/javascript",
                   "exec": [
                     "pm.test(\"FR05-LST-002 | X-Student-Id present\", function () {",
@@ -2233,7 +2234,7 @@
                     "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
                     "pm.test(\"FR05-LST-002 | semantic empty product set\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
                   ],
-                  "_lastExecutionId": "53bc9119-752a-4544-b933-d9be27bc9482"
+                  "_lastExecutionId": "8d315eac-b07c-4c05-af10-59a81aafa3e7"
                 }
               }
             ]
@@ -2246,14 +2247,14 @@
       {
         "listen": "prerequest",
         "script": {
-          "id": "802c2c2b-9736-4510-b85c-ca4f491ee26c",
+          "id": "5f66aa6b-0112-4f86-b666-7c777a4e84a9",
           "type": "text/javascript",
           "exec": [
             "const studentId = pm.environment.get(\"studentId\");",
             "pm.request.headers.upsert({ key: \"X-Student-Id\", value: studentId });",
             "console.log(\"[FR05 HEADER] \" + pm.info.requestName + \" X-Student-Id=\" + studentId);"
           ],
-          "_lastExecutionId": "e9a9d745-85e6-4190-900b-10da66819af0"
+          "_lastExecutionId": "28da4efc-5530-4eb8-84dd-ed04c9d29d70"
         }
       }
     ],
@@ -2271,7 +2272,7 @@
   "environment": {
     "_": {
       "postman_variable_scope": "environment",
-      "postman_exported_at": "2026-08-21T15:30:04.118Z",
+      "postman_exported_at": "2026-08-22T16:07:16.242Z",
       "postman_exported_using": "Codex Phase-D generator"
     },
     "id": "23127464-fr05-local",
@@ -2290,7 +2291,7 @@
     ]
   },
   "globals": {
-    "id": "d1cfc526-21ae-46f9-b45d-b96df452428c",
+    "id": "cd88b6fb-8543-4fd3-9eff-a9cf14d251a1",
     "values": []
   },
   "run": {
@@ -2342,9 +2343,9 @@
       }
     },
     "timings": {
-      "responseAverage": 25,
-      "responseMin": 25,
-      "responseMax": 25,
+      "responseAverage": 23,
+      "responseMin": 23,
+      "responseMax": 23,
       "responseSd": 0,
       "dnsAverage": 0,
       "dnsMin": 0,
@@ -2354,8 +2355,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1787326211684,
-      "completed": 1787326211776
+      "started": 1787414940370,
+      "completed": 1787414940452
     },
     "executions": [
       {
@@ -2368,11 +2369,11 @@
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "0bf846d8-6107-417b-9e58-3db0ffad9242",
-          "httpRequestId": "f45741a8-f77b-4d35-ab1f-f451a5b8a236"
+          "ref": "e1c8577b-5d25-4f8c-af03-67f86a934803",
+          "httpRequestId": "5301816f-3147-4a73-a5e8-78f0ab101679"
         },
         "item": {
-          "id": "f900ce22-3655-4210-92b7-e2b5f01f7ebe",
+          "id": "6d5e836a-db10-4aaa-9a01-316eb978982e",
           "name": "FR05-LST-002 | Bỏ search, baseline rỗng",
           "request": {
             "description": {
@@ -2397,7 +2398,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "5f1772ec-9908-445d-a3d9-12153ce4f0dc",
+                "id": "f7bbf6ba-a675-45ea-967e-9dac6b5c8d4f",
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"FR05-LST-002 | X-Student-Id present\", function () {",
@@ -2411,7 +2412,7 @@
                   "const productNames = Array.isArray(products) ? products.map(function (p) { return p && p.name; }) : [];",
                   "pm.test(\"FR05-LST-002 | semantic empty product set\", function () { pm.expect(products).to.be.an(\"array\").and.have.lengthOf(0); });"
                 ],
-                "_lastExecutionId": "53bc9119-752a-4544-b933-d9be27bc9482"
+                "_lastExecutionId": "8d315eac-b07c-4c05-af10-59a81aafa3e7"
               }
             }
           ]
@@ -2459,7 +2460,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "c0dc8bcd-a34d-4db1-9ea2-7474c25270af",
+              "value": "c0c3f80f-b198-42a0-bd80-340c48177078",
               "system": true
             },
             {
@@ -2481,7 +2482,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "caee065e-3a88-45a0-9417-d7f166432791",
+          "id": "554f5ec8-02f0-4afd-9c0e-0cf7480c5d72",
           "status": "OK",
           "code": 200,
           "header": [
@@ -2507,7 +2508,7 @@
             },
             {
               "key": "Date",
-              "value": "Fri, 21 Aug 2026 15:30:11 GMT"
+              "value": "Sat, 22 Aug 2026 16:09:00 GMT"
             },
             {
               "key": "Connection",
@@ -2526,10 +2527,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 25,
+          "responseTime": 23,
           "responseSize": 2
         },
-        "id": "f900ce22-3655-4210-92b7-e2b5f01f7ebe",
+        "id": "6d5e836a-db10-4aaa-9a01-316eb978982e",
         "assertions": [
           {
             "assertion": "FR05-LST-002 | X-Student-Id present",

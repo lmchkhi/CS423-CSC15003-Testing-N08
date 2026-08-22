@@ -1,6 +1,6 @@
 # FR-05 — Phân tích thực thi Phase D
 
-> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là final rerun `tests/api-testing/evidence/fr-05/20260821-223004/`; các thư mục run cũ được nhắc bên dưới đã được dọn sau khi final rerun hoàn tất.
+> Đây là phân tích lịch sử của Phase D. Raw evidence hiện hành là schema rerun `tests/api-testing/evidence/fr-05/20260822-230735/`: 45 ca, 35 đạt, 10 không đạt, 120 assertions (109 đạt, 11 không đạt).
 
 ## Phạm vi và gate
 
@@ -51,8 +51,8 @@ Run `20260821-213008` từng được giữ làm dấu vết trong Phase D. Gene
 - Collection: `tests/api-testing/collections/23127464_FR05_Product_Search.postman_collection.json`
 - Environment: `tests/api-testing/environments/fr-05-local.postman_environment.json`
 - Data: `tests/api-testing/data/fr-05-run-data.json`
-- Final evidence hiện hành: `tests/api-testing/evidence/fr-05/20260821-223004/`
-- Execution metadata: `tests/api-testing/evidence/fr-05/20260821-223004/execution-metadata.json`
+- Final evidence hiện hành: `tests/api-testing/evidence/fr-05/20260822-230735/`
+- Execution metadata: `tests/api-testing/evidence/fr-05/20260822-230735/execution-metadata.json`
 - Evidence lỗi ca kiểm thử cũ `20260821-213008` đã được final rerun thay thế và dọn khỏi repository.
 
 ## Trạng thái

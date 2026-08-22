@@ -213,7 +213,7 @@ jobs:
           name: ${{ matrix.fr }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ env.CI_EVIDENCE_DIR }}/
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 90
 
       - name: Dừng SUT
         if: always()

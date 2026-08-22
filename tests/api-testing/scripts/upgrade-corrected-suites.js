@@ -54,6 +54,28 @@ function assertUniqueCount(collection, expected, label) {
   }
 }
 
+function findItemById(collection, id) {
+  let found = null;
+  function walk(items) {
+    for (const item of items || []) {
+      if (String(item.name || "").startsWith(`${id} |`)) found = item;
+      if (!found) walk(item.item);
+    }
+  }
+  walk(collection.item);
+  if (!found) throw new Error(`Cannot find collection item ${id}`);
+  return found;
+}
+
+function appendTests(collection, id, lines) {
+  const item = findItemById(collection, id);
+  const event = (item.event || []).find((candidate) => candidate.listen === "test");
+  if (!event || !event.script || !Array.isArray(event.script.exec)) {
+    throw new Error(`Cannot find test script for ${id}`);
+  }
+  event.script.exec.push(...lines);
+}
+
 function upgradeFr05() {
   const target = readCollection("23127464_FR05_Product_Search.postman_collection.json");
   const main = target.json.item.find((folder) => folder.name === "Main controlled baseline").item;
@@ -76,7 +98,8 @@ function upgradeFr05() {
   const cases = [];
   cases.push(requestItem({ id: "FR05-LST-003", title: "Corrected API product field schema", route: "/api/products", tests: [
     ...listShape("FR05-LST-003"),
-    `pm.test("FR05-LST-003 | fields support image name and price", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys("id", "name", "price", "description", "imageUrl", "category_id"); pm.expect(p.name).to.be.a("string").and.not.empty; pm.expect(Number(p.price)).to.be.above(0); pm.expect(p.imageUrl).to.be.a("string").and.not.empty; }); });`,
+    `pm.test("FR05-LST-003 | exact human-approved product schema", function () { products.forEach(function (p) { pm.expect(p).to.have.all.keys("id", "name", "price", "description", "imageUrl", "category_id"); pm.expect(p.id).to.be.a("number"); pm.expect(p.name).to.be.a("string").and.not.empty; pm.expect(p.price).to.be.a("number").and.above(0); pm.expect(p.description).to.be.a("string"); pm.expect(p.imageUrl).to.be.a("string"); pm.expect(p.category_id).to.be.a("number"); }); });`,
+    `pm.test("FR05-LST-003 | JSON media type", function () { pm.expect((pm.response.headers.get("Content-Type") || "").toLowerCase()).to.include("application/json"); });`,
   ] }));
   for (const [id, title, query, expected] of [
     ["FR05-EXI-003", "Prefix search", "iPhone", "iPhone 15 Pro Max"],
@@ -133,7 +156,7 @@ function upgradeFr11() {
   const list = target.json.item.find((folder) => folder.name.includes("my-orders")).item;
   const detail = target.json.item.find((folder) => folder.name.includes(":id")).item;
   const parse = [`let json = null; try { json = pm.response.json(); } catch (error) {}`];
-  const listSchema = (id) => [...parse, `pm.test("${id} | exact implementation-backed list schema", function () { pm.expect(json).to.be.an("array"); json.forEach(function (o) { pm.expect(o).to.have.all.keys("id", "user_id", "total_amount", "status", "shipping_address", "created_at"); }); });`];
+  const listSchema = (id) => [...parse, `pm.test("${id} | exact human-approved list schema", function () { pm.expect(json).to.be.an("array"); json.forEach(function (o) { pm.expect(o).to.have.all.keys("id", "user_id", "total_amount", "status", "shipping_address", "created_at"); pm.expect(o.id).to.be.a("number"); pm.expect(o.user_id).to.be.a("number"); pm.expect(o.total_amount).to.be.a("number"); pm.expect(o.status).to.be.a("string"); pm.expect(o.shipping_address).to.be.a("string"); pm.expect(o.created_at).to.be.a("string"); }); });`];
   const noMarkers = (id, markers) => [...parse, `pm.test("${id} | protected markers absent", function () { const text = JSON.stringify(json); ${markers.map((m) => `pm.expect(text).not.to.include(pm.environment.get("${m}"));`).join(" ")} });`];
   const authA = "Bearer {{tokenA}}";
   const authB = "Bearer {{tokenB}}";
@@ -157,7 +180,7 @@ function upgradeFr11() {
   list.push(requestItem({ id: "FR11-MYO-035", title: "List media type and exact schema", route: "/api/orders/my-orders", auth: authA, tests: [...listSchema("FR11-MYO-035"), `pm.test("FR11-MYO-035 | JSON media type", function () { pm.expect((pm.response.headers.get("Content-Type")||"").toLowerCase()).to.include("application/json"); });`] }));
   list.push(requestItem({ id: "FR11-MYO-H03", title: "Repeated history read is consistent", route: "/api/orders/my-orders", auth: authA, tests: [...parse, `pm.sendRequest({url:pm.environment.get("baseUrl")+"/api/orders/my-orders",method:"GET",header:[{key:"Authorization",value:"Bearer "+pm.environment.get("tokenA")},{key:"X-Student-Id",value:pm.environment.get("studentId")}]},function(e,r){pm.test("FR11-MYO-H03 | repeatable read",function(){pm.expect(e).to.eql(null);pm.expect(r.json()).to.eql(json);});});`] }));
 
-  const detailSchema = (id) => [...parse, `pm.test("${id} | exact implementation-backed detail schema", function () { pm.expect(json).to.be.an("object"); pm.expect(json).to.have.all.keys("id", "user_id", "total_amount", "status", "shipping_address", "created_at"); });`];
+  const detailSchema = (id) => [...parse, `pm.test("${id} | exact human-approved detail schema", function () { pm.expect(json).to.be.an("object"); pm.expect(json).to.have.all.keys("id", "user_id", "total_amount", "status", "shipping_address", "created_at"); pm.expect(json.id).to.be.a("number"); pm.expect(json.user_id).to.be.a("number"); pm.expect(json.total_amount).to.be.a("number"); pm.expect(json.status).to.be.a("string"); pm.expect(json.shipping_address).to.be.a("string"); pm.expect(json.created_at).to.be.a("string"); });`];
   for (const [id, route, auth, marker] of [
     ["FR11-DET-001", "/api/orders/{{ownedA1Id}}", authA, "markerA1"],
     ["FR11-DET-002", "/api/orders/{{ownedA2Id}}", authA, "markerA2"],
@@ -221,6 +244,18 @@ function upgradeFr16() {
     `pm.test("FR16-H03 | two duplicate rows reported",function(){pm.expect(pm.response.json().inserted).to.eql(2);});`,
     `pm.sendRequest({url:pm.environment.get("baseUrl")+"/api/products",method:"GET",header:[{key:"X-Student-Id",value:pm.environment.get("studentId")}]},function(e,r){pm.test("FR16-H03 | two duplicate rows persisted",function(){pm.expect(e).to.eql(null);const name=pm.environment.get("runId")+"-FR16-H03-DUPLICATE";pm.expect(r.json().filter(function(p){return p.name===name;})).to.have.lengthOf(2);});});`,
   ]);
+  const successSchema = (id) => [
+    `pm.test("${id} | exact human-approved success schema",function(){const j=pm.response.json();pm.expect(j).to.be.an("object");pm.expect(j).to.have.all.keys("message","inserted","errors");pm.expect(j.message).to.be.a("string");pm.expect(j.inserted).to.be.a("number").and.at.least(0);pm.expect(j.errors).to.be.an("array");});`,
+    `pm.test("${id} | JSON media type",function(){pm.expect((pm.response.headers.get("Content-Type")||"").toLowerCase()).to.include("application/json");});`,
+  ];
+  const errorSchema = (id) => [
+    `pm.test("${id} | exact human-approved error schema",function(){const j=pm.response.json();pm.expect(j).to.be.an("object");pm.expect(j).to.have.all.keys("error");pm.expect(j.error).to.be.a("string").and.not.empty;});`,
+    `pm.test("${id} | JSON media type",function(){pm.expect((pm.response.headers.get("Content-Type")||"").toLowerCase()).to.include("application/json");});`,
+  ];
+  appendTests(target.json, "FR16-VLD-001", successSchema("FR16-VLD-001"));
+  appendTests(target.json, "FR16-VLD-004", successSchema("FR16-VLD-004"));
+  appendTests(target.json, "FR16-AUTH-003", errorSchema("FR16-AUTH-003"));
+  appendTests(target.json, "FR16-INPUT-001", errorSchema("FR16-INPUT-001"));
   target.json.info.description = "Corrected full suite: all 40 AI-generated and 5 human-origin FR-16 cases are executable. Product validation inherits FR-15 domain constraints where FR-16 imports the same product entity.";
   assertUniqueCount(target.json, 45, "FR-16");
   writeCollection(target);

@@ -14,7 +14,7 @@ FR-16
 
 ## Severity / Priority
 
-Medium / P1
+Minor / P1
 
 ## Environment
 
@@ -66,10 +66,18 @@ curl -i \
 
 ## Evidence
 
-- Final run: `tests/api-testing/evidence/fr-16/20260821-223035/`
-- Newman console: `tests/api-testing/evidence/fr-16/20260821-223035/newman-console.txt`
-- Newman JSON: `tests/api-testing/evidence/fr-16/20260821-223035/newman-report.json`
-- Newman HTML: `tests/api-testing/evidence/fr-16/20260821-223035/newman-report.html`
+### Runtime screenshot
+
+Ảnh dưới đây tổng hợp trực tiếp payload có `price: 0`, dòng console Newman thực tế và assertion persistence thất bại của `FR16-PRICE-002`. JWT admin đã được che.
+
+![Issue #265 - FR16-PRICE-002 runtime evidence](runtime_screenshot/issue-265-fr16-price-002-runtime-evidence.png)
+
+[Mở ảnh PNG kích thước đầy đủ](runtime_screenshot/issue-265-fr16-price-002-runtime-evidence.png)
+
+- Final run: `tests/api-testing/evidence/fr-16/20260822-230924/`
+- Newman console: `tests/api-testing/evidence/fr-16/20260822-230924/newman-console.txt`
+- Newman JSON: `tests/api-testing/evidence/fr-16/20260822-230924/newman-report.json`
+- Newman HTML: `tests/api-testing/evidence/fr-16/20260822-230924/newman-report.html`
 - Execution analysis: `reports/api-testing/fr-16-phase-d-execution-analysis.md`
 
 Các assertion liên quan:

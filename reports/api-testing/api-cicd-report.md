@@ -199,7 +199,7 @@ Mã SHA-256 của ảnh:
 - `all-pass`: `179B1714996440473BF524F72B89D5084F0D43B2E747C4274EC794B03397F868`.
 - `controlled-failure`: `A6A12EF11A6FD8D7C176CAEAF7766FCCBE7B8D6C1432D4AA875F5FBD23E3DE03`.
 
-Ảnh tổng quan failure chứng minh chỉ job Pool C không đạt. Để chứng minh trực tiếp tên test case lỗi, vẫn cần lưu thêm ảnh chi tiết `FR16-AUTH-002` từ log hoặc Newman HTML vào `tests/api-testing/evidence/ci-cd/controlled-failure/fr16-auth-002-failure.png`.
+Ảnh tổng quan failure, URL run và commit SHA là evidence bắt buộc cho lần chạy minh họa: chúng chứng minh Pool A/B đạt và Pool C không đạt. Chi tiết `FR16-AUTH-002` có trong log của job FR-16 và Newman artifact của run; không tạo thêm ảnh mô phỏng hoặc ảnh do AI sinh.
 
 ## 6. Chạy thủ công
 
@@ -254,6 +254,6 @@ LẦN CHẠY GITHUB `controlled-failure`: HOÀN TẤT — RUN 32502722228
 
 ẢNH TỔNG QUAN VÀ URL HAI LẦN CHẠY: HOÀN TẤT
 
-ẢNH CHI TIẾT ASSERTION `FR16-AUTH-002`: CHƯA CUNG CẤP
+CHI TIẾT ASSERTION `FR16-AUTH-002`: CÓ TRONG JOB LOG VÀ NEWMAN ARTIFACT CỦA RUN 32502722228
 
 Báo cáo này không tạo giả lần chạy GitHub, URL, commit SHA hoặc ảnh chụp màn hình.

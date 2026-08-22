@@ -55,8 +55,8 @@ Mọi request đều mang header `X-Student-Id: 23127464`.
 - **170/170** ca kiểm thử đã được thực thi (100%).
 - **124** ca đạt, **46** ca không đạt.
 - **5 bug reports** đã tạo (1 FR-05 + 1 FR-11 + 3 FR-16).
-- Test cases CSV: `tests/api-testing/test-cases/23127464_test_cases.csv`
-- Test summary CSV: `tests/api-testing/test-cases/23127464_test_summary.csv`
+- Test cases CSV: `reports/23127464_test_cases.csv`
+- Test summary CSV: `reports/23127464_test_summary.csv`
 
 ---
 
@@ -69,7 +69,7 @@ Mọi request đều mang header `X-Student-Id: 23127464`.
 | **Generate (Phase B)** | 40 ca AI-generated bao phủ: listing, existing/no-match keyword, empty/duplicate query, whitespace, encoding, Unicode, ký tự đặc biệt, SQL injection, XSS |
 | **Audit (Phase C)** | 16 VALID · 2 INVALID · 22 INCOMPLETE |
 | **Extend** | 5 ca human-origin: method mismatch, concurrent, comment-based SQL bypass, Content-Type header, null byte |
-| **Execute (Phase D)** | 45/45 ca thực thi · 35 đạt · 10 không đạt · 119 assertions (108 đạt / 11 không đạt) |
+| **Execute (Phase D)** | 45/45 ca thực thi · 35 đạt · 10 không đạt · 120 assertions (109 đạt / 11 không đạt) |
 | **Bugs** | 1 — SQL injection qua `search` với 4 biểu hiện: tautology, UNION, information exposure, null byte |
 
 Bug report: [`bug-report/fr-05-sql-injection-search.md`](bug-report/fr-05-sql-injection-search.md)
@@ -93,14 +93,14 @@ Bug report: [`bug-report/fr-11-idor-missing-auth.md`](bug-report/fr-11-idor-miss
 | **Generate (Phase B)** | 40 ca AI-generated: valid import, auth, name/price validation, category dependency, atomicity, SQL injection, XSS, CSV conflict |
 | **Audit (Phase C)** | 29 VALID · 2 INVALID · 9 INCOMPLETE |
 | **Extend** | 5 ca human-origin: method mismatch, large batch, duplicate, extra field, non-admin persistence |
-| **Execute (Phase D)** | 45/45 ca thực thi · 29 đạt · 16 không đạt · 105 assertions (89 đạt / 16 không đạt) |
+| **Execute (Phase D)** | 45/45 ca thực thi · 29 đạt · 16 không đạt · 113 assertions (97 đạt / 16 không đạt) |
 | **Contract decision** | JSON array là primary; CSV upload là exploratory/negative |
 | **Bugs** | 3 — missing role check, missing price validation, missing atomicity/rollback |
 
 Bug reports:
 - [`bug-report/fr-16-missing-admin-role-check.md`](bug-report/fr-16-missing-admin-role-check.md) — Critical / Security
-- [`bug-report/fr-16-missing-price-validation.md`](bug-report/fr-16-missing-price-validation.md) — Medium / Functional
-- [`bug-report/fr-16-missing-atomicity-rollback.md`](bug-report/fr-16-missing-atomicity-rollback.md) — High / Functional
+- [`bug-report/fr-16-missing-price-validation.md`](bug-report/fr-16-missing-price-validation.md) — Minor / P1 / Functional
+- [`bug-report/fr-16-missing-atomicity-rollback.md`](bug-report/fr-16-missing-atomicity-rollback.md) — Major / P0 / Functional
 
 ---
 
@@ -110,10 +110,10 @@ Sau Phase C, mọi ca từng gắn nhãn `INVALID` hoặc `INCOMPLETE` đã đư
 
 | Pool | FR | Ca thực thi | Đạt | Không đạt | Assertions đạt / không đạt | Evidence cuối |
 |:---:|---|---:|---:|---:|---:|---|
-| A | FR-05 | 45 | 35 | 10 | 108 / 11 | `tests/api-testing/evidence/fr-05/20260821-223004/` |
-| B | FR-11 | 80 | 60 | 20 | 167 / 22 | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/` |
-| C | FR-16 | 45 | 29 | 16 | 89 / 16 | `tests/api-testing/evidence/fr-16/20260821-223035/` |
-| | **Tổng** | **170** | **124** | **46** | **364 / 49** | |
+| A | FR-05 | 45 | 35 | 10 | 109 / 11 | `tests/api-testing/evidence/fr-05/20260822-230735/` |
+| B | FR-11 | 80 | 60 | 20 | 167 / 22 | `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/` |
+| C | FR-16 | 45 | 29 | 16 | 97 / 16 | `tests/api-testing/evidence/fr-16/20260822-230924/` |
+| | **Tổng** | **170** | **124** | **46** | **373 / 49** | |
 
 Chi tiết hiệu chỉnh: [`reports/api-testing/human-correction-rerun.md`](reports/api-testing/human-correction-rerun.md)
 
@@ -121,13 +121,13 @@ Chi tiết hiệu chỉnh: [`reports/api-testing/human-correction-rerun.md`](rep
 
 ## 5. Bug Reports
 
-| # | FR | Severity | Mô tả | File | Issue Screenshot |
-|---:|---|---|---|---|---|
-| 1 | FR-05 | Critical / Security | SQL injection qua `search` parameter | [`fr-05-sql-injection-search.md`](bug-report/fr-05-sql-injection-search.md) | [`screenshot`](bug-report/issue_screenshot/[BUG][FR-05]%20SQL%20injection%20qua%20query%20parameter%20search.png) |
-| 2 | FR-11 | Critical / Security | IDOR + thiếu authentication trên order detail | [`fr-11-idor-missing-auth.md`](bug-report/fr-11-idor-missing-auth.md) | [`screenshot`](bug-report/issue_screenshot/[BUG][FR-11]%20thiếu%20authentication%20và%20ownership%20check.png) |
-| 3 | FR-16 | Critical / Security | Thiếu kiểm tra role admin khi import | [`fr-16-missing-admin-role-check.md`](bug-report/fr-16-missing-admin-role-check.md) | [`screenshot`](bug-report/issue_screenshot/[BUG][FR-16]%20thiếu%20kiểm%20tra%20role%20admin.png) |
-| 4 | FR-16 | Medium / Functional | Không validate price > 0 | [`fr-16-missing-price-validation.md`](bug-report/fr-16-missing-price-validation.md) | [`screenshot`](bug-report/issue_screenshot/[BUG][FR-16]%20không%20validate%20price%20lớn%20hơn%200.png) |
-| 5 | FR-16 | High / Functional | Không rollback batch khi có dòng lỗi | [`fr-16-missing-atomicity-rollback.md`](bug-report/fr-16-missing-atomicity-rollback.md) | [`screenshot`](bug-report/issue_screenshot/[BUG][FR-16]%20không%20rollback%20batch%20khi%20có%20dòng%20lỗi.png) |
+| # | FR | Severity | Mô tả / GitHub Issue | File | Issue Screenshot | Runtime Evidence |
+|---:|---|---|---|---|---|---|
+| 1 | FR-05 | Critical / P0 / Security | SQL injection qua `search` parameter ([Issue #263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263)) | [`fr-05-sql-injection-search.md`](bug-report/fr-05-sql-injection-search.md) | [`issue`](bug-report/issue_screenshot/[BUG][FR-05]%20SQL%20injection%20qua%20query%20parameter%20search.png) | [`FR05-SEC-002`](bug-report/runtime_screenshot/issue-263-fr05-sec-002-runtime-evidence.png) |
+| 2 | FR-11 | Critical / P0 / Security | IDOR + thiếu authentication trên order detail ([Issue #262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262)) | [`fr-11-idor-missing-auth.md`](bug-report/fr-11-idor-missing-auth.md) | [`issue`](bug-report/issue_screenshot/[BUG][FR-11]%20thiếu%20authentication%20và%20ownership%20check.png) | [`FR11-DET-009`](bug-report/runtime_screenshot/issue-262-fr11-det-009-runtime-evidence.png) |
+| 3 | FR-16 | Critical / P0 / Security | Thiếu kiểm tra role admin khi import ([Issue #264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264)) | [`fr-16-missing-admin-role-check.md`](bug-report/fr-16-missing-admin-role-check.md) | [`issue`](bug-report/issue_screenshot/[BUG][FR-16]%20thiếu%20kiểm%20tra%20role%20admin.png) | [`FR16-AUTH-002`](bug-report/runtime_screenshot/issue-264-fr16-auth-002-runtime-evidence.png) |
+| 4 | FR-16 | Minor / P1 / Functional | Không validate price > 0 ([Issue #265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265)) | [`fr-16-missing-price-validation.md`](bug-report/fr-16-missing-price-validation.md) | [`issue`](bug-report/issue_screenshot/[BUG][FR-16]%20không%20validate%20price%20lớn%20hơn%200.png) | [`FR16-PRICE-002`](bug-report/runtime_screenshot/issue-265-fr16-price-002-runtime-evidence.png) |
+| 5 | FR-16 | Major / P0 / Functional | Không rollback batch khi có dòng lỗi ([Issue #266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266)) | [`fr-16-missing-atomicity-rollback.md`](bug-report/fr-16-missing-atomicity-rollback.md) | [`issue`](bug-report/issue_screenshot/[BUG][FR-16]%20không%20rollback%20batch%20khi%20có%20dòng%20lỗi.png) | [`FR16-ATOM-001`](bug-report/runtime_screenshot/issue-266-fr16-atom-001-runtime-evidence.png) |
 
 ---
 
@@ -137,9 +137,9 @@ Chi tiết hiệu chỉnh: [`reports/api-testing/human-correction-rerun.md`](rep
 - **Collection variables & Environment variables** — quản lý `baseUrl`, token, fixture IDs.
 - **Postman environment file** — tách cấu hình môi trường.
 - **Collection-level pre-request script** — tự động gắn `X-Student-Id: 23127464` vào mọi request.
-- **Test scripts & Assertions** — semantic assertions không dựa vào exact schema.
+- **Test scripts & Assertions** — semantic assertions và exact response-shape assertions theo contract đã được con người phê duyệt.
 - **`pm.sendRequest`** — kiểm tra post-condition, persistence/rollback bằng marker duy nhất.
-- **Data-driven execution** — Collection Runner / Newman với iteration data file.
+- **Iteration data configuration** — mỗi suite dùng một data row có kiểm soát để truyền nhãn chạy, Student ID và quyết định contract; các biến thể input nằm trong từng request item.
 - **Newman CLI** — chạy tự động với JSON và `htmlextra` reporters.
 - **GitHub Actions integration** — Newman HTML report upload làm artifact.
 
@@ -180,8 +180,11 @@ Thuật toán sinh test case tự động gồm: phân tích contract, sinh test
 
 | Deliverable | Path |
 |---|---|
+| Main Report (Markdown) | [`reports/main-report.md`](reports/main-report.md) |
+| Main Report (PDF) | [`reports/main-report.pdf`](reports/main-report.pdf) |
 | AI Audit Report | [`reports/ai-audit-report.md`](reports/ai-audit-report.md) |
 | AI Critique (200–300 từ) | [`reports/ai-critique.md`](reports/ai-critique.md) |
+| AI Critique (PDF) | [`reports/ai-critique.pdf`](reports/ai-critique.pdf) |
 | CI/CD Report | [`reports/api-testing/api-cicd-report.md`](reports/api-testing/api-cicd-report.md) |
 | Human Correction & Rerun | [`reports/api-testing/human-correction-rerun.md`](reports/api-testing/human-correction-rerun.md) |
 | Git commit log | [`git-log.txt`](git-log.txt) |
@@ -202,8 +205,8 @@ Thuật toán sinh test case tự động gồm: phân tích contract, sinh test
 
 | File | Path |
 |---|---|
-| Test Cases CSV | [`tests/api-testing/test-cases/23127464_test_cases.csv`](tests/api-testing/test-cases/23127464_test_cases.csv) |
-| Test Summary CSV | [`tests/api-testing/test-cases/23127464_test_summary.csv`](tests/api-testing/test-cases/23127464_test_summary.csv) |
+| Test Cases CSV | [`reports/23127464_test_cases.csv`](reports/23127464_test_cases.csv) |
+| Test Summary CSV | [`reports/23127464_test_summary.csv`](reports/23127464_test_summary.csv) |
 | Test Cases Excel | [`reports/23127464_test_cases.xlsx`](reports/23127464_test_cases.xlsx) |
 | Test Summary Excel | [`reports/23127464_test_summary.xlsx`](reports/23127464_test_summary.xlsx) |
 

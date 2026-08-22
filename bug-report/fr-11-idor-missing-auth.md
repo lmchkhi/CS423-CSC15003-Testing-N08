@@ -66,10 +66,18 @@ curl -i \
 
 ## Evidence
 
-- Final run: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
-- Newman console: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-console.txt`
-- Newman JSON: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.json`
-- Newman HTML: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.html`
+### Runtime screenshot
+
+Ảnh dưới đây được render từ canonical Newman JSON của lần chạy cuối. JWT đã được che; response thực tế vẫn thể hiện order của user khác được trả về với HTTP `200` và hai assertion bảo vệ ownership bị fail.
+
+![Issue #262 - FR11-DET-009 runtime evidence](runtime_screenshot/issue-262-fr11-det-009-runtime-evidence.png)
+
+[Mở ảnh PNG kích thước đầy đủ](runtime_screenshot/issue-262-fr11-det-009-runtime-evidence.png)
+
+- Final run: `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/`
+- Newman console: `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/newman-console.txt`
+- Newman JSON: `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/newman-report.json`
+- Newman HTML: `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/newman-report.html`
 - Kết quả chạy: 189 assertions, 22 failed assertions, Newman exit code `1`.
 
 Các assertion thất bại:

@@ -52,7 +52,9 @@
                   "    const serialized = JSON.stringify(products);",
                   "    pm.expect(serialized).to.include(pm.environment.get(\"runId\") + \"-FR16-VLD-001\");",
                   "  });",
-                  "});"
+                  "});",
+                  "pm.test(\"FR16-VLD-001 | exact human-approved success schema\",function(){const j=pm.response.json();pm.expect(j).to.be.an(\"object\");pm.expect(j).to.have.all.keys(\"message\",\"inserted\",\"errors\");pm.expect(j.message).to.be.a(\"string\");pm.expect(j.inserted).to.be.a(\"number\").and.at.least(0);pm.expect(j.errors).to.be.an(\"array\");});",
+                  "pm.test(\"FR16-VLD-001 | JSON media type\",function(){pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\");});"
                 ]
               }
             }
@@ -398,7 +400,9 @@
                   "    const serialized = JSON.stringify(products);",
                   "    pm.expect(serialized).not.to.include(pm.environment.get(\"runId\") + \"-FR16-AUTH-003\");",
                   "  });",
-                  "});"
+                  "});",
+                  "pm.test(\"FR16-AUTH-003 | exact human-approved error schema\",function(){const j=pm.response.json();pm.expect(j).to.be.an(\"object\");pm.expect(j).to.have.all.keys(\"error\");pm.expect(j.error).to.be.a(\"string\").and.not.empty;});",
+                  "pm.test(\"FR16-AUTH-003 | JSON media type\",function(){pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\");});"
                 ]
               }
             }
@@ -1544,7 +1548,9 @@
                   "pm.test(\"FR16-INPUT-001 | X-Student-Id present\", function () {",
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
-                  "pm.test(\"FR16-INPUT-001 | request rejected semantically\", function () { pm.expect(pm.response.code).to.be.at.least(400); });"
+                  "pm.test(\"FR16-INPUT-001 | request rejected semantically\", function () { pm.expect(pm.response.code).to.be.at.least(400); });",
+                  "pm.test(\"FR16-INPUT-001 | exact human-approved error schema\",function(){const j=pm.response.json();pm.expect(j).to.be.an(\"object\");pm.expect(j).to.have.all.keys(\"error\");pm.expect(j.error).to.be.a(\"string\").and.not.empty;});",
+                  "pm.test(\"FR16-INPUT-001 | JSON media type\",function(){pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\");});"
                 ]
               }
             }
@@ -2214,7 +2220,9 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "pm.sendRequest({url:pm.environment.get(\"baseUrl\")+\"/api/products\",method:\"GET\",header:[{key:\"X-Student-Id\",value:pm.environment.get(\"studentId\")}]},function(e,r){",
-                  "pm.test(\"FR16-VLD-004 | persisted state\",function(){pm.expect(e).to.eql(null);const text=JSON.stringify(r.json());pm.expect(text).to.include(pm.environment.get(\"runId\")+\"-FR16-VLD-004\");pm.expect(text).to.include(\"Full fidelity\");pm.expect(text).to.include(\"https://example.test/full.png\");});});"
+                  "pm.test(\"FR16-VLD-004 | persisted state\",function(){pm.expect(e).to.eql(null);const text=JSON.stringify(r.json());pm.expect(text).to.include(pm.environment.get(\"runId\")+\"-FR16-VLD-004\");pm.expect(text).to.include(\"Full fidelity\");pm.expect(text).to.include(\"https://example.test/full.png\");});});",
+                  "pm.test(\"FR16-VLD-004 | exact human-approved success schema\",function(){const j=pm.response.json();pm.expect(j).to.be.an(\"object\");pm.expect(j).to.have.all.keys(\"message\",\"inserted\",\"errors\");pm.expect(j.message).to.be.a(\"string\");pm.expect(j.inserted).to.be.a(\"number\").and.at.least(0);pm.expect(j.errors).to.be.an(\"array\");});",
+                  "pm.test(\"FR16-VLD-004 | JSON media type\",function(){pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\");});"
                 ]
               }
             }

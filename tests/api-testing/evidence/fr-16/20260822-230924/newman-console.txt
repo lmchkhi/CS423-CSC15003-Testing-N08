@@ -8,9 +8,11 @@ newman
   │ '[FR16 HEADER] FR16-VLD-001 | Một product JSON hợp lệ 
   │ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 52ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 81ms]
   √  FR16-VLD-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 1.58kB, 5ms]
+  √  FR16-VLD-001 | exact human-approved success schema
+  √  FR16-VLD-001 | JSON media type
+  GET http://127.0.0.1:3000/api/products [200 OK, 1.58kB, 4ms]
   √  FR16-VLD-001 | persisted marker state
 
 └ FR16-VLD-002 | Batch ba product hợp lệ
@@ -18,9 +20,9 @@ newman
   │ '[FR16 HEADER] FR16-VLD-002 | Batch ba product hợp lệ 
   │ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 34ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 183ms]
   √  FR16-VLD-002 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.1kB, 3ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.1kB, 2ms]
   √  FR16-VLD-002 | persisted marker state
 
 └ FR16-VLD-003 | Description JSON chứa dấu phẩy
@@ -28,9 +30,9 @@ newman
   │ '[FR16 HEADER] FR16-VLD-003 | Description JSON chứa dấ
   │ u phẩy X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 30ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 56ms]
   √  FR16-VLD-003 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.29kB, 7ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.29kB, 3ms]
   √  FR16-VLD-003 | persisted marker state
 
 └ FR16-AUTH-001 | Admin JWT hợp lệ
@@ -38,9 +40,9 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-001 | Admin JWT hợp lệ X-Stud
   │ ent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 31ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 119ms]
   √  FR16-AUTH-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.65kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.65kB, 3ms]
   √  FR16-AUTH-001 | persisted marker state
 
 └ FR16-AUTH-002 | User thường có JWT hợp lệ
@@ -48,10 +50,10 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-002 | User thường có JWT hợp 
   │ lệ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 15ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 92ms]
   √  FR16-AUTH-002 | X-Student-Id present
   √  FR16-AUTH-002 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 7ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 8ms]
   1. FR16-AUTH-002 | persisted marker state
 
 └ FR16-AUTH-003 | Thiếu Authorization
@@ -59,10 +61,12 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-003 | Thiếu Authorization X-S
   │ tudent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [401 Unauthorized, 301B, 3ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [401 Unauthorized, 301B, 5ms]
   √  FR16-AUTH-003 | X-Student-Id present
   √  FR16-AUTH-003 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 3ms]
+  √  FR16-AUTH-003 | exact human-approved error schema
+  √  FR16-AUTH-003 | JSON media type
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 5ms]
   √  FR16-AUTH-003 | persisted marker state
 
 └ FR16-AUTH-004 | Authorization rỗng
@@ -70,10 +74,10 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-004 | Authorization rỗng X-St
   │ udent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 2ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 4ms]
   √  FR16-AUTH-004 | X-Student-Id present
   √  FR16-AUTH-004 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 5ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 3ms]
   √  FR16-AUTH-004 | persisted marker state
 
 └ FR16-AUTH-005 | Bearer không có token
@@ -81,7 +85,7 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-005 | Bearer không có token X
   │ -Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [401 Unauthorized, 301B, 4ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [401 Unauthorized, 301B, 3ms]
   √  FR16-AUTH-005 | X-Student-Id present
   √  FR16-AUTH-005 | rejection response has no import marker
   GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 4ms]
@@ -92,10 +96,10 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-006 | Token ngẫu nhiên X-Stud
   │ ent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 10ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 6ms]
   √  FR16-AUTH-006 | X-Student-Id present
   √  FR16-AUTH-006 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 12ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 2ms]
   √  FR16-AUTH-006 | persisted marker state
 
 └ FR16-AUTH-007 | JWT hết hạn
@@ -103,10 +107,10 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-007 | JWT hết hạn X-Student-I
   │ d=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 11ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 3ms]
   √  FR16-AUTH-007 | X-Student-Id present
   √  FR16-AUTH-007 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 3ms]
   √  FR16-AUTH-007 | persisted marker state
 
 └ FR16-AUTH-008 | JWT sửa signature
@@ -114,10 +118,10 @@ newman
   │ '[FR16 HEADER] FR16-AUTH-008 | JWT sửa signature X-Stu
   │ dent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 5ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [403 Forbidden, 295B, 4ms]
   √  FR16-AUTH-008 | X-Student-Id present
   √  FR16-AUTH-008 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 3ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 4ms]
   √  FR16-AUTH-008 | persisted marker state
 
 └ FR16-NAME-001 | Name chuỗi rỗng
@@ -125,9 +129,9 @@ newman
   │ '[FR16 HEADER] FR16-NAME-001 | Name chuỗi rỗng X-Stude
   │ nt-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 13ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 7ms]
   √  FR16-NAME-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 4ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 9ms]
   √  FR16-NAME-001 | persisted marker state
 
 └ FR16-NAME-002 | Thiếu key name
@@ -135,7 +139,7 @@ newman
   │ '[FR16 HEADER] FR16-NAME-002 | Thiếu key name X-Studen
   │ t-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 5ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 3ms]
   √  FR16-NAME-002 | X-Student-Id present
   GET http://127.0.0.1:3000/api/products [200 OK, 2.82kB, 3ms]
   √  FR16-NAME-002 | persisted marker state
@@ -145,9 +149,9 @@ newman
   │ '[FR16 HEADER] FR16-PRICE-001 | Price bằng 1 X-Student
   │ -Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 27ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 59ms]
   √  FR16-PRICE-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 2.99kB, 8ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 2.99kB, 2ms]
   √  FR16-PRICE-001 | persisted marker state
 
 └ FR16-PRICE-002 | Price bằng 0
@@ -155,7 +159,7 @@ newman
   │ '[FR16 HEADER] FR16-PRICE-002 | Price bằng 0 X-Student
   │ -Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 22ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 75ms]
   √  FR16-PRICE-002 | X-Student-Id present
   GET http://127.0.0.1:3000/api/products [200 OK, 3.16kB, 5ms]
   2. FR16-PRICE-002 | persisted marker state
@@ -165,9 +169,9 @@ newman
   │ '[FR16 HEADER] FR16-PRICE-003 | Price âm X-Student-Id=
   │ 23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 30ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 62ms]
   √  FR16-PRICE-003 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 3.33kB, 5ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 3.33kB, 3ms]
   3. FR16-PRICE-003 | persisted marker state
 
 └ FR16-PRICE-006 | Price thập phân dương
@@ -175,9 +179,9 @@ newman
   │ '[FR16 HEADER] FR16-PRICE-006 | Price thập phân dương 
   │ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 51ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 77ms]
   √  FR16-PRICE-006 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 3.5kB, 8ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 3.5kB, 3ms]
   √  FR16-PRICE-006 | persisted marker state
 
 └ FR16-CAT-001 | Category ID tồn tại
@@ -185,9 +189,9 @@ newman
   │ '[FR16 HEADER] FR16-CAT-001 | Category ID tồn tại X-St
   │ udent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 20ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 72ms]
   √  FR16-CAT-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 3.67kB, 3ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 3.67kB, 5ms]
   √  FR16-CAT-001 | persisted marker state
 
 └ FR16-ATOM-001 | Mixed batch phải rollback toàn bộ
@@ -195,9 +199,9 @@ newman
   │ '[FR16 HEADER] FR16-ATOM-001 | Mixed batch phải rollba
   │ ck toàn bộ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 42ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 173ms]
   √  FR16-ATOM-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 4.02kB, 5ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 4.02kB, 1ms]
   4. FR16-ATOM-001 | persisted marker state
 
 └ FR16-ATOM-002 | Mixed batch phải rollback toàn bộ
@@ -205,9 +209,9 @@ newman
   │ '[FR16 HEADER] FR16-ATOM-002 | Mixed batch phải rollba
   │ ck toàn bộ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 40ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 192ms]
   √  FR16-ATOM-002 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 4.55kB, 4ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 4.55kB, 5ms]
   5. FR16-ATOM-002 | persisted marker state
 
 └ FR16-ATOM-003 | Mixed batch phải rollback toàn bộ
@@ -215,9 +219,9 @@ newman
   │ '[FR16 HEADER] FR16-ATOM-003 | Mixed batch phải rollba
   │ ck toàn bộ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 25ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 133ms]
   √  FR16-ATOM-003 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 4.9kB, 7ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 4.9kB, 3ms]
   6. FR16-ATOM-003 | persisted marker state
 
 └ FR16-ATOM-004 | Mixed batch phải rollback toàn bộ
@@ -225,9 +229,9 @@ newman
   │ '[FR16 HEADER] FR16-ATOM-004 | Mixed batch phải rollba
   │ ck toàn bộ X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 47ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 168ms]
   √  FR16-ATOM-004 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.42kB, 4ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.42kB, 3ms]
   7. FR16-ATOM-004 | persisted marker state
 
 └ FR16-INPUT-001 | Body rỗng
@@ -235,19 +239,21 @@ newman
   │ '[FR16 HEADER] FR16-INPUT-001 | Body rỗng X-Student-Id
   │ =23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 7ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 4ms]
   √  FR16-INPUT-001 | X-Student-Id present
   √  FR16-INPUT-001 | request rejected semantically
+  √  FR16-INPUT-001 | exact human-approved error schema
+  √  FR16-INPUT-001 | JSON media type
 
 └ FR16-INPUT-002 | Thiếu products dùng items
   ┌
   │ '[FR16 HEADER] FR16-INPUT-002 | Thiếu products dùng it
   │ ems X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 8ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 2ms]
   √  FR16-INPUT-002 | X-Student-Id present
   √  FR16-INPUT-002 | request rejected semantically
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.42kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.42kB, 3ms]
   √  FR16-INPUT-002 | persisted marker state
 
 └ FR16-INPUT-003 | Products array rỗng
@@ -255,7 +261,7 @@ newman
   │ '[FR16 HEADER] FR16-INPUT-003 | Products array rỗng X-
   │ Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 7ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 4ms]
   √  FR16-INPUT-003 | X-Student-Id present
   √  FR16-INPUT-003 | request rejected semantically
 
@@ -264,10 +270,10 @@ newman
   │ '[FR16 HEADER] FR16-INPUT-004 | Products không phải ar
   │ ray X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 6ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [400 Bad Request, 323B, 2ms]
   √  FR16-INPUT-004 | X-Student-Id present
   √  FR16-INPUT-004 | request rejected semantically
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.42kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.42kB, 5ms]
   √  FR16-INPUT-004 | persisted marker state
 
 └ FR16-SEC-001 | SQL injection payload trong name
@@ -275,9 +281,9 @@ newman
   │ '[FR16 HEADER] FR16-SEC-001 | SQL injection payload tr
   │ ong name X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 10ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 65ms]
   √  FR16-SEC-001 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 5ms]
   √  FR16-SEC-001 | persisted marker state
 
 └ FR16-CSV-001 | Multipart CSV exploratory negative
@@ -285,12 +291,12 @@ newman
   │ '[FR16 HEADER] FR16-CSV-001 | Multipart CSV explorator
   │ y negative X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products (node:7384) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
+  POST http://127.0.0.1:3000/api/admin/import-products (node:29628) [DEP0044] DeprecationWarning: The `util.isArray` API is deprecated. Please use `Array.isArray()` instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-[500 Internal Server Error, 1.8kB, 34ms]
+[500 Internal Server Error, 1.8kB, 6ms]
   √  FR16-CSV-001 | X-Student-Id present
   √  FR16-CSV-001 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 9ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 5ms]
   √  FR16-CSV-001 | persisted marker state
 
 └ FR16-CSV-002 | Raw text/csv exploratory negative
@@ -298,10 +304,10 @@ newman
   │ '[FR16 HEADER] FR16-CSV-002 | Raw text/csv exploratory
   │  negative X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [500 Internal Server Error, 1.8kB, 8ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [500 Internal Server Error, 1.8kB, 4ms]
   √  FR16-CSV-002 | X-Student-Id present
   √  FR16-CSV-002 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 4ms]
   √  FR16-CSV-002 | persisted marker state
 
 □ 3 CON-NGUOI-BO-SUNG
@@ -310,11 +316,11 @@ newman
   │ '[FR16 HEADER] FR16-H01 | GET method mismatch X-Studen
   │ t-Id=23127464'
   └
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 6ms]
-  GET http://127.0.0.1:3000/api/admin/import-products [404 Not Found, 468B, 12ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 5ms]
+  GET http://127.0.0.1:3000/api/admin/import-products [404 Not Found, 468B, 5ms]
   √  FR16-H01 | X-Student-Id present
   √  FR16-H01 | unsupported method rejected
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 6ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.62kB, 4ms]
   √  FR16-H01 | persisted marker state
 
 └ FR16-H04 | Extra field ignored
@@ -322,9 +328,9 @@ newman
   │ '[FR16 HEADER] FR16-H04 | Extra field ignored X-Studen
   │ t-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 28ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 76ms]
   √  FR16-H04 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 5.78kB, 11ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 5.78kB, 2ms]
   √  FR16-H04 | persisted marker state
 
 └ FR16-H05 | Non-admin DB persistence check
@@ -332,10 +338,10 @@ newman
   │ '[FR16 HEADER] FR16-H05 | Non-admin DB persistence che
   │ ck X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 68ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 161ms]
   √  FR16-H05 | X-Student-Id present
   √  FR16-H05 | rejection response has no import marker
-  GET http://127.0.0.1:3000/api/products [200 OK, 6.28kB, 4ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 6.28kB, 2ms]
   8. FR16-H05 | persisted marker state
 
 □ 13 corrected former exclusions
@@ -344,9 +350,11 @@ newman
   │ '[FR16 HEADER] FR16-VLD-004 | Full-field fidelity X-St
   │ udent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 24ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 76ms]
   √  FR16-VLD-004 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 6.44kB, 7ms]
+  √  FR16-VLD-004 | exact human-approved success schema
+  √  FR16-VLD-004 | JSON media type
+  GET http://127.0.0.1:3000/api/products [200 OK, 6.44kB, 2ms]
   √  FR16-VLD-004 | persisted state
 
 └ FR16-NAME-003 | Null name rejected
@@ -354,9 +362,9 @@ newman
   │ '[FR16 HEADER] FR16-NAME-003 | Null name rejected X-St
   │ udent-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 5ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 394B, 2ms]
   √  FR16-NAME-003 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 6.44kB, 5ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 6.44kB, 3ms]
   √  FR16-NAME-003 | persisted state
 
 └ FR16-NAME-004 | Whitespace-only name rejected
@@ -364,7 +372,7 @@ newman
   │ '[FR16 HEADER] FR16-NAME-004 | Whitespace-only name re
   │ jected X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 34ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 65ms]
   √  FR16-NAME-004 | X-Student-Id present
   GET http://127.0.0.1:3000/api/products [200 OK, 6.59kB, 5ms]
   9. FR16-NAME-004 | persisted state
@@ -374,9 +382,9 @@ newman
   │ '[FR16 HEADER] FR16-NAME-005 | Name over 255 character
   │ s rejected X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 22ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 85ms]
   √  FR16-NAME-005 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 7.01kB, 9ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 7.01kB, 4ms]
  10. FR16-NAME-005 | persisted state
 
 └ FR16-PRICE-004 | Non-number price rejected
@@ -384,9 +392,9 @@ newman
   │ '[FR16 HEADER] FR16-PRICE-004 | Non-number price rejec
   │ ted X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 38ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 59ms]
   √  FR16-PRICE-004 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 7.19kB, 8ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 7.19kB, 6ms]
  11. FR16-PRICE-004 | persisted state
 
 └ FR16-PRICE-005 | Missing price rejected
@@ -394,9 +402,9 @@ newman
   │ '[FR16 HEADER] FR16-PRICE-005 | Missing price rejected
   │  X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 35ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 66ms]
   √  FR16-PRICE-005 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 7.37kB, 12ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 7.37kB, 5ms]
  12. FR16-PRICE-005 | persisted state
 
 └ FR16-CAT-002 | Nonexistent category rejected
@@ -404,9 +412,9 @@ newman
   │ '[FR16 HEADER] FR16-CAT-002 | Nonexistent category rej
   │ ected X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 23ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 68ms]
   √  FR16-CAT-002 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 7.55kB, 10ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 7.55kB, 3ms]
  13. FR16-CAT-002 | persisted state
 
 └ FR16-CAT-003 | Missing category rejected
@@ -414,9 +422,9 @@ newman
   │ '[FR16 HEADER] FR16-CAT-003 | Missing category rejecte
   │ d X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 22ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 59ms]
   √  FR16-CAT-003 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 7.73kB, 3ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 7.73kB, 4ms]
  14. FR16-CAT-003 | persisted state
 
 └ FR16-CAT-004 | Wrong-type category rejected
@@ -424,9 +432,9 @@ newman
   │ '[FR16 HEADER] FR16-CAT-004 | Wrong-type category reje
   │ cted X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 41ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 50ms]
   √  FR16-CAT-004 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 7.91kB, 10ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 7.91kB, 4ms]
  15. FR16-CAT-004 | persisted state
 
 └ FR16-SEC-002 | Script value stored as inert text
@@ -434,9 +442,9 @@ newman
   │ '[FR16 HEADER] FR16-SEC-002 | Script value stored as i
   │ nert text X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 35ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 83ms]
   √  FR16-SEC-002 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 8.09kB, 8ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 8.09kB, 5ms]
   √  FR16-SEC-002 | persisted state
 
 └ FR16-SEC-003 | JWT missing identity rejected
@@ -444,9 +452,9 @@ newman
   │ '[FR16 HEADER] FR16-SEC-003 | JWT missing identity rej
   │ ected X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 24ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 71ms]
   √  FR16-SEC-003 | X-Student-Id present
-  GET http://127.0.0.1:3000/api/products [200 OK, 8.27kB, 8ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 8.27kB, 2ms]
  16. FR16-SEC-003 | persisted state
 
 └ FR16-H02 | Large batch is complete or atomically rejected
@@ -454,10 +462,10 @@ newman
   │ '[FR16 HEADER] FR16-H02 | Large batch is complete or a
   │ tomically rejected X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [413 Payload Too Large, 1.78kB, 21ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [413 Payload Too Large, 1.78kB, 4ms]
   √  FR16-H02 | X-Student-Id present
   √  FR16-H02 | documented safe outcome
-  GET http://127.0.0.1:3000/api/products [200 OK, 8.27kB, 5ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 8.27kB, 4ms]
   √  FR16-H02 | no partial large-batch commit
 
 └ FR16-H03 | Duplicate rows handled independently
@@ -465,110 +473,110 @@ newman
   │ '[FR16 HEADER] FR16-H03 | Duplicate rows handled indep
   │ endently X-Student-Id=23127464'
   └
-  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 45ms]
+  POST http://127.0.0.1:3000/api/admin/import-products [200 OK, 357B, 135ms]
   √  FR16-H03 | X-Student-Id present
   √  FR16-H03 | two duplicate rows reported
-  GET http://127.0.0.1:3000/api/products [200 OK, 8.63kB, 8ms]
+  GET http://127.0.0.1:3000/api/products [200 OK, 8.63kB, 3ms]
   √  FR16-H03 | two duplicate rows persisted
 
-┌─────────────────────────┬──────────────────┬──────────────────┐
-│                         │         executed │           failed │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│              iterations │                1 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│                requests │               89 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│            test-scripts │               45 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│      prerequest-scripts │               46 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│              assertions │              105 │               16 │
-├─────────────────────────┴──────────────────┴──────────────────┤
-│ total run duration: 6.3s                                      │
-├───────────────────────────────────────────────────────────────┤
-│ total data received: 214kB (approx)                           │
-├───────────────────────────────────────────────────────────────┤
-│ average response time: 15ms [min: 2ms, max: 68ms, s.d.: 14ms] │
-└───────────────────────────────────────────────────────────────┘
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                89 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                45 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                46 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │               113 │               16 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 7.1s                                       │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 214kB (approx)                            │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 32ms [min: 1ms, max: 192ms, s.d.: 48ms] │
+└────────────────────────────────────────────────────────────────┘
 
 [31m   # [39m[31m failure        [39m[31m detail                                                                                                    [39m
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  01.  AssertionError  FR16-AUTH-002 | persisted marker state                                                                    
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-AUTH-002'   
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-AUTH-002'   
                       at assertion:2 in test-script                                                                             
                       inside "29 AI VALID / FR16-AUTH-002 | User thường có JWT hợp lệ"                                          
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  02.  AssertionError  FR16-PRICE-002 | persisted marker state                                                                   
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-PRICE-002'  
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-PRICE-002'  
                       at assertion:1 in test-script                                                                             
                       inside "29 AI VALID / FR16-PRICE-002 | Price bằng 0"                                                      
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  03.  AssertionError  FR16-PRICE-003 | persisted marker state                                                                   
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-PRICE-003'  
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-PRICE-003'  
                       at assertion:1 in test-script                                                                             
                       inside "29 AI VALID / FR16-PRICE-003 | Price âm"                                                          
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  04.  AssertionError  FR16-ATOM-001 | persisted marker state                                                                    
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-ATOM-001-A' 
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-ATOM-001-A' 
                       at assertion:1 in test-script                                                                             
                       inside "29 AI VALID / FR16-ATOM-001 | Mixed batch phải rollback toàn bộ"                                  
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  05.  AssertionError  FR16-ATOM-002 | persisted marker state                                                                    
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-ATOM-002-X' 
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-ATOM-002-X' 
                       at assertion:1 in test-script                                                                             
                       inside "29 AI VALID / FR16-ATOM-002 | Mixed batch phải rollback toàn bộ"                                  
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  06.  AssertionError  FR16-ATOM-003 | persisted marker state                                                                    
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-ATOM-003-A' 
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-ATOM-003-A' 
                       at assertion:1 in test-script                                                                             
                       inside "29 AI VALID / FR16-ATOM-003 | Mixed batch phải rollback toàn bộ"                                  
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  07.  AssertionError  FR16-ATOM-004 | persisted marker state                                                                    
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-ATOM-004-A' 
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-ATOM-004-A' 
                       at assertion:1 in test-script                                                                             
                       inside "29 AI VALID / FR16-ATOM-004 | Mixed batch phải rollback toàn bộ"                                  
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  08.  AssertionError  FR16-H05 | persisted marker state                                                                         
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-H05-A'      
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-H05-A'      
                       at assertion:2 in test-script                                                                             
                       inside "3 CON-NGUOI-BO-SUNG / FR16-H05 | Non-admin DB persistence check"                                  
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  09.  AssertionError  FR16-NAME-004 | persisted state                                                                           
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-NAME-004'   
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-NAME-004'   
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-NAME-004 | Whitespace-only name rejected"                   
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  10.  AssertionError  FR16-NAME-005 | persisted state                                                                           
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-NNNNNNNNNNNNNN…' 
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-NNNNNNNNNNNNNN…' 
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-NAME-005 | Name over 255 characters rejected"               
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  11.  AssertionError  FR16-PRICE-004 | persisted state                                                                          
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-PRICE-004'  
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-PRICE-004'  
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-PRICE-004 | Non-number price rejected"                      
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  12.  AssertionError  FR16-PRICE-005 | persisted state                                                                          
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-PRICE-005'  
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-PRICE-005'  
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-PRICE-005 | Missing price rejected"                         
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  13.  AssertionError  FR16-CAT-002 | persisted state                                                                            
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-CAT-002'    
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-CAT-002'    
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-CAT-002 | Nonexistent category rejected"                    
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  14.  AssertionError  FR16-CAT-003 | persisted state                                                                            
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-CAT-003'    
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-CAT-003'    
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-CAT-003 | Missing category rejected"                        
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  15.  AssertionError  FR16-CAT-004 | persisted state                                                                            
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-CAT-004'    
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-CAT-004'    
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-CAT-004 | Wrong-type category rejected"                     
 [90m     [39m[90m                [39m[90m                                                                                                           [39m
  16.  AssertionError  FR16-SEC-003 | persisted state                                                                            
-                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787326235810-FR16-SEC-003'    
+                      expected '[{"id":1,"name":"iPhone 15 Pro Max","…' to not include 'FR16-RUN-1787414966184-FR16-SEC-003'    
                       at assertion:1 in test-script                                                                             
                       inside "13 corrected former exclusions / FR16-SEC-003 | JWT missing identity rejected"                    

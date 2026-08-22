@@ -110,11 +110,19 @@ Quan sát: server trả HTTP 500 và response làm lộ lỗi database liên qua
 
 ## Evidence
 
-- Final run: `tests/api-testing/evidence/fr-05/20260821-223004/`
-- Newman console: `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-console.txt`
-- Newman JSON: `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-report.json`
-- Newman HTML: `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-report.html`
-- Execution metadata: `tests/api-testing/evidence/fr-05/20260821-223004/execution-metadata.json`
+### Runtime screenshot
+
+Ảnh dưới đây được render từ canonical Newman JSON của lần chạy cuối, thể hiện payload UNION, HTTP `200`, marker `FR05-UNION-MARKER` trong response và assertion thất bại của `FR05-SEC-002`.
+
+![Issue #263 - FR05-SEC-002 runtime evidence](runtime_screenshot/issue-263-fr05-sec-002-runtime-evidence.png)
+
+[Mở ảnh PNG kích thước đầy đủ](runtime_screenshot/issue-263-fr05-sec-002-runtime-evidence.png)
+
+- Final run: `tests/api-testing/evidence/fr-05/20260822-230735/`
+- Newman console: `tests/api-testing/evidence/fr-05/20260822-230735/newman-main-console.txt`
+- Newman JSON: `tests/api-testing/evidence/fr-05/20260822-230735/newman-main-report.json`
+- Newman HTML: `tests/api-testing/evidence/fr-05/20260822-230735/newman-main-report.html`
+- Execution metadata: `tests/api-testing/evidence/fr-05/20260822-230735/execution-metadata.json`
 - Phase D analysis: `reports/api-testing/fr-05-phase-d-execution-analysis.md`
 - Kết quả final: 45 test case, 119 assertion, 11 assertion thất bại trong 10 test case; các ca SQL injection vẫn tái hiện lỗi.
 

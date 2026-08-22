@@ -8,7 +8,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-004 | Nhiều owner trong CSDL X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 36ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 29ms]
   √  FR11-MYO-004 | X-Student-Id present
   √  FR11-MYO-004 | response is inspectable as order list
   √  FR11-MYO-004 | no foreign-owned order disclosed
@@ -18,10 +18,10 @@ newman
   │ '[FR11 HEADER] FR11-MYO-005 | Đổi identity A→B X-Stude
   │ nt-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 5ms]
   √  FR11-MYO-005 | X-Student-Id present
   √  FR11-MYO-005 | first identity isolated
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 5ms]
   √  FR11-MYO-005 | second identity isolated
 
 └ FR11-MYO-006 | Đổi identity B→A
@@ -29,10 +29,10 @@ newman
   │ '[FR11 HEADER] FR11-MYO-006 | Đổi identity B→A X-Stude
   │ nt-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 10ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 4ms]
   √  FR11-MYO-006 | X-Student-Id present
   √  FR11-MYO-006 | first identity isolated
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 7ms]
   √  FR11-MYO-006 | second identity isolated
 
 └ FR11-MYO-007 | Hai identity đồng thời
@@ -40,10 +40,10 @@ newman
   │ '[FR11 HEADER] FR11-MYO-007 | Hai identity đồng thời X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 4ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 11ms]
   √  FR11-MYO-007 | X-Student-Id present
   √  FR11-MYO-007 | User A isolated
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 4ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 5ms]
   √  FR11-MYO-007 | User B isolated
 
 └ FR11-MYO-008 | Đối chiếu tập owned ID
@@ -51,7 +51,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-008 | Đối chiếu tập owned ID X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 7ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 668B, 6ms]
   √  FR11-MYO-008 | X-Student-Id present
   √  FR11-MYO-008 | response is inspectable as order list
   √  FR11-MYO-008 | no foreign-owned order disclosed
@@ -61,7 +61,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-014 | Query user_id cố ghi đè 
   │ X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders?user_id=4 [200 OK, 668B, 5ms]
+  GET http://localhost:3000/api/orders/my-orders?user_id=4 [200 OK, 668B, 6ms]
   √  FR11-MYO-014 | X-Student-Id present
   √  FR11-MYO-014 | response is inspectable as order list
   √  FR11-MYO-014 | no foreign-owned order disclosed
@@ -71,7 +71,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-015 | Query user_id lặp X-Stud
   │ ent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders?user_id=2&user_id=4 [200 OK, 668B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders?user_id=2&user_id=4 [200 OK, 668B, 5ms]
   √  FR11-MYO-015 | X-Student-Id present
   √  FR11-MYO-015 | response is inspectable as order list
   √  FR11-MYO-015 | no foreign-owned order disclosed
@@ -81,7 +81,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-016 | Query id foreign X-Stude
   │ nt-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders?id=4 [200 OK, 668B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders?id=4 [200 OK, 668B, 8ms]
   √  FR11-MYO-016 | X-Student-Id present
   √  FR11-MYO-016 | response is inspectable as order list
   √  FR11-MYO-016 | no foreign-owned order disclosed
@@ -91,7 +91,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-017 | SQL injection qua query 
   │ X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders?user_id=%27%20OR%201%3D1-- [200 OK, 668B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders?user_id=%27%20OR%201%3D1-- [200 OK, 668B, 3ms]
   √  FR11-MYO-017 | X-Student-Id present
   √  FR11-MYO-017 | response is inspectable as order list
   √  FR11-MYO-017 | no foreign-owned order disclosed
@@ -101,7 +101,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-018 | Thiếu Authorization X-St
   │ udent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 3ms]
   √  FR11-MYO-018 | X-Student-Id present
   √  FR11-MYO-018 | protected order data not disclosed
 
@@ -110,7 +110,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-019 | Authorization rỗng X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 7ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 5ms]
   √  FR11-MYO-019 | X-Student-Id present
   √  FR11-MYO-019 | protected order data not disclosed
 
@@ -119,7 +119,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-020 | Bearer thiếu token X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 5ms]
+  GET http://localhost:3000/api/orders/my-orders [401 Unauthorized, 301B, 3ms]
   √  FR11-MYO-020 | X-Student-Id present
   √  FR11-MYO-020 | protected order data not disclosed
 
@@ -137,7 +137,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-022 | JWT một segment X-Studen
   │ t-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 3ms]
   √  FR11-MYO-022 | X-Student-Id present
   √  FR11-MYO-022 | protected order data not disclosed
 
@@ -146,7 +146,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-023 | JWT hai segment X-Studen
   │ t-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 5ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 2ms]
   √  FR11-MYO-023 | X-Student-Id present
   √  FR11-MYO-023 | protected order data not disclosed
 
@@ -155,7 +155,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-024 | JWT Base64URL sai X-Stud
   │ ent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 2ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 5ms]
   √  FR11-MYO-024 | X-Student-Id present
   √  FR11-MYO-024 | protected order data not disclosed
 
@@ -173,7 +173,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-026 | Sửa signature X-Student-
   │ Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 9ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 5ms]
   √  FR11-MYO-026 | X-Student-Id present
   √  FR11-MYO-026 | protected order data not disclosed
 
@@ -182,7 +182,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-027 | JWT hết hạn X-Student-Id
   │ =23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 10ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 4ms]
   √  FR11-MYO-027 | X-Student-Id present
   √  FR11-MYO-027 | protected order data not disclosed
 
@@ -191,7 +191,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-028 | Basic scheme X-Student-I
   │ d=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [403 Forbidden, 295B, 2ms]
   √  FR11-MYO-028 | X-Student-Id present
   √  FR11-MYO-028 | protected order data not disclosed
 
@@ -200,7 +200,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-030 | Token owner khác sau cli
   │ ent state X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 10ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 3ms]
   √  FR11-MYO-030 | X-Student-Id present
   √  FR11-MYO-030 | response is inspectable as order list
   √  FR11-MYO-030 | no foreign-owned order disclosed
@@ -210,7 +210,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-H01 | POST method mismatch X-S
   │ tudent-Id=23127464'
   └
-  POST http://localhost:3000/api/orders/my-orders [404 Not Found, 464B, 10ms]
+  POST http://localhost:3000/api/orders/my-orders [404 Not Found, 464B, 7ms]
   √  FR11-MYO-H01 | X-Student-Id present
   √  FR11-MYO-H01 | protected order data not disclosed
   √  FR11-MYO-H01 | unsupported method rejected
@@ -220,8 +220,8 @@ newman
   │ '[FR11 HEADER] FR11-MYO-H02 | Checkout dependency then
   │  history X-Student-Id=23127464'
   └
-  POST http://localhost:3000/api/checkout [200 OK, 312B, 44ms]
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 8ms]
+  POST http://localhost:3000/api/checkout [200 OK, 312B, 404ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 4ms]
   √  FR11-MYO-H02 | X-Student-Id present
   √  FR11-MYO-H02 | newly created order appears pending
 
@@ -230,7 +230,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-H04 | HEAD semantics X-Student
   │ -Id=23127464'
   └
-  HEAD http://localhost:3000/api/orders/my-orders [200 OK, 269B, 9ms]
+  HEAD http://localhost:3000/api/orders/my-orders [200 OK, 269B, 7ms]
   √  FR11-MYO-H04 | X-Student-Id present
   √  FR11-MYO-H04 | HEAD has no message body
 
@@ -248,9 +248,9 @@ newman
   │ '[FR11 HEADER] FR11-MYO-001 | User with no orders X-St
   │ udent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 4ms]
   √  FR11-MYO-001 | X-Student-Id present
-  √  FR11-MYO-001 | exact implementation-backed list schema
+  √  FR11-MYO-001 | exact human-approved list schema
   √  FR11-MYO-001 | empty list
 
 └ FR11-MYO-002 | User with exactly one order
@@ -258,9 +258,9 @@ newman
   │ '[FR11 HEADER] FR11-MYO-002 | User with exactly one or
   │ der X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 404B, 2ms]
   √  FR11-MYO-002 | X-Student-Id present
-  √  FR11-MYO-002 | exact implementation-backed list schema
+  √  FR11-MYO-002 | exact human-approved list schema
   √  FR11-MYO-002 | one owned order
 
 └ FR11-MYO-003 | User with multiple orders
@@ -268,9 +268,9 @@ newman
   │ '[FR11 HEADER] FR11-MYO-003 | User with multiple order
   │ s X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 17ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 4ms]
   √  FR11-MYO-003 | X-Student-Id present
-  √  FR11-MYO-003 | exact implementation-backed list schema
+  √  FR11-MYO-003 | exact human-approved list schema
   √  FR11-MYO-003 | at least the three owned fixtures
 
 └ FR11-MYO-009 | Owned-order completeness
@@ -278,7 +278,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-009 | Owned-order completeness
   │  X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 12ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 4ms]
   √  FR11-MYO-009 | X-Student-Id present
   √  FR11-MYO-009 | controlled owned IDs are not omitted
 
@@ -287,7 +287,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-010 | Approved id mapping X-St
   │ udent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 3ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 5ms]
   √  FR11-MYO-010 | X-Student-Id present
   √  FR11-MYO-010 | id contract
 
@@ -296,7 +296,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-011 | Approved created_at mapp
   │ ing X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 5ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 2ms]
   √  FR11-MYO-011 | X-Student-Id present
   √  FR11-MYO-011 | created_at contract
 
@@ -305,7 +305,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-012 | Approved total_amount ma
   │ pping X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 5ms]
   √  FR11-MYO-012 | X-Student-Id present
   √  FR11-MYO-012 | total_amount contract
 
@@ -314,7 +314,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-013 | Approved status mapping 
   │ X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 5ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 6ms]
   √  FR11-MYO-013 | X-Student-Id present
   √  FR11-MYO-013 | status contract
 
@@ -323,7 +323,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-029 | JWT missing identity is 
   │ rejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 6ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 4ms]
   √  FR11-MYO-029 | X-Student-Id present
   √  FR11-MYO-029 | protected markers absent
   1. FR11-MYO-029 | invalid identity rejected
@@ -342,9 +342,9 @@ newman
   │ '[FR11 HEADER] FR11-MYO-032 | Orphan identity returns 
   │ no orders X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 267B, 4ms]
   √  FR11-MYO-032 | X-Student-Id present
-  √  FR11-MYO-032 | exact implementation-backed list schema
+  √  FR11-MYO-032 | exact human-approved list schema
   √  FR11-MYO-032 | no orphan orders
 
 └ FR11-MYO-033 | Duplicate Authorization headers rejected
@@ -352,7 +352,7 @@ newman
   │ '[FR11 HEADER] FR11-MYO-033 | Duplicate Authorization 
   │ headers rejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 7ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 4ms]
   √  FR11-MYO-033 | X-Student-Id present
   2. FR11-MYO-033 | ambiguous credentials rejected
 
@@ -361,18 +361,18 @@ newman
   │ '[FR11 HEADER] FR11-MYO-034 | Mandatory student header
   │  X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 7ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 6ms]
   √  FR11-MYO-034 | X-Student-Id present
-  √  FR11-MYO-034 | exact implementation-backed list schema
+  √  FR11-MYO-034 | exact human-approved list schema
 
 └ FR11-MYO-035 | List media type and exact schema
   ┌
   │ '[FR11 HEADER] FR11-MYO-035 | List media type and exac
   │ t schema X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 4ms]
   √  FR11-MYO-035 | X-Student-Id present
-  √  FR11-MYO-035 | exact implementation-backed list schema
+  √  FR11-MYO-035 | exact human-approved list schema
   √  FR11-MYO-035 | JSON media type
 
 └ FR11-MYO-H03 | Repeated history read is consistent
@@ -380,9 +380,9 @@ newman
   │ '[FR11 HEADER] FR11-MYO-H03 | Repeated history read is
   │  consistent X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 7ms]
   √  FR11-MYO-H03 | X-Student-Id present
-  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 8ms]
+  GET http://localhost:3000/api/orders/my-orders [200 OK, 804B, 3ms]
   √  FR11-MYO-H03 | repeatable read
 
 □ GET /api/orders/:id
@@ -391,10 +391,10 @@ newman
   │ '[FR11 HEADER] FR11-DET-008 | Phân biệt A1/A2 X-Studen
   │ t-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 8ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 3ms]
   √  FR11-DET-008 | X-Student-Id present
   √  FR11-DET-008 | A1 selected
-  GET http://localhost:3000/api/orders/2 [200 OK, 401B, 10ms]
+  GET http://localhost:3000/api/orders/2 [200 OK, 401B, 2ms]
   √  FR11-DET-008 | A2 selected
 
 └ FR11-DET-011 | Đổi token trên cùng ID
@@ -402,7 +402,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-011 | Đổi token trên cùng ID X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 15ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 4ms]
   √  FR11-DET-011 | X-Student-Id present
   √  FR11-DET-011 | owner can inspect selected order
   GET http://localhost:3000/api/orders/1 [200 OK, 399B, 4ms]
@@ -413,10 +413,10 @@ newman
   │ '[FR11 HEADER] FR11-DET-012 | Hai owner đồng thời X-St
   │ udent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
   √  FR11-DET-012 | X-Student-Id present
   √  FR11-DET-012 | A receives A1
-  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 6ms]
+  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 3ms]
   √  FR11-DET-012 | B receives B1
 
 └ FR11-DET-025 | SQL injection trong ID
@@ -424,7 +424,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-025 | SQL injection trong ID X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/%27%20OR%201%3D1-- [404 Not Found, 301B, 12ms]
+  GET http://localhost:3000/api/orders/%27%20OR%201%3D1-- [404 Not Found, 301B, 3ms]
   √  FR11-DET-025 | X-Student-Id present
   √  FR11-DET-025 | protected order data not disclosed
 
@@ -433,7 +433,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-026 | Thiếu auth với owned ID 
   │ X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
   √  FR11-DET-026 | X-Student-Id present
   4. FR11-DET-026 | protected order data not disclosed
 
@@ -442,7 +442,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-027 | Thiếu auth với foreign I
   │ D X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 10ms]
+  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 2ms]
   √  FR11-DET-027 | X-Student-Id present
   5. FR11-DET-027 | protected order data not disclosed
 
@@ -451,7 +451,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-028 | Authorization rỗng X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 7ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-028 | X-Student-Id present
   6. FR11-DET-028 | protected order data not disclosed
 
@@ -460,7 +460,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-029 | Bearer thiếu token X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 7ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-029 | X-Student-Id present
   7. FR11-DET-029 | protected order data not disclosed
 
@@ -469,7 +469,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-030 | Token ngẫu nhiên X-Stude
   │ nt-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
   √  FR11-DET-030 | X-Student-Id present
   8. FR11-DET-030 | protected order data not disclosed
 
@@ -478,7 +478,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-031 | Token sửa identity X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 3ms]
+  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 4ms]
   √  FR11-DET-031 | X-Student-Id present
   9. FR11-DET-031 | protected order data not disclosed
 
@@ -487,7 +487,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-032 | JWT hết hạn X-Student-Id
   │ =23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 9ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
   √  FR11-DET-032 | X-Student-Id present
  10. FR11-DET-032 | protected order data not disclosed
 
@@ -496,7 +496,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-033 | Basic scheme X-Student-I
   │ d=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
   √  FR11-DET-033 | X-Student-Id present
  11. FR11-DET-033 | protected order data not disclosed
 
@@ -505,10 +505,10 @@ newman
   │ '[FR11 HEADER] FR11-DET-H01 | DELETE method mismatch X
   │ -Student-Id=23127464'
   └
-  DELETE http://localhost:3000/api/orders/1 [404 Not Found, 458B, 5ms]
+  DELETE http://localhost:3000/api/orders/1 [404 Not Found, 458B, 2ms]
   √  FR11-DET-H01 | X-Student-Id present
   √  FR11-DET-H01 | DELETE rejected
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 3ms]
   √  FR11-DET-H01 | order remains
 
 └ FR11-DET-H02 | PUT method mismatch
@@ -516,10 +516,10 @@ newman
   │ '[FR11 HEADER] FR11-DET-H02 | PUT method mismatch X-St
   │ udent-Id=23127464'
   └
-  PUT http://localhost:3000/api/orders/1 [404 Not Found, 455B, 7ms]
+  PUT http://localhost:3000/api/orders/1 [404 Not Found, 455B, 2ms]
   √  FR11-DET-H02 | X-Student-Id present
   √  FR11-DET-H02 | PUT rejected
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 8ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-H02 | order status unchanged
 
 └ FR11-DET-H03 | Canceled order remains visible
@@ -527,8 +527,8 @@ newman
   │ '[FR11 HEADER] FR11-DET-H03 | Canceled order remains v
   │ isible X-Student-Id=23127464'
   └
-  PUT http://localhost:3000/api/orders/3/cancel [200 OK, 308B, 23ms]
-  GET http://localhost:3000/api/orders/3 [200 OK, 400B, 9ms]
+  PUT http://localhost:3000/api/orders/3/cancel [200 OK, 308B, 70ms]
+  GET http://localhost:3000/api/orders/3 [200 OK, 400B, 4ms]
   √  FR11-DET-H03 | X-Student-Id present
   √  FR11-DET-H03 | canceled order still visible
 
@@ -547,9 +547,9 @@ newman
   │ '[FR11 HEADER] FR11-DET-H05 | GET idempotency X-Studen
   │ t-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 4ms]
-  √  FR11-DET-H05 | X-Student-Id present
   GET http://localhost:3000/api/orders/1 [200 OK, 399B, 3ms]
+  √  FR11-DET-H05 | X-Student-Id present
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-H05 | repeated GET has equivalent order state
 
 └ FR11-DET-001 | Owned order detail
@@ -557,9 +557,9 @@ newman
   │ '[FR11 HEADER] FR11-DET-001 | Owned order detail X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 7ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 4ms]
   √  FR11-DET-001 | X-Student-Id present
-  √  FR11-DET-001 | exact implementation-backed detail schema
+  √  FR11-DET-001 | exact human-approved detail schema
   √  FR11-DET-001 | correct owned marker
 
 └ FR11-DET-002 | Owned order detail
@@ -567,9 +567,9 @@ newman
   │ '[FR11 HEADER] FR11-DET-002 | Owned order detail X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/2 [200 OK, 401B, 8ms]
+  GET http://localhost:3000/api/orders/2 [200 OK, 401B, 3ms]
   √  FR11-DET-002 | X-Student-Id present
-  √  FR11-DET-002 | exact implementation-backed detail schema
+  √  FR11-DET-002 | exact human-approved detail schema
   √  FR11-DET-002 | correct owned marker
 
 └ FR11-DET-003 | Owned order detail
@@ -577,9 +577,9 @@ newman
   │ '[FR11 HEADER] FR11-DET-003 | Owned order detail X-Stu
   │ dent-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 13ms]
+  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 2ms]
   √  FR11-DET-003 | X-Student-Id present
-  √  FR11-DET-003 | exact implementation-backed detail schema
+  √  FR11-DET-003 | exact human-approved detail schema
   √  FR11-DET-003 | correct owned marker
 
 └ FR11-DET-004 | Approved detail id mapping
@@ -587,7 +587,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-004 | Approved detail id mappi
   │ ng X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 7ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 3ms]
   √  FR11-DET-004 | X-Student-Id present
   √  FR11-DET-004 | id contract
 
@@ -596,7 +596,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-005 | Approved detail created_
   │ at mapping X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 10ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-005 | X-Student-Id present
   √  FR11-DET-005 | created_at contract
 
@@ -605,7 +605,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-006 | Approved detail total_am
   │ ount mapping X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-006 | X-Student-Id present
   √  FR11-DET-006 | total_amount contract
 
@@ -614,7 +614,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-007 | Approved detail status m
   │ apping X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 3ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 2ms]
   √  FR11-DET-007 | X-Student-Id present
   √  FR11-DET-007 | status contract
 
@@ -623,7 +623,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-009 | Foreign order rejected X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 5ms]
+  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 1ms]
   √  FR11-DET-009 | X-Student-Id present
  12. FR11-DET-009 | protected markers absent
  13. FR11-DET-009 | non-disclosing rejection
@@ -633,7 +633,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-010 | Foreign order rejected X
   │ -Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 5ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 4ms]
   √  FR11-DET-010 | X-Student-Id present
  14. FR11-DET-010 | protected markers absent
  15. FR11-DET-010 | non-disclosing rejection
@@ -652,7 +652,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-014 | Foreign and nonexistent 
   │ IDs use non-disclosing status X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 8ms]
+  GET http://localhost:3000/api/orders/4 [200 OK, 402B, 3ms]
   √  FR11-DET-014 | X-Student-Id present
  17. FR11-DET-014 | foreign resource is hidden
 
@@ -661,7 +661,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-015 | Nonexistent ID X-Student
   │ -Id=23127464'
   └
-  GET http://localhost:3000/api/orders/999999999 [404 Not Found, 301B, 8ms]
+  GET http://localhost:3000/api/orders/999999999 [404 Not Found, 301B, 4ms]
   √  FR11-DET-015 | X-Student-Id present
   √  FR11-DET-015 | not found
 
@@ -670,7 +670,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-016 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/0 [404 Not Found, 301B, 8ms]
+  GET http://localhost:3000/api/orders/0 [404 Not Found, 301B, 4ms]
   √  FR11-DET-016 | X-Student-Id present
   √  FR11-DET-016 | invalid ID rejected
 
@@ -679,7 +679,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-017 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/-1 [404 Not Found, 301B, 13ms]
+  GET http://localhost:3000/api/orders/-1 [404 Not Found, 301B, 2ms]
   √  FR11-DET-017 | X-Student-Id present
   √  FR11-DET-017 | invalid ID rejected
 
@@ -697,7 +697,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-019 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1.5 [404 Not Found, 301B, 3ms]
+  GET http://localhost:3000/api/orders/1.5 [404 Not Found, 301B, 4ms]
   √  FR11-DET-019 | X-Student-Id present
   √  FR11-DET-019 | invalid ID rejected
 
@@ -706,7 +706,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-020 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/01 [200 OK, 399B, 8ms]
+  GET http://localhost:3000/api/orders/01 [200 OK, 399B, 3ms]
   √  FR11-DET-020 | X-Student-Id present
  18. FR11-DET-020 | invalid ID rejected
 
@@ -715,7 +715,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-021 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/%2B1 [200 OK, 399B, 7ms]
+  GET http://localhost:3000/api/orders/%2B1 [200 OK, 399B, 2ms]
   √  FR11-DET-021 | X-Student-Id present
  19. FR11-DET-021 | invalid ID rejected
 
@@ -724,7 +724,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-022 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/%201%20 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/%201%20 [200 OK, 399B, 3ms]
   √  FR11-DET-022 | X-Student-Id present
  20. FR11-DET-022 | invalid ID rejected
 
@@ -733,7 +733,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-023 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/999999999999999999999999999 [404 Not Found, 301B, 8ms]
+  GET http://localhost:3000/api/orders/999999999999999999999999999 [404 Not Found, 301B, 5ms]
   √  FR11-DET-023 | X-Student-Id present
   √  FR11-DET-023 | invalid ID rejected
 
@@ -742,7 +742,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-024 | Non-canonical order ID r
   │ ejected X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1e0 [200 OK, 399B, 9ms]
+  GET http://localhost:3000/api/orders/1e0 [200 OK, 399B, 4ms]
   √  FR11-DET-024 | X-Student-Id present
  21. FR11-DET-024 | invalid ID rejected
 
@@ -751,7 +751,7 @@ newman
   │ '[FR11 HEADER] FR11-DET-034 | Admin cannot bypass owne
   │ rship X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 12ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 3ms]
   √  FR11-DET-034 | X-Student-Id present
  22. FR11-DET-034 | protected markers absent
 
@@ -760,30 +760,30 @@ newman
   │ '[FR11 HEADER] FR11-DET-035 | Detail media type and ex
   │ act schema X-Student-Id=23127464'
   └
-  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 6ms]
+  GET http://localhost:3000/api/orders/1 [200 OK, 399B, 4ms]
   √  FR11-DET-035 | X-Student-Id present
-  √  FR11-DET-035 | exact implementation-backed detail schema
+  √  FR11-DET-035 | exact human-approved detail schema
   √  FR11-DET-035 | JSON media type
 
-┌─────────────────────────┬─────────────────┬─────────────────┐
-│                         │        executed │          failed │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│              iterations │               1 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│                requests │              92 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│            test-scripts │              80 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│      prerequest-scripts │              82 │               0 │
-├─────────────────────────┼─────────────────┼─────────────────┤
-│              assertions │             189 │              22 │
-├─────────────────────────┴─────────────────┴─────────────────┤
-│ total run duration: 8.7s                                    │
-├─────────────────────────────────────────────────────────────┤
-│ total data received: 16.98kB (approx)                       │
-├─────────────────────────────────────────────────────────────┤
-│ average response time: 7ms [min: 2ms, max: 44ms, s.d.: 5ms] │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────┬──────────────────┬──────────────────┐
+│                         │         executed │           failed │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              iterations │                1 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│                requests │               92 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│            test-scripts │               80 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│      prerequest-scripts │               82 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              assertions │              189 │               22 │
+├─────────────────────────┴──────────────────┴──────────────────┤
+│ total run duration: 7.7s                                      │
+├───────────────────────────────────────────────────────────────┤
+│ total data received: 16.98kB (approx)                         │
+├───────────────────────────────────────────────────────────────┤
+│ average response time: 9ms [min: 1ms, max: 404ms, s.d.: 42ms] │
+└───────────────────────────────────────────────────────────────┘
 
 [31m   # [39m[31m failure        [39m[31m detail                                                                                              [39m
 [90m     [39m[90m                [39m[90m                                                                                                     [39m

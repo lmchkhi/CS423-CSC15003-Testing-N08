@@ -23,8 +23,8 @@
 
 | Criteria | Evidence |
 |---|---|
-| **API 1 — FR-05 (30/30)** | 45 ca (40 AI + 5 human) · Phase C: 16 VALID / 2 INVALID / 22 INCOMPLETE đã hiệu chỉnh · 45/45 thực thi · 35 đạt / 10 fail · 1 bug report Critical SQL injection · CI/CD pass · [Issue #262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
-| **API 2 — FR-11 (30/30)** | 80 ca (70 AI + 10 human) · Phase C: 33 VALID / 2 INVALID / 35 INCOMPLETE đã hiệu chỉnh · 80/80 thực thi · 60 đạt / 20 fail · 1 bug report Critical IDOR · CI/CD pass · [Issue #263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| **API 1 — FR-05 (30/30)** | 45 ca (40 AI + 5 human) · Phase C: 16 VALID / 2 INVALID / 22 INCOMPLETE đã hiệu chỉnh · 45/45 thực thi · 35 đạt / 10 fail · 1 bug report Critical SQL injection · CI/CD pass · [Issue #263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| **API 2 — FR-11 (30/30)** | 80 ca (70 AI + 10 human) · Phase C: 33 VALID / 2 INVALID / 35 INCOMPLETE đã hiệu chỉnh · 80/80 thực thi · 60 đạt / 20 fail · 1 bug report Critical IDOR · CI/CD pass · [Issue #262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
 | **API 3 — FR-16 (30/30)** | 45 ca (40 AI + 5 human) · Phase C: 29 VALID / 2 INVALID / 9 INCOMPLETE đã hiệu chỉnh · 45/45 thực thi · 29 đạt / 16 fail · 3 bug reports · CI/CD pass · [Issue #264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264)–[#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
 | **Agent Skills (10/10)** | Sơ đồ tự vẽ PNG + Pseudocode 700 dòng + Skill implementation hoạt động (`ai-first-api-testing/`) |
 
@@ -82,6 +82,8 @@ Dùng AI sinh test cases có hệ thống, bao phủ:
 
 Kết quả: 150 ca AI-generated (40 FR-05 + 70 FR-11 + 40 FR-16).
 
+Do API specification gốc không công bố đầy đủ response schema, exact schema oracle không được suy diễn như một yêu cầu nguyên thủy của tài liệu. Sau human review, bộ test khóa một **human-approved resolved contract** dựa trên field được công bố, mô hình dữ liệu và response thực thi ổn định; nguồn quyết định được ghi trong Phase A/C. Collection kiểm tra exact keys, kiểu dữ liệu và JSON media type cho product list, order list/detail, cùng success/error response của product import.
+
 Artifacts: `tests/api-testing/test-cases/fr-{05,11,16}-ai-generated-phase-b.md`
 
 ### Phase C — Human Audit & Extension
@@ -111,12 +113,12 @@ Chạy toàn bộ 170 ca bằng Newman CLI, ghi nhận evidence tự động (JS
 
 | Pool | FR | Ca thực thi | Đạt | Không đạt | Assertions đạt / không đạt |
 |:---:|---|---:|---:|---:|---:|
-| A | FR-05 | 45 | 35 | 10 | 108 / 11 |
+| A | FR-05 | 45 | 35 | 10 | 109 / 11 |
 | B | FR-11 | 80 | 60 | 20 | 167 / 22 |
-| C | FR-16 | 45 | 29 | 16 | 89 / 16 |
-| | **Tổng** | **170** | **124** | **46** | **364 / 49** |
+| C | FR-16 | 45 | 29 | 16 | 97 / 16 |
+| | **Tổng** | **170** | **124** | **46** | **373 / 49** |
 
-FR-05 có 119 assertions trong các lần chạy chính và baseline rỗng.
+FR-05 có 120 assertions trong các lần chạy chính và baseline rỗng. Tổng ba suite có 422 assertions, gồm 373 đạt và 49 không đạt.
 
 Artifacts:
 - Newman HTML: `tests/api-testing/evidence/fr-{05,11,16}/*/newman-*-report.html`
@@ -144,14 +146,14 @@ Tạo 5 bug reports tại `bug-report/`, xuất bản GitHub Issues (#262–#266
 | **Phân vùng bao phủ** | Listing, existing/no-match keyword, empty/duplicate query, whitespace, encoding, Unicode (NFC/NFD, accent), ký tự đặc biệt (wildcard `%`, `_`), SQL injection, XSS, long keyword |
 | **Phase C audit** | 16 VALID · 2 INVALID · 22 INCOMPLETE |
 | **Ca con người bổ sung** | FR05-H01 (method mismatch POST), FR05-H02 (concurrent 5 requests), FR05-H03 (comment-style SQL bypass), FR05-H04 (Content-Type header), FR05-H05 (null-byte injection) |
-| **Execution** | 45/45 thực thi · 35 đạt · 10 không đạt · 119 assertions (108 đạt / 11 không đạt) |
+| **Execution** | 45/45 thực thi · 35 đạt · 10 không đạt · 120 assertions (109 đạt / 11 không đạt) |
 | **Bug** | 1 — SQL injection qua `search` parameter |
 
 #### Bug phát hiện: SQL Injection qua Search
 
 | | |
 |---|---|
-| **Issue** | [#262 — SQL injection qua query parameter search](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
+| **Issue** | [#263 — SQL injection qua query parameter search](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
 | **Severity** | Critical / P0 |
 | **Root cause** | `server.js:143–149` — chuỗi `search` được nối trực tiếp vào SQL query `LIKE '%${searchQuery}%'` không qua parameterized query |
 | **4 biểu hiện** | FR05-SEC-001 (tautology `' OR '1'='1'`), FR05-SEC-002 (UNION-based), FR05-SEC-004 (information exposure qua metacharacter), FR05-H05 (null-byte `%00`) |
@@ -159,7 +161,7 @@ Tạo 5 bug reports tại `bug-report/`, xuất bản GitHub Issues (#262–#266
 
 Bug report: `bug-report/fr-05-sql-injection-search.md`
 
-Evidence: `tests/api-testing/evidence/fr-05/20260821-223004/`
+Evidence: `tests/api-testing/evidence/fr-05/20260822-230735/`
 
 ### 4.2. FR-11 — Order History View (Pool B)
 
@@ -177,7 +179,7 @@ Evidence: `tests/api-testing/evidence/fr-05/20260821-223004/`
 
 | | |
 |---|---|
-| **Issue** | [#263 — IDOR + thiếu authentication trên order detail](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| **Issue** | [#262 — IDOR + thiếu authentication trên order detail](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
 | **Severity** | Critical / P0 |
 | **Root cause** | `GET /api/orders/:id` không kiểm tra JWT authentication và không kiểm tra ownership — bất kỳ ai biết order ID đều xem được dữ liệu đơn hàng |
 | **Test cases xác nhận** | FR11-DET-009 (IDOR A→B), FR11-DET-010 (IDOR B→A), FR11-DET-011 (switch token), FR11-DET-026–033 (missing auth variants) |
@@ -185,7 +187,7 @@ Evidence: `tests/api-testing/evidence/fr-05/20260821-223004/`
 
 Bug report: `bug-report/fr-11-idor-missing-auth.md`
 
-Evidence: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
+Evidence: `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/`
 
 ### 4.3. FR-16 — Product Import (Pool C)
 
@@ -197,7 +199,7 @@ Evidence: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
 | **Phase C audit** | 29 VALID · 2 INVALID · 9 INCOMPLETE |
 | **Contract decision** | JSON array là primary; CSV upload là exploratory/negative |
 | **Ca con người bổ sung** | FR16-H01 (method mismatch GET), FR16-H02 (large batch 500+), FR16-H03 (duplicate product), FR16-H04 (extra field), FR16-H05 (non-admin persistence) |
-| **Execution** | 45/45 thực thi · 29 đạt · 16 không đạt · 105 assertions (89 đạt / 16 không đạt) |
+| **Execution** | 45/45 thực thi · 29 đạt · 16 không đạt · 113 assertions (97 đạt / 16 không đạt) |
 | **Bugs** | 3 |
 
 #### Bug 1: Missing Admin Role Check
@@ -214,7 +216,7 @@ Evidence: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
 | | |
 |---|---|
 | **Issue** | [#265 — Không validate price > 0](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) |
-| **Severity** | Medium / P2 |
+| **Severity** | Minor / P1 |
 | **Root cause** | Endpoint không kiểm tra giá trị price — price = 0, âm, string, null đều được lưu vào database |
 | **Test cases** | FR16-PRICE-002, FR16-PRICE-003, FR16-PRICE-004, FR16-PRICE-005 |
 
@@ -223,13 +225,13 @@ Evidence: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
 | | |
 |---|---|
 | **Issue** | [#266 — Không rollback batch khi có dòng lỗi](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
-| **Severity** | High / P1 |
+| **Severity** | Major / P0 |
 | **Root cause** | Batch import xử lý từng dòng tuần tự không có transaction — khi dòng giữa/cuối invalid, các dòng valid trước đó đã được commit (partial commit) |
 | **Test cases** | FR16-ATOM-001, FR16-ATOM-002, FR16-ATOM-003, FR16-ATOM-004 |
 
 Bug reports: `bug-report/fr-16-missing-admin-role-check.md`, `bug-report/fr-16-missing-price-validation.md`, `bug-report/fr-16-missing-atomicity-rollback.md`
 
-Evidence: `tests/api-testing/evidence/fr-16/20260821-223035/`
+Evidence: `tests/api-testing/evidence/fr-16/20260822-230924/`
 
 ---
 
@@ -256,8 +258,8 @@ Evidence: `tests/api-testing/evidence/fr-16/20260821-223035/`
 
 | File | Path |
 |---|---|
-| Test Cases CSV (UTF-8 BOM) | `tests/api-testing/test-cases/23127464_test_cases.csv` |
-| Test Summary CSV | `tests/api-testing/test-cases/23127464_test_summary.csv` |
+| Test Cases CSV (UTF-8 BOM) | `reports/23127464_test_cases.csv` |
+| Test Summary CSV | `reports/23127464_test_summary.csv` |
 | Test Cases Excel | `reports/23127464_test_cases.xlsx` |
 | Test Summary Excel | `reports/23127464_test_summary.xlsx` |
 
@@ -274,7 +276,7 @@ Evidence: `tests/api-testing/evidence/fr-16/20260821-223035/`
 | 5 | **Collection-level pre-request script** | Tự động gắn `X-Student-Id: 23127464` vào header mọi request |
 | 6 | **Test scripts & Assertions** | Semantic assertions kiểm tra ownership, non-disclosure, schema, security invariants |
 | 7 | **`pm.sendRequest`** | Kiểm tra post-condition: đọc database sau request để xác minh persistence/rollback bằng marker duy nhất |
-| 8 | **Data-driven execution** | Collection Runner / Newman với iteration data file cho nhiều biến thể input |
+| 8 | **Iteration data configuration** | Mỗi suite dùng một data row có kiểm soát cho run label, Student ID và contract decision; các biến thể input được mô hình hóa thành request item riêng |
 | 9 | **Newman CLI** | Chạy tự động với `--reporters cli,json,htmlextra` |
 | 10 | **Newman `htmlextra` reporter** | Tạo HTML report chi tiết với request/response body, assertion results |
 | 11 | **GitHub Actions integration** | Newman chạy trong CI pipeline, HTML report upload làm artifact |
@@ -345,18 +347,18 @@ Thư mục `ai-first-api-testing/` chứa Agent Skill có thể tái sử dụng
 
 | # | Issue | FR | Severity | Mô tả | Test Cases |
 |---:|---|---|---|---|---|
-| 1 | [#262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) | FR-05 | Critical / P0 | SQL injection qua `search` parameter với 4 biểu hiện | FR05-SEC-001, SEC-002, SEC-004, H05 |
-| 2 | [#263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) | FR-11 | Critical / P0 | IDOR + thiếu authentication trên `GET /api/orders/:id` | FR11-DET-009–011, DET-026–033 |
+| 1 | [#263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) | FR-05 | Critical / P0 | SQL injection qua `search` parameter với 4 biểu hiện | FR05-SEC-001, SEC-002, SEC-004, H05 |
+| 2 | [#262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) | FR-11 | Critical / P0 | IDOR + thiếu authentication trên `GET /api/orders/:id` | FR11-DET-009–011, DET-026–033 |
 | 3 | [#264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264) | FR-16 | Critical / P0 | Thiếu kiểm tra role admin khi import product | FR16-AUTH-002, H05, SEC-003 |
-| 4 | [#265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) | FR-16 | Medium / P2 | Không validate price > 0 (zero, âm, string, null đều lưu) | FR16-PRICE-002–005 |
-| 5 | [#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) | FR-16 | High / P1 | Không rollback batch khi có dòng invalid (partial commit) | FR16-ATOM-001–004 |
+| 4 | [#265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) | FR-16 | Minor / P1 | Không validate price > 0 (zero, âm, string, null đều lưu) | FR16-PRICE-002–005 |
+| 5 | [#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) | FR-16 | Major / P0 | Không rollback batch khi có dòng invalid (partial commit) | FR16-ATOM-001–004 |
 
 ### 9.2. Issue screenshots
 
 | Issue | Screenshot |
 |---|---|
-| #262 — FR-05 SQL Injection | `bug-report/issue_screenshot/[BUG][FR-05] SQL injection qua query parameter search.png` |
-| #263 — FR-11 IDOR | `bug-report/issue_screenshot/[BUG][FR-11] thiếu authentication và ownership check.png` |
+| #263 — FR-05 SQL Injection | `bug-report/issue_screenshot/[BUG][FR-05] SQL injection qua query parameter search.png` |
+| #262 — FR-11 IDOR | `bug-report/issue_screenshot/[BUG][FR-11] thiếu authentication và ownership check.png` |
 | #264 — FR-16 Missing Role Check | `bug-report/issue_screenshot/[BUG][FR-16] thiếu kiểm tra role admin.png` |
 | #265 — FR-16 Missing Price Validation | `bug-report/issue_screenshot/[BUG][FR-16] không validate price lớn hơn 0.png` |
 | #266 — FR-16 Missing Rollback | `bug-report/issue_screenshot/[BUG][FR-16] không rollback batch khi có dòng lỗi.png` |
@@ -393,8 +395,10 @@ Quy trình AI-First API Testing đã hoàn thành đầy đủ 5 Phase cho cả 
 |---:|---|---|
 | 1 | README (bảng tự đánh giá + test summary) | `README.md` |
 | 2 | Báo cáo chính | `reports/main-report.md` |
+| 2a | Báo cáo chính PDF | `reports/main-report.pdf` |
 | 3 | AI Audit Report | `reports/ai-audit-report.md` |
 | 4 | AI Critique (298 từ) | `reports/ai-critique.md` |
+| 4a | AI Critique PDF | `reports/ai-critique.pdf` |
 | 5 | Phase A Contract — FR-05 | `reports/api-testing/fr-05-phase-a-contract.md` |
 | 6 | Phase A Contract — FR-11 | `reports/api-testing/fr-11-phase-a-contract.md` |
 | 7 | Phase A Contract — FR-16 | `reports/api-testing/fr-16-phase-a-contract.md` |
@@ -411,9 +415,9 @@ Quy trình AI-First API Testing đã hoàn thành đầy đủ 5 Phase cho cả 
 | 18 | Postman Collection — FR-05 | `tests/api-testing/collections/23127464_FR05_Product_Search.postman_collection.json` |
 | 19 | Postman Collection — FR-11 | `tests/api-testing/collections/23127464_FR11_Order_History.postman_collection.json` |
 | 20 | Postman Collection — FR-16 | `tests/api-testing/collections/23127464_FR16_Product_Import.postman_collection.json` |
-| 21 | Newman HTML Report — FR-05 | `tests/api-testing/evidence/fr-05/20260821-223004/newman-main-report.html` |
-| 22 | Newman HTML Report — FR-11 | `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/newman-report.html` |
-| 23 | Newman HTML Report — FR-16 | `tests/api-testing/evidence/fr-16/20260821-223035/` |
+| 21 | Newman HTML Report — FR-05 | `tests/api-testing/evidence/fr-05/20260822-230735/newman-main-report.html` |
+| 22 | Newman HTML Report — FR-11 | `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/newman-report.html` |
+| 23 | Newman HTML Report — FR-16 | `tests/api-testing/evidence/fr-16/20260822-230924/newman-report.html` |
 | 24 | Bug Report — FR-05 SQL Injection | `bug-report/fr-05-sql-injection-search.md` |
 | 25 | Bug Report — FR-11 IDOR | `bug-report/fr-11-idor-missing-auth.md` |
 | 26 | Bug Report — FR-16 Missing Role Check | `bug-report/fr-16-missing-admin-role-check.md` |
@@ -424,8 +428,8 @@ Quy trình AI-First API Testing đã hoàn thành đầy đủ 5 Phase cho cả 
 | 31 | CI/CD Workflow | `.github/workflows/api-test-pools-a-b-c.yml` |
 | 32 | CI/CD Evidence — All-pass | `tests/api-testing/evidence/ci-cd/all-pass/` |
 | 33 | CI/CD Evidence — Controlled-failure | `tests/api-testing/evidence/ci-cd/controlled-failure/` |
-| 34 | Test Cases CSV (UTF-8 BOM) | `tests/api-testing/test-cases/23127464_test_cases.csv` |
-| 35 | Test Summary CSV | `tests/api-testing/test-cases/23127464_test_summary.csv` |
+| 34 | Test Cases CSV (UTF-8 BOM) | `reports/23127464_test_cases.csv` |
+| 35 | Test Summary CSV | `reports/23127464_test_summary.csv` |
 | 36 | Test Cases Excel | `reports/23127464_test_cases.xlsx` |
 | 37 | Test Summary Excel | `reports/23127464_test_summary.xlsx` |
 | 38 | Sơ đồ AI Test Generator (tự vẽ) | `reports/Self-Drawn_AI_Driven_Diagram.png` |

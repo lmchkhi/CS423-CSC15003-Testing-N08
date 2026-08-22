@@ -31,18 +31,18 @@
 | Tỉ lệ thực thi | 170 / 170 = **100%** |
 | Tỉ lệ đạt | 124 / 170 = **72,9%** |
 | Tỉ lệ không đạt | 46 / 170 = **27,1%** |
-| Assertions đạt / không đạt | 364 / 49 |
+| Assertions đạt / không đạt | 373 / 49 |
 | Bugs phát hiện | **5** (3 Critical, 1 High, 1 Medium) |
 
 ### Bugs phát hiện
 
 | # | FR | Severity | Mô tả | GitHub Issue |
 |---:|---|---|---|---|
-| 1 | FR-05 | Critical / P0 | SQL injection qua `search` parameter | [#262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
-| 2 | FR-11 | Critical / P0 | IDOR + thiếu authentication trên order detail | [#263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| 1 | FR-05 | Critical / P0 | SQL injection qua `search` parameter | [#263](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/263) |
+| 2 | FR-11 | Critical / P0 | IDOR + thiếu authentication trên order detail | [#262](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/262) |
 | 3 | FR-16 | Critical / P0 | Thiếu kiểm tra role admin khi import | [#264](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/264) |
-| 4 | FR-16 | Medium / P2 | Không validate price > 0 | [#265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) |
-| 5 | FR-16 | High / P1 | Không rollback batch khi có dòng invalid | [#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
+| 4 | FR-16 | Minor / P1 | Không validate price > 0 | [#265](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/265) |
+| 5 | FR-16 | Major / P0 | Không rollback batch khi có dòng invalid | [#266](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/266) |
 
 ### CI/CD
 

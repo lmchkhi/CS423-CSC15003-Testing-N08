@@ -1255,7 +1255,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-MYO-001 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-001 | exact human-approved list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(o.id).to.be.a(\"number\"); pm.expect(o.user_id).to.be.a(\"number\"); pm.expect(o.total_amount).to.be.a(\"number\"); pm.expect(o.status).to.be.a(\"string\"); pm.expect(o.shipping_address).to.be.a(\"string\"); pm.expect(o.created_at).to.be.a(\"string\"); }); });",
                   "pm.test(\"FR11-MYO-001 | empty list\", function () { pm.expect(json).to.have.lengthOf(0); });"
                 ]
               }
@@ -1287,7 +1287,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-MYO-002 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-002 | exact human-approved list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(o.id).to.be.a(\"number\"); pm.expect(o.user_id).to.be.a(\"number\"); pm.expect(o.total_amount).to.be.a(\"number\"); pm.expect(o.status).to.be.a(\"string\"); pm.expect(o.shipping_address).to.be.a(\"string\"); pm.expect(o.created_at).to.be.a(\"string\"); }); });",
                   "pm.test(\"FR11-MYO-002 | one owned order\", function () { pm.expect(json).to.have.lengthOf(1); pm.expect(json[0].shipping_address).to.eql(pm.environment.get(\"markerB1\")); });"
                 ]
               }
@@ -1319,7 +1319,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-MYO-003 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-003 | exact human-approved list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(o.id).to.be.a(\"number\"); pm.expect(o.user_id).to.be.a(\"number\"); pm.expect(o.total_amount).to.be.a(\"number\"); pm.expect(o.status).to.be.a(\"string\"); pm.expect(o.shipping_address).to.be.a(\"string\"); pm.expect(o.created_at).to.be.a(\"string\"); }); });",
                   "pm.test(\"FR11-MYO-003 | at least the three owned fixtures\", function () { const text=JSON.stringify(json); [\"markerA1\",\"markerA2\",\"markerCancel\"].forEach(function(k){pm.expect(text).to.include(pm.environment.get(k));}); });"
                 ]
               }
@@ -1569,7 +1569,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-MYO-032 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-032 | exact human-approved list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(o.id).to.be.a(\"number\"); pm.expect(o.user_id).to.be.a(\"number\"); pm.expect(o.total_amount).to.be.a(\"number\"); pm.expect(o.status).to.be.a(\"string\"); pm.expect(o.shipping_address).to.be.a(\"string\"); pm.expect(o.created_at).to.be.a(\"string\"); }); });",
                   "pm.test(\"FR11-MYO-032 | no orphan orders\", function () { pm.expect(json).to.have.lengthOf(0); });"
                 ]
               }
@@ -1634,7 +1634,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-MYO-034 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });"
+                  "pm.test(\"FR11-MYO-034 | exact human-approved list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(o.id).to.be.a(\"number\"); pm.expect(o.user_id).to.be.a(\"number\"); pm.expect(o.total_amount).to.be.a(\"number\"); pm.expect(o.status).to.be.a(\"string\"); pm.expect(o.shipping_address).to.be.a(\"string\"); pm.expect(o.created_at).to.be.a(\"string\"); }); });"
                 ]
               }
             }
@@ -1665,7 +1665,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-MYO-035 | exact implementation-backed list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); }); });",
+                  "pm.test(\"FR11-MYO-035 | exact human-approved list schema\", function () { pm.expect(json).to.be.an(\"array\"); json.forEach(function (o) { pm.expect(o).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(o.id).to.be.a(\"number\"); pm.expect(o.user_id).to.be.a(\"number\"); pm.expect(o.total_amount).to.be.a(\"number\"); pm.expect(o.status).to.be.a(\"string\"); pm.expect(o.shipping_address).to.be.a(\"string\"); pm.expect(o.created_at).to.be.a(\"string\"); }); });",
                   "pm.test(\"FR11-MYO-035 | JSON media type\", function () { pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\"); });"
                 ]
               }
@@ -2525,7 +2525,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-DET-001 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-001 | exact human-approved detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(json.id).to.be.a(\"number\"); pm.expect(json.user_id).to.be.a(\"number\"); pm.expect(json.total_amount).to.be.a(\"number\"); pm.expect(json.status).to.be.a(\"string\"); pm.expect(json.shipping_address).to.be.a(\"string\"); pm.expect(json.created_at).to.be.a(\"string\"); });",
                   "pm.test(\"FR11-DET-001 | correct owned marker\", function () { pm.expect(json.shipping_address).to.eql(pm.environment.get(\"markerA1\")); });"
                 ]
               }
@@ -2557,7 +2557,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-DET-002 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-002 | exact human-approved detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(json.id).to.be.a(\"number\"); pm.expect(json.user_id).to.be.a(\"number\"); pm.expect(json.total_amount).to.be.a(\"number\"); pm.expect(json.status).to.be.a(\"string\"); pm.expect(json.shipping_address).to.be.a(\"string\"); pm.expect(json.created_at).to.be.a(\"string\"); });",
                   "pm.test(\"FR11-DET-002 | correct owned marker\", function () { pm.expect(json.shipping_address).to.eql(pm.environment.get(\"markerA2\")); });"
                 ]
               }
@@ -2589,7 +2589,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-DET-003 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-003 | exact human-approved detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(json.id).to.be.a(\"number\"); pm.expect(json.user_id).to.be.a(\"number\"); pm.expect(json.total_amount).to.be.a(\"number\"); pm.expect(json.status).to.be.a(\"string\"); pm.expect(json.shipping_address).to.be.a(\"string\"); pm.expect(json.created_at).to.be.a(\"string\"); });",
                   "pm.test(\"FR11-DET-003 | correct owned marker\", function () { pm.expect(json.shipping_address).to.eql(pm.environment.get(\"markerB1\")); });"
                 ]
               }
@@ -3201,7 +3201,7 @@
                   "  pm.expect(pm.request.headers.get(\"X-Student-Id\")).to.eql(\"23127464\");",
                   "});",
                   "let json = null; try { json = pm.response.json(); } catch (error) {}",
-                  "pm.test(\"FR11-DET-035 | exact implementation-backed detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); });",
+                  "pm.test(\"FR11-DET-035 | exact human-approved detail schema\", function () { pm.expect(json).to.be.an(\"object\"); pm.expect(json).to.have.all.keys(\"id\", \"user_id\", \"total_amount\", \"status\", \"shipping_address\", \"created_at\"); pm.expect(json.id).to.be.a(\"number\"); pm.expect(json.user_id).to.be.a(\"number\"); pm.expect(json.total_amount).to.be.a(\"number\"); pm.expect(json.status).to.be.a(\"string\"); pm.expect(json.shipping_address).to.be.a(\"string\"); pm.expect(json.created_at).to.be.a(\"string\"); });",
                   "pm.test(\"FR11-DET-035 | JSON media type\", function () { pm.expect((pm.response.headers.get(\"Content-Type\")||\"\").toLowerCase()).to.include(\"application/json\"); });"
                 ]
               }

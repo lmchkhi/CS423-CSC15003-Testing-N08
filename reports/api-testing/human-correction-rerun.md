@@ -51,12 +51,12 @@
 
 | FR | Trường hợp đã thực thi | Trường hợp đạt | Trường hợp thất bại | Khẳng định đạt | Khẳng định thất bại |
 |---|---:|---:|---:|---:|---:|
-| FR-05 | 45 | 35 | 10 | 108 | 11 |
+| FR-05 | 45 | 35 | 10 | 109 | 11 |
 | FR-11 | 80 | 60 | 20 | 167 | 22 |
-| FR-16 | 45 | 29 | 16 | 89 | 16 |
-| **Tổng** | **170** | **124** | **46** | **364** | **49** |
+| FR-16 | 45 | 29 | 16 | 97 | 16 |
+| **Tổng** | **170** | **124** | **46** | **373** | **49** |
 
-FR-05 có 119 khẳng định trong các lần chạy chính và baseline rỗng.
+FR-05 có 120 khẳng định trong các lần chạy chính và baseline rỗng. Tổng ba suite có 422 khẳng định.
 
 ### Danh sách ID trường hợp thất bại
 
@@ -66,9 +66,9 @@ FR-05 có 119 khẳng định trong các lần chạy chính và baseline rỗng
 
 ## Bằng chứng cuối cùng
 
-- FR-05: `tests/api-testing/evidence/fr-05/20260821-223004/`
-- FR-11: `tests/api-testing/evidence/fr-11/20260821-corrected-rerun-final/`
-- FR-16: `tests/api-testing/evidence/fr-16/20260821-223035/`
+- FR-05: `tests/api-testing/evidence/fr-05/20260822-230735/`
+- FR-11: `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/`
+- FR-16: `tests/api-testing/evidence/fr-16/20260822-230924/`
 
 Mã thoát khác không của Newman là bằng chứng dự kiến cho các lỗi khẳng định của SUT. Tất cả các lần chạy cuối cùng đều hoàn thành với không lỗi truyền tải và không lỗi runtime của test-script.
 
