@@ -1,0 +1,1001 @@
+(node:95077) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+Login API - HW06 - MSSV 23127062
+
+Iteration 1/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-001 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 30ms]
+  ✓  [TC-LOGIN-001] X-Student-Id header was set
+  ✓  [TC-LOGIN-001] status is expected
+  ✓  [TC-LOGIN-001] Content-Type
+  ✓  [TC-LOGIN-001] response time
+  ✓  [TC-LOGIN-001] JSON schema
+  ✓  [TC-LOGIN-001] response token exists
+  ✓  [TC-LOGIN-001] response user type
+  ✓  [TC-LOGIN-001] response password absent
+  1. [TC-LOGIN-001] response user.password absent
+
+Iteration 2/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-002 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 2ms]
+  ✓  [TC-LOGIN-002] X-Student-Id header was set
+  ✓  [TC-LOGIN-002] status is expected
+  ✓  [TC-LOGIN-002] Content-Type
+  ✓  [TC-LOGIN-002] response time
+  ✓  [TC-LOGIN-002] JSON schema
+  ✓  [TC-LOGIN-002] response token exists
+  ✓  [TC-LOGIN-002] response user type
+  ✓  [TC-LOGIN-002] response password absent
+  2. [TC-LOGIN-002] response user.password absent
+
+Iteration 3/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-003 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-003] X-Student-Id header was set
+  ✓  [TC-LOGIN-003] status is expected
+  ✓  [TC-LOGIN-003] response time
+  ✓  [TC-LOGIN-003] response token absent
+  ✓  [TC-LOGIN-003] response user absent
+
+Iteration 4/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-004 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-004] X-Student-Id header was set
+  ✓  [TC-LOGIN-004] status is expected
+  ✓  [TC-LOGIN-004] response time
+  ✓  [TC-LOGIN-004] response token absent
+  ✓  [TC-LOGIN-004] response user absent
+
+Iteration 5/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-005 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-005] X-Student-Id header was set
+  ✓  [TC-LOGIN-005] status is expected
+  ✓  [TC-LOGIN-005] response time
+  ✓  [TC-LOGIN-005] response token absent
+  ✓  [TC-LOGIN-005] response user absent
+
+Iteration 6/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-006 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-006] X-Student-Id header was set
+  ✓  [TC-LOGIN-006] status is expected
+  ✓  [TC-LOGIN-006] response time
+  ✓  [TC-LOGIN-006] response token absent
+  ✓  [TC-LOGIN-006] response user absent
+
+Iteration 7/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-007 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-007] X-Student-Id header was set
+  ✓  [TC-LOGIN-007] status is expected
+  ✓  [TC-LOGIN-007] response time
+  ✓  [TC-LOGIN-007] response token absent
+  ✓  [TC-LOGIN-007] response user absent
+
+Iteration 8/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-008 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-008] X-Student-Id header was set
+  ✓  [TC-LOGIN-008] status is expected
+  ✓  [TC-LOGIN-008] response time
+  ✓  [TC-LOGIN-008] response token absent
+  ✓  [TC-LOGIN-008] response user absent
+
+Iteration 9/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-009 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 3ms]
+  ✓  [TC-LOGIN-009] X-Student-Id header was set
+  ✓  [TC-LOGIN-009] status is expected
+  ✓  [TC-LOGIN-009] response time
+  ✓  [TC-LOGIN-009] response token absent
+  ✓  [TC-LOGIN-009] response user absent
+
+Iteration 10/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-010 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-010] X-Student-Id header was set
+  ✓  [TC-LOGIN-010] status is expected
+  ✓  [TC-LOGIN-010] response time
+  ✓  [TC-LOGIN-010] response token absent
+  ✓  [TC-LOGIN-010] response user absent
+
+Iteration 11/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-011 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-011] X-Student-Id header was set
+  ✓  [TC-LOGIN-011] status is expected
+  ✓  [TC-LOGIN-011] response time
+  ✓  [TC-LOGIN-011] response token absent
+  ✓  [TC-LOGIN-011] response user absent
+
+Iteration 12/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-012 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-012] X-Student-Id header was set
+  ✓  [TC-LOGIN-012] status is expected
+  ✓  [TC-LOGIN-012] response time
+  ✓  [TC-LOGIN-012] response token absent
+  ✓  [TC-LOGIN-012] response user absent
+
+Iteration 13/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-013 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-013] X-Student-Id header was set
+  ✓  [TC-LOGIN-013] status is expected
+  ✓  [TC-LOGIN-013] response time
+  ✓  [TC-LOGIN-013] response token absent
+  ✓  [TC-LOGIN-013] response user absent
+
+Iteration 14/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-014 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-014] X-Student-Id header was set
+  ✓  [TC-LOGIN-014] status is expected
+  ✓  [TC-LOGIN-014] response time
+  ✓  [TC-LOGIN-014] response token absent
+  ✓  [TC-LOGIN-014] response user absent
+
+Iteration 15/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-015 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-015] X-Student-Id header was set
+  ✓  [TC-LOGIN-015] status is expected
+  ✓  [TC-LOGIN-015] response time
+  ✓  [TC-LOGIN-015] response token absent
+  ✓  [TC-LOGIN-015] response user absent
+
+Iteration 16/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-016 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-016] X-Student-Id header was set
+  ✓  [TC-LOGIN-016] status is expected
+  ✓  [TC-LOGIN-016] response time
+  ✓  [TC-LOGIN-016] response token absent
+  ✓  [TC-LOGIN-016] response user absent
+
+Iteration 17/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-017 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-017] X-Student-Id header was set
+  ✓  [TC-LOGIN-017] status is expected
+  ✓  [TC-LOGIN-017] response time
+  ✓  [TC-LOGIN-017] response token absent
+  ✓  [TC-LOGIN-017] response user absent
+
+Iteration 18/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-018 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-018] X-Student-Id header was set
+  ✓  [TC-LOGIN-018] status is expected
+  ✓  [TC-LOGIN-018] response time
+  ✓  [TC-LOGIN-018] response token absent
+  ✓  [TC-LOGIN-018] response user absent
+
+Iteration 19/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-019 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-019] X-Student-Id header was set
+  ✓  [TC-LOGIN-019] status is expected
+  ✓  [TC-LOGIN-019] response time
+  ✓  [TC-LOGIN-019] response token absent
+  ✓  [TC-LOGIN-019] response user absent
+
+Iteration 20/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-020 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-020] X-Student-Id header was set
+  ✓  [TC-LOGIN-020] status is expected
+  ✓  [TC-LOGIN-020] response time
+  ✓  [TC-LOGIN-020] response token absent
+  ✓  [TC-LOGIN-020] response user absent
+
+Iteration 21/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-021 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-021] X-Student-Id header was set
+  ✓  [TC-LOGIN-021] status is expected
+  ✓  [TC-LOGIN-021] response time
+  ✓  [TC-LOGIN-021] response token absent
+  ✓  [TC-LOGIN-021] response user absent
+
+Iteration 22/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-022 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-022] X-Student-Id header was set
+  ✓  [TC-LOGIN-022] status is expected
+  ✓  [TC-LOGIN-022] response time
+  ✓  [TC-LOGIN-022] response token absent
+  ✓  [TC-LOGIN-022] response user absent
+
+Iteration 23/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-023 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [400 Bad Request, 1.59kB, 4ms]
+  ✓  [TC-LOGIN-023] X-Student-Id header was set
+  ✓  [TC-LOGIN-023] status is expected
+  ✓  [TC-LOGIN-023] response time
+  ✓  [TC-LOGIN-023] response token absent
+  ✓  [TC-LOGIN-023] response user absent
+
+Iteration 24/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-024 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-024] X-Student-Id header was set
+  ✓  [TC-LOGIN-024] status is expected
+  ✓  [TC-LOGIN-024] response time
+  ✓  [TC-LOGIN-024] response token absent
+  ✓  [TC-LOGIN-024] response user absent
+
+Iteration 25/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-025 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [400 Bad Request, 1.6kB, 2ms]
+  ✓  [TC-LOGIN-025] X-Student-Id header was set
+  ✓  [TC-LOGIN-025] status is expected
+  ✓  [TC-LOGIN-025] response time
+  ✓  [TC-LOGIN-025] response token absent
+  ✓  [TC-LOGIN-025] response user absent
+
+Iteration 26/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-026 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-026] X-Student-Id header was set
+  ✓  [TC-LOGIN-026] status is expected
+  ✓  [TC-LOGIN-026] response time
+  ✓  [TC-LOGIN-026] response token absent
+  ✓  [TC-LOGIN-026] response user absent
+
+Iteration 27/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-027 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 3ms]
+  ✓  [TC-LOGIN-027] X-Student-Id header was set
+  ✓  [TC-LOGIN-027] status is expected
+  ✓  [TC-LOGIN-027] Content-Type
+  ✓  [TC-LOGIN-027] response time
+  ✓  [TC-LOGIN-027] JSON schema
+  ✓  [TC-LOGIN-027] response token exists
+  ✓  [TC-LOGIN-027] response user type
+  ✓  [TC-LOGIN-027] response password absent
+  3. [TC-LOGIN-027] response user.password absent
+
+Iteration 28/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-028 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-028] X-Student-Id header was set
+  ✓  [TC-LOGIN-028] status is expected
+  ✓  [TC-LOGIN-028] Content-Type
+  ✓  [TC-LOGIN-028] response time
+  ✓  [TC-LOGIN-028] JSON schema
+  ✓  [TC-LOGIN-028] response error exists
+  ✓  [TC-LOGIN-028] response token absent
+  ✓  [TC-LOGIN-028] response user absent
+
+Iteration 29/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-029 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-029] X-Student-Id header was set
+  ✓  [TC-LOGIN-029] status is expected
+  ✓  [TC-LOGIN-029] Content-Type
+  ✓  [TC-LOGIN-029] response time
+  ✓  [TC-LOGIN-029] JSON schema
+  ✓  [TC-LOGIN-029] response error exists
+  ✓  [TC-LOGIN-029] response token absent
+  ✓  [TC-LOGIN-029] response user absent
+
+Iteration 30/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-030 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-030] X-Student-Id header was set
+  ✓  [TC-LOGIN-030] status is expected
+  ✓  [TC-LOGIN-030] response time
+  ✓  [TC-LOGIN-030] response token absent
+  ✓  [TC-LOGIN-030] response user absent
+
+Iteration 31/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-031 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-031] X-Student-Id header was set
+  ✓  [TC-LOGIN-031] status is expected
+  ✓  [TC-LOGIN-031] response time
+  ✓  [TC-LOGIN-031] response token absent
+  ✓  [TC-LOGIN-031] response user absent
+
+Iteration 32/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-032 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-032] X-Student-Id header was set
+  ✓  [TC-LOGIN-032] status is expected
+  ✓  [TC-LOGIN-032] response time
+  ✓  [TC-LOGIN-032] response token absent
+  ✓  [TC-LOGIN-032] response user absent
+
+Iteration 33/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-033 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ✓  [TC-LOGIN-033] X-Student-Id header was set
+  ✓  [TC-LOGIN-033] status is expected
+  ✓  [TC-LOGIN-033] response time
+  ✓  [TC-LOGIN-033] response token absent
+  ✓  [TC-LOGIN-033] response user absent
+
+Iteration 34/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-034 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [500 Internal Server Error, 1.8kB, 2ms]
+  ✓  [TC-LOGIN-034] X-Student-Id header was set
+  4. [TC-LOGIN-034] status is expected
+  ✓  [TC-LOGIN-034] response time
+  ✓  [TC-LOGIN-034] response token absent
+  ✓  [TC-LOGIN-034] response user absent
+
+Iteration 35/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-035 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 3ms]
+  ✓  [TC-LOGIN-035] X-Student-Id header was set
+  ✓  [TC-LOGIN-035] status is expected
+  ✓  [TC-LOGIN-035] Content-Type
+  ✓  [TC-LOGIN-035] response time
+  ✓  [TC-LOGIN-035] JSON schema
+  ✓  [TC-LOGIN-035] response token exists
+  ✓  [TC-LOGIN-035] response user type
+  ✓  [TC-LOGIN-035] response password absent
+  5. [TC-LOGIN-035] response user.password absent
+
+Iteration 36/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-036 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login?debug=true [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-036] X-Student-Id header was set
+  ✓  [TC-LOGIN-036] status is expected
+  ✓  [TC-LOGIN-036] response time
+  ✓  [TC-LOGIN-036] response token absent
+  ✓  [TC-LOGIN-036] response user absent
+
+Iteration 37/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-037 X-Student-Id: 23127062'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  [TC-LOGIN-037] X-Student-Id header was set
+  ✓  [TC-LOGIN-037] status is expected
+  ✓  [TC-LOGIN-037] Content-Type
+  ✓  [TC-LOGIN-037] response time
+  ✓  [TC-LOGIN-037] JSON schema
+  ✓  [TC-LOGIN-037] response token exists
+  ✓  [TC-LOGIN-037] response user type
+  ✓  [TC-LOGIN-037] response password absent
+  6. [TC-LOGIN-037] response user.password absent
+
+Iteration 38/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-001 X-Student-Id: 23127062'
+  │ '[HW06] TC-LOGIN-EXT-001 workflow step 1 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 2ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-001 workflow step 2 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-001 workflow step 3 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-001 workflow step 4 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-001 workflow step 5 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-001 workflow step 6 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 2ms]
+  ✓  [TC-LOGIN-EXT-001] X-Student-Id header was set
+  7. [TC-LOGIN-EXT-001] status is expected
+  ✓  [TC-LOGIN-EXT-001] Content-Type
+  ✓  [TC-LOGIN-EXT-001] response time
+  8. [TC-LOGIN-EXT-001] response token exists
+  9. [TC-LOGIN-EXT-001] response user exists
+  ✓  [TC-LOGIN-EXT-001] workflow completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 1 completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 1 X-Student-Id
+  ✓  [TC-LOGIN-EXT-001] workflow step 1 status
+  ✓  [TC-LOGIN-EXT-001] workflow step 1 id exists
+  ✓  [TC-LOGIN-EXT-001] workflow step 2 completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 2 X-Student-Id
+  ✓  [TC-LOGIN-EXT-001] workflow step 2 status
+  ✓  [TC-LOGIN-EXT-001] workflow step 2 token absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 2 user absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 3 completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 3 X-Student-Id
+  ✓  [TC-LOGIN-EXT-001] workflow step 3 status
+  ✓  [TC-LOGIN-EXT-001] workflow step 3 token absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 3 user absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 4 completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 4 X-Student-Id
+ 10. [TC-LOGIN-EXT-001] workflow step 4 status
+ 11. [TC-LOGIN-EXT-001] workflow step 4 token exists
+ 12. [TC-LOGIN-EXT-001] workflow step 4 user exists
+  ✓  [TC-LOGIN-EXT-001] workflow step 5 completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 5 X-Student-Id
+  ✓  [TC-LOGIN-EXT-001] workflow step 5 status
+  ✓  [TC-LOGIN-EXT-001] workflow step 5 token absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 5 user absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 6 completed
+  ✓  [TC-LOGIN-EXT-001] workflow step 6 X-Student-Id
+  ✓  [TC-LOGIN-EXT-001] workflow step 6 status
+  ✓  [TC-LOGIN-EXT-001] workflow step 6 token absent
+  ✓  [TC-LOGIN-EXT-001] workflow step 6 user absent
+
+Iteration 39/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 X-Student-Id: 23127062'
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 1 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 3ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 2 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 3 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 4 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 5 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 6 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 7 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-002 workflow step 8 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ✓  [TC-LOGIN-EXT-002] X-Student-Id header was set
+  ✓  [TC-LOGIN-EXT-002] status is expected
+  ✓  [TC-LOGIN-EXT-002] Content-Type
+  ✓  [TC-LOGIN-EXT-002] response time
+  ✓  [TC-LOGIN-EXT-002] response token absent
+  ✓  [TC-LOGIN-EXT-002] response user absent
+  ✓  [TC-LOGIN-EXT-002] workflow completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 1 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 1 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 1 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 1 id exists
+  ✓  [TC-LOGIN-EXT-002] workflow step 2 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 2 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 2 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 2 token absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 2 user absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 3 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 3 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 3 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 3 token absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 3 user absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 4 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 4 X-Student-Id
+ 13. [TC-LOGIN-EXT-002] workflow step 4 status
+ 14. [TC-LOGIN-EXT-002] workflow step 4 token exists
+ 15. [TC-LOGIN-EXT-002] workflow step 4 user exists
+  ✓  [TC-LOGIN-EXT-002] workflow step 5 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 5 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 5 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 5 id exists
+  ✓  [TC-LOGIN-EXT-002] workflow step 6 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 6 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 6 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 6 token absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 6 user absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 7 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 7 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 7 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 7 token absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 7 user absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 8 completed
+  ✓  [TC-LOGIN-EXT-002] workflow step 8 X-Student-Id
+  ✓  [TC-LOGIN-EXT-002] workflow step 8 status
+  ✓  [TC-LOGIN-EXT-002] workflow step 8 token absent
+  ✓  [TC-LOGIN-EXT-002] workflow step 8 user absent
+
+Iteration 40/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-003 X-Student-Id: 23127062'
+  │ '[HW06] TC-LOGIN-EXT-003 workflow step 1 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 2ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-003 workflow step 2 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-003 workflow step 3 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-003 workflow step 4 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 2ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-003 workflow step 6 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 6ms]
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 3ms]
+  ✓  [TC-LOGIN-EXT-003] X-Student-Id header was set
+ 16. [TC-LOGIN-EXT-003] status is expected
+  ✓  [TC-LOGIN-EXT-003] Content-Type
+  ✓  [TC-LOGIN-EXT-003] response time
+ 17. [TC-LOGIN-EXT-003] response token exists
+ 18. [TC-LOGIN-EXT-003] response user exists
+  ✓  [TC-LOGIN-EXT-003] workflow completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 1 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 1 X-Student-Id
+  ✓  [TC-LOGIN-EXT-003] workflow step 1 status
+  ✓  [TC-LOGIN-EXT-003] workflow step 1 id exists
+  ✓  [TC-LOGIN-EXT-003] workflow step 2 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 2 X-Student-Id
+  ✓  [TC-LOGIN-EXT-003] workflow step 2 status
+  ✓  [TC-LOGIN-EXT-003] workflow step 2 token absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 2 user absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 3 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 3 X-Student-Id
+  ✓  [TC-LOGIN-EXT-003] workflow step 3 status
+  ✓  [TC-LOGIN-EXT-003] workflow step 3 token absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 3 user absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 4 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 4 X-Student-Id
+  ✓  [TC-LOGIN-EXT-003] workflow step 4 status
+  ✓  [TC-LOGIN-EXT-003] workflow step 4 token absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 4 user absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 5 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 5 waited
+  ✓  [TC-LOGIN-EXT-003] workflow step 6 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 6 X-Student-Id
+  ✓  [TC-LOGIN-EXT-003] workflow step 6 status
+  ✓  [TC-LOGIN-EXT-003] workflow step 6 token absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 6 user absent
+  ✓  [TC-LOGIN-EXT-003] workflow step 7 completed
+  ✓  [TC-LOGIN-EXT-003] workflow step 7 waited
+
+Iteration 41/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 X-Student-Id: 23127062'
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 1 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 3ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 2 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 3ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 3 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 4 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 5 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 2ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 6 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-004 workflow step 7 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  POST http://localhost:3000/api/login [403 Forbidden, 342B, 1ms]
+  ✓  [TC-LOGIN-EXT-004] X-Student-Id header was set
+ 19. [TC-LOGIN-EXT-004] status is expected
+  ✓  [TC-LOGIN-EXT-004] Content-Type
+  ✓  [TC-LOGIN-EXT-004] response time
+ 20. [TC-LOGIN-EXT-004] response token exists
+ 21. [TC-LOGIN-EXT-004] response user exists
+  ✓  [TC-LOGIN-EXT-004] workflow completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 1 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 1 X-Student-Id
+  ✓  [TC-LOGIN-EXT-004] workflow step 1 status
+  ✓  [TC-LOGIN-EXT-004] workflow step 1 id exists
+  ✓  [TC-LOGIN-EXT-004] workflow step 2 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 2 X-Student-Id
+  ✓  [TC-LOGIN-EXT-004] workflow step 2 status
+  ✓  [TC-LOGIN-EXT-004] workflow step 2 id exists
+  ✓  [TC-LOGIN-EXT-004] workflow step 3 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 3 X-Student-Id
+  ✓  [TC-LOGIN-EXT-004] workflow step 3 status
+  ✓  [TC-LOGIN-EXT-004] workflow step 3 token absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 3 user absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 4 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 4 X-Student-Id
+  ✓  [TC-LOGIN-EXT-004] workflow step 4 status
+  ✓  [TC-LOGIN-EXT-004] workflow step 4 token absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 4 user absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 5 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 5 X-Student-Id
+  ✓  [TC-LOGIN-EXT-004] workflow step 5 status
+  ✓  [TC-LOGIN-EXT-004] workflow step 5 token absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 5 user absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 6 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 6 X-Student-Id
+  ✓  [TC-LOGIN-EXT-004] workflow step 6 status
+  ✓  [TC-LOGIN-EXT-004] workflow step 6 token absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 6 user absent
+  ✓  [TC-LOGIN-EXT-004] workflow step 7 completed
+  ✓  [TC-LOGIN-EXT-004] workflow step 7 X-Student-Id
+ 22. [TC-LOGIN-EXT-004] workflow step 7 status
+ 23. [TC-LOGIN-EXT-004] workflow step 7 token exists
+ 24. [TC-LOGIN-EXT-004] workflow step 7 user exists
+
+Iteration 42/42
+
+→ POST /api/login
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-005 X-Student-Id: 23127062'
+  │ '[HW06] TC-LOGIN-EXT-005 workflow step 1 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/register [200 OK, 316B, 2ms]
+  ┌
+  │ '[HW06] TC-LOGIN-EXT-005 workflow step 2 X-Student-Id:
+  │  23127062'
+  └
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  POST http://localhost:3000/api/login [401 Unauthorized, 314B, 1ms]
+  ✓  [TC-LOGIN-EXT-005] X-Student-Id header was set
+  ✓  [TC-LOGIN-EXT-005] status is expected
+  ✓  [TC-LOGIN-EXT-005] Content-Type
+  ✓  [TC-LOGIN-EXT-005] response time
+  ✓  [TC-LOGIN-EXT-005] response token absent
+  ✓  [TC-LOGIN-EXT-005] response user absent
+  ✓  [TC-LOGIN-EXT-005] workflow completed
+  ✓  [TC-LOGIN-EXT-005] workflow step 1 completed
+  ✓  [TC-LOGIN-EXT-005] workflow step 1 X-Student-Id
+  ✓  [TC-LOGIN-EXT-005] workflow step 1 status
+  ✓  [TC-LOGIN-EXT-005] workflow step 1 id exists
+  ✓  [TC-LOGIN-EXT-005] workflow step 2 completed
+  ✓  [TC-LOGIN-EXT-005] workflow step 2 X-Student-Id
+  ✓  [TC-LOGIN-EXT-005] workflow step 2 status
+  ✓  [TC-LOGIN-EXT-005] workflow step 2 token absent
+  ✓  [TC-LOGIN-EXT-005] workflow step 2 user absent
+  ✓  [TC-LOGIN-EXT-005] differential baseline exists
+  ✓  [TC-LOGIN-EXT-005] differential status
+  ✓  [TC-LOGIN-EXT-005] differential Content-Type
+  ✓  [TC-LOGIN-EXT-005] differential error message
+  ✓  [TC-LOGIN-EXT-005] differential timing
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │              42 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              70 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              42 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │              42 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             388 │              24 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 31.2s                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 8.64kB (approx)                        │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 2ms [min: 1ms, max: 30ms, s.d.: 3ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                          [39m
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 01.  AssertionError  [TC-LOGIN-001] response user.password absent    
+      iteration: 1    expected false to deeply equal true             
+                      at assertion:8 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 02.  AssertionError  [TC-LOGIN-002] response user.password absent    
+      iteration: 2    expected false to deeply equal true             
+                      at assertion:8 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 03.  AssertionError  [TC-LOGIN-027] response user.password absent    
+      iteration: 27   expected false to deeply equal true             
+                      at assertion:8 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 04.  AssertionError  [TC-LOGIN-034] status is expected               
+      iteration: 34   expected [ 400, 415, 422 ] to include 500       
+                      at assertion:1 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 05.  AssertionError  [TC-LOGIN-035] response user.password absent    
+      iteration: 35   expected false to deeply equal true             
+                      at assertion:8 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 06.  AssertionError  [TC-LOGIN-037] response user.password absent    
+      iteration: 37   expected false to deeply equal true             
+                      at assertion:8 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 07.  AssertionError  [TC-LOGIN-EXT-001] status is expected           
+      iteration: 38   expected [ 200 ] to include 403                 
+                      at assertion:1 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 08.  AssertionError  [TC-LOGIN-EXT-001] response token exists        
+      iteration: 38   expected undefined to not equal undefined       
+                      at assertion:4 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 09.  AssertionError  [TC-LOGIN-EXT-001] response user exists         
+      iteration: 38   expected undefined to not equal undefined       
+                      at assertion:5 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 10.  AssertionError  [TC-LOGIN-EXT-001] workflow step 4 status       
+      iteration: 38   expected [ 200 ] to include 403                 
+                      at assertion:23 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 11.  AssertionError  [TC-LOGIN-EXT-001] workflow step 4 token exists 
+      iteration: 38   expected undefined to not equal undefined       
+                      at assertion:24 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 12.  AssertionError  [TC-LOGIN-EXT-001] workflow step 4 user exists  
+      iteration: 38   expected undefined to not equal undefined       
+                      at assertion:25 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 13.  AssertionError  [TC-LOGIN-EXT-002] workflow step 4 status       
+      iteration: 39   expected [ 200 ] to include 403                 
+                      at assertion:23 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 14.  AssertionError  [TC-LOGIN-EXT-002] workflow step 4 token exists 
+      iteration: 39   expected undefined to not equal undefined       
+                      at assertion:24 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 15.  AssertionError  [TC-LOGIN-EXT-002] workflow step 4 user exists  
+      iteration: 39   expected undefined to not equal undefined       
+                      at assertion:25 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 16.  AssertionError  [TC-LOGIN-EXT-003] status is expected           
+      iteration: 40   expected [ 200 ] to include 403                 
+                      at assertion:1 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 17.  AssertionError  [TC-LOGIN-EXT-003] response token exists        
+      iteration: 40   expected undefined to not equal undefined       
+                      at assertion:4 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 18.  AssertionError  [TC-LOGIN-EXT-003] response user exists         
+      iteration: 40   expected undefined to not equal undefined       
+                      at assertion:5 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 19.  AssertionError  [TC-LOGIN-EXT-004] status is expected           
+      iteration: 41   expected [ 200 ] to include 403                 
+                      at assertion:1 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 20.  AssertionError  [TC-LOGIN-EXT-004] response token exists        
+      iteration: 41   expected undefined to not equal undefined       
+                      at assertion:4 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 21.  AssertionError  [TC-LOGIN-EXT-004] response user exists         
+      iteration: 41   expected undefined to not equal undefined       
+                      at assertion:5 in test-script                   
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 22.  AssertionError  [TC-LOGIN-EXT-004] workflow step 7 status       
+      iteration: 41   expected [ 200 ] to include 403                 
+                      at assertion:37 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 23.  AssertionError  [TC-LOGIN-EXT-004] workflow step 7 token exists 
+      iteration: 41   expected undefined to not equal undefined       
+                      at assertion:38 in test-script                  
+                      inside "POST /api/login"                        
+[90m     [39m[90m                [39m[90m                                                 [39m
+ 24.  AssertionError  [TC-LOGIN-EXT-004] workflow step 7 user exists  
+      iteration: 41   expected undefined to not equal undefined       
+                      at assertion:39 in test-script                  
+                      inside "POST /api/login"                        

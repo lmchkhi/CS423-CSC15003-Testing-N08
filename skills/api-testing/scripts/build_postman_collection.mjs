@@ -18,6 +18,16 @@ const studentId = pm.collectionVariables.get("studentId");
 if (!studentId || !/^[A-Za-z0-9_-]+$/.test(studentId)) throw new Error("Missing or invalid studentId collection variable");
 pm.request.headers.upsert({ key: "X-Student-Id", value: studentId });
 console.log("[HW06] " + row.id + " X-Student-Id: " + studentId);
+const resolveValue = (value) => {
+  if (typeof value === "string") return pm.variables.replaceIn(value);
+  if (Array.isArray(value)) return value.map(resolveValue);
+  if (value && typeof value === "object") {
+    const resolved = {};
+    for (const [key, item] of Object.entries(value)) resolved[key] = resolveValue(item);
+    return resolved;
+  }
+  return value;
+};
 pm.variables.set("requestPath", pm.variables.replaceIn(row.request.path));
 const query = Object.entries(row.request.query || {}).map(([key, value]) => encodeURIComponent(key) + "=" + encodeURIComponent(pm.variables.replaceIn(String(value)))).join("&");
 pm.variables.set("querySuffix", query ? "?" + query : "");
@@ -34,6 +44,54 @@ if (mode === "user" || mode === "admin") {
 } else if (mode === "custom") {
   pm.request.headers.upsert({ key: "Authorization", value: "Bearer " + pm.variables.replaceIn(row.request.token || "") });
 }
+
+const workflow = row.workflow || [];
+const workflowResults = [];
+pm.variables.set("workflowResults", "[]");
+const runWorkflowStep = (index) => {
+  if (index >= workflow.length) {
+    pm.variables.set("workflowResults", JSON.stringify(workflowResults));
+    return;
+  }
+  const step = workflow[index];
+  if (step.waitMs) {
+    const startedAt = Date.now();
+    setTimeout(() => {
+      workflowResults.push({ stepIndex: index, kind: "wait", waitedMs: Date.now() - startedAt });
+      pm.variables.set("workflowResults", JSON.stringify(workflowResults));
+      runWorkflowStep(index + 1);
+    }, step.waitMs);
+    return;
+  }
+  const stepRequest = step.request || {};
+  const stepHeaders = { "X-Student-Id": studentId };
+  for (const [key, value] of Object.entries(stepRequest.headers || {})) stepHeaders[key] = pm.variables.replaceIn(String(value));
+  const stepQuery = Object.entries(stepRequest.query || {}).map(([key, value]) => encodeURIComponent(key) + "=" + encodeURIComponent(pm.variables.replaceIn(String(value)))).join("&");
+  const requestOptions = {
+    url: pm.variables.replaceIn("{{baseUrl}}") + pm.variables.replaceIn(stepRequest.path || row.request.path) + (stepQuery ? "?" + stepQuery : ""),
+    method: stepRequest.method || "POST",
+    header: stepHeaders,
+  };
+  if (Object.prototype.hasOwnProperty.call(stepRequest, "body")) {
+    requestOptions.body = { mode: "raw", raw: JSON.stringify(resolveValue(stepRequest.body)), options: { raw: { language: "json" } } };
+  }
+  console.log("[HW06] " + row.id + " workflow step " + (index + 1) + " X-Student-Id: " + studentId);
+  pm.sendRequest(requestOptions, (error, response) => {
+    const result = { stepIndex: index, kind: "request", studentId };
+    if (error) {
+      result.error = String(error);
+    } else {
+      result.code = response.code;
+      result.contentType = response.headers.get("Content-Type") || "";
+      result.responseTime = response.responseTime;
+      try { result.body = response.json(); } catch (_) { result.body = undefined; }
+    }
+    workflowResults.push(result);
+    pm.variables.set("workflowResults", JSON.stringify(workflowResults));
+    runWorkflowStep(index + 1);
+  });
+};
+if (workflow.length) runWorkflowStep(0);
 `;
 
 const tests = `const row = pm.iterationData.toObject();
@@ -47,14 +105,15 @@ let json;
 try { json = pm.response.json(); } catch (_) { json = undefined; }
 if (expected.schema) pm.test(prefix + "JSON schema", () => pm.response.to.have.jsonSchema(expected.schema));
 const get = (obj, dotted) => dotted ? dotted.split(".").reduce((v, key) => v == null ? undefined : v[key], obj) : obj;
-for (const assertion of expected.bodyAssertions || []) {
-  pm.test(prefix + assertion.path + " " + assertion.operator, () => {
-    const actual = get(json, assertion.path);
+const assertBody = (label, body, assertions) => {
+for (const assertion of assertions || []) {
+  pm.test(prefix + label + " " + assertion.path + " " + assertion.operator, () => {
+    const actual = get(body, assertion.path);
     switch (assertion.operator) {
       case "equals": pm.expect(actual).to.eql(assertion.value); break;
       case "notEquals": pm.expect(actual).to.not.eql(assertion.value); break;
       case "exists": pm.expect(actual).to.not.equal(undefined); break;
-      case "absent": pm.expect(actual).to.equal(undefined); break;
+      case "absent": pm.expect(actual === undefined).to.eql(true); break;
       case "type": pm.expect(Array.isArray(actual) ? "array" : typeof actual).to.eql(assertion.value); break;
       case "matches": pm.expect(String(actual)).to.match(new RegExp(assertion.value)); break;
       case "includes": pm.expect(actual).to.include(assertion.value); break;
@@ -66,6 +125,40 @@ for (const assertion of expected.bodyAssertions || []) {
       default: throw new Error("Unsupported assertion operator: " + assertion.operator);
     }
   });
+}
+};
+assertBody("response", json, expected.bodyAssertions || []);
+
+let workflowResults = [];
+try { workflowResults = JSON.parse(pm.variables.get("workflowResults") || "[]"); } catch (_) { workflowResults = []; }
+const workflow = row.workflow || [];
+if (workflow.length) {
+  pm.test(prefix + "workflow completed", () => pm.expect(workflowResults).to.have.lengthOf(workflow.length));
+  for (const [index, step] of workflow.entries()) {
+    const result = workflowResults.find((item) => item.stepIndex === index);
+    pm.test(prefix + "workflow step " + (index + 1) + " completed", () => pm.expect(result).to.be.an("object"));
+    if (step.waitMs) {
+      pm.test(prefix + "workflow step " + (index + 1) + " waited", () => pm.expect(result.waitedMs).to.be.at.least(step.waitMs - 50));
+      continue;
+    }
+    pm.test(prefix + "workflow step " + (index + 1) + " X-Student-Id", () => pm.expect(result.studentId).to.eql(pm.collectionVariables.get("studentId")));
+    const stepExpected = step.expected || {};
+    if (stepExpected.status) pm.test(prefix + "workflow step " + (index + 1) + " status", () => pm.expect(stepExpected.status).to.include(result.code));
+    assertBody("workflow step " + (index + 1), result.body, stepExpected.bodyAssertions || []);
+  }
+}
+
+const differential = row.differential;
+if (differential) {
+  const baseline = workflowResults.find((item) => item.stepIndex === differential.workflowStepIndex);
+  pm.test(prefix + "differential baseline exists", () => pm.expect(baseline).to.be.an("object"));
+  if (differential.sameStatus) pm.test(prefix + "differential status", () => pm.expect(pm.response.code).to.eql(baseline.code));
+  if (differential.sameContentType) pm.test(prefix + "differential Content-Type", () => {
+    const normalize = (value) => String(value || "").split(";")[0].trim().toLowerCase();
+    pm.expect(normalize(pm.response.headers.get("Content-Type"))).to.eql(normalize(baseline.contentType));
+  });
+  if (differential.sameError) pm.test(prefix + "differential error message", () => pm.expect(json && json.error).to.eql(baseline.body && baseline.body.error));
+  if (differential.maxTimingDeltaMs) pm.test(prefix + "differential timing", () => pm.expect(Math.abs(pm.response.responseTime - baseline.responseTime)).to.be.at.most(differential.maxTimingDeltaMs));
 }
 `;
 

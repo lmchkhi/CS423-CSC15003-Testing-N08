@@ -83,6 +83,48 @@ function tc(n, title, options = {}) {
   };
 }
 
+function extensionTc(n, title, options) {
+  return {
+    id: `TC-LOGIN-EXT-${String(n).padStart(3, "0")}`,
+    title,
+    requirementIds: options.requirementIds ?? ["FR-02"],
+    testType: options.testType ?? "State",
+    technique: options.technique ?? "State Transition",
+    coverage: options.coverage ?? ["state-transition", "security"],
+    source: "student-authored",
+    agentAudit: {
+      status: "VALID",
+      reason: "Case bổ sung có oracle trực tiếp từ FR-02 và bao phủ chuỗi trạng thái chưa có trong baseline.",
+    },
+    humanReview: {
+      status: "APPROVED",
+      reason: "Nội dung extension case đã được sinh viên cung cấp và yêu cầu materialize vào suite.",
+    },
+    preconditions: options.preconditions,
+    testData: options.testData,
+    steps: options.steps,
+    workflow: options.workflow,
+    differential: options.differential,
+    request: {
+      path: "/api/login",
+      query: {},
+      headers: jsonHeaders,
+      auth: "none",
+      body: options.body,
+    },
+    expected: {
+      status: options.status,
+      contentType: "application/json",
+      schema: options.schema ?? null,
+      bodyAssertions: options.bodyAssertions ?? rejectAssertions,
+      maxResponseTimeMs: 2000,
+      notes: options.notes ?? [],
+    },
+    status: "Not Run",
+    relatedBugs: [],
+  };
+}
+
 const cases = [
   tc(1, "Đăng nhập user với credentials hợp lệ", { status: 200, coverage: ["domain-partition", "state-transition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"], notes: ["Từ trạng thái chưa xác thực và tài khoản không bị khóa, login thành công tạo trạng thái đã xác thực thông qua JWT."] }),
   tc(2, "Đăng nhập admin với credentials hợp lệ", { status: 200, body: { email: "{{validAdminEmail}}", password: "{{validAdminPassword}}" }, coverage: ["domain-partition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"] }),
@@ -169,6 +211,160 @@ for (const testCase of cases) {
   testCase.humanReview = { status: review[0], reason: review[1] };
 }
 
+const workflowRegistration = (emailVariable) => ({
+  name: "Tạo tài khoản riêng cho testcase",
+  request: {
+    method: "POST",
+    path: "/api/register",
+    headers: jsonHeaders,
+    body: { name: "Extension Login Test", email: emailVariable, password: "{{extensionPassword}}" },
+  },
+  expected: { status: [200], bodyAssertions: [{ path: "id", operator: "exists" }] },
+});
+const workflowWrongLogin = (name, emailVariable) => ({
+  name,
+  request: {
+    method: "POST",
+    path: "/api/login",
+    headers: jsonHeaders,
+    body: { email: emailVariable, password: "{{invalidPassword}}" },
+  },
+  expected: { status: rejectedInputStatuses, bodyAssertions: rejectAssertions },
+});
+const workflowValidLogin = (name, emailVariable, expectedStatus = [200]) => ({
+  name,
+  request: {
+    method: "POST",
+    path: "/api/login",
+    headers: jsonHeaders,
+    body: { email: emailVariable, password: "{{extensionPassword}}" },
+  },
+  expected: {
+    status: expectedStatus,
+    bodyAssertions: expectedStatus.includes(200)
+      ? [{ path: "token", operator: "exists" }, { path: "user", operator: "exists" }]
+      : rejectAssertions,
+  },
+});
+
+cases.push(
+  extensionTc(1, "Đăng nhập thành công reset bộ đếm sai liên tiếp", {
+    testData: { email: "{{extensionEmail1}}", password: "{{extensionPassword}}", invalidPassword: "{{invalidPassword}}", sequence: "wrong ×2 → success → wrong ×2 → success" },
+    preconditions: ["SUT khả dụng; workflow tạo một tài khoản riêng ở trạng thái chưa bị khóa."],
+    steps: [
+      "Tạo tài khoản riêng qua POST /api/register.",
+      "Đăng nhập sai hai lần, sau đó đăng nhập đúng để reset bộ đếm.",
+      "Đăng nhập sai thêm hai lần rồi gửi request chính với credentials đúng.",
+      "Kiểm tra cả hai lần đăng nhập đúng đều thành công và trả JWT.",
+    ],
+    workflow: [
+      workflowRegistration("{{extensionEmail1}}"),
+      workflowWrongLogin("Sai lần 1 trước reset", "{{extensionEmail1}}"),
+      workflowWrongLogin("Sai lần 2 trước reset", "{{extensionEmail1}}"),
+      workflowValidLogin("Đăng nhập đúng để reset", "{{extensionEmail1}}"),
+      workflowWrongLogin("Sai lần 1 sau reset", "{{extensionEmail1}}"),
+      workflowWrongLogin("Sai lần 2 sau reset", "{{extensionEmail1}}"),
+    ],
+    body: { email: "{{extensionEmail1}}", password: "{{extensionPassword}}" },
+    status: [200],
+    bodyAssertions: [{ path: "token", operator: "exists" }, { path: "user", operator: "exists" }],
+    notes: ["Login thành công phải đặt login_attempts về 0; hai lần sai sau reset chưa được khóa tài khoản."],
+  }),
+  extensionTc(2, "Khóa tài khoản đúng tại lần đăng nhập sai thứ ba", {
+    testData: { preThresholdAccount: "{{extensionEmail2Pre}}", thresholdAccount: "{{extensionEmail2Threshold}}", password: "{{extensionPassword}}", invalidPassword: "{{invalidPassword}}" },
+    preconditions: ["SUT khả dụng; workflow tạo hai tài khoản riêng để kiểm tra trước ngưỡng và tại ngưỡng độc lập."],
+    steps: [
+      "Với tài khoản thứ nhất, đăng nhập sai hai lần rồi đăng nhập đúng; lần đúng phải thành công để chứng minh chưa bị khóa sớm.",
+      "Với tài khoản thứ hai, đăng nhập sai đúng ba lần liên tiếp.",
+      "Gửi request chính bằng credentials đúng của tài khoản thứ hai.",
+      "Kiểm tra tài khoản thứ hai đang bị khóa và response không có token/user.",
+    ],
+    workflow: [
+      workflowRegistration("{{extensionEmail2Pre}}"),
+      workflowWrongLogin("Tài khoản trước ngưỡng - sai lần 1", "{{extensionEmail2Pre}}"),
+      workflowWrongLogin("Tài khoản trước ngưỡng - sai lần 2", "{{extensionEmail2Pre}}"),
+      workflowValidLogin("Tài khoản trước ngưỡng vẫn đăng nhập được", "{{extensionEmail2Pre}}"),
+      workflowRegistration("{{extensionEmail2Threshold}}"),
+      workflowWrongLogin("Tài khoản tại ngưỡng - sai lần 1", "{{extensionEmail2Threshold}}"),
+      workflowWrongLogin("Tài khoản tại ngưỡng - sai lần 2", "{{extensionEmail2Threshold}}"),
+      workflowWrongLogin("Tài khoản tại ngưỡng - sai lần 3", "{{extensionEmail2Threshold}}"),
+    ],
+    body: { email: "{{extensionEmail2Threshold}}", password: "{{extensionPassword}}" },
+    status: [403, 429],
+    bodyAssertions: rejectAssertions,
+    notes: ["Hai lần sai chưa được khóa; từ lần sai thứ ba trở đi credentials đúng phải bị từ chối trong thời gian lockout."],
+  }),
+  extensionTc(3, "Tự mở khóa tại biên thời gian 30 giây", {
+    technique: "State Transition / Temporal BVA",
+    testData: { email: "{{extensionEmail3}}", password: "{{extensionPassword}}", invalidPassword: "{{invalidPassword}}", lockDuration: "30 giây" },
+    preconditions: ["SUT khả dụng; workflow tạo một tài khoản riêng và có thể chờ khoảng 30 giây."],
+    steps: [
+      "Tạo tài khoản riêng và đăng nhập sai ba lần để kích hoạt lockout.",
+      "Chờ 29 giây rồi thử credentials đúng; request phải còn bị từ chối.",
+      "Chờ thêm 1,5 giây và gửi request chính bằng credentials đúng.",
+      "Kiểm tra request sau mốc 30 giây thành công và trả JWT.",
+    ],
+    workflow: [
+      workflowRegistration("{{extensionEmail3}}"),
+      workflowWrongLogin("Sai lần 1", "{{extensionEmail3}}"),
+      workflowWrongLogin("Sai lần 2", "{{extensionEmail3}}"),
+      workflowWrongLogin("Sai lần 3", "{{extensionEmail3}}"),
+      { name: "Chờ trước biên lockout", waitMs: 29000 },
+      workflowValidLogin("Credentials đúng trước mốc 30 giây vẫn bị từ chối", "{{extensionEmail3}}", [403, 429]),
+      { name: "Vượt qua biên 30 giây", waitMs: 1500 },
+    ],
+    body: { email: "{{extensionEmail3}}", password: "{{extensionPassword}}" },
+    status: [200],
+    bodyAssertions: [{ path: "token", operator: "exists" }, { path: "user", operator: "exists" }],
+    notes: ["Lockout phải hết hiệu lực từ mốc 30 giây theo FR-02."],
+  }),
+  extensionTc(4, "Bộ đếm đăng nhập sai được cô lập theo tài khoản", {
+    testData: { accountA: "{{extensionEmail4A}}", accountB: "{{extensionEmail4B}}", password: "{{extensionPassword}}", invalidPassword: "{{invalidPassword}}" },
+    preconditions: ["SUT khả dụng; workflow tạo hai tài khoản riêng ở trạng thái chưa bị khóa."],
+    steps: [
+      "Tạo hai tài khoản A và B.",
+      "Xen kẽ hai lần đăng nhập sai cho A và hai lần cho B.",
+      "Đăng nhập đúng A trong workflow và đăng nhập đúng B bằng request chính.",
+      "Kiểm tra lỗi của tài khoản này không làm tăng counter hoặc khóa tài khoản kia.",
+    ],
+    workflow: [
+      workflowRegistration("{{extensionEmail4A}}"),
+      workflowRegistration("{{extensionEmail4B}}"),
+      workflowWrongLogin("A sai lần 1", "{{extensionEmail4A}}"),
+      workflowWrongLogin("B sai lần 1", "{{extensionEmail4B}}"),
+      workflowWrongLogin("A sai lần 2", "{{extensionEmail4A}}"),
+      workflowWrongLogin("B sai lần 2", "{{extensionEmail4B}}"),
+      workflowValidLogin("A đăng nhập đúng", "{{extensionEmail4A}}"),
+    ],
+    body: { email: "{{extensionEmail4B}}", password: "{{extensionPassword}}" },
+    status: [200],
+    bodyAssertions: [{ path: "token", operator: "exists" }, { path: "user", operator: "exists" }],
+    notes: ["Mỗi tài khoản phải có state machine và login_attempts độc lập."],
+  }),
+  extensionTc(5, "Response không để lộ tài khoản tồn tại qua thông báo hoặc timing", {
+    testType: "Security",
+    technique: "Differential Testing",
+    coverage: ["security", "state-transition"],
+    testData: { registeredEmail: "{{extensionEmail5}}", unknownEmail: "{{extensionUnknownEmail}}", invalidPassword: "{{invalidPassword}}" },
+    preconditions: ["SUT khả dụng; workflow tạo một tài khoản riêng và có một email chắc chắn chưa đăng ký."],
+    steps: [
+      "Tạo tài khoản riêng.",
+      "Gửi login với email đã đăng ký và password sai.",
+      "Gửi request chính với email chưa đăng ký và cùng password sai.",
+      "So sánh status, Content-Type, trường error và thời gian phản hồi của hai response.",
+    ],
+    workflow: [
+      workflowRegistration("{{extensionEmail5}}"),
+      workflowWrongLogin("Email tồn tại + password sai", "{{extensionEmail5}}"),
+    ],
+    differential: { workflowStepIndex: 1, sameStatus: true, sameContentType: true, sameError: true, maxTimingDeltaMs: 1000 },
+    body: { email: "{{extensionUnknownEmail}}", password: "{{invalidPassword}}" },
+    status: rejectedInputStatuses,
+    bodyAssertions: rejectAssertions,
+    notes: ["Hai response không được cung cấp tín hiệu ổn định cho user enumeration; timing threshold 1000 ms dùng như heuristic trong môi trường local."],
+  }),
+);
+
 const manifest = {
   suite: {
     name: "Login API - HW06 - MSSV 23127062",
@@ -198,6 +394,15 @@ fs.writeFileSync(path.join(outDir, "login.postman_environment.example.json"), JS
     { key: "validUserPasswordWithTrailingSpace", value: "<set-at-runtime>", enabled: true },
     { key: "invalidPassword", value: "<set-at-runtime>", enabled: true },
     { key: "oversizedEmail", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionPassword", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail1", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail2Pre", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail2Threshold", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail3", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail4A", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail4B", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionEmail5", value: "<set-at-runtime>", enabled: true },
+    { key: "extensionUnknownEmail", value: "<set-at-runtime>", enabled: true },
   ],
   _postman_variable_scope: "environment",
   _postman_exported_using: "Codex api-testing skill",

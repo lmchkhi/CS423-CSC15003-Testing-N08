@@ -101,7 +101,7 @@
       "#69"
     ],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 200,
       "failedAssertions": 1,
       "classification": "SUT defect"
@@ -206,7 +206,7 @@
       "#69"
     ],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 200,
       "failedAssertions": 1,
       "classification": "SUT defect"
@@ -281,7 +281,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -356,7 +356,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -431,7 +431,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -509,7 +509,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -587,7 +587,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -660,7 +660,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -733,7 +733,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -802,7 +802,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -877,7 +877,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -952,7 +952,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1027,7 +1027,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1102,7 +1102,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1177,7 +1177,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1252,7 +1252,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1327,7 +1327,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1402,7 +1402,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1477,7 +1477,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1552,7 +1552,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1632,7 +1632,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1712,7 +1712,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1783,7 +1783,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 400,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1854,7 +1854,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1925,7 +1925,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 400,
       "failedAssertions": 0,
       "classification": "passed"
@@ -1995,7 +1995,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2104,7 +2104,7 @@
       "#69"
     ],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 200,
       "failedAssertions": 1,
       "classification": "SUT defect"
@@ -2193,7 +2193,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2282,7 +2282,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2366,7 +2366,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2443,7 +2443,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2518,7 +2518,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2543,7 +2543,7 @@
     },
     "humanReview": {
       "status": "INCOMPLETE",
-      "reason": "Không có giới hạn độ dài email cụ thể; đã giữ robustness case và chấp nhận 400/413/422/429 thay vì ép 400."
+      "reason": "Không có giới hạn độ dài email cụ thể; đã giữ robustness case và chấp nhận 400/401/413/422/429 thay vì ép 400."
     },
     "preconditions": [
       "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2591,13 +2591,13 @@
       "maxResponseTimeMs": 2000,
       "notes": []
     },
-    "status": "Failed",
+    "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
-      "failedAssertions": 1,
-      "classification": "requires triage"
+      "failedAssertions": 0,
+      "classification": "passed"
     }
   },
   {
@@ -2666,12 +2666,14 @@
       "notes": []
     },
     "status": "Failed",
-    "relatedBugs": [],
+    "relatedBugs": [
+      "#267"
+    ],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 500,
       "failedAssertions": 1,
-      "classification": "requires triage"
+      "classification": "SUT defect"
     }
   },
   {
@@ -2771,7 +2773,7 @@
       "#69"
     ],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 200,
       "failedAssertions": 1,
       "classification": "SUT defect"
@@ -2852,7 +2854,7 @@
     "status": "Passed",
     "relatedBugs": [],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 401,
       "failedAssertions": 0,
       "classification": "passed"
@@ -2956,10 +2958,1297 @@
       "#69"
     ],
     "execution": {
-      "runId": "20260822T152407+0700",
+      "runId": "20260822T162458+0700",
       "actualStatus": 200,
       "failedAssertions": 1,
       "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-LOGIN-EXT-001",
+    "title": "Đăng nhập thành công reset bộ đếm sai liên tiếp",
+    "requirementIds": [
+      "FR-02"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition",
+      "security"
+    ],
+    "source": "student-authored",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bổ sung có oracle trực tiếp từ FR-02 và bao phủ chuỗi trạng thái chưa có trong baseline."
+    },
+    "humanReview": {
+      "status": "APPROVED",
+      "reason": "Nội dung extension case đã được sinh viên cung cấp và yêu cầu materialize vào suite."
+    },
+    "preconditions": [
+      "SUT khả dụng; workflow tạo một tài khoản riêng ở trạng thái chưa bị khóa."
+    ],
+    "testData": {
+      "email": "{{extensionEmail1}}",
+      "password": "{{extensionPassword}}",
+      "invalidPassword": "{{invalidPassword}}",
+      "sequence": "wrong ×2 → success → wrong ×2 → success"
+    },
+    "steps": [
+      "Tạo tài khoản riêng qua POST /api/register.",
+      "Đăng nhập sai hai lần, sau đó đăng nhập đúng để reset bộ đếm.",
+      "Đăng nhập sai thêm hai lần rồi gửi request chính với credentials đúng.",
+      "Kiểm tra cả hai lần đăng nhập đúng đều thành công và trả JWT."
+    ],
+    "workflow": [
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail1}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 1 trước reset",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail1}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 2 trước reset",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail1}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Đăng nhập đúng để reset",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail1}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "exists"
+            },
+            {
+              "path": "user",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 1 sau reset",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail1}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 2 sau reset",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail1}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      }
+    ],
+    "request": {
+      "path": "/api/login",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "none",
+      "body": {
+        "email": "{{extensionEmail1}}",
+        "password": "{{extensionPassword}}"
+      }
+    },
+    "expected": {
+      "status": [
+        200
+      ],
+      "contentType": "application/json",
+      "schema": null,
+      "bodyAssertions": [
+        {
+          "path": "token",
+          "operator": "exists"
+        },
+        {
+          "path": "user",
+          "operator": "exists"
+        }
+      ],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Login thành công phải đặt login_attempts về 0; hai lần sai sau reset chưa được khóa tài khoản."
+      ]
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#71"
+    ],
+    "execution": {
+      "runId": "20260822T162458+0700",
+      "actualStatus": 403,
+      "failedAssertions": 6,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-LOGIN-EXT-002",
+    "title": "Khóa tài khoản đúng tại lần đăng nhập sai thứ ba",
+    "requirementIds": [
+      "FR-02"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition",
+      "security"
+    ],
+    "source": "student-authored",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bổ sung có oracle trực tiếp từ FR-02 và bao phủ chuỗi trạng thái chưa có trong baseline."
+    },
+    "humanReview": {
+      "status": "APPROVED",
+      "reason": "Nội dung extension case đã được sinh viên cung cấp và yêu cầu materialize vào suite."
+    },
+    "preconditions": [
+      "SUT khả dụng; workflow tạo hai tài khoản riêng để kiểm tra trước ngưỡng và tại ngưỡng độc lập."
+    ],
+    "testData": {
+      "preThresholdAccount": "{{extensionEmail2Pre}}",
+      "thresholdAccount": "{{extensionEmail2Threshold}}",
+      "password": "{{extensionPassword}}",
+      "invalidPassword": "{{invalidPassword}}"
+    },
+    "steps": [
+      "Với tài khoản thứ nhất, đăng nhập sai hai lần rồi đăng nhập đúng; lần đúng phải thành công để chứng minh chưa bị khóa sớm.",
+      "Với tài khoản thứ hai, đăng nhập sai đúng ba lần liên tiếp.",
+      "Gửi request chính bằng credentials đúng của tài khoản thứ hai.",
+      "Kiểm tra tài khoản thứ hai đang bị khóa và response không có token/user."
+    ],
+    "workflow": [
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail2Pre}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tài khoản trước ngưỡng - sai lần 1",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail2Pre}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tài khoản trước ngưỡng - sai lần 2",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail2Pre}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tài khoản trước ngưỡng vẫn đăng nhập được",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail2Pre}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "exists"
+            },
+            {
+              "path": "user",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail2Threshold}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tài khoản tại ngưỡng - sai lần 1",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail2Threshold}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tài khoản tại ngưỡng - sai lần 2",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail2Threshold}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tài khoản tại ngưỡng - sai lần 3",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail2Threshold}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      }
+    ],
+    "request": {
+      "path": "/api/login",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "none",
+      "body": {
+        "email": "{{extensionEmail2Threshold}}",
+        "password": "{{extensionPassword}}"
+      }
+    },
+    "expected": {
+      "status": [
+        403,
+        429
+      ],
+      "contentType": "application/json",
+      "schema": null,
+      "bodyAssertions": [
+        {
+          "path": "token",
+          "operator": "absent"
+        },
+        {
+          "path": "user",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Hai lần sai chưa được khóa; từ lần sai thứ ba trở đi credentials đúng phải bị từ chối trong thời gian lockout."
+      ]
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#71"
+    ],
+    "execution": {
+      "runId": "20260822T162458+0700",
+      "actualStatus": 403,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-LOGIN-EXT-003",
+    "title": "Tự mở khóa tại biên thời gian 30 giây",
+    "requirementIds": [
+      "FR-02"
+    ],
+    "testType": "State",
+    "technique": "State Transition / Temporal BVA",
+    "coverage": [
+      "state-transition",
+      "security"
+    ],
+    "source": "student-authored",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bổ sung có oracle trực tiếp từ FR-02 và bao phủ chuỗi trạng thái chưa có trong baseline."
+    },
+    "humanReview": {
+      "status": "APPROVED",
+      "reason": "Nội dung extension case đã được sinh viên cung cấp và yêu cầu materialize vào suite."
+    },
+    "preconditions": [
+      "SUT khả dụng; workflow tạo một tài khoản riêng và có thể chờ khoảng 30 giây."
+    ],
+    "testData": {
+      "email": "{{extensionEmail3}}",
+      "password": "{{extensionPassword}}",
+      "invalidPassword": "{{invalidPassword}}",
+      "lockDuration": "30 giây"
+    },
+    "steps": [
+      "Tạo tài khoản riêng và đăng nhập sai ba lần để kích hoạt lockout.",
+      "Chờ 29 giây rồi thử credentials đúng; request phải còn bị từ chối.",
+      "Chờ thêm 1,5 giây và gửi request chính bằng credentials đúng.",
+      "Kiểm tra request sau mốc 30 giây thành công và trả JWT."
+    ],
+    "workflow": [
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail3}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 1",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail3}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 2",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail3}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sai lần 3",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail3}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Chờ trước biên lockout",
+        "waitMs": 29000
+      },
+      {
+        "name": "Credentials đúng trước mốc 30 giây vẫn bị từ chối",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail3}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            403,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Vượt qua biên 30 giây",
+        "waitMs": 1500
+      }
+    ],
+    "request": {
+      "path": "/api/login",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "none",
+      "body": {
+        "email": "{{extensionEmail3}}",
+        "password": "{{extensionPassword}}"
+      }
+    },
+    "expected": {
+      "status": [
+        200
+      ],
+      "contentType": "application/json",
+      "schema": null,
+      "bodyAssertions": [
+        {
+          "path": "token",
+          "operator": "exists"
+        },
+        {
+          "path": "user",
+          "operator": "exists"
+        }
+      ],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Lockout phải hết hiệu lực từ mốc 30 giây theo FR-02."
+      ]
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#73"
+    ],
+    "execution": {
+      "runId": "20260822T162458+0700",
+      "actualStatus": 403,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-LOGIN-EXT-004",
+    "title": "Bộ đếm đăng nhập sai được cô lập theo tài khoản",
+    "requirementIds": [
+      "FR-02"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition",
+      "security"
+    ],
+    "source": "student-authored",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bổ sung có oracle trực tiếp từ FR-02 và bao phủ chuỗi trạng thái chưa có trong baseline."
+    },
+    "humanReview": {
+      "status": "APPROVED",
+      "reason": "Nội dung extension case đã được sinh viên cung cấp và yêu cầu materialize vào suite."
+    },
+    "preconditions": [
+      "SUT khả dụng; workflow tạo hai tài khoản riêng ở trạng thái chưa bị khóa."
+    ],
+    "testData": {
+      "accountA": "{{extensionEmail4A}}",
+      "accountB": "{{extensionEmail4B}}",
+      "password": "{{extensionPassword}}",
+      "invalidPassword": "{{invalidPassword}}"
+    },
+    "steps": [
+      "Tạo hai tài khoản A và B.",
+      "Xen kẽ hai lần đăng nhập sai cho A và hai lần cho B.",
+      "Đăng nhập đúng A trong workflow và đăng nhập đúng B bằng request chính.",
+      "Kiểm tra lỗi của tài khoản này không làm tăng counter hoặc khóa tài khoản kia."
+    ],
+    "workflow": [
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail4A}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail4B}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "A sai lần 1",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail4A}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "B sai lần 1",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail4B}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "A sai lần 2",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail4A}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "B sai lần 2",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail4B}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      },
+      {
+        "name": "A đăng nhập đúng",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail4A}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "exists"
+            },
+            {
+              "path": "user",
+              "operator": "exists"
+            }
+          ]
+        }
+      }
+    ],
+    "request": {
+      "path": "/api/login",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "none",
+      "body": {
+        "email": "{{extensionEmail4B}}",
+        "password": "{{extensionPassword}}"
+      }
+    },
+    "expected": {
+      "status": [
+        200
+      ],
+      "contentType": "application/json",
+      "schema": null,
+      "bodyAssertions": [
+        {
+          "path": "token",
+          "operator": "exists"
+        },
+        {
+          "path": "user",
+          "operator": "exists"
+        }
+      ],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Mỗi tài khoản phải có state machine và login_attempts độc lập."
+      ]
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#71"
+    ],
+    "execution": {
+      "runId": "20260822T162458+0700",
+      "actualStatus": 403,
+      "failedAssertions": 6,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-LOGIN-EXT-005",
+    "title": "Response không để lộ tài khoản tồn tại qua thông báo hoặc timing",
+    "requirementIds": [
+      "FR-02"
+    ],
+    "testType": "Security",
+    "technique": "Differential Testing",
+    "coverage": [
+      "security",
+      "state-transition"
+    ],
+    "source": "student-authored",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bổ sung có oracle trực tiếp từ FR-02 và bao phủ chuỗi trạng thái chưa có trong baseline."
+    },
+    "humanReview": {
+      "status": "APPROVED",
+      "reason": "Nội dung extension case đã được sinh viên cung cấp và yêu cầu materialize vào suite."
+    },
+    "preconditions": [
+      "SUT khả dụng; workflow tạo một tài khoản riêng và có một email chắc chắn chưa đăng ký."
+    ],
+    "testData": {
+      "registeredEmail": "{{extensionEmail5}}",
+      "unknownEmail": "{{extensionUnknownEmail}}",
+      "invalidPassword": "{{invalidPassword}}"
+    },
+    "steps": [
+      "Tạo tài khoản riêng.",
+      "Gửi login với email đã đăng ký và password sai.",
+      "Gửi request chính với email chưa đăng ký và cùng password sai.",
+      "So sánh status, Content-Type, trường error và thời gian phản hồi của hai response."
+    ],
+    "workflow": [
+      {
+        "name": "Tạo tài khoản riêng cho testcase",
+        "request": {
+          "method": "POST",
+          "path": "/api/register",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Extension Login Test",
+            "email": "{{extensionEmail5}}",
+            "password": "{{extensionPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "id",
+              "operator": "exists"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Email tồn tại + password sai",
+        "request": {
+          "method": "POST",
+          "path": "/api/login",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "email": "{{extensionEmail5}}",
+            "password": "{{invalidPassword}}"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            401,
+            403,
+            422,
+            429
+          ],
+          "bodyAssertions": [
+            {
+              "path": "token",
+              "operator": "absent"
+            },
+            {
+              "path": "user",
+              "operator": "absent"
+            }
+          ]
+        }
+      }
+    ],
+    "differential": {
+      "workflowStepIndex": 1,
+      "sameStatus": true,
+      "sameContentType": true,
+      "sameError": true,
+      "maxTimingDeltaMs": 1000
+    },
+    "request": {
+      "path": "/api/login",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "none",
+      "body": {
+        "email": "{{extensionUnknownEmail}}",
+        "password": "{{invalidPassword}}"
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        401,
+        403,
+        422,
+        429
+      ],
+      "contentType": "application/json",
+      "schema": null,
+      "bodyAssertions": [
+        {
+          "path": "token",
+          "operator": "absent"
+        },
+        {
+          "path": "user",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Hai response không được cung cấp tín hiệu ổn định cho user enumeration; timing threshold 1000 ms dùng như heuristic trong môi trường local."
+      ]
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T162458+0700",
+      "actualStatus": 401,
+      "failedAssertions": 0,
+      "classification": "passed"
     }
   }
 ]

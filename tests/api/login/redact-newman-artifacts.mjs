@@ -2,10 +2,17 @@ import fs from "node:fs";
 import path from "node:path";
 
 const reportDir = process.argv[2];
-if (!reportDir) throw new Error("Usage: redact-newman-artifacts.mjs <report-dir>");
+const environmentPath = process.argv[3];
+if (!reportDir) throw new Error("Usage: redact-newman-artifacts.mjs <report-dir> [runtime-environment.json]");
 const readme = fs.readFileSync("README.md", "utf8");
 const passwordMatches = [...readme.matchAll(/(?:Admin|User test):\s*`[^`]+`\s*\/\s*`([^`]+)`/g)];
-const secrets = passwordMatches.map((match) => match[1]).concat(["DefinitelyWrong-23127062!"]);
+const secrets = passwordMatches.map((match) => match[1]).concat(["DefinitelyWrong-23127062!", "Extension-23127062!"]);
+if (environmentPath) {
+  const environment = JSON.parse(fs.readFileSync(environmentPath, "utf8"));
+  for (const variable of environment.values || []) {
+    if (/password|token|secret|cookie|otp/i.test(variable.key) && variable.value) secrets.push(String(variable.value));
+  }
+}
 const files = ["cli.log", "newman-report.json", "newman-report.html"];
 
 function redact(text) {

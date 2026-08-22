@@ -1,6 +1,6 @@
 Raw Newman response extract; secrets are redacted.
-Run: 20260822T152407+0700
-Git HEAD: 13393f68c13ae433c1929bdad1106ee19cc28630 (dirty)
+Run: 20260822T162458+0700
+Git HEAD: 802f7174dc515d88a5612f52db7b1489de2a7350 (dirty)
 
 === TC-LOGIN-001 ===
 HTTP 200 OK

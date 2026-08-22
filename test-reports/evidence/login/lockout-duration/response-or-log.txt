@@ -1,0 +1,12 @@
+Raw Newman assertion extract; credentials are omitted.
+Run: 20260822T162458+0700
+Endpoint: POST /api/login
+X-Student-Id: 23127062
+
+TC-LOGIN-EXT-003
+- A dedicated account was locked by consecutive invalid login attempts.
+- Valid credentials sent before 30 seconds were rejected as expected.
+- After waiting 29 seconds plus 1.5 seconds, the final valid login still returned HTTP 403 instead of 200.
+- Failed assertions: main response status/token/user.
+
+Observed in two complete Newman executions with a database reset between runs.

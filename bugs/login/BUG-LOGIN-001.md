@@ -24,8 +24,8 @@ Critical / P0
 - Base URL: http://localhost:3000
 - Endpoint: `POST /api/login`
 - SUT code commit: `85af3ba875c88283615e22cb108f13e2fccaf0e9`
-- Git HEAD lúc chạy: `13393f68c13ae433c1929bdad1106ee19cc28630` (working tree có thay đổi chưa commit)
-- Executed at: `2026-08-22T15:24:07+07:00`
+- Git HEAD lúc chạy: `802f7174dc515d88a5612f52db7b1489de2a7350` (working tree có thay đổi chưa commit)
+- Executed at: `2026-08-22T16:24:58+07:00`
 - Student ID header: `23127062`
 
 ## Steps to reproduce
@@ -45,12 +45,12 @@ HTTP 200 trả object `user` có field `password`; giá trị thật đã đư�
 ## Evidence
 
 - Raw response/log: [response-or-log.txt](../../test-reports/evidence/login/plaintext-password/response-or-log.txt)
-- Newman report: [newman-report.html](../../test-reports/newman/login-20260822T152407+0700/newman-report.html)
-- Screenshot: ![evidence.png](../../test-reports/evidence/login/plaintext-password/evidence.png) — output Newman trong terminal VS Code, thể hiện 211 assertions với 6 failures và các assertion `user.password absent` thất bại.
+- Newman report: [newman-report.html](../../test-reports/newman/login-20260822T162458+0700/newman-report.html)
+- Screenshot: ![evidence.png](../../test-reports/evidence/login/plaintext-password/evidence.png) — output Newman hiện tại, thể hiện trực tiếp các assertion `user.password absent` thất bại mà không in giá trị password.
 
 ## Reproducibility
 
-5/5 login thành công trong suite đã hiệu chỉnh làm assertion `user.password absent` thất bại; cùng triệu chứng xuất hiện ở user và admin.
+15/15 login thành công qua ba run gần nhất làm assertion `user.password absent` thất bại; cùng triệu chứng xuất hiện ở user và admin.
 
 ## Duplicate check
 

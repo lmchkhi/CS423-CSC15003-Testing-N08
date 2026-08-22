@@ -130,29 +130,35 @@ Danh sách và metadata đầy đủ được lưu trong [suite manifest](../tes
 
 ### 3.4. Extend - Test case do sinh viên bổ sung
 
-| Test case ID                  | Mô tả                               | Coverage                         | Vì sao AI bỏ sót            |
-| ----------------------------- | ----------------------------------- | -------------------------------- | --------------------------- |
-| `{{EXTENSION_TC_ID_API_1_1}}` | `{{EXTENSION_DESCRIPTION_API_1_1}}` | `{{EXTENSION_COVERAGE_API_1_1}}` | `{{WHY_AI_MISSED_API_1_1}}` |
-| `{{EXTENSION_TC_ID_API_1_2}}` | `{{EXTENSION_DESCRIPTION_API_1_2}}` | `{{EXTENSION_COVERAGE_API_1_2}}` | `{{WHY_AI_MISSED_API_1_2}}` |
-| `{{EXTENSION_TC_ID_API_1_3}}` | `{{EXTENSION_DESCRIPTION_API_1_3}}` | `{{EXTENSION_COVERAGE_API_1_3}}` | `{{WHY_AI_MISSED_API_1_3}}` |
-| `{{EXTENSION_TC_ID_API_1_4}}` | `{{EXTENSION_DESCRIPTION_API_1_4}}` | `{{EXTENSION_COVERAGE_API_1_4}}` | `{{WHY_AI_MISSED_API_1_4}}` |
-| `{{EXTENSION_TC_ID_API_1_5}}` | `{{EXTENSION_DESCRIPTION_API_1_5}}` | `{{EXTENSION_COVERAGE_API_1_5}}` | `{{WHY_AI_MISSED_API_1_5}}` |
+| Test case ID       | Mô tả | Coverage | Vì sao AI bỏ sót |
+| ------------------ | ----- | -------- | ---------------- |
+| `TC-LOGIN-EXT-001` | Kiểm tra đăng nhập thành công reset bộ đếm sai: nhập sai 2 lần, đăng nhập đúng, tiếp tục nhập sai 2 lần rồi đăng nhập đúng; cả hai lần dùng credentials đúng phải trả `200`, cấp JWT và tài khoản không bị khóa. | State transition / Security / Interaction | Baseline chỉ kiểm tra transition đăng nhập thành công độc lập, chưa tạo chuỗi request có lịch sử để chứng minh lần thành công reset số lần sai liên tiếp. |
+| `TC-LOGIN-EXT-002` | Kiểm tra đúng ngưỡng khóa: lần sai thứ 1 và 2 bị từ chối nhưng chưa khóa; lần sai thứ 3 chuyển tài khoản sang trạng thái locked; đăng nhập đúng ngay sau đó vẫn bị từ chối, không trả `token` hoặc `user`. | State transition / Security / BVA | Các negative case hiện tại chạy độc lập và chấp nhận nhiều mã `4xx`, nên chưa phân biệt trạng thái trước ngưỡng với transition xảy ra chính xác tại lần sai thứ 3. |
+| `TC-LOGIN-EXT-003` | Kiểm tra biên thời gian mở khóa: sau khi kích hoạt lockout, credentials đúng vẫn bị từ chối trước mốc 30 giây nhưng được chấp nhận từ mốc 30 giây trở đi và trả JWT hợp lệ. | State transition / Security / Temporal BVA | Baseline data-driven không có bước chờ và quan sát trạng thái theo thời gian, do đó chưa kiểm tra timeout 30 giây hoặc lỗi lệch biên thời gian. |
+| `TC-LOGIN-EXT-004` | Kiểm tra bộ đếm được cô lập theo tài khoản: xen kẽ các lần đăng nhập sai của hai tài khoản, sau đó dùng credentials đúng của từng tài khoản; lỗi của tài khoản A không được làm tăng bộ đếm hoặc khóa tài khoản B. | State transition / Security / Multi-user interaction | Baseline sử dụng từng account như precondition độc lập, chưa mô hình hóa hai state machine đăng nhập chạy xen kẽ để phát hiện counter dùng chung hoặc gắn sai user. |
+| `TC-LOGIN-EXT-005` | So sánh cặp request “email tồn tại + password sai” và “email không tồn tại”: status, Content-Type, cấu trúc và thông báo lỗi phải tương đương, không trả `token`/`user`, đồng thời không có chênh lệch thời gian phản hồi ổn định đủ để suy ra tài khoản tồn tại. | Security / Information disclosure / Differential testing | TC-LOGIN-006 và TC-LOGIN-007 chỉ kiểm tra riêng lẻ; baseline chưa có differential oracle đối chiếu trực tiếp nội dung lỗi và timing để phát hiện user enumeration. |
 
 ### 3.5. Execute
 
 - Công cụ chạy: Newman 6.2.2 và `newman-reporter-htmlextra` 1.23.1.
 - Collection/data/environment: [Postman collection](../tests/api/login/login.postman_collection.json), [data file](../tests/api/login/login.test-data.json); runtime environment chứa credentials được tạo tạm với permission `0600` và đã xóa sau khi chạy.
-- Run ID: `20260822T152407+0700`
-- Thời gian chạy và múi giờ: `2026-08-22T15:24:07+07:00` (Asia/Ho_Chi_Minh).
-- Header `X-Student-Id`: 37/37 request pass assertion `X-Student-Id: 23127062`; xem [CLI log](../test-reports/newman/login-20260822T152407+0700/cli.log) và [screenshot console](../test-reports/evidence/login/x-student-id-console/evidence.png).
-- Newman/HTML report: [newman-report.html](../test-reports/newman/login-20260822T152407+0700/newman-report.html) và [newman-report.json](../test-reports/newman/login-20260822T152407+0700/newman-report.json).
-- Screenshot failure: [plaintext-password/evidence.png](../test-reports/evidence/login/plaintext-password/evidence.png) và [unsupported-content-type-500/evidence.png](../test-reports/evidence/login/unsupported-content-type-500/evidence.png).
+- Run ID: `20260822T162458+0700`
+- Thời gian chạy và múi giờ: `2026-08-22T16:24:58+07:00` (Asia/Ho_Chi_Minh).
+- Header `X-Student-Id`: 42/42 main request và 28/28 workflow subrequest pass assertion `X-Student-Id: 23127062`; xem [CLI log](../test-reports/newman/login-20260822T162458+0700/cli.log).
+- Newman/HTML report: [newman-report.html](../test-reports/newman/login-20260822T162458+0700/newman-report.html) và [newman-report.json](../test-reports/newman/login-20260822T162458+0700/newman-report.json).
+- Screenshot tổng kết và header:
+
+  ![Newman chạy 42 testcase và xác nhận X-Student-Id](../test-reports/evidence/login/newman-42-summary/evidence.png)
+
+- Screenshot failure state transition:
+
+  ![Các assertion lockout state transition thất bại](../test-reports/evidence/login/state-transition-lockout/evidence.png)
 
 | Tổng | Passed | Failed | Blocked |
 | ---: | -----: | -----: | ------: |
-|   37 |     31 |      6 |       0 |
+|   42 |     32 |     10 |       0 |
 
-Newman thực thi đủ 37 request với 211 assertions, trong đó 6 assertions thất bại. Năm testcase login thành công (TC-LOGIN-001, 002, 027, 035, 037) fail vì response trả `user.password`, cùng root cause SEC-01 đã có ở issue #69. TC-LOGIN-034 fail vì request `Content-Type: text/plain` làm SUT trả HTTP 500 và HTML stack trace thay vì client error 400/415/422; minimal reproduction xác nhận defect này 3/3 lần. Không phát hiện credentials hoặc JWT chưa redaction trong các artifacts được giữ lại.
+Newman thực thi 42 testcase bằng 70 HTTP request (42 request chính và 28 workflow subrequest), với 388 assertions và 24 failed assertions. 32 testcase pass và 10 testcase fail. Sáu failure baseline giữ nguyên: năm testcase login thành công (TC-LOGIN-001, 002, 027, 035, 037) làm lộ `user.password` theo issue #69; TC-LOGIN-034 trả HTTP 500 và stack trace theo issue #267. Trong phần Extend, TC-LOGIN-EXT-001, 002 và 004 tái hiện lỗi khóa sớm sau hai lần sai của issue #71; TC-LOGIN-EXT-003 tái hiện lockout kéo dài quá 30 giây của issue #73; TC-LOGIN-EXT-005 pass toàn bộ differential assertions chống user enumeration. Không phát hiện credentials hoặc JWT chưa redaction trong các artifacts được giữ lại.
 
 ### 3.6. Bug reports
 
@@ -160,8 +166,10 @@ Newman thực thi đủ 37 request với 211 assertions, trong đó 6 assertions
 | ------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------- |
 | BUG-LOGIN-001 | Response đăng nhập trả plaintext `user.password`          | TC-LOGIN-001; đồng thời TC-LOGIN-002, 027, 035, 037 | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-001.md) | [Issue #69](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69) |
 | BUG-LOGIN-002 | `Content-Type: text/plain` gây HTTP 500 và lộ stack trace | TC-LOGIN-034                                        | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-002.md) | [Issue #267](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/267) |
+| BUG-LOGIN-003 | Tài khoản bị khóa sau 2 lần sai thay vì 3 lần           | TC-LOGIN-EXT-002; đồng thời EXT-001 và EXT-004      | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-003.md) | [Issue #71](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/71) |
+| BUG-LOGIN-004 | Tài khoản vẫn bị khóa sau mốc 30 giây                  | TC-LOGIN-EXT-003                                    | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-004.md) | [Issue #73](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/73) |
 
-BUG-LOGIN-001 trùng root cause với issue #69 đã tồn tại. BUG-LOGIN-002 không có duplicate và đã được publish thành issue #267.
+BUG-LOGIN-001, BUG-LOGIN-003 và BUG-LOGIN-004 lần lượt trùng root cause với issue #69, #71 và #73. BUG-LOGIN-002 không có duplicate và đã được publish thành issue #267.
 
 ## 4. API 2 - `{{METHOD_ENDPOINT_API_2}}`
 
@@ -385,11 +393,11 @@ BUG-LOGIN-001 trùng root cause với issue #69 đã tồn tại. BUG-LOGIN-002 
 | Chỉ số            | API 1 |                            API 2 |                            API 3 |                             Tổng |
 | ----------------- | ----: | -------------------------------: | -------------------------------: | -------------------------------: |
 | AI-generated      |    37 | `{{SUMMARY_AI_GENERATED_API_2}}` | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
-| Sinh viên bổ sung |     0 |     `{{SUMMARY_EXTENDED_API_2}}` |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
-| Executed          |    37 |     `{{SUMMARY_EXECUTED_API_2}}` |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
-| Passed            |    31 |       `{{SUMMARY_PASSED_API_2}}` |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
-| Failed            |     6 |       `{{SUMMARY_FAILED_API_2}}` |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
+| Sinh viên bổ sung |     5 |     `{{SUMMARY_EXTENDED_API_2}}` |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
+| Executed          |    42 |     `{{SUMMARY_EXECUTED_API_2}}` |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
+| Passed            |    32 |       `{{SUMMARY_PASSED_API_2}}` |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
+| Failed            |    10 |       `{{SUMMARY_FAILED_API_2}}` |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
 | Blocked           |     0 |      `{{SUMMARY_BLOCKED_API_2}}` |      `{{SUMMARY_BLOCKED_API_3}}` |      `{{SUMMARY_BLOCKED_TOTAL}}` |
-| Bugs              |     2 |         `{{SUMMARY_BUGS_API_2}}` |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
+| Bugs              |     4 |         `{{SUMMARY_BUGS_API_2}}` |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
 
 `{{TEST_SUMMARY_DISCUSSION}}`
