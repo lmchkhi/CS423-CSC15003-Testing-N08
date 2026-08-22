@@ -133,3 +133,18 @@ Date: 2026-08-22T23:51:45+07:00
 Author: TMQ2k <kentran072009@gmail.com>
 Subject: Complete HW06 API testing evidence and reports
 
+Commit: e45e5844f793e9bcae1ef1f0819671bf6ee11fa7
+Date: 2026-08-22T23:52:12+07:00
+Author: TMQ2k <kentran072009@gmail.com>
+Subject: docs: refresh HW06 git log
+
+Commit: 126aefe8d60f9414dc1ffb160355ef99df261853
+Date: 2026-08-23T00:07:56+07:00
+Author: TMQ2k <kentran072009@gmail.com>
+Subject: docs: add pdf version for ai-audit
+
+Commit: 62caa4b0938e457dd071c5020712aef48cf606b2
+Date: 2026-08-23T00:39:08+07:00
+Author: TMQ2k <kentran072009@gmail.com>
+Subject: docs: complete human review statuses in AI audit
+
