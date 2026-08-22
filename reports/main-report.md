@@ -206,7 +206,7 @@ Trạng thái: Đã xác nhận 8 bug qua Newman evidence. Chưa tạo GitHub Is
 
 ### 5.1 Generate with AI
 
-Trạng thái: Đã thực hiện ở Phase 08; raw output sẽ được human audit ở Phase 09.
+Trạng thái: Đã thực hiện ở Phase 08; raw output đã được human audit ở Phase 09.
 
 | Artifact | Link/ghi chú |
 | --- | --- |
@@ -223,23 +223,28 @@ Raw generation summary:
 | Security | 10 | Cover SEC-02/SEC-03 admin RBAC, missing/malformed/invalid token, user token, SQLi/XSS, role escalation, sensitive leak |
 | Workflow | 7 | Cover create -> list verify -> duplicate reject -> cleanup delete, failed create no partial record |
 | Schema | 7 | Cover JSON content type, success/error shape, malformed JSON, unsupported Content-Type, method contract, response time |
-| Total | 54 | Sẽ audit ở Phase 09; có assumptions cần xác nhận bằng blackbox observation |
+| Total | 54 | Đã audit ở Phase 09; assumptions được xử lý bằng label `VALID/INVALID/INCOMPLETE` và final cases |
 
 ### 5.2 Human audit
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 09.
+Trạng thái: Đã thực hiện ở Phase 09. Chi tiết audit: `reports/hw06-test-cases.md` section 5.
 
 | Tổng AI cases | VALID | INVALID | INCOMPLETE | Corrected final cases |
 | --- | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| 54 | 41 | 1 | 12 | 50 |
 
 ### 5.3 Human extension
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 09.
+Trạng thái: Đã thực hiện ở Phase 09. Đã thêm 6 human-authored cases, final FR-17 suite có 56 cases.
 
 | TC ID | Missed case | Expected result | Vì sao AI bỏ sót |
 | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có |
+| `TC-FR17-API-DOM-028` | `expired_at` là null | 400; message hoặc error; không tạo coupon | AI có missing/malformed/past date nhưng bỏ sót null date. |
+| `TC-FR17-API-DOM-029` | `discount_value` là null | 400; message hoặc error; không tạo coupon | AI có missing/zero/negative/string nhưng bỏ sót null discount_value. |
+| `TC-FR17-API-DOM-030` | `min_order_amount` là null | 400; message hoặc error; không tạo coupon | AI có missing/negative/string nhưng bỏ sót null min_order_amount. |
+| `TC-FR17-API-DOM-031` | `max_uses_per_user` là null | 400; message hoặc error; không tạo coupon | AI có missing/zero/string nhưng bỏ sót null max_uses_per_user. |
+| `TC-FR17-API-DOM-032` | `type` là empty string | 400; message hoặc error; không tạo coupon | AI có missing/null/unsupported/wrong-case type nhưng bỏ sót empty string. |
+| `TC-FR17-API-WF-008` | Deleted coupon code có thể được tạo lại sau cleanup | 200/201 then 200/204 then 200/201; Second create succeeds; final cleanup bằng DELETE | AI có delete/list verify nhưng bỏ sót recreate-after-delete lifecycle. |
 
 ### 5.4 Execution with Postman/Newman
 
@@ -342,8 +347,8 @@ Trạng thái: Đã có số liệu execution cho FR-03 và FR-09; FR-17 chưa t
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FR-03 `POST /api/reset-password` | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
 | FR-09 `POST /api/apply-coupon` | 46 | 6 | 51 | 51 | 27 | 24 | 8 |
-| FR-17 `POST /api/admin/coupons` | 54 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 146 | 12 | 101 | 101 | 63 | 38 | 11 |
+| FR-17 `POST /api/admin/coupons` | 54 | 6 | 56 | Chưa có | Chưa có | Chưa có | Chưa có |
+| Total | 146 | 18 | 157 | 101 | 63 | 38 | 11 |
 
 ## 13. Self-assessment
 
@@ -367,7 +372,7 @@ Trạng thái: Đã có số liệu execution cho FR-03 và FR-09; FR-17 chưa t
 | Newman HTML reports | Có FR-03, FR-09 | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr09-apply-coupon.html` |
 | Postman feature list | Có FR-03, FR-09 | Section 6 |
 | CI/CD report | Chưa có | Section 7 |
-| Excel/test case table | Đang cập nhật; FR-03 và FR-09 executed, FR-17 raw cases generated/chưa audit | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
+| Excel/test case table | Đang cập nhật; FR-03 và FR-09 executed, FR-17 final cases ready/chưa execute | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
 | Bug reports/GitHub Issues | Có 3 bug reports FR-03 đã tạo issue; có 8 bug reports FR-09 đã tạo issue | `reports/bug-reports/`, #268-#278 |
 | AI Critique | Chưa có | Section 10 |

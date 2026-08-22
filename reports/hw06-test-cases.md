@@ -157,7 +157,62 @@ Mỗi row trong bảng này là một final test case có thể map sang Postman
 | API-2 | TC-FR09-API-SCH-008 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-008.md` | AI | Schema Validation | Valid coupon response time dưới 1000ms | User logged in; coupon hợp lệ | `Valid SAVE10 hoặc BIGBUY body` | 200 | Response time < 1000ms; calculation đúng | VALID | Passed | Newman: `reports/newman/hw06-fr09-apply-coupon.html`, JSON: `reports/newman/hw06-fr09-apply-coupon.json` |
 | API-2 | TC-FR09-API-SCH-009 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-009.md` | Human | Schema Validation | Content-Type text/plain cho JSON-looking body không được xử lý như success | User logged in | `Header Content-Type: text/plain; body JSON string valid` | 400 hoặc 415 | Không success; không 5xx; message/error nếu JSON | HUMAN_ADDED | Failed | Newman: `reports/newman/hw06-fr09-apply-coupon.html`; Bug: `reports/bug-reports/BUG-FR09-API-007.md` |
 | API-2 | TC-FR09-API-SCH-010 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-010.md` | Human | Schema Validation | Success response không expose internal coupon config fields | User logged in; coupon hợp lệ | `Valid SAVE10 body` | 200 | Không có id, type, discount_value, min_order_amount, expired_at, max_uses_per_user, is_active | HUMAN_ADDED | Failed | Newman: `reports/newman/hw06-fr09-apply-coupon.html`; Bug: `reports/bug-reports/BUG-FR09-API-008.md` |
-| API-3 | Chưa có final TC ID | `test-cases/hw06-api/fr17-admin-coupons/` | AI | Domain/Security/Workflow/Schema | Raw cases đã generate ở Phase 08; chưa audit/finalize | Chưa có final precondition | Chưa có final request | Chưa có final expected | Chưa có final assertions | Chưa audit | Chưa chạy | Raw: `reports/ai-generated/fr17-admin-coupons-raw-test-cases.md` |
+| API-3 | TC-FR17-API-DOM-001 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-001.md` | AI | Domain | Create valid percent coupon với typical values | Admin logged in; generated unique code `HW06PCT{{runId}}` chưa tồn tại | `{"code":"HW06PCT{{runId}}","type":"percent","discount_value":15,"min_order_amount":200000,"expired_at":"2099-12-31","max_uses_per_user":1}` | 200 hoặc 201 | JSON success; response có message/id hoặc created coupon reference; created coupon cần cleanup bằng DELETE nếu có id | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-002 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-002.md` | AI | Domain | Create valid fixed coupon với typical values | Admin logged in; generated unique code `HW06FIX{{runId}}` chưa tồn tại | `{"code":"HW06FIX{{runId}}","type":"fixed","discount_value":50000,"min_order_amount":300000,"expired_at":"2099-12-31","max_uses_per_user":2}` | 200 hoặc 201 | JSON success; response có message/id hoặc created coupon reference; created coupon cần cleanup bằng DELETE nếu có id | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-003 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-003.md` | AI | Domain | Thiếu field `code` | Admin logged in | Body không có `code` | 400 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-004 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-004.md` | AI | Domain | `code` là null | Admin logged in | `{"code":null,"type":"percent","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-005 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-005.md` | AI | Domain | `code` là empty string | Admin logged in | `{"code":"","type":"percent","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-006 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-006.md` | AI | Domain | `code` là whitespace-only | Admin logged in | `{"code":"   ","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-007 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-007.md` | AI | Domain | `code` sai kiểu number | Admin logged in | `{"code":12345,"type":"percent","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-008 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-008.md` | AI | Domain | Duplicate `code` bị reject | Admin đã tạo coupon với code `HW06DUP{{runId}}` trong setup | Request create thứ hai dùng cùng `code` và body hợp lệ | 400 hoặc 409 | message hoặc error; list verify chỉ có một coupon với code đó | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-009 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-009.md` | AI | Domain | Thiếu field `type` | Admin logged in | Body không có `type` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-010 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-010.md` | AI | Domain | `type` là null | Admin logged in | `{"code":"HW06NULLTYPE{{runId}}","type":null,"discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-011 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-011.md` | AI | Domain | `type` unsupported value | Admin logged in | `{"code":"HW06FREESHIP{{runId}}","type":"free_shipping","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-012 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-012.md` | AI | Domain | `type` sai case `Percent` bị reject | Admin logged in | `{"code":"HW06TYPECASE{{runId}}","type":"Percent","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-013 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-013.md` | AI | Domain | Thiếu field `discount_value` | Admin logged in | Body không có `discount_value` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-014 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-014.md` | AI | Domain | `discount_value` bằng 0 | Admin logged in | `{"code":"HW06DISC0{{runId}}","type":"fixed","discount_value":0,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-015 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-015.md` | AI | Domain | `discount_value` âm | Admin logged in | `{"code":"HW06DISCNEG{{runId}}","type":"percent","discount_value":-1,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-016 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-016.md` | AI | Domain | `discount_value` sai kiểu string | Admin logged in | `{"code":"HW06DISCSTR{{runId}}","type":"fixed","discount_value":"50000","min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-017 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-017.md` | AI | Domain | Thiếu field `min_order_amount` | Admin logged in | Body không có `min_order_amount` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-018 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-018.md` | AI | Domain | `min_order_amount` bằng 0 boundary hợp lệ | Admin logged in; unique code `HW06MIN0{{runId}}` | `{"code":"HW06MIN0{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 200 hoặc 201 | JSON success; created coupon cần cleanup | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-019 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-019.md` | AI | Domain | `min_order_amount` âm | Admin logged in | `{"code":"HW06MINNEG{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":-1,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-020 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-020.md` | AI | Domain | `min_order_amount` sai kiểu string | Admin logged in | `{"code":"HW06MINSTR{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":"200000","expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-021 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-021.md` | AI | Domain | Thiếu field `expired_at` | Admin logged in | Body không có `expired_at` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-022 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-022.md` | AI | Domain | `expired_at` malformed date | Admin logged in | `{"code":"HW06BADDATE{{runId}}","type":"percent","discount_value":10,"min_order_amount":0,"expired_at":"31-12-2099","max_uses_per_user":1}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-023 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-023.md` | AI | Domain | `expired_at` trong quá khứ vẫn có thể được admin tạo như coupon expired | Admin logged in; unique code `HW06PAST{{runId}}` | `{"code":"HW06PAST{{runId}}","type":"percent","discount_value":10,"min_order_amount":0,"expired_at":"2020-01-01","max_uses_per_user":1}` | 200 hoặc 201 | JSON success; coupon nếu tạo phải có expired_at đúng và cần cleanup | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-024 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-024.md` | AI | Domain | Thiếu field `max_uses_per_user` | Admin logged in | Body không có `max_uses_per_user` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-025 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-025.md` | AI | Domain | `max_uses_per_user` bằng 1 boundary hợp lệ | Admin logged in; unique code `HW06MAX1{{runId}}` | `{"code":"HW06MAX1{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 200 hoặc 201 | JSON success; created coupon cần cleanup | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-026 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-026.md` | AI | Domain | `max_uses_per_user` bằng 0 | Admin logged in | `{"code":"HW06MAX0{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":0}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-027 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-027.md` | AI | Domain | `max_uses_per_user` sai kiểu string | Admin logged in | `{"code":"HW06MAXSTR{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":"1"}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-028 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-028.md` | Human | Domain | `expired_at` là null | Admin logged in | `{"code":"HW06DATENULL{{runId}}","type":"percent","discount_value":10,"min_order_amount":0,"expired_at":null,"max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | HUMAN_ADDED | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-029 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-029.md` | Human | Domain | `discount_value` là null | Admin logged in | `{"code":"HW06DISCNULL{{runId}}","type":"fixed","discount_value":null,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | HUMAN_ADDED | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-030 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-030.md` | Human | Domain | `min_order_amount` là null | Admin logged in | `{"code":"HW06MINNULL{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":null,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | HUMAN_ADDED | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-031 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-031.md` | Human | Domain | `max_uses_per_user` là null | Admin logged in | `{"code":"HW06MAXNULL{{runId}}","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":null}` | 400 | message hoặc error; không tạo coupon | HUMAN_ADDED | Not run | Chưa có |
+| API-3 | TC-FR17-API-DOM-032 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-DOM-032.md` | Human | Domain | `type` là empty string | Admin logged in | `{"code":"HW06TYPEEMPTY{{runId}}","type":"","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không tạo coupon | HUMAN_ADDED | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-001 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-001.md` | AI | Security | Thiếu Authorization header | Không gửi token | Valid coupon body | 401 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-002 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-002.md` | AI | Security | Authorization header malformed: Bearer không có token | Header `Authorization: Bearer` | Valid coupon body | 401 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-003 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-003.md` | AI | Security | JWT token invalid | Header `Authorization: Bearer invalid.token.value` | Valid coupon body | 401 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-004 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-004.md` | AI | Security | Normal user token không thể create admin coupon | Login bằng user thường `test@eshop.com` | Valid coupon body với `Authorization: Bearer {{userToken}}` | 403 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-005 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-005.md` | AI | Security | SQL injection payload trong `code` không tạo coupon/leak SQL | Admin logged in | `{"code":"' OR '1'='1","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không stack/sql leak; không 5xx | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-006 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-006.md` | AI | Security | SQL injection payload trong `type` không bypass enum | Admin logged in | `{"code":"HW06SQLTYPE{{runId}}","type":"percent' OR '1'='1","discount_value":10,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 | message hoặc error; không stack/sql leak; không 5xx | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-007 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-007.md` | AI | Security | XSS-like payload trong `code` không gây 500 hoặc unsafe reflection | Admin logged in | `{"code":"<script>alert(1)</script>","type":"fixed","discount_value":10000,"min_order_amount":0,"expired_at":"2099-12-31","max_uses_per_user":1}` | 400 hoặc 200/201 | Không 5xx; không reflect executable script; nếu được tạo thì phải cleanup và list response phải an toàn | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-008 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-008.md` | AI | Security | Extra `role:"admin"` không giúp user token create coupon | Login bằng user thường | Valid coupon body plus `"role":"admin"` với user token | 403 | message hoặc error; không tạo coupon | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SEC-009 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SEC-009.md` | AI | Security | Success/error response không leak token/password fields | Admin logged in; valid coupon body | Valid coupon body | 200 hoặc 201 | Không có `password`, `password_hash`, `token`, `jwt` hoặc credential fields | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-001 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-001.md` | AI | Workflow/State | Create coupon rồi verify xuất hiện trong coupon list | Admin logged in; unique code | `POST /api/admin/coupons` valid body, sau đó `GET /api/coupons` | 200/201 then 200 | List contains created code với các field chính khớp; cleanup bằng DELETE | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-002 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-002.md` | AI | Workflow/State | Duplicate create sau first success bị reject | First create succeeded with code `HW06DUP{{runId}}` | Second `POST /api/admin/coupons` dùng cùng code/body | 400 hoặc 409 | Error body; list chỉ có một coupon với code đó | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-003 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-003.md` | AI | Workflow/State | Created coupon có thể cleanup bằng DELETE | Admin created coupon và capture `{{createdCouponId}}` | `DELETE /api/admin/coupons/{{createdCouponId}}` | 200 hoặc 204 | Delete success; không 5xx | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-004 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-004.md` | AI | Workflow/State | Deleted coupon không còn xuất hiện trong list | Created coupon đã bị delete thành công | `GET /api/coupons` after delete | 200 | Deleted code absent from list | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-005 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-005.md` | AI | Workflow/State | Failed validation create không tạo partial coupon | Admin logged in; unique invalid code | Invalid create thiếu `discount_value`, sau đó `GET /api/coupons` | 400 then 200 | Invalid code absent from list | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-006 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-006.md` | AI | Workflow/State | User token create fail không pollute coupon list | Login as normal user; unique code | `POST /api/admin/coupons` bằng user token, sau đó admin `GET /api/coupons` | 403 then 200 | Code absent from list | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-007 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-007.md` | AI | Workflow/State | Duplicate rejection không overwrite original coupon values | Original coupon created with fixed discount | Duplicate create cùng code nhưng khác fields, sau đó list verify | 400/409 then 200 | Original fields unchanged | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-WF-008 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-WF-008.md` | Human | Workflow/State | Deleted coupon code có thể được tạo lại sau cleanup | Admin tạo coupon `HW06RECREATE{{runId}}`, delete thành công | Create -> DELETE -> create lại cùng code | 200/201 then 200/204 then 200/201 | Second create succeeds; final cleanup bằng DELETE | HUMAN_ADDED | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-001 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-001.md` | AI | Schema Validation | Success response có Content-Type JSON khi có body | Admin logged in; valid create body | Valid coupon body | 200 hoặc 201 | Nếu response có body thì header `Content-Type` chứa `application/json` | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-002 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-002.md` | AI | Schema Validation | Success response có identity hoặc message ổn định để cleanup | Admin logged in; valid create body | Valid coupon body | 200 hoặc 201 | Có `id`/`coupon_id` hoặc `message`; nếu có id thì capture để cleanup; không body rỗng trừ khi spec/observed cho phép | INCOMPLETE | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-003 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-003.md` | AI | Schema Validation | Error response cho missing required field có shape an toàn | Admin logged in | Missing `code` body | 400 | JSON body có `message` hoặc `error` string; không stack/sql trace | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-004 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-004.md` | AI | Schema Validation | Malformed JSON body trả client error và không leak stack | Admin logged in | Raw body `{ "code": "HW06BAD",` | 400 | Safe error response; không stack/sql leak | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-005 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-005.md` | AI | Schema Validation | Unsupported `Content-Type: text/plain` không được xử lý như success | Admin logged in | Header `Content-Type: text/plain`; JSON-looking coupon body as text | 400 hoặc 415 | Không tạo coupon; không 5xx; error safe | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-006 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-006.md` | AI | Schema Validation | GET `/api/admin/coupons` không thành công như create endpoint | Backend running | No body | 404 hoặc 405 | Không tạo coupon; không trả create success schema | VALID | Not run | Chưa có |
+| API-3 | TC-FR17-API-SCH-007 | `test-cases/hw06-api/fr17-admin-coupons/TC-FR17-API-SCH-007.md` | AI | Schema Validation | Response time cho valid create dưới 1000ms | Admin logged in; unique valid body | Valid fixed hoặc percent coupon body | 200 hoặc 201 | Response time < 1000ms; không unexpected 5xx; cleanup created coupon | VALID | Not run | Chưa có |
 
 FR-03 raw AI output đã được lưu ở `reports/ai-generated/fr03-reset-password-raw-test-cases.md`. Phase 03 audit/final suite được tổng hợp ngay trong file master này; 50 per-test-case Markdown files nằm trong `test-cases/hw06-api/fr03-reset-password/`.
 
@@ -290,20 +345,79 @@ Notes:
 | FR09-AC-SCH-007 | VALID | TC-FR09-API-SCH-007 | Đúng schema/contract assertion cho response apply-coupon. |
 | FR09-AC-SCH-008 | VALID | TC-FR09-API-SCH-008 | Đúng schema/contract assertion cho response apply-coupon. |
 
-FR-17 raw AI output đã được lưu ở `reports/ai-generated/fr17-admin-coupons-raw-test-cases.md`. Phase 08 chỉ generate raw cases; Phase 09 sẽ audit, sửa invalid/incomplete, thêm human cases và tạo final per-test-case Markdown files trong `test-cases/hw06-api/fr17-admin-coupons/`.
+FR-17 raw AI output đã được lưu ở `reports/ai-generated/fr17-admin-coupons-raw-test-cases.md`. Phase 09 audit/final suite được tổng hợp ngay trong file master này; 56 per-test-case Markdown files nằm trong `test-cases/hw06-api/fr17-admin-coupons/`.
 
-## 5. FR-17 raw generation summary
+## 5. FR-17 AI audit summary
 
-| Tổng raw AI cases | Domain | Security | Workflow/State | Schema | Final FR-17 cases |
-| --- | --- | --- | --- | --- | --- |
-| 54 | 30 | 10 | 7 | 7 | Chưa có - sẽ chốt ở Phase 09 |
+| Tổng raw AI cases | VALID | INVALID | INCOMPLETE | Corrected final AI cases | Human added | Final FR-17 cases |
+| --- | --- | --- | --- | --- | --- | --- |
+| 54 | 41 | 1 | 12 | 50 | 6 | 56 |
 
 Notes:
 
-- Raw cases cover mọi required field của `POST /api/admin/coupons`: `code`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`.
-- Security coverage tập trung vào SEC-02/SEC-03 admin RBAC, token missing/malformed/invalid, user token, SQLi/XSS và role escalation.
-- Workflow coverage dùng lifecycle phù hợp với FR-17: create -> list verify -> duplicate rejected -> cleanup delete.
-- Một số expected status/shape còn để dạng assumption vì API spec chưa nêu exact create response; Phase 09 phải audit bằng blackbox observation trước khi chuyển thành final cases.
+- `INVALID` case bị loại vì raw expected giả định max length cho `code` trong khi blackbox spec không nêu giới hạn này.
+- `INCOMPLETE` cases được sửa khi có thể execute bằng setup/assertion rõ ràng; expired-token raw case bị loại vì không có expired JWT fixture đáng tin từ blackbox inputs.
+- Cleanup strategy: mọi case create success phải capture id/code nếu có và cleanup bằng `DELETE /api/admin/coupons/:id`; duplicate/list cases phải dùng generated code `{{runId}}` để tránh ảnh hưởng dữ liệu lâu dài.
+- Phase 09 chưa execute Newman; mọi final FR-17 cases đang ở trạng thái `Not run` và sẽ chuyển sang Phase 10.
+
+### 5.1 Raw AI case audit table
+
+| Raw TC ID | Audit label | Final TC ID / Action | Human reasoning |
+| --- | --- | --- | --- |
+| FR17-CC-DOM-001 | VALID | TC-FR17-API-DOM-001 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-002 | VALID | TC-FR17-API-DOM-002 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-003 | VALID | TC-FR17-API-DOM-003 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-004 | VALID | TC-FR17-API-DOM-004 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-005 | VALID | TC-FR17-API-DOM-005 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-006 | VALID | TC-FR17-API-DOM-006 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-007 | VALID | TC-FR17-API-DOM-007 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-008 | INCOMPLETE | TC-FR17-API-DOM-008 | Ý tưởng đúng nhưng raw thiếu setup/list verify; sửa thành sequence create trước rồi duplicate create và verify không nhân bản. |
+| FR17-CC-DOM-009 | INVALID | Excluded | Raw case giả định max length cho `code` nhưng README/api_spec không nêu giới hạn độ dài; loại khỏi final để tránh expected dựa trên policy không có trong spec. |
+| FR17-CC-DOM-010 | INCOMPLETE | Excluded | Charset cho `code` Unicode không được spec mô tả; giữ như ý tưởng tham khảo nhưng chưa đủ oracle blackbox để final. |
+| FR17-CC-DOM-011 | VALID | TC-FR17-API-DOM-009 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-012 | VALID | TC-FR17-API-DOM-010 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-013 | VALID | TC-FR17-API-DOM-011 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-014 | INCOMPLETE | TC-FR17-API-DOM-012 | Raw expected mơ hồ; sửa thành lowercase enum exact theo field rule blackbox. |
+| FR17-CC-DOM-015 | VALID | TC-FR17-API-DOM-013 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-016 | VALID | TC-FR17-API-DOM-014 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-017 | VALID | TC-FR17-API-DOM-015 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-018 | VALID | TC-FR17-API-DOM-016 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-019 | INCOMPLETE | Excluded | FR-17 chỉ nêu `discount_value` dương, chưa nêu upper bound cho percent; loại để tránh biến business-policy gap thành bug oracle. |
+| FR17-CC-DOM-020 | VALID | TC-FR17-API-DOM-017 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-021 | VALID | TC-FR17-API-DOM-018 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-022 | VALID | TC-FR17-API-DOM-019 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-023 | VALID | TC-FR17-API-DOM-020 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-024 | VALID | TC-FR17-API-DOM-021 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-025 | VALID | TC-FR17-API-DOM-022 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-026 | INCOMPLETE | TC-FR17-API-DOM-023 | Raw expected mơ hồ; sửa theo blackbox requirement: CRUD create cho phép expiration date bắt buộc, không bắt buộc future date. |
+| FR17-CC-DOM-027 | VALID | TC-FR17-API-DOM-024 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-028 | VALID | TC-FR17-API-DOM-025 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-029 | VALID | TC-FR17-API-DOM-026 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-DOM-030 | VALID | TC-FR17-API-DOM-027 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-001 | VALID | TC-FR17-API-SEC-001 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-002 | VALID | TC-FR17-API-SEC-002 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-003 | VALID | TC-FR17-API-SEC-003 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-004 | VALID | TC-FR17-API-SEC-004 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-005 | INCOMPLETE | Excluded | Không có expired JWT fixture đáng tin từ blackbox inputs; invalid-token case đã cover SEC-02 nên raw case này bị loại khỏi final execution. |
+| FR17-CC-SEC-006 | VALID | TC-FR17-API-SEC-005 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-007 | VALID | TC-FR17-API-SEC-006 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-008 | INCOMPLETE | TC-FR17-API-SEC-007 | Raw đúng ý tưởng security nhưng oracle phụ thuộc việc API reject hay lưu an toàn; giữ assertion trọng tâm no 5xx/no unsafe reflection. |
+| FR17-CC-SEC-009 | VALID | TC-FR17-API-SEC-008 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SEC-010 | VALID | TC-FR17-API-SEC-009 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-WF-001 | VALID | TC-FR17-API-WF-001 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-WF-002 | INCOMPLETE | TC-FR17-API-WF-002 | Raw đúng nhưng cần sequence setup first create và list verify; sửa thành executable workflow. |
+| FR17-CC-WF-003 | INCOMPLETE | TC-FR17-API-WF-003 | Raw dùng API phụ DELETE; giữ làm cleanup strategy, exact status chấp nhận 200/204 vì spec chưa nêu. |
+| FR17-CC-WF-004 | VALID | TC-FR17-API-WF-004 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-WF-005 | VALID | TC-FR17-API-WF-005 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-WF-006 | VALID | TC-FR17-API-WF-006 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-WF-007 | VALID | TC-FR17-API-WF-007 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SCH-001 | INCOMPLETE | TC-FR17-API-SCH-001 | Raw đúng nhưng success response body chưa được spec nêu; sửa assertion có điều kiện nếu có body. |
+| FR17-CC-SCH-002 | INCOMPLETE | TC-FR17-API-SCH-002 | Raw thiếu exact response shape do api_spec không nêu; giữ assertion linh hoạt và capture id nếu có. |
+| FR17-CC-SCH-003 | VALID | TC-FR17-API-SCH-003 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SCH-004 | VALID | TC-FR17-API-SCH-004 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SCH-005 | VALID | TC-FR17-API-SCH-005 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SCH-006 | VALID | TC-FR17-API-SCH-006 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
+| FR17-CC-SCH-007 | VALID | TC-FR17-API-SCH-007 | Đúng spec và có thể execute bằng admin/user token setup blackbox. |
 
 ## 6. Human extension tracking
 
@@ -323,7 +437,12 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | TC-FR09-API-SEC-010 | Security | Token không có Bearer prefix | 401; JSON body có `message` hoặc `error`. | AI có missing/malformed Bearer nhưng bỏ sót token không có Bearer prefix. |
 | TC-FR09-API-SCH-009 | Schema Validation | Content-Type text/plain với JSON-looking body | 400 hoặc 415; không success; không 5xx. | AI có malformed JSON nhưng bỏ sót unsupported request Content-Type. |
 | TC-FR09-API-SCH-010 | Schema Validation | Success response không expose internal coupon config fields | 200; không có `id`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`, `is_active`. | AI kiểm tra token/password leak nhưng bỏ sót internal coupon configuration leak. |
-| API-3 | Chưa có | Chưa có | Chưa có | Chưa có |
+| TC-FR17-API-DOM-028 | Domain | `expired_at` là null | 400; message hoặc error; không tạo coupon. | AI có missing/malformed/past date nhưng bỏ sót null date. |
+| TC-FR17-API-DOM-029 | Domain | `discount_value` là null | 400; message hoặc error; không tạo coupon. | AI có missing/zero/negative/string nhưng bỏ sót null discount_value. |
+| TC-FR17-API-DOM-030 | Domain | `min_order_amount` là null | 400; message hoặc error; không tạo coupon. | AI có missing/negative/string nhưng bỏ sót null min_order_amount. |
+| TC-FR17-API-DOM-031 | Domain | `max_uses_per_user` là null | 400; message hoặc error; không tạo coupon. | AI có missing/zero/string nhưng bỏ sót null max_uses_per_user. |
+| TC-FR17-API-DOM-032 | Domain | `type` là empty string | 400; message hoặc error; không tạo coupon. | AI có missing/null/unsupported/wrong-case type nhưng bỏ sót empty string. |
+| TC-FR17-API-WF-008 | Workflow/State | Deleted coupon code có thể được tạo lại sau cleanup | 200/201 then 200/204 then 200/201; Second create succeeds; final cleanup bằng DELETE. | AI có delete/list verify nhưng bỏ sót recreate-after-delete lifecycle. |
 
 ## 7. Audit labels
 
@@ -340,5 +459,5 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | --- | --- | --- | --- | --- | --- |
 | API-1 | 50 | 50 | 36 | 14 | 3 |
 | API-2 | 51 | 51 | 27 | 24 | 8 |
-| API-3 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 101 | 101 | 63 | 38 | 11 |
+| API-3 | 56 | Chưa có | Chưa có | Chưa có | Chưa có |
+| Total | 157 | 101 | 63 | 38 | 11 |

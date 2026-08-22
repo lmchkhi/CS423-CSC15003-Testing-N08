@@ -372,8 +372,8 @@ Việc cần làm:
 
 - Audit mọi AI case với `VALID/INVALID/INCOMPLETE`.
 - Sửa cases thiếu admin token/setup/cleanup.
-- Chuẩn hóa final TC IDs, ví dụ `FR17-CC-DOM-001`, `FR17-CC-SEC-001`, `FR17-CC-SCH-001`.
-- Thêm >=5 human cases: user token returns 403, duplicate coupon code, invalid `type`, `max_uses_per_user = 0`, `min_order_amount = -1`, XSS in code, expired_at malformed.
+- Chuẩn hóa final TC IDs theo format repo, ví dụ `TC-FR17-API-DOM-001`, `TC-FR17-API-SEC-001`, `TC-FR17-API-SCH-001`.
+- Thêm >=5 human cases cho các gap AI chưa cover đủ, ví dụ null partitions, empty enum value, lifecycle recreate after delete, hoặc security/state cases còn thiếu.
 - Xác định cleanup strategy cho created coupons bằng `DELETE /api/admin/coupons/:id`.
 
 Files/artifacts:
