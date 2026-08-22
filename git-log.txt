@@ -1,3 +1,15 @@
+* commit 09899f775f4b462b9fb393b57ce5cbcc5a87ee52
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 22 09:57:29 2026 +0700
+| 
+|     fix: update ci images
+| 
+|  git-log.txt                  |  14 +++++++++++
+|  reports/ci-run-fail.png      | Bin 46630 -> 435909 bytes
+|  reports/ci-run-pass.png      | Bin 46970 -> 377660 bytes
+|  reports/demo-video-script.md |  52 -----------------------------------------
+|  4 files changed, 14 insertions(+), 52 deletions(-)
+| 
 * commit bd1171bd084c080a437eee64dac5f5b33eb888bd
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sat Aug 22 09:48:55 2026 +0700
