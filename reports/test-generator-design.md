@@ -140,4 +140,4 @@ Kịch bản quay chi tiết (phân cảnh + lời thoại + checklist §11) ở
 [`reports/demo-video-script.md`](demo-video-script.md) — demo skill sinh case cho
 FR-14 `POST /api/categories` rồi chạy Newman.
 
-*(Link YouTube đặt ở đây sau khi quay.)*
+https://youtu.be/-0KjJiBCIiI

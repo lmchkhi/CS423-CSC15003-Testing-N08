@@ -95,7 +95,7 @@ mỗi push. Hai run mẫu (pass / fail) và cấu hình: `reports/ci-cd-report.m
 
 | Nội dung | Link |
 |---|---|
-| Agent Skill demo (§7) — kịch bản tại `reports/demo-video-script.md` | *(cập nhật link YouTube sau khi quay)* |
+| Agent Skill demo (§7) | https://youtu.be/-0KjJiBCIiI |
 
 ---
 
@@ -114,7 +114,6 @@ mỗi push. Hai run mẫu (pass / fail) và cấu hình: `reports/ci-cd-report.m
 | `reports/ci-cd-report.md` | Cấu hình pipeline + 2 run mẫu |
 | `reports/ai-audit-report.md`, `prompt-log.md`, `ai-critique.md` | Phụ lục AI bắt buộc (§9, §10) |
 | `reports/test-generator-design.md` | Thiết kế Agent Skill sinh test (§7) |
-| `reports/demo-video-script.md` | Kịch bản video demo |
 | `reports/pdf/` | Bản PDF (sinh bằng `python3 reports/tools/build-pdfs.py`) |
 | `bug-reports/` | Bug report black-box + ảnh GitHub Issue |
 | `diagrams/` | `test-generator.mmd` / `.py` / `.md` (+ `.png` self-drawn — §11) |

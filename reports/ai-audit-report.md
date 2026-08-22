@@ -305,6 +305,6 @@ Các mục dưới đây được ghi thẳng thay vì giấu, đúng tinh thầ
 | 3 | `test-summary.xlsx` — MSSV + số liệu | ✅ Đã sửa (23127300, 233 assertion, 10 bug) |
 | 4 | GitHub Issue FR-14 do sinh viên mở | ✅ Đã mở #258–#261 |
 | 5 | Ảnh chụp GitHub Issue + 2 run CI (§14) | Đang chụp sau khi có run CI xanh |
-| 6 | Video demo (Task 8) — kịch bản `reports/demo-video-script.md` | Tùy chọn, chưa quay |
+| 6 | Video demo (Task 8) | Tùy chọn, chưa quay |
 | 7 | PDF các báo cáo (§14) | Sinh bằng `build-pdfs.py` (ngoài phạm vi lần này) |
 | 8 | `git-log.txt` (§12) | `git log ... > git-log.txt` (ngoài phạm vi lần này) |
