@@ -253,3 +253,25 @@ tôi đã xem qua rồi, bây giờ tạo gh issue giúp tôi đi
 ```text
 Đã dùng skill gh-create-bug-issues để tạo GitHub Issues từ 8 Markdown bug reports FR-09 trong reports/bug-reports. Đã kiểm tra gh auth status, xác định repo lmchkhi/CS423-CSC15003-Testing-N08, đọc label list --limit 100 và dùng các label hiện có: Type: Bug, Status: New, Module:COUPON, Priority P1/P2, Severity Major/Critical. Đã tạo issues #271 đến #278: BUG-FR09-API-001 -> #271, BUG-FR09-API-002 -> #272, BUG-FR09-API-003 -> #273, BUG-FR09-API-004 -> #274, BUG-FR09-API-005 -> #275, BUG-FR09-API-006 -> #276, BUG-FR09-API-007 -> #277, BUG-FR09-API-008 -> #278. Đã verify issues đang OPEN và có đủ label bắt buộc, cập nhật URL thật vào từng bug report và reports/main-report.md. Không commit.
 ```
+
+## Entry #12
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 18:34 GMT+7 |
+| **Artifact type** | Phase 08 raw AI test generation - FR-17 admin coupons |
+
+**Full prompt:**
+
+```text
+tôi đã review và commit rồi, bây giờ thực hiện phase 8 theo plan giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Đã thực hiện Phase 08 theo reports/hw06-execution-plan.md, không commit và không dùng source code. Đã dùng blackbox context từ README.md, api_specification.md và các skill/references trong folder skills để generate raw cases cho FR-17 POST /api/admin/coupons. Đã tạo reports/ai-generated/fr17-admin-coupons-raw-test-cases.md gồm 54 raw cases: 30 Domain, 10 Security, 7 Workflow/State, 7 Schema. Bộ raw cases cover required fields code/type/discount_value/min_order_amount/expired_at/max_uses_per_user, code uniqueness, percent/fixed type, admin RBAC SEC-02/SEC-03, SQLi/XSS, create -> list verify -> duplicate rejected -> cleanup delete, schema/error/content-type/response-time assertions. Đã cập nhật reports/main-report.md và reports/hw06-test-cases.md để trỏ raw artifact, summary counts và trạng thái Phase 08. Chưa audit, chưa tạo final per-test-case Markdown files, chưa tạo Postman/Newman artifacts, chưa tạo bug report/GitHub Issue.
+```

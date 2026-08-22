@@ -157,7 +157,7 @@ Mỗi row trong bảng này là một final test case có thể map sang Postman
 | API-2 | TC-FR09-API-SCH-008 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-008.md` | AI | Schema Validation | Valid coupon response time dưới 1000ms | User logged in; coupon hợp lệ | `Valid SAVE10 hoặc BIGBUY body` | 200 | Response time < 1000ms; calculation đúng | VALID | Passed | Newman: `reports/newman/hw06-fr09-apply-coupon.html`, JSON: `reports/newman/hw06-fr09-apply-coupon.json` |
 | API-2 | TC-FR09-API-SCH-009 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-009.md` | Human | Schema Validation | Content-Type text/plain cho JSON-looking body không được xử lý như success | User logged in | `Header Content-Type: text/plain; body JSON string valid` | 400 hoặc 415 | Không success; không 5xx; message/error nếu JSON | HUMAN_ADDED | Failed | Newman: `reports/newman/hw06-fr09-apply-coupon.html`; Bug: `reports/bug-reports/BUG-FR09-API-007.md` |
 | API-2 | TC-FR09-API-SCH-010 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-010.md` | Human | Schema Validation | Success response không expose internal coupon config fields | User logged in; coupon hợp lệ | `Valid SAVE10 body` | 200 | Không có id, type, discount_value, min_order_amount, expired_at, max_uses_per_user, is_active | HUMAN_ADDED | Failed | Newman: `reports/newman/hw06-fr09-apply-coupon.html`; Bug: `reports/bug-reports/BUG-FR09-API-008.md` |
-| API-3 | Chưa có | `test-cases/hw06-api/fr17-admin-coupons/` | AI/Human | Domain/Security/Workflow/Schema | Chưa generate | Chưa có | Chưa có | Chưa có | Chưa có | Chưa audit | Chưa chạy | Chưa có |
+| API-3 | Chưa có final TC ID | `test-cases/hw06-api/fr17-admin-coupons/` | AI | Domain/Security/Workflow/Schema | Raw cases đã generate ở Phase 08; chưa audit/finalize | Chưa có final precondition | Chưa có final request | Chưa có final expected | Chưa có final assertions | Chưa audit | Chưa chạy | Raw: `reports/ai-generated/fr17-admin-coupons-raw-test-cases.md` |
 
 FR-03 raw AI output đã được lưu ở `reports/ai-generated/fr03-reset-password-raw-test-cases.md`. Phase 03 audit/final suite được tổng hợp ngay trong file master này; 50 per-test-case Markdown files nằm trong `test-cases/hw06-api/fr03-reset-password/`.
 
@@ -290,7 +290,22 @@ Notes:
 | FR09-AC-SCH-007 | VALID | TC-FR09-API-SCH-007 | Đúng schema/contract assertion cho response apply-coupon. |
 | FR09-AC-SCH-008 | VALID | TC-FR09-API-SCH-008 | Đúng schema/contract assertion cho response apply-coupon. |
 
-## 5. Human extension tracking
+FR-17 raw AI output đã được lưu ở `reports/ai-generated/fr17-admin-coupons-raw-test-cases.md`. Phase 08 chỉ generate raw cases; Phase 09 sẽ audit, sửa invalid/incomplete, thêm human cases và tạo final per-test-case Markdown files trong `test-cases/hw06-api/fr17-admin-coupons/`.
+
+## 5. FR-17 raw generation summary
+
+| Tổng raw AI cases | Domain | Security | Workflow/State | Schema | Final FR-17 cases |
+| --- | --- | --- | --- | --- | --- |
+| 54 | 30 | 10 | 7 | 7 | Chưa có - sẽ chốt ở Phase 09 |
+
+Notes:
+
+- Raw cases cover mọi required field của `POST /api/admin/coupons`: `code`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`.
+- Security coverage tập trung vào SEC-02/SEC-03 admin RBAC, token missing/malformed/invalid, user token, SQLi/XSS và role escalation.
+- Workflow coverage dùng lifecycle phù hợp với FR-17: create -> list verify -> duplicate rejected -> cleanup delete.
+- Một số expected status/shape còn để dạng assumption vì API spec chưa nêu exact create response; Phase 09 phải audit bằng blackbox observation trước khi chuyển thành final cases.
+
+## 6. Human extension tracking
 
 Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót. Các case này cũng đã xuất hiện trong master table ở section 2 với `Source = Human` và `Audit Label = HUMAN_ADDED`.
 
@@ -310,7 +325,7 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | TC-FR09-API-SCH-010 | Schema Validation | Success response không expose internal coupon config fields | 200; không có `id`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`, `is_active`. | AI kiểm tra token/password leak nhưng bỏ sót internal coupon configuration leak. |
 | API-3 | Chưa có | Chưa có | Chưa có | Chưa có |
 
-## 6. Audit labels
+## 7. Audit labels
 
 | Label | Ý nghĩa | Khi dùng |
 | --- | --- | --- |
@@ -319,7 +334,7 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | `INCOMPLETE` | Case có ý tưởng hợp lý nhưng thiếu setup/assertion/expected data | Bổ sung rồi mới đưa vào final suite |
 | `HUMAN_ADDED` | Case do sinh viên thêm sau audit | Dùng cho >=5 cases AI bỏ sót |
 
-## 7. Execution summary
+## 8. Execution summary
 
 | API ID | Final cases | Executed | Passed | Failed | Bugs confirmed |
 | --- | --- | --- | --- | --- | --- |

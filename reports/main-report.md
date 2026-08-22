@@ -206,14 +206,24 @@ Trạng thái: Đã xác nhận 8 bug qua Newman evidence. Chưa tạo GitHub Is
 
 ### 5.1 Generate with AI
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 08.
+Trạng thái: Đã thực hiện ở Phase 08; raw output sẽ được human audit ở Phase 09.
 
 | Artifact | Link/ghi chú |
 | --- | --- |
 | Test case files | `test-cases/hw06-api/fr17-admin-coupons/` |
-| Prompt/output trace | Chưa có |
-| Raw AI test cases | Chưa có |
-| AI audit entry | Chưa có |
+| Prompt/output trace | `reports/ai-audit-report.md` Entry #12; prompt framework dựa trên `skills/` và `reports/hw06-execution-plan.md` |
+| Raw AI test cases | `reports/ai-generated/fr17-admin-coupons-raw-test-cases.md` |
+| AI audit entry | `reports/ai-audit-report.md` Entry #12 |
+
+Raw generation summary:
+
+| Group | Count | Ghi chú |
+| --- | --- | --- |
+| Domain | 30 | Cover `code`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`, uniqueness, valid percent/fixed create |
+| Security | 10 | Cover SEC-02/SEC-03 admin RBAC, missing/malformed/invalid token, user token, SQLi/XSS, role escalation, sensitive leak |
+| Workflow | 7 | Cover create -> list verify -> duplicate reject -> cleanup delete, failed create no partial record |
+| Schema | 7 | Cover JSON content type, success/error shape, malformed JSON, unsupported Content-Type, method contract, response time |
+| Total | 54 | Sẽ audit ở Phase 09; có assumptions cần xác nhận bằng blackbox observation |
 
 ### 5.2 Human audit
 
@@ -332,8 +342,8 @@ Trạng thái: Đã có số liệu execution cho FR-03 và FR-09; FR-17 chưa t
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FR-03 `POST /api/reset-password` | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
 | FR-09 `POST /api/apply-coupon` | 46 | 6 | 51 | 51 | 27 | 24 | 8 |
-| FR-17 `POST /api/admin/coupons` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 92 | 12 | 101 | 101 | 63 | 38 | 11 |
+| FR-17 `POST /api/admin/coupons` | 54 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| Total | 146 | 12 | 101 | 101 | 63 | 38 | 11 |
 
 ## 13. Self-assessment
 
@@ -357,7 +367,7 @@ Trạng thái: Đã có số liệu execution cho FR-03 và FR-09; FR-17 chưa t
 | Newman HTML reports | Có FR-03, FR-09 | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr09-apply-coupon.html` |
 | Postman feature list | Có FR-03, FR-09 | Section 6 |
 | CI/CD report | Chưa có | Section 7 |
-| Excel/test case table | Đang cập nhật; FR-03 và FR-09 executed, FR-17 chưa làm | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
+| Excel/test case table | Đang cập nhật; FR-03 và FR-09 executed, FR-17 raw cases generated/chưa audit | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
 | Bug reports/GitHub Issues | Có 3 bug reports FR-03 đã tạo issue; có 8 bug reports FR-09 đã tạo issue | `reports/bug-reports/`, #268-#278 |
 | AI Critique | Chưa có | Section 10 |
