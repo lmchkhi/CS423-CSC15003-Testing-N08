@@ -302,11 +302,32 @@ Trạng thái: Đã dùng cho FR-03, FR-09 và FR-17.
 
 ## 7. CI/CD report
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 11-13.
+Trạng thái: Phase 11 đã thêm GitHub Actions workflow cho passing Newman smoke run trên đúng branch `hw06/23127475`. Full FR-03/FR-09/FR-17 bug-finding suites không dùng làm pass gate vì chúng intentionally fail để ghi nhận bugs thật; workflow pass dùng smoke collection để chứng minh checkout, backend startup, Newman CLI, reporters, artifacts và `X-Student-Id`.
+
+Workflow path: `.github/workflows/newman-api-test.yml`
+
+Branch scope: chỉ chạy khi `push` lên `hw06/23127475`; job cũng có guard `github.ref == 'refs/heads/hw06/23127475'`.
+
+Backend startup command:
+
+```bash
+cd backend
+node server.js
+```
+
+Newman pass command:
+
+```bash
+newman run postman/hw06-ci-smoke.postman_collection.json \
+  --environment postman/hw06-local.postman_environment.json \
+  --reporters cli,htmlextra,json \
+  --reporter-htmlextra-export reports/newman/hw06-ci-smoke.html \
+  --reporter-json-export reports/newman/hw06-ci-smoke.json
+```
 
 | Run type | Commit | Workflow URL | Result | Screenshot/evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Passing run | Chưa có | Chưa có | Chưa có | Chưa có | Phase 11 |
+| Passing run | Pending Phase 11 commit/push | Pending GitHub Actions run after push | Local smoke passed; CI pending | Local evidence: `reports/newman/hw06-ci-smoke.html`, `reports/newman/hw06-ci-smoke.json`, `reports/newman/hw06-ci-smoke-cli.txt`; expected artifact name `hw06-newman-smoke-reports` | Phase 11 |
 | Intentional failing run | Chưa có | Chưa có | Chưa có | Chưa có | Phase 12 |
 | Restored passing run | Chưa có | Chưa có | Chưa có | Chưa có | Phase 13 |
 

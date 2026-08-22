@@ -1,0 +1,55 @@
+name: HW06 Newman API smoke
+
+on:
+  push:
+    branches:
+      - hw06/23127475
+  workflow_dispatch:
+
+jobs:
+  newman-smoke:
+    if: github.ref == 'refs/heads/hw06/23127475'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Install Newman tooling
+        run: npm install -g newman newman-reporter-htmlextra wait-on
+
+      - name: Start backend
+        run: |
+          mkdir -p reports/newman
+          cd backend
+          node server.js > ../reports/newman/backend-ci.log 2>&1 &
+          echo $! > ../reports/newman/backend-ci.pid
+          wait-on --timeout 60000 http://127.0.0.1:3000/api/products
+
+      - name: Run Newman smoke collection
+        run: |
+          mkdir -p reports/newman
+          newman run postman/hw06-ci-smoke.postman_collection.json \
+            --environment postman/hw06-local.postman_environment.json \
+            --reporters cli,htmlextra,json \
+            --reporter-htmlextra-export reports/newman/hw06-ci-smoke.html \
+            --reporter-json-export reports/newman/hw06-ci-smoke.json
+
+      - name: Upload Newman reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hw06-newman-smoke-reports
+          path: |
+            reports/newman/hw06-ci-smoke.html
+            reports/newman/hw06-ci-smoke.json
+            reports/newman/backend-ci.log
