@@ -1,0 +1,65 @@
+(node:90764) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+HW06 CI Smoke API Tests
+
+→ CI-SMOKE-001 - Products endpoint is available
+  ┌
+  │ '[HW06-CI] CI-SMOKE-001 - Products endpoint is availab
+  │ le X-Student-Id=23127475'
+  └
+  GET http://localhost:3000/api/products [200 OK, 1.24kB, 12ms]
+  ✓  status is 200
+  ✓  response is JSON
+  ✓  response is an array
+
+→ CI-SMOKE-002 - Admin login returns token
+  ┌
+  │ '[HW06-CI] CI-SMOKE-002 - Admin login returns token X-
+  │ Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 1ms]
+  ✓  status is 200
+  ✓  token exists
+  ✓  user role is admin
+
+→ CI-SMOKE-003 - User login returns token
+  ┌
+  │ '[HW06-CI] CI-SMOKE-003 - User login returns token X-S
+  │ tudent-Id=23127475'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  status is 200
+  ✓  token exists
+  ✓  user role is user
+
+→ CI-SMOKE-004 - Coupon list works with admin token
+  ┌
+  │ '[HW06-CI] CI-SMOKE-004 - Coupon list works with admin
+  │  token X-Student-Id=23127475'
+  └
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 1ms]
+  ✓  status is 200
+  ✓  response is JSON
+  ✓  response is an array
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │               4 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │               4 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               5 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              12 │               0 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 77ms                                    │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 2.31kB (approx)                        │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 3ms [min: 1ms, max: 12ms, s.d.: 4ms] │
+└─────────────────────────────────────────────────────────────┘

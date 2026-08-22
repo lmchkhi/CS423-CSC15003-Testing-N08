@@ -24,7 +24,7 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test('intentional fail: status is 999', () => pm.response.to.have.status(999));",
+              "pm.test('status is 200', () => pm.response.to.have.status(200));",
               "pm.test('response is JSON', () => pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json'));",
               "pm.test('response is an array', () => pm.expect(pm.response.json()).to.be.an('array'));"
             ]

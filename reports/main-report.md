@@ -327,9 +327,9 @@ newman run postman/hw06-ci-smoke.postman_collection.json \
 
 | Run type | Commit | Workflow URL | Result | Screenshot/evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Passing run | `93e35e6` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32574378458 | Passed | Local evidence: `reports/newman/hw06-ci-smoke.html`, `reports/newman/hw06-ci-smoke.json`, `reports/newman/hw06-ci-smoke-cli.txt`; uploaded artifact `hw06-newman-smoke-reports` | Phase 11 |
-| Intentional failing run | Phase 12 commit | URL sinh sau khi push Phase 12 | Local intentional fail confirmed; CI fail pending push | Intentional change: in `postman/hw06-ci-smoke.postman_collection.json`, request `CI-SMOKE-001` expects HTTP `999` instead of `200`; local evidence: `reports/newman/hw06-ci-smoke-intentional-fail.html`, `reports/newman/hw06-ci-smoke-intentional-fail.json`, `reports/newman/hw06-ci-smoke-intentional-fail-cli.txt` | Phase 12 |
-| Restored passing run | Chưa có | Chưa có | Chưa có | Chưa có | Phase 13 |
+| Passing run | `93e35e6` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32574378458 | Passed | Screenshot: `reports/screenshots/ci-pass.png`; local evidence: `reports/newman/hw06-ci-smoke.html`, `reports/newman/hw06-ci-smoke.json`, `reports/newman/hw06-ci-smoke-cli.txt`; uploaded artifact `hw06-newman-smoke-reports` | Phase 11 |
+| Intentional failing run | `c8dfd58` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32575114869 | Failed | Screenshot: `reports/screenshots/ci-fail.png`; intentional change: in `postman/hw06-ci-smoke.postman_collection.json`, request `CI-SMOKE-001` expects HTTP `999` instead of `200`; local evidence: `reports/newman/hw06-ci-smoke-intentional-fail.html`, `reports/newman/hw06-ci-smoke-intentional-fail.json`, `reports/newman/hw06-ci-smoke-intentional-fail-cli.txt` | Phase 12 |
+| Restored passing run | Phase 13 commit | URL sinh sau khi push Phase 13 | Local restored pass confirmed; CI restored pass pending push | Restored change: `CI-SMOKE-001` expects HTTP `200` again; local evidence: `reports/newman/hw06-ci-smoke-restored-pass.html`, `reports/newman/hw06-ci-smoke-restored-pass.json`, `reports/newman/hw06-ci-smoke-restored-pass-cli.txt` | Phase 13 |
 
 ## 8. Bug reports
 
