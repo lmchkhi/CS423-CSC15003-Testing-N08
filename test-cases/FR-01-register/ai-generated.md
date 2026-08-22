@@ -1,121 +1,75 @@
-# FR-01 Register Test Cases — AI-Generated
+# FR-01 Register - Test case do AI sinh
 
-**API Endpoint:** `POST /api/register`  
+**API endpoint:** `POST /api/register`  
 **Base URL:** `http://localhost:3000`  
-**Spec Reference:** Section 1.1 (api-specification.md)  
-**Student ID:** 23127300  
-**Technique:** Domain partition (name/email/password), schema validation, security (SEC), account state
+**Tham chiếu đặc tả:** Mục 1.1 (`api-specification.md`)  
+**MSSV:** 23127300  
+**Kỹ thuật:** Phân vùng miền `name`/`email`/`password`, schema validation, bảo mật (SEC), trạng thái tài khoản
 
 ---
 
-## Test Case Matrix (≥35 rows)
+## Ma trận test case
 
-| ID | Category | Input (name / email / password) | Precondition | Expected (per spec) | Oracle |
-|----|----------|----------------------------------|--------------|---------------------|--------|
-| TC-FR01-001 | Valid Registration | "Nguyen Van A" / "valid@hw06.test" / "Password123!" | Fresh account | 200 OK; `{message:"User registered successfully", id:<int>}` | Response code 200; schema match |
-| TC-FR01-002 | Name - Empty | "" / "email@hw06.test" / "Password123!" | Fresh account | 400 Bad Request; validation error | Response code 400 |
-| TC-FR01-003 | Name - Missing | (omitted) / "email@hw06.test" / "Password123!" | Fresh account | 400 Bad Request; validation error | Response code 400 |
-| TC-FR01-004 | Name - Whitespace Only | "   " / "email@hw06.test" / "Password123!" | Fresh account | 400 Bad Request; whitespace rejection | Response code 400 |
-| TC-FR01-005 | Name - Very Long | "A" * 300 / "email@hw06.test" / "Password123!" | Fresh account | 400 Bad Request; length limit | Response code 400 |
-| TC-FR01-006 | Name - Unicode | "Nguyễn Văn Á" / "email@hw06.test" / "Password123!" | Fresh account | 200 OK (if supported) or 400 | Accept or reject unicode consistently |
-| TC-FR01-007 | Name - Numeric Only | "12345" / "email@hw06.test" / "Password123!" | Fresh account | 200 OK (numeric allowed?) or 400 | Accept or reject per spec |
-| TC-FR01-008 | Name - Special Chars | "John@O'Brien#" / "email@hw06.test" / "Password123!" | Fresh account | 200 OK or 400 | Accept or reject special chars |
-| TC-FR01-009 | Email - Valid | "Test User" / "valid.email@domain.com" / "Password123!" | Fresh account | 200 OK | Response code 200 |
-| TC-FR01-010 | Email - Empty | "Test User" / "" / "Password123!" | Fresh account | 400 Bad Request; validation | Response code 400 |
-| TC-FR01-011 | Email - Missing | "Test User" / (omitted) / "Password123!" | Fresh account | 400 Bad Request; validation | Response code 400 |
-| TC-FR01-012 | Email - No @ Symbol | "Test User" / "invalidemail.com" / "Password123!" | Fresh account | 400 Bad Request; email format | Response code 400 |
-| TC-FR01-013 | Email - No Domain | "Test User" / "user@" / "Password123!" | Fresh account | 400 Bad Request; incomplete email | Response code 400 |
-| TC-FR01-014 | Email - No TLD | "Test User" / "user@domain" / "Password123!" | Fresh account | 400 Bad Request or 200 (depends on validation) | Check email format strictness |
-| TC-FR01-015 | Email - Leading Space | "Test User" / " user@hw06.test" / "Password123!" | Fresh account | 400 Bad Request; whitespace | Response code 400 |
-| TC-FR01-016 | Email - Trailing Space | "Test User" / "user@hw06.test " / "Password123!" | Fresh account | 400 Bad Request or trimmed | Check trim behavior |
-| TC-FR01-017 | Email - SQL Meta (OR) | "Test User" / "a' OR '1'='1" / "Password123!" | Fresh account | 400 Bad Request; SQL injection protection | Response code 400; no injection |
-| TC-FR01-018 | Email - SQL Meta (Union) | "Test User" / "a' UNION SELECT" / "Password123!" | Fresh account | 400 Bad Request; SQL injection protection | Response code 400; no injection |
-| TC-FR01-019 | Email - XSS Script Tag | "Test User" / "<script>alert('xss')</script>" / "Password123!" | Fresh account | 400 Bad Request; XSS protection | Response code 400; no XSS |
-| TC-FR01-020 | Email - XSS Event | "Test User" / "test@hw06.test' onclick='alert(1)'" / "Password123!" | Fresh account | 400 Bad Request; XSS protection | Response code 400 |
-| TC-FR01-021 | Email - 320 Char | "Test User" / "a" * 300 + "@test.com" / "Password123!" | Fresh account | 400 Bad Request; length limit | Response code 400 |
-| TC-FR01-022 | Email - Duplicate (Spec) | "User A" / "dup@hw06.test" / "Password123!" | Account with dup@hw06.test exists | Per spec: should reject 400 or 409 | Check uniqueness enforcement |
-| TC-FR01-023 | Password - Valid | "Test User" / "email@hw06.test" / "Password123!" | Fresh account | 200 OK | Response code 200 |
-| TC-FR01-024 | Password - Empty | "Test User" / "email@hw06.test" / "" | Fresh account | 400 Bad Request; validation | Response code 400 |
-| TC-FR01-025 | Password - Missing | "Test User" / "email@hw06.test" / (omitted) | Fresh account | 400 Bad Request; validation | Response code 400 |
-| TC-FR01-026 | Password - Too Short (3) | "Test User" / "email@hw06.test" / "abc" | Fresh account | 400 Bad Request; min length 8 | Response code 400 |
-| TC-FR01-027 | Password - Too Short (7) | "Test User" / "email@hw06.test" / "Pass12!" | Fresh account | 400 Bad Request; min length 8 | Response code 400 |
-| TC-FR01-028 | Password - No Uppercase | "Test User" / "email@hw06.test" / "password123!" | Fresh account | 400 Bad Request; complexity | Response code 400 or 200 (check spec) |
-| TC-FR01-029 | Password - No Digit | "Test User" / "email@hw06.test" / "Password!" | Fresh account | 400 Bad Request; complexity | Response code 400 or 200 |
-| TC-FR01-030 | Password - No Special | "Test User" / "email@hw06.test" / "Password123" | Fresh account | 400 Bad Request; complexity | Response code 400 or 200 |
-| TC-FR01-031 | Password - Only Spaces | "Test User" / "email@hw06.test" / "        " | Fresh account | 400 Bad Request; whitespace | Response code 400 |
-| TC-FR01-032 | Password - Very Long (500) | "Test User" / "email@hw06.test" / "Pass" * 125 | Fresh account | 400 Bad Request; length limit | Response code 400 |
-| TC-FR01-033 | Schema - Empty Body | (empty JSON {}) | Fresh account | 400 Bad Request; missing fields | Response code 400 |
-| TC-FR01-034 | Schema - Extra Fields | "Test" / "email@hw06.test" / "Password123!" + {"extra":"field"} | Fresh account | 200 OK (ignore extra) or 400 | Check strict schema |
-| TC-FR01-035 | State - New Account | "Alice" / "alice@hw06.test" / "Password123!" | No prior account | 200 OK; id issued | Response code 200; id is integer |
-| TC-FR01-036 | State - Duplicate Email (Known Bug) | "Bob" / "bob@hw06.test" / "Password123!" | bob@hw06.test already exists | **Should reject (400)** but **SUT inserts 2nd row + 200** | Response code **200** (BUG) |
-| TC-FR01-037 | Security - Plaintext Pwd Leak | "Charlie" / "charlie@hw06.test" / "SecurePass123!" | After registration via /login | Expect password NOT visible in /api/users/me | Check /users/me response |
-| TC-FR01-038 | Security - Mass Register | Same email base, +1/+2 variations × 100 rapid | No auth/rate limit | 200 OK but flood server | Observe if rate-limit applied |
-| TC-FR01-039 | Security - SQL Injection in Name | "'; DROP TABLE users; --" / "email@hw06.test" / "Password123!" | Fresh account | 400 Bad Request; no injection | Verify table still exists post-test |
-| TC-FR01-040 | Security - SQL Injection in Password | "Test User" / "email@hw06.test" / "Pass' OR '1'='1" | Fresh account | 400 Bad Request or 200 (parameterized) | Check if stored safely |
-
----
-
-## Notes
-
-- **Spec §1.1 Success:** Exact schema `{message:"User registered successfully", id:<int>}` on HTTP 200
-- **Duplicate Email:** Brief notes "SUT has **no unique constraint** → actually inserts a second row and returns 200 — that is a spec bug"
-- **Plaintext Leak:** Brief notes "plaintext-password exposure via subsequent login/`/users/me`"
-- **Rate Limit:** Not mentioned in spec; test for observed behavior
-- **SQL Injection:** Parameterized queries prevent injection; expect 400 or sanitization
-- **XSS:** Email field should validate format or sanitize
+| ID | Nhóm kiểm thử | Dữ liệu (`name` / `email` / `password`) | Tiền điều kiện | Kết quả mong đợi (theo spec) | Oracle |
+|---|---|---|---|---|---|
+| TC-FR01-001 | Đăng ký hợp lệ | "Nguyen Van A" / "valid@hw06.test" / "Password123!" | Tài khoản mới | 200 OK; `{message:"User registered successfully", id:<int>}` | Mã phản hồi 200; khớp schema |
+| TC-FR01-002 | Tên rỗng | "" / "email@hw06.test" / "Password123!" | Tài khoản mới | 400 Bad Request; lỗi validation | Mã phản hồi 400 |
+| TC-FR01-003 | Thiếu trường tên | (omitted) / "email@hw06.test" / "Password123!" | Tài khoản mới | 400 Bad Request; lỗi validation | Mã phản hồi 400 |
+| TC-FR01-004 | Tên chỉ gồm khoảng trắng | "   " / "email@hw06.test" / "Password123!" | Tài khoản mới | 400 Bad Request; từ chối khoảng trắng | Mã phản hồi 400 |
+| TC-FR01-005 | Tên quá dài | "A" * 300 / "email@hw06.test" / "Password123!" | Tài khoản mới | 400 Bad Request; giới hạn độ dài | Mã phản hồi 400 |
+| TC-FR01-006 | Tên có Unicode | "Nguyễn Văn Á" / "email@hw06.test" / "Password123!" | Tài khoản mới | 200 OK (nếu hỗ trợ) hoặc 400 | Chấp nhận hoặc từ chối Unicode một cách nhất quán |
+| TC-FR01-007 | Tên chỉ gồm chữ số | "12345" / "email@hw06.test" / "Password123!" | Tài khoản mới | 200 OK (nếu cho phép chuỗi số) hoặc 400 | Chấp nhận hoặc từ chối theo spec |
+| TC-FR01-008 | Tên có ký tự đặc biệt | "John@O'Brien#" / "email@hw06.test" / "Password123!" | Tài khoản mới | 200 OK hoặc 400 | Chấp nhận hoặc từ chối ký tự đặc biệt |
+| TC-FR01-009 | Email hợp lệ | "Test User" / "valid.email@domain.com" / "Password123!" | Tài khoản mới | 200 OK | Mã phản hồi 200 |
+| TC-FR01-010 | Email rỗng | "Test User" / "" / "Password123!" | Tài khoản mới | 400 Bad Request; validation | Mã phản hồi 400 |
+| TC-FR01-011 | Thiếu trường email | "Test User" / (omitted) / "Password123!" | Tài khoản mới | 400 Bad Request; validation | Mã phản hồi 400 |
+| TC-FR01-012 | Email thiếu ký tự @ | "Test User" / "invalidemail.com" / "Password123!" | Tài khoản mới | 400 Bad Request; định dạng email | Mã phản hồi 400 |
+| TC-FR01-013 | Email thiếu domain | "Test User" / "user@" / "Password123!" | Tài khoản mới | 400 Bad Request; email thiếu thành phần | Mã phản hồi 400 |
+| TC-FR01-014 | Email thiếu TLD | "Test User" / "user@domain" / "Password123!" | Tài khoản mới | 400 Bad Request hoặc 200 (tùy validation) | Kiểm tra độ nghiêm ngặt của định dạng email |
+| TC-FR01-015 | Email có khoảng trắng đầu chuỗi | "Test User" / " user@hw06.test" / "Password123!" | Tài khoản mới | 400 Bad Request; khoảng trắng | Mã phản hồi 400 |
+| TC-FR01-016 | Email có khoảng trắng cuối chuỗi | "Test User" / "user@hw06.test " / "Password123!" | Tài khoản mới | 400 Bad Request hoặc được trim | Kiểm tra hành vi trim |
+| TC-FR01-017 | Email chứa SQL meta OR | "Test User" / "a' OR '1'='1" / "Password123!" | Tài khoản mới | 400 Bad Request; chống SQL injection | Mã phản hồi 400; không bị injection |
+| TC-FR01-018 | Email chứa SQL meta UNION | "Test User" / "a' UNION SELECT" / "Password123!" | Tài khoản mới | 400 Bad Request; chống SQL injection | Mã phản hồi 400; không bị injection |
+| TC-FR01-019 | Email chứa XSS script tag | "Test User" / "<script>alert('xss')</script>" / "Password123!" | Tài khoản mới | 400 Bad Request; chống XSS | Mã phản hồi 400; không có XSS |
+| TC-FR01-020 | Email chứa XSS event | "Test User" / "test@hw06.test' onclick='alert(1)'" / "Password123!" | Tài khoản mới | 400 Bad Request; chống XSS | Mã phản hồi 400 |
+| TC-FR01-021 | Email dài 320 ký tự | "Test User" / "a" * 300 + "@test.com" / "Password123!" | Tài khoản mới | 400 Bad Request; giới hạn độ dài | Mã phản hồi 400 |
+| TC-FR01-022 | Email trùng theo đặc tả | "User A" / "dup@hw06.test" / "Password123!" | Tài khoản với email `dup@hw06.test` đã tồn tại | Theo spec: phải từ chối với 400 hoặc 409 | Kiểm tra enforce tính duy nhất |
+| TC-FR01-023 | Mật khẩu hợp lệ | "Test User" / "email@hw06.test" / "Password123!" | Tài khoản mới | 200 OK | Mã phản hồi 200 |
+| TC-FR01-024 | Mật khẩu rỗng | "Test User" / "email@hw06.test" / "" | Tài khoản mới | 400 Bad Request; validation | Mã phản hồi 400 |
+| TC-FR01-025 | Thiếu trường mật khẩu | "Test User" / "email@hw06.test" / (omitted) | Tài khoản mới | 400 Bad Request; validation | Mã phản hồi 400 |
+| TC-FR01-026 | Mật khẩu quá ngắn (3 ký tự) | "Test User" / "email@hw06.test" / "abc" | Tài khoản mới | 400 Bad Request; độ dài tối thiểu 8 | Mã phản hồi 400 |
+| TC-FR01-027 | Mật khẩu quá ngắn (7 ký tự) | "Test User" / "email@hw06.test" / "Pass12!" | Tài khoản mới | 400 Bad Request; độ dài tối thiểu 8 | Mã phản hồi 400 |
+| TC-FR01-028 | Mật khẩu thiếu chữ hoa | "Test User" / "email@hw06.test" / "password123!" | Tài khoản mới | 400 Bad Request; độ phức tạp | Mã phản hồi 400 hoặc 200 (kiểm tra theo spec) |
+| TC-FR01-029 | Mật khẩu thiếu chữ số | "Test User" / "email@hw06.test" / "Password!" | Tài khoản mới | 400 Bad Request; độ phức tạp | Mã phản hồi 400 hoặc 200 |
+| TC-FR01-030 | Mật khẩu thiếu ký tự đặc biệt | "Test User" / "email@hw06.test" / "Password123" | Tài khoản mới | 400 Bad Request; độ phức tạp | Mã phản hồi 400 hoặc 200 |
+| TC-FR01-031 | Mật khẩu chỉ gồm khoảng trắng | "Test User" / "email@hw06.test" / "        " | Tài khoản mới | 400 Bad Request; khoảng trắng | Mã phản hồi 400 |
+| TC-FR01-032 | Mật khẩu quá dài (500 ký tự) | "Test User" / "email@hw06.test" / "Pass" * 125 | Tài khoản mới | 400 Bad Request; giới hạn độ dài | Mã phản hồi 400 |
+| TC-FR01-033 | Schema - Body rỗng | (body JSON rỗng `{}`) | Tài khoản mới | 400 Bad Request; thiếu field | Mã phản hồi 400 |
+| TC-FR01-034 | Schema - Có field thừa | "Test" / "email@hw06.test" / "Password123!" + {"extra":"field"} | Tài khoản mới | 200 OK (bỏ qua field thừa) hoặc 400 | Kiểm tra schema nghiêm ngặt |
+| TC-FR01-035 | Trạng thái - Tài khoản mới | "Alice" / "alice@hw06.test" / "Password123!" | Chưa có tài khoản trước đó | 200 OK; id được sinh | Mã phản hồi 200; id là số nguyên |
+| TC-FR01-036 | Trạng thái - Email trùng (bug đã biết) | "Bob" / "bob@hw06.test" / "Password123!" | `bob@hw06.test` đã tồn tại | **Phải từ chối (400)** nhưng **SUT chèn dòng thứ hai và trả 200** | Mã phản hồi **200** (BUG) |
+| TC-FR01-037 | Bảo mật - Lộ mật khẩu plaintext | "Charlie" / "charlie@hw06.test" / "SecurePass123!" | Sau khi đăng ký qua /login | Password không được xuất hiện trong `/api/users/me` | Kiểm tra response `/api/users/me` |
+| TC-FR01-038 | Bảo mật - Đăng ký hàng loạt | Cùng email base, biến thể +1/+2, gửi nhanh 100 lần | Không có auth/rate limit | 200 OK nhưng tạo tải lớn lên server | Quan sát hệ thống có áp dụng rate-limit không |
+| TC-FR01-039 | Bảo mật - SQL injection trong name | "'; DROP TABLE users; --" / "email@hw06.test" / "Password123!" | Tài khoản mới | 400 Bad Request; không bị injection | Xác minh bảng vẫn tồn tại sau test |
+| TC-FR01-040 | Bảo mật - SQL injection trong password | "Test User" / "email@hw06.test" / "Pass' OR '1'='1" | Tài khoản mới | 400 Bad Request hoặc 200 (parameterized) | Kiểm tra dữ liệu được lưu an toàn |
 
 ---
 
-## Generation Process
+## Ghi chú
 
-**Prompt 1 (Name Partition):**
-```
-Generate exhaustive domain partitions for the "name" field in POST /api/register:
-- valid name
-- empty string
-- missing field
-- very long (300+ chars)
-- unicode characters
-- whitespace-only
-- numeric-only
-- special characters
-Map each to expected HTTP status per spec. Use test IDs TC-FR01-001 through TC-FR01-008.
-```
+- **Spec §1.1 Success:** schema chính xác `{message:"User registered successfully", id:<int>}` khi HTTP 200.
+- **Email trùng:** SUT không có unique constraint, có thể chèn dòng thứ hai và trả 200; đây là bug so với kỳ vọng tính duy nhất của email.
+- **Lộ plaintext password:** kiểm tra chuỗi đăng ký → login → `/api/users/me` để bảo đảm password không xuất hiện trong response.
+- **Rate limit:** spec không nhắc rõ; test dùng để quan sát hành vi khi đăng ký nhanh nhiều lần.
+- **SQL injection:** truy vấn phải dùng parameterized query, không được thực thi payload.
+- **XSS:** trường email/name phải validate hoặc sanitize phù hợp.
 
-**Prompt 2 (Email Partition):**
-```
-Generate exhaustive domain partitions for the "email" field in POST /api/register:
-- valid email
-- empty / missing
-- malformed (no @, no domain, no TLD)
-- whitespace (leading/trailing)
-- duplicate of existing
-- SQL injection attempts (' OR '1'='1, UNION SELECT)
-- XSS attempts (<script>, onclick)
-- very long (320+ chars)
-Map each to expected HTTP status per spec. Use test IDs TC-FR01-009 through TC-FR01-022.
-```
+---
 
-**Prompt 3 (Password Partition):**
-```
-Generate exhaustive domain partitions for the "password" field in POST /api/register:
-- valid password (per spec complexity)
-- empty / missing
-- too short (< 8 chars)
-- no uppercase
-- no digit
-- no special character
-- only spaces
-- very long (500+ chars)
-Map each to expected HTTP status per spec. Use test IDs TC-FR01-023 through TC-FR01-032.
-```
+## Quy trình sinh test bằng AI
 
-**Prompt 4 (Schema & State):**
-```
-Generate test cases for:
-(a) Schema validation: empty body, extra fields
-(b) Account state: new account vs duplicate email (noting the spec bug)
-(c) Security: plaintext password leak, mass registration, SQL injection in all fields
-Use test IDs TC-FR01-033 through TC-FR01-040.
-Expected outcomes per spec §1.1 and security best practices.
-```
+1. Phân vùng trường `name`: hợp lệ, rỗng, thiếu field, quá dài, Unicode, chỉ khoảng trắng, chỉ số, ký tự đặc biệt.
+2. Phân vùng trường `email`: hợp lệ, rỗng/thiếu, sai định dạng, khoảng trắng, trùng, SQL injection, XSS, quá dài.
+3. Phân vùng trường `password`: hợp lệ, rỗng/thiếu, quá ngắn, thiếu chữ hoa/chữ số/ký tự đặc biệt, chỉ khoảng trắng, quá dài.
+4. Bổ sung schema, trạng thái tài khoản và các kiểm thử bảo mật.
+5. Gán ID `TC-FR01-001` đến `TC-FR01-040` để audit và encode sang Postman data file.
