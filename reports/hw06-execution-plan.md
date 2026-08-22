@@ -274,7 +274,6 @@ Việc cần làm:
 - Chuẩn hóa final TC IDs, ví dụ `FR09-AC-DOM-001`, `FR09-AC-SEC-001`, `FR09-AC-SCH-001`.
 - Thêm >=5 human cases: `SAVE10` reuse, exactly at `min_order_amount`, `EXPIRED` with valid amount, user_id khác token, total_amount negative/string, XSS code.
 - Ghi vì sao AI bỏ sót từng human case.
-- Append AI audit entry.
 
 Files/artifacts:
 
@@ -377,7 +376,6 @@ Việc cần làm:
 - Chuẩn hóa final TC IDs, ví dụ `FR17-CC-DOM-001`, `FR17-CC-SEC-001`, `FR17-CC-SCH-001`.
 - Thêm >=5 human cases: user token returns 403, duplicate coupon code, invalid `type`, `max_uses_per_user = 0`, `min_order_amount = -1`, XSS in code, expired_at malformed.
 - Xác định cleanup strategy cho created coupons bằng `DELETE /api/admin/coupons/:id`.
-- Append AI audit entry.
 
 Files/artifacts:
 

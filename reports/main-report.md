@@ -119,7 +119,7 @@ Trạng thái: Đã xác nhận 3 bug qua Newman evidence và đã tạo GitHub 
 
 ### 4.1 Generate with AI
 
-Trạng thái: Đã thực hiện ở Phase 05; raw output sẽ được human audit ở Phase 06.
+Trạng thái: Đã thực hiện ở Phase 05; raw output đã được human audit ở Phase 06.
 
 | Artifact | Link/ghi chú |
 | --- | --- |
@@ -140,19 +140,24 @@ Raw generation summary:
 
 ### 4.2 Human audit
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 06.
+Trạng thái: Đã thực hiện ở Phase 06. Chi tiết audit: `reports/hw06-test-cases.md` section 4.
 
 | Tổng AI cases | VALID | INVALID | INCOMPLETE | Corrected final cases |
 | --- | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| 46 | 39 | 0 | 7 | 45 |
 
 ### 4.3 Human extension
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 06.
+Trạng thái: Đã thực hiện ở Phase 06. Đã thêm 6 human-authored cases, final FR-09 suite có 51 cases.
 
 | TC ID | Missed case | Expected result | Vì sao AI bỏ sót |
 | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có |
+| `TC-FR09-API-DOM-021` | Valid coupon code có whitespace đầu/cuối | 400, có `message`/`error`, không có success discount fields | AI có whitespace-only và lowercase nhưng bỏ sót valid code kèm whitespace |
+| `TC-FR09-API-DOM-022` | `user_id` là null | 400, có `message`/`error` | AI có missing user_id và IDOR nhưng bỏ sót null partition |
+| `TC-FR09-API-DOM-023` | `user_id` là string numeric | 400, có `message`/`error` | AI có SQLi string user_id nhưng bỏ sót string numeric trông hợp lệ |
+| `TC-FR09-API-SEC-010` | Token không có Bearer prefix | 401, có `message`/`error` | AI có missing/malformed Bearer nhưng bỏ sót token không có Bearer prefix |
+| `TC-FR09-API-SCH-009` | `Content-Type: text/plain` với JSON-looking body | 400 hoặc 415, không success, không 5xx | AI có malformed JSON nhưng bỏ sót unsupported request Content-Type |
+| `TC-FR09-API-SCH-010` | Success response không expose internal coupon config fields | 200, không trả `id`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`, `is_active` | AI kiểm tra token/password leak nhưng bỏ sót internal coupon configuration leak |
 
 ### 4.4 Execution with Postman/Newman
 
@@ -296,9 +301,9 @@ Trạng thái: Đã có số liệu execution cho FR-03; FR-09 và FR-17 chưa t
 | API | Generated cases | Human added cases | Final cases | Executed | Passed | Failed | Bugs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FR-03 `POST /api/reset-password` | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
-| FR-09 `POST /api/apply-coupon` | 46 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| FR-09 `POST /api/apply-coupon` | 46 | 6 | 51 | Chưa có | Chưa có | Chưa có | Chưa có |
 | FR-17 `POST /api/admin/coupons` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 92 | 6 | 50 | 50 | 36 | 14 | 3 |
+| Total | 92 | 12 | 101 | 50 | 36 | 14 | 3 |
 
 ## 13. Self-assessment
 
@@ -322,7 +327,7 @@ Trạng thái: Đã có số liệu execution cho FR-03; FR-09 và FR-17 chưa t
 | Newman HTML reports | Có FR-03 | `reports/newman/hw06-fr03-reset-password.html` |
 | Postman feature list | Có FR-03 | Section 6 |
 | CI/CD report | Chưa có | Section 7 |
-| Excel/test case table | Đang cập nhật; FR-03 completed | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
+| Excel/test case table | Đang cập nhật; FR-03 executed, FR-09 final cases ready | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
 | Bug reports/GitHub Issues | Có 3 bug reports FR-03 và 3 GitHub Issues | `reports/bug-reports/`, #268, #269, #270 |
 | AI Critique | Chưa có | Section 10 |

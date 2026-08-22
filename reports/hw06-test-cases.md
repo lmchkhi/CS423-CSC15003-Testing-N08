@@ -106,7 +106,57 @@ Mỗi row trong bảng này là một final test case có thể map sang Postman
 | API-1 | TC-FR03-API-SCH-008 | `test-cases/hw06-api/fr03-reset-password/TC-FR03-API-SCH-008.md` | AI | Schema Validation | GET /api/reset-password không được thành công | Backend running. | `GET /api/reset-password` | 404 hoặc 405 | Không trả success schema của POST reset-password. | VALID | Passed | Newman: `reports/newman/hw06-fr03-reset-password.html`, JSON: `reports/newman/hw06-fr03-reset-password.json` |
 | API-1 | TC-FR03-API-SCH-009 | `test-cases/hw06-api/fr03-reset-password/TC-FR03-API-SCH-009.md` | Human | Schema Validation | Malformed JSON body trả client error và không leak stack | Backend running. | `Body raw: { "email": "test@eshop.com",` | 400 | Có error/message hoặc body lỗi an toàn; không stack trace. | HUMAN_ADDED | Passed | Newman: `reports/newman/hw06-fr03-reset-password.html`, JSON: `reports/newman/hw06-fr03-reset-password.json` |
 | API-1 | TC-FR03-API-SCH-010 | `test-cases/hw06-api/fr03-reset-password/TC-FR03-API-SCH-010.md` | Human | Schema Validation | Content-Type text/plain cho JSON body không được xử lý như success | Backend running. | `Header Content-Type: text/plain, body JSON string valid` | 400 hoặc 415 | Không success; không 5xx; có message/error nếu JSON. | HUMAN_ADDED | Failed | Newman: `reports/newman/hw06-fr03-reset-password.html`; Bug: `reports/bug-reports/BUG-FR03-API-003.md` |
-| API-2 | Raw generated | `test-cases/hw06-api/fr09-apply-coupon/` | AI | Domain/Security/Workflow/Schema | Phase 05 raw FR-09 cases đã generate, chưa audit/finalize | `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md` | Chưa final | Chưa final | Chưa final | Chưa audit | Chưa chạy | Raw: `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md` |
+| API-2 | TC-FR09-API-DOM-001 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-001.md` | AI | Domain | Apply SAVE10 percent coupon với total hợp lệ trên min | User logged in; body user_id thuộc token user; SAVE10 chưa dùng bởi user này | `{"code":"SAVE10","total_amount":500000,"user_id":{{userId}}}` | 200 | discount_amount=50000; final_amount=450000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-002 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-002.md` | AI | Domain | Apply BIGBUY fixed coupon ở đúng min_order_amount | User logged in; BIGBUY chưa dùng bởi user này | `{"code":"BIGBUY","total_amount":500000,"user_id":{{userId}}}` | 200 | discount_amount=50000; final_amount=450000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-003 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-003.md` | AI | Domain | Apply VIP100 fixed coupon ở đúng min_order_amount | User logged in; VIP100 usage count dưới 2 | `{"code":"VIP100","total_amount":300000,"user_id":{{userId}}}` | 200 | discount_amount=100000; final_amount=200000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-004 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-004.md` | AI | Domain | SAVE10 ở đúng ngưỡng tối thiểu | User logged in; SAVE10 chưa dùng bởi user này | `{"code":"SAVE10","total_amount":300000,"user_id":{{userId}}}` | 200 | discount_amount=30000; final_amount=270000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-005 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-005.md` | AI | Domain | SAVE10 thấp hơn min_order_amount 1 đơn vị | User logged in | `{"code":"SAVE10","total_amount":299999,"user_id":{{userId}}}` | 400 | message hoặc error; không có discount_amount/final_amount success | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-006 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-006.md` | AI | Domain | BIGBUY thấp hơn min_order_amount 1 đơn vị | User logged in | `{"code":"BIGBUY","total_amount":499999,"user_id":{{userId}}}` | 400 | message hoặc error; không có discount_amount/final_amount success | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-007 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-007.md` | AI | Domain | EXPIRED coupon với total đủ cao vẫn bị reject | User logged in | `{"code":"EXPIRED","total_amount":200000,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-008 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-008.md` | AI | Domain | Unknown coupon code bị reject | User logged in | `{"code":"NOTREAL","total_amount":500000,"user_id":{{userId}}}` | 4xx | message hoặc error; không có discount_amount/final_amount success | INCOMPLETE | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-009 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-009.md` | AI | Domain | Thiếu field code | User logged in | `{"total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-010 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-010.md` | AI | Domain | code là null | User logged in | `{"code":null,"total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-011 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-011.md` | AI | Domain | code là empty string | User logged in | `{"code":"","total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-012 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-012.md` | AI | Domain | code là whitespace-only | User logged in | `{"code":"   ","total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-013 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-013.md` | AI | Domain | Lowercase coupon code save10 bị reject nếu code case-sensitive | User logged in; SAVE10 tồn tại | `{"code":"save10","total_amount":500000,"user_id":{{userId}}}` | 4xx | message hoặc error; không có discount_amount/final_amount success | INCOMPLETE | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-014 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-014.md` | AI | Domain | code sai kiểu number | User logged in | `{"code":12345,"total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-015 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-015.md` | AI | Domain | Thiếu total_amount | User logged in | `{"code":"SAVE10","user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-016 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-016.md` | AI | Domain | total_amount là null | User logged in | `{"code":"SAVE10","total_amount":null,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-017 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-017.md` | AI | Domain | total_amount bằng 0 | User logged in | `{"code":"SAVE10","total_amount":0,"user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-018 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-018.md` | AI | Domain | total_amount âm | User logged in | `{"code":"SAVE10","total_amount":-1,"user_id":{{userId}}}` | 400 | message hoặc error; final_amount không âm | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-019 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-019.md` | AI | Domain | total_amount sai kiểu string | User logged in | `{"code":"SAVE10","total_amount":"500000","user_id":{{userId}}}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-020 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-020.md` | AI | Domain | Thiếu user_id | User logged in | `{"code":"SAVE10","total_amount":500000}` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-021 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-021.md` | Human | Domain | Valid coupon code có whitespace đầu/cuối | User logged in; SAVE10 chưa dùng bởi user này | `{"code":" SAVE10 ","total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error; không có discount_amount/final_amount success | HUMAN_ADDED | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-022 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-022.md` | Human | Domain | user_id là null | User logged in | `{"code":"SAVE10","total_amount":500000,"user_id":null}` | 400 | message hoặc error | HUMAN_ADDED | Not run | Chưa có |
+| API-2 | TC-FR09-API-DOM-023 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-DOM-023.md` | Human | Domain | user_id sai kiểu string numeric | User logged in | `{"code":"SAVE10","total_amount":500000,"user_id":"1"}` | 400 | message hoặc error | HUMAN_ADDED | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-001 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-001.md` | AI | Security | Thiếu Authorization header | Không gửi token | `{"code":"SAVE10","total_amount":500000,"user_id":{{userId}}}` | 401 | message hoặc error; không có discount_amount/final_amount success | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-002 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-002.md` | AI | Security | Authorization header malformed: Bearer không có token | Header Authorization: Bearer | `Valid SAVE10 body` | 401 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-003 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-003.md` | AI | Security | JWT token invalid | Header Authorization: Bearer invalid.token.value | `Valid SAVE10 body` | 401 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-004 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-004.md` | AI | Security | Body user_id thuộc user khác bị reject | Login user A; biết user_id của user B | `{"code":"SAVE10","total_amount":500000,"user_id":{{otherUserId}}}` | 4xx | message hoặc error; không có discount; không consume quota user B | INCOMPLETE | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-005 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-005.md` | AI | Security | SQL injection payload trong code không gây 500/leak | User logged in | `{"code":"' OR '1'='1","total_amount":500000,"user_id":{{userId}}}` | 400 | message hoặc error; không stack/sql leak; không 5xx | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-006 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-006.md` | AI | Security | SQL injection-like payload trong user_id không gây 500/leak | User logged in | `{"code":"SAVE10","total_amount":500000,"user_id":"1 OR 1=1"}` | 400 | message hoặc error; không stack/sql leak; không 5xx | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-007 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-007.md` | AI | Security | XSS-like payload trong code không reflect nguy hiểm | User logged in | `{"code":"<script>alert(1)</script>","total_amount":500000,"user_id":{{userId}}}` | 400 | Không reflect executable HTML/script; không 5xx | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-008 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-008.md` | AI | Security | Extra role field không escalation privilege | User logged in normal user | `{"code":"SAVE10","total_amount":500000,"user_id":{{userId}},"role":"admin"}` | 200 hoặc 400 | Nếu accepted thì discount như user thường; nếu rejected thì client error; không admin/internal fields | INCOMPLETE | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-009 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-009.md` | AI | Security | Success response không leak token/password/role | User logged in; coupon hợp lệ | `Valid SAVE10 body` | 200 | Không có password, password_hash, token, role | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SEC-010 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SEC-010.md` | Human | Security | Token không có Bearer prefix bị reject | Header Authorization chỉ chứa token string hoặc raw invalid token | `Valid SAVE10 body` | 401 | message hoặc error | HUMAN_ADDED | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-001 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-001.md` | AI | Workflow/State | SAVE10 không reuse được bởi cùng user sau khi dùng thành công | User logged in; lần đầu apply SAVE10 thành công | `Second request same SAVE10 body` | 400 | message hoặc error; không có discount success | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-002 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-002.md` | AI | Workflow/State | VIP100 lần dùng thứ nhất thành công | User logged in; VIP100 usage count = 0 | `{"code":"VIP100","total_amount":500000,"user_id":{{userId}}}` | 200 | discount_amount=100000; final_amount=400000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-003 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-003.md` | AI | Workflow/State | VIP100 lần dùng thứ hai cùng user vẫn thành công | Same user đã dùng VIP100 một lần | `Same VIP100 body` | 200 | discount_amount=100000; final_amount=400000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-004 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-004.md` | AI | Workflow/State | VIP100 lần dùng thứ ba cùng user bị reject | Same user đã dùng VIP100 hai lần | `Same VIP100 body` | 400 | message hoặc error | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-005 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-005.md` | AI | Workflow/State | Usage limit tính theo từng user, không phải global | User A đã dùng SAVE10; login user B | `User B apply SAVE10 với own user_id` | 200 | discount_amount=50000; final_amount=450000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-006 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-006.md` | AI | Workflow/State | Failed below-min attempt không consume usage | User chưa dùng SAVE10 | `First total 299999, then total 500000` | 400 then 200 | Second response có SAVE10 discount đúng | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-007 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-007.md` | AI | Workflow/State | Failed unknown-code attempt không ảnh hưởng valid coupon use | User logged in | `First NOTREAL, then SAVE10 valid body` | 4xx then 200 | Second response có SAVE10 discount đúng | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-WF-008 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-WF-008.md` | AI | Workflow/State | IDOR rejection không consume quota của real owner | Login user A; gửi body user_id user B; sau đó login B | `Mismatched request, then valid B request` | 4xx then 200 | User B vẫn apply coupon được | INCOMPLETE | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-001 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-001.md` | AI | Schema Validation | Success response có Content-Type JSON | User logged in; SAVE10 body hợp lệ | `Valid SAVE10 body` | 200 | Header Content-Type chứa application/json | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-002 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-002.md` | AI | Schema Validation | Success response có discount_amount/final_amount dạng number | User logged in; BIGBUY body hợp lệ | `Valid BIGBUY body` | 200 | discount_amount:number; final_amount:number | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-003 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-003.md` | AI | Schema Validation | Percent coupon calculation dùng input cho kết quả nguyên | User logged in; SAVE10 chưa dùng | `{"code":"SAVE10","total_amount":333330,"user_id":{{userId}}}` | 200 | discount_amount=33333; final_amount=299997 | INCOMPLETE | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-004 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-004.md` | AI | Schema Validation | Fixed coupon calculation exact với total lớn hơn min | User logged in; BIGBUY chưa dùng | `{"code":"BIGBUY","total_amount":600000,"user_id":{{userId}}}` | 200 | discount_amount=50000; final_amount=550000 | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-005 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-005.md` | AI | Schema Validation | Error response cho missing code có shape an toàn | User logged in | `Missing code body` | 400 | message hoặc error string; không stack/sql trace | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-006 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-006.md` | AI | Schema Validation | GET /api/apply-coupon không thành công | Backend running | `No body` | 404 hoặc 405 | Không trả success schema discount_amount/final_amount | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-007 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-007.md` | AI | Schema Validation | Malformed JSON body trả client error không leak stack | User logged in | `Raw body { "code": "SAVE10",` | 400 | Error response safe; không stack/sql leak | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-008 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-008.md` | AI | Schema Validation | Valid coupon response time dưới 1000ms | User logged in; coupon hợp lệ | `Valid SAVE10 hoặc BIGBUY body` | 200 | Response time < 1000ms; calculation đúng | VALID | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-009 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-009.md` | Human | Schema Validation | Content-Type text/plain cho JSON-looking body không được xử lý như success | User logged in | `Header Content-Type: text/plain; body JSON string valid` | 400 hoặc 415 | Không success; không 5xx; message/error nếu JSON | HUMAN_ADDED | Not run | Chưa có |
+| API-2 | TC-FR09-API-SCH-010 | `test-cases/hw06-api/fr09-apply-coupon/TC-FR09-API-SCH-010.md` | Human | Schema Validation | Success response không expose internal coupon config fields | User logged in; coupon hợp lệ | `Valid SAVE10 body` | 200 | Không có id, type, discount_value, min_order_amount, expired_at, max_uses_per_user, is_active | HUMAN_ADDED | Not run | Chưa có |
 | API-3 | Chưa có | `test-cases/hw06-api/fr17-admin-coupons/` | AI/Human | Domain/Security/Workflow/Schema | Chưa generate | Chưa có | Chưa có | Chưa có | Chưa có | Chưa audit | Chưa chạy | Chưa có |
 
 FR-03 raw AI output đã được lưu ở `reports/ai-generated/fr03-reset-password-raw-test-cases.md`. Phase 03 audit/final suite được tổng hợp ngay trong file master này; 50 per-test-case Markdown files nằm trong `test-cases/hw06-api/fr03-reset-password/`.
@@ -174,21 +224,71 @@ Notes:
 | FR03-RP-SCH-007 | VALID | TC-FR03-API-SCH-007 | Response không được trả password/newPassword plaintext. |
 | FR03-RP-SCH-008 | VALID | TC-FR03-API-SCH-008 | Method contract: endpoint chỉ được spec là POST, GET không được thành công. |
 
-FR-09 raw AI output đã được lưu ở `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md`. Phase 05 chỉ tạo raw cases; Phase 06 sẽ audit, sửa assumptions và tạo final per-test-case Markdown files trong `test-cases/hw06-api/fr09-apply-coupon/`.
+FR-09 raw AI output đã được lưu ở `reports/ai-generated/fr09-apply-coupon-raw-test-cases.md`. Phase 06 audit/final suite được tổng hợp ngay trong file master này; 51 per-test-case Markdown files nằm trong `test-cases/hw06-api/fr09-apply-coupon/`.
 
-## 4. FR-09 raw AI generation summary
+## 4. FR-09 AI audit summary
 
-| Tổng raw AI cases | Domain | Security | Workflow/State | Schema | Status |
-| --- | --- | --- | --- | --- | --- |
-| 46 | 20 | 10 | 8 | 8 | Chưa audit; Phase 06 sẽ gắn `VALID` / `INVALID` / `INCOMPLETE` |
+| Tổng raw AI cases | VALID | INVALID | INCOMPLETE | Corrected final AI cases | Human added | Final FR-09 cases |
+| --- | --- | --- | --- | --- | --- | --- |
+| 46 | 39 | 0 | 7 | 45 | 6 | 51 |
 
-Coverage notes:
+Notes:
 
-- Cover đủ C1-C5 của FR-09: code tồn tại/active, expiration, min-order, JWT auth, usage-limit per user.
-- Cover công thức percent/fixed với `SAVE10`, `BIGBUY`, `VIP100`; có boundary `total_amount == min_order_amount` và just-below-min.
-- Cover security theo SEC-02/SEC-05: missing/malformed/invalid token, IDOR qua `user_id`, SQLi/XSS payload, response không leak token/password.
-- Cover schema/contract: `discount_amount`, `final_amount`, JSON content type, error shape, malformed JSON, response time.
-- Các assumptions cần audit ở Phase 06: exact status cho unknown code, lowercase coupon behavior, percent rounding, thời điểm count coupon usage, và rule `user_id` phải match JWT user.
+- Không có raw case nào bị loại vì trái spec hoàn toàn; `INVALID = 0`.
+- `INCOMPLETE` cases được sửa nếu có thể execute bằng setup/assertion rõ ràng; expired-token raw case bị exclude vì không có expired JWT fixture đáng tin từ blackbox inputs.
+- Phase 06 chưa execute Newman; mọi final FR-09 cases đang ở trạng thái `Not run` và sẽ chuyển sang Phase 07.
+- Assumptions đã audit: unknown/lowercase code dùng expected 4xx; percent rounding được tránh bằng total cho kết quả nguyên; IDOR/usage-limit cases có setup user A/B rõ ràng.
+
+### 4.1 Raw AI case audit table
+
+| Raw TC ID | Audit label | Final TC ID / Action | Human reasoning |
+| --- | --- | --- | --- |
+| FR09-AC-DOM-001 | VALID | TC-FR09-API-DOM-001 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-002 | VALID | TC-FR09-API-DOM-002 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-003 | VALID | TC-FR09-API-DOM-003 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-004 | VALID | TC-FR09-API-DOM-004 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-005 | VALID | TC-FR09-API-DOM-005 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-006 | VALID | TC-FR09-API-DOM-006 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-007 | VALID | TC-FR09-API-DOM-007 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-008 | INCOMPLETE | TC-FR09-API-DOM-008 | Raw expected 400 hoặc 404 chưa đủ rõ; sửa thành client error 4xx và assert không có success discount fields. |
+| FR09-AC-DOM-009 | VALID | TC-FR09-API-DOM-009 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-010 | VALID | TC-FR09-API-DOM-010 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-011 | VALID | TC-FR09-API-DOM-011 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-012 | VALID | TC-FR09-API-DOM-012 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-013 | INCOMPLETE | TC-FR09-API-DOM-013 | Case sensitivity không được spec nêu rõ; giữ làm boundary, sửa expected thành 4xx cho lowercase code không đúng sample. |
+| FR09-AC-DOM-014 | VALID | TC-FR09-API-DOM-014 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-015 | VALID | TC-FR09-API-DOM-015 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-016 | VALID | TC-FR09-API-DOM-016 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-017 | VALID | TC-FR09-API-DOM-017 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-018 | VALID | TC-FR09-API-DOM-018 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-019 | VALID | TC-FR09-API-DOM-019 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-DOM-020 | VALID | TC-FR09-API-DOM-020 | Đúng domain partition cho code/total_amount/user_id theo FR-09 và API spec. |
+| FR09-AC-SEC-001 | VALID | TC-FR09-API-SEC-001 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-SEC-002 | VALID | TC-FR09-API-SEC-002 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-SEC-003 | VALID | TC-FR09-API-SEC-003 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-SEC-004 | INCOMPLETE | Excluded | Không có expired JWT fixture đáng tin từ blackbox inputs; invalid token đã được cover bởi SEC-003. |
+| FR09-AC-SEC-005 | INCOMPLETE | TC-FR09-API-SEC-004 | Thiếu setup user B và exact status; sửa thành setup user A/B rõ ràng và expected 4xx/no quota consumption. |
+| FR09-AC-SEC-006 | VALID | TC-FR09-API-SEC-005 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-SEC-007 | VALID | TC-FR09-API-SEC-006 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-SEC-008 | VALID | TC-FR09-API-SEC-007 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-SEC-009 | INCOMPLETE | TC-FR09-API-SEC-008 | Raw expected 200 hoặc 400 mơ hồ; giữ assertion trọng tâm là extra role không làm privilege escalation. |
+| FR09-AC-SEC-010 | VALID | TC-FR09-API-SEC-009 | Đúng security coverage cho FR-09/SEC-02/SEC-05 và có thể execute bằng token/setup blackbox. |
+| FR09-AC-WF-001 | VALID | TC-FR09-API-WF-001 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-002 | VALID | TC-FR09-API-WF-002 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-003 | VALID | TC-FR09-API-WF-003 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-004 | VALID | TC-FR09-API-WF-004 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-005 | VALID | TC-FR09-API-WF-005 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-006 | VALID | TC-FR09-API-WF-006 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-007 | VALID | TC-FR09-API-WF-007 | Đúng workflow C5 usage-limit/per-user behavior theo FR-09. |
+| FR09-AC-WF-008 | INCOMPLETE | TC-FR09-API-WF-008 | Cần sequence user A/user B để kiểm tra IDOR rejection không consume quota; sửa setup và expected thành 4xx then 200. |
+| FR09-AC-SCH-001 | VALID | TC-FR09-API-SCH-001 | Đúng schema/contract assertion cho response apply-coupon. |
+| FR09-AC-SCH-002 | VALID | TC-FR09-API-SCH-002 | Đúng schema/contract assertion cho response apply-coupon. |
+| FR09-AC-SCH-003 | INCOMPLETE | TC-FR09-API-SCH-003 | Raw dùng total tạo discount thập phân nhưng spec không nêu rounding; sửa total_amount thành 333330 để expected exact. |
+| FR09-AC-SCH-004 | VALID | TC-FR09-API-SCH-004 | Đúng schema/contract assertion cho response apply-coupon. |
+| FR09-AC-SCH-005 | VALID | TC-FR09-API-SCH-005 | Đúng schema/contract assertion cho response apply-coupon. |
+| FR09-AC-SCH-006 | VALID | TC-FR09-API-SCH-006 | Đúng schema/contract assertion cho response apply-coupon. |
+| FR09-AC-SCH-007 | VALID | TC-FR09-API-SCH-007 | Đúng schema/contract assertion cho response apply-coupon. |
+| FR09-AC-SCH-008 | VALID | TC-FR09-API-SCH-008 | Đúng schema/contract assertion cho response apply-coupon. |
 
 ## 5. Human extension tracking
 
@@ -202,7 +302,12 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | TC-FR03-API-WF-007 | Workflow/State | Failed reset do weak password không đổi password hiện tại | 400 then 200; Old password vẫn login được sau failed reset. | AI tập trung token consumption, bỏ sót postcondition password hiện tại. |
 | TC-FR03-API-SCH-009 | Schema Validation | Malformed JSON body trả client error và không leak stack | 400; Có error/message hoặc body lỗi an toàn; không stack trace. | AI chủ yếu sinh JSON hợp lệ về mặt syntax nên bỏ sót parser-level schema case. |
 | TC-FR03-API-SCH-010 | Schema Validation | Content-Type text/plain cho JSON body không được xử lý như success | 400 hoặc 415; Không success; không 5xx; có message/error nếu JSON. | AI kiểm tra success Content-Type nhưng bỏ sót invalid request Content-Type. |
-| API-2 | Chưa có | Chưa có | Chưa có | Chưa có |
+| TC-FR09-API-DOM-021 | Domain | Valid coupon code có whitespace đầu/cuối | 400; JSON body có `message` hoặc `error`; không có success discount fields. | AI có whitespace-only và lowercase nhưng bỏ sót valid code kèm whitespace đầu/cuối. |
+| TC-FR09-API-DOM-022 | Domain | `user_id` là null | 400; JSON body có `message` hoặc `error`. | AI có missing user_id và IDOR nhưng bỏ sót null partition. |
+| TC-FR09-API-DOM-023 | Domain | `user_id` là string numeric | 400; JSON body có `message` hoặc `error`. | AI có SQLi string user_id nhưng bỏ sót string numeric trông hợp lệ. |
+| TC-FR09-API-SEC-010 | Security | Token không có Bearer prefix | 401; JSON body có `message` hoặc `error`. | AI có missing/malformed Bearer nhưng bỏ sót token không có Bearer prefix. |
+| TC-FR09-API-SCH-009 | Schema Validation | Content-Type text/plain với JSON-looking body | 400 hoặc 415; không success; không 5xx. | AI có malformed JSON nhưng bỏ sót unsupported request Content-Type. |
+| TC-FR09-API-SCH-010 | Schema Validation | Success response không expose internal coupon config fields | 200; không có `id`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`, `is_active`. | AI kiểm tra token/password leak nhưng bỏ sót internal coupon configuration leak. |
 | API-3 | Chưa có | Chưa có | Chưa có | Chưa có |
 
 ## 6. Audit labels
@@ -219,6 +324,6 @@ Mỗi row trong bảng này là một human-authored test case mà AI bỏ sót.
 | API ID | Final cases | Executed | Passed | Failed | Bugs confirmed |
 | --- | --- | --- | --- | --- | --- |
 | API-1 | 50 | 50 | 36 | 14 | 3 |
-| API-2 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| API-2 | 51 | Chưa có | Chưa có | Chưa có | Chưa có |
 | API-3 | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 50 | 50 | 36 | 14 | 3 |
+| Total | 101 | 50 | 36 | 14 | 3 |
