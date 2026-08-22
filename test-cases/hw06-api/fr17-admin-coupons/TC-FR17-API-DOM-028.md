@@ -10,7 +10,7 @@ FR-17
 
 - `README.md`: FR-12 admin access control; FR-17 coupon CRUD required/unique/range rules; SEC-02/SEC-03/SEC-05 khi liên quan.
 - `api_specification.md`: `POST /api/admin/coupons` body gồm `code`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`; cleanup bằng `DELETE /api/admin/coupons/:id`; list verify bằng `GET /api/coupons` nếu cần.
-- Observed response/evidence: điền sau Phase 10 execution.
+- Observed response/evidence: Newman HTML `reports/newman/hw06-fr17-admin-coupons.html`, JSON `reports/newman/hw06-fr17-admin-coupons.json`, CLI `reports/newman/hw06-fr17-admin-coupons-cli.txt`.
 - Không dùng source code để thiết kế expected result.
 
 ## Domain / Security / Workflow analysis
@@ -78,6 +78,6 @@ FR-17
 
 ## Status / Related bugs
 
-`Not run`
+`Failed`
 
-Related bug report: `N/A`
+Related bug report: `reports/bug-reports/BUG-FR17-API-001.md`

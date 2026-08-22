@@ -1,0 +1,1367 @@
+(node:86031) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+HW06 FR17 Admin Coupon API Tests
+
+❏ Setup
+↳ Setup admin token
+  ┌
+  │ '[HW06-FR17] Setup admin token X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup admin token X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/login [200 OK, 640B, 13ms]
+  ✓  login setup status 200
+
+↳ Setup user token
+  ┌
+  │ '[HW06-FR17] Setup user token X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup user token X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/login [200 OK, 635B, 1ms]
+  ✓  login setup status 200
+
+❏ Domain
+↳ TC-FR17-API-DOM-001 - Create valid percent coupon với typical values
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-001 - Create valid percen
+  │ t coupon với typical values X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-001 - Create valid percen
+  │ t coupon với typical values X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  ✓  TC-FR17-API-DOM-001 status matches expected
+  ✓  TC-FR17-API-DOM-001 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-001 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-001 success create response has message or id
+  ✓  TC-FR17-API-DOM-001 response does not leak credentials/tokens
+  DELETE http://localhost:3000/api/admin/coupons/109 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-002 - Create valid fixed coupon với typical values
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-002 - Create valid fixed 
+  │ coupon với typical values X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-002 - Create valid fixed 
+  │ coupon với typical values X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-DOM-002 status matches expected
+  ✓  TC-FR17-API-DOM-002 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-002 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-002 success create response has message or id
+  ✓  TC-FR17-API-DOM-002 response does not leak credentials/tokens
+  DELETE http://localhost:3000/api/admin/coupons/110 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-003 - Thiếu field code
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-003 - Thiếu field code X-
+  │ Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-003 - Thiếu field code X-
+  │ Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  1. TC-FR17-API-DOM-003 status matches expected
+  ✓  TC-FR17-API-DOM-003 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-003 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-003 response has message or error
+  DELETE http://localhost:3000/api/admin/coupons/111 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-004 - code là null
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-004 - code là null X-Stud
+  │ ent-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-004 - code là null X-Stud
+  │ ent-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  2. TC-FR17-API-DOM-004 status matches expected
+  ✓  TC-FR17-API-DOM-004 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-004 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-004 response has message or error
+  DELETE http://localhost:3000/api/admin/coupons/112 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-005 - code là empty string
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-005 - code là empty strin
+  │ g X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-005 - code là empty strin
+  │ g X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  3. TC-FR17-API-DOM-005 status matches expected
+  ✓  TC-FR17-API-DOM-005 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-005 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-005 response has message or error
+  DELETE http://localhost:3000/api/admin/coupons/113 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-006 - code là whitespace-only
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-006 - code là whitespace-
+  │ only X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-006 - code là whitespace-
+  │ only X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  4. TC-FR17-API-DOM-006 status matches expected
+  ✓  TC-FR17-API-DOM-006 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-006 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-006 response has message or error
+  DELETE http://localhost:3000/api/admin/coupons/114 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-007 - code sai kiểu number
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-007 - code sai kiểu numbe
+  │ r X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-007 - code sai kiểu numbe
+  │ r X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  5. TC-FR17-API-DOM-007 status matches expected
+  ✓  TC-FR17-API-DOM-007 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-007 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-007 response has message or error
+  DELETE http://localhost:3000/api/admin/coupons/115 [200 OK, 295B, 1ms]
+
+↳ Setup TC-FR17-API-DOM-008 - create coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-DOM-008 - create coupon
+  │  X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-DOM-008 - create coupon
+  │  X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  setup create status is 200/201
+
+↳ TC-FR17-API-DOM-008 - Duplicate code bị reject
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-008 - Duplicate code bị r
+  │ eject X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-008 - Duplicate code bị r
+  │ eject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [500 Internal Server Error, 355B, 1ms]
+  6. TC-FR17-API-DOM-008 status matches expected
+  7. TC-FR17-API-DOM-008 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-008 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-008 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+  ✓  TC-FR17-API-DOM-008 list has exactly one coupon with duplicate code
+  DELETE http://localhost:3000/api/admin/coupons/116 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-009 - Thiếu field type
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-009 - Thiếu field type X-
+  │ Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-009 - Thiếu field type X-
+  │ Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  8. TC-FR17-API-DOM-009 status matches expected
+  ✓  TC-FR17-API-DOM-009 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-009 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-009 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+  9. TC-FR17-API-DOM-009 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/117 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-010 - type là null
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-010 - type là null X-Stud
+  │ ent-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-010 - type là null X-Stud
+  │ ent-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 10. TC-FR17-API-DOM-010 status matches expected
+  ✓  TC-FR17-API-DOM-010 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-010 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-010 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 0µs]
+ 11. TC-FR17-API-DOM-010 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/118 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-011 - type unsupported value
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-011 - type unsupported va
+  │ lue X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-011 - type unsupported va
+  │ lue X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 12. TC-FR17-API-DOM-011 status matches expected
+  ✓  TC-FR17-API-DOM-011 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-011 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-011 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.05kB, 1ms]
+ 13. TC-FR17-API-DOM-011 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/119 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-012 - type sai case Percent bị reject
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-012 - type sai case Perce
+  │ nt bị reject X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-012 - type sai case Perce
+  │ nt bị reject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 14. TC-FR17-API-DOM-012 status matches expected
+  ✓  TC-FR17-API-DOM-012 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-012 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-012 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 15. TC-FR17-API-DOM-012 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/120 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-013 - Thiếu field discount_value
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-013 - Thiếu field discoun
+  │ t_value X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-013 - Thiếu field discoun
+  │ t_value X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 16. TC-FR17-API-DOM-013 status matches expected
+  ✓  TC-FR17-API-DOM-013 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-013 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-013 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 17. TC-FR17-API-DOM-013 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/121 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-014 - discount_value bằng 0
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-014 - discount_value bằng
+  │  0 X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-014 - discount_value bằng
+  │  0 X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 18. TC-FR17-API-DOM-014 status matches expected
+  ✓  TC-FR17-API-DOM-014 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-014 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-014 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.03kB, 1ms]
+ 19. TC-FR17-API-DOM-014 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/122 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-015 - discount_value âm
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-015 - discount_value âm X
+  │ -Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-015 - discount_value âm X
+  │ -Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 20. TC-FR17-API-DOM-015 status matches expected
+  ✓  TC-FR17-API-DOM-015 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-015 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-015 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 21. TC-FR17-API-DOM-015 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/123 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-016 - discount_value sai kiểu string
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-016 - discount_value sai 
+  │ kiểu string X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-016 - discount_value sai 
+  │ kiểu string X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 22. TC-FR17-API-DOM-016 status matches expected
+  ✓  TC-FR17-API-DOM-016 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-016 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-016 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 23. TC-FR17-API-DOM-016 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/124 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-017 - Thiếu field min_order_amount
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-017 - Thiếu field min_ord
+  │ er_amount X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-017 - Thiếu field min_ord
+  │ er_amount X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 24. TC-FR17-API-DOM-017 status matches expected
+  ✓  TC-FR17-API-DOM-017 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-017 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-017 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 25. TC-FR17-API-DOM-017 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/125 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-018 - min_order_amount bằng 0 boundary hợp lệ
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-018 - min_order_amount bằ
+  │ ng 0 boundary hợp lệ X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-018 - min_order_amount bằ
+  │ ng 0 boundary hợp lệ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-DOM-018 status matches expected
+  ✓  TC-FR17-API-DOM-018 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-018 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-018 success create response has message or id
+  DELETE http://localhost:3000/api/admin/coupons/126 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-019 - min_order_amount âm
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-019 - min_order_amount âm
+  │  X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-019 - min_order_amount âm
+  │  X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 26. TC-FR17-API-DOM-019 status matches expected
+  ✓  TC-FR17-API-DOM-019 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-019 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-019 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 27. TC-FR17-API-DOM-019 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/127 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-020 - min_order_amount sai kiểu string
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-020 - min_order_amount sa
+  │ i kiểu string X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-020 - min_order_amount sa
+  │ i kiểu string X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 28. TC-FR17-API-DOM-020 status matches expected
+  ✓  TC-FR17-API-DOM-020 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-020 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-020 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.05kB, 1ms]
+ 29. TC-FR17-API-DOM-020 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/128 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-021 - Thiếu field expired_at
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-021 - Thiếu field expired
+  │ _at X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-021 - Thiếu field expired
+  │ _at X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 30. TC-FR17-API-DOM-021 status matches expected
+  ✓  TC-FR17-API-DOM-021 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-021 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-021 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.03kB, 1ms]
+ 31. TC-FR17-API-DOM-021 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/129 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-022 - expired_at malformed date
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-022 - expired_at malforme
+  │ d date X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-022 - expired_at malforme
+  │ d date X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 32. TC-FR17-API-DOM-022 status matches expected
+  ✓  TC-FR17-API-DOM-022 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-022 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-022 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 0µs]
+ 33. TC-FR17-API-DOM-022 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/130 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-023 - expired_at trong quá khứ vẫn có thể được admin tạo như coupon expired
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-023 - expired_at trong qu
+  │ á khứ vẫn có thể được admin tạo như coupon expired X-S
+  │ tudent-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-023 - expired_at trong qu
+  │ á khứ vẫn có thể được admin tạo như coupon expired X-S
+  │ tudent-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  ✓  TC-FR17-API-DOM-023 status matches expected
+  ✓  TC-FR17-API-DOM-023 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-023 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-023 success create response has message or id
+  DELETE http://localhost:3000/api/admin/coupons/131 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-024 - Thiếu field max_uses_per_user
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-024 - Thiếu field max_use
+  │ s_per_user X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-024 - Thiếu field max_use
+  │ s_per_user X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 34. TC-FR17-API-DOM-024 status matches expected
+  ✓  TC-FR17-API-DOM-024 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-024 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-024 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 0µs]
+ 35. TC-FR17-API-DOM-024 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/132 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-025 - max_uses_per_user bằng 1 boundary hợp lệ
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-025 - max_uses_per_user b
+  │ ằng 1 boundary hợp lệ X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-025 - max_uses_per_user b
+  │ ằng 1 boundary hợp lệ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  ✓  TC-FR17-API-DOM-025 status matches expected
+  ✓  TC-FR17-API-DOM-025 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-025 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-025 success create response has message or id
+  DELETE http://localhost:3000/api/admin/coupons/133 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-026 - max_uses_per_user bằng 0
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-026 - max_uses_per_user b
+  │ ằng 0 X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-026 - max_uses_per_user b
+  │ ằng 0 X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 36. TC-FR17-API-DOM-026 status matches expected
+  ✓  TC-FR17-API-DOM-026 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-026 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-026 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 37. TC-FR17-API-DOM-026 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/134 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-027 - max_uses_per_user sai kiểu string
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-027 - max_uses_per_user s
+  │ ai kiểu string X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-027 - max_uses_per_user s
+  │ ai kiểu string X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+ 38. TC-FR17-API-DOM-027 status matches expected
+  ✓  TC-FR17-API-DOM-027 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-027 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-027 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 39. TC-FR17-API-DOM-027 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/135 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-028 - expired_at là null
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-028 - expired_at là null 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-028 - expired_at là null 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 40. TC-FR17-API-DOM-028 status matches expected
+  ✓  TC-FR17-API-DOM-028 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-028 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-028 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.03kB, 1ms]
+ 41. TC-FR17-API-DOM-028 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/136 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-029 - discount_value là null
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-029 - discount_value là n
+  │ ull X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-029 - discount_value là n
+  │ ull X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 42. TC-FR17-API-DOM-029 status matches expected
+  ✓  TC-FR17-API-DOM-029 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-029 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-029 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 43. TC-FR17-API-DOM-029 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/137 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-030 - min_order_amount là null
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-030 - min_order_amount là
+  │  null X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-030 - min_order_amount là
+  │  null X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 3ms]
+ 44. TC-FR17-API-DOM-030 status matches expected
+  ✓  TC-FR17-API-DOM-030 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-030 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-030 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 45. TC-FR17-API-DOM-030 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/138 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-DOM-031 - max_uses_per_user là null
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-031 - max_uses_per_user l
+  │ à null X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-031 - max_uses_per_user l
+  │ à null X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 46. TC-FR17-API-DOM-031 status matches expected
+  ✓  TC-FR17-API-DOM-031 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-031 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-031 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 47. TC-FR17-API-DOM-031 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/139 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-DOM-032 - type là empty string
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-DOM-032 - type là empty strin
+  │ g X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-DOM-032 - type là empty strin
+  │ g X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 48. TC-FR17-API-DOM-032 status matches expected
+  ✓  TC-FR17-API-DOM-032 no unexpected 5xx
+  ✓  TC-FR17-API-DOM-032 content type is JSON when body is present
+  ✓  TC-FR17-API-DOM-032 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 49. TC-FR17-API-DOM-032 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/140 [200 OK, 295B, 1ms]
+
+❏ Security
+↳ TC-FR17-API-SEC-001 - Thiếu Authorization header
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-001 - Thiếu Authorization
+  │  header X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-001 - Thiếu Authorization
+  │  header X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [401 Unauthorized, 301B, 1ms]
+  ✓  TC-FR17-API-SEC-001 status matches expected
+  ✓  TC-FR17-API-SEC-001 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-001 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-001 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 1ms]
+  ✓  TC-FR17-API-SEC-001 list does not contain rejected/removed code
+
+↳ TC-FR17-API-SEC-002 - Authorization header malformed: Bearer không có token
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-002 - Authorization heade
+  │ r malformed: Bearer không có token X-Student-Id=231274
+  │ 75'
+  │ '[HW06-FR17] TC-FR17-API-SEC-002 - Authorization heade
+  │ r malformed: Bearer không có token X-Student-Id=231274
+  │ 75'
+  └
+  POST http://localhost:3000/api/admin/coupons [401 Unauthorized, 301B, 1ms]
+  ✓  TC-FR17-API-SEC-002 status matches expected
+  ✓  TC-FR17-API-SEC-002 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-002 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-002 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 1ms]
+  ✓  TC-FR17-API-SEC-002 list does not contain rejected/removed code
+
+↳ TC-FR17-API-SEC-003 - JWT token invalid
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-003 - JWT token invalid X
+  │ -Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-003 - JWT token invalid X
+  │ -Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [403 Forbidden, 295B, 1ms]
+ 50. TC-FR17-API-SEC-003 status matches expected
+  ✓  TC-FR17-API-SEC-003 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-003 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-003 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 2ms]
+  ✓  TC-FR17-API-SEC-003 list does not contain rejected/removed code
+
+↳ TC-FR17-API-SEC-004 - Normal user token không thể create admin coupon
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-004 - Normal user token k
+  │ hông thể create admin coupon X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-004 - Normal user token k
+  │ hông thể create admin coupon X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 3ms]
+ 51. TC-FR17-API-SEC-004 status matches expected
+  ✓  TC-FR17-API-SEC-004 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-004 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-004 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 52. TC-FR17-API-SEC-004 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/141 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-SEC-005 - SQL injection payload trong code không tạo coupon/leak SQL
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-005 - SQL injection paylo
+  │ ad trong code không tạo coupon/leak SQL X-Student-Id=2
+  │ 3127475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-005 - SQL injection paylo
+  │ ad trong code không tạo coupon/leak SQL X-Student-Id=2
+  │ 3127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  ✓  TC-FR17-API-SEC-005 status matches expected
+  ✓  TC-FR17-API-SEC-005 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-005 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-005 success create response has message or id
+  ✓  TC-FR17-API-SEC-005 response does not expose stack/sql internals
+  DELETE http://localhost:3000/api/admin/coupons/142 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-SEC-006 - SQL injection payload trong type không bypass enum
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-006 - SQL injection paylo
+  │ ad trong type không bypass enum X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-006 - SQL injection paylo
+  │ ad trong type không bypass enum X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 53. TC-FR17-API-SEC-006 status matches expected
+  ✓  TC-FR17-API-SEC-006 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-006 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-006 response has message or error
+  ✓  TC-FR17-API-SEC-006 response does not expose stack/sql internals
+  GET http://localhost:3000/api/coupons [200 OK, 1.05kB, 1ms]
+ 54. TC-FR17-API-SEC-006 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/143 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-SEC-007 - XSS-like payload trong code không gây 500 hoặc unsafe reflection
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-007 - XSS-like payload tr
+  │ ong code không gây 500 hoặc unsafe reflection X-Studen
+  │ t-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-007 - XSS-like payload tr
+  │ ong code không gây 500 hoặc unsafe reflection X-Studen
+  │ t-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-SEC-007 status matches expected
+  ✓  TC-FR17-API-SEC-007 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-007 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-007 success create response has message or id
+  ✓  TC-FR17-API-SEC-007 response does not reflect executable script payload
+  DELETE http://localhost:3000/api/admin/coupons/144 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-SEC-008 - Extra role admin không giúp user token create coupon
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-008 - Extra role admin kh
+  │ ông giúp user token create coupon X-Student-Id=2312747
+  │ 5'
+  │ '[HW06-FR17] TC-FR17-API-SEC-008 - Extra role admin kh
+  │ ông giúp user token create coupon X-Student-Id=2312747
+  │ 5'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 55. TC-FR17-API-SEC-008 status matches expected
+  ✓  TC-FR17-API-SEC-008 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-008 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-008 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+ 56. TC-FR17-API-SEC-008 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/145 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-SEC-009 - Success/error response không leak token/password fields
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SEC-009 - Success/error respo
+  │ nse không leak token/password fields X-Student-Id=2312
+  │ 7475'
+  │ '[HW06-FR17] TC-FR17-API-SEC-009 - Success/error respo
+  │ nse không leak token/password fields X-Student-Id=2312
+  │ 7475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  ✓  TC-FR17-API-SEC-009 status matches expected
+  ✓  TC-FR17-API-SEC-009 no unexpected 5xx
+  ✓  TC-FR17-API-SEC-009 content type is JSON when body is present
+  ✓  TC-FR17-API-SEC-009 success create response has message or id
+  ✓  TC-FR17-API-SEC-009 response does not leak credentials/tokens
+  DELETE http://localhost:3000/api/admin/coupons/146 [200 OK, 295B, 2ms]
+
+❏ Workflow/State
+↳ TC-FR17-API-WF-001 - Create coupon rồi verify xuất hiện trong coupon list
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-001 - Create coupon rồi ve
+  │ rify xuất hiện trong coupon list X-Student-Id=23127475
+  │ '
+  │ '[HW06-FR17] TC-FR17-API-WF-001 - Create coupon rồi ve
+  │ rify xuất hiện trong coupon list X-Student-Id=23127475
+  │ '
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-WF-001 status matches expected
+  ✓  TC-FR17-API-WF-001 no unexpected 5xx
+  ✓  TC-FR17-API-WF-001 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-001 success create response has message or id
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 0µs]
+  ✓  TC-FR17-API-WF-001 list contains created coupon code
+  DELETE http://localhost:3000/api/admin/coupons/147 [200 OK, 295B, 1ms]
+
+↳ Setup TC-FR17-API-WF-002 - create coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-002 - create coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-002 - create coupon 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  setup create status is 200/201
+
+↳ TC-FR17-API-WF-002 - Duplicate create sau first success bị reject
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-002 - Duplicate create sau
+  │  first success bị reject X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-002 - Duplicate create sau
+  │  first success bị reject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [500 Internal Server Error, 355B, 0µs]
+ 57. TC-FR17-API-WF-002 status matches expected
+ 58. TC-FR17-API-WF-002 no unexpected 5xx
+  ✓  TC-FR17-API-WF-002 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-002 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+  ✓  TC-FR17-API-WF-002 list has exactly one coupon with duplicate code
+  DELETE http://localhost:3000/api/admin/coupons/148 [200 OK, 295B, 1ms]
+
+↳ Setup TC-FR17-API-WF-003 - create coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-003 - create coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-003 - create coupon 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  setup create status is 200/201
+
+↳ TC-FR17-API-WF-003 - Created coupon có thể cleanup bằng DELETE
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-003 - Created coupon có th
+  │ ể cleanup bằng DELETE X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-003 - Created coupon có th
+  │ ể cleanup bằng DELETE X-Student-Id=23127475'
+  └
+  DELETE http://localhost:3000/api/admin/coupons/149 [200 OK, 295B, 1ms]
+  ✓  TC-FR17-API-WF-003 status matches expected
+  ✓  TC-FR17-API-WF-003 no unexpected 5xx
+  ✓  TC-FR17-API-WF-003 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-003 delete response has success shape when body exists
+  DELETE http://localhost:3000/api/admin/coupons/149 [200 OK, 295B, 1ms]
+
+↳ Setup TC-FR17-API-WF-004 - create coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-004 - create coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-004 - create coupon 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  setup create status is 200/201
+
+↳ Setup TC-FR17-API-WF-004 - delete coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-004 - delete coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-004 - delete coupon 
+  │ X-Student-Id=23127475'
+  └
+  DELETE http://localhost:3000/api/admin/coupons/150 [200 OK, 295B, 2ms]
+  ✓  setup delete status is 200/204
+
+↳ TC-FR17-API-WF-004 - Deleted coupon không còn xuất hiện trong list
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-004 - Deleted coupon không
+  │  còn xuất hiện trong list X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-004 - Deleted coupon không
+  │  còn xuất hiện trong list X-Student-Id=23127475'
+  └
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 1ms]
+  ✓  TC-FR17-API-WF-004 status matches expected
+  ✓  TC-FR17-API-WF-004 no unexpected 5xx
+  ✓  TC-FR17-API-WF-004 content type is JSON when body is present
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 1ms]
+  ✓  TC-FR17-API-WF-004 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/150 [200 OK, 295B, 0µs]
+
+↳ TC-FR17-API-WF-005 - Failed validation create không tạo partial coupon
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-005 - Failed validation cr
+  │ eate không tạo partial coupon X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-005 - Failed validation cr
+  │ eate không tạo partial coupon X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 59. TC-FR17-API-WF-005 status matches expected
+  ✓  TC-FR17-API-WF-005 no unexpected 5xx
+  ✓  TC-FR17-API-WF-005 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-005 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 0µs]
+ 60. TC-FR17-API-WF-005 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/151 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-WF-006 - User token create fail không pollute coupon list
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-006 - User token create fa
+  │ il không pollute coupon list X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-006 - User token create fa
+  │ il không pollute coupon list X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 61. TC-FR17-API-WF-006 status matches expected
+  ✓  TC-FR17-API-WF-006 no unexpected 5xx
+  ✓  TC-FR17-API-WF-006 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-006 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.05kB, 0µs]
+ 62. TC-FR17-API-WF-006 list does not contain rejected/removed code
+  DELETE http://localhost:3000/api/admin/coupons/152 [200 OK, 295B, 1ms]
+
+↳ Setup TC-FR17-API-WF-007 - create coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-007 - create coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-007 - create coupon 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  setup create status is 200/201
+
+↳ TC-FR17-API-WF-007 - Duplicate rejection không overwrite original coupon values
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-007 - Duplicate rejection 
+  │ không overwrite original coupon values X-Student-Id=23
+  │ 127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-007 - Duplicate rejection 
+  │ không overwrite original coupon values X-Student-Id=23
+  │ 127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [500 Internal Server Error, 355B, 1ms]
+ 63. TC-FR17-API-WF-007 status matches expected
+ 64. TC-FR17-API-WF-007 no unexpected 5xx
+  ✓  TC-FR17-API-WF-007 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-007 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 1.04kB, 1ms]
+  ✓  TC-FR17-API-WF-007 duplicate request does not overwrite original fields
+  DELETE http://localhost:3000/api/admin/coupons/153 [200 OK, 295B, 1ms]
+
+↳ Setup TC-FR17-API-WF-008 - create coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-008 - create coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-008 - create coupon 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  setup create status is 200/201
+
+↳ Setup TC-FR17-API-WF-008 - delete coupon
+  ┌
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-008 - delete coupon 
+  │ X-Student-Id=23127475'
+  │ '[HW06-FR17] Setup TC-FR17-API-WF-008 - delete coupon 
+  │ X-Student-Id=23127475'
+  └
+  DELETE http://localhost:3000/api/admin/coupons/154 [200 OK, 295B, 1ms]
+  ✓  setup delete status is 200/204
+
+↳ TC-FR17-API-WF-008 - Deleted coupon code có thể được tạo lại sau cleanup
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-WF-008 - Deleted coupon code 
+  │ có thể được tạo lại sau cleanup X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-WF-008 - Deleted coupon code 
+  │ có thể được tạo lại sau cleanup X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-WF-008 status matches expected
+  ✓  TC-FR17-API-WF-008 no unexpected 5xx
+  ✓  TC-FR17-API-WF-008 content type is JSON when body is present
+  ✓  TC-FR17-API-WF-008 success create response has message or id
+  DELETE http://localhost:3000/api/admin/coupons/155 [200 OK, 295B, 1ms]
+  DELETE http://localhost:3000/api/admin/coupons/154 [200 OK, 295B, 1ms]
+
+❏ Schema Validation
+↳ TC-FR17-API-SCH-001 - Success response có Content-Type JSON khi có body
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-001 - Success response có
+  │  Content-Type JSON khi có body X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-001 - Success response có
+  │  Content-Type JSON khi có body X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-SCH-001 status matches expected
+  ✓  TC-FR17-API-SCH-001 no unexpected 5xx
+  ✓  TC-FR17-API-SCH-001 content type is JSON when body is present
+  ✓  TC-FR17-API-SCH-001 success create response has message or id
+  ✓  TC-FR17-API-SCH-001 success response content type is JSON
+  DELETE http://localhost:3000/api/admin/coupons/156 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-SCH-002 - Success response có identity hoặc message ổn định để cleanup
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-002 - Success response có
+  │  identity hoặc message ổn định để cleanup X-Student-Id
+  │ =23127475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-002 - Success response có
+  │  identity hoặc message ổn định để cleanup X-Student-Id
+  │ =23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 1ms]
+  ✓  TC-FR17-API-SCH-002 status matches expected
+  ✓  TC-FR17-API-SCH-002 no unexpected 5xx
+  ✓  TC-FR17-API-SCH-002 content type is JSON when body is present
+  ✓  TC-FR17-API-SCH-002 success create response has message or id
+  ✓  TC-FR17-API-SCH-002 success response has identity or message
+  DELETE http://localhost:3000/api/admin/coupons/157 [200 OK, 295B, 2ms]
+
+↳ TC-FR17-API-SCH-003 - Error response cho missing required field có shape an toàn
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-003 - Error response cho 
+  │ missing required field có shape an toàn X-Student-Id=2
+  │ 3127475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-003 - Error response cho 
+  │ missing required field có shape an toàn X-Student-Id=2
+  │ 3127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+ 65. TC-FR17-API-SCH-003 status matches expected
+  ✓  TC-FR17-API-SCH-003 no unexpected 5xx
+  ✓  TC-FR17-API-SCH-003 content type is JSON when body is present
+  ✓  TC-FR17-API-SCH-003 response has message or error
+  ✓  TC-FR17-API-SCH-003 response does not expose stack/sql internals
+  DELETE http://localhost:3000/api/admin/coupons/158 [200 OK, 295B, 1ms]
+
+↳ TC-FR17-API-SCH-004 - Malformed JSON body trả client error và không leak stack
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-004 - Malformed JSON body
+  │  trả client error và không leak stack X-Student-Id=231
+  │ 27475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-004 - Malformed JSON body
+  │  trả client error và không leak stack X-Student-Id=231
+  │ 27475'
+  └
+  POST http://localhost:3000/api/admin/coupons [400 Bad Request, 1.57kB, 1ms]
+  ✓  TC-FR17-API-SCH-004 status matches expected
+  ✓  TC-FR17-API-SCH-004 no unexpected 5xx
+ 66. TC-FR17-API-SCH-004 content type is JSON when body is present
+ 67. TC-FR17-API-SCH-004 response has message or error
+  ✓  TC-FR17-API-SCH-004 response does not expose stack/sql internals
+
+↳ TC-FR17-API-SCH-005 - Unsupported Content-Type text/plain không được xử lý như success
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-005 - Unsupported Content
+  │ -Type text/plain không được xử lý như success X-Studen
+  │ t-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-005 - Unsupported Content
+  │ -Type text/plain không được xử lý như success X-Studen
+  │ t-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [500 Internal Server Error, 1.84kB, 1ms]
+ 68. TC-FR17-API-SCH-005 status matches expected
+ 69. TC-FR17-API-SCH-005 no unexpected 5xx
+ 70. TC-FR17-API-SCH-005 content type is JSON when body is present
+ 71. TC-FR17-API-SCH-005 response has message or error
+  GET http://localhost:3000/api/coupons [200 OK, 874B, 1ms]
+  ✓  TC-FR17-API-SCH-005 list does not contain rejected/removed code
+
+↳ TC-FR17-API-SCH-006 - GET /api/admin/coupons không thành công như create endpoint
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-006 - GET /api/admin/coup
+  │ ons không thành công như create endpoint X-Student-Id=
+  │ 23127475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-006 - GET /api/admin/coup
+  │ ons không thành công như create endpoint X-Student-Id=
+  │ 23127475'
+  └
+  GET http://localhost:3000/api/admin/coupons [404 Not Found, 460B, 1ms]
+  ✓  TC-FR17-API-SCH-006 status matches expected
+  ✓  TC-FR17-API-SCH-006 no unexpected 5xx
+  ✓  TC-FR17-API-SCH-006 GET admin coupons does not return create success schema
+
+↳ TC-FR17-API-SCH-007 - Response time cho valid create dưới 1000ms
+  ┌
+  │ '[HW06-FR17] TC-FR17-API-SCH-007 - Response time cho v
+  │ alid create dưới 1000ms X-Student-Id=23127475'
+  │ '[HW06-FR17] TC-FR17-API-SCH-007 - Response time cho v
+  │ alid create dưới 1000ms X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/admin/coupons [200 OK, 304B, 2ms]
+  ✓  TC-FR17-API-SCH-007 status matches expected
+  ✓  TC-FR17-API-SCH-007 no unexpected 5xx
+  ✓  TC-FR17-API-SCH-007 content type is JSON when body is present
+  ✓  TC-FR17-API-SCH-007 response time below 1000ms
+  ✓  TC-FR17-API-SCH-007 success create response has message or id
+  DELETE http://localhost:3000/api/admin/coupons/159 [200 OK, 295B, 2ms]
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │             152 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              66 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │             132 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             278 │              71 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 1139ms                                  │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 34.13kB (approx)                       │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 1ms [min: 1ms, max: 13ms, s.d.: 1ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                                                                                              [39m
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 01.  AssertionError  TC-FR17-API-DOM-003 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-003 - Thiếu field code"                                                            
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 02.  AssertionError  TC-FR17-API-DOM-004 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-004 - code là null"                                                                
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 03.  AssertionError  TC-FR17-API-DOM-005 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-005 - code là empty string"                                                        
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 04.  AssertionError  TC-FR17-API-DOM-006 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-006 - code là whitespace-only"                                                     
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 05.  AssertionError  TC-FR17-API-DOM-007 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-007 - code sai kiểu number"                                                        
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 06.  AssertionError  TC-FR17-API-DOM-008 status matches expected                                                                         
+                      expected [400,409], got 500: expected false to equal true                                                           
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-008 - Duplicate code bị reject"                                                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 07.  AssertionError  TC-FR17-API-DOM-008 no unexpected 5xx                                                                               
+                      expected 500 to be below 500                                                                                        
+                      at assertion:1 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-008 - Duplicate code bị reject"                                                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 08.  AssertionError  TC-FR17-API-DOM-009 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-009 - Thiếu field type"                                                            
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 09.  AssertionError  TC-FR17-API-DOM-009 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-009 - Thiếu field type"                                                            
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 10.  AssertionError  TC-FR17-API-DOM-010 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-010 - type là null"                                                                
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 11.  AssertionError  TC-FR17-API-DOM-010 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-010 - type là null"                                                                
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 12.  AssertionError  TC-FR17-API-DOM-011 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-011 - type unsupported value"                                                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 13.  AssertionError  TC-FR17-API-DOM-011 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-011 - type unsupported value"                                                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 14.  AssertionError  TC-FR17-API-DOM-012 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-012 - type sai case Percent bị reject"                                             
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 15.  AssertionError  TC-FR17-API-DOM-012 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-012 - type sai case Percent bị reject"                                             
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 16.  AssertionError  TC-FR17-API-DOM-013 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-013 - Thiếu field discount_value"                                                  
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 17.  AssertionError  TC-FR17-API-DOM-013 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-013 - Thiếu field discount_value"                                                  
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 18.  AssertionError  TC-FR17-API-DOM-014 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-014 - discount_value bằng 0"                                                       
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 19.  AssertionError  TC-FR17-API-DOM-014 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-014 - discount_value bằng 0"                                                       
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 20.  AssertionError  TC-FR17-API-DOM-015 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-015 - discount_value âm"                                                           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 21.  AssertionError  TC-FR17-API-DOM-015 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-015 - discount_value âm"                                                           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 22.  AssertionError  TC-FR17-API-DOM-016 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-016 - discount_value sai kiểu string"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 23.  AssertionError  TC-FR17-API-DOM-016 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-016 - discount_value sai kiểu string"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 24.  AssertionError  TC-FR17-API-DOM-017 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-017 - Thiếu field min_order_amount"                                                
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 25.  AssertionError  TC-FR17-API-DOM-017 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-017 - Thiếu field min_order_amount"                                                
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 26.  AssertionError  TC-FR17-API-DOM-019 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-019 - min_order_amount âm"                                                         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 27.  AssertionError  TC-FR17-API-DOM-019 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-019 - min_order_amount âm"                                                         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 28.  AssertionError  TC-FR17-API-DOM-020 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-020 - min_order_amount sai kiểu string"                                            
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 29.  AssertionError  TC-FR17-API-DOM-020 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-020 - min_order_amount sai kiểu string"                                            
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 30.  AssertionError  TC-FR17-API-DOM-021 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-021 - Thiếu field expired_at"                                                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 31.  AssertionError  TC-FR17-API-DOM-021 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-021 - Thiếu field expired_at"                                                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 32.  AssertionError  TC-FR17-API-DOM-022 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-022 - expired_at malformed date"                                                   
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 33.  AssertionError  TC-FR17-API-DOM-022 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-022 - expired_at malformed date"                                                   
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 34.  AssertionError  TC-FR17-API-DOM-024 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-024 - Thiếu field max_uses_per_user"                                               
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 35.  AssertionError  TC-FR17-API-DOM-024 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-024 - Thiếu field max_uses_per_user"                                               
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 36.  AssertionError  TC-FR17-API-DOM-026 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-026 - max_uses_per_user bằng 0"                                                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 37.  AssertionError  TC-FR17-API-DOM-026 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-026 - max_uses_per_user bằng 0"                                                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 38.  AssertionError  TC-FR17-API-DOM-027 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-027 - max_uses_per_user sai kiểu string"                                           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 39.  AssertionError  TC-FR17-API-DOM-027 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-027 - max_uses_per_user sai kiểu string"                                           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 40.  AssertionError  TC-FR17-API-DOM-028 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-028 - expired_at là null"                                                          
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 41.  AssertionError  TC-FR17-API-DOM-028 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-028 - expired_at là null"                                                          
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 42.  AssertionError  TC-FR17-API-DOM-029 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-029 - discount_value là null"                                                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 43.  AssertionError  TC-FR17-API-DOM-029 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-029 - discount_value là null"                                                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 44.  AssertionError  TC-FR17-API-DOM-030 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-030 - min_order_amount là null"                                                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 45.  AssertionError  TC-FR17-API-DOM-030 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-030 - min_order_amount là null"                                                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 46.  AssertionError  TC-FR17-API-DOM-031 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-031 - max_uses_per_user là null"                                                   
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 47.  AssertionError  TC-FR17-API-DOM-031 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-031 - max_uses_per_user là null"                                                   
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 48.  AssertionError  TC-FR17-API-DOM-032 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-032 - type là empty string"                                                        
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 49.  AssertionError  TC-FR17-API-DOM-032 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Domain / TC-FR17-API-DOM-032 - type là empty string"                                                        
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 50.  AssertionError  TC-FR17-API-SEC-003 status matches expected                                                                         
+                      expected 401, got 403: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-003 - JWT token invalid"                                                         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 51.  AssertionError  TC-FR17-API-SEC-004 status matches expected                                                                         
+                      expected 403, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-004 - Normal user token không thể create admin coupon"                           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 52.  AssertionError  TC-FR17-API-SEC-004 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-004 - Normal user token không thể create admin coupon"                           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 53.  AssertionError  TC-FR17-API-SEC-006 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-006 - SQL injection payload trong type không bypass enum"                        
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 54.  AssertionError  TC-FR17-API-SEC-006 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:5 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-006 - SQL injection payload trong type không bypass enum"                        
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 55.  AssertionError  TC-FR17-API-SEC-008 status matches expected                                                                         
+                      expected 403, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-008 - Extra role admin không giúp user token create coupon"                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 56.  AssertionError  TC-FR17-API-SEC-008 list does not contain rejected/removed code                                                     
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Security / TC-FR17-API-SEC-008 - Extra role admin không giúp user token create coupon"                      
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 57.  AssertionError  TC-FR17-API-WF-002 status matches expected                                                                          
+                      expected [400,409], got 500: expected false to equal true                                                           
+                      at assertion:0 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-002 - Duplicate create sau first success bị reject"                         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 58.  AssertionError  TC-FR17-API-WF-002 no unexpected 5xx                                                                                
+                      expected 500 to be below 500                                                                                        
+                      at assertion:1 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-002 - Duplicate create sau first success bị reject"                         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 59.  AssertionError  TC-FR17-API-WF-005 status matches expected                                                                          
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-005 - Failed validation create không tạo partial coupon"                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 60.  AssertionError  TC-FR17-API-WF-005 list does not contain rejected/removed code                                                      
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-005 - Failed validation create không tạo partial coupon"                    
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 61.  AssertionError  TC-FR17-API-WF-006 status matches expected                                                                          
+                      expected 403, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-006 - User token create fail không pollute coupon list"                     
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 62.  AssertionError  TC-FR17-API-WF-006 list does not contain rejected/removed code                                                      
+                      expected 1 to equal +0                                                                                              
+                      at assertion:4 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-006 - User token create fail không pollute coupon list"                     
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 63.  AssertionError  TC-FR17-API-WF-007 status matches expected                                                                          
+                      expected [400,409], got 500: expected false to equal true                                                           
+                      at assertion:0 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-007 - Duplicate rejection không overwrite original coupon values"           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 64.  AssertionError  TC-FR17-API-WF-007 no unexpected 5xx                                                                                
+                      expected 500 to be below 500                                                                                        
+                      at assertion:1 in test-script                                                                                       
+                      inside "Workflow/State / TC-FR17-API-WF-007 - Duplicate rejection không overwrite original coupon values"           
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 65.  AssertionError  TC-FR17-API-SCH-003 status matches expected                                                                         
+                      expected 400, got 200: expected false to equal true                                                                 
+                      at assertion:0 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-003 - Error response cho missing required field có shape an toàn"       
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 66.  AssertionError  TC-FR17-API-SCH-004 content type is JSON when body is present                                                       
+                      expected 'text/html; charset=utf-8' to include 'application/json'                                                   
+                      at assertion:2 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-004 - Malformed JSON body trả client error và không leak stack"         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 67.  AssertionError  TC-FR17-API-SCH-004 response has message or error                                                                   
+                      expected false to equal true                                                                                        
+                      at assertion:3 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-004 - Malformed JSON body trả client error và không leak stack"         
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 68.  AssertionError  TC-FR17-API-SCH-005 status matches expected                                                                         
+                      expected [400,415], got 500: expected false to equal true                                                           
+                      at assertion:0 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-005 - Unsupported Content-Type text/plain không được xử lý như success" 
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 69.  AssertionError  TC-FR17-API-SCH-005 no unexpected 5xx                                                                               
+                      expected 500 to be below 500                                                                                        
+                      at assertion:1 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-005 - Unsupported Content-Type text/plain không được xử lý như success" 
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 70.  AssertionError  TC-FR17-API-SCH-005 content type is JSON when body is present                                                       
+                      expected 'text/html; charset=utf-8' to include 'application/json'                                                   
+                      at assertion:2 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-005 - Unsupported Content-Type text/plain không được xử lý như success" 
+[90m     [39m[90m                [39m[90m                                                                                                                     [39m
+ 71.  AssertionError  TC-FR17-API-SCH-005 response has message or error                                                                   
+                      expected false to equal true                                                                                        
+                      at assertion:3 in test-script                                                                                       
+                      inside "Schema Validation / TC-FR17-API-SCH-005 - Unsupported Content-Type text/plain không được xử lý như success" 

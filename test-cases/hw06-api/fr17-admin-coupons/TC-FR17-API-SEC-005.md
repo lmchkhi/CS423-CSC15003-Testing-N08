@@ -1,4 +1,4 @@
-# TC-FR17-API-SEC-005: SQL injection payload trong `code` không tạo coupon/leak SQL
+# TC-FR17-API-SEC-005: SQL injection payload trong `code` không gây 5xx/leak SQL
 
 ## Requirement ID
 FR-17 / SEC-02, SEC-03, SEC-05
@@ -10,7 +10,7 @@ FR-17 / SEC-02, SEC-03, SEC-05
 
 - `README.md`: FR-12 admin access control; FR-17 coupon CRUD required/unique/range rules; SEC-02/SEC-03/SEC-05 khi liên quan.
 - `api_specification.md`: `POST /api/admin/coupons` body gồm `code`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`; cleanup bằng `DELETE /api/admin/coupons/:id`; list verify bằng `GET /api/coupons` nếu cần.
-- Observed response/evidence: điền sau Phase 10 execution.
+- Observed response/evidence: Newman HTML `reports/newman/hw06-fr17-admin-coupons.html`, JSON `reports/newman/hw06-fr17-admin-coupons.json`, CLI `reports/newman/hw06-fr17-admin-coupons-cli.txt`.
 - Không dùng source code để thiết kế expected result.
 
 ## Domain / Security / Workflow analysis
@@ -53,8 +53,8 @@ FR-17 / SEC-02, SEC-03, SEC-05
 
 ## Expected result
 
-- HTTP status: `400`.
-- Response body/headers/assertions: message hoặc error; không stack/sql leak; không 5xx.
+- HTTP status: `200/201 hoặc 400`.
+- Response body/headers/assertions: không stack/sql leak; không 5xx; nếu API lưu payload như literal thì response phải an toàn và coupon phải được cleanup.
 - Không có unexpected `5xx` nếu đây là negative/security case.
 - Rationale: SEC-05 yêu cầu query an toàn.
 
@@ -72,12 +72,12 @@ FR-17 / SEC-02, SEC-03, SEC-05
 | Field | Value |
 | --- | --- |
 | Source | `AI` |
-| Audit label | `VALID` |
-| Human reasoning | Giữ nguyên/sửa nhẹ từ raw AI; đúng FR-17/FR-12/API spec và có thể execute bằng admin/user token setup blackbox. |
+| Audit label | `INCOMPLETE` |
+| Human reasoning | Sửa oracle sau execution review: SEC-05 yêu cầu không SQL leak/crash, nhưng spec không nêu charset bắt buộc cho `code`; do đó không ép reject nếu API lưu payload như literal an toàn. |
 | Why AI missed it | N/A |
 
 ## Status / Related bugs
 
-`Not run`
+`Passed`
 
 Related bug report: `N/A`

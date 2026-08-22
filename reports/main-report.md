@@ -189,7 +189,7 @@ Newman exit code là `1` vì assertion failures từ SUT behavior. Không có re
 
 ### 4.5 Bugs found
 
-Trạng thái: Đã xác nhận 8 bug qua Newman evidence. Chưa tạo GitHub Issue; đang chờ sinh viên review bug report Markdown.
+Trạng thái: Đã xác nhận 8 bug qua Newman evidence và đã tạo GitHub Issues #271-#278 sau khi sinh viên review.
 
 | Bug ID | Related TC | GitHub Issue | Evidence |
 | --- | --- | --- | --- |
@@ -231,7 +231,7 @@ Trạng thái: Đã thực hiện ở Phase 09. Chi tiết audit: `reports/hw06-
 
 | Tổng AI cases | VALID | INVALID | INCOMPLETE | Corrected final cases |
 | --- | --- | --- | --- | --- |
-| 54 | 41 | 1 | 12 | 50 |
+| 54 | 40 | 1 | 13 | 50 |
 
 ### 5.3 Human extension
 
@@ -248,40 +248,54 @@ Trạng thái: Đã thực hiện ở Phase 09. Đã thêm 6 human-authored case
 
 ### 5.4 Execution with Postman/Newman
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 10.
+Trạng thái: Đã thực hiện ở Phase 10 bằng Newman local với backend `http://localhost:3000`.
 
 | Artifact | Path/link |
 | --- | --- |
-| Collection | Chưa có |
-| Environment | Chưa có |
-| Iteration data | Chưa có |
-| Newman HTML report | Chưa có |
-| Newman JSON report | Chưa có |
-| `X-Student-Id` evidence | Chưa có |
+| Collection | `postman/hw06-fr17-admin-coupons.postman_collection.json` |
+| Environment | `postman/hw06-local.postman_environment.json` |
+| Iteration data | `postman/data/hw06-fr17-admin-coupons.data.json` |
+| Newman HTML report | `reports/newman/hw06-fr17-admin-coupons.html` |
+| Newman JSON report | `reports/newman/hw06-fr17-admin-coupons.json` |
+| Newman CLI output | `reports/newman/hw06-fr17-admin-coupons-cli.txt` |
+| `X-Student-Id` evidence | Newman CLI/HTML include collection pre-request logs with `X-Student-Id=23127475` |
+
+Execution result:
+
+| Final cases | Executed | Passed | Failed | Bugs confirmed |
+| --- | --- | --- | --- | --- |
+| 56 | 56 | 18 | 38 | 6 |
+
+Triage note: initial Newman run exposed one test-oracle issue for `TC-FR17-API-SEC-005` (`code` SQLi payload). Because FR-17 does not define a `code` charset, the final assertion was corrected to require no 5xx/no SQL leak and cleanup if the payload is stored as a literal. The final run above maps all remaining 38 failed final cases to SUT bugs in section 5.5.
 
 ### 5.5 Bugs found
 
-Trạng thái: Chưa có bug đã xác nhận.
+Trạng thái: Đã tạo bug report Markdown ở Phase 10 và đã tạo GitHub Issues #279-#284 sau khi sinh viên review.
 
 | Bug ID | Related TC | GitHub Issue | Evidence |
 | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có |
+| `BUG-FR17-API-001` | Invalid required/range/type partitions | [#282](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/282) | `reports/bug-reports/BUG-FR17-API-001.md`, Newman HTML/JSON/CLI |
+| `BUG-FR17-API-002` | Duplicate coupon code returns 500 | [#280](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/280) | `reports/bug-reports/BUG-FR17-API-002.md`, Newman HTML/JSON/CLI |
+| `BUG-FR17-API-003` | User token can create admin coupons | [#283](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/283) | `reports/bug-reports/BUG-FR17-API-003.md`, Newman HTML/JSON/CLI |
+| `BUG-FR17-API-004` | Invalid JWT returns 403 instead of 401 | [#279](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/279) | `reports/bug-reports/BUG-FR17-API-004.md`, Newman HTML/JSON/CLI |
+| `BUG-FR17-API-005` | Malformed JSON leaks HTML stack trace | [#281](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/281) | `reports/bug-reports/BUG-FR17-API-005.md`, Newman HTML/JSON/CLI |
+| `BUG-FR17-API-006` | Unsupported `text/plain` crashes endpoint | [#284](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/284) | `reports/bug-reports/BUG-FR17-API-006.md`, Newman HTML/JSON/CLI |
 
 ## 6. Postman features used
 
-Trạng thái: Đã dùng cho FR-03 và FR-09; FR-17 sẽ cập nhật ở phase tương ứng.
+Trạng thái: Đã dùng cho FR-03, FR-09 và FR-17.
 
 | Feature | Đã dùng? | Evidence/ghi chú |
 | --- | --- | --- |
-| Collections | Có | `postman/hw06-fr03-reset-password.postman_collection.json`, `postman/hw06-fr09-apply-coupon.postman_collection.json` |
+| Collections | Có | `postman/hw06-fr03-reset-password.postman_collection.json`, `postman/hw06-fr09-apply-coupon.postman_collection.json`, `postman/hw06-fr17-admin-coupons.postman_collection.json` |
 | Environments | Có | `postman/hw06-local.postman_environment.json` |
 | Environment variables | Có | `baseUrl`, `studentId`, generated email/token variables trong environment/runtime |
 | Collection variables | Có | `collectionRunId` và helper values dùng trong pre-request setup |
-| Pre-request scripts | Có | Setup blackbox bằng API: register, login, forgot-password, reset-password/login verification; upsert `X-Student-Id` |
-| Test scripts/assertions | Có | Status, schema/message/error shape, sensitive-field leak, token reuse, password postcondition, coupon formula, auth/IDOR, usage-limit, response time |
-| Data-driven runs | Một phần | `postman/data/hw06-fr03-reset-password.data.json` và `postman/data/hw06-fr09-apply-coupon.data.json` dùng làm case map/traceability; collections chạy stateful per item để tránh token/state nhiễu nhau |
-| Newman CLI | Có | `reports/newman/hw06-fr03-reset-password-cli.txt`, `reports/newman/hw06-fr09-apply-coupon-cli.txt` |
-| HTML/JSON reporters | Có | FR-03 và FR-09 đều có HTML/JSON reports trong `reports/newman/` |
+| Pre-request scripts | Có | Setup blackbox bằng API: register/login/reset flows, admin/user token setup, coupon helper setup; upsert `X-Student-Id` |
+| Test scripts/assertions | Có | Status, schema/message/error shape, sensitive-field leak, token reuse, password postcondition, coupon formula, auth/IDOR/RBAC, usage-limit, response time, coupon cleanup/list verification |
+| Data-driven runs | Một phần | Data files trong `postman/data/` dùng làm case map/traceability; collections chạy stateful per item để tránh token/state nhiễu nhau |
+| Newman CLI | Có | `reports/newman/hw06-fr03-reset-password-cli.txt`, `reports/newman/hw06-fr09-apply-coupon-cli.txt`, `reports/newman/hw06-fr17-admin-coupons-cli.txt` |
+| HTML/JSON reporters | Có | FR-03, FR-09 và FR-17 đều có HTML/JSON reports trong `reports/newman/` |
 | GitHub Actions CI | Chưa | Chưa có |
 | Workspaces | Chưa | Chưa có |
 | Monitors/mock servers | Chưa | Optional |
@@ -313,6 +327,12 @@ Bug report rule: khi phát hiện bug thật, tạo Markdown bug report trong `r
 | `BUG-FR09-API-006` | `POST /api/apply-coupon` | FR-09 C5 | Major/P1 | [#276](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/276) | `reports/bug-reports/BUG-FR09-API-006.md`; `reports/newman/hw06-fr09-apply-coupon.html` |
 | `BUG-FR09-API-007` | `POST /api/apply-coupon` | FR-09, SEC-05 | Major/P2 | [#277](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/277) | `reports/bug-reports/BUG-FR09-API-007.md`; `reports/newman/hw06-fr09-apply-coupon.html` |
 | `BUG-FR09-API-008` | `POST /api/apply-coupon` | API schema | Major/P2 | [#278](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/278) | `reports/bug-reports/BUG-FR09-API-008.md`; `reports/newman/hw06-fr09-apply-coupon.html` |
+| `BUG-FR17-API-001` | `POST /api/admin/coupons` | FR-17 required/range/type validation | Critical/P0 | [#282](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/282) | `reports/bug-reports/BUG-FR17-API-001.md`; `reports/newman/hw06-fr17-admin-coupons.html` |
+| `BUG-FR17-API-002` | `POST /api/admin/coupons` | FR-17 unique `code` rule | Major/P1 | [#280](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/280) | `reports/bug-reports/BUG-FR17-API-002.md`; `reports/newman/hw06-fr17-admin-coupons.html` |
+| `BUG-FR17-API-003` | `POST /api/admin/coupons` | FR-12, FR-17, SEC-02, SEC-03 | Critical/P0 | [#283](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/283) | `reports/bug-reports/BUG-FR17-API-003.md`; `reports/newman/hw06-fr17-admin-coupons.html` |
+| `BUG-FR17-API-004` | `POST /api/admin/coupons` | FR-12, SEC-02 | Minor/P2 | [#279](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/279) | `reports/bug-reports/BUG-FR17-API-004.md`; `reports/newman/hw06-fr17-admin-coupons.html` |
+| `BUG-FR17-API-005` | `POST /api/admin/coupons` | FR-17 schema validation, SEC-05 | Major/P1 | [#281](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/281) | `reports/bug-reports/BUG-FR17-API-005.md`; `reports/newman/hw06-fr17-admin-coupons.html` |
+| `BUG-FR17-API-006` | `POST /api/admin/coupons` | FR-17 content-type/schema validation | Major/P1 | [#284](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/284) | `reports/bug-reports/BUG-FR17-API-006.md`; `reports/newman/hw06-fr17-admin-coupons.html` |
 
 ## 9. AI-driven test generator design
 
@@ -341,14 +361,14 @@ AI Audit Report được lưu tại `reports/ai-audit-report.md` và sẽ đư�
 
 ## 12. Test summary
 
-Trạng thái: Đã có số liệu execution cho FR-03 và FR-09; FR-17 chưa thực hiện.
+Trạng thái: Đã có số liệu execution cho FR-03, FR-09 và FR-17.
 
 | API | Generated cases | Human added cases | Final cases | Executed | Passed | Failed | Bugs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FR-03 `POST /api/reset-password` | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
 | FR-09 `POST /api/apply-coupon` | 46 | 6 | 51 | 51 | 27 | 24 | 8 |
-| FR-17 `POST /api/admin/coupons` | 54 | 6 | 56 | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | 146 | 18 | 157 | 101 | 63 | 38 | 11 |
+| FR-17 `POST /api/admin/coupons` | 54 | 6 | 56 | 56 | 18 | 38 | 6 |
+| Total | 146 | 18 | 157 | 157 | 81 | 76 | 17 |
 
 ## 13. Self-assessment
 
@@ -367,14 +387,14 @@ Trạng thái: Đã có số liệu execution cho FR-03 và FR-09; FR-17 chưa t
 | Main report Markdown | Đang làm | `reports/main-report.md` |
 | Main report PDF | Chưa có | Chưa có |
 | Public GitHub repository link | Chưa có | Chưa có |
-| Postman collections | Có FR-03, FR-09 | `postman/hw06-fr03-reset-password.postman_collection.json`, `postman/hw06-fr09-apply-coupon.postman_collection.json` |
-| Postman environment/data files | Có FR-03, FR-09 | `postman/hw06-local.postman_environment.json`, `postman/data/hw06-fr03-reset-password.data.json`, `postman/data/hw06-fr09-apply-coupon.data.json` |
-| Newman HTML reports | Có FR-03, FR-09 | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr09-apply-coupon.html` |
+| Postman collections | Có FR-03, FR-09, FR-17 | `postman/hw06-fr03-reset-password.postman_collection.json`, `postman/hw06-fr09-apply-coupon.postman_collection.json`, `postman/hw06-fr17-admin-coupons.postman_collection.json` |
+| Postman environment/data files | Có FR-03, FR-09, FR-17 | `postman/hw06-local.postman_environment.json`, `postman/data/hw06-fr03-reset-password.data.json`, `postman/data/hw06-fr09-apply-coupon.data.json`, `postman/data/hw06-fr17-admin-coupons.data.json` |
+| Newman HTML reports | Có FR-03, FR-09, FR-17 | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr09-apply-coupon.html`, `reports/newman/hw06-fr17-admin-coupons.html` |
 | Postman feature list | Có FR-03, FR-09 | Section 6 |
 | CI/CD report | Chưa có | Section 7 |
-| Excel/test case table | Đang cập nhật; FR-03 và FR-09 executed, FR-17 final cases ready/chưa execute | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
+| Excel/test case table | Đang cập nhật; FR-03, FR-09 và FR-17 executed | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
-| Bug reports/GitHub Issues | Có 3 bug reports FR-03 đã tạo issue; có 8 bug reports FR-09 đã tạo issue | `reports/bug-reports/`, #268-#278 |
+| Bug reports/GitHub Issues | Có 3 bug reports FR-03 đã tạo issue; có 8 bug reports FR-09 đã tạo issue; có 6 bug reports FR-17 đã tạo issue | `reports/bug-reports/`, #268-#284 |
 | AI Critique | Chưa có | Section 10 |
 | AI Audit Report | Đang làm | `reports/ai-audit-report.md` |
 | Git commit log | Chưa có | Chưa có |

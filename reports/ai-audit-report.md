@@ -275,3 +275,69 @@ tôi đã review và commit rồi, bây giờ thực hiện phase 8 theo plan gi
 ```text
 Đã thực hiện Phase 08 theo reports/hw06-execution-plan.md, không commit và không dùng source code. Đã dùng blackbox context từ README.md, api_specification.md và các skill/references trong folder skills để generate raw cases cho FR-17 POST /api/admin/coupons. Đã tạo reports/ai-generated/fr17-admin-coupons-raw-test-cases.md gồm 54 raw cases: 30 Domain, 10 Security, 7 Workflow/State, 7 Schema. Bộ raw cases cover required fields code/type/discount_value/min_order_amount/expired_at/max_uses_per_user, code uniqueness, percent/fixed type, admin RBAC SEC-02/SEC-03, SQLi/XSS, create -> list verify -> duplicate rejected -> cleanup delete, schema/error/content-type/response-time assertions. Đã cập nhật reports/main-report.md và reports/hw06-test-cases.md để trỏ raw artifact, summary counts và trạng thái Phase 08. Chưa audit, chưa tạo final per-test-case Markdown files, chưa tạo Postman/Newman artifacts, chưa tạo bug report/GitHub Issue.
 ```
+
+## Entry #13
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 19:21 GMT+7 |
+| **Artifact type** | Phase 10 FR-17 Postman/Newman execution and bug reports |
+
+**Full prompt:**
+
+```text
+tôi đã review, hoàn thành và commit phase 9 rồi, giờ giúp tôi thực hiện phase 10 theo plan dựa vào các skill. tôi cũng đã chạy backend ở http://localhost:3000 rồi, nếu trong quá trình chạy có lỗi gì ở sandbox do không có quyền thì cứ yêu cầu quyền từ tôi. nhớ xong thì ghi ai audit nữa. không tự ý commit, khi xong tôi sẽ xem lại và kiểm tra rồi chỉnh sửa nếu cần thiết, xong sau đó nếu được thì tôi sẽ yêu cầu tạo github issue.
+```
+
+### (2) AI Output
+
+```text
+Đã dùng các skill HW06 API testing, Postman/Newman runner, EShop API test generator và AI audit log để thực hiện Phase 10 cho FR-17 POST /api/admin/coupons theo blackbox. Đã tạo postman/hw06-fr17-admin-coupons.postman_collection.json, postman/data/hw06-fr17-admin-coupons.data.json và cập nhật postman/hw06-local.postman_environment.json. Đã chạy Newman thật trên backend http://localhost:3000; lần đầu trong sandbox bị EPERM tới localhost nên đã chạy lại bằng quyền được user approve. Evidence được lưu tại reports/newman/hw06-fr17-admin-coupons.html, reports/newman/hw06-fr17-admin-coupons.json và reports/newman/hw06-fr17-admin-coupons-cli.txt; CLI có X-Student-Id=23127475. Kết quả final: 56 final FR-17 cases executed, 18 passed, 38 failed, 6 SUT bug groups. Đã sửa một test-oracle issue cho TC-FR17-API-SEC-005 để assert no 5xx/no SQL leak thay vì ép reject code charset không có trong spec. Đã tạo 6 Markdown bug reports BUG-FR17-API-001 đến BUG-FR17-API-006 trong reports/bug-reports, chưa tạo GitHub Issue. Đã cập nhật reports/hw06-test-cases.md, reports/main-report.md và 56 per-test-case Markdown files với execution result, evidence và related bug report. Không commit.
+```
+
+## Entry #14
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 19:36 GMT+7 |
+| **Artifact type** | FR-17 bug reports to GitHub Issues |
+
+**Full prompt:**
+
+```text
+tôi đã xem qua rồi, bây giờ tạo github issue giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Đã dùng skill gh-create-bug-issues để tạo GitHub Issues từ 6 Markdown bug reports FR-17 trong reports/bug-reports. Đã kiểm tra gh auth status, xác định repo lmchkhi/CS423-CSC15003-Testing-N08, đọc gh label list --limit 100 và dùng các label hiện có: Type: Bug, Status: New, Module: Admin Coupon, Priority P0/P1/P2, Severity Critical/Major/Minor. Đã tạo issues: BUG-FR17-API-001 -> #282, BUG-FR17-API-002 -> #280, BUG-FR17-API-003 -> #283, BUG-FR17-API-004 -> #279, BUG-FR17-API-005 -> #281, BUG-FR17-API-006 -> #284. Đã verify issues đang OPEN và có đủ label bắt buộc. Đã cập nhật URL thật vào từng file reports/bug-reports/BUG-FR17-API-001.md đến BUG-FR17-API-006.md và cập nhật bảng bug FR17 trong reports/main-report.md, đồng thời chỉnh một câu trạng thái FR09 cũ để nhất quán. Không commit.
+```
+
+## Entry #15
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 19:40 GMT+7 |
+| **Artifact type** | Main report bug report table update |
+
+**Full prompt:**
+
+```text
+chưa thêm các bug report của fr17 vào phần 8. Bug reports của main report hả, thêm giúp tôi
+```
+
+### (2) AI Output
+
+```text
+Đã cập nhật reports/main-report.md section 8 Bug reports để thêm 6 dòng BUG-FR17-API-001 đến BUG-FR17-API-006. Mỗi dòng có endpoint POST /api/admin/coupons, requirement liên quan, severity/priority, GitHub Issue #279-#284 và evidence reports/bug-reports + Newman HTML FR17. Đã kiểm tra lại section 8 hiển thị đủ các dòng FR17. Không commit.
+```

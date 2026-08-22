@@ -1,0 +1,621 @@
+[
+  {
+    "tc_id": "TC-FR17-API-DOM-001",
+    "group": "Domain",
+    "description": "Create valid percent coupon với typical values",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-002",
+    "group": "Domain",
+    "description": "Create valid fixed coupon với typical values",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-003",
+    "group": "Domain",
+    "description": "Thiếu field code",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-004",
+    "group": "Domain",
+    "description": "code là null",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-005",
+    "group": "Domain",
+    "description": "code là empty string",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-006",
+    "group": "Domain",
+    "description": "code là whitespace-only",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-007",
+    "group": "Domain",
+    "description": "code sai kiểu number",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-008",
+    "group": "Domain",
+    "description": "Duplicate code bị reject",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      400,
+      409
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-009",
+    "group": "Domain",
+    "description": "Thiếu field type",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-010",
+    "group": "Domain",
+    "description": "type là null",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-011",
+    "group": "Domain",
+    "description": "type unsupported value",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-012",
+    "group": "Domain",
+    "description": "type sai case Percent bị reject",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-013",
+    "group": "Domain",
+    "description": "Thiếu field discount_value",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-014",
+    "group": "Domain",
+    "description": "discount_value bằng 0",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-015",
+    "group": "Domain",
+    "description": "discount_value âm",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-016",
+    "group": "Domain",
+    "description": "discount_value sai kiểu string",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-017",
+    "group": "Domain",
+    "description": "Thiếu field min_order_amount",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-018",
+    "group": "Domain",
+    "description": "min_order_amount bằng 0 boundary hợp lệ",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-019",
+    "group": "Domain",
+    "description": "min_order_amount âm",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-020",
+    "group": "Domain",
+    "description": "min_order_amount sai kiểu string",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-021",
+    "group": "Domain",
+    "description": "Thiếu field expired_at",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-022",
+    "group": "Domain",
+    "description": "expired_at malformed date",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-023",
+    "group": "Domain",
+    "description": "expired_at trong quá khứ vẫn có thể được admin tạo như coupon expired",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-024",
+    "group": "Domain",
+    "description": "Thiếu field max_uses_per_user",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-025",
+    "group": "Domain",
+    "description": "max_uses_per_user bằng 1 boundary hợp lệ",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-026",
+    "group": "Domain",
+    "description": "max_uses_per_user bằng 0",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-027",
+    "group": "Domain",
+    "description": "max_uses_per_user sai kiểu string",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-028",
+    "group": "Domain",
+    "description": "expired_at là null",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "Human"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-029",
+    "group": "Domain",
+    "description": "discount_value là null",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "Human"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-030",
+    "group": "Domain",
+    "description": "min_order_amount là null",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "Human"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-031",
+    "group": "Domain",
+    "description": "max_uses_per_user là null",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "Human"
+  },
+  {
+    "tc_id": "TC-FR17-API-DOM-032",
+    "group": "Domain",
+    "description": "type là empty string",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "Human"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-001",
+    "group": "Security",
+    "description": "Thiếu Authorization header",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "missing",
+    "expectedStatus": 401,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-002",
+    "group": "Security",
+    "description": "Authorization header malformed: Bearer không có token",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "bearerOnly",
+    "expectedStatus": 401,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-003",
+    "group": "Security",
+    "description": "JWT token invalid",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "invalid",
+    "expectedStatus": 401,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-004",
+    "group": "Security",
+    "description": "Normal user token không thể create admin coupon",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "user",
+    "expectedStatus": 403,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-005",
+    "group": "Security",
+    "description": "SQL injection payload trong code không gây 5xx/leak SQL",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201,
+      400
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-006",
+    "group": "Security",
+    "description": "SQL injection payload trong type không bypass enum",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-007",
+    "group": "Security",
+    "description": "XSS-like payload trong code không gây 500 hoặc unsafe reflection",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201,
+      400
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-008",
+    "group": "Security",
+    "description": "Extra role admin không giúp user token create coupon",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "user",
+    "expectedStatus": 403,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SEC-009",
+    "group": "Security",
+    "description": "Success/error response không leak token/password fields",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-001",
+    "group": "Workflow/State",
+    "description": "Create coupon rồi verify xuất hiện trong coupon list",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-002",
+    "group": "Workflow/State",
+    "description": "Duplicate create sau first success bị reject",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      400,
+      409
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-003",
+    "group": "Workflow/State",
+    "description": "Created coupon có thể cleanup bằng DELETE",
+    "method": "DELETE",
+    "path": "/api/admin/coupons/{{targetCouponId}}",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      204
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-004",
+    "group": "Workflow/State",
+    "description": "Deleted coupon không còn xuất hiện trong list",
+    "method": "GET",
+    "path": "/api/coupons",
+    "authMode": "admin",
+    "expectedStatus": 200,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-005",
+    "group": "Workflow/State",
+    "description": "Failed validation create không tạo partial coupon",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-006",
+    "group": "Workflow/State",
+    "description": "User token create fail không pollute coupon list",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "user",
+    "expectedStatus": 403,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-007",
+    "group": "Workflow/State",
+    "description": "Duplicate rejection không overwrite original coupon values",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      400,
+      409
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-WF-008",
+    "group": "Workflow/State",
+    "description": "Deleted coupon code có thể được tạo lại sau cleanup",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "Human"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-001",
+    "group": "Schema Validation",
+    "description": "Success response có Content-Type JSON khi có body",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-002",
+    "group": "Schema Validation",
+    "description": "Success response có identity hoặc message ổn định để cleanup",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-003",
+    "group": "Schema Validation",
+    "description": "Error response cho missing required field có shape an toàn",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-004",
+    "group": "Schema Validation",
+    "description": "Malformed JSON body trả client error và không leak stack",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": 400,
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-005",
+    "group": "Schema Validation",
+    "description": "Unsupported Content-Type text/plain không được xử lý như success",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      400,
+      415
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-006",
+    "group": "Schema Validation",
+    "description": "GET /api/admin/coupons không thành công như create endpoint",
+    "method": "GET",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      404,
+      405
+    ],
+    "source": "AI"
+  },
+  {
+    "tc_id": "TC-FR17-API-SCH-007",
+    "group": "Schema Validation",
+    "description": "Response time cho valid create dưới 1000ms",
+    "method": "POST",
+    "path": "/api/admin/coupons",
+    "authMode": "admin",
+    "expectedStatus": [
+      200,
+      201
+    ],
+    "source": "AI"
+  }
+]
