@@ -9,7 +9,7 @@ Bộ skill hiện tại đã đủ để thực hiện HW06 end-to-end:
 | `$hw06-api-testing` | Điều phối toàn bộ pipeline, checklist nộp bài, report template, quy tắc blackbox | Đủ |
 | `$eshop-api-test-generator` | Sinh test cases theo domain partitions, security, state/workflow, schema validation | Đủ |
 | `$postman-newman-api-runner` | Tạo Postman collection/environment/data, Newman command/report, CI workflow | Đủ |
-| `$gh-create-bug-issues` | Tạo bug report theo `.github/ISSUE_TEMPLATE/bug-report-template.md`, đặt ở `reports/bug-reports`, tạo GitHub Issues | Đủ |
+| `$gh-create-bug-issues` | Tạo bug report theo `.github/ISSUE_TEMPLATE/bug-report-template.md`, đặt ở `reports/bug-reports`; tạo GitHub Issues chỉ sau khi sinh viên approve | Đủ |
 | `$hw06-ai-audit-log` | Ghi AI Audit Report sau mỗi lượt AI hỗ trợ HW06 | Đủ |
 
 Nguyên tắc chung: chỉ làm blackbox testing. Không đọc source code backend/frontend để suy ra expected behavior hoặc test case.
@@ -41,17 +41,17 @@ Artifact layout chủ đích:
 | 01 | `docs(hw06): select APIs and prepare report skeleton` | Tạo skeleton main report, test case index/template, Postman folder layout, bug report folder | `reports/main-report.md`, `reports/hw06-test-cases.md`, `test-cases/hw06-api/`, `reports/bug-reports/`, `postman/`, `reports/newman/` |
 | 02 | `test(hw06-fr03): generate reset-password API cases` | Dùng `$eshop-api-test-generator` sinh >=35 AI cases cho `POST /api/reset-password`; log prompt/output trong AI audit | AI audit entry, raw AI test case table cho FR-03 |
 | 03 | `test(hw06-fr03): audit and extend reset-password cases` | Audit mọi AI case thành `VALID/INVALID/INCOMPLETE`, sửa case lỗi, thêm >=5 human cases | Final FR-03 test cases, audit table, extension table |
-| 04 | `test(hw06-fr03): implement and run reset-password Postman tests` | Tạo collection/data cho FR-03, setup forgot-password token flow, chạy Newman, lưu report | `postman/hw06-fr03-reset-password.*`, Newman HTML/JSON, console evidence `X-Student-Id` |
+| 04 | `test(hw06-fr03): implement run and report reset-password tests` | Tạo collection/data cho FR-03, chạy Newman, phân loại failures, tạo bug report Markdown nếu có bug thật; chưa tạo GitHub Issue | `postman/hw06-fr03-reset-password.*`, Newman HTML/JSON, `reports/bug-reports/BUG-FR03-*.md` nếu có |
 | 05 | `test(hw06-fr09): generate apply-coupon API cases` | Sinh >=35 AI cases cho `POST /api/apply-coupon`, cover C1-C5, calculation, auth/IDOR/security/schema | AI audit entry, raw AI test case table cho FR-09 |
 | 06 | `test(hw06-fr09): audit and extend apply-coupon cases` | Audit toàn bộ FR-09 cases, sửa invalid/incomplete, thêm >=5 human cases | Final FR-09 test cases, audit table, extension table |
-| 07 | `test(hw06-fr09): implement and run apply-coupon Postman tests` | Tạo collection/data, setup user token/coupon scenarios, chạy Newman | `postman/hw06-fr09-apply-coupon.*`, Newman reports, `X-Student-Id` evidence |
+| 07 | `test(hw06-fr09): implement run and report apply-coupon tests` | Tạo collection/data, chạy Newman, phân loại failures, tạo bug report Markdown nếu có bug thật; chưa tạo GitHub Issue | `postman/hw06-fr09-apply-coupon.*`, Newman reports, `reports/bug-reports/BUG-FR09-*.md` nếu có |
 | 08 | `test(hw06-fr17): generate admin coupon API cases` | Sinh >=35 AI cases cho `POST /api/admin/coupons`, cover domain/security/admin/schema | AI audit entry, raw AI test case table cho FR-17 |
 | 09 | `test(hw06-fr17): audit and extend admin coupon cases` | Audit FR-17 cases, sửa case, thêm >=5 human cases, định nghĩa cleanup bằng DELETE nếu cần | Final FR-17 test cases, audit table, extension table |
-| 10 | `test(hw06-fr17): implement and run admin coupon Postman tests` | Tạo collection/data, setup admin/user token, chạy Newman, cleanup created coupons | `postman/hw06-fr17-admin-coupons.*`, Newman reports, `X-Student-Id` evidence |
+| 10 | `test(hw06-fr17): implement run and report admin-coupon tests` | Tạo collection/data, chạy Newman, cleanup created coupons, phân loại failures, tạo bug report Markdown nếu có bug thật; chưa tạo GitHub Issue | `postman/hw06-fr17-admin-coupons.*`, Newman reports, `reports/bug-reports/BUG-FR17-*.md` nếu có |
 | 11 | `ci(hw06): add Newman API test workflow passing run` | Tạo GitHub Actions workflow chạy backend + Newman; push để có passing run | `.github/workflows/newman-api-test.yml`, CI pass screenshot/link |
 | 12 | `ci(hw06): capture intentional failing Newman run` | Đổi một `expectedStatus` có chủ đích để CI fail, push và lưu evidence | CI fail screenshot/link, note giá trị đã đổi |
 | 13 | `ci(hw06): restore Newman expectations after fail demo` | Khôi phục expected value đúng để final branch pass | CI restored pass screenshot/link |
-| 14 | `docs(hw06): report confirmed bugs as GitHub issues` | Với bug thật, tạo Markdown bug report trong `reports/bug-reports` theo template repo, tạo GitHub Issues bằng `$gh-create-bug-issues` | `reports/bug-reports/*.md`, GitHub Issue URLs, screenshots |
+| 14 | `docs(hw06): create approved GitHub bug issues` | Approval-gated: chỉ tạo GitHub Issues khi sinh viên review/đồng ý bug reports | GitHub Issue URLs cập nhật vào bug reports và main report |
 | 15 | `docs(hw06): finalize AI generator design and critique` | Hoàn thiện `ai-test-generator-design.md`, pseudocode, self-drawn diagram, AI Critique 200-300 words | Diagram PNG/Mermaid, pseudocode, AI Critique |
 | 16 | `docs(hw06): finalize report, audit log, and submission package` | Hoàn thiện main report, AI Audit Report, Git commit log, README self-assessment, test summary, zip checklist | Final Markdown/PDF reports, commit log, README, submission checklist |
 
@@ -187,9 +187,9 @@ Không làm trong phase này:
 - Chưa execute Newman.
 - Chưa report bug nếu chưa chạy/observe bug.
 
-### Phase 04 - `test(hw06-fr03): implement and run reset-password Postman tests`
+### Phase 04 - `test(hw06-fr03): implement run and report reset-password tests`
 
-Mục tiêu: execute final FR-03 cases bằng Postman/Newman và lưu evidence.
+Mục tiêu: execute final FR-03 cases bằng Postman/Newman, phân loại failures ngay khi còn đủ context, và tạo bug report Markdown cho bug thật nếu có.
 
 Việc cần làm:
 
@@ -199,8 +199,15 @@ Việc cần làm:
 - Viết assertions: status, content type, response time, expected fields, no unexpected 500.
 - Chạy backend bằng cách blackbox qua API.
 - Chạy Newman và export HTML/JSON reports.
-- Chụp/ghi evidence Postman Console có `X-Student-Id`.
-- Nếu có bug thật, ghi lại để Phase 14 tạo bug report/issue.
+- Lưu evidence đại diện cho `X-Student-Id` ở cấp collection/run, không phải từng test case: pre-request script upsert header và log được header; có thể dùng Postman Console screenshot hoặc Newman/htmlextra output nếu output thể hiện rõ header này.
+- Review failed cases ngay sau Newman run.
+- Phân loại từng failure: `SUT bug`, `test data issue`, `Postman script issue`, hoặc `environment issue`.
+- Với `SUT bug`, tạo Markdown bug report trong `reports/bug-reports`.
+- Dùng đúng template `.github/ISSUE_TEMPLATE/bug-report-template.md`.
+- Điền đủ: Found by Test Case, Requirement liên quan, Severity/Priority, Environment, Steps, Expected, Actual, Evidence.
+- Link evidence thật: Newman HTML/JSON, console output, screenshot nếu có.
+- Cập nhật `reports/main-report.md` và `reports/hw06-test-cases.md` với execution result và bug report path.
+- Không tạo GitHub Issue trong phase này; chờ sinh viên review và yêu cầu riêng.
 - Append AI audit entry.
 
 Files/artifacts:
@@ -210,17 +217,21 @@ Files/artifacts:
 - `postman/hw06-local.postman_environment.json`
 - `reports/newman/hw06-fr03-reset-password.html`
 - `reports/newman/hw06-fr03-reset-password.json`
+- `reports/bug-reports/BUG-FR03-*.md` nếu có bug thật
 
 Kiểm tra trước commit:
 
 - Newman command chạy được.
 - Report có số iteration/case tương ứng.
-- Request evidence có `X-Student-Id`.
+- Có evidence đại diện cho `X-Student-Id` ở cấp collection/run.
 - Failed cases được phân loại: expected bug hay test/script lỗi.
+- Mỗi bug report, nếu có, nằm trong `reports/bug-reports`, bám template repo và có evidence thật.
+- Chưa có GitHub Issue URL nếu sinh viên chưa approve.
 
 Không làm trong phase này:
 
-- Không tạo issue ngay nếu chưa có bug report template/evidence đầy đủ.
+- Không tạo GitHub Issue.
+- Không tạo bug report nếu failed case chỉ là lỗi setup/test script.
 
 ### Phase 05 - `test(hw06-fr09): generate apply-coupon API cases`
 
@@ -282,9 +293,9 @@ Không làm trong phase này:
 
 - Chưa tạo Postman artifacts.
 
-### Phase 07 - `test(hw06-fr09): implement and run apply-coupon Postman tests`
+### Phase 07 - `test(hw06-fr09): implement run and report apply-coupon tests`
 
-Mục tiêu: execute final FR-09 cases bằng Postman/Newman.
+Mục tiêu: execute final FR-09 cases bằng Postman/Newman, phân loại failures ngay và tạo bug report Markdown cho bug thật nếu có.
 
 Việc cần làm:
 
@@ -294,7 +305,13 @@ Việc cần làm:
 - Viết data rows cho coupon codes, totals, expected discount/final amount, authMode.
 - Viết assertions tính toán `discount_amount` và `final_amount` với percent/fixed coupons.
 - Chạy Newman và lưu HTML/JSON.
-- Ghi failed cases, phân biệt bug thật và lỗi setup/test script.
+- Review failed cases ngay sau Newman run.
+- Phân loại từng failure: `SUT bug`, `test data issue`, `Postman script issue`, hoặc `environment issue`.
+- Với `SUT bug`, tạo Markdown bug report trong `reports/bug-reports`.
+- Dùng đúng template `.github/ISSUE_TEMPLATE/bug-report-template.md`.
+- Link evidence thật: Newman HTML/JSON, console output, screenshot nếu có.
+- Cập nhật `reports/main-report.md` và `reports/hw06-test-cases.md` với execution result và bug report path.
+- Không tạo GitHub Issue trong phase này; chờ sinh viên review và yêu cầu riêng.
 - Append AI audit entry.
 
 Files/artifacts:
@@ -303,16 +320,21 @@ Files/artifacts:
 - `postman/data/hw06-fr09-apply-coupon.data.json`
 - `reports/newman/hw06-fr09-apply-coupon.html`
 - `reports/newman/hw06-fr09-apply-coupon.json`
+- `reports/bug-reports/BUG-FR09-*.md` nếu có bug thật
 
 Kiểm tra trước commit:
 
 - Newman run có host thật `localhost`/`127.0.0.1`.
-- Có evidence `X-Student-Id`.
+- Có evidence đại diện cho `X-Student-Id` ở cấp collection/run.
 - Calculated assertions đúng với coupon formula.
+- Mỗi bug report, nếu có, bám template repo và có evidence thật.
+- Chưa có GitHub Issue URL nếu sinh viên chưa approve.
 
 Không làm trong phase này:
 
 - Không sửa expected status chỉ để làm test pass nếu observed behavior trái spec; ghi bug candidate.
+- Không tạo GitHub Issue.
+- Không tạo bug report nếu failed case chỉ là lỗi test script/setup.
 
 ### Phase 08 - `test(hw06-fr17): generate admin coupon API cases`
 
@@ -375,9 +397,9 @@ Không làm trong phase này:
 
 - Chưa execute Newman.
 
-### Phase 10 - `test(hw06-fr17): implement and run admin coupon Postman tests`
+### Phase 10 - `test(hw06-fr17): implement run and report admin-coupon tests`
 
-Mục tiêu: execute final FR-17 cases bằng Postman/Newman.
+Mục tiêu: execute final FR-17 cases bằng Postman/Newman, cleanup dữ liệu tạo ra, phân loại failures ngay và tạo bug report Markdown cho bug thật nếu có.
 
 Việc cần làm:
 
@@ -387,7 +409,13 @@ Việc cần làm:
 - Thêm cleanup bằng `DELETE /api/admin/coupons/:id` cho coupon tạo trong test.
 - Viết assertions: status, schema, no password/token leak, RBAC 401/403, no unexpected 500.
 - Chạy Newman và lưu reports.
-- Ghi bug candidates có evidence.
+- Review failed cases ngay sau Newman run.
+- Phân loại từng failure: `SUT bug`, `test data issue`, `Postman script issue`, hoặc `environment issue`.
+- Với `SUT bug`, tạo Markdown bug report trong `reports/bug-reports`.
+- Dùng đúng template `.github/ISSUE_TEMPLATE/bug-report-template.md`.
+- Link evidence thật: Newman HTML/JSON, console output, screenshot nếu có.
+- Cập nhật `reports/main-report.md` và `reports/hw06-test-cases.md` với execution result và bug report path.
+- Không tạo GitHub Issue trong phase này; chờ sinh viên review và yêu cầu riêng.
 - Append AI audit entry.
 
 Files/artifacts:
@@ -396,16 +424,21 @@ Files/artifacts:
 - `postman/data/hw06-fr17-admin-coupons.data.json`
 - `reports/newman/hw06-fr17-admin-coupons.html`
 - `reports/newman/hw06-fr17-admin-coupons.json`
+- `reports/bug-reports/BUG-FR17-*.md` nếu có bug thật
 
 Kiểm tra trước commit:
 
 - Admin cases dùng admin token, wrong-role cases dùng user token.
 - Created coupon IDs được capture/cleanup.
-- Newman report và `X-Student-Id` evidence tồn tại.
+- Newman report và evidence đại diện cho `X-Student-Id` tồn tại.
+- Mỗi bug report, nếu có, bám template repo và có evidence thật.
+- Chưa có GitHub Issue URL nếu sinh viên chưa approve.
 
 Không làm trong phase này:
 
 - Không bỏ cleanup nếu test tạo coupon mới.
+- Không tạo GitHub Issue.
+- Không report bug nếu chỉ là lỗi test script/setup.
 
 ### Phase 11 - `ci(hw06): add Newman API test workflow passing run`
 
@@ -493,36 +526,38 @@ Không làm trong phase này:
 
 - Không thêm test case mới làm nhiễu bằng chứng restore.
 
-### Phase 14 - `docs(hw06): report confirmed bugs as GitHub issues`
+### Phase 14 - `docs(hw06): create approved GitHub bug issues`
 
-Mục tiêu: document bug thật và tạo GitHub Issues đúng template.
+Mục tiêu: chỉ tạo GitHub Issues cho những bug reports đã được sinh viên review/approve.
+
+Phase này là approval-gated, không tự chạy theo thứ tự cứng. Có thể thực hiện ngay sau Phase 04, Phase 07 hoặc Phase 10 nếu sinh viên đã review bug report của API vừa chạy và yêu cầu tạo issue; nếu chưa, thực hiện trước finalization.
 
 Việc cần làm:
 
-- Từ failed cases đã xác nhận là bug thật, tạo từng file Markdown trong `reports/bug-reports`.
-- Dùng template `.github/ISSUE_TEMPLATE/bug-report-template.md`.
-- Điền đủ: Found by Test Case, Requirement liên quan, Severity/Priority, Environment, Steps, Expected, Actual, Evidence.
-- Evidence phải là screenshot/Newman report/Postman Console/CI URL thật.
+- Review các bug report Markdown đã tạo ở Phase 04/07/10.
+- Chỉ xử lý bug report mà sinh viên đã xác nhận/ yêu cầu tạo GitHub Issue.
+- Kiểm tra lại template `.github/ISSUE_TEMPLATE/bug-report-template.md`, evidence, severity/priority trước khi tạo issue.
 - Dùng `$gh-create-bug-issues` hoặc `gh issue create` theo skill để tạo GitHub Issue.
-- Cập nhật issue URL vào bug report và main report.
+- Cập nhật GitHub Issue URL vào bug report, `reports/main-report.md`, và `reports/hw06-test-cases.md`.
 - Append AI audit entry.
 
 Files/artifacts:
 
-- `reports/bug-reports/*.md`
-- GitHub Issue URLs
-- Screenshots/evidence paths
+- Updated `reports/bug-reports/*.md`
+- GitHub Issue URLs cho bug reports đã approve
 - Updated `reports/main-report.md`
+- Updated `reports/hw06-test-cases.md`
 
 Kiểm tra trước commit:
 
-- Mỗi bug report nằm trong `reports/bug-reports`.
-- Mỗi bug report bám template repo.
+- Mỗi GitHub Issue có bug report Markdown tương ứng.
+- Không tạo issue cho bug report chưa được sinh viên approve.
 - Không có GitHub Issue URL giả.
 
 Không làm trong phase này:
 
-- Không report bug nếu chỉ là lỗi test script/setup.
+- Không tạo bug report mới nếu chưa có evidence.
+- Không tạo issue cho failed case chỉ là lỗi test script/setup.
 
 ### Phase 15 - `docs(hw06): finalize AI generator design and critique`
 
@@ -582,7 +617,7 @@ Kiểm tra trước commit:
 - Không thiếu deliverable trong HW06 submission checklist.
 - Final branch CI pass.
 - Không có placeholder `TODO` quan trọng.
-- Bug reports, nếu có, đều có GitHub Issue URL và evidence.
+- Bug reports, nếu có, đều có evidence thật; GitHub Issue URL chỉ bắt buộc với bug reports đã được sinh viên approve tạo issue.
 
 Không làm trong phase này:
 
@@ -619,7 +654,9 @@ Khi phát hiện bug thật:
 1. Tạo Markdown bug report trong `reports/bug-reports`.
 2. Dùng đúng template `.github/ISSUE_TEMPLATE/bug-report-template.md`.
 3. Đính kèm evidence thật: screenshot, Newman report path, Postman Console, hoặc CI URL.
-4. Tạo GitHub Issue bằng `$gh-create-bug-issues`.
-5. Cập nhật issue URL vào bug report và main report.
+4. Cập nhật bug report path vào `reports/main-report.md` và `reports/hw06-test-cases.md`.
+5. Chờ sinh viên review/approve bug report.
+6. Chỉ khi sinh viên yêu cầu rõ, tạo GitHub Issue bằng `$gh-create-bug-issues` hoặc `gh issue create`.
+7. Sau khi issue được tạo, cập nhật issue URL vào bug report, main report và test case master.
 
-Không tạo bug report hoặc GitHub Issue nếu chưa có evidence thật.
+Không tạo bug report nếu chưa có evidence thật. Không tạo GitHub Issue nếu bug report chưa được sinh viên approve.

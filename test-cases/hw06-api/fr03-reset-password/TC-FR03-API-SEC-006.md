@@ -71,6 +71,6 @@ SEC-07
 
 ## Status / Related bugs
 
-`Not run`
+`Passed`
 
 Related bug report: `N/A`

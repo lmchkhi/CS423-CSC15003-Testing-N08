@@ -71,6 +71,6 @@ API spec
 
 ## Status / Related bugs
 
-`Not run`
+`Failed`
 
-Related bug report: `N/A`
+Related bug report: `reports/bug-reports/BUG-FR03-API-003.md`

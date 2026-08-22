@@ -71,6 +71,6 @@ API spec
 
 ## Status / Related bugs
 
-`Not run`
+`Passed`
 
 Related bug report: `N/A`

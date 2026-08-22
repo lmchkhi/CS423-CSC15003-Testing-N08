@@ -71,6 +71,6 @@ SEC-04, SEC-05
 
 ## Status / Related bugs
 
-`Not run`
+`Passed`
 
 Related bug report: `N/A`

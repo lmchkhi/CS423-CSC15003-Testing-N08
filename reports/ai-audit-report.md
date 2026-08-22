@@ -165,3 +165,25 @@ tôi đã xem qua, xác nhận và commit phase 1 rồi, bây giờ thực hiệ
 ```text
 Đã tạo reports/ai-generated/fr03-reset-password-raw-test-cases.md gồm 46 raw cases cho FR-03: 22 Domain, 8 Security, 8 Workflow, 8 Schema. Không dùng file prompt riêng vì prompt framework đã được mô tả trong skills/ và reports/hw06-execution-plan.md; Entry #7 này giữ trace prompt/output cần thiết cho AI audit. Đã cập nhật reports/main-report.md và reports/hw06-test-cases.md để trỏ artifact Phase 02 và ghi rõ Phase 03 mới audit/convert thành per-test-case Markdown files. Chưa chạy Newman, chưa tạo bug report, chưa tạo GitHub Issue, chưa commit.
 ```
+
+## Entry #8
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 21/08/2026 01:25 GMT+7 |
+| **Artifact type** | Phase 04 FR-03 Postman/Newman execution and bug reports |
+
+**Full prompt:**
+
+```text
+tôi đã chạy backend lên ở [http://localhost:3000](http://localhost:3000) rồi. bây giờ thực hiện phase 4 giúp tôi. nếu trong sandbox có lỗi gì về quyền thì yêu cầu quyền từ tôi để chạy. nhớ xong thì ghi ai audit nữa. không tự ý commit, khi xong tôi sẽ xem lại và kiểm tra rồi chỉnh sửa nếu cần thiết, xong sau đó nếu được thì tôi sẽ yêu cầu tạo github issue. nhớ dùng các skill cần thiết trong folder skills
+```
+
+### (2) AI Output
+
+```text
+Đã dùng các skill trong folder skills để thực hiện Phase 04 cho FR-03 theo hướng blackbox, không dùng source code. Đã tạo Postman collection/environment/case data cho 50 test cases reset-password, bổ sung static header X-Student-Id cho 50/50 request item và pre-request script upsert/log header runtime. Đã chạy Newman trên backend http://localhost:3000, xuất reports/newman/hw06-fr03-reset-password.html, .json và -cli.txt. Kết quả: 50 executed, 36 passed, 14 failed; Newman requests 136 executed/0 failed; assertions 218 executed/20 failed. Đã triage failures thành 3 bug thật và tạo bug report Markdown theo template trong reports/bug-reports: BUG-FR03-API-001, BUG-FR03-API-002, BUG-FR03-API-003. Đã cập nhật reports/hw06-test-cases.md, 50 file test case FR-03 và reports/main-report.md với execution result/evidence. Chưa tạo GitHub Issue và không commit.
+```

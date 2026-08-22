@@ -79,24 +79,41 @@ Trạng thái: Đã thực hiện ở Phase 03. Đã thêm 6 human-authored case
 
 ### 3.4 Execution with Postman/Newman
 
-Trạng thái: Chưa thực hiện, sẽ làm ở Phase 04.
+Trạng thái: Đã thực hiện ở Phase 04 trên backend `http://localhost:3000`.
 
 | Artifact | Path/link |
 | --- | --- |
-| Collection | Chưa có |
-| Environment | Chưa có |
-| Iteration data | Chưa có |
-| Newman HTML report | Chưa có |
-| Newman JSON report | Chưa có |
-| `X-Student-Id` evidence | Chưa có |
+| Collection | `postman/hw06-fr03-reset-password.postman_collection.json` |
+| Environment | `postman/hw06-local.postman_environment.json` |
+| Case data/traceability file | `postman/data/hw06-fr03-reset-password.data.json` |
+| Newman HTML report | `reports/newman/hw06-fr03-reset-password.html` |
+| Newman JSON report | `reports/newman/hw06-fr03-reset-password.json` |
+| Newman CLI output | `reports/newman/hw06-fr03-reset-password-cli.txt` |
+| `X-Student-Id` evidence | 50/50 request item có static header `X-Student-Id: {{studentId}}`; collection-level pre-request script vẫn upsert header `X-Student-Id=23127475`; Newman CLI output logs `[HW06] ... X-Student-Id=23127475` for executed requests. |
+
+Execution summary:
+
+| Metric | Value |
+| --- | --- |
+| Final test cases | 50 |
+| Executed test cases | 50 |
+| Passed test cases | 36 |
+| Failed test cases | 14 |
+| Newman requests | 136 executed, 0 failed |
+| Newman assertions | 218 executed, 20 failed |
+| Confirmed bugs | 3 |
+
+Newman exit code là `1` vì assertion failures từ SUT behavior. Không có request failure hoặc script failure trong run chính.
 
 ### 3.5 Bugs found
 
-Trạng thái: Chưa có bug đã xác nhận.
+Trạng thái: Đã xác nhận 3 bug qua Newman evidence và đã tạo GitHub Issue sau khi sinh viên approve.
 
 | Bug ID | Related TC | GitHub Issue | Evidence |
 | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có |
+| `BUG-FR03-API-001` | `TC-FR03-API-DOM-015` đến `DOM-023`, `SEC-004`, `WF-006`, `WF-007` | [#268](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/268) | `reports/bug-reports/BUG-FR03-API-001.md`, Newman HTML/JSON/CLI |
+| `BUG-FR03-API-002` | `TC-FR03-API-SEC-008` | [#269](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/269) | `reports/bug-reports/BUG-FR03-API-002.md`, Newman HTML/JSON/CLI |
+| `BUG-FR03-API-003` | `TC-FR03-API-SCH-010` | [#270](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/270) | `reports/bug-reports/BUG-FR03-API-003.md`, Newman HTML/JSON/CLI |
 
 ## 4. API 2 - FR-09 `POST /api/apply-coupon`
 
@@ -200,19 +217,19 @@ Trạng thái: Chưa có bug đã xác nhận.
 
 ## 6. Postman features used
 
-Trạng thái: Chưa thực hiện, sẽ cập nhật sau khi tạo và chạy collection.
+Trạng thái: Đã dùng cho FR-03; các API còn lại sẽ cập nhật ở phase tương ứng.
 
 | Feature | Đã dùng? | Evidence/ghi chú |
 | --- | --- | --- |
-| Collections | Chưa | Chưa có |
-| Environments | Chưa | Chưa có |
-| Environment variables | Chưa | Chưa có |
-| Collection variables | Chưa | Chưa có |
-| Pre-request scripts | Chưa | Chưa có |
-| Test scripts/assertions | Chưa | Chưa có |
-| Data-driven runs | Chưa | Chưa có |
-| Newman CLI | Chưa | Chưa có |
-| HTML/JSON reporters | Chưa | Chưa có |
+| Collections | Có | `postman/hw06-fr03-reset-password.postman_collection.json` |
+| Environments | Có | `postman/hw06-local.postman_environment.json` |
+| Environment variables | Có | `baseUrl`, `studentId`, generated email/token variables trong environment/runtime |
+| Collection variables | Có | `collectionRunId` và helper values dùng trong pre-request setup |
+| Pre-request scripts | Có | Setup blackbox bằng API: register, forgot-password, reset-password/login verification; upsert `X-Student-Id` |
+| Test scripts/assertions | Có | Status, schema/message/error shape, sensitive-field leak, token reuse, password postcondition, response time |
+| Data-driven runs | Một phần | `postman/data/hw06-fr03-reset-password.data.json` dùng làm case map/traceability; FR-03 collection chạy stateful per item thay vì Newman iteration-data để tránh token state nhiễu nhau |
+| Newman CLI | Có | `reports/newman/hw06-fr03-reset-password-cli.txt` |
+| HTML/JSON reporters | Có | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr03-reset-password.json` |
 | GitHub Actions CI | Chưa | Chưa có |
 | Workspaces | Chưa | Chưa có |
 | Monitors/mock servers | Chưa | Optional |
@@ -229,11 +246,13 @@ Trạng thái: Chưa thực hiện, sẽ làm ở Phase 11-13.
 
 ## 8. Bug reports
 
-Bug report rule: khi phát hiện bug thật, tạo Markdown bug report trong `reports/bug-reports` theo template `.github/ISSUE_TEMPLATE/bug-report-template.md`, sau đó tạo GitHub Issue và cập nhật URL thật vào report.
+Bug report rule: khi phát hiện bug thật, tạo Markdown bug report trong `reports/bug-reports` theo template `.github/ISSUE_TEMPLATE/bug-report-template.md`. GitHub Issue chỉ tạo sau khi sinh viên review bug report và yêu cầu tạo issue; sau đó cập nhật URL thật vào report.
 
 | Bug ID | Endpoint | Requirement | Severity/Priority | GitHub Issue | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| `BUG-FR03-API-001` | `POST /api/reset-password` | FR-03, FR-01, SEC-07 | Major/P1 | [#268](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/268) | `reports/bug-reports/BUG-FR03-API-001.md`; `reports/newman/hw06-fr03-reset-password.html` |
+| `BUG-FR03-API-002` | `POST /api/forgot-password` setup for reset flow | FR-03, SEC-07 | Major/P1 | [#269](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/269) | `reports/bug-reports/BUG-FR03-API-002.md`; `reports/newman/hw06-fr03-reset-password.html` |
+| `BUG-FR03-API-003` | `POST /api/reset-password` | FR-03, SEC-05 | Major/P2 | [#270](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/270) | `reports/bug-reports/BUG-FR03-API-003.md`; `reports/newman/hw06-fr03-reset-password.html` |
 
 ## 9. AI-driven test generator design
 
@@ -262,14 +281,14 @@ AI Audit Report được lưu tại `reports/ai-audit-report.md` và sẽ đư�
 
 ## 12. Test summary
 
-Trạng thái: Chưa có số liệu execution.
+Trạng thái: Đã có số liệu execution cho FR-03; FR-09 và FR-17 chưa thực hiện.
 
 | API | Generated cases | Human added cases | Final cases | Executed | Passed | Failed | Bugs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| FR-03 `POST /api/reset-password` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| FR-03 `POST /api/reset-password` | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
 | FR-09 `POST /api/apply-coupon` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
 | FR-17 `POST /api/admin/coupons` | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
-| Total | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có | Chưa có |
+| Total | 46 | 6 | 50 | 50 | 36 | 14 | 3 |
 
 ## 13. Self-assessment
 
@@ -288,14 +307,14 @@ Trạng thái: Chưa có số liệu execution.
 | Main report Markdown | Đang làm | `reports/main-report.md` |
 | Main report PDF | Chưa có | Chưa có |
 | Public GitHub repository link | Chưa có | Chưa có |
-| Postman collections | Chưa có | Chưa có |
-| Postman environment/data files | Chưa có | Chưa có |
-| Newman HTML reports | Chưa có | Chưa có |
-| Postman feature list | Chưa có | Section 6 |
+| Postman collections | Có FR-03 | `postman/hw06-fr03-reset-password.postman_collection.json` |
+| Postman environment/data files | Có FR-03 | `postman/hw06-local.postman_environment.json`, `postman/data/hw06-fr03-reset-password.data.json` |
+| Newman HTML reports | Có FR-03 | `reports/newman/hw06-fr03-reset-password.html` |
+| Postman feature list | Có FR-03 | Section 6 |
 | CI/CD report | Chưa có | Section 7 |
 | Excel/test case table | Đang cập nhật; FR-03 completed | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
-| Bug reports/GitHub Issues | Chưa có bug xác nhận | `reports/bug-reports/` |
+| Bug reports/GitHub Issues | Có 3 bug reports FR-03 và 3 GitHub Issues | `reports/bug-reports/`, #268, #269, #270 |
 | AI Critique | Chưa có | Section 10 |
 | AI Audit Report | Đang làm | `reports/ai-audit-report.md` |
 | Git commit log | Chưa có | Chưa có |
