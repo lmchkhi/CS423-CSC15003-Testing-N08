@@ -1,0 +1,49 @@
+# Danh sách test case đã tách
+
+| Test case | File |
+|---|---|
+| TC-EX-001 | [TC-EX-001.md](TC-EX-001.md) |
+| TC-EX-002 | [TC-EX-002.md](TC-EX-002.md) |
+| TC-EX-003 | [TC-EX-003.md](TC-EX-003.md) |
+| TC-EX-004 | [TC-EX-004.md](TC-EX-004.md) |
+| TC-EX-005 | [TC-EX-005.md](TC-EX-005.md) |
+| TC-FR01-001 | [TC-FR01-001.md](TC-FR01-001.md) |
+| TC-FR01-002 | [TC-FR01-002.md](TC-FR01-002.md) |
+| TC-FR01-003 | [TC-FR01-003.md](TC-FR01-003.md) |
+| TC-FR01-004 | [TC-FR01-004.md](TC-FR01-004.md) |
+| TC-FR01-005 | [TC-FR01-005.md](TC-FR01-005.md) |
+| TC-FR01-006 | [TC-FR01-006.md](TC-FR01-006.md) |
+| TC-FR01-007 | [TC-FR01-007.md](TC-FR01-007.md) |
+| TC-FR01-008 | [TC-FR01-008.md](TC-FR01-008.md) |
+| TC-FR01-009 | [TC-FR01-009.md](TC-FR01-009.md) |
+| TC-FR01-010 | [TC-FR01-010.md](TC-FR01-010.md) |
+| TC-FR01-011 | [TC-FR01-011.md](TC-FR01-011.md) |
+| TC-FR01-012 | [TC-FR01-012.md](TC-FR01-012.md) |
+| TC-FR01-013 | [TC-FR01-013.md](TC-FR01-013.md) |
+| TC-FR01-014 | [TC-FR01-014.md](TC-FR01-014.md) |
+| TC-FR01-015 | [TC-FR01-015.md](TC-FR01-015.md) |
+| TC-FR01-016 | [TC-FR01-016.md](TC-FR01-016.md) |
+| TC-FR01-017 | [TC-FR01-017.md](TC-FR01-017.md) |
+| TC-FR01-018 | [TC-FR01-018.md](TC-FR01-018.md) |
+| TC-FR01-019 | [TC-FR01-019.md](TC-FR01-019.md) |
+| TC-FR01-020 | [TC-FR01-020.md](TC-FR01-020.md) |
+| TC-FR01-021 | [TC-FR01-021.md](TC-FR01-021.md) |
+| TC-FR01-022 | [TC-FR01-022.md](TC-FR01-022.md) |
+| TC-FR01-023 | [TC-FR01-023.md](TC-FR01-023.md) |
+| TC-FR01-024 | [TC-FR01-024.md](TC-FR01-024.md) |
+| TC-FR01-025 | [TC-FR01-025.md](TC-FR01-025.md) |
+| TC-FR01-026 | [TC-FR01-026.md](TC-FR01-026.md) |
+| TC-FR01-027 | [TC-FR01-027.md](TC-FR01-027.md) |
+| TC-FR01-028 | [TC-FR01-028.md](TC-FR01-028.md) |
+| TC-FR01-029 | [TC-FR01-029.md](TC-FR01-029.md) |
+| TC-FR01-030 | [TC-FR01-030.md](TC-FR01-030.md) |
+| TC-FR01-031 | [TC-FR01-031.md](TC-FR01-031.md) |
+| TC-FR01-032 | [TC-FR01-032.md](TC-FR01-032.md) |
+| TC-FR01-033 | [TC-FR01-033.md](TC-FR01-033.md) |
+| TC-FR01-034 | [TC-FR01-034.md](TC-FR01-034.md) |
+| TC-FR01-035 | [TC-FR01-035.md](TC-FR01-035.md) |
+| TC-FR01-036 | [TC-FR01-036.md](TC-FR01-036.md) |
+| TC-FR01-037 | [TC-FR01-037.md](TC-FR01-037.md) |
+| TC-FR01-038 | [TC-FR01-038.md](TC-FR01-038.md) |
+| TC-FR01-039 | [TC-FR01-039.md](TC-FR01-039.md) |
+| TC-FR01-040 | [TC-FR01-040.md](TC-FR01-040.md) |

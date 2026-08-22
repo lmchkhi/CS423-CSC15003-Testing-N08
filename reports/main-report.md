@@ -220,7 +220,7 @@ Báo cáo: `api/newman/fr14-category-report.html`
 | Environment | `api/environments/local.postman_environment.json` |
 | Data files | `api/data/register-cases.json`, `checkout-cases.json`, `fr14-post-categories.csv` |
 | Newman HTML reports | `api/newman/fr01-register-report.html`, `fr08-checkout-report.html`, `fr08-state-report.html`, `fr14-category-report.html`, `fr14-lifecycle-report.html` |
-| Test cases (MD) | `test-cases/FR-{01,08,14}-*/ai-generated.md`, `audit.md`, `extended.md` |
+| Test cases (MD) | `test-cases/FR-{01,08,14}-*/ai-generated.md`, `audit.md`, `extended.md`; split files in `tests/test-cases/FR-{01,08,14}-*/TC-*.md` |
 | Test summary | `test-cases/test-summary.xlsx` (133 cases thiết kế, 233 assertions, 10 bugs) |
 | Bug reports | `bug-reports/BUG-FR{01,08,14}-*.md` |
 | CI/CD | `.github/workflows/hw06-newman.yml`, `reports/ci-cd-report.md` |

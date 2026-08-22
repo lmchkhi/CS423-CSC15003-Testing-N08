@@ -110,6 +110,7 @@ mỗi push. Hai run mẫu (pass / fail) và cấu hình: `reports/ci-cd-report.m
 | `api/newman/` | Newman HTML/JSON report — theo từng folder thực thi |
 | `api/scripts/` | `boot-sut.sh`, `run-api.sh`, `run-all.sh` |
 | `test-cases/FR-{01,08,14}-*/` | `ai-generated.md`, `audit.md`, `extended.md` |
+| `tests/test-cases/FR-{01,08,14}-*/` | File Markdown riêng cho từng test case (`TC-*.md`) |
 | `test-cases/test-summary.xlsx` | Bảng tổng hợp case + summary |
 | `reports/main-report.md` | Báo cáo chính (pipeline từng API) |
 | `reports/ci-cd-report.md` | Cấu hình pipeline + 2 run mẫu |
