@@ -363,3 +363,25 @@ tôi đã review và commit phase 10 rồi, bây giờ thực hiện phase 11 gi
 ```text
 Đã dùng skills hw06-api-testing, postman-newman-api-runner và hw06-ai-audit-log để thực hiện Phase 11. Đã tạo .github/workflows/newman-api-test.yml với trigger push chỉ cho branch hw06/23127475 và job-level guard github.ref == refs/heads/hw06/23127475. Đã tạo postman/hw06-ci-smoke.postman_collection.json để chạy Newman smoke pass, vì full FR03/FR09/FR17 bug-finding suites intentionally fail do bug thật. Workflow checkout repo, setup Node 20, npm ci trong backend, install newman/newman-reporter-htmlextra/wait-on, start backend bằng node server.js, wait /api/products, chạy Newman smoke và upload artifact hw06-newman-smoke-reports. Đã chạy local smoke Newman ngoài sandbox do sandbox EPERM localhost; kết quả 4 requests, 12 assertions, 0 failures, có X-Student-Id=23127475 trong CLI. Đã cập nhật reports/main-report.md section 7 với workflow path, branch scope, exact Newman command và local evidence. Chuẩn bị commit/push -u branch hw06/23127475; GitHub Actions pass URL sẽ lấy bằng gh nếu có thể.
 ```
+
+## Entry #17
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 20:11 GMT+7 |
+| **Artifact type** | Phase 12 intentional failing Newman CI run |
+
+**Full prompt:**
+
+```text
+bây giờ tiếp tục với phase 12, nhớ cập nhật lại url pass đã lấy từ phase 11 nữa
+```
+
+### (2) AI Output
+
+```text
+Đã dùng skills hw06-api-testing, postman-newman-api-runner và hw06-ai-audit-log để thực hiện Phase 12. Đã cập nhật reports/main-report.md section 7 với pass URL thật của Phase 11: https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32574378458. Đã tạo intentional fail bằng cách đổi đúng một assertion trong postman/hw06-ci-smoke.postman_collection.json: request CI-SMOKE-001 kỳ vọng HTTP 999 thay vì 200. Đã chạy Newman local ngoài sandbox do sandbox EPERM localhost; kết quả local fail đúng mục tiêu: 4 requests, 0 request failures, 12 assertions, 1 assertion failure, có X-Student-Id=23127475 trong CLI. Evidence local lưu tại reports/newman/hw06-ci-smoke-intentional-fail.html, reports/newman/hw06-ci-smoke-intentional-fail.json và reports/newman/hw06-ci-smoke-intentional-fail-cli.txt. Chuẩn bị commit/push Phase 12 để GitHub Actions tạo failing run thật; URL failing run sẽ lấy bằng gh sau khi push.
+```

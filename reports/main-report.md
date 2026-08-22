@@ -296,13 +296,13 @@ Trạng thái: Đã dùng cho FR-03, FR-09 và FR-17.
 | Data-driven runs | Một phần | Data files trong `postman/data/` dùng làm case map/traceability; collections chạy stateful per item để tránh token/state nhiễu nhau |
 | Newman CLI | Có | `reports/newman/hw06-fr03-reset-password-cli.txt`, `reports/newman/hw06-fr09-apply-coupon-cli.txt`, `reports/newman/hw06-fr17-admin-coupons-cli.txt` |
 | HTML/JSON reporters | Có | FR-03, FR-09 và FR-17 đều có HTML/JSON reports trong `reports/newman/` |
-| GitHub Actions CI | Chưa | Chưa có |
+| GitHub Actions CI | Có | `.github/workflows/newman-api-test.yml`; pass/fail evidence ở section 7 |
 | Workspaces | Chưa | Chưa có |
 | Monitors/mock servers | Chưa | Optional |
 
 ## 7. CI/CD report
 
-Trạng thái: Phase 11 đã thêm GitHub Actions workflow cho passing Newman smoke run trên đúng branch `hw06/23127475`. Full FR-03/FR-09/FR-17 bug-finding suites không dùng làm pass gate vì chúng intentionally fail để ghi nhận bugs thật; workflow pass dùng smoke collection để chứng minh checkout, backend startup, Newman CLI, reporters, artifacts và `X-Student-Id`.
+Trạng thái: Phase 11 đã thêm GitHub Actions workflow cho passing Newman smoke run trên đúng branch `hw06/23127475`. Phase 12 đổi một assertion status có chủ đích để tạo failing CI evidence. Full FR-03/FR-09/FR-17 bug-finding suites không dùng làm pass gate vì chúng intentionally fail để ghi nhận bugs thật; workflow pass dùng smoke collection để chứng minh checkout, backend startup, Newman CLI, reporters, artifacts và `X-Student-Id`.
 
 Workflow path: `.github/workflows/newman-api-test.yml`
 
@@ -327,8 +327,8 @@ newman run postman/hw06-ci-smoke.postman_collection.json \
 
 | Run type | Commit | Workflow URL | Result | Screenshot/evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
-| Passing run | Pending Phase 11 commit/push | Pending GitHub Actions run after push | Local smoke passed; CI pending | Local evidence: `reports/newman/hw06-ci-smoke.html`, `reports/newman/hw06-ci-smoke.json`, `reports/newman/hw06-ci-smoke-cli.txt`; expected artifact name `hw06-newman-smoke-reports` | Phase 11 |
-| Intentional failing run | Chưa có | Chưa có | Chưa có | Chưa có | Phase 12 |
+| Passing run | `93e35e6` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32574378458 | Passed | Local evidence: `reports/newman/hw06-ci-smoke.html`, `reports/newman/hw06-ci-smoke.json`, `reports/newman/hw06-ci-smoke-cli.txt`; uploaded artifact `hw06-newman-smoke-reports` | Phase 11 |
+| Intentional failing run | Phase 12 commit | URL sinh sau khi push Phase 12 | Local intentional fail confirmed; CI fail pending push | Intentional change: in `postman/hw06-ci-smoke.postman_collection.json`, request `CI-SMOKE-001` expects HTTP `999` instead of `200`; local evidence: `reports/newman/hw06-ci-smoke-intentional-fail.html`, `reports/newman/hw06-ci-smoke-intentional-fail.json`, `reports/newman/hw06-ci-smoke-intentional-fail-cli.txt` | Phase 12 |
 | Restored passing run | Chưa có | Chưa có | Chưa có | Chưa có | Phase 13 |
 
 ## 8. Bug reports
@@ -412,7 +412,7 @@ Trạng thái: Đã có số liệu execution cho FR-03, FR-09 và FR-17.
 | Postman environment/data files | Có FR-03, FR-09, FR-17 | `postman/hw06-local.postman_environment.json`, `postman/data/hw06-fr03-reset-password.data.json`, `postman/data/hw06-fr09-apply-coupon.data.json`, `postman/data/hw06-fr17-admin-coupons.data.json` |
 | Newman HTML reports | Có FR-03, FR-09, FR-17 | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr09-apply-coupon.html`, `reports/newman/hw06-fr17-admin-coupons.html` |
 | Postman feature list | Có FR-03, FR-09 | Section 6 |
-| CI/CD report | Chưa có | Section 7 |
+| CI/CD report | Đang làm | Section 7 có Phase 11 pass URL và Phase 12 intentional fail note |
 | Excel/test case table | Đang cập nhật; FR-03, FR-09 và FR-17 executed | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
 | AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
 | Bug reports/GitHub Issues | Có 3 bug reports FR-03 đã tạo issue; có 8 bug reports FR-09 đã tạo issue; có 6 bug reports FR-17 đã tạo issue | `reports/bug-reports/`, #268-#284 |
