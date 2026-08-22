@@ -1,0 +1,926 @@
+(node:79976) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+HW06 FR09 Apply Coupon API Tests
+
+❏ Domain
+↳ TC-FR09-API-DOM-001 - Apply SAVE10 percent coupon với total hợp lệ trên min
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-001 - Apply SAVE10 percent cou
+  │ pon với total hợp lệ trên min X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 13ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 2ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-DOM-001 status matches expected
+  ✓  TC-FR09-API-DOM-001 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-001 content type is JSON when body is present
+  1. TC-FR09-API-DOM-001 discount_amount matches expected
+  2. TC-FR09-API-DOM-001 final_amount matches expected
+
+↳ TC-FR09-API-DOM-002 - Apply BIGBUY fixed coupon ở đúng min_order_amount
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-002 - Apply BIGBUY fixed coupo
+  │ n ở đúng min_order_amount X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  3. TC-FR09-API-DOM-002 status matches expected
+  ✓  TC-FR09-API-DOM-002 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-002 content type is JSON when body is present
+
+↳ TC-FR09-API-DOM-003 - Apply VIP100 fixed coupon ở đúng min_order_amount
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-003 - Apply VIP100 fixed coupo
+  │ n ở đúng min_order_amount X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  4. TC-FR09-API-DOM-003 status matches expected
+  ✓  TC-FR09-API-DOM-003 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-003 content type is JSON when body is present
+
+↳ TC-FR09-API-DOM-004 - SAVE10 ở đúng ngưỡng tối thiểu
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-004 - SAVE10 ở đúng ngưỡng tối
+  │  thiểu X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  5. TC-FR09-API-DOM-004 status matches expected
+  ✓  TC-FR09-API-DOM-004 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-004 content type is JSON when body is present
+
+↳ TC-FR09-API-DOM-005 - SAVE10 thấp hơn min_order_amount 1 đơn vị
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-005 - SAVE10 thấp hơn min_orde
+  │ r_amount 1 đơn vị X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  ✓  TC-FR09-API-DOM-005 status matches expected
+  ✓  TC-FR09-API-DOM-005 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-005 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-005 response has message or error
+  ✓  TC-FR09-API-DOM-005 negative response does not return success discount fields
+
+↳ TC-FR09-API-DOM-006 - BIGBUY thấp hơn min_order_amount 1 đơn vị
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-006 - BIGBUY thấp hơn min_orde
+  │ r_amount 1 đơn vị X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  ✓  TC-FR09-API-DOM-006 status matches expected
+  ✓  TC-FR09-API-DOM-006 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-006 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-006 response has message or error
+  ✓  TC-FR09-API-DOM-006 negative response does not return success discount fields
+
+↳ TC-FR09-API-DOM-007 - EXPIRED coupon với total đủ cao vẫn bị reject
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-007 - EXPIRED coupon với total
+  │  đủ cao vẫn bị reject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 2ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 320B, 1ms]
+  ✓  TC-FR09-API-DOM-007 status matches expected
+  ✓  TC-FR09-API-DOM-007 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-007 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-007 response has message or error
+  ✓  TC-FR09-API-DOM-007 negative response does not return success discount fields
+
+↳ TC-FR09-API-DOM-008 - Unknown coupon code bị reject
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-008 - Unknown coupon code bị r
+  │ eject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 1ms]
+  ✓  TC-FR09-API-DOM-008 status matches expected
+  ✓  TC-FR09-API-DOM-008 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-008 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-008 response has message or error
+  ✓  TC-FR09-API-DOM-008 negative response does not return success discount fields
+
+↳ TC-FR09-API-DOM-009 - Thiếu field code
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-009 - Thiếu field code X-Stude
+  │ nt-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 320B, 1ms]
+  ✓  TC-FR09-API-DOM-009 status matches expected
+  ✓  TC-FR09-API-DOM-009 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-009 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-009 response has message or error
+
+↳ TC-FR09-API-DOM-010 - code là null
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-010 - code là null X-Student-I
+  │ d=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 320B, 1ms]
+  ✓  TC-FR09-API-DOM-010 status matches expected
+  ✓  TC-FR09-API-DOM-010 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-010 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-010 response has message or error
+
+↳ TC-FR09-API-DOM-011 - code là empty string
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-011 - code là empty string X-S
+  │ tudent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 320B, 0µs]
+  ✓  TC-FR09-API-DOM-011 status matches expected
+  ✓  TC-FR09-API-DOM-011 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-011 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-011 response has message or error
+
+↳ TC-FR09-API-DOM-012 - code là whitespace-only
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-012 - code là whitespace-only 
+  │ X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 1ms]
+  ✓  TC-FR09-API-DOM-012 status matches expected
+  ✓  TC-FR09-API-DOM-012 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-012 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-012 response has message or error
+
+↳ TC-FR09-API-DOM-013 - Lowercase coupon code save10 bị reject nếu code case-sensitive
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-013 - Lowercase coupon code sa
+  │ ve10 bị reject nếu code case-sensitive X-Student-Id=23
+  │ 127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 1ms]
+  ✓  TC-FR09-API-DOM-013 status matches expected
+  ✓  TC-FR09-API-DOM-013 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-013 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-013 response has message or error
+  ✓  TC-FR09-API-DOM-013 negative response does not return success discount fields
+
+↳ TC-FR09-API-DOM-014 - code sai kiểu number
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-014 - code sai kiểu number X-S
+  │ tudent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 0µs]
+  ✓  TC-FR09-API-DOM-014 status matches expected
+  ✓  TC-FR09-API-DOM-014 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-014 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-014 response has message or error
+
+↳ TC-FR09-API-DOM-015 - Thiếu total_amount
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-015 - Thiếu total_amount X-Stu
+  │ dent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 0µs]
+  ✓  TC-FR09-API-DOM-015 status matches expected
+  ✓  TC-FR09-API-DOM-015 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-015 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-015 response has message or error
+
+↳ TC-FR09-API-DOM-016 - total_amount là null
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-016 - total_amount là null X-S
+  │ tudent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 0µs]
+  ✓  TC-FR09-API-DOM-016 status matches expected
+  ✓  TC-FR09-API-DOM-016 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-016 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-016 response has message or error
+
+↳ TC-FR09-API-DOM-017 - total_amount bằng 0
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-017 - total_amount bằng 0 X-St
+  │ udent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 0µs]
+  ✓  TC-FR09-API-DOM-017 status matches expected
+  ✓  TC-FR09-API-DOM-017 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-017 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-017 response has message or error
+
+↳ TC-FR09-API-DOM-018 - total_amount âm
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-018 - total_amount âm X-Studen
+  │ t-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  ✓  TC-FR09-API-DOM-018 status matches expected
+  ✓  TC-FR09-API-DOM-018 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-018 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-018 response has message or error
+
+↳ TC-FR09-API-DOM-019 - total_amount sai kiểu string
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-019 - total_amount sai kiểu st
+  │ ring X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  6. TC-FR09-API-DOM-019 status matches expected
+  ✓  TC-FR09-API-DOM-019 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-019 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-019 response has message or error
+
+↳ TC-FR09-API-DOM-020 - Thiếu user_id
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-020 - Thiếu user_id X-Student-
+  │ Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 0µs]
+  7. TC-FR09-API-DOM-020 status matches expected
+  ✓  TC-FR09-API-DOM-020 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-020 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-020 response has message or error
+
+↳ TC-FR09-API-DOM-021 - Valid coupon code có whitespace đầu/cuối
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-021 - Valid coupon code có whi
+  │ tespace đầu/cuối X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 1ms]
+  ✓  TC-FR09-API-DOM-021 status matches expected
+  ✓  TC-FR09-API-DOM-021 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-021 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-021 response has message or error
+  ✓  TC-FR09-API-DOM-021 negative response does not return success discount fields
+
+↳ TC-FR09-API-DOM-022 - user_id là null
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-022 - user_id là null X-Studen
+  │ t-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 0µs]
+  8. TC-FR09-API-DOM-022 status matches expected
+  ✓  TC-FR09-API-DOM-022 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-022 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-022 response has message or error
+
+↳ TC-FR09-API-DOM-023 - user_id sai kiểu string numeric
+  ┌
+  │ '[HW06] TC-FR09-API-DOM-023 - user_id sai kiểu string 
+  │ numeric X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 0µs]
+  9. TC-FR09-API-DOM-023 status matches expected
+  ✓  TC-FR09-API-DOM-023 no unexpected 5xx
+  ✓  TC-FR09-API-DOM-023 content type is JSON when body is present
+  ✓  TC-FR09-API-DOM-023 response has message or error
+
+❏ Security
+↳ TC-FR09-API-SEC-001 - Thiếu Authorization header
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-001 - Thiếu Authorization head
+  │ er X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 2ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+ 10. TC-FR09-API-SEC-001 status matches expected
+  ✓  TC-FR09-API-SEC-001 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-001 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-001 response has message or error
+ 11. TC-FR09-API-SEC-001 negative response does not return success discount fields
+
+↳ TC-FR09-API-SEC-002 - Authorization header malformed: Bearer không có token
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-002 - Authorization header mal
+  │ formed: Bearer không có token X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+ 12. TC-FR09-API-SEC-002 status matches expected
+  ✓  TC-FR09-API-SEC-002 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-002 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-002 response has message or error
+
+↳ TC-FR09-API-SEC-003 - JWT token invalid
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-003 - JWT token invalid X-Stud
+  │ ent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 0µs]
+ 13. TC-FR09-API-SEC-003 status matches expected
+  ✓  TC-FR09-API-SEC-003 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-003 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-003 response has message or error
+
+↳ TC-FR09-API-SEC-004 - Body user_id thuộc user khác bị reject
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-004 - Body user_id thuộc user 
+  │ khác bị reject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+ 14. TC-FR09-API-SEC-004 status matches expected
+  ✓  TC-FR09-API-SEC-004 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-004 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-004 response has message or error
+ 15. TC-FR09-API-SEC-004 negative response does not return success discount fields
+
+↳ TC-FR09-API-SEC-005 - SQL injection payload trong code không gây 500/leak
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-005 - SQL injection payload tr
+  │ ong code không gây 500/leak X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 1ms]
+  ✓  TC-FR09-API-SEC-005 status matches expected
+  ✓  TC-FR09-API-SEC-005 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-005 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-005 response has message or error
+  ✓  TC-FR09-API-SEC-005 response does not expose stack/sql internals
+
+↳ TC-FR09-API-SEC-006 - SQL injection-like payload trong user_id không gây 500/leak
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-006 - SQL injection-like paylo
+  │ ad trong user_id không gây 500/leak X-Student-Id=23127
+  │ 475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+ 16. TC-FR09-API-SEC-006 status matches expected
+  ✓  TC-FR09-API-SEC-006 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-006 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-006 response has message or error
+  ✓  TC-FR09-API-SEC-006 response does not expose stack/sql internals
+
+↳ TC-FR09-API-SEC-007 - XSS-like payload trong code không reflect nguy hiểm
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-007 - XSS-like payload trong c
+  │ ode không reflect nguy hiểm X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 1ms]
+  ✓  TC-FR09-API-SEC-007 status matches expected
+  ✓  TC-FR09-API-SEC-007 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-007 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-007 response has message or error
+  ✓  TC-FR09-API-SEC-007 response does not reflect executable script payload
+
+↳ TC-FR09-API-SEC-008 - Extra role field không escalation privilege
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-008 - Extra role field không e
+  │ scalation privilege X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-SEC-008 status matches expected
+  ✓  TC-FR09-API-SEC-008 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-008 content type is JSON when body is present
+ 17. TC-FR09-API-SEC-008 accepted extra fields keep normal discount calculation
+  ✓  TC-FR09-API-SEC-008 response does not leak token/password/role
+
+↳ TC-FR09-API-SEC-009 - Success response không leak token/password/role
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-009 - Success response không l
+  │ eak token/password/role X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 399B, 1ms]
+  ✓  TC-FR09-API-SEC-009 status matches expected
+  ✓  TC-FR09-API-SEC-009 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-009 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-009 discount_amount matches expected
+  ✓  TC-FR09-API-SEC-009 final_amount matches expected
+  ✓  TC-FR09-API-SEC-009 response does not leak token/password/role
+
+↳ TC-FR09-API-SEC-010 - Token không có Bearer prefix bị reject
+  ┌
+  │ '[HW06] TC-FR09-API-SEC-010 - Token không có Bearer pr
+  │ efix bị reject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 677B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+ 18. TC-FR09-API-SEC-010 status matches expected
+  ✓  TC-FR09-API-SEC-010 no unexpected 5xx
+  ✓  TC-FR09-API-SEC-010 content type is JSON when body is present
+  ✓  TC-FR09-API-SEC-010 response has message or error
+
+❏ Workflow/State
+↳ TC-FR09-API-WF-001 - SAVE10 không reuse được bởi cùng user sau khi dùng thành công
+  ┌
+  │ '[HW06] TC-FR09-API-WF-001 - SAVE10 không reuse được b
+  │ ởi cùng user sau khi dùng thành công X-Student-Id=2312
+  │ 7475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+ 19. TC-FR09-API-WF-001 status matches expected
+  ✓  TC-FR09-API-WF-001 no unexpected 5xx
+  ✓  TC-FR09-API-WF-001 content type is JSON when body is present
+  ✓  TC-FR09-API-WF-001 response has message or error
+ 20. TC-FR09-API-WF-001 negative response does not return success discount fields
+  ✓  TC-FR09-API-WF-001 pre-apply status #1 matches expected
+
+↳ TC-FR09-API-WF-002 - VIP100 lần dùng thứ nhất thành công
+  ┌
+  │ '[HW06] TC-FR09-API-WF-002 - VIP100 lần dùng thứ nhất 
+  │ thành công X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 401B, 2ms]
+  ✓  TC-FR09-API-WF-002 status matches expected
+  ✓  TC-FR09-API-WF-002 no unexpected 5xx
+  ✓  TC-FR09-API-WF-002 content type is JSON when body is present
+  ✓  TC-FR09-API-WF-002 discount_amount matches expected
+  ✓  TC-FR09-API-WF-002 final_amount matches expected
+
+↳ TC-FR09-API-WF-003 - VIP100 lần dùng thứ hai cùng user vẫn thành công
+  ┌
+  │ '[HW06] TC-FR09-API-WF-003 - VIP100 lần dùng thứ hai c
+  │ ùng user vẫn thành công X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 3ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 401B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 401B, 2ms]
+  ✓  TC-FR09-API-WF-003 status matches expected
+  ✓  TC-FR09-API-WF-003 no unexpected 5xx
+  ✓  TC-FR09-API-WF-003 content type is JSON when body is present
+  ✓  TC-FR09-API-WF-003 discount_amount matches expected
+  ✓  TC-FR09-API-WF-003 final_amount matches expected
+  ✓  TC-FR09-API-WF-003 pre-apply status #1 matches expected
+
+↳ TC-FR09-API-WF-004 - VIP100 lần dùng thứ ba cùng user bị reject
+  ┌
+  │ '[HW06] TC-FR09-API-WF-004 - VIP100 lần dùng thứ ba cù
+  │ ng user bị reject X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 401B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 401B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 401B, 1ms]
+ 21. TC-FR09-API-WF-004 status matches expected
+  ✓  TC-FR09-API-WF-004 no unexpected 5xx
+  ✓  TC-FR09-API-WF-004 content type is JSON when body is present
+  ✓  TC-FR09-API-WF-004 response has message or error
+  ✓  TC-FR09-API-WF-004 pre-apply status #1 matches expected
+  ✓  TC-FR09-API-WF-004 pre-apply status #2 matches expected
+
+↳ TC-FR09-API-WF-005 - Usage limit tính theo từng user, không phải global
+  ┌
+  │ '[HW06] TC-FR09-API-WF-005 - Usage limit tính theo từn
+  │ g user, không phải global X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/register [200 OK, 317B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-WF-005 status matches expected
+  ✓  TC-FR09-API-WF-005 no unexpected 5xx
+  ✓  TC-FR09-API-WF-005 content type is JSON when body is present
+ 22. TC-FR09-API-WF-005 discount_amount matches expected
+ 23. TC-FR09-API-WF-005 final_amount matches expected
+  ✓  TC-FR09-API-WF-005 pre-apply status #1 matches expected
+
+↳ TC-FR09-API-WF-006 - Failed below-min attempt không consume usage
+  ┌
+  │ '[HW06] TC-FR09-API-WF-006 - Failed below-min attempt 
+  │ không consume usage X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 374B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-WF-006 status matches expected
+  ✓  TC-FR09-API-WF-006 no unexpected 5xx
+  ✓  TC-FR09-API-WF-006 content type is JSON when body is present
+ 24. TC-FR09-API-WF-006 discount_amount matches expected
+ 25. TC-FR09-API-WF-006 final_amount matches expected
+  ✓  TC-FR09-API-WF-006 pre-apply status #1 matches expected
+
+↳ TC-FR09-API-WF-007 - Failed unknown-code attempt không ảnh hưởng valid coupon use
+  ┌
+  │ '[HW06] TC-FR09-API-WF-007 - Failed unknown-code attem
+  │ pt không ảnh hưởng valid coupon use X-Student-Id=23127
+  │ 475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 317B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 676B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [404 Not Found, 353B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-WF-007 status matches expected
+  ✓  TC-FR09-API-WF-007 no unexpected 5xx
+  ✓  TC-FR09-API-WF-007 content type is JSON when body is present
+ 26. TC-FR09-API-WF-007 discount_amount matches expected
+ 27. TC-FR09-API-WF-007 final_amount matches expected
+  ✓  TC-FR09-API-WF-007 pre-apply status #1 matches expected
+
+↳ TC-FR09-API-WF-008 - IDOR rejection không consume quota của real owner
+  ┌
+  │ '[HW06] TC-FR09-API-WF-008 - IDOR rejection không cons
+  │ ume quota của real owner X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 678B, 1ms]
+  POST http://localhost:3000/api/register [200 OK, 318B, 1ms]
+  POST http://localhost:3000/api/login [200 OK, 678B, 0µs]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-WF-008 status matches expected
+  ✓  TC-FR09-API-WF-008 no unexpected 5xx
+  ✓  TC-FR09-API-WF-008 content type is JSON when body is present
+ 28. TC-FR09-API-WF-008 discount_amount matches expected
+ 29. TC-FR09-API-WF-008 final_amount matches expected
+ 30. TC-FR09-API-WF-008 pre-apply status #1 matches expected
+
+❏ Schema Validation
+↳ TC-FR09-API-SCH-001 - Success response có Content-Type JSON
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-001 - Success response có Cont
+  │ ent-Type JSON X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 399B, 1ms]
+  ✓  TC-FR09-API-SCH-001 status matches expected
+  ✓  TC-FR09-API-SCH-001 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-001 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-001 discount_amount matches expected
+  ✓  TC-FR09-API-SCH-001 final_amount matches expected
+
+↳ TC-FR09-API-SCH-002 - Success response có discount_amount/final_amount dạng number
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-002 - Success response có disc
+  │ ount_amount/final_amount dạng number X-Student-Id=2312
+  │ 7475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 399B, 1ms]
+  ✓  TC-FR09-API-SCH-002 status matches expected
+  ✓  TC-FR09-API-SCH-002 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-002 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-002 discount_amount matches expected
+  ✓  TC-FR09-API-SCH-002 final_amount matches expected
+  ✓  TC-FR09-API-SCH-002 discount_amount and final_amount are numbers
+
+↳ TC-FR09-API-SCH-003 - Percent coupon calculation dùng input cho kết quả nguyên
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-003 - Percent coupon calculati
+  │ on dùng input cho kết quả nguyên X-Student-Id=23127475
+  │ '
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 396B, 1ms]
+  ✓  TC-FR09-API-SCH-003 status matches expected
+  ✓  TC-FR09-API-SCH-003 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-003 content type is JSON when body is present
+ 31. TC-FR09-API-SCH-003 discount_amount matches expected
+ 32. TC-FR09-API-SCH-003 final_amount matches expected
+
+↳ TC-FR09-API-SCH-004 - Fixed coupon calculation exact với total lớn hơn min
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-004 - Fixed coupon calculation
+  │  exact với total lớn hơn min X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 399B, 1ms]
+  ✓  TC-FR09-API-SCH-004 status matches expected
+  ✓  TC-FR09-API-SCH-004 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-004 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-004 discount_amount matches expected
+  ✓  TC-FR09-API-SCH-004 final_amount matches expected
+
+↳ TC-FR09-API-SCH-005 - Error response cho missing code có shape an toàn
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-005 - Error response cho missi
+  │ ng code có shape an toàn X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 320B, 1ms]
+  ✓  TC-FR09-API-SCH-005 status matches expected
+  ✓  TC-FR09-API-SCH-005 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-005 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-005 response has message or error
+  ✓  TC-FR09-API-SCH-005 response does not expose stack/sql internals
+
+↳ TC-FR09-API-SCH-006 - GET /api/apply-coupon không thành công
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-006 - GET /api/apply-coupon kh
+  │ ông thành công X-Student-Id=23127475'
+  └
+  GET http://localhost:3000/api/apply-coupon [404 Not Found, 459B, 2ms]
+  ✓  TC-FR09-API-SCH-006 status matches expected
+  ✓  TC-FR09-API-SCH-006 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-006 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-006 negative response does not return success discount fields
+
+↳ TC-FR09-API-SCH-007 - Malformed JSON body trả client error không leak stack
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-007 - Malformed JSON body trả 
+  │ client error không leak stack X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [400 Bad Request, 1.57kB, 0µs]
+  ✓  TC-FR09-API-SCH-007 status matches expected
+  ✓  TC-FR09-API-SCH-007 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-007 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-007 response does not expose stack/sql internals
+
+↳ TC-FR09-API-SCH-008 - Valid coupon response time dưới 1000ms
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-008 - Valid coupon response ti
+  │ me dưới 1000ms X-Student-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 399B, 1ms]
+  ✓  TC-FR09-API-SCH-008 status matches expected
+  ✓  TC-FR09-API-SCH-008 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-008 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-008 response time below 1000ms
+  ✓  TC-FR09-API-SCH-008 discount_amount matches expected
+  ✓  TC-FR09-API-SCH-008 final_amount matches expected
+
+↳ TC-FR09-API-SCH-009 - Content-Type text/plain cho JSON-looking body không được xử lý như success
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-009 - Content-Type text/plain 
+  │ cho JSON-looking body không được xử lý như success X-S
+  │ tudent-Id=23127475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [500 Internal Server Error, 1.86kB, 1ms]
+ 33. TC-FR09-API-SCH-009 status matches expected
+ 34. TC-FR09-API-SCH-009 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-009 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-009 negative response does not return success discount fields
+
+↳ TC-FR09-API-SCH-010 - Success response không expose internal coupon config fields
+  ┌
+  │ '[HW06] TC-FR09-API-SCH-010 - Success response không e
+  │ xpose internal coupon config fields X-Student-Id=23127
+  │ 475'
+  └
+  POST http://localhost:3000/api/register [200 OK, 318B, 2ms]
+  POST http://localhost:3000/api/login [200 OK, 679B, 1ms]
+  POST http://localhost:3000/api/apply-coupon [200 OK, 399B, 1ms]
+  ✓  TC-FR09-API-SCH-010 status matches expected
+  ✓  TC-FR09-API-SCH-010 no unexpected 5xx
+  ✓  TC-FR09-API-SCH-010 content type is JSON when body is present
+  ✓  TC-FR09-API-SCH-010 discount_amount matches expected
+  ✓  TC-FR09-API-SCH-010 final_amount matches expected
+ 35. TC-FR09-API-SCH-010 response does not expose internal coupon config fields
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │             165 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              51 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │             102 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             241 │              35 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 1057ms                                  │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 33.36kB (approx)                       │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 1ms [min: 1ms, max: 13ms, s.d.: 1ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m   # [39m[31m failure        [39m[31m detail                                                                                                                        [39m
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 01.  AssertionError  TC-FR09-API-DOM-001 discount_amount matches expected                                                                          
+                      expected -4500000 to equal 50000                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-001 - Apply SAVE10 percent coupon với total hợp lệ trên min"                                 
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 02.  AssertionError  TC-FR09-API-DOM-001 final_amount matches expected                                                                             
+                      expected 5000000 to equal 450000                                                                                              
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-001 - Apply SAVE10 percent coupon với total hợp lệ trên min"                                 
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 03.  AssertionError  TC-FR09-API-DOM-002 status matches expected                                                                                   
+                      expected 200, got 400: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-002 - Apply BIGBUY fixed coupon ở đúng min_order_amount"                                     
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 04.  AssertionError  TC-FR09-API-DOM-003 status matches expected                                                                                   
+                      expected 200, got 400: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-003 - Apply VIP100 fixed coupon ở đúng min_order_amount"                                     
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 05.  AssertionError  TC-FR09-API-DOM-004 status matches expected                                                                                   
+                      expected 200, got 400: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-004 - SAVE10 ở đúng ngưỡng tối thiểu"                                                        
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 06.  AssertionError  TC-FR09-API-DOM-019 status matches expected                                                                                   
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-019 - total_amount sai kiểu string"                                                          
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 07.  AssertionError  TC-FR09-API-DOM-020 status matches expected                                                                                   
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-020 - Thiếu user_id"                                                                         
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 08.  AssertionError  TC-FR09-API-DOM-022 status matches expected                                                                                   
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-022 - user_id là null"                                                                       
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 09.  AssertionError  TC-FR09-API-DOM-023 status matches expected                                                                                   
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Domain / TC-FR09-API-DOM-023 - user_id sai kiểu string numeric"                                                       
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 10.  AssertionError  TC-FR09-API-SEC-001 status matches expected                                                                                   
+                      expected 401, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-001 - Thiếu Authorization header"                                                          
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 11.  AssertionError  TC-FR09-API-SEC-001 negative response does not return success discount fields                                                 
+                      success true: expected true to not equal true                                                                                 
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-001 - Thiếu Authorization header"                                                          
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 12.  AssertionError  TC-FR09-API-SEC-002 status matches expected                                                                                   
+                      expected 401, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-002 - Authorization header malformed: Bearer không có token"                               
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 13.  AssertionError  TC-FR09-API-SEC-003 status matches expected                                                                                   
+                      expected 401, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-003 - JWT token invalid"                                                                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 14.  AssertionError  TC-FR09-API-SEC-004 status matches expected                                                                                   
+                      expected "4xx", got 200: expected false to equal true                                                                         
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-004 - Body user_id thuộc user khác bị reject"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 15.  AssertionError  TC-FR09-API-SEC-004 negative response does not return success discount fields                                                 
+                      success true: expected true to not equal true                                                                                 
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-004 - Body user_id thuộc user khác bị reject"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 16.  AssertionError  TC-FR09-API-SEC-006 status matches expected                                                                                   
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-006 - SQL injection-like payload trong user_id không gây 500/leak"                         
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 17.  AssertionError  TC-FR09-API-SEC-008 accepted extra fields keep normal discount calculation                                                    
+                      expected -4500000 to equal 50000                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-008 - Extra role field không escalation privilege"                                         
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 18.  AssertionError  TC-FR09-API-SEC-010 status matches expected                                                                                   
+                      expected 401, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Security / TC-FR09-API-SEC-010 - Token không có Bearer prefix bị reject"                                              
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 19.  AssertionError  TC-FR09-API-WF-001 status matches expected                                                                                    
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-001 - SAVE10 không reuse được bởi cùng user sau khi dùng thành công"                  
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 20.  AssertionError  TC-FR09-API-WF-001 negative response does not return success discount fields                                                  
+                      success true: expected true to not equal true                                                                                 
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-001 - SAVE10 không reuse được bởi cùng user sau khi dùng thành công"                  
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 21.  AssertionError  TC-FR09-API-WF-004 status matches expected                                                                                    
+                      expected 400, got 200: expected false to equal true                                                                           
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-004 - VIP100 lần dùng thứ ba cùng user bị reject"                                     
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 22.  AssertionError  TC-FR09-API-WF-005 discount_amount matches expected                                                                           
+                      expected -4500000 to equal 50000                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-005 - Usage limit tính theo từng user, không phải global"                             
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 23.  AssertionError  TC-FR09-API-WF-005 final_amount matches expected                                                                              
+                      expected 5000000 to equal 450000                                                                                              
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-005 - Usage limit tính theo từng user, không phải global"                             
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 24.  AssertionError  TC-FR09-API-WF-006 discount_amount matches expected                                                                           
+                      expected -4500000 to equal 50000                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-006 - Failed below-min attempt không consume usage"                                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 25.  AssertionError  TC-FR09-API-WF-006 final_amount matches expected                                                                              
+                      expected 5000000 to equal 450000                                                                                              
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-006 - Failed below-min attempt không consume usage"                                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 26.  AssertionError  TC-FR09-API-WF-007 discount_amount matches expected                                                                           
+                      expected -4500000 to equal 50000                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-007 - Failed unknown-code attempt không ảnh hưởng valid coupon use"                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 27.  AssertionError  TC-FR09-API-WF-007 final_amount matches expected                                                                              
+                      expected 5000000 to equal 450000                                                                                              
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-007 - Failed unknown-code attempt không ảnh hưởng valid coupon use"                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 28.  AssertionError  TC-FR09-API-WF-008 discount_amount matches expected                                                                           
+                      expected -4500000 to equal 50000                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-008 - IDOR rejection không consume quota của real owner"                              
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 29.  AssertionError  TC-FR09-API-WF-008 final_amount matches expected                                                                              
+                      expected 5000000 to equal 450000                                                                                              
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-008 - IDOR rejection không consume quota của real owner"                              
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 30.  AssertionError  TC-FR09-API-WF-008 pre-apply status #1 matches expected                                                                       
+                      expected pre status 4xx, got 200: expected false to equal true                                                                
+                      at assertion:5 in test-script                                                                                                 
+                      inside "Workflow/State / TC-FR09-API-WF-008 - IDOR rejection không consume quota của real owner"                              
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 31.  AssertionError  TC-FR09-API-SCH-003 discount_amount matches expected                                                                          
+                      expected -2999970 to equal 33333                                                                                              
+                      at assertion:3 in test-script                                                                                                 
+                      inside "Schema Validation / TC-FR09-API-SCH-003 - Percent coupon calculation dùng input cho kết quả nguyên"                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 32.  AssertionError  TC-FR09-API-SCH-003 final_amount matches expected                                                                             
+                      expected 3333300 to equal 299997                                                                                              
+                      at assertion:4 in test-script                                                                                                 
+                      inside "Schema Validation / TC-FR09-API-SCH-003 - Percent coupon calculation dùng input cho kết quả nguyên"                   
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 33.  AssertionError  TC-FR09-API-SCH-009 status matches expected                                                                                   
+                      expected [400,415], got 500: expected false to equal true                                                                     
+                      at assertion:0 in test-script                                                                                                 
+                      inside "Schema Validation / TC-FR09-API-SCH-009 - Content-Type text/plain cho JSON-looking body không được xử lý như success" 
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 34.  AssertionError  TC-FR09-API-SCH-009 no unexpected 5xx                                                                                         
+                      expected 500 to be below 500                                                                                                  
+                      at assertion:1 in test-script                                                                                                 
+                      inside "Schema Validation / TC-FR09-API-SCH-009 - Content-Type text/plain cho JSON-looking body không được xử lý như success" 
+[90m     [39m[90m                [39m[90m                                                                                                                               [39m
+ 35.  AssertionError  TC-FR09-API-SCH-010 response does not expose internal coupon config fields                                                    
+                      expected { success: true, coupon_id: 2, …(3) } to not have property 'coupon_id'                                               
+                      at assertion:5 in test-script                                                                                                 
+                      inside "Schema Validation / TC-FR09-API-SCH-010 - Success response không expose internal coupon config fields"                

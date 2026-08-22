@@ -1,0 +1,621 @@
+[
+  {
+    "tc_id": "TC-FR09-API-DOM-001",
+    "group": "Domain",
+    "description": "Apply SAVE10 percent coupon với total hợp lệ trên min",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-002",
+    "group": "Domain",
+    "description": "Apply BIGBUY fixed coupon ở đúng min_order_amount",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-003",
+    "group": "Domain",
+    "description": "Apply VIP100 fixed coupon ở đúng min_order_amount",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 100000,
+        "final": 200000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-004",
+    "group": "Domain",
+    "description": "SAVE10 ở đúng ngưỡng tối thiểu",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 30000,
+        "final": 270000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-005",
+    "group": "Domain",
+    "description": "SAVE10 thấp hơn min_order_amount 1 đơn vị",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-006",
+    "group": "Domain",
+    "description": "BIGBUY thấp hơn min_order_amount 1 đơn vị",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-007",
+    "group": "Domain",
+    "description": "EXPIRED coupon với total đủ cao vẫn bị reject",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-008",
+    "group": "Domain",
+    "description": "Unknown coupon code bị reject",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-009",
+    "group": "Domain",
+    "description": "Thiếu field code",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-010",
+    "group": "Domain",
+    "description": "code là null",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-011",
+    "group": "Domain",
+    "description": "code là empty string",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-012",
+    "group": "Domain",
+    "description": "code là whitespace-only",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-013",
+    "group": "Domain",
+    "description": "Lowercase coupon code save10 bị reject nếu code case-sensitive",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-014",
+    "group": "Domain",
+    "description": "code sai kiểu number",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-015",
+    "group": "Domain",
+    "description": "Thiếu total_amount",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-016",
+    "group": "Domain",
+    "description": "total_amount là null",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-017",
+    "group": "Domain",
+    "description": "total_amount bằng 0",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-018",
+    "group": "Domain",
+    "description": "total_amount âm",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "noNegativeFinal": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-019",
+    "group": "Domain",
+    "description": "total_amount sai kiểu string",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-020",
+    "group": "Domain",
+    "description": "Thiếu user_id",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-021",
+    "group": "Domain",
+    "description": "Valid coupon code có whitespace đầu/cuối",
+    "source": "Human",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-022",
+    "group": "Domain",
+    "description": "user_id là null",
+    "source": "Human",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-DOM-023",
+    "group": "Domain",
+    "description": "user_id sai kiểu string numeric",
+    "source": "Human",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-001",
+    "group": "Security",
+    "description": "Thiếu Authorization header",
+    "source": "AI",
+    "expectedStatus": 401,
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-002",
+    "group": "Security",
+    "description": "Authorization header malformed: Bearer không có token",
+    "source": "AI",
+    "expectedStatus": 401,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-003",
+    "group": "Security",
+    "description": "JWT token invalid",
+    "source": "AI",
+    "expectedStatus": 401,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-004",
+    "group": "Security",
+    "description": "Body user_id thuộc user khác bị reject",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true,
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-005",
+    "group": "Security",
+    "description": "SQL injection payload trong code không gây 500/leak",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true,
+      "noStack": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-006",
+    "group": "Security",
+    "description": "SQL injection-like payload trong user_id không gây 500/leak",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "noStack": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-007",
+    "group": "Security",
+    "description": "XSS-like payload trong code không reflect nguy hiểm",
+    "source": "AI",
+    "expectedStatus": "4xx",
+    "assertions": {
+      "error": true,
+      "noScriptReflect": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-008",
+    "group": "Security",
+    "description": "Extra role field không escalation privilege",
+    "source": "AI",
+    "expectedStatus": [
+      200,
+      400
+    ],
+    "assertions": {
+      "noSensitive": true,
+      "calcIf200": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-009",
+    "group": "Security",
+    "description": "Success response không leak token/password/role",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "noSensitive": true,
+      "calc": {
+        "discount": 50000,
+        "final": 550000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SEC-010",
+    "group": "Security",
+    "description": "Token không có Bearer prefix bị reject",
+    "source": "Human",
+    "expectedStatus": 401,
+    "assertions": {
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-001",
+    "group": "Workflow/State",
+    "description": "SAVE10 không reuse được bởi cùng user sau khi dùng thành công",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "preStatuses": [
+        200
+      ],
+      "noSuccessDiscount": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-002",
+    "group": "Workflow/State",
+    "description": "VIP100 lần dùng thứ nhất thành công",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 100000,
+        "final": 400000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-003",
+    "group": "Workflow/State",
+    "description": "VIP100 lần dùng thứ hai cùng user vẫn thành công",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "preStatuses": [
+        200
+      ],
+      "calc": {
+        "discount": 100000,
+        "final": 400000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-004",
+    "group": "Workflow/State",
+    "description": "VIP100 lần dùng thứ ba cùng user bị reject",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "preStatuses": [
+        200,
+        200
+      ],
+      "error": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-005",
+    "group": "Workflow/State",
+    "description": "Usage limit tính theo từng user, không phải global",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "preStatuses": [
+        200
+      ],
+      "calc": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-006",
+    "group": "Workflow/State",
+    "description": "Failed below-min attempt không consume usage",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "preStatuses": [
+        400
+      ],
+      "calc": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-007",
+    "group": "Workflow/State",
+    "description": "Failed unknown-code attempt không ảnh hưởng valid coupon use",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "preStatuses": [
+        "4xx"
+      ],
+      "calc": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-WF-008",
+    "group": "Workflow/State",
+    "description": "IDOR rejection không consume quota của real owner",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "preStatuses": [
+        "4xx"
+      ],
+      "calc": {
+        "discount": 50000,
+        "final": 450000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-001",
+    "group": "Schema Validation",
+    "description": "Success response có Content-Type JSON",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "jsonContent": true,
+      "calc": {
+        "discount": 50000,
+        "final": 550000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-002",
+    "group": "Schema Validation",
+    "description": "Success response có discount_amount/final_amount dạng number",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "numericFields": true,
+      "calc": {
+        "discount": 50000,
+        "final": 550000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-003",
+    "group": "Schema Validation",
+    "description": "Percent coupon calculation dùng input cho kết quả nguyên",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 33333,
+        "final": 299997
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-004",
+    "group": "Schema Validation",
+    "description": "Fixed coupon calculation exact với total lớn hơn min",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 50000,
+        "final": 550000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-005",
+    "group": "Schema Validation",
+    "description": "Error response cho missing code có shape an toàn",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "error": true,
+      "noStack": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-006",
+    "group": "Schema Validation",
+    "description": "GET /api/apply-coupon không thành công",
+    "source": "AI",
+    "expectedStatus": [
+      404,
+      405
+    ],
+    "assertions": {
+      "noSuccessDiscount": true,
+      "allowNonJson": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-007",
+    "group": "Schema Validation",
+    "description": "Malformed JSON body trả client error không leak stack",
+    "source": "AI",
+    "expectedStatus": 400,
+    "assertions": {
+      "noStack": true,
+      "allowNonJson": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-008",
+    "group": "Schema Validation",
+    "description": "Valid coupon response time dưới 1000ms",
+    "source": "AI",
+    "expectedStatus": 200,
+    "assertions": {
+      "responseTime": true,
+      "calc": {
+        "discount": 50000,
+        "final": 550000
+      }
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-009",
+    "group": "Schema Validation",
+    "description": "Content-Type text/plain cho JSON-looking body không được xử lý như success",
+    "source": "Human",
+    "expectedStatus": [
+      400,
+      415
+    ],
+    "assertions": {
+      "no5xx": true,
+      "noSuccessDiscount": true,
+      "allowNonJson": true
+    }
+  },
+  {
+    "tc_id": "TC-FR09-API-SCH-010",
+    "group": "Schema Validation",
+    "description": "Success response không expose internal coupon config fields",
+    "source": "Human",
+    "expectedStatus": 200,
+    "assertions": {
+      "calc": {
+        "discount": 50000,
+        "final": 550000
+      },
+      "noInternalCoupon": true
+    }
+  }
+]

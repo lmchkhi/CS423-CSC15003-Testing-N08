@@ -209,3 +209,47 @@ tôi đã review và commit rồi, bây giờ dựa vào plan và thực hiện 
 ```text
 Đã thực hiện Phase 05 theo reports/hw06-execution-plan.md, không commit và không dùng source code. Đã dùng các skill hw06-api-testing, eshop-api-test-generator và hw06-ai-audit-log; đọc blackbox context từ README.md, api_specification.md và skill references. Đã tạo reports/ai-generated/fr09-apply-coupon-raw-test-cases.md gồm 46 raw cases cho FR-09 POST /api/apply-coupon: 20 Domain, 10 Security, 8 Workflow/State, 8 Schema. Bộ raw cases cover C1-C5, sample coupons SAVE10/BIGBUY/VIP100/EXPIRED, percent/fixed formula, JWT auth, IDOR user_id mismatch, SQLi/XSS, response schema discount_amount/final_amount và các assumptions cần Phase 06 audit. Đã cập nhật reports/main-report.md và reports/hw06-test-cases.md để trỏ raw artifact, summary counts và trạng thái Phase 05. Chưa audit, chưa tạo per-test-case Markdown final files, chưa tạo Postman/Newman artifacts, chưa tạo bug report/GitHub Issue.
 ```
+
+## Entry #10
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 17:44 GMT+7 |
+| **Artifact type** | Phase 07 FR-09 Postman/Newman execution and bug reports |
+
+**Full prompt:**
+
+```text
+tôi đã chạy backend ở [http://localhost:3000](http://localhost:3000) sẵn rồi, bây giờ dựa vào plan và các skill để thực hiện phase 7 giúp tôi. nếu trong sandbox có lỗi gì về quyền thì yêu cầu quyền từ tôi để chạy. nhớ xong thì ghi ai audit nữa. không tự ý commit, khi xong tôi sẽ xem lại và kiểm tra rồi chỉnh sửa nếu cần thiết, xong sau đó nếu được thì tôi sẽ yêu cầu tạo github issue.
+```
+
+### (2) AI Output
+
+```text
+Đã dùng các skill HW06 API testing, Postman/Newman runner, bug report và AI audit để thực hiện Phase 07 cho FR-09 POST /api/apply-coupon theo blackbox. Đã tạo/cập nhật Postman collection, data file và environment; chạy Newman thật trên http://localhost:3000 với X-Student-Id=23127475; lưu HTML/JSON/CLI reports trong reports/newman. Kết quả: 51 test cases executed, 27 passed, 24 failed; 165 requests, 0 request failure; 241 assertions, 35 failed. Đã phân loại failures và tạo 8 Markdown bug reports BUG-FR09-API-001 đến BUG-FR09-API-008 trong reports/bug-reports, tất cả ghi GitHub Issue là Pending student approval. Đã cập nhật reports/hw06-test-cases.md, reports/main-report.md và 51 per-test-case Markdown files với execution result/evidence. Không tạo GitHub Issue và không commit.
+```
+
+## Entry #11
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 18:06 GMT+7 |
+| **Artifact type** | FR-09 bug reports to GitHub Issues |
+
+**Full prompt:**
+
+```text
+tôi đã xem qua rồi, bây giờ tạo gh issue giúp tôi đi
+```
+
+### (2) AI Output
+
+```text
+Đã dùng skill gh-create-bug-issues để tạo GitHub Issues từ 8 Markdown bug reports FR-09 trong reports/bug-reports. Đã kiểm tra gh auth status, xác định repo lmchkhi/CS423-CSC15003-Testing-N08, đọc label list --limit 100 và dùng các label hiện có: Type: Bug, Status: New, Module:COUPON, Priority P1/P2, Severity Major/Critical. Đã tạo issues #271 đến #278: BUG-FR09-API-001 -> #271, BUG-FR09-API-002 -> #272, BUG-FR09-API-003 -> #273, BUG-FR09-API-004 -> #274, BUG-FR09-API-005 -> #275, BUG-FR09-API-006 -> #276, BUG-FR09-API-007 -> #277, BUG-FR09-API-008 -> #278. Đã verify issues đang OPEN và có đủ label bắt buộc, cập nhật URL thật vào từng bug report và reports/main-report.md. Không commit.
+```

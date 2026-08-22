@@ -280,7 +280,6 @@ Files/artifacts:
 - FR-09 audit table
 - FR-09 final test case table
 - FR-09 human extension table
-- `reports/ai-audit-report.md`
 
 Kiểm tra trước commit:
 
@@ -383,7 +382,6 @@ Files/artifacts:
 - FR-17 final test case table
 - FR-17 human extension table
 - Cleanup notes
-- `reports/ai-audit-report.md`
 
 Kiểm tra trước commit:
 

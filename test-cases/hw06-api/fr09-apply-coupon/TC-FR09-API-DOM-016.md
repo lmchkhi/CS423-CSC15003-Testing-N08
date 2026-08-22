@@ -10,7 +10,7 @@ FR-09
 
 - `README.md`: FR-09 coupon C1-C5, sample coupons, percent/fixed formula; SEC rules when relevant.
 - `api_specification.md`: `POST /api/apply-coupon` body fields are `code`, `total_amount`, `user_id`; response contains `discount_amount` and `final_amount`.
-- Observed response/evidence: điền sau Phase 07 execution.
+- Observed response/evidence: Phase 07 Newman run `reports/newman/hw06-fr09-apply-coupon.html` / `reports/newman/hw06-fr09-apply-coupon.json`.
 - Không dùng source code để thiết kế expected result.
 
 ## Domain / Security / Workflow analysis
@@ -74,6 +74,6 @@ FR-09
 
 ## Status / Related bugs
 
-`Not run`
+`Passed`
 
 Related bug report: `N/A`
