@@ -7,12 +7,12 @@
 
 ## 1. Sơ đồ thiết kế
 
-> **Lưu ý anti-cheat (§11):** Sơ đồ dưới đây được vẽ tay bởi sinh viên và lưu tại
-> `diagrams/test-generator.png`. File `.mmd` là bản chuyển đổi Mermaid từ sơ đồ gốc.
+> **Lưu ý anti-cheat (§11):** Sơ đồ dưới đây được sinh viên tự vẽ và lưu tại
+> `diagrams/test-generator.png`. Nguồn chỉnh sửa là `diagrams/test-generator.drawio`;
+> phiên bản Mermaid ở `diagrams/test-generator.md`; pseudocode đầy đủ ở
+> `diagrams/test-generator.py`.
 
 ![Sơ đồ pipeline AI Test Generator](../diagrams/test-generator.png)
-
-*(Nếu file PNG chưa được export, xem bản Mermaid tại `diagrams/test-generator.mmd`)*
 
 ---
 
@@ -50,8 +50,8 @@ Danh sách phân vùng theo kiểu tham số:
 | SEC-02 | XSS payload trong mọi string field | Không thực thi script (stored nhưng escaped khi render) |
 | SEC-03 | Không có auth token | 401 Unauthorized |
 | SEC-04 | Token sai định dạng / hết hạn | 401 hoặc 403 |
-| SEC-05 | Non-admin user gọi endpoint admin-only | 403 Forbidden (SUT trả 200 = bug) |
-| SEC-06 | IDOR — đọc resource của user khác không auth | 403/404 |
+| SEC-05 | User thường gọi endpoint chỉ dành cho admin | 403 Forbidden (SUT trả 200 = bug) |
+| SEC-06 | IDOR — đọc resource của user khác khi không có auth | 403/404 |
 | SEC-07 | Mass assignment — gửi thêm field đặc quyền | Bị ignore |
 
 ---
@@ -73,7 +73,7 @@ Xác thực chính xác cấu trúc body response:
 FR-10 Order State Machine:
   pending → confirmed → shipping → delivered   (legal)
   pending → shipping                            (illegal — skip)
-  canceled → delivered                          (illegal — bug FR08-C)
+  canceled → delivered                          (illegal — BUG-FR08-003)
   [any terminal] → [any]                        (illegal)
 ```
 
@@ -85,7 +85,7 @@ Mỗi cạnh trong đồ thị trạng thái → một test case; cạnh illegal
 
 Sau khi AI tạo bảng TC-*, sinh viên review và gán nhãn cho mỗi case:
 - **VALID:** Oracle đúng per spec và hành vi SUT
-- **INVALID:** Oracle sai → cung cấp correction (đặc biệt: AI hay sai khi assume validation mà SUT không có)
+- **INVALID:** Oracle sai → cung cấp correction (đặc biệt: AI hay sai khi giả định SUT có validation)
 - **INCOMPLETE:** Thiếu context hoặc assertion
 
 ---
@@ -96,19 +96,17 @@ Các lỗ hổng điển hình AI bỏ qua trong dự án này:
 
 | # | Case | Lý do AI bỏ qua |
 |---|------|-----------------|
-| 1 | Duplicate email được chấp nhận | AI assume database có UNIQUE constraint |
-| 2 | Non-admin user tạo/xóa category → 200 | AI assume middleware check role |
-| 3 | PUT/DELETE id không tồn tại → 200 (không 404) | AI assume affectedRows check |
-| 4 | Empty body `{}` được insert (NULL fields) | AI assume required-field validation |
-| 5 | Plaintext password lộ qua `/api/login` | AI không follow authentication chain |
+| 1 | Email trùng được chấp nhận | AI giả định database có ràng buộc UNIQUE |
+| 2 | User thường tạo/xóa danh mục → 200 | AI giả định middleware có kiểm tra role |
+| 3 | PUT/DELETE id không tồn tại → 200 (không 404) | AI giả định backend có kiểm tra affectedRows |
+| 4 | Body rỗng `{}` vẫn được insert (NULL fields) | AI giả định có kiểm tra field bắt buộc |
+| 5 | Plaintext password lộ qua `/api/login` | AI không đi theo chuỗi authentication |
 
 ---
 
 ## 3. Pseudocode
 
-File pseudocode: [`diagrams/test-generator.py`](../diagrams/test-generator.py)
-
-Các hàm chính:
+Pseudocode thiết kế tóm tắt (bản `.py` đầy đủ: `diagrams/test-generator.py`):
 ```python
 parse_spec(spec_file, endpoint) -> EndpointSpec
 partition_param(param: ParamSpec) -> list[TestCase]

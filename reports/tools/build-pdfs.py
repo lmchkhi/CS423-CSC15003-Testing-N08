@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the Markdown deliverables HW05 §14 wants as PDF too.
+"""Render the Markdown deliverables HW06 §14 wants as PDF too.
 
 §14 asks for the main report, the AI Critique and the AI Audit Report as
 "Markdown + PDF". The Markdown files are the source of truth; this script is
@@ -28,19 +28,15 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 # (source markdown, output pdf, title shown in the PDF footer)
 DOCS = [
     ("reports/main-report.md", "reports/pdf/main-report.pdf",
-     "HW05 — Báo cáo chính"),
+     "HW06 — Báo cáo chính"),
     ("reports/ai-critique.md", "reports/pdf/ai-critique.pdf",
-     "HW05 — AI Critique"),
+     "HW06 — AI Critique"),
     ("reports/ai-audit-report.md", "reports/pdf/ai-audit-report.pdf",
-     "HW05 — AI Audit Report"),
-    # §6 Task 2 (the misinterpretation hunt) and §6 Task 3 (the continuous
-    # performance-testing proposal) are linked from the main report rather than
-    # inlined, so each ships as its own PDF.
-    ("reports/ai-analysis-review.md", "reports/pdf/ai-analysis-review.pdf",
-     "HW05 — Rà soát phân tích của AI"),
-    ("reports/continuous-perf-proposal.md",
-     "reports/pdf/continuous-perf-proposal.pdf",
-     "HW05 — Đề xuất Continuous Performance Testing"),
+     "HW06 — AI Audit Report"),
+    ("reports/ci-cd-report.md", "reports/pdf/ci-cd-report.pdf",
+     "HW06 — Báo cáo CI/CD"),
+    ("reports/test-generator-design.md", "reports/pdf/test-generator-design.pdf",
+     "HW06 — Thiết kế Test Generator"),
 ]
 
 # Helvetica Neue / Menlo both carry the full Vietnamese diacritic set on macOS.
@@ -123,7 +119,7 @@ def main() -> int:
 
     # The HTML is staged next to the sources so relative links (images in the
     # bug reports) resolve the same way they do in the Markdown.
-    stage = pathlib.Path(tempfile.mkdtemp(prefix="hw05-pdf-"))
+    stage = pathlib.Path(tempfile.mkdtemp(prefix="hw06-pdf-"))
     jobs = []
     for src, dst, title in DOCS:
         src_path = REPO / src

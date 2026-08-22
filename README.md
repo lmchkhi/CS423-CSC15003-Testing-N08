@@ -8,9 +8,9 @@
 
 ---
 
-## 1. Self-Assessment Table
+## 1. Bảng tự đánh giá
 
-| No. | Criteria | Grade | Self-Assessed Grade |
+| No. | Tiêu chí | Điểm tối đa | Tự đánh giá |
 |---|---|---:|---:|
 | 1 | API 1 — FR-01 Register — full pipeline (generate + audit + extend + execute + bugs) | 30 | 30 |
 | 2 | API 2 — FR-08 Checkout — full pipeline (same criteria) | 30 | 30 |
@@ -57,7 +57,7 @@ thành folder data-driven (chạy với data file) và folder state/lifecycle (c
 | **Tổng** | **213** | **233** | **0** | — |
 
 Suite chạy **xanh hoàn toàn**: assertion của case known-bug được viết để kiểm **hành
-vi quan sát được** của SUT (ví dụ `[BUG-FR14-001] non-admin tạo danh mục → 200`) và
+vi quan sát được** của SUT (ví dụ `[BUG-FR14-001] user thường tạo danh mục → 200`) và
 được gắn nhãn `[BUG-*]`; các lệch chuẩn được đếm riêng ở bảng bug (§2.4) và mô tả
 expected-vs-actual trong `reports/main-report.md`. Row known-bug trong data file đánh
 dấu `knownBug`.
@@ -66,23 +66,24 @@ dấu `knownBug`.
 
 | ID | Mô tả | Severity | Báo cáo | GitHub Issue |
 |---|---|---|---|---|
-| BUG-FR01-001 | Email trùng được chấp nhận (không có ràng buộc unique) | Major | `bug-reports/BUG-FR01-001.md` | [#252](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/252) |
-| BUG-FR01-002 | Không validate input (empty/weak password được nhận) | Major | `bug-reports/BUG-FR01-002.md` | [#253](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/253) |
-| BUG-FR01-003 | Lộ mật khẩu plaintext qua login/users | Critical | `bug-reports/BUG-FR01-003.md` | [#254](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/254) |
+| BUG-FR01-001 | Email trùng được chấp nhận (không có ràng buộc duy nhất) | Major | `bug-reports/BUG-FR01-001.md` | [#252](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/252) |
+| BUG-FR01-002 | Không kiểm tra dữ liệu đầu vào (mật khẩu rỗng/yếu vẫn được nhận) | Major | `bug-reports/BUG-FR01-002.md` | [#253](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/253) |
+| BUG-FR01-003 | `/api/login` và `/api/users/me` trả về trường `password` plaintext | Critical | `bug-reports/BUG-FR01-003.md` | [#254](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/254) |
 | BUG-FR08-001 | IDOR trên `GET /api/orders/:id` (không token vẫn đọc được) | Critical | `bug-reports/BUG-FR08-001.md` | [#255](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/255) |
-| BUG-FR08-002 | `total_amount` không validate (âm/chuỗi được nhận) | Critical | `bug-reports/BUG-FR08-002.md` | [#256](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/256) |
+| BUG-FR08-002 | `total_amount` không được kiểm tra (âm/chuỗi vẫn được nhận) | Critical | `bug-reports/BUG-FR08-002.md` | [#256](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/256) |
 | BUG-FR08-003 | Chuyển trạng thái đơn sai luật `canceled→delivered` được chấp nhận | Critical | `bug-reports/BUG-FR08-003.md` | [#257](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/257) |
-| BUG-FR14-001 | Broken access control — user thường CRUD được danh mục | Critical | `bug-reports/BUG-FR14-001.md` | [#261](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/261) |
+| BUG-FR14-001 | Lỗi phân quyền — user thường CRUD được danh mục | Critical | `bug-reports/BUG-FR14-001.md` | [#261](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/261) |
 | BUG-FR14-002 | PUT/DELETE `id` không tồn tại vẫn trả 200 (không 404) | Major | `bug-reports/BUG-FR14-002.md` | [#258](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/258) |
-| BUG-FR14-003 | Tên danh mục trùng được chấp nhận (không unique) | Minor | `bug-reports/BUG-FR14-003.md` | [#259](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/259) |
-| BUG-FR14-004 | Tên danh mục rỗng/khoảng-trắng được chấp nhận | Major | `bug-reports/BUG-FR14-004.md` | [#260](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/260) |
+| BUG-FR14-003 | Tên danh mục trùng được chấp nhận (không có ràng buộc duy nhất) | Minor | `bug-reports/BUG-FR14-003.md` | [#259](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/259) |
+| BUG-FR14-004 | Tên danh mục rỗng/chỉ có khoảng trắng được chấp nhận | Major | `bug-reports/BUG-FR14-004.md` | [#260](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/260) |
 
 **Tổng số:** 10 bug (black-box, chỉ dùng bằng chứng hành vi quan sát — không tham chiếu mã nguồn SUT).
 
 ### 2.5. Postman features đã dùng
 
-Workspace · collection · folders (per-API + `0 - Auth Bootstrap`) · collection + environment
-variables · environment · pre-request scripts (header anti-cheat + auth-mode selector) ·
+Workspace · collection · 5 folders thực thi (`FR-01 Register`, `FR-08 Checkout`,
+`FR-08 State & Security`, `FR-14 Category CRUD`, `FR-14 Lifecycle & Access`) ·
+collection + environment variables · environment · pre-request scripts (header anti-cheat + auth-mode selector) ·
 test scripts · data-driven Collection Runner (`-d` data files) · Newman CLI + htmlextra
 reporter · dynamic variables `{{$guid}}` / `{{$timestamp}}`. Chi tiết: `reports/main-report.md`.
 
@@ -103,10 +104,10 @@ mỗi push. Hai run mẫu (pass / fail) và cấu hình: `reports/ci-cd-report.m
 
 | Đường dẫn | Nội dung |
 |---|---|
-| `api/collections/` | Postman collection `.json` (3 folder API + auth bootstrap) |
+| `api/collections/` | Postman collection `.json` (5 folder thực thi theo API/state) |
 | `api/environments/` | Environment local (`baseUrl`, `studentId`, tokens, ids) |
 | `api/data/` | Data file data-driven cho từng API (`*-cases.json`, `.csv`) |
-| `api/newman/` | Newman HTML/JSON report — theo API và full-run |
+| `api/newman/` | Newman HTML/JSON report — theo từng folder thực thi |
 | `api/scripts/` | `boot-sut.sh`, `run-api.sh`, `run-all.sh` |
 | `test-cases/FR-{01,08,14}-*/` | `ai-generated.md`, `audit.md`, `extended.md` |
 | `test-cases/test-summary.xlsx` | Bảng tổng hợp case + summary |
@@ -116,7 +117,7 @@ mỗi push. Hai run mẫu (pass / fail) và cấu hình: `reports/ci-cd-report.m
 | `reports/test-generator-design.md` | Thiết kế Agent Skill sinh test (§7) |
 | `reports/pdf/` | Bản PDF (sinh bằng `python3 reports/tools/build-pdfs.py`) |
 | `bug-reports/` | Bug report black-box + ảnh GitHub Issue |
-| `diagrams/` | `test-generator.mmd` / `.py` / `.md` (+ `.png` self-drawn — §11) |
+| `diagrams/` | `test-generator.png`, `test-generator.drawio`, `test-generator.md`, `test-generator.py` (§11) |
 | `.claude/skills/api-test-generator/` | Agent Skill (§7) |
 | `.github/workflows/hw06-newman.yml` | CI Newman |
 | `api-specification.md` | Đặc tả API EShop — oracle cho assertion |

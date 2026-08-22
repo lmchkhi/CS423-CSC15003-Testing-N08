@@ -22,8 +22,8 @@ Activate this skill when:
 ## Reference files
 
 - Design diagram: `diagrams/test-generator.png` (self-drawn, see §7 / §11)
-- Mermaid source: `diagrams/test-generator.mmd`
-- Pseudocode reference: `diagrams/test-generator.py`
+- Editable diagram source: `diagrams/test-generator.drawio`
+- Pseudocode reference: `reports/test-generator-design.md`
 
 ---
 

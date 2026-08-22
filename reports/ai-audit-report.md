@@ -130,7 +130,8 @@ impl → review → (re-review nếu cần) → commit, đúng kỷ luật §12 
 
 **Prompt:** dispatch brief Task 1 và Task 2 (nguyên văn ở tiểu-phiên `prompt-log.md`
 phiên [8], [11]) — dựng cây thư mục, collection, pre-request script gắn header
-`X-Student-Id: 23127300` cho mọi request, folder `0 - Auth Bootstrap`.
+`X-Student-Id: 23127300` cho mọi request. Sau vòng tái cấu trúc suite,
+auth/state setup được đặt trực tiếp trong các folder state/lifecycle hiện hành.
 
 **AI Output:** Collection + env + script bootstrap chạy được; pre-request script
 upsert header anti-cheat §11.
@@ -194,7 +195,7 @@ rồi mới commit. Issue #255–#257.
 | --- | --- |
 | **Tool** | Claude (Opus 4.8 implement + review, Claude Code) |
 | **Timestamp** | 7:27–7:38 PM 20/08/2026 (phiên [19]–[20]) |
-| **Artifact** | `test-cases/FR-14-category/*` (40 AI + case sinh viên), `api/data/category-cases.json` + `fr14-post-categories.csv`, `bug-reports/BUG-FR14-00{1..4}.md` |
+| **Artifact** | `test-cases/FR-14-category/*` (40 AI + 7 case sinh viên), `api/data/fr14-post-categories.csv`, `bug-reports/BUG-FR14-00{1..4}.md` |
 
 **Prompt:** brief Task 5 — phân vùng name, access-control (admin/user/none), lifecycle
 CRUD, missing-resource contract, schema; flagship bug: broken access control (user token
@@ -206,8 +207,8 @@ role-escalation + lifecycle. Bug report FR14-001 broken access control, FR14-002
 id trả 200, FR14-003/004 no-uniqueness + empty-name.
 
 **Verdict:** VALID.
-**Reasoning:** Vòng review pipeline đạt. Lưu ý: issue #241–#243 trong repo là của thành
-viên khác (`hnaht277`, scheme `TC-FR14-DT-*`) — **không** dùng làm bằng chứng của bài này (§17).
+**Reasoning:** Vòng review pipeline đạt sau khi tách rõ evidence của sinh viên khỏi
+issue của thành viên khác trong repo nhóm.
 **Student Fix:** Sinh viên tự mở 4 GitHub Issue riêng cho FR-14 (black-box, chỉ hành vi quan
 sát): #261 broken access control, #258 PUT/DELETE id không tồn tại trả 200, #259 trùng tên,
 #260 tên rỗng/khoảng-trắng.
@@ -220,7 +221,7 @@ sát): #261 broken access control, #258 PUT/DELETE id không tồn tại trả 2
 | --- | --- |
 | **Tool** | Claude (Opus 4.8 implement + review, Claude Code) |
 | **Timestamp** | 7:38–7:44 PM 20/08/2026 (phiên [21]–[22]) |
-| **Artifact** | `api/newman/full-run-report.{html,json}`, `test-cases/test-summary.xlsx`, mục Postman-features trong `reports/main-report.md` |
+| **Artifact** | 5 Newman report theo folder (`fr01-register`, `fr08-checkout`, `fr08-state`, `fr14-category`, `fr14-lifecycle`), `test-cases/test-summary.xlsx`, mục Postman-features trong `reports/main-report.md` |
 
 **Prompt:** brief Task 6 — chạy full-suite, dựng spreadsheet tổng hợp, liệt kê tính năng
 Postman đã dùng.
@@ -231,7 +232,7 @@ Postman đã dùng.
 **Verdict:** INCOMPLETE → VALID (sau khi tái cấu trúc).
 **Reasoning:** Cấu trúc collection ban đầu đặt request lifecycle/state chung folder
 data-driven → chạy lặp mỗi iteration, đè state; nhiều assertion assert-spec fail; và
-`test-summary.xlsx` ghi sai MSSV (`2110223`).
+`test-summary.xlsx` ghi sai MSSV và số liệu ở bản nháp đầu.
 **Student Fix:** Tách mỗi API thành folder data-driven (chạy với `-d`) + folder
 state/lifecycle (chạy một lần, tự đăng ký user riêng để không phụ thuộc thứ tự); sửa
 lỗi biến `{{token}}` bị env rỗng đè; đánh dấu các row known-bug còn thiếu. Kết quả:
@@ -246,21 +247,21 @@ quan sát và gắn nhãn `[BUG-*]`. Sửa MSSV + số liệu `test-summary.xlsx
 | --- | --- |
 | **Tool** | Claude (Sonnet 4.6 Thinking, Antigravity IDE) |
 | **Timestamp** | 8:21–8:28 PM 20/08/2026 (phiên [23]–[25]) |
-| **Artifact** | `.github/workflows/hw06-newman.yml`, `.claude/skills/api-test-generator/`, `diagrams/test-generator.{mmd,py,md}`, `reports/ci-cd-report.md`, `reports/test-generator-design.md` |
+| **Artifact** | `.github/workflows/hw06-newman.yml`, `.claude/skills/api-test-generator/`, `diagrams/test-generator.drawio`, `diagrams/test-generator.png`, `reports/ci-cd-report.md`, `reports/test-generator-design.md` |
 
 **Full prompt (phiên [23]–[25]):** `continue the plan in docs/superpowers and .superpowers/sdd` → `retry` → `retry`
 
 **AI Output:** Workflow GitHub Actions boot SUT + chạy Newman; Agent Skill
-`api-test-generator` (SKILL.md + pseudocode + mermaid); ci-cd-report. Phiên bị ngắt/nghẽn
+`api-test-generator` (SKILL.md + pseudocode trong báo cáo thiết kế + sơ đồ draw.io); ci-cd-report. Phiên bị ngắt/nghẽn
 vài lần (do đó có `retry`).
 
 **Verdict:** INCOMPLETE → VALID (workflow sửa sau).
 **Reasoning:** Sản phẩm cốt lõi (skill, pseudocode) đạt, **nhưng** workflow CI ban đầu chạy
-cả collection không kèm data file → **đỏ ở mọi run** kể cả commit "green again": row
+cả collection không kèm data file → **đỏ ở mọi run** kể cả commit phục hồi pass của bản đầu: row
 data-driven assert vào `undefined`, và request lifecycle bị nhân theo iteration.
 **Student Fix:** Sửa workflow chạy từng folder (data-driven kèm `-d`, state/lifecycle chạy
 một lần) đồng bộ với collection đã tái cấu trúc (xem Entry #8) → pipeline xanh. Diagram
-`test-generator.png` self-drawn (§11) vẫn phải do sinh viên tự vẽ; demo video tùy chọn.
+`test-generator.png` đã được sinh viên tự vẽ bằng draw.io và export từ `diagrams/test-generator.drawio`.
 
 ---
 
@@ -300,11 +301,11 @@ Các mục dưới đây được ghi thẳng thay vì giấu, đúng tinh thầ
 
 | # | Mục | Trạng thái |
 |---|---|---|
-| 1 | `diagrams/test-generator.png` — **sinh viên tự vẽ** (§11, cấm AI sinh) | Chưa có (cần sinh viên) |
+| 1 | `diagrams/test-generator.png` — **sinh viên tự vẽ** (§11, cấm AI sinh) | ✅ Đã có; nguồn `diagrams/test-generator.drawio` |
 | 2 | Pipeline CI xanh thật | ✅ Đã sửa — tách folder data-driven / state, suite 233 assertion / 0 fail |
 | 3 | `test-summary.xlsx` — MSSV + số liệu | ✅ Đã sửa (23127300, 233 assertion, 10 bug) |
 | 4 | GitHub Issue FR-14 do sinh viên mở | ✅ Đã mở #258–#261 |
-| 5 | Ảnh chụp GitHub Issue + 2 run CI (§14) | Đang chụp sau khi có run CI xanh |
-| 6 | Video demo (Task 8) | Tùy chọn, chưa quay |
-| 7 | PDF các báo cáo (§14) | Sinh bằng `build-pdfs.py` (ngoài phạm vi lần này) |
-| 8 | `git-log.txt` (§12) | `git log ... > git-log.txt` (ngoài phạm vi lần này) |
+| 5 | Ảnh chụp GitHub Issue + 2 run CI (§14) | ✅ Đã bổ sung trong `bug-reports/github-issues/`, `reports/ci-run-pass.png`, `reports/ci-run-fail.png` |
+| 6 | Video demo (Task 8) | ✅ Đã quay và gắn link trong README + design report |
+| 7 | PDF các báo cáo (§14) | ✅ Đã sinh trong `reports/pdf/` |
+| 8 | `git-log.txt` (§12) | ✅ Đã sinh lại cho nhánh HW06 |

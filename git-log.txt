@@ -1,3 +1,16 @@
+* commit 78e28e47a27749306f40d97124c9815cad6fbd39
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sat Aug 22 08:40:32 2026 +0700
+| 
+|     docs: add video demo
+| 
+|  README.md                        |    3 +-
+|  git_log.txt                      | 7237 ++++++++++++++++++++++++++++++++++++
+|  reports/ai-audit-report.md       |    2 +-
+|  reports/demo-video-script.md     |   35 +-
+|  reports/test-generator-design.md |    2 +-
+|  5 files changed, 7245 insertions(+), 34 deletions(-)
+| 
 * commit 832bfddf02127ca6fedaf36b5557658e844fcea9
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sat Aug 22 01:40:30 2026 +0700
@@ -2183,20 +2196,7 @@
    .../mini-order-status.postman_collection.json     |   473 +
    mini-api-testing/test-design.md                   |   353 +
    6 files changed, 12425 insertions(+)
-    
-*   commit dcd8b30aa10105e41e285f17b9640b531fc72f26
-|\  Merge: 5075241 dd2a526
-| | Author: git stash <hiembaonon@gmail.com>
-| | Date:   Mon Aug 10 15:08:24 2026 +0700
-| | 
-| |     On HW04/23127300: !!GitHub_Desktop<HW04/23127300>
-| | 
-| * commit dd2a52628449ce22c74c034ae04a5797d35f23ec
-|/  Author: git stash <hiembaonon@gmail.com>
-|   Date:   Mon Aug 10 15:08:24 2026 +0700
-|   
-|       index on HW04/23127300: 5075241 docs: regenerate git-log.txt
-| 
+  
 * commit 50752414ac51dbeb40367b808782d5ed28459226
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Mon Aug 10 09:55:06 2026 +0700
@@ -6311,128 +6311,94 @@
    skills/bva-skill.md            | 1 -
    skills/domain-testing-skill.md | 1 -
    2 files changed, 2 deletions(-)
-    
-*   commit b046b5a2eefc20379c34c48108bcd951985b7fbb
-|\  Merge: 04fe978 e51d3c5
-| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | Date:   Mon Jul 6 16:13:39 2026 +0700
-| | 
-| |     Merge branch 'summary/23127300' into test/fr-01
-| | 
-| * commit e51d3c58a4bb47a877a45dc02a63b0c7e5572d10
-| | Merge: 969e156 a0de3d9
-| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | Date:   Mon Jul 6 16:12:08 2026 +0700
-| | 
-| |     Merge pull request #91 from lmchkhi/week05/23127300
-| |     
-| |     Week05/23127300
-| |   
-| *   commit a0de3d9da778067eee6cc4f2aecd06cb839a870e
-| |\  Merge: e678dd3 e149f86
-| | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | | Date:   Mon Jul 6 16:10:19 2026 +0700
-| | | 
-| | |     Merge pull request #90 from lmchkhi/test/fr-10-stt
-| | |     
-| | |     Test/fr 10 stt
-| | | 
-| | * commit e149f86824c2eac1a012ee10b5c7a9499aa6f032
-| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | Date:   Mon Jul 6 16:08:40 2026 +0700
-| | | 
-| | |     docs: add skills
-| | | 
-| | |  .codex/skills/state-transition-testing/SKILL.md |  67 +++++++
-| | |  .../state-transition-testing/agents/openai.yaml |   4 +
-| | |  .../references/templates.md                     | 179 ++++++++++++++++++
-| | |  3 files changed, 250 insertions(+)
-| | | 
-| | * commit bd03e1cc82855a351d20808b61c3e379c402ea23
-| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | Date:   Mon Jul 6 15:46:05 2026 +0700
-| | | 
-| | |     docs: test and add bug report
-| | | 
-| | |  tests/bug-reports/BUG-ORDER-STT-001.md          | 49 +++++++++++++++++++
-| | |  tests/bug-reports/BUG-ORDER-STT-002.md          | 48 ++++++++++++++++++
-| | |  .../FR-10-order-state/TC-ORDER-STT-009.md       |  3 +-
-| | |  .../FR-10-order-state/TC-ORDER-STT-014.md       |  3 +-
-| | |  traceability-matrix.md                          |  5 +-
-| | |  5 files changed, 101 insertions(+), 7 deletions(-)
-| | | 
-| | * commit 84befe05f11072a2c22faf51db77a2081163f4a5
-| |   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| |   Date:   Mon Jul 6 15:29:06 2026 +0700
-| |   
-| |       docs: add stt TCs
-| |   
-| |    .../FR-10-order-state/TC-ORDER-STT-001.md       | 34 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-002.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-003.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-004.md       | 31 +++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-005.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-006.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-007.md       | 31 +++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-008.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-009.md       | 31 +++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-010.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-011.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-012.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-013.md       | 32 ++++++++
-| |    .../FR-10-order-state/TC-ORDER-STT-014.md       | 32 ++++++++
-| |    tests/test-runs/README.md                       |  6 ++
-| |    .../FR-10-state-transition-testing-analysis.md  | 81 +++++++++++++++++++
-| |    traceability-matrix.md                          | 19 +++++
-| |    17 files changed, 553 insertions(+)
-| | 
-| * commit e678dd38caf1eebc8e339337af3d2a15e85fa301
-| | Merge: 969e156 1f63694
-| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | Date:   Mon Jul 6 16:09:53 2026 +0700
-| | 
-| |     Merge pull request #89 from lmchkhi/test/fr-08-ust
-| |     
-| |     Test/fr 08 ust
-| | 
-| * commit 1f636942608d4b9c76d751184f38601ce2327a1a
-| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | Date:   Mon Jul 6 16:04:36 2026 +0700
-| | 
-| |     docs: add skills
-| | 
-| |  .codex/skills/use-case-testing/SKILL.md          |  76 +++++++++++
-| |  .../skills/use-case-testing/agents/openai.yaml   |   7 +
-| |  .../use-case-testing/references/templates.md     | 132 +++++++++++++++++++
-| |  3 files changed, 215 insertions(+)
-| | 
-| * commit 2b9e886cbba4b289c6685d9aab2ca00a8538350e
-| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | Date:   Mon Jul 6 16:00:14 2026 +0700
-| | 
-| |     docs: test and add bug report
-| | 
-| |  tests/bug-reports/checkout/BUG-CHECKOUT-001.md | 46 ++++++++++++++++++++
-| |  tests/bug-reports/checkout/BUG-CHECKOUT-002.md | 49 ++++++++++++++++++++++
-| |  tests/bug-reports/checkout/BUG-CHECKOUT-003.md | 47 +++++++++++++++++++++
-| |  3 files changed, 142 insertions(+)
-| | 
-| * commit eed3985e0e83e36f55856d51ac9f0ac9281df7b7
-|   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-|   Date:   Mon Jul 6 15:34:48 2026 +0700
-|   
-|       docs: add uct test cases for fr-08
-|   
-|    tests/test-cases/checkout/TC-CHECKOUT-UCT-001.md | 36 ++++++++
-|    tests/test-cases/checkout/TC-CHECKOUT-UCT-002.md | 35 ++++++++
-|    tests/test-cases/checkout/TC-CHECKOUT-UCT-003.md | 35 ++++++++
-|    tests/test-cases/checkout/TC-CHECKOUT-UCT-004.md | 36 ++++++++
-|    tests/test-cases/checkout/TC-CHECKOUT-UCT-005.md | 40 +++++++++
-|    tests/test-cases/checkout/TC-CHECKOUT-UCT-006.md | 40 +++++++++
-|    .../FR-08-checkout-use-case-testing-analysis.md  | 89 ++++++++++++++++++++
-|    tests/traceability-matrix.md                     | 16 ++++
-|    8 files changed, 327 insertions(+)
+  
+* commit e149f86824c2eac1a012ee10b5c7a9499aa6f032
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Mon Jul 6 16:08:40 2026 +0700
 | 
+|     docs: add skills
+| 
+|  .codex/skills/state-transition-testing/SKILL.md   |  67 ++++++++
+|  .../state-transition-testing/agents/openai.yaml   |   4 +
+|  .../references/templates.md                       | 179 ++++++++++++++++++++
+|  3 files changed, 250 insertions(+)
+| 
+* commit bd03e1cc82855a351d20808b61c3e379c402ea23
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Mon Jul 6 15:46:05 2026 +0700
+| 
+|     docs: test and add bug report
+| 
+|  tests/bug-reports/BUG-ORDER-STT-001.md            | 49 +++++++++++++++++++++
+|  tests/bug-reports/BUG-ORDER-STT-002.md            | 48 ++++++++++++++++++++
+|  .../FR-10-order-state/TC-ORDER-STT-009.md         |  3 +-
+|  .../FR-10-order-state/TC-ORDER-STT-014.md         |  3 +-
+|  traceability-matrix.md                            |  5 +--
+|  5 files changed, 101 insertions(+), 7 deletions(-)
+| 
+* commit 84befe05f11072a2c22faf51db77a2081163f4a5
+  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+  Date:   Mon Jul 6 15:29:06 2026 +0700
+  
+      docs: add stt TCs
+  
+   .../FR-10-order-state/TC-ORDER-STT-001.md         | 34 +++++++++
+   .../FR-10-order-state/TC-ORDER-STT-002.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-003.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-004.md         | 31 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-005.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-006.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-007.md         | 31 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-008.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-009.md         | 31 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-010.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-011.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-012.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-013.md         | 32 ++++++++
+   .../FR-10-order-state/TC-ORDER-STT-014.md         | 32 ++++++++
+   tests/test-runs/README.md                         |  6 ++
+   .../FR-10-state-transition-testing-analysis.md    | 81 +++++++++++++++++++++
+   traceability-matrix.md                            | 19 +++++
+   17 files changed, 553 insertions(+)
+  
+* commit 1f636942608d4b9c76d751184f38601ce2327a1a
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Mon Jul 6 16:04:36 2026 +0700
+| 
+|     docs: add skills
+| 
+|  .codex/skills/use-case-testing/SKILL.md           |  76 +++++++++++
+|  .codex/skills/use-case-testing/agents/openai.yaml |   7 ++
+|  .../use-case-testing/references/templates.md      | 132 ++++++++++++++++++++
+|  3 files changed, 215 insertions(+)
+| 
+* commit 2b9e886cbba4b289c6685d9aab2ca00a8538350e
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Mon Jul 6 16:00:14 2026 +0700
+| 
+|     docs: test and add bug report
+| 
+|  tests/bug-reports/checkout/BUG-CHECKOUT-001.md | 46 ++++++++++++++++++++++
+|  tests/bug-reports/checkout/BUG-CHECKOUT-002.md | 49 ++++++++++++++++++++++++
+|  tests/bug-reports/checkout/BUG-CHECKOUT-003.md | 47 +++++++++++++++++++++++
+|  3 files changed, 142 insertions(+)
+| 
+* commit eed3985e0e83e36f55856d51ac9f0ac9281df7b7
+  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+  Date:   Mon Jul 6 15:34:48 2026 +0700
+  
+      docs: add uct test cases for fr-08
+  
+   tests/test-cases/checkout/TC-CHECKOUT-UCT-001.md  | 36 +++++++++
+   tests/test-cases/checkout/TC-CHECKOUT-UCT-002.md  | 35 ++++++++
+   tests/test-cases/checkout/TC-CHECKOUT-UCT-003.md  | 35 ++++++++
+   tests/test-cases/checkout/TC-CHECKOUT-UCT-004.md  | 36 +++++++++
+   tests/test-cases/checkout/TC-CHECKOUT-UCT-005.md  | 40 +++++++++
+   tests/test-cases/checkout/TC-CHECKOUT-UCT-006.md  | 40 +++++++++
+   .../FR-08-checkout-use-case-testing-analysis.md   | 89 +++++++++++++++++++++
+   tests/traceability-matrix.md                      | 16 ++++
+   8 files changed, 327 insertions(+)
+  
 * commit 04fe97805531d40bb7292efe6b1d0c1249b7edbe
   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
   Date:   Mon Jul 6 15:13:15 2026 +0700
@@ -6559,364 +6525,300 @@
 | |  2 files changed, 528 insertions(+), 1 deletion(-)
 | | 
 | * commit 2cd28e6892dc5f07355a5f52d534b98f8f9cdb51
+|   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+|   Date:   Wed Jul 1 14:04:36 2026 +0700
+|   
+|       fix: unify screenshot filename
+|   
+|    bug-reports/BUG-FR02-001.md                      |   2 +-
+|    bug-reports/BUG-FR02-002.md                      |   2 +-
+|    bug-reports/BUG-FR02-003.md                      |   2 +-
+|    bug-reports/BUG-FR02-004.md                      |   2 +-
+|    bug-reports/BUG-FR02-005.md                      |   8 ++---
+|    bug-reports/BUG-FR13-001.md                      |  34 +++++++++----------
+|    bug-reports/BUG-FR26-001.md                      |   2 +-
+|    bug-reports/BUG-FR26-002.md                      |   2 +-
+|    bug-reports/BUG-FR26-004.md                      |   2 +-
+|    bug-reports/BUG-FR26-005.md                      |   2 +-
+|    ...response.png => BUG-FR02-001-evidence-01.png} | Bin
+|    ...ype-text.png => BUG-FR02-002-evidence-01.png} | Bin
+|    ...failures.png => BUG-FR02-003-evidence-01.png} | Bin
+|    ...ot-shown.png => BUG-FR02-004-evidence-01.png} | Bin
+|    ... => BUG-FR02-005-evidence-01-locktime-0s.png} | Bin
+|    ...=> BUG-FR02-005-evidence-02-locktime-30s.png} | Bin
+|    ...=> BUG-FR02-005-evidence-03-locktime-33s.png} | Bin
+|    ...> BUG-FR02-005-evidence-04-locktime-180s.png} | Bin
+|    ...BUG-FR13-001-evidence-01-tc002-dashboard.png} | Bin
+|    ...=> BUG-FR13-001-evidence-02-tc002-orders.png} | Bin
+|    ...BUG-FR13-001-evidence-03-tc003-dashboard.png} | Bin
+|    ...=> BUG-FR13-001-evidence-04-tc003-orders.png} | Bin
+|    ...BUG-FR13-001-evidence-05-tc004-dashboard.png} | Bin
+|    ...=> BUG-FR13-001-evidence-06-tc004-orders.png} | Bin
+|    ...BUG-FR26-shared-mobile-cart-ui-issues-01.png} | Bin
+|    tests/test-runs/FR-02-login-run.md               |  18 +++++-----
+|    tests/test-runs/FR-13-dashboard-run.md           |   6 ++--
+|    27 files changed, 41 insertions(+), 41 deletions(-)
+|   
+| * commit 1b4068dd4ab8ee12c746b44ca59043ee77e1f11b
+| | Merge: 6e3e8a7 07a0d6b
 | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | Date:   Wed Jul 1 14:04:36 2026 +0700
+| | Date:   Wed Jul 1 13:44:07 2026 +0700
 | | 
-| |     fix: unify screenshot filename
-| | 
-| |  bug-reports/BUG-FR02-001.md                      |   2 +-
-| |  bug-reports/BUG-FR02-002.md                      |   2 +-
-| |  bug-reports/BUG-FR02-003.md                      |   2 +-
-| |  bug-reports/BUG-FR02-004.md                      |   2 +-
-| |  bug-reports/BUG-FR02-005.md                      |   8 ++---
-| |  bug-reports/BUG-FR13-001.md                      |  34 +++++++++----------
-| |  bug-reports/BUG-FR26-001.md                      |   2 +-
-| |  bug-reports/BUG-FR26-002.md                      |   2 +-
-| |  bug-reports/BUG-FR26-004.md                      |   2 +-
-| |  bug-reports/BUG-FR26-005.md                      |   2 +-
-| |  ...response.png => BUG-FR02-001-evidence-01.png} | Bin
-| |  ...ype-text.png => BUG-FR02-002-evidence-01.png} | Bin
-| |  ...failures.png => BUG-FR02-003-evidence-01.png} | Bin
-| |  ...ot-shown.png => BUG-FR02-004-evidence-01.png} | Bin
-| |  ... => BUG-FR02-005-evidence-01-locktime-0s.png} | Bin
-| |  ...=> BUG-FR02-005-evidence-02-locktime-30s.png} | Bin
-| |  ...=> BUG-FR02-005-evidence-03-locktime-33s.png} | Bin
-| |  ...> BUG-FR02-005-evidence-04-locktime-180s.png} | Bin
-| |  ...BUG-FR13-001-evidence-01-tc002-dashboard.png} | Bin
-| |  ...=> BUG-FR13-001-evidence-02-tc002-orders.png} | Bin
-| |  ...BUG-FR13-001-evidence-03-tc003-dashboard.png} | Bin
-| |  ...=> BUG-FR13-001-evidence-04-tc003-orders.png} | Bin
-| |  ...BUG-FR13-001-evidence-05-tc004-dashboard.png} | Bin
-| |  ...=> BUG-FR13-001-evidence-06-tc004-orders.png} | Bin
-| |  ...BUG-FR26-shared-mobile-cart-ui-issues-01.png} | Bin
-| |  tests/test-runs/FR-02-login-run.md               |  18 +++++-----
-| |  tests/test-runs/FR-13-dashboard-run.md           |   6 ++--
-| |  27 files changed, 41 insertions(+), 41 deletions(-)
+| |     Merge remote-tracking branch 'origin/23127300' into test/FR-26
 | |   
-| *   commit f3c9491b3d846780602fda99122c53084d8b8040
-| |\  Merge: 07a0d6b 1b4068d
-| | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | | Date:   Wed Jul 1 13:44:56 2026 +0700
+| | * commit 8c2866ff0bbff6037a049436a7df9d5eb7c15bb2
+| | | Merge: 5caa350 0722f1a
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 13:38:43 2026 +0700
 | | | 
-| | |     Merge pull request #68 from lmchkhi/test/FR-26
-| | |     
-| | |     Test/fr 26
+| | |     Merge remote-tracking branch 'origin/23127300' into test/FR-13
 | | |   
-| | *   commit 1b4068dd4ab8ee12c746b44ca59043ee77e1f11b
-| | |\  Merge: 6e3e8a7 07a0d6b
-| | |/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| |/|   Date:   Wed Jul 1 13:44:07 2026 +0700
-| | |   
-| | |       Merge remote-tracking branch 'origin/23127300' into test/FR-26
-| | |   
-| * |   commit 07a0d6b800981c51f3403729d3621dc7a1fd1c7d
-| |\ \  Merge: 0722f1a 8c2866f
-| | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | | | Date:   Wed Jul 1 13:39:44 2026 +0700
-| | | | 
-| | | |     Merge pull request #67 from lmchkhi/test/FR-13
-| | | |     
-| | | |     Test/fr 13
-| | | |   
-| | * |   commit 8c2866ff0bbff6037a049436a7df9d5eb7c15bb2
-| | |\ \  Merge: 5caa350 0722f1a
-| | |/ /  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| |/| |   Date:   Wed Jul 1 13:38:43 2026 +0700
-| | | |   
-| | | |       Merge remote-tracking branch 'origin/23127300' into test/FR-13
-| | | |   
-| * | |   commit 0722f1a6b3aa0b5c1b09ad57763226dafb22c509
-| |\ \ \  Merge: 0e35f56 ff6f4bd
-| | | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | | | | Date:   Wed Jul 1 13:35:12 2026 +0700
-| | | | | 
-| | | | |     Merge pull request #66 from lmchkhi/test/FR-02
-| | | | |     
-| | | | |     Test: FR-02
-| | | | | 
-| | * | | commit ff6f4bdc622c279f46430bf83b290321a2eda97d
-| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | | Date:   Wed Jul 1 13:28:39 2026 +0700
-| | | | | 
-| | | | |     docs: added but report
-| | | | | 
-| | | | |  bug-reports/BUG-FR02-001.md                  |  35 +++
-| | | | |  bug-reports/BUG-FR02-002.md                  |  36 +++
-| | | | |  bug-reports/BUG-FR02-003.md                  |  35 +++
-| | | | |  bug-reports/BUG-FR02-004.md                  |  35 +++
-| | | | |  bug-reports/BUG-FR02-005.md                  |  38 +++
-| | | | |  prompt_log.md                                | 275 +++++++++++++++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md       |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-001.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-002.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-004.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-006.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-007.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-009.md         |   2 +-
-| | | | |  tests/test-runs/FR-02-login-run.md           |  20 +-
-| | | | |  16 files changed, 473 insertions(+), 19 deletions(-)
-| | | | | 
-| | * | | commit c6156d30eed900ec2495096b4e7b0792b657a077
-| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | | Date:   Wed Jul 1 13:22:14 2026 +0700
-| | | | | 
-| | | | |     test: add test results
-| | | | | 
-| | | | |  ...-FR02-DT-001-password-in-api-response.png | Bin 0 -> 632965 bytes
-| | | | |  ...DT-002-TC-FR02-DT-009-input-type-text.png | Bin 0 -> 899561 bytes
-| | | | |  ...-FR02-BVA-001-lock-after-two-failures.png | Bin 0 -> 549581 bytes
-| | | | |  ...TC-FR02-DT-006-lock-message-not-shown.png | Bin 0 -> 488342 bytes
-| | | | |  ...7-TC-FR02-BVA-005-BVA-006-locktime-0s.png | Bin 0 -> 1185341 bytes
-| | | | |  ...TC-FR02-BVA-005-BVA-006-locktime-180s.png | Bin 0 -> 1348472 bytes
-| | | | |  ...-TC-FR02-BVA-005-BVA-006-locktime-30s.png | Bin 0 -> 1208001 bytes
-| | | | |  ...-TC-FR02-BVA-005-BVA-006-locktime-33s.png | Bin 0 -> 1211503 bytes
-| | | | |  bug-reports/screenshots/dummy.jpg            |   0
-| | | | |  prompt_log.md                                | 322 +++++++++++++++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-002.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-003.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-004.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md       |   2 +-
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md       |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-001.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-002.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-003.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-004.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-005.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-006.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-007.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-008.md         |   2 +-
-| | | | |  .../domain-testing/TC-FR02-DT-009.md         |   2 +-
-| | | | |  tests/test-runs/FR-02-login-run.md           |  54 +++
-| | | | |  26 files changed, 391 insertions(+), 15 deletions(-)
-| | | | | 
-| | * | | commit a172955f3a40570e25c3ce19a685144e11e1ce5c
-| | | | | Author: hbnnnnnnn <hiembaonon@gmail.com>
-| | | | | Date:   Fri Jun 26 23:56:57 2026 +0700
-| | | | | 
-| | | | |     docs: add bva testing
-| | | | | 
-| | | | |  analysis/FR-02-login/bva-analysis.md         | 128 ++++++++++++
-| | | | |  prompt_log.md                                | 185 +++++++++++++++++
-| | | | |  reviews/FR-02-login/bva-review.md            |  70 +++++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md       |  49 +++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-002.md       |  49 +++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-003.md       |  48 +++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-004.md       |  49 +++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md       |  49 +++++
-| | | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md       |  49 +++++
-| | | | |  9 files changed, 676 insertions(+)
-| | | | | 
-| | * | | commit 3973b80608e625375386a3e1d737c520fc598a56
-| | | | | Author: hbnnnnnnn <hiembaonon@gmail.com>
-| | | | | Date:   Fri Jun 26 23:48:32 2026 +0700
-| | | | | 
-| | | | |     docs: add domain testing
-| | | | | 
-| | | | |  .../FR-02-login/domain-testing-analysis.md   | 144 +++++++++++++++++
-| | | | |  prompt_log.md                                | 132 +++++++++++++++
-| | | | |  reviews/FR-02-login/domain-testing-review.md |  77 +++++++++
-| | | | |  .../domain-testing/TC-FR02-DT-001.md         |  49 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-002.md         |  47 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-003.md         |  48 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-004.md         |  51 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-005.md         |  49 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-006.md         |  49 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-007.md         |  52 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-008.md         |  47 ++++++
-| | | | |  .../domain-testing/TC-FR02-DT-009.md         |  47 ++++++
-| | | | |  12 files changed, 792 insertions(+)
-| | | | | 
-| | | * | commit 5caa3506d6b5253ecb842cf155f4529711f0ea29
-| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | | Date:   Tue Jun 30 21:28:03 2026 +0700
-| | | | | 
-| | | | |     Update README.md
-| | | | | 
-| | | | |  README.md | 2 +-
-| | | | |  1 file changed, 1 insertion(+), 1 deletion(-)
-| | | | | 
-| | | * | commit 576c5341afd8e9155d95dbb1295993d6543c7505
-| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | | Date:   Tue Jun 30 21:26:52 2026 +0700
-| | | | | 
-| | | | |     bug: added bug reports and updated prompt log
-| | | | | 
-| | | | |  bug-reports/BUG-FR13-001.md                  |   77 +
-| | | | |  .../TC-FR13-DT-002-evidence-01.png           |  Bin 0 -> 334091 bytes
-| | | | |  .../TC-FR13-DT-002-evidence-02.png           |  Bin 0 -> 375783 bytes
-| | | | |  .../TC-FR13-DT-003-evidence-01.png           |  Bin 0 -> 342861 bytes
-| | | | |  .../TC-FR13-DT-003-evidence-02.png           |  Bin 0 -> 399813 bytes
-| | | | |  .../TC-FR13-DT-004-evidence-01.png           |  Bin 0 -> 337063 bytes
-| | | | |  .../TC-FR13-DT-004-evidence-02.png           |  Bin 0 -> 466736 bytes
-| | | | |  bug-reports/screenshots/dummy.jpg            |    0
-| | | | |  prompt_log.md                                | 1399 ++++++++++++++++
-| | | | |  9 files changed, 1476 insertions(+)
-| | | | | 
-| | | * | commit 1dcea6f7858d6ae831cbab221fd866eea37e5693
-| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | | Date:   Tue Jun 30 21:26:17 2026 +0700
-| | | | | 
-| | | | |     test: run tests and update tc status and test run
-| | | | | 
-| | | | |  .../domain-testing-analysis.md               | 12 ++---
-| | | | |  .../domain-testing/TC-FR13-DT-001.md         |  2 +-
-| | | | |  .../domain-testing/TC-FR13-DT-002.md         |  2 +-
-| | | | |  .../domain-testing/TC-FR13-DT-003.md         |  2 +-
-| | | | |  .../domain-testing/TC-FR13-DT-004.md         |  2 +-
-| | | | |  .../domain-testing/TC-FR13-DT-005.md         |  2 +-
-| | | | |  .../domain-testing/TC-FR13-DT-006.md         |  2 +-
-| | | | |  tests/test-runs/FR-13-dashboard-run.md       | 45 ++++++++++++++++++
-| | | | |  8 files changed, 57 insertions(+), 12 deletions(-)
-| | | | | 
-| | | * | commit 0b0d2e98cabb0bac65d77e1b2a218a84ec1ee86b
-| | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | | Date:   Tue Jun 30 20:08:21 2026 +0700
-| | | | | 
-| | | | |     docs: add bva analysis
-| | | | | 
-| | | | |  analysis/FR-13-dashboard/bva-analysis.md | 112 +++++++++++++++++++++
-| | | | |  prompt_log.md                            |  72 +++++++++++++
-| | | | |  reviews/FR-13-dashboard/bva-review.md    |  56 +++++++++++
-| | | | |  3 files changed, 240 insertions(+)
-| | | | | 
-| | | * | commit ba6f466be54cb816e890cb970632b8bdbcedc3e9
-| | |/ /  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | |   Date:   Tue Jun 30 20:04:12 2026 +0700
-| | | |   
-| | | |       docs: add domain testing
-| | | |   
-| | | |    .../domain-testing-analysis.md               | 117 +++++++++++++++++
-| | | |    prompt_log.md                                |  80 +++++++++++
-| | | |    .../FR-13-dashboard/domain-testing-review.md |  67 ++++++++++
-| | | |    .../domain-testing/TC-FR13-DT-001.md         |  48 +++++++
-| | | |    .../domain-testing/TC-FR13-DT-002.md         |  51 +++++++
-| | | |    .../domain-testing/TC-FR13-DT-003.md         |  53 ++++++++
-| | | |    .../domain-testing/TC-FR13-DT-004.md         |  54 ++++++++
-| | | |    .../domain-testing/TC-FR13-DT-005.md         |  53 ++++++++
-| | | |    .../domain-testing/TC-FR13-DT-006.md         |  47 +++++++
-| | | |    9 files changed, 570 insertions(+)
-| | | | 
-| | | * commit 6e3e8a7e967ab91804c13ccf080f8e5f257a5808
+| | | * commit ff6f4bdc622c279f46430bf83b290321a2eda97d
 | | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | Date:   Wed Jul 1 13:41:48 2026 +0700
+| | | | Date:   Wed Jul 1 13:28:39 2026 +0700
 | | | | 
-| | | |     fix: remove dummy files
+| | | |     docs: added but report
 | | | | 
-| | | |  bug-reports/screenshots/dummy.jpg  | 0
-| | | |  tests/test-runs/FR-02-login-run.md | 0
-| | | |  2 files changed, 0 insertions(+), 0 deletions(-)
+| | | |  bug-reports/BUG-FR02-001.md                   |  35 +++
+| | | |  bug-reports/BUG-FR02-002.md                   |  36 +++
+| | | |  bug-reports/BUG-FR02-003.md                   |  35 +++
+| | | |  bug-reports/BUG-FR02-004.md                   |  35 +++
+| | | |  bug-reports/BUG-FR02-005.md                   |  38 +++
+| | | |  prompt_log.md                                 | 275 ++++++++++++++++++
+| | | |  .../FR-02-login/bva/TC-FR02-BVA-001.md        |   2 +-
+| | | |  .../FR-02-login/bva/TC-FR02-BVA-005.md        |   2 +-
+| | | |  .../FR-02-login/bva/TC-FR02-BVA-006.md        |   2 +-
+| | | |  .../domain-testing/TC-FR02-DT-001.md          |   2 +-
+| | | |  .../domain-testing/TC-FR02-DT-002.md          |   2 +-
+| | | |  .../domain-testing/TC-FR02-DT-004.md          |   2 +-
+| | | |  .../domain-testing/TC-FR02-DT-006.md          |   2 +-
+| | | |  .../domain-testing/TC-FR02-DT-007.md          |   2 +-
+| | | |  .../domain-testing/TC-FR02-DT-009.md          |   2 +-
+| | | |  tests/test-runs/FR-02-login-run.md            |  20 +-
+| | | |  16 files changed, 473 insertions(+), 19 deletions(-)
 | | | | 
-| | | * commit f599d7f1cdd40de6d2ab24a31cab535ef341d712
-| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | Date:   Wed Jul 1 09:54:11 2026 +0700
-| | | | 
-| | | |     docs: add bug report
-| | | | 
-| | | |  bug-reports/BUG-FR26-001.md                   |  36 +++
-| | | |  bug-reports/BUG-FR26-002.md                   |  37 +++
-| | | |  bug-reports/BUG-FR26-003.md                   |  37 +++
-| | | |  bug-reports/BUG-FR26-004.md                   |  37 +++
-| | | |  bug-reports/BUG-FR26-005.md                   |  37 +++
-| | | |  .../BUG-FR26-mobile-cart-ui-issues.PNG        | Bin 0 -> 131449 bytes
-| | | |  prompt_log.md                                 | 269 ++++++++++++++++++
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md  |   2 +-
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md  |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-002.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-003.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-004.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-005.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-007.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-008.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-009.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-010.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-011.md          |   2 +-
-| | | |  tests/test-runs/FR-26-mobile-cart-run.md      |  24 +-
-| | | |  19 files changed, 476 insertions(+), 23 deletions(-)
-| | | | 
-| | | * commit 13fdf31c19bd3d200583880a0c1828aaee31e300
-| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | Date:   Wed Jul 1 01:26:20 2026 +0700
-| | | | 
-| | | |     test: add test results
-| | | | 
-| | | |  prompt_log.md                                 | 309 ++++++++++++++++++
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md  |   2 +-
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md  |   2 +-
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md  |   2 +-
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md  |   2 +-
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md  |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-001.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-002.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-003.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-004.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-005.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-006.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-007.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-008.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-009.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-010.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-011.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-012.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-013.md          |   2 +-
-| | | |  .../domain-testing/TC-FR26-DT-014.md          |   2 +-
-| | | |  tests/test-runs/FR-26-mobile-cart-run.md      |  61 ++++
-| | | |  21 files changed, 389 insertions(+), 19 deletions(-)
-| | | | 
-| | | * commit 4d6dbcf3ebfa4bf52372c698aabca6112d77f90d
-| | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | | | Date:   Wed Jul 1 01:04:24 2026 +0700
-| | | | 
-| | | |     docs: add bva testing and fix the domain testing
-| | | | 
-| | | |  analysis/FR-26-mobile-cart/bva-analysis.md    | 132 ++++++++++++
-| | | |  .../domain-testing-analysis.md                | 199 ++++++++++--------
-| | | |  prompt_log.md                                 | 135 ++++++++++++
-| | | |  reviews/FR-26-mobile-cart/bva-review.md       |  73 +++++++
-| | | |  .../domain-testing-review.md                  |  77 ++++---
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md  |  51 +++++
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md  |  52 +++++
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md  |  52 +++++
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md  |  47 +++++
-| | | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md  |  52 +++++
-| | | |  .../domain-testing/TC-FR26-DT-001.md          |  36 ++--
-| | | |  .../domain-testing/TC-FR26-DT-002.md          |  30 ++-
-| | | |  .../domain-testing/TC-FR26-DT-003.md          |  28 ++-
-| | | |  .../domain-testing/TC-FR26-DT-004.md          |  27 ++-
-| | | |  .../domain-testing/TC-FR26-DT-005.md          |  33 ++-
-| | | |  .../domain-testing/TC-FR26-DT-006.md          |  38 ++--
-| | | |  .../domain-testing/TC-FR26-DT-007.md          |  23 +-
-| | | |  .../domain-testing/TC-FR26-DT-008.md          |  33 ++-
-| | | |  .../domain-testing/TC-FR26-DT-009.md          |  32 +--
-| | | |  .../domain-testing/TC-FR26-DT-010.md          |  48 +++++
-| | | |  .../domain-testing/TC-FR26-DT-011.md          |  48 +++++
-| | | |  .../domain-testing/TC-FR26-DT-012.md          |  44 ++++
-| | | |  .../domain-testing/TC-FR26-DT-013.md          |  49 +++++
-| | | |  .../domain-testing/TC-FR26-DT-014.md          |  52 +++++
-| | | |  24 files changed, 1126 insertions(+), 265 deletions(-)
-| | | | 
-| | | * commit 79be061095d37f34d1d02e9ed4d9c8c3b94e091f
-| | |/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| |/|   Date:   Wed Jul 1 00:40:29 2026 +0700
+| | | * commit c6156d30eed900ec2495096b4e7b0792b657a077
+| | |   Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | |   Date:   Wed Jul 1 13:22:14 2026 +0700
 | | |   
-| | |       chore: add domain testing
+| | |       test: add test results
 | | |   
-| | |    .../domain-testing-analysis.md                | 154 ++++++++++++++++++
-| | |    prompt_log.md                                 | 118 ++++++++++++++
-| | |    requirements/system-requirements.md           |   3 +-
-| | |    .../domain-testing-review.md                  |  83 ++++++++++
-| | |    .../domain-testing/TC-FR26-DT-001.md          |  58 +++++++
-| | |    .../domain-testing/TC-FR26-DT-002.md          |  50 ++++++
-| | |    .../domain-testing/TC-FR26-DT-003.md          |  50 ++++++
-| | |    .../domain-testing/TC-FR26-DT-004.md          |  50 ++++++
-| | |    .../domain-testing/TC-FR26-DT-005.md          |  50 ++++++
-| | |    .../domain-testing/TC-FR26-DT-006.md          |  50 ++++++
-| | |    .../domain-testing/TC-FR26-DT-007.md          |  44 +++++
-| | |    .../domain-testing/TC-FR26-DT-008.md          |  50 ++++++
-| | |    .../domain-testing/TC-FR26-DT-009.md          |  49 ++++++
-| | |    13 files changed, 808 insertions(+), 1 deletion(-)
+| | |    ...C-FR02-DT-001-password-in-api-response.png | Bin 0 -> 632965 bytes
+| | |    ...-DT-002-TC-FR02-DT-009-input-type-text.png | Bin 0 -> 899561 bytes
+| | |    ...C-FR02-BVA-001-lock-after-two-failures.png | Bin 0 -> 549581 bytes
+| | |    .../TC-FR02-DT-006-lock-message-not-shown.png | Bin 0 -> 488342 bytes
+| | |    ...07-TC-FR02-BVA-005-BVA-006-locktime-0s.png | Bin 0 -> 1185341 bytes
+| | |    ...-TC-FR02-BVA-005-BVA-006-locktime-180s.png | Bin 0 -> 1348472 bytes
+| | |    ...7-TC-FR02-BVA-005-BVA-006-locktime-30s.png | Bin 0 -> 1208001 bytes
+| | |    ...7-TC-FR02-BVA-005-BVA-006-locktime-33s.png | Bin 0 -> 1211503 bytes
+| | |    bug-reports/screenshots/dummy.jpg             |   0
+| | |    prompt_log.md                                 | 322 ++++++++++++++++++
+| | |    .../FR-02-login/bva/TC-FR02-BVA-001.md        |   2 +-
+| | |    .../FR-02-login/bva/TC-FR02-BVA-002.md        |   2 +-
+| | |    .../FR-02-login/bva/TC-FR02-BVA-003.md        |   2 +-
+| | |    .../FR-02-login/bva/TC-FR02-BVA-004.md        |   2 +-
+| | |    .../FR-02-login/bva/TC-FR02-BVA-005.md        |   2 +-
+| | |    .../FR-02-login/bva/TC-FR02-BVA-006.md        |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-001.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-002.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-003.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-004.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-005.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-006.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-007.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-008.md          |   2 +-
+| | |    .../domain-testing/TC-FR02-DT-009.md          |   2 +-
+| | |    tests/test-runs/FR-02-login-run.md            |  54 +++
+| | |    26 files changed, 391 insertions(+), 15 deletions(-)
+| | | 
+| | * commit 5caa3506d6b5253ecb842cf155f4529711f0ea29
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Tue Jun 30 21:28:03 2026 +0700
+| | | 
+| | |     Update README.md
+| | | 
+| | |  README.md | 2 +-
+| | |  1 file changed, 1 insertion(+), 1 deletion(-)
+| | | 
+| | * commit 576c5341afd8e9155d95dbb1295993d6543c7505
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Tue Jun 30 21:26:52 2026 +0700
+| | | 
+| | |     bug: added bug reports and updated prompt log
+| | | 
+| | |  bug-reports/BUG-FR13-001.md                     |   77 +
+| | |  .../screenshots/TC-FR13-DT-002-evidence-01.png  |  Bin 0 -> 334091 bytes
+| | |  .../screenshots/TC-FR13-DT-002-evidence-02.png  |  Bin 0 -> 375783 bytes
+| | |  .../screenshots/TC-FR13-DT-003-evidence-01.png  |  Bin 0 -> 342861 bytes
+| | |  .../screenshots/TC-FR13-DT-003-evidence-02.png  |  Bin 0 -> 399813 bytes
+| | |  .../screenshots/TC-FR13-DT-004-evidence-01.png  |  Bin 0 -> 337063 bytes
+| | |  .../screenshots/TC-FR13-DT-004-evidence-02.png  |  Bin 0 -> 466736 bytes
+| | |  bug-reports/screenshots/dummy.jpg               |    0
+| | |  prompt_log.md                                   | 1399 +++++++++++++++++
+| | |  9 files changed, 1476 insertions(+)
+| | | 
+| | * commit 1dcea6f7858d6ae831cbab221fd866eea37e5693
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Tue Jun 30 21:26:17 2026 +0700
+| | | 
+| | |     test: run tests and update tc status and test run
+| | | 
+| | |  .../FR-13-dashboard/domain-testing-analysis.md  | 12 ++---
+| | |  .../domain-testing/TC-FR13-DT-001.md            |  2 +-
+| | |  .../domain-testing/TC-FR13-DT-002.md            |  2 +-
+| | |  .../domain-testing/TC-FR13-DT-003.md            |  2 +-
+| | |  .../domain-testing/TC-FR13-DT-004.md            |  2 +-
+| | |  .../domain-testing/TC-FR13-DT-005.md            |  2 +-
+| | |  .../domain-testing/TC-FR13-DT-006.md            |  2 +-
+| | |  tests/test-runs/FR-13-dashboard-run.md          | 45 +++++++++++++++++++
+| | |  8 files changed, 57 insertions(+), 12 deletions(-)
+| | | 
+| | * commit 0b0d2e98cabb0bac65d77e1b2a218a84ec1ee86b
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Tue Jun 30 20:08:21 2026 +0700
+| | | 
+| | |     docs: add bva analysis
+| | | 
+| | |  analysis/FR-13-dashboard/bva-analysis.md | 112 +++++++++++++++++++++++++
+| | |  prompt_log.md                            |  72 ++++++++++++++++
+| | |  reviews/FR-13-dashboard/bva-review.md    |  56 +++++++++++++
+| | |  3 files changed, 240 insertions(+)
+| | | 
+| | * commit ba6f466be54cb816e890cb970632b8bdbcedc3e9
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Tue Jun 30 20:04:12 2026 +0700
+| | | 
+| | |     docs: add domain testing
+| | | 
+| | |  .../FR-13-dashboard/domain-testing-analysis.md  | 117 ++++++++++++++++++
+| | |  prompt_log.md                                   |  80 ++++++++++++
+| | |  .../FR-13-dashboard/domain-testing-review.md    |  67 ++++++++++
+| | |  .../domain-testing/TC-FR13-DT-001.md            |  48 +++++++
+| | |  .../domain-testing/TC-FR13-DT-002.md            |  51 ++++++++
+| | |  .../domain-testing/TC-FR13-DT-003.md            |  53 ++++++++
+| | |  .../domain-testing/TC-FR13-DT-004.md            |  54 ++++++++
+| | |  .../domain-testing/TC-FR13-DT-005.md            |  53 ++++++++
+| | |  .../domain-testing/TC-FR13-DT-006.md            |  47 +++++++
+| | |  9 files changed, 570 insertions(+)
+| | | 
+| * | commit 6e3e8a7e967ab91804c13ccf080f8e5f257a5808
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 13:41:48 2026 +0700
+| | | 
+| | |     fix: remove dummy files
+| | | 
+| | |  bug-reports/screenshots/dummy.jpg  | 0
+| | |  tests/test-runs/FR-02-login-run.md | 0
+| | |  2 files changed, 0 insertions(+), 0 deletions(-)
+| | | 
+| * | commit f599d7f1cdd40de6d2ab24a31cab535ef341d712
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 09:54:11 2026 +0700
+| | | 
+| | |     docs: add bug report
+| | | 
+| | |  bug-reports/BUG-FR26-001.md                     |  36 +++
+| | |  bug-reports/BUG-FR26-002.md                     |  37 +++
+| | |  bug-reports/BUG-FR26-003.md                     |  37 +++
+| | |  bug-reports/BUG-FR26-004.md                     |  37 +++
+| | |  bug-reports/BUG-FR26-005.md                     |  37 +++
+| | |  .../BUG-FR26-mobile-cart-ui-issues.PNG          | Bin 0 -> 131449 bytes
+| | |  prompt_log.md                                   | 269 ++++++++++++++++++
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md    |   2 +-
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md    |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-002.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-003.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-004.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-005.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-007.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-008.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-009.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-010.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-011.md            |   2 +-
+| | |  tests/test-runs/FR-26-mobile-cart-run.md        |  24 +-
+| | |  19 files changed, 476 insertions(+), 23 deletions(-)
+| | | 
+| * | commit 13fdf31c19bd3d200583880a0c1828aaee31e300
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 01:26:20 2026 +0700
+| | | 
+| | |     test: add test results
+| | | 
+| | |  prompt_log.md                                   | 309 ++++++++++++++++++
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md    |   2 +-
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md    |   2 +-
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md    |   2 +-
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md    |   2 +-
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md    |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-001.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-002.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-003.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-004.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-005.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-006.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-007.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-008.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-009.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-010.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-011.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-012.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-013.md            |   2 +-
+| | |  .../domain-testing/TC-FR26-DT-014.md            |   2 +-
+| | |  tests/test-runs/FR-26-mobile-cart-run.md        |  61 ++++
+| | |  21 files changed, 389 insertions(+), 19 deletions(-)
+| | | 
+| * | commit 4d6dbcf3ebfa4bf52372c698aabca6112d77f90d
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 01:04:24 2026 +0700
+| | | 
+| | |     docs: add bva testing and fix the domain testing
+| | | 
+| | |  analysis/FR-26-mobile-cart/bva-analysis.md      | 132 ++++++++++++
+| | |  .../domain-testing-analysis.md                  | 199 ++++++++++--------
+| | |  prompt_log.md                                   | 135 ++++++++++++
+| | |  reviews/FR-26-mobile-cart/bva-review.md         |  73 +++++++
+| | |  .../FR-26-mobile-cart/domain-testing-review.md  |  77 ++++---
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-001.md    |  51 +++++
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-002.md    |  52 +++++
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-003.md    |  52 +++++
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-004.md    |  47 +++++
+| | |  .../FR-26-mobile-cart/bva/TC-FR26-BVA-005.md    |  52 +++++
+| | |  .../domain-testing/TC-FR26-DT-001.md            |  36 ++--
+| | |  .../domain-testing/TC-FR26-DT-002.md            |  30 ++-
+| | |  .../domain-testing/TC-FR26-DT-003.md            |  28 ++-
+| | |  .../domain-testing/TC-FR26-DT-004.md            |  27 ++-
+| | |  .../domain-testing/TC-FR26-DT-005.md            |  33 ++-
+| | |  .../domain-testing/TC-FR26-DT-006.md            |  38 ++--
+| | |  .../domain-testing/TC-FR26-DT-007.md            |  23 +-
+| | |  .../domain-testing/TC-FR26-DT-008.md            |  33 ++-
+| | |  .../domain-testing/TC-FR26-DT-009.md            |  32 +--
+| | |  .../domain-testing/TC-FR26-DT-010.md            |  48 +++++
+| | |  .../domain-testing/TC-FR26-DT-011.md            |  48 +++++
+| | |  .../domain-testing/TC-FR26-DT-012.md            |  44 ++++
+| | |  .../domain-testing/TC-FR26-DT-013.md            |  49 +++++
+| | |  .../domain-testing/TC-FR26-DT-014.md            |  52 +++++
+| | |  24 files changed, 1126 insertions(+), 265 deletions(-)
+| | | 
+| * | commit 79be061095d37f34d1d02e9ed4d9c8c3b94e091f
+| | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| | | Date:   Wed Jul 1 00:40:29 2026 +0700
+| | | 
+| | |     chore: add domain testing
+| | | 
+| | |  .../domain-testing-analysis.md                  | 154 ++++++++++++++++++
+| | |  prompt_log.md                                   | 118 ++++++++++++++
+| | |  requirements/system-requirements.md             |   3 +-
+| | |  .../FR-26-mobile-cart/domain-testing-review.md  |  83 ++++++++++
+| | |  .../domain-testing/TC-FR26-DT-001.md            |  58 +++++++
+| | |  .../domain-testing/TC-FR26-DT-002.md            |  50 ++++++
+| | |  .../domain-testing/TC-FR26-DT-003.md            |  50 ++++++
+| | |  .../domain-testing/TC-FR26-DT-004.md            |  50 ++++++
+| | |  .../domain-testing/TC-FR26-DT-005.md            |  50 ++++++
+| | |  .../domain-testing/TC-FR26-DT-006.md            |  50 ++++++
+| | |  .../domain-testing/TC-FR26-DT-007.md            |  44 +++++
+| | |  .../domain-testing/TC-FR26-DT-008.md            |  50 ++++++
+| | |  .../domain-testing/TC-FR26-DT-009.md            |  49 ++++++
+| | |  13 files changed, 808 insertions(+), 1 deletion(-)
 | | | 
 | * | commit 0e35f56997292288579bae52863c41b462f8fff3
 | | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
@@ -6937,74 +6839,38 @@
 | |    1 file changed, 9 insertions(+), 7 deletions(-)
 | | 
 * | commit d55a5401890e8cb4e99530adb794a737ac399c9b
-| | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
-| | Date:   Wed Jul 1 16:33:56 2026 +0700
-| | 
-| |     docs: add bug report and test case status
-| | 
-| |  bug-reports/BUG-FR10-001.md                      |  38 +++
-| |  bug-reports/BUG-FR10-002.md                      |  36 +++
-| |  bug-reports/BUG-FR10-003.md                      |  49 ++++
-| |  .../TC-FR10-DT-009-canceled-state.png            | Bin 0 -> 404350 bytes
-| |  .../TC-FR10-DT-009-canceled-to-delivered.png     | Bin 0 -> 354742 bytes
-| |  .../TC-FR10-DT-010-cancel-success.png            | Bin 0 -> 542236 bytes
-| |  .../TC-FR10-DT-010-shipping-shows-cancel.png     | Bin 0 -> 333617 bytes
-| |  .../TC-FR10-DT-011-user-calls-admin-api.png      | Bin 0 -> 856955 bytes
-| |  bug-reports/screenshots/dummy.jpg                |   0
-| |  prompt_log.md                                    | 229 +++++++++++++++++++
-| |  .../domain-testing/TC-FR10-DT-001.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-002.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-003.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-004.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-005.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-006.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-007.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-008.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-009.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-010.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-011.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-012.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-013.md             |   2 +-
-| |  .../domain-testing/TC-FR10-DT-014.md             |   2 +-
-| |  tests/test-runs/FR-02-login-run.md               |   0
-| |  tests/test-runs/FR-10-order-state-machine-run.md |  53 +++++
-| |  26 files changed, 419 insertions(+), 14 deletions(-)
-| | 
-* | commit 31a305305330e8db5dad0d91d60b58fd218e5484
-| | Author: hbnnnnnnn <hiembaonon@gmail.com>
-| | Date:   Sat Jun 27 00:20:08 2026 +0700
-| | 
-| |     docs: add bva testing
-| | 
-| |  .../FR-10-order-state-machine/bva-analysis.md    |  98 +++++++++++++++
-| |  prompt_log.md                                    | 126 +++++++++++++++++++
-| |  reviews/FR-10-order-state-machine/bva-review.md  |  59 +++++++++
-| |  3 files changed, 283 insertions(+)
-| | 
-* | commit 3a4e9d09f83265150414a623c60a9c5f0af8f717
-|/  Author: hbnnnnnnn <hiembaonon@gmail.com>
-|   Date:   Sat Jun 27 00:07:50 2026 +0700
+ /  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+|   Date:   Wed Jul 1 16:33:56 2026 +0700
 |   
-|       docs: add domain testing
+|       docs: add bug report and test case status
 |   
-|    .../domain-testing-analysis.md                   | 150 +++++
-|    prompt_log.md                                    | 634 +++++++++++++++++++
-|    .../domain-testing-review.md                     |  84 +++
-|    .../domain-testing/TC-FR10-DT-001.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-002.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-003.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-004.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-005.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-006.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-007.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-008.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-009.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-010.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-011.md             |  48 ++
-|    .../domain-testing/TC-FR10-DT-012.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-013.md             |  49 ++
-|    .../domain-testing/TC-FR10-DT-014.md             |  48 ++
-|    17 files changed, 1552 insertions(+)
+|    bug-reports/BUG-FR10-001.md                      |  38 +++
+|    bug-reports/BUG-FR10-002.md                      |  36 +++
+|    bug-reports/BUG-FR10-003.md                      |  49 ++++
+|    .../TC-FR10-DT-009-canceled-state.png            | Bin 0 -> 404350 bytes
+|    .../TC-FR10-DT-009-canceled-to-delivered.png     | Bin 0 -> 354742 bytes
+|    .../TC-FR10-DT-010-cancel-success.png            | Bin 0 -> 542236 bytes
+|    .../TC-FR10-DT-010-shipping-shows-cancel.png     | Bin 0 -> 333617 bytes
+|    .../TC-FR10-DT-011-user-calls-admin-api.png      | Bin 0 -> 856955 bytes
+|    bug-reports/screenshots/dummy.jpg                |   0
+|    prompt_log.md                                    | 229 +++++++++++++++++++
+|    .../domain-testing/TC-FR10-DT-001.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-002.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-003.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-004.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-005.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-006.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-007.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-008.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-009.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-010.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-011.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-012.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-013.md             |   2 +-
+|    .../domain-testing/TC-FR10-DT-014.md             |   2 +-
+|    tests/test-runs/FR-02-login-run.md               |   0
+|    tests/test-runs/FR-10-order-state-machine-run.md |  53 +++++
+|    26 files changed, 419 insertions(+), 14 deletions(-)
 | 
 * commit 2ab133b7c0f9286e7e37e1988ab34eccd46f0ac4
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
@@ -7060,15 +6926,6 @@
 |  templates/test-run-template.md                  |  8 ++---
 |  5 files changed, 87 insertions(+), 48 deletions(-)
 |   
-| * commit 9743f7a08d67f7f1fe1c2111af9b07875728fabf
-| | Merge: 15ad550 3124868
-| | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
-| | Date:   Fri Jun 26 19:51:39 2026 +0700
-| | 
-| |     Merge pull request #16 from lmchkhi/test/FR-02
-| |     
-| |     Test: FR-02
-| | 
 | * commit 31248687655576ce941a731a94950f1c2974fe27
 | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | | Date:   Fri Jun 26 19:49:52 2026 +0700
