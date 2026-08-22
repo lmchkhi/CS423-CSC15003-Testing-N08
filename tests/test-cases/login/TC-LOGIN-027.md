@@ -33,12 +33,6 @@ LOGIN / Security / Equivalence Partitioning
 ## Status / Related bugs
 Failed / #69
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `VALID`
-- Reason: Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-027`
 - Coverage: `domain-partition`, `security`, `schema-validation`

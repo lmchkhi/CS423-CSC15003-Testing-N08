@@ -27,16 +27,11 @@ LOGIN / Security / Equivalence Partitioning
 - `user` phải có kiểu `object`
 - `password` không được xuất hiện
 - `user.password` không được xuất hiện
+- Từ trạng thái chưa xác thực và tài khoản không bị khóa, login thành công tạo trạng thái đã xác thực thông qua JWT.
 
 ## Status / Related bugs
 Failed / #69
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `VALID`
-- Reason: Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-001`
-- Coverage: `domain-partition`, `schema-validation`, `security`
+- Coverage: `domain-partition`, `state-transition`, `schema-validation`, `security`

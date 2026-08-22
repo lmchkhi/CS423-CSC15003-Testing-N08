@@ -26,16 +26,10 @@ LOGIN / Security / Equivalence Partitioning
 - `error` phải tồn tại
 - `token` không được xuất hiện
 - `user` không được xuất hiện
-- Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký; wrong-password state được kiểm tra riêng ở TC-LOGIN-038 trở đi.
+- Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký.
 
 ## Status / Related bugs
 Passed / None
-
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review.
-- Human review: `PENDING`
 
 ## Automation mapping
 - Data row: `TC-LOGIN-007`

@@ -31,12 +31,6 @@ LOGIN / Functional / Equivalence Partitioning
 ## Status / Related bugs
 Failed / None
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Đặc tả không nói server có trim email; cần human review trước khi coi sai khác là defect.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-004`
 - Coverage: `domain-partition`

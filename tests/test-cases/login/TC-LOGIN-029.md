@@ -31,12 +31,6 @@ LOGIN / Security / SQL Injection
 ## Status / Related bugs
 Passed / None
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `VALID`
-- Reason: Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-029`
 - Coverage: `security`

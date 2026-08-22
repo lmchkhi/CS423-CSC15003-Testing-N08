@@ -30,15 +30,9 @@ Use Vietnamese content. Preserve technical terms where they improve precision.
 ## Status / Related bugs
 Not Run / None
 
-## AI audit
-- Source: `AI_GENERATED` hoặc `EXTENSION_CANDIDATE`
-- Recommendation: `VALID`, `INVALID`, hoặc `INCOMPLETE`
-- Reason: <lý do>
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `<TC-ID>`
 - Coverage: `<coverage families>`
 ```
 
-Never mark `Human review` as complete without an explicit student decision. Never place live bearer tokens or passwords in the file; use named variables or redacted values.
+Do not include an `AI audit` section in testcase Markdown. Keep `source`, `agentAudit`, and `humanReview` in `suite.manifest.json`; summarize audit results in the main report. The skill must emit source `ai-generated` only. Use `student-authored` only when the student explicitly provides the testcase content. Never mark `humanReview` as complete without an explicit student decision. Never place live bearer tokens or passwords in the file; use named variables or redacted values.

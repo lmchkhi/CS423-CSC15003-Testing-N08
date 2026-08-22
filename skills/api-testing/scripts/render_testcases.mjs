@@ -51,9 +51,8 @@ for (const tc of doc.cases || []) {
     ...(expected.bodyAssertions || []).map(renderBodyAssertion),
     ...(expected.notes || []).map((v) => `- ${v}`),
   ].filter(Boolean).join("\n");
-  const source = tc.source === "ai-generated" ? "AI_GENERATED" : "EXTENSION_CANDIDATE";
   const related = (tc.relatedBugs || []).length ? tc.relatedBugs.join(", ") : "None";
-  const body = `# ${tc.id}: ${tc.title}\n\n## Requirement ID\n${(tc.requirementIds || []).join(", ")}\n\n## Module / Test type / Technique\n${doc.suite.module} / ${tc.testType} / ${tc.technique}\n\n## Preconditions\n${preconditions}\n\n## Test data\n| Trường | Giá trị |\n|---|---|\n${dataRows}\n\n## Test steps\n${steps}\n\n## Expected result\n${expectedLines}\n\n## Status / Related bugs\n${tc.status || "Not Run"} / ${related}\n\n## AI audit\n- Source: \`${source}\`\n- Recommendation: \`${tc.agentAudit.status}\`\n- Reason: ${tc.agentAudit.reason}\n- Human review: \`${tc.humanReview.status}\`${tc.humanReview.reason ? ` - ${tc.humanReview.reason}` : ""}\n\n## Automation mapping\n- Data row: \`${tc.id}\`\n- Coverage: ${(tc.coverage || []).map((v) => `\`${v}\``).join(", ")}\n`;
+  const body = `# ${tc.id}: ${tc.title}\n\n## Requirement ID\n${(tc.requirementIds || []).join(", ")}\n\n## Module / Test type / Technique\n${doc.suite.module} / ${tc.testType} / ${tc.technique}\n\n## Preconditions\n${preconditions}\n\n## Test data\n| Trường | Giá trị |\n|---|---|\n${dataRows}\n\n## Test steps\n${steps}\n\n## Expected result\n${expectedLines}\n\n## Status / Related bugs\n${tc.status || "Not Run"} / ${related}\n\n## Automation mapping\n- Data row: \`${tc.id}\`\n- Coverage: ${(tc.coverage || []).map((v) => `\`${v}\``).join(", ")}\n`;
   fs.writeFileSync(path.join(output, `${tc.id}.md`), body);
 }
 console.log(`Rendered ${(doc.cases || []).length} testcase Markdown files in ${output}.`);

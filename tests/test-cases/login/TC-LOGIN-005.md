@@ -30,12 +30,6 @@ LOGIN / Functional / Equivalence Partitioning
 ## Status / Related bugs
 Passed / None
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Dùng email không tồn tại để không làm biến đổi lockout state; server vẫn phải từ chối an toàn.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-005`
 - Coverage: `domain-partition`

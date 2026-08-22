@@ -31,12 +31,6 @@ LOGIN / Contract / Schema Validation
 ## Status / Related bugs
 Failed / #69
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `VALID`
-- Reason: Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-037`
 - Coverage: `schema-validation`, `security`

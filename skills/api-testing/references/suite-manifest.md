@@ -51,7 +51,7 @@ Create UTF-8 JSON with this shape. The scripts reject missing coverage, counts, 
 
 Allowed `coverage`: `domain-partition`, `state-transition`, `security`, `schema-validation`.
 
-Allowed `source`: `ai-generated`, `extension-candidate`.
+Allowed `source`: `ai-generated`, `student-authored`. The skill generates only `ai-generated` cases. Use `student-authored` only for cases explicitly supplied by the student; never generate or infer those cases for them.
 
 Allowed `request.auth`: `none`, `missing`, `user`, `admin`, `invalid`, `custom`. For `custom`, set `request.token` to a variable reference, never a live token in committed files.
 

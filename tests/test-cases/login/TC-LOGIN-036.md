@@ -32,12 +32,6 @@ LOGIN / Security / Equivalence Partitioning
 ## Status / Related bugs
 Failed / #69
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Đặc tả không mô tả query parameter; kỳ vọng endpoint bỏ qua tham số không được hỗ trợ một cách an toàn.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-036`
 - Coverage: `domain-partition`, `security`

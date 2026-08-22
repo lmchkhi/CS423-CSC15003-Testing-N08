@@ -31,12 +31,6 @@ LOGIN / Functional / Equivalence Partitioning
 ## Status / Related bugs
 Failed / None
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Đặc tả không nói email login có phân biệt hoa thường; oracle dùng thông lệ email case-insensitive.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-003`
 - Coverage: `domain-partition`

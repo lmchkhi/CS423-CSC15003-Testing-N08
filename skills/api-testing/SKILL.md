@@ -27,14 +27,13 @@ Do not invent undocumented success behavior. When the specification is ambiguous
 Generate:
 
 - at least 35 cases with `source: ai-generated`;
-- at least 5 additional high-value cases with `source: extension-candidate`, concentrating on security and state transitions;
-- at least one case in each coverage family: `domain-partition`, `state-transition`, `security`, and `schema-validation`.
+- at least one AI-generated case in each coverage family: `domain-partition`, `state-transition`, `security`, and `schema-validation`.
 
-The extension cases are candidates for the student's own contribution. Never claim they were human-authored or human-reviewed. Set `humanReview.status` to `PENDING` until the student actually reviews them. Record an agent audit recommendation of `VALID`, `INVALID`, or `INCOMPLETE` with a reason, but keep it separate from human review.
+Do not generate, draft, prepopulate, or label cases as extension candidates. The assignment's extension cases must come from the student after reviewing the AI baseline. If the student explicitly supplies their own cases, preserve them with `source: student-authored`; never invent their content or claim authorship on their behalf. Set AI-generated cases' `humanReview.status` to `PENDING` until the student explicitly reviews them. Record an agent audit recommendation of `VALID`, `INVALID`, or `INCOMPLETE` with a reason, but keep it separate from human review.
 
 ## Materialize the suite
 
-Create the layout from [references/artifact-contract.md](references/artifact-contract.md). Use stable IDs `TC-[MODULE]-[NNN]` and one Markdown file per testcase. Each Markdown file must preserve every section from the lecture template and may add audit/automation metadata after those required sections.
+Create the layout from [references/artifact-contract.md](references/artifact-contract.md). Use stable IDs `TC-[MODULE]-[NNN]` and one Markdown file per testcase. Each Markdown file must preserve every section from the lecture template and may add automation metadata after those required sections. Do not render an `AI audit` section in individual testcase Markdown files; retain `source`, `agentAudit`, and `humanReview` only in `suite.manifest.json` and summarize them in the main report.
 
 Create `suite.manifest.json` following [references/suite-manifest.md](references/suite-manifest.md). Then run:
 
@@ -64,7 +63,12 @@ bash skills/api-testing/scripts/run_newman.sh \
 
 4. Preserve CLI output, Newman JSON, and HTML. A nonzero Newman exit code means tests failed, not that the runner should discard artifacts.
 5. Verify from the report or console log that every request carried the exact `X-Student-Id` header. If this cannot be proven, mark execution incomplete.
-6. Capture the mandatory real console screenshot showing the pre-request script output for `X-Student-Id: <actual student ID>`. The screenshot must come from the actual Postman/Newman execution context; do not reconstruct it from text afterward.
+6. Capture screenshots from the live terminal that actually runs Newman. Keep the Newman command and relevant output visible; do not open a saved log in TextEdit or another editor and present that as an execution screenshot. Do not reconstruct terminal evidence from text afterward.
+   - Prefer an allowed terminal app. If macOS Terminal, Ghostty, or another terminal is blocked by Computer Use policy, use the repository's VS Code integrated terminal.
+   - In VS Code, maximize the terminal panel and hide the Explorer/sidebar before capture so testcase IDs, assertion names, expected/actual values, and the completed shell prompt are legible. Clear unrelated terminal output before the run when safe.
+   - For the mandatory header evidence, capture the real pre-request output showing `X-Student-Id: <actual student ID>`.
+   - For a defect screenshot, position the completed Newman output at the relevant failure lines. Include the detecting testcase ID and failed assertion; retain the command line or other run identity in the same frame when practical.
+   - Use a normal screenshot without Stickies, student-ID overlays, or assignment-specific capture skills unless the user explicitly requests that capture method for the current assignment.
 7. Create a Vietnamese test-run Markdown summary with tester/student ID, endpoint, base URL, commit, timestamp/timezone, testcase result, actual status, related bug, and notes.
 8. Redact secrets from retained logs. Do not edit raw response facts to make a test pass.
 
@@ -74,7 +78,7 @@ For every failure, first reproduce it at least once with the same data and once 
 
 Create a bug only for a reproducible `SUT defect` whose actual result contradicts the documented oracle. Group failures only when they share one root cause; otherwise create one bug report per defect. Link all detecting testcases while naming one primary `Found by Test Case`.
 
-Capture real evidence from the API response, Newman/Postman console, or HTML report. Prefer a screenshot that visibly includes the request/endpoint, status, response/error, timestamp/run identity, and `X-Student-Id` evidence where relevant. Keep the raw response or log beside the screenshot. Never synthesize, redraw, or alter evidence. If screenshot tooling is unavailable, retain the raw evidence and explicitly mark the screenshot as pending instead of fabricating one.
+Capture real evidence from the API response, Newman/Postman console, or HTML report. For Newman failures, prefer the live terminal screenshot procedure above over reopening the retained CLI log in an editor. Prefer a screenshot that visibly includes the request/endpoint, status, response/error, timestamp/run identity, and `X-Student-Id` evidence where relevant. Keep the raw response or log beside the screenshot. Never synthesize, redraw, or alter evidence. If screenshot tooling is unavailable, retain the raw evidence and explicitly mark the screenshot as pending instead of fabricating one.
 
 Write each local report from [references/bug-report-template.md](references/bug-report-template.md), using the exact observed values and repository convention.
 
@@ -95,6 +99,6 @@ Never print, request, copy, or pass a GitHub token on the command line. Use the 
 
 ## Finish and report
 
-Re-run suite validation. Confirm counts for generated, extension, executed, passed, failed, blocked, and confirmed bugs. Confirm every failed/blocked row has a related bug or explicit non-bug reason. Provide a Vietnamese summary with paths to testcase files, manifest/data/collection, Newman HTML/JSON/CLI outputs, evidence, bug reports, and GitHub issue URLs.
+Re-run suite validation. Confirm counts for AI-generated, student-authored (when supplied), executed, passed, failed, blocked, and confirmed bugs. Confirm every failed/blocked row has a related bug or explicit non-bug reason. Provide a Vietnamese summary with paths to testcase files, manifest/data/collection, Newman HTML/JSON/CLI outputs, evidence, bug reports, and GitHub issue URLs.
 
-State clearly what remains for the student: human review, self-drawn generator diagram, required screenshots that could not be captured, AI Audit Report, CI/CD sample runs, commits, and any other HW06 deliverable outside the single-endpoint pipeline. Never claim completion of anti-AI-cheat evidence without real execution.
+State clearly what remains for the student: human review, at least five genuinely student-authored extension cases with an explanation of what the AI baseline missed, self-drawn generator diagram, required screenshots that could not be captured, AI Audit Report, CI/CD sample runs, commits, and any other HW06 deliverable outside the single-endpoint pipeline. Never claim completion of anti-AI-cheat evidence without real execution.

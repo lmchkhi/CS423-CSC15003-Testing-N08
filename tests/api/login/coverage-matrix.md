@@ -11,4 +11,4 @@
 | Response lỗi | JSON error, không token/user | Credentials sai hoặc input lỗi | Status âm chưa được tài liệu hóa đầy đủ | Thông báo không lộ email có tồn tại | FR-02; các status chưa rõ được đánh dấu `INCOMPLETE` |
 | State | unlocked → success | wrong attempt → counter +1 | khóa từ lần sai thứ 3; 30 giây | success trước ngưỡng reset chuỗi; login khi locked bị từ chối | FR-02 |
 
-Các transition về hết hạn khóa sau 30 giây được tái hiện riêng ngoài Newman để giữ collection data-driven và tránh chèn timer vào generator chuẩn.
+AI baseline hiện bao phủ transition từ trạng thái chưa xác thực/tài khoản không khóa sang trạng thái đã xác thực bằng JWT tại TC-LOGIN-001. Các transition chuyên sâu về bộ đếm sai, ngưỡng khóa và hết hạn 30 giây không còn nằm trong suite AI hiện tại; đây là khoảng trống để sinh viên tự thiết kế test case Extend.

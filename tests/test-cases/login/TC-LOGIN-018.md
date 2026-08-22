@@ -30,12 +30,6 @@ LOGIN / Functional / Type Confusion
 ## Status / Related bugs
 Failed / None
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-018`
 - Coverage: `domain-partition`

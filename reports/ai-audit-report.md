@@ -8,7 +8,7 @@
 | **MSSV:**               | 23127062                |
 | **Lớp / Khoá:**         | CS423 / CSC13003        |
 | **Mã bài tập :**        | HW06                    |
-| **Ngày làm bài:**       | 18/08/2026 - ../08/2026 |
+| **Ngày làm bài:**       | 18/08/2026 - 23/08/2026 |
 | **Công cụ AI đã dùng:** | Codex                   |
 
 ## Entry #1
@@ -116,16 +116,16 @@ GitHub CLI hiện có token hết hạn, nên khi thực thi phần tạo issue 
 
 ### (1) Prompt + Tool
 
-| Field             | Content                         |
-| ----------------- | ------------------------------- |
-| **Tool**          | GPT-5.6 Sol                     |
-| **Timestamp**     | 20/08/2026 18:46:34             |
-| **Artifact type** | Bộ kiểm thử API Login cho HW06  |
+| Field             | Content                        |
+| ----------------- | ------------------------------ |
+| **Tool**          | GPT-5.6 Sol                    |
+| **Timestamp**     | 20/08/2026 18:46:34            |
+| **Artifact type** | Bộ kiểm thử API Login cho HW06 |
 
 **Full prompt:**
 
 ```
-Dùng skill [api-testing](skills/api-testing/) để thực hiện test cho api sau: POST /api/login. 
+Dùng skill [api-testing](skills/api-testing/) để thực hiện test cho api sau: POST /api/login.
 MSSV: 23127062.
 ```
 
@@ -188,12 +188,14 @@ Artifacts chính:
 
 ### (3) Verdict
 
-**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+**`INCOMPLETE`**
 
 ### (4) Reasoning
 
-- _[Người dùng tự điền]_
+- AI tự thêm các extension-candidate test case trong khi không có yêu cầu về vấn đề đó.
+- AI tự thêm section `AI audit` thay vì chỉ tạo test case theo format được giao.
 
 ### (5) Student Fix
 
-- _[Người dùng tự điền]_
+- Bỏ các test case extension-candidate không cần thiết, chỉ giữ 37 AI-generated test case theo yêu cầu.
+- Bỏ section `AI audit` trong các test case, chỉ giữ các phần theo format được giao.

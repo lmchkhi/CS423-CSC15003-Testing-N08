@@ -21,6 +21,7 @@
       "technique": "Equivalence Partitioning",
       "coverage": [
         "domain-partition",
+        "state-transition",
         "schema-validation",
         "security"
       ],
@@ -102,14 +103,16 @@
           }
         ],
         "maxResponseTimeMs": 2000,
-        "notes": []
+        "notes": [
+          "Từ trạng thái chưa xác thực và tài khoản không bị khóa, login thành công tạo trạng thái đã xác thực thông qua JWT."
+        ]
       },
       "status": "Failed",
       "relatedBugs": [
         "#69"
       ],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -214,7 +217,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -314,7 +317,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 4,
         "classification": "specification gap / incomplete oracle"
@@ -414,7 +417,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 4,
         "classification": "specification gap / incomplete oracle"
@@ -500,7 +503,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -589,7 +592,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -672,13 +675,13 @@
         ],
         "maxResponseTimeMs": 2000,
         "notes": [
-          "Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký; wrong-password state được kiểm tra riêng ở TC-LOGIN-038 trở đi."
+          "Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký."
         ]
       },
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -762,7 +765,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -846,7 +849,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -926,7 +929,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1012,7 +1015,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1098,7 +1101,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1184,7 +1187,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1270,7 +1273,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1356,7 +1359,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1442,7 +1445,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -1528,7 +1531,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1614,7 +1617,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1700,7 +1703,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1786,7 +1789,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1877,7 +1880,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -1968,7 +1971,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -2050,7 +2053,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 400,
         "failedAssertions": 3,
         "classification": "specification gap / incomplete oracle"
@@ -2132,7 +2135,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -2214,7 +2217,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 400,
         "failedAssertions": 3,
         "classification": "specification gap / incomplete oracle"
@@ -2295,7 +2298,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -2404,7 +2407,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -2493,7 +2496,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2582,7 +2585,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2677,7 +2680,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -2766,7 +2769,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -2852,7 +2855,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -2939,7 +2942,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 401,
         "failedAssertions": 1,
         "classification": "specification gap / incomplete oracle"
@@ -3026,7 +3029,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 500,
         "failedAssertions": 4,
         "classification": "specification gap / incomplete oracle"
@@ -3129,7 +3132,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -3237,7 +3240,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -3341,837 +3344,10 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260820T191531+0700",
+        "runId": "20260822T130751+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
-      }
-    },
-    {
-      "id": "TC-LOGIN-038",
-      "title": "Sai password lần 1 của chuỗi reset",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validUserEmail}}",
-        "password": "{{invalidPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validUserEmail}}",
-          "password": "{{invalidPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          401
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": []
-      },
-      "status": "Passed",
-      "relatedBugs": [],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 401,
-        "failedAssertions": 0,
-        "classification": "passed"
-      }
-    },
-    {
-      "id": "TC-LOGIN-039",
-      "title": "Login đúng sau 1 lần sai reset bộ đếm",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Functional",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "schema-validation"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "VALID",
-        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validUserEmail}}",
-        "password": "{{validUserPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validUserEmail}}",
-          "password": "{{validUserPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          200
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "token",
-            "user"
-          ],
-          "properties": {
-            "token": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
-            },
-            "user": {
-              "type": "object",
-              "required": [
-                "id",
-                "email",
-                "role"
-              ]
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "token",
-            "operator": "exists"
-          },
-          {
-            "path": "user",
-            "operator": "type",
-            "value": "object"
-          },
-          {
-            "path": "password",
-            "operator": "absent"
-          },
-          {
-            "path": "user.password",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": [
-          "Một lần sai chưa đủ ngưỡng khóa; login đúng phải thành công và reset chuỗi sai liên tiếp."
-        ]
-      },
-      "status": "Failed",
-      "relatedBugs": [
-        "#69"
-      ],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 200,
-        "failedAssertions": 1,
-        "classification": "SUT defect"
-      }
-    },
-    {
-      "id": "TC-LOGIN-040",
-      "title": "Sai password lần 1 của chuỗi khóa sớm",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validUserEmail}}",
-        "password": "{{invalidPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validUserEmail}}",
-          "password": "{{invalidPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          401
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": []
-      },
-      "status": "Passed",
-      "relatedBugs": [],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 401,
-        "failedAssertions": 0,
-        "classification": "passed"
-      }
-    },
-    {
-      "id": "TC-LOGIN-041",
-      "title": "Sai password lần 2 của chuỗi khóa sớm",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validUserEmail}}",
-        "password": "{{invalidPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validUserEmail}}",
-          "password": "{{invalidPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          401
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": []
-      },
-      "status": "Passed",
-      "relatedBugs": [],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 401,
-        "failedAssertions": 0,
-        "classification": "passed"
-      }
-    },
-    {
-      "id": "TC-LOGIN-042",
-      "title": "Login đúng sau đúng 2 lần sai vẫn phải thành công",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "schema-validation",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "VALID",
-        "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "Hai testcase TC-LOGIN-040 và TC-LOGIN-041 vừa chạy liên tiếp trên cùng tài khoản."
-      ],
-      "testData": {
-        "email": "{{validUserEmail}}",
-        "password": "{{validUserPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validUserEmail}}",
-          "password": "{{validUserPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          200
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "token",
-            "user"
-          ],
-          "properties": {
-            "token": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
-            },
-            "user": {
-              "type": "object",
-              "required": [
-                "id",
-                "email",
-                "role"
-              ]
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "token",
-            "operator": "exists"
-          },
-          {
-            "path": "user",
-            "operator": "type",
-            "value": "object"
-          },
-          {
-            "path": "password",
-            "operator": "absent"
-          },
-          {
-            "path": "user.password",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": [
-          "FR-02 chỉ khóa từ 3 lần sai liên tiếp; sau 2 lần sai tài khoản chưa được khóa."
-        ]
-      },
-      "status": "Failed",
-      "relatedBugs": [
-        "#246"
-      ],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 403,
-        "failedAssertions": 4,
-        "classification": "SUT defect"
-      }
-    },
-    {
-      "id": "TC-LOGIN-043",
-      "title": "Admin sai password lần 1",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validAdminEmail}}",
-        "password": "{{invalidPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validAdminEmail}}",
-          "password": "{{invalidPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          401
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": []
-      },
-      "status": "Passed",
-      "relatedBugs": [],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 401,
-        "failedAssertions": 0,
-        "classification": "passed"
-      }
-    },
-    {
-      "id": "TC-LOGIN-044",
-      "title": "Admin sai password lần 2",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validAdminEmail}}",
-        "password": "{{invalidPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validAdminEmail}}",
-          "password": "{{invalidPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          401
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": []
-      },
-      "status": "Passed",
-      "relatedBugs": [],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 401,
-        "failedAssertions": 0,
-        "classification": "passed"
-      }
-    },
-    {
-      "id": "TC-LOGIN-045",
-      "title": "Admin sai password lần 3 kích hoạt khóa",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validAdminEmail}}",
-        "password": "{{invalidPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validAdminEmail}}",
-          "password": "{{invalidPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          401
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": [
-          "Sau response này tài khoản phải chuyển sang locked trong 30 giây."
-        ]
-      },
-      "status": "Failed",
-      "relatedBugs": [
-        "#246"
-      ],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 403,
-        "failedAssertions": 1,
-        "classification": "SUT defect"
-      }
-    },
-    {
-      "id": "TC-LOGIN-046",
-      "title": "Login đúng ngay khi tài khoản đang khóa",
-      "requirementIds": [
-        "FR-02"
-      ],
-      "testType": "Security",
-      "technique": "State Transition",
-      "coverage": [
-        "state-transition",
-        "security",
-        "schema-validation"
-      ],
-      "source": "extension-candidate",
-      "agentAudit": {
-        "status": "INCOMPLETE",
-        "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
-      },
-      "humanReview": {
-        "status": "PENDING",
-        "reason": ""
-      },
-      "preconditions": [
-        "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
-      ],
-      "testData": {
-        "email": "{{validAdminEmail}}",
-        "password": "{{validAdminPassword}}"
-      },
-      "steps": [
-        "Gửi POST /api/login với headers và JSON body đã nêu.",
-        "Ghi nhận status, Content-Type và response body."
-      ],
-      "request": {
-        "path": "/api/login",
-        "query": {},
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "auth": "none",
-        "body": {
-          "email": "{{validAdminEmail}}",
-          "password": "{{validAdminPassword}}"
-        }
-      },
-      "expected": {
-        "status": [
-          403
-        ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
-          {
-            "path": "token",
-            "operator": "absent"
-          },
-          {
-            "path": "user",
-            "operator": "absent"
-          }
-        ],
-        "maxResponseTimeMs": 2000,
-        "notes": [
-          "FR-02 yêu cầu trả lỗi phù hợp trong 30 giây khóa; đặc tả không ấn định status 403."
-        ]
-      },
-      "status": "Passed",
-      "relatedBugs": [],
-      "execution": {
-        "runId": "20260820T191531+0700",
-        "actualStatus": 403,
-        "failedAssertions": 0,
-        "classification": "passed"
       }
     }
   ]

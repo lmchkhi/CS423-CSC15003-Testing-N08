@@ -50,7 +50,7 @@ function tc(n, title, options = {}) {
     testType: options.testType ?? (options.coverage?.includes("security") ? "Security" : "Functional"),
     technique: options.technique ?? "Equivalence Partitioning",
     coverage: options.coverage ?? ["domain-partition"],
-    source: n <= 37 ? "ai-generated" : "extension-candidate",
+    source: "ai-generated",
     agentAudit: {
       status: auditStatus,
       reason: options.auditReason ?? (auditStatus === "INCOMPLETE"
@@ -76,13 +76,13 @@ function tc(n, title, options = {}) {
 }
 
 const cases = [
-  tc(1, "Đăng nhập user với credentials hợp lệ", { status: 200, coverage: ["domain-partition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"] }),
+  tc(1, "Đăng nhập user với credentials hợp lệ", { status: 200, coverage: ["domain-partition", "state-transition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"], notes: ["Từ trạng thái chưa xác thực và tài khoản không bị khóa, login thành công tạo trạng thái đã xác thực thông qua JWT."] }),
   tc(2, "Đăng nhập admin với credentials hợp lệ", { status: 200, body: { email: "{{validAdminEmail}}", password: "{{validAdminPassword}}" }, coverage: ["domain-partition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"] }),
   tc(3, "Email hợp lệ với chữ hoa", { status: 200, body: { email: "{{uppercaseUserEmail}}", password: "{{validUserPassword}}" }, auditStatus: "INCOMPLETE", auditReason: "Đặc tả không nói email login có phân biệt hoa thường; oracle dùng thông lệ email case-insensitive." }),
   tc(4, "Email hợp lệ có khoảng trắng đầu cuối", { status: 200, body: { email: "{{spacedUserEmail}}", password: "{{validUserPassword}}" }, auditStatus: "INCOMPLETE", auditReason: "Đặc tả không nói server có trim email; cần human review trước khi coi sai khác là defect." }),
   tc(5, "Mật khẩu đúng kèm khoảng trắng cuối", { status: 401, body: { email: "nobody@example.invalid", password: "{{validUserPasswordWithTrailingSpace}}" }, auditStatus: "INCOMPLETE", auditReason: "Dùng email không tồn tại để không làm biến đổi lockout state; server vẫn phải từ chối an toàn." }),
   tc(6, "Email chưa đăng ký", { status: 401, body: { email: "nobody@example.invalid", password: "{{invalidPassword}}" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Thông báo không được tiết lộ email có tồn tại hay không."] }),
-  tc(7, "Credentials không hợp lệ không lộ nguyên nhân", { status: 401, body: { email: "another@example.invalid", password: "{{invalidPassword}}" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký; wrong-password state được kiểm tra riêng ở TC-LOGIN-038 trở đi."] }),
+  tc(7, "Credentials không hợp lệ không lộ nguyên nhân", { status: 401, body: { email: "another@example.invalid", password: "{{invalidPassword}}" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký."] }),
   tc(8, "Thiếu trường email", { body: { password: "{{invalidPassword}}" }, auditStatus: "INCOMPLETE" }),
   tc(9, "Thiếu trường password", { body: { email: "nobody@example.invalid" }, auditStatus: "INCOMPLETE" }),
   tc(10, "Thiếu cả email và password", { body: {}, auditStatus: "INCOMPLETE" }),
@@ -113,15 +113,6 @@ const cases = [
   tc(35, "Login public bỏ qua Authorization header không hợp lệ", { status: 200, auth: "invalid", coverage: ["security", "schema-validation"], auditStatus: "INCOMPLETE", auditReason: "Đặc tả không yêu cầu token cho login; bearer thừa không nên thay đổi authentication bằng credentials." }),
   tc(36, "Query parameter thừa không thay đổi login", { status: 200, query: { debug: "true" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", auditReason: "Đặc tả không mô tả query parameter; kỳ vọng endpoint bỏ qua tham số không được hỗ trợ một cách an toàn." }),
   tc(37, "Schema thành công không lộ trường nhạy cảm", { status: 200, coverage: ["schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"], testType: "Contract", technique: "Schema Validation" }),
-  tc(38, "Sai password lần 1 của chuỗi reset", { status: 401, body: { email: "{{validUserEmail}}", password: "{{invalidPassword}}" }, coverage: ["state-transition", "security"], technique: "State Transition", auditStatus: "INCOMPLETE" }),
-  tc(39, "Login đúng sau 1 lần sai reset bộ đếm", { status: 200, coverage: ["state-transition", "schema-validation"], technique: "State Transition", notes: ["Một lần sai chưa đủ ngưỡng khóa; login đúng phải thành công và reset chuỗi sai liên tiếp."] }),
-  tc(40, "Sai password lần 1 của chuỗi khóa sớm", { status: 401, body: { email: "{{validUserEmail}}", password: "{{invalidPassword}}" }, coverage: ["state-transition", "security"], technique: "State Transition", auditStatus: "INCOMPLETE" }),
-  tc(41, "Sai password lần 2 của chuỗi khóa sớm", { status: 401, body: { email: "{{validUserEmail}}", password: "{{invalidPassword}}" }, coverage: ["state-transition", "security"], technique: "State Transition", auditStatus: "INCOMPLETE" }),
-  tc(42, "Login đúng sau đúng 2 lần sai vẫn phải thành công", { status: 200, coverage: ["state-transition", "schema-validation", "security"], technique: "State Transition", preconditions: ["Hai testcase TC-LOGIN-040 và TC-LOGIN-041 vừa chạy liên tiếp trên cùng tài khoản."], notes: ["FR-02 chỉ khóa từ 3 lần sai liên tiếp; sau 2 lần sai tài khoản chưa được khóa."] }),
-  tc(43, "Admin sai password lần 1", { status: 401, body: { email: "{{validAdminEmail}}", password: "{{invalidPassword}}" }, coverage: ["state-transition", "security"], technique: "State Transition", auditStatus: "INCOMPLETE" }),
-  tc(44, "Admin sai password lần 2", { status: 401, body: { email: "{{validAdminEmail}}", password: "{{invalidPassword}}" }, coverage: ["state-transition", "security"], technique: "State Transition", auditStatus: "INCOMPLETE" }),
-  tc(45, "Admin sai password lần 3 kích hoạt khóa", { status: 401, body: { email: "{{validAdminEmail}}", password: "{{invalidPassword}}" }, coverage: ["state-transition", "security"], technique: "State Transition", auditStatus: "INCOMPLETE", notes: ["Sau response này tài khoản phải chuyển sang locked trong 30 giây."] }),
-  tc(46, "Login đúng ngay khi tài khoản đang khóa", { status: 403, body: { email: "{{validAdminEmail}}", password: "{{validAdminPassword}}" }, coverage: ["state-transition", "security", "schema-validation"], technique: "State Transition", auditStatus: "INCOMPLETE", notes: ["FR-02 yêu cầu trả lỗi phù hợp trong 30 giây khóa; đặc tả không ấn định status 403."] }),
 ];
 
 const manifest = {

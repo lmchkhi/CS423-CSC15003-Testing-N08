@@ -31,12 +31,6 @@ LOGIN / Security / Equivalence Partitioning
 ## Status / Related bugs
 Failed / #69
 
-## AI audit
-- Source: `AI_GENERATED`
-- Recommendation: `INCOMPLETE`
-- Reason: Đặc tả không yêu cầu token cho login; bearer thừa không nên thay đổi authentication bằng credentials.
-- Human review: `PENDING`
-
 ## Automation mapping
 - Data row: `TC-LOGIN-035`
 - Coverage: `security`, `schema-validation`
