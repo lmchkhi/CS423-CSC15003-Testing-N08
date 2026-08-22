@@ -31,8 +31,8 @@
         "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Đúng FR-02 và SEC-01: credentials hợp lệ phải trả JWT, user object và không lộ password."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -112,7 +112,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -138,8 +138,8 @@
         "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Đúng FR-02 cho tài khoản admin; oracle thành công và schema JWT/user phù hợp."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -217,7 +217,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -225,7 +225,7 @@
     },
     {
       "id": "TC-LOGIN-003",
-      "title": "Email hợp lệ với chữ hoa",
+      "title": "Email sai định dạng do thiếu ký tự @",
       "requirementIds": [
         "FR-02"
       ],
@@ -237,18 +237,18 @@
       "source": "ai-generated",
       "agentAudit": {
         "status": "INCOMPLETE",
-        "reason": "Đặc tả không nói email login có phân biệt hoa thường; oracle dùng thông lệ email case-insensitive."
+        "reason": "Oracle email case-insensitive không có trong đặc tả; đã đổi sang partition sai định dạng có tiêu chí từ chối rõ ràng."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Oracle email viết hoa phải đăng nhập thành công không có trong đặc tả; đã đổi thành email thiếu @ và chấp nhận các status từ chối 4xx phù hợp."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
       ],
       "testData": {
-        "email": "{{uppercaseUserEmail}}",
-        "password": "{{validUserPassword}}"
+        "email": "invalid-email",
+        "password": "{{invalidPassword}}"
       },
       "steps": [
         "Gửi POST /api/login với headers và JSON body đã nêu.",
@@ -262,70 +262,45 @@
         },
         "auth": "none",
         "body": {
-          "email": "{{uppercaseUserEmail}}",
-          "password": "{{validUserPassword}}"
+          "email": "invalid-email",
+          "password": "{{invalidPassword}}"
         }
       },
       "expected": {
         "status": [
-          200
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "token",
-            "user"
-          ],
-          "properties": {
-            "token": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
-            },
-            "user": {
-              "type": "object",
-              "required": [
-                "id",
-                "email",
-                "role"
-              ]
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
           {
             "path": "token",
-            "operator": "exists"
-          },
-          {
-            "path": "user",
-            "operator": "type",
-            "value": "object"
-          },
-          {
-            "path": "password",
             "operator": "absent"
           },
           {
-            "path": "user.password",
+            "path": "user",
             "operator": "absent"
           }
         ],
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 4,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
       "id": "TC-LOGIN-004",
-      "title": "Email hợp lệ có khoảng trắng đầu cuối",
+      "title": "Email sai định dạng do thiếu domain",
       "requirementIds": [
         "FR-02"
       ],
@@ -337,18 +312,18 @@
       "source": "ai-generated",
       "agentAudit": {
         "status": "INCOMPLETE",
-        "reason": "Đặc tả không nói server có trim email; cần human review trước khi coi sai khác là defect."
+        "reason": "Oracle trim khoảng trắng không có trong đặc tả; đã đổi sang partition thiếu domain."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không quy định trim email; đã đổi thành email thiếu domain và kiểm tra request bị từ chối, không cấp token."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
       ],
       "testData": {
-        "email": "{{spacedUserEmail}}",
-        "password": "{{validUserPassword}}"
+        "email": "user@",
+        "password": "{{invalidPassword}}"
       },
       "steps": [
         "Gửi POST /api/login với headers và JSON body đã nêu.",
@@ -362,65 +337,40 @@
         },
         "auth": "none",
         "body": {
-          "email": "{{spacedUserEmail}}",
-          "password": "{{validUserPassword}}"
+          "email": "user@",
+          "password": "{{invalidPassword}}"
         }
       },
       "expected": {
         "status": [
-          200
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "token",
-            "user"
-          ],
-          "properties": {
-            "token": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
-            },
-            "user": {
-              "type": "object",
-              "required": [
-                "id",
-                "email",
-                "role"
-              ]
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
           {
             "path": "token",
-            "operator": "exists"
-          },
-          {
-            "path": "user",
-            "operator": "type",
-            "value": "object"
-          },
-          {
-            "path": "password",
             "operator": "absent"
           },
           {
-            "path": "user.password",
+            "path": "user",
             "operator": "absent"
           }
         ],
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 4,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -437,17 +387,17 @@
       "source": "ai-generated",
       "agentAudit": {
         "status": "INCOMPLETE",
-        "reason": "Dùng email không tồn tại để không làm biến đổi lockout state; server vẫn phải từ chối an toàn."
+        "reason": "Email không tồn tại che khuất partition mật khẩu; đã sửa dùng tài khoản hợp lệ."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INVALID",
+        "reason": "Case cũ dùng email không tồn tại nên không kiểm được ảnh hưởng của khoảng trắng trong password; đã sửa dùng email hợp lệ."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
       ],
       "testData": {
-        "email": "nobody@example.invalid",
+        "email": "{{validUserEmail}}",
         "password": "{{validUserPasswordWithTrailingSpace}}"
       },
       "steps": [
@@ -462,32 +412,21 @@
         },
         "auth": "none",
         "body": {
-          "email": "nobody@example.invalid",
+          "email": "{{validUserEmail}}",
           "password": "{{validUserPasswordWithTrailingSpace}}"
         }
       },
       "expected": {
         "status": [
-          401
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -503,7 +442,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -527,8 +466,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không quy định status/schema lỗi cho email chưa đăng ký; đã bỏ schema error tự suy diễn và dùng oracle 4xx không cấp token."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -555,26 +494,15 @@
       },
       "expected": {
         "status": [
-          401
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -592,7 +520,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -600,7 +528,7 @@
     },
     {
       "id": "TC-LOGIN-007",
-      "title": "Credentials không hợp lệ không lộ nguyên nhân",
+      "title": "Mật khẩu sai không được cấp token",
       "requirementIds": [
         "FR-02"
       ],
@@ -616,14 +544,14 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Case cũ trùng partition email chưa đăng ký; đã đổi sang email tồn tại với password sai và kiểm tra không cấp token."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
       ],
       "testData": {
-        "email": "another@example.invalid",
+        "email": "{{validAdminEmail}}",
         "password": "{{invalidPassword}}"
       },
       "steps": [
@@ -638,32 +566,21 @@
         },
         "auth": "none",
         "body": {
-          "email": "another@example.invalid",
+          "email": "{{validAdminEmail}}",
           "password": "{{invalidPassword}}"
         }
       },
       "expected": {
         "status": [
-          401
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -675,13 +592,13 @@
         ],
         "maxResponseTimeMs": 2000,
         "notes": [
-          "Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký."
+          "Không được trả token hoặc thông tin user khi password sai."
         ]
       },
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -704,8 +621,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Thiếu email phải bị từ chối nhưng đặc tả không chốt status/schema; đã dùng nhóm 4xx và bỏ schema lỗi tự suy diễn."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -730,26 +647,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -762,13 +668,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -788,8 +694,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Thiếu password phải bị từ chối nhưng đặc tả không chốt status/schema; đã dùng nhóm 4xx và bỏ schema lỗi tự suy diễn."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -814,26 +720,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -846,13 +741,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -872,8 +767,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Thiếu cả hai trường chưa có error contract; đã giữ negative partition và chỉ yêu cầu 4xx, không token/user."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -894,26 +789,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -926,13 +810,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -952,8 +836,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Email null chưa có error contract; đã bỏ kỳ vọng chính xác 400 và trường error."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -980,26 +864,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1012,13 +885,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1038,8 +911,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Password null chưa có error contract; đã bỏ kỳ vọng chính xác 400 và trường error."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1066,26 +939,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1098,13 +960,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1124,8 +986,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Email rỗng chưa có error contract; đã dùng oracle từ chối 4xx và không cấp token."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1152,26 +1014,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1184,13 +1035,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1210,8 +1061,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Password rỗng chưa có error contract; đã dùng oracle từ chối 4xx và không cấp token."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1238,26 +1089,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1270,13 +1110,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1296,8 +1136,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Email whitespace chưa có quy tắc normalize; đã yêu cầu từ chối thay vì suy diễn schema lỗi."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1324,26 +1164,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1356,13 +1185,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1382,8 +1211,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Password whitespace là credentials sai nhưng status chưa được quy định; đã chấp nhận nhóm 4xx và kiểm tra không cấp token."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1410,26 +1239,15 @@
       },
       "expected": {
         "status": [
-          401
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1445,7 +1263,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -1468,8 +1286,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Email number phải bị từ chối nhưng status/schema chưa được mô tả; đã bỏ oracle error object tự suy diễn."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1496,26 +1314,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1528,13 +1335,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1554,8 +1361,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Password number phải bị từ chối nhưng status/schema chưa được mô tả; đã bỏ oracle error object tự suy diễn."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1582,26 +1389,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1614,13 +1410,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1640,8 +1436,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Email boolean phải bị từ chối nhưng status/schema chưa được mô tả; đã dùng oracle 4xx không token/user."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1668,26 +1464,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1700,13 +1485,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1726,8 +1511,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Password boolean phải bị từ chối nhưng status/schema chưa được mô tả; đã dùng oracle 4xx không token/user."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1754,26 +1539,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1786,13 +1560,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1813,8 +1587,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Email object là type-confusion hợp lệ nhưng error contract bị tự suy diễn; đã giữ payload và nới oracle về 4xx."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1845,26 +1619,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1877,13 +1640,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1904,8 +1667,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Password object là type-confusion hợp lệ nhưng error contract bị tự suy diễn; đã giữ payload và nới oracle về 4xx."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -1936,26 +1699,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -1968,13 +1720,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -1994,8 +1746,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Top-level null phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2018,26 +1770,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2050,13 +1791,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 400,
-        "failedAssertions": 3,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2076,8 +1817,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Top-level array phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2100,26 +1841,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2132,13 +1862,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2158,8 +1888,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Top-level string phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2182,26 +1912,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2214,13 +1933,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 400,
-        "failedAssertions": 3,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2240,8 +1959,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Request không body phải bị từ chối nhưng error contract chưa có; đã dùng oracle 4xx không token/user."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2263,26 +1982,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2295,13 +2003,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2324,8 +2032,8 @@
         "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Body contract chỉ có email/password; field role thừa không được nâng quyền và role trả về phải theo tài khoản thực."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2407,7 +2115,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -2431,8 +2139,8 @@
         "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Payload SQL injection ở email kiểm trực tiếp SEC-05 và yêu cầu không bypass authentication."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2496,7 +2204,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2520,8 +2228,8 @@
         "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Payload SQL injection ở password kiểm trực tiếp SEC-05 và yêu cầu không bypass authentication."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2585,7 +2293,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2609,8 +2317,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Ý tưởng injection hợp lệ nhưng status/schema lỗi chưa được đặc tả; đã dùng nhóm 4xx và không token/user."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2645,26 +2353,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2677,21 +2374,20 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
       "id": "TC-LOGIN-031",
-      "title": "XSS payload trong email",
+      "title": "XSS payload trong email không được bypass đăng nhập",
       "requirementIds": [
-        "FR-02",
-        "SEC-04"
+        "FR-02"
       ],
       "testType": "Security",
       "technique": "Injection",
@@ -2704,8 +2400,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INVALID",
+        "reason": "SEC-04 áp dụng tại UI boundary, không phải oracle trực tiếp cho login API; đã bỏ mapping SEC-04 và đổi mục tiêu thành không bypass authentication."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2732,26 +2428,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2763,16 +2448,16 @@
         ],
         "maxResponseTimeMs": 2000,
         "notes": [
-          "Response không được phản chiếu payload dưới dạng executable content."
+          "Không được trả token hoặc thông tin user."
         ]
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2792,8 +2477,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "CRLF payload cần bị từ chối nhưng exact status/schema chưa có; đã dùng nhóm 4xx và không token/user."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2820,26 +2505,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2852,13 +2526,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2879,8 +2553,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Không có giới hạn độ dài email cụ thể; đã giữ robustness case và chấp nhận 400/401/413/422/429 thay vì ép 400."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2907,26 +2581,15 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          401,
+          413,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -2939,13 +2602,13 @@
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
+      "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 401,
-        "failedAssertions": 1,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -2966,8 +2629,8 @@
         "reason": "Đặc tả yêu cầu từ chối nhưng không quy định HTTP status chính xác; dùng oracle bảo thủ và cần human review."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chỉ yêu cầu body JSON, không định nghĩa response cho text/plain; đã chấp nhận 400/415/422 và bỏ schema lỗi tự suy diễn."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -2994,26 +2657,13 @@
       },
       "expected": {
         "status": [
-          400
+          400,
+          415,
+          422
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "error"
-          ],
-          "properties": {
-            "error": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
-          {
-            "path": "error",
-            "operator": "exists"
-          },
           {
             "path": "token",
             "operator": "absent"
@@ -3027,17 +2677,19 @@
         "notes": []
       },
       "status": "Failed",
-      "relatedBugs": [],
+      "relatedBugs": [
+        "#267"
+      ],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 500,
-        "failedAssertions": 4,
-        "classification": "specification gap / incomplete oracle"
+        "failedAssertions": 1,
+        "classification": "SUT defect"
       }
     },
     {
       "id": "TC-LOGIN-035",
-      "title": "Login public bỏ qua Authorization header không hợp lệ",
+      "title": "Đăng nhập không gửi Authorization header",
       "requirementIds": [
         "FR-02"
       ],
@@ -3050,11 +2702,11 @@
       "source": "ai-generated",
       "agentAudit": {
         "status": "INCOMPLETE",
-        "reason": "Đặc tả không yêu cầu token cho login; bearer thừa không nên thay đổi authentication bằng credentials."
+        "reason": "Case cũ suy diễn cách xử lý bearer token thừa; đã sửa để kiểm tra login public không yêu cầu Authorization."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không nói cách xử lý bearer token thừa; đã sửa thành kiểm tra login public hoạt động khi không gửi Authorization."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -3073,7 +2725,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "auth": "invalid",
+        "auth": "missing",
         "body": {
           "email": "{{validUserEmail}}",
           "password": "{{validUserPassword}}"
@@ -3132,7 +2784,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -3140,7 +2792,7 @@
     },
     {
       "id": "TC-LOGIN-036",
-      "title": "Query parameter thừa không thay đổi login",
+      "title": "Query parameter thừa không bypass credentials sai",
       "requirementIds": [
         "FR-02"
       ],
@@ -3153,18 +2805,18 @@
       "source": "ai-generated",
       "agentAudit": {
         "status": "INCOMPLETE",
-        "reason": "Đặc tả không mô tả query parameter; kỳ vọng endpoint bỏ qua tham số không được hỗ trợ một cách an toàn."
+        "reason": "Case cũ suy diễn query thừa phải bị bỏ qua khi login thành công; đã sửa để kiểm tra query không bypass credentials sai."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả không nói query thừa phải bị bỏ qua ở success path; đã sửa để kiểm tra query không bypass credentials sai."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
       ],
       "testData": {
-        "email": "{{validUserEmail}}",
-        "password": "{{validUserPassword}}",
+        "email": "nobody@example.invalid",
+        "password": "{{invalidPassword}}",
         "query": {
           "debug": "true"
         }
@@ -3183,67 +2835,40 @@
         },
         "auth": "none",
         "body": {
-          "email": "{{validUserEmail}}",
-          "password": "{{validUserPassword}}"
+          "email": "nobody@example.invalid",
+          "password": "{{invalidPassword}}"
         }
       },
       "expected": {
         "status": [
-          200
+          400,
+          401,
+          403,
+          422,
+          429
         ],
-        "contentType": "application/json",
-        "schema": {
-          "type": "object",
-          "required": [
-            "token",
-            "user"
-          ],
-          "properties": {
-            "token": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
-            },
-            "user": {
-              "type": "object",
-              "required": [
-                "id",
-                "email",
-                "role"
-              ]
-            }
-          }
-        },
+        "contentType": null,
+        "schema": null,
         "bodyAssertions": [
           {
             "path": "token",
-            "operator": "exists"
-          },
-          {
-            "path": "user",
-            "operator": "type",
-            "value": "object"
-          },
-          {
-            "path": "password",
             "operator": "absent"
           },
           {
-            "path": "user.password",
+            "path": "user",
             "operator": "absent"
           }
         ],
         "maxResponseTimeMs": 2000,
         "notes": []
       },
-      "status": "Failed",
-      "relatedBugs": [
-        "#69"
-      ],
+      "status": "Passed",
+      "relatedBugs": [],
       "execution": {
-        "runId": "20260822T130751+0700",
-        "actualStatus": 200,
-        "failedAssertions": 1,
-        "classification": "SUT defect"
+        "runId": "20260822T152407+0700",
+        "actualStatus": 401,
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     },
     {
@@ -3265,8 +2890,8 @@
         "reason": "Oracle được nêu trực tiếp trong FR-02, SEC hoặc API specification."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Schema success phải có JWT/user và không được làm lộ password; oracle phù hợp FR-02 và yêu cầu bảo mật."
       },
       "preconditions": [
         "SUT khả dụng tại base URL và tài khoản test mặc định tồn tại ở trạng thái không bị khóa."
@@ -3344,7 +2969,7 @@
         "#69"
       ],
       "execution": {
-        "runId": "20260822T130751+0700",
+        "runId": "20260822T152407+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"

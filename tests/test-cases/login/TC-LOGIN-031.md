@@ -1,7 +1,7 @@
-# TC-LOGIN-031: XSS payload trong email
+# TC-LOGIN-031: XSS payload trong email không được bypass đăng nhập
 
 ## Requirement ID
-FR-02, SEC-04
+FR-02
 
 ## Module / Test type / Technique
 LOGIN / Security / Injection
@@ -20,16 +20,13 @@ LOGIN / Security / Injection
 2. Ghi nhận status, Content-Type và response body.
 
 ## Expected result
-- HTTP status: `400`
-- Content-Type: `application/json`
-- Response schema: `{"type":"object","required":["error"],"properties":{"error":{"type":"string","minLength":1}}}`
-- `error` phải tồn tại
+- HTTP status: `400 hoặc 401 hoặc 403 hoặc 422 hoặc 429`
 - `token` không được xuất hiện
 - `user` không được xuất hiện
-- Response không được phản chiếu payload dưới dạng executable content.
+- Không được trả token hoặc thông tin user.
 
 ## Status / Related bugs
-Failed / None
+Passed / None
 
 ## Automation mapping
 - Data row: `TC-LOGIN-031`

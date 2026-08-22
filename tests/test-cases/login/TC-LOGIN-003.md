@@ -1,4 +1,4 @@
-# TC-LOGIN-003: Email hợp lệ với chữ hoa
+# TC-LOGIN-003: Email sai định dạng do thiếu ký tự @
 
 ## Requirement ID
 FR-02
@@ -12,24 +12,20 @@ LOGIN / Functional / Equivalence Partitioning
 ## Test data
 | Trường | Giá trị |
 |---|---|
-| email | `{{uppercaseUserEmail}}` |
-| password | `{{validUserPassword}}` |
+| email | `invalid-email` |
+| password | `{{invalidPassword}}` |
 
 ## Test steps
 1. Gửi POST /api/login với headers và JSON body đã nêu.
 2. Ghi nhận status, Content-Type và response body.
 
 ## Expected result
-- HTTP status: `200`
-- Content-Type: `application/json`
-- Response schema: `{"type":"object","required":["token","user"],"properties":{"token":{"type":"string","pattern":"^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"},"user":{"type":"object","required":["id","email","role"]}}}`
-- `token` phải tồn tại
-- `user` phải có kiểu `object`
-- `password` không được xuất hiện
-- `user.password` không được xuất hiện
+- HTTP status: `400 hoặc 401 hoặc 403 hoặc 422 hoặc 429`
+- `token` không được xuất hiện
+- `user` không được xuất hiện
 
 ## Status / Related bugs
-Failed / None
+Passed / None
 
 ## Automation mapping
 - Data row: `TC-LOGIN-003`

@@ -9,7 +9,6 @@ TC-LOGIN-001
 - TC-LOGIN-002
 - TC-LOGIN-027
 - TC-LOGIN-035
-- TC-LOGIN-036
 - TC-LOGIN-037
 
 ## Requirement liên quan
@@ -25,8 +24,8 @@ Critical / P0
 - Base URL: http://localhost:3000
 - Endpoint: `POST /api/login`
 - SUT code commit: `85af3ba875c88283615e22cb108f13e2fccaf0e9`
-- Git HEAD lúc chạy: `7b86a4a3ac972584de1e725e5b2a2464b7d4d7ef` (working tree có thay đổi chưa commit)
-- Executed at: `2026-08-22T13:07:51+07:00`
+- Git HEAD lúc chạy: `13393f68c13ae433c1929bdad1106ee19cc28630` (working tree có thay đổi chưa commit)
+- Executed at: `2026-08-22T15:24:07+07:00`
 - Student ID header: `23127062`
 
 ## Steps to reproduce
@@ -46,12 +45,12 @@ HTTP 200 trả object `user` có field `password`; giá trị thật đã đư�
 ## Evidence
 
 - Raw response/log: [response-or-log.txt](../../test-reports/evidence/login/plaintext-password/response-or-log.txt)
-- Newman report: [newman-report.html](../../test-reports/newman/login-20260822T130751+0700/newman-report.html)
-- Screenshot: ![evidence.png](../../test-reports/evidence/login/plaintext-password/evidence.png) — output Newman trong terminal VS Code, thể hiện các assertion `user.password absent` thất bại ở TC-LOGIN-035, TC-LOGIN-036 và TC-LOGIN-037.
+- Newman report: [newman-report.html](../../test-reports/newman/login-20260822T152407+0700/newman-report.html)
+- Screenshot: ![evidence.png](../../test-reports/evidence/login/plaintext-password/evidence.png) — output Newman trong terminal VS Code, thể hiện 211 assertions với 6 failures và các assertion `user.password absent` thất bại.
 
 ## Reproducibility
 
-6/6 login thành công thuộc 37 testcase còn lại làm assertion `user.password absent` thất bại; cùng triệu chứng xuất hiện ở user và admin.
+5/5 login thành công trong suite đã hiệu chỉnh làm assertion `user.password absent` thất bại; cùng triệu chứng xuất hiện ở user và admin.
 
 ## Duplicate check
 

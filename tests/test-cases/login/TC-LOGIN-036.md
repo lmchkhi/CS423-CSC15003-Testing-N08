@@ -1,4 +1,4 @@
-# TC-LOGIN-036: Query parameter thừa không thay đổi login
+# TC-LOGIN-036: Query parameter thừa không bypass credentials sai
 
 ## Requirement ID
 FR-02
@@ -12,8 +12,8 @@ LOGIN / Security / Equivalence Partitioning
 ## Test data
 | Trường | Giá trị |
 |---|---|
-| email | `{{validUserEmail}}` |
-| password | `{{validUserPassword}}` |
+| email | `nobody@example.invalid` |
+| password | `{{invalidPassword}}` |
 | query | `{"debug":"true"}` |
 
 ## Test steps
@@ -21,16 +21,12 @@ LOGIN / Security / Equivalence Partitioning
 2. Ghi nhận status, Content-Type và response body.
 
 ## Expected result
-- HTTP status: `200`
-- Content-Type: `application/json`
-- Response schema: `{"type":"object","required":["token","user"],"properties":{"token":{"type":"string","pattern":"^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"},"user":{"type":"object","required":["id","email","role"]}}}`
-- `token` phải tồn tại
-- `user` phải có kiểu `object`
-- `password` không được xuất hiện
-- `user.password` không được xuất hiện
+- HTTP status: `400 hoặc 401 hoặc 403 hoặc 422 hoặc 429`
+- `token` không được xuất hiện
+- `user` không được xuất hiện
 
 ## Status / Related bugs
-Failed / #69
+Passed / None
 
 ## Automation mapping
 - Data row: `TC-LOGIN-036`

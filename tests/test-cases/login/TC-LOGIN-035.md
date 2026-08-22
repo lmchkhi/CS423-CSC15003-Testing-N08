@@ -1,4 +1,4 @@
-# TC-LOGIN-035: Login public bỏ qua Authorization header không hợp lệ
+# TC-LOGIN-035: Đăng nhập không gửi Authorization header
 
 ## Requirement ID
 FR-02

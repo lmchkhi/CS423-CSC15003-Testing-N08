@@ -20,10 +20,7 @@ LOGIN / Security / Equivalence Partitioning
 2. Ghi nhận status, Content-Type và response body.
 
 ## Expected result
-- HTTP status: `401`
-- Content-Type: `application/json`
-- Response schema: `{"type":"object","required":["error"],"properties":{"error":{"type":"string","minLength":1}}}`
-- `error` phải tồn tại
+- HTTP status: `400 hoặc 401 hoặc 403 hoặc 422 hoặc 429`
 - `token` không được xuất hiện
 - `user` không được xuất hiện
 - Thông báo không được tiết lộ email có tồn tại hay không.

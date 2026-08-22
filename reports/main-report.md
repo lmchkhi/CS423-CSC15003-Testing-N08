@@ -19,12 +19,12 @@ Mục tiêu của bài tập là sử dụng AI theo từng bước để sinh t
 
 ### 1.2. System Under Test
 
-| Mục                            | Thông tin                              |
-| ------------------------------ | -------------------------------------- |
-| Tên hệ thống                   | EShop                                  |
-| Repository gốc                 | <https://github.com/ttbhanh/eshop-sut> |
-| Phiên bản/commit được kiểm thử | `85af3ba875c88283615e22cb108f13e2fccaf0e9` |
-| Base URL                       | `http://localhost:3000`                |
+| Mục                            | Thông tin                                                                                                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Tên hệ thống                   | EShop                                                                                                                                                                          |
+| Repository gốc                 | <https://github.com/ttbhanh/eshop-sut>                                                                                                                                         |
+| Phiên bản/commit được kiểm thử | `85af3ba875c88283615e22cb108f13e2fccaf0e9`                                                                                                                                     |
+| Base URL                       | `http://localhost:3000`                                                                                                                                                        |
 | Môi trường kiểm thử            | Local trên macOS 26.5.2; backend Node.js 24.18.0, Express 5.2.1 và SQLite 3 (package `sqlite3` 6.0.1); chạy API test bằng Newman 6.2.2 với `newman-reporter-htmlextra` 1.23.1. |
 
 ### 1.3. Công cụ sử dụng
@@ -39,10 +39,10 @@ Mục tiêu của bài tập là sử dụng AI theo từng bước để sinh t
 
 Ba API được chọn thuộc ba pool khác nhau và không trùng với lựa chọn của thành viên khác trong nhóm.
 
-| API   | Pool   | Feature                           | Method và endpoint          | Lý do lựa chọn    |
-| ----- | ------ | --------------------------------- | --------------------------- | ----------------- |
-| API 1 | Pool A | FR-02 - Login and account lockout | `POST /api/login`           | `{{LY_DO_API_1}}` |
-| API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)  | `{{METHOD_ENDPOINT_API_2}}` | `{{LY_DO_API_2}}` |
+| API   | Pool   | Feature                                 | Method và endpoint          | Lý do lựa chọn    |
+| ----- | ------ | --------------------------------------- | --------------------------- | ----------------- |
+| API 1 | Pool A | FR-02 - Login and account lockout       | `POST /api/login`           | `{{LY_DO_API_1}}` |
+| API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)        | `{{METHOD_ENDPOINT_API_2}}` | `{{LY_DO_API_2}}` |
 | API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `{{METHOD_ENDPOINT_API_3}}` | `{{LY_DO_API_3}}` |
 
 ## 3. API 1 - `POST /api/login`
@@ -51,11 +51,11 @@ Ba API được chọn thuộc ba pool khác nhau và không trùng với lựa 
 
 - Feature/requirement: FR-02 - Login and account lockout
 - Tham số path: Không có; endpoint cố định là `/api/login`.
-- Tham số query: Đặc tả không định nghĩa query parameter. Suite có một negative test với query thừa `debug=true` để kiểm tra tham số không được hỗ trợ không làm thay đổi hành vi đăng nhập.
-- Headers: `Content-Type: application/json` và `X-Student-Id: 23127062` theo yêu cầu bài tập. API đăng nhập là public nên không yêu cầu `Authorization`; suite cũng kiểm tra bearer token thừa/không hợp lệ không được bypass credentials.
+- Tham số query: Đặc tả không định nghĩa query parameter. Suite có một negative test với query thừa `debug=true` để kiểm tra tham số này không bypass credentials sai.
+- Headers: `Content-Type: application/json` và `X-Student-Id: 23127062` theo yêu cầu bài tập. API đăng nhập là public nên không yêu cầu `Authorization`; suite kiểm tra login hợp lệ khi không gửi header này.
 - Request body: JSON object gồm hai trường `email` và `password`. Coverage bao gồm credentials hợp lệ, sai, thiếu trường, `null`, chuỗi rỗng, whitespace, sai kiểu dữ liệu, body không phải object, body bị bỏ qua và các tổ hợp tương tác.
 - Response schema: Khi thành công, API trả HTTP `200` và JSON object chứa `token` dạng JWT cùng object `user`; `user` phải có `id`, `email`, `role` và không được chứa `password`. Đặc tả chưa quy định chính xác status/schema cho nhiều response lỗi, vì vậy các oracle tương ứng được đánh dấu `INCOMPLETE` thay vì tự kết luận là product defect.
-- Yêu cầu bảo mật áp dụng: SEC-01 (không lưu hoặc trả mật khẩu plaintext), SEC-05 (Parameterized Query/chống SQL injection), và kiểm tra liên quan SEC-04 tại biên dữ liệu hiển thị. Suite còn bao phủ information leakage, user enumeration, XSS/CRLF/NoSQL-style injection, unknown field `role`, oversized input và Content-Type confusion.
+- Yêu cầu bảo mật áp dụng: SEC-01 (không lưu hoặc trả mật khẩu plaintext) và SEC-05 (Parameterized Query/chống SQL injection). Suite còn bao phủ information leakage, user enumeration, XSS/CRLF/NoSQL-style injection, unknown field `role`, oversized input và Content-Type confusion.
 - Trạng thái và transition liên quan: tài khoản ban đầu ở trạng thái không khóa; mỗi lần sai tăng bộ đếm đúng một; sau hai lần sai vẫn chưa khóa; từ lần sai thứ ba tài khoản bị khóa 30 giây; đăng nhập đúng trước ngưỡng phải thành công và reset chuỗi sai; đăng nhập khi đang khóa phải bị từ chối; sau thời hạn khóa phải đăng nhập lại được.
 
 Nguồn thiết kế phạm vi: [API specification](../api_specification.md), [FR-02 và security requirements](../README.md), [coverage matrix](../tests/api/login/coverage-matrix.md).
@@ -72,23 +72,61 @@ Yêu cầu ban đầu cung cấp endpoint `POST /api/login` và MSSV `23127062`,
 
 Danh sách và metadata đầy đủ được lưu trong [suite manifest](../tests/api/login/suite.manifest.json) và [thư mục test case Login](../tests/test-cases/login/).
 
-| Nhóm coverage     |                        Số test case | Ghi chú                                |
-| ----------------- | ----------------------------------: | -------------------------------------- |
-| Domain partition  | 31 | Bao phủ credentials, missing/null/empty/whitespace, type confusion, body shape, boundary và query/header interaction. |
-| State transition  | 1 | TC-LOGIN-001 kiểm tra transition từ chưa xác thực/tài khoản không khóa sang đã xác thực bằng JWT. Các transition lockout sâu hơn được để lại cho phần Extend do sinh viên tự thiết kế. |
-| Security          | 17 | Bao phủ SEC-01, SEC-04/SEC-05 và các nguy cơ injection, leakage, mass assignment, oversized input, Content-Type confusion. |
-| Schema validation | 5 | Kiểm tra JWT, object `user`, các trường bắt buộc và cấm lộ `password`. |
-| Tổng AI-generated | 37 | Các coverage family có thể chồng lấp; một test case có thể thuộc nhiều nhóm. |
+| Nhóm coverage     | Số test case | Ghi chú                                                                                                                                                                                |
+| ----------------- | -----------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Domain partition  |           31 | Bao phủ credentials, missing/null/empty/whitespace, type confusion, body shape, boundary và query/header interaction.                                                                  |
+| State transition  |            1 | TC-LOGIN-001 kiểm tra transition từ chưa xác thực/tài khoản không khóa sang đã xác thực bằng JWT. Các transition lockout sâu hơn được để lại cho phần Extend do sinh viên tự thiết kế. |
+| Security          |           17 | Bao phủ SEC-01, SEC-04/SEC-05 và các nguy cơ injection, leakage, mass assignment, oversized input, Content-Type confusion.                                                             |
+| Schema validation |            5 | Kiểm tra JWT, object `user`, các trường bắt buộc và cấm lộ `password`.                                                                                                                 |
+| Tổng AI-generated |           37 | Các coverage family có thể chồng lấp; một test case có thể thuộc nhiều nhóm.                                                                                                           |
 
 ### 3.3. Audit - Human review
 
-| Kết quả audit |                     Số lượng | Các test case tiêu biểu      | Lý do/điều chỉnh                   |
-| ------------- | ---------------------------: | ---------------------------- | ---------------------------------- |
-| VALID         |      `{{VALID_COUNT_API_1}}` | `{{VALID_CASES_API_1}}`      | `{{VALID_REASON_API_1}}`           |
-| INVALID       |    `{{INVALID_COUNT_API_1}}` | `{{INVALID_CASES_API_1}}`    | `{{INVALID_CORRECTIONS_API_1}}`    |
-| INCOMPLETE    | `{{INCOMPLETE_COUNT_API_1}}` | `{{INCOMPLETE_CASES_API_1}}` | `{{INCOMPLETE_CORRECTIONS_API_1}}` |
+| Kết quả audit | Số lượng | Test case                                |
+| ------------- | -------: | ---------------------------------------- |
+| VALID         |        6 | TC-LOGIN-001, 002, 027, 028, 029, 037    |
+| INVALID       |        2 | TC-LOGIN-005, 031                        |
+| INCOMPLETE    |       29 | TC-LOGIN-003, 004, 006-026, 030, 032-036 |
 
-`{{NHAN_XET_AUDIT_API_1}}`
+| Test case    | Kết quả    | Lý do và điều chỉnh                                                                                                                                |
+| ------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TC-LOGIN-001 | VALID      | Đúng FR-02 và SEC-01: credentials hợp lệ phải trả JWT, user object và không lộ password.                                                           |
+| TC-LOGIN-002 | VALID      | Đúng FR-02 cho tài khoản admin; oracle thành công và schema JWT/user phù hợp.                                                                      |
+| TC-LOGIN-003 | INCOMPLETE | Oracle email viết hoa phải đăng nhập thành công không có trong đặc tả; đã đổi thành email thiếu `@` và chấp nhận các status từ chối 4xx phù hợp.   |
+| TC-LOGIN-004 | INCOMPLETE | Đặc tả không quy định trim email; đã đổi thành email thiếu domain và kiểm tra request bị từ chối, không cấp token.                                 |
+| TC-LOGIN-005 | INVALID    | Case cũ dùng email không tồn tại nên không kiểm được ảnh hưởng của khoảng trắng trong password; đã sửa dùng email hợp lệ.                          |
+| TC-LOGIN-006 | INCOMPLETE | Đặc tả không quy định status/schema lỗi cho email chưa đăng ký; đã bỏ schema `error` tự suy diễn và dùng oracle 4xx không cấp token.               |
+| TC-LOGIN-007 | INCOMPLETE | Case cũ trùng partition email chưa đăng ký; đã đổi sang email tồn tại với password sai và kiểm tra không cấp token.                                |
+| TC-LOGIN-008 | INCOMPLETE | Thiếu email phải bị từ chối nhưng đặc tả không chốt status/schema; đã dùng nhóm 4xx và bỏ schema lỗi tự suy diễn.                                  |
+| TC-LOGIN-009 | INCOMPLETE | Thiếu password phải bị từ chối nhưng đặc tả không chốt status/schema; đã dùng nhóm 4xx và bỏ schema lỗi tự suy diễn.                               |
+| TC-LOGIN-010 | INCOMPLETE | Thiếu cả hai trường chưa có error contract; đã giữ negative partition và chỉ yêu cầu 4xx, không token/user.                                        |
+| TC-LOGIN-011 | INCOMPLETE | Email `null` chưa có error contract; đã bỏ kỳ vọng chính xác 400 và trường `error`.                                                                |
+| TC-LOGIN-012 | INCOMPLETE | Password `null` chưa có error contract; đã bỏ kỳ vọng chính xác 400 và trường `error`.                                                             |
+| TC-LOGIN-013 | INCOMPLETE | Email rỗng chưa có error contract; đã dùng oracle từ chối 4xx và không cấp token.                                                                  |
+| TC-LOGIN-014 | INCOMPLETE | Password rỗng chưa có error contract; đã dùng oracle từ chối 4xx và không cấp token.                                                               |
+| TC-LOGIN-015 | INCOMPLETE | Email whitespace chưa có quy tắc normalize; đã yêu cầu từ chối thay vì suy diễn schema lỗi.                                                        |
+| TC-LOGIN-016 | INCOMPLETE | Password whitespace là credentials sai nhưng status chưa được quy định; đã chấp nhận nhóm 4xx và kiểm tra không cấp token.                         |
+| TC-LOGIN-017 | INCOMPLETE | Email number phải bị từ chối nhưng status/schema chưa được mô tả; đã bỏ oracle error object tự suy diễn.                                           |
+| TC-LOGIN-018 | INCOMPLETE | Password number phải bị từ chối nhưng status/schema chưa được mô tả; đã bỏ oracle error object tự suy diễn.                                        |
+| TC-LOGIN-019 | INCOMPLETE | Email boolean phải bị từ chối nhưng status/schema chưa được mô tả; đã dùng oracle 4xx không token/user.                                            |
+| TC-LOGIN-020 | INCOMPLETE | Password boolean phải bị từ chối nhưng status/schema chưa được mô tả; đã dùng oracle 4xx không token/user.                                         |
+| TC-LOGIN-021 | INCOMPLETE | Email object là type-confusion hợp lệ nhưng error contract bị tự suy diễn; đã giữ payload và nới oracle về 4xx.                                    |
+| TC-LOGIN-022 | INCOMPLETE | Password object là type-confusion hợp lệ nhưng error contract bị tự suy diễn; đã giữ payload và nới oracle về 4xx.                                 |
+| TC-LOGIN-023 | INCOMPLETE | Top-level `null` phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc.                                              |
+| TC-LOGIN-024 | INCOMPLETE | Top-level array phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc.                                               |
+| TC-LOGIN-025 | INCOMPLETE | Top-level string phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc.                                              |
+| TC-LOGIN-026 | INCOMPLETE | Request không body phải bị từ chối nhưng error contract chưa có; đã dùng oracle 4xx không token/user.                                              |
+| TC-LOGIN-027 | VALID      | Body contract chỉ có email/password; field `role` thừa không được nâng quyền và role trả về phải theo tài khoản thực.                              |
+| TC-LOGIN-028 | VALID      | Payload SQL injection ở email kiểm trực tiếp SEC-05 và yêu cầu không bypass authentication.                                                        |
+| TC-LOGIN-029 | VALID      | Payload SQL injection ở password kiểm trực tiếp SEC-05 và yêu cầu không bypass authentication.                                                     |
+| TC-LOGIN-030 | INCOMPLETE | Ý tưởng injection hợp lệ nhưng status/schema lỗi chưa được đặc tả; đã dùng nhóm 4xx và không token/user.                                           |
+| TC-LOGIN-031 | INVALID    | SEC-04 áp dụng tại UI boundary, không phải oracle trực tiếp cho login API; đã bỏ mapping SEC-04 và đổi mục tiêu thành không bypass authentication. |
+| TC-LOGIN-032 | INCOMPLETE | CRLF payload cần bị từ chối nhưng exact status/schema chưa có; đã dùng nhóm 4xx và không token/user.                                               |
+| TC-LOGIN-033 | INCOMPLETE | Không có giới hạn độ dài email cụ thể; đã giữ robustness case và chấp nhận 400/401/413/422/429 thay vì ép 400.                                     |
+| TC-LOGIN-034 | INCOMPLETE | Đặc tả chỉ yêu cầu body JSON, không định nghĩa response cho `text/plain`; đã chấp nhận 400/415/422 và bỏ schema lỗi tự suy diễn.                   |
+| TC-LOGIN-035 | INCOMPLETE | Đặc tả không nói cách xử lý bearer token thừa; đã sửa thành kiểm tra login public hoạt động khi không gửi Authorization.                           |
+| TC-LOGIN-036 | INCOMPLETE | Đặc tả không nói query thừa phải bị bỏ qua ở success path; đã sửa để kiểm tra query không bypass credentials sai.                                  |
+| TC-LOGIN-037 | VALID      | Schema success phải có JWT/user và không được làm lộ password; oracle phù hợp FR-02 và yêu cầu bảo mật.                                            |
 
 ### 3.4. Extend - Test case do sinh viên bổ sung
 
@@ -104,25 +142,26 @@ Danh sách và metadata đầy đủ được lưu trong [suite manifest](../tes
 
 - Công cụ chạy: Newman 6.2.2 và `newman-reporter-htmlextra` 1.23.1.
 - Collection/data/environment: [Postman collection](../tests/api/login/login.postman_collection.json), [data file](../tests/api/login/login.test-data.json); runtime environment chứa credentials được tạo tạm với permission `0600` và đã xóa sau khi chạy.
-- Run ID: `20260822T130751+0700`
-- Thời gian chạy và múi giờ: `2026-08-22T13:07:51+07:00` (Asia/Ho_Chi_Minh).
-- Header `X-Student-Id`: 37/37 request pass assertion `X-Student-Id: 23127062`; xem [CLI log](../test-reports/newman/login-20260822T130751+0700/cli.log).
-- Newman/HTML report: [newman-report.html](../test-reports/newman/login-20260822T130751+0700/newman-report.html) và [newman-report.json](../test-reports/newman/login-20260822T130751+0700/newman-report.json).
-- Screenshot evidence: [evidence.png](../test-reports/evidence/login/plaintext-password/evidence.png) — output Newman trong terminal VS Code cho thấy các assertion `user.password absent` thất bại.
+- Run ID: `20260822T152407+0700`
+- Thời gian chạy và múi giờ: `2026-08-22T15:24:07+07:00` (Asia/Ho_Chi_Minh).
+- Header `X-Student-Id`: 37/37 request pass assertion `X-Student-Id: 23127062`; xem [CLI log](../test-reports/newman/login-20260822T152407+0700/cli.log) và [screenshot console](../test-reports/evidence/login/x-student-id-console/evidence.png).
+- Newman/HTML report: [newman-report.html](../test-reports/newman/login-20260822T152407+0700/newman-report.html) và [newman-report.json](../test-reports/newman/login-20260822T152407+0700/newman-report.json).
+- Screenshot failure: [plaintext-password/evidence.png](../test-reports/evidence/login/plaintext-password/evidence.png) và [unsupported-content-type-500/evidence.png](../test-reports/evidence/login/unsupported-content-type-500/evidence.png).
 
-|                       Tổng |                   Passed |                   Failed |                   Blocked |
-| -------------------------: | -----------------------: | -----------------------: | ------------------------: |
-| 37 | 6 | 31 | 0 |
+| Tổng | Passed | Failed | Blocked |
+| ---: | -----: | -----: | ------: |
+|   37 |     31 |      6 |       0 |
 
-Newman thực thi đủ 37 request với 304 assertions, trong đó 44 assertions thất bại. Sáu testcase fail do cùng một SUT defect vi phạm SEC-01: response đăng nhập thành công trả `user.password` plaintext. Hai mươi lăm testcase còn lại fail do oracle bảo thủ ở các vùng đặc tả chưa quy định chính xác status/schema lỗi; chúng được phân loại là specification gap/`INCOMPLETE`, không tự động xem là product bug. Không phát hiện credentials hoặc JWT chưa redaction trong các artifacts được giữ lại.
+Newman thực thi đủ 37 request với 211 assertions, trong đó 6 assertions thất bại. Năm testcase login thành công (TC-LOGIN-001, 002, 027, 035, 037) fail vì response trả `user.password`, cùng root cause SEC-01 đã có ở issue #69. TC-LOGIN-034 fail vì request `Content-Type: text/plain` làm SUT trả HTTP 500 và HTML stack trace thay vì client error 400/415/422; minimal reproduction xác nhận defect này 3/3 lần. Không phát hiện credentials hoặc JWT chưa redaction trong các artifacts được giữ lại.
 
 ### 3.6. Bug reports
 
-| Bug ID             | Mô tả                       | Test case phát hiện      | Evidence                 | GitHub Issue             |
-| ------------------ | --------------------------- | ------------------------ | ------------------------ | ------------------------ |
-| BUG-LOGIN-001 | Response đăng nhập trả plaintext `user.password` | TC-LOGIN-001; đồng thời TC-LOGIN-002, 027, 035, 036, 037 | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-001.md) | [Issue #69](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69) |
+| Bug ID        | Mô tả                                                     | Test case phát hiện                                 | Evidence                                                     | GitHub Issue                                                                 |
+| ------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| BUG-LOGIN-001 | Response đăng nhập trả plaintext `user.password`          | TC-LOGIN-001; đồng thời TC-LOGIN-002, 027, 035, 037 | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-001.md) | [Issue #69](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69) |
+| BUG-LOGIN-002 | `Content-Type: text/plain` gây HTTP 500 và lộ stack trace | TC-LOGIN-034                                        | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-002.md) | [Issue #267](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/267) |
 
-Không tạo GitHub Issue mới vì defect trùng root cause với issue #69 đã tồn tại.
+BUG-LOGIN-001 trùng root cause với issue #69 đã tồn tại. BUG-LOGIN-002 không có duplicate và đã được publish thành issue #267.
 
 ## 4. API 2 - `{{METHOD_ENDPOINT_API_2}}`
 
@@ -343,14 +382,14 @@ Không tạo GitHub Issue mới vì defect trùng root cause với issue #69 đ�
 
 ## 9. Test summary
 
-| Chỉ số            |                            API 1 |                            API 2 |                            API 3 |                             Tổng |
-| ----------------- | -------------------------------: | -------------------------------: | -------------------------------: | -------------------------------: |
-| AI-generated      | 37 | `{{SUMMARY_AI_GENERATED_API_2}}` | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
-| Sinh viên bổ sung | 0 | `{{SUMMARY_EXTENDED_API_2}}` | `{{SUMMARY_EXTENDED_API_3}}` | `{{SUMMARY_EXTENDED_TOTAL}}` |
-| Executed          | 37 | `{{SUMMARY_EXECUTED_API_2}}` | `{{SUMMARY_EXECUTED_API_3}}` | `{{SUMMARY_EXECUTED_TOTAL}}` |
-| Passed            | 6 | `{{SUMMARY_PASSED_API_2}}` | `{{SUMMARY_PASSED_API_3}}` | `{{SUMMARY_PASSED_TOTAL}}` |
-| Failed            | 31 | `{{SUMMARY_FAILED_API_2}}` | `{{SUMMARY_FAILED_API_3}}` | `{{SUMMARY_FAILED_TOTAL}}` |
-| Blocked           | 0 | `{{SUMMARY_BLOCKED_API_2}}` | `{{SUMMARY_BLOCKED_API_3}}` | `{{SUMMARY_BLOCKED_TOTAL}}` |
-| Bugs              | 1 | `{{SUMMARY_BUGS_API_2}}` | `{{SUMMARY_BUGS_API_3}}` | `{{SUMMARY_BUGS_TOTAL}}` |
+| Chỉ số            | API 1 |                            API 2 |                            API 3 |                             Tổng |
+| ----------------- | ----: | -------------------------------: | -------------------------------: | -------------------------------: |
+| AI-generated      |    37 | `{{SUMMARY_AI_GENERATED_API_2}}` | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
+| Sinh viên bổ sung |     0 |     `{{SUMMARY_EXTENDED_API_2}}` |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
+| Executed          |    37 |     `{{SUMMARY_EXECUTED_API_2}}` |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
+| Passed            |    31 |       `{{SUMMARY_PASSED_API_2}}` |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
+| Failed            |     6 |       `{{SUMMARY_FAILED_API_2}}` |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
+| Blocked           |     0 |      `{{SUMMARY_BLOCKED_API_2}}` |      `{{SUMMARY_BLOCKED_API_3}}` |      `{{SUMMARY_BLOCKED_TOTAL}}` |
+| Bugs              |     2 |         `{{SUMMARY_BUGS_API_2}}` |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
 
 `{{TEST_SUMMARY_DISCUSSION}}`

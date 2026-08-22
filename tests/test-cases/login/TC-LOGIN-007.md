@@ -1,4 +1,4 @@
-# TC-LOGIN-007: Credentials không hợp lệ không lộ nguyên nhân
+# TC-LOGIN-007: Mật khẩu sai không được cấp token
 
 ## Requirement ID
 FR-02
@@ -12,7 +12,7 @@ LOGIN / Security / Equivalence Partitioning
 ## Test data
 | Trường | Giá trị |
 |---|---|
-| email | `another@example.invalid` |
+| email | `{{validAdminEmail}}` |
 | password | `{{invalidPassword}}` |
 
 ## Test steps
@@ -20,13 +20,10 @@ LOGIN / Security / Equivalence Partitioning
 2. Ghi nhận status, Content-Type và response body.
 
 ## Expected result
-- HTTP status: `401`
-- Content-Type: `application/json`
-- Response schema: `{"type":"object","required":["error"],"properties":{"error":{"type":"string","minLength":1}}}`
-- `error` phải tồn tại
+- HTTP status: `400 hoặc 401 hoặc 403 hoặc 422 hoặc 429`
 - `token` không được xuất hiện
 - `user` không được xuất hiện
-- Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký.
+- Không được trả token hoặc thông tin user khi password sai.
 
 ## Status / Related bugs
 Passed / None

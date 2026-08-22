@@ -34,7 +34,7 @@ TC-<MODULE>-<NNN>
 <Observed status, headers, body, or state>
 
 ## Evidence
-- Screenshot: [<file>](<relative-path>)
+- Screenshot: ![<descriptive-alt-text>](<repository-relative-image-path>)
 - Raw response/log: [<file>](<relative-path>)
 - Newman report: [<file>](<relative-path>)
 
@@ -46,4 +46,4 @@ TC-<MODULE>-<NNN>
 - Result: `No duplicate found` or `Existing issue #<n>`
 ```
 
-Do not report a defect without real execution evidence. Redact credentials, tokens, cookies, OTP values, and unrelated personal data.
+Do not report a defect without real execution evidence. Always embed image evidence as an inline Markdown preview. For GitHub Issues, replace the local relative image path with an absolute GitHub URL and append `?raw=1` to a `blob` URL when needed. Keep non-image artifacts as ordinary links. Redact credentials, tokens, cookies, OTP values, and unrelated personal data.

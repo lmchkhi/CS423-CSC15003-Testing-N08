@@ -1,0 +1,19 @@
+TC-LOGIN-034 - Unsupported Content-Type evidence
+Run: 20260822T152407+0700
+Git HEAD: 13393f68c13ae433c1929bdad1106ee19cc28630 (dirty)
+
+Newman request:
+POST http://localhost:3000/api/login
+Content-Type: text/plain
+Body: {"email":"{{validUserEmail}}","password":"<redacted-password>"}
+
+Observed response:
+HTTP 500 Internal Server Error
+Content-Type: text/html; charset=utf-8
+Body excerpt: TypeError: Cannot destructure property 'email' of 'req.body' as it is undefined.
+
+Minimal reproduction:
+curl -i -sS -X POST http://localhost:3000/api/login -H 'Content-Type: text/plain' --data '{}'
+Observed: HTTP/1.1 500 Internal Server Error with the same TypeError and an HTML stack trace.
+
+Reproducibility: 3/3 attempts (two Newman executions and one minimal curl request).

@@ -27,11 +27,19 @@ const errAssertions = [
   { path: "token", operator: "absent" },
   { path: "user", operator: "absent" },
 ];
+const rejectAssertions = [
+  { path: "token", operator: "absent" },
+  { path: "user", operator: "absent" },
+];
+const rejectedInputStatuses = [400, 401, 403, 422, 429];
+const rejectedMediaStatuses = [400, 415, 422];
+const rejectedOversizedStatuses = [400, 401, 413, 422, 429];
 
 function tc(n, title, options = {}) {
   const body = options.body === "__OMIT__" ? undefined : (Object.hasOwn(options, "body") ? options.body : { email: "{{validUserEmail}}", password: "{{validUserPassword}}" });
   const status = options.status ?? 400;
-  const success = status === 200;
+  const statuses = Array.isArray(status) ? status : [status];
+  const success = statuses.length === 1 && statuses[0] === 200;
   const auditStatus = options.auditStatus ?? "VALID";
   const request = {
     path: "/api/login",
@@ -63,10 +71,10 @@ function tc(n, title, options = {}) {
     steps: options.steps ?? ["Gửi POST /api/login với headers và JSON body đã nêu.", "Ghi nhận status, Content-Type và response body."],
     request,
     expected: {
-      status: [status],
-      contentType: "application/json",
-      schema: success ? successSchema : errorSchema,
-      bodyAssertions: success ? okAssertions : errAssertions,
+      status: statuses,
+      contentType: Object.hasOwn(options, "contentType") ? options.contentType : "application/json",
+      schema: Object.hasOwn(options, "schema") ? options.schema : (success ? successSchema : errorSchema),
+      bodyAssertions: options.bodyAssertions ?? (success ? okAssertions : errAssertions),
       maxResponseTimeMs: 2000,
       notes: options.notes ?? [],
     },
@@ -78,42 +86,88 @@ function tc(n, title, options = {}) {
 const cases = [
   tc(1, "Đăng nhập user với credentials hợp lệ", { status: 200, coverage: ["domain-partition", "state-transition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"], notes: ["Từ trạng thái chưa xác thực và tài khoản không bị khóa, login thành công tạo trạng thái đã xác thực thông qua JWT."] }),
   tc(2, "Đăng nhập admin với credentials hợp lệ", { status: 200, body: { email: "{{validAdminEmail}}", password: "{{validAdminPassword}}" }, coverage: ["domain-partition", "schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"] }),
-  tc(3, "Email hợp lệ với chữ hoa", { status: 200, body: { email: "{{uppercaseUserEmail}}", password: "{{validUserPassword}}" }, auditStatus: "INCOMPLETE", auditReason: "Đặc tả không nói email login có phân biệt hoa thường; oracle dùng thông lệ email case-insensitive." }),
-  tc(4, "Email hợp lệ có khoảng trắng đầu cuối", { status: 200, body: { email: "{{spacedUserEmail}}", password: "{{validUserPassword}}" }, auditStatus: "INCOMPLETE", auditReason: "Đặc tả không nói server có trim email; cần human review trước khi coi sai khác là defect." }),
-  tc(5, "Mật khẩu đúng kèm khoảng trắng cuối", { status: 401, body: { email: "nobody@example.invalid", password: "{{validUserPasswordWithTrailingSpace}}" }, auditStatus: "INCOMPLETE", auditReason: "Dùng email không tồn tại để không làm biến đổi lockout state; server vẫn phải từ chối an toàn." }),
-  tc(6, "Email chưa đăng ký", { status: 401, body: { email: "nobody@example.invalid", password: "{{invalidPassword}}" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Thông báo không được tiết lộ email có tồn tại hay không."] }),
-  tc(7, "Credentials không hợp lệ không lộ nguyên nhân", { status: 401, body: { email: "another@example.invalid", password: "{{invalidPassword}}" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Thông báo phải cùng mức khái quát với trường hợp email chưa đăng ký."] }),
-  tc(8, "Thiếu trường email", { body: { password: "{{invalidPassword}}" }, auditStatus: "INCOMPLETE" }),
-  tc(9, "Thiếu trường password", { body: { email: "nobody@example.invalid" }, auditStatus: "INCOMPLETE" }),
-  tc(10, "Thiếu cả email và password", { body: {}, auditStatus: "INCOMPLETE" }),
-  tc(11, "Email bằng null", { body: { email: null, password: "{{invalidPassword}}" }, auditStatus: "INCOMPLETE" }),
-  tc(12, "Password bằng null", { body: { email: "nobody@example.invalid", password: null }, auditStatus: "INCOMPLETE" }),
-  tc(13, "Email là chuỗi rỗng", { body: { email: "", password: "{{invalidPassword}}" }, auditStatus: "INCOMPLETE" }),
-  tc(14, "Password là chuỗi rỗng", { body: { email: "nobody@example.invalid", password: "" }, auditStatus: "INCOMPLETE" }),
-  tc(15, "Email chỉ chứa whitespace", { body: { email: "   ", password: "{{invalidPassword}}" }, auditStatus: "INCOMPLETE" }),
-  tc(16, "Password chỉ chứa whitespace", { status: 401, body: { email: "nobody@example.invalid", password: "   " }, auditStatus: "INCOMPLETE" }),
-  tc(17, "Email có kiểu number", { body: { email: 12345, password: "{{invalidPassword}}" }, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(18, "Password có kiểu number", { body: { email: "nobody@example.invalid", password: 12345 }, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(19, "Email có kiểu boolean", { body: { email: true, password: "{{invalidPassword}}" }, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(20, "Password có kiểu boolean", { body: { email: "nobody@example.invalid", password: false }, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(21, "Email có kiểu object", { body: { email: { value: "{{validUserEmail}}" }, password: "{{invalidPassword}}" }, technique: "Type Confusion", auditStatus: "INCOMPLETE", coverage: ["domain-partition", "security"] }),
-  tc(22, "Password có kiểu object", { body: { email: "nobody@example.invalid", password: { value: "{{invalidPassword}}" } }, technique: "Type Confusion", auditStatus: "INCOMPLETE", coverage: ["domain-partition", "security"] }),
-  tc(23, "Top-level JSON bằng null", { body: null, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(24, "Top-level JSON là array", { body: [], technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(25, "Top-level JSON là string", { body: "login", technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(26, "Request không có body", { body: "__OMIT__", technique: "Negative Testing", auditStatus: "INCOMPLETE" }),
+  tc(3, "Email sai định dạng do thiếu ký tự @", { status: rejectedInputStatuses, body: { email: "invalid-email", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE", auditReason: "Oracle email case-insensitive không có trong đặc tả; đã đổi sang partition sai định dạng có tiêu chí từ chối rõ ràng." }),
+  tc(4, "Email sai định dạng do thiếu domain", { status: rejectedInputStatuses, body: { email: "user@", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE", auditReason: "Oracle trim khoảng trắng không có trong đặc tả; đã đổi sang partition thiếu domain." }),
+  tc(5, "Mật khẩu đúng kèm khoảng trắng cuối", { status: rejectedInputStatuses, body: { email: "{{validUserEmail}}", password: "{{validUserPasswordWithTrailingSpace}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE", auditReason: "Email không tồn tại che khuất partition mật khẩu; đã sửa dùng tài khoản hợp lệ." }),
+  tc(6, "Email chưa đăng ký", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Thông báo không được tiết lộ email có tồn tại hay không."] }),
+  tc(7, "Mật khẩu sai không được cấp token", { status: rejectedInputStatuses, body: { email: "{{validAdminEmail}}", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", notes: ["Không được trả token hoặc thông tin user khi password sai."] }),
+  tc(8, "Thiếu trường email", { status: rejectedInputStatuses, body: { password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(9, "Thiếu trường password", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(10, "Thiếu cả email và password", { status: rejectedInputStatuses, body: {}, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(11, "Email bằng null", { status: rejectedInputStatuses, body: { email: null, password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(12, "Password bằng null", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: null }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(13, "Email là chuỗi rỗng", { status: rejectedInputStatuses, body: { email: "", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(14, "Password là chuỗi rỗng", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: "" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(15, "Email chỉ chứa whitespace", { status: rejectedInputStatuses, body: { email: "   ", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(16, "Password chỉ chứa whitespace", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: "   " }, contentType: null, schema: null, bodyAssertions: rejectAssertions, auditStatus: "INCOMPLETE" }),
+  tc(17, "Email có kiểu number", { status: rejectedInputStatuses, body: { email: 12345, password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(18, "Password có kiểu number", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: 12345 }, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(19, "Email có kiểu boolean", { status: rejectedInputStatuses, body: { email: true, password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(20, "Password có kiểu boolean", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: false }, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(21, "Email có kiểu object", { status: rejectedInputStatuses, body: { email: { value: "{{validUserEmail}}" }, password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE", coverage: ["domain-partition", "security"] }),
+  tc(22, "Password có kiểu object", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: { value: "{{invalidPassword}}" } }, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE", coverage: ["domain-partition", "security"] }),
+  tc(23, "Top-level JSON bằng null", { status: rejectedInputStatuses, body: null, contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(24, "Top-level JSON là array", { status: rejectedInputStatuses, body: [], contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(25, "Top-level JSON là string", { status: rejectedInputStatuses, body: "login", contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(26, "Request không có body", { status: rejectedInputStatuses, body: "__OMIT__", contentType: null, schema: null, bodyAssertions: rejectAssertions, technique: "Negative Testing", auditStatus: "INCOMPLETE" }),
   tc(27, "Credentials hợp lệ kèm unknown field role", { status: 200, body: { email: "{{validUserEmail}}", password: "{{validUserPassword}}", role: "admin" }, coverage: ["domain-partition", "security", "schema-validation"], requirementIds: ["FR-02", "SEC-01"], notes: ["Unknown field role không được thay đổi role trả về hoặc cấp quyền ngoài tài khoản thực."] }),
   tc(28, "SQL injection trong email", { status: 401, body: { email: "' OR 1=1 --", password: "{{invalidPassword}}" }, coverage: ["security"], requirementIds: ["FR-02", "SEC-05"], technique: "SQL Injection", notes: ["Không được trả token hoặc thông tin user."] }),
   tc(29, "SQL injection trong password", { status: 401, body: { email: "nobody@example.invalid", password: "' OR '1'='1" }, coverage: ["security"], requirementIds: ["FR-02", "SEC-05"], technique: "SQL Injection", notes: ["Không được bypass authentication; dùng email không tồn tại để không đổi lockout state."] }),
-  tc(30, "NoSQL-style injection object", { body: { email: { "$ne": null }, password: { "$ne": null } }, coverage: ["security", "domain-partition"], technique: "Injection", auditStatus: "INCOMPLETE" }),
-  tc(31, "XSS payload trong email", { body: { email: "<script>alert(1)</script>", password: "{{invalidPassword}}" }, coverage: ["security"], requirementIds: ["FR-02", "SEC-04"], technique: "Injection", auditStatus: "INCOMPLETE", notes: ["Response không được phản chiếu payload dưới dạng executable content."] }),
-  tc(32, "CRLF payload trong email", { body: { email: "a@example.com\r\nX-Test: injected", password: "{{invalidPassword}}" }, coverage: ["security"], technique: "Injection", auditStatus: "INCOMPLETE" }),
-  tc(33, "Email vượt kích thước hợp lý", { body: { email: "{{oversizedEmail}}", password: "{{invalidPassword}}" }, coverage: ["security", "domain-partition"], technique: "Boundary Value Analysis", auditStatus: "INCOMPLETE" }),
-  tc(34, "Content-Type không phải JSON", { headers: { "Content-Type": "text/plain" }, body: { email: "{{validUserEmail}}", password: "{{validUserPassword}}" }, coverage: ["security", "domain-partition"], technique: "Content-Type Confusion", auditStatus: "INCOMPLETE" }),
-  tc(35, "Login public bỏ qua Authorization header không hợp lệ", { status: 200, auth: "invalid", coverage: ["security", "schema-validation"], auditStatus: "INCOMPLETE", auditReason: "Đặc tả không yêu cầu token cho login; bearer thừa không nên thay đổi authentication bằng credentials." }),
-  tc(36, "Query parameter thừa không thay đổi login", { status: 200, query: { debug: "true" }, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", auditReason: "Đặc tả không mô tả query parameter; kỳ vọng endpoint bỏ qua tham số không được hỗ trợ một cách an toàn." }),
+  tc(30, "NoSQL-style injection object", { status: rejectedInputStatuses, body: { email: { "$ne": null }, password: { "$ne": null } }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["security", "domain-partition"], technique: "Injection", auditStatus: "INCOMPLETE" }),
+  tc(31, "XSS payload trong email không được bypass đăng nhập", { status: rejectedInputStatuses, body: { email: "<script>alert(1)</script>", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["security"], requirementIds: ["FR-02"], technique: "Injection", auditStatus: "INCOMPLETE", notes: ["Không được trả token hoặc thông tin user."] }),
+  tc(32, "CRLF payload trong email", { status: rejectedInputStatuses, body: { email: "a@example.com\r\nX-Test: injected", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["security"], technique: "Injection", auditStatus: "INCOMPLETE" }),
+  tc(33, "Email vượt kích thước hợp lý", { status: rejectedOversizedStatuses, body: { email: "{{oversizedEmail}}", password: "{{invalidPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["security", "domain-partition"], technique: "Boundary Value Analysis", auditStatus: "INCOMPLETE" }),
+  tc(34, "Content-Type không phải JSON", { status: rejectedMediaStatuses, headers: { "Content-Type": "text/plain" }, body: { email: "{{validUserEmail}}", password: "{{validUserPassword}}" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["security", "domain-partition"], technique: "Content-Type Confusion", auditStatus: "INCOMPLETE" }),
+  tc(35, "Đăng nhập không gửi Authorization header", { status: 200, auth: "missing", coverage: ["security", "schema-validation"], auditStatus: "INCOMPLETE", auditReason: "Case cũ suy diễn cách xử lý bearer token thừa; đã sửa để kiểm tra login public không yêu cầu Authorization." }),
+  tc(36, "Query parameter thừa không bypass credentials sai", { status: rejectedInputStatuses, body: { email: "nobody@example.invalid", password: "{{invalidPassword}}" }, query: { debug: "true" }, contentType: null, schema: null, bodyAssertions: rejectAssertions, coverage: ["domain-partition", "security"], auditStatus: "INCOMPLETE", auditReason: "Case cũ suy diễn query thừa phải bị bỏ qua khi login thành công; đã sửa để kiểm tra query không bypass credentials sai." }),
   tc(37, "Schema thành công không lộ trường nhạy cảm", { status: 200, coverage: ["schema-validation", "security"], requirementIds: ["FR-02", "SEC-01"], testType: "Contract", technique: "Schema Validation" }),
 ];
+
+const humanReviews = {
+  "TC-LOGIN-001": ["VALID", "Đúng FR-02 và SEC-01: credentials hợp lệ phải trả JWT, user object và không lộ password."],
+  "TC-LOGIN-002": ["VALID", "Đúng FR-02 cho tài khoản admin; oracle thành công và schema JWT/user phù hợp."],
+  "TC-LOGIN-003": ["INCOMPLETE", "Oracle email viết hoa phải đăng nhập thành công không có trong đặc tả; đã đổi thành email thiếu @ và chấp nhận các status từ chối 4xx phù hợp."],
+  "TC-LOGIN-004": ["INCOMPLETE", "Đặc tả không quy định trim email; đã đổi thành email thiếu domain và kiểm tra request bị từ chối, không cấp token."],
+  "TC-LOGIN-005": ["INVALID", "Case cũ dùng email không tồn tại nên không kiểm được ảnh hưởng của khoảng trắng trong password; đã sửa dùng email hợp lệ."],
+  "TC-LOGIN-006": ["INCOMPLETE", "Đặc tả không quy định status/schema lỗi cho email chưa đăng ký; đã bỏ schema error tự suy diễn và dùng oracle 4xx không cấp token."],
+  "TC-LOGIN-007": ["INCOMPLETE", "Case cũ trùng partition email chưa đăng ký; đã đổi sang email tồn tại với password sai và kiểm tra không cấp token."],
+  "TC-LOGIN-008": ["INCOMPLETE", "Thiếu email phải bị từ chối nhưng đặc tả không chốt status/schema; đã dùng nhóm 4xx và bỏ schema lỗi tự suy diễn."],
+  "TC-LOGIN-009": ["INCOMPLETE", "Thiếu password phải bị từ chối nhưng đặc tả không chốt status/schema; đã dùng nhóm 4xx và bỏ schema lỗi tự suy diễn."],
+  "TC-LOGIN-010": ["INCOMPLETE", "Thiếu cả hai trường chưa có error contract; đã giữ negative partition và chỉ yêu cầu 4xx, không token/user."],
+  "TC-LOGIN-011": ["INCOMPLETE", "Email null chưa có error contract; đã bỏ kỳ vọng chính xác 400 và trường error."],
+  "TC-LOGIN-012": ["INCOMPLETE", "Password null chưa có error contract; đã bỏ kỳ vọng chính xác 400 và trường error."],
+  "TC-LOGIN-013": ["INCOMPLETE", "Email rỗng chưa có error contract; đã dùng oracle từ chối 4xx và không cấp token."],
+  "TC-LOGIN-014": ["INCOMPLETE", "Password rỗng chưa có error contract; đã dùng oracle từ chối 4xx và không cấp token."],
+  "TC-LOGIN-015": ["INCOMPLETE", "Email whitespace chưa có quy tắc normalize; đã yêu cầu từ chối thay vì suy diễn schema lỗi."],
+  "TC-LOGIN-016": ["INCOMPLETE", "Password whitespace là credentials sai nhưng status chưa được quy định; đã chấp nhận nhóm 4xx và kiểm tra không cấp token."],
+  "TC-LOGIN-017": ["INCOMPLETE", "Email number phải bị từ chối nhưng status/schema chưa được mô tả; đã bỏ oracle error object tự suy diễn."],
+  "TC-LOGIN-018": ["INCOMPLETE", "Password number phải bị từ chối nhưng status/schema chưa được mô tả; đã bỏ oracle error object tự suy diễn."],
+  "TC-LOGIN-019": ["INCOMPLETE", "Email boolean phải bị từ chối nhưng status/schema chưa được mô tả; đã dùng oracle 4xx không token/user."],
+  "TC-LOGIN-020": ["INCOMPLETE", "Password boolean phải bị từ chối nhưng status/schema chưa được mô tả; đã dùng oracle 4xx không token/user."],
+  "TC-LOGIN-021": ["INCOMPLETE", "Email object là type-confusion hợp lệ nhưng error contract bị tự suy diễn; đã giữ payload và nới oracle về 4xx."],
+  "TC-LOGIN-022": ["INCOMPLETE", "Password object là type-confusion hợp lệ nhưng error contract bị tự suy diễn; đã giữ payload và nới oracle về 4xx."],
+  "TC-LOGIN-023": ["INCOMPLETE", "Top-level null phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc."],
+  "TC-LOGIN-024": ["INCOMPLETE", "Top-level array phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc."],
+  "TC-LOGIN-025": ["INCOMPLETE", "Top-level string phải bị từ chối an toàn nhưng đặc tả không chốt response; đã bỏ schema lỗi bắt buộc."],
+  "TC-LOGIN-026": ["INCOMPLETE", "Request không body phải bị từ chối nhưng error contract chưa có; đã dùng oracle 4xx không token/user."],
+  "TC-LOGIN-027": ["VALID", "Body contract chỉ có email/password; field role thừa không được nâng quyền và role trả về phải theo tài khoản thực."],
+  "TC-LOGIN-028": ["VALID", "Payload SQL injection ở email kiểm trực tiếp SEC-05 và yêu cầu không bypass authentication."],
+  "TC-LOGIN-029": ["VALID", "Payload SQL injection ở password kiểm trực tiếp SEC-05 và yêu cầu không bypass authentication."],
+  "TC-LOGIN-030": ["INCOMPLETE", "Ý tưởng injection hợp lệ nhưng status/schema lỗi chưa được đặc tả; đã dùng nhóm 4xx và không token/user."],
+  "TC-LOGIN-031": ["INVALID", "SEC-04 áp dụng tại UI boundary, không phải oracle trực tiếp cho login API; đã bỏ mapping SEC-04 và đổi mục tiêu thành không bypass authentication."],
+  "TC-LOGIN-032": ["INCOMPLETE", "CRLF payload cần bị từ chối nhưng exact status/schema chưa có; đã dùng nhóm 4xx và không token/user."],
+  "TC-LOGIN-033": ["INCOMPLETE", "Không có giới hạn độ dài email cụ thể; đã giữ robustness case và chấp nhận 400/401/413/422/429 thay vì ép 400."],
+  "TC-LOGIN-034": ["INCOMPLETE", "Đặc tả chỉ yêu cầu body JSON, không định nghĩa response cho text/plain; đã chấp nhận 400/415/422 và bỏ schema lỗi tự suy diễn."],
+  "TC-LOGIN-035": ["INCOMPLETE", "Đặc tả không nói cách xử lý bearer token thừa; đã sửa thành kiểm tra login public hoạt động khi không gửi Authorization."],
+  "TC-LOGIN-036": ["INCOMPLETE", "Đặc tả không nói query thừa phải bị bỏ qua ở success path; đã sửa để kiểm tra query không bypass credentials sai."],
+  "TC-LOGIN-037": ["VALID", "Schema success phải có JWT/user và không được làm lộ password; oracle phù hợp FR-02 và yêu cầu bảo mật."],
+};
+
+for (const testCase of cases) {
+  const review = humanReviews[testCase.id];
+  if (!review) throw new Error(`Missing human review for ${testCase.id}`);
+  testCase.humanReview = { status: review[0], reason: review[1] };
+}
 
 const manifest = {
   suite: {

@@ -1,6 +1,6 @@
 Raw Newman response extract; secrets are redacted.
-Run: 20260822T130751+0700
-Git HEAD: 7b86a4a3ac972584de1e725e5b2a2464b7d4d7ef (dirty)
+Run: 20260822T152407+0700
+Git HEAD: 13393f68c13ae433c1929bdad1106ee19cc28630 (dirty)
 
 === TC-LOGIN-001 ===
 HTTP 200 OK
@@ -18,15 +18,9 @@ Response body (secrets redacted): {"message":"Login successful","token":"<redact
 HTTP 200 OK
 Content-Type: application/json; charset=utf-8
 X-Student-Id assertion: PASS
-Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":2,"name":"Test User","email":"test@eshop.com","password":"<redacted-password>","role":"user","login_attempts":0,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}
+Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":2,"name":"Test User","email":"test@eshop.com","password":"<redacted-password>","role":"user","login_attempts":2,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}
 
 === TC-LOGIN-035 ===
-HTTP 200 OK
-Content-Type: application/json; charset=utf-8
-X-Student-Id assertion: PASS
-Response body (secrets redacted): {"message":"Login successful","token":"<redacted-jwt>","user":{"id":2,"name":"Test User","email":"test@eshop.com","password":"<redacted-password>","role":"user","login_attempts":0,"locked_until":null,"reset_token":null,"shipping_address":null,"phone":null}}
-
-=== TC-LOGIN-036 ===
 HTTP 200 OK
 Content-Type: application/json; charset=utf-8
 X-Student-Id assertion: PASS
