@@ -1,8 +1,8 @@
-# Test Summary — HW06 AI-First API Testing
+# Final Test Summary — HW06 AI-First API Testing
 
 ## Sinh viên: 23127464 — Trần Minh Quang
 
-## SUT: EShop REST Backend (`localhost:3000`)
+## SUT: EShop REST Backend (`http://127.0.0.1:3000`)
 
 ---
 
@@ -32,7 +32,19 @@
 | Tỉ lệ đạt | 124 / 170 = **72,9%** |
 | Tỉ lệ không đạt | 46 / 170 = **27,1%** |
 | Assertions đạt / không đạt | 373 / 49 |
-| Bugs phát hiện | **5** (3 Critical, 1 High, 1 Medium) |
+| Assertions | **422** tổng cộng — 373 đạt / 49 không đạt |
+| Bugs phát hiện | **5** (3 Critical, 1 Major, 1 Minor) |
+
+### Canonical Newman evidence
+
+| Pool | FR | Ca thực thi | Đạt | Không đạt | Assertions đạt / không đạt | Evidence cuối |
+|:---:|---|---:|---:|---:|---:|---|
+| A | FR-05 | 45 | 35 | 10 | 109 / 11 | `tests/api-testing/evidence/fr-05/20260822-230735/` |
+| B | FR-11 | 80 | 60 | 20 | 167 / 22 | `tests/api-testing/evidence/fr-11/20260822-schema-rerun-final/` |
+| C | FR-16 | 45 | 29 | 16 | 97 / 16 | `tests/api-testing/evidence/fr-16/20260822-230924/` |
+| | **Tổng** | **170** | **124** | **46** | **373 / 49** | |
+
+Mỗi request thuộc phạm vi kiểm thử đều mang header `X-Student-Id: 23127464`. Ba ảnh Postman Console tương ứng được lưu tại `tests/api-testing/evidence/fr-*/postman-header-screenshot.png`.
 
 ### Bugs phát hiện
 
@@ -51,6 +63,21 @@
 | All-pass | `34455d7` | SUCCESS | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502275099) |
 | Controlled-failure | `c2610bb` | FAILURE | [GitHub Actions](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32502722228) |
 
+Hai run trên là hai mẫu pipeline bắt buộc: một run all-pass và một run có lỗi được kiểm soát. Ảnh tổng quan được lưu trong `tests/api-testing/evidence/ci-cd/`.
+
+### Trạng thái tài liệu nộp kèm
+
+| Deliverable | Markdown / Source | PDF / Output | Trạng thái |
+|---|---|---|:---:|
+| Main Report | `reports/main-report.md` | `reports/main-report.pdf` | Đủ |
+| Test Summary | `reports/test-summary.md` | `reports/test-summary.pdf` | Đủ |
+| AI Critique | `reports/ai-critique.md` | `reports/ai-critique.pdf` | Đủ |
+| AI Audit Report | `reports/ai-audit-report.md` | `reports/ai-audit-report.pdf` | Đủ — 23/23 human reviews `REVIEWED` |
+| Test Cases | `reports/23127464_test_cases.csv` | `reports/23127464_test_cases.xlsx` | Đủ |
+| Test Summary Data | `reports/23127464_test_summary.csv` | `reports/23127464_test_summary.xlsx` | Đủ |
+| AI Test Generator | `ai-first-api-testing/`, `reports/PSEUDOCODE.md` | `reports/Self-Drawn_AI_Driven_Diagram.png` | Đủ |
+| Bug Evidence | 5 bug reports | 5 Issue screenshots + 5 runtime screenshots | Đủ |
+
 ### Video demo
 
 | Link |
@@ -60,3 +87,10 @@
 ### Repository
 
 - Branch: [test/23127464-API-Testing](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/test/23127464-API-Testing)
+- Public repository: [lmchkhi/CS423-CSC15003-Testing-N08](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08)
+- Self-assessed grade: **100/100**.
+- Submission filename: `23127464_HW06_AI_API_100.zip`.
+
+---
+
+**FINAL STATUS: READY FOR SUBMISSION**
