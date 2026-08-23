@@ -64,5 +64,8 @@ Representative assertion failure:
 
 - `TC-FR09-API-SCH-010`: expected response not to have property `coupon_id`.
 
+
+- Screenshot: ![BUG-FR09-API-008](../screenshots/BUG-FR09-API-008.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/278

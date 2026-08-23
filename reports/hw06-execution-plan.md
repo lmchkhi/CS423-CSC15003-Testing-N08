@@ -564,7 +564,6 @@ Việc cần làm:
 - Review `ai-test-generator-design.md` để đảm bảo blackbox: input là API spec, FR/SEC requirements, observed responses.
 - Hoàn thiện pseudocode generator cho parser, endpoint classifier, domain builder, security builder, workflow/state builder, schema builder, human audit, export Postman.
 - Chuẩn bị diagram do sinh viên tự author. Nếu dùng Mermaid trong file, tự chuyển/vẽ thành PNG nếu submission yêu cầu ảnh.
-- Viết AI Critique 200-300 words: AI sai/incomplete ở đâu, vì sao fail, bài học khi collaborate với AI.
 - Nếu có demo video, ghi link và nội dung demo.
 - Append AI audit entry.
 
@@ -572,14 +571,12 @@ Files/artifacts:
 
 - `ai-test-generator-design.md`
 - Diagram PNG/Mermaid
-- AI Critique section
 - Optional demo video link
 
 Kiểm tra trước commit:
 
 - Diagram không phải ảnh AI-generated trực tiếp.
 - Pseudocode không đọc source code.
-- AI Critique đủ 200-300 words.
 
 Không làm trong phase này:
 

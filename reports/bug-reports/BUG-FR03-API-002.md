@@ -40,5 +40,8 @@ The API returns a 4-digit `resetToken`. In the Newman run, one observed token wa
 - Newman CLI log: `reports/newman/hw06-fr03-reset-password-cli.txt`
 - CLI failure: `TC-FR03-API-SEC-008 setup resetToken is six digits`: expected `'9154'` to match `/^\d{6}$/`.
 
+
+- Screenshot: ![BUG-FR03-API-002](../screenshots/BUG-FR03-API-002.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/269

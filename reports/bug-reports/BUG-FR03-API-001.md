@@ -44,5 +44,8 @@ The API returns `200 OK` for invalid `newPassword` inputs. In workflow cases, a 
   - `TC-FR03-API-DOM-023 status matches expected`: expected `400`, got `200`.
   - `TC-FR03-API-WF-007 first weak reset was rejected`: expected weak reset status `400`, got `200`.
 
+
+- Screenshot: ![BUG-FR03-API-001](../screenshots/BUG-FR03-API-001.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/268

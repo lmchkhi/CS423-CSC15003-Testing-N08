@@ -42,5 +42,8 @@ The API returns `500 Internal Server Error`.
   - `TC-FR03-API-SCH-010 status matches expected`: expected `400 or 415`, got `500`.
   - `TC-FR03-API-SCH-010 no unexpected 5xx`: expected `500` to be below `500`.
 
+
+- Screenshot: ![BUG-FR03-API-003](../screenshots/BUG-FR03-API-003.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/270

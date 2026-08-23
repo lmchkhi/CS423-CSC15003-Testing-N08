@@ -10,6 +10,8 @@
 | Hình thức kiểm thử | Blackbox API testing |
 | Công cụ chính | Postman, Newman, GitHub Actions, Codex |
 | Student ID | `23127475` |
+| Video demo | [https://youtu.be/Aue36T6uS5M](https://youtu.be/Aue36T6uS5M) |
+| Public GitHub repository | [https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/hw06/23127475](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/hw06/23127475) |
 
 Nguyên tắc: mọi test case và expected behavior trong report này được thiết kế từ `README.md`, `api_specification.md`, API responses quan sát được, và evidence thực thi. Không dùng source code backend/frontend để suy ra expected behavior.
 
@@ -329,7 +331,7 @@ newman run postman/hw06-ci-smoke.postman_collection.json \
 | --- | --- | --- | --- | --- | --- |
 | Passing run | `93e35e6` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32574378458 | Passed | Screenshot: `reports/screenshots/ci-pass.png`; local evidence: `reports/newman/hw06-ci-smoke.html`, `reports/newman/hw06-ci-smoke.json`, `reports/newman/hw06-ci-smoke-cli.txt`; uploaded artifact `hw06-newman-smoke-reports` | Phase 11 |
 | Intentional failing run | `c8dfd58` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32575114869 | Failed | Screenshot: `reports/screenshots/ci-fail.png`; intentional change: in `postman/hw06-ci-smoke.postman_collection.json`, request `CI-SMOKE-001` expects HTTP `999` instead of `200`; local evidence: `reports/newman/hw06-ci-smoke-intentional-fail.html`, `reports/newman/hw06-ci-smoke-intentional-fail.json`, `reports/newman/hw06-ci-smoke-intentional-fail-cli.txt` | Phase 12 |
-| Restored passing run | Phase 13 commit | URL sinh sau khi push Phase 13 | Local restored pass confirmed; CI restored pass pending push | Restored change: `CI-SMOKE-001` expects HTTP `200` again; local evidence: `reports/newman/hw06-ci-smoke-restored-pass.html`, `reports/newman/hw06-ci-smoke-restored-pass.json`, `reports/newman/hw06-ci-smoke-restored-pass-cli.txt` | Phase 13 |
+| Restored passing run | `ecb0b01` | https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32575713163 | Passed | Restored change: `CI-SMOKE-001` expects HTTP `200` again; local evidence: `reports/newman/hw06-ci-smoke-restored-pass.html`, `reports/newman/hw06-ci-smoke-restored-pass.json`, `reports/newman/hw06-ci-smoke-restored-pass-cli.txt` | Phase 13 |
 
 ## 8. Bug reports
 
@@ -357,30 +359,27 @@ Bug report rule: khi phát hiện bug thật, tạo Markdown bug report trong `r
 
 ## 9. AI-driven test generator design
 
-Trạng thái: Đã có file thiết kế ban đầu `ai-test-generator-design.md`, sẽ review/finalize ở Phase 15.
+Trạng thái: Đã finalize phần design, pseudocode và diagram ở Phase 15. Diagram được sinh viên tự vẽ bằng draw.io và export thành PNG.
 
 | Artifact | Path/link | Status |
 | --- | --- | --- |
-| Design document | `ai-test-generator-design.md` | Draft |
-| Pseudocode | `ai-test-generator-design.md` | Draft |
-| Self-drawn diagram | Chưa có final image | Chưa hoàn tất |
-| Demo video | Chưa có | Optional |
+| Design document | `ai-test-generator-design.md` | Hoàn tất |
+| Pseudocode | `ai-test-generator-design.md` section 3 | Hoàn tất |
+| Self-drawn diagram | `AI-Driven-API-Test-Generator.drawio.png` | Hoàn tất |
 
-## 10. AI critique
+## 10. Video demo
 
-Trạng thái: Chưa thực hiện, sẽ viết ở Phase 15.
+Link video demo: [https://youtu.be/Aue36T6uS5M](https://youtu.be/Aue36T6uS5M)
 
-Yêu cầu: 200-300 words, nêu AI sai/incomplete ở đâu, vì sao fail, và bài học khi collaborate với AI.
+## 11. AI critique
 
-## 11. AI Audit Report
+File: [./ai-critique.md](./ai-critique.md)
 
-AI Audit Report được lưu tại `reports/ai-audit-report.md` và sẽ được cập nhật sau mỗi lượt AI hỗ trợ HW06.
+## 12. AI Audit Report
 
-| Artifact | Path | Status |
-| --- | --- | --- |
-| AI Audit Report | `reports/ai-audit-report.md` | Đang cập nhật |
+File: [./ai-audit-report.md](./ai-audit-report.md)
 
-## 12. Test summary
+## 13. Test summary
 
 Trạng thái: Đã có số liệu execution cho FR-03, FR-09 và FR-17.
 
@@ -391,32 +390,35 @@ Trạng thái: Đã có số liệu execution cho FR-03, FR-09 và FR-17.
 | FR-17 `POST /api/admin/coupons` | 54 | 6 | 56 | 56 | 18 | 38 | 6 |
 | Total | 146 | 18 | 157 | 157 | 81 | 76 | 17 |
 
-## 13. Self-assessment
+## 14. Self-assessment
 
-| No. | Criteria | Grade | Self-assessed grade | Evidence |
-| --- | --- | --- | --- | --- |
-| 1 | API 1 - full pipeline | 30 | Chưa chấm | Chưa có |
-| 2 | API 2 - full pipeline | 30 | Chưa chấm | Chưa có |
-| 3 | API 3 - full pipeline | 30 | Chưa chấm | Chưa có |
-| 4 | Agent Skills / AI-driven generator | 10 | Chưa chấm | `skills/`, `ai-test-generator-design.md` |
-| | Total | 100 | Chưa chấm | Chưa có |
+| No. | Criteria | Grade | Self-assessed grade |
+| --- | --- | --- | --- |
+| 1 | API 1 - full pipeline | 30 | 30 |
+| 2 | API 2 - full pipeline | 30 | 30 |
+| 3 | API 3 - full pipeline | 30 | 30 |
+| 4 | Agent Skills / AI-driven generator | 10 | 10 |
+| | Total | 100 | 100 |
 
-## 14. Submission checklist
+## 15. Submission checklist
 
 | Deliverable | Status | Path/link |
 | --- | --- | --- |
-| Main report Markdown | Đang làm | `reports/main-report.md` |
-| Main report PDF | Chưa có | Chưa có |
-| Public GitHub repository link | Chưa có | Chưa có |
+| Main report Markdown | Có | `reports/main-report.md` |
+| Main report PDF | Có | `reports/main-report.pdf` |
+| Public GitHub repository link | Có | [https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/hw06/23127475](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/tree/hw06/23127475) |
 | Postman collections | Có FR-03, FR-09, FR-17 | `postman/hw06-fr03-reset-password.postman_collection.json`, `postman/hw06-fr09-apply-coupon.postman_collection.json`, `postman/hw06-fr17-admin-coupons.postman_collection.json` |
 | Postman environment/data files | Có FR-03, FR-09, FR-17 | `postman/hw06-local.postman_environment.json`, `postman/data/hw06-fr03-reset-password.data.json`, `postman/data/hw06-fr09-apply-coupon.data.json`, `postman/data/hw06-fr17-admin-coupons.data.json` |
 | Newman HTML reports | Có FR-03, FR-09, FR-17 | `reports/newman/hw06-fr03-reset-password.html`, `reports/newman/hw06-fr09-apply-coupon.html`, `reports/newman/hw06-fr17-admin-coupons.html` |
 | Postman feature list | Có FR-03, FR-09 | Section 6 |
-| CI/CD report | Đang làm | Section 7 có Phase 11 pass URL và Phase 12 intentional fail note |
-| Excel/test case table | Đang cập nhật; FR-03, FR-09 và FR-17 executed | `reports/hw06-test-cases.md`, `test-cases/hw06-api/` |
-| AI test-generator diagram/pseudocode | Draft | `ai-test-generator-design.md` |
+| CI/CD report | Có | Section 7 có Phase 11 pass URL, Phase 12 intentional fail URL và Phase 13 restored pass URL |
+| Excel/test case table | Có | `reports/hw06-test-cases.md`, `test-cases/hw06-api/`, `reports/HW06-API-Testing.xlsx` |
+| AI test-generator diagram/pseudocode | Có | `ai-test-generator-design.md`, `AI-Driven-API-Test-Generator.drawio.png` |
 | Bug reports/GitHub Issues | Có 3 bug reports FR-03 đã tạo issue; có 8 bug reports FR-09 đã tạo issue; có 6 bug reports FR-17 đã tạo issue | `reports/bug-reports/`, #268-#284 |
-| AI Critique | Chưa có | Section 10 |
-| AI Audit Report | Đang làm | `reports/ai-audit-report.md` |
-| Git commit log | Chưa có | Chưa có |
-| README self-assessment | Chưa có | Chưa có |
+| Video demo | Có | Section 10 |
+| AI Critique MD | Có | `reports/ai-critique.md` |
+| AI Critique PDF | Có | `reports/ai-critique.pdf` |
+| AI Audit Report MD | Có | `reports/ai-audit-report.md` |
+| AI Audit Report PDF | Có | `reports/ai-audit-report.pdf` |
+| Git commit log | Có | `git-commit-log.md` |
+| README self-assessment | Có | `reports/README.md` |

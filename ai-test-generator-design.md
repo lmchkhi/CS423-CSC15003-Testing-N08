@@ -9,56 +9,18 @@
 
 ## 1. Sơ đồ tổng quan (Architecture Diagram)
 
-```mermaid
-flowchart TD
-    A([Tester\nCung cấp đầu vào]) --> B
+Diagram dưới đây được tự vẽ bằng draw.io và export thành PNG, không phải ảnh sinh trực tiếp bằng AI:
 
-    subgraph INPUT["Đầu vào"]
-        B[api_specification.md\nEndpoints / Request-Response mẫu]
-        C[README.md\nFR + SEC requirements]
-        D[State Machine\nFR-10: pending->confirmed->shipping->delivered]
-    end
+![AI-Driven API Test Generator Architecture](./AI-Driven-API-Test-Generator.drawio.png)
 
-    B --> E
-    C --> E
-    D --> E
+Luồng chính:
 
-    subgraph GENERATOR["AI Test Generator"]
-        E[API Parser\nTrích xuất: method, URL, body fields,\nauth requirement, response schema]
-        E --> F
-
-        F{Phân loại\nAPI}
-
-        F -->|Auth required| G1[Security Test Builder\nSEC-01 -> SEC-07]
-        F -->|Has body params| G2[Domain Partition Builder\nValid / Invalid / Boundary]
-        F -->|Order API| G3[State Transition Builder\npending->confirmed->shipping\n->delivered / canceled]
-        F -->|Response schema| G4[Schema Validation Builder\nField names, types, required]
-
-        G1 --> H[Test Case Assembler]
-        G2 --> H
-        G3 --> H
-        G4 --> H
-
-        H --> I[Prompt Composer\nGhép context + yêu cầu\n-> structured AI prompt]
-        I --> J[(LLM / AI Tool\nChatGPT / Claude / Gemini)]
-        J --> K[Raw Test Case Output\ntc_id, input, expected_status,\nexpected_fields, rationale]
-    end
-
-    K --> L
-
-    subgraph OUTPUT["Đầu ra"]
-        L[Human Audit\nVALID / INVALID / INCOMPLETE]
-        L --> M[Final Test Suite\n≥35 test cases / API]
-        M --> N[Postman Data File\nmini-api.data.json]
-        M --> O[Postman Collection\n.postman_collection.json]
-        O --> P[Newman Runner\n+ X-Student-Id header]
-        P --> Q[Newman HTML Report]
-    end
-
-    style INPUT fill:#1e3a5f,color:#fff,stroke:#4a90d9
-    style GENERATOR fill:#1a3a2a,color:#fff,stroke:#4caf50
-    style OUTPUT fill:#3a1a1a,color:#fff,stroke:#e57373
-```
+1. Tester cung cấp đầu vào blackbox: `api_specification.md`, `README.md` chứa FR/SEC requirements, và state machine của requirement nếu endpoint có hành vi theo trạng thái.
+2. Generator parse API spec để lấy method, URL, request fields, auth requirement và response schema.
+3. Endpoint classifier quyết định builder nào cần chạy: domain partition, security, state transition, hoặc schema validation.
+4. Test Case Assembler gom các case ban đầu, sau đó Prompt Composer tạo structured prompt cho LLM.
+5. Raw AI output luôn đi qua Human Audit trước khi trở thành final test suite.
+6. Final suite được export sang Postman data/collection và chạy Newman với `X-Student-Id` header để tạo evidence.
 
 ---
 
@@ -281,7 +243,7 @@ FUNCTION build_security_cases(endpoint, base_id):
         "tc_id":           f"{base_id}_SEC_{idx:02d}",
         "group":           "Security - Injection",
         "description":     "SQL Injection payload trong input field",
-        "input":           {"email": "' OR '1'='1"; "--"},
+        "input":           {"email": "' OR '1'='1' --"},
         "expected_status": [400, 401],   # KHÔNG được là 500
         "rationale":       "SEC-05 — Parameterized query phải ngăn SQL injection; không crash server"
     })
@@ -481,25 +443,25 @@ FUNCTION export_to_postman(tc_list):
     """
     Xuất test cases ra định dạng Postman để chạy Newman.
     """
-    data_file  = build_data_json(tc_list)       # mini-api.data.json
-    collection = build_collection_json(tc_list)  # .postman_collection.json
+    data_file  = build_data_json(tc_list)        # postman/data/hw06-<api>.data.json
+    collection = build_collection_json(tc_list)  # postman/hw06-<api>.postman_collection.json
     # Collection tự động thêm pre-request script:
     # pm.request.headers.upsert({
     #   key: "X-Student-Id",
     #   value: pm.environment.get("studentId")
     # });
 
-    write_file("mini-api.data.json",               data_file)
-    write_file("api.postman_collection.json",       collection)
-    write_file("local.postman_environment.json",    build_env())
+    write_file("postman/data/hw06-<api>.data.json",           data_file)
+    write_file("postman/hw06-<api>.postman_collection.json",  collection)
+    write_file("postman/hw06-local.postman_environment.json", build_env())
 
     # Lệnh chạy Newman
     PRINT """
-newman run api.postman_collection.json \\
-  --environment local.postman_environment.json \\
-  --iteration-data mini-api.data.json \\
+newman run postman/hw06-<api>.postman_collection.json \\
+  --environment postman/hw06-local.postman_environment.json \\
+  --iteration-data postman/data/hw06-<api>.data.json \\
   --reporters cli,htmlextra \\
-  --reporter-htmlextra-export newman-report.html
+  --reporter-htmlextra-export reports/newman/hw06-<api>.html
 """
 ```
 
@@ -524,3 +486,28 @@ newman run api.postman_collection.json \\
 | Schema — Content-Type | `build_schema_validation_cases` | API spec | Tất cả endpoint |
 | Schema — Response Time | `build_schema_validation_cases` | — | Tất cả endpoint |
 | Schema — Required Fields | `build_schema_validation_cases` | API spec | Tất cả endpoint |
+
+---
+
+## 5. Áp dụng vào 3 API của HW06
+
+| API | Builder chính | Coverage generator phải tạo |
+|---|---|---|
+| FR-03 `POST /api/reset-password` | Domain, Security, Workflow, Schema | Partition cho `email`, `resetToken`, `newPassword`; SEC-07 OTP lifecycle; token reuse/wrong email-token pair; response schema không leak token/password. |
+| FR-09 `POST /api/apply-coupon` | Domain, Security, Workflow, Schema | Partition cho `code`, `total_amount`, `user_id`; coupon active/expired/min-order/usage-limit; auth + IDOR; schema `discount_amount` và `final_amount`. |
+| FR-17 `POST /api/admin/coupons` | Domain, Security, Workflow, Schema | Partition cho `code`, `type`, `discount_value`, `min_order_amount`, `expired_at`, `max_uses_per_user`; admin RBAC; create -> list -> duplicate -> cleanup lifecycle; schema/error/content-type. |
+
+Trong bài HW06 này, FR-10 không nằm trong 3 FR được phân công. Vì vậy state-transition builder vẫn có trong thiết kế tổng quát của generator, còn bộ test thực thi thực tế dùng workflow/state lifecycle tương ứng với FR-03, FR-09 và FR-17.
+
+---
+
+## 6. Human-in-the-loop controls
+
+Generator không tự xem raw AI output là kết quả cuối. Mỗi case phải qua các bước kiểm soát sau:
+
+1. Gắn nhãn `VALID`, `INVALID`, hoặc `INCOMPLETE`.
+2. Loại hoặc sửa case invent field không có trong API spec.
+3. Sửa expected status nếu trái FR/SEC/API specification.
+4. Bổ sung setup data/token/precondition nếu case chưa execute được bằng Postman/Newman.
+5. Thêm ít nhất 5 human-authored cases cho mỗi API để cover gap AI bỏ sót.
+6. Chỉ dùng observed API responses làm execution evidence; không đọc source code backend/frontend để quyết định expected behavior.

@@ -66,5 +66,8 @@ Representative assertion failures:
 - `TC-FR09-API-WF-001`: expected second `SAVE10` apply to return `400`, got `200`.
 - `TC-FR09-API-WF-004`: expected third `VIP100` apply to return `400`, got `200`.
 
+
+- Screenshot: ![BUG-FR09-API-006](../screenshots/BUG-FR09-API-006.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/276

@@ -52,5 +52,8 @@ Newman JSON report: `reports/newman/hw06-fr17-admin-coupons.json`
 
 Newman CLI output: `reports/newman/hw06-fr17-admin-coupons-cli.txt`
 
+
+- Screenshot: ![BUG-FR17-API-002](../screenshots/BUG-FR17-API-002.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/280

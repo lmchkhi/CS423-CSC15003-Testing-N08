@@ -65,5 +65,8 @@ Representative assertion failures:
 - `TC-FR09-API-SEC-004`: expected `4xx`, got `200`; success discount fields returned.
 - `TC-FR09-API-WF-008`: pre-apply IDOR step expected `4xx`, got `200`.
 
+
+- Screenshot: ![BUG-FR09-API-004](../screenshots/BUG-FR09-API-004.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/274

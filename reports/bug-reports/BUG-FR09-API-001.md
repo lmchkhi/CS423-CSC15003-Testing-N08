@@ -66,5 +66,8 @@ Representative assertion failures:
 - `TC-FR09-API-DOM-001`: expected `discount_amount = 50000`, got `-4500000`; expected `final_amount = 450000`, got `5000000`.
 - `TC-FR09-API-SCH-003`: expected `discount_amount = 33333`, got `-2999970`; expected `final_amount = 299997`, got `3333300`.
 
+
+- Screenshot: ![BUG-FR09-API-001](../screenshots/BUG-FR09-API-001.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/271

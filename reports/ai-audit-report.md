@@ -405,5 +405,75 @@ oke tiếp tục với phase 13 giúp tôi, tôi cũng đã chụp screenshot ch
 ### (2) AI Output
 
 ```text
-Đã dùng skills hw06-api-testing, postman-newman-api-runner và hw06-ai-audit-log để thực hiện Phase 13. Đã kiểm tra screenshots user cung cấp trong reports/screenshots/ci-pass.png và reports/screenshots/ci-fail.png, xác nhận chúng tương ứng với Phase 11 pass run và Phase 12 intentional fail run, rồi cập nhật reports/main-report.md section 7 để trỏ tới hai screenshot này. Đã restore postman/hw06-ci-smoke.postman_collection.json bằng cách đổi assertion CI-SMOKE-001 từ HTTP 999 về HTTP 200. Đã chạy Newman local ngoài sandbox do sandbox EPERM localhost; kết quả restored pass: 4 requests, 0 request failures, 12 assertions, 0 failures, có X-Student-Id=23127475 trong CLI. Evidence local lưu tại reports/newman/hw06-ci-smoke-restored-pass.html, reports/newman/hw06-ci-smoke-restored-pass.json và reports/newman/hw06-ci-smoke-restored-pass-cli.txt. Chuẩn bị commit/push Phase 13 để GitHub Actions tạo restored passing run thật; URL restored run sẽ lấy bằng gh sau khi push.
+Đã dùng skills hw06-api-testing, postman-newman-api-runner và hw06-ai-audit-log để thực hiện Phase 13. Đã kiểm tra screenshots user cung cấp trong reports/screenshots/ci-pass.png và reports/screenshots/ci-fail.png, xác nhận chúng tương ứng với Phase 11 pass run và Phase 12 intentional fail run, rồi cập nhật reports/main-report.md section 7 để trỏ tới hai screenshot này. Đã restore postman/hw06-ci-smoke.postman_collection.json bằng cách đổi assertion CI-SMOKE-001 từ HTTP 999 về HTTP 200. Đã chạy Newman local ngoài sandbox do sandbox EPERM localhost; kết quả restored pass: 4 requests, 0 request failures, 12 assertions, 0 failures, có X-Student-Id=23127475 trong CLI. Evidence local lưu tại reports/newman/hw06-ci-smoke-restored-pass.html, reports/newman/hw06-ci-smoke-restored-pass.json và reports/newman/hw06-ci-smoke-restored-pass-cli.txt. Đã commit/push Phase 13 (`ecb0b01`) và GitHub Actions restored passing run thật đã completed với conclusion success: https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/actions/runs/32575713163.
+```
+
+## Entry #19
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 22/08/2026 21:22 GMT+7 |
+| **Artifact type** | Phase 15 AI-driven API test generator design finalization |
+
+**Full prompt:**
+
+```text
+tôi đã bổ sung AI-Driven-API-Test-Generator.drawio.png tự vẽ rồi, thực hiện phase 15 giúp tôi, không cần thực hiện AI Critique 200-300 words, tôi sẽ tự viết sau. về video demo thì tôi đã quay và cập nhật link video trong main report thành 1 section riêng rồi. không tự ý commit
+```
+
+### (2) AI Output
+
+```text
+Đã dùng skills hw06-api-testing và hw06-ai-audit-log để thực hiện Phase 15 theo phạm vi user yêu cầu. Đã kiểm tra file AI-Driven-API-Test-Generator.drawio.png là PNG 795x2092 do user cung cấp và cập nhật ai-test-generator-design.md để dùng ảnh draw.io này làm architecture diagram chính, ghi rõ đây là diagram tự vẽ, không phải ảnh AI-generated. Đã chỉnh pseudocode/export path cho khớp artifact layout HW06, sửa payload SQL injection trong pseudocode, thêm section áp dụng generator vào 3 API FR-03/FR-09/FR-17 và thêm human-in-the-loop controls. Đã cập nhật reports/main-report.md section 9 và submission checklist: design document, pseudocode và self-drawn diagram chuyển sang trạng thái hoàn tất; video demo giữ ở section riêng; AI Critique không được viết trong lượt này vì sinh viên sẽ tự viết sau. Không commit.
+```
+
+## Entry #20
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 23/08/2026 14:58 GMT+7 |
+| **Artifact type** | HW06 submission README and test summary report |
+
+**Full prompt:**
+
+```text
+tôi đã viết file reports/ai-critique.md, chỉnh sửa main report để section 11 và 12 link tới reports/ai-critique.md và reports/ai-audit-report.md. tôi cũng đã bổ sung Public GitHub repository ở phần 1. thông tin bài làm. bây giờ tôi cần thực hiện yêu cầu viết file README.md của đề:
+- A `README.md` containing the self-assessment table (below) and a test summary report: number of APIs; test cases generated, added, executed, passed, and failed; and number of bugs.
+ở phần test summary report giáo viên có cho 1 link hướng dẫn cách viết như sau, hãy tham khảo theo link đó và yêu cầu để viết file README.md giúp tôi: https://www.softwaretestinghelp.com/test-summary-report-template-download-sample/
+
+Sau đó user уточ rõ: viết vào file reports/README.md tôi đã tạo sẵn, không sửa file README.md ở root
+```
+
+### (2) AI Output
+
+```text
+Đã dùng skills hw06-api-testing và hw06-ai-audit-log để tạo reports/README.md, không chỉnh README.md ở root. Đã tham khảo cấu trúc Test Summary Report từ SoftwareTestingHelp theo các mục Purpose, Application Overview, Testing Scope, Metrics, Types of Testing, Test Environment & Tools, Defect Summary, Exit Criteria và Conclusion. README mới gồm submission information, self-assessment table theo template HW06 với Self-Assessed Grade để TBD cho sinh viên tự điền, và test summary report có đầy đủ số liệu bắt buộc: 3 APIs, 146 AI-generated cases, 18 human-added cases, 157 final/executed cases, 81 passed, 76 failed, 17 bugs. Đã thêm per-API metrics, pass/fail rate, defect summary, exit criteria và key references tới main report, test case report, Postman/Newman artifacts, bug reports, AI critique và AI audit report. Không commit.
+```
+
+## Entry #21
+
+### (1) Prompt + Tool
+
+| Field             | Content |
+| ----------------- | ------- |
+| **Tool**          | Codex |
+| **Timestamp**     | 23/08/2026 15:07 GMT+7 |
+| **Artifact type** | Vietnamese translation for AI Critique and README |
+
+**Full prompt:**
+
+```text
+chuyển reports/ai-critique.md và reports/README.md sang tiếng việt có dấu, những từ thuật ngữ hay dùng thì không cần dịch
+```
+
+### (2) AI Output
+
+```text
+Đã chuyển reports/ai-critique.md và reports/README.md sang tiếng Việt có dấu. Các thuật ngữ testing quen như API, test case, blackbox, schema, CI/CD, Postman/Newman, bug, GitHub Issue, Evidence, Exit Criteria, Self-Assessment được giữ khi phù hợp với ngữ cảnh. Không chỉnh README.md ở root. Không commit.
 ```

@@ -59,5 +59,8 @@ Representative assertion failures:
 - `TC-FR09-API-SCH-009`: expected `400` or `415`, got `500`.
 - `TC-FR09-API-SCH-009`: expected no unexpected `5xx`, got `500`.
 
+
+- Screenshot: ![BUG-FR09-API-007](../screenshots/BUG-FR09-API-007.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/277

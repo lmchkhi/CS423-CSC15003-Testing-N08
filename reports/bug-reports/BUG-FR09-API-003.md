@@ -65,5 +65,8 @@ Representative assertion failures:
 - `TC-FR09-API-SEC-003`: expected `401`, got `200`.
 - `TC-FR09-API-SEC-010`: expected `401`, got `200`.
 
+
+- Screenshot: ![BUG-FR09-API-003](../screenshots/BUG-FR09-API-003.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/273

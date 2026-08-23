@@ -62,5 +62,8 @@ Representative assertion failures:
 - `TC-FR09-API-DOM-003`: expected `200`, got `400`.
 - `TC-FR09-API-DOM-004`: expected `200`, got `400`.
 
+
+- Screenshot: ![BUG-FR09-API-002](../screenshots/BUG-FR09-API-002.png)
+
 ## GitHub Issue
 https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/272
