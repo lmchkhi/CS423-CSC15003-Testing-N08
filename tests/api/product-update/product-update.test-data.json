@@ -18,8 +18,8 @@
       "reason": "FR-12/FR-15 xác định quyền và hiệu ứng cập nhật nhưng không chốt status/schema response thành công."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Admin update hợp lệ bám FR-12/FR-15, nhưng tài liệu không chốt exact success status/schema; giữ oracle 200/204 và kiểm trạng thái qua GET."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -67,8 +67,14 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-002",
@@ -88,8 +94,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "FR-12, SEC-02 và SEC-03 yêu cầu từ chối request thiếu JWT, JWT sai hoặc token user; chấp nhận cả 401/403 vì đặc tả không chốt một status duy nhất."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -152,8 +158,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-003",
@@ -173,8 +187,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "FR-12, SEC-02 và SEC-03 yêu cầu từ chối request thiếu JWT, JWT sai hoặc token user; chấp nhận cả 401/403 vì đặc tả không chốt một status duy nhất."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -237,8 +251,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-004",
@@ -258,8 +280,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "FR-12, SEC-02 và SEC-03 yêu cầu từ chối request thiếu JWT, JWT sai hoặc token user; chấp nhận cả 401/403 vì đặc tả không chốt một status duy nhất."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -322,8 +344,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-005",
@@ -343,8 +373,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Bearer rỗng không phải JWT hợp lệ nên phải bị từ chối theo FR-12/SEC-02."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -408,8 +438,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-006",
@@ -429,8 +467,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -494,8 +532,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-007",
@@ -515,8 +561,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -580,8 +626,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-008",
@@ -601,8 +655,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -664,8 +718,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-009",
@@ -685,8 +747,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -750,8 +812,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-010",
@@ -771,8 +841,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -836,8 +906,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-011",
@@ -858,8 +936,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -923,8 +1001,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-012",
@@ -944,8 +1030,8 @@
       "reason": "FR-15 cho phép tên không rỗng tối đa 255 ký tự nhưng không chốt response thành công."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Các biên name hợp lệ theo FR-15, nhưng response thành công chưa được đặc tả; giữ BVA và đối chiếu dữ liệu đọc lại."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -993,8 +1079,14 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-013",
@@ -1014,8 +1106,8 @@
       "reason": "Tên hợp lệ theo FR-15; response thành công chưa được đặc tả chi tiết."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Các biên name hợp lệ theo FR-15, nhưng response thành công chưa được đặc tả; giữ BVA và đối chiếu dữ liệu đọc lại."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1063,8 +1155,14 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-014",
@@ -1084,8 +1182,8 @@
       "reason": "Biên 255 hợp lệ theo FR-15; response thành công chưa được đặc tả chi tiết."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Các biên name hợp lệ theo FR-15, nhưng response thành công chưa được đặc tả; giữ BVA và đối chiếu dữ liệu đọc lại."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1133,8 +1231,14 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-015",
@@ -1154,8 +1258,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Tên dài hơn 255, thiếu, null hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1218,8 +1322,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-016",
@@ -1239,8 +1351,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Tên dài hơn 255, thiếu, null hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1301,8 +1413,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-017",
@@ -1322,8 +1442,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Tên dài hơn 255, thiếu, null hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1386,8 +1506,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-018",
@@ -1407,8 +1535,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Tên dài hơn 255, thiếu, null hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1471,8 +1599,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-019",
@@ -1492,8 +1628,8 @@
       "reason": "FR-15 yêu cầu name bắt buộc nhưng chưa quy định trimming hoặc whitespace-only; cần làm rõ oracle."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "FR-15 yêu cầu name không rỗng nhưng chưa quy định trimming hoặc chuỗi chỉ có khoảng trắng; không quy failure này thành product bug."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1556,8 +1692,14 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "specification gap"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-020",
@@ -1577,8 +1719,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "name dạng array/object sai kiểu dữ liệu của trường tên sản phẩm và phải bị từ chối có kiểm soát."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1645,8 +1787,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-021",
@@ -1666,8 +1816,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "name dạng array/object sai kiểu dữ liệu của trường tên sản phẩm và phải bị từ chối có kiểm soát."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1734,8 +1884,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-022",
@@ -1755,8 +1913,8 @@
       "reason": "FR-15 chỉ quy định price là số dương; response thành công chưa được chốt."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "price dương nhỏ thỏa FR-15, nhưng exact success status/schema chưa được chốt; kiểm thêm trạng thái sau update."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1804,8 +1962,14 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-023",
@@ -1825,8 +1989,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1887,8 +2051,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-024",
@@ -1908,8 +2080,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -1972,8 +2144,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-025",
@@ -1993,8 +2173,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2057,8 +2237,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-026",
@@ -2078,8 +2266,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2142,8 +2330,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-027",
@@ -2163,8 +2359,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2227,8 +2423,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-028",
@@ -2248,8 +2452,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2316,8 +2520,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-029",
@@ -2337,8 +2549,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "price thiếu, null, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2401,8 +2613,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-030",
@@ -2422,8 +2642,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "category_id thiếu, null, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2484,8 +2704,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-031",
@@ -2505,8 +2733,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "category_id thiếu, null, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2569,8 +2797,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-032",
@@ -2590,8 +2826,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "category_id thiếu, null, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2654,8 +2890,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-033",
@@ -2675,8 +2919,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "category_id thiếu, null, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2739,8 +2983,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-034",
@@ -2760,8 +3012,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "category_id thiếu, null, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2824,8 +3076,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-035",
@@ -2845,8 +3105,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "category_id thiếu, null, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2913,8 +3173,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-036",
@@ -2934,8 +3202,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Body vắng mặt và request text/plain không thỏa JSON body contract; API phải trả lỗi 4xx có kiểm soát, không lộ stack trace."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -2985,8 +3253,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-037",
@@ -3007,8 +3283,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Body vắng mặt và request text/plain không thỏa JSON body contract; API phải trả lỗi 4xx có kiểm soát, không lộ stack trace."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3072,8 +3348,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#288"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 500,
+      "failedAssertions": 4,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-038",
@@ -3093,8 +3377,8 @@
       "reason": "SEC-03 kiểm role trong JWT, không áp dụng cho field role trong product body; giữ case như robustness/schema check."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "SEC-03 áp dụng cho role trong JWT, không phải field role của product body; giữ case như robustness/schema check cho unknown field."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3193,8 +3477,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-039",
@@ -3215,8 +3505,8 @@
       "reason": "Hiệu ứng cập nhật được FR-15 quy định; status/schema response thành công chưa được chốt."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Kiểm persistence, cô lập resource và idempotency là đúng hành vi PUT/FR-15, nhưng success response vẫn chưa được đặc tả."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3318,8 +3608,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-040",
@@ -3339,8 +3635,8 @@
       "reason": "FR-15 xác định invariant nhưng response thành công chưa được chốt."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Kiểm persistence, cô lập resource và idempotency là đúng hành vi PUT/FR-15, nhưng success response vẫn chưa được đặc tả."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3437,8 +3733,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-041",
@@ -3458,8 +3760,8 @@
       "reason": "PUT kỳ vọng idempotent và FR-15 yêu cầu trạng thái mục tiêu; response chi tiết chưa được chốt."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Kiểm persistence, cô lập resource và idempotency là đúng hành vi PUT/FR-15, nhưng success response vẫn chưa được đặc tả."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3579,8 +3881,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-042",
@@ -3601,8 +3909,8 @@
       "reason": "Bỏ oracle tự suy diễn field message; đặc tả cho phép description/imageUrl nhưng chưa chốt status/schema response PUT."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Bỏ oracle tự suy diễn response phải có message; dùng GET để kiểm description và imageUrl, trong khi success response PUT còn thiếu contract."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3699,8 +4007,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-043",
@@ -3721,8 +4035,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Top-level array/string và tổ hợp nhiều trường bắt buộc sai không thỏa body contract; phải trả 4xx JSON an toàn, không lộ stack trace."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3789,8 +4103,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-044",
@@ -3811,8 +4133,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Top-level array/string và tổ hợp nhiều trường bắt buộc sai không thỏa body contract; phải trả 4xx JSON an toàn, không lộ stack trace."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3863,8 +4185,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#287"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 400,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-045",
@@ -3884,8 +4214,8 @@
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "VALID",
+      "reason": "Top-level array/string và tổ hợp nhiều trường bắt buộc sai không thỏa body contract; phải trả 4xx JSON an toàn, không lộ stack trace."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -3948,8 +4278,16 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-046",
@@ -3970,8 +4308,8 @@
       "reason": "Parameterized query theo SEC-05 phải cô lập payload; response thành công chưa được chốt."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "INCOMPLETE",
+      "reason": "Payload SQL-like trong name phải được xử lý như dữ liệu theo SEC-05; kiểm thêm product đích và product khác, nhưng success response chưa được chốt."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -4082,8 +4420,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-EXT-001",
@@ -4098,14 +4442,14 @@
       "state-transition",
       "domain-partition"
     ],
-    "source": "ai-generated",
+    "source": "student-authored",
     "agentAudit": {
       "status": "VALID",
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "APPROVED",
+      "reason": "Sinh viên đã tự thiết kế, review và phê duyệt test case bổ sung sau khi audit AI baseline."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -4232,8 +4576,16 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-EXT-002",
@@ -4250,14 +4602,14 @@
       "security",
       "state-transition"
     ],
-    "source": "ai-generated",
+    "source": "student-authored",
     "agentAudit": {
       "status": "VALID",
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "APPROVED",
+      "reason": "Sinh viên đã tự thiết kế, review và phê duyệt test case bổ sung sau khi audit AI baseline."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -4379,8 +4731,16 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-EXT-003",
@@ -4395,14 +4755,14 @@
       "state-transition",
       "domain-partition"
     ],
-    "source": "ai-generated",
+    "source": "student-authored",
     "agentAudit": {
       "status": "VALID",
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "APPROVED",
+      "reason": "Sinh viên đã tự thiết kế, review và phê duyệt test case bổ sung sau khi audit AI baseline."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -4528,8 +4888,16 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 4,
+      "classification": "SUT defect"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-EXT-004",
@@ -4545,14 +4913,14 @@
       "state-transition",
       "schema-validation"
     ],
-    "source": "ai-generated",
+    "source": "student-authored",
     "agentAudit": {
       "status": "INCOMPLETE",
       "reason": "FR-15 quy định tối đa 255 ký tự nhưng không nói rõ character hay byte length; case kiểm Unicode boundary và cần đối chiếu contract."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "APPROVED",
+      "reason": "Sinh viên đã tự thiết kế, review và phê duyệt test case bổ sung sau khi audit AI baseline."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -4645,8 +5013,14 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
   },
   {
     "id": "TC-PRODUCT-UPDATE-EXT-005",
@@ -4662,14 +5036,14 @@
       "state-transition",
       "schema-validation"
     ],
-    "source": "ai-generated",
+    "source": "student-authored",
     "agentAudit": {
       "status": "VALID",
       "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
     },
     "humanReview": {
-      "status": "PENDING",
-      "reason": ""
+      "status": "APPROVED",
+      "reason": "Sinh viên đã tự thiết kế, review và phê duyệt test case bổ sung sau khi audit AI baseline."
     },
     "preconditions": [
       "Backend khả dụng.",
@@ -4792,7 +5166,15 @@
         }
       }
     ],
-    "status": "Not Run",
-    "relatedBugs": []
+    "status": "Failed",
+    "relatedBugs": [
+      "#288"
+    ],
+    "execution": {
+      "runId": "20260823T154712+0700",
+      "actualStatus": 200,
+      "failedAssertions": 1,
+      "classification": "SUT defect"
+    }
   }
 ]

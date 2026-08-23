@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./database");
 const jwt = require("jsonwebtoken");
+const { hashPassword, verifyPassword } = require("./password");
 
 const app = express();
 const PORT = 3000;
@@ -13,15 +14,38 @@ app.use(bodyParser.json());
 
 const userCarts = {};
 
+const isPlainObject = (value) =>
+  value !== null && typeof value === "object" && !Array.isArray(value);
+
+const requireJson = (req, res, next) => {
+  if (!req.is("application/json")) {
+    return res.status(415).json({ error: "Content-Type must be application/json" });
+  }
+  next();
+};
+
 // ==========================================
 // AUTHENTICATION APIS
 // ==========================================
 
-app.post("/api/register", (req, res) => {
+app.post("/api/register", requireJson, (req, res) => {
+  if (!isPlainObject(req.body)) {
+    return res.status(400).json({ error: "Request body must be a JSON object" });
+  }
   const { name, email, password } = req.body;
+  if (
+    typeof name !== "string" ||
+    !name.trim() ||
+    typeof email !== "string" ||
+    !email.trim() ||
+    typeof password !== "string" ||
+    !password
+  ) {
+    return res.status(400).json({ error: "Invalid registration data" });
+  }
   db.run(
     "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-    [name, email, password],
+    [name, email, hashPassword(password)],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
       res.json({ message: "User registered successfully", id: this.lastID });
@@ -29,8 +53,19 @@ app.post("/api/register", (req, res) => {
   );
 });
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", requireJson, (req, res) => {
+  if (!isPlainObject(req.body)) {
+    return res.status(400).json({ error: "Invalid email or password" });
+  }
   const { email, password } = req.body;
+  if (
+    typeof email !== "string" ||
+    !email ||
+    typeof password !== "string" ||
+    !password
+  ) {
+    return res.status(400).json({ error: "Invalid email or password" });
+  }
 
   db.get("SELECT * FROM users WHERE email = ?", [email], (err, user) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -43,24 +78,38 @@ app.post("/api/login", (req, res) => {
         .json({ error: "Tài khoản đã bị khóa. Vui lòng thử lại sau." });
     }
 
-    if (user.password === password) {
+    if (verifyPassword(password, user.password)) {
       db.run(
         "UPDATE users SET login_attempts = 0, locked_until = NULL WHERE id = ?",
         [user.id],
+        (updateErr) => {
+          if (updateErr) return res.status(500).json({ error: "Login failed" });
+          const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY);
+          const safeUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            shipping_address: user.shipping_address,
+            phone: user.phone,
+          };
+          res.json({ message: "Login successful", token, user: safeUser });
+        },
       );
-      const token = jwt.sign({ id: user.id, role: user.role }, SECRET_KEY);
-      res.json({ message: "Login successful", token, user });
     } else {
-      const newAttempts = user.login_attempts + 2;
+      const newAttempts = user.login_attempts + 1;
       let lockedUntil = null;
       if (newAttempts >= 3) {
-        lockedUntil = new Date(Date.now() + 180000).toISOString();
+        lockedUntil = new Date(Date.now() + 30000).toISOString();
       }
       db.run(
         "UPDATE users SET login_attempts = ?, locked_until = ? WHERE id = ?",
         [newAttempts, lockedUntil, user.id],
+        (updateErr) => {
+          if (updateErr) return res.status(500).json({ error: "Login failed" });
+          res.status(401).json({ error: "Invalid email or password" });
+        },
       );
-      res.status(401).json({ error: "Invalid email or password" });
     }
   });
 });
@@ -84,12 +133,26 @@ app.post("/api/forgot-password", (req, res) => {
   });
 });
 
-app.post("/api/reset-password", (req, res) => {
+app.post("/api/reset-password", requireJson, (req, res) => {
+  if (!isPlainObject(req.body)) {
+    return res.status(400).json({ error: "Request body must be a JSON object" });
+  }
   const { email, resetToken, newPassword } = req.body;
+  if (
+    typeof email !== "string" ||
+    !email ||
+    typeof resetToken !== "string" ||
+    !resetToken ||
+    typeof newPassword !== "string" ||
+    !newPassword
+  ) {
+    return res.status(400).json({ error: "Invalid password reset data" });
+  }
   db.run(
     "UPDATE users SET password = ?, reset_token = NULL WHERE email = ? AND reset_token = ?",
-    [newPassword, email, resetToken],
+    [hashPassword(newPassword), email, resetToken],
     function (err) {
+      if (err) return res.status(500).json({ error: "Password reset failed" });
       if (this.changes === 0)
         return res.status(400).json({ error: "Invalid token or email" });
       res.json({ message: "Password reset successfully" });
@@ -99,14 +162,22 @@ app.post("/api/reset-password", (req, res) => {
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.status(401).json({ error: "Unauthorized" });
+  const match = typeof authHeader === "string" && authHeader.match(/^Bearer\s+(.+)$/);
+  const token = match && match[1];
+  if (!token) return res.status(401).json({ error: "Unauthorized" });
 
   jwt.verify(token, SECRET_KEY, (err, user) => {
     if (err) return res.status(403).json({ error: "Forbidden" });
     req.user = user;
     next();
   });
+};
+
+const requireAdmin = (req, res, next) => {
+  if (req.user?.role !== "admin") {
+    return res.status(403).json({ error: "Admin access required" });
+  }
+  next();
 };
 
 app.get("/api/users/me", authenticateToken, (req, res) => {
@@ -176,17 +247,59 @@ app.post("/api/products", (req, res) => {
   );
 });
 
-app.put("/api/products/:id", (req, res) => {
-  const { name, price, description, imageUrl, category_id } = req.body;
-  db.run(
-    "UPDATE products SET name = ?, price = ?, description = ?, imageUrl = ?, category_id = ? WHERE id = ?",
-    [name, price, description, imageUrl, category_id, req.params.id],
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: "Product updated" });
-    },
-  );
-});
+app.put(
+  "/api/products/:id",
+  authenticateToken,
+  requireAdmin,
+  requireJson,
+  (req, res) => {
+    if (!/^[1-9]\d*$/.test(req.params.id)) {
+      return res.status(400).json({ error: "Product ID must be a positive integer" });
+    }
+    const productId = Number(req.params.id);
+    if (!Number.isSafeInteger(productId)) {
+      return res.status(400).json({ error: "Product ID is out of range" });
+    }
+    if (!isPlainObject(req.body)) {
+      return res.status(400).json({ error: "Request body must be a JSON object" });
+    }
+
+    const { name, price, description, imageUrl, category_id } = req.body;
+    if (
+      typeof name !== "string" ||
+      !name.trim() ||
+      Array.from(name).length > 255
+    ) {
+      return res.status(400).json({ error: "Product name is required and must not exceed 255 characters" });
+    }
+    if (typeof price !== "number" || !Number.isFinite(price) || price <= 0) {
+      return res.status(400).json({ error: "Product price must be a positive number" });
+    }
+    if (!Number.isSafeInteger(category_id) || category_id <= 0) {
+      return res.status(400).json({ error: "category_id must be a positive integer" });
+    }
+
+    db.get("SELECT id FROM products WHERE id = ?", [productId], (productErr, product) => {
+      if (productErr) return res.status(500).json({ error: "Unable to read product" });
+      if (!product) return res.status(404).json({ error: "Product not found" });
+
+      db.get("SELECT id FROM categories WHERE id = ?", [category_id], (categoryErr, category) => {
+        if (categoryErr) return res.status(500).json({ error: "Unable to read category" });
+        if (!category) return res.status(400).json({ error: "Category not found" });
+
+        db.run(
+          "UPDATE products SET name = ?, price = ?, description = ?, imageUrl = ?, category_id = ? WHERE id = ?",
+          [name, price, description, imageUrl, category_id, productId],
+          function (updateErr) {
+            if (updateErr) return res.status(500).json({ error: "Unable to update product" });
+            if (this.changes !== 1) return res.status(404).json({ error: "Product not found" });
+            res.json({ message: "Product updated" });
+          },
+        );
+      });
+    });
+  },
+);
 
 app.delete("/api/products/:id", (req, res) => {
   db.run("DELETE FROM products WHERE id = ?", [req.params.id], function (err) {
@@ -287,10 +400,32 @@ app.get("/api/cart", authenticateToken, (req, res) => {
   res.json(userCarts[userId]);
 });
 
-app.post("/api/cart", authenticateToken, (req, res) => {
+app.post("/api/cart", authenticateToken, requireJson, (req, res) => {
+  if (!isPlainObject(req.body)) {
+    return res.status(400).json({ error: "Request body must be a JSON object" });
+  }
+  const { id, name, price, quantity } = req.body;
+  if (!Number.isSafeInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "Product id must be a positive integer" });
+  }
+  if (typeof name !== "string" || !name.trim()) {
+    return res.status(400).json({ error: "Product name is required" });
+  }
+  if (typeof price !== "number" || !Number.isFinite(price) || price <= 0) {
+    return res.status(400).json({ error: "Product price must be a positive number" });
+  }
+  if (!Number.isSafeInteger(quantity) || quantity <= 0) {
+    return res.status(400).json({ error: "Quantity must be a positive integer" });
+  }
+
   const userId = req.user.id;
   if (!userCarts[userId]) userCarts[userId] = [];
-  userCarts[userId].push(req.body);
+  const existingItem = userCarts[userId].find((item) => item.id === id);
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    userCarts[userId].push({ ...req.body });
+  }
   res.json({ message: "Added to cart" });
 });
 
@@ -565,6 +700,15 @@ app.put("/api/admin/orders/:id/status", authenticateToken, (req, res) => {
       );
     },
   );
+});
+
+app.use((err, req, res, next) => {
+  if (res.headersSent) return next(err);
+  if (err instanceof SyntaxError || err?.status === 400) {
+    return res.status(400).json({ error: "Invalid JSON request body" });
+  }
+  console.error(err);
+  return res.status(500).json({ error: "Internal server error" });
 });
 
 app.listen(PORT, () => {

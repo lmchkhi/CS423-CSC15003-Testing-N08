@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { hashPassword } = require('./password');
 
 const dbPath = path.resolve(__dirname, 'database.sqlite');
 const db = new sqlite3.Database(dbPath, (err) => {
@@ -89,8 +90,8 @@ function initDatabase() {
 
         // Seed Users
         const insertUser = db.prepare('INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)');
-        insertUser.run('Admin User', 'admin@eshop.com', 'Admin123!', 'admin');
-        insertUser.run('Test User', 'test@eshop.com', 'Test1234!', 'user');
+        insertUser.run('Admin User', 'admin@eshop.com', hashPassword('Admin123!'), 'admin');
+        insertUser.run('Test User', 'test@eshop.com', hashPassword('Test1234!'), 'user');
         insertUser.finalize();
 
         // Seed Products
