@@ -1,0 +1,732 @@
+(node:42390) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+Product Update API - HW06
+
+Iteration 1/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-001 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 25ms]
+  ✓  [TC-PRODUCT-UPDATE-001] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-001] status is expected
+  ✓  [TC-PRODUCT-UPDATE-001] response time
+
+Iteration 2/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-002 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-002] X-Student-Id header was set
+  1. [TC-PRODUCT-UPDATE-002] status is expected
+  ✓  [TC-PRODUCT-UPDATE-002] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-002] response time
+  2. [TC-PRODUCT-UPDATE-002] JSON schema
+  3. [TC-PRODUCT-UPDATE-002] response error type
+
+Iteration 3/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-003 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-003] X-Student-Id header was set
+  4. [TC-PRODUCT-UPDATE-003] status is expected
+  ✓  [TC-PRODUCT-UPDATE-003] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-003] response time
+  5. [TC-PRODUCT-UPDATE-003] JSON schema
+  6. [TC-PRODUCT-UPDATE-003] response error type
+
+Iteration 4/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-004 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-004] X-Student-Id header was set
+  7. [TC-PRODUCT-UPDATE-004] status is expected
+  ✓  [TC-PRODUCT-UPDATE-004] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-004] response time
+  8. [TC-PRODUCT-UPDATE-004] JSON schema
+  9. [TC-PRODUCT-UPDATE-004] response error type
+
+Iteration 5/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-005 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-005] X-Student-Id header was set
+ 10. [TC-PRODUCT-UPDATE-005] status is expected
+  ✓  [TC-PRODUCT-UPDATE-005] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-005] response time
+ 11. [TC-PRODUCT-UPDATE-005] JSON schema
+ 12. [TC-PRODUCT-UPDATE-005] response error type
+
+Iteration 6/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-006 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/0 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-006] X-Student-Id header was set
+ 13. [TC-PRODUCT-UPDATE-006] status is expected
+  ✓  [TC-PRODUCT-UPDATE-006] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-006] response time
+ 14. [TC-PRODUCT-UPDATE-006] JSON schema
+ 15. [TC-PRODUCT-UPDATE-006] response error type
+
+Iteration 7/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-007 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/-1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-007] X-Student-Id header was set
+ 16. [TC-PRODUCT-UPDATE-007] status is expected
+  ✓  [TC-PRODUCT-UPDATE-007] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-007] response time
+ 17. [TC-PRODUCT-UPDATE-007] JSON schema
+ 18. [TC-PRODUCT-UPDATE-007] response error type
+
+Iteration 8/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-008 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/999999 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-008] X-Student-Id header was set
+ 19. [TC-PRODUCT-UPDATE-008] status is expected
+  ✓  [TC-PRODUCT-UPDATE-008] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-008] response time
+ 20. [TC-PRODUCT-UPDATE-008] JSON schema
+ 21. [TC-PRODUCT-UPDATE-008] response error type
+
+Iteration 9/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-009 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1.5 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-009] X-Student-Id header was set
+ 22. [TC-PRODUCT-UPDATE-009] status is expected
+  ✓  [TC-PRODUCT-UPDATE-009] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-009] response time
+ 23. [TC-PRODUCT-UPDATE-009] JSON schema
+ 24. [TC-PRODUCT-UPDATE-009] response error type
+
+Iteration 10/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-010 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/abc [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-010] X-Student-Id header was set
+ 25. [TC-PRODUCT-UPDATE-010] status is expected
+  ✓  [TC-PRODUCT-UPDATE-010] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-010] response time
+ 26. [TC-PRODUCT-UPDATE-010] JSON schema
+ 27. [TC-PRODUCT-UPDATE-010] response error type
+
+Iteration 11/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-011 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1%20OR%201%3D1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-011] X-Student-Id header was set
+ 28. [TC-PRODUCT-UPDATE-011] status is expected
+  ✓  [TC-PRODUCT-UPDATE-011] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-011] response time
+ 29. [TC-PRODUCT-UPDATE-011] JSON schema
+ 30. [TC-PRODUCT-UPDATE-011] response error type
+
+Iteration 12/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-012 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-012] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-012] status is expected
+  ✓  [TC-PRODUCT-UPDATE-012] response time
+
+Iteration 13/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-013 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-013] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-013] status is expected
+  ✓  [TC-PRODUCT-UPDATE-013] response time
+
+Iteration 14/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-014 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-014] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-014] status is expected
+  ✓  [TC-PRODUCT-UPDATE-014] response time
+
+Iteration 15/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-015 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 5ms]
+  ✓  [TC-PRODUCT-UPDATE-015] X-Student-Id header was set
+ 31. [TC-PRODUCT-UPDATE-015] status is expected
+  ✓  [TC-PRODUCT-UPDATE-015] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-015] response time
+ 32. [TC-PRODUCT-UPDATE-015] JSON schema
+ 33. [TC-PRODUCT-UPDATE-015] response error type
+
+Iteration 16/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-016 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-016] X-Student-Id header was set
+ 34. [TC-PRODUCT-UPDATE-016] status is expected
+  ✓  [TC-PRODUCT-UPDATE-016] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-016] response time
+ 35. [TC-PRODUCT-UPDATE-016] JSON schema
+ 36. [TC-PRODUCT-UPDATE-016] response error type
+
+Iteration 17/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-017 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-017] X-Student-Id header was set
+ 37. [TC-PRODUCT-UPDATE-017] status is expected
+  ✓  [TC-PRODUCT-UPDATE-017] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-017] response time
+ 38. [TC-PRODUCT-UPDATE-017] JSON schema
+ 39. [TC-PRODUCT-UPDATE-017] response error type
+
+Iteration 18/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-018 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-018] X-Student-Id header was set
+ 40. [TC-PRODUCT-UPDATE-018] status is expected
+  ✓  [TC-PRODUCT-UPDATE-018] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-018] response time
+ 41. [TC-PRODUCT-UPDATE-018] JSON schema
+ 42. [TC-PRODUCT-UPDATE-018] response error type
+
+Iteration 19/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-019 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-019] X-Student-Id header was set
+ 43. [TC-PRODUCT-UPDATE-019] status is expected
+  ✓  [TC-PRODUCT-UPDATE-019] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-019] response time
+ 44. [TC-PRODUCT-UPDATE-019] JSON schema
+ 45. [TC-PRODUCT-UPDATE-019] response error type
+
+Iteration 20/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-020 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-020] X-Student-Id header was set
+ 46. [TC-PRODUCT-UPDATE-020] status is expected
+  ✓  [TC-PRODUCT-UPDATE-020] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-020] response time
+ 47. [TC-PRODUCT-UPDATE-020] JSON schema
+ 48. [TC-PRODUCT-UPDATE-020] response error type
+
+Iteration 21/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-021 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-021] X-Student-Id header was set
+ 49. [TC-PRODUCT-UPDATE-021] status is expected
+  ✓  [TC-PRODUCT-UPDATE-021] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-021] response time
+ 50. [TC-PRODUCT-UPDATE-021] JSON schema
+ 51. [TC-PRODUCT-UPDATE-021] response error type
+
+Iteration 22/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-022 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-022] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-022] status is expected
+  ✓  [TC-PRODUCT-UPDATE-022] response time
+
+Iteration 23/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-023 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-023] X-Student-Id header was set
+ 52. [TC-PRODUCT-UPDATE-023] status is expected
+  ✓  [TC-PRODUCT-UPDATE-023] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-023] response time
+ 53. [TC-PRODUCT-UPDATE-023] JSON schema
+ 54. [TC-PRODUCT-UPDATE-023] response error type
+
+Iteration 24/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-024 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-024] X-Student-Id header was set
+ 55. [TC-PRODUCT-UPDATE-024] status is expected
+  ✓  [TC-PRODUCT-UPDATE-024] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-024] response time
+ 56. [TC-PRODUCT-UPDATE-024] JSON schema
+ 57. [TC-PRODUCT-UPDATE-024] response error type
+
+Iteration 25/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-025 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-025] X-Student-Id header was set
+ 58. [TC-PRODUCT-UPDATE-025] status is expected
+  ✓  [TC-PRODUCT-UPDATE-025] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-025] response time
+ 59. [TC-PRODUCT-UPDATE-025] JSON schema
+ 60. [TC-PRODUCT-UPDATE-025] response error type
+
+Iteration 26/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-026 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 5ms]
+  ✓  [TC-PRODUCT-UPDATE-026] X-Student-Id header was set
+ 61. [TC-PRODUCT-UPDATE-026] status is expected
+  ✓  [TC-PRODUCT-UPDATE-026] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-026] response time
+ 62. [TC-PRODUCT-UPDATE-026] JSON schema
+ 63. [TC-PRODUCT-UPDATE-026] response error type
+
+Iteration 27/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-027 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-027] X-Student-Id header was set
+ 64. [TC-PRODUCT-UPDATE-027] status is expected
+  ✓  [TC-PRODUCT-UPDATE-027] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-027] response time
+ 65. [TC-PRODUCT-UPDATE-027] JSON schema
+ 66. [TC-PRODUCT-UPDATE-027] response error type
+
+Iteration 28/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-028 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-028] X-Student-Id header was set
+ 67. [TC-PRODUCT-UPDATE-028] status is expected
+  ✓  [TC-PRODUCT-UPDATE-028] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-028] response time
+ 68. [TC-PRODUCT-UPDATE-028] JSON schema
+ 69. [TC-PRODUCT-UPDATE-028] response error type
+
+Iteration 29/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-029 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 23ms]
+  ✓  [TC-PRODUCT-UPDATE-029] X-Student-Id header was set
+ 70. [TC-PRODUCT-UPDATE-029] status is expected
+  ✓  [TC-PRODUCT-UPDATE-029] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-029] response time
+ 71. [TC-PRODUCT-UPDATE-029] JSON schema
+ 72. [TC-PRODUCT-UPDATE-029] response error type
+
+Iteration 30/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-030 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-030] X-Student-Id header was set
+ 73. [TC-PRODUCT-UPDATE-030] status is expected
+  ✓  [TC-PRODUCT-UPDATE-030] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-030] response time
+ 74. [TC-PRODUCT-UPDATE-030] JSON schema
+ 75. [TC-PRODUCT-UPDATE-030] response error type
+
+Iteration 31/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-031 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-031] X-Student-Id header was set
+ 76. [TC-PRODUCT-UPDATE-031] status is expected
+  ✓  [TC-PRODUCT-UPDATE-031] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-031] response time
+ 77. [TC-PRODUCT-UPDATE-031] JSON schema
+ 78. [TC-PRODUCT-UPDATE-031] response error type
+
+Iteration 32/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-032 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-032] X-Student-Id header was set
+ 79. [TC-PRODUCT-UPDATE-032] status is expected
+  ✓  [TC-PRODUCT-UPDATE-032] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-032] response time
+ 80. [TC-PRODUCT-UPDATE-032] JSON schema
+ 81. [TC-PRODUCT-UPDATE-032] response error type
+
+Iteration 33/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-033 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-033] X-Student-Id header was set
+ 82. [TC-PRODUCT-UPDATE-033] status is expected
+  ✓  [TC-PRODUCT-UPDATE-033] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-033] response time
+ 83. [TC-PRODUCT-UPDATE-033] JSON schema
+ 84. [TC-PRODUCT-UPDATE-033] response error type
+
+Iteration 34/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-034 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-034] X-Student-Id header was set
+ 85. [TC-PRODUCT-UPDATE-034] status is expected
+  ✓  [TC-PRODUCT-UPDATE-034] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-034] response time
+ 86. [TC-PRODUCT-UPDATE-034] JSON schema
+ 87. [TC-PRODUCT-UPDATE-034] response error type
+
+Iteration 35/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-035 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-035] X-Student-Id header was set
+ 88. [TC-PRODUCT-UPDATE-035] status is expected
+  ✓  [TC-PRODUCT-UPDATE-035] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-035] response time
+ 89. [TC-PRODUCT-UPDATE-035] JSON schema
+ 90. [TC-PRODUCT-UPDATE-035] response error type
+
+Iteration 36/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-036 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-036] X-Student-Id header was set
+ 91. [TC-PRODUCT-UPDATE-036] status is expected
+  ✓  [TC-PRODUCT-UPDATE-036] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-036] response time
+ 92. [TC-PRODUCT-UPDATE-036] JSON schema
+ 93. [TC-PRODUCT-UPDATE-036] response error type
+
+Iteration 37/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-037 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [500 Internal Server Error, 1.79kB, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-037] X-Student-Id header was set
+ 94. [TC-PRODUCT-UPDATE-037] status is expected
+ 95. [TC-PRODUCT-UPDATE-037] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-037] response time
+ 96. [TC-PRODUCT-UPDATE-037] JSON schema
+ 97. [TC-PRODUCT-UPDATE-037] response error type
+
+Iteration 38/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-038 X-Student-Id: 23127062'
+  │ '[HW06] TC-PRODUCT-UPDATE-038 workflow step 1 X-Studen
+  │ t-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-038 workflow step 2 X-Studen
+  │ t-Id: 23127062'
+  └
+  GET http://localhost:3000/api/products/1 [200 OK, 450B, 1ms]
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-038] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-038] status is expected
+  ✓  [TC-PRODUCT-UPDATE-038] response time
+  ✓  [TC-PRODUCT-UPDATE-038] workflow completed
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 1 completed
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 1 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 1 status
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 2 completed
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 2 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 2 status
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 2 role absent
+  ✓  [TC-PRODUCT-UPDATE-038] workflow step 2 name equals
+
+Iteration 39/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-039 X-Student-Id: 23127062'
+  │ '[HW06] TC-PRODUCT-UPDATE-039 workflow step 1 X-Studen
+  │ t-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-039 workflow step 2 X-Studen
+  │ t-Id: 23127062'
+  └
+  GET http://localhost:3000/api/products/1 [200 OK, 450B, 2ms]
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ✓  [TC-PRODUCT-UPDATE-039] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-039] status is expected
+  ✓  [TC-PRODUCT-UPDATE-039] response time
+  ✓  [TC-PRODUCT-UPDATE-039] workflow completed
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 1 completed
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 1 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 1 status
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 2 completed
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 2 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 2 status
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 2 name equals
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 2 price equals
+  ✓  [TC-PRODUCT-UPDATE-039] workflow step 2 category_id equals
+
+Iteration 40/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-040 X-Student-Id: 23127062'
+  │ '[HW06] TC-PRODUCT-UPDATE-040 workflow step 1 X-Studen
+  │ t-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-040 workflow step 2 X-Studen
+  │ t-Id: 23127062'
+  └
+  GET http://localhost:3000/api/products/2 [200 OK, 480B, 3ms]
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-040] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-040] status is expected
+  ✓  [TC-PRODUCT-UPDATE-040] response time
+  ✓  [TC-PRODUCT-UPDATE-040] workflow completed
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 1 completed
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 1 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 1 status
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 2 completed
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 2 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 2 status
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 2 name equals
+  ✓  [TC-PRODUCT-UPDATE-040] workflow step 2 category_id equals
+
+Iteration 41/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-041 X-Student-Id: 23127062'
+  │ '[HW06] TC-PRODUCT-UPDATE-041 workflow step 1 X-Studen
+  │ t-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 2ms]
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-041 workflow step 2 X-Studen
+  │ t-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-041 workflow step 3 X-Studen
+  │ t-Id: 23127062'
+  └
+  GET http://localhost:3000/api/products/1 [200 OK, 450B, 3ms]
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-041] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-041] status is expected
+  ✓  [TC-PRODUCT-UPDATE-041] response time
+  ✓  [TC-PRODUCT-UPDATE-041] workflow completed
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 1 completed
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 1 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 1 status
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 2 completed
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 2 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 2 status
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 3 completed
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 3 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 3 status
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 3 name equals
+  ✓  [TC-PRODUCT-UPDATE-041] workflow step 3 price equals
+
+Iteration 42/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-042 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-042] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-042] status is expected
+  ✓  [TC-PRODUCT-UPDATE-042] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-042] response time
+  ✓  [TC-PRODUCT-UPDATE-042] JSON schema
+  ✓  [TC-PRODUCT-UPDATE-042] response message type
+
+Iteration 43/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-043 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-043] X-Student-Id header was set
+ 98. [TC-PRODUCT-UPDATE-043] status is expected
+  ✓  [TC-PRODUCT-UPDATE-043] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-043] response time
+ 99. [TC-PRODUCT-UPDATE-043] JSON schema
+100. [TC-PRODUCT-UPDATE-043] response error type
+
+Iteration 44/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-044 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [400 Bad Request, 1.61kB, 4ms]
+  ✓  [TC-PRODUCT-UPDATE-044] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-044] status is expected
+101. [TC-PRODUCT-UPDATE-044] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-044] response time
+102. [TC-PRODUCT-UPDATE-044] JSON schema
+103. [TC-PRODUCT-UPDATE-044] response error type
+
+Iteration 45/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-045 X-Student-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 5ms]
+  ✓  [TC-PRODUCT-UPDATE-045] X-Student-Id header was set
+104. [TC-PRODUCT-UPDATE-045] status is expected
+  ✓  [TC-PRODUCT-UPDATE-045] Content-Type
+  ✓  [TC-PRODUCT-UPDATE-045] response time
+105. [TC-PRODUCT-UPDATE-045] JSON schema
+106. [TC-PRODUCT-UPDATE-045] response error type
+
+Iteration 46/46
+
+→ PUT /api/products/:id
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-046 X-Student-Id: 23127062'
+  │ '[HW06] TC-PRODUCT-UPDATE-046 workflow step 1 X-Studen
+  │ t-Id: 23127062'
+  └
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 12ms]
+  ┌
+  │ '[HW06] TC-PRODUCT-UPDATE-046 workflow step 2 X-Studen
+  │ t-Id: 23127062'
+  └
+  GET http://localhost:3000/api/products/2 [200 OK, 480B, 3ms]
+  PUT http://localhost:3000/api/products/1 [200 OK, 296B, 3ms]
+  ✓  [TC-PRODUCT-UPDATE-046] X-Student-Id header was set
+  ✓  [TC-PRODUCT-UPDATE-046] status is expected
+  ✓  [TC-PRODUCT-UPDATE-046] response time
+  ✓  [TC-PRODUCT-UPDATE-046] workflow completed
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 1 completed
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 1 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 1 status
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 2 completed
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 2 X-Student-Id
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 2 status
+  ✓  [TC-PRODUCT-UPDATE-046] workflow step 2 name equals
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              57 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │              46 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │             294 │             106 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 1074ms                                  │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 5.2kB (approx)                         │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 4ms [min: 1ms, max: 25ms, s.d.: 4ms] │
+└─────────────────────────────────────────────────────────────┘

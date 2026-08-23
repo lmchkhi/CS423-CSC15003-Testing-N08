@@ -1,0 +1,4373 @@
+[
+  {
+    "id": "TC-PRODUCT-UPDATE-001",
+    "title": "Admin cập nhật sản phẩm hợp lệ",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-12/FR-15 xác định quyền và hiệu ứng cập nhật nhưng không chốt status/schema response thành công."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-002",
+    "title": "Từ chối request thiếu Authorization",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Security",
+    "technique": "Negative Testing",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "Dữ liệu xác thực đúng theo test case đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "missing",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "missing",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        401
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-003",
+    "title": "Từ chối JWT không hợp lệ",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Security",
+    "technique": "Negative Testing",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "Dữ liệu xác thực đúng theo test case đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "invalid",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "invalid",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        403
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-004",
+    "title": "Từ chối token của user thường",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Security",
+    "technique": "Authorization Testing",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "Dữ liệu xác thực đúng theo test case đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "user",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        403
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-005",
+    "title": "Từ chối Bearer token rỗng",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Security",
+    "technique": "Negative Testing",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "Dữ liệu xác thực đúng theo test case đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "custom",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "custom",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      },
+      "token": ""
+    },
+    "expected": {
+      "status": [
+        401,
+        403
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#234"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-006",
+    "title": "Từ chối ID bằng 0",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "0",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/0",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        404,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-007",
+    "title": "Từ chối ID âm",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "-1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/-1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        404,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-008",
+    "title": "Báo không tìm thấy ID số dương không tồn tại",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Negative Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "999999",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/999999",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        404
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-009",
+    "title": "Từ chối ID thập phân",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1.5",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1.5",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        404,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-010",
+    "title": "Từ chối ID chữ",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "abc",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/abc",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        404,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-011",
+    "title": "Chống SQL injection qua ID",
+    "requirementIds": [
+      "FR-15",
+      "SEC-05"
+    ],
+    "testType": "Security",
+    "technique": "Injection Testing",
+    "coverage": [
+      "security",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1%20OR%201%3D1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1%20OR%201%3D1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        404,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#290"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-012",
+    "title": "Chấp nhận tên một ký tự",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-15 cho phép tên không rỗng tối đa 255 ký tự nhưng không chốt response thành công."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "A",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "A",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-013",
+    "title": "Chấp nhận tên Unicode tiếng Việt",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Tên hợp lệ theo FR-15; response thành công chưa được đặc tả chi tiết."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Điện thoại kiểm thử 🧪",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Điện thoại kiểm thử 🧪",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-014",
+    "title": "Chấp nhận tên đúng 255 ký tự",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Biên 255 hợp lệ theo FR-15; response thành công chưa được đặc tả chi tiết."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-015",
+    "title": "Từ chối tên dài 256 ký tự",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-016",
+    "title": "Từ chối body thiếu name",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Negative Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-017",
+    "title": "Từ chối name null",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Null Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": null,
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": null,
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-018",
+    "title": "Từ chối name rỗng",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-019",
+    "title": "Từ chối name chỉ có khoảng trắng",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "   ",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "   ",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-020",
+    "title": "Từ chối name kiểu array",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": [
+          "Sai kiểu"
+        ],
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": [
+          "Sai kiểu"
+        ],
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-021",
+    "title": "Từ chối name kiểu object",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": {
+          "value": "Sai kiểu"
+        },
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": {
+          "value": "Sai kiểu"
+        },
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-022",
+    "title": "Chấp nhận price dương nhỏ",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-15 chỉ quy định price là số dương; response thành công chưa được chốt."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 0.01,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 0.01,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-023",
+    "title": "Từ chối body thiếu price",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Negative Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-024",
+    "title": "Từ chối price null",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Null Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": null,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": null,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-025",
+    "title": "Từ chối price bằng 0",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 0,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 0,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-026",
+    "title": "Từ chối price âm",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": -1,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": -1,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-027",
+    "title": "Từ chối price là numeric string",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": "100000",
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": "100000",
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-028",
+    "title": "Từ chối price kiểu array",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": [
+          100000
+        ],
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": [
+          100000
+        ],
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-029",
+    "title": "Từ chối price kiểu boolean",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": true,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": true,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-030",
+    "title": "Từ chối body thiếu category_id",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Negative Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png"
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png"
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-031",
+    "title": "Từ chối category_id null",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Null Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": null
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": null
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-032",
+    "title": "Từ chối category_id không tồn tại",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Referential Integrity",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 999999
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 999999
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-033",
+    "title": "Từ chối category_id bằng 0",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 0
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 0
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-034",
+    "title": "Từ chối category_id kiểu string",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": "1"
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": "1"
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-035",
+    "title": "Từ chối category_id kiểu array",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Type Confusion",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": [
+          1
+        ]
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": [
+          1
+        ]
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-036",
+    "title": "Từ chối request không có body",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Negative Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": "<omitted>"
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin"
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-037",
+    "title": "Từ chối Content-Type text/plain",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Content-Type Confusion",
+    "coverage": [
+      "security",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "text/plain"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        415,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#288"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 500,
+      "failedAssertions": 4,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-038",
+    "title": "Bỏ qua unknown field role, không mass assignment",
+    "requirementIds": [
+      "FR-12",
+      "FR-15",
+      "SEC-03"
+    ],
+    "testType": "Security",
+    "technique": "Mass Assignment",
+    "coverage": [
+      "security",
+      "state-transition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Unknown field phải không ảnh hưởng resource; response thành công chưa được chốt."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1,
+        "role": "admin"
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1,
+        "role": "admin"
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1,
+            "role": "admin"
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "role",
+              "operator": "absent"
+            },
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "Sản phẩm kiểm thử 23127062"
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-039",
+    "title": "Cập nhật được lưu và đọc lại đúng",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Hiệu ứng cập nhật được FR-15 quy định; status/schema response thành công chưa được chốt."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "Sản phẩm kiểm thử 23127062"
+            },
+            {
+              "path": "price",
+              "operator": "equals",
+              "value": 123456
+            },
+            {
+              "path": "category_id",
+              "operator": "equals",
+              "value": 1
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-040",
+    "title": "Cập nhật một sản phẩm không làm đổi sản phẩm khác",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-15 xác định invariant nhưng response thành công chưa được chốt."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/2",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "Samsung Galaxy S24 Ultra"
+            },
+            {
+              "path": "category_id",
+              "operator": "equals",
+              "value": 1
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-041",
+    "title": "Lặp lại cùng một update giữ trạng thái ổn định",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "State",
+    "technique": "Idempotency Testing",
+    "coverage": [
+      "state-transition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "PUT kỳ vọng idempotent và FR-15 yêu cầu trạng thái mục tiêu; response chi tiết chưa được chốt."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "Sản phẩm kiểm thử 23127062"
+            },
+            {
+              "path": "price",
+              "operator": "equals",
+              "value": 123456
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-042",
+    "title": "Response thành công có JSON schema ổn định",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Schema Validation",
+    "coverage": [
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "API specification không mô tả schema response của PUT product; oracle này là đề xuất cần human review."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "Sản phẩm kiểm thử 23127062",
+        "price": 123456,
+        "description": "Dữ liệu kiểm thử PUT product",
+        "imageUrl": "https://example.test/product.png",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-043",
+    "title": "Từ chối body top-level array",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Schema Validation",
+    "coverage": [
+      "schema-validation",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": [
+        {
+          "name": "Sản phẩm kiểm thử 23127062",
+          "price": 123456,
+          "description": "Dữ liệu kiểm thử PUT product",
+          "imageUrl": "https://example.test/product.png",
+          "category_id": 1
+        }
+      ]
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": [
+        {
+          "name": "Sản phẩm kiểm thử 23127062",
+          "price": 123456,
+          "description": "Dữ liệu kiểm thử PUT product",
+          "imageUrl": "https://example.test/product.png",
+          "category_id": 1
+        }
+      ]
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-044",
+    "title": "Từ chối body top-level string",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Schema Validation",
+    "coverage": [
+      "schema-validation",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": "invalid-body"
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": "invalid-body"
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#287"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 400,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-045",
+    "title": "Từ chối kết hợp nhiều trường bắt buộc không hợp lệ",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Functional",
+    "technique": "Pairwise Testing",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "",
+        "price": 0,
+        "description": null,
+        "imageUrl": null,
+        "category_id": 999999
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "",
+        "price": 0,
+        "description": null,
+        "imageUrl": null,
+        "category_id": 999999
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [
+        {
+          "path": "error",
+          "operator": "type",
+          "value": "string"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#289"
+    ],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 3,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-046",
+    "title": "Chống payload SQLi trong name mà không tác động sản phẩm khác",
+    "requirementIds": [
+      "FR-15",
+      "SEC-05"
+    ],
+    "testType": "Security",
+    "technique": "Injection Testing",
+    "coverage": [
+      "security",
+      "state-transition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Parameterized query theo SEC-05 phải cô lập payload; response thành công chưa được chốt."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.",
+      "Kiểm tra HTTP status, Content-Type và response body theo oracle."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body": {
+            "name": "x', price=1 WHERE 1=1 --",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/2",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "Samsung Galaxy S24 Ultra"
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260823T145100+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  }
+]

@@ -284,3 +284,87 @@ Phần sinh viên còn cần tự làm: review 42 testcase đang `PENDING`, vi�
 ### (5) Student Fix
 
 - Xoá bỏ phần tự chấm của AI và thắt chặt lại agent skill.
+
+## Entry #4
+
+### (1) Prompt + Tool
+
+| Field             | Content                                      |
+| ----------------- | -------------------------------------------- |
+| **Tool**          | GPT-5.6 Sol                                  |
+| **Timestamp**     | 23/08/2026 14:42:16                          |
+| **Artifact type** | Bộ kiểm thử API cập nhật sản phẩm cho HW06   |
+
+**Full prompt:**
+
+```
+Sử dụng skill [api-testing](skills/api-testing/) để thực hiện test cho api sau: PUT /api/products/:id.
+MSSV: 23127062.
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `api-testing` theo đúng yêu cầu, trước hết đọc toàn bộ hướng dẫn của skill rồi xác định cấu trúc dự án và tiêu chí kiểm thử cho `PUT /api/products/:id`.
+
+Skill này yêu cầu pipeline đầy đủ: thiết kế tối thiểu 35 test case, tạo Postman/Newman artifacts, chạy thật, phân loại lỗi, lưu evidence/report và tạo GitHub Issue cho lỗi SUT đã xác nhận (nếu không trùng). Mình đang dựng oracle trực tiếp từ specification/requirements; phần `Human review` sẽ giữ `PENDING` vì bạn chưa cung cấp quyết định review.
+
+Oracle đã xác định: endpoint tồn tại và thuộc Product CRUD; theo FR-12/FR-15, mọi `PUT /api/products/:id` phải có JWT admin, kiểm tra `name` bắt buộc ≤255 ký tự, `price > 0`, `category_id` tồn tại, và chỉ thay đổi đúng sản phẩm mục tiêu. Đặc tả chưa chốt response schema/status thành công, nên các case phụ thuộc điểm này sẽ được gắn `agentAudit: INCOMPLETE` thay vì tự suy diễn từ code backend.
+
+Bộ suite đã có 46 case (35 domain, 9 security, 5 schema, 5 state-transition), vượt ngưỡng tối thiểu và validate sạch. Backend vừa được khởi động bằng lệnh chuẩn của repository; bước kế tiếp là lấy token runtime (không ghi token vào artifacts) và chạy Newman để thu kết quả thật.
+
+Newman đã chạy đủ 46 iterations/57 requests và chứng minh `X-Student-Id: 23127062` trên toàn bộ request chính/workflow. Kết quả sơ bộ: 106 assertion failures, tập trung thành các nhóm có khả năng là lỗi SUT: thiếu access control admin, không validate ID/tồn tại resource, không validate body theo FR-15, và error handling không an toàn cho media type/body sai. Mình đang tái hiện từng root cause bằng request đại diện và request tối giản trước khi lập bug.
+
+Các root cause đại diện đã tái hiện 2/2 lần với request tối giản: user/không token vẫn cập nhật thành công; ID `999999` vẫn báo “Product updated”; `price: 0` vẫn được lưu; `text/plain` gây HTTP 500 HTML kèm stack trace; JSON primitive trả HTTP 400 nhưng cũng lộ HTML stack trace. Token đã được redacted khỏi Newman JSON/HTML trước khi lưu. Mình đang đối chiếu issue mở và đóng để tránh tạo trùng.
+
+Để đáp ứng yêu cầu evidence của `api-testing`, mình sẽ dùng thêm skill `computer-use` chỉ cho thao tác UI chụp màn hình terminal thật (không dựng lại log). Nếu không thể đưa đúng command/output Newman và header vào cùng khung hình, báo cáo sẽ ghi screenshot `PENDING` và giữ raw evidence thay vì tạo ảnh giả.
+
+Duplicate check hoàn tất: lỗi access control đã có issue #234 nên mình chỉ liên kết, không tạo trùng. Bốn lỗi còn lại không có issue cùng endpoint/symptom; theo phạm vi pipeline mà bạn đã yêu cầu, mình sẽ tạo bốn GitHub Issues với labels hiện có và sau đó cập nhật lại testcase/report bằng số issue xác minh.
+
+Pipeline đã hoàn tất phần external write: tạo mới #287–#290 và liên kết lỗi access control vào issue đã có #234. Manifest/testcase đã được cập nhật `11 Passed / 35 Failed`, toàn bộ 46 `humanReview` vẫn `PENDING`; backend local cũng đã được dừng sau khi thu evidence. Mình đang chạy vòng kiểm tra cuối về links, JSON, secrets và ảnh evidence.
+
+Đã hoàn tất kiểm thử `PUT /api/products/:id` với MSSV `23127062`.
+
+Kết quả:
+
+- 46 AI-generated test cases
+- 11 Passed / 35 Failed / 0 Blocked
+- 57 HTTP requests, 294 assertions, 106 failed assertions
+- `X-Student-Id: 23127062`: 46/46 request chính và 11/11 workflow requests
+- 5 root causes xác nhận
+- Suite validation thành công
+- 46/46 `humanReview` vẫn `PENDING`
+
+Artifacts chính:
+
+- [Test-run summary](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/test-runs/product-update-20260823T145100+0700.md)
+- [Suite manifest](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/product-update/suite.manifest.json)
+- [Postman collection](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/product-update/product-update.postman_collection.json)
+- [Coverage matrix](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/product-update/coverage-matrix.md)
+- [46 testcase Markdown](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/test-cases/product-update)
+- [Newman HTML report](/Users/lvkhang/Documents/uni/software-testing/HW06/test-reports/newman/product-update-20260823T145100+0700/newman-report.html)
+- [Terminal evidence](/Users/lvkhang/Documents/uni/software-testing/HW06/test-reports/evidence/product-update)
+- [Bug reports](/Users/lvkhang/Documents/uni/software-testing/HW06/bugs/product-update)
+
+GitHub Issues:
+
+- Access control: trùng [#234](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234)
+- ID không tồn tại vẫn báo thành công: [#290](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/290)
+- Không validate input FR-15: [#289](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/289)
+- `text/plain` gây HTTP 500 và lộ stack trace: [#288](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/288)
+- JSON primitive trả HTML stack trace: [#287](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/287)
+
+Phần sinh viên còn cần thực hiện: human review, ít nhất 5 extension cases tự viết, sơ đồ generator tự vẽ, AI Audit Report, CI/CD sample runs và commit/push artifacts. Hiện artifacts chưa được commit/push nên ảnh evidence dùng branch URL trong issues chỉ hiển thị sau khi được đẩy lên GitHub.
+'''
+
+### (3) Verdict
+
+**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+
+### (4) Reasoning
+
+- _[Người dùng tự điền]_
+
+### (5) Student Fix
+
+- _[Người dùng tự điền]_
