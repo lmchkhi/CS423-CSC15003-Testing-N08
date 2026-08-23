@@ -1,3 +1,29 @@
+* commit 72f6abdf95fe6702eb64c028752287f426fb65fc
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Mon Aug 24 00:31:06 2026 +0700
+| 
+|     fix: added screenshot evidence
+| 
+|  api/newman/run.html                      | 3781 ++++++++++++++++++++++++++++
+|  reports/hw06-auth-bootstrap-evidence.png |  Bin 0 -> 371286 bytes
+|  reports/main-report.md                   |    2 +-
+|  reports/pdf/ai-audit-report.pdf          |  Bin 219435 -> 219435 bytes
+|  reports/pdf/ai-critique.pdf              |  Bin 51786 -> 51786 bytes
+|  reports/pdf/ci-cd-report.pdf             |  Bin 158218 -> 158218 bytes
+|  reports/pdf/main-report.pdf              |  Bin 219270 -> 219479 bytes
+|  reports/pdf/test-generator-design.pdf    |  Bin 188056 -> 188056 bytes
+|  reports/pdf/test-summary-report.pdf      |  Bin 287192 -> 287192 bytes
+|  9 files changed, 3782 insertions(+), 1 deletion(-)
+| 
+* commit 95cb552d382f6da132790cd2524fcabe3da569aa
+| Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
+| Date:   Sun Aug 23 16:17:41 2026 +0700
+| 
+|     Update git-log.txt
+| 
+|  git-log.txt | 6954 +++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+|  1 file changed, 6812 insertions(+), 142 deletions(-)
+| 
 * commit 981fc505494372794e4e05384a0312c8790e9934
 | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | Date:   Sun Aug 23 16:15:49 2026 +0700
@@ -2717,7 +2743,7 @@
    6 files changed, 12425 insertions(+)
     
 *   commit dcd8b30aa10105e41e285f17b9640b531fc72f26
-|\  Merge: 5075241 dd2a526
+|\  Merge: 50752414 dd2a5262
 | | Author: git stash <hiembaonon@gmail.com>
 | | Date:   Mon Aug 10 15:08:24 2026 +0700
 | | 
@@ -6845,14 +6871,14 @@
    2 files changed, 2 deletions(-)
     
 *   commit b046b5a2eefc20379c34c48108bcd951985b7fbb
-|\  Merge: 04fe978 e51d3c5
+|\  Merge: 04fe9780 e51d3c58
 | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | Date:   Mon Jul 6 16:13:39 2026 +0700
 | | 
 | |     Merge branch 'summary/23127300' into test/fr-01
 | | 
 | * commit e51d3c58a4bb47a877a45dc02a63b0c7e5572d10
-| | Merge: 969e156 a0de3d9
+| | Merge: 969e1566 a0de3d9d
 | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | Date:   Mon Jul 6 16:12:08 2026 +0700
 | | 
@@ -6861,7 +6887,7 @@
 | |     Week05/23127300
 | |   
 | *   commit a0de3d9da778067eee6cc4f2aecd06cb839a870e
-| |\  Merge: e678dd3 e149f86
+| |\  Merge: e678dd38 e149f868
 | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | | Date:   Mon Jul 6 16:10:19 2026 +0700
 | | | 
@@ -6919,7 +6945,7 @@
 | |    17 files changed, 553 insertions(+)
 | | 
 | * commit e678dd38caf1eebc8e339337af3d2a15e85fa301
-| | Merge: 969e156 1f63694
+| | Merge: 969e1566 1f636942
 | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | Date:   Mon Jul 6 16:09:53 2026 +0700
 | | 
@@ -7010,7 +7036,7 @@
    36 files changed, 1906 insertions(+)
     
 *   commit 513aa2f8fa1c868376d975e6c33650294b3d91e0
-|\  Merge: d55a540 fd4d583
+|\  Merge: d55a5401 fd4d583e
 | | Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | | Date:   Wed Jul 1 16:55:29 2026 +0700
 | | 
@@ -7126,7 +7152,7 @@
 | |  27 files changed, 41 insertions(+), 41 deletions(-)
 | |   
 | *   commit f3c9491b3d846780602fda99122c53084d8b8040
-| |\  Merge: 07a0d6b 1b4068d
+| |\  Merge: 07a0d6b8 1b4068dd
 | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | | Date:   Wed Jul 1 13:44:56 2026 +0700
 | | | 
@@ -7135,14 +7161,14 @@
 | | |     Test/fr 26
 | | |   
 | | *   commit 1b4068dd4ab8ee12c746b44ca59043ee77e1f11b
-| | |\  Merge: 6e3e8a7 07a0d6b
+| | |\  Merge: 6e3e8a7e 07a0d6b8
 | | |/  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | |/|   Date:   Wed Jul 1 13:44:07 2026 +0700
 | | |   
 | | |       Merge remote-tracking branch 'origin/23127300' into test/FR-26
 | | |   
 | * |   commit 07a0d6b800981c51f3403729d3621dc7a1fd1c7d
-| |\ \  Merge: 0722f1a 8c2866f
+| |\ \  Merge: 0722f1a6 8c2866ff
 | | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | | | Date:   Wed Jul 1 13:39:44 2026 +0700
 | | | | 
@@ -7151,14 +7177,14 @@
 | | | |     Test/fr 13
 | | | |   
 | | * |   commit 8c2866ff0bbff6037a049436a7df9d5eb7c15bb2
-| | |\ \  Merge: 5caa350 0722f1a
+| | |\ \  Merge: 5caa3506 0722f1a6
 | | |/ /  Author: Bảo Ngọc Hà <hiembaonon@gmail.com>
 | |/| |   Date:   Wed Jul 1 13:38:43 2026 +0700
 | | | |   
 | | | |       Merge remote-tracking branch 'origin/23127300' into test/FR-13
 | | | |   
 | * | |   commit 0722f1a6b3aa0b5c1b09ad57763226dafb22c509
-| |\ \ \  Merge: 0e35f56 ff6f4bd
+| |\ \ \  Merge: 0e35f569 ff6f4bdc
 | | | | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | | | | Date:   Wed Jul 1 13:35:12 2026 +0700
 | | | | | 
@@ -7593,7 +7619,7 @@
 |  5 files changed, 87 insertions(+), 48 deletions(-)
 |   
 | * commit 9743f7a08d67f7f1fe1c2111af9b07875728fabf
-| | Merge: 15ad550 3124868
+| | Merge: 15ad5507 31248687
 | | Author: Ha Bao Ngoc <hiembaonon@gmail.com>
 | | Date:   Fri Jun 26 19:51:39 2026 +0700
 | | 
