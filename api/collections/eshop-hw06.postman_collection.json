@@ -6,54 +6,59 @@
 	"item": [
 		{
 			"name": "FR-01 Register",
-			"event": [
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
-							"const row = pm.iterationData.toObject();",
-							"const body = {};",
-							"if (row.name !== null && row.name !== undefined) body.name = row.name;",
-							"if (row.email !== null && row.email !== undefined) body.email = row.email;",
-							"if (row.password !== null && row.password !== undefined) body.password = row.password;",
-							"pm.request.body.raw = JSON.stringify(body);"
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"const row = pm.iterationData.toObject();",
-							"if (row.knownBug) {",
-							"  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
-							"} else if (row.expectSchema) {",
-							"  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
-							"} else {",
-							"  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
-							"}"
-						]
+					"name": "POST /api/register (data-driven)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
+									"const row = pm.iterationData.toObject();",
+									"const body = {};",
+									"if (row.name !== null && row.name !== undefined) body.name = row.name;",
+									"if (row.email !== null && row.email !== undefined) body.email = row.email;",
+									"if (row.password !== null && row.password !== undefined) body.password = row.password;",
+									"pm.request.body.raw = JSON.stringify(body);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const row = pm.iterationData.toObject();",
+									"if (row.knownBug) {",
+									"  pm.test(`[known-bug] ${row._desc}: observed ${pm.response.code}`, () => true);",
+									"} else if (row.expectSchema) {",
+									"  pm.test(`${row._desc}: 200`, () => pm.response.to.have.status(200));",
+									"} else {",
+									"  pm.test(`${row._desc}: rejected (expected ${row.expectStatus})`, () => pm.expect(pm.response.code).to.eql(row.expectStatus));",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": "http://127.0.0.1:3000/api/register"
 					}
 				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{}"
-				},
-				"url": "http://127.0.0.1:3000/api/register"
-			}
+			]
 		},
 		{
 			"name": "FR-08 Checkout",
@@ -448,7 +453,7 @@
 					}
 				},
 				{
-					"name": "PUT /admin/orders/:id/status (pending→confirmed)",
+					"name": "PUT /admin/orders/:id/status (pending\u2192confirmed)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -464,7 +469,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test('Legal transition pending→confirmed: 200', () => {",
+									"pm.test('Legal transition pending\u2192confirmed: 200', () => {",
 									"  pm.response.to.have.status(200);",
 									"});"
 								]
@@ -493,7 +498,7 @@
 					}
 				},
 				{
-					"name": "PUT /admin/orders/:id/status (confirmed→shipping)",
+					"name": "PUT /admin/orders/:id/status (confirmed\u2192shipping)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -509,7 +514,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test('Legal transition confirmed→shipping: 200', () => {",
+									"pm.test('Legal transition confirmed\u2192shipping: 200', () => {",
 									"  pm.response.to.have.status(200);",
 									"});"
 								]
@@ -538,7 +543,7 @@
 					}
 				},
 				{
-					"name": "PUT /admin/orders/:id/status (shipping→delivered)",
+					"name": "PUT /admin/orders/:id/status (shipping\u2192delivered)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -554,7 +559,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test('Legal transition shipping→delivered: 200', () => {",
+									"pm.test('Legal transition shipping\u2192delivered: 200', () => {",
 									"  pm.response.to.have.status(200);",
 									"});"
 								]
@@ -599,7 +604,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test('Create order for canceled→delivered test: 200', () => {",
+									"pm.test('Create order for canceled\u2192delivered test: 200', () => {",
 									"  pm.response.to.have.status(200);",
 									"});",
 									"if (pm.response.code === 200) {",
@@ -632,7 +637,7 @@
 					}
 				},
 				{
-					"name": "PUT /admin/orders/:id/status (pending→canceled)",
+					"name": "PUT /admin/orders/:id/status (pending\u2192canceled)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -648,7 +653,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test('Legal transition pending→canceled: 200', () => {",
+									"pm.test('Legal transition pending\u2192canceled: 200', () => {",
 									"  pm.response.to.have.status(200);",
 									"});"
 								]
@@ -677,7 +682,7 @@
 					}
 				},
 				{
-					"name": "PUT /admin/orders/:id/status (canceled→delivered BUG)",
+					"name": "PUT /admin/orders/:id/status (canceled\u2192delivered BUG)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -693,7 +698,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"pm.test('[BUG-FR08-003] Illegal transition canceled→delivered returns 200 (should be 400)', () => {",
+									"pm.test('[BUG-FR08-003] Illegal transition canceled\u2192delivered returns 200 (should be 400)', () => {",
 									"  pm.expect(pm.response.code).to.eql(200);",
 									"});"
 								]
@@ -1198,7 +1203,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\":\"Điện thoại di động\"}"
+							"raw": "{\"name\":\"\u0110i\u1ec7n tho\u1ea1i di \u0111\u1ed9ng\"}"
 						},
 						"url": "http://127.0.0.1:3000/api/categories/{{lastCategoryId}}"
 					}
@@ -1457,9 +1462,9 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"// Collection-level: attach the mandatory anti-cheat header to EVERY request (§11) and log it.",
+					"// Collection-level: attach the mandatory anti-cheat header to EVERY request (\u00a711) and log it.",
 					"pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });",
-					"console.log('[HW06] X-Student-Id =', '23127300', '→', pm.request.url.toString());"
+					"console.log('[HW06] X-Student-Id =', '23127300', '\u2192', pm.request.url.toString());"
 				]
 			}
 		}
