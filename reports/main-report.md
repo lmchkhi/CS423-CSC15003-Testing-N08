@@ -42,7 +42,7 @@ pm.request.headers.upsert({ key: 'X-Student-Id', value: '23127300' });
 console.log('[HW06] X-Student-Id =', '23127300', '→', pm.request.url.toString());
 ```
 
-Bằng chứng: file `reports/hw06-auth-bootstrap-evidence.log` ghi lại console output của Newman khi chạy folder `FR-08 State & Security`, xác nhận dòng `[HW06] X-Student-Id = 23127300` xuất hiện trong **mọi** request tại `localhost:3000` (11/11 assertion pass). Chạy lại bất kỳ folder nào cũng in dòng này vì script nằm ở cấp collection.
+Bằng chứng: file `reports/hw06-auth-bootstrap-evidence.log` ghi lại console output của Newman khi chạy folder `FR-08 State & Security`, xác nhận dòng `[HW06] X-Student-Id = 23127300` xuất hiện trong **mọi** request tại `localhost:3000` (11/11 assertion pass). Ảnh chụp terminal của cùng lần chạy: `reports/hw06-auth-bootstrap-evidence.png` (§11 — bằng chứng screenshot). Chạy lại bất kỳ folder nào cũng in dòng này vì script nằm ở cấp collection.
 
 ---
 
