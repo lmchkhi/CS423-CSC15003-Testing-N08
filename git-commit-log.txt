@@ -1,3 +1,82 @@
+* commit 10464aaf6160194774e420eaf73a2d063784f57c
+| Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+| Date:   Sun Aug 23 16:50:42 2026 +0700
+| 
+|     docs(hw06): add github issue screenshots
+| 
+|  reports/screenshots/ISSUE-268.png | Bin 0 -> 1018241 bytes
+|  reports/screenshots/ISSUE-269.png | Bin 0 -> 972599 bytes
+|  reports/screenshots/ISSUE-270.png | Bin 0 -> 977870 bytes
+|  reports/screenshots/ISSUE-271.png | Bin 0 -> 1009821 bytes
+|  reports/screenshots/ISSUE-272.png | Bin 0 -> 990273 bytes
+|  reports/screenshots/ISSUE-273.png | Bin 0 -> 983531 bytes
+|  reports/screenshots/ISSUE-274.png | Bin 0 -> 987075 bytes
+|  reports/screenshots/ISSUE-275.png | Bin 0 -> 1009603 bytes
+|  reports/screenshots/ISSUE-276.png | Bin 0 -> 982247 bytes
+|  reports/screenshots/ISSUE-277.png | Bin 0 -> 729774 bytes
+|  reports/screenshots/ISSUE-278.png | Bin 0 -> 1008264 bytes
+|  reports/screenshots/ISSUE-279.png | Bin 0 -> 999321 bytes
+|  reports/screenshots/ISSUE-280.png | Bin 0 -> 1018087 bytes
+|  reports/screenshots/ISSUE-281.png | Bin 0 -> 997287 bytes
+|  reports/screenshots/ISSUE-282.png | Bin 0 -> 1100358 bytes
+|  reports/screenshots/ISSUE-283.png | Bin 0 -> 1001973 bytes
+|  reports/screenshots/ISSUE-284.png | Bin 0 -> 1006168 bytes
+|  17 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 409ef598292805ce5c92bcd0b721903438f38fe5
+| Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
+| Date:   Sun Aug 23 16:38:37 2026 +0700
+| 
+|     docs(hw06): update bug reports, add ai critique and finalize report, audit log
+| 
+|  AI-Driven-API-Test-Generator.drawio.png  |  Bin 0 -> 169302 bytes
+|  ai-test-generator-design.md              |  109 +-
+|  git-commit-log.txt                       | 3973 ++++++++++++++++++++++++++++
+|  reports/HW06-API-Testing.xlsx            |  Bin 0 -> 39357 bytes
+|  reports/README.md                        |  151 ++
+|  reports/ai-audit-report.md               |   72 +-
+|  reports/ai-audit-report.pdf              |  Bin 0 -> 359152 bytes
+|  reports/ai-critique.md                   |    5 +
+|  reports/ai-critique.pdf                  |  Bin 0 -> 82343 bytes
+|  reports/bug-reports/BUG-FR03-API-001.md  |    3 +
+|  reports/bug-reports/BUG-FR03-API-002.md  |    3 +
+|  reports/bug-reports/BUG-FR03-API-003.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-001.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-002.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-003.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-004.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-005.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-006.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-007.md  |    3 +
+|  reports/bug-reports/BUG-FR09-API-008.md  |    3 +
+|  reports/bug-reports/BUG-FR17-API-001.md  |    3 +
+|  reports/bug-reports/BUG-FR17-API-002.md  |    3 +
+|  reports/bug-reports/BUG-FR17-API-003.md  |    3 +
+|  reports/bug-reports/BUG-FR17-API-004.md  |    3 +
+|  reports/bug-reports/BUG-FR17-API-005.md  |    3 +
+|  reports/bug-reports/BUG-FR17-API-006.md  |    3 +
+|  reports/hw06-execution-plan.md           |    3 -
+|  reports/main-report.md                   |   70 +-
+|  reports/main-report.pdf                  |  Bin 0 -> 665116 bytes
+|  reports/screenshots/BUG-FR03-API-001.png |  Bin 0 -> 29749 bytes
+|  reports/screenshots/BUG-FR03-API-002.png |  Bin 0 -> 31851 bytes
+|  reports/screenshots/BUG-FR03-API-003.png |  Bin 0 -> 57487 bytes
+|  reports/screenshots/BUG-FR09-API-001.png |  Bin 0 -> 35473 bytes
+|  reports/screenshots/BUG-FR09-API-002.png |  Bin 0 -> 30828 bytes
+|  reports/screenshots/BUG-FR09-API-003.png |  Bin 0 -> 32309 bytes
+|  reports/screenshots/BUG-FR09-API-004.png |  Bin 0 -> 34882 bytes
+|  reports/screenshots/BUG-FR09-API-005.png |  Bin 0 -> 33700 bytes
+|  reports/screenshots/BUG-FR09-API-006.png |  Bin 0 -> 44950 bytes
+|  reports/screenshots/BUG-FR09-API-007.png |  Bin 0 -> 58506 bytes
+|  reports/screenshots/BUG-FR09-API-008.png |  Bin 0 -> 37996 bytes
+|  reports/screenshots/BUG-FR17-API-001.png |  Bin 0 -> 28099 bytes
+|  reports/screenshots/BUG-FR17-API-002.png |  Bin 0 -> 32444 bytes
+|  reports/screenshots/BUG-FR17-API-003.png |  Bin 0 -> 31449 bytes
+|  reports/screenshots/BUG-FR17-API-004.png |  Bin 0 -> 27793 bytes
+|  reports/screenshots/BUG-FR17-API-005.png |  Bin 0 -> 59667 bytes
+|  reports/screenshots/BUG-FR17-API-006.png |  Bin 0 -> 58101 bytes
+|  46 files changed, 4335 insertions(+), 99 deletions(-)
+| 
 * commit ecb0b0105e4ed826baf45bb41a3842a3b3afbb36
 | Author: Ngo Hong Thanh <thanhngo2707@gmail.com>
 | Date:   Sat Aug 22 20:25:02 2026 +0700
