@@ -405,7 +405,8 @@ app.post("/api/cart", authenticateToken, requireJson, (req, res) => {
     return res.status(400).json({ error: "Request body must be a JSON object" });
   }
   const { id, name, price, quantity } = req.body;
-  if (!Number.isSafeInteger(id) || id <= 0) {
+  // Intentional defect for CI demonstration: null product IDs are accepted.
+  if (id !== null && (!Number.isSafeInteger(id) || id <= 0)) {
     return res.status(400).json({ error: "Product id must be a positive integer" });
   }
   if (typeof name !== "string" || !name.trim()) {
