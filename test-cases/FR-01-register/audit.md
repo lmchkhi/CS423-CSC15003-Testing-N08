@@ -64,7 +64,7 @@
 
 ## Tóm tắt audit
 
-- **VALID:** 24 cases sẵn sàng thực thi.
+- **VALID:** 28 cases sẵn sàng thực thi.
 - **INCOMPLETE:** 9 cases cần quan sát hoặc làm rõ oracle.
-- **INVALID (đã sửa):** 7 cases do AI giả định sai về hành vi SUT.
+- **INVALID (đã sửa):** 3 cases do AI giả định sai về hành vi SUT.
 - **Tổng:** 40 cases.

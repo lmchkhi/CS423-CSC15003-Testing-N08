@@ -59,7 +59,7 @@
 
 ## Tóm tắt audit
 
-- **VALID:** 23 cases sẵn sàng thực thi.
-- **INCOMPLETE:** 4 cases cần quan sát thêm.
-- **INVALID (đã sửa):** 8 cases do AI giả định hệ thống enforce validation/security tốt hơn thực tế.
+- **VALID:** 25 cases sẵn sàng thực thi.
+- **INCOMPLETE:** 3 cases cần quan sát thêm.
+- **INVALID (đã sửa):** 7 cases do AI giả định hệ thống enforce validation/security tốt hơn thực tế.
 - **Tổng:** 35 cases.

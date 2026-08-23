@@ -64,7 +64,7 @@
 
 ## Tóm tắt audit
 
-- **VALID:** 19 cases.
+- **VALID:** 21 cases.
 - **INVALID:** 6 cases, chủ yếu do giả định sai về role, resource validation và uniqueness.
-- **INCOMPLETE:** 15 cases, chủ yếu do validation/auth contract chưa rõ.
+- **INCOMPLETE:** 13 cases, chủ yếu do validation/auth contract chưa rõ.
 - **Tổng:** 40 cases.
