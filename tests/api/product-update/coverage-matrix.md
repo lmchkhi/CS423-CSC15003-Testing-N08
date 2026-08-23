@@ -11,7 +11,17 @@
 | `imageUrl` | URL string | null trong interaction case; đặc tả không quy định format | API specification / specification gap |
 | `category_id` | ID danh mục tồn tại | thiếu, null, `0`, không tồn tại, string, array | FR-15 |
 | Body top-level | JSON object đầy đủ | array, string, nhiều trường invalid cùng lúc, unknown field `role` | FR-15, SEC-03 |
-| State | update → GET thấy giá trị mới | repeated PUT, sản phẩm khác bất biến, mass assignment không xuất hiện | FR-15 |
-| Response schema | success/error JSON | status, Content-Type, required error/message, không lộ field ngoài contract | Contract / specification gap |
+| State | update → GET thấy giá trị mới | repeated PUT, sản phẩm khác bất biến, invalid/unauthorized update không gây partial write | FR-12, FR-15 |
+| Response schema | success/error JSON | status, Content-Type, safe error, không tự suy diễn field `message` | Contract / specification gap |
+
+## Coverage bổ sung sau audit
+
+| Test case | Khoảng trống được bổ sung |
+|---|---|
+| TC-PRODUCT-UPDATE-EXT-001 | Atomicity khi `price = 0`: response bị từ chối và resource giữ nguyên |
+| TC-PRODUCT-UPDATE-EXT-002 | Authorization side effect: user thường không được thay đổi state |
+| TC-PRODUCT-UPDATE-EXT-003 | Không partial update khi thiếu `category_id` |
+| TC-PRODUCT-UPDATE-EXT-004 | Biên 255 ký tự Unicode và khả năng lưu/đọc lại nguyên vẹn |
+| TC-PRODUCT-UPDATE-EXT-005 | Content-Type confusion không được gây thay đổi state |
 
 Ghi chú oracle: specification không chốt status và schema response thành công của endpoint. Các case tương ứng dùng oracle bảo thủ và được đánh dấu `agentAudit: INCOMPLETE`; `humanReview` giữ nguyên `PENDING`.

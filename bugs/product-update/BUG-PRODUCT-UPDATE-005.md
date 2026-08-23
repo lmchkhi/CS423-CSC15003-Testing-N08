@@ -38,6 +38,10 @@ API trả HTTP `400` nhưng `Content-Type: text/html; charset=utf-8`; body chứ
 ## Reproducibility
 2/2 với hai JSON string tối giản.
 
+## Regression run `20260823T154712+0700`
+- TC-PRODUCT-UPDATE-044 tiếp tục trả HTTP `400` với HTML stack trace thay vì JSON error an toàn.
+- [Newman HTML report](../../test-reports/newman/product-update-20260823T154712+0700/newman-report.html)
+
 ## Duplicate check
 - Query: `products "stack trace"`, `products JSON HTML`, `products update validation`
 - Result: No duplicate found cho endpoint này; đã tạo [issue #287](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/287). Issue #281 ghi nhận cùng kiểu error ở Admin Coupon nhưng endpoint/payload khác.

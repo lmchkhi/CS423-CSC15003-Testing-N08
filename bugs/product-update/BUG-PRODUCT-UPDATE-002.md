@@ -42,6 +42,10 @@ Cả hai lần đều trả HTTP `200` với `{"message":"Product updated"}`. C�
 ## Reproducibility
 2/2 với ID `999999`; 6/6 path partitions thất bại trong Newman.
 
+## Regression run `20260823T154712+0700`
+- TC-PRODUCT-UPDATE-006–011 tiếp tục trả HTTP `200` cho các ID sai hoặc không tồn tại.
+- [Newman HTML report](../../test-reports/newman/product-update-20260823T154712+0700/newman-report.html)
+
 ## Duplicate check
 - Query: `products update validation`, `"Product updated"`, `products "không tồn tại" update`
 - Result: No duplicate found. Đã tạo [issue #290](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/290). Issue #249 chỉ áp dụng cho `GET /api/products/:id`, khác endpoint và symptom.

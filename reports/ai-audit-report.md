@@ -194,11 +194,16 @@ Artifacts chính:
 
 - AI tự thêm các extension-candidate test case trong khi không có yêu cầu về vấn đề đó.
 - AI tự thêm section `AI audit` thay vì chỉ tạo test case theo format được giao.
+- Nhiều testcase ép chính xác status 400 hoặc yêu cầu field error, trong khi đặc tả không định nghĩa error contract.
+- TC-003 và TC-004 tự giả định email được chuyển chữ thường hoặc trim khoảng trắng.
 
 ### (5) Student Fix
 
 - Bỏ các test case extension-candidate không cần thiết, chỉ giữ 37 AI-generated test case theo yêu cầu.
 - Bỏ section `AI audit` trong các test case, chỉ giữ các phần theo format được giao.
+- Nới các negative oracle thành nhóm HTTP 4xx và xác nhận response không chứa token hoặc user.
+- Bỏ các yêu cầu về field error không có trong đặc tả.
+- Chi tiết hơn có thể xem trong main report.
 
 ## Entry #3
 
@@ -280,20 +285,27 @@ Phần sinh viên còn cần tự làm: review 42 testcase đang `PENDING`, vi�
 ### (4) Reasoning
 
 - AI tự chấm các test case VALID/INVALID trong phần Audit - Human review.
+- TC-CART-001 kiểm độ dài toàn bộ giỏ hàng, nên dễ bị ảnh hưởng bởi dữ liệu tồn tại từ iteration trước.
+- TC-CART-002 phụ thuộc vị trí phần tử trong mảng và chỉ thêm lại payload giống hệt nhau.
+- TC-CART-008 chỉ kiểm response thành công, chưa chứng minh các field như user_id hoặc role không thể đổi chủ sở hữu giỏ hàng.
 
 ### (5) Student Fix
 
 - Xoá bỏ phần tự chấm của AI và thắt chặt lại agent skill.
+- TC-CART-001 được đổi sang kiểm item của admin không xuất hiện trong cart của user, thay vì so sánh tổng độ dài.
+- TC-CART-002 kiểm item theo product ID và quantity, không còn phụ thuộc vị trí trong mảng.
+- TC-CART-008 được bổ sung workflow đọc cart bằng cả hai token để kiểm tra quyền sở hữu.
+- Chi tiết hơn có thể xem trong main report.
 
 ## Entry #4
 
 ### (1) Prompt + Tool
 
-| Field             | Content                                      |
-| ----------------- | -------------------------------------------- |
-| **Tool**          | GPT-5.6 Sol                                  |
-| **Timestamp**     | 23/08/2026 14:42:16                          |
-| **Artifact type** | Bộ kiểm thử API cập nhật sản phẩm cho HW06   |
+| Field             | Content                                    |
+| ----------------- | ------------------------------------------ |
+| **Tool**          | GPT-5.6 Sol                                |
+| **Timestamp**     | 23/08/2026 14:42:16                        |
+| **Artifact type** | Bộ kiểm thử API cập nhật sản phẩm cho HW06 |
 
 **Full prompt:**
 
@@ -359,12 +371,17 @@ Phần sinh viên còn cần thực hiện: human review, ít nhất 5 extension
 
 ### (3) Verdict
 
-**`[NGƯỜI DÙNG TỰ ĐIỀN]`**
+**`INCOMPLETE`**
 
 ### (4) Reasoning
 
-- _[Người dùng tự điền]_
+- Một số workflow gọi PUT /api/products/:id nhưng thiếu admin JWT, nên không đáp ứng precondition của FR-12.
+- TC-002–004 ép chính xác một status code, trong khi đặc tả chỉ yêu cầu từ chối bằng 401 hoặc 403.
+- TC-042 tự suy diễn response thành công phải chứa field message.
 
 ### (5) Student Fix
 
-- _[Người dùng tự điền]_
+- Thêm Authorization: Bearer {{adminToken}} cho toàn bộ workflow PUT.
+- Mở rộng oracle của TC-002–004 để chấp nhận cả 401/403.
+- Thay oracle message của TC-042 bằng GET để xác nhận description và imageUrl thực sự được lưu.
+- Chi tiết hơn có thể xem trong main report.

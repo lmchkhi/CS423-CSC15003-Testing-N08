@@ -1,10 +1,10 @@
-# TC-PRODUCT-UPDATE-038: Bỏ qua unknown field role, không mass assignment
+# TC-PRODUCT-UPDATE-038: Bỏ qua unknown field role, không làm thay đổi resource schema
 
 ## Requirement ID
-FR-12, FR-15, SEC-03
+FR-15
 
 ## Module / Test type / Technique
-PRODUCT-UPDATE / Security / Mass Assignment
+PRODUCT-UPDATE / Contract / Robustness Testing
 
 ## Preconditions
 - Backend khả dụng.
@@ -31,4 +31,4 @@ Passed / None
 
 ## Automation mapping
 - Data row: `TC-PRODUCT-UPDATE-038`
-- Coverage: `security`, `state-transition`
+- Coverage: `schema-validation`, `state-transition`

@@ -43,7 +43,7 @@ Ba API được chọn thuộc ba pool khác nhau và không trùng với lựa 
 | ----- | ------ | --------------------------------------- | --------------------------- |
 | API 1 | Pool A | FR-02 - Login and account lockout       | `POST /api/login`           |
 | API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)        | `POST /api/cart`            |
-| API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `{{METHOD_ENDPOINT_API_3}}` |
+| API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `PUT /api/products/:id`     |
 
 ## 3. API 1 - `POST /api/login`
 
@@ -258,74 +258,93 @@ Newman thực thi 47 iterations bằng 74 HTTP requests và 329 assertions; 64 a
 | BUG-CART-002 | Chấp nhận quantity không phải số nguyên dương | TC-CART-025–031, EXT-001 | [Report/evidence](../bugs/cart/BUG-CART-002.md) | [Issue #285](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/285) |
 | BUG-CART-003 | Chấp nhận non-JSON Content-Type và lưu null   | TC-CART-041–042     | [Report/evidence](../bugs/cart/BUG-CART-003.md) | [Issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286) |
 
-## 5. API 3 - `{{METHOD_ENDPOINT_API_3}}`
+## 5. API 3 - `PUT /api/products/:id`
 
 ### 5.1. Đặc tả và phạm vi kiểm thử
 
-- Feature/requirement: FR-15 - Quản lý sản phẩm (Product CRUD)
-- Tham số path: `{{PATH_PARAMETERS_API_3}}`
-- Tham số query: `{{QUERY_PARAMETERS_API_3}}`
-- Headers: `{{HEADERS_API_3}}`
-- Request body: `{{REQUEST_BODY_API_3}}`
-- Response schema: `{{RESPONSE_SCHEMA_API_3}}`
-- Yêu cầu bảo mật áp dụng: `{{SECURITY_REQUIREMENTS_API_3}}`
-- Trạng thái và transition liên quan: `{{STATE_TRANSITIONS_API_3}}`
+- Feature/requirement: FR-15 - Quản lý sản phẩm (Product CRUD) và FR-12 - các API thay đổi dữ liệu sản phẩm chỉ dành cho admin có JWT hợp lệ.
+- Tham số path: `id` là ID sản phẩm cần cập nhật; kiểm thử ID hợp lệ đang tồn tại, ID không tồn tại, `0`, số âm, số thập phân, chuỗi và payload giống SQL injection.
+- Tham số query: không có.
+- Headers: `Authorization: Bearer <adminToken>`, `Content-Type: application/json` và `X-Student-Id: 23127062`. Các partition xác thực gồm thiếu token, token rỗng/sai/hết hạn và token của user thường.
+- Request body: object JSON gồm `name`, `price`, `description`, `imageUrl`, `category_id`; theo FR-15, `name` bắt buộc và tối đa 255 ký tự, `price` bắt buộc và lớn hơn 0, `category_id` bắt buộc và phải tham chiếu danh mục tồn tại.
+- Response schema: đặc tả không chốt status/schema thành công, nên oracle bảo thủ chấp nhận `200` hoặc `204`. Các lỗi có kiểm soát phải dùng HTTP 4xx, trả JSON và không lộ stack trace; chỉ kiểm tra field `error` khi requirement/oracle xác định được.
+- Yêu cầu bảo mật áp dụng: FR-12, SEC-02, SEC-03 và SEC-05; bao gồm authentication, vertical privilege escalation, input validation, content-type confusion, mass assignment và safe error handling.
+- Trạng thái và transition liên quan: sản phẩm tồn tại chuyển sang dữ liệu mới; chỉ đúng sản phẩm đích được thay đổi; PUT lặp lại phải idempotent; ID không tồn tại hoặc request không hợp lệ không được tạo/thay đổi sản phẩm hay ảnh hưởng sản phẩm khác.
 
 ### 5.2. Generate with AI
 
-`{{MO_TA_QUY_TRINH_PROMPT_TUNG_BUOC_API_3}}`
+Từ endpoint, FR-12, FR-15 và các yêu cầu bảo mật, bộ sinh test phân tích path/header/body, lập partition hợp lệ-không hợp lệ, xác định oracle có thể chứng minh và đánh dấu `INCOMPLETE` khi đặc tả thiếu status/schema thành công. Sau đó bộ test được materialize thành manifest, 46 test case Markdown, Postman Collection, data file và environment mẫu; tất cả request chính và workflow subrequest đều gắn `X-Student-Id: 23127062`.
 
 | Nhóm coverage     |                        Số test case | Ghi chú                                |
 | ----------------- | ----------------------------------: | -------------------------------------- |
-| Domain partition  |  `{{DOMAIN_PARTITION_COUNT_API_3}}` | `{{DOMAIN_PARTITION_NOTE_API_3}}`      |
-| State transition  |  `{{STATE_TRANSITION_COUNT_API_3}}` | `{{STATE_TRANSITION_NOTE_API_3}}`      |
-| Security          |          `{{SECURITY_COUNT_API_3}}` | `{{SECURITY_NOTE_API_3}}`              |
-| Schema validation | `{{SCHEMA_VALIDATION_COUNT_API_3}}` | `{{SCHEMA_VALIDATION_NOTE_API_3}}`     |
-| Tổng AI-generated |      `{{AI_GENERATED_COUNT_API_3}}` | `{{AI_GENERATED_ARTIFACT_LINK_API_3}}` |
+| Domain partition  | 35 | Path `id`, các biên/kiểu của `name`, `price`, `category_id`, body và Content-Type |
+| State transition  | 5 | Cập nhật đúng target, không đổi resource khác, idempotency và request lỗi không đổi state |
+| Security          | 9 | Missing/invalid/empty/user/expired token, injection, mass assignment và safe error handling |
+| Schema validation | 5 | JSON object/primitive, unknown field, response content type và error shape |
+| Tổng AI-generated | 46 | [Manifest](../tests/api/product-update/suite.manifest.json), [coverage matrix](../tests/api/product-update/coverage-matrix.md), [test cases](../tests/test-cases/product-update/) |
 
 ### 5.3. Audit - Human review
 
-| Kết quả audit |                     Số lượng | Các test case tiêu biểu      | Lý do/điều chỉnh                   |
-| ------------- | ---------------------------: | ---------------------------- | ---------------------------------- |
-| VALID         |      `{{VALID_COUNT_API_3}}` | `{{VALID_CASES_API_3}}`      | `{{VALID_REASON_API_3}}`           |
-| INVALID       |    `{{INVALID_COUNT_API_3}}` | `{{INVALID_CASES_API_3}}`    | `{{INVALID_CORRECTIONS_API_3}}`    |
-| INCOMPLETE    | `{{INCOMPLETE_COUNT_API_3}}` | `{{INCOMPLETE_CASES_API_3}}` | `{{INCOMPLETE_CORRECTIONS_API_3}}` |
+| Kết quả audit | Số lượng | Test case | Lý do/điều chỉnh |
+| ------------- | -------: | --------- | ---------------- |
+| VALID | 34 | TC-PRODUCT-UPDATE-002–011, 015–018, 020–021, 023–037, 043–045 | Mục tiêu và oracle bám trực tiếp FR-12/FR-15 hoặc invariant bảo mật có thể kiểm chứng. |
+| INVALID | 0 | Không còn | Các mapping/oracle chưa phù hợp đã được sửa trước khi chạy lại suite. |
+| INCOMPLETE | 12 | TC-PRODUCT-UPDATE-001, 012–014, 019, 022, 038–042, 046 | Ý tưởng hợp lý nhưng đặc tả chưa chốt success response, trimming whitespace hoặc behavior của unknown field. |
 
-`{{NHAN_XET_AUDIT_API_3}}`
+| Test case/nhóm | Kết quả | Lý do và điều chỉnh |
+| -------------- | ------- | ------------------- |
+| TC-PRODUCT-UPDATE-001 | INCOMPLETE | Admin update hợp lệ bám FR-12/FR-15, nhưng tài liệu không chốt exact success status/schema; giữ oracle `200/204` và kiểm trạng thái qua `GET`. |
+| TC-PRODUCT-UPDATE-002–004 | VALID | FR-12, SEC-02 và SEC-03 yêu cầu từ chối request thiếu JWT, JWT sai hoặc token user; đã chấp nhận cả `401/403` vì đặc tả không chốt một status duy nhất. |
+| TC-PRODUCT-UPDATE-005 | VALID | Bearer rỗng không phải JWT hợp lệ nên phải bị từ chối theo FR-12/SEC-02. |
+| TC-PRODUCT-UPDATE-006–011 | VALID | Các ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract. |
+| TC-PRODUCT-UPDATE-012–014 | INCOMPLETE | Các biên `name` hợp lệ theo FR-15, nhưng response thành công chưa được đặc tả; giữ BVA và đối chiếu dữ liệu đọc lại. |
+| TC-PRODUCT-UPDATE-015–018 | VALID | Tên dài hơn 255, thiếu, `null` hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15. |
+| TC-PRODUCT-UPDATE-019 | INCOMPLETE | FR-15 yêu cầu `name` không rỗng nhưng chưa quy định trimming hoặc cách xử lý chuỗi chỉ có khoảng trắng; không quy failure này thành product bug. |
+| TC-PRODUCT-UPDATE-020–021 | VALID | `name` dạng array/object sai kiểu dữ liệu của trường tên sản phẩm và phải bị từ chối có kiểm soát. |
+| TC-PRODUCT-UPDATE-022 | INCOMPLETE | `price` dương nhỏ thỏa FR-15, nhưng exact success status/schema chưa được chốt; kiểm thêm trạng thái sau update. |
+| TC-PRODUCT-UPDATE-023–029 | VALID | `price` thiếu, `null`, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15. |
+| TC-PRODUCT-UPDATE-030–035 | VALID | `category_id` thiếu, `null`, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15. |
+| TC-PRODUCT-UPDATE-036–037 | VALID | Body vắng mặt và request `text/plain` không thỏa JSON body contract; API phải trả lỗi 4xx có kiểm soát, không lộ stack trace. |
+| TC-PRODUCT-UPDATE-038 | INCOMPLETE | SEC-03 áp dụng cho role trong JWT, không phải field `role` của product body; đã bỏ mapping SEC-03 và giữ case như robustness/schema check cho unknown field. |
+| TC-PRODUCT-UPDATE-039–041 | INCOMPLETE | Kiểm persistence, cô lập resource và idempotency là đúng hành vi PUT/FR-15; workflow `PUT` đã được bổ sung admin token nhưng success response vẫn chưa được chốt. |
+| TC-PRODUCT-UPDATE-042 | INCOMPLETE | Đã bỏ oracle tự suy diễn response phải có `message`; thay bằng cập nhật rồi `GET` để kiểm `description` và `imageUrl`, trong khi success response PUT còn thiếu contract. |
+| TC-PRODUCT-UPDATE-043–045 | VALID | Top-level array/string và tổ hợp nhiều trường bắt buộc sai đều không thỏa body contract; phải trả 4xx JSON an toàn, không lộ stack trace. |
+| TC-PRODUCT-UPDATE-046 | INCOMPLETE | Payload SQL-like trong `name` phải được xử lý như dữ liệu theo SEC-05; đã bổ sung đọc lại product đích và product khác, nhưng success response chưa được chốt. |
 
-### 5.4. Extend - Test case do sinh viên bổ sung
+### 5.4. Extend - Test case bổ sung
 
-| Test case ID                  | Mô tả                               | Coverage                         | Vì sao AI bỏ sót            |
-| ----------------------------- | ----------------------------------- | -------------------------------- | --------------------------- |
-| `{{EXTENSION_TC_ID_API_3_1}}` | `{{EXTENSION_DESCRIPTION_API_3_1}}` | `{{EXTENSION_COVERAGE_API_3_1}}` | `{{WHY_AI_MISSED_API_3_1}}` |
-| `{{EXTENSION_TC_ID_API_3_2}}` | `{{EXTENSION_DESCRIPTION_API_3_2}}` | `{{EXTENSION_COVERAGE_API_3_2}}` | `{{WHY_AI_MISSED_API_3_2}}` |
-| `{{EXTENSION_TC_ID_API_3_3}}` | `{{EXTENSION_DESCRIPTION_API_3_3}}` | `{{EXTENSION_COVERAGE_API_3_3}}` | `{{WHY_AI_MISSED_API_3_3}}` |
-| `{{EXTENSION_TC_ID_API_3_4}}` | `{{EXTENSION_DESCRIPTION_API_3_4}}` | `{{EXTENSION_COVERAGE_API_3_4}}` | `{{WHY_AI_MISSED_API_3_4}}` |
-| `{{EXTENSION_TC_ID_API_3_5}}` | `{{EXTENSION_DESCRIPTION_API_3_5}}` | `{{EXTENSION_COVERAGE_API_3_5}}` | `{{WHY_AI_MISSED_API_3_5}}` |
+| Test case | Nội dung bổ sung | Kỹ thuật/coverage | Khoảng trống của baseline |
+| --------- | ---------------- | ----------------- | ------------------------ |
+| `TC-PRODUCT-UPDATE-EXT-001` | Gửi `price = 0`, sau đó đọc lại và xác nhận toàn bộ sản phẩm giữ nguyên. | State transition / Atomicity | Baseline chỉ kiểm status, chưa phát hiện API từ chối nhưng vẫn ghi dữ liệu một phần. |
+| `TC-PRODUCT-UPDATE-EXT-002` | User thường thử cập nhật product; response phải bị từ chối và state không đổi. | Authorization / State transition | Baseline kiểm access control nhưng chưa kiểm side effect sau request trái quyền. |
+| `TC-PRODUCT-UPDATE-EXT-003` | Đổi `name/price` nhưng thiếu `category_id`; resource không được partial update. | Atomicity / Required-field interaction | Baseline kiểm từng field độc lập nhưng chưa kiểm tính nguyên tử của update nhiều trường. |
+| `TC-PRODUCT-UPDATE-EXT-004` | Cập nhật tên gồm đúng 255 ký tự Unicode và đọc lại nguyên vẹn. | BVA / Unicode / Schema | Baseline chỉ kiểm biên 255 bằng ASCII, chưa phân biệt character length và byte length. |
+| `TC-PRODUCT-UPDATE-EXT-005` | Gửi JSON-looking body với `text/plain`; request bị từ chối và state giữ nguyên. | Content-Type confusion / Atomicity | Baseline chỉ kiểm lỗi HTTP/Content-Type, chưa kiểm tác động lên resource. |
 
 ### 5.5. Execute
 
-- Công cụ chạy: `{{EXECUTION_TOOL_API_3}}`
-- Collection/data/environment: `{{EXECUTION_ARTIFACTS_API_3}}`
-- Run ID: `{{RUN_ID_API_3}}`
-- Thời gian chạy và múi giờ: `{{RUN_TIMESTAMP_TIMEZONE_API_3}}`
-- Header `X-Student-Id`: `{{X_STUDENT_ID_EVIDENCE_API_3}}`
-- Newman/HTML report: `{{NEWMAN_HTML_REPORT_LINK_API_3}}`
-- Console screenshot: `{{CONSOLE_SCREENSHOT_LINK_API_3}}`
+- Công cụ chạy: Newman `6.2.2` với reporter `htmlextra 1.23.1`.
+- Collection/data/environment: [Postman Collection](../tests/api/product-update/product-update.postman_collection.json), [test data](../tests/api/product-update/product-update.test-data.json), [environment mẫu](../tests/api/product-update/product-update.postman_environment.example.json).
+- Run ID: `20260823T154712+0700`.
+- Thời gian chạy và múi giờ: `2026-08-23T15:47:12+07:00` (Asia/Ho_Chi_Minh).
+- Header `X-Student-Id`: assertion pass trên 51/51 request chính và 28/28 workflow subrequest với giá trị `23127062`.
+- Newman/HTML report: [HTML](../test-reports/newman/product-update-20260823T154712+0700/newman-report.html), [JSON](../test-reports/newman/product-update-20260823T154712+0700/newman-report.json), [CLI log](../test-reports/newman/product-update-20260823T154712+0700/cli.log), [test-run summary](../tests/test-runs/product-update-20260823T154712+0700.md).
 
 |                       Tổng |                   Passed |                   Failed |                   Blocked |
 | -------------------------: | -----------------------: | -----------------------: | ------------------------: |
-| `{{EXECUTED_COUNT_API_3}}` | `{{PASSED_COUNT_API_3}}` | `{{FAILED_COUNT_API_3}}` | `{{BLOCKED_COUNT_API_3}}` |
+| 51 | 12 | 39 | 0 |
 
-`{{NHAN_XET_KET_QUA_CHAY_API_3}}`
+Newman chạy 51 iterations, phát sinh 79 HTTP requests và 377 assertions; 117 assertions fail. Có 12 testcase Passed và 39 testcase Failed; trong đó 38 failure liên quan 5 root cause của SUT, còn TC-PRODUCT-UPDATE-019 được giữ là specification gap vì FR-15 chưa quy định whitespace-only/trimming. Trong phần Extend, EXT-001 xác nhận update sai vẫn đổi state, EXT-002 xác nhận user thường vẫn cập nhật được product, EXT-003 xác nhận partial update khi thiếu `category_id`, EXT-005 tái hiện HTTP 500 với `text/plain` nhưng không đổi state; EXT-004 pass biên Unicode 255 ký tự. Không phát hiện root cause mới ngoài các issue #234 và #287–#290.
 
 ### 5.6. Bug reports
 
-| Bug ID             | Mô tả                       | Test case phát hiện      | Evidence                 | GitHub Issue             |
-| ------------------ | --------------------------- | ------------------------ | ------------------------ | ------------------------ |
-| `{{BUG_ID_API_3}}` | `{{BUG_DESCRIPTION_API_3}}` | `{{BUG_FOUND_BY_API_3}}` | `{{BUG_EVIDENCE_API_3}}` | `{{GITHUB_ISSUE_API_3}}` |
-
-`{{GHI_CHU_NEU_KHONG_CO_BUG_API_3}}`
+| Bug ID | Mô tả | Test case phát hiện | Evidence | GitHub Issue |
+| ------ | ----- | ------------------- | -------- | ------------ |
+| BUG-PRODUCT-UPDATE-001 | Endpoint bỏ qua authentication/authorization và chấp nhận token thiếu, sai hoặc của user thường | TC-PRODUCT-UPDATE-002–005, EXT-002 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-001.md), [ảnh](../test-reports/evidence/product-update/access-control.png) | [Issue #234](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234) |
+| BUG-PRODUCT-UPDATE-002 | ID sai định dạng hoặc không tồn tại vẫn trả HTTP 200 và báo cập nhật thành công | TC-PRODUCT-UPDATE-006–011 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-002.md), [ảnh](../test-reports/evidence/product-update/nonexistent-id.png) | [Issue #290](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/290) |
+| BUG-PRODUCT-UPDATE-003 | Không enforce các ràng buộc required/type/boundary của FR-15 | TC-PRODUCT-UPDATE-015–018, 020–036, 043, 045, EXT-001, EXT-003 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-003.md), [ảnh](../test-reports/evidence/product-update/input-validation.png) | [Issue #289](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/289) |
+| BUG-PRODUCT-UPDATE-004 | Request `text/plain` gây HTTP 500 và lộ stack trace HTML | TC-PRODUCT-UPDATE-037, EXT-005 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-004.md), [ảnh](../test-reports/evidence/product-update/content-type-500.png) | [Issue #288](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/288) |
+| BUG-PRODUCT-UPDATE-005 | JSON primitive trả lỗi HTML có stack trace thay vì lỗi JSON an toàn | TC-PRODUCT-UPDATE-044 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-005.md), [ảnh](../test-reports/evidence/product-update/primitive-json-html.png) | [Issue #287](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/287) |
 
 ## 6. Postman/Newman features đã sử dụng
 
@@ -410,12 +429,12 @@ Newman thực thi 47 iterations bằng 74 HTTP requests và 329 assertions; 64 a
 
 | Chỉ số            | API 1 | API 2 |                            API 3 |                             Tổng |
 | ----------------- | ----: | ----: | -------------------------------: | -------------------------------: |
-| AI-generated      |    37 |    42 | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
-| Sinh viên bổ sung |     5 |     5 |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
-| Executed          |    42 |    47 |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
-| Passed            |    32 |    15 |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
-| Failed            |    10 |    32 |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
-| Blocked           |     0 |     0 |      `{{SUMMARY_BLOCKED_API_3}}` |      `{{SUMMARY_BLOCKED_TOTAL}}` |
-| Bugs              |     4 |     3 |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
+| AI-generated      |    37 |    42 | 46 | 125 |
+| Sinh viên bổ sung |     5 |     5 | 5 | 15 |
+| Executed          |    42 |    47 | 51 | 140 |
+| Passed            |    32 |    15 | 12 | 59 |
+| Failed            |    10 |    32 | 39 | 81 |
+| Blocked           |     0 |     0 | 0 | 0 |
+| Bugs              |     4 |     3 | 5 | 12 |
 
 `{{TEST_SUMMARY_DISCUSSION}}`

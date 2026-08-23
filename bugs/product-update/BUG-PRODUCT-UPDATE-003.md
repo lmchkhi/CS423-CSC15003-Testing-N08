@@ -41,6 +41,12 @@ Cả hai request trả HTTP `200` với `{"message":"Product updated"}`. Newman 
 ## Reproducibility
 2/2 với `price: 0`; 23 invalid body partitions cùng root cause thất bại trong Newman.
 
+## Regression run `20260823T154712+0700`
+- Các invalid body case thuộc FR-15 tiếp tục được chấp nhận với HTTP `200`.
+- TC-PRODUCT-UPDATE-EXT-001 xác nhận `price = 0` vẫn làm thay đổi state; EXT-003 xác nhận thiếu `category_id` vẫn gây partial update.
+- TC-PRODUCT-UPDATE-019 được tách khỏi defect này vì whitespace-only/trimming chưa được FR-15 quy định.
+- [Newman HTML report](../../test-reports/newman/product-update-20260823T154712+0700/newman-report.html)
+
 ## Duplicate check
 - Query: `"FR-15" "price"`, `category_id products`, `products update validation`
 - Result: No duplicate found cho `PUT /api/products/:id`; đã tạo [issue #289](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/289). Issue #265 thuộc CSV import FR-16, khác endpoint/root cause.

@@ -1,10 +1,10 @@
-# TC-PRODUCT-UPDATE-042: Cập nhật description và imageUrl rồi đọc lại đúng
+# TC-PRODUCT-UPDATE-EXT-004: Tên Unicode đúng biên 255 ký tự được lưu nguyên vẹn
 
 ## Requirement ID
 FR-12, FR-15
 
 ## Module / Test type / Technique
-PRODUCT-UPDATE / State / State Transition
+PRODUCT-UPDATE / State / Boundary Value Analysis
 
 ## Preconditions
 - Backend khả dụng.
@@ -19,8 +19,9 @@ PRODUCT-UPDATE / State / State Transition
 | body | `{"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1}` |
 
 ## Test steps
-1. Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.
-2. Kiểm tra HTTP status, Content-Type và response body theo oracle.
+1. Gửi update có name gồm 255 ký tự Unicode.
+2. Đọc lại và xác nhận tên được lưu nguyên vẹn.
+3. Gửi request chính để cleanup trạng thái.
 
 ## Expected result
 - HTTP status: `200 hoặc 204`
@@ -30,5 +31,5 @@ PRODUCT-UPDATE / State / State Transition
 Passed / None
 
 ## Automation mapping
-- Data row: `TC-PRODUCT-UPDATE-042`
-- Coverage: `state-transition`, `schema-validation`
+- Data row: `TC-PRODUCT-UPDATE-EXT-004`
+- Coverage: `domain-partition`, `state-transition`, `schema-validation`

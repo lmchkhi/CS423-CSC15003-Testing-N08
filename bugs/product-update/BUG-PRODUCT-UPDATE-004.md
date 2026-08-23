@@ -38,6 +38,11 @@ Cả hai request trả HTTP `500`, `Content-Type: text/html; charset=utf-8`, kè
 ## Reproducibility
 2/2; Newman canonical run cũng tái hiện HTTP 500 và bốn assertion failures.
 
+## Regression run `20260823T154712+0700`
+- TC-PRODUCT-UPDATE-037 tiếp tục tái hiện HTTP `500` và HTML stack trace.
+- TC-PRODUCT-UPDATE-EXT-005 tái hiện cùng lỗi với `text/plain`, đồng thời xác nhận resource không bị thay đổi sau request lỗi.
+- [Newman HTML report](../../test-reports/newman/product-update-20260823T154712+0700/newman-report.html)
+
 ## Duplicate check
 - Query: `products "text/plain"`, `products "Internal Server Error"`, `products "stack trace"`
 - Result: No duplicate found cho endpoint này; đã tạo [issue #288](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/288). Issue #284 thuộc Admin Coupon, khác endpoint.

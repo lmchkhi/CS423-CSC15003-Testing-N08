@@ -29,7 +29,7 @@ PRODUCT-UPDATE / Functional / Equivalence Partitioning
 - `error` phải có kiểu `string`
 
 ## Status / Related bugs
-Failed / #289
+Failed / None
 
 ## Automation mapping
 - Data row: `TC-PRODUCT-UPDATE-019`

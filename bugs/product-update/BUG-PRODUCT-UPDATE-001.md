@@ -40,6 +40,11 @@ Cả hai request trả HTTP `200` với `{"message":"Product updated"}` và thao
 ## Reproducibility
 2/2 request đại diện/tối giản; Newman còn tái hiện với missing, invalid, user và Bearer rỗng.
 
+## Regression run `20260823T154712+0700`
+- TC-PRODUCT-UPDATE-002–005 tiếp tục fail với HTTP `200`.
+- TC-PRODUCT-UPDATE-EXT-002 xác nhận user thường không chỉ được chấp nhận mà còn làm thay đổi state sản phẩm.
+- [Newman HTML report](../../test-reports/newman/product-update-20260823T154712+0700/newman-report.html)
+
 ## Duplicate check
 - Query: `"PUT /api/products" in:title,body`, `FR-12 SEC-02 SEC-03 product mutation`
 - Result: Existing issue [#234](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234) (và issue cũ #48 cùng root cause); không tạo issue mới.

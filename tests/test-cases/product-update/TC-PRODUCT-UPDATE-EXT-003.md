@@ -1,10 +1,10 @@
-# TC-PRODUCT-UPDATE-042: Cập nhật description và imageUrl rồi đọc lại đúng
+# TC-PRODUCT-UPDATE-EXT-003: Thiếu category_id không được cập nhật một phần
 
 ## Requirement ID
 FR-12, FR-15
 
 ## Module / Test type / Technique
-PRODUCT-UPDATE / State / State Transition
+PRODUCT-UPDATE / State / Atomicity Testing
 
 ## Preconditions
 - Backend khả dụng.
@@ -19,16 +19,18 @@ PRODUCT-UPDATE / State / State Transition
 | body | `{"name":"iPhone 15 Pro Max","price":30000000,"description":"Điện thoại cao cấp của Apple","imageUrl":"https://placehold.co/300x300/png?text=iPhone+15","category_id":1}` |
 
 ## Test steps
-1. Gửi PUT /api/products/:id với path, header, quyền và body đã nêu.
-2. Kiểm tra HTTP status, Content-Type và response body theo oracle.
+1. Khôi phục sản phẩm ID 1 về baseline.
+2. Gửi update đổi name/price nhưng thiếu category_id.
+3. Đọc lại và xác nhận không có partial update.
+4. Gửi request chính để cleanup trạng thái.
 
 ## Expected result
 - HTTP status: `200 hoặc 204`
 - Đặc tả không chốt chính xác 200 hay 204 và schema response thành công.
 
 ## Status / Related bugs
-Passed / None
+Failed / #289
 
 ## Automation mapping
-- Data row: `TC-PRODUCT-UPDATE-042`
-- Coverage: `state-transition`, `schema-validation`
+- Data row: `TC-PRODUCT-UPDATE-EXT-003`
+- Coverage: `state-transition`, `domain-partition`

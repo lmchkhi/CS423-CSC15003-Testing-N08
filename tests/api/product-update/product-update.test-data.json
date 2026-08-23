@@ -67,14 +67,8 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-002",
@@ -134,7 +128,8 @@
     },
     "expected": {
       "status": [
-        401
+        401,
+        403
       ],
       "contentType": "application/json",
       "schema": {
@@ -157,16 +152,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#234"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-003",
@@ -226,6 +213,7 @@
     },
     "expected": {
       "status": [
+        401,
         403
       ],
       "contentType": "application/json",
@@ -249,16 +237,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#234"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-004",
@@ -318,6 +298,7 @@
     },
     "expected": {
       "status": [
+        401,
         403
       ],
       "contentType": "application/json",
@@ -341,16 +322,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#234"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-005",
@@ -435,16 +408,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#234"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-006",
@@ -529,16 +494,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#290"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-007",
@@ -623,16 +580,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#290"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-008",
@@ -715,16 +664,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#290"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-009",
@@ -809,16 +750,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#290"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-010",
@@ -903,16 +836,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#290"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-011",
@@ -998,16 +923,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#290"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-012",
@@ -1076,14 +993,8 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-013",
@@ -1152,14 +1063,8 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-014",
@@ -1228,14 +1133,8 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-015",
@@ -1319,16 +1218,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-016",
@@ -1410,16 +1301,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-017",
@@ -1503,16 +1386,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-018",
@@ -1596,16 +1471,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-019",
@@ -1621,8 +1488,8 @@
     ],
     "source": "ai-generated",
     "agentAudit": {
-      "status": "VALID",
-      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+      "status": "INCOMPLETE",
+      "reason": "FR-15 yêu cầu name bắt buộc nhưng chưa quy định trimming hoặc whitespace-only; cần làm rõ oracle."
     },
     "humanReview": {
       "status": "PENDING",
@@ -1689,16 +1556,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-020",
@@ -1786,16 +1645,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-021",
@@ -1883,16 +1734,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-022",
@@ -1961,14 +1804,8 @@
         "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
       ]
     },
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-023",
@@ -2050,16 +1887,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-024",
@@ -2143,16 +1972,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-025",
@@ -2236,16 +2057,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-026",
@@ -2329,16 +2142,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-027",
@@ -2422,16 +2227,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-028",
@@ -2519,16 +2316,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-029",
@@ -2612,16 +2401,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-030",
@@ -2703,16 +2484,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-031",
@@ -2796,16 +2569,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-032",
@@ -2889,16 +2654,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-033",
@@ -2982,16 +2739,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-034",
@@ -3075,16 +2824,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-035",
@@ -3172,16 +2913,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-036",
@@ -3252,16 +2985,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-037",
@@ -3347,35 +3072,25 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#288"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 500,
-      "failedAssertions": 4,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-038",
-    "title": "Bỏ qua unknown field role, không mass assignment",
+    "title": "Bỏ qua unknown field role, không làm thay đổi resource schema",
     "requirementIds": [
-      "FR-12",
-      "FR-15",
-      "SEC-03"
+      "FR-15"
     ],
-    "testType": "Security",
-    "technique": "Mass Assignment",
+    "testType": "Contract",
+    "technique": "Robustness Testing",
     "coverage": [
-      "security",
+      "schema-validation",
       "state-transition"
     ],
     "source": "ai-generated",
     "agentAudit": {
       "status": "INCOMPLETE",
-      "reason": "Unknown field phải không ảnh hưởng resource; response thành công chưa được chốt."
+      "reason": "SEC-03 kiểm role trong JWT, không áp dụng cho field role trong product body; giữ case như robustness/schema check."
     },
     "humanReview": {
       "status": "PENDING",
@@ -3435,7 +3150,8 @@
           "method": "PUT",
           "path": "/api/products/1",
           "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
           },
           "body": {
             "name": "Sản phẩm kiểm thử 23127062",
@@ -3477,14 +3193,8 @@
         }
       }
     ],
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-039",
@@ -3560,7 +3270,8 @@
           "method": "PUT",
           "path": "/api/products/1",
           "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
           },
           "body": {
             "name": "Sản phẩm kiểm thử 23127062",
@@ -3607,14 +3318,8 @@
         }
       }
     ],
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-040",
@@ -3689,7 +3394,8 @@
           "method": "PUT",
           "path": "/api/products/1",
           "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
           },
           "body": {
             "name": "Sản phẩm kiểm thử 23127062",
@@ -3731,14 +3437,8 @@
         }
       }
     ],
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-041",
@@ -3813,7 +3513,8 @@
           "method": "PUT",
           "path": "/api/products/1",
           "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
           },
           "body": {
             "name": "Sản phẩm kiểm thử 23127062",
@@ -3835,7 +3536,8 @@
           "method": "PUT",
           "path": "/api/products/1",
           "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
           },
           "body": {
             "name": "Sản phẩm kiểm thử 23127062",
@@ -3877,31 +3579,26 @@
         }
       }
     ],
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-042",
-    "title": "Response thành công có JSON schema ổn định",
+    "title": "Cập nhật description và imageUrl rồi đọc lại đúng",
     "requirementIds": [
       "FR-12",
       "FR-15"
     ],
-    "testType": "Contract",
-    "technique": "Schema Validation",
+    "testType": "State",
+    "technique": "State Transition",
     "coverage": [
+      "state-transition",
       "schema-validation"
     ],
     "source": "ai-generated",
     "agentAudit": {
       "status": "INCOMPLETE",
-      "reason": "API specification không mô tả schema response của PUT product; oracle này là đề xuất cần human review."
+      "reason": "Bỏ oracle tự suy diễn field message; đặc tả cho phép description/imageUrl nhưng chưa chốt status/schema response PUT."
     },
     "humanReview": {
       "status": "PENDING",
@@ -3916,10 +3613,10 @@
       "id": "1",
       "auth": "admin",
       "body": {
-        "name": "Sản phẩm kiểm thử 23127062",
-        "price": 123456,
-        "description": "Dữ liệu kiểm thử PUT product",
-        "imageUrl": "https://example.test/product.png",
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
         "category_id": 1
       }
     },
@@ -3935,47 +3632,75 @@
       },
       "auth": "admin",
       "body": {
-        "name": "Sản phẩm kiểm thử 23127062",
-        "price": 123456,
-        "description": "Dữ liệu kiểm thử PUT product",
-        "imageUrl": "https://example.test/product.png",
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
         "category_id": 1
       }
     },
     "expected": {
       "status": [
-        200
+        200,
+        204
       ],
-      "contentType": "application/json",
-      "schema": {
-        "type": "object",
-        "required": [
-          "message"
-        ],
-        "properties": {
-          "message": {
-            "type": "string"
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
           }
         },
-        "additionalProperties": true
-      },
-      "bodyAssertions": [
-        {
-          "path": "message",
-          "operator": "type",
-          "value": "string"
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
         }
-      ],
-      "maxResponseTimeMs": 2000
-    },
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "description",
+              "operator": "equals",
+              "value": "Dữ liệu kiểm thử PUT product"
+            },
+            {
+              "path": "imageUrl",
+              "operator": "equals",
+              "value": "https://example.test/product.png"
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-043",
@@ -4064,16 +3789,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-044",
@@ -4146,16 +3863,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#287"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 400,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-045",
@@ -4239,16 +3948,8 @@
       ],
       "maxResponseTimeMs": 2000
     },
-    "status": "Failed",
-    "relatedBugs": [
-      "#289"
-    ],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 3,
-      "classification": "SUT defect"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
   },
   {
     "id": "TC-PRODUCT-UPDATE-046",
@@ -4324,7 +4025,8 @@
           "method": "PUT",
           "path": "/api/products/1",
           "headers": {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
           },
           "body": {
             "name": "x', price=1 WHERE 1=1 --",
@@ -4338,6 +4040,25 @@
           "status": [
             200,
             204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "x', price=1 WHERE 1=1 --"
+            }
           ]
         }
       },
@@ -4361,13 +4082,717 @@
         }
       }
     ],
-    "status": "Passed",
-    "relatedBugs": [],
-    "execution": {
-      "runId": "20260823T145100+0700",
-      "actualStatus": 200,
-      "failedAssertions": 0,
-      "classification": "passed"
-    }
+    "status": "Not Run",
+    "relatedBugs": []
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-EXT-001",
+    "title": "Update price không hợp lệ phải atomic và giữ nguyên sản phẩm",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Khôi phục sản phẩm ID 1 về baseline.",
+      "Gửi update với price = 0.",
+      "Đọc lại và xác nhận toàn bộ trường vẫn giữ baseline.",
+      "Gửi request chính để cleanup trạng thái."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "Sản phẩm kiểm thử 23127062",
+            "price": 0,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            422
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "iPhone 15 Pro Max"
+            },
+            {
+              "path": "price",
+              "operator": "equals",
+              "value": 30000000
+            },
+            {
+              "path": "category_id",
+              "operator": "equals",
+              "value": 1
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Not Run",
+    "relatedBugs": []
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-EXT-002",
+    "title": "User thường bị từ chối và không làm thay đổi sản phẩm",
+    "requirementIds": [
+      "FR-12",
+      "FR-15",
+      "SEC-02",
+      "SEC-03"
+    ],
+    "testType": "Security",
+    "technique": "Authorization State Transition",
+    "coverage": [
+      "security",
+      "state-transition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Khôi phục sản phẩm ID 1 về baseline bằng admin.",
+      "Dùng userToken gửi payload thay đổi toàn bộ trường.",
+      "Đọc lại và xác nhận sản phẩm không đổi.",
+      "Gửi request chính để cleanup trạng thái."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{userToken}}"
+          },
+          "body": {
+            "name": "Unauthorized mutation",
+            "price": 1,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            401,
+            403
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "iPhone 15 Pro Max"
+            },
+            {
+              "path": "price",
+              "operator": "equals",
+              "value": 30000000
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Not Run",
+    "relatedBugs": []
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-EXT-003",
+    "title": "Thiếu category_id không được cập nhật một phần",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "State",
+    "technique": "Atomicity Testing",
+    "coverage": [
+      "state-transition",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Khôi phục sản phẩm ID 1 về baseline.",
+      "Gửi update đổi name/price nhưng thiếu category_id.",
+      "Đọc lại và xác nhận không có partial update.",
+      "Gửi request chính để cleanup trạng thái."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "Partial mutation",
+            "price": 1,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png"
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            422
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "iPhone 15 Pro Max"
+            },
+            {
+              "path": "price",
+              "operator": "equals",
+              "value": 30000000
+            },
+            {
+              "path": "category_id",
+              "operator": "equals",
+              "value": 1
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Not Run",
+    "relatedBugs": []
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-EXT-004",
+    "title": "Tên Unicode đúng biên 255 ký tự được lưu nguyên vẹn",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "State",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition",
+      "state-transition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-15 quy định tối đa 255 ký tự nhưng không nói rõ character hay byte length; case kiểm Unicode boundary và cần đối chiếu contract."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Gửi update có name gồm 255 ký tự Unicode.",
+      "Đọc lại và xác nhận tên được lưu nguyên vẹn.",
+      "Gửi request chính để cleanup trạng thái."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "ộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộ",
+            "price": 123456,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "ộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộộ"
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Not Run",
+    "relatedBugs": []
+  },
+  {
+    "id": "TC-PRODUCT-UPDATE-EXT-005",
+    "title": "Content-Type sai bị từ chối mà không làm thay đổi state",
+    "requirementIds": [
+      "FR-12",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Content-Type Atomicity Testing",
+    "coverage": [
+      "security",
+      "state-transition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Oracle được xác định trực tiếp từ FR-12/FR-15."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng.",
+      "Sản phẩm ID 1 và danh mục ID 1 tồn tại.",
+      "adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "steps": [
+      "Khôi phục sản phẩm ID 1 về baseline.",
+      "Gửi JSON-looking payload với Content-Type text/plain.",
+      "Đọc lại và xác nhận sản phẩm không đổi.",
+      "Gửi request chính để cleanup trạng thái."
+    ],
+    "request": {
+      "path": "/api/products/1",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "name": "iPhone 15 Pro Max",
+        "price": 30000000,
+        "description": "Điện thoại cao cấp của Apple",
+        "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+        "category_id": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        204
+      ],
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000,
+      "notes": [
+        "Đặc tả không chốt chính xác 200 hay 204 và schema response thành công."
+      ]
+    },
+    "workflow": [
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "iPhone 15 Pro Max",
+            "price": 30000000,
+            "description": "Điện thoại cao cấp của Apple",
+            "imageUrl": "https://placehold.co/300x300/png?text=iPhone+15",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            204
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "PUT",
+          "path": "/api/products/1",
+          "headers": {
+            "Content-Type": "text/plain",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "name": "Content-Type mutation",
+            "price": 1,
+            "description": "Dữ liệu kiểm thử PUT product",
+            "imageUrl": "https://example.test/product.png",
+            "category_id": 1
+          }
+        },
+        "expected": {
+          "status": [
+            400,
+            415,
+            422
+          ]
+        }
+      },
+      {
+        "request": {
+          "method": "GET",
+          "path": "/api/products/1",
+          "headers": {}
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "name",
+              "operator": "equals",
+              "value": "iPhone 15 Pro Max"
+            },
+            {
+              "path": "price",
+              "operator": "equals",
+              "value": 30000000
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Not Run",
+    "relatedBugs": []
   }
 ]

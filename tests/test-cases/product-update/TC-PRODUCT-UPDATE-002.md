@@ -23,7 +23,7 @@ PRODUCT-UPDATE / Security / Negative Testing
 2. Kiểm tra HTTP status, Content-Type và response body theo oracle.
 
 ## Expected result
-- HTTP status: `401`
+- HTTP status: `401 hoặc 403`
 - Content-Type: `application/json`
 - Response schema: `{"type":"object","required":["error"],"properties":{"error":{"type":"string"}}}`
 - `error` phải có kiểu `string`
