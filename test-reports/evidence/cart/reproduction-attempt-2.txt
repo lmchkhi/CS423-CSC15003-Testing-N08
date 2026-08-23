@@ -1,0 +1,23 @@
+Reproduction attempt: 2
+Executed at: 2026-08-22T13:37:05.536Z
+Base URL: http://localhost:3000
+X-Student-Id: 23127062
+Authorization: Bearer <redacted>
+
+[BUG-CART-001] Same product is duplicated
+POST #1: HTTP 200
+POST #2: HTTP 200
+Matching rows after GET: [{"id":"repro-duplicate-2-1787405825536","name":"Duplicate repro","price":100000,"quantity":1},{"id":"repro-duplicate-2-1787405825536","name":"Duplicate repro","price":100000,"quantity":2}]
+Observed row count: 2; expected: 1
+Observed merged quantity: 1; expected: 3
+
+[BUG-CART-002] quantity=0 is accepted and stored
+POST response: HTTP 200 {"message":"Added to cart"}
+Stored row after GET: {"id":"repro-quantity-2-1787405825536","name":"Invalid quantity repro","price":100000,"quantity":0}
+Expected: reject quantity below minimum 1 and do not store it
+
+[BUG-CART-003] text/plain body is accepted
+POST response: HTTP 200 {"message":"Added to cart"}
+Cart length before: 51; after: 52
+Last stored value: null
+Expected: reject non-JSON Content-Type with controlled 4xx response

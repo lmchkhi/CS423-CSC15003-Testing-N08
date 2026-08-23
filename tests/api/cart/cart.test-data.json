@@ -1,0 +1,3080 @@
+[
+  {
+    "id": "TC-CART-001",
+    "title": "Cô lập giỏ hàng giữa hai tài khoản",
+    "requirementIds": [
+      "FR-07",
+      "SEC-02"
+    ],
+    "testType": "Security",
+    "technique": "State Transition / Authorization Isolation",
+    "coverage": [
+      "state-transition",
+      "security",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bám trực tiếp body contract và quy tắc giỏ hàng được tài liệu mô tả."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend vừa khởi động nên giỏ của user và admin đều rỗng.",
+      "userToken và adminToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 990001,
+      "name": "Sản phẩm user",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Thêm sản phẩm vào giỏ admin qua workflow.",
+      "Đọc giỏ user và xác nhận vẫn rỗng.",
+      "Gửi request chính để thêm một sản phẩm vào giỏ user."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 990001,
+        "name": "Sản phẩm user",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "workflow": [
+      {
+        "name": "Thêm sản phẩm vào giỏ admin",
+        "request": {
+          "method": "POST",
+          "path": "/api/cart",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{adminToken}}"
+          },
+          "body": {
+            "id": 990002,
+            "name": "Sản phẩm admin",
+            "price": 200000,
+            "quantity": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            201
+          ],
+          "bodyAssertions": []
+        }
+      },
+      {
+        "name": "Đọc giỏ user chưa có dữ liệu",
+        "request": {
+          "method": "GET",
+          "path": "/api/cart",
+          "headers": {
+            "Authorization": "Bearer {{userToken}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "",
+              "operator": "arrayLength",
+              "value": 0
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-002",
+    "title": "Thêm lại cùng sản phẩm phải cộng số lượng",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "State",
+    "technique": "State Transition",
+    "coverage": [
+      "state-transition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Case bám trực tiếp body contract và quy tắc giỏ hàng được tài liệu mô tả."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Giỏ user có đúng một dòng id 990001 từ TC-CART-001.",
+      "userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 990004,
+      "name": "Sản phẩm sau kiểm tra",
+      "price": 120000,
+      "quantity": 1
+    },
+    "steps": [
+      "Thêm id 990003 với quantity 1.",
+      "Thêm lại id 990003 với quantity 2.",
+      "GET /api/cart và xác nhận chỉ có một dòng id 990003 với quantity 3.",
+      "Gửi request chính để hoàn tất iteration."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 990004,
+        "name": "Sản phẩm sau kiểm tra",
+        "price": 120000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "workflow": [
+      {
+        "name": "Thêm sản phẩm lần đầu",
+        "request": {
+          "method": "POST",
+          "path": "/api/cart",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{userToken}}"
+          },
+          "body": {
+            "id": 990003,
+            "name": "Sản phẩm lặp",
+            "price": 50000,
+            "quantity": 1
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            201
+          ],
+          "bodyAssertions": []
+        }
+      },
+      {
+        "name": "Thêm lại cùng sản phẩm",
+        "request": {
+          "method": "POST",
+          "path": "/api/cart",
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {{userToken}}"
+          },
+          "body": {
+            "id": 990003,
+            "name": "Sản phẩm lặp",
+            "price": 50000,
+            "quantity": 2
+          }
+        },
+        "expected": {
+          "status": [
+            200,
+            201
+          ],
+          "bodyAssertions": []
+        }
+      },
+      {
+        "name": "Đọc trạng thái giỏ sau hai lần thêm",
+        "request": {
+          "method": "GET",
+          "path": "/api/cart",
+          "headers": {
+            "Authorization": "Bearer {{userToken}}"
+          }
+        },
+        "expected": {
+          "status": [
+            200
+          ],
+          "bodyAssertions": [
+            {
+              "path": "",
+              "operator": "arrayLength",
+              "value": 2
+            },
+            {
+              "path": "1.id",
+              "operator": "equals",
+              "value": 990003
+            },
+            {
+              "path": "1.quantity",
+              "operator": "equals",
+              "value": 3
+            }
+          ]
+        }
+      }
+    ],
+    "status": "Failed",
+    "relatedBugs": [
+      "#151"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-003",
+    "title": "Thêm sản phẩm hợp lệ với quantity bằng 1",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Payload đúng ví dụ và biên quantity tối thiểu; đặc tả không chốt exact success status/body nên chấp nhận 200/201 JSON."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 1,
+      "name": "Sản phẩm A",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 1,
+        "name": "Sản phẩm A",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-004",
+    "title": "Thêm sản phẩm hợp lệ với quantity lớn hơn 1",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Valid partition rõ ràng nhưng exact success contract không được tài liệu quy định."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 2,
+      "name": "Sản phẩm B",
+      "price": 250000,
+      "quantity": 2
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 2,
+        "name": "Sản phẩm B",
+        "price": 250000,
+        "quantity": 2
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-005",
+    "title": "Tên sản phẩm Unicode hợp lệ",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Unicode là domain partition hữu ích; tài liệu không chốt normalization và exact success response."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 3,
+      "name": "Cà phê sữa đá ☕",
+      "price": 45000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 3,
+        "name": "Cà phê sữa đá ☕",
+        "price": 45000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-006",
+    "title": "Giá sản phẩm có phần thập phân dương",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Đặc tả chỉ minh họa price dạng number, chưa quy định có cho phép phần thập phân hay không."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 4,
+      "name": "Sản phẩm giá lẻ",
+      "price": 99999.5,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 4,
+        "name": "Sản phẩm giá lẻ",
+        "price": 99999.5,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-007",
+    "title": "Giá trị số lớn nhưng an toàn",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Không có upper bound cho id, price hoặc quantity; case chỉ kiểm robustness với số JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 2147483647,
+      "name": "Sản phẩm giá trị lớn",
+      "price": 9007199254740,
+      "quantity": 1000
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 2147483647,
+        "name": "Sản phẩm giá trị lớn",
+        "price": 9007199254740,
+        "quantity": 1000
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-008",
+    "title": "Field thừa không được làm thay đổi quyền sở hữu giỏ",
+    "requirementIds": [
+      "FR-07",
+      "SEC-02"
+    ],
+    "testType": "Security",
+    "technique": "Mass Assignment",
+    "coverage": [
+      "domain-partition",
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Kiểm tra mass assignment: identity phải lấy từ JWT, không từ user_id/role trong body."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 5,
+      "name": "Sản phẩm có field thừa",
+      "price": 100000,
+      "quantity": 1,
+      "user_id": 1,
+      "role": "admin"
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 5,
+        "name": "Sản phẩm có field thừa",
+        "price": 100000,
+        "quantity": 1,
+        "user_id": 1,
+        "role": "admin"
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-009",
+    "title": "Thiếu id",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Body example xác định id là thành phần của cart item. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "name": "Thiếu id",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "name": "Thiếu id",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-010",
+    "title": "id bằng null",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "null không đại diện được product identity hợp lệ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": null,
+      "name": "Null id",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": null,
+        "name": "Null id",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-011",
+    "title": "id là chuỗi rỗng",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Chuỗi rỗng không đại diện được product identity hợp lệ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "",
+      "name": "Empty id",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": "",
+        "name": "Empty id",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-012",
+    "title": "id sai kiểu string",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "API example dùng id kiểu number nhưng không có schema chính thức. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": "1",
+      "name": "String id",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": "1",
+        "name": "String id",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-013",
+    "title": "id sai kiểu object",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Object là type-confusion partition không phù hợp product identity. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": {
+        "value": 1
+      },
+      "name": "Object id",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": {
+          "value": 1
+        },
+        "name": "Object id",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-014",
+    "title": "Thiếu name",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Body example xác định name là thành phần của cart item. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 10,
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 10,
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-015",
+    "title": "name bằng null",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "null không phải tên hiển thị hợp lệ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 11,
+      "name": null,
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 11,
+        "name": null,
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-016",
+    "title": "name là chuỗi rỗng",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Tên rỗng không thể đáp ứng thông tin sản phẩm trong giỏ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 12,
+      "name": "",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 12,
+        "name": "",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-017",
+    "title": "name chỉ chứa whitespace",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Đặc tả không chốt trimming nhưng whitespace-only tương đương tên rỗng về mặt hiển thị. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 13,
+      "name": "   ",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 13,
+        "name": "   ",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-018",
+    "title": "name sai kiểu number",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Name trong body example là string. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 14,
+      "name": 12345,
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 14,
+        "name": 12345,
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-019",
+    "title": "Thiếu price",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Body example xác định price là thành phần cart item. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 15,
+      "name": "Thiếu giá",
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 15,
+        "name": "Thiếu giá",
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-020",
+    "title": "price bằng null",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "null không thể dùng tính thành tiền. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 16,
+      "name": "Null price",
+      "price": null,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 16,
+        "name": "Null price",
+        "price": null,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-021",
+    "title": "price bằng 0",
+    "requirementIds": [
+      "FR-07",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Giá sản phẩm phải dương theo ràng buộc sản phẩm FR-15. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 17,
+      "name": "Zero price",
+      "price": 0,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 17,
+        "name": "Zero price",
+        "price": 0,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-022",
+    "title": "price âm",
+    "requirementIds": [
+      "FR-07",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Giá sản phẩm phải dương theo FR-15 và giá âm phá vỡ invariant tổng tiền. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 18,
+      "name": "Negative price",
+      "price": -1,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 18,
+        "name": "Negative price",
+        "price": -1,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-023",
+    "title": "price sai kiểu string",
+    "requirementIds": [
+      "FR-07",
+      "FR-15"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Body example và FR-15 yêu cầu price là number. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 19,
+      "name": "String price",
+      "price": "100000",
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 19,
+        "name": "String price",
+        "price": "100000",
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-024",
+    "title": "price sai kiểu object",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Object là type confusion và không thể tính toán an toàn. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 20,
+      "name": "Object price",
+      "price": {
+        "value": 100000
+      },
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 20,
+        "name": "Object price",
+        "price": {
+          "value": 100000
+        },
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-025",
+    "title": "Thiếu quantity",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-06 yêu cầu quantity là số nguyên dương tối thiểu 1. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 21,
+      "name": "Thiếu số lượng",
+      "price": 100000
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 21,
+        "name": "Thiếu số lượng",
+        "price": 100000
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-026",
+    "title": "quantity bằng null",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-06 yêu cầu quantity là số nguyên dương tối thiểu 1. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 22,
+      "name": "Null quantity",
+      "price": 100000,
+      "quantity": null
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 22,
+        "name": "Null quantity",
+        "price": 100000,
+        "quantity": null
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-027",
+    "title": "quantity bằng 0",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Vi phạm biên tối thiểu quantity = 1 của FR-06. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 23,
+      "name": "Zero quantity",
+      "price": 100000,
+      "quantity": 0
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 23,
+        "name": "Zero quantity",
+        "price": 100000,
+        "quantity": 0
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-028",
+    "title": "quantity âm",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Vi phạm điều kiện số nguyên dương của FR-06. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 24,
+      "name": "Negative quantity",
+      "price": 100000,
+      "quantity": -1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 24,
+        "name": "Negative quantity",
+        "price": 100000,
+        "quantity": -1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-029",
+    "title": "quantity là số thập phân",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Boundary Value Analysis",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-06 yêu cầu quantity là số nguyên. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 25,
+      "name": "Decimal quantity",
+      "price": 100000,
+      "quantity": 1.5
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 25,
+        "name": "Decimal quantity",
+        "price": 100000,
+        "quantity": 1.5
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-030",
+    "title": "quantity sai kiểu string",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "FR-06 yêu cầu quantity là số nguyên dương. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 26,
+      "name": "String quantity",
+      "price": 100000,
+      "quantity": "2"
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 26,
+        "name": "String quantity",
+        "price": 100000,
+        "quantity": "2"
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-031",
+    "title": "quantity sai kiểu array",
+    "requirementIds": [
+      "FR-06",
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Array là type confusion và không phải số nguyên. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 27,
+      "name": "Array quantity",
+      "price": 100000,
+      "quantity": [
+        1
+      ]
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 27,
+        "name": "Array quantity",
+        "price": 100000,
+        "quantity": [
+          1
+        ]
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#285"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-032",
+    "title": "Body là object rỗng",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Thiếu toàn bộ cart item contract. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {},
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {}
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-033",
+    "title": "Body là array",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Top-level body được tài liệu mô tả là object, không phải array. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": [
+      {
+        "id": 28,
+        "name": "Array body",
+        "price": 100000,
+        "quantity": 1
+      }
+    ],
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": [
+        {
+          "id": 28,
+          "name": "Array body",
+          "price": 100000,
+          "quantity": 1
+        }
+      ]
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-034",
+    "title": "Không gửi request body",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Negative Testing / Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "POST add-to-cart không có cart item để xử lý. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "body": "(không gửi)"
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user"
+    },
+    "expected": {
+      "status": [
+        400,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [
+        {
+          "path": "message",
+          "operator": "absent"
+        }
+      ],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 2,
+      "classification": "specification gap"
+    }
+  },
+  {
+    "id": "TC-CART-035",
+    "title": "Từ chối request thiếu Authorization",
+    "requirementIds": [
+      "SEC-02"
+    ],
+    "testType": "Security",
+    "technique": "Negative Authentication",
+    "coverage": [
+      "security",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "SEC-02 bắt buộc JWT hợp lệ nhưng không chốt exact status/error schema; dùng conventional oracle 401 JSON."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 29,
+      "name": "No auth",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "missing",
+      "body": {
+        "id": 29,
+        "name": "No auth",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        401
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 401,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-036",
+    "title": "Từ chối JWT không hợp lệ",
+    "requirementIds": [
+      "SEC-02"
+    ],
+    "testType": "Security",
+    "technique": "Negative Authentication",
+    "coverage": [
+      "security",
+      "schema-validation"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "SEC-02 chỉ yêu cầu token hợp lệ; chấp nhận 401 hoặc 403 miễn request bị từ chối an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 30,
+      "name": "Invalid token",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "invalid",
+      "body": {
+        "id": 30,
+        "name": "Invalid token",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        401,
+        403
+      ],
+      "contentType": "application/json",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 403,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-037",
+    "title": "Từ chối Bearer token rỗng",
+    "requirementIds": [
+      "SEC-02"
+    ],
+    "testType": "Security",
+    "technique": "Malformed Authentication",
+    "coverage": [
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "VALID",
+      "reason": "Bearer token rỗng không phải JWT hợp lệ và phải bị từ chối theo SEC-02."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 31,
+      "name": "Empty token",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "custom",
+      "body": {
+        "id": 31,
+        "name": "Empty token",
+        "price": 100000,
+        "quantity": 1
+      },
+      "token": ""
+    },
+    "expected": {
+      "status": [
+        401,
+        403
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 401,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-038",
+    "title": "Admin đã xác thực có giỏ hàng riêng",
+    "requirementIds": [
+      "FR-07",
+      "SEC-02"
+    ],
+    "testType": "Functional",
+    "technique": "Equivalence Partitioning",
+    "coverage": [
+      "domain-partition",
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Đặc tả yêu cầu user đã xác thực nhưng không nói rõ admin có được sử dụng cart API hay không."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 32,
+      "name": "Admin cart item",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "admin",
+      "body": {
+        "id": 32,
+        "name": "Admin cart item",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-039",
+    "title": "Payload SQL injection trong name không gây lỗi server",
+    "requirementIds": [
+      "FR-07",
+      "SEC-05"
+    ],
+    "testType": "Security",
+    "technique": "Injection",
+    "coverage": [
+      "security",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Payload non-destructive kiểm robustness/parameterization; endpoint cart dùng in-memory state nên SEC-05 chỉ áp dụng gián tiếp."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 33,
+      "name": "x'); DROP TABLE products; --",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 33,
+        "name": "x'); DROP TABLE products; --",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-040",
+    "title": "Payload HTML trong name không được thực thi tại API",
+    "requirementIds": [
+      "FR-07",
+      "SEC-04"
+    ],
+    "testType": "Security",
+    "technique": "Stored XSS Probe",
+    "coverage": [
+      "security",
+      "domain-partition"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "SEC-04 áp dụng tại UI boundary; API case chỉ tạo dữ liệu probe, không thể tự kết luận XSS nếu chưa render UI."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 34,
+      "name": "<img src=x onerror=alert(1)>",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "auth": "user",
+      "body": {
+        "id": 34,
+        "name": "<img src=x onerror=alert(1)>",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        200,
+        201
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Passed",
+    "relatedBugs": [],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 0,
+      "classification": "passed"
+    }
+  },
+  {
+    "id": "TC-CART-041",
+    "title": "Từ chối Content-Type text/plain",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Content-Type Confusion",
+    "coverage": [
+      "schema-validation",
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "API specification yêu cầu Body JSON nhưng chưa chốt status; dùng 400/415/422 và yêu cầu JSON error an toàn."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 35,
+      "name": "Plain text",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {
+        "Content-Type": "text/plain"
+      },
+      "auth": "user",
+      "body": {
+        "id": 35,
+        "name": "Plain text",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        415,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#286"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 1,
+      "classification": "SUT defect"
+    }
+  },
+  {
+    "id": "TC-CART-042",
+    "title": "Từ chối body JSON khi thiếu Content-Type",
+    "requirementIds": [
+      "FR-07"
+    ],
+    "testType": "Contract",
+    "technique": "Content-Type Confusion",
+    "coverage": [
+      "schema-validation",
+      "security"
+    ],
+    "source": "ai-generated",
+    "agentAudit": {
+      "status": "INCOMPLETE",
+      "reason": "Body JSON cần media type phù hợp nhưng exact status chưa được mô tả."
+    },
+    "humanReview": {
+      "status": "PENDING",
+      "reason": ""
+    },
+    "preconditions": [
+      "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+    ],
+    "testData": {
+      "id": 36,
+      "name": "No content type",
+      "price": 100000,
+      "quantity": 1
+    },
+    "steps": [
+      "Gửi POST /api/cart với header và body đã nêu.",
+      "Đối chiếu HTTP response với oracle."
+    ],
+    "request": {
+      "path": "/api/cart",
+      "query": {},
+      "headers": {},
+      "auth": "user",
+      "body": {
+        "id": 36,
+        "name": "No content type",
+        "price": 100000,
+        "quantity": 1
+      }
+    },
+    "expected": {
+      "status": [
+        400,
+        415,
+        422
+      ],
+      "contentType": "application/json",
+      "bodyAssertions": [],
+      "maxResponseTimeMs": 2000
+    },
+    "status": "Failed",
+    "relatedBugs": [
+      "#286"
+    ],
+    "execution": {
+      "runId": "20260822T204500+0700",
+      "actualStatus": 200,
+      "failedAssertions": 1,
+      "classification": "SUT defect"
+    }
+  }
+]

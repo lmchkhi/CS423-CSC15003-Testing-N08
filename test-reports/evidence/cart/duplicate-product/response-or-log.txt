@@ -1,0 +1,17 @@
+Newman run: cart-20260822T204500+0700
+Git HEAD: 4fce82f5c3730a305e4c1e9838b77424bb9a8897
+X-Student-Id: 23127062
+Authorization: Bearer <redacted>
+
+TC-CART-002 actual workflow state:
+- POST cùng id 990003, quantity 1: HTTP 200
+- POST cùng id 990003, quantity 2: HTTP 200
+- GET /api/cart: có 3 dòng thay vì 2; dòng index 1 vẫn quantity 1 thay vì 3.
+
+Minimal reproduction attempt 1:
+- Hai POST cùng id repro-duplicate-1-1787405825460 đều HTTP 200.
+- GET trả 2 dòng cùng id, quantity lần lượt 1 và 2.
+
+Minimal reproduction attempt 2:
+- Hai POST cùng id repro-duplicate-2-1787405825536 đều HTTP 200.
+- GET trả 2 dòng cùng id, quantity lần lượt 1 và 2.

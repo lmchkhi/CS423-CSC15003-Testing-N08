@@ -1,0 +1,15 @@
+Newman run: cart-20260822T204500+0700
+Git HEAD: 4fce82f5c3730a305e4c1e9838b77424bb9a8897
+X-Student-Id: 23127062
+Authorization: Bearer <redacted>
+
+TC-CART-041 và TC-CART-042:
+- Content-Type text/plain: HTTP 200 {"message":"Added to cart"}.
+- Thiếu Content-Type: HTTP 200 {"message":"Added to cart"}.
+- Expected: controlled HTTP 400/415/422 vì API specification yêu cầu Body JSON.
+
+Minimal reproduction attempt 1:
+- POST text/plain trả HTTP 200; cart length tăng từ 47 lên 48; phần tử cuối là null.
+
+Minimal reproduction attempt 2:
+- POST text/plain trả HTTP 200; cart length tăng từ 51 lên 52; phần tử cuối là null.

@@ -1,0 +1,16 @@
+Newman run: cart-20260822T204500+0700
+Git HEAD: 4fce82f5c3730a305e4c1e9838b77424bb9a8897
+X-Student-Id: 23127062
+Authorization: Bearer <redacted>
+
+TC-CART-025 đến TC-CART-031:
+- API trả HTTP 200 cho quantity missing, null, 0, -1, 1.5, string và array.
+- Expected: từ chối vì FR-06 yêu cầu quantity là số nguyên dương, tối thiểu 1.
+
+Minimal reproduction attempt 1:
+- POST quantity=0 trả HTTP 200 {"message":"Added to cart"}.
+- GET xác nhận item quantity=0 đã được lưu.
+
+Minimal reproduction attempt 2:
+- POST quantity=0 trả HTTP 200 {"message":"Added to cart"}.
+- GET xác nhận item quantity=0 đã được lưu.

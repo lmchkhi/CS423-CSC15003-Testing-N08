@@ -39,11 +39,11 @@ Mục tiêu của bài tập là sử dụng AI theo từng bước để sinh t
 
 Ba API được chọn thuộc ba pool khác nhau và không trùng với lựa chọn của thành viên khác trong nhóm.
 
-| API   | Pool   | Feature                                 | Method và endpoint          | Lý do lựa chọn    |
-| ----- | ------ | --------------------------------------- | --------------------------- | ----------------- |
-| API 1 | Pool A | FR-02 - Login and account lockout       | `POST /api/login`           | `{{LY_DO_API_1}}` |
-| API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)        | `{{METHOD_ENDPOINT_API_2}}` | `{{LY_DO_API_2}}` |
-| API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `{{METHOD_ENDPOINT_API_3}}` | `{{LY_DO_API_3}}` |
+| API   | Pool   | Feature                                 | Method và endpoint          |
+| ----- | ------ | --------------------------------------- | --------------------------- |
+| API 1 | Pool A | FR-02 - Login and account lockout       | `POST /api/login`           |
+| API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)        | `POST /api/cart`            |
+| API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `{{METHOD_ENDPOINT_API_3}}` |
 
 ## 3. API 1 - `POST /api/login`
 
@@ -130,13 +130,13 @@ Danh sách và metadata đầy đủ được lưu trong [suite manifest](../tes
 
 ### 3.4. Extend - Test case do sinh viên bổ sung
 
-| Test case ID       | Mô tả | Coverage | Vì sao AI bỏ sót |
-| ------------------ | ----- | -------- | ---------------- |
-| `TC-LOGIN-EXT-001` | Kiểm tra đăng nhập thành công reset bộ đếm sai: nhập sai 2 lần, đăng nhập đúng, tiếp tục nhập sai 2 lần rồi đăng nhập đúng; cả hai lần dùng credentials đúng phải trả `200`, cấp JWT và tài khoản không bị khóa. | State transition / Security / Interaction | Baseline chỉ kiểm tra transition đăng nhập thành công độc lập, chưa tạo chuỗi request có lịch sử để chứng minh lần thành công reset số lần sai liên tiếp. |
-| `TC-LOGIN-EXT-002` | Kiểm tra đúng ngưỡng khóa: lần sai thứ 1 và 2 bị từ chối nhưng chưa khóa; lần sai thứ 3 chuyển tài khoản sang trạng thái locked; đăng nhập đúng ngay sau đó vẫn bị từ chối, không trả `token` hoặc `user`. | State transition / Security / BVA | Các negative case hiện tại chạy độc lập và chấp nhận nhiều mã `4xx`, nên chưa phân biệt trạng thái trước ngưỡng với transition xảy ra chính xác tại lần sai thứ 3. |
-| `TC-LOGIN-EXT-003` | Kiểm tra biên thời gian mở khóa: sau khi kích hoạt lockout, credentials đúng vẫn bị từ chối trước mốc 30 giây nhưng được chấp nhận từ mốc 30 giây trở đi và trả JWT hợp lệ. | State transition / Security / Temporal BVA | Baseline data-driven không có bước chờ và quan sát trạng thái theo thời gian, do đó chưa kiểm tra timeout 30 giây hoặc lỗi lệch biên thời gian. |
-| `TC-LOGIN-EXT-004` | Kiểm tra bộ đếm được cô lập theo tài khoản: xen kẽ các lần đăng nhập sai của hai tài khoản, sau đó dùng credentials đúng của từng tài khoản; lỗi của tài khoản A không được làm tăng bộ đếm hoặc khóa tài khoản B. | State transition / Security / Multi-user interaction | Baseline sử dụng từng account như precondition độc lập, chưa mô hình hóa hai state machine đăng nhập chạy xen kẽ để phát hiện counter dùng chung hoặc gắn sai user. |
-| `TC-LOGIN-EXT-005` | So sánh cặp request “email tồn tại + password sai” và “email không tồn tại”: status, Content-Type, cấu trúc và thông báo lỗi phải tương đương, không trả `token`/`user`, đồng thời không có chênh lệch thời gian phản hồi ổn định đủ để suy ra tài khoản tồn tại. | Security / Information disclosure / Differential testing | TC-LOGIN-006 và TC-LOGIN-007 chỉ kiểm tra riêng lẻ; baseline chưa có differential oracle đối chiếu trực tiếp nội dung lỗi và timing để phát hiện user enumeration. |
+| Test case ID       | Mô tả                                                                                                                                                                                                                                                             | Coverage                                                 | Vì sao AI bỏ sót                                                                                                                                                    |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TC-LOGIN-EXT-001` | Kiểm tra đăng nhập thành công reset bộ đếm sai: nhập sai 2 lần, đăng nhập đúng, tiếp tục nhập sai 2 lần rồi đăng nhập đúng; cả hai lần dùng credentials đúng phải trả `200`, cấp JWT và tài khoản không bị khóa.                                                  | State transition / Security / Interaction                | Baseline chỉ kiểm tra transition đăng nhập thành công độc lập, chưa tạo chuỗi request có lịch sử để chứng minh lần thành công reset số lần sai liên tiếp.           |
+| `TC-LOGIN-EXT-002` | Kiểm tra đúng ngưỡng khóa: lần sai thứ 1 và 2 bị từ chối nhưng chưa khóa; lần sai thứ 3 chuyển tài khoản sang trạng thái locked; đăng nhập đúng ngay sau đó vẫn bị từ chối, không trả `token` hoặc `user`.                                                        | State transition / Security / BVA                        | Các negative case hiện tại chạy độc lập và chấp nhận nhiều mã `4xx`, nên chưa phân biệt trạng thái trước ngưỡng với transition xảy ra chính xác tại lần sai thứ 3.  |
+| `TC-LOGIN-EXT-003` | Kiểm tra biên thời gian mở khóa: sau khi kích hoạt lockout, credentials đúng vẫn bị từ chối trước mốc 30 giây nhưng được chấp nhận từ mốc 30 giây trở đi và trả JWT hợp lệ.                                                                                       | State transition / Security / Temporal BVA               | Baseline data-driven không có bước chờ và quan sát trạng thái theo thời gian, do đó chưa kiểm tra timeout 30 giây hoặc lỗi lệch biên thời gian.                     |
+| `TC-LOGIN-EXT-004` | Kiểm tra bộ đếm được cô lập theo tài khoản: xen kẽ các lần đăng nhập sai của hai tài khoản, sau đó dùng credentials đúng của từng tài khoản; lỗi của tài khoản A không được làm tăng bộ đếm hoặc khóa tài khoản B.                                                | State transition / Security / Multi-user interaction     | Baseline sử dụng từng account như precondition độc lập, chưa mô hình hóa hai state machine đăng nhập chạy xen kẽ để phát hiện counter dùng chung hoặc gắn sai user. |
+| `TC-LOGIN-EXT-005` | So sánh cặp request “email tồn tại + password sai” và “email không tồn tại”: status, Content-Type, cấu trúc và thông báo lỗi phải tương đương, không trả `token`/`user`, đồng thời không có chênh lệch thời gian phản hồi ổn định đủ để suy ra tài khoản tồn tại. | Security / Information disclosure / Differential testing | TC-LOGIN-006 và TC-LOGIN-007 chỉ kiểm tra riêng lẻ; baseline chưa có differential oracle đối chiếu trực tiếp nội dung lỗi và timing để phát hiện user enumeration.  |
 
 ### 3.5. Execute
 
@@ -162,39 +162,40 @@ Newman thực thi 42 testcase bằng 70 HTTP request (42 request chính và 28 w
 
 ### 3.6. Bug reports
 
-| Bug ID        | Mô tả                                                     | Test case phát hiện                                 | Evidence                                                     | GitHub Issue                                                                 |
-| ------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| BUG-LOGIN-001 | Response đăng nhập trả plaintext `user.password`          | TC-LOGIN-001; đồng thời TC-LOGIN-002, 027, 035, 037 | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-001.md) | [Issue #69](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69) |
+| Bug ID        | Mô tả                                                     | Test case phát hiện                                 | Evidence                                                     | GitHub Issue                                                                   |
+| ------------- | --------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| BUG-LOGIN-001 | Response đăng nhập trả plaintext `user.password`          | TC-LOGIN-001; đồng thời TC-LOGIN-002, 027, 035, 037 | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-001.md) | [Issue #69](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/69)   |
 | BUG-LOGIN-002 | `Content-Type: text/plain` gây HTTP 500 và lộ stack trace | TC-LOGIN-034                                        | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-002.md) | [Issue #267](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/267) |
-| BUG-LOGIN-003 | Tài khoản bị khóa sau 2 lần sai thay vì 3 lần           | TC-LOGIN-EXT-002; đồng thời EXT-001 và EXT-004      | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-003.md) | [Issue #71](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/71) |
-| BUG-LOGIN-004 | Tài khoản vẫn bị khóa sau mốc 30 giây                  | TC-LOGIN-EXT-003                                    | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-004.md) | [Issue #73](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/73) |
+| BUG-LOGIN-003 | Tài khoản bị khóa sau 2 lần sai thay vì 3 lần             | TC-LOGIN-EXT-002; đồng thời EXT-001 và EXT-004      | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-003.md) | [Issue #71](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/71)   |
+| BUG-LOGIN-004 | Tài khoản vẫn bị khóa sau mốc 30 giây                     | TC-LOGIN-EXT-003                                    | [Bug report và raw evidence](../bugs/login/BUG-LOGIN-004.md) | [Issue #73](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/73)   |
 
 BUG-LOGIN-001, BUG-LOGIN-003 và BUG-LOGIN-004 lần lượt trùng root cause với issue #69, #71 và #73. BUG-LOGIN-002 không có duplicate và đã được publish thành issue #267.
 
-## 4. API 2 - `{{METHOD_ENDPOINT_API_2}}`
+## 4. API 2 - `POST /api/cart`
 
 ### 4.1. Đặc tả và phạm vi kiểm thử
 
 - Feature/requirement: FR-07 - Giỏ hàng (Shopping Cart)
-- Tham số path: `{{PATH_PARAMETERS_API_2}}`
-- Tham số query: `{{QUERY_PARAMETERS_API_2}}`
-- Headers: `{{HEADERS_API_2}}`
-- Request body: `{{REQUEST_BODY_API_2}}`
-- Response schema: `{{RESPONSE_SCHEMA_API_2}}`
-- Yêu cầu bảo mật áp dụng: `{{SECURITY_REQUIREMENTS_API_2}}`
-- Trạng thái và transition liên quan: `{{STATE_TRANSITIONS_API_2}}`
+- Tham số path/query: không có; endpoint cố định là `/api/cart`.
+- Headers: `Authorization: Bearer <token>`, `Content-Type: application/json` và header bài tập `X-Student-Id: 23127062`.
+- Request body: JSON object gồm `id`, `name`, `price`, `quantity`. Suite bao phủ missing/null/empty/wrong type/boundary, top-level body, unknown fields và Content-Type confusion.
+- Response schema: đặc tả không chốt exact success/error status hoặc response body. Các oracle conventional 4xx được đánh dấu `INCOMPLETE`; state của cart được đối chiếu qua `GET /api/cart` trong workflow.
+- Yêu cầu bảo mật áp dụng: SEC-02; đồng thời kiểm tra mass assignment, account isolation, type confusion, injection probes và safe content-type handling.
+- Trạng thái và transition liên quan: cart rỗng → có item; thêm lại cùng product phải merge và cộng quantity; cart của user/admin phải độc lập.
+
+Nguồn thiết kế phạm vi: [API specification](../api_specification.md), [FR-06/FR-07 và security requirements](../README.md), [coverage matrix](../tests/api/cart/coverage-matrix.md).
 
 ### 4.2. Generate with AI
 
-`{{MO_TA_QUY_TRINH_PROMPT_TUNG_BUOC_API_2}}`
+Skill `api-testing` xác nhận endpoint và MSSV, dựng coverage model trước khi sinh 42 case, giữ toàn bộ case ở nguồn `ai-generated`, đặt `humanReview.status = PENDING`, rồi validate manifest và sinh 42 Markdown testcase cùng Postman collection/data-driven data file. Các behavior chưa được tài liệu chốt exact status/schema được giữ là `INCOMPLETE`, không tự động nâng thành product bug.
 
-| Nhóm coverage     |                        Số test case | Ghi chú                                |
-| ----------------- | ----------------------------------: | -------------------------------------- |
-| Domain partition  |  `{{DOMAIN_PARTITION_COUNT_API_2}}` | `{{DOMAIN_PARTITION_NOTE_API_2}}`      |
-| State transition  |  `{{STATE_TRANSITION_COUNT_API_2}}` | `{{STATE_TRANSITION_NOTE_API_2}}`      |
-| Security          |          `{{SECURITY_COUNT_API_2}}` | `{{SECURITY_NOTE_API_2}}`              |
-| Schema validation | `{{SCHEMA_VALIDATION_COUNT_API_2}}` | `{{SCHEMA_VALIDATION_NOTE_API_2}}`     |
-| Tổng AI-generated |      `{{AI_GENERATED_COUNT_API_2}}` | `{{AI_GENERATED_ARTIFACT_LINK_API_2}}` |
+| Nhóm coverage     | Số test case | Ghi chú                                                                                            |
+| ----------------- | -----------: | -------------------------------------------------------------------------------------------------- |
+| Domain partition  |           30 | Body fields, missing/null/empty/type confusion/boundary và valid partitions.                       |
+| State transition  |            2 | Account isolation và repeated-add merge transition.                                                |
+| Security          |           15 | SEC-02, mass assignment, injection probes, type/content confusion.                                 |
+| Schema validation |           28 | JSON/error contract và state assertions qua workflow.                                              |
+| Tổng AI-generated |           42 | [Suite manifest](../tests/api/cart/suite.manifest.json) và [testcases](../tests/test-cases/cart/). |
 
 ### 4.3. Audit - Human review
 
@@ -208,37 +209,31 @@ BUG-LOGIN-001, BUG-LOGIN-003 và BUG-LOGIN-004 lần lượt trùng root cause v
 
 ### 4.4. Extend - Test case do sinh viên bổ sung
 
-| Test case ID                  | Mô tả                               | Coverage                         | Vì sao AI bỏ sót            |
-| ----------------------------- | ----------------------------------- | -------------------------------- | --------------------------- |
-| `{{EXTENSION_TC_ID_API_2_1}}` | `{{EXTENSION_DESCRIPTION_API_2_1}}` | `{{EXTENSION_COVERAGE_API_2_1}}` | `{{WHY_AI_MISSED_API_2_1}}` |
-| `{{EXTENSION_TC_ID_API_2_2}}` | `{{EXTENSION_DESCRIPTION_API_2_2}}` | `{{EXTENSION_COVERAGE_API_2_2}}` | `{{WHY_AI_MISSED_API_2_2}}` |
-| `{{EXTENSION_TC_ID_API_2_3}}` | `{{EXTENSION_DESCRIPTION_API_2_3}}` | `{{EXTENSION_COVERAGE_API_2_3}}` | `{{WHY_AI_MISSED_API_2_3}}` |
-| `{{EXTENSION_TC_ID_API_2_4}}` | `{{EXTENSION_DESCRIPTION_API_2_4}}` | `{{EXTENSION_COVERAGE_API_2_4}}` | `{{WHY_AI_MISSED_API_2_4}}` |
-| `{{EXTENSION_TC_ID_API_2_5}}` | `{{EXTENSION_DESCRIPTION_API_2_5}}` | `{{EXTENSION_COVERAGE_API_2_5}}` | `{{WHY_AI_MISSED_API_2_5}}` |
+Chưa có testcase `student-authored` do sinh viên cung cấp. Phần này phải do sinh viên tự bổ sung ít nhất 5 case sau khi review AI baseline và giải thích AI đã bỏ sót điều gì; skill không được tự tạo nội dung hoặc nhận authorship thay sinh viên.
 
 ### 4.5. Execute
 
-- Công cụ chạy: `{{EXECUTION_TOOL_API_2}}`
-- Collection/data/environment: `{{EXECUTION_ARTIFACTS_API_2}}`
-- Run ID: `{{RUN_ID_API_2}}`
-- Thời gian chạy và múi giờ: `{{RUN_TIMESTAMP_TIMEZONE_API_2}}`
-- Header `X-Student-Id`: `{{X_STUDENT_ID_EVIDENCE_API_2}}`
-- Newman/HTML report: `{{NEWMAN_HTML_REPORT_LINK_API_2}}`
-- Console screenshot: `{{CONSOLE_SCREENSHOT_LINK_API_2}}`
+- Công cụ chạy: Newman 6.2.2 và `newman-reporter-htmlextra` 1.23.1.
+- Collection/data/environment: [collection](../tests/api/cart/cart.postman_collection.json), [data](../tests/api/cart/cart.test-data.json); runtime environment chứa JWT chỉ nằm ở `/tmp` và không được commit.
+- Run ID: `20260822T204500+0700`.
+- Thời gian chạy và múi giờ: `2026-08-22T20:45:00+07:00` (Asia/Ho_Chi_Minh).
+- Header `X-Student-Id`: 42/42 main requests và 5/5 workflow subrequests pass assertion `X-Student-Id: 23127062`.
+- Newman/HTML report: [HTML](../test-reports/newman/cart-20260822T204500+0700/newman-report.html), [JSON](../test-reports/newman/cart-20260822T204500+0700/newman-report.json), [CLI](../test-reports/newman/cart-20260822T204500+0700/cli.log).
+- Console screenshot: ![Newman Cart Content-Type và summary](../test-reports/evidence/cart/content-type-confusion/evidence.png)
 
-|                       Tổng |                   Passed |                   Failed |                   Blocked |
-| -------------------------: | -----------------------: | -----------------------: | ------------------------: |
-| `{{EXECUTED_COUNT_API_2}}` | `{{PASSED_COUNT_API_2}}` | `{{FAILED_COUNT_API_2}}` | `{{BLOCKED_COUNT_API_2}}` |
+| Tổng | Passed | Failed | Blocked |
+| ---: | -----: | -----: | ------: |
+|   42 |     13 |     29 |       0 |
 
-`{{NHAN_XET_KET_QUA_CHAY_API_2}}`
+Newman thực thi 42 iterations bằng 47 HTTP requests và 217 assertions; 56 assertions fail. Triage xác nhận 3 root causes: duplicate product (#151), invalid quantity (#285) và Content-Type confusion (#286). Các failure còn lại giữ phân loại specification gap/INCOMPLETE vì tài liệu chưa chốt exact input/error contract. Chi tiết theo testcase nằm trong [test-run summary](../tests/test-runs/cart-20260822T204500+0700.md).
 
 ### 4.6. Bug reports
 
-| Bug ID             | Mô tả                       | Test case phát hiện      | Evidence                 | GitHub Issue             |
-| ------------------ | --------------------------- | ------------------------ | ------------------------ | ------------------------ |
-| `{{BUG_ID_API_2}}` | `{{BUG_DESCRIPTION_API_2}}` | `{{BUG_FOUND_BY_API_2}}` | `{{BUG_EVIDENCE_API_2}}` | `{{GITHUB_ISSUE_API_2}}` |
-
-`{{GHI_CHU_NEU_KHONG_CO_BUG_API_2}}`
+| Bug ID       | Mô tả                                         | Test case phát hiện | Evidence                                        | GitHub Issue                                                                   |
+| ------------ | --------------------------------------------- | ------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| BUG-CART-001 | Thêm lại cùng product tạo dòng trùng          | TC-CART-002         | [Report/evidence](../bugs/cart/BUG-CART-001.md) | [Issue #151](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
+| BUG-CART-002 | Chấp nhận quantity không phải số nguyên dương | TC-CART-025–031     | [Report/evidence](../bugs/cart/BUG-CART-002.md) | [Issue #285](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/285) |
+| BUG-CART-003 | Chấp nhận non-JSON Content-Type và lưu null   | TC-CART-041–042     | [Report/evidence](../bugs/cart/BUG-CART-003.md) | [Issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286) |
 
 ## 5. API 3 - `{{METHOD_ENDPOINT_API_3}}`
 
@@ -390,14 +385,14 @@ BUG-LOGIN-001, BUG-LOGIN-003 và BUG-LOGIN-004 lần lượt trùng root cause v
 
 ## 9. Test summary
 
-| Chỉ số            | API 1 |                            API 2 |                            API 3 |                             Tổng |
-| ----------------- | ----: | -------------------------------: | -------------------------------: | -------------------------------: |
-| AI-generated      |    37 | `{{SUMMARY_AI_GENERATED_API_2}}` | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
-| Sinh viên bổ sung |     5 |     `{{SUMMARY_EXTENDED_API_2}}` |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
-| Executed          |    42 |     `{{SUMMARY_EXECUTED_API_2}}` |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
-| Passed            |    32 |       `{{SUMMARY_PASSED_API_2}}` |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
-| Failed            |    10 |       `{{SUMMARY_FAILED_API_2}}` |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
-| Blocked           |     0 |      `{{SUMMARY_BLOCKED_API_2}}` |      `{{SUMMARY_BLOCKED_API_3}}` |      `{{SUMMARY_BLOCKED_TOTAL}}` |
-| Bugs              |     4 |         `{{SUMMARY_BUGS_API_2}}` |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
+| Chỉ số            | API 1 | API 2 |                            API 3 |                             Tổng |
+| ----------------- | ----: | ----: | -------------------------------: | -------------------------------: |
+| AI-generated      |    37 |    42 | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
+| Sinh viên bổ sung |     5 |     0 |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
+| Executed          |    42 |    42 |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
+| Passed            |    32 |    13 |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
+| Failed            |    10 |    29 |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
+| Blocked           |     0 |     0 |      `{{SUMMARY_BLOCKED_API_3}}` |      `{{SUMMARY_BLOCKED_TOTAL}}` |
+| Bugs              |     4 |     3 |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
 
 `{{TEST_SUMMARY_DISCUSSION}}`

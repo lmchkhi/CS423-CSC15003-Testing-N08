@@ -29,7 +29,11 @@ Generate:
 - at least 35 cases with `source: ai-generated`;
 - at least one AI-generated case in each coverage family: `domain-partition`, `state-transition`, `security`, and `schema-validation`.
 
-Do not generate, draft, prepopulate, or label cases as extension candidates. The assignment's extension cases must come from the student after reviewing the AI baseline. If the student explicitly supplies their own cases, preserve them with `source: student-authored`; never invent their content or claim authorship on their behalf. Set AI-generated cases' `humanReview.status` to `PENDING` until the student explicitly reviews them. Record an agent audit recommendation of `VALID`, `INVALID`, or `INCOMPLETE` with a reason, but keep it separate from human review.
+Do not generate, draft, prepopulate, or label cases as extension candidates. The assignment's extension cases must come from the student after reviewing the AI baseline. If the student explicitly supplies their own cases, preserve them with `source: student-authored`; never invent their content or claim authorship on their behalf.
+
+Human review is a student-owned write boundary. Unless the student explicitly provides a review decision for named testcases in the current request, keep every generated case at `humanReview.status: PENDING` with an empty reason. Never infer a human decision from the specification, execution result, defect triage, or agent audit. Never populate, replace placeholders in, or summarize agent results inside a main-report section or table titled `Human review`, `Audit - Human review`, or an equivalent student-review heading. In particular, do not map `agentAudit` counts or reasons into that section. Preserve that section unchanged for the student.
+
+Record an agent audit recommendation of `VALID`, `INVALID`, or `INCOMPLETE` with a reason in `suite.manifest.json`. Put any narrative agent-audit summary in the test-run summary or in an explicitly dedicated `Agent audit (AI recommendation)` section only; never place it under a human-review heading. If the student explicitly supplies concrete human-review decisions, update only the named cases and validate with `--allow-human-review`.
 
 ## Materialize the suite
 
@@ -42,6 +46,8 @@ node skills/api-testing/scripts/validate_suite.mjs --manifest <suite.manifest.js
 node skills/api-testing/scripts/render_testcases.mjs --manifest <suite.manifest.json> --output <test-case-directory>
 node skills/api-testing/scripts/build_postman_collection.mjs --manifest <suite.manifest.json> --collection <collection.json> --data <test-data.json>
 ```
+
+The default validator rejects non-pending human-review data. Use `validate_suite.mjs --allow-human-review` only when the student explicitly supplied the review decisions being recorded in the current request.
 
 Fix every validation error. Do not lower minimum counts to make validation pass.
 

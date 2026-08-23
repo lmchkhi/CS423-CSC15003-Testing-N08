@@ -199,3 +199,88 @@ Artifacts chính:
 
 - Bỏ các test case extension-candidate không cần thiết, chỉ giữ 37 AI-generated test case theo yêu cầu.
 - Bỏ section `AI audit` trong các test case, chỉ giữ các phần theo format được giao.
+
+## Entry #3
+
+### (1) Prompt + Tool
+
+| Field             | Content                       |
+| ----------------- | ----------------------------- |
+| **Tool**          | GPT-5.6 Sol                   |
+| **Timestamp**     | 22/08/2026 20:30:16           |
+| **Artifact type** | Bộ kiểm thử API Cart cho HW06 |
+
+**Full prompt:**
+
+```
+Dùng skill [api-testing](skills/api-testing/) để thực hiện test cho api sau: POST /api/cart.
+MSSV: 23127062.
+```
+
+### (2) AI Output
+
+'''
+Mình sẽ dùng skill `api-testing` theo đúng yêu cầu, trước hết đọc toàn bộ hướng dẫn của skill rồi kiểm tra cấu trúc dự án và API `POST /api/cart`. Sau đó mình sẽ chạy test, lưu bằng chứng/kết quả theo quy trình của skill, với MSSV `23127062`.
+
+Skill đã xác định pipeline đầy đủ: tối thiểu 35 test case, coverage matrix, Postman/Newman, bằng chứng thực thi thật, báo cáo lỗi và đối chiếu GitHub Issue. Mình đang dựng oracle trực tiếp từ đặc tả/requirements; không dùng implementation làm chuẩn kỳ vọng.
+
+Oracle chính đã rõ: `POST /api/cart` bắt buộc JWT; body gồm `id`, `name`, `price`, `quantity`; số lượng phải là số nguyên dương; và thêm lại cùng sản phẩm phải tăng `quantity` thay vì tạo dòng mới. Một số status/error schema không được tài liệu chốt, nên các case đó sẽ được đánh dấu `INCOMPLETE` trong agent audit thay vì biến giả định thành yêu cầu.
+
+Để lấy screenshot bằng chứng Newman từ terminal thật theo skill, mình sẽ dùng thêm skill `computer-use`; việc này chỉ phục vụ thao tác/capture UI, không thay đổi phạm vi test.
+
+Bộ test đã materialize và vượt validator: 42/42 case là `ai-generated`, đủ cả bốn coverage families; 42 file Markdown riêng cùng manifest, test data và Postman collection đã được tạo. Bước tiếp theo là chạy trên một backend mới khởi động để trạng thái giỏ in-memory xác định được, rồi triage từng failure thay vì coi mọi assertion fail là bug.
+
+Lần chạy đầu đã hoàn tất và giữ đủ HTML/JSON/CLI: 42 iterations, 47 requests, 217 assertions; mọi main/workflow request đều có `X-Student-Id: 23127062`. Kết quả ban đầu có 56 assertion failures. Triage sơ bộ cho thấy ba nhóm cần tái hiện tối thiểu: không merge sản phẩm trùng, không validate `quantity`/cart-item schema, và chấp nhận sai `Content-Type`; các case thiếu `id/name` sẽ chưa tự động ghi bug nếu oracle còn mơ hồ.
+
+Ba lỗi đã được tái hiện độc lập 2/2 lần với request tối thiểu và raw evidence đã redacted: sản phẩm trùng tạo hai dòng, `quantity=0` vẫn được lưu, và `text/plain` trả 200 rồi chèn `null` vào giỏ. Mình đang hoàn tất kiểm tra duplicate GitHub trước khi quyết định tạo hay liên kết issue.
+
+Skill `computer-use` xác nhận macOS Terminal bị chặn bởi policy. Theo đúng fallback trong `api-testing`, mình sẽ dùng VS Code integrated terminal, maximize panel và giữ font/zoom hiện tại để chạy lại Newman và chụp evidence thật.
+
+Duplicate check xác nhận lỗi merge sản phẩm đã có issue #151 nên sẽ chỉ liên kết, không tạo trùng. Hai lỗi API còn lại (`quantity=0` và `Content-Type` sai) chưa có issue tương ứng trong cả open/closed search. Screenshot terminal thật đã được lưu cho header, duplicate, quantity validation, Content-Type và Newman summary; không dùng ảnh dựng hoặc mở lại log.
+
+GitHub triage đã hoàn tất: lỗi duplicate liên kết issue hiện có #151; hai lỗi mới đã được tạo và xác minh đúng labels tại #285 (quantity validation) và #286 (Content-Type). Mình đang đồng bộ issue IDs vào từng testcase/manifest, sinh test-run summary tiếng Việt và chạy validation/redaction lần cuối.
+
+Pipeline thực thi đã hoàn tất. Runtime environment chứa JWT đã được xóa khỏi `/tmp` (không thể khôi phục, chỉ là file tạm), backend test đã dừng, và scan artifacts cho 0 JWT/password match. Mình đang chạy kiểm tra bàn giao cuối: validator, counts, Markdown links/artifact layout, `git diff --check` và trạng thái working tree.
+
+Đã hoàn tất kiểm thử `POST /api/cart` với MSSV `23127062`.
+
+Kết quả final run:
+
+- 42 AI-generated test cases, 0 student-authored.
+- 13 Passed, 29 Failed, 0 Blocked.
+- 47/47 request xác nhận `X-Student-Id: 23127062`.
+- 10 testcase phát hiện 3 SUT defects; 19 failure còn lại được phân loại specification gap/`INCOMPLETE`.
+- Không còn JWT/password trong artifacts.
+
+Ba lỗi xác nhận:
+
+- Sản phẩm trùng không cộng quantity — duplicate [issue #151](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151).
+- API chấp nhận quantity không hợp lệ — tạo [issue #285](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/285).
+- API chấp nhận non-JSON Content-Type và lưu `null` — tạo [issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286).
+
+Artifacts chính:
+
+- [Test-run summary](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/test-runs/cart-20260822T204500+0700.md)
+- [Suite manifest](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/cart/suite.manifest.json)
+- [Coverage matrix](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/cart/coverage-matrix.md)
+- [Postman collection](/Users/lvkhang/Documents/uni/software-testing/HW06/tests/api/cart/cart.postman_collection.json)
+- [Newman HTML report](/Users/lvkhang/Documents/uni/software-testing/HW06/test-reports/newman/cart-20260822T204500+0700/newman-report.html)
+- [Main report đã cập nhật](/Users/lvkhang/Documents/uni/software-testing/HW06/reports/main-report.md)
+- [BUG-CART-001](/Users/lvkhang/Documents/uni/software-testing/HW06/bugs/cart/BUG-CART-001.md), [BUG-CART-002](/Users/lvkhang/Documents/uni/software-testing/HW06/bugs/cart/BUG-CART-002.md), [BUG-CART-003](/Users/lvkhang/Documents/uni/software-testing/HW06/bugs/cart/BUG-CART-003.md)
+
+![Newman Cart evidence](/Users/lvkhang/Documents/uni/software-testing/HW06/test-reports/evidence/cart/content-type-confusion/evidence.png)
+
+Phần sinh viên còn cần tự làm: review 42 testcase đang `PENDING`, viết ít nhất 5 extension cases, sơ đồ generator tự vẽ, AI Audit Report, CI/CD sample runs, commit và push artifacts. Hai issue mới dùng đường dẫn ảnh trên branch dự kiến nên ảnh sẽ hiển thị sau khi commit/push.
+'''
+
+### (3) Verdict
+
+**`INCOMPLETE`**
+
+### (4) Reasoning
+
+- AI tự chấm các test case VALID/INVALID trong phần Audit - Human review.
+
+### (5) Student Fix
+
+- Xoá bỏ phần tự chấm của AI và thắt chặt lại agent skill.

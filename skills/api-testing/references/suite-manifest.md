@@ -53,6 +53,8 @@ Allowed `coverage`: `domain-partition`, `state-transition`, `security`, `schema-
 
 Allowed `source`: `ai-generated`, `student-authored`. The skill generates only `ai-generated` cases. Use `student-authored` only for cases explicitly supplied by the student; never generate or infer those cases for them.
 
+By default, every case must keep `humanReview.status` as `PENDING` and `humanReview.reason` as an empty string. The validator rejects other human-review values unless invoked with `--allow-human-review`. Use that flag only when the student explicitly supplied concrete review decisions for the named cases in the current request. Never copy or transform `agentAudit` into `humanReview`.
+
 Allowed `request.auth`: `none`, `missing`, `user`, `admin`, `invalid`, `custom`. For `custom`, set `request.token` to a variable reference, never a live token in committed files.
 
 Supported body assertion operators: `equals`, `notEquals`, `exists`, `absent`, `type`, `matches`, `includes`, `gt`, `gte`, `lt`, `lte`, and `arrayLength`.

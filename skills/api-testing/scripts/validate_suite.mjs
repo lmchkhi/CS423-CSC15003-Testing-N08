@@ -8,6 +8,7 @@ function arg(name) {
 
 const manifestPath = arg("--manifest");
 if (!manifestPath) throw new Error("Usage: validate_suite.mjs --manifest <suite.manifest.json>");
+const allowHumanReview = process.argv.includes("--allow-human-review");
 const doc = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const errors = [];
 const cases = Array.isArray(doc.cases) ? doc.cases : [];
@@ -32,7 +33,11 @@ for (const [index, tc] of cases.entries()) {
   for (const key of ["requirementIds", "coverage", "preconditions", "steps"]) if (!Array.isArray(tc[key]) || tc[key].length === 0) errors.push(`${at}.${key} must be a non-empty array`);
   if (!allowedSources.has(tc.source)) errors.push(`${at}.source is invalid`);
   if (!tc.agentAudit || !allowedAudits.has(tc.agentAudit.status) || !tc.agentAudit.reason) errors.push(`${at}.agentAudit requires status and reason`);
-  if (!tc.humanReview || !tc.humanReview.status) errors.push(`${at}.humanReview.status is required`);
+  if (!tc.humanReview || !tc.humanReview.status) {
+    errors.push(`${at}.humanReview.status is required`);
+  } else if (!allowHumanReview && (tc.humanReview.status !== "PENDING" || String(tc.humanReview.reason || "").trim() !== "")) {
+    errors.push(`${at}.humanReview must remain PENDING with an empty reason unless --allow-human-review is explicitly used for student-supplied decisions`);
+  }
   if (!tc.request || !tc.request.path || !tc.request.auth) errors.push(`${at}.request requires path and auth`);
   if (!tc.expected || !Array.isArray(tc.expected.status) || tc.expected.status.length === 0) errors.push(`${at}.expected.status must be a non-empty array`);
   for (const c of tc.coverage || []) if (!allowedCoverage.has(c)) errors.push(`${at}.coverage contains invalid value: ${c}`);
