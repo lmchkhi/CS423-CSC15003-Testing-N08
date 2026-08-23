@@ -1,0 +1,141 @@
+name: HW06 API Tests
+
+on:
+  push:
+    branches:
+      - "HW06/23127062"
+  pull_request:
+    branches:
+      - "HW06/23127062"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hw06-api-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  newman:
+    name: Newman - ${{ matrix.label }}
+    if: >-
+      github.ref == 'refs/heads/HW06/23127062' ||
+      github.base_ref == 'HW06/23127062'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - module: login
+            label: Login API
+            collection: tests/api/login/login.postman_collection.json
+            data: tests/api/login/login.test-data.json
+          - module: cart
+            label: Cart API
+            collection: tests/api/cart/cart.postman_collection.json
+            data: tests/api/cart/cart.test-data.json
+          - module: product-update
+            label: Product Update API
+            collection: tests/api/product-update/product-update.postman_collection.json
+            data: tests/api/product-update/product-update.test-data.json
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+
+      - name: Install Newman and backend dependencies
+        run: |
+          npm ci
+          npm --prefix backend ci
+
+      - name: Validate suite manifest
+        run: >-
+          node skills/api-testing/scripts/validate_suite.mjs
+          --manifest tests/api/${{ matrix.module }}/suite.manifest.json
+          --allow-human-review
+
+      - name: Start clean backend
+        run: |
+          set -euo pipefail
+          report_dir="test-reports/ci/${{ matrix.module }}"
+          mkdir -p "$report_dir"
+          node backend/server.js >"$report_dir/backend.log" 2>&1 &
+          backend_pid=$!
+          echo "$backend_pid" >"/tmp/hw06-backend-${{ matrix.module }}.pid"
+
+          ready=false
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/api/products >/dev/null; then
+              ready=true
+              break
+            fi
+            if ! kill -0 "$backend_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          if [[ "$ready" != "true" ]]; then
+            cat "$report_dir/backend.log"
+            exit 1
+          fi
+
+      - name: Create runtime environment
+        run: |
+          mkdir -p /tmp/hw06-api-environments
+          node "tests/api/${{ matrix.module }}/create-runtime-environment.mjs" \
+            "/tmp/hw06-api-environments/${{ matrix.module }}.postman_environment.json" \
+            "${{ github.run_id }}-${{ github.run_attempt }}"
+
+      - name: Run Newman suite
+        run: |
+          bash skills/api-testing/scripts/run_newman.sh \
+            --collection "${{ matrix.collection }}" \
+            --data "${{ matrix.data }}" \
+            --environment "/tmp/hw06-api-environments/${{ matrix.module }}.postman_environment.json" \
+            --report-dir "test-reports/ci/${{ matrix.module }}"
+
+      - name: Stop backend
+        if: always()
+        run: |
+          pid_file="/tmp/hw06-backend-${{ matrix.module }}.pid"
+          if [[ -f "$pid_file" ]]; then
+            backend_pid=$(<"$pid_file")
+            kill "$backend_pid" 2>/dev/null || true
+            wait "$backend_pid" 2>/dev/null || true
+          fi
+
+      - name: Redact retained reports
+        id: redact
+        if: always()
+        run: |
+          report_dir="test-reports/ci/${{ matrix.module }}"
+          environment_file="/tmp/hw06-api-environments/${{ matrix.module }}.postman_environment.json"
+          if [[ ! -d "$report_dir" ]]; then
+            exit 0
+          fi
+          if [[ "${{ matrix.module }}" == "login" && -f "$environment_file" ]]; then
+            node tests/api/login/redact-newman-artifacts.mjs "$report_dir" "$environment_file"
+          else
+            node tests/api/cart/redact-newman-artifacts.mjs "$report_dir"
+          fi
+
+      - name: Upload Newman reports
+        if: always() && steps.redact.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-${{ matrix.module }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-reports/ci/${{ matrix.module }}/
+          if-no-files-found: warn
+          retention-days: 14

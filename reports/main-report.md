@@ -39,11 +39,11 @@ Mục tiêu của bài tập là sử dụng AI theo từng bước để sinh t
 
 Ba API được chọn thuộc ba pool khác nhau và không trùng với lựa chọn của thành viên khác trong nhóm.
 
-| API   | Pool   | Feature                                 | Method và endpoint          |
-| ----- | ------ | --------------------------------------- | --------------------------- |
-| API 1 | Pool A | FR-02 - Login and account lockout       | `POST /api/login`           |
-| API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)        | `POST /api/cart`            |
-| API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `PUT /api/products/:id`     |
+| API   | Pool   | Feature                                 | Method và endpoint      |
+| ----- | ------ | --------------------------------------- | ----------------------- |
+| API 1 | Pool A | FR-02 - Login and account lockout       | `POST /api/login`       |
+| API 2 | Pool B | FR-07 - Giỏ hàng (Shopping Cart)        | `POST /api/cart`        |
+| API 3 | Pool C | FR-15 - Quản lý sản phẩm (Product CRUD) | `PUT /api/products/:id` |
 
 ## 3. API 1 - `POST /api/login`
 
@@ -199,38 +199,38 @@ Skill `api-testing` xác nhận endpoint và MSSV, dựng coverage model trướ
 
 ### 4.3. Audit - Human review
 
-| Kết quả audit | Số lượng | Test case                              | Lý do/điều chỉnh                                                                                                                                   |
-| ------------- | -------: | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| VALID         |       12 | TC-CART-001–004, 025–031, 037           | Hai workflow state-transition đúng thứ tự pre-request; valid partitions phù hợp body contract; quantity bám FR-06 và Bearer rỗng phải bị SEC-02 từ chối. |
-| INVALID       |        3 | TC-CART-008, 039, 040                   | Oracle chưa kiểm đúng mục tiêu hoặc security requirement được ánh xạ sai boundary; các case này đã được chỉnh workflow và requirement mapping trước khi chạy lại. |
-| INCOMPLETE    |       27 | TC-CART-005–007, 009–024, 032–036, 038, 041–042 | Ý tưởng kiểm thử hợp lý nhưng đặc tả chưa quy định đầy đủ validation rule, status code, error schema, normalization hoặc quyền dùng cart của admin. |
+| Kết quả audit | Số lượng | Test case                                       | Lý do/điều chỉnh                                                                                                                                                  |
+| ------------- | -------: | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| VALID         |       12 | TC-CART-001–004, 025–031, 037                   | Hai workflow state-transition đúng thứ tự pre-request; valid partitions phù hợp body contract; quantity bám FR-06 và Bearer rỗng phải bị SEC-02 từ chối.          |
+| INVALID       |        3 | TC-CART-008, 039, 040                           | Oracle chưa kiểm đúng mục tiêu hoặc security requirement được ánh xạ sai boundary; các case này đã được chỉnh workflow và requirement mapping trước khi chạy lại. |
+| INCOMPLETE    |       27 | TC-CART-005–007, 009–024, 032–036, 038, 041–042 | Ý tưởng kiểm thử hợp lý nhưng đặc tả chưa quy định đầy đủ validation rule, status code, error schema, normalization hoặc quyền dùng cart của admin.               |
 
-| Test case/nhóm | Kết quả    | Lý do và điều chỉnh                                                                                                                                                              |
-| -------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TC-CART-001    | VALID      | Workflow chạy ở pre-request trước main request; đã đổi assertion từ độ dài toàn giỏ sang kiểm không có product ID của admin trong giỏ user để loại bỏ phụ thuộc trạng thái nền.          |
-| TC-CART-002    | VALID      | Ý tưởng bám trực tiếp FR-07; đã đổi assertion theo product ID thay vì độ dài/vị trí mảng để không phụ thuộc dữ liệu từ iteration trước.                                                   |
-| TC-CART-003–004 | VALID     | Payload đúng cấu trúc tài liệu và bao phủ hai partition quantity hợp lệ (`1` và `>1`); chấp nhận `200/201` vì API specification không chốt một success status duy nhất.              |
-| TC-CART-005–007 | INCOMPLETE | Unicode, decimal price và số lớn là các partition hữu ích nhưng thiếu quy tắc normalization, precision và upper bound để xác định oracle chính xác.                              |
-| TC-CART-008    | INVALID    | Case chỉ kiểm response thành công, chưa chứng minh `user_id`/`role` không làm đổi chủ sở hữu. Bổ sung `GET /api/cart` bằng hai token và đối chiếu item chỉ nằm trong giỏ của token gửi request. |
+| Test case/nhóm  | Kết quả    | Lý do và điều chỉnh                                                                                                                                                                                  |
+| --------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TC-CART-001     | VALID      | Workflow chạy ở pre-request trước main request; đã đổi assertion từ độ dài toàn giỏ sang kiểm không có product ID của admin trong giỏ user để loại bỏ phụ thuộc trạng thái nền.                      |
+| TC-CART-002     | VALID      | Ý tưởng bám trực tiếp FR-07; đã đổi assertion theo product ID thay vì độ dài/vị trí mảng để không phụ thuộc dữ liệu từ iteration trước.                                                              |
+| TC-CART-003–004 | VALID      | Payload đúng cấu trúc tài liệu và bao phủ hai partition quantity hợp lệ (`1` và `>1`); chấp nhận `200/201` vì API specification không chốt một success status duy nhất.                              |
+| TC-CART-005–007 | INCOMPLETE | Unicode, decimal price và số lớn là các partition hữu ích nhưng thiếu quy tắc normalization, precision và upper bound để xác định oracle chính xác.                                                  |
+| TC-CART-008     | INVALID    | Case chỉ kiểm response thành công, chưa chứng minh `user_id`/`role` không làm đổi chủ sở hữu. Bổ sung `GET /api/cart` bằng hai token và đối chiếu item chỉ nằm trong giỏ của token gửi request.      |
 | TC-CART-009–024 | INCOMPLETE | Body example cho biết các field cần có và kiểu dữ liệu thông thường, nhưng chưa phải JSON Schema chính thức và không quy định error contract; giữ case nhưng cần xác nhận oracle với đặc tả bổ sung. |
-| TC-CART-025–031 | VALID     | FR-06 quy định quantity phải là số nguyên dương tối thiểu `1`; missing, `null`, `0`, âm, thập phân, string và array đều phải bị từ chối mà không được ghi vào giỏ.                  |
-| TC-CART-032–034 | INCOMPLETE | Empty object, array và missing body phải được xử lý an toàn, nhưng tài liệu chưa chốt status, Content-Type và cấu trúc response lỗi.                                               |
-| TC-CART-035–036 | INCOMPLETE | SEC-02 yêu cầu JWT hợp lệ nên request phải bị từ chối, nhưng exact `401/403` và trường `error` chưa được đặc tả; cần bỏ schema lỗi tự suy diễn hoặc bổ sung API contract.           |
-| TC-CART-037    | VALID      | Bearer token rỗng chắc chắn không phải JWT hợp lệ; oracle từ chối bằng `401/403` phù hợp SEC-02 và không phụ thuộc nội dung thông báo lỗi.                                         |
-| TC-CART-038    | INCOMPLETE | Tài liệu chỉ nói API cần người dùng đã xác thực, chưa xác định role admin có được dùng giỏ hàng như user hay không.                                                               |
-| TC-CART-039    | INVALID    | Việc API chấp nhận chuỗi giống SQL trong `name` không trực tiếp chứng minh SEC-05 vì cart dùng state in-memory. Bỏ mapping SEC-05 và chuyển mục tiêu thành robustness/data preservation. |
-| TC-CART-040    | INVALID    | XSS chỉ có thể kết luận tại UI render boundary; response POST thành công không chứng minh payload được escape. Chuyển case sang UI test hoặc chỉ kiểm API lưu/trả chuỗi nguyên vẹn. |
-| TC-CART-041–042 | INCOMPLETE | Body được mô tả là JSON nhưng tài liệu chưa bắt buộc cụ thể media type hoặc status khi thiếu/sai `Content-Type`; cần bổ sung request contract trước khi chốt oracle.               |
+| TC-CART-025–031 | VALID      | FR-06 quy định quantity phải là số nguyên dương tối thiểu `1`; missing, `null`, `0`, âm, thập phân, string và array đều phải bị từ chối mà không được ghi vào giỏ.                                   |
+| TC-CART-032–034 | INCOMPLETE | Empty object, array và missing body phải được xử lý an toàn, nhưng tài liệu chưa chốt status, Content-Type và cấu trúc response lỗi.                                                                 |
+| TC-CART-035–036 | INCOMPLETE | SEC-02 yêu cầu JWT hợp lệ nên request phải bị từ chối, nhưng exact `401/403` và trường `error` chưa được đặc tả; cần bỏ schema lỗi tự suy diễn hoặc bổ sung API contract.                            |
+| TC-CART-037     | VALID      | Bearer token rỗng chắc chắn không phải JWT hợp lệ; oracle từ chối bằng `401/403` phù hợp SEC-02 và không phụ thuộc nội dung thông báo lỗi.                                                           |
+| TC-CART-038     | INCOMPLETE | Tài liệu chỉ nói API cần người dùng đã xác thực, chưa xác định role admin có được dùng giỏ hàng như user hay không.                                                                                  |
+| TC-CART-039     | INVALID    | Việc API chấp nhận chuỗi giống SQL trong `name` không trực tiếp chứng minh SEC-05 vì cart dùng state in-memory. Bỏ mapping SEC-05 và chuyển mục tiêu thành robustness/data preservation.             |
+| TC-CART-040     | INVALID    | XSS chỉ có thể kết luận tại UI render boundary; response POST thành công không chứng minh payload được escape. Chuyển case sang UI test hoặc chỉ kiểm API lưu/trả chuỗi nguyên vẹn.                  |
+| TC-CART-041–042 | INCOMPLETE | Body được mô tả là JSON nhưng tài liệu chưa bắt buộc cụ thể media type hoặc status khi thiếu/sai `Content-Type`; cần bổ sung request contract trước khi chốt oracle.                                 |
 
 ### 4.4. Extend - Test case do sinh viên bổ sung
 
-| Test case ID      | Mô tả                                                                                                                                                                                                                                         | Coverage                                              | Vì sao AI bỏ sót                                                                                                                                                       |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `TC-CART-EXT-001` | Kiểm tra tính atomic khi request bị từ chối: lưu snapshot giỏ, gửi item có `quantity = 0`, sau đó gọi `GET /api/cart`; response phải là `4xx` và toàn bộ giỏ phải giữ nguyên, không thêm item mới hoặc sửa quantity của item cũ.                 | State transition / Validation / Atomicity             | Baseline chỉ kiểm status của payload sai, chưa đối chiếu trạng thái trước và sau request để phát hiện API trả lỗi nhưng vẫn ghi dữ liệu một phần.                       |
-| `TC-CART-EXT-002` | Thêm lại cùng `id` nhưng gửi `name` và `price` khác; giỏ vẫn chỉ có một dòng, quantity được cộng dồn, còn thông tin sản phẩm phải tuân theo một quy tắc nhất quán và không bị client tùy ý thay đổi dữ liệu sản phẩm đã có.                      | State transition / Data integrity / Interaction       | TC-CART-002 chỉ lặp lại payload giống nhau, chưa kiểm xung đột giữa product identity và các thuộc tính mô tả trong lần thêm tiếp theo.                                  |
-| `TC-CART-EXT-003` | Gửi đồng thời nhiều request thêm cùng một product với các quantity đã biết; sau khi tất cả request hoàn tất, giỏ chỉ có một dòng và quantity cuối bằng tổng các lần thêm, không mất cập nhật hoặc tạo dòng trùng.                                | Concurrency / State transition / Race condition       | Baseline chỉ thực hiện hai request tuần tự nên không phát hiện lost update hoặc race condition trong thao tác read-modify-write.                                        |
-| `TC-CART-EXT-004` | Dùng hai tài khoản user thông thường: mỗi tài khoản thêm một product riêng rồi đọc giỏ xen kẽ; mỗi response chỉ chứa item của đúng JWT tương ứng, kể cả khi hai product có cùng `id`.                                                           | Security / Multi-user isolation / State transition    | Baseline so sánh user với admin, trong khi quyền sử dụng cart của admin còn mơ hồ; chưa kiểm tra trực tiếp hai user có cùng quyền và cùng product ID.                   |
-| `TC-CART-EXT-005` | Tạo JWT hợp lệ đã hết hạn, ghi nhận snapshot giỏ rồi gửi `POST /api/cart`; API phải trả `401/403`, không thêm item và trạng thái giỏ khi đọc lại bằng token còn hiệu lực phải không đổi.                                                       | Security / Authentication / State integrity           | Các case authentication hiện tại chỉ bao phủ token thiếu, token sai và Bearer rỗng; chưa kiểm expired-token branch hoặc tác động phụ lên state khi xác thực thất bại. |
+| Test case ID      | Mô tả                                                                                                                                                                                                                            | Coverage                                           | Vì sao AI bỏ sót                                                                                                                                                      |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TC-CART-EXT-001` | Kiểm tra tính atomic khi request bị từ chối: lưu snapshot giỏ, gửi item có `quantity = 0`, sau đó gọi `GET /api/cart`; response phải là `4xx` và toàn bộ giỏ phải giữ nguyên, không thêm item mới hoặc sửa quantity của item cũ. | State transition / Validation / Atomicity          | Baseline chỉ kiểm status của payload sai, chưa đối chiếu trạng thái trước và sau request để phát hiện API trả lỗi nhưng vẫn ghi dữ liệu một phần.                     |
+| `TC-CART-EXT-002` | Thêm lại cùng `id` nhưng gửi `name` và `price` khác; giỏ vẫn chỉ có một dòng, quantity được cộng dồn, còn thông tin sản phẩm phải tuân theo một quy tắc nhất quán và không bị client tùy ý thay đổi dữ liệu sản phẩm đã có.      | State transition / Data integrity / Interaction    | TC-CART-002 chỉ lặp lại payload giống nhau, chưa kiểm xung đột giữa product identity và các thuộc tính mô tả trong lần thêm tiếp theo.                                |
+| `TC-CART-EXT-003` | Gửi đồng thời nhiều request thêm cùng một product với các quantity đã biết; sau khi tất cả request hoàn tất, giỏ chỉ có một dòng và quantity cuối bằng tổng các lần thêm, không mất cập nhật hoặc tạo dòng trùng.                | Concurrency / State transition / Race condition    | Baseline chỉ thực hiện hai request tuần tự nên không phát hiện lost update hoặc race condition trong thao tác read-modify-write.                                      |
+| `TC-CART-EXT-004` | Dùng hai tài khoản user thông thường: mỗi tài khoản thêm một product riêng rồi đọc giỏ xen kẽ; mỗi response chỉ chứa item của đúng JWT tương ứng, kể cả khi hai product có cùng `id`.                                            | Security / Multi-user isolation / State transition | Baseline so sánh user với admin, trong khi quyền sử dụng cart của admin còn mơ hồ; chưa kiểm tra trực tiếp hai user có cùng quyền và cùng product ID.                 |
+| `TC-CART-EXT-005` | Tạo JWT hợp lệ đã hết hạn, ghi nhận snapshot giỏ rồi gửi `POST /api/cart`; API phải trả `401/403`, không thêm item và trạng thái giỏ khi đọc lại bằng token còn hiệu lực phải không đổi.                                         | Security / Authentication / State integrity        | Các case authentication hiện tại chỉ bao phủ token thiếu, token sai và Bearer rỗng; chưa kiểm expired-token branch hoặc tác động phụ lên state khi xác thực thất bại. |
 
 ### 4.5. Execute
 
@@ -252,11 +252,11 @@ Newman thực thi 47 iterations bằng 74 HTTP requests và 329 assertions; 64 a
 
 ### 4.6. Bug reports
 
-| Bug ID       | Mô tả                                         | Test case phát hiện | Evidence                                        | GitHub Issue                                                                   |
-| ------------ | --------------------------------------------- | ------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| Bug ID       | Mô tả                                         | Test case phát hiện      | Evidence                                        | GitHub Issue                                                                   |
+| ------------ | --------------------------------------------- | ------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------ |
 | BUG-CART-001 | Thêm lại cùng product tạo dòng trùng          | TC-CART-002, EXT-002–003 | [Report/evidence](../bugs/cart/BUG-CART-001.md) | [Issue #151](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
 | BUG-CART-002 | Chấp nhận quantity không phải số nguyên dương | TC-CART-025–031, EXT-001 | [Report/evidence](../bugs/cart/BUG-CART-002.md) | [Issue #285](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/285) |
-| BUG-CART-003 | Chấp nhận non-JSON Content-Type và lưu null   | TC-CART-041–042     | [Report/evidence](../bugs/cart/BUG-CART-003.md) | [Issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286) |
+| BUG-CART-003 | Chấp nhận non-JSON Content-Type và lưu null   | TC-CART-041–042          | [Report/evidence](../bugs/cart/BUG-CART-003.md) | [Issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286) |
 
 ## 5. API 3 - `PUT /api/products/:id`
 
@@ -275,51 +275,51 @@ Newman thực thi 47 iterations bằng 74 HTTP requests và 329 assertions; 64 a
 
 Từ endpoint, FR-12, FR-15 và các yêu cầu bảo mật, bộ sinh test phân tích path/header/body, lập partition hợp lệ-không hợp lệ, xác định oracle có thể chứng minh và đánh dấu `INCOMPLETE` khi đặc tả thiếu status/schema thành công. Sau đó bộ test được materialize thành manifest, 46 test case Markdown, Postman Collection, data file và environment mẫu; tất cả request chính và workflow subrequest đều gắn `X-Student-Id: 23127062`.
 
-| Nhóm coverage     |                        Số test case | Ghi chú                                |
-| ----------------- | ----------------------------------: | -------------------------------------- |
-| Domain partition  | 35 | Path `id`, các biên/kiểu của `name`, `price`, `category_id`, body và Content-Type |
-| State transition  | 5 | Cập nhật đúng target, không đổi resource khác, idempotency và request lỗi không đổi state |
-| Security          | 9 | Missing/invalid/empty/user/expired token, injection, mass assignment và safe error handling |
-| Schema validation | 5 | JSON object/primitive, unknown field, response content type và error shape |
-| Tổng AI-generated | 46 | [Manifest](../tests/api/product-update/suite.manifest.json), [coverage matrix](../tests/api/product-update/coverage-matrix.md), [test cases](../tests/test-cases/product-update/) |
+| Nhóm coverage     | Số test case | Ghi chú                                                                                                                                                                           |
+| ----------------- | -----------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Domain partition  |           35 | Path `id`, các biên/kiểu của `name`, `price`, `category_id`, body và Content-Type                                                                                                 |
+| State transition  |            5 | Cập nhật đúng target, không đổi resource khác, idempotency và request lỗi không đổi state                                                                                         |
+| Security          |            9 | Missing/invalid/empty/user/expired token, injection, mass assignment và safe error handling                                                                                       |
+| Schema validation |            5 | JSON object/primitive, unknown field, response content type và error shape                                                                                                        |
+| Tổng AI-generated |           46 | [Manifest](../tests/api/product-update/suite.manifest.json), [coverage matrix](../tests/api/product-update/coverage-matrix.md), [test cases](../tests/test-cases/product-update/) |
 
 ### 5.3. Audit - Human review
 
-| Kết quả audit | Số lượng | Test case | Lý do/điều chỉnh |
-| ------------- | -------: | --------- | ---------------- |
-| VALID | 34 | TC-PRODUCT-UPDATE-002–011, 015–018, 020–021, 023–037, 043–045 | Mục tiêu và oracle bám trực tiếp FR-12/FR-15 hoặc invariant bảo mật có thể kiểm chứng. |
-| INVALID | 0 | Không còn | Các mapping/oracle chưa phù hợp đã được sửa trước khi chạy lại suite. |
-| INCOMPLETE | 12 | TC-PRODUCT-UPDATE-001, 012–014, 019, 022, 038–042, 046 | Ý tưởng hợp lý nhưng đặc tả chưa chốt success response, trimming whitespace hoặc behavior của unknown field. |
+| Kết quả audit | Số lượng | Test case                                                     | Lý do/điều chỉnh                                                                                             |
+| ------------- | -------: | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| VALID         |       34 | TC-PRODUCT-UPDATE-002–011, 015–018, 020–021, 023–037, 043–045 | Mục tiêu và oracle bám trực tiếp FR-12/FR-15 hoặc invariant bảo mật có thể kiểm chứng.                       |
+| INVALID       |        0 | Không còn                                                     | Các mapping/oracle chưa phù hợp đã được sửa trước khi chạy lại suite.                                        |
+| INCOMPLETE    |       12 | TC-PRODUCT-UPDATE-001, 012–014, 019, 022, 038–042, 046        | Ý tưởng hợp lý nhưng đặc tả chưa chốt success response, trimming whitespace hoặc behavior của unknown field. |
 
-| Test case/nhóm | Kết quả | Lý do và điều chỉnh |
-| -------------- | ------- | ------------------- |
-| TC-PRODUCT-UPDATE-001 | INCOMPLETE | Admin update hợp lệ bám FR-12/FR-15, nhưng tài liệu không chốt exact success status/schema; giữ oracle `200/204` và kiểm trạng thái qua `GET`. |
-| TC-PRODUCT-UPDATE-002–004 | VALID | FR-12, SEC-02 và SEC-03 yêu cầu từ chối request thiếu JWT, JWT sai hoặc token user; đã chấp nhận cả `401/403` vì đặc tả không chốt một status duy nhất. |
-| TC-PRODUCT-UPDATE-005 | VALID | Bearer rỗng không phải JWT hợp lệ nên phải bị từ chối theo FR-12/SEC-02. |
-| TC-PRODUCT-UPDATE-006–011 | VALID | Các ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract. |
-| TC-PRODUCT-UPDATE-012–014 | INCOMPLETE | Các biên `name` hợp lệ theo FR-15, nhưng response thành công chưa được đặc tả; giữ BVA và đối chiếu dữ liệu đọc lại. |
-| TC-PRODUCT-UPDATE-015–018 | VALID | Tên dài hơn 255, thiếu, `null` hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15. |
-| TC-PRODUCT-UPDATE-019 | INCOMPLETE | FR-15 yêu cầu `name` không rỗng nhưng chưa quy định trimming hoặc cách xử lý chuỗi chỉ có khoảng trắng; không quy failure này thành product bug. |
-| TC-PRODUCT-UPDATE-020–021 | VALID | `name` dạng array/object sai kiểu dữ liệu của trường tên sản phẩm và phải bị từ chối có kiểm soát. |
-| TC-PRODUCT-UPDATE-022 | INCOMPLETE | `price` dương nhỏ thỏa FR-15, nhưng exact success status/schema chưa được chốt; kiểm thêm trạng thái sau update. |
-| TC-PRODUCT-UPDATE-023–029 | VALID | `price` thiếu, `null`, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15. |
-| TC-PRODUCT-UPDATE-030–035 | VALID | `category_id` thiếu, `null`, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15. |
-| TC-PRODUCT-UPDATE-036–037 | VALID | Body vắng mặt và request `text/plain` không thỏa JSON body contract; API phải trả lỗi 4xx có kiểm soát, không lộ stack trace. |
-| TC-PRODUCT-UPDATE-038 | INCOMPLETE | SEC-03 áp dụng cho role trong JWT, không phải field `role` của product body; đã bỏ mapping SEC-03 và giữ case như robustness/schema check cho unknown field. |
-| TC-PRODUCT-UPDATE-039–041 | INCOMPLETE | Kiểm persistence, cô lập resource và idempotency là đúng hành vi PUT/FR-15; workflow `PUT` đã được bổ sung admin token nhưng success response vẫn chưa được chốt. |
-| TC-PRODUCT-UPDATE-042 | INCOMPLETE | Đã bỏ oracle tự suy diễn response phải có `message`; thay bằng cập nhật rồi `GET` để kiểm `description` và `imageUrl`, trong khi success response PUT còn thiếu contract. |
-| TC-PRODUCT-UPDATE-043–045 | VALID | Top-level array/string và tổ hợp nhiều trường bắt buộc sai đều không thỏa body contract; phải trả 4xx JSON an toàn, không lộ stack trace. |
-| TC-PRODUCT-UPDATE-046 | INCOMPLETE | Payload SQL-like trong `name` phải được xử lý như dữ liệu theo SEC-05; đã bổ sung đọc lại product đích và product khác, nhưng success response chưa được chốt. |
+| Test case/nhóm            | Kết quả    | Lý do và điều chỉnh                                                                                                                                                       |
+| ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TC-PRODUCT-UPDATE-001     | INCOMPLETE | Admin update hợp lệ bám FR-12/FR-15, nhưng tài liệu không chốt exact success status/schema; giữ oracle `200/204` và kiểm trạng thái qua `GET`.                            |
+| TC-PRODUCT-UPDATE-002–004 | VALID      | FR-12, SEC-02 và SEC-03 yêu cầu từ chối request thiếu JWT, JWT sai hoặc token user; đã chấp nhận cả `401/403` vì đặc tả không chốt một status duy nhất.                   |
+| TC-PRODUCT-UPDATE-005     | VALID      | Bearer rỗng không phải JWT hợp lệ nên phải bị từ chối theo FR-12/SEC-02.                                                                                                  |
+| TC-PRODUCT-UPDATE-006–011 | VALID      | Các ID bằng 0, âm, thập phân, chuỗi, SQL-like hoặc không tồn tại không được cập nhật/tạo resource; oracle 4xx và không đổi state phù hợp path contract.                   |
+| TC-PRODUCT-UPDATE-012–014 | INCOMPLETE | Các biên `name` hợp lệ theo FR-15, nhưng response thành công chưa được đặc tả; giữ BVA và đối chiếu dữ liệu đọc lại.                                                      |
+| TC-PRODUCT-UPDATE-015–018 | VALID      | Tên dài hơn 255, thiếu, `null` hoặc rỗng vi phạm trực tiếp điều kiện bắt buộc và giới hạn độ dài của FR-15.                                                               |
+| TC-PRODUCT-UPDATE-019     | INCOMPLETE | FR-15 yêu cầu `name` không rỗng nhưng chưa quy định trimming hoặc cách xử lý chuỗi chỉ có khoảng trắng; không quy failure này thành product bug.                          |
+| TC-PRODUCT-UPDATE-020–021 | VALID      | `name` dạng array/object sai kiểu dữ liệu của trường tên sản phẩm và phải bị từ chối có kiểm soát.                                                                        |
+| TC-PRODUCT-UPDATE-022     | INCOMPLETE | `price` dương nhỏ thỏa FR-15, nhưng exact success status/schema chưa được chốt; kiểm thêm trạng thái sau update.                                                          |
+| TC-PRODUCT-UPDATE-023–029 | VALID      | `price` thiếu, `null`, bằng 0, âm hoặc sai kiểu vi phạm trực tiếp yêu cầu bắt buộc và lớn hơn 0 của FR-15.                                                                |
+| TC-PRODUCT-UPDATE-030–035 | VALID      | `category_id` thiếu, `null`, không tồn tại, không dương hoặc sai kiểu không thể tham chiếu một danh mục hợp lệ theo FR-15.                                                |
+| TC-PRODUCT-UPDATE-036–037 | VALID      | Body vắng mặt và request `text/plain` không thỏa JSON body contract; API phải trả lỗi 4xx có kiểm soát, không lộ stack trace.                                             |
+| TC-PRODUCT-UPDATE-038     | INCOMPLETE | SEC-03 áp dụng cho role trong JWT, không phải field `role` của product body; đã bỏ mapping SEC-03 và giữ case như robustness/schema check cho unknown field.              |
+| TC-PRODUCT-UPDATE-039–041 | INCOMPLETE | Kiểm persistence, cô lập resource và idempotency là đúng hành vi PUT/FR-15; workflow `PUT` đã được bổ sung admin token nhưng success response vẫn chưa được chốt.         |
+| TC-PRODUCT-UPDATE-042     | INCOMPLETE | Đã bỏ oracle tự suy diễn response phải có `message`; thay bằng cập nhật rồi `GET` để kiểm `description` và `imageUrl`, trong khi success response PUT còn thiếu contract. |
+| TC-PRODUCT-UPDATE-043–045 | VALID      | Top-level array/string và tổ hợp nhiều trường bắt buộc sai đều không thỏa body contract; phải trả 4xx JSON an toàn, không lộ stack trace.                                 |
+| TC-PRODUCT-UPDATE-046     | INCOMPLETE | Payload SQL-like trong `name` phải được xử lý như dữ liệu theo SEC-05; đã bổ sung đọc lại product đích và product khác, nhưng success response chưa được chốt.            |
 
 ### 5.4. Extend - Test case bổ sung
 
-| Test case | Nội dung bổ sung | Kỹ thuật/coverage | Khoảng trống của baseline |
-| --------- | ---------------- | ----------------- | ------------------------ |
-| `TC-PRODUCT-UPDATE-EXT-001` | Gửi `price = 0`, sau đó đọc lại và xác nhận toàn bộ sản phẩm giữ nguyên. | State transition / Atomicity | Baseline chỉ kiểm status, chưa phát hiện API từ chối nhưng vẫn ghi dữ liệu một phần. |
-| `TC-PRODUCT-UPDATE-EXT-002` | User thường thử cập nhật product; response phải bị từ chối và state không đổi. | Authorization / State transition | Baseline kiểm access control nhưng chưa kiểm side effect sau request trái quyền. |
+| Test case                   | Nội dung bổ sung                                                                | Kỹ thuật/coverage                      | Khoảng trống của baseline                                                                |
+| --------------------------- | ------------------------------------------------------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `TC-PRODUCT-UPDATE-EXT-001` | Gửi `price = 0`, sau đó đọc lại và xác nhận toàn bộ sản phẩm giữ nguyên.        | State transition / Atomicity           | Baseline chỉ kiểm status, chưa phát hiện API từ chối nhưng vẫn ghi dữ liệu một phần.     |
+| `TC-PRODUCT-UPDATE-EXT-002` | User thường thử cập nhật product; response phải bị từ chối và state không đổi.  | Authorization / State transition       | Baseline kiểm access control nhưng chưa kiểm side effect sau request trái quyền.         |
 | `TC-PRODUCT-UPDATE-EXT-003` | Đổi `name/price` nhưng thiếu `category_id`; resource không được partial update. | Atomicity / Required-field interaction | Baseline kiểm từng field độc lập nhưng chưa kiểm tính nguyên tử của update nhiều trường. |
-| `TC-PRODUCT-UPDATE-EXT-004` | Cập nhật tên gồm đúng 255 ký tự Unicode và đọc lại nguyên vẹn. | BVA / Unicode / Schema | Baseline chỉ kiểm biên 255 bằng ASCII, chưa phân biệt character length và byte length. |
-| `TC-PRODUCT-UPDATE-EXT-005` | Gửi JSON-looking body với `text/plain`; request bị từ chối và state giữ nguyên. | Content-Type confusion / Atomicity | Baseline chỉ kiểm lỗi HTTP/Content-Type, chưa kiểm tác động lên resource. |
+| `TC-PRODUCT-UPDATE-EXT-004` | Cập nhật tên gồm đúng 255 ký tự Unicode và đọc lại nguyên vẹn.                  | BVA / Unicode / Schema                 | Baseline chỉ kiểm biên 255 bằng ASCII, chưa phân biệt character length và byte length.   |
+| `TC-PRODUCT-UPDATE-EXT-005` | Gửi JSON-looking body với `text/plain`; request bị từ chối và state giữ nguyên. | Content-Type confusion / Atomicity     | Baseline chỉ kiểm lỗi HTTP/Content-Type, chưa kiểm tác động lên resource.                |
 
 ### 5.5. Execute
 
@@ -330,47 +330,48 @@ Từ endpoint, FR-12, FR-15 và các yêu cầu bảo mật, bộ sinh test phâ
 - Header `X-Student-Id`: assertion pass trên 51/51 request chính và 28/28 workflow subrequest với giá trị `23127062`.
 - Newman/HTML report: [HTML](../test-reports/newman/product-update-20260823T154712+0700/newman-report.html), [JSON](../test-reports/newman/product-update-20260823T154712+0700/newman-report.json), [CLI log](../test-reports/newman/product-update-20260823T154712+0700/cli.log), [test-run summary](../tests/test-runs/product-update-20260823T154712+0700.md).
 
-|                       Tổng |                   Passed |                   Failed |                   Blocked |
-| -------------------------: | -----------------------: | -----------------------: | ------------------------: |
-| 51 | 12 | 39 | 0 |
+| Tổng | Passed | Failed | Blocked |
+| ---: | -----: | -----: | ------: |
+|   51 |     12 |     39 |       0 |
 
 Newman chạy 51 iterations, phát sinh 79 HTTP requests và 377 assertions; 117 assertions fail. Có 12 testcase Passed và 39 testcase Failed; trong đó 38 failure liên quan 5 root cause của SUT, còn TC-PRODUCT-UPDATE-019 được giữ là specification gap vì FR-15 chưa quy định whitespace-only/trimming. Trong phần Extend, EXT-001 xác nhận update sai vẫn đổi state, EXT-002 xác nhận user thường vẫn cập nhật được product, EXT-003 xác nhận partial update khi thiếu `category_id`, EXT-005 tái hiện HTTP 500 với `text/plain` nhưng không đổi state; EXT-004 pass biên Unicode 255 ký tự. Không phát hiện root cause mới ngoài các issue #234 và #287–#290.
 
 ### 5.6. Bug reports
 
-| Bug ID | Mô tả | Test case phát hiện | Evidence | GitHub Issue |
-| ------ | ----- | ------------------- | -------- | ------------ |
-| BUG-PRODUCT-UPDATE-001 | Endpoint bỏ qua authentication/authorization và chấp nhận token thiếu, sai hoặc của user thường | TC-PRODUCT-UPDATE-002–005, EXT-002 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-001.md), [ảnh](../test-reports/evidence/product-update/access-control.png) | [Issue #234](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234) |
-| BUG-PRODUCT-UPDATE-002 | ID sai định dạng hoặc không tồn tại vẫn trả HTTP 200 và báo cập nhật thành công | TC-PRODUCT-UPDATE-006–011 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-002.md), [ảnh](../test-reports/evidence/product-update/nonexistent-id.png) | [Issue #290](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/290) |
-| BUG-PRODUCT-UPDATE-003 | Không enforce các ràng buộc required/type/boundary của FR-15 | TC-PRODUCT-UPDATE-015–018, 020–036, 043, 045, EXT-001, EXT-003 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-003.md), [ảnh](../test-reports/evidence/product-update/input-validation.png) | [Issue #289](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/289) |
-| BUG-PRODUCT-UPDATE-004 | Request `text/plain` gây HTTP 500 và lộ stack trace HTML | TC-PRODUCT-UPDATE-037, EXT-005 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-004.md), [ảnh](../test-reports/evidence/product-update/content-type-500.png) | [Issue #288](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/288) |
-| BUG-PRODUCT-UPDATE-005 | JSON primitive trả lỗi HTML có stack trace thay vì lỗi JSON an toàn | TC-PRODUCT-UPDATE-044 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-005.md), [ảnh](../test-reports/evidence/product-update/primitive-json-html.png) | [Issue #287](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/287) |
+| Bug ID                 | Mô tả                                                                                           | Test case phát hiện                                            | Evidence                                                                                                                           | GitHub Issue                                                                   |
+| ---------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| BUG-PRODUCT-UPDATE-001 | Endpoint bỏ qua authentication/authorization và chấp nhận token thiếu, sai hoặc của user thường | TC-PRODUCT-UPDATE-002–005, EXT-002                             | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-001.md), [ảnh](../test-reports/evidence/product-update/access-control.png)      | [Issue #234](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/234) |
+| BUG-PRODUCT-UPDATE-002 | ID sai định dạng hoặc không tồn tại vẫn trả HTTP 200 và báo cập nhật thành công                 | TC-PRODUCT-UPDATE-006–011                                      | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-002.md), [ảnh](../test-reports/evidence/product-update/nonexistent-id.png)      | [Issue #290](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/290) |
+| BUG-PRODUCT-UPDATE-003 | Không enforce các ràng buộc required/type/boundary của FR-15                                    | TC-PRODUCT-UPDATE-015–018, 020–036, 043, 045, EXT-001, EXT-003 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-003.md), [ảnh](../test-reports/evidence/product-update/input-validation.png)    | [Issue #289](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/289) |
+| BUG-PRODUCT-UPDATE-004 | Request `text/plain` gây HTTP 500 và lộ stack trace HTML                                        | TC-PRODUCT-UPDATE-037, EXT-005                                 | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-004.md), [ảnh](../test-reports/evidence/product-update/content-type-500.png)    | [Issue #288](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/288) |
+| BUG-PRODUCT-UPDATE-005 | JSON primitive trả lỗi HTML có stack trace thay vì lỗi JSON an toàn                             | TC-PRODUCT-UPDATE-044                                          | [Report](../bugs/product-update/BUG-PRODUCT-UPDATE-005.md), [ảnh](../test-reports/evidence/product-update/primitive-json-html.png) | [Issue #287](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/287) |
 
 ## 6. Postman/Newman features đã sử dụng
 
-| Feature              | Cách sử dụng                      | Evidence/artifact                    |
-| -------------------- | --------------------------------- | ------------------------------------ |
-| Workspace            | `{{POSTMAN_WORKSPACE_USAGE}}`     | `{{POSTMAN_WORKSPACE_EVIDENCE}}`     |
-| Collection           | `{{POSTMAN_COLLECTION_USAGE}}`    | `{{POSTMAN_COLLECTION_EVIDENCE}}`    |
-| Variables            | `{{POSTMAN_VARIABLES_USAGE}}`     | `{{POSTMAN_VARIABLES_EVIDENCE}}`     |
-| Environment          | `{{POSTMAN_ENVIRONMENT_USAGE}}`   | `{{POSTMAN_ENVIRONMENT_EVIDENCE}}`   |
-| Data-driven run      | `{{POSTMAN_DATA_DRIVEN_USAGE}}`   | `{{POSTMAN_DATA_DRIVEN_EVIDENCE}}`   |
-| Pre-request script   | `{{POSTMAN_PRE_REQUEST_USAGE}}`   | `{{POSTMAN_PRE_REQUEST_EVIDENCE}}`   |
-| Test script          | `{{POSTMAN_TEST_SCRIPT_USAGE}}`   | `{{POSTMAN_TEST_SCRIPT_EVIDENCE}}`   |
-| Newman/HTML reporter | `{{NEWMAN_REPORTER_USAGE}}`       | `{{NEWMAN_REPORTER_EVIDENCE}}`       |
-| Monitor              | `{{POSTMAN_MONITOR_USAGE_OR_NA}}` | `{{POSTMAN_MONITOR_EVIDENCE_OR_NA}}` |
-| Mock server          | `{{POSTMAN_MOCK_USAGE_OR_NA}}`    | `{{POSTMAN_MOCK_EVIDENCE_OR_NA}}`    |
+| Feature                        | Cách sử dụng                                                                                                                                                                              |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Collection                     | Tổ chức ba collection độc lập cho Login, Cart và Product Update; mỗi collection chứa request chính cùng các workflow subrequest phục vụ kiểm tra state transition và trạng thái resource. |
+| Variables                      | Dùng runtime variables cho `baseUrl`, `studentId`, request path, query, body, expected result và token tham chiếu; không ghi credentials hoặc JWT thật vào collection đã commit.          |
+| Environment                    | Dùng environment riêng khi chạy để cung cấp `baseUrl`, `studentId`, tài khoản test và token runtime. Repository chỉ lưu các file environment mẫu chứa placeholder.                        |
+| Data-driven run                | Mỗi test case tương ứng một row trong file JSON; Newman đọc iteration data để thay đổi input, oracle và workflow mà không nhân bản request trong collection.                              |
+| Pre-request script             | Chuẩn hóa request theo iteration hiện tại, thiết lập path/query/body/auth và upsert header `X-Student-Id: 23127062` cho mọi request chính lẫn workflow subrequest.                        |
+| Test script                    | Kiểm tra HTTP status, Content-Type, response schema, body assertions, thời gian phản hồi và các invariant về state; kết quả được gắn lại với test case ID tương ứng.                      |
+| Collection Runner / Newman CLI | Chạy collection với data file và environment từ command line, cho phép lặp lại cùng cấu hình trên local và CI/CD.                                                                         |
+| CLI, JSON và HTML reporters    | Xuất đồng thời log CLI, Newman JSON và HTML report bằng `newman-reporter-htmlextra` để tổng hợp pass/fail và phục vụ triage.                                                              |
+
+Các feature như Postman Monitor và Mock Server không được sử dụng vì bài kiểm thử chạy trực tiếp trên SUT local và được tự động hóa bằng Newman.
 
 ## 7. Báo cáo tích hợp CI/CD
 
 ### 7.1. Cấu hình pipeline
 
-- Nền tảng CI/CD: `{{CICD_PLATFORM}}`
-- File cấu hình: `{{CICD_CONFIG_FILE_LINK}}`
-- Trigger: `{{CICD_TRIGGERS}}`
-- Các bước chính: `{{CICD_PIPELINE_STEPS}}`
-- Cách quản lý environment/secrets: `{{CICD_ENVIRONMENT_AND_SECRETS}}`
-- Cách xuất và lưu test report: `{{CICD_REPORT_ARTIFACT_CONFIG}}`
+- Nền tảng CI/CD: GitHub Actions.
+- File cấu hình: [`.github/workflows/hw06-api-tests.yml`](../.github/workflows/hw06-api-tests.yml).
+- Trigger: tự động khi `push` hoặc mở/cập nhật pull request vào branch `HW06/23127062`; hỗ trợ `workflow_dispatch` nhưng job chỉ chạy khi branch hiện tại hoặc branch đích là `HW06/23127062`.
+- Cấu trúc: matrix gồm ba job độc lập cho Login, Cart và Product Update; `fail-fast: false` bảo đảm các suite còn lại tiếp tục chạy khi một suite fail.
+- Các bước chính: checkout source, cài Node.js 24, chạy `npm ci` cho Newman và backend, validate manifest, khởi động một backend sạch cho từng suite, tạo runtime environment, chạy Newman và upload report.
+- Quản lý environment/secrets: runtime environment được tạo trong `/tmp` của GitHub runner; JWT được lấy động từ SUT, không commit vào repository. Newman artifacts được redaction trước khi upload.
+- Test report: mỗi matrix job xuất CLI log, Newman JSON và HTML report; `actions/upload-artifact` lưu artifact trong 14 ngày kể cả khi test fail, miễn bước redaction hoàn tất thành công.
 
 ### 7.2. Sample run - tất cả test case pass
 
@@ -390,10 +391,6 @@ Newman chạy 51 iterations, phát sinh 79 HTTP requests và 377 assertions; 117
 | Test case fail | `{{ONE_FAIL_TEST_CASE_ID}}`       |
 | Kết quả        | `{{ONE_FAIL_RESULT}}`             |
 | Screenshot     | `{{ONE_FAIL_SCREENSHOT_LINK}}`    |
-
-### 7.4. Nhận xét
-
-`{{CICD_REPORT_DISCUSSION}}`
 
 ## 8. AI-driven API Test Generator - Agent Skill
 
@@ -427,14 +424,14 @@ Newman chạy 51 iterations, phát sinh 79 HTTP requests và 377 assertions; 117
 
 ## 9. Test summary
 
-| Chỉ số            | API 1 | API 2 |                            API 3 |                             Tổng |
-| ----------------- | ----: | ----: | -------------------------------: | -------------------------------: |
-| AI-generated      |    37 |    42 | 46 | 125 |
-| Sinh viên bổ sung |     5 |     5 | 5 | 15 |
-| Executed          |    42 |    47 | 51 | 140 |
-| Passed            |    32 |    15 | 12 | 59 |
-| Failed            |    10 |    32 | 39 | 81 |
-| Blocked           |     0 |     0 | 0 | 0 |
-| Bugs              |     4 |     3 | 5 | 12 |
+| Chỉ số            | API 1 | API 2 | API 3 | Tổng |
+| ----------------- | ----: | ----: | ----: | ---: |
+| AI-generated      |    37 |    42 |    46 |  125 |
+| Sinh viên bổ sung |     5 |     5 |     5 |   15 |
+| Executed          |    42 |    47 |    51 |  140 |
+| Passed            |    32 |    15 |    12 |   59 |
+| Failed            |    10 |    32 |    39 |   81 |
+| Blocked           |     0 |     0 |     0 |    0 |
+| Bugs              |     4 |     3 |     5 |   12 |
 
 `{{TEST_SUMMARY_DISCUSSION}}`
