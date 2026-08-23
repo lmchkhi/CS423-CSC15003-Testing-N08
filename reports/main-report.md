@@ -22,10 +22,10 @@ Báo cáo ghi lại pipeline kiểm thử API cho ba API của hệ thống ESho
 
 | API | Cases thiết kế (AI+SV) | Newman assertions | Pass | Fail | Bugs |
 |-----|---------------|---------------|------|------|------|
-| FR-01 Register | 46 (40+6) | 45 | 45 | 0 | 3 |
+| FR-01 Register | 45 (40+5) | 45 | 45 | 0 | 3 |
 | FR-08 Checkout | 40 (35+5) | 76 | 76 | 0 | 3 |
 | FR-14 Category | 47 (40+7) | 112 | 112 | 0 | 4 |
-| **TOTAL** | **133** | **233** | **233** | **0** | **10** |
+| **TOTAL** | **132** | **233** | **233** | **0** | **10** |
 
 > Suite chạy **xanh**: assertion của case known-bug kiểm hành vi quan sát được của SUT
 > (gắn nhãn `[BUG-*]`); 10 lệch chuẩn được đếm ở cột Bugs và mô tả expected-vs-actual bên dưới.
@@ -63,9 +63,9 @@ Tổng: **40 cases** (`test-cases/FR-01-register/ai-generated.md`)
 #### Bước 2: Audit
 
 Kết quả audit (`test-cases/FR-01-register/audit.md`):
-- **VALID:** 27 cases — oracle đúng per spec và SUT behaviour
-- **INVALID:** 9 cases — AI giả định SUT có validation nhưng thực tế không có (email trùng → 409, mật khẩu yếu → 400); đã sửa oracle thành `knownBug: true`
-- **INCOMPLETE:** 4 cases — thiếu assertion schema hoặc precondition
+- **VALID:** 28 cases — oracle đúng per spec và SUT behaviour
+- **INVALID:** 3 cases — AI giả định SUT có validation nhưng thực tế không có (email trùng → 409, mật khẩu yếu → 400); đã sửa oracle thành `knownBug: true`
+- **INCOMPLETE:** 9 cases — thiếu assertion schema hoặc precondition
 
 Lỗi điển hình của AI: giả sử SUT có ràng buộc UNIQUE trên email (không có), giả sử có kiểm tra độ phức tạp mật khẩu (không có).
 
@@ -93,8 +93,8 @@ Report: `api/newman/fr01-register-report.html`
 
 | Bug ID | Mô tả | Severity |
 |--------|-------|----------|
-| BUG-FR01-001 | Email trùng được chấp nhận (không có ràng buộc duy nhất) | High |
-| BUG-FR01-002 | Không kiểm tra dữ liệu đầu vào (mật khẩu rỗng/yếu vẫn được nhận) | High |
+| BUG-FR01-001 | Email trùng được chấp nhận (không có ràng buộc duy nhất) | Major |
+| BUG-FR01-002 | Không kiểm tra dữ liệu đầu vào (mật khẩu rỗng/yếu vẫn được nhận) | Major |
 | BUG-FR01-003 | `/api/login` và `/api/users/me` trả về trường `password` plaintext | Critical |
 
 Issues: #252, #253, #254 trên GitHub.
@@ -134,8 +134,8 @@ Report: `api/newman/fr08-checkout-report.html`
 | Bug ID | Mô tả | Severity |
 |--------|-------|----------|
 | BUG-FR08-001 | IDOR: GET /api/orders/:id không yêu cầu auth | Critical |
-| BUG-FR08-002 | Không kiểm tra `total_amount` (giá trị âm vẫn được nhận) | Critical |
-| BUG-FR08-003 | Chuyển trạng thái sai luật `canceled→delivered` vẫn được chấp nhận | Critical |
+| BUG-FR08-002 | Không kiểm tra `total_amount` (giá trị âm vẫn được nhận) | High |
+| BUG-FR08-003 | Chuyển trạng thái sai luật `canceled→delivered` vẫn được chấp nhận | High |
 
 Issues: #255, #256, #257 trên GitHub.
 
@@ -221,7 +221,7 @@ Báo cáo: `api/newman/fr14-category-report.html`
 | Data files | `api/data/register-cases.json`, `checkout-cases.json`, `fr14-post-categories.csv` |
 | Newman HTML reports | `api/newman/fr01-register-report.html`, `fr08-checkout-report.html`, `fr08-state-report.html`, `fr14-category-report.html`, `fr14-lifecycle-report.html` |
 | Test cases (MD) | `test-cases/FR-{01,08,14}-*/ai-generated.md`, `audit.md`, `extended.md`; split files in `tests/test-cases/FR-{01,08,14}-*/TC-*.md` |
-| Test summary | `test-cases/test-summary.xlsx` (133 cases thiết kế, 233 assertions, 10 bugs) |
+| Test summary | `test-cases/test-summary.xlsx` (132 cases thiết kế, 233 assertions, 10 bugs) |
 | Bug reports | `bug-reports/BUG-FR{01,08,14}-*.md` |
 | CI/CD | `.github/workflows/hw06-newman.yml`, `reports/ci-cd-report.md` |
 | Agent Skill | `.claude/skills/api-test-generator/SKILL.md` |

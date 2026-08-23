@@ -7,7 +7,7 @@
 | **Họ tên** | Hà Bảo Ngọc |
 | **MSSV** | 23127300 |
 | **Lớp / Nhóm** | CS423/CSC15003 — Kiểm thử Phần mềm, FIT HCMUS — Nhóm N08 |
-| **Ngày làm bài** | 20/08/2026 – 21/08/2026 |
+| **Ngày làm bài** | 20/08/2026 – 22/08/2026 |
 | **API được phân công** | FR-01 `POST /api/register` · FR-08 `POST /api/checkout` · FR-14 categories CRUD (`GET/POST/PUT/DELETE /api/categories`) |
 | **Công cụ AI đã dùng** | Claude (Opus 4.8, Sonnet 5, Sonnet 4.6, Haiku 4.5 — chạy trong Claude Code); Claude (Sonnet 4.6 Thinking — chạy trong Antigravity IDE) |
 
@@ -56,7 +56,7 @@ nhận định của sinh viên.
 | --- | --- |
 | **Tool** | Claude (Opus 4.8, Claude Code) |
 | **Timestamp** | 5:30–5:47 PM 20/08/2026 (phiên [1]–[5]) |
-| **Artifact** | `docs/superpowers/plans/2026-08-20-hw06-api-testing.md`, `docs/superpowers/specs/2026-08-20-hw06-api-testing-design.md` |
+| **Artifact** | `docs/superpowers/plans/2026-08-20-hw06-api-testing.md`, `docs/superpowers/specs/2026-08-20-hw06-api-testing-design.md` — **local-only working docs, không nằm trong repo/zip nộp** (xem `.git/info/exclude`); liệt kê ở đây để minh bạch nguồn gốc plan, không dùng làm bằng chứng có thể kiểm chứng độc lập |
 
 **Full prompt (phiên [1], [2]):**
 
@@ -110,9 +110,10 @@ tài liệu spec rời.
 
 **Full prompt:** `execute the plan in docs/superpowers/, use subagent-driven in superpowers`
 
-**AI Output:** Phiên điều phối tách plan thành các task-brief (`.superpowers/sdd/...`)
-và dispatch subagent implementer/reviewer nền cho từng task. Toàn bộ transcript của
-mỗi subagent nằm ở tiểu-phiên tương ứng trong `prompt-log.md`.
+**AI Output:** Phiên điều phối tách plan thành các task-brief (`.superpowers/sdd/...` —
+cũng local-only, không nằm trong repo/zip nộp) và dispatch subagent implementer/reviewer
+nền cho từng task. Toàn bộ transcript của mỗi subagent nằm ở tiểu-phiên tương ứng trong
+`prompt-log.md`, đây mới là bằng chứng kiểm chứng được vì nằm trong repo.
 
 **Verdict:** VALID. **Reasoning:** Quy trình subagent-driven cho mỗi task một vòng
 impl → review → (re-review nếu cần) → commit, đúng kỷ luật §12 (commit-per-step).
@@ -150,12 +151,12 @@ xác nhận đã bổ sung.
 | --- | --- |
 | **Tool** | Claude (Haiku 4.5 implement / Opus 4.8 review, Claude Code) |
 | **Timestamp** | 6:25–7:02 PM 20/08/2026 (phiên [13]–[15]) |
-| **Artifact** | `test-cases/FR-01-register/{ai-generated,audit,extended}.md` (40 AI + 6 sinh viên), `api/data/register-cases.json`, `bug-reports/BUG-FR01-00{1,2,3}.md` |
+| **Artifact** | `test-cases/FR-01-register/{ai-generated,audit,extended}.md` (40 AI + 5 sinh viên), `api/data/register-cases.json`, `bug-reports/BUG-FR01-00{1,2,3}.md` |
 
 **Prompt:** brief Task 3 — sinh ≥35 case theo thứ tự phân vùng name/email/password →
 schema → SEC → account-state; audit; mở rộng ≥5; encode data file; chạy Newman; bug report.
 
-**AI Output:** 40 case AI-generated; audit gán VALID/INVALID/INCOMPLETE; 6 case sinh
+**AI Output:** 40 case AI-generated; audit gán VALID/INVALID/INCOMPLETE; 5 case sinh
 viên (duplicate-email, empty-body, plaintext-password leak, weak-password, whitespace-email).
 
 **Verdict:** INCOMPLETE (vòng 1) → VALID (sau re-review phiên [15]).

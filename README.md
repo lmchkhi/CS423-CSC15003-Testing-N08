@@ -34,10 +34,10 @@
 
 | API | AI-generated | Sinh viên bổ sung | Tổng thiết kế | File |
 |---|---:|---:|---:|---|
-| FR-01 Register | 40 | 6 | 46 | `test-cases/FR-01-register/` |
+| FR-01 Register | 40 | 5 | 45 | `test-cases/FR-01-register/` |
 | FR-08 Checkout | 35 | 5 | 40 | `test-cases/FR-08-checkout/` |
 | FR-14 Category | 40 | 7 | 47 | `test-cases/FR-14-category/` |
-| **Tổng** | **115** | **18** | **133** | `test-cases/test-summary.xlsx` |
+| **Tổng** | **115** | **17** | **132** | `test-cases/test-summary.xlsx` |
 
 Đều vượt sàn §6.1 (≥35 AI-generated / API) và §6.3 (≥5 sinh viên bổ sung / API).
 
@@ -70,12 +70,12 @@ dấu `knownBug`.
 | BUG-FR01-002 | Không kiểm tra dữ liệu đầu vào (mật khẩu rỗng/yếu vẫn được nhận) | Major | `bug-reports/BUG-FR01-002.md` | [#253](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/253) |
 | BUG-FR01-003 | `/api/login` và `/api/users/me` trả về trường `password` plaintext | Critical | `bug-reports/BUG-FR01-003.md` | [#254](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/254) |
 | BUG-FR08-001 | IDOR trên `GET /api/orders/:id` (không token vẫn đọc được) | Critical | `bug-reports/BUG-FR08-001.md` | [#255](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/255) |
-| BUG-FR08-002 | `total_amount` không được kiểm tra (âm/chuỗi vẫn được nhận) | Critical | `bug-reports/BUG-FR08-002.md` | [#256](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/256) |
-| BUG-FR08-003 | Chuyển trạng thái đơn sai luật `canceled→delivered` được chấp nhận | Critical | `bug-reports/BUG-FR08-003.md` | [#257](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/257) |
+| BUG-FR08-002 | `total_amount` không được kiểm tra (âm/chuỗi vẫn được nhận) | High | `bug-reports/BUG-FR08-002.md` | [#256](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/256) |
+| BUG-FR08-003 | Chuyển trạng thái đơn sai luật `canceled→delivered` được chấp nhận | High | `bug-reports/BUG-FR08-003.md` | [#257](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/257) |
 | BUG-FR14-001 | Lỗi phân quyền — user thường CRUD được danh mục | Critical | `bug-reports/BUG-FR14-001.md` | [#261](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/261) |
-| BUG-FR14-002 | PUT/DELETE `id` không tồn tại vẫn trả 200 (không 404) | Major | `bug-reports/BUG-FR14-002.md` | [#258](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/258) |
-| BUG-FR14-003 | Tên danh mục trùng được chấp nhận (không có ràng buộc duy nhất) | Minor | `bug-reports/BUG-FR14-003.md` | [#259](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/259) |
-| BUG-FR14-004 | Tên danh mục rỗng/chỉ có khoảng trắng được chấp nhận | Major | `bug-reports/BUG-FR14-004.md` | [#260](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/260) |
+| BUG-FR14-002 | PUT/DELETE `id` không tồn tại vẫn trả 200 (không 404) | Medium | `bug-reports/BUG-FR14-002.md` | [#258](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/258) |
+| BUG-FR14-003 | Tên danh mục trùng được chấp nhận (không có ràng buộc duy nhất) | Low | `bug-reports/BUG-FR14-003.md` | [#259](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/259) |
+| BUG-FR14-004 | Tên danh mục rỗng/chỉ có khoảng trắng được chấp nhận | Medium | `bug-reports/BUG-FR14-004.md` | [#260](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/260) |
 
 **Tổng số:** 10 bug (black-box, chỉ dùng bằng chứng hành vi quan sát — không tham chiếu mã nguồn SUT).
 
