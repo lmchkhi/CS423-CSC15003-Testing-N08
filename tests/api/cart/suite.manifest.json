@@ -30,12 +30,12 @@
         "reason": "Case bám trực tiếp body contract và quy tắc giỏ hàng được tài liệu mô tả."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
-        "Backend vừa khởi động nên giỏ của user và admin đều rỗng.",
-        "userToken và adminToken hợp lệ đã được cấu hình."
+        "userToken và adminToken hợp lệ đã được cấu hình.",
+        "Dùng product ID riêng cho hai tài khoản."
       ],
       "testData": {
         "id": 990001,
@@ -44,9 +44,9 @@
         "quantity": 1
       },
       "steps": [
-        "Thêm sản phẩm vào giỏ admin qua workflow.",
-        "Đọc giỏ user và xác nhận vẫn rỗng.",
-        "Gửi request chính để thêm một sản phẩm vào giỏ user."
+        "Thêm product id 990002 vào giỏ admin.",
+        "Đọc giỏ user và xác nhận không có product id 990002.",
+        "Gửi request chính để thêm product id 990001 vào giỏ user."
       ],
       "request": {
         "path": "/api/cart",
@@ -97,7 +97,7 @@
           }
         },
         {
-          "name": "Đọc giỏ user chưa có dữ liệu",
+          "name": "Đọc giỏ user và kiểm tra không có item của admin",
           "request": {
             "method": "GET",
             "path": "/api/cart",
@@ -112,8 +112,10 @@
             "bodyAssertions": [
               {
                 "path": "",
-                "operator": "arrayLength",
-                "value": 0
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 990002,
+                "count": 0
               }
             ]
           }
@@ -122,7 +124,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -146,12 +148,12 @@
         "reason": "Case bám trực tiếp body contract và quy tắc giỏ hàng được tài liệu mô tả."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
-        "Giỏ user có đúng một dòng id 990001 từ TC-CART-001.",
-        "userToken hợp lệ đã được cấu hình."
+        "userToken hợp lệ đã được cấu hình.",
+        "Product id 990003 chưa được dùng trong suite."
       ],
       "testData": {
         "id": 990004,
@@ -162,7 +164,7 @@
       "steps": [
         "Thêm id 990003 với quantity 1.",
         "Thêm lại id 990003 với quantity 2.",
-        "GET /api/cart và xác nhận chỉ có một dòng id 990003 với quantity 3.",
+        "GET /api/cart, tìm item theo id và xác nhận chỉ có một dòng với quantity 3.",
         "Gửi request chính để hoàn tất iteration."
       ],
       "request": {
@@ -253,18 +255,18 @@
             "bodyAssertions": [
               {
                 "path": "",
-                "operator": "arrayLength",
-                "value": 2
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 990003,
+                "count": 1
               },
               {
-                "path": "1.id",
-                "operator": "equals",
-                "value": 990003
-              },
-              {
-                "path": "1.quantity",
-                "operator": "equals",
-                "value": 3
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 990003,
+                "targetField": "quantity",
+                "expected": 3
               }
             ]
           }
@@ -275,7 +277,7 @@
         "#151"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -299,8 +301,8 @@
         "reason": "Payload đúng ví dụ và biên quantity tối thiểu; đặc tả không chốt exact success status/body nên chấp nhận 200/201 JSON."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -341,7 +343,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -364,8 +366,8 @@
         "reason": "Valid partition rõ ràng nhưng exact success contract không được tài liệu quy định."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -406,7 +408,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -429,8 +431,8 @@
         "reason": "Unicode là domain partition hữu ích; tài liệu không chốt normalization và exact success response."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -471,7 +473,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -494,8 +496,8 @@
         "reason": "Đặc tả chỉ minh họa price dạng number, chưa quy định có cho phép phần thập phân hay không."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -536,7 +538,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -559,8 +561,8 @@
         "reason": "Không có upper bound cho id, price hoặc quantity; case chỉ kiểm robustness với số JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -601,7 +603,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -626,14 +628,15 @@
         "reason": "Kiểm tra mass assignment: identity phải lấy từ JWT, không từ user_id/role trong body."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INVALID",
+        "reason": "Case cần sửa workflow hoặc requirement mapping trước khi chạy lại."
       },
       "preconditions": [
-        "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+        "userToken và adminToken hợp lệ đã được cấu hình.",
+        "Product id 990008 chưa được dùng trong suite."
       ],
       "testData": {
-        "id": 5,
+        "id": 990008,
         "name": "Sản phẩm có field thừa",
         "price": 100000,
         "quantity": 1,
@@ -641,8 +644,10 @@
         "role": "admin"
       },
       "steps": [
-        "Gửi POST /api/cart với header và body đã nêu.",
-        "Đối chiếu HTTP response với oracle."
+        "Trong workflow, user thêm item có user_id và role giả mạo.",
+        "Đọc giỏ user và xác nhận item thuộc giỏ user.",
+        "Đọc giỏ admin và xác nhận không có item đó.",
+        "Gửi request chính với một product ID riêng."
       ],
       "request": {
         "path": "/api/cart",
@@ -652,12 +657,10 @@
         },
         "auth": "user",
         "body": {
-          "id": 5,
-          "name": "Sản phẩm có field thừa",
+          "id": 990009,
+          "name": "Sản phẩm sau kiểm tra ownership",
           "price": 100000,
-          "quantity": 1,
-          "user_id": 1,
-          "role": "admin"
+          "quantity": 1
         }
       },
       "expected": {
@@ -671,8 +674,92 @@
       },
       "status": "Passed",
       "relatedBugs": [],
+      "workflow": [
+        {
+          "name": "User thêm item có field ownership giả mạo",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 990008,
+              "name": "Sản phẩm có field thừa",
+              "price": 100000,
+              "quantity": 1,
+              "user_id": 1,
+              "role": "admin"
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Đọc giỏ user",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 990008,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 990008,
+                "targetField": "user_id",
+                "expected": 1
+              }
+            ]
+          }
+        },
+        {
+          "name": "Đọc giỏ admin",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{adminToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 990008,
+                "count": 0
+              }
+            ]
+          }
+        }
+      ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -696,8 +783,8 @@
         "reason": "Body example xác định id là thành phần của cart item. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -741,7 +828,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -765,8 +852,8 @@
         "reason": "null không đại diện được product identity hợp lệ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -812,7 +899,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -836,8 +923,8 @@
         "reason": "Chuỗi rỗng không đại diện được product identity hợp lệ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -883,7 +970,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -907,8 +994,8 @@
         "reason": "API example dùng id kiểu number nhưng không có schema chính thức. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -954,7 +1041,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -978,8 +1065,8 @@
         "reason": "Object là type-confusion partition không phù hợp product identity. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1029,7 +1116,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1053,8 +1140,8 @@
         "reason": "Body example xác định name là thành phần của cart item. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1098,7 +1185,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1122,8 +1209,8 @@
         "reason": "null không phải tên hiển thị hợp lệ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1169,7 +1256,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1193,8 +1280,8 @@
         "reason": "Tên rỗng không thể đáp ứng thông tin sản phẩm trong giỏ. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1240,7 +1327,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1264,8 +1351,8 @@
         "reason": "Đặc tả không chốt trimming nhưng whitespace-only tương đương tên rỗng về mặt hiển thị. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1311,7 +1398,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1335,8 +1422,8 @@
         "reason": "Name trong body example là string. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1382,7 +1469,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1406,8 +1493,8 @@
         "reason": "Body example xác định price là thành phần cart item. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1451,7 +1538,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1475,8 +1562,8 @@
         "reason": "null không thể dùng tính thành tiền. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1522,7 +1609,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1547,8 +1634,8 @@
         "reason": "Giá sản phẩm phải dương theo ràng buộc sản phẩm FR-15. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1594,7 +1681,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1618,8 +1705,8 @@
         "reason": "Giá sản phẩm phải dương theo FR-15 và giá âm phá vỡ invariant tổng tiền. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1665,7 +1752,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1690,8 +1777,8 @@
         "reason": "Body example và FR-15 yêu cầu price là number. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1737,7 +1824,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1760,8 +1847,8 @@
         "reason": "Object là type confusion và không thể tính toán an toàn. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1811,7 +1898,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -1836,8 +1923,8 @@
         "reason": "FR-06 yêu cầu quantity là số nguyên dương tối thiểu 1. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1883,7 +1970,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -1908,8 +1995,8 @@
         "reason": "FR-06 yêu cầu quantity là số nguyên dương tối thiểu 1. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -1957,7 +2044,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -1982,8 +2069,8 @@
         "reason": "Vi phạm biên tối thiểu quantity = 1 của FR-06. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2031,7 +2118,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -2055,8 +2142,8 @@
         "reason": "Vi phạm điều kiện số nguyên dương của FR-06. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2104,7 +2191,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -2129,8 +2216,8 @@
         "reason": "FR-06 yêu cầu quantity là số nguyên. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2178,7 +2265,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -2203,8 +2290,8 @@
         "reason": "FR-06 yêu cầu quantity là số nguyên dương. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2252,7 +2339,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -2276,8 +2363,8 @@
         "reason": "Array là type confusion và không phải số nguyên. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2329,7 +2416,7 @@
         "#285"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "SUT defect"
@@ -2353,8 +2440,8 @@
         "reason": "Thiếu toàn bộ cart item contract. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2390,7 +2477,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -2413,8 +2500,8 @@
         "reason": "Top-level body được tài liệu mô tả là object, không phải array. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2464,7 +2551,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -2488,8 +2575,8 @@
         "reason": "POST add-to-cart không có cart item để xử lý. Đặc tả chưa chốt exact error status/schema; dùng oracle bảo thủ HTTP 400/422 và JSON an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2526,7 +2613,7 @@
       "status": "Failed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 2,
         "classification": "specification gap"
@@ -2550,8 +2637,8 @@
         "reason": "SEC-02 bắt buộc JWT hợp lệ nhưng không chốt exact status/error schema; dùng conventional oracle 401 JSON."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2602,7 +2689,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2626,8 +2713,8 @@
         "reason": "SEC-02 chỉ yêu cầu token hợp lệ; chấp nhận 401 hoặc 403 miễn request bị từ chối an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2679,7 +2766,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 403,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2702,8 +2789,8 @@
         "reason": "Bearer token rỗng không phải JWT hợp lệ và phải bị từ chối theo SEC-02."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "VALID",
+        "reason": "Test objective và oracle phù hợp đặc tả sau khi review."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2745,7 +2832,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 401,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2770,8 +2857,8 @@
         "reason": "Đặc tả yêu cầu user đã xác thực nhưng không nói rõ admin có được sử dụng cart API hay không."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -2812,7 +2899,7 @@
       "status": "Passed",
       "relatedBugs": [],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2820,16 +2907,15 @@
     },
     {
       "id": "TC-CART-039",
-      "title": "Payload SQL injection trong name không gây lỗi server",
+      "title": "Chuỗi ký tự đặc biệt trong name được xử lý như dữ liệu",
       "requirementIds": [
-        "FR-07",
-        "SEC-05"
+        "FR-07"
       ],
-      "testType": "Security",
-      "technique": "Injection",
+      "testType": "Functional",
+      "technique": "Robustness / Special-character Partition",
       "coverage": [
-        "security",
-        "domain-partition"
+        "domain-partition",
+        "schema-validation"
       ],
       "source": "ai-generated",
       "agentAudit": {
@@ -2837,21 +2923,23 @@
         "reason": "Payload non-destructive kiểm robustness/parameterization; endpoint cart dùng in-memory state nên SEC-05 chỉ áp dụng gián tiếp."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INVALID",
+        "reason": "Case cần sửa workflow hoặc requirement mapping trước khi chạy lại."
       },
       "preconditions": [
-        "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+        "userToken hợp lệ đã được cấu hình.",
+        "Product id 990039 chưa được dùng trong suite."
       ],
       "testData": {
-        "id": 33,
-        "name": "x'); DROP TABLE products; --",
+        "id": 990039,
+        "name": "x); DROP TABLE products; --",
         "price": 100000,
         "quantity": 1
       },
       "steps": [
-        "Gửi POST /api/cart với header và body đã nêu.",
-        "Đối chiếu HTTP response với oracle."
+        "Thêm item có chuỗi ký tự đặc biệt trong name.",
+        "Đọc lại giỏ và xác nhận chuỗi được giữ như dữ liệu.",
+        "Gửi request chính với product ID riêng."
       ],
       "request": {
         "path": "/api/cart",
@@ -2861,8 +2949,8 @@
         },
         "auth": "user",
         "body": {
-          "id": 33,
-          "name": "x'); DROP TABLE products; --",
+          "id": 990139,
+          "name": "Sản phẩm sau robustness probe",
           "price": 100000,
           "quantity": 1
         }
@@ -2878,8 +2966,66 @@
       },
       "status": "Passed",
       "relatedBugs": [],
+      "workflow": [
+        {
+          "name": "Thêm item có chuỗi ký tự đặc biệt",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 990039,
+              "name": "x); DROP TABLE products; --",
+              "price": 100000,
+              "quantity": 1
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Đọc lại item",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 990039,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 990039,
+                "targetField": "name",
+                "expected": "x); DROP TABLE products; --"
+              }
+            ]
+          }
+        }
+      ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2887,16 +3033,15 @@
     },
     {
       "id": "TC-CART-040",
-      "title": "Payload HTML trong name không được thực thi tại API",
+      "title": "Chuỗi HTML trong name được lưu như dữ liệu ở API boundary",
       "requirementIds": [
-        "FR-07",
-        "SEC-04"
+        "FR-07"
       ],
-      "testType": "Security",
-      "technique": "Stored XSS Probe",
+      "testType": "Functional",
+      "technique": "Robustness / Data Preservation",
       "coverage": [
-        "security",
-        "domain-partition"
+        "domain-partition",
+        "schema-validation"
       ],
       "source": "ai-generated",
       "agentAudit": {
@@ -2904,21 +3049,24 @@
         "reason": "SEC-04 áp dụng tại UI boundary; API case chỉ tạo dữ liệu probe, không thể tự kết luận XSS nếu chưa render UI."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INVALID",
+        "reason": "Case cần sửa workflow hoặc requirement mapping trước khi chạy lại."
       },
       "preconditions": [
-        "Backend khả dụng và userToken hợp lệ đã được cấu hình."
+        "userToken hợp lệ đã được cấu hình.",
+        "Product id 990040 chưa được dùng trong suite."
       ],
       "testData": {
-        "id": 34,
+        "id": 990040,
         "name": "<img src=x onerror=alert(1)>",
         "price": 100000,
         "quantity": 1
       },
       "steps": [
-        "Gửi POST /api/cart với header và body đã nêu.",
-        "Đối chiếu HTTP response với oracle."
+        "Thêm item có chuỗi HTML trong name.",
+        "Đọc lại giỏ và xác nhận API giữ chuỗi dưới dạng dữ liệu.",
+        "Không dùng kết quả API để kết luận hành vi escape tại UI.",
+        "Gửi request chính với product ID riêng."
       ],
       "request": {
         "path": "/api/cart",
@@ -2928,8 +3076,8 @@
         },
         "auth": "user",
         "body": {
-          "id": 34,
-          "name": "<img src=x onerror=alert(1)>",
+          "id": 990140,
+          "name": "Sản phẩm sau HTML probe",
           "price": 100000,
           "quantity": 1
         }
@@ -2945,8 +3093,66 @@
       },
       "status": "Passed",
       "relatedBugs": [],
+      "workflow": [
+        {
+          "name": "Thêm item có chuỗi HTML",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 990040,
+              "name": "<img src=x onerror=alert(1)>",
+              "price": 100000,
+              "quantity": 1
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Đọc lại item",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 990040,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 990040,
+                "targetField": "name",
+                "expected": "<img src=x onerror=alert(1)>"
+              }
+            ]
+          }
+        }
+      ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 0,
         "classification": "passed"
@@ -2970,8 +3176,8 @@
         "reason": "API specification yêu cầu Body JSON nhưng chưa chốt status; dùng 400/415/422 và yêu cầu JSON error an toàn."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -3015,7 +3221,7 @@
         "#286"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
@@ -3039,8 +3245,8 @@
         "reason": "Body JSON cần media type phù hợp nhưng exact status chưa được mô tả."
       },
       "humanReview": {
-        "status": "PENDING",
-        "reason": ""
+        "status": "INCOMPLETE",
+        "reason": "Đặc tả chưa chốt đầy đủ validation rule, status hoặc response schema để xác định oracle duy nhất."
       },
       "preconditions": [
         "Backend khả dụng và userToken hợp lệ đã được cấu hình."
@@ -3082,10 +3288,786 @@
         "#286"
       ],
       "execution": {
-        "runId": "20260822T204500+0700",
+        "runId": "20260823T103442+0700",
         "actualStatus": 200,
         "failedAssertions": 1,
         "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-CART-EXT-001",
+      "title": "Request bị từ chối không được làm thay đổi trạng thái giỏ",
+      "requirementIds": [
+        "FR-06",
+        "FR-07"
+      ],
+      "testType": "State",
+      "technique": "State Transition / Atomicity",
+      "coverage": [
+        "state-transition",
+        "schema-validation"
+      ],
+      "source": "student-authored",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Extension case bổ sung khoảng trống có oracle quan sát được."
+      },
+      "humanReview": {
+        "status": "VALID",
+        "reason": "Đã chọn bổ sung sau khi review AI baseline."
+      },
+      "preconditions": [
+        "userToken hợp lệ đã được cấu hình.",
+        "Các product ID 991001–991003 chưa được dùng."
+      ],
+      "testData": {
+        "validId": 991001,
+        "invalidId": 991002,
+        "invalidQuantity": 0
+      },
+      "steps": [
+        "Thêm một item hợp lệ làm anchor.",
+        "Gửi item khác với quantity 0.",
+        "GET /api/cart và xác nhận anchor không đổi, item sai không tồn tại.",
+        "Gửi request chính với product ID riêng."
+      ],
+      "request": {
+        "path": "/api/cart",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "user",
+        "body": {
+          "id": 991003,
+          "name": "Extension atomicity filler",
+          "price": 100000,
+          "quantity": 1
+        }
+      },
+      "expected": {
+        "status": [
+          200,
+          201
+        ],
+        "contentType": "application/json",
+        "bodyAssertions": [],
+        "maxResponseTimeMs": 2000
+      },
+      "workflow": [
+        {
+          "name": "Thêm anchor hợp lệ",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 991001,
+              "name": "Atomic anchor",
+              "price": 100000,
+              "quantity": 1
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Gửi quantity không hợp lệ",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 991002,
+              "name": "Invalid atomic item",
+              "price": 100000,
+              "quantity": 0
+            }
+          },
+          "expected": {
+            "status": [
+              400,
+              422
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Kiểm tra trạng thái sau request lỗi",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991001,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991001,
+                "targetField": "quantity",
+                "expected": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991002,
+                "count": 0
+              }
+            ]
+          }
+        }
+      ],
+      "status": "Failed",
+      "relatedBugs": [
+        "#285"
+      ],
+      "execution": {
+        "runId": "20260823T103442+0700",
+        "actualStatus": 200,
+        "failedAssertions": 2,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-CART-EXT-002",
+      "title": "Thêm lại cùng id không được làm sai dữ liệu sản phẩm",
+      "requirementIds": [
+        "FR-07"
+      ],
+      "testType": "State",
+      "technique": "State Transition / Data Integrity",
+      "coverage": [
+        "state-transition",
+        "schema-validation"
+      ],
+      "source": "student-authored",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Extension case bổ sung khoảng trống có oracle quan sát được."
+      },
+      "humanReview": {
+        "status": "VALID",
+        "reason": "Đã chọn bổ sung sau khi review AI baseline."
+      },
+      "preconditions": [
+        "userToken hợp lệ đã được cấu hình.",
+        "Product id 991010 chưa được dùng."
+      ],
+      "testData": {
+        "id": 991010,
+        "firstQuantity": 1,
+        "secondQuantity": 2
+      },
+      "steps": [
+        "Thêm product với dữ liệu chuẩn.",
+        "Thêm lại cùng id nhưng name và price khác.",
+        "GET /api/cart và xác nhận một dòng, quantity bằng 3, name và price ban đầu không đổi.",
+        "Gửi request chính với product ID riêng."
+      ],
+      "request": {
+        "path": "/api/cart",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "user",
+        "body": {
+          "id": 991011,
+          "name": "Extension merge integrity filler",
+          "price": 100000,
+          "quantity": 1
+        }
+      },
+      "expected": {
+        "status": [
+          200,
+          201
+        ],
+        "contentType": "application/json",
+        "bodyAssertions": [],
+        "maxResponseTimeMs": 2000
+      },
+      "workflow": [
+        {
+          "name": "Thêm dữ liệu chuẩn",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 991010,
+              "name": "Tên chuẩn",
+              "price": 100000,
+              "quantity": 1
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Thêm lại với dữ liệu xung đột",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 991010,
+              "name": "Tên bị thay đổi",
+              "price": 1,
+              "quantity": 2
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Kiểm tra merge và data integrity",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991010,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991010,
+                "targetField": "quantity",
+                "expected": 3
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991010,
+                "targetField": "name",
+                "expected": "Tên chuẩn"
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991010,
+                "targetField": "price",
+                "expected": 100000
+              }
+            ]
+          }
+        }
+      ],
+      "status": "Failed",
+      "relatedBugs": [
+        "#151"
+      ],
+      "execution": {
+        "runId": "20260823T103442+0700",
+        "actualStatus": 200,
+        "failedAssertions": 4,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-CART-EXT-003",
+      "title": "Concurrent add cùng product không làm mất cập nhật",
+      "requirementIds": [
+        "FR-07"
+      ],
+      "testType": "State",
+      "technique": "Concurrency / Race Condition",
+      "coverage": [
+        "state-transition",
+        "schema-validation"
+      ],
+      "source": "student-authored",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Extension case bổ sung khoảng trống có oracle quan sát được."
+      },
+      "humanReview": {
+        "status": "VALID",
+        "reason": "Đã chọn bổ sung sau khi review AI baseline."
+      },
+      "preconditions": [
+        "userToken hợp lệ đã được cấu hình.",
+        "Product id 991020 chưa được dùng."
+      ],
+      "testData": {
+        "id": 991020,
+        "quantities": [
+          1,
+          2
+        ],
+        "expectedQuantity": 3
+      },
+      "steps": [
+        "Gửi đồng thời hai request thêm cùng id với quantity 1 và 2.",
+        "GET /api/cart và xác nhận một dòng có quantity bằng 3.",
+        "Gửi request chính với product ID riêng."
+      ],
+      "request": {
+        "path": "/api/cart",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "user",
+        "body": {
+          "id": 991021,
+          "name": "Extension concurrency filler",
+          "price": 100000,
+          "quantity": 1
+        }
+      },
+      "expected": {
+        "status": [
+          200,
+          201
+        ],
+        "contentType": "application/json",
+        "bodyAssertions": [],
+        "maxResponseTimeMs": 2000
+      },
+      "workflow": [
+        {
+          "name": "Thêm đồng thời cùng product",
+          "parallelRequests": [
+            {
+              "method": "POST",
+              "path": "/api/cart",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{userToken}}"
+              },
+              "body": {
+                "id": 991020,
+                "name": "Concurrent item",
+                "price": 100000,
+                "quantity": 1
+              }
+            },
+            {
+              "method": "POST",
+              "path": "/api/cart",
+              "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {{userToken}}"
+              },
+              "body": {
+                "id": 991020,
+                "name": "Concurrent item",
+                "price": 100000,
+                "quantity": 2
+              }
+            }
+          ],
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Kiểm tra trạng thái sau concurrent add",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991020,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991020,
+                "targetField": "quantity",
+                "expected": 3
+              }
+            ]
+          }
+        }
+      ],
+      "status": "Failed",
+      "relatedBugs": [
+        "#151"
+      ],
+      "execution": {
+        "runId": "20260823T103442+0700",
+        "actualStatus": 200,
+        "failedAssertions": 2,
+        "classification": "SUT defect"
+      }
+    },
+    {
+      "id": "TC-CART-EXT-004",
+      "title": "Cô lập giỏ giữa hai tài khoản user có cùng product id",
+      "requirementIds": [
+        "FR-07",
+        "SEC-02"
+      ],
+      "testType": "Security",
+      "technique": "Multi-user State Transition / Authorization Isolation",
+      "coverage": [
+        "security",
+        "state-transition",
+        "schema-validation"
+      ],
+      "source": "student-authored",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Extension case bổ sung khoảng trống có oracle quan sát được."
+      },
+      "humanReview": {
+        "status": "VALID",
+        "reason": "Đã chọn bổ sung sau khi review AI baseline."
+      },
+      "preconditions": [
+        "userToken và altUserToken hợp lệ đã được cấu hình.",
+        "Product id 991030 chưa được dùng."
+      ],
+      "testData": {
+        "id": 991030,
+        "userAName": "Item user A",
+        "userBName": "Item user B"
+      },
+      "steps": [
+        "User A thêm product.",
+        "User B thêm cùng id nhưng name khác.",
+        "Đọc hai giỏ và xác nhận mỗi tài khoản chỉ thấy dữ liệu của mình.",
+        "Gửi request chính với product ID riêng."
+      ],
+      "request": {
+        "path": "/api/cart",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "user",
+        "body": {
+          "id": 991031,
+          "name": "Extension isolation filler",
+          "price": 100000,
+          "quantity": 1
+        }
+      },
+      "expected": {
+        "status": [
+          200,
+          201
+        ],
+        "contentType": "application/json",
+        "bodyAssertions": [],
+        "maxResponseTimeMs": 2000
+      },
+      "workflow": [
+        {
+          "name": "User A thêm product",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{userToken}}"
+            },
+            "body": {
+              "id": 991030,
+              "name": "Item user A",
+              "price": 100000,
+              "quantity": 1
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "User B thêm cùng product id",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{altUserToken}}"
+            },
+            "body": {
+              "id": 991030,
+              "name": "Item user B",
+              "price": 200000,
+              "quantity": 2
+            }
+          },
+          "expected": {
+            "status": [
+              200,
+              201
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Đọc giỏ User A",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991030,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991030,
+                "targetField": "name",
+                "expected": "Item user A"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Đọc giỏ User B",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{altUserToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991030,
+                "count": 1
+              },
+              {
+                "path": "",
+                "operator": "arrayItemFieldEquals",
+                "field": "id",
+                "value": 991030,
+                "targetField": "name",
+                "expected": "Item user B"
+              }
+            ]
+          }
+        }
+      ],
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260823T103442+0700",
+        "actualStatus": 200,
+        "failedAssertions": 0,
+        "classification": "passed"
+      }
+    },
+    {
+      "id": "TC-CART-EXT-005",
+      "title": "JWT hết hạn bị từ chối và không làm thay đổi giỏ",
+      "requirementIds": [
+        "SEC-02",
+        "FR-07"
+      ],
+      "testType": "Security",
+      "technique": "Authentication State / Expiry",
+      "coverage": [
+        "security",
+        "state-transition",
+        "schema-validation"
+      ],
+      "source": "student-authored",
+      "agentAudit": {
+        "status": "VALID",
+        "reason": "Extension case bổ sung khoảng trống có oracle quan sát được."
+      },
+      "humanReview": {
+        "status": "VALID",
+        "reason": "Đã chọn bổ sung sau khi review AI baseline."
+      },
+      "preconditions": [
+        "userToken và expiredUserToken đã được cấu hình.",
+        "Product id 991040 chưa được dùng."
+      ],
+      "testData": {
+        "id": 991040,
+        "auth": "expired JWT"
+      },
+      "steps": [
+        "Gửi item bằng JWT hợp lệ về chữ ký nhưng đã hết hạn.",
+        "GET giỏ bằng userToken còn hiệu lực và xác nhận item không tồn tại.",
+        "Gửi request chính với product ID riêng."
+      ],
+      "request": {
+        "path": "/api/cart",
+        "query": {},
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "auth": "user",
+        "body": {
+          "id": 991041,
+          "name": "Extension expired JWT filler",
+          "price": 100000,
+          "quantity": 1
+        }
+      },
+      "expected": {
+        "status": [
+          200,
+          201
+        ],
+        "contentType": "application/json",
+        "bodyAssertions": [],
+        "maxResponseTimeMs": 2000
+      },
+      "workflow": [
+        {
+          "name": "Gửi request bằng expired JWT",
+          "request": {
+            "method": "POST",
+            "path": "/api/cart",
+            "headers": {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer {{expiredUserToken}}"
+            },
+            "body": {
+              "id": 991040,
+              "name": "Expired token item",
+              "price": 100000,
+              "quantity": 1
+            }
+          },
+          "expected": {
+            "status": [
+              401,
+              403
+            ],
+            "bodyAssertions": []
+          }
+        },
+        {
+          "name": "Kiểm tra item không được ghi",
+          "request": {
+            "method": "GET",
+            "path": "/api/cart",
+            "headers": {
+              "Authorization": "Bearer {{userToken}}"
+            }
+          },
+          "expected": {
+            "status": [
+              200
+            ],
+            "bodyAssertions": [
+              {
+                "path": "",
+                "operator": "arrayCountBy",
+                "field": "id",
+                "value": 991040,
+                "count": 0
+              }
+            ]
+          }
+        }
+      ],
+      "status": "Passed",
+      "relatedBugs": [],
+      "execution": {
+        "runId": "20260823T103442+0700",
+        "actualStatus": 200,
+        "failedAssertions": 0,
+        "classification": "passed"
       }
     }
   ]

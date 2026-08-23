@@ -1,25 +1,27 @@
-# TC-CART-039: Payload SQL injection trong name không gây lỗi server
+# TC-CART-039: Chuỗi ký tự đặc biệt trong name được xử lý như dữ liệu
 
 ## Requirement ID
-FR-07, SEC-05
+FR-07
 
 ## Module / Test type / Technique
-CART / Security / Injection
+CART / Functional / Robustness / Special-character Partition
 
 ## Preconditions
-- Backend khả dụng và userToken hợp lệ đã được cấu hình.
+- userToken hợp lệ đã được cấu hình.
+- Product id 990039 chưa được dùng trong suite.
 
 ## Test data
 | Trường | Giá trị |
 |---|---|
-| id | `33` |
-| name | `x'); DROP TABLE products; --` |
+| id | `990039` |
+| name | `x); DROP TABLE products; --` |
 | price | `100000` |
 | quantity | `1` |
 
 ## Test steps
-1. Gửi POST /api/cart với header và body đã nêu.
-2. Đối chiếu HTTP response với oracle.
+1. Thêm item có chuỗi ký tự đặc biệt trong name.
+2. Đọc lại giỏ và xác nhận chuỗi được giữ như dữ liệu.
+3. Gửi request chính với product ID riêng.
 
 ## Expected result
 - HTTP status: `200 hoặc 201`
@@ -30,4 +32,4 @@ Passed / None
 
 ## Automation mapping
 - Data row: `TC-CART-039`
-- Coverage: `security`, `domain-partition`
+- Coverage: `domain-partition`, `schema-validation`

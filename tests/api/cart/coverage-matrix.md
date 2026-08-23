@@ -23,10 +23,21 @@
 | Security | valid JWT, safe input | auth bypass, type confusion, SQLi/XSS probes, content-type confusion | TC-CART-008, 022, 024, 028, 031, 033, 035–042 |
 | Schema | JSON response and expected state | controlled JSON error; no accepted invalid item | TC-CART-001–003, 009–037, 041–042 |
 
+## Extension coverage sau human review
+
+| Khoảng trống | Testcase bổ sung |
+|---|---|
+| Atomicity khi validation thất bại | TC-CART-EXT-001 |
+| Merge cùng product ID nhưng metadata xung đột | TC-CART-EXT-002 |
+| Concurrent add và lost-update/race condition | TC-CART-EXT-003 |
+| Cô lập hai tài khoản user với cùng product ID | TC-CART-EXT-004 |
+| JWT hết hạn và state integrity | TC-CART-EXT-005 |
+
 ## Coverage family count
 
 - `domain-partition`: 30 cases.
 - `state-transition`: 2 cases.
 - `security`: 15 cases.
 - `schema-validation`: 28 cases.
-- Tổng cộng: 42 AI-generated cases; human review vẫn `PENDING`.
+- Tổng cộng: 47 cases, gồm 42 `ai-generated` và 5 `student-authored` extension cases.
+- Human review của baseline: 12 `VALID`, 3 `INVALID`, 27 `INCOMPLETE`.

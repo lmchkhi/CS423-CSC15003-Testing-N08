@@ -5,6 +5,8 @@ TC-CART-002
 
 ## Also detected by
 - Minimal reproduction attempt 1 và 2
+- TC-CART-EXT-002
+- TC-CART-EXT-003
 
 ## Requirement liên quan
 FR-07: thêm cùng một sản phẩm vào giỏ phải tăng số lượng, không tạo dòng mới.
@@ -38,6 +40,12 @@ Hai POST đều trả HTTP 200 nhưng giỏ có hai dòng cùng `id`, với `qua
 
 ## Reproducibility
 2/2 minimal attempts, ngoài lần phát hiện trong Newman.
+
+## Regression run 20260823T103442+0700
+- TC-CART-002, TC-CART-EXT-002 và TC-CART-EXT-003 tiếp tục fail do cùng một product ID tạo hai dòng thay vì merge.
+- Minimal sequential và concurrent reproductions đều trả `200/200` và lưu hai item có quantity `1` và `2`.
+- Evidence: [extension reproduction](../../test-reports/evidence/cart/extension-reproduction-20260823T103442+0700.txt)
+- Newman report: [HTML](../../test-reports/newman/cart-20260823T103442+0700/newman-report.html)
 
 ## Duplicate check
 - Query: `Module: Shopping Cart`, `cùng sản phẩm`, `cart duplicate quantity`, cả open và closed issues.

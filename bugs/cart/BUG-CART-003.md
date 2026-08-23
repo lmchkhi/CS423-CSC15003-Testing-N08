@@ -38,6 +38,10 @@ API trả HTTP 200 với `{"message":"Added to cart"}`; chiều dài giỏ tăng
 ## Reproducibility
 2/2 minimal attempts với `text/plain`, ngoài Newman TC-CART-041 và TC-CART-042.
 
+## Regression run 20260823T103442+0700
+- TC-CART-041 và TC-CART-042 tiếp tục fail: cả `text/plain` và request thiếu `Content-Type` đều trả HTTP `200` thay vì controlled `4xx`.
+- Newman report: [HTML](../../test-reports/newman/cart-20260823T103442+0700/newman-report.html)
+
 ## Duplicate check
 - Query: `/api/cart`, `cart text/plain`, label `Module: Shopping Cart`, cả open và closed issues.
 - Result: No duplicate found; published as [issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286).

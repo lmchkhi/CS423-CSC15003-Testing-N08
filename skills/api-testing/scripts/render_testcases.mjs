@@ -29,6 +29,8 @@ function renderBodyAssertion(assertion) {
     case "lt": return `- ${field} phải nhỏ hơn ${value}`;
     case "lte": return `- ${field} phải nhỏ hơn hoặc bằng ${value}`;
     case "arrayLength": return `- ${field} phải là array có đúng ${value} phần tử`;
+    case "arrayCountBy": return `- ${field} phải có đúng \`${assertion.count}\` phần tử với \`${assertion.field}\` bằng ${value}`;
+    case "arrayItemFieldEquals": return `- Phần tử duy nhất trong ${field} có \`${assertion.field}\` bằng ${value} phải có \`${assertion.targetField}\` bằng ${show(assertion.targetField || "", assertion.expected)}`;
     default: return `- Assertion không được hỗ trợ cho ${field}: \`${String(assertion.operator).replaceAll("`", "\\`")}\``;
   }
 }

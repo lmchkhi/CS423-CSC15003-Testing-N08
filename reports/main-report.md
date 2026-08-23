@@ -199,40 +199,63 @@ Skill `api-testing` xác nhận endpoint và MSSV, dựng coverage model trướ
 
 ### 4.3. Audit - Human review
 
-| Kết quả audit |                     Số lượng | Các test case tiêu biểu      | Lý do/điều chỉnh                   |
-| ------------- | ---------------------------: | ---------------------------- | ---------------------------------- |
-| VALID         |      `{{VALID_COUNT_API_2}}` | `{{VALID_CASES_API_2}}`      | `{{VALID_REASON_API_2}}`           |
-| INVALID       |    `{{INVALID_COUNT_API_2}}` | `{{INVALID_CASES_API_2}}`    | `{{INVALID_CORRECTIONS_API_2}}`    |
-| INCOMPLETE    | `{{INCOMPLETE_COUNT_API_2}}` | `{{INCOMPLETE_CASES_API_2}}` | `{{INCOMPLETE_CORRECTIONS_API_2}}` |
+| Kết quả audit | Số lượng | Test case                              | Lý do/điều chỉnh                                                                                                                                   |
+| ------------- | -------: | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| VALID         |       12 | TC-CART-001–004, 025–031, 037           | Hai workflow state-transition đúng thứ tự pre-request; valid partitions phù hợp body contract; quantity bám FR-06 và Bearer rỗng phải bị SEC-02 từ chối. |
+| INVALID       |        3 | TC-CART-008, 039, 040                   | Oracle chưa kiểm đúng mục tiêu hoặc security requirement được ánh xạ sai boundary; các case này đã được chỉnh workflow và requirement mapping trước khi chạy lại. |
+| INCOMPLETE    |       27 | TC-CART-005–007, 009–024, 032–036, 038, 041–042 | Ý tưởng kiểm thử hợp lý nhưng đặc tả chưa quy định đầy đủ validation rule, status code, error schema, normalization hoặc quyền dùng cart của admin. |
 
-`{{NHAN_XET_AUDIT_API_2}}`
+| Test case/nhóm | Kết quả    | Lý do và điều chỉnh                                                                                                                                                              |
+| -------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TC-CART-001    | VALID      | Workflow chạy ở pre-request trước main request; đã đổi assertion từ độ dài toàn giỏ sang kiểm không có product ID của admin trong giỏ user để loại bỏ phụ thuộc trạng thái nền.          |
+| TC-CART-002    | VALID      | Ý tưởng bám trực tiếp FR-07; đã đổi assertion theo product ID thay vì độ dài/vị trí mảng để không phụ thuộc dữ liệu từ iteration trước.                                                   |
+| TC-CART-003–004 | VALID     | Payload đúng cấu trúc tài liệu và bao phủ hai partition quantity hợp lệ (`1` và `>1`); chấp nhận `200/201` vì API specification không chốt một success status duy nhất.              |
+| TC-CART-005–007 | INCOMPLETE | Unicode, decimal price và số lớn là các partition hữu ích nhưng thiếu quy tắc normalization, precision và upper bound để xác định oracle chính xác.                              |
+| TC-CART-008    | INVALID    | Case chỉ kiểm response thành công, chưa chứng minh `user_id`/`role` không làm đổi chủ sở hữu. Bổ sung `GET /api/cart` bằng hai token và đối chiếu item chỉ nằm trong giỏ của token gửi request. |
+| TC-CART-009–024 | INCOMPLETE | Body example cho biết các field cần có và kiểu dữ liệu thông thường, nhưng chưa phải JSON Schema chính thức và không quy định error contract; giữ case nhưng cần xác nhận oracle với đặc tả bổ sung. |
+| TC-CART-025–031 | VALID     | FR-06 quy định quantity phải là số nguyên dương tối thiểu `1`; missing, `null`, `0`, âm, thập phân, string và array đều phải bị từ chối mà không được ghi vào giỏ.                  |
+| TC-CART-032–034 | INCOMPLETE | Empty object, array và missing body phải được xử lý an toàn, nhưng tài liệu chưa chốt status, Content-Type và cấu trúc response lỗi.                                               |
+| TC-CART-035–036 | INCOMPLETE | SEC-02 yêu cầu JWT hợp lệ nên request phải bị từ chối, nhưng exact `401/403` và trường `error` chưa được đặc tả; cần bỏ schema lỗi tự suy diễn hoặc bổ sung API contract.           |
+| TC-CART-037    | VALID      | Bearer token rỗng chắc chắn không phải JWT hợp lệ; oracle từ chối bằng `401/403` phù hợp SEC-02 và không phụ thuộc nội dung thông báo lỗi.                                         |
+| TC-CART-038    | INCOMPLETE | Tài liệu chỉ nói API cần người dùng đã xác thực, chưa xác định role admin có được dùng giỏ hàng như user hay không.                                                               |
+| TC-CART-039    | INVALID    | Việc API chấp nhận chuỗi giống SQL trong `name` không trực tiếp chứng minh SEC-05 vì cart dùng state in-memory. Bỏ mapping SEC-05 và chuyển mục tiêu thành robustness/data preservation. |
+| TC-CART-040    | INVALID    | XSS chỉ có thể kết luận tại UI render boundary; response POST thành công không chứng minh payload được escape. Chuyển case sang UI test hoặc chỉ kiểm API lưu/trả chuỗi nguyên vẹn. |
+| TC-CART-041–042 | INCOMPLETE | Body được mô tả là JSON nhưng tài liệu chưa bắt buộc cụ thể media type hoặc status khi thiếu/sai `Content-Type`; cần bổ sung request contract trước khi chốt oracle.               |
 
 ### 4.4. Extend - Test case do sinh viên bổ sung
 
-Chưa có testcase `student-authored` do sinh viên cung cấp. Phần này phải do sinh viên tự bổ sung ít nhất 5 case sau khi review AI baseline và giải thích AI đã bỏ sót điều gì; skill không được tự tạo nội dung hoặc nhận authorship thay sinh viên.
+| Test case ID      | Mô tả                                                                                                                                                                                                                                         | Coverage                                              | Vì sao AI bỏ sót                                                                                                                                                       |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TC-CART-EXT-001` | Kiểm tra tính atomic khi request bị từ chối: lưu snapshot giỏ, gửi item có `quantity = 0`, sau đó gọi `GET /api/cart`; response phải là `4xx` và toàn bộ giỏ phải giữ nguyên, không thêm item mới hoặc sửa quantity của item cũ.                 | State transition / Validation / Atomicity             | Baseline chỉ kiểm status của payload sai, chưa đối chiếu trạng thái trước và sau request để phát hiện API trả lỗi nhưng vẫn ghi dữ liệu một phần.                       |
+| `TC-CART-EXT-002` | Thêm lại cùng `id` nhưng gửi `name` và `price` khác; giỏ vẫn chỉ có một dòng, quantity được cộng dồn, còn thông tin sản phẩm phải tuân theo một quy tắc nhất quán và không bị client tùy ý thay đổi dữ liệu sản phẩm đã có.                      | State transition / Data integrity / Interaction       | TC-CART-002 chỉ lặp lại payload giống nhau, chưa kiểm xung đột giữa product identity và các thuộc tính mô tả trong lần thêm tiếp theo.                                  |
+| `TC-CART-EXT-003` | Gửi đồng thời nhiều request thêm cùng một product với các quantity đã biết; sau khi tất cả request hoàn tất, giỏ chỉ có một dòng và quantity cuối bằng tổng các lần thêm, không mất cập nhật hoặc tạo dòng trùng.                                | Concurrency / State transition / Race condition       | Baseline chỉ thực hiện hai request tuần tự nên không phát hiện lost update hoặc race condition trong thao tác read-modify-write.                                        |
+| `TC-CART-EXT-004` | Dùng hai tài khoản user thông thường: mỗi tài khoản thêm một product riêng rồi đọc giỏ xen kẽ; mỗi response chỉ chứa item của đúng JWT tương ứng, kể cả khi hai product có cùng `id`.                                                           | Security / Multi-user isolation / State transition    | Baseline so sánh user với admin, trong khi quyền sử dụng cart của admin còn mơ hồ; chưa kiểm tra trực tiếp hai user có cùng quyền và cùng product ID.                   |
+| `TC-CART-EXT-005` | Tạo JWT hợp lệ đã hết hạn, ghi nhận snapshot giỏ rồi gửi `POST /api/cart`; API phải trả `401/403`, không thêm item và trạng thái giỏ khi đọc lại bằng token còn hiệu lực phải không đổi.                                                       | Security / Authentication / State integrity           | Các case authentication hiện tại chỉ bao phủ token thiếu, token sai và Bearer rỗng; chưa kiểm expired-token branch hoặc tác động phụ lên state khi xác thực thất bại. |
 
 ### 4.5. Execute
 
 - Công cụ chạy: Newman 6.2.2 và `newman-reporter-htmlextra` 1.23.1.
 - Collection/data/environment: [collection](../tests/api/cart/cart.postman_collection.json), [data](../tests/api/cart/cart.test-data.json); runtime environment chứa JWT chỉ nằm ở `/tmp` và không được commit.
-- Run ID: `20260822T204500+0700`.
-- Thời gian chạy và múi giờ: `2026-08-22T20:45:00+07:00` (Asia/Ho_Chi_Minh).
-- Header `X-Student-Id`: 42/42 main requests và 5/5 workflow subrequests pass assertion `X-Student-Id: 23127062`.
-- Newman/HTML report: [HTML](../test-reports/newman/cart-20260822T204500+0700/newman-report.html), [JSON](../test-reports/newman/cart-20260822T204500+0700/newman-report.json), [CLI](../test-reports/newman/cart-20260822T204500+0700/cli.log).
-- Console screenshot: ![Newman Cart Content-Type và summary](../test-reports/evidence/cart/content-type-confusion/evidence.png)
+- Run ID: `20260823T103442+0700`.
+- Thời gian chạy và múi giờ: `2026-08-23T10:34:42+07:00` (Asia/Ho_Chi_Minh).
+- Header `X-Student-Id`: 47/47 main requests và 27/27 workflow subrequests không có assertion failure; tổng cộng 74 HTTP requests.
+- Newman/HTML report: [HTML](../test-reports/newman/cart-20260823T103442+0700/newman-report.html), [JSON](../test-reports/newman/cart-20260823T103442+0700/newman-report.json), [CLI](../test-reports/newman/cart-20260823T103442+0700/cli.log).
+- Test-run summary: [cart-20260823T103442+0700.md](../tests/test-runs/cart-20260823T103442+0700.md).
+- Minimal reproduction của extension failures: [evidence](../test-reports/evidence/cart/extension-reproduction-20260823T103442+0700.txt).
+- Console screenshot: ![Newman Cart extension run summary](../test-reports/evidence/cart/newman-summary-20260823T103442+0700.png)
 
 | Tổng | Passed | Failed | Blocked |
 | ---: | -----: | -----: | ------: |
-|   42 |     13 |     29 |       0 |
+|   47 |     15 |     32 |       0 |
 
-Newman thực thi 42 iterations bằng 47 HTTP requests và 217 assertions; 56 assertions fail. Triage xác nhận 3 root causes: duplicate product (#151), invalid quantity (#285) và Content-Type confusion (#286). Các failure còn lại giữ phân loại specification gap/INCOMPLETE vì tài liệu chưa chốt exact input/error contract. Chi tiết theo testcase nằm trong [test-run summary](../tests/test-runs/cart-20260822T204500+0700.md).
+Newman thực thi 47 iterations bằng 74 HTTP requests và 329 assertions; 64 assertions fail. Trong 32 testcase Failed, 13 case liên quan ba SUT defects đã xác nhận và 19 case giữ phân loại specification gap/INCOMPLETE. TC-CART-EXT-001 xác nhận lỗi quantity còn làm thay đổi state; TC-CART-EXT-002 và TC-CART-EXT-003 xác nhận merge vẫn lỗi với metadata xung đột và concurrent requests. TC-CART-EXT-004 và TC-CART-EXT-005 pass, xác nhận cô lập hai user và từ chối expired JWT.
 
 ### 4.6. Bug reports
 
 | Bug ID       | Mô tả                                         | Test case phát hiện | Evidence                                        | GitHub Issue                                                                   |
 | ------------ | --------------------------------------------- | ------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------ |
-| BUG-CART-001 | Thêm lại cùng product tạo dòng trùng          | TC-CART-002         | [Report/evidence](../bugs/cart/BUG-CART-001.md) | [Issue #151](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
-| BUG-CART-002 | Chấp nhận quantity không phải số nguyên dương | TC-CART-025–031     | [Report/evidence](../bugs/cart/BUG-CART-002.md) | [Issue #285](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/285) |
+| BUG-CART-001 | Thêm lại cùng product tạo dòng trùng          | TC-CART-002, EXT-002–003 | [Report/evidence](../bugs/cart/BUG-CART-001.md) | [Issue #151](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/151) |
+| BUG-CART-002 | Chấp nhận quantity không phải số nguyên dương | TC-CART-025–031, EXT-001 | [Report/evidence](../bugs/cart/BUG-CART-002.md) | [Issue #285](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/285) |
 | BUG-CART-003 | Chấp nhận non-JSON Content-Type và lưu null   | TC-CART-041–042     | [Report/evidence](../bugs/cart/BUG-CART-003.md) | [Issue #286](https://github.com/lmchkhi/CS423-CSC15003-Testing-N08/issues/286) |
 
 ## 5. API 3 - `{{METHOD_ENDPOINT_API_3}}`
@@ -388,10 +411,10 @@ Newman thực thi 42 iterations bằng 47 HTTP requests và 217 assertions; 56 a
 | Chỉ số            | API 1 | API 2 |                            API 3 |                             Tổng |
 | ----------------- | ----: | ----: | -------------------------------: | -------------------------------: |
 | AI-generated      |    37 |    42 | `{{SUMMARY_AI_GENERATED_API_3}}` | `{{SUMMARY_AI_GENERATED_TOTAL}}` |
-| Sinh viên bổ sung |     5 |     0 |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
-| Executed          |    42 |    42 |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
-| Passed            |    32 |    13 |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
-| Failed            |    10 |    29 |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
+| Sinh viên bổ sung |     5 |     5 |     `{{SUMMARY_EXTENDED_API_3}}` |     `{{SUMMARY_EXTENDED_TOTAL}}` |
+| Executed          |    42 |    47 |     `{{SUMMARY_EXECUTED_API_3}}` |     `{{SUMMARY_EXECUTED_TOTAL}}` |
+| Passed            |    32 |    15 |       `{{SUMMARY_PASSED_API_3}}` |       `{{SUMMARY_PASSED_TOTAL}}` |
+| Failed            |    10 |    32 |       `{{SUMMARY_FAILED_API_3}}` |       `{{SUMMARY_FAILED_TOTAL}}` |
 | Blocked           |     0 |     0 |      `{{SUMMARY_BLOCKED_API_3}}` |      `{{SUMMARY_BLOCKED_TOTAL}}` |
 | Bugs              |     4 |     3 |         `{{SUMMARY_BUGS_API_3}}` |         `{{SUMMARY_BUGS_TOTAL}}` |
 

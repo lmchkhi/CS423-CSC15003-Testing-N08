@@ -7,12 +7,13 @@ FR-07, SEC-02
 CART / Security / Mass Assignment
 
 ## Preconditions
-- Backend khả dụng và userToken hợp lệ đã được cấu hình.
+- userToken và adminToken hợp lệ đã được cấu hình.
+- Product id 990008 chưa được dùng trong suite.
 
 ## Test data
 | Trường | Giá trị |
 |---|---|
-| id | `5` |
+| id | `990008` |
 | name | `Sản phẩm có field thừa` |
 | price | `100000` |
 | quantity | `1` |
@@ -20,8 +21,10 @@ CART / Security / Mass Assignment
 | role | `admin` |
 
 ## Test steps
-1. Gửi POST /api/cart với header và body đã nêu.
-2. Đối chiếu HTTP response với oracle.
+1. Trong workflow, user thêm item có user_id và role giả mạo.
+2. Đọc giỏ user và xác nhận item thuộc giỏ user.
+3. Đọc giỏ admin và xác nhận không có item đó.
+4. Gửi request chính với một product ID riêng.
 
 ## Expected result
 - HTTP status: `200 hoặc 201`

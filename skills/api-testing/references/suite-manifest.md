@@ -57,4 +57,6 @@ By default, every case must keep `humanReview.status` as `PENDING` and `humanRev
 
 Allowed `request.auth`: `none`, `missing`, `user`, `admin`, `invalid`, `custom`. For `custom`, set `request.token` to a variable reference, never a live token in committed files.
 
-Supported body assertion operators: `equals`, `notEquals`, `exists`, `absent`, `type`, `matches`, `includes`, `gt`, `gte`, `lt`, `lte`, and `arrayLength`.
+Supported body assertion operators: `equals`, `notEquals`, `exists`, `absent`, `type`, `matches`, `includes`, `gt`, `gte`, `lt`, `lte`, `arrayLength`, `arrayCountBy`, and `arrayItemFieldEquals`.
+
+For concurrent state-transition cases, a workflow step may use `parallelRequests` instead of `request`. All requests in the array run concurrently, carry `X-Student-Id`, and can share one allowed-status oracle through the step's `expected.status`.

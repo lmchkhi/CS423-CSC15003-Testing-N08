@@ -1,0 +1,55 @@
+{
+  "runId": "20260823T103442+0700",
+  "studentId": "23127062",
+  "duplicate": {
+    "statuses": [
+      200,
+      200
+    ],
+    "storedItems": [
+      {
+        "id": 992001,
+        "quantity": 1,
+        "name": "Minimal duplicate",
+        "price": 100000
+      },
+      {
+        "id": 992001,
+        "quantity": 2,
+        "name": "Minimal duplicate",
+        "price": 100000
+      }
+    ]
+  },
+  "invalidQuantity": {
+    "status": 200,
+    "storedItems": [
+      {
+        "id": 992002,
+        "quantity": 0,
+        "name": "Minimal invalid quantity",
+        "price": 100000
+      }
+    ]
+  },
+  "concurrent": {
+    "statuses": [
+      200,
+      200
+    ],
+    "storedItems": [
+      {
+        "id": 992003,
+        "quantity": 1,
+        "name": "Minimal concurrent",
+        "price": 100000
+      },
+      {
+        "id": 992003,
+        "quantity": 2,
+        "name": "Minimal concurrent",
+        "price": 100000
+      }
+    ]
+  }
+}

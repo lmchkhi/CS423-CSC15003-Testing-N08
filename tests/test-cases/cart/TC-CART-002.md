@@ -7,8 +7,8 @@ FR-07
 CART / State / State Transition
 
 ## Preconditions
-- Giỏ user có đúng một dòng id 990001 từ TC-CART-001.
 - userToken hợp lệ đã được cấu hình.
+- Product id 990003 chưa được dùng trong suite.
 
 ## Test data
 | Trường | Giá trị |
@@ -21,7 +21,7 @@ CART / State / State Transition
 ## Test steps
 1. Thêm id 990003 với quantity 1.
 2. Thêm lại id 990003 với quantity 2.
-3. GET /api/cart và xác nhận chỉ có một dòng id 990003 với quantity 3.
+3. GET /api/cart, tìm item theo id và xác nhận chỉ có một dòng với quantity 3.
 4. Gửi request chính để hoàn tất iteration.
 
 ## Expected result

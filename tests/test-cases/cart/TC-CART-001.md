@@ -7,8 +7,8 @@ FR-07, SEC-02
 CART / Security / State Transition / Authorization Isolation
 
 ## Preconditions
-- Backend vừa khởi động nên giỏ của user và admin đều rỗng.
 - userToken và adminToken hợp lệ đã được cấu hình.
+- Dùng product ID riêng cho hai tài khoản.
 
 ## Test data
 | Trường | Giá trị |
@@ -19,9 +19,9 @@ CART / Security / State Transition / Authorization Isolation
 | quantity | `1` |
 
 ## Test steps
-1. Thêm sản phẩm vào giỏ admin qua workflow.
-2. Đọc giỏ user và xác nhận vẫn rỗng.
-3. Gửi request chính để thêm một sản phẩm vào giỏ user.
+1. Thêm product id 990002 vào giỏ admin.
+2. Đọc giỏ user và xác nhận không có product id 990002.
+3. Gửi request chính để thêm product id 990001 vào giỏ user.
 
 ## Expected result
 - HTTP status: `200 hoặc 201`
