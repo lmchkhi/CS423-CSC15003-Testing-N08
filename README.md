@@ -113,6 +113,7 @@ mỗi push. Hai run mẫu (pass / fail) và cấu hình: `reports/ci-cd-report.m
 | `tests/test-cases/FR-{01,08,14}-*/` | File Markdown riêng cho từng test case (`TC-*.md`) |
 | `test-cases/test-summary.xlsx` | Bảng tổng hợp case + summary |
 | `reports/main-report.md` | Báo cáo chính (pipeline từng API) |
+| `reports/test-summary-report.md` | Test Summary Report dạng ISTQB (scope, metrics, lessons learned, exit criteria) — bổ sung cho §14, không thay xlsx |
 | `reports/ci-cd-report.md` | Cấu hình pipeline + 2 run mẫu |
 | `reports/ai-audit-report.md`, `prompt-log.md`, `ai-critique.md` | Phụ lục AI bắt buộc (§9, §10) |
 | `reports/test-generator-design.md` | Thiết kế Agent Skill sinh test (§7) |

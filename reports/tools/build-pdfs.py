@@ -29,6 +29,8 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 DOCS = [
     ("reports/main-report.md", "reports/pdf/main-report.pdf",
      "HW06 — Báo cáo chính"),
+    ("reports/test-summary-report.md", "reports/pdf/test-summary-report.pdf",
+     "HW06 — Test Summary Report"),
     ("reports/ai-critique.md", "reports/pdf/ai-critique.pdf",
      "HW06 — AI Critique"),
     ("reports/ai-audit-report.md", "reports/pdf/ai-audit-report.pdf",
