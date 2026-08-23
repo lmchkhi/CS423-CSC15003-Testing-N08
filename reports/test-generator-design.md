@@ -81,7 +81,12 @@ Mỗi cạnh trong đồ thị trạng thái → một test case; cạnh illegal
 
 ---
 
-### Stage 6 — Audit: VALID / INVALID / INCOMPLETE
+### Post-Stage A — Audit (human): VALID / INVALID / INCOMPLETE
+
+> Đây là bước **con người**, nằm sau 7 stage tự động của generator (Stage 6/7 ở trên
+> là `emit_markdown`/`emit_data_json` — xem sơ đồ `diagrams/test-generator.png`). Đặt
+> tên "Post-Stage" thay vì tiếp tục đánh số Stage 8/9 để khỏi lẫn với các stage tự động
+> mà generator thực sự thực hiện.
 
 Sau khi AI tạo bảng TC-*, sinh viên review và gán nhãn cho mỗi case:
 - **VALID:** Oracle đúng per spec và hành vi SUT
@@ -90,7 +95,7 @@ Sau khi AI tạo bảng TC-*, sinh viên review và gán nhãn cho mỗi case:
 
 ---
 
-### Stage 7 — Extend: ≥ 5 case sinh viên bổ sung
+### Post-Stage B — Extend (human): ≥ 5 case sinh viên bổ sung
 
 Các lỗ hổng điển hình AI bỏ qua trong dự án này:
 
@@ -134,8 +139,6 @@ Skill chứa:
 
 ## 5. Demo
 
-Kịch bản quay chi tiết (phân cảnh + lời thoại + checklist §11) ở
-[`reports/demo-video-script.md`](demo-video-script.md) — demo skill sinh case cho
-FR-14 `POST /api/categories` rồi chạy Newman.
+Demo skill sinh case cho FR-14 `POST /api/categories` rồi chạy Newman:
 
 https://youtu.be/-0KjJiBCIiI
